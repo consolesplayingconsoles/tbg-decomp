@@ -54,8 +54,7 @@ SRCS = \
 	src/016bf4_demo_input.c \
 	src/016c58_prompt.c \
 	src/016d2c_course_menu.c \
-	src/018644_vm_load.c \
-	src/asm/018784.src \
+	src/018644_file_menu.c \
 	src/0193c8_vm_menu.c \
 	src/019e98_main_menu.c \
 	src/asm/01a148.src \

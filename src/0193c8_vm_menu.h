@@ -4,6 +4,16 @@
 #include "sg_xpt.h"
 #include "014a9c_tasks.h"
 
+enum VMU_STATUS {
+    VMU_STATUS_NOT_CONNECTED = 0,
+    VMU_STATUS_NOT_AVAILABLE = 1,
+    VMU_STATUS_NOT_ENOUGH_SPACE = 2,
+    VMU_STATUS_PROCEED_WITHOUT_SAVING = 3,
+    VMU_STATUS_SAVING_POSSIBLE = 4,
+    VMU_STATUS_SAVE_EXISTS = 5,
+    VMU_STATUS_SAVE_EXISTS_NO_SPACE = 6
+};
+
 extern char* init_saveNames_8c044d50[11];
 
 void VmMenuMountVms_8c01940e();

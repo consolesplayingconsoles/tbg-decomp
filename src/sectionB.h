@@ -327,7 +327,7 @@ typedef struct {
     CourseProgress courses_0x44[9];
     int field_0x8c;
     int exp_0x90;
-    char field_0x94[4];
+    int field_0x94;
     int field_0x98[11];
     signed char field_0xc4;
     char field_0xc5;
@@ -340,6 +340,13 @@ typedef struct {
      * thresholds (see FUN_8c024320/FUN_8c024606) */
     char field_0xd0;
     char field_0xd1;
+    char field_0xd2;
+    char field_0xd3;
+
+    /* reset together with the sound mode (see FileMenuResetSoundDefaults_8c0188dc) */
+    char field_0xd4;
+    char field_0xd5;
+    char field_0xd6;
 } PlayerProgress;
 
 /* single-word bitset, set/tested by setRunEventFlag_8c02b022/hasRunEventFlag_8c02b030; role unclear */
@@ -352,6 +359,7 @@ extern BUS_BACKUPFILEHEADER var_8c1ba2e4; // 018644: analyzed backup file header
 extern void* var_8c1ba33c;
 extern void* var_8c1ba344;
 extern void* var_8c1ba348;
+extern int var_8c1ba350;        // 018644: selected save slot / new-file index
 extern void* var_8c1bb86c;
 extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
 extern int var_8c1bb8bc;
@@ -432,6 +440,8 @@ extern void* var_8c225fe0;      // 018644: BupLoad dest buffer, advances 0x600 p
 extern int var_8c225fe4[10];    // 018644
 extern int var_8c22600c;        // 018644: index into var_8c225fe4
 extern int var_8c226010;        // 018644: load result (1 = done, 2 = error)
+extern int var_8c226014;        // 018644: FILE SELECT leading NEW-FILE card count (0 or 1)
+extern int var_8c226018[12];    // 018644: FILE SELECT card list (0xa=NEW FILE, 0xb=empty)
 
 extern int var_8c22606c;
 extern int var_8c2260a8;

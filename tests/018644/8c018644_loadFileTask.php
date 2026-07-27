@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->initUint32($task + 0x0c, 5);
         $this->initUint32($task + 0x18, $names);
 
-        $this->call('_VmLoadTask_8c018644')->with($task);
+        $this->call('_loadFileTask_8c018644')->with($task);
 
         $this->shouldCall('_buIsExistFile')->with(0, $name0)->andReturn(0);
         $this->shouldCall('_BupLoad_8c014bc6')->with(0, $name0, $buf);
@@ -56,7 +56,7 @@ return new class extends TestCase {
         $this->initUint32($task + 0x0c, 5);
         $this->initUint32($task + 0x18, $names);
 
-        $this->call('_VmLoadTask_8c018644')->with($task);
+        $this->call('_loadFileTask_8c018644')->with($task);
 
         $this->shouldCall('_buIsExistFile')->with(0, $name0)->andReturn(-0xfb);
         $this->shouldWriteLong($task + 0x0c, 6);
@@ -85,7 +85,7 @@ return new class extends TestCase {
         $this->initUint32($task + 0x08, 0);
         $this->initUint32($task + 0x18, $names);
 
-        $this->call('_VmLoadTask_8c018644')->with($task);
+        $this->call('_loadFileTask_8c018644')->with($task);
 
         $this->shouldCall('_buIsExistFile')->with(0, $name0)->andReturn(5);
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
@@ -104,7 +104,7 @@ return new class extends TestCase {
         $this->initUint32($task + 0x08, 0);
         $this->initUint32($task + 0x18, $names);
 
-        $this->call('_VmLoadTask_8c018644')->with($task);
+        $this->call('_loadFileTask_8c018644')->with($task);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
         $this->shouldWriteLongTo('_var_8c226010', 1);
@@ -118,7 +118,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->initUint32($task + 0x08, 2);
 
-        $this->call('_VmLoadTask_8c018644')->with($task);
+        $this->call('_loadFileTask_8c018644')->with($task);
     }
 
     /* State 1: drive still busy (buStat != 0) -> no-op. */
@@ -129,7 +129,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->initUint32($task + 0x08, 1);
 
-        $this->call('_VmLoadTask_8c018644')->with($task);
+        $this->call('_loadFileTask_8c018644')->with($task);
 
         $this->shouldCall('_buStat')->with(0)->andReturn(1);
     }
@@ -142,7 +142,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->initUint32($task + 0x08, 1);
 
-        $this->call('_VmLoadTask_8c018644')->with($task);
+        $this->call('_loadFileTask_8c018644')->with($task);
 
         $this->shouldCall('_buStat')->with(0)->andReturn(0);
         $this->shouldCall('_buGetLastError')->with(0)->andReturn(5);
@@ -166,7 +166,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->initUint32($task + 0x08, 1);
 
-        $this->call('_VmLoadTask_8c018644')->with($task);
+        $this->call('_loadFileTask_8c018644')->with($task);
 
         $this->shouldCall('_buStat')->with(0)->andReturn(0);
         $this->shouldCall('_buGetLastError')->with(0)->andReturn(0);

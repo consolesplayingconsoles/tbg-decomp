@@ -1,70 +1,233 @@
-; 8c018784
-          .IMPORT     _VmLoadTask_8c018644
-          .IMPORT     _var_tasks_8c1ba3c8
-          .IMPORT     _TaskPush_8c014ae8
-          .IMPORT     _var_8c157a7c
-          .IMPORT     _init_saveNames_8c044d50
-          .IMPORT     _syMalloc
-          .IMPORT     _var_8c1ba2e0
-          .IMPORT     _var_8c225fe0
-          .IMPORT     _var_8c226010
+; 8c018644
+          .IMPORT     __divls
+          .IMPORT     __modls
+          .IMPORT     _buAnalyzeBackupFileImage
+          .IMPORT     _buGetLastError
+          .IMPORT     _buIsExistFile
+          .IMPORT     _buStat
+          .IMPORT     _njMemCopy
+          .IMPORT     _sdMidiPlay
           .IMPORT     _syFree
-          .IMPORT     _var_8c1ba344
-          .IMPORT     _var_progress_8c1ba1cc
+          .IMPORT     _syMalloc
           .IMPORT     _SndGetSoundMode_8c010924
-          .IMPORT     _var_soundMode_8c226070
-          .IMPORT     _var_8c1bb8b8
-          .IMPORT     _var_8c1bb8bc
           .IMPORT     _SndSetAdxVol_8c010972
           .IMPORT     _SndSetMidiVolAndInitStruct_8c0109f4
+          .IMPORT     _SndStartAdxFadeOut_8c010bae
+          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _TaskSetAction_8c014b3e
+          .IMPORT     _TaskFree_8c014b66
+          .IMPORT     _BupLoad_8c014bc6
+          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _VmMenuUnmountVms_8c0194de
+          .IMPORT     _VmMenuSwitchFromTask_8c019e44
+          .IMPORT     _MainMenuSwitchFromTask_8c01a09a
+          .IMPORT     _FUN_8c01b19c
+          .IMPORT     _vmsLcd_8c01c8fc
+          .IMPORT     _push_fadein_8c022a9c
+          .IMPORT     _push_fadeout_8c022b60
+          .IMPORT     _swapMessageBoxFor_8c02aefc
+          .IMPORT     _menuTextboxText_8c02af1c
+          .IMPORT     _init_8c03bd80
+          .IMPORT     _init_saveNames_8c044d50
+          .IMPORT     _var_midiHandles_8c0fcd28
+          .IMPORT     _var_8c157a7c
+          .IMPORT     _var_progress_8c1ba1cc
+          .IMPORT     _var_8c1ba2e0
+          .IMPORT     _var_8c1ba2e4
+          .IMPORT     _var_8c1ba33c
+          .IMPORT     _var_8c1ba344
+          .IMPORT     _var_8c1ba348
+          .IMPORT     _var_selectedVm_8c1ba34c
+          .IMPORT     _var_8c1ba350
+          .IMPORT     _var_peripherals_8c1ba35c
+          .IMPORT     _var_tasks_8c1ba3c8
+          .IMPORT     _var_8c1bb8b8
+          .IMPORT     _var_8c1bb8bc
+          .IMPORT     _var_menuState_8c1bc7a8
+          .IMPORT     _var_currentSysResGroupInfo_8c225fb0
+          .IMPORT     _var_8c225fe0
+          .IMPORT     _var_8c225fe4
+          .IMPORT     _var_8c22600c
+          .IMPORT     _var_8c226010
           .IMPORT     _var_8c226014
           .IMPORT     _var_8c226018
-          .IMPORT     _var_selectedVm_8c1ba34c
           .IMPORT     _var_vmuStatus_8c226048
-          .IMPORT     _var_8c22600c
-          .IMPORT     _var_8c225fe4
-          .IMPORT     _var_menuState_8c1bc7a8
-          .IMPORT     _TxtDrawSprite_8c014f54
-          .IMPORT     __modls
-          .IMPORT     __divls
-          .IMPORT     _var_isFading_8c226568
-          .IMPORT     _swapMessageBoxFor_8c02aefc
-          .IMPORT     _sdMidiPlay
-          .IMPORT     _var_peripherals_8c1ba35c
-          .IMPORT     _var_midiHandles_8c0fcd28
-          .IMPORT     _menuTextboxText_8c02af1c
-          .IMPORT     _vmsLcd_8c01c8fc
-          .IMPORT     _push_fadeout_8c022b60
-          .IMPORT     _var_8c1ba350
-          .IMPORT     _njMemCopy
-          .IMPORT     _FUN_8c01b19c
-          .IMPORT     _SndStartAdxFadeOut_8c010bae
-          .IMPORT     _VmMenuUnmountVms_8c0194de
           .IMPORT     _var_8c22606c
-          .IMPORT     _init_8c03bd80
-          .IMPORT     _var_currentSysResGroupInfo_8c225fb0
-          .IMPORT     _MainMenuSwitchFromTask_8c01a09a
-          .IMPORT     _VmMenuSwitchFromTask_8c019e44
-          .IMPORT     _TaskSetAction_8c014b3e
-          .IMPORT     _push_fadein_8c022a9c
-          .EXPORT     _FUN_8c018784
-          .EXPORT     _FUN_8c0187d0
-          .EXPORT     _FUN_8c018804
-          .EXPORT     _FUN_8c018862
-          .EXPORT     _FUN_8c0188bc
-          .EXPORT     _FUN_8c0188dc
-          .EXPORT     _FUN_8c01890a
-          .EXPORT     _FUN_8c01895e
-          .EXPORT     _FUN_8c0189d2
-          .EXPORT     _FUN_8c0189fc
-          .EXPORT     _FUN_8c018a22
-          .EXPORT     _FUN_8c018aa2
-          .EXPORT     _FUN_8c018b4c
-          .EXPORT     _FUN_8c018d46
-          .EXPORT     _FUN_8c018e7e
-          .EXPORT     _FUN_8c019334
+          .IMPORT     _var_soundMode_8c226070
+          .IMPORT     _var_isFading_8c226568
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _loadFileTask_8c018644
+          .EXPORT     _startVmLoad_8c018784
+          .EXPORT     _buildFileList_8c018a22
+          .EXPORT     _drawNumber_8c018aa2
+          .EXPORT     _drawFileCard_8c018b4c
+          .EXPORT     _drawFileSelect_8c018d46
+          .EXPORT     _fileSelectTask_8c018e7e
+          .AENDI
+          .EXPORT     _FileMenuFreeBuffers_8c0187d0
+          .EXPORT     _FileMenuIsSaveValid_8c018804
+          .EXPORT     _FileMenuResetControlDefaults_8c018862
+          .EXPORT     _FileMenuResetViewDefaults_8c0188bc
+          .EXPORT     _FileMenuResetSoundDefaults_8c0188dc
+          .EXPORT     _FileMenuResetProgress_8c01890a
+          .EXPORT     _FileMenuResetNewGame_8c01895e
+          .EXPORT     _FileMenuResetOptionDefaults_8c0189d2
+          .EXPORT     _FileMenuApplySoundSettings_8c0189fc
+          .EXPORT     _FileMenuSwitchFromTask_8c019334
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c018784:
+_loadFileTask_8c018644:
+          MOV.L       R14,@-R15
+          MOV         R4,R14
+          MOV.L       R13,@-R15
+          MOV.L       R12,@-R15
+          MOV.L       R11,@-R15
+          MOV.L       R10,@-R15
+          MOV.L       R9,@-R15
+          MOV.L       R8,@-R15
+          STS.L       PR,@-R15
+          MOV.L       @(H'8,R14),R0
+          MOV.L       LP_GEN_13769+10,R11
+          MOV.L       LP_GEN_13769+6,R10
+          CMP/EQ      #H'0,R0
+          BT          LAB_8c018668
+          CMP/EQ      #H'1,R0
+          BT          LAB_8c0186c6
+          BRA         LAB_8c018728
+          NOP
+LAB_8c018668:
+          MOV.L       LP_GEN_13769+14,R12
+          MOV.W       LP_GEN_13769,R8
+          MOV.L       @(H'18,R14),R13
+          BRA         LAB_8c0186b2
+          MOV         #H'1,R9
+LAB_8c018672:
+          MOV.L       LP_GEN_13769+18,R2
+          MOV.L       @R13,R5
+          JSR         @R2
+          MOV.L       @R11,R4
+          TST         R0,R0
+          BF/S        LAB_8c0186a6
+          MOV         R0,R4
+          MOV.L       LP_GEN_13769+22,R2
+          MOV.L       @R13+,R5
+          MOV.L       @R10,R6
+          JSR         @R2
+          MOV.L       @R11,R4
+          MOV.L       @R12,R3
+          MOV.L       @(H'c,R14),R2
+          MOV.L       LP_GEN_13769+26,R0
+          SHLL2       R3
+          MOV.L       R2,@(R0,R3)
+          MOV.L       @R12,R3
+          ADD         #H'1,R3
+          MOV.L       R3,@R12
+          MOV.L       R13,@(H'18,R14)
+          MOV.L       R9,@(H'8,R14)
+          MOV.L       @(H'c,R14),R2
+          ADD         #H'1,R2
+          BRA         LAB_8c018728
+          MOV.L       R2,@(H'c,R14)
+LAB_8c0186a6:
+          CMP/EQ      R8,R4
+          BF          LAB_8c01871c
+          MOV.L       @(H'c,R14),R2
+          ADD         #H'4,R13
+          ADD         #H'1,R2
+          MOV.L       R2,@(H'c,R14)
+LAB_8c0186b2:
+          MOV.L       @R13,R3
+          MOV.B       @R3,R2
+          TST         R2,R2
+          BF          LAB_8c018672
+          MOV.L       LP_GEN_13769+30,R2
+          JSR         @R2
+          MOV         R14,R4
+          MOV.L       LP_GEN_13769+34,R3
+          BRA         LAB_8c018728
+          MOV.L       R9,@R3
+LAB_8c0186c6:
+          MOV.L       LP_GEN_13769+38,R3
+          JSR         @R3
+          MOV.L       @R11,R4
+          TST         R0,R0
+          BF          LAB_8c018728
+          MOV.L       LP_GEN_13769+42,R3
+          JSR         @R3
+          MOV.L       @R11,R4
+          TST         R0,R0
+          BF          LAB_8c01871c
+          MOV.L       LP_GEN_13769+50,R3
+          MOV.L       LP_GEN_13769+46,R13
+          MOV.W       LP_GEN_13769+2,R12
+          JSR         @R3
+          MOV         R12,R4
+          MOV.L       LP_GEN_13769+58,R2
+          MOV.L       LP_GEN_13769+54,R4
+          MOV.L       R0,@R13
+          JSR         @R2
+          MOV.L       @R10,R5
+          MOV.L       LP_GEN_13769+62,R3
+          MOV         R12,R6
+          MOV.L       LP_GEN_13769+66,R2
+          MOV.L       @R3,R5
+          JSR         @R2
+          MOV.L       @R13,R4
+          MOV.L       LP_GEN_13769+66,R3
+          MOV         R12,R6
+          MOV.L       @R13,R5
+          JSR         @R3
+          MOV.L       @R10,R4
+          MOV.L       LP_GEN_13769+70,R2
+          JSR         @R2
+          MOV.L       @R13,R4
+          MOV         #-H'1,R3
+          MOV.L       R3,@R13
+          MOV         #H'0,R1
+          MOV.W       LP_GEN_13769+4,R3
+          MOV.L       @R10,R2
+          ADD         R3,R2
+          MOV.L       R2,@R10
+          BRA         LAB_8c018728
+          MOV.L       R1,@(H'8,R14)
+LAB_8c01871c:
+          MOV.L       LP_GEN_13769+30,R2
+          JSR         @R2
+          MOV         R14,R4
+          MOV.L       LP_GEN_13769+34,R2
+          MOV         #H'2,R3
+          MOV.L       R3,@R2
+LAB_8c018728:
+          LDS.L       @R15+,PR
+          MOV.L       @R15+,R8
+          MOV.L       @R15+,R9
+          MOV.L       @R15+,R10
+          MOV.L       @R15+,R11
+          MOV.L       @R15+,R12
+          MOV.L       @R15+,R13
+          RTS
+          MOV.L       @R15+,R14
+LP_GEN_13769:
+          .DATA.W H'FF05 ; H'8C01873A
+          .DATA.W H'00E8 ; H'8C01873C
+          .DATA.W H'0600 ; H'8C01873E
+          .DATA.L _var_8c225fe0 ; H'8C018740
+          .DATA.L _var_selectedVm_8c1ba34c ; H'8C018744
+          .DATA.L _var_8c22600c ; H'8C018748
+          .DATA.L _buIsExistFile ; H'8C01874C
+          .DATA.L _BupLoad_8c014bc6 ; H'8C018750
+          .DATA.L _var_8c225fe4 ; H'8C018754
+          .DATA.L _TaskFree_8c014b66 ; H'8C018758
+          .DATA.L _var_8c226010 ; H'8C01875C
+          .DATA.L _buStat ; H'8C018760
+          .DATA.L _buGetLastError ; H'8C018764
+          .DATA.L _var_8c1ba348 ; H'8C018768
+          .DATA.L _syMalloc ; H'8C01876C
+          .DATA.L _var_8c1ba2e4 ; H'8C018770
+          .DATA.L _buAnalyzeBackupFileImage ; H'8C018774
+          .DATA.L _var_8c1ba33c ; H'8C018778
+          .DATA.L _njMemCopy ; H'8C01877C
+          .DATA.L _syFree ; H'8C018780
+_startVmLoad_8c018784:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           ADD         #-H'8,R15
@@ -103,7 +266,7 @@ _FUN_8c018784:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_FUN_8c0187d0:
+_FileMenuFreeBuffers_8c0187d0:
           MOV.L       LP_GEN_28586+32,R2
           STS.L       PR,@-R15
           MOV.L       @R2,R0
@@ -132,7 +295,7 @@ LAB_8c0187fe:
           LDS.L       @R15+,PR
           RTS
           NOP
-_FUN_8c018804:
+_FileMenuIsSaveValid_8c018804:
           MOV.L       @R4,R5
           MOV         #H'1,R6
           CMP/GE      R6,R5
@@ -184,7 +347,7 @@ LAB_8c01885c:
           MOV         #H'1,R0
           RTS
           NOP
-_FUN_8c018862:
+_FileMenuResetControlDefaults_8c018862:
           MOV.W       LP_GEN_28586+4,R0
           MOV         #H'1,R3
           MOV.L       LP_GEN_28586+56,R4
@@ -205,7 +368,7 @@ LP_GEN_28586:
           .DATA.W H'0090 ; H'8C018882
           .DATA.W H'00C4 ; H'8C018884
           .RES.W 1 ; H'8C018886
-          .DATA.L _VmLoadTask_8c018644 ; H'8C018888
+          .DATA.L _loadFileTask_8c018644 ; H'8C018888
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01888C
           .DATA.L _TaskPush_8c014ae8 ; H'8C018890
           .DATA.L _var_8c157a7c ; H'8C018894
@@ -218,7 +381,7 @@ LP_GEN_28586:
           .DATA.L _var_8c1ba344 ; H'8C0188B0
           .DATA.L H'0001869F ; H'8C0188B4
           .DATA.L _var_progress_8c1ba1cc ; H'8C0188B8
-_FUN_8c0188bc:
+_FileMenuResetViewDefaults_8c0188bc:
           MOV.W       LP_GEN_30274,R0
           MOV         #H'0,R5
           MOV.L       LP_GEN_30274+8,R4
@@ -235,7 +398,7 @@ _FUN_8c0188bc:
           ADD         #H'1,R0
           RTS
           MOV.B       R5,@(R0,R4)
-_FUN_8c0188dc:
+_FileMenuResetSoundDefaults_8c0188dc:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_30274+12,R3
           JSR         @R3
@@ -260,7 +423,7 @@ LAB_8c0188f6:
           LDS.L       @R15+,PR
           RTS
           MOV.B       R5,@(R0,R4)
-_FUN_8c01890a:
+_FileMenuResetProgress_8c01890a:
           MOV.L       LP_GEN_30274+8,R5
           MOV         #H'0,R4
           MOV         #H'1,R7
@@ -305,9 +468,9 @@ LAB_8c018928:
           MOV.L       R7,@R3
           RTS
           MOV.L       R4,@R2
-_FUN_8c01895e:
+_FileMenuResetNewGame_8c01895e:
           STS.L       PR,@-R15
-          BSR         _FUN_8c01890a
+          BSR         _FileMenuResetProgress_8c01890a
           NOP
           MOV         #H'0,R4
           MOV.L       LP_GEN_30274+8,R5
@@ -368,13 +531,13 @@ LAB_8c0189be:
           LDS.L       @R15+,PR
           RTS
           NOP
-_FUN_8c0189d2:
+_FileMenuResetOptionDefaults_8c0189d2:
           STS.L       PR,@-R15
-          BSR         _FUN_8c018862
+          BSR         _FileMenuResetControlDefaults_8c018862
           NOP
-          BSR         _FUN_8c0188bc
+          BSR         _FileMenuResetViewDefaults_8c0188bc
           NOP
-          BRA         _FUN_8c0188dc
+          BRA         _FileMenuResetSoundDefaults_8c0188dc
           LDS.L       @R15+,PR
 LP_GEN_30274:
           .DATA.W H'00CC ; H'8C0189E0
@@ -386,7 +549,7 @@ LP_GEN_30274:
           .DATA.L _var_soundMode_8c226070 ; H'8C0189F0
           .DATA.L _var_8c1bb8b8 ; H'8C0189F4
           .DATA.L _var_8c1bb8bc ; H'8C0189F8
-_FUN_8c0189fc:
+_FileMenuApplySoundSettings_8c0189fc:
           MOV.L       R14,@-R15
           MOV         #H'0,R5
           STS.L       PR,@-R15
@@ -406,7 +569,7 @@ _FUN_8c0189fc:
           MOV.B       @(R0,R14),R4
           JMP         @R3
           MOV.L       @R15+,R14
-_FUN_8c018a22:
+_buildFileList_8c018a22:
           MOV.L       R14,@-R15
           ADD         #-H'4,R15
           MOV.L       LP_GEN_23929+20,R5
@@ -477,7 +640,7 @@ LAB_8c018a94:
           ADD         #H'4,R15
           RTS
           MOV.L       @R15+,R14
-_FUN_8c018aa2:
+_drawNumber_8c018aa2:
           MOV.L       R14,@-R15
           MOVA        LP_GEN_23929+52,R0
           MOV.L       R13,@-R15
@@ -550,7 +713,7 @@ LP_GEN_23929:
           .DATA.L H'41200000 ; H'8C018B40
           .DATA.L __modls ; H'8C018B44
           .DATA.L __divls ; H'8C018B48
-_FUN_8c018b4c:
+_drawFileCard_8c018b4c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -602,7 +765,7 @@ LAB_8c018ba2:
           FMOV        FR14,FR5
 LAB_8c018baa:
           FMOV        FR13,FR4
-          BSR         _FUN_8c018aa2
+          BSR         _drawNumber_8c018aa2
           FADD        FR3,FR4
           MOV.L       @R12,R1
           MOV.L       LP_GEN_96259+34,R3
@@ -683,14 +846,14 @@ LAB_8c018c24:
           MOVA        LP_GEN_96259+46,R0
           FMOV.S      @R0,FR3
           FADD        FR3,FR15
-          BSR         _FUN_8c018aa2
+          BSR         _drawNumber_8c018aa2
           FMOV        FR15,FR4
           MOV.W       LP_GEN_96259+2,R0
           MOV.L       @R12,R4
           MOV.L       @(R0,R4),R4
           MOVA        LP_GEN_96259+50,R0
           FMOV.S      @R0,FR5
-          BSR         _FUN_8c018aa2
+          BSR         _drawNumber_8c018aa2
           FMOV        FR15,FR4
           MOVA        LP_GEN_96259+54,R0
           FMOV.S      @R0,FR14
@@ -810,7 +973,7 @@ LAB_8c018d2a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c018d46:
+_drawFileSelect_8c018d46:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -874,7 +1037,7 @@ LAB_8c018dcc:
           MOV         R13,R0
           SHLL2       R0
           MOV.L       @(R0,R12),R4
-          BSR         _FUN_8c018b4c
+          BSR         _drawFileCard_8c018b4c
           FMOV        FR15,FR4
           FADD        FR14,FR15
           ADD         #H'1,R13
@@ -966,7 +1129,7 @@ LAB_8c018e38:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c018e7e:
+_fileSelectTask_8c018e7e:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -1093,11 +1256,11 @@ LAB_8c018f68:
           BRA         LAB_8c018f9e
           NOP
 LAB_8c018f80:
-          BSR         _FUN_8c018804
+          BSR         _FileMenuIsSaveValid_8c018804
           MOV.L       @R13,R4
           TST         R0,R0
           BF          LAB_8c018f94
-          BSR         _FUN_8c0187d0
+          BSR         _FileMenuFreeBuffers_8c0187d0
           NOP
           JSR         @R12
           MOV         R10,R4
@@ -1117,13 +1280,13 @@ LAB_8c018fa4:
           MOV.L       @R9,R2
           CMP/GE      R2,R11
           BF          LAB_8c018fc4
-          BSR         _FUN_8c018a22
+          BSR         _buildFileList_8c018a22
           NOP
           MOV         #H'3,R1
           BRA         LAB_8c018fc4
           MOV.L       R1,@(H'18,R14)
 LAB_8c018fb4:
-          BSR         _FUN_8c0187d0
+          BSR         _FileMenuFreeBuffers_8c0187d0
           MOV.L       R9,@R4
           JSR         @R12
           MOV         R10,R4
@@ -1354,7 +1517,7 @@ LAB_8c019152:
           CMP/EQ      #H'a,R0
           BF/S        LAB_8c0191a6
           MOV         R0,R11
-          BSR         _FUN_8c01895e
+          BSR         _FileMenuResetNewGame_8c01895e
           NOP
           MOV.L       LP_GEN_53993+16,R6
           MOV         R8,R4
@@ -1412,7 +1575,7 @@ LAB_8c0191ae:
           JSR         @R2
           NOP
           MOV.L       LP_GEN_73468+6,R3
-          BSR         _FUN_8c0189fc
+          BSR         _FileMenuApplySoundSettings_8c0189fc
           MOV.L       R11,@R3
 LAB_8c0191de:
           MOV.L       LP_GEN_73468+30,R4
@@ -1446,7 +1609,7 @@ LAB_8c019200:
           JSR         @R13
           MOV.L       @R4,R4
 LAB_8c019218:
-          BSR         _FUN_8c018d46
+          BSR         _drawFileSelect_8c018d46
           NOP
           MOV.W       LP_GEN_73468+2,R4
           ADD         #H'4,R15
@@ -1467,7 +1630,7 @@ LAB_8c01923a:
           MOV.L       @R6,R2
           TST         R2,R2
           BF          LAB_8c0192da
-          BSR         _FUN_8c0187d0
+          BSR         _FileMenuFreeBuffers_8c0187d0
           NOP
           MOV.L       LP_GEN_73468+50,R3
           JSR         @R3
@@ -1527,7 +1690,7 @@ LAB_8c0192cc:
           MOV.L       @R6,R2
           TST         R2,R2
           BF          LAB_8c0192da
-          BSR         _FUN_8c0187d0
+          BSR         _FileMenuFreeBuffers_8c0187d0
           NOP
           BRA         LAB_8c0192fc
           NOP
@@ -1543,7 +1706,7 @@ LAB_8c0192da:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _FUN_8c018d46
+          BRA         _drawFileSelect_8c018d46
           MOV.L       @R15+,R14
 LAB_8c0192f4:
           MOV.L       LP_GEN_41958+2,R2
@@ -1580,7 +1743,7 @@ LAB_8c01931a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c019334:
+_FileMenuSwitchFromTask_8c019334:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -1611,14 +1774,14 @@ LAB_8c019360:
           MOV.L       LP_GEN_41958+42,R2
           JSR         @R2
           MOV         #H'1,R4
-          BSR         _FUN_8c018784
+          BSR         _startVmLoad_8c018784
           NOP
           MOV.L       LP_GEN_41958+46,R3
           MOV         #H'1,R2
           BRA         LAB_8c019382
           MOV.L       R2,@R3
 LAB_8c01937a:
-          BSR         _FUN_8c018a22
+          BSR         _buildFileList_8c018a22
           NOP
           MOV         #H'3,R1
           MOV.L       R1,@(H'18,R14)
@@ -1635,7 +1798,7 @@ LP_GEN_41958:
           .RES.W 1 ; H'8C019392
           .DATA.L _var_8c22606c ; H'8C019394
           .DATA.L _VmMenuSwitchFromTask_8c019e44 ; H'8C019398
-          .DATA.L _FUN_8c018e7e ; H'8C01939C
+          .DATA.L _fileSelectTask_8c018e7e ; H'8C01939C
           .DATA.L _TaskSetAction_8c014b3e ; H'8C0193A0
           .DATA.L _var_8c22600c ; H'8C0193A4
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C0193A8
@@ -1674,5 +1837,5 @@ _const_8c037ecc:        ; from defines
           ;.RES.B      2
           .DATA.B      H'83, H'8D, H'81, H'5B, H'83, H'68, H'8E, H'C0, H'8D, H'73, H'92, H'86, H'82, H'C5, H'82, H'B7
           .DATA.B      H'3C, H'45, H'3E, H'93, H'64, H'8C, H'B9, H'82, H'F0, H'90, H'D8, H'82, H'E7, H'82, H'C8, H'82
-          .DATA.B      H'A2, H'82, H'C5, H'89, H'BA, H'82, H'B3, H'82, H'A2, H'00, H'00, H'00
+          .DATA.B      H'A2, H'82, H'C5, H'89, H'BA, H'82, H'B3, H'82, H'A2, H'00
           .END

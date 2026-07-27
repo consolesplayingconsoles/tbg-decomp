@@ -743,7 +743,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteLongTo('_var_selectedVm_8c1ba34c', -1);
-        $this->shouldCall('_FUN_8c01895e');
+        $this->shouldCall('_FileMenuResetNewGame_8c01895e');
         $this->shouldWriteMenuState(9);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
@@ -871,7 +871,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteLongTo('_var_selectedVm_8c1ba34c', -1);
-        $this->shouldCall('_FUN_8c01895e');
+        $this->shouldCall('_FileMenuResetNewGame_8c01895e');
         $this->shouldWrite($task + 0x08, 2); // substate
         $this->shouldCall('_push_fadeout_8c022b60')->with(10);
 
@@ -1076,7 +1076,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->shouldCall('_FUN_8c019334')->with(0xcafecafe);
+        $this->shouldCall('_FileMenuSwitchFromTask_8c019334')->with(0xcafecafe);
 
         $this->singleCall($this->entryName())->with(0xcafecafe, 0)->run();
     }

@@ -235,3 +235,27 @@ uses `-debug` for this reason; `scripts/sync_ghidra_symbols.py` depends on it.
 
 Real symbols carry a leading `_`; internal auto-labels (`LAB_`, `LP_GEN_`, the
 section symbol `P`) do not -- a clean filter.
+
+## After a public rename in a decompiled `.src`, rebuild the matching object before `check_naming`
+
+`check_naming.py` cross-checks a decompiled unit's `.c` object against its
+**matching** object (`build/output_matching/.../<unit>.obj`), which is assembled
+from the archived `src/asm/decompiled/<unit>.src`. A `./scripts/run_tests.sh -c`
+run only refreshes `build/output_test/` objects, so after `sed`-renaming a symbol
+in the `.src` the matching object stays stale and the check reports
+`symbol at <addr> differs: .c has '<New>', .src has 'FUN_<addr>' -- rename both`
+even though both source files already agree. Run `make -f Makefile.matching` to
+refresh it, then re-check. Only **public** (exported) renames trip this; a
+`STATIC` rename is invisible in the C object so the cross-check skips it.
+
+## Compute-then-store: a conditional overwrite of a global emits two writes
+
+The asm for a value that's conditionally refined usually computes it fully in a
+register and stores the global **once** at the end (e.g. `var = base` vs
+`var = base + (page-1)*stride`, then a single `MOV.L Rn,@global`). Translating that
+as `global = a; if (c) global = b;` compiles to **two** stores to the global. The
+matching build (which uses the asm) is unaffected, but the dual-object test compares
+the memory-write trace, so the extra `global = a` write shows up as an
+`Unexpected write value ... to _global` failure on the C object only (the `.src`
+object passes). Fix: compute into a **local**, store the global once. Only globals
+are trace-checked, so intermediate writes to the local are free.

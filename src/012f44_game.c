@@ -18,6 +18,7 @@
 #include "011120_asset_queues.h"
 #include "013ae8_route_load.h"
 #include "014b8c_backup.h"
+#include "018644_file_menu.h"
 #include "02fb50_sh4nlfzn_post_data.h"
 
 // #define CACHE_BUFSIZE   0x20000
@@ -216,7 +217,7 @@ void FUN_8c01328c() {
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
     } else if ((var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) && (var_8c1bb8d4 != 0)) {
         var_8c227dd4 = init_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
-        FUN_8c01895e();
+        FileMenuResetNewGame_8c01895e();
     } else {
         var_8c227dd4 = 0;
     }
@@ -402,7 +403,7 @@ void GameInit_8c0134ec() {
     var_loadScreenActive_8c157a6c = 0;
 
     FUN_8c01c8dc();
-    FUN_8c0189d2();
+    FileMenuResetOptionDefaults_8c0189d2();
     njSetBorderColor(0);
     vmsLcd_8c01c8fc(3);
     vmsLcd_8c01c910();

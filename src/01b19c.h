@@ -4,6 +4,7 @@
 
 #include "014a9c_tasks.h"
 
+void FUN_8c01b19c(void);
 void FUN_8c01ba64(Task *task);
 
 #endif // _01B19C_H

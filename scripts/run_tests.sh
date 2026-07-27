@@ -104,7 +104,7 @@ assemble  src/asm/decompiled/01614c_debug_menu.src
 compile  src/01614c_debug_menu.c
 
 # 018644
-assemble  src/asm/decompiled/018644_vm_load.src
-compile  src/018644_vm_load.c
+assemble  src/asm/decompiled/018644_file_menu.src
+compile  src/018644_file_menu.c
 
 $sh4objtest suite -s tests.php "$@"

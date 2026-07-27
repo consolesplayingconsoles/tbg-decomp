@@ -12,7 +12,7 @@
 #include "014f54_text.h"
 #include "016108.h"
 #include "016d2c_course_menu.h"
-#include "018784.h"
+#include "018644_file_menu.h"
 #include "02171c.h"
 #include "028258.h"
 #include "02c884.h"
@@ -139,7 +139,7 @@ void FUN_8c016182(void)
         var_8c1bc454 = (void *)-1;
     }
     RgFreeResourceGroups_8c016108();
-    FUN_8c0187d0();
+    FileMenuFreeBuffers_8c0187d0();
     VmMenuFreeAndClear_8c019504();
 }
 

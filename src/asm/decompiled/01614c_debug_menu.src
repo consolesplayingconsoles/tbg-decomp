@@ -63,7 +63,7 @@
           .IMPORT     _FUN_8c02adee
           .IMPORT     _FUN_8c029cfe
           .IMPORT     _FUN_8c021724
-          .IMPORT     _FUN_8c0187d0
+          .IMPORT     _FileMenuFreeBuffers_8c0187d0
           .IMPORT     _VmMenuFreeAndClear_8c019504
           .IMPORT     _VmMenuUpdateVmusStatus_8c019550
           .IMPORT     _CourseMenuFUN_8c017ef2
@@ -448,7 +448,7 @@ LP_GEN_42967:
           .DATA.L _var_demoBuf_8c1ba3c4 ; H'8C0163E4
           .DATA.L _var_8c1bc454 ; H'8C0163E8
           .DATA.L _RgFreeResourceGroups_8c016108 ; H'8C0163EC
-          .DATA.L _FUN_8c0187d0 ; H'8C0163F0
+          .DATA.L _FileMenuFreeBuffers_8c0187d0 ; H'8C0163F0
           .DATA.L _VmMenuFreeAndClear_8c019504 ; H'8C0163F4
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C0163F8
           .DATA.L H'000A000A ; H'8C0163FC

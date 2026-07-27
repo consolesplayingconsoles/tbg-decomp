@@ -3,6 +3,7 @@
 #include <sg_sd.h>
 #include "0100bc_sound.h"
 #include "0193c8_vm_menu.h"
+#include "018644_file_menu.h"
 #include "019e98_main_menu.h"
 #include "sg_xpt.h"
 #include "014a9c_tasks.h"
@@ -71,16 +72,6 @@ enum VM_MENU_STATE {
     VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU = 8,
     VM_MENU_STATE_FADE_OUT = 9,
     VM_MENU_STATE_FADE_IN_FROM_VM_WARNING = 10
-};
-
-enum VMU_STATUS {
-    VMU_STATUS_NOT_CONNECTED = 0,
-    VMU_STATUS_NOT_AVAILABLE = 1,
-    VMU_STATUS_NOT_ENOUGH_SPACE = 2,
-    VMU_STATUS_PROCEED_WITHOUT_SAVING = 3,
-    VMU_STATUS_SAVING_POSSIBLE = 4,
-    VMU_STATUS_SAVE_EXISTS = 5,
-    VMU_STATUS_SAVE_EXISTS_NO_SPACE = 6
 };
 
 
@@ -621,7 +612,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
             if (promptResult == 1) {
                 var_selectedVm_8c1ba34c = -1;
-                FUN_8c01895e();
+                FileMenuResetNewGame_8c01895e();
                 CHANGE_STATE(VM_MENU_STATE_FADE_OUT);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
@@ -663,7 +654,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                         int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
                         if (promptResult == 1) {
                             var_selectedVm_8c1ba34c = -1;
-                            FUN_8c01895e();
+                            FileMenuResetNewGame_8c01895e();
                             task->field_0x08 = 2;
                             push_fadeout_8c022b60(10);
                         } else if (promptResult == 2) {
@@ -720,7 +711,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         // Confirm Fade Out to Main Menu
         case VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU: {
             if (!var_isFading_8c226568) {
-                FUN_8c019334(task);
+                FileMenuSwitchFromTask_8c019334(task);
                 return;
             }
 
