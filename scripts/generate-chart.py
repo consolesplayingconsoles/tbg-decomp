@@ -20,6 +20,7 @@ dates = [
   datetime(2026, 7, 13),
   datetime(2026, 7, 17),
   datetime(2026, 7, 26),
+  datetime(2026, 7, 28),
 ]
 
 decompiled_code = [
@@ -38,6 +39,7 @@ decompiled_code = [
   31.1,
   31.9,
   31.5,
+  35.2,
 ]
 
 
