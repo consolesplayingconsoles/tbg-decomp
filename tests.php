@@ -337,5 +337,28 @@ return [
                 "build/output_test/018644_file_menu_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/01a148_option/8c01a148_settingTask.php",
+                "tests/01a148_option/8c01a3c0_switchToSetting.php",
+                "tests/01a148_option/8c01a3da_cycleValue.php",
+                "tests/01a148_option/8c01a42a_drawSensitivityBar.php",
+                "tests/01a148_option/8c01a4b4_keyConfigEditExit.php",
+                "tests/01a148_option/8c01a50c_keyConfigTask.php",
+                "tests/01a148_option/8c01a89c_switchToKeyConfig.php",
+                "tests/01a148_option/8c01a8b6_audioEditValue.php",
+                "tests/01a148_option/8c01a904_soundTestFieldRead.php",
+                "tests/01a148_option/8c01a926_soundTestFieldAdjust.php",
+                "tests/01a148_option/8c01aaaa_soundTestFieldDraw.php",
+                "tests/01a148_option/8c01ab08_audioTask.php",
+                "tests/01a148_option/8c01afd8_switchToAudio.php",
+                "tests/01a148_option/8c01b00a_topMenuTask.php",
+                "tests/01a148_option/8c01b122_OptionSwitchToTopMenu.php",
+            ],
+            "objects" => [
+                "build/output_test/01a148_option_src.obj",
+                "build/output_test/01a148_option_c.obj",
+            ]
+        ],
     ],
 ];

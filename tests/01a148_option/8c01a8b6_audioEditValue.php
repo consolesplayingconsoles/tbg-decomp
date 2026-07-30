@@ -1,0 +1,47 @@
+<?php
+
+declare(strict_types=1);
+
+use Lhsazevedo\Sh4ObjTest\TestCase;
+
+return new class extends TestCase {
+    const PRESS = 16;              // var_peripherals_8c1ba35c[0].press offset
+    const STATE = 0x18;            // var_menuState_8c1bc7a8.state_0x18 offset
+    const TA = 1 << 2;             // PDD_DGT_TA (confirm)
+    const TB = 1 << 1;             // PDD_DGT_TB (cancel)
+    const MIDI = 0xd1d1d1d1;
+    const VALUE = 0x1000;          // fake value-pointer arg
+
+    private function arrange(int $press)
+    {
+        $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
+        $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
+        $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + self::PRESS, $press);
+        $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), self::MIDI);
+    }
+
+    public function test_confirm_plays_sound_0_and_exits()
+    {
+        $this->arrange(self::TA);
+        $this->call('_audioEditValue_8c01a8b6')->with(self::VALUE, 5);
+        $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + self::STATE, 1);
+        $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
+        $this->shouldCall('_cycleValue_8c01a3da')->with(self::VALUE, 5);
+    }
+
+    public function test_cancel_plays_sound_1_and_exits()
+    {
+        $this->arrange(self::TB);
+        $this->call('_audioEditValue_8c01a8b6')->with(self::VALUE, 5);
+        $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + self::STATE, 1);
+        $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
+        $this->shouldCall('_cycleValue_8c01a3da')->with(self::VALUE, 5);
+    }
+
+    public function test_no_button_just_cycles()
+    {
+        $this->arrange(0);
+        $this->call('_audioEditValue_8c01a8b6')->with(self::VALUE, 5);
+        $this->shouldCall('_cycleValue_8c01a3da')->with(self::VALUE, 5);
+    }
+};

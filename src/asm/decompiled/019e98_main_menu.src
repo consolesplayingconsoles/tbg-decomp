@@ -11,7 +11,7 @@
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_shouldShowFreeRunIntro_8c1bb8c0
           .IMPORT     _CourseMenuSwitchFromTask_8c017e18
-          .IMPORT     _FUN_8c01b122
+          .IMPORT     _OptionSwitchToTopMenu_8c01b122
           .IMPORT     _FUN_8c01c880
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _TaskSetAction_8c014b3e
@@ -351,7 +351,7 @@ LP_GEN_13822:
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01A0F8
           .DATA.L _var_shouldShowFreeRunIntro_8c1bb8c0 ; H'8C01A0FC
           .DATA.L _CourseMenuSwitchFromTask_8c017e18 ; H'8C01A100
-          .DATA.L _FUN_8c01b122 ; H'8C01A104
+          .DATA.L _OptionSwitchToTopMenu_8c01b122 ; H'8C01A104
           .DATA.L _FUN_8c01c880 ; H'8C01A108
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01A10C
           .DATA.L H'C0800000 ; H'8C01A110

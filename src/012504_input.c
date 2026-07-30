@@ -8,17 +8,7 @@
 #include "sectionB.h"
 #include "serial_debug.h"
 
-#define BT(a)     PDD_DEV_SUPPORT_##a
-
-/* Dreamcast controller */
-#define BT_CONTROLLER   (BT(TA)  | BT(TB)  | BT(TX)  | BT(TY)  | BT(ST)  | \
-                         BT(KU)  | BT(KD)  | BT(KL)  | BT(KR)  | \
-                         BT(AX1) | BT(AY1) | BT(AL)  | BT(AR))
-
-/* Racing controller */
-#define BT_RACING       (BT(TA)  | BT(TB)  | BT(ST)  | \
-                         BT(KU)  | BT(KD)  | BT(KL)  | BT(KR)  | \
-                         BT(AX1) | BT(AL)  | BT(AR))
+/* BT_CONTROLLER / BT_RACING controller-type masks live in 012504_input.h. */
 
 /* var_8c1bbc4c: paddle remap timer (must be 0); var_8c1bbcc4: remap target (5=Up, 0=Down) */
 

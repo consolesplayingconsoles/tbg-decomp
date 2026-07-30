@@ -1061,7 +1061,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->shouldCall('_FUN_8c01b122')->with(0xbebacafe);
+        $this->shouldCall('_OptionSwitchToTopMenu_8c01b122')->with(0xbebacafe, 0);
 
         $this->singleCall('_mainMenuTask_8c019e98')->with(0xbebacafe)->run();
     }
@@ -1109,6 +1109,6 @@ return new class extends TestCase {
         $this->setSize('_CourseMenuSwitchFromTask_8c017e18', 0x4);
         $this->setSize('_buildCourseMenuDialogFlow_8c017420', 0x4);
         $this->setSize('_FUN_8c017d54', 0x4);
-        $this->setSize('_FUN_8c01b122', 0x4);
+        $this->setSize('_OptionSwitchToTopMenu_8c01b122', 0x4);
     }
 };

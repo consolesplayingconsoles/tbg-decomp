@@ -343,11 +343,20 @@ typedef struct {
     char field_0xd2;
     char field_0xd3;
 
-    /* reset together with the sound mode (see FileMenuResetSoundDefaults_8c0188dc) */
+    /* AUDIO MUSIC/SFX/VOICE volume (0-10); reset with the sound mode
+     * (see FileMenuResetSoundDefaults_8c0188dc) */
     char field_0xd4;
     char field_0xd5;
     char field_0xd6;
 } PlayerProgress;
+
+/*
+ * SETTING screen's 5 persisted toggle bytes (DIFFICULTY/DRIVE MODE/DEFAULT
+ * VIEW/VIBRATION/SCREEN ROLL); var_8c226074 points here while that screen is
+ * active. Sits exactly at &var_progress_8c1ba1cc.field_0xc4 (0x1ba1cc+0xc4),
+ * but kept as its own symbol since it's owned by sectionB.src, not decompiled.
+ */
+extern char var_8c1ba290[5];
 
 /* single-word bitset, set/tested by setRunEventFlag_8c02b022/hasRunEventFlag_8c02b030; role unclear */
 extern int var_runEventFlags_8c1ba2b4;
@@ -496,6 +505,11 @@ extern Bool var_isFading_8c226568;
 extern int var_menuTextboxCharLimit_8c225fb8;
 extern ResourceGroup* var_resourceGroup_8c2263a8;
 extern Sint8 var_soundMode_8c226070;
+extern char *var_8c226074; /* SETTING screen: ptr to the 5 gameplay-setting bytes */
+/* AUDIO sound-test fields: one int per digit, least significant at index 0. */
+extern int var_8c226078[2]; /* MUSIC TEST */
+extern int var_8c226080[2]; /* SFX TEST */
+extern int var_8c226088[4]; /* VOICE TEST */
 extern float var_uknVol_8c226468; // real type is 0100bc_sound.c's local UnknownVolStructB {float}
 extern int var_vmuStatus_8c226048[9];
 

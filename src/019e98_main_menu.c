@@ -10,6 +10,7 @@
 #include "0100bc_sound.h"
 #include "011120_asset_queues.h"
 #include "016d2c_course_menu.h"
+#include "01a148_option.h"
 #include "022464.h"
 #include "sectionB.h"
 #include "serial_debug.h"
@@ -160,7 +161,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
 
                 // Option
                 case 2: {
-                    FUN_8c01b122();
+                    OptionSwitchToTopMenu_8c01b122(task, 0);
                     break;
                 }
 
