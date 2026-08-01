@@ -360,5 +360,19 @@ return [
                 "build/output_test/01a148_option_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/01b19c_system_menu/8c01b19c_SaveApplyLoadedProgress.php",
+                "tests/01b19c_system_menu/8c01b1c0_writeDecimalDigits.php",
+                "tests/01b19c_system_menu/8c01b206_updateVmuIconText.php",
+                "tests/01b19c_system_menu/8c01b26c_SaveWriteToVmu.php",
+                "tests/01b19c_system_menu/8c01b3ac_saveTask.php",
+                "tests/01b19c_system_menu/8c01ba64_SaveSwitchFromTask.php",
+            ],
+            "objects" => [
+                "build/output_test/01b19c_system_menu_src.obj",
+                "build/output_test/01b19c_system_menu_c.obj",
+            ]
+        ],
     ],
 ];

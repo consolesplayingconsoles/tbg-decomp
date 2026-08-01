@@ -67,12 +67,14 @@
           .IMPORT     _RouteLoadResetPvmReady_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
-          .EXPORT     _FUN_8c01b19c
-          .EXPORT     _FUN_8c01b1c0
-          .EXPORT     _FUN_8c01b206
-          .EXPORT     _FUN_8c01b26c
-          .EXPORT     _FUN_8c01b3ac
-          .EXPORT     _FUN_8c01ba64
+          .EXPORT     _SystemMenuApplyLoadedProgress_8c01b19c
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _writeDecimalDigits_8c01b1c0
+          .EXPORT     _updateVmuIconText_8c01b206
+          .EXPORT     _saveTask_8c01b3ac
+          .AENDI
+          .EXPORT     _SystemMenuWriteToVmu_8c01b26c
+          .EXPORT     _SystemMenuSwitchFromTask_8c01ba64
           .EXPORT     _const_8c0380a4 ; 01b19c.src
           .EXPORT     _const_8c0380b0 ; 01b19c.src
           .EXPORT     _const_8c0380c8 ; 01b19c.src
@@ -101,7 +103,7 @@
           .EXPORT     _const_8c03844c ; 01b19c.src
           .EXPORT     _const_8c038454 ; 01b19c.src
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c01b19c:
+_SystemMenuApplyLoadedProgress_8c01b19c:
           MOV.W       LP_GEN_63917,R0
           MOV.L       LP_GEN_63917+2,R4
           MOV.L       LP_GEN_63917+6,R2
@@ -120,7 +122,7 @@ _FUN_8c01b19c:
           MOV.B       @(R0,R4),R3
           RTS
           MOV.B       R3,@R2
-_FUN_8c01b1c0:
+_writeDecimalDigits_8c01b1c0:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           ADD         #-H'8,R15
@@ -159,7 +161,7 @@ LAB_8c01b1fe:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01b206:
+_updateVmuIconText_8c01b206:
           MOV.L       R14,@-R15
           MOV         #H'20,R5
           MOV.L       LP_GEN_63917+30,R14
@@ -180,14 +182,14 @@ LAB_8c01b216:
           MOV.L       LP_GEN_63917+2,R3
           MOV         R14,R4
           MOV.L       @R3,R5
-          BSR         _FUN_8c01b1c0
+          BSR         _writeDecimalDigits_8c01b1c0
           ADD         #H'2,R4
           MOV.L       LP_GEN_63917+42,R3
           MOV         R14,R4
           LDS.L       @R15+,PR
           MOV.L       @R3,R5
           ADD         #H'9,R4
-          BRA         _FUN_8c01b1c0
+          BRA         _writeDecimalDigits_8c01b1c0
           MOV.L       @R15+,R14
 LP_GEN_63917:
           .DATA.W H'00D8 ; H'8C01B23E
@@ -202,7 +204,7 @@ LP_GEN_63917:
           .DATA.L _const_8c0380a4 ; H'8C01B260
           .DATA.L _strcpy ; H'8C01B264
           .DATA.L _var_exp_8c1ba25c ; H'8C01B268
-_FUN_8c01b26c:
+_SystemMenuWriteToVmu_8c01b26c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -229,7 +231,7 @@ _FUN_8c01b26c:
           MOV.L       LP_GEN_27906+32,R1
           MOV.W       LP_GEN_27906+2,R0
           MOV.L       @R1,R3
-          BSR         _FUN_8c01b206
+          BSR         _updateVmuIconText_8c01b206
           MOV.L       R3,@(R0,R14)
           MOV.L       LP_GEN_27906+40,R3
           MOV         #H'60,R6
@@ -340,7 +342,7 @@ LP_GEN_27906:
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01B3A0
           .DATA.L _BupSave_8c014bcc ; H'8C01B3A4
           .DATA.L _var_8c157a7c ; H'8C01B3A8
-_FUN_8c01b3ac:
+_saveTask_8c01b3ac:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -816,7 +818,7 @@ LAB_8c01b72a:
           NOP
           TST         R0,R0
           BT          LAB_8c01b766
-          BSR         _FUN_8c01b19c
+          BSR         _SystemMenuApplyLoadedProgress_8c01b19c
           NOP
           MOV.L       LP_GEN_43539+42,R2
           JSR         @R2
@@ -946,7 +948,7 @@ LAB_8c01b85c:
           BRA         LAB_8c01b8a0
           NOP
 LAB_8c01b870:
-          BSR         _FUN_8c01b26c
+          BSR         _SystemMenuWriteToVmu_8c01b26c
           NOP
           MOV.L       LP_GEN_14610+6,R4
           MOV         #H'1,R2
@@ -1191,7 +1193,7 @@ LAB_8c01ba48:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01ba64:
+_SystemMenuSwitchFromTask_8c01ba64:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_62205+18,R3
           MOV.L       LP_GEN_62205+14,R5
@@ -1261,7 +1263,7 @@ LP_GEN_62205:
           .RES.W 1 ; H'8C01BAE6
           .DATA.L _menuTextboxText_8c02af1c ; H'8C01BAE8
           .DATA.L H'C0E00000 ; H'8C01BAEC
-          .DATA.L _FUN_8c01b3ac ; H'8C01BAF0
+          .DATA.L _saveTask_8c01b3ac ; H'8C01BAF0
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01BAF4
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01BAF8
           .DATA.L _syMalloc ; H'8C01BAFC

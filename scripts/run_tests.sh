@@ -111,4 +111,8 @@ compile  src/018644_file_menu.c
 assemble  src/asm/decompiled/01a148_option.src
 compile  src/01a148_option.c
 
+# 01b19c_system_menu
+assemble  src/asm/decompiled/01b19c_system_menu.src
+compile  src/01b19c_system_menu.c
+
 $sh4objtest suite -s tests.php "$@"

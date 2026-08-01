@@ -142,8 +142,6 @@ STATIC void midiSetVol_8c010128() {
             );
         }
     }
-
-    /* LAB_8c0101bc */
     if ((var_uknVol_8c0fcd50.field_0x00 & 4) == 4) {
         /* D */
         sdMidiSetVol(

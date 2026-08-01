@@ -4,13 +4,23 @@
 # false-positive diffs), then diffs each decompiled unit's data sections
 # (C/D/B; P is code and expected to differ) via dcdiff.py.
 #
-# CONFIRMED units are known to match and fail the build if they regress.
-# Everything else is checked too, but only logged -- those units aren't
-# confirmed data-matching yet, so a diff there is not (yet) a build error.
+# The set of checked units is derived: every unit built from C
+# (build/output/src/*.obj) that also has an archived decompiled-asm reference
+# (build/output_matching/src/asm/decompiled/<unit>.obj). Such a unit is expected
+# to data-match, and a diff FAILS the build.
+#
+# NOT_MATCHING is the allowlist of exceptions -- units not yet data-matching,
+# where a diff is only logged. Drop a unit from this list once its data matches.
 set -e
 
-CONFIRMED="013ae8_route_load 016d2c_course_menu 01d290_album"
-ALL="012324_peripheral_support 014f54_text 0100bc_sound 010fe8_heap 015ab8_title 0193c8_vm_menu 0207d4 016c58_prompt 012f44_game 011120_asset_queues 019e98_main_menu 016d2c_course_menu 012504_input 016bf4_demo_input 013ae8_route_load"
+NOT_MATCHING="
+011120_asset_queues
+0129cc_pause
+012f44_game
+014f54_text
+015ab8_title
+01614c_debug_menu
+"
 
 make -f Makefile.matching clean all
 make clean
@@ -18,31 +28,36 @@ make SERIAL_DEBUG=0 all
 
 fail=0
 
-is_confirmed() {
-  for u in $CONFIRMED; do [ "$u" = "$1" ] && return 0; done
+is_allowlisted() {
+  for u in $NOT_MATCHING; do [ "$u" = "$1" ] && return 0; done
   return 1
 }
 
-for unit in $ALL; do
+for c_obj in build/output/src/*.obj; do
+  unit=$(basename "$c_obj" .obj)
   ref_obj="build/output_matching/src/asm/decompiled/${unit}.obj"
-  c_obj="build/output/src/${unit}.obj"
+  [ -f "$ref_obj" ] || continue   # no decompiled-asm reference to match against
 
   echo "=== $unit ==="
   if python3 scripts/dcdiff.py "$ref_obj" "$c_obj"; then
-    status=ok
-  else
-    status=diff
+    echo
+    continue
   fi
 
-  if [ "$status" = diff ]; then
-    if is_confirmed "$unit"; then
-      echo "FAIL: $unit is a confirmed data-matching unit but C/D/B differ"
-      fail=1
-    else
-      echo "NOTE: $unit not confirmed data-matching yet, ignoring diff"
-    fi
+  if is_allowlisted "$unit"; then
+    echo "NOTE: $unit not data-matching yet (allowlisted), ignoring diff"
+  else
+    echo "FAIL: $unit is expected to data-match but C/D/B differ"
+    fail=1
   fi
   echo
 done
+
+echo "=== Summary ==="
+if [ $fail -eq 0 ]; then
+  echo "All checked units data-match"
+else
+  echo "Some checked units do not data-match"
+fi
 
 exit $fail

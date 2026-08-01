@@ -508,7 +508,7 @@ return new Class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
 
-        $this->shouldCall('_FUN_8c01ba64')->with($task);
+        $this->shouldCall('_SystemMenuSwitchFromTask_8c01ba64')->with($task);
     }
 
     public function test_fade_out_state_happy_path_with_free()
@@ -626,6 +626,8 @@ return new Class extends TestCase {
         $this->setSize('_var_dialogSequenceIsActive_8c225fb4', 4); // dialog-running flag
         $this->setSize('_const_8c03628c', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
+        // menu-entry onSelect callback into the Save unit (address taken in a table)
+        $this->setSize('_SystemMenuSwitchFromTask_8c01ba64', 4);
     }
 
     /**

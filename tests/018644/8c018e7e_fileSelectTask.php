@@ -322,7 +322,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->ms + 0x18, 5);
         $this->shouldCall('_njMemCopy')
             ->with($this->addressOf('_var_progress_8c1ba1cc'), self::BASE, 0xe8);
-        $this->shouldCall('_FUN_8c01b19c');
+        $this->shouldCall('_SystemMenuApplyLoadedProgress_8c01b19c');
         $this->shouldWriteLong($this->addressOf('_var_8c1ba350'), 5);
         $this->shouldCall('_FileMenuApplySoundSettings_8c0189fc');
         $this->expectConfirmTail();
@@ -507,7 +507,7 @@ return new class extends TestCase {
         foreach ([
             '_TxtDrawSprite_8c014f54', '_menuTextboxText_8c02af1c', '_vmsLcd_8c01c8fc',
             '_swapMessageBoxFor_8c02aefc', '_sdMidiPlay', '_push_fadeout_8c022b60',
-            '_njMemCopy', '_SndStartAdxFadeOut_8c010bae', '_FUN_8c01b19c',
+            '_njMemCopy', '_SndStartAdxFadeOut_8c010bae', '_SystemMenuApplyLoadedProgress_8c01b19c',
             '_VmMenuUnmountVms_8c0194de', '_VmMenuSwitchFromTask_8c019e44',
             '_MainMenuSwitchFromTask_8c01a09a',
         ] as $fn) {

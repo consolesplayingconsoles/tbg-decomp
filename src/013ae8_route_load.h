@@ -56,6 +56,9 @@ extern enum ROUTE var_route_8c18ad1c;
 extern enum TIME_OF_DAY var_timeOfDay_8c18ad20;
 extern FogParams *var_fogParams_8c18ad28;
 
+/* 16-byte game_name / VMS sort key baked into the backup file header. */
+extern Sint8 init_8c04410c[16];
+
 /* =========
  * Functions
  * =========

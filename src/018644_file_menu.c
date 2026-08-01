@@ -10,7 +10,7 @@
 #include "014f54_text.h"
 #include "028258.h"
 #include "01bb48.h"
-#include "01b19c.h"
+#include "01b19c_system_menu.h"
 #include "022464.h"
 #include "sectionB.h"
 #include "serial_debug.h"
@@ -605,7 +605,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
                     idx++;
                 }
                 njMemCopy(&var_progress_8c1ba1cc, (char *)var_8c1ba2e0 + idx * 0x600, 0xe8);
-                FUN_8c01b19c();
+                SystemMenuApplyLoadedProgress_8c01b19c();
                 var_8c1ba350 = cardValue;
                 FileMenuApplySoundSettings_8c0189fc();
             }

@@ -348,6 +348,15 @@ typedef struct {
     char field_0xd4;
     char field_0xd5;
     char field_0xd6;
+    char field_0xd7; // padding
+
+    /* mirrored to/from var_8c1bb8b8/bc/dc/var_award_8c1bb8f8 by 01b19c_system_menu
+     * on load (see SystemMenuApplyLoadedProgress_8c01b19c) and save (SystemMenuWriteToVmu_8c01b26c) */
+    int field_0xd8;
+    int field_0xdc;
+    int field_0xe0;
+    char award_0xe4;
+    char field_0xe5[3]; // padding
 } PlayerProgress;
 
 /*
@@ -357,6 +366,8 @@ typedef struct {
  * but kept as its own symbol since it's owned by sectionB.src, not decompiled.
  */
 extern char var_8c1ba290[5];
+
+extern int var_exp_8c1ba25c; // EXP shown on the VMU icon status line (see 01b19c_system_menu)
 
 /* single-word bitset, set/tested by setRunEventFlag_8c02b022/hasRunEventFlag_8c02b030; role unclear */
 extern int var_runEventFlags_8c1ba2b4;
@@ -453,6 +464,7 @@ extern int var_8c226014;        // 018644: FILE SELECT leading NEW-FILE card cou
 extern int var_8c226018[12];    // 018644: FILE SELECT card list (0xa=NEW FILE, 0xb=empty)
 
 extern int var_8c22606c;
+extern char var_8c226098[16]; // VMU icon status text, built by 01b19c_system_menu
 extern int var_8c2260a8;
 extern void* var_8c2260ac;
 extern void* var_8c2260b8;
@@ -503,6 +515,7 @@ extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 extern int var_menuTextboxCharLimit_8c225fb8;
+extern int var_8c2263a4; // saved into var_progress_8c1ba1cc.field_0x8c by 01b19c_system_menu
 extern ResourceGroup* var_resourceGroup_8c2263a8;
 extern Sint8 var_soundMode_8c226070;
 extern char *var_8c226074; /* SETTING screen: ptr to the 5 gameplay-setting bytes */

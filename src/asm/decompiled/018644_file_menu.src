@@ -21,7 +21,7 @@
           .IMPORT     _VmMenuUnmountVms_8c0194de
           .IMPORT     _VmMenuSwitchFromTask_8c019e44
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
-          .IMPORT     _FUN_8c01b19c
+          .IMPORT     _SystemMenuApplyLoadedProgress_8c01b19c
           .IMPORT     _vmsLcd_8c01c8fc
           .IMPORT     _push_fadein_8c022a9c
           .IMPORT     _push_fadeout_8c022b60
@@ -1675,7 +1675,7 @@ LP_GEN_73468:
           .DATA.L _var_8c1ba2e0 ; H'8C019294
           .DATA.L _var_progress_8c1ba1cc ; H'8C019298
           .DATA.L _njMemCopy ; H'8C01929C
-          .DATA.L _FUN_8c01b19c ; H'8C0192A0
+          .DATA.L _SystemMenuApplyLoadedProgress_8c01b19c ; H'8C0192A0
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C0192A4
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C0192A8
           .DATA.L _push_fadeout_8c022b60 ; H'8C0192AC

@@ -2,7 +2,7 @@
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     __quick_evn_mvn
           .IMPORT     _FUN_8c01f114
-          .IMPORT     _FUN_8c01ba64
+          .IMPORT     _SystemMenuSwitchFromTask_8c01ba64
           .IMPORT     _FUN_8c01d1c4
           .IMPORT     _AlbumSwitchFromTask_8c01d6e2
           .IMPORT     _var_midiHandles_8c0fcd28
@@ -3378,7 +3378,7 @@ _init_courseMenuButtons_8c04442c:        ; from defines
           .DATA.B      H'00, H'00, H'DC, H'42          ; x
           .DATA.B      H'00, H'00, H'DA, H'42          ; y
           .DATA.B      H'00, H'00, H'00, H'00          ; spriteNo
-          .DATA.L      _FUN_8c01ba64                   ; onSelect
+          .DATA.L      _SystemMenuSwitchFromTask_8c01ba64                   ; onSelect
           .DATA.B      H'00, H'00, H'00, H'00          ; courseId
 
           .DATA.B      H'01, H'00, H'00, H'00          ; enabled

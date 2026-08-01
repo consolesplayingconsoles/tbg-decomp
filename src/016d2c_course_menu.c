@@ -14,7 +14,7 @@
 #include "016d2c_course_menu.h"
 #include "0100bc_sound.h"
 #include "01d290_album.h"
-#include "01b19c.h"
+#include "01b19c_system_menu.h"
 #include "01c980.h"
 #include "01e27c.h"
 #include "028258.h"
@@ -1504,7 +1504,7 @@ STATIC CourseMenuButton init_courseMenuButtons_8c04442c[15] = {
         /* unlocked */ 1,
         /* x, y     */ 110.0f, 109.0f,
         /* spriteNo */ 0,
-        /* onSelect */ FUN_8c01ba64,
+        /* onSelect */ SystemMenuSwitchFromTask_8c01ba64,
         /* courseId */ 0,
     },
     {   /* [2] */
