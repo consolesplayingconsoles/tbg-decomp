@@ -139,7 +139,14 @@ def _inspect_json(obj):
     if obj not in _JSON_CACHE:
         txt = subprocess.run([SH4OBJTEST, "inspect", obj, "--format=json"],
                               capture_output=True, text=True, check=True).stdout
-        _JSON_CACHE[obj] = json.loads(txt)
+        # sh4objtest sometimes prints a "WARN: ..." diagnostic on stdout ahead
+        # of the JSON doc itself (e.g. a debug-symbol chunk parse quirk) --
+        # echo it so it stays visible, then skip straight to the object so it
+        # doesn't break json.loads.
+        brace = txt.index("{")
+        if brace:
+            print(txt[:brace], end="", file=sys.stderr)
+        _JSON_CACHE[obj] = json.loads(txt[brace:])
         _progress_tick(obj)
     return _JSON_CACHE[obj]
 

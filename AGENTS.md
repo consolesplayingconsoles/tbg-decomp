@@ -120,7 +120,7 @@ Sections in order, each with a banner like the one below; omit empty sections:
 - `STATIC` macro (from `includes.h`): expands to `static` in production, empty in unit tests so test harness can access the symbol.
 - Private globals in asm: export only under `.AIFDEF UNIT_TESTING` / `.AENDI`.
 - Each unit has two object files: `<addr>_src.obj` (asm) and `<addr>_c.obj` (C).
-- **ASCII only** in `src/` and `tests/` files — they are Shift-JIS encoded; non-ASCII characters (including Unicode arrows `→`, smart quotes, etc.) will corrupt the file. Use plain ASCII alternatives (e.g. `->` instead of `→`).
+- **ASCII only** in `src/` and `tests/` files — they are Shift-JIS encoded; non-ASCII characters (including Unicode arrows `→`, smart quotes, etc.) will corrupt the file. Use plain ASCII alternatives (e.g. `->` instead of `→`). Plain `grep` treats these files as binary and skips them; use `grep -a` to search them.
 - **No local `extern` declarations in `.c` files.** Every external symbol must come
   from an `#include`d header: the owning unit's header if it already has one, or a
   new minimal header for a still-undecompiled `asm` unit if it doesn't (declare

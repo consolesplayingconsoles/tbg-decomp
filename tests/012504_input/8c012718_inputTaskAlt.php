@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->shouldCall('__quick_odd_mvn')->do($this->oddMvn());
         $this->shouldWriteLongTo('_var_vibport_8c1ba354', -1);
         $this->shouldWriteLongTo('_var_activeCtrlType_8c157a70', -1);
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
     }
 
     public function test_unsupported_controller()
@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->shouldCall('__quick_odd_mvn')->do($this->oddMvn());
         $this->shouldWriteLongTo('_var_vibport_8c1ba354', -1);
         $this->shouldWriteLongTo('_var_activeCtrlType_8c157a70', -1);
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
     }
 
     public function test_standard_controller_translates_inputs()
@@ -337,7 +337,7 @@ return new class extends TestCase {
             $this->shouldCall('_pdGetPeripheral')->with(2)->andReturn($per2);
         }
         $this->shouldWriteLongTo('_var_vibport_8c1ba354', $expected);
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
     }
 
     private function resolveSymbols(): void
@@ -345,7 +345,7 @@ return new class extends TestCase {
         $this->setSize('_var_vibport_8c1ba354', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_activeCtrlType_8c157a70', 4);
-        $this->setSize('_vmsLcd_8c01c910', 4);
+        $this->setSize('_VmGameUpdateLcd_8c01c910', 4);
         $this->initUint32Array(
             $this->addressOf('_const_peripheral_8c033318'),
             array_fill(0, 0x34 / 4, 0),

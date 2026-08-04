@@ -1,4 +1,4 @@
-/* @unit Save */
+/* @unit SystemMenu */
 #include <shinobi.h>
 #include "01b19c_system_menu.h"
 #include "sectionB.h"
@@ -13,7 +13,7 @@
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
 #include "018644_file_menu.h"
-#include "01bb48.h"
+#include "01bb48_vm_game.h"
 #include "015ab8_title.h"
 #include "01614c_debug_menu.h"
 #include "0100bc_sound.h"
@@ -142,7 +142,7 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     buMakeBackupFileImage(var_8c1ba348, &var_8c1ba2e4);
     BupSave_8c014bcc(var_selectedVm_8c1ba34c,
                      init_saveNames_8c044d50[var_8c1ba350], var_8c1ba348, 3);
-    var_8c157a7c = 1;
+    var_vmBusy_8c157a7c = 1;
 }
 
 /* Per-frame update for the save/load menu task. Dispatches on the menu state
@@ -302,11 +302,11 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 /* confirmed -- kick off the VMU read */
                 BupLoad_8c014bc6(var_selectedVm_8c1ba34c,
                                  init_saveNames_8c044d50[var_8c1ba350], var_8c1ba2e0);
-                var_8c157a7c = 1;
+                var_vmBusy_8c157a7c = 1;
                 var_menuState_8c1bc7a8.field_0x1c = SAVE_PHASE_IN_PROGRESS;
                 /* "Loading in progress; do not turn off the power" */
                 swapMessageBoxFor_8c02aefc("ロード実行中です<E>電源を切らないで下さい");
-                vmsLcd_8c01c8fc(1);
+                VmGameSetLcdSlot_8c01c8fc(1);
             } else if (result == 2) {
                 /* cancelled */
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
@@ -342,8 +342,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 swapMessageBoxFor_8c02aefc("ロードが失敗しました");
             }
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
-            var_8c157a7c = 0;
-            vmsLcd_8c01c8fc(0);
+            var_vmBusy_8c157a7c = 0;
+            VmGameSetLcdSlot_8c01c8fc(0);
             break;
         default:
             break;
@@ -375,7 +375,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 var_menuState_8c1bc7a8.field_0x1c = SAVE_PHASE_IN_PROGRESS;
                 /* "Saving in progress; do not turn off the power" */
                 swapMessageBoxFor_8c02aefc("セーブ実行中です<E>電源を切らないで下さい");
-                vmsLcd_8c01c8fc(1);
+                VmGameSetLcdSlot_8c01c8fc(1);
                 TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00,
                                        var_menuState_8c1bc7a8.field_0x3c + 2,
                                        228.0f, 266.0f, -4.0f);
@@ -405,11 +405,11 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             } else {
                 swapMessageBoxFor_8c02aefc("セーブが失敗しました");
             }
-            var_8c157a7c = 0;
+            var_vmBusy_8c157a7c = 0;
             syFree(var_8c1ba348);
             var_8c1ba348 = (void *)-1;
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
-            vmsLcd_8c01c8fc(0);
+            VmGameSetLcdSlot_8c01c8fc(0);
             break;
         default:
             break;
@@ -431,7 +431,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         break;
 
     case SAVE_STATE_EXIT_TO_COURSE: /* drive-exit -- fade out then hand back to course */
-        if (var_isFading_8c226568 != 0 || var_8c22606c != 0) {
+        if (var_isFading_8c226568 != 0 || var_vmMountBusy_8c22606c != 0) {
             break;
         }
         var_menuState_8c1bc7a8.field_0x3c = 1;
@@ -441,7 +441,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         return;
 
     case SAVE_STATE_EXIT_TO_TITLE: /* title-exit -- fade out then hand back to title */
-        if (var_isFading_8c226568 != 0 || var_8c22606c != 0) {
+        if (var_isFading_8c226568 != 0 || var_vmMountBusy_8c22606c != 0) {
             break;
         }
         FUN_8c016182();

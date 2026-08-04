@@ -115,4 +115,8 @@ compile  src/01a148_option.c
 assemble  src/asm/decompiled/01b19c_system_menu.src
 compile  src/01b19c_system_menu.c
 
+# 01bb48_vm_game
+assemble  src/asm/decompiled/01bb48_vm_game.src
+compile  src/01bb48_vm_game.c
+
 $sh4objtest suite -s tests.php "$@"

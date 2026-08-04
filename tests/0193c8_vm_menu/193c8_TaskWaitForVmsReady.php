@@ -29,7 +29,7 @@ return new class extends TestCase {
         }
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldWriteLongTo('_var_8c22606c', 0);
+        $this->shouldWriteLongTo('_var_vmMountBusy_8c22606c', 0);
 
         $this->singleCall('_taskWaitForVmsReady_8c0193c8')->with($task, 0)->run();
     }
@@ -56,7 +56,7 @@ return new class extends TestCase {
         }
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldWriteLongTo('_var_8c22606c', 0);
+        $this->shouldWriteLongTo('_var_vmMountBusy_8c22606c', 0);
 
         $this->singleCall('_taskWaitForVmsReady_8c0193c8')->with($task, 0)->run();
     }

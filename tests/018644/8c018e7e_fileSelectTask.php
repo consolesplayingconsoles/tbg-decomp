@@ -30,8 +30,8 @@ return new class extends TestCase {
 
         $this->call('_fileSelectTask_8c018e7e');
 
-        $this->shouldWriteLong($this->addressOf('_var_8c157a7c'), 0);
-        $this->shouldCall('_vmsLcd_8c01c8fc')->with(0);
+        $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
+        $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_8c225fe0'), self::BASE);
         $this->shouldCall('_FileMenuIsSaveValid_8c018804')->with(self::BASE)->andReturn(1);
         $this->shouldWriteLong($this->addressOf('_var_8c225fe0'), self::BASE + 0x600);
@@ -50,8 +50,8 @@ return new class extends TestCase {
 
         $this->call('_fileSelectTask_8c018e7e');
 
-        $this->shouldWriteLong($this->addressOf('_var_8c157a7c'), 0);
-        $this->shouldCall('_vmsLcd_8c01c8fc')->with(0);
+        $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
+        $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_8c225fe0'), self::BASE);
         $this->shouldCall('_FileMenuIsSaveValid_8c018804')->with(self::BASE)->andReturn(0);
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');
@@ -67,11 +67,11 @@ return new class extends TestCase {
 
         $this->call('_fileSelectTask_8c018e7e');
 
-        $this->shouldWriteLong($this->addressOf('_var_8c157a7c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');
         $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with('ƒ[ƒh‚ÉŽ¸”s‚µ‚Ü‚µ‚½');
         $this->shouldWriteLong($this->ms + 0x18, 1);
-        $this->shouldCall('_vmsLcd_8c01c8fc')->with(0);
+        $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->expectFrame();
     }
 
@@ -386,11 +386,11 @@ return new class extends TestCase {
 
     /* ---- state 6: waiting on the mount before switching to the main menu ---- */
 
-    /* Mount pending (var_8c22606c set): do nothing this frame. */
+    /* Mount pending (var_vmMountBusy_8c22606c set): do nothing this frame. */
     public function test_state6_pending(): void
     {
         $this->setup(6, 0);
-        $this->initUint32($this->addressOf('_var_8c22606c'), 1);
+        $this->initUint32($this->addressOf('_var_vmMountBusy_8c22606c'), 1);
 
         $this->call('_fileSelectTask_8c018e7e');
     }
@@ -399,7 +399,7 @@ return new class extends TestCase {
     public function test_state6_route_busy(): void
     {
         $this->setup(6, 0);
-        $this->initUint32($this->addressOf('_var_8c22606c'), 0);
+        $this->initUint32($this->addressOf('_var_vmMountBusy_8c22606c'), 0);
         $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
 
         $this->call('_fileSelectTask_8c018e7e');
@@ -410,7 +410,7 @@ return new class extends TestCase {
     {
         $task = $this->alloc(0x20);
         $this->setup(6, 0);
-        $this->initUint32($this->addressOf('_var_8c22606c'), 0);
+        $this->initUint32($this->addressOf('_var_vmMountBusy_8c22606c'), 0);
         $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
 
         $this->call('_fileSelectTask_8c018e7e')->with($task);
@@ -451,7 +451,7 @@ return new class extends TestCase {
     public function test_state8_pending(): void
     {
         $this->setup(8, 0);
-        $this->initUint32($this->addressOf('_var_8c22606c'), 1);
+        $this->initUint32($this->addressOf('_var_vmMountBusy_8c22606c'), 1);
 
         $this->call('_fileSelectTask_8c018e7e');
     }
@@ -461,7 +461,7 @@ return new class extends TestCase {
     {
         $task = $this->alloc(0x20);
         $this->setup(8, 0);
-        $this->initUint32($this->addressOf('_var_8c22606c'), 0);
+        $this->initUint32($this->addressOf('_var_vmMountBusy_8c22606c'), 0);
 
         $this->call('_fileSelectTask_8c018e7e')->with($task);
 
@@ -505,7 +505,7 @@ return new class extends TestCase {
         /* external functions -- resolved unconditionally (the C literal pool may
          * load an address on a path that doesn't call it) */
         foreach ([
-            '_TxtDrawSprite_8c014f54', '_menuTextboxText_8c02af1c', '_vmsLcd_8c01c8fc',
+            '_TxtDrawSprite_8c014f54', '_menuTextboxText_8c02af1c', '_VmGameSetLcdSlot_8c01c8fc',
             '_swapMessageBoxFor_8c02aefc', '_sdMidiPlay', '_push_fadeout_8c022b60',
             '_njMemCopy', '_SndStartAdxFadeOut_8c010bae', '_SystemMenuApplyLoadedProgress_8c01b19c',
             '_VmMenuUnmountVms_8c0194de', '_VmMenuSwitchFromTask_8c019e44',
@@ -522,13 +522,13 @@ return new class extends TestCase {
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_8c226010', 4);
         $this->setSize('_var_8c226014', 4);
-        $this->setSize('_var_8c157a7c', 4);
+        $this->setSize('_var_vmBusy_8c157a7c', 4);
         $this->setSize('_var_8c225fe0', 4);
         $this->setSize('_var_8c225fe4', 0x28);
         $this->setSize('_var_8c1ba2e0', 4);
         $this->setSize('_var_8c1ba350', 4);
         $this->setSize('_var_8c22600c', 4);
-        $this->setSize('_var_8c22606c', 4);
+        $this->setSize('_var_vmMountBusy_8c22606c', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_init_8c03bd80', 4);
         $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);

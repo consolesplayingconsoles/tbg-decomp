@@ -6,6 +6,7 @@
 #include "01614c_debug_menu.h"
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
+#include "01bb48_vm_game.h" /* LcdAnim */
 
 /* =================
  * Type Declarations
@@ -326,7 +327,7 @@ typedef struct {
     int letters_0x2c[6];
     CourseProgress courses_0x44[9];
     int field_0x8c;
-    int exp_0x90;
+    int exp_0x90; // aliased by var_exp_8c1ba25c (01b19c_system_menu addresses it directly; others via this field)
     int field_0x94;
     int field_0x98[11];
     signed char field_0xc4;
@@ -403,7 +404,7 @@ extern void* var_8c1bc414;
 extern void* var_8c1bc440;
 extern void* var_8c1bc444;
 extern float var_8c1bc450;
-extern void* var_8c1bc454;
+extern void* var_vmGameBuf_8c1bc454;
 extern int var_award_8c1bb8f8;
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
@@ -463,12 +464,18 @@ extern int var_8c226010;        // 018644: load result (1 = done, 2 = error)
 extern int var_8c226014;        // 018644: FILE SELECT leading NEW-FILE card count (0 or 1)
 extern int var_8c226018[12];    // 018644: FILE SELECT card list (0xa=NEW FILE, 0xb=empty)
 
-extern int var_8c22606c;
+extern int var_vmMountBusy_8c22606c;
 extern char var_8c226098[16]; // VMU icon status text, built by 01b19c_system_menu
-extern int var_8c2260a8;
-extern void* var_8c2260ac;
-extern void* var_8c2260b8;
-extern void* var_8c2260c4;
+extern int var_lcdAnimActive_8c2260a8;
+extern LcdAnim var_lcdAnimBus_8c2260ac; // 01bb48: vm_bus.lcd anim
+extern LcdAnim var_lcdAnimDanger_8c2260b8; // 01bb48: vm_danger.lcd anim
+extern LcdAnim var_lcdAnimLoading_8c2260c4; // 01bb48: now_loading.lcd anim
+extern enum VmGameBupPhase var_bupPhase_8c2260d0; // 01bb48: last-seen bu* async op status/phase
+extern char var_lcdClearBuf_8c2260d4[0xc0]; // 01bb48: VMS LCD framebuffer (48x32 mono)
+extern Uint32 var_lcdFrameDelay_8c226198;    // 01bb48: LCD anim step counter
+extern LcdFrame* var_lcdFramePtr_8c22619c; // 01bb48: current LCD anim frame ptr
+extern char var_defragBuf_8c2261a0[512]; // 01bb48: buDefragDisk work buffer
+extern int var_lcdSlot_8c2263a0;   // 01bb48
 extern void* var_8c226434;
 extern void* var_8c226438;
 extern Struct8c2264b8 var_8c2264b8;

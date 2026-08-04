@@ -11,6 +11,7 @@
 #include "011120_asset_queues.h"
 #include "016d2c_course_menu.h"
 #include "01a148_option.h"
+#include "01bb48_vm_game.h"
 #include "022464.h"
 #include "sectionB.h"
 #include "serial_debug.h"
@@ -167,7 +168,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
 
                 // VM Game
                 case 3: {
-                    FUN_8c01c880();
+                    VmGameSwitchToTopMenu_8c01c880(task);
                     break;
                 }
             }

@@ -94,7 +94,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripheral_8c1ba358'), $periph);
 
         $this->initUint32($this->addressOf('_var_resetRequested_8c157a78'), $resetRequested);
-        $this->initUint32($this->addressOf('_var_8c157a7c'), $unk157a7c);
+        $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), $unk157a7c);
         $this->initUint32($this->addressOf('_var_queuesAreInitialized_8c157a60'), $queuesInitialized);
         $this->initUint32($this->addressOf('_var_pauseActive_8c1bb8cc'), $pauseActive);
     }

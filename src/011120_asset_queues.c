@@ -4,6 +4,7 @@
 #include <shinobi.h>
 #include <string.h>
 #include "011120_asset_queues.h"
+#include "01bb48_vm_game.h"
 #include "serial_debug.h"
 #include "014a9c_tasks.h"
 #include "sectionB.h"
@@ -100,7 +101,7 @@ int var_loadScreenActive_8c157a6c;
 int var_activeCtrlType_8c157a70;
 int var_8c157a74;
 int var_resetRequested_8c157a78;
-int var_8c157a7c;
+int var_vmBusy_8c157a7c;
 
 STATIC char *var_queueBaseDir_8c157a80;
 STATIC Sint8 *var_queueBuffer_8c157a84;
@@ -1176,8 +1177,8 @@ void AsqInitQueues_8c011f36(int datCount,int njCount,int texlistCount,int pvmCou
     initNjQueue_8c011430(njCount);
     initTexlistQueue_8c0117b8(texlistCount);
     initPvmQueue_8c011a5c(pvmCount);
-    vmsLcd_8c01c8fc(2);
-    vmsLcd_8c01c910();
+    VmGameSetLcdSlot_8c01c8fc(2);
+    VmGameUpdateLcd_8c01c910();
     var_queuesAreInitialized_8c157a60 = 1;
 }
 
@@ -1201,7 +1202,7 @@ void AsqFreeQueues_8c011f7e() {
     freeNjQueue_8c0117a4();
     freeTexlistQueue_8c011a48();
     freePvmQueue_8c011e28();
-    vmsLcd_8c01c8fc(0);
+    VmGameSetLcdSlot_8c01c8fc(0);
     var_queuesAreInitialized_8c157a60 = 0;
 }
 

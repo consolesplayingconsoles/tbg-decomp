@@ -102,7 +102,7 @@ after one or two small ones, or carved into the pedestrian half first.
   out, but only `012f44_game` among decompiled units uses it.
 - `01614c_debug_menu` (3.6 KB): VMU save / demo-recording related (`BupGetInfo/Mount/
   Unmount`, demo buffers); 4 decompiled callers.
-- `01bb48` (3.6 KB): VMU LCD (`vmsLcd_8c01c8fc/8c01c910`); 5 decompiled
+- `01bb48` (3.6 KB): VMU LCD (`VmGameSetLcdSlot_8c01c8fc/8c01c910`); 5 decompiled
   callers.
 
 ## Suggested order

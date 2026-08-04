@@ -54,7 +54,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c157ae4', 0);
         $this->shouldWriteLongTo('_var_8c157ae8', 0);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
     }
 
@@ -109,7 +109,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_8c157ae8', 0);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')
@@ -166,7 +166,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_8c157ae8', 0);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')
@@ -224,7 +224,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_8c157ae8', 0);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')
@@ -282,7 +282,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0x10);
         $this->shouldWriteLongTo('_var_8c157ae8', 0x10);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')
@@ -339,7 +339,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_peripherals_8c1ba35c') + 0x08, 0x10);
         $this->shouldWriteLongTo('_var_8c157ae8', 0x10);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')
@@ -397,7 +397,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0x20);
         $this->shouldWriteLongTo('_var_8c157ae8', 0x20);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')
@@ -453,7 +453,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 1);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')
@@ -505,7 +505,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_activeCtrlType_8c157a70', 0x700fe);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')
@@ -558,7 +558,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_activeCtrlType_8c157a70', 0x700fe);
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 1);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')->run();
@@ -611,7 +611,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_vibport_8c1ba354', -1);
         $this->shouldWriteLongTo('_var_activeCtrlType_8c157a70', -1);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')->run();
@@ -667,7 +667,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_vibport_8c1ba354', -1);
         $this->shouldWriteLongTo('_var_activeCtrlType_8c157a70', -1);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')->run();
@@ -729,7 +729,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c157ad4') + 2 * 0x4, 15);
         $this->shouldWriteLong($this->addressOf('_var_8c157ad4') + 3 * 0x4, 0);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')->run();
@@ -791,7 +791,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_8c157ad4'), 0);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')->run();
@@ -854,7 +854,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c157ad4') + 1 * 0x4, 1);
         $this->shouldWriteLong($this->addressOf('_var_8c157ad4') + 3 * 0x4, 6);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')->run();
@@ -920,7 +920,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0xf1);
         $this->shouldWriteLong($this->addressOf('_var_8c157ad4') + 3 * 0x4, 6);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')->run();
@@ -984,7 +984,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c157ad4') + 3 * 0x4, 31);
         $this->shouldWriteLong($this->addressOf('_var_8c157ad4') + 2 * 0x4, 1);
 
-        $this->shouldCall('_vmsLcd_8c01c910');
+        $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
         $this->singleCall('_PspTask_8c012324')->run();

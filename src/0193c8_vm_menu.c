@@ -140,7 +140,7 @@ STATIC void taskWaitForVmsReady_8c0193c8(Task *task)
     }
 
     TaskFree_8c014b66(task);
-    var_8c22606c = 0;
+    var_vmMountBusy_8c22606c = 0;
     return;
 }
 
@@ -157,7 +157,7 @@ void VmMenuMountVms_8c01940e()
     }
 
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, &taskWaitForVmsReady_8c0193c8, &createdTask, &createdState, 0);
-    var_8c22606c = 1;
+    var_vmMountBusy_8c22606c = 1;
 }
 
 /* Tested */
@@ -181,7 +181,7 @@ STATIC void taskUnmountVms_8c01946a(Task *task, void *state)
 
     if (!isBusy) {
         TaskFree_8c014b66(task);
-        var_8c22606c = 0;
+        var_vmMountBusy_8c22606c = 0;
     }
 }
 
@@ -192,7 +192,7 @@ void VmMenuUnmountVms_8c0194de()
     void *createdState;
 
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, &taskUnmountVms_8c01946a, &createdTask, &createdState, 0);
-    var_8c22606c = 1;
+    var_vmMountBusy_8c22606c = 1;
 }
 
 /* Tested */

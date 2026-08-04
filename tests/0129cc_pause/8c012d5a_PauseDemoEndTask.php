@@ -162,7 +162,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_init_8c03bd80'), $init80);
 
         $this->initUint32($this->addressOf('_var_resetRequested_8c157a78'), $resetRequested);
-        $this->initUint32($this->addressOf('_var_8c157a7c'), 0);
+        $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->initUint32($this->addressOf('_var_queuesAreInitialized_8c157a60'), 0);
 
         $task = $this->alloc(0x20);

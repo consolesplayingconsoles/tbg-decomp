@@ -259,3 +259,30 @@ the memory-write trace, so the extra `global = a` write shows up as an
 `Unexpected write value ... to _global` failure on the C object only (the `.src`
 object passes). Fix: compute into a **local**, store the global once. Only globals
 are trace-checked, so intermediate writes to the local are free.
+
+## A Ghidra global that's really `base_symbol + offset` computed inline
+
+Ghidra sometimes invents a standalone global (`var_exp_8c1ba25c`) for what the
+asm actually computes as arithmetic on a different symbol's address
+(`var_progress_8c1ba1cc + 0x90`, i.e. a struct field) rather than a direct
+relocation. A dual-object test using `setSize()`/`addressOf()` on the invented
+name gets its own independent fake address, so the `_src.obj` write lands at a
+totally different (and seemingly nonsensical) address than expected --
+`Unexpected write address 0x... Expecting ... to _invented_name(0x...)`. When
+that happens, read the relevant asm block directly: if the base register comes
+from `MOV.L @(disp,PC),Rn` loading a *different* imported symbol followed by
+`ADD #offset,Rn`, the "global" is actually `otherSymbol + offset` -- express it
+as a struct field access in C and in the test (`addressOf('_other') + offset`),
+not a separate `setSize()`. Note this can be genuinely per-caller: another unit
+that imports the invented name **directly** (`.IMPORT _var_exp_8c1ba25c`) is
+using a real, separate linker symbol that only *coincides* with the struct
+field's address because sectionB.src lays the two out back to back -- don't
+"fix" that caller too without checking its own asm first.
+
+## `muls.w` (0x200f) was missing from sh4objtest's simulator until this session
+
+Compiler-emitted `(short)x * 100` lowers to `MULS.W`, not `MUL.L`; sh4objtest's
+`Simulator.php` only had `MUL.L` (`0x0007`) and threw `Unknown instruction`
+for `0x200f` on both objects identically (a real tooling gap, not a C bug).
+Fixed upstream in the sh4objtest repo (mirrors the `MUL.L` case, sign-extends
+the 16-bit operands into `macl`) and the `tbg-decomp` Docker image rebuilt.

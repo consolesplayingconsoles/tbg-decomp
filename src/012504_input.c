@@ -5,6 +5,7 @@
 #include "012324_peripheral_support.h"
 #include "014a9c_tasks.h"
 #include "012504_input.h"
+#include "01bb48_vm_game.h"
 #include "sectionB.h"
 #include "serial_debug.h"
 
@@ -32,7 +33,7 @@ STATIC void inputTask_8c012504(void)
         *var_peripherals_8c1ba35c = const_peripheral_8c033318;
         var_vibport_8c1ba354 = -1;
         var_activeCtrlType_8c157a70 = -1;
-        vmsLcd_8c01c910();
+        VmGameUpdateLcd_8c01c910();
         return;
     }
 
@@ -103,7 +104,7 @@ STATIC void inputTask_8c012504(void)
         var_vibport_8c1ba354 = -1;
     }
 
-    vmsLcd_8c01c910();
+    VmGameUpdateLcd_8c01c910();
 }
 
 /* Like inputTask_8c012504 but uses alt translation tables and skips paddle-shift remap. */
@@ -124,7 +125,7 @@ STATIC void inputTaskAlt_8c012718(void)
         *var_peripherals_8c1ba35c = const_peripheral_8c033318;
         var_vibport_8c1ba354 = -1;
         var_activeCtrlType_8c157a70 = -1;
-        vmsLcd_8c01c910();
+        VmGameUpdateLcd_8c01c910();
         return;
     }
 
@@ -183,7 +184,7 @@ STATIC void inputTaskAlt_8c012718(void)
         var_vibport_8c1ba354 = -1;
     }
 
-    vmsLcd_8c01c910();
+    VmGameUpdateLcd_8c01c910();
 }
 
 /* param 0: install peripheral-support task, clear auto-fire state;

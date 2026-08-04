@@ -19,6 +19,7 @@
 #include "013ae8_route_load.h"
 #include "014b8c_backup.h"
 #include "018644_file_menu.h"
+#include "01bb48_vm_game.h"
 #include "02fb50_sh4nlfzn_post_data.h"
 
 // #define CACHE_BUFSIZE   0x20000
@@ -68,7 +69,7 @@ int var_onRetire_8c18ad10;
 /* Matched :) */
 void GameTask_8c012f44()
 {
-    if ((var_resetRequested_8c157a78 != 0) && (var_8c157a7c == 0)) {
+    if ((var_resetRequested_8c157a78 != 0) && (var_vmBusy_8c157a7c == 0)) {
         FUN_8c010ca6(0);
         sdMidiStopAll();
         if (var_vibport_8c1ba354 != -1) {
@@ -282,7 +283,7 @@ STATIC void task_8c013388(Task *task, void *state) {
                 AsqFreeQueues_8c011f7e();
                 TaskFree_8c014b66(task);
                 SndInitSoundMidiAdx_8c010e18("\\SOUND");
-                var_8c2260a8 = 1;
+                var_lcdAnimActive_8c2260a8 = 1;
 #ifdef DEBUG_MENU
                 /* Boot straight into the debug menu (DebugMenuOpen_8c01673a) --
                  * the retail entry point that was compiled out. Course entries
@@ -393,7 +394,7 @@ void GameInit_8c0134ec() {
     var_8c1ba344 = (void *) -1;
     var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
     var_demoBuf_8c1ba3c4 = (void *) -1;
-    var_8c1bc454 = (void *) -1;
+    var_vmGameBuf_8c1bc454 = (void *) -1;
     var_selectedVm_8c1ba34c = -1;
 
     var_8c1bb8c4 = 0;
@@ -402,11 +403,11 @@ void GameInit_8c0134ec() {
     var_demoIndex_8c1bb8d8 = 100;
     var_loadScreenActive_8c157a6c = 0;
 
-    FUN_8c01c8dc();
+    VmGameResetLcdAnims_8c01c8dc();
     FileMenuResetOptionDefaults_8c0189d2();
     njSetBorderColor(0);
-    vmsLcd_8c01c8fc(3);
-    vmsLcd_8c01c910();
+    VmGameSetLcdSlot_8c01c8fc(3);
+    VmGameUpdateLcd_8c01c910();
 
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, &task_8c013388, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
@@ -424,9 +425,9 @@ void GameInit_8c0134ec() {
     AsqRequestDat_8c011182("\\SYSTEM", "loading.dat", &var_loadingResourceGroup_8c1bc3f8.contents_0x08);
 
     AsqRequestDat_8c011182("\\SYSTEM", "bus_font.fff", &var_busFont_8c1ba1c8);
-    AsqRequestDat_8c011182("\\SYSTEM", "vm_bus.lcd", &var_8c2260ac);
-    AsqRequestDat_8c011182("\\SYSTEM", "vm_danger.lcd", &var_8c2260b8);
-    AsqRequestDat_8c011182("\\SYSTEM", "now_loading.lcd", &var_8c2260c4);
+    AsqRequestDat_8c011182("\\SYSTEM", "vm_bus.lcd", &var_lcdAnimBus_8c2260ac);
+    AsqRequestDat_8c011182("\\SYSTEM", "vm_danger.lcd", &var_lcdAnimDanger_8c2260b8);
+    AsqRequestDat_8c011182("\\SYSTEM", "now_loading.lcd", &var_lcdAnimLoading_8c2260c4);
 
     AsqRequestPvm_8c011ac0("\\SYSTEM", "fuu.pvm", &var_8c1bc440, 1, 0);
     AsqRequestNj_8c011492("\\SYSTEM", "fuu.njd", &var_8c1bc444, 0);

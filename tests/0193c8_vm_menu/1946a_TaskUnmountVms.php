@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->shouldCall('_BupGetInfo_8c014bba')->with(7)->andReturn($bupAddresses[7]);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldWriteLongTo('_var_8c22606c', 0);
+        $this->shouldWriteLongTo('_var_vmMountBusy_8c22606c', 0);
 
         $this->singleCall('_taskUnmountVms_8c01946a')->with($task)->run();
     }

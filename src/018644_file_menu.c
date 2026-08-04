@@ -9,7 +9,7 @@
 #include "0100bc_sound.h"
 #include "014f54_text.h"
 #include "028258.h"
-#include "01bb48.h"
+#include "01bb48_vm_game.h"
 #include "01b19c_system_menu.h"
 #include "022464.h"
 #include "sectionB.h"
@@ -125,7 +125,7 @@ STATIC void startVmLoad_8c018784(void)
     LOG_DEBUG(("[FILE_MENU] startVmLoad_8c018784: starting VMU load\n"));
 
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *)loadFileTask_8c018644, &task, &state, 0);
-    var_8c157a7c = 1;
+    var_vmBusy_8c157a7c = 1;
     task->field_0x08 = 0;
     task->field_0x0c = 0;
     task->queuedItem_0x18 = init_saveNames_8c044d50;
@@ -490,11 +490,11 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         if (var_8c226010 == 0) {
             menuTextboxText_8c02af1c(0xff);
         } else if (var_8c226010 == 1) {
-            var_8c157a7c = 0;
-            vmsLcd_8c01c8fc(0);
+            var_vmBusy_8c157a7c = 0;
+            VmGameSetLcdSlot_8c01c8fc(0);
             var_8c225fe0 = var_8c1ba2e0;
             for (i = 0; i < var_8c22600c; i++) {
-                if (FileMenuIsSaveValid_8c018804((int *)var_8c225fe0) == 0) {
+                if (!FileMenuIsSaveValid_8c018804((int *)var_8c225fe0)) {
                     LOG_WARN(("[FILE_MENU] fileSelectTask_8c018e7e: save %d failed validation\n", i));
                     FileMenuFreeBuffers_8c0187d0();
                     swapMessageBoxFor_8c02aefc("ロードに失敗しました");
@@ -509,11 +509,11 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             }
         } else if (var_8c226010 == 2) {
             LOG_WARN(("[FILE_MENU] fileSelectTask_8c018e7e: file load failed\n"));
-            var_8c157a7c = 0;
+            var_vmBusy_8c157a7c = 0;
             FileMenuFreeBuffers_8c0187d0();
             swapMessageBoxFor_8c02aefc("ロードに失敗しました");
             CHANGE_STATE(FILE_MENU_STATE_LOAD_ERROR);
-            vmsLcd_8c01c8fc(0);
+            VmGameSetLcdSlot_8c01c8fc(0);
         }
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
@@ -633,7 +633,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         break;
 
     case FILE_MENU_STATE_MOUNTING:
-        if (var_8c22606c != 0 || init_8c03bd80 != 0) {
+        if (var_vmMountBusy_8c22606c != 0 || init_8c03bd80 != 0) {
             break;
         }
         var_currentSysResGroupInfo_8c225fb0 = (void *)-1;
@@ -650,7 +650,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         return;
 
     case FILE_MENU_STATE_UNMOUNTING:
-        if (var_8c22606c != 0) {
+        if (var_vmMountBusy_8c22606c != 0) {
             break;
         }
         VmMenuSwitchFromTask_8c019e44(task);
@@ -672,9 +672,9 @@ void FileMenuSwitchFromTask_8c019334(Task *task)
         var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 6) {
         CHANGE_STATE(FILE_MENU_STATE_LOADING);
         swapMessageBoxFor_8c02aefc("ロード実行中です<E>電源を切らないで下さい");
-        vmsLcd_8c01c8fc(1);
+        VmGameSetLcdSlot_8c01c8fc(1);
         startVmLoad_8c018784();
-        var_8c157a7c = 1;
+        var_vmBusy_8c157a7c = 1;
     } else {
         buildFileList_8c018a22();
         CHANGE_STATE(FILE_MENU_STATE_READY);

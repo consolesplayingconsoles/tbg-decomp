@@ -18,6 +18,7 @@ def process_file(path: Path, dry_run: bool = False) -> int:
 
     removed = 0
     keep = []
+    messages = []
     for i, line in enumerate(lines):
         m = IMPORT_RE.match(line)
         if m:
@@ -30,7 +31,7 @@ def process_file(path: Path, dry_run: bool = False) -> int:
                 if j != i
             )
             if not used:
-                print(f'  removing unused import: {line.rstrip()}')
+                messages.append(f'  removing unused import: {line.rstrip()}')
                 removed += 1
                 continue
 
@@ -39,14 +40,18 @@ def process_file(path: Path, dry_run: bool = False) -> int:
             symbol = m.group(1)
             # Remove if symbol has no label definition in this file
             if symbol not in defined:
-                print(f'  removing undefined export: {line.rstrip()}')
+                messages.append(f'  removing undefined export: {line.rstrip()}')
                 removed += 1
                 continue
 
         keep.append(line)
 
-    if removed and not dry_run:
-        path.write_bytes(''.join(keep).encode('shift_jis'))
+    if removed:
+        print(f'{path}:')
+        for msg in messages:
+            print(msg)
+        if not dry_run:
+            path.write_bytes(''.join(keep).encode('shift_jis'))
 
     return removed
 
@@ -62,12 +67,7 @@ def main():
 
     total = 0
     for p in paths:
-        path = Path(p)
-        print(f'{path}:')
-        n = process_file(path, dry_run=dry_run)
-        if n == 0:
-            print('  no unused imports')
-        total += n
+        total += process_file(Path(p), dry_run=dry_run)
 
     print(f'\n{"Would remove" if dry_run else "Removed"} {total} directive(s).')
 

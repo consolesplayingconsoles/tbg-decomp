@@ -11,7 +11,7 @@ return new class extends TestCase {
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
         $cc = $this->addressOf('_var_currentCourse_8c1bb868');
         $demoBuf = $this->addressOf('_var_demoBuf_8c1ba3c4');
-        $var454 = $this->addressOf('_var_8c1bc454');
+        $var454 = $this->addressOf('_var_vmGameBuf_8c1bc454');
 
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 5);
         for ($i = 0; $i < 19; $i++) {
@@ -64,7 +64,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), -1);
         $this->initUint32($cc + 4, -1);
         $this->initUint32($this->addressOf('_var_demoBuf_8c1ba3c4'), -1);
-        $this->initUint32($this->addressOf('_var_8c1bc454'), -1);
+        $this->initUint32($this->addressOf('_var_vmGameBuf_8c1bc454'), -1);
 
         $this->call('_FUN_8c016182');
 

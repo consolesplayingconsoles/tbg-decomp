@@ -23,7 +23,7 @@ return new class extends TestCase {
             $createdState,
             0,
         );
-        $this->shouldWriteLongTo('_var_8c22606c', 1);
+        $this->shouldWriteLongTo('_var_vmMountBusy_8c22606c', 1);
 
         $this->singleCall('_VmMenuUnmountVms_8c0194de')->with($task)->run();
     }

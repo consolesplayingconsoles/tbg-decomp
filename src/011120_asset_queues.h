@@ -53,7 +53,7 @@ extern int var_loadScreenActive_8c157a6c;
 extern int var_activeCtrlType_8c157a70;
 extern int var_8c157a74;
 extern int var_resetRequested_8c157a78;
-extern int var_8c157a7c;
+extern int var_vmBusy_8c157a7c;
 
 extern ButtonRemap init_btnRemap_8c03be80[7];
 extern ButtonRemap init_btnRemapAlt_8c03beb8[7];

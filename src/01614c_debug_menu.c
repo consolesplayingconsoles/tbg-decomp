@@ -134,9 +134,9 @@ void FUN_8c016182(void)
         syFree(var_demoBuf_8c1ba3c4);
         var_demoBuf_8c1ba3c4 = (int *)-1;
     }
-    if (var_8c1bc454 != (void *)-1) {
-        syFree(var_8c1bc454);
-        var_8c1bc454 = (void *)-1;
+    if (var_vmGameBuf_8c1bc454 != (void *)-1) {
+        syFree(var_vmGameBuf_8c1bc454);
+        var_vmGameBuf_8c1bc454 = (void *)-1;
     }
     RgFreeResourceGroups_8c016108();
     FileMenuFreeBuffers_8c0187d0();

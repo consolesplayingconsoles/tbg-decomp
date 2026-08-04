@@ -20,7 +20,7 @@
 
 ## task_8c012cbc  DONE
 - pushTask_8c014ae8 action installed by routeLoadTask_8c014338 -> FUN_8c01306e -> pushTask_8c014ae8.
-- reset-requested guard (var_resetRequested_8c157a78 && !var_8c157a7c && !var_queuesAreInitialized_8c157a60)
+- reset-requested guard (var_resetRequested_8c157a78 && !var_vmBusy_8c157a7c && !var_queuesAreInitialized_8c157a60)
   -> FUN_8c016182() + pushTitle_8c015fd6(1), return. Same guard reused verbatim in
   task_8c012d06/task_8c012d5a below.
 - else: call FUN_8c0129cc() (the pause menu); if it just opened (returns 1), reset the

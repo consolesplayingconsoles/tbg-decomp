@@ -12,7 +12,7 @@ $symbols = [
     ['_var_8c157a70', 0x8C157A70],
     ['_var_8c157a74', 0x8C157A74],
     ['_var_8c157a78', 0x8C157A78],
-    ['_var_8c157a7c', 0x8C157A7C],
+    ['_var_vmBusy_8c157a7c', 0x8C157A7C],
     ['_var_datQueueBaseDir_8c157a80', 0x8C157A80],
     ['_var_8c157a84', 0x8C157A84],
     ['_var_8c157a88', 0x8C157A88],

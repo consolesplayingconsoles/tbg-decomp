@@ -3,6 +3,7 @@
 #include "010e90.h"
 #include "011120_asset_queues.h"
 #include "012324_peripheral_support.h"
+#include "01bb48_vm_game.h"
 #include "sectionB.h"
 
 int var_8c157ad4[4];
@@ -121,6 +122,6 @@ void PspTask_8c012324()
         }
     }
 
-    vmsLcd_8c01c910();
+    VmGameUpdateLcd_8c01c910();
     SndUpdateAdxVolFade_8c010a40();
 }

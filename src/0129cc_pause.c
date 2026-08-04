@@ -221,7 +221,7 @@ void PauseTask_8c012cbc()
 {
     LOG_TRACE(("[PAUSE] PauseTask_8c012cbc\n"));
 
-    if (var_resetRequested_8c157a78 != 0 && var_8c157a7c == 0
+    if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
         FUN_8c016182();
         TitlePushTitle_8c015fd6(1);
@@ -246,7 +246,7 @@ void PauseToggleTask_8c012d06()
 {
     LOG_TRACE(("[PAUSE] PauseToggleTask_8c012d06\n"));
 
-    if (var_resetRequested_8c157a78 != 0 && var_8c157a7c == 0
+    if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
         FUN_8c016182();
         TitlePushTitle_8c015fd6(1);
@@ -276,7 +276,7 @@ void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
 {
     LOG_TRACE(("[PAUSE] PauseDemoEndTask_8c012d5a\n"));
 
-    if (var_resetRequested_8c157a78 != 0 && var_8c157a7c == 0
+    if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
         FUN_8c016182();
         init_8c03bd80 = 1;

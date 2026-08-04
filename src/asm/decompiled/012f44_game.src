@@ -1,6 +1,6 @@
 ; 8c012f44
           .IMPORT     _var_resetRequested_8c157a78
-          .IMPORT     _var_8c157a7c
+          .IMPORT     _var_vmBusy_8c157a7c
           .IMPORT     _FUN_8c010ca6
           .IMPORT     _sdMidiStopAll
           .IMPORT     _var_vibport_8c1ba354
@@ -83,7 +83,7 @@
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _SndInitSoundMidiAdx_8c010e18
-          .IMPORT     _var_8c2260a8
+          .IMPORT     _var_lcdAnimActive_8c2260a8
           .IMPORT     _njSetTextureMemorySize
           .IMPORT     _syCblCheckCable
           .IMPORT     _SbInitSystem_8c0149b0
@@ -133,15 +133,15 @@
           .IMPORT     _var_8c1ba344
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _var_demoBuf_8c1ba3c4
-          .IMPORT     _var_8c1bc454
+          .IMPORT     _var_vmGameBuf_8c1bc454
           .IMPORT     _var_selectedVm_8c1ba34c
           .IMPORT     _var_demoIndex_8c1bb8d8
           .IMPORT     _var_loadScreenActive_8c157a6c
-          .IMPORT     _FUN_8c01c8dc
+          .IMPORT     _VmGameResetLcdAnims_8c01c8dc
           .IMPORT     _FileMenuResetOptionDefaults_8c0189d2
           .IMPORT     _njSetBorderColor
-          .IMPORT     _vmsLcd_8c01c8fc
-          .IMPORT     _vmsLcd_8c01c910
+          .IMPORT     _VmGameSetLcdSlot_8c01c8fc
+          .IMPORT     _VmGameUpdateLcd_8c01c910
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _var_markPartsDat_8c1bc41c
           .IMPORT     _var_markDat_8c1bc420
@@ -150,9 +150,9 @@
           .IMPORT     _var_loadingResourceGroup_8c1bc3f8
           .IMPORT     _AsqRequestPvm_8c011ac0
           .IMPORT     _var_busFont_8c1ba1c8
-          .IMPORT     _var_8c2260ac
-          .IMPORT     _var_8c2260b8
-          .IMPORT     _var_8c2260c4
+          .IMPORT     _var_lcdAnimBus_8c2260ac
+          .IMPORT     _var_lcdAnimDanger_8c2260b8
+          .IMPORT     _var_lcdAnimLoading_8c2260c4
           .IMPORT     _var_8c1bc440
           .IMPORT     _AsqRequestNj_8c011492
           .IMPORT     _var_8c1bc444
@@ -310,7 +310,7 @@ LP_GEN_99840:
           .DATA.W H'0268
           .RES.W      1
           .DATA.L _var_resetRequested_8c157a78
-          .DATA.L _var_8c157a7c
+          .DATA.L _var_vmBusy_8c157a7c
           .DATA.L _FUN_8c010ca6
           .DATA.L _sdMidiStopAll
           .DATA.L _var_vibport_8c1ba354
@@ -924,7 +924,7 @@ LP_GEN_65923:
           .DATA.L _AsqFreeQueues_8c011f7e
           .DATA.L _TaskFree_8c014b66
           .DATA.L _SndInitSoundMidiAdx_8c010e18
-          .DATA.L _var_8c2260a8
+          .DATA.L _var_lcdAnimActive_8c2260a8
           .DATA.L _TitlePushTitle_8c015fd6
           .DATA.L _var_gdErr_8c18ad14
           .DATA.L H'00100000
@@ -1202,12 +1202,12 @@ LP_GEN_90231:
           .DATA.L _var_8c1ba344
           .DATA.L _var_currentSysResGroupInfo_8c225fb0
           .DATA.L _var_demoBuf_8c1ba3c4
-          .DATA.L _var_8c1bc454
+          .DATA.L _var_vmGameBuf_8c1bc454
           .DATA.L _var_selectedVm_8c1ba34c
           .DATA.L _var_8c1bb8c4
           .DATA.L _var_demoIndex_8c1bb8d8
           .DATA.L _var_loadScreenActive_8c157a6c
-          .DATA.L _FUN_8c01c8dc
+          .DATA.L _VmGameResetLcdAnims_8c01c8dc
           .DATA.L _FileMenuResetOptionDefaults_8c0189d2
           .DATA.L _njSetBorderColor
 
@@ -1451,8 +1451,8 @@ _GameExit_8c0139d4:
           LDS.L       @R15+,PR
 
 LP_GEN_19861:
-          .DATA.L     _vmsLcd_8c01c8fc ; LP_GEN_19861+0
-          .DATA.L     _vmsLcd_8c01c910
+          .DATA.L     _VmGameSetLcdSlot_8c01c8fc ; LP_GEN_19861+0
+          .DATA.L     _VmGameUpdateLcd_8c01c910
           .DATA.L     _task_8c013388
           .DATA.L     _var_tasks_8c1ba3c8
           .DATA.L     _TaskPush_8c014ae8
@@ -1476,11 +1476,11 @@ LP_GEN_19861:
           .DATA.L     s_loading_dat_8c0333e0
           .DATA.L     _var_busFont_8c1ba1c8
           .DATA.L     s_bus_font_fff_8c0333ec
-          .DATA.L     _var_8c2260ac
+          .DATA.L     _var_lcdAnimBus_8c2260ac
           .DATA.L     s_vm_bus_lcd_8c0333fc
-          .DATA.L     _var_8c2260b8
+          .DATA.L     _var_lcdAnimDanger_8c2260b8
           .DATA.L     s_vm_danger_lcd_8c033408
-          .DATA.L     _var_8c2260c4
+          .DATA.L     _var_lcdAnimLoading_8c2260c4
           .DATA.L     s_now_loading_lcd_8c033418
           .DATA.L     _var_8c1bc440
           .DATA.L     s_fuu_pvm_8c033428

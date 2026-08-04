@@ -72,6 +72,6 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c1ba348'), 0x8c500000);
         $this->shouldCall('_buMakeBackupFileImage')->with(0x8c500000, $header);
         $this->shouldCall('_BupSave_8c014bcc')->with(1, 0x8c440000, 0x8c500000, 3);
-        $this->shouldWriteLong($this->addressOf('_var_8c157a7c'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 1);
     }
 };

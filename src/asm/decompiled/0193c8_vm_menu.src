@@ -1,7 +1,7 @@
 ; 8c0193c8
           .IMPORT     _BupGetInfo_8c014bba
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _var_8c22606c
+          .IMPORT     _var_vmMountBusy_8c22606c
           .IMPORT     _BupMount_8c014c00
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _TaskPush_8c014ae8
@@ -329,7 +329,7 @@ LAB_8c019592:
 LP_GEN_33095:
           .DATA.L _BupGetInfo_8c014bba ; H'8C01959C
           .DATA.L _TaskFree_8c014b66 ; H'8C0195A0
-          .DATA.L _var_8c22606c ; H'8C0195A4
+          .DATA.L _var_vmMountBusy_8c22606c ; H'8C0195A4
           .DATA.L _BupMount_8c014c00 ; H'8C0195A8
           .DATA.L _taskWaitForVmsReady_8c0193c8 ; H'8C0195AC
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C0195B0

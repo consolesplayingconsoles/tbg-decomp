@@ -10,7 +10,7 @@ return new class extends TestCase {
     public function test_pushes_task_and_allocates_buffer(): void
     {
         $this->setSize('_var_tasks_8c1ba3c8', 4);
-        $this->setSize('_var_8c157a7c', 4);
+        $this->setSize('_var_vmBusy_8c157a7c', 4);
         $this->setSize('_init_saveNames_8c044d50', 0x2c); // char*[11]
         $this->setSize('_var_8c1ba2e0', 4);
         $this->setSize('_var_8c225fe0', 4);
@@ -35,7 +35,7 @@ return new class extends TestCase {
                 $this->memory->writeUInt32($params[2], U32::of($createdTask));
                 $this->memory->writeUInt32($params[3], U32::of($createdState));
             });
-        $this->shouldWriteLong($this->addressOf('_var_8c157a7c'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 1);
         $this->shouldWriteLong($createdTask + 0x08, 0);
         $this->shouldWriteLong($createdTask + 0x0c, 0);
         $this->shouldWriteLong($createdTask + 0x18, $this->addressOf('_init_saveNames_8c044d50'));

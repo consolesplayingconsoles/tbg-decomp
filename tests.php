@@ -362,16 +362,37 @@ return [
         ],
         [
             "tests" => [
-                "tests/01b19c_system_menu/8c01b19c_SaveApplyLoadedProgress.php",
+                "tests/01b19c_system_menu/8c01b19c_SystemMenuApplyLoadedProgress.php",
                 "tests/01b19c_system_menu/8c01b1c0_writeDecimalDigits.php",
                 "tests/01b19c_system_menu/8c01b206_updateVmuIconText.php",
-                "tests/01b19c_system_menu/8c01b26c_SaveWriteToVmu.php",
+                "tests/01b19c_system_menu/8c01b26c_SystemMenuWriteToVmu.php",
                 "tests/01b19c_system_menu/8c01b3ac_saveTask.php",
-                "tests/01b19c_system_menu/8c01ba64_SaveSwitchFromTask.php",
+                "tests/01b19c_system_menu/8c01ba64_SystemMenuSwitchFromTask.php",
             ],
             "objects" => [
                 "build/output_test/01b19c_system_menu_src.obj",
                 "build/output_test/01b19c_system_menu_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
+                "tests/01bb48_vm_game/8c01bb48_advanceLcdAnim.php",
+                "tests/01bb48_vm_game/8c01bc44_pollBupOp.php",
+                "tests/01bb48_vm_game/8c01bd30_saveExecFile.php",
+                "tests/01bb48_vm_game/8c01be90_drawSelectScreen.php",
+                "tests/01bb48_vm_game/8c01bf2a_selectSlot.php",
+                "tests/01bb48_vm_game/8c01bfec_vmGameTask.php",
+                "tests/01bb48_vm_game/8c01bde4_defragDisk.php",
+                "tests/01bb48_vm_game/8c01be30_loadFileEx.php",
+                "tests/01bb48_vm_game/8c01be60_rewriteExecFile.php",
+                "tests/01bb48_vm_game/8c01c880_VmGameSwitchToTopMenu.php",
+                "tests/01bb48_vm_game/8c01c8dc_VmGameResetLcdAnims.php",
+                "tests/01bb48_vm_game/8c01c8fc_VmGameSetLcdSlot.php",
+                "tests/01bb48_vm_game/8c01c910_VmGameUpdateLcd.php",
+            ],
+            "objects" => [
+                "build/output_test/01bb48_vm_game_src.obj",
+                "build/output_test/01bb48_vm_game_c.obj",
             ]
         ],
     ],

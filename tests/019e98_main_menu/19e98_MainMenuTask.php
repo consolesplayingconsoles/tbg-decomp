@@ -1077,7 +1077,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->shouldCall('_FUN_8c01c880')->with(0xbebacafe);
+        $this->shouldCall('_VmGameSwitchToTopMenu_8c01c880')->with(0xbebacafe);
 
         $this->singleCall('_mainMenuTask_8c019e98')->with(0xbebacafe)->run();
     }
