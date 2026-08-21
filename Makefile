@@ -60,7 +60,7 @@ SRCS = \
 	src/01a148_option.c \
 	src/01b19c_system_menu.c \
 	src/01bb48_vm_game.c \
-	src/asm/01c980.src \
+	src/01c980_profile_file.c \
 	src/01d290_album.c \
 	src/asm/01d7fc.src \
 	src/asm/01e27c.src \

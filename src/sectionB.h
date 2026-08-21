@@ -522,7 +522,8 @@ extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 extern int var_menuTextboxCharLimit_8c225fb8;
-extern int var_8c2263a4; // saved into var_progress_8c1ba1cc.field_0x8c by 01b19c_system_menu
+extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1cc.field_0x8c by 01b19c_system_menu
+extern char var_profileUnlocked_8c2263b4[56]; // one byte per PROFILE FILE grid slot (55 used, 1 pad byte); set by ProfileFile
 extern ResourceGroup* var_resourceGroup_8c2263a8;
 extern Sint8 var_soundMode_8c226070;
 extern char *var_8c226074; /* SETTING screen: ptr to the 5 gameplay-setting bytes */

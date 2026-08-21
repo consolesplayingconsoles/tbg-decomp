@@ -368,7 +368,7 @@ STATIC void replaySaveTask_8c0167ca(Task *task, void *state)
 
     if (task->field_0x08 == 0) {
         TaskFree_8c014b66(task);
-        CourseMenuFUN_8c017ef2();
+        CourseMenuReturn_8c017ef2();
         return;
     }
 
@@ -415,7 +415,7 @@ STATIC void replaySaveTask_8c0167ca(Task *task, void *state)
         var_demoBuf_8c1ba3c4 = (int *)-1;
         BupUnmount_8c014c46(var_selectedVm_8c1ba34c);
         TaskFree_8c014b66(task);
-        CourseMenuFUN_8c017ef2();
+        CourseMenuReturn_8c017ef2();
         return;
     }
     default:

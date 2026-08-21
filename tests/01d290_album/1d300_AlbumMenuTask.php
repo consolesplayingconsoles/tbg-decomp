@@ -367,7 +367,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->m(0x40), 1);
         $this->shouldWriteFloat($this->m(0x20), 0.0);
         $this->shouldCall('_FUN_8c016182');
-        $this->shouldCall('_CourseMenuFUN_8c017ef2');
+        $this->shouldCall('_CourseMenuReturn_8c017ef2');
 
         $this->singleCall('_albumMenuTask_8c01d300')->with(0xbebacafe, 0)->run();
     }
@@ -466,6 +466,6 @@ return new class extends TestCase {
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 0x4);
         $this->setSize('_FUN_8c016182', 0x4);
         $this->setSize('_CourseMenuInterpolateCursor_8c016d2c', 0x4);
-        $this->setSize('_CourseMenuFUN_8c017ef2', 0x4);
+        $this->setSize('_CourseMenuReturn_8c017ef2', 0x4);
     }
 };

@@ -42,7 +42,7 @@
           .IMPORT     _var_8c1ba348
           .IMPORT     _syFree
           .IMPORT     _FUN_8c016182
-          .IMPORT     _CourseMenuFUN_8c017ef2
+          .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _CourseMenuBuildCourseUnlockList_8c0172dc
           .IMPORT     _CourseMenuApplyUnlocks_8c0173e6
           .IMPORT     _TitlePushTitle_8c015fd6
@@ -988,7 +988,7 @@ LP_GEN_50614:
           .DATA.L _const_8c0388f0 ; H'8C01DF14
           .DATA.L _FUN_8c016182 ; H'8C01DF18
           .DATA.L _var_progress_8c1ba1cc ; H'8C01DF1C
-          .DATA.L _CourseMenuFUN_8c017ef2 ; H'8C01DF20
+          .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01DF20
           .DATA.L _CourseMenuBuildCourseUnlockList_8c0172dc ; H'8C01DF24
           .DATA.L _CourseMenuApplyUnlocks_8c0173e6 ; H'8C01DF28
           .DATA.L _FUN_8c01f954 ; H'8C01DF2C

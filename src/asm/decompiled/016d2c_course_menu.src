@@ -79,7 +79,7 @@
           .EXPORT     _CourseMenuBuildCourseUnlockList_8c0172dc
           .EXPORT     _CourseMenuApplyUnlocks_8c0173e6
           .EXPORT     _CourseMenuSwitchFromTask_8c017e18
-          .EXPORT     _CourseMenuFUN_8c017ef2
+          .EXPORT     _CourseMenuReturn_8c017ef2
           .EXPORT     _CourseMenuRequestCommonResources_8c01852c
           .EXPORT     _CourseMenuRequestSysResgrp_8c018568
           .EXPORT     _CourseMenuFreeResourceGroup_8c0185c4
@@ -2491,7 +2491,7 @@ LAB_8c017ee8:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_CourseMenuFUN_8c017ef2:
+_CourseMenuReturn_8c017ef2:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15

@@ -9,8 +9,8 @@
           .IMPORT     _var_8c226098
           .IMPORT     _strcpy
           .IMPORT     _var_exp_8c1ba25c
-          .IMPORT     _FUN_8c01c980
-          .IMPORT     _var_8c2263a4
+          .IMPORT     _ProfileFileUpdateUnlocks_8c01c980
+          .IMPORT     _var_profileUnlockedCount_8c2263a4
           .IMPORT     _var_8c1ba2e4
           .IMPORT     _memset
           .IMPORT     _njMemCopy
@@ -323,8 +323,8 @@ LP_GEN_27906:
           .DATA.L _var_8c1bb8bc ; H'8C01B354
           .DATA.L _var_8c1bb8dc ; H'8C01B358
           .DATA.L _var_award_8c1bb8f8 ; H'8C01B35C
-          .DATA.L _FUN_8c01c980 ; H'8C01B360
-          .DATA.L _var_8c2263a4 ; H'8C01B364
+          .DATA.L _ProfileFileUpdateUnlocks_8c01c980 ; H'8C01B360
+          .DATA.L _var_profileUnlockedCount_8c2263a4 ; H'8C01B364
           .DATA.L _var_8c1ba2e4 ; H'8C01B368
           .DATA.L _memset ; H'8C01B36C
           .DATA.L _var_8c226098 ; H'8C01B370

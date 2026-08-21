@@ -15,7 +15,7 @@
           .IMPORT     _CourseMenuInterpolateCursor_8c016d2c
           .IMPORT     _init_8c03bd80
           .IMPORT     _FUN_8c016182
-          .IMPORT     _CourseMenuFUN_8c017ef2
+          .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _TaskSetAction_8c014b3e
           .IMPORT     _CourseMenuFreeResourceGroup_8c0185c4
           .IMPORT     _var_tex_8c157af8
@@ -684,7 +684,7 @@ LP_GEN_43132:
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01D758
           .DATA.L _init_8c03bd80 ; H'8C01D75C
           .DATA.L _FUN_8c016182 ; H'8C01D760
-          .DATA.L _CourseMenuFUN_8c017ef2 ; H'8C01D764
+          .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01D764
           .DATA.L _albumMenuTask_8c01d300 ; H'8C01D768
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01D76C
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01D770

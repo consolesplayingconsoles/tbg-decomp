@@ -49,7 +49,7 @@
           .IMPORT     _var_dialogSequenceIsActive_8c225fb4
           .IMPORT     _var_menuTextboxCharLimit_8c225fb8
           .IMPORT     _var_8c22642c
-          .IMPORT     _CourseMenuFUN_8c017ef2
+          .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _CourseMenuBuildCourseUnlockList_8c0172dc
           .IMPORT     _CourseMenuApplyUnlocks_8c0173e6
           .IMPORT     _var_playMode_8c1bb8d0
@@ -1710,7 +1710,7 @@ LP_GEN_95699:
           .DATA.L _var_8c22642c ; H'8C01EF50
           .DATA.L H'0001869F ; H'8C01EF54
           .DATA.L _FUN_8c016182 ; H'8C01EF58
-          .DATA.L _CourseMenuFUN_8c017ef2 ; H'8C01EF5C
+          .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01EF5C
 LAB_8c01ef60:
           MOV.L       LP_GEN_11122+2,R2
           JSR         @R2

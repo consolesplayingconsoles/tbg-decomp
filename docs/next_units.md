@@ -10,7 +10,94 @@ when this list goes stale; it only takes a few minutes.
 Ranking criteria used: continuation of the route-load pipeline, plus fan-in
 from already-decompiled units.
 
-## 1. `02171c` -- map-tile streaming engine (1.1 KB, 8 functions) -- READY, next
+## 0. `01c980` / `01d7fc` / `01e27c` -- profile file, results, course confirm (2026-08-21) -- CURRENT, next
+
+Picked ahead of the ranking below because a player screenshot pass nailed
+down what each of these three consecutive units is, from a shallow Ghidra
+read (light -- verify per-function during actual decompilation). Not part of
+the route-load pipeline; these are course-menu-adjacent screens.
+
+### `01c980_profile_file` (5.5 KB, 6 functions) -- PROFILE FILE menu
+
+The event/character-profile screen referenced in `gameplay.md`'s Story mode
+notes ("PROFILE FILE" notebook UI). State lives behind `DAT_8c1bc7c0`
+(screen-state enum, same pattern as the other two units below).
+
+- `FUN_8c01c980` -- scans `init_8c044ffc[55]` (one entry per grid slot) and
+  marks a slot unlocked in `var_8c2263b4[55]` if *any* flag in that slot's
+  list tests true via `EventHasProgressFlagAlt_8c02aff0`.
+- `FUN_8c01d1c4` -- task init (`TaskSetAction` -> `FUN_8c01ccec`), called from
+  `SystemMenuWriteToVmu_8c01b26c`.
+- `FUN_8c01ccec` -- per-frame task body: drives a 2D cursor
+  (`DAT_8c1bc7e4`=col 0-9, `DAT_8c1bc7e8`=row 0-5) over the 55-slot grid
+  (`CourseMenuInterpolateCursor_8c016d2c` for the slide animation), swaps in a
+  resource group per selected row (`init_8c045148[row]`) -- the detail page's
+  portrait+bio+checklist -- and on confirm returns to
+  `courseMenuStoryMenuTask_8c017718`/`courseMenuFreeRunMenuTask_8c017ada`.
+- `FUN_8c01c9f2` / `FUN_8c01cac8` -- draw helpers: the former paints the
+  55-slot unlock grid, the latter paints the selected slot's episode
+  checkbox row, walking the *same* `init_8c044ffc[row*10+col]` flag list and
+  drawing a checkmark (sprite widget 9) per flag that's currently set.
+
+**Confirmed link to `02af78_event`:** read `init_8c044ffc`'s first pointer's
+data directly out of Ghidra memory -- it's `{50, 51, 124, 52, 125, 53, 126,
+59, 0xff}` (flag ids `0x32, 0x33, 0x7c, 0x34, 0x7d, 0x35, 0x7e, 0x3b`). Those
+are exactly the first two `ACTION_SET_PROGRESS` flags in
+`init_wanganEvents_8c04abb0` (`02af78_event.c`): `0x32` and `0x33`. So each of
+the 55 grid slots is a character, and its flag list is the set of
+`EventEntry.actions_0x0c` progress flags (`ACTION_SET_PROGRESS`) that
+character's episodes set -- i.e. `init_8c044ffc` should let us recover the
+character roster/order and which episodes belong to which character, for
+free, by cross-referencing flag ids already named in `02af78_event.c`.
+Resolves that file's "revisit when dialog strings found" note.
+
+### `01d7fc` (2.9 KB, 6 functions) -- post-run results + VMU save
+
+Screenshot-confirmed: score reveal digit-counter, then a save-to-VMU YES/NO
+prompt.
+
+- `FUN_8c01e0b4` -- tallies the run's score on entry: time bonus
+  (`var_8c2263ec`), fare (`var_8c2263f0`), exp*10 (`var_8c2263f4`), an
+  "award" tier 0-3 from distance thresholds (0x46/0x50/0x5a) worth
+  0/50/100/200 points (`var_8c2263f8`), plus two more per-stat bonuses
+  (`var_8c2263fc`/`var_226400`); sums into `var_8c226404`, added to
+  `var_exp_8c1ba25c` (capped 99999). Falls through to `FUN_8c01df8e`.
+- `FUN_8c01e24e` -- same entry but skips the tally (sets a "no tally" flag
+  first) -- the failed-run path. Also falls through to `FUN_8c01df8e`.
+- `FUN_8c01df8e` -- task init: pushes `task_8c01d8e0` under `GameTask_8c012f44`.
+- `task_8c01d8e0` -- the results screen's state machine (14 states): fade in,
+  odometer-style digit-reveal of the score (`FUN_8c01d7fc` draws the scrolling
+  digit sprites), award-star icons revealed one at a time
+  (`DAT_8c1bc80c` 0..7), a save-to-VMU yes/no prompt
+  (`PromptHandleBinary_8c016caa`), the actual write
+  (`SystemMenuWriteToVmu_8c01b26c` / `BupGetInfo_8c014bba` / `buStat`) with
+  success/failure message boxes, then routes onward to title, a story dialog
+  sequence, or the course/free-run menu depending on progress.
+- `FUN_8c01d864` -- draws the message-box text overlay for the results screen.
+
+### `01e27c` (8.9 KB, 9 functions) -- course-select confirmation card
+
+Screenshot-confirmed: the course info card (route icon, distance, stop
+count, passenger/traffic/difficulty star ratings, description text) ending
+in a "Is this course OK?" YES/NO prompt.
+
+- `FUN_8c01e576` / `FUN_8c01e27c` -- sets up and runs the description-text
+  reveal: `DAT_8c1bc804` walks a page range sized from
+  `init_8c0451b4/b5[var_8c22640c]` (per-course text length, `var_8c22640c`
+  = selected course id), ending in `PromptHandleBinary_8c016caa` for the
+  YES/NO.
+- `FUN_8c01e920` / `FUN_8c01e63c` -- the star-rating reveal: `DAT_8c1bc7e8`
+  counts up to `init_8c0451ec[var_8c22640c]` (per-course star count),
+  animating the passenger/traffic/difficulty star fill-in;
+  `CourseMenuDrawDateAndExp_8c016ee6` draws the surrounding date/exp text.
+- `FUN_8c01f114` / `FUN_8c01f21c` -- confirm-YES entry points: sets
+  `var_playMode_8c1bb8d0=1`, builds the dialog queue (`FUN_8c01e992`), pushes
+  `GameTask_8c012f44`, requests the course's resource group -- this is where
+  the drive actually starts loading.
+- `FUN_8c01ead8` -- draw helper (unclear yet, likely another digit-row like
+  `FUN_8c01d7fc`/`FUN_8c01d864`).
+
+## 1. `02171c` -- map-tile streaming engine (1.1 KB, 8 functions) -- READY
 
 Most direct continuation of route_load, and fully understood via Ghidra
 (2026-07-13). Unblocked: every import already resolves -- `AsqRequestTexlist_8c01181c`
@@ -47,22 +134,7 @@ the 4 renderable tile layers. Note the 5th layer (`var_8c226530`, model-only, no
 texlist) is allocated here but populated by another unit -- a loose thread, not a
 blocker.
 
-## 2. `02af78_event` -- story event selection (888 B, 8 functions) -- DONE
-
-`pickSegmentEvent_8c02b170` is called in every route_load post-load block.
-Resolved: this is the story-cutscene-event picker. Each route has an
-`EventEntry` table (`init_8c04b1f0`/`init_8c04abb0`/`init_8c04b920` for
-Shinjuku/Wangan/Ome), entries carry a time-of-day field plus a packed
-day-of-week mask and prerequisite/action condition codes;
-`scanEventCandidates_8c02b03c` filters by tod+day+progress each course load,
-`pickSegmentEvent_8c02b170` narrows to the current segment and randomly
-selects one, `applyEventFlags_8c02b292` applies its post-conditions. See
-`docs/gameplay.md` for the resolved open question this answers.
-
-**Gain:** confirmed how cutscenes/events get armed per course/segment
-(previously an open question left by route_load).
-
-## 3. `026710` -- traffic vehicle spawner (4.4 KB, 13 functions)
+## 2. `026710` -- traffic vehicle spawner (4.4 KB, 13 functions)
 
 Consumes `slots_0x04[8]` = `*_mac_cpu1.dat` (CPU-vehicle placement). Uses
 trig (`njSin`/`njCos`/`acosf`), the Asq RNG, pushes tasks. Calls into
@@ -74,7 +146,7 @@ follow-up pairing**.
 the vehicle model code tables (`3s_`/`3t_`, sed/tax/tor...) in route_load's
 data.
 
-## 4. `022464` -- screen fade tasks (1.9 KB, 8 functions, half-named already)
+## 3. `022464` -- screen fade tasks (1.9 KB, 8 functions, half-named already)
 
 Not load-related but best leverage-per-byte: 6 decompiled units
 (`016d2c_course_menu`, `019e98_main_menu`, `0193c8_vm_menu`, `015ab8_title`,
@@ -84,7 +156,7 @@ meaningfully named (`task_fadein`, `draw`, ...).
 
 **Gain:** mostly mechanical quick win; closes a hole every menu depends on.
 
-## 5. `028258` -- pedestrians + scene objects + message box (11.5 KB, 41 functions)
+## 4. `028258` -- pedestrians + scene objects + message box (11.5 KB, 41 functions)
 
 Highest-fan-in code unit remaining (19 referencing units, 6 decompiled). Owns
 route_load's remaining mysteries: the pedestrian chain (slots 11/12 =
@@ -100,11 +172,13 @@ after one or two small ones, or carved into the pedestrian half first.
 
 - `0222dc` (392 B, 4 functions): referenced by 12 asm units, trivial to knock
   out, but only `012f44_game` among decompiled units uses it.
-- `01614c_debug_menu` (3.6 KB): VMU save / demo-recording related (`BupGetInfo/Mount/
-  Unmount`, demo buffers); 4 decompiled callers.
-- `01bb48` (3.6 KB): VMU LCD (`VmGameSetLcdSlot_8c01c8fc/8c01c910`); 5 decompiled
-  callers.
 
 ## Suggested order
 
 `02171c` -> `022464` (palate cleanser) -> `026710`+`02c884` -> `028258`.
+
+## Done since this snapshot
+
+- `02af78_event` -- story event selection. See `docs/gameplay.md`.
+- `01614c_debug_menu` -- VMU save / demo-recording related.
+- `01bb48` -> `01bb48_vm_game.c` -- VMU LCD (`VmGameSetLcdSlot_8c01c8fc/8c01c910`).

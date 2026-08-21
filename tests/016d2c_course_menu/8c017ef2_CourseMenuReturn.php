@@ -12,7 +12,7 @@ return new class extends TestCase {
         // First sequence is the second one (index 1)
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 1);
 
-        $this->call('_CourseMenuFUN_8c017ef2');
+        $this->call('_CourseMenuReturn_8c017ef2');
 
         $createdTaskLocal = 0xffffe8;
         $createdStateLocal = 0xffffec;
@@ -92,7 +92,7 @@ return new class extends TestCase {
 
         // Enter with a non-zero arg register so the missing `MOV #0,R4`
         // (InputPushTask_8c0128cc(0)) is observable.
-        $this->call('_CourseMenuFUN_8c017ef2')->with(0xdeadbeef);
+        $this->call('_CourseMenuReturn_8c017ef2')->with(0xdeadbeef);
 
         $createdTaskLocal = 0xffffe8;
         $createdStateLocal = 0xffffec;

@@ -200,7 +200,7 @@ STATIC int update_8c0129cc(void)
                 var_progress_8c1ba1cc.field_0x04[i] = var_8c1ba2b8[i];
                 var_progress_8c1ba1cc.field_0x18[i] = var_8c1ba2cc[i];
             }
-            CourseMenuFUN_8c017ef2();
+            CourseMenuReturn_8c017ef2();
             LOG_INFO(("[PAUSE] update_8c0129cc: retire complete, leaving drive (course menu)\n"));
             return 0;
         }

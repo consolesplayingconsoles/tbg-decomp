@@ -510,12 +510,12 @@
           .EXPORT     _var_lcdFramePtr_8c22619c ; 01bb48
           .EXPORT     _var_defragBuf_8c2261a0 ; 01bb48
           .EXPORT     _var_lcdSlot_8c2263a0 ; 01bb48
-          .EXPORT     _var_8c2263a4 ; 01b19c
+          .EXPORT     _var_profileUnlockedCount_8c2263a4 ; 01b19c
                                     ; 01c980
           .EXPORT     _var_resourceGroup_8c2263a8 ; 012f44_game
                                                   ; 01bb48
                                                   ; 01c980
-          .EXPORT     _var_8c2263b4 ; 01c980
+          .EXPORT     _var_profileUnlocked_8c2263b4 ; 01c980
           .EXPORT     _var_8c2263ec ; 01d7fc
           .EXPORT     _var_8c2263f0 ; 01d7fc
           .EXPORT     _var_8c2263f4 ; 01d7fc
@@ -1236,11 +1236,11 @@ _var_defragBuf_8c2261a0:
           .RES.B      512
 _var_lcdSlot_8c2263a0:
           .RES.B      4
-_var_8c2263a4:
+_var_profileUnlockedCount_8c2263a4:
           .RES.B      4
 _var_resourceGroup_8c2263a8:
           .RES.B      12
-_var_8c2263b4:
+_var_profileUnlocked_8c2263b4:
           .RES.B      56
 _var_8c2263ec:
           .RES.B      4

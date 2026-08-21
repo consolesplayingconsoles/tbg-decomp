@@ -189,7 +189,7 @@ return [
                 "tests/016d2c_course_menu/8c017ada_FreeRunMenuTask.php",
                 "tests/016d2c_course_menu/8c017d54_FUN.php",
                 "tests/016d2c_course_menu/8c017e18_CourseMenuSwitchFromTask.php",
-                "tests/016d2c_course_menu/8c017ef2_FUN.php",
+                "tests/016d2c_course_menu/8c017ef2_CourseMenuReturn.php",
                 "tests/016d2c_course_menu/8c01803e_drawFixedInteger.php",
                 "tests/016d2c_course_menu/8c018118_drawRouteInfo.php",
                 "tests/016d2c_course_menu/8c0181b6_courseConfirmMenuTask.php",
@@ -393,6 +393,20 @@ return [
             "objects" => [
                 "build/output_test/01bb48_vm_game_src.obj",
                 "build/output_test/01bb48_vm_game_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
+                "tests/01c980_profile_file/8c01c980_ProfileFileUpdateUnlocks.php",
+                "tests/01c980_profile_file/8c01c9f2_drawUnlockGrid.php",
+                "tests/01c980_profile_file/8c01cac8_drawEpisodeChecklist.php",
+                "tests/01c980_profile_file/8c01cbec_updatePageLoad.php",
+                "tests/01c980_profile_file/8c01ccec_menuTask.php",
+                "tests/01c980_profile_file/8c01d1c4_ProfileFilePushTask.php",
+            ],
+            "objects" => [
+                "build/output_test/01c980_profile_file_src.obj",
+                "build/output_test/01c980_profile_file_c.obj",
             ]
         ],
     ],

@@ -294,7 +294,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                 var_menuState_8c1bc7a8.field_0x40 = 1;
                 var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = 0.0;
                 FUN_8c016182();
-                CourseMenuFUN_8c017ef2();
+                CourseMenuReturn_8c017ef2();
                 return;
             }
             break;

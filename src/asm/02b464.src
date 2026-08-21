@@ -82,7 +82,7 @@
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_8c1bb8dc
-          .IMPORT     _CourseMenuFUN_8c017ef2
+          .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _push_fadeout_8c022b60
           .IMPORT     _var_shouldShowFreeRunIntro_8c1bb8c0
@@ -2665,7 +2665,7 @@ LP_GEN_25024:
           .DATA.L _var_progress_8c1ba1cc ; H'8C02C838
           .DATA.L _var_8c1bb8dc ; H'8C02C83C
           .DATA.L _FUN_8c01e0b4 ; H'8C02C840
-          .DATA.L _CourseMenuFUN_8c017ef2 ; H'8C02C844
+          .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C02C844
           .DATA.L _var_isFading_8c226568 ; H'8C02C848
           .DATA.L _push_fadeout_8c022b60 ; H'8C02C84C
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C850

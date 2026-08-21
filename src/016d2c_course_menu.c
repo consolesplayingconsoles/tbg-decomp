@@ -15,7 +15,7 @@
 #include "0100bc_sound.h"
 #include "01d290_album.h"
 #include "01b19c_system_menu.h"
-#include "01c980.h"
+#include "01c980_profile_file.h"
 #include "01e27c.h"
 #include "028258.h"
 #include "sectionB.h"
@@ -1134,7 +1134,11 @@ void CourseMenuSwitchFromTask_8c017e18(Task *task)
     CHANGE_STATE(COURSE_MENU_STATE_INIT);
 }
 
-void CourseMenuFUN_8c017ef2(void)
+/* Rebuilds the course menu's task stack (GameTask plus the story or
+ * free-run menu task, depending on var_gameMode_8c1bb8fc) and resets its
+ * state to INIT. Called by other screens (Profile File, Pause, Album,
+ * the debug menu) when leaving back to the course menu. */
+void CourseMenuReturn_8c017ef2(void)
 {
     Task *createdTask;
     void *createdState;
@@ -1536,7 +1540,7 @@ STATIC CourseMenuButton init_courseMenuButtons_8c04442c[15] = {
         /* unlocked */ 1,
         /* x, y     */ 45.0f, 182.0f,
         /* spriteNo */ 0,
-        /* onSelect */ FUN_8c01d1c4,
+        /* onSelect */ ProfileFilePushTask_8c01d1c4,
         /* courseId */ 0,
     },
     {   /* [6] */

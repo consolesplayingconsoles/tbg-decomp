@@ -3,7 +3,7 @@
 #include "01b19c_system_menu.h"
 #include "sectionB.h"
 #include "013ae8_route_load.h"
-#include "01c980.h"
+#include "01c980_profile_file.h"
 #include "0193c8_vm_menu.h"
 #include "014f54_text.h"
 #include "014b8c_backup.h"
@@ -120,8 +120,8 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     var_progress_8c1ba1cc.field_0xdc = var_8c1bb8bc;
     var_progress_8c1ba1cc.field_0xe0 = var_8c1bb8dc;
     var_progress_8c1ba1cc.award_0xe4 = *(signed char *)&var_award_8c1bb8f8;
-    FUN_8c01c980();
-    var_progress_8c1ba1cc.field_0x8c = var_8c2263a4;
+    ProfileFileUpdateUnlocks_8c01c980();
+    var_progress_8c1ba1cc.field_0x8c = var_profileUnlockedCount_8c2263a4;
     updateVmuIconText_8c01b206();
 
     memset(&var_8c1ba2e4, 0, 0x60);

@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0x22222222);
         $this->initUint32($this->addressOf('_var_8c1bb8dc'), 0x33333333);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0x44);
-        $this->initUint32($this->addressOf('_var_8c2263a4'), 0x55555555);
+        $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 0x55555555);
         $this->initUint32($icon, 0x8c400000);
         $this->initUint16($header + 0x54, 0);        // visual_type (memset is mocked)
         $this->initUint32($saveNames + 2 * 4, 0x8c440000);
@@ -51,7 +51,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($progress + 0xdc, 0x22222222);
         $this->shouldWriteLong($progress + 0xe0, 0x33333333);
         $this->shouldWriteByte($progress + 0xe4, 0x44);
-        $this->shouldCall('_FUN_8c01c980');
+        $this->shouldCall('_ProfileFileUpdateUnlocks_8c01c980');
         $this->shouldWriteLong($progress + 0x8c, 0x55555555);
         $this->shouldCall('_updateVmuIconText_8c01b206');
 

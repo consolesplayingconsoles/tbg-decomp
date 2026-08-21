@@ -14,7 +14,7 @@ return new class extends TestCase {
         $this->call('_replaySaveTask_8c0167ca')->with($task, 0);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldCall('_CourseMenuFUN_8c017ef2');
+        $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }
 
     public function test_state0_not_connected_deactivates(): void
@@ -167,7 +167,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_demoBuf_8c1ba3c4', 0xffffffff);
         $this->shouldCall('_BupUnmount_8c014c46')->with(0);
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldCall('_CourseMenuFUN_8c017ef2');
+        $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }
 
     private function setupExterns(): void
@@ -177,7 +177,7 @@ return new class extends TestCase {
         $this->setSize('_BupGetInfo_8c014bba', 4);
         $this->setSize('_BupMount_8c014c00', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
-        $this->setSize('_CourseMenuFUN_8c017ef2', 4);
+        $this->setSize('_CourseMenuReturn_8c017ef2', 4);
         $this->setSize('_var_demoBuf_8c1ba3c4', 4);
         $this->setSize('_var_8c228ba4', 4);
         $this->setSize('_buStat', 4);

@@ -36,7 +36,7 @@ SRCS = \
 	src/asm/decompiled/01a148_option.src \
 	src/asm/decompiled/01b19c_system_menu.src \
 	src/asm/decompiled/01bb48_vm_game.src \
-	src/asm/01c980.src \
+	src/asm/decompiled/01c980_profile_file.src \
 	src/asm/decompiled/01d290_album.src \
 	src/asm/01d7fc.src \
 	src/asm/01e27c.src \

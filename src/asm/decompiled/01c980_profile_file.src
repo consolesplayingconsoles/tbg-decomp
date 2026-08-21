@@ -1,6 +1,6 @@
 ; 8c01c980
-          .IMPORT     _var_8c2263a4
-          .IMPORT     _var_8c2263b4
+          .IMPORT     _var_profileUnlockedCount_8c2263a4
+          .IMPORT     _var_profileUnlocked_8c2263b4
           .IMPORT     _EventHasProgressFlagAlt_8c02aff0
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
@@ -29,15 +29,17 @@
           .IMPORT     _CourseMenuInterpolateCursor_8c016d2c
           .IMPORT     _PromptHandleMultiple_8c016c58
           .IMPORT     _FUN_8c016182
-          .IMPORT     _CourseMenuFUN_8c017ef2
+          .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _njSetBackColor
           .IMPORT     _TaskSetAction_8c014b3e
-          .EXPORT     _FUN_8c01c980
-          .EXPORT     _FUN_8c01c9f2
-          .EXPORT     _FUN_8c01cac8
-          .EXPORT     _FUN_8c01cbec
-          .EXPORT     _FUN_8c01ccec
-          .EXPORT     _FUN_8c01d1c4
+          .EXPORT     _ProfileFileUpdateUnlocks_8c01c980
+          .EXPORT     _ProfileFilePushTask_8c01d1c4
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _drawUnlockGrid_8c01c9f2
+          .EXPORT     _drawEpisodeChecklist_8c01cac8
+          .EXPORT     _updatePageLoad_8c01cbec
+          .EXPORT     _menuTask_8c01ccec
+          .AENDI
           .EXPORT     _const_8c0386a0 ; 01c980.src
           .EXPORT     _const_8c0386b4 ; 01c980.src
           .EXPORT     _const_8c0386c0 ; 01c980.src
@@ -59,11 +61,11 @@
           .EXPORT     _const_8c0387a8 ; 01c980.src
           .EXPORT     _const_8c0387bc ; 01c980.src
           .EXPORT     _const_8c0387c8 ; 01c980.src
-          .EXPORT     _init_8c044ffc ; 01c980.src
+          .EXPORT     _init_profileUnlockFlags_8c044ffc ; 01c980.src
           .EXPORT     _init_8c0450d8 ; 01c980.src
           .EXPORT     _init_8c045148 ; 01c980.src
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c01c980:
+_ProfileFileUpdateUnlocks_8c01c980:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -127,7 +129,7 @@ LAB_8c01c9d8:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01c9f2:
+_drawUnlockGrid_8c01c9f2:
           MOV.L       R14,@-R15
           MOVA        LP_GEN_27148+18,R0
           MOV.L       R13,@-R15
@@ -216,9 +218,9 @@ LAB_8c01ca5a:
           MOV.L       @R15+,R14
 LP_GEN_27148:
           .DATA.W H'00FF ; H'8C01CA9A
-          .DATA.L _var_8c2263a4 ; H'8C01CA9C
-          .DATA.L _var_8c2263b4 ; H'8C01CAA0
-          .DATA.L _init_8c044ffc ; H'8C01CAA4
+          .DATA.L _var_profileUnlockedCount_8c2263a4 ; H'8C01CA9C
+          .DATA.L _var_profileUnlocked_8c2263b4 ; H'8C01CAA0
+          .DATA.L _init_profileUnlockFlags_8c044ffc ; H'8C01CAA4
           .DATA.L _EventHasProgressFlagAlt_8c02aff0 ; H'8C01CAA8
           .DATA.L H'C0400000 ; H'8C01CAAC
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01CAB0
@@ -227,7 +229,7 @@ LP_GEN_27148:
           .DATA.L __modls ; H'8C01CABC
           .DATA.L H'C0000000 ; H'8C01CAC0
           .DATA.L H'C0800000 ; H'8C01CAC4
-_FUN_8c01cac8:
+_drawEpisodeChecklist_8c01cac8:
           MOV.L       R14,@-R15
           MOV         #H'40,R0
           MOV.L       LP_GEN_23877+2,R14
@@ -356,7 +358,7 @@ LAB_8c01cb80:
 LP_GEN_23877:
           .DATA.W H'00FF ; H'8C01CBB6
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01CBB8
-          .DATA.L _init_8c044ffc ; H'8C01CBBC
+          .DATA.L _init_profileUnlockFlags_8c044ffc ; H'8C01CBBC
           .DATA.L H'42C00000 ; H'8C01CBC0
           .DATA.L H'43858000 ; H'8C01CBC4
           .DATA.L _EventHasProgressFlagAlt_8c02aff0 ; H'8C01CBC8
@@ -368,7 +370,7 @@ LP_GEN_23877:
           .DATA.L H'C0400000 ; H'8C01CBE0
           .DATA.L _var_resourceGroup_8c2263a8 ; H'8C01CBE4
           .DATA.L H'C0800000 ; H'8C01CBE8
-_FUN_8c01cbec:
+_updatePageLoad_8c01cbec:
           MOV.L       R14,@-R15
           MOV         #H'40,R0
           MOV.L       LP_GEN_72378+4,R14
@@ -486,7 +488,7 @@ LP_GEN_72378:
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01CCE0
           .DATA.L _sdMidiPlay ; H'8C01CCE4
           .DATA.L _push_fadein_8c022a9c ; H'8C01CCE8
-_FUN_8c01ccec:
+_menuTask_8c01ccec:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -754,7 +756,7 @@ caseD_4_1:
           BRA         LAB_8c01d09a
           NOP
 LAB_8c01cee2:
-          BSR         _FUN_8c01c9f2
+          BSR         _drawUnlockGrid_8c01c9f2
           NOP
           BRA         LAB_8c01d140
           NOP
@@ -1009,7 +1011,7 @@ LAB_8c01d09a:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _FUN_8c01cbec
+          BRA         _updatePageLoad_8c01cbec
           MOV.L       @R15+,R14
 caseD_a:
           MOV.L       @R6,R3
@@ -1053,7 +1055,7 @@ LAB_8c01d0e4:
           JMP         @R3
           MOV.L       @R15+,R14
 LAB_8c01d104:
-          BSR         _FUN_8c01cac8
+          BSR         _drawEpisodeChecklist_8c01cac8
           NOP
           BRA         LAB_8c01d140
           NOP
@@ -1129,19 +1131,19 @@ LAB_8c01d176:
           MOV.L       @R15+,R14
 LP_GEN_87458:
           .RES.W 1 ; H'8C01D192
-          .DATA.L _var_8c2263b4 ; H'8C01D194
-          .DATA.L _var_8c2263a4 ; H'8C01D198
+          .DATA.L _var_profileUnlocked_8c2263b4 ; H'8C01D194
+          .DATA.L _var_profileUnlockedCount_8c2263a4 ; H'8C01D198
           .DATA.L __modls ; H'8C01D19C
           .DATA.L __divls ; H'8C01D1A0
           .DATA.L H'42400000 ; H'8C01D1A4
           .DATA.L _push_fadein_8c022a9c ; H'8C01D1A8
           .DATA.L _FUN_8c016182 ; H'8C01D1AC
-          .DATA.L _CourseMenuFUN_8c017ef2 ; H'8C01D1B0
+          .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01D1B0
           .DATA.L H'C0A00000 ; H'8C01D1B4
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01D1B8
           .DATA.L H'FF000000 ; H'8C01D1BC
           .DATA.L _njSetBackColor ; H'8C01D1C0
-_FUN_8c01d1c4:
+_ProfileFilePushTask_8c01d1c4:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -1174,7 +1176,7 @@ _FUN_8c01d1c4:
           ADD         R1,R3
           LDS         R3,FPUL
           FLOAT       FPUL,FR3
-          BSR         _FUN_8c01c980
+          BSR         _ProfileFileUpdateUnlocks_8c01c980
           FMOV        FR3,@(R0,R14)
           MOV.L       LP_GEN_13275+16,R2
           JSR         @R2
@@ -1217,7 +1219,7 @@ _FUN_8c01d1c4:
 LP_GEN_13275:
           .DATA.W H'0080 ; H'8C01D254
           .DATA.W H'0C00 ; H'8C01D256
-          .DATA.L _FUN_8c01ccec ; H'8C01D258
+          .DATA.L _menuTask_8c01ccec ; H'8C01D258
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01D25C
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01D260
           .DATA.L _CourseMenuFreeResourceGroup_8c0185c4 ; H'8C01D264
@@ -1343,7 +1345,7 @@ _const_8c0387c8:        ; from ghidra
           ;.SDATA      "prof07.pvm"
           ;.DATA.B     H'00
           ;.RES.B      1
-          .DATA.B      H'70, H'72, H'6F, H'66, H'30, H'37, H'2E, H'70, H'76, H'6D, H'00, H'00
+          .DATA.B      H'70, H'72, H'6F, H'66, H'30, H'37, H'2E, H'70, H'76, H'6D, H'00
           .SECTION    D, DATA, ALIGN=4
 _init_8c044ea0:        ; from ghidra
           .DATA.B      H'32
@@ -1462,7 +1464,7 @@ _init_8c044ff1:        ; aggressive search
           .DATA.B      H'79, H'7A, H'7B, H'FF
 _init_8c044ff5:        ; aggressive search
           .DATA.B      H'88, H'89, H'8A, H'8B, H'FF, H'00, H'00
-_init_8c044ffc:        ; from defines
+_init_profileUnlockFlags_8c044ffc:        ; from defines
           .DATA.L      _init_8c044ea0
 _init_8c045000:        ; from ghidra
           .DATA.L      _init_8c044ea9

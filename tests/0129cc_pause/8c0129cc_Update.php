@@ -421,7 +421,7 @@ return new class extends TestCase {
             $this->shouldWriteLong($prog + 0x04 + $i * 4, 0x100 + $i);
             $this->shouldWriteLong($prog + 0x18 + $i * 4, 0x200 + $i);
         }
-        $this->shouldCall('_CourseMenuFUN_8c017ef2');
+        $this->shouldCall('_CourseMenuReturn_8c017ef2');
         $this->shouldReturn(0);
     }
 
@@ -436,7 +436,7 @@ return new class extends TestCase {
         $this->setSize('_pdVibMxStop', 4);
         $this->setSize('_push_fadeout_8c022b60', 4);
         $this->setSize('_FUN_8c016182', 4);
-        $this->setSize('_CourseMenuFUN_8c017ef2', 4);
+        $this->setSize('_CourseMenuReturn_8c017ef2', 4);
         $this->setSize('_FUN_8c01f21c', 4);
 
         $this->setSize('_var_8c1bb8dc', 4);

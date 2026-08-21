@@ -16,7 +16,9 @@ bus along a predefined route with predefined passenger stop requests.
     ("PROFILE FILE" notebook UI -- grid of portraits, per-character bio pages
     with a checkbox grid of seen events). This is NOT `01d290_album`: the
     album is a separate screen showing a few pictures unlocked throughout
-    story mode. The event menu's owning unit is not yet identified.
+    story mode. The event menu's owning unit is `01c980_profile_file` -- see
+    `next_units.md` #1 for the shallow analysis and its confirmed link to
+    `02af78_event`'s progress flags.
   - **Free run**: same courses, no cutscenes/events.
 - **Practice**: 11 runs teaching individual mechanics, each preceded by a
   slideshow guide. Runs take place on sections (segments) of the main route

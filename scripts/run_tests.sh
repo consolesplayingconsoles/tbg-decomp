@@ -119,4 +119,8 @@ compile  src/01b19c_system_menu.c
 assemble  src/asm/decompiled/01bb48_vm_game.src
 compile  src/01bb48_vm_game.c
 
+# 01c980_profile_file
+assemble  src/asm/decompiled/01c980_profile_file.src
+compile  src/01c980_profile_file.c
+
 $sh4objtest suite -s tests.php "$@"
