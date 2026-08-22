@@ -1,0 +1,86 @@
+<?php
+
+declare(strict_types=1);
+
+use Lhsazevedo\Sh4ObjTest\TestCase;
+
+return new class extends TestCase {
+    public function test_resgrp_ready_reprocesses_and_returns_to_description()
+    {
+        $this->resolveSymbols();
+
+        $task = $this->alloc(0x20);
+        $this->call('_practiceCancelReturn_8c01e920')->with($task);
+
+        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+            $task,
+            $this->addressOf('_showLesson_8c01e63c')
+        );
+
+        $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
+        $this->shouldWriteLong($menuStateBase + 0x40, 0);
+
+        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
+        $this->shouldCall('_AsqResetQueues_8c011f6c');
+        $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
+            $menuStateBase + 0x0c,
+            $this->addressOf('_init_8c044274')
+        )->andReturn(1);
+
+        $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
+            $this->addressOf('_AsqNop_8c011120'),
+            0,
+            0,
+            0,
+            $this->addressOf('_RouteLoadResetPvmReady_8c014322')
+        );
+
+        $this->shouldWriteLong($menuStateBase + 0x18, 0);
+    }
+
+    public function test_resgrp_not_ready_frees_queues_and_fades_in()
+    {
+        $this->resolveSymbols();
+
+        $task = $this->alloc(0x20);
+        $this->call('_practiceCancelReturn_8c01e920')->with($task);
+
+        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+            $task,
+            $this->addressOf('_showLesson_8c01e63c')
+        );
+
+        $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
+        $this->shouldWriteLong($menuStateBase + 0x40, 0);
+
+        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
+        $this->shouldCall('_AsqResetQueues_8c011f6c');
+        $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
+            $menuStateBase + 0x0c,
+            $this->addressOf('_init_8c044274')
+        )->andReturn(0);
+
+        $this->shouldCall('_AsqFreeQueues_8c011f7e');
+        $this->shouldWriteLong($menuStateBase + 0x18, 1);
+        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+    }
+
+    private function resolveSymbols(): void
+    {
+        $this->setSize('_var_menuState_8c1bc7a8', 0x84);
+        $this->setSize('_TaskSetAction_8c014b3e', 4);
+        $this->setSize('_swapMessageBoxFor_8c02aefc', 4);
+        $this->setSize('_AsqInitQueues_8c011f36', 4);
+        $this->setSize('_AsqResetQueues_8c011f6c', 4);
+        $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
+        $this->setSize('_RouteLoadSetPvmReady_8c014330', 4);
+        $this->setSize('_AsqProcessQueues_8c011fe0', 4);
+        $this->setSize('_AsqNop_8c011120', 4);
+        $this->setSize('_RouteLoadResetPvmReady_8c014322', 4);
+        $this->setSize('_AsqFreeQueues_8c011f7e', 4);
+        $this->setSize('_push_fadein_8c022a9c', 4);
+    }
+};

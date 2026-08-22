@@ -18,6 +18,7 @@
 #include "01614c_debug_menu.h"
 #include "0100bc_sound.h"
 #include "serial_debug.h"
+#include "strings_ja_jp.sjis.h"
 
 /* ====================
  * Type Declarations
@@ -127,7 +128,7 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     memset(&var_8c1ba2e4, 0, 0x60);
     njMemCopy(&var_8c1ba2e4, var_8c226098, 0x10);
     /* VMU file comment: "Tokyo Bus Guide data" */
-    strcpy(var_8c1ba2e4.btr_comment, "東京バス案内　データ");
+    strcpy(var_8c1ba2e4.btr_comment, STR_TITLE_DATA);
     njMemCopy(var_8c1ba2e4.game_name, init_8c04410c, 0x10);
     var_8c1ba2e4.icon_palette = var_8c1ba344;
     var_8c1ba2e4.icon_data = (char *)var_8c1ba344 + 0x20;
@@ -204,29 +205,24 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             case VMU_STATUS_SAVE_EXISTS:
             case VMU_STATUS_SAVE_EXISTS_NO_SPACE:
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_LOAD;
-                /* "Load the file. Are you sure?" */
-                swapMessageBoxFor_8c02aefc("ファイルをロードします。<E>よろしいですか？");
+                swapMessageBoxFor_8c02aefc(MSG_CONFIRM_LOAD);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 break;
             case VMU_STATUS_NOT_ENOUGH_SPACE:
             case VMU_STATUS_SAVING_POSSIBLE:
-                /* "The set file does not exist, so it cannot be loaded" */
-                swapMessageBoxFor_8c02aefc("設定されたファイルが無いため<E>ロードできません");
+                swapMessageBoxFor_8c02aefc(MSG_LOAD_NO_FILE);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                 break;
             case VMU_STATUS_NOT_CONNECTED:
-                /* "No VM is connected to the set port" */
-                swapMessageBoxFor_8c02aefc("設定されたポートにＶＭが<E>接続されていません");
+                swapMessageBoxFor_8c02aefc(MSG_VM_NOT_CONNECTED);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                 break;
             case VMU_STATUS_NOT_AVAILABLE:
-                /* "This VM is in a state that cannot be loaded" */
-                swapMessageBoxFor_8c02aefc("このＶＭはロードできない状態です");
+                swapMessageBoxFor_8c02aefc(MSG_VM_CANT_LOAD);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                 break;
             case VMU_STATUS_PROCEED_WITHOUT_SAVING:
-                /* "No file has been set, so it cannot be loaded" */
-                swapMessageBoxFor_8c02aefc("ファイルが設定されていないため<E>ロードできません");
+                swapMessageBoxFor_8c02aefc(MSG_LOAD_NO_FILE_SET);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                 break;
             default:
@@ -236,36 +232,30 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         case SAVE_MENU_SAVE:
             switch (vmStatus) {
             case VMU_STATUS_SAVING_POSSIBLE:
-                /* "Create a file. Are you sure?" */
-                swapMessageBoxFor_8c02aefc("ファイルを作成します。<E>よろしいですか？");
+                swapMessageBoxFor_8c02aefc(MSG_CONFIRM_CREATE_FILE);
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_SAVE;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 break;
             case VMU_STATUS_SAVE_EXISTS:
             case VMU_STATUS_SAVE_EXISTS_NO_SPACE:
-                /* "The file will be overwritten. Are you sure?" */
-                swapMessageBoxFor_8c02aefc("ファイルが上書きされます。<E>よろしいですか？");
+                swapMessageBoxFor_8c02aefc(MSG_CONFIRM_OVERWRITE);
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_SAVE;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 break;
             case VMU_STATUS_NOT_ENOUGH_SPACE:
-                /* "Not enough free blocks; saving needs 3 blocks" */
-                swapMessageBoxFor_8c02aefc("空きブロックが不足しています<E>セーブには３ブロック必要です");
+                swapMessageBoxFor_8c02aefc(MSG_SAVE_NEED_3_BLOCKS);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                 break;
             case VMU_STATUS_NOT_AVAILABLE:
-                /* "This VM is in a state that cannot be saved" */
-                swapMessageBoxFor_8c02aefc("このＶＭはセーブできない状態です");
+                swapMessageBoxFor_8c02aefc(MSG_VM_CANT_SAVE);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                 break;
             case VMU_STATUS_NOT_CONNECTED:
-                /* "No VM is connected; saving needs 3 blocks" */
-                swapMessageBoxFor_8c02aefc("ＶＭが接続されていません<E>セーブには３ブロック必要です");
+                swapMessageBoxFor_8c02aefc(MSG_VM_NOT_CONN_SAVE);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                 break;
             case VMU_STATUS_PROCEED_WITHOUT_SAVING:
-                /* "No file has been set, so it cannot be saved" */
-                swapMessageBoxFor_8c02aefc("ファイルが設定されていないため<E>セーブできません");
+                swapMessageBoxFor_8c02aefc(MSG_SAVE_NO_FILE_SET);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                 break;
             default:
@@ -283,9 +273,9 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             /* story: "Exit story mode. Are you sure?" */
             /* free:  "Exit free-run mode. Are you sure?" */
             if (var_gameMode_8c1bb8fc == 0) {
-                swapMessageBoxFor_8c02aefc("ストーリーモードを終了します。<E>よろしいですか？");
+                swapMessageBoxFor_8c02aefc(MSG_CONFIRM_QUIT_STORY);
             } else {
-                swapMessageBoxFor_8c02aefc("フリーランモードを終了します。<E>よろしいですか？");
+                swapMessageBoxFor_8c02aefc(MSG_CONFIRM_QUIT_FREERUN);
             }
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             break;
@@ -304,8 +294,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                                  init_saveNames_8c044d50[var_8c1ba350], var_8c1ba2e0);
                 var_vmBusy_8c157a7c = 1;
                 var_menuState_8c1bc7a8.field_0x1c = SAVE_PHASE_IN_PROGRESS;
-                /* "Loading in progress; do not turn off the power" */
-                swapMessageBoxFor_8c02aefc("ロード実行中です<E>電源を切らないで下さい");
+                swapMessageBoxFor_8c02aefc(MSG_LOADING_NO_POWER_OFF);
                 VmGameSetLcdSlot_8c01c8fc(1);
             } else if (result == 2) {
                 /* cancelled */
@@ -313,8 +302,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 swapMessageBoxFor_8c02aefc("");
             } else if (vmStatus != VMU_STATUS_SAVE_EXISTS &&
                        vmStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE) {
-                /* "There is no file to load" */
-                swapMessageBoxFor_8c02aefc("ロードするファイルがありません");
+                swapMessageBoxFor_8c02aefc(MSG_LOAD_NO_TARGET);
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             }
             break;
@@ -328,18 +316,16 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 if (FileMenuIsSaveValid_8c018804((int *)&var_progress_8c1ba1cc) != 0) {
                     SystemMenuApplyLoadedProgress_8c01b19c();
                     FileMenuApplySoundSettings_8c0189fc();
-                    /* "Loading complete" */
-                    swapMessageBoxFor_8c02aefc("ロードが終了しました");
+                    swapMessageBoxFor_8c02aefc(MSG_LOAD_DONE);
                 } else {
                     /* corrupt/incompatible save -- "Load failed; aborting the game" */
-                    swapMessageBoxFor_8c02aefc("ロードが失敗しました<E>ゲームを中断します");
+                    swapMessageBoxFor_8c02aefc(MSG_LOAD_FAIL_ABORT);
                     var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_LOAD_FAILED;
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                     break;
                 }
             } else {
-                /* "Load failed" */
-                swapMessageBoxFor_8c02aefc("ロードが失敗しました");
+                swapMessageBoxFor_8c02aefc(MSG_LOAD_FAILED);
             }
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             var_vmBusy_8c157a7c = 0;
@@ -373,8 +359,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 /* confirmed -- write and wait */
                 SystemMenuWriteToVmu_8c01b26c();
                 var_menuState_8c1bc7a8.field_0x1c = SAVE_PHASE_IN_PROGRESS;
-                /* "Saving in progress; do not turn off the power" */
-                swapMessageBoxFor_8c02aefc("セーブ実行中です<E>電源を切らないで下さい");
+                swapMessageBoxFor_8c02aefc(MSG_SAVING_NO_POWER_OFF);
                 VmGameSetLcdSlot_8c01c8fc(1);
                 TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00,
                                        var_menuState_8c1bc7a8.field_0x3c + 2,
@@ -389,8 +374,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             } else if (vmStatus != VMU_STATUS_SAVING_POSSIBLE &&
                        vmStatus != VMU_STATUS_SAVE_EXISTS &&
                        vmStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE) {
-                /* "Cannot save" */
-                swapMessageBoxFor_8c02aefc("セーブできません");
+                swapMessageBoxFor_8c02aefc(MSG_SAVE_CANT);
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             }
             break;
@@ -401,9 +385,9 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             }
             /* on success "Save complete", else "Save failed" */
             if (buGetLastError(var_selectedVm_8c1ba34c) == 0) {
-                swapMessageBoxFor_8c02aefc("セーブ終了");
+                swapMessageBoxFor_8c02aefc(MSG_SAVE_DONE);
             } else {
-                swapMessageBoxFor_8c02aefc("セーブが失敗しました");
+                swapMessageBoxFor_8c02aefc(MSG_SAVE_FAILED);
             }
             var_vmBusy_8c157a7c = 0;
             syFree(var_8c1ba348);

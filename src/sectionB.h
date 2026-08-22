@@ -394,6 +394,7 @@ extern int var_8c1bb8e8;
 extern int var_8c1bb8ec;
 extern int var_8c1bb8f0;
 extern int var_8c1bb8f4;
+extern int var_award_8c1bb8f8;
 extern float var_8c1bbc4c;
 extern int var_8c1bbc84;
 extern Uint32 var_8c1bbcb0;
@@ -405,7 +406,6 @@ extern void* var_8c1bc440;
 extern void* var_8c1bc444;
 extern float var_8c1bc450;
 extern void* var_vmGameBuf_8c1bc454;
-extern int var_award_8c1bb8f8;
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
 extern void* var_busstopDat_8c1bc42c;
@@ -513,6 +513,9 @@ extern int var_selectedEventEntry_8c228478;
 extern void* var_currentSysResGroupInfo_8c225fb0;
 extern int var_currentTileRegionList_8c226534;
 extern int var_8c22640c;
+extern int var_8c226410;
+extern int var_8c226414[6]; /* dialog sequence id queue built by buildDialogQueue_8c01e992, -1 terminated */
+extern int var_8c22642c; /* lesson attempt counter, incremented on practice retry */
 extern int var_demoEntryValue_8c227e14;
 extern int var_demoEntryValue_8c22822c;
 extern int var_dialogQueue_8c225fbc[4]; // TODO: Confirm length

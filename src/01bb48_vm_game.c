@@ -13,6 +13,7 @@
 #include "0100bc_sound.h"
 #include "028258.h"
 #include "sectionB.h"
+#include "strings_ja_jp.sjis.h"
 
 /* =================
  * Type Declarations
@@ -365,13 +366,11 @@ STATIC void selectSlot_8c01bf2a(int slot)
             case VMU_STATUS_NOT_AVAILABLE:
             case VMU_STATUS_NOT_ENOUGH_SPACE:
             case VMU_STATUS_SAVING_POSSIBLE:
-                // Traffic Sign Quiz does not exist
-                swapMessageBoxFor_8c02aefc("交通標識クイズがありません");
+                swapMessageBoxFor_8c02aefc(MSG_QUIZ_NONE);
                 break;
             case VMU_STATUS_SAVE_EXISTS:
             case VMU_STATUS_SAVE_EXISTS_NO_SPACE:
-                // Traffic Sign Quiz exists
-                swapMessageBoxFor_8c02aefc("交通標識クイズがあります");
+                swapMessageBoxFor_8c02aefc(MSG_QUIZ_EXISTS);
                 break;
             default:
                 swapMessageBoxFor_8c02aefc("");
@@ -466,8 +465,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                 VMU_STATUS_PROCEED_WITHOUT_SAVING
             ) {
                 m->state_0x18 = STATE_SELECT_INCOMPATIBLE;
-                // "Please insert a VM"
-                swapMessageBoxFor_8c02aefc("ＶＭをセットして下さい");
+                swapMessageBoxFor_8c02aefc(MSG_VM_SET_PLEASE);
             } else {
                 selectSlot_8c01bf2a(slot);
                 m->pos.vmSelect.cursor_0x20 = m->pos.vmSelect.cursorTarget_0x28;
@@ -491,8 +489,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
         // If we reached the no-save slot, no VM is connected.
         if (var_vmuStatus_8c226048[i] == VMU_STATUS_PROCEED_WITHOUT_SAVING) {
             m->state_0x18 = STATE_SELECT_INCOMPATIBLE;
-            // "Please insert a VM"
-            swapMessageBoxFor_8c02aefc("ＶＭをセットして下さい");
+            swapMessageBoxFor_8c02aefc(MSG_VM_SET_PLEASE);
             drawSelectScreen_8c01be90();
             break;
         }
@@ -575,8 +572,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                 if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                     if (m->field_0x1c == MENU_DOWNLOAD) {
                         m->state_0x18 = STATE_DOWNLOAD;
-                        /* "download traffic sign quiz, ok?" */
-                        swapMessageBoxFor_8c02aefc("交通標識クイズをダウンロードします<E>よろしいですか？");
+                        swapMessageBoxFor_8c02aefc(MSG_CONFIRM_DL_QUIZ);
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                     } else if (
                         var_vmuStatus_8c226048[slot] == VMU_STATUS_SAVE_EXISTS
@@ -584,8 +580,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             VMU_STATUS_SAVE_EXISTS_NO_SPACE
                     ) {
                         m->state_0x18 = STATE_EXP_LOAD;
-                        /* "add points, ok?" */
-                        swapMessageBoxFor_8c02aefc("ポイントを加算します<E>よろしいですか？");
+                        swapMessageBoxFor_8c02aefc(MSG_CONFIRM_ADD_POINTS);
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                     } else {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
@@ -633,9 +628,8 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             case SAVE_STARTED: {
                                 VmGameSetLcdSlot_8c01c8fc(1);
                                 task->field_0x08 = DOWNLOAD_PHASE_SAVING;
-                                /* "downloading - do not remove the VM" */
                                 swapMessageBoxFor_8c02aefc(
-                                    "ダウンロード中です<E>ＶＭを絶対に抜かないで下さい"
+                                    MSG_DOWNLOADING_NO_REMOVE
                                 );
                                 var_vmBusy_8c157a7c = 1;
                                 break;
@@ -650,8 +644,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             case SAVE_ERR_BUSY:
                             case SAVE_ERR_NO_CARD: {
                                 m->state_0x18 = STATE_SELECT;
-                                /* "download failed" */
-                                swapMessageBoxFor_8c02aefc("ダウンロードに失敗しました");
+                                swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                                 break;
                             }
@@ -659,16 +652,14 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             case SAVE_NEEDS_DEFRAG: {
                                 if (defragDisk_8c01bde4(m->selectedVmuSlot_0x6c) != 0) {
                                     m->state_0x18 = STATE_SELECT;
-                                    /* "download failed" */
-                                    swapMessageBoxFor_8c02aefc("ダウンロードに失敗しました");
+                                    swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                                     break;
                                 }
 
                                 task->field_0x08 = DOWNLOAD_PHASE_DEFRAG_SAVING;
-                                /* "downloading - do not remove the VM" */
                                 swapMessageBoxFor_8c02aefc(
-                                    "ダウンロード中です<E>ＶＭを絶対に抜かないで下さい"
+                                    MSG_DOWNLOADING_NO_REMOVE
                                 );
                                 var_vmBusy_8c157a7c = 1;
                                 break;
@@ -676,9 +667,8 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                             case SAVE_ERR_FULL: {
                                 m->state_0x18 = STATE_SELECT;
-                                /* "not enough free space - download needs 45 blocks" */
                                 swapMessageBoxFor_8c02aefc(
-                                    "空き容量が足りません<E>ダウンロードには４５ブロック必要です"
+                                    MSG_DL_NEED_45_BLOCKS
                                 );
                                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                                 break;
@@ -686,8 +676,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                             case SAVE_ERR_EXISTS: {
                                 m->state_0x18 = STATE_SELECT;
-                                /* "executable file already exists" */
-                                swapMessageBoxFor_8c02aefc("既に実行ファイルが存在します");
+                                swapMessageBoxFor_8c02aefc(MSG_EXE_EXISTS);
                                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                                 break;
                             }
@@ -714,14 +703,12 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                     case VMGAME_BUP_IDLE:
                     case VMGAME_BUP_SAVE_DONE:
                         m->state_0x18 = STATE_OP_COMPLETE;
-                        /* "download complete" */
-                        swapMessageBoxFor_8c02aefc("ダウンロードが完了しました");
+                        swapMessageBoxFor_8c02aefc(MSG_DL_DONE);
                         var_vmBusy_8c157a7c = 0;
                         break;
                     case VMGAME_BUP_ERROR:
                         m->state_0x18 = STATE_SELECT;
-                        /* "download failed" */
-                        swapMessageBoxFor_8c02aefc("ダウンロードに失敗しました");
+                        swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                         var_vmBusy_8c157a7c = 0;
                         break;
                 }
@@ -742,8 +729,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                         break;
                     case VMGAME_BUP_ERROR:
                         m->state_0x18 = STATE_SELECT;
-                        /* "download failed" */
-                        swapMessageBoxFor_8c02aefc("ダウンロードに失敗しました");
+                        swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                         var_vmBusy_8c157a7c = 0;
                         break;
                 }
@@ -765,14 +751,12 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                         if (load == -1) {
                             m->state_0x18 = STATE_SELECT;
-                            /* "download failed" */
-                            swapMessageBoxFor_8c02aefc("ダウンロードに失敗しました");
+                            swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                             break;
                         }
 
                         task->field_0x08 = EXP_PHASE_LOADING;
-                        /* "do not remove the VM" */
-                        swapMessageBoxFor_8c02aefc("ＶＭを絶対に抜かないで下さい");
+                        swapMessageBoxFor_8c02aefc(MSG_VM_NO_REMOVE);
                         VmGameSetLcdSlot_8c01c8fc(1);
                         var_vmBusy_8c157a7c = 1;
                         break;
@@ -818,8 +802,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                         if (rewrite == -1) {
                             m->state_0x18 = STATE_SELECT;
-                            /* "failed to write data" */
-                            swapMessageBoxFor_8c02aefc("データの書き込みに失敗しました");
+                            swapMessageBoxFor_8c02aefc(MSG_WRITE_FAIL);
                             var_vmBusy_8c157a7c = 0;
                             break;
                         }
@@ -830,8 +813,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                     case VMGAME_BUP_ERROR: {
                         m->state_0x18 = STATE_SELECT;
-                        /* "failed to read data" */
-                        swapMessageBoxFor_8c02aefc("データの読み込みに失敗しました");
+                        swapMessageBoxFor_8c02aefc(MSG_READ_FAIL);
                         var_vmBusy_8c157a7c = 0;
                         break;
                     }
@@ -847,14 +829,12 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                     case VMGAME_BUP_IDLE:
                     case VMGAME_BUP_SAVE_DONE:
                         m->state_0x18 = STATE_OP_COMPLETE;
-                        /* "point addition complete" */
-                        swapMessageBoxFor_8c02aefc("ポイントの加算が完了しました");
+                        swapMessageBoxFor_8c02aefc(MSG_POINTS_ADDED);
                         var_vmBusy_8c157a7c = 0;
                         break;
                     case VMGAME_BUP_ERROR:
                         m->state_0x18 = STATE_SELECT;
-                        /* "failed to write data" */
-                        swapMessageBoxFor_8c02aefc("データの書き込みに失敗しました");
+                        swapMessageBoxFor_8c02aefc(MSG_WRITE_FAIL);
                         var_vmBusy_8c157a7c = 0;
                         break;
                 }

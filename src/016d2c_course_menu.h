@@ -6,6 +6,13 @@
 #include "014a9c_tasks.h"
 #include "015ab8_title.h"
 
+typedef struct {
+    char *text_0x00;
+    int instructorSpriteNo_0x04;
+} MenuDialog;
+
+extern MenuDialog *init_dialogSequences_8c044c08[66];
+
 int CourseMenuInterpolateCursor_8c016d2c(void);
 void CourseMenuRequestCommonResources_8c01852c(void);
 int CourseMenuRequestSysResgrp_8c018568(ResourceGroup *res_group, ResourceGroupInfo *res_group_info);

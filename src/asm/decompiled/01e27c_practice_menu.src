@@ -1,4 +1,5 @@
 ; 8c01e27c
+; @unit PracticeMenu
           .IMPORT     _menuTextboxText_8c02af1c
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
@@ -67,14 +68,20 @@
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
           .IMPORT     _FUN_8c01f954
           .EXPORT     _FUN_8c01e27c
-          .EXPORT     _FUN_8c01e576
-          .EXPORT     _FUN_8c01e63c
-          .EXPORT     _FUN_8c01e920
-          .EXPORT     _FUN_8c01e992
-          .EXPORT     _FUN_8c01ead8
-          .EXPORT     _FUN_8c01ebc8
-          .EXPORT     _FUN_8c01f114
-          .EXPORT     _FUN_8c01f21c
+          .EXPORT     _initDescriptionReveal_8c01e576
+          .EXPORT     _showLesson_8c01e63c
+          .EXPORT     _practiceCancelReturn_8c01e920
+          .EXPORT     _buildDialogQueue_8c01e992
+          .EXPORT     _drawDigits_8c01ead8
+          .EXPORT     _scrollTowardSelection_8c01ebc8
+          .EXPORT     _PracticeMenuLessonStart_8c01f114
+          .EXPORT     _PracticeMenuLessonRetry_8c01f21c
+
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _init_8c0451ec
+          .EXPORT     _init_8c0451f8
+          .EXPORT     _FUN_8c01ebf2
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
 _FUN_8c01e27c:
           MOV.L       R14,@-R15
@@ -439,7 +446,7 @@ LAB_8c01e516:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _FUN_8c01e920
+          BRA         _practiceCancelReturn_8c01e920
           MOV.L       @R15+,R14
 LAB_8c01e53a:
           MOVA        LP_GEN_38636+28,R0
@@ -473,7 +480,7 @@ LAB_8c01e55e:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01e576:
+_initDescriptionReveal_8c01e576:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_38636+80,R3
           MOV.L       LP_GEN_38636+76,R5
@@ -543,7 +550,7 @@ LP_GEN_38636:
           .DATA.L _RouteLoadResetPvmReady_8c014322 ; H'8C01E630
           .DATA.L _AsqNop_8c011120 ; H'8C01E634
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01E638
-_FUN_8c01e63c:
+_showLesson_8c01e63c:
           MOV.L       R14,@-R15
           MOV         #H'2,R6
           MOV.L       R13,@-R15
@@ -716,7 +723,7 @@ LAB_8c01e764:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _FUN_8c01e576
+          BRA         _initDescriptionReveal_8c01e576
           MOV.L       @R15+,R14
 LAB_8c01e776:
           MOV.L       @R10,R2
@@ -731,7 +738,7 @@ LAB_8c01e776:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _FUN_8c01f114
+          BRA         _PracticeMenuLessonStart_8c01f114
           MOV.L       @R15+,R14
 LP_GEN_92116:
           .RES.W 1 ; H'8C01E792
@@ -913,7 +920,7 @@ LP_GEN_46961:
           .DATA.L H'C0C00000 ; H'8C01E914
           .DATA.L H'C0E00000 ; H'8C01E918
           .DATA.L H'C1000000 ; H'8C01E91C
-_FUN_8c01e920:
+_practiceCancelReturn_8c01e920:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           MOV.L       LP_GEN_88702+4,R3
@@ -973,7 +980,7 @@ LAB_8c01e98c:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01e992:
+_buildDialogQueue_8c01e992:
           MOV.L       R14,@-R15
           MOV         #H'0,R5
           MOV.L       R13,@-R15
@@ -1156,7 +1163,7 @@ LAB_8c01eac4:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01ead8:
+_drawDigits_8c01ead8:
           MOV.L       R14,@-R15
           MOVA        LP_GEN_88702+100,R0
           MOV.L       R13,@-R15
@@ -1215,7 +1222,7 @@ LAB_8c01eb08:
           RTS
           MOV.L       @R15+,R14
 LP_GEN_88702:
-          .DATA.L _FUN_8c01e63c ; H'8C01EB48
+          .DATA.L _showLesson_8c01e63c ; H'8C01EB48
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01EB4C
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01EB50
           .DATA.L _const_8c038984 ; H'8C01EB54
@@ -1247,7 +1254,7 @@ LP_GEN_88702:
           .DATA.L H'41900000 ; H'8C01EBBC
           .DATA.L __modls ; H'8C01EBC0
           .DATA.L __divls ; H'8C01EBC4
-_FUN_8c01ebc8:
+_scrollTowardSelection_8c01ebc8:
           MOV.L       LP_GEN_52292+2,R4
           MOV         #H'44,R0
           MOV.L       @(H'38,R4),R5
@@ -1271,7 +1278,7 @@ LAB_8c01ebe8:
 LAB_8c01ebee:
           RTS
           NOP
-LAB_8c01ebf2:
+_FUN_8c01ebf2:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -1494,7 +1501,7 @@ LAB_8c01ed84:
           JSR         @R9
           MOV.L       @R11,R4
 LAB_8c01ed8c:
-          BSR         _FUN_8c01ebc8
+          BSR         _scrollTowardSelection_8c01ebc8
           NOP
           BRA         LAB_8c01ef9e
           NOP
@@ -1621,7 +1628,7 @@ LAB_8c01ee80:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _FUN_8c01e920
+          BRA         _practiceCancelReturn_8c01e920
           MOV.L       @R15+,R14
 LAB_8c01eea6:
           MOV.L       @R5,R2
@@ -1803,7 +1810,7 @@ LAB_8c01f004:
           ADD         R12,R3
           ADD         R3,R4
           MOV.L       @R4,R4
-          BSR         _FUN_8c01ead8
+          BSR         _drawDigits_8c01ead8
           FMOV        FR14,FR4
           MOVA        LP_GEN_11294+2,R0
           FMOV.S      @R0,FR3
@@ -1927,7 +1934,7 @@ LP_GEN_11294:
           .DATA.L H'C0400000 ; H'8C01F108
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01F10C
           .DATA.L H'C1000000 ; H'8C01F110
-_FUN_8c01f114:
+_PracticeMenuLessonStart_8c01f114:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -1943,12 +1950,12 @@ _FUN_8c01f114:
           MOV.L       LP_GEN_22524+14,R14
           MOV         #H'44,R0
           MOV         #H'0,R13
-          BSR         _FUN_8c01ebc8
+          BSR         _scrollTowardSelection_8c01ebc8
           MOV.L       R13,@(R0,R14)
           MOV.L       LP_GEN_22524+18,R2
           MOV.L       LP_GEN_22524+22,R3
           MOV.L       R13,@R2
-          BSR         _FUN_8c01e992
+          BSR         _buildDialogQueue_8c01e992
           MOV.B       R13,@R3
           MOV.L       @R15,R2
           MOV         R13,R5
@@ -2022,7 +2029,7 @@ LAB_8c01f1bc:
 LP_GEN_22524:
           .DATA.W H'0C00 ; H'8C01F1C6
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C01F1C8
-          .DATA.L LAB_8c01ebf2 ; H'8C01F1CC
+          .DATA.L _FUN_8c01ebf2 ; H'8C01F1CC
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01F1D0
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01F1D4
           .DATA.L _var_8c22642c ; H'8C01F1D8
@@ -2043,7 +2050,7 @@ LP_GEN_22524:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01F214
           .DATA.L _push_fadein_8c022a9c ; H'8C01F218
 ; var_8c1ba264 here looks like a per-index best-record array, indexed by var_8c22640c
-_FUN_8c01f21c:
+_PracticeMenuLessonRetry_8c01f21c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -2052,7 +2059,7 @@ _FUN_8c01f21c:
           MOV.L       LP_GEN_80134+2,R14
           MOV         #H'44,R0
           MOV         #H'0,R3
-          BSR         _FUN_8c01ebc8
+          BSR         _scrollTowardSelection_8c01ebc8
           MOV.L       R3,@(R0,R14)
           MOV.L       LP_GEN_80134+6,R6
           MOV         #H'0,R3
@@ -2084,7 +2091,7 @@ LAB_8c01f264:
           MOV.L       LP_GEN_80134+34,R4
           MOV.L       @R4,R2
           ADD         #H'1,R2
-          BSR         _FUN_8c01e992
+          BSR         _buildDialogQueue_8c01e992
           MOV.L       R2,@R4
           BRA         LAB_8c01f29e
           NOP
@@ -2209,7 +2216,7 @@ LP_GEN_37649:
           .DATA.L _GameTask_8c012f44 ; H'8C01F36C
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01F370
           .DATA.L _TaskPush_8c014ae8 ; H'8C01F374
-          .DATA.L LAB_8c01ebf2 ; H'8C01F378
+          .DATA.L _FUN_8c01ebf2 ; H'8C01F378
           .DATA.L _init_dialogSequences_8c044c08 ; H'8C01F37C
           .DATA.L _var_tex_8c157af8 ; H'8C01F380
           .DATA.L _njGarbageTexture ; H'8C01F384

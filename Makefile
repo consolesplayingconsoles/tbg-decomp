@@ -63,7 +63,7 @@ SRCS = \
 	src/01c980_profile_file.c \
 	src/01d290_album.c \
 	src/asm/01d7fc.src \
-	src/asm/01e27c.src \
+	src/01e27c_practice_menu.c \
 	src/asm/01f3c0.src \
 	src/asm/01fa78.src \
 	src/asm/020214.src \

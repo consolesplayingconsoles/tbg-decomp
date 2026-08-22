@@ -409,5 +409,23 @@ return [
                 "build/output_test/01c980_profile_file_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/01e27c/8c01e27c_FUN.php",
+                "tests/01e27c/8c01e576_initDescriptionReveal.php",
+                "tests/01e27c/8c01e992_buildDialogQueue.php",
+                "tests/01e27c/8c01e920_practiceCancelReturn.php",
+                "tests/01e27c/8c01ead8_drawDigits.php",
+                "tests/01e27c/8c01e63c_showLesson.php",
+                "tests/01e27c/8c01ebc8_scrollTowardSelection.php",
+                "tests/01e27c/8c01ebf2_FUN.php",
+                "tests/01e27c/8c01f114_practiceLessonStart.php",
+                "tests/01e27c/8c01f21c_practiceLessonRetry.php",
+            ],
+            "objects" => [
+                "build/output_test/01e27c_practice_menu_src.obj",
+                "build/output_test/01e27c_practice_menu_c.obj",
+            ]
+        ],
     ],
 ];

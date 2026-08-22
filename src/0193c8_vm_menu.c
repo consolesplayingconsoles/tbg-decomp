@@ -11,6 +11,7 @@
 #include "014b8c_backup.h"
 #include "sectionB.h"
 #include "serial_debug.h"
+#include "strings_ja_jp.sjis.h"
 
 /* ====================
  * Compiler Definitions
@@ -115,12 +116,12 @@ NJS_POINT2 init_vmIconsPositions_8c044d7c[9] = {
 
 char* init_vmuStatusMessages_8c044dc4[7] = {
     NULL,
-    "使用できません",
-    "空きブロックが不足しています<E>セーブには３ブロック必要です",
-    "ファイルを設定せずに<E>ゲームを開始します",
-    "セーブ可能です",
-    "セーブデータがあります",
-    "セーブデータがあります"
+    MSG_CANNOT_USE,
+    MSG_SAVE_NEED_3_BLOCKS,
+    MSG_START_NO_FILE,
+    MSG_SAVE_OK,
+    MSG_SAVE_EXISTS,
+    MSG_SAVE_EXISTS
 };
 
 /* =========
@@ -534,19 +535,16 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                         || status == VMU_STATUS_SAVE_EXISTS_NO_SPACE)
                     {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-                        // Is this okay?
-                        swapMessageBoxFor_8c02aefc("よろしいですか？");
+                        swapMessageBoxFor_8c02aefc(MSG_CONFIRM);
                         var_menuState_8c1bc7a8.selectedVmuSlot_0x6c = slot;
                         var_menuState_8c1bc7a8.bupInfo_0x78 = BupGetInfo_8c014bba(slot);
                         CHANGE_STATE(VM_MENU_STATE_CONFIRM);
                     }
                     else if (status == VMU_STATUS_PROCEED_WITHOUT_SAVING) {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-                        // You cannot save without setting a file.
-                        // Proceed without saving?
                         swapMessageBoxFor_8c02aefc(
-                            "ファイルを設定しないとセーブできません<E>"
-                            "このままゲームを開始してもよろしいですか？"
+                            MSG_SAVE_NO_FILE
+                            MSG_CONFIRM_START_NO_FILE
                         );
                         CHANGE_STATE(VM_MENU_STATE_PROCEED_WITHOUT_SAVING);
                     }

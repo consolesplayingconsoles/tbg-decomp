@@ -9,7 +9,7 @@
 #include "01614c_debug_menu.h"
 #include "015ab8_title.h"
 #include "016d2c_course_menu.h"
-#include "01e27c.h"
+#include "01e27c_practice_menu.h"
 #include "022464.h"
 #include "0222dc.h"
 #include "serial_debug.h"
@@ -192,7 +192,7 @@ STATIC int update_8c0129cc(void)
             FUN_8c016182();
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_menuState_8c1bc7a8.selected_0x38 = var_8c22640c;
-                FUN_8c01f21c();
+                PracticeMenuLessonRetry_8c01f21c();
                 LOG_INFO(("[PAUSE] update_8c0129cc: retire complete, leaving drive (practice)\n"));
                 return 0;
             }

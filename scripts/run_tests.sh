@@ -123,4 +123,8 @@ compile  src/01bb48_vm_game.c
 assemble  src/asm/decompiled/01c980_profile_file.src
 compile  src/01c980_profile_file.c
 
+# 01e27c_practice_menu
+assemble  src/asm/decompiled/01e27c_practice_menu.src
+compile  src/01e27c_practice_menu.c
+
 $sh4objtest suite -s tests.php "$@"

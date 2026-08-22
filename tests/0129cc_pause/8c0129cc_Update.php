@@ -393,7 +393,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
         $this->shouldCall('_FUN_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 0x2b);
-        $this->shouldCall('_FUN_8c01f21c');
+        $this->shouldCall($this->practiceLessonRetrySymbol());
         $this->shouldReturn(0);
     }
 
@@ -425,6 +425,15 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
+    // The archived asm here still calls 01e27c_practice_menu's pre-rename
+    // symbol; only that unit's own object was renamed.
+    private function practiceLessonRetrySymbol(): string
+    {
+        return str_ends_with($this->objectFile, '_src.obj')
+            ? '_FUN_8c01f21c'
+            : '_PracticeMenuLessonRetry_8c01f21c';
+    }
+
     private function setup(int $press, int $ctrl, int $vibport = 0, int $bb8cc = 0, int $ad04 = 0, int $ad10 = 0, int $y1 = 0, int $ad08 = 0, int $ad0c = 0, int $x1 = 0, int $isFading = 0, int $playMode = 0): void
     {
         $this->setSize('_FUN_8c022560', 4);
@@ -437,7 +446,7 @@ return new class extends TestCase {
         $this->setSize('_push_fadeout_8c022b60', 4);
         $this->setSize('_FUN_8c016182', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
-        $this->setSize('_FUN_8c01f21c', 4);
+        $this->setSize($this->practiceLessonRetrySymbol(), 4);
 
         $this->setSize('_var_8c1bb8dc', 4);
         $this->setSize('_var_8c1bb8bc', 4);
