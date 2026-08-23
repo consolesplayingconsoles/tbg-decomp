@@ -100,7 +100,7 @@ void FUN_8c01614c(void)
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
 }
 
-void FUN_8c016182(void)
+void DebugMenuFreeSessionAssets_8c016182(void)
 {
     int i;
 

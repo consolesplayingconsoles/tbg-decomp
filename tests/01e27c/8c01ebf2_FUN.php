@@ -491,7 +491,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x3c, 0);
         $this->shouldWriteLong($menuStateBase + 0x40, 0);
         $this->shouldWriteLong($menuStateBase + 0x24, 0); // pos.title.flagY_0x24
-        $this->shouldCall('_FUN_8c016182');
+        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }
 
@@ -524,7 +524,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x3c, 0);
         $this->shouldWriteLong($menuStateBase + 0x40, 0);
         $this->shouldWriteLong($menuStateBase + 0x24, 0);
-        $this->shouldCall('_FUN_8c016182');
+        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }
 
@@ -549,7 +549,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x3c, 0);
         $this->shouldWriteLong($menuStateBase + 0x40, 0);
         $this->shouldWriteLong($menuStateBase + 0x24, 0);
-        $this->shouldCall('_FUN_8c016182');
+        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc');
         $this->shouldCall('_CourseMenuApplyUnlocks_8c0173e6');
         $this->shouldCall('_FUN_8c01f954');
@@ -572,7 +572,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x3c, 0);
         $this->shouldWriteLong($menuStateBase + 0x40, 0);
         $this->shouldWriteLong($menuStateBase + 0x24, 0);
-        $this->shouldCall('_FUN_8c016182');
+        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }
 
@@ -666,7 +666,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c22642c', 4);
         $this->setSize('_var_8c1bb8b8', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
-        $this->setSize('_FUN_8c016182', 4);
+        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_CourseMenuBuildCourseUnlockList_8c0172dc', 4);
         $this->setSize('_CourseMenuApplyUnlocks_8c0173e6', 4);
         $this->setSize('_FUN_8c01f954', 4);

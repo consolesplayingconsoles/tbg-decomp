@@ -26,7 +26,7 @@
           .IMPORT     _syMalloc
           .IMPORT     _var_8c2288f8
           .IMPORT     _TaskClear_8c014a9c
-          .IMPORT     _var_8c1bb8e4
+          .IMPORT     _var_passengerCount_8c1bb8e4
           .IMPORT     _rand
           .IMPORT     _FUN_8c02d21c
           .IMPORT     _var_8c228798
@@ -339,7 +339,7 @@ LP_GEN_52173:
           .DATA.L _syMalloc ; H'8C02DBE8
           .DATA.L _var_8c2288f8 ; H'8C02DBEC
           .DATA.L _TaskClear_8c014a9c ; H'8C02DBF0
-          .DATA.L _var_8c1bb8e4 ; H'8C02DBF4
+          .DATA.L _var_passengerCount_8c1bb8e4 ; H'8C02DBF4
           .DATA.L _rand ; H'8C02DBF8
           .DATA.L H'3E4CCCCD ; H'8C02DBFC
           .DATA.L H'47000000 ; H'8C02DC00

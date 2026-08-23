@@ -20,7 +20,7 @@ return new class extends TestCase {
         $this->initUint32($demoBuf, 0x3000);
         $this->initUint32($var454, 0x4000);
 
-        $this->call('_FUN_8c016182');
+        $this->call('_DebugMenuFreeSessionAssets_8c016182');
 
         $this->shouldCall('_FUN_8c010c7c');
         $this->shouldCall('_sdMidiStopAll');
@@ -66,7 +66,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_demoBuf_8c1ba3c4'), -1);
         $this->initUint32($this->addressOf('_var_vmGameBuf_8c1bc454'), -1);
 
-        $this->call('_FUN_8c016182');
+        $this->call('_DebugMenuFreeSessionAssets_8c016182');
 
         $this->shouldCall('_FUN_8c010c7c');
         $this->shouldCall('_sdMidiStopAll');

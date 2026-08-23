@@ -230,7 +230,7 @@ STATIC void FUN_8c01e27c(Task *task)
             if (var_isFading_8c226568 == 0) {
                 if (init_8c03bd80 != 0) break;
 
-                FUN_8c016182();
+                DebugMenuFreeSessionAssets_8c016182();
                 var_8c1bb8f0 = 0;
                 var_8c1bb8ec = 0x1d;
                 var_8c1bb8f4 = 0;
@@ -488,7 +488,7 @@ STATIC void buildDialogQueue_8c01e992(void)
     } else {
         var_8c226414[i++] = (unsigned char)init_8c045208[var_8c1bb8ec];
 
-        if (var_8c1bb8dc == 0)
+        if (var_runSucceeded_8c1bb8dc == 0)
             var_8c226414[i++] = (var_8c1bb8f4 == 1) ? 0x1e : 0x1f;
         else
             var_8c226414[i++] = (var_8c1bb8f4 == 1) ? 0x1c : 0x1d;
@@ -673,7 +673,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
                  * like the earlier x/y mixups; this union slot is otherwise
                  * unused by this screen. */
                 var_menuState_8c1bc7a8.pos.title.flagY_0x24 = 0.0f;
-                FUN_8c016182();
+                DebugMenuFreeSessionAssets_8c016182();
 
                 if (var_progress_8c1ba1cc.days_0x00 > 0x1e && var_gameMode_8c1bb8fc != 1) {
                     CourseMenuBuildCourseUnlockList_8c0172dc();
@@ -794,7 +794,7 @@ void PracticeMenuLessonRetry_8c01f21c(void)
         var_8c226414[0] = 0x18;
         var_8c226414[1] = -1;
     } else {
-        if (var_8c1bb8dc != 0 && var_progress_8c1ba1cc.field_0x98[var_8c22640c] < var_8c2285c4[3]) {
+        if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.field_0x98[var_8c22640c] < var_8c2285c4[3]) {
             var_progress_8c1ba1cc.field_0x98[var_8c22640c] = var_8c2285c4[3];
             *(Sint8 *)&var_award_8c1bb8f8 = 1;
         }

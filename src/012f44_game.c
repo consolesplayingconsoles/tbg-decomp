@@ -75,7 +75,7 @@ void GameTask_8c012f44()
         if (var_vibport_8c1ba354 != -1) {
         pdVibMxStop(var_vibport_8c1ba354);
         }
-        FUN_8c016182();
+        DebugMenuFreeSessionAssets_8c016182();
         if (var_8c1bb8c4 != 0) {
             init_8c03bd80 = 1;
             init_8c03bd84 = 0;
@@ -390,8 +390,8 @@ void GameInit_8c0134ec() {
     var_menuState_8c1bc7a8.resourceGroupB_0x0c.tlist_0x00 = (void*) -1;
     var_resourceGroup_8c2263a8 = (ResourceGroup *) -1;
     var_8c1ba2e0 = (void *) -1;
-    var_8c1ba348 = (void *) -1;
-    var_8c1ba344 = (void *) -1;
+    var_backupFileImageBuf_8c1ba348 = (void *) -1;
+    var_vmuIconFileBuf_8c1ba344 = (void *) -1;
     var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
     var_demoBuf_8c1ba3c4 = (void *) -1;
     var_vmGameBuf_8c1bc454 = (void *) -1;

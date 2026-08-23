@@ -279,6 +279,23 @@ using a real, separate linker symbol that only *coincides* with the struct
 field's address because sectionB.src lays the two out back to back -- don't
 "fix" that caller too without checking its own asm first.
 
+## A same-object `const` used in a new test needs `.EXPORT` in the archived `.src` too
+
+A `STATIC const` array already sitting in the C file (message box text, etc.)
+compiles and links fine even when the matching label in
+`src/asm/decompiled/<addr>.src` isn't `.EXPORT`ed -- nothing needs it *until*
+a test's `addressOf('_const_...')` tries to resolve it against the `_src.obj`.
+Without the export, `addressOf()` can't find the real symbol there and falls
+back to an auto-allocated placeholder address, which happens to coincide
+across unrelated tests (each fresh test VM allocates in the same order), so
+every affected test fails identically with something like
+`Unexpected argument for _swapMessageBoxFor_8c02aefc ... Expected 0x80034c,
+got 0x...` -- the C object passes throughout, only `_src.obj` mismatches, and
+every failing call reports the *same* "Expected" address regardless of which
+constant it actually is. Fix: add the label under the unit's existing
+`.AIFDEF UNIT_TESTING` / `.AENDI` `.EXPORT` block in the `.src` file (mechanical
+`sed`/`Edit`, not a read of the asm body).
+
 ## `muls.w` (0x200f) was missing from sh4objtest's simulator until this session
 
 Compiler-emitted `(short)x * 100` lowers to `MULS.W`, not `MUL.L`; sh4objtest's

@@ -39,7 +39,7 @@ typedef struct {
 } SaveMenuState;
 
 void FUN_8c01614c(void);
-void FUN_8c016182(void);
+void DebugMenuFreeSessionAssets_8c016182(void);
 void FUN_8c016770(void);
 
 #endif // _01614C_H

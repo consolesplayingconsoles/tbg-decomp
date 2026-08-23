@@ -386,12 +386,12 @@ return new class extends TestCase {
 
         $this->call('_update_8c0129cc');
 
-        // isFading==0 -> reset flags + FUN_8c016182; playMode==PRACTICE -> menuState.selected = var_8c22640c, FUN_8c01f21c.
+        // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==PRACTICE -> menuState.selected = var_8c22640c, FUN_8c01f21c.
         $this->shouldCall('_FUN_8c022560');
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8dc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
-        $this->shouldCall('_FUN_8c016182');
+        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 0x2b);
         $this->shouldCall($this->practiceLessonRetrySymbol());
         $this->shouldReturn(0);
@@ -410,12 +410,12 @@ return new class extends TestCase {
 
         $this->call('_update_8c0129cc');
 
-        // isFading==0 -> reset flags + FUN_8c016182; playMode==NORMAL -> copy backups into progress, CourseMenuFUN.
+        // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==NORMAL -> copy backups into progress, CourseMenuFUN.
         $this->shouldCall('_FUN_8c022560');
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8dc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
-        $this->shouldCall('_FUN_8c016182');
+        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         for ($i = 0; $i < 5; $i++) {
             // field_0x04[i] = var_8c1ba2b8[i]; field_0x18[i] = var_8c1ba2cc[i].
             $this->shouldWriteLong($prog + 0x04 + $i * 4, 0x100 + $i);
@@ -444,11 +444,11 @@ return new class extends TestCase {
         $this->setSize('_SndControlAdxtWithOutVol_8c0107d2', 4);
         $this->setSize('_pdVibMxStop', 4);
         $this->setSize('_push_fadeout_8c022b60', 4);
-        $this->setSize('_FUN_8c016182', 4);
+        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
         $this->setSize($this->practiceLessonRetrySymbol(), 4);
 
-        $this->setSize('_var_8c1bb8dc', 4);
+        $this->setSize('_var_runSucceeded_8c1bb8dc', 4);
         $this->setSize('_var_8c1bb8bc', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);

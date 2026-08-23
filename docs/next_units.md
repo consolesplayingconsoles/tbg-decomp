@@ -8,59 +8,18 @@ units, then external relocations give unit-to-unit edges. Re-run the analysis
 when this list goes stale; it only takes a few minutes.
 
 Ranking criteria used: continuation of the route-load pipeline, plus fan-in
-from already-decompiled units.
-
-## 0. `01c980` / `01d7fc` / `01e27c` -- profile file, results, course confirm (2026-08-21) -- CURRENT, next
-
-Picked ahead of the ranking below because a player screenshot pass nailed
-down what each of these three consecutive units is, from a shallow Ghidra
-read (light -- verify per-function during actual decompilation). Not part of
-the route-load pipeline; these are course-menu-adjacent screens.
-
-### `01c980_profile_file` (5.5 KB, 6 functions) -- PROFILE FILE menu
-
-The event/character-profile screen referenced in `gameplay.md`'s Story mode
-notes ("PROFILE FILE" notebook UI). State lives behind `DAT_8c1bc7c0`
-(screen-state enum, same pattern as the other two units below).
-
-- `FUN_8c01c980` -- scans `init_8c044ffc[55]` (one entry per grid slot) and
-  marks a slot unlocked in `var_8c2263b4[55]` if *any* flag in that slot's
-  list tests true via `EventHasProgressFlagAlt_8c02aff0`.
-- `FUN_8c01d1c4` -- task init (`TaskSetAction` -> `FUN_8c01ccec`), called from
-  `SystemMenuWriteToVmu_8c01b26c`.
-- `FUN_8c01ccec` -- per-frame task body: drives a 2D cursor
-  (`DAT_8c1bc7e4`=col 0-9, `DAT_8c1bc7e8`=row 0-5) over the 55-slot grid
-  (`CourseMenuInterpolateCursor_8c016d2c` for the slide animation), swaps in a
-  resource group per selected row (`init_8c045148[row]`) -- the detail page's
-  portrait+bio+checklist -- and on confirm returns to
-  `courseMenuStoryMenuTask_8c017718`/`courseMenuFreeRunMenuTask_8c017ada`.
-- `FUN_8c01c9f2` / `FUN_8c01cac8` -- draw helpers: the former paints the
-  55-slot unlock grid, the latter paints the selected slot's episode
-  checkbox row, walking the *same* `init_8c044ffc[row*10+col]` flag list and
-  drawing a checkmark (sprite widget 9) per flag that's currently set.
-
-**Confirmed link to `02af78_event`:** read `init_8c044ffc`'s first pointer's
-data directly out of Ghidra memory -- it's `{50, 51, 124, 52, 125, 53, 126,
-59, 0xff}` (flag ids `0x32, 0x33, 0x7c, 0x34, 0x7d, 0x35, 0x7e, 0x3b`). Those
-are exactly the first two `ACTION_SET_PROGRESS` flags in
-`init_wanganEvents_8c04abb0` (`02af78_event.c`): `0x32` and `0x33`. So each of
-the 55 grid slots is a character, and its flag list is the set of
-`EventEntry.actions_0x0c` progress flags (`ACTION_SET_PROGRESS`) that
-character's episodes set -- i.e. `init_8c044ffc` should let us recover the
-character roster/order and which episodes belong to which character, for
-free, by cross-referencing flag ids already named in `02af78_event.c`.
-Resolves that file's "revisit when dialog strings found" note.
+from already-decompiled units.s
 
 ### `01d7fc` (2.9 KB, 6 functions) -- post-run results + VMU save
 
 Screenshot-confirmed: score reveal digit-counter, then a save-to-VMU YES/NO
 prompt.
 
-- `FUN_8c01e0b4` -- tallies the run's score on entry: time bonus
-  (`var_8c2263ec`), fare (`var_8c2263f0`), exp*10 (`var_8c2263f4`), an
+- `ResultShowPassedRun_8c01e0b4` -- tallies the run's score on entry: time bonus
+  (`var_scoreCourseClearBonus_8c2263ec`), fare (`var_scoreFirstClearBonus_8c2263f0`), exp*10 (`var_scoreDriverPointsBonus_8c2263f4`), an
   "award" tier 0-3 from distance thresholds (0x46/0x50/0x5a) worth
-  0/50/100/200 points (`var_8c2263f8`), plus two more per-stat bonuses
-  (`var_8c2263fc`/`var_226400`); sums into `var_8c226404`, added to
+  0/50/100/200 points (`var_scoreBadgeBonus_8c2263f8`), plus two more per-stat bonuses
+  (`var_scorePassengerBonus_8c2263fc`/`var_scoreEventBonus_8c226400`); sums into `var_scoreTotal_8c226404`, added to
   `var_exp_8c1ba25c` (capped 99999). Falls through to `FUN_8c01df8e`.
 - `FUN_8c01e24e` -- same entry but skips the tally (sets a "no tally" flag
   first) -- the failed-run path. Also falls through to `FUN_8c01df8e`.
@@ -74,28 +33,6 @@ prompt.
   success/failure message boxes, then routes onward to title, a story dialog
   sequence, or the course/free-run menu depending on progress.
 - `FUN_8c01d864` -- draws the message-box text overlay for the results screen.
-
-### `01e27c` (8.9 KB, 9 functions) -- course-select confirmation card
-
-Screenshot-confirmed: the course info card (route icon, distance, stop
-count, passenger/traffic/difficulty star ratings, description text) ending
-in a "Is this course OK?" YES/NO prompt.
-
-- `FUN_8c01e576` / `FUN_8c01e27c` -- sets up and runs the description-text
-  reveal: `DAT_8c1bc804` walks a page range sized from
-  `init_8c0451b4/b5[var_8c22640c]` (per-course text length, `var_8c22640c`
-  = selected course id), ending in `PromptHandleBinary_8c016caa` for the
-  YES/NO.
-- `FUN_8c01e920` / `FUN_8c01e63c` -- the star-rating reveal: `DAT_8c1bc7e8`
-  counts up to `init_8c0451ec[var_8c22640c]` (per-course star count),
-  animating the passenger/traffic/difficulty star fill-in;
-  `CourseMenuDrawDateAndExp_8c016ee6` draws the surrounding date/exp text.
-- `FUN_8c01f114` / `FUN_8c01f21c` -- confirm-YES entry points: sets
-  `var_playMode_8c1bb8d0=1`, builds the dialog queue (`FUN_8c01e992`), pushes
-  `GameTask_8c012f44`, requests the course's resource group -- this is where
-  the drive actually starts loading.
-- `FUN_8c01ead8` -- draw helper (unclear yet, likely another digit-row like
-  `FUN_8c01d7fc`/`FUN_8c01d864`).
 
 ## 1. `02171c` -- map-tile streaming engine (1.1 KB, 8 functions) -- READY
 

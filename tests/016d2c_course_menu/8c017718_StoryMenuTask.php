@@ -504,7 +504,7 @@ return new Class extends TestCase {
         $this->shouldWriteLong($base + 0x50, 0);
 
         // Flip globals
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8dc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
 
@@ -543,7 +543,7 @@ return new Class extends TestCase {
         $this->shouldWriteLong($base + 0x50, 0);
 
         // Flip globals
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8dc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
 

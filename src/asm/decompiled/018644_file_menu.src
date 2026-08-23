@@ -35,8 +35,8 @@
           .IMPORT     _var_8c1ba2e0
           .IMPORT     _var_8c1ba2e4
           .IMPORT     _var_8c1ba33c
-          .IMPORT     _var_8c1ba344
-          .IMPORT     _var_8c1ba348
+          .IMPORT     _var_vmuIconFileBuf_8c1ba344
+          .IMPORT     _var_backupFileImageBuf_8c1ba348
           .IMPORT     _var_selectedVm_8c1ba34c
           .IMPORT     _var_8c1ba350
           .IMPORT     _var_peripherals_8c1ba35c
@@ -220,7 +220,7 @@ LP_GEN_13769:
           .DATA.L _var_8c226010 ; H'8C01875C
           .DATA.L _buStat ; H'8C018760
           .DATA.L _buGetLastError ; H'8C018764
-          .DATA.L _var_8c1ba348 ; H'8C018768
+          .DATA.L _var_backupFileImageBuf_8c1ba348 ; H'8C018768
           .DATA.L _syMalloc ; H'8C01876C
           .DATA.L _var_8c1ba2e4 ; H'8C018770
           .DATA.L _buAnalyzeBackupFileImage ; H'8C018774
@@ -378,7 +378,7 @@ LP_GEN_28586:
           .DATA.L _var_8c225fe0 ; H'8C0188A4
           .DATA.L _var_8c226010 ; H'8C0188A8
           .DATA.L _syFree ; H'8C0188AC
-          .DATA.L _var_8c1ba344 ; H'8C0188B0
+          .DATA.L _var_vmuIconFileBuf_8c1ba344 ; H'8C0188B0
           .DATA.L H'0001869F ; H'8C0188B4
           .DATA.L _var_progress_8c1ba1cc ; H'8C0188B8
 _FileMenuResetViewDefaults_8c0188bc:

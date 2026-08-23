@@ -9,8 +9,8 @@
 - [x] branch: press&8==0 && ad10!=0 dispatch on ad08 (below)
 - [x] branch: ad08==0 (sprite 0x7a): press&4 -> ad08=1/midi(1,0,0) | (press&0x10||y1<-0x40) -> ad10=0/midi(1,3,0) | idle
 - [x] branch: ad08==1 (sprite 0x76/0x77/0x7a): press&2 -> ad08=0/draw0x7a/midi(1,1,0) | ad0c==0{press&4 -> ad08=2/fadeout(10)/midi(1,0,0) no draw | (press&0x80||x1>0x40) toggle ad0c=1/draw0x76} | ad0c!=0{press&4 -> ad08=0/midi(1,0,0) | (press&0x40||x1<-0x40) toggle ad0c=0 | draw0x77}
-- [x] branch: ad08==2 isFading==0, playMode!=PRACTICE: reset bb8dc/b8/bc=0, FUN_8c016182(), copy var_8c1ba2b8->progress.field_0x04[5] & var_8c1ba2cc->progress.field_0x18[5], CourseMenuFUN_8c017ef2(), return 0
-- [x] branch: ad08==2 isFading==0, playMode==PRACTICE: ...FUN_8c016182(), menuState.selected_0x38 = var_8c22640c, FUN_8c01f21c(), return 0
+- [x] branch: ad08==2 isFading==0, playMode!=PRACTICE: reset bb8dc/b8/bc=0, DebugMenuFreeSessionAssets_8c016182(), copy var_8c1ba2b8->progress.field_0x04[5] & var_8c1ba2cc->progress.field_0x18[5], CourseMenuFUN_8c017ef2(), return 0
+- [x] branch: ad08==2 isFading==0, playMode==PRACTICE: ...DebugMenuFreeSessionAssets_8c016182(), menuState.selected_0x38 = var_8c22640c, FUN_8c01f21c(), return 0
 - [x] branch: ad08==2 isFading!=0: draw 0x76 + njDrawPolygon, return 0 (skips base draw)
 
 **FUN_8c0129cc DONE -- c.obj coverage 100%, 24 tests.**
@@ -21,7 +21,7 @@
 ## task_8c012cbc  DONE
 - pushTask_8c014ae8 action installed by routeLoadTask_8c014338 -> FUN_8c01306e -> pushTask_8c014ae8.
 - reset-requested guard (var_resetRequested_8c157a78 && !var_vmBusy_8c157a7c && !var_queuesAreInitialized_8c157a60)
-  -> FUN_8c016182() + pushTitle_8c015fd6(1), return. Same guard reused verbatim in
+  -> DebugMenuFreeSessionAssets_8c016182() + pushTitle_8c015fd6(1), return. Same guard reused verbatim in
   task_8c012d06/task_8c012d5a below.
 - else: call FUN_8c0129cc() (the pause menu); if it just opened (returns 1), reset the
   render-command list (FUN_8c02239c, unit 0222dc -- new minimal header) and run the rest
@@ -76,7 +76,7 @@
   task->field_0x08 (phase 0/1/2) and task->field_0x0c (frame counter). Ghidra
   mislabels the param as param_2 and buries the real signature under FPSCR.SZ
   paired-float noise; the asm (MOV R4,R14 then MOV.L @(8,R14)) is unambiguous.
-- Same reset guard, but the reset action differs: FUN_8c016182() then
+- Same reset guard, but the reset action differs: DebugMenuFreeSessionAssets_8c016182() then
   init_8c03bd80 = 1 / init_8c03bd84 = 0 (both in 0100bc_sound.h), NOT pushTitle.
 - Phase 0: Start (var_peripherals_8c1ba35c[0].press & PDD_DGT_ST -- the REMAPPED
   logical buttons array, not var_peripheral_8c1ba358) -> midi + phase=1; else
@@ -84,7 +84,7 @@
   startAdxFadeOut(0/1) + push_fadeout(0x1e). Counter-before-timeout skips the
   fades (the one goto in the function -> shared draw tail).
 - Phase 1/2: once var_isFading_8c226568 clears, unless init_8c03bd80 is set
-  (reset pending -> do nothing), FUN_8c016182() + pushTitle_8c015fd6(1) for
+  (reset pending -> do nothing), DebugMenuFreeSessionAssets_8c016182() + pushTitle_8c015fd6(1) for
   phase 1 (Start skip) / (0) for phase 2 (timeout). While still fading: counter++
   and fall to draw.
 - Draw tail (all non-returning paths): FUN_8c02239c + execTasks(var_tasks_8c1ba5e8)
@@ -136,7 +136,7 @@
 - press&4 deactivate branch writes var_pauseActive_8c1bb8cc=0 (NOT bb8b8; Ghidra puVar1 = bb8cc there)
 - draws always fall through to base 0x74 draw; every branch-N test must also declare the 0x74 draw + njDrawPolygon (single ordered expectation queue: writes AND calls interleaved, strict order)
 - to see the failing instruction: sh4objtest test <php> <obj.obj> -d  (suite/-c hides disasm)
-- Ghidra PTR-name aliases (resolved via LP_GEN_43727 pool @asm:600): FUN_8c012de0=FUN_8c016182 (01614c_debug_menu.h); FUN_8c012e10=FUN_8c01f21c (01e27c.h); DAT_8c012e0c=var_menuState_8c1bc7a8.selected_0x38 (015ab8_title.h)
+- Ghidra PTR-name aliases (resolved via LP_GEN_43727 pool @asm:600): FUN_8c012de0=DebugMenuFreeSessionAssets_8c016182 (01614c_debug_menu.h); FUN_8c012e10=FUN_8c01f21c (01e27c.h); DAT_8c012e0c=var_menuState_8c1bc7a8.selected_0x38 (015ab8_title.h)
 - ad04>=5 progress-commit block in Ghidra is DEAD (ad04 maxes at 2 in that branch); real reachable copy lives in ad08==2 path
-- new externs added: var_8c22640c (int, sectionB.h), FUN_8c01f21c (01e27c.h); FUN_8c016182/CourseMenuFUN_8c017ef2/menuState/isFading/playMode/progress already had headers
+- new externs added: var_8c22640c (int, sectionB.h), FUN_8c01f21c (01e27c.h); DebugMenuFreeSessionAssets_8c016182/CourseMenuFUN_8c017ef2/menuState/isFading/playMode/progress already had headers
 - ad08==2 isFading!=0 draws 0x76 at FR14=-1.09 (same arrow priority), then njDrawPolygon, returns WITHOUT base 0x74 draw

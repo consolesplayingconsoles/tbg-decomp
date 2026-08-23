@@ -31,7 +31,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_AsqRequestDat_8c011182')
-            ->with("\\SYSTEM", "bus_mem.VMI", $this->addressOf('_var_8c1ba344'));
+            ->with("\\SYSTEM", "bus_mem.VMI", $this->addressOf('_var_vmuIconFileBuf_8c1ba344'));
         $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),

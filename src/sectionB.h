@@ -378,8 +378,8 @@ extern int var_8c1ba2cc[5]; // Maybe progress backup
 extern void* var_8c1ba2e0;
 extern BUS_BACKUPFILEHEADER var_8c1ba2e4; // 018644: analyzed backup file header
 extern void* var_8c1ba33c;
-extern void* var_8c1ba344;
-extern void* var_8c1ba348;
+extern void* var_vmuIconFileBuf_8c1ba344;
+extern void* var_backupFileImageBuf_8c1ba348;
 extern int var_8c1ba350;        // 018644: selected save slot / new-file index
 extern void* var_8c1bb86c;
 extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
@@ -387,10 +387,10 @@ extern int var_8c1bb8bc;
 extern int var_8c1bb8c4;
 extern int var_pauseActive_8c1bb8cc;
 extern int var_8c1bb8d4;
-extern int var_8c1bb8dc;
-extern int var_8c1bb8e0; // course was unlocked
-extern int var_8c1bb8e4;
-extern int var_8c1bb8e8;
+extern int var_runSucceeded_8c1bb8dc;
+extern int var_firstClearOfCourse_8c1bb8e0; // course was unlocked
+extern int var_passengerCount_8c1bb8e4;
+extern int var_eventCount_8c1bb8e8;
 extern int var_8c1bb8ec;
 extern int var_8c1bb8f0;
 extern int var_8c1bb8f4;
@@ -496,6 +496,10 @@ extern int var_eventCandidateCount_8c228560;
 
 extern int var_8c2285c4[];
 
+/* run completion percentage (0-100); read by ResultShowPassedRun_8c01e0b4
+ * to pick the award tier and as the score's EXP component */
+extern int var_driverPoints_8c2285d0;
+
 /* gate for EventPickForSegment_8c02b170: only runs while
  * var_8c2285dc <= var_8c2285d8 (role of each side unclear) */
 extern int var_8c2285d8;
@@ -536,5 +540,14 @@ extern int var_8c226080[2]; /* SFX TEST */
 extern int var_8c226088[4]; /* VOICE TEST */
 extern float var_uknVol_8c226468; // real type is 0100bc_sound.c's local UnknownVolStructB {float}
 extern int var_vmuStatus_8c226048[9];
+/* RESULTS screen score category totals, drawn digit-by-digit by
+ * drawScoreDigits_8c01d7fc (01d7fc). */
+extern int var_scoreCourseClearBonus_8c2263ec;
+extern int var_scoreFirstClearBonus_8c2263f0;
+extern int var_scoreDriverPointsBonus_8c2263f4;
+extern int var_scoreBadgeBonus_8c2263f8;
+extern int var_scorePassengerBonus_8c2263fc;
+extern int var_scoreEventBonus_8c226400;
+extern int var_scoreTotal_8c226404;
 
 #endif // _0FCD20_SECTIONB_H

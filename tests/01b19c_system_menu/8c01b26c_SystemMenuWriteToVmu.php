@@ -31,11 +31,11 @@ return new class extends TestCase {
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
         $header = $this->addressOf('_var_8c1ba2e4');
         $saveNames = $this->addressOf('_init_saveNames_8c044d50');
-        $icon = $this->addressOf('_var_8c1ba344');
+        $icon = $this->addressOf('_var_vmuIconFileBuf_8c1ba344');
 
         $this->initUint32($this->addressOf('_var_8c1bb8b8'), 0x11111111);
         $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0x22222222);
-        $this->initUint32($this->addressOf('_var_8c1bb8dc'), 0x33333333);
+        $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0x33333333);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0x44);
         $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 0x55555555);
         $this->initUint32($icon, 0x8c400000);
@@ -69,7 +69,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_buCalcBackupFileSize')->with(1, 0, 0xe8)->andReturn(3);
         $this->shouldCall('_syMalloc')->with(3 << 9)->andReturn(0x8c500000);
-        $this->shouldWriteLong($this->addressOf('_var_8c1ba348'), 0x8c500000);
+        $this->shouldWriteLong($this->addressOf('_var_backupFileImageBuf_8c1ba348'), 0x8c500000);
         $this->shouldCall('_buMakeBackupFileImage')->with(0x8c500000, $header);
         $this->shouldCall('_BupSave_8c014bcc')->with(1, 0x8c440000, 0x8c500000, 3);
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 1);

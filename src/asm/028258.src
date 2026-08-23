@@ -125,7 +125,7 @@
           .IMPORT     _njDrawScroll
           .IMPORT     _FUN_8c0106ac
           .IMPORT     _var_tasks_8c1ba3c8
-          .IMPORT     _var_8c1bb8e8
+          .IMPORT     _var_eventCount_8c1bb8e8
           .IMPORT     _var_8c1bc404
           .IMPORT     _TxtInit_8c01524c
           .IMPORT     _TxtCreateTextBox_8c0152fc
@@ -5959,7 +5959,7 @@ LP_GEN_16602:
           .DATA.L _var_8c228480 ; H'8C02AEC8
           .DATA.L H'C0000000 ; H'8C02AECC
           .DATA.L _var_8c22847c ; H'8C02AED0
-          .DATA.L _var_8c1bb8e8 ; H'8C02AED4
+          .DATA.L _var_eventCount_8c1bb8e8 ; H'8C02AED4
           .DATA.L _AsqReleaseAndFreeTexlist_8c011e3c ; H'8C02AED8
           .DATA.L _syFree ; H'8C02AEDC
           .DATA.L _var_8c228514 ; H'8C02AEE0

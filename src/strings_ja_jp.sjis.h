@@ -237,5 +237,6 @@
 #define MSG_POINTS_ADDED "ポイントの加算が完了しました"
 #define MSG_CONFIRM_START_PRACTICE "練習をはじめますか？"
 #define MSG_CONFIRM_QUIT_PRACTICE "練習モードを終了します<E>よろしいですか？"
+#define MSG_RESULT_CANCEL_SAVE "セーブを中止しますか？"
 
 #endif /* STRINGS_JA_JP_SJIS_H */

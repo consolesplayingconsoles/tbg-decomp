@@ -171,12 +171,12 @@ return new class extends TestCase {
         $this->shouldCall('_buStat')->with(0)->andReturn(0);
         $this->shouldCall('_buGetLastError')->with(0)->andReturn(0);
         $this->shouldCall('_syMalloc')->with(0xe8)->andReturn($mem);
-        $this->shouldWriteLongTo('_var_8c1ba348', $mem);
+        $this->shouldWriteLongTo('_var_backupFileImageBuf_8c1ba348', $mem);
         $this->shouldCall('_buAnalyzeBackupFileImage')->with($this->addressOf('_var_8c1ba2e4'), $buf);
         $this->shouldCall('_njMemCopy')->with($mem, $src, 0xe8);
         $this->shouldCall('_njMemCopy')->with($buf, $mem, 0xe8);
         $this->shouldCall('_syFree')->with($mem);
-        $this->shouldWriteLongTo('_var_8c1ba348', 0xffffffff);
+        $this->shouldWriteLongTo('_var_backupFileImageBuf_8c1ba348', 0xffffffff);
         $this->shouldWriteLongTo('_var_8c225fe0', $buf + 0x600);
         $this->shouldWriteLong($task + 0x08, 0);
     }
@@ -189,7 +189,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c225fe4', 0x28);
         $this->setSize('_var_8c22600c', 4);
         $this->setSize('_var_8c226010', 4);
-        $this->setSize('_var_8c1ba348', 4);
+        $this->setSize('_var_backupFileImageBuf_8c1ba348', 4);
         $this->setSize('_var_8c1ba2e4', 0x58);
         $this->setSize('_var_8c1ba33c', 8);
         $this->setSize('_buIsExistFile', 4);

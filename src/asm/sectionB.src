@@ -43,11 +43,11 @@
                                     ; 01b19c
           .EXPORT     _var_8c1ba33c ; 018644
                                     ; 01b19c
-          .EXPORT     _var_8c1ba344 ; 012f44_game
+          .EXPORT     _var_vmuIconFileBuf_8c1ba344 ; 012f44_game
                                     ; 018644_file_menu
                                     ; 01b19c
                                     ; 01d7fc
-          .EXPORT     _var_8c1ba348 ; 012f44_game
+          .EXPORT     _var_backupFileImageBuf_8c1ba348 ; 012f44_game
                                     ; 018644
                                     ; 01b19c
                                     ; 01d7fc
@@ -215,18 +215,18 @@
                                     ; 01614c_debug_menu
           .EXPORT     _var_demoIndex_8c1bb8d8 ; 012f44_game
                                               ; 014f54_text
-          .EXPORT     _var_8c1bb8dc ; 0129cc_pause
+          .EXPORT     _var_runSucceeded_8c1bb8dc ; 0129cc_pause
                                     ; 016d2c_course_menu
                                     ; 01b19c
                                     ; 01d7fc
                                     ; 01e27c
                                     ; 02b464
-          .EXPORT     _var_8c1bb8e0 ; 016d2c_course_menu
+          .EXPORT     _var_firstClearOfCourse_8c1bb8e0 ; 016d2c_course_menu
                                     ; 01d7fc
-          .EXPORT     _var_8c1bb8e4 ; 016d2c_course_menu
+          .EXPORT     _var_passengerCount_8c1bb8e4 ; 016d2c_course_menu
                                     ; 01d7fc
                                     ; 02d968
-          .EXPORT     _var_8c1bb8e8 ; 016d2c_course_menu
+          .EXPORT     _var_eventCount_8c1bb8e8 ; 016d2c_course_menu
                                     ; 01d7fc
                                     ; 028258
           .EXPORT     _var_8c1bb8ec ; 016d2c_course_menu
@@ -516,14 +516,14 @@
                                                   ; 01bb48
                                                   ; 01c980
           .EXPORT     _var_profileUnlocked_8c2263b4 ; 01c980
-          .EXPORT     _var_8c2263ec ; 01d7fc
-          .EXPORT     _var_8c2263f0 ; 01d7fc
-          .EXPORT     _var_8c2263f4 ; 01d7fc
-          .EXPORT     _var_8c2263f8 ; 01d7fc
-          .EXPORT     _var_8c2263fc ; 01d7fc
-          .EXPORT     _var_8c226400 ; 01d7fc
-          .EXPORT     _var_8c226404 ; 01d7fc
-          .EXPORT     _var_8c226408 ; 01d7fc
+          .EXPORT     _var_scoreCourseClearBonus_8c2263ec ; 01d7fc
+          .EXPORT     _var_scoreFirstClearBonus_8c2263f0 ; 01d7fc
+          .EXPORT     _var_scoreDriverPointsBonus_8c2263f4 ; 01d7fc
+          .EXPORT     _var_scoreBadgeBonus_8c2263f8 ; 01d7fc
+          .EXPORT     _var_scorePassengerBonus_8c2263fc ; 01d7fc
+          .EXPORT     _var_scoreEventBonus_8c226400 ; 01d7fc
+          .EXPORT     _var_scoreTotal_8c226404 ; 01d7fc
+          .EXPORT     _var_runFailed_8c226408 ; 01d7fc
           .EXPORT     _var_8c22640c ; 0129cc_pause
                                     ; 01e27c
                                     ; 020214
@@ -756,7 +756,7 @@
                                     ; 02d19c
                                     ; 02d968
           .EXPORT     _var_8c2285c8 ; 02b2f0
-          .EXPORT     _var_8c2285d0 ; 01d7fc
+          .EXPORT     _var_driverPoints_8c2285d0 ; 01d7fc
                                     ; 01e27c
                                     ; 01fa78
                                     ; 02b464
@@ -928,9 +928,9 @@ _var_8c1ba2e4:
           .RES.B      88
 _var_8c1ba33c:
           .RES.B      8
-_var_8c1ba344:
+_var_vmuIconFileBuf_8c1ba344:
           .RES.B      4
-_var_8c1ba348:
+_var_backupFileImageBuf_8c1ba348:
           .RES.B      4
 _var_selectedVm_8c1ba34c:
           .RES.B      4
@@ -996,13 +996,13 @@ _var_8c1bb8d4:
           .RES.B      4
 _var_demoIndex_8c1bb8d8:
           .RES.B      4
-_var_8c1bb8dc:
+_var_runSucceeded_8c1bb8dc:
           .RES.B      4
-_var_8c1bb8e0:
+_var_firstClearOfCourse_8c1bb8e0:
           .RES.B      4
-_var_8c1bb8e4:
+_var_passengerCount_8c1bb8e4:
           .RES.B      4
-_var_8c1bb8e8:
+_var_eventCount_8c1bb8e8:
           .RES.B      4
 _var_8c1bb8ec:
           .RES.B      4
@@ -1242,21 +1242,21 @@ _var_resourceGroup_8c2263a8:
           .RES.B      12
 _var_profileUnlocked_8c2263b4:
           .RES.B      56
-_var_8c2263ec:
+_var_scoreCourseClearBonus_8c2263ec:
           .RES.B      4
-_var_8c2263f0:
+_var_scoreFirstClearBonus_8c2263f0:
           .RES.B      4
-_var_8c2263f4:
+_var_scoreDriverPointsBonus_8c2263f4:
           .RES.B      4
-_var_8c2263f8:
+_var_scoreBadgeBonus_8c2263f8:
           .RES.B      4
-_var_8c2263fc:
+_var_scorePassengerBonus_8c2263fc:
           .RES.B      4
-_var_8c226400:
+_var_scoreEventBonus_8c226400:
           .RES.B      4
-_var_8c226404:
+_var_scoreTotal_8c226404:
           .RES.B      4
-_var_8c226408:
+_var_runFailed_8c226408:
           .RES.B      4
 _var_8c22640c:
           .RES.B      4
@@ -1488,7 +1488,7 @@ _var_8c2285c4:
           .RES.B      4
 _var_8c2285c8:
           .RES.B      8
-_var_8c2285d0:
+_var_driverPoints_8c2285d0:
           .RES.B      8
 _var_8c2285d8:
           .RES.B      4

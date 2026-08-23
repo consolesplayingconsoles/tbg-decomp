@@ -438,7 +438,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
         case TITLE_STATE_0X11_TIME_OUT: {
             if (var_isFading_8c226568 == FALSE) {
                 if (init_8c03bd80 == FALSE) {
-                    FUN_8c016182();
+                    DebugMenuFreeSessionAssets_8c016182();
                     FUN_8c0159ac();
                 }
 

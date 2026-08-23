@@ -70,7 +70,7 @@ void SystemMenuApplyLoadedProgress_8c01b19c(void)
 {
     var_8c1bb8b8 = var_progress_8c1ba1cc.field_0xd8;
     var_8c1bb8bc = var_progress_8c1ba1cc.field_0xdc;
-    var_8c1bb8dc = var_progress_8c1ba1cc.field_0xe0;
+    var_runSucceeded_8c1bb8dc = var_progress_8c1ba1cc.field_0xe0;
     /* only the low byte is written; upper 3 bytes of the int slot are left alone */
     *(signed char *)&var_award_8c1bb8f8 = var_progress_8c1ba1cc.award_0xe4;
 }
@@ -119,7 +119,7 @@ void SystemMenuWriteToVmu_8c01b26c(void)
 
     var_progress_8c1ba1cc.field_0xd8 = var_8c1bb8b8;
     var_progress_8c1ba1cc.field_0xdc = var_8c1bb8bc;
-    var_progress_8c1ba1cc.field_0xe0 = var_8c1bb8dc;
+    var_progress_8c1ba1cc.field_0xe0 = var_runSucceeded_8c1bb8dc;
     var_progress_8c1ba1cc.award_0xe4 = *(signed char *)&var_award_8c1bb8f8;
     ProfileFileUpdateUnlocks_8c01c980();
     var_progress_8c1ba1cc.field_0x8c = var_profileUnlockedCount_8c2263a4;
@@ -130,8 +130,8 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     /* VMU file comment: "Tokyo Bus Guide data" */
     strcpy(var_8c1ba2e4.btr_comment, STR_TITLE_DATA);
     njMemCopy(var_8c1ba2e4.game_name, init_8c04410c, 0x10);
-    var_8c1ba2e4.icon_palette = var_8c1ba344;
-    var_8c1ba2e4.icon_data = (char *)var_8c1ba344 + 0x20;
+    var_8c1ba2e4.icon_palette = var_vmuIconFileBuf_8c1ba344;
+    var_8c1ba2e4.icon_data = (char *)var_vmuIconFileBuf_8c1ba344 + 0x20;
     var_8c1ba2e4.icon_num = 1;
     var_8c1ba2e4.icon_speed = 1;
     var_8c1ba2e4.save_data = &var_progress_8c1ba1cc;
@@ -139,10 +139,10 @@ void SystemMenuWriteToVmu_8c01b26c(void)
 
     size = buCalcBackupFileSize(var_8c1ba2e4.icon_num, var_8c1ba2e4.visual_type,
                                 var_8c1ba2e4.save_size);
-    var_8c1ba348 = syMalloc(size << 9);
-    buMakeBackupFileImage(var_8c1ba348, &var_8c1ba2e4);
+    var_backupFileImageBuf_8c1ba348 = syMalloc(size << 9);
+    buMakeBackupFileImage(var_backupFileImageBuf_8c1ba348, &var_8c1ba2e4);
     BupSave_8c014bcc(var_selectedVm_8c1ba34c,
-                     init_saveNames_8c044d50[var_8c1ba350], var_8c1ba348, 3);
+                     init_saveNames_8c044d50[var_8c1ba350], var_backupFileImageBuf_8c1ba348, 3);
     var_vmBusy_8c157a7c = 1;
 }
 
@@ -339,7 +339,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
 
     case SAVE_STATE_LOAD_FAILED: /* corrupt-save notice, wait for A to bail to title */
         if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
-            FUN_8c016182();
+            DebugMenuFreeSessionAssets_8c016182();
             TitlePushTitle_8c015fd6(0);
             return;
         }
@@ -390,8 +390,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 swapMessageBoxFor_8c02aefc(MSG_SAVE_FAILED);
             }
             var_vmBusy_8c157a7c = 0;
-            syFree(var_8c1ba348);
-            var_8c1ba348 = (void *)-1;
+            syFree(var_backupFileImageBuf_8c1ba348);
+            var_backupFileImageBuf_8c1ba348 = (void *)-1;
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             VmGameSetLcdSlot_8c01c8fc(0);
             break;
@@ -428,7 +428,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         if (var_isFading_8c226568 != 0 || var_vmMountBusy_8c22606c != 0) {
             break;
         }
-        FUN_8c016182();
+        DebugMenuFreeSessionAssets_8c016182();
         TitlePushTitle_8c015fd6(1);
         return;
 
@@ -471,7 +471,7 @@ void SystemMenuSwitchFromTask_8c01ba64(Task *task)
     push_fadein_8c022a9c(10);
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
-    AsqRequestDat_8c011182("\\SYSTEM", "bus_mem.VMI", &var_8c1ba344);
+    AsqRequestDat_8c011182("\\SYSTEM", "bus_mem.VMI", &var_vmuIconFileBuf_8c1ba344);
     RouteLoadSetPvmReady_8c014330();
     AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
 }

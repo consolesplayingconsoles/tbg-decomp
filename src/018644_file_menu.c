@@ -103,12 +103,12 @@ STATIC void loadFileTask_8c018644(Task *task)
             var_8c226010 = 2;
             return;
         }
-        var_8c1ba348 = syMalloc(0xe8);
+        var_backupFileImageBuf_8c1ba348 = syMalloc(0xe8);
         buAnalyzeBackupFileImage(&var_8c1ba2e4, var_8c225fe0);
-        njMemCopy(var_8c1ba348, var_8c1ba33c, 0xe8);
-        njMemCopy(var_8c225fe0, var_8c1ba348, 0xe8);
-        syFree(var_8c1ba348);
-        var_8c1ba348 = (void *)-1;
+        njMemCopy(var_backupFileImageBuf_8c1ba348, var_8c1ba33c, 0xe8);
+        njMemCopy(var_8c225fe0, var_backupFileImageBuf_8c1ba348, 0xe8);
+        syFree(var_backupFileImageBuf_8c1ba348);
+        var_backupFileImageBuf_8c1ba348 = (void *)-1;
         var_8c225fe0 = (char *)var_8c225fe0 + 0x600;
         task->field_0x08 = 0;
     }
@@ -144,9 +144,9 @@ void FileMenuFreeBuffers_8c0187d0(void)
         syFree(var_8c1ba2e0);
         var_8c1ba2e0 = (void *)-1;
     }
-    if (var_8c1ba344 != (void *)-1) {
-        syFree(var_8c1ba344);
-        var_8c1ba344 = (void *)-1;
+    if (var_vmuIconFileBuf_8c1ba344 != (void *)-1) {
+        syFree(var_vmuIconFileBuf_8c1ba344);
+        var_vmuIconFileBuf_8c1ba344 = (void *)-1;
     }
 }
 

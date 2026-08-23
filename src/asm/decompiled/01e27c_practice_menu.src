@@ -18,7 +18,7 @@
           .IMPORT     _PromptHandleBinary_8c016caa
           .IMPORT     _push_fadeout_8c022b60
           .IMPORT     _njSetBackColor
-          .IMPORT     _FUN_8c016182
+          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
           .IMPORT     _var_8c1bb8f0
           .IMPORT     _var_8c1bb8ec
           .IMPORT     _var_8c1bb8f4
@@ -40,7 +40,7 @@
           .IMPORT     _var_8c1bb8b8
           .IMPORT     _var_8c1bb8bc
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _var_8c1bb8dc
+          .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _var_award_8c1bb8f8
           .IMPORT     _var_8c226414
           .IMPORT     __modls
@@ -58,7 +58,7 @@
           .IMPORT     _var_tex_8c157af8
           .IMPORT     _njGarbageTexture
           .IMPORT     _var_8c1ba264
-          .IMPORT     _var_8c2285d0
+          .IMPORT     _var_driverPoints_8c2285d0
           .IMPORT     _InputPushTask_8c0128cc
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tasks_8c1ba3c8
@@ -531,7 +531,7 @@ LP_GEN_38636:
           .DATA.L _njSetBackColor ; H'8C01E5E4
           .DATA.L _push_fadein_8c022a9c ; H'8C01E5E8
           .DATA.L H'C1000000 ; H'8C01E5EC
-          .DATA.L _FUN_8c016182 ; H'8C01E5F0
+          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01E5F0
           .DATA.L _var_8c1bb8f0 ; H'8C01E5F4
           .DATA.L _var_8c1bb8ec ; H'8C01E5F8
           .DATA.L _var_8c1bb8f4 ; H'8C01E5FC
@@ -1244,7 +1244,7 @@ LP_GEN_88702:
           .DATA.L _var_8c1bb8f4 ; H'8C01EB94
           .DATA.L _init_8c045208 ; H'8C01EB98
           .DATA.L _var_8c1bb8ec ; H'8C01EB9C
-          .DATA.L _var_8c1bb8dc ; H'8C01EBA0
+          .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01EBA0
           .DATA.L _var_award_8c1bb8f8 ; H'8C01EBA4
           .DATA.L _var_8c226414 ; H'8C01EBA8
           .DATA.L H'40C00000 ; H'8C01EBAC
@@ -1716,7 +1716,7 @@ LP_GEN_95699:
           .DATA.L _var_8c1bb8b8 ; H'8C01EF4C
           .DATA.L _var_8c22642c ; H'8C01EF50
           .DATA.L H'0001869F ; H'8C01EF54
-          .DATA.L _FUN_8c016182 ; H'8C01EF58
+          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01EF58
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01EF5C
 LAB_8c01ef60:
           MOV.L       LP_GEN_11122+2,R2
@@ -2101,10 +2101,10 @@ LP_GEN_80134:
           .DATA.L _var_award_8c1bb8f8 ; H'8C01F278
           .DATA.L _var_8c226414 ; H'8C01F27C
           .DATA.L _var_8c1bb8bc ; H'8C01F280
-          .DATA.L _var_8c1bb8dc ; H'8C01F284
+          .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01F284
           .DATA.L _var_8c22640c ; H'8C01F288
           .DATA.L _var_8c1ba264 ; H'8C01F28C
-          .DATA.L _var_8c2285d0 ; H'8C01F290
+          .DATA.L _var_driverPoints_8c2285d0 ; H'8C01F290
           .DATA.L _var_8c22642c ; H'8C01F294
 LAB_8c01f298:
           MOV         #H'18,R0

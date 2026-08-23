@@ -186,10 +186,10 @@ STATIC int update_8c0129cc(void)
                 njDrawPolygon((NJS_POLYGON_VTX *)init_8c03bf4c, 4, 1);
                 return 0;
             }
-            var_8c1bb8dc = 0;
+            var_runSucceeded_8c1bb8dc = 0;
             var_8c1bb8b8 = 0;
             var_8c1bb8bc = 0;
-            FUN_8c016182();
+            DebugMenuFreeSessionAssets_8c016182();
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_menuState_8c1bc7a8.selected_0x38 = var_8c22640c;
                 PracticeMenuLessonRetry_8c01f21c();
@@ -223,7 +223,7 @@ void PauseTask_8c012cbc()
 
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
-        FUN_8c016182();
+        DebugMenuFreeSessionAssets_8c016182();
         TitlePushTitle_8c015fd6(1);
         LOG_DEBUG(("[PAUSE] PauseTask_8c012cbc: reset requested, returning to title\n"));
         return;
@@ -248,7 +248,7 @@ void PauseToggleTask_8c012d06()
 
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
-        FUN_8c016182();
+        DebugMenuFreeSessionAssets_8c016182();
         TitlePushTitle_8c015fd6(1);
         LOG_DEBUG(("[PAUSE] PauseToggleTask_8c012d06: reset requested, returning to title\n"));
         return;
@@ -278,7 +278,7 @@ void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
 
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
-        FUN_8c016182();
+        DebugMenuFreeSessionAssets_8c016182();
         init_8c03bd80 = 1;
         init_8c03bd84 = 0;
         LOG_DEBUG(("[PAUSE] PauseDemoEndTask_8c012d5a: reset requested\n"));
@@ -315,7 +315,7 @@ void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
         if (init_8c03bd80 != 0) {
             return;
         }
-        FUN_8c016182();
+        DebugMenuFreeSessionAssets_8c016182();
         TitlePushTitle_8c015fd6(task->phase_0x08 == DEMO_END_SKIPPED ? 1 : 0);
         LOG_INFO(("[PAUSE] PauseDemoEndTask_8c012d5a: demo ended, returning to title\n"));
         return;

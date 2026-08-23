@@ -17,10 +17,10 @@
           .IMPORT     _var_markTexlist_8c1bc418
           .IMPORT     _push_fadeout_8c022b60
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _var_8c1bb8dc
+          .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _var_8c1bb8b8
           .IMPORT     _var_8c1bb8bc
-          .IMPORT     _FUN_8c016182
+          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_8c1ba2cc
           .IMPORT     _var_8c1ba2b8
@@ -602,10 +602,10 @@ LAB_8c012db0:
 LP_GEN_43727:
           .RES.W      1
           .DATA.L _var_isFading_8c226568
-          .DATA.L _var_8c1bb8dc
+          .DATA.L _var_runSucceeded_8c1bb8dc
           .DATA.L _var_8c1bb8b8
           .DATA.L _var_8c1bb8bc
-          .DATA.L _FUN_8c016182
+          .DATA.L _DebugMenuFreeSessionAssets_8c016182
           .DATA.L _var_playMode_8c1bb8d0
           .DATA.L _var_8c1ba2cc
           .DATA.L _var_8c1ba2b8

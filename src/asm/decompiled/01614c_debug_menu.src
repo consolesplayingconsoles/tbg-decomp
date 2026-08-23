@@ -68,7 +68,7 @@
           .IMPORT     _VmMenuUpdateVmusStatus_8c019550
           .IMPORT     _CourseMenuReturn_8c017ef2
           .EXPORT     _DebugMenuDemoRecordTask_8c01677e
-          .EXPORT     _FUN_8c016182
+          .EXPORT     _DebugMenuFreeSessionAssets_8c016182
           .EXPORT     _FUN_8c01614c
           .EXPORT     _FUN_8c016770
           .EXPORT     _DebugMenuOpen_8c01673a
@@ -143,7 +143,7 @@ _FUN_8c01614c:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_FUN_8c016182:
+_DebugMenuFreeSessionAssets_8c016182:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

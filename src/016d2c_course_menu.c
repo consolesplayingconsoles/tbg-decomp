@@ -657,7 +657,7 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
     }
 
     // Result
-    if (var_8c1bb8dc == 0) {
+    if (var_runSucceeded_8c1bb8dc == 0) {
         var_dialogQueue_8c225fbc[cur++] = SEQ_FAILURE_RETRY;
     } else {
         int award_seq = SEQ_SUCCESS;
@@ -838,7 +838,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
             var_menuState_8c1bc7a8.courseId_0x50 =
                 init_courseMenuButtons_8c04442c[buttonIndex].courseId_0x18;
 
-            var_8c1bb8dc = 1;
+            var_runSucceeded_8c1bb8dc = 1;
             var_8c1bb8b8 = 0;
             var_8c1bb8bc = 1;
 
@@ -991,7 +991,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
             var_menuState_8c1bc7a8.courseId_0x50 =
                 init_courseMenuButtons_8c04442c[buttonIndex].courseId_0x18;
 
-            // var_8c1bb8dc = 1;
+            // var_runSucceeded_8c1bb8dc = 1;
             // var_8c1bb8b8 = 0;
             // var_8c1bb8bc = 1;
 
@@ -1324,20 +1324,20 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                     return;
                 }
                 // Step 1: Initialize game systems
-                FUN_8c016182();
+                DebugMenuFreeSessionAssets_8c016182();
 
                 // Step 2: Get course index and check if unlocked
                 if (var_progress_8c1ba1cc.courses_0x44[courseIndex].field_0x02 == 0) {
                     // Course not unlocked, mark it
-                    var_8c1bb8e0 = 1;
+                    var_firstClearOfCourse_8c1bb8e0 = 1;
                     var_progress_8c1ba1cc.courses_0x44[courseIndex].field_0x02 = 1;
                 } else {
-                    var_8c1bb8e0 = 0;
+                    var_firstClearOfCourse_8c1bb8e0 = 0;
                 }
 
                 // Step 3: Initialize various game state variables
-                var_8c1bb8e8 = 0;
-                var_8c1bb8e4 = 0;
+                var_eventCount_8c1bb8e8 = 0;
+                var_passengerCount_8c1bb8e4 = 0;
                 var_8c1bb8f0 = 0;
                 var_8c1bb8ec = 0x1d;
                 var_8c1bb8f4 = 0;

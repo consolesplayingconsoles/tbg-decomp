@@ -5,7 +5,7 @@
           .IMPORT     _sdMidiStopAll
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
-          .IMPORT     _FUN_8c016182
+          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
           .IMPORT     _var_8c1bb8c4
           .IMPORT     _init_8c03bd80
           .IMPORT     _init_8c03bd84
@@ -129,8 +129,8 @@
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_resourceGroup_8c2263a8
           .IMPORT     _var_8c1ba2e0
-          .IMPORT     _var_8c1ba348
-          .IMPORT     _var_8c1ba344
+          .IMPORT     _var_backupFileImageBuf_8c1ba348
+          .IMPORT     _var_vmuIconFileBuf_8c1ba344
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _var_demoBuf_8c1ba3c4
           .IMPORT     _var_vmGameBuf_8c1bc454
@@ -315,7 +315,7 @@ LP_GEN_99840:
           .DATA.L _sdMidiStopAll
           .DATA.L _var_vibport_8c1ba354
           .DATA.L _pdVibMxStop
-          .DATA.L _FUN_8c016182
+          .DATA.L _DebugMenuFreeSessionAssets_8c016182
           .DATA.L _var_8c1bb8c4
           .DATA.L _init_8c03bd80
           .DATA.L _init_8c03bd84
@@ -1198,8 +1198,8 @@ LP_GEN_90231:
           .DATA.L _var_menuState_8c1bc7a8
           .DATA.L _var_resourceGroup_8c2263a8
           .DATA.L _var_8c1ba2e0
-          .DATA.L _var_8c1ba348
-          .DATA.L _var_8c1ba344
+          .DATA.L _var_backupFileImageBuf_8c1ba348
+          .DATA.L _var_vmuIconFileBuf_8c1ba344
           .DATA.L _var_currentSysResGroupInfo_8c225fb0
           .DATA.L _var_demoBuf_8c1ba3c4
           .DATA.L _var_vmGameBuf_8c1bc454

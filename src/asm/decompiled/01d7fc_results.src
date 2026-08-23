@@ -13,19 +13,19 @@
           .IMPORT     _VmMenuUpdateVmuStatus_8c01967c
           .IMPORT     _RouteLoadIsPvmReady_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
-          .IMPORT     _var_8c226408
-          .IMPORT     _var_8c1bb8dc
+          .IMPORT     _var_runFailed_8c226408
+          .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _SndMidiResetFxAndPlay_8c010846
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_award_8c1bb8f8
-          .IMPORT     _var_8c226404
-          .IMPORT     _var_8c226400
-          .IMPORT     _var_8c2263fc
-          .IMPORT     _var_8c2263f8
-          .IMPORT     _var_8c2263f4
-          .IMPORT     _var_8c2263f0
-          .IMPORT     _var_8c2263ec
+          .IMPORT     _var_scoreTotal_8c226404
+          .IMPORT     _var_scoreEventBonus_8c226400
+          .IMPORT     _var_scorePassengerBonus_8c2263fc
+          .IMPORT     _var_scoreBadgeBonus_8c2263f8
+          .IMPORT     _var_scoreDriverPointsBonus_8c2263f4
+          .IMPORT     _var_scoreFirstClearBonus_8c2263f0
+          .IMPORT     _var_scoreCourseClearBonus_8c2263ec
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _push_fadeout_8c022b60
@@ -39,9 +39,9 @@
           .IMPORT     _buStat
           .IMPORT     _buGetLastError
           .IMPORT     _var_vmBusy_8c157a7c
-          .IMPORT     _var_8c1ba348
+          .IMPORT     _var_backupFileImageBuf_8c1ba348
           .IMPORT     _syFree
-          .IMPORT     _FUN_8c016182
+          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
           .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _CourseMenuBuildCourseUnlockList_8c0172dc
           .IMPORT     _CourseMenuApplyUnlocks_8c0173e6
@@ -59,7 +59,7 @@
           .IMPORT     _init_titleResourceGroup_8c044254
           .IMPORT     _CourseMenuRequestSysResgrp_8c018568
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
-          .IMPORT     _var_8c1ba344
+          .IMPORT     _var_vmuIconFileBuf_8c1ba344
           .IMPORT     _AsqRequestDat_8c011182
           .IMPORT     _RouteLoadSetPvmReady_8c014330
           .IMPORT     _RouteLoadResetPvmReady_8c014322
@@ -67,19 +67,31 @@
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _var_route_8c18ad1c
-          .IMPORT     _var_8c1bb8e0
-          .IMPORT     _var_8c2285d0
-          .IMPORT     _var_8c1bb8e4
-          .IMPORT     _var_8c1bb8e8
+          .IMPORT     _var_firstClearOfCourse_8c1bb8e0
+          .IMPORT     _var_driverPoints_8c2285d0
+          .IMPORT     _var_passengerCount_8c1bb8e4
+          .IMPORT     _var_eventCount_8c1bb8e8
           .IMPORT     _FUN_8c01f954
-          .EXPORT     _FUN_8c01d7fc
-          .EXPORT     _FUN_8c01d864
+          .EXPORT     _drawScoreDigits_8c01d7fc
+          .EXPORT     _drawTextboxSprite_8c01d864
           .EXPORT     _task_8c01d8e0
-          .EXPORT     _FUN_8c01df8e
-          .EXPORT     _FUN_8c01e24e
-          .EXPORT     _FUN_8c01e0b4
+          .EXPORT     _startResultsTask_8c01df8e
+          .EXPORT     _ResultShowFailedRun_8c01e24e
+          .EXPORT     _ResultShowPassedRun_8c01e0b4
+
+          .AIFDEF     UNIT_TESTING
+          .EXPORT     _const_8c0387fc
+          .EXPORT     _const_8c038828
+          .EXPORT     _const_8c038858
+          .EXPORT     _const_8c038894
+          .EXPORT     _const_8c0388b8
+          .EXPORT     _const_8c0388f0
+          .EXPORT     _const_8c038908
+          .EXPORT     _const_8c038934
+          .EXPORT     _const_8c038940
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c01d7fc:
+_drawScoreDigits_8c01d7fc:
           MOV.L       R14,@-R15
           MOVA        LP_GEN_57051+2,R0
           MOV.L       R13,@-R15
@@ -133,7 +145,7 @@ LAB_8c01d826:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01d864:
+_drawTextboxSprite_8c01d864:
           MOV.L       R14,@-R15
           MOVA        LP_GEN_57051+30,R0
           MOV.L       LP_GEN_57051+6,R14
@@ -395,41 +407,41 @@ LAB_8c01da62:
           MOVA        LP_GEN_73625+40,R0
           MOV.L       R2,@(H'18,R14)
           MOV.L       @R3,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
 LAB_8c01da70:
           MOV.L       LP_GEN_73625+44,R3
           MOVA        LP_GEN_73625+48,R0
           MOV.L       @R3,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
 LAB_8c01da7a:
           MOV.L       LP_GEN_73625+52,R3
           MOVA        LP_GEN_73625+56,R0
           MOV.L       @R3,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
 LAB_8c01da84:
           MOV.L       LP_GEN_73625+60,R3
           MOVA        LP_GEN_73625+64,R0
           MOV.L       @R3,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
 LAB_8c01da8e:
           MOV.L       LP_GEN_73625+68,R3
           MOVA        LP_GEN_73625+72,R0
           MOV.L       @R3,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
 LAB_8c01da98:
           MOV.L       LP_GEN_73625+76,R3
           MOV.L       @R3,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV        FR12,FR4
 LAB_8c01daa0:
           MOV.L       LP_GEN_73625+80,R3
           MOV.L       @R3,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV        FR13,FR4
           BRA         LAB_8c01db36
           NOP
@@ -462,35 +474,35 @@ LAB_8c01dad8:
           MOV.L       LP_GEN_73625+36,R2
           MOVA        LP_GEN_73625+40,R0
           MOV.L       @R2,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
           MOV.L       LP_GEN_73625+44,R2
           MOVA        LP_GEN_73625+48,R0
           MOV.L       @R2,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
           MOV.L       LP_GEN_73625+52,R2
           MOVA        LP_GEN_73625+56,R0
           MOV.L       @R2,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
           MOV.L       LP_GEN_73625+60,R2
           MOVA        LP_GEN_73625+64,R0
           MOV.L       @R2,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
           MOV.L       LP_GEN_73625+68,R2
           MOVA        LP_GEN_73625+72,R0
           MOV.L       @R2,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV.S      @R0,FR4
           MOV.L       LP_GEN_73625+76,R2
           MOV.L       @R2,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV        FR12,FR4
           MOV.L       LP_GEN_73625+80,R2
           MOV.L       @R2,R4
-          BSR         _FUN_8c01d7fc
+          BSR         _drawScoreDigits_8c01d7fc
           FMOV        FR13,FR4
           MOV.L       LP_GEN_73625+32,R3
           MOV.B       @R3,R2
@@ -520,24 +532,24 @@ LP_GEN_73625:
           .DATA.L _VmMenuUpdateVmuStatus_8c01967c ; H'8C01DB48
           .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C01DB4C
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01DB50
-          .DATA.L _var_8c226408 ; H'8C01DB54
-          .DATA.L _var_8c1bb8dc ; H'8C01DB58
+          .DATA.L _var_runFailed_8c226408 ; H'8C01DB54
+          .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01DB58
           .DATA.L _SndMidiResetFxAndPlay_8c010846 ; H'8C01DB5C
           .DATA.L _var_midiHandles_8c0fcd28+16 ; H'8C01DB60
           .DATA.L _sdMidiPlay ; H'8C01DB64
           .DATA.L _var_award_8c1bb8f8 ; H'8C01DB68
-          .DATA.L _var_8c226404 ; H'8C01DB6C
+          .DATA.L _var_scoreTotal_8c226404 ; H'8C01DB6C
           .DATA.L H'439C0000 ; H'8C01DB70
-          .DATA.L _var_8c226400 ; H'8C01DB74
+          .DATA.L _var_scoreEventBonus_8c226400 ; H'8C01DB74
           .DATA.L H'43850000 ; H'8C01DB78
-          .DATA.L _var_8c2263fc ; H'8C01DB7C
+          .DATA.L _var_scorePassengerBonus_8c2263fc ; H'8C01DB7C
           .DATA.L H'43680000 ; H'8C01DB80
-          .DATA.L _var_8c2263f8 ; H'8C01DB84
+          .DATA.L _var_scoreBadgeBonus_8c2263f8 ; H'8C01DB84
           .DATA.L H'43460000 ; H'8C01DB88
-          .DATA.L _var_8c2263f4 ; H'8C01DB8C
+          .DATA.L _var_scoreDriverPointsBonus_8c2263f4 ; H'8C01DB8C
           .DATA.L H'43240000 ; H'8C01DB90
-          .DATA.L _var_8c2263f0 ; H'8C01DB94
-          .DATA.L _var_8c2263ec ; H'8C01DB98
+          .DATA.L _var_scoreFirstClearBonus_8c2263f0 ; H'8C01DB94
+          .DATA.L _var_scoreCourseClearBonus_8c2263ec ; H'8C01DB98
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01DB9C
           .DATA.L _var_progress_8c1ba1cc ; H'8C01DBA0
           .DATA.L _push_fadeout_8c022b60 ; H'8C01DBA4
@@ -893,7 +905,7 @@ caseD_c_1:
           JSR         @R3
           MOV         #H'a,R4
 LAB_8c01de3c:
-          BSR         _FUN_8c01d864
+          BSR         _drawTextboxSprite_8c01d864
           NOP
           BRA         LAB_8c01df50
           NOP
@@ -970,7 +982,7 @@ LP_GEN_50614:
           .DATA.L _push_fadeout_8c022b60 ; H'8C01DECC
           .DATA.L _push_fadein_8c022a9c ; H'8C01DED0
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01DED4
-          .DATA.L _var_8c226408 ; H'8C01DED8
+          .DATA.L _var_runFailed_8c226408 ; H'8C01DED8
           .DATA.L _FileMenuResetProgress_8c01890a ; H'8C01DEDC
           .DATA.L _SystemMenuWriteToVmu_8c01b26c ; H'8C01DEE0
           .DATA.L _const_8c038908 ; H'8C01DEE4
@@ -983,10 +995,10 @@ LP_GEN_50614:
           .DATA.L _const_8c038934 ; H'8C01DF00
           .DATA.L _const_8c038940 ; H'8C01DF04
           .DATA.L _var_vmBusy_8c157a7c ; H'8C01DF08
-          .DATA.L _var_8c1ba348 ; H'8C01DF0C
+          .DATA.L _var_backupFileImageBuf_8c1ba348 ; H'8C01DF0C
           .DATA.L _syFree ; H'8C01DF10
           .DATA.L _const_8c0388f0 ; H'8C01DF14
-          .DATA.L _FUN_8c016182 ; H'8C01DF18
+          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01DF18
           .DATA.L _var_progress_8c1ba1cc ; H'8C01DF1C
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01DF20
           .DATA.L _CourseMenuBuildCourseUnlockList_8c0172dc ; H'8C01DF24
@@ -1042,7 +1054,7 @@ LAB_8c01df74:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01df8e:
+_startResultsTask_8c01df8e:
           STS.L       PR,@-R15
           ADD         #-H'8,R15
           MOV.L       LP_GEN_43538+30,R3
@@ -1154,7 +1166,7 @@ LP_GEN_43538:
           .DATA.L _var_menuState_8c1bc7a8 + H'0C ; H'8C01E088
           .DATA.L _CourseMenuRequestSysResgrp_8c018568 ; H'8C01E08C
           .DATA.L _CourseMenuRequestCommonResources_8c01852c ; H'8C01E090
-          .DATA.L _var_8c1ba344 ; H'8C01E094
+          .DATA.L _var_vmuIconFileBuf_8c1ba344 ; H'8C01E094
           .DATA.L _const_8c038960 ; H'8C01E098
           .DATA.L _const_8c038958 ; H'8C01E09C
           .DATA.L _AsqRequestDat_8c011182 ; H'8C01E0A0
@@ -1162,7 +1174,7 @@ LP_GEN_43538:
           .DATA.L _RouteLoadResetPvmReady_8c014322 ; H'8C01E0A8
           .DATA.L _AsqNop_8c011120 ; H'8C01E0AC
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01E0B0
-_FUN_8c01e0b4:
+_ResultShowPassedRun_8c01e0b4:
           MOV.L       LP_GEN_76652+14,R2
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
@@ -1285,15 +1297,15 @@ LP_GEN_76652:
           .RES.W 1 ; H'8C01E186
           .DATA.L _var_timeOfDay_8c18ad20 ; H'8C01E188
           .DATA.L _var_route_8c18ad1c ; H'8C01E18C
-          .DATA.L _var_8c2263ec ; H'8C01E190
-          .DATA.L _var_8c1bb8dc ; H'8C01E194
-          .DATA.L _init_8c0451a0 ; H'8C01E198
-          .DATA.L _var_8c2263f0 ; H'8C01E19C
-          .DATA.L _var_8c1bb8e0 ; H'8C01E1A0
-          .DATA.L _var_8c2285d0 ; H'8C01E1A4
-          .DATA.L _var_8c2263f4 ; H'8C01E1A8
+          .DATA.L _var_scoreCourseClearBonus_8c2263ec ; H'8C01E190
+          .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01E194
+          .DATA.L _init_courseClearScoreTable_8c0451a0 ; H'8C01E198
+          .DATA.L _var_scoreFirstClearBonus_8c2263f0 ; H'8C01E19C
+          .DATA.L _var_firstClearOfCourse_8c1bb8e0 ; H'8C01E1A0
+          .DATA.L _var_driverPoints_8c2285d0 ; H'8C01E1A4
+          .DATA.L _var_scoreDriverPointsBonus_8c2263f4 ; H'8C01E1A8
           .DATA.L _var_award_8c1bb8f8 ; H'8C01E1AC
-          .DATA.L _var_8c2263f8 ; H'8C01E1B0
+          .DATA.L _var_scoreBadgeBonus_8c2263f8 ; H'8C01E1B0
           .DATA.L _var_progress_8c1ba1cc ; H'8C01E1B4
 LAB_8c01e1b8:
           MOV.W       LP_GEN_78959,R2
@@ -1376,25 +1388,25 @@ LAB_8c01e240:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _FUN_8c01df8e
+          BRA         _startResultsTask_8c01df8e
           MOV.L       @R15+,R14
-_FUN_8c01e24e:
+_ResultShowFailedRun_8c01e24e:
           MOV.L       LP_GEN_78959+34,R1
           MOV         #H'1,R2
-          BRA         _FUN_8c01df8e
+          BRA         _startResultsTask_8c01df8e
           MOV.L       R2,@R1
 LP_GEN_78959:
           .DATA.W H'00C8 ; H'8C01E256
           .DATA.W H'0090 ; H'8C01E258
           .RES.W 1 ; H'8C01E25A
-          .DATA.L _var_8c2263fc ; H'8C01E25C
-          .DATA.L _var_8c1bb8e4 ; H'8C01E260
-          .DATA.L _var_8c226400 ; H'8C01E264
-          .DATA.L _var_8c1bb8e8 ; H'8C01E268
-          .DATA.L _var_8c2263f4 ; H'8C01E26C
-          .DATA.L _var_8c226404 ; H'8C01E270
+          .DATA.L _var_scorePassengerBonus_8c2263fc ; H'8C01E25C
+          .DATA.L _var_passengerCount_8c1bb8e4 ; H'8C01E260
+          .DATA.L _var_scoreEventBonus_8c226400 ; H'8C01E264
+          .DATA.L _var_eventCount_8c1bb8e8 ; H'8C01E268
+          .DATA.L _var_scoreDriverPointsBonus_8c2263f4 ; H'8C01E26C
+          .DATA.L _var_scoreTotal_8c226404 ; H'8C01E270
           .DATA.L H'0001869F ; H'8C01E274
-          .DATA.L _var_8c226408 ; H'8C01E278
+          .DATA.L _var_runFailed_8c226408 ; H'8C01E278
           .SECTION    C, DATA, ALIGN=4
 _const_8c0387fc:        ; from defines
           ;.SDATA      "ファイルを作成します。<E>よろしいですか？"
@@ -1464,7 +1476,10 @@ _const_8c038960:        ; from defines
           ;.DATA.B     H'00
           .DATA.B      H'62, H'75, H'73, H'5F, H'6D, H'65, H'6D, H'2E, H'56, H'4D, H'49, H'00
           .SECTION    D, DATA, ALIGN=4
-_init_8c0451a0:        ; from defines
-          .DATA.B      H'F0, H'00, H'40, H'01, H'54, H'01, H'C8, H'00, H'18, H'01, H'2C, H'01, H'C8, H'00, H'DC, H'00
+_init_courseClearScoreTable_8c0451a0:        ; from defines
+          .DATA.B      H'F0, H'00, H'40, H'01
+          .DATA.B      H'54, H'01, H'C8, H'00
+          .DATA.B      H'18, H'01, H'2C, H'01
+          .DATA.B      H'C8, H'00, H'DC, H'00
           .DATA.B      H'04, H'01, H'00, H'00
           .END

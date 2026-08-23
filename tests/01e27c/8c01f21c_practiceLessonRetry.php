@@ -29,7 +29,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
-        $this->initUint32($this->addressOf('_var_8c1bb8dc'), 0);
+        $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_PracticeMenuLessonRetry_8c01f21c');
 
@@ -48,7 +48,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
-        $this->initUint32($this->addressOf('_var_8c1bb8dc'), 1);
+        $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->initUint32($this->addressOf('_var_8c22640c'), 3);
 
         $progressBase = $this->addressOf('_var_progress_8c1ba1cc');
@@ -64,7 +64,7 @@ return new class extends TestCase {
         // var_8c1ba264 is indexed directly by var_8c22640c in the asm, so
         // it aliases the array base (field_0x98[0]), not the [3] cell.
         $this->rellocate('_var_8c1ba264', $progressBase + 0x98);
-        $this->rellocate('_var_8c2285d0', $candidateScoreAddr);
+        $this->rellocate('_var_driverPoints_8c2285d0', $candidateScoreAddr);
 
         $this->call('_PracticeMenuLessonRetry_8c01f21c');
 

@@ -409,7 +409,7 @@ return new class extends TestCase {
         $this->exitStateEnter($menuState, 8, 1, 0, 0);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
-        $this->shouldCall('_FUN_8c016182');
+        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
     }
 
@@ -643,7 +643,7 @@ return new class extends TestCase {
         $this->resolveEagerPointers(txtDraw: false, swapBox: false, midi: true);
         $menuState = $this->menuStateBase();
         $this->stateEnter($menuState, 5, 1, 0, 1);
-        $this->initUint32($this->addressOf('_var_8c1ba348'), 0x8c520000);
+        $this->initUint32($this->addressOf('_var_backupFileImageBuf_8c1ba348'), 0x8c520000);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
         $this->expectVmStatusTop(0);
@@ -653,7 +653,7 @@ return new class extends TestCase {
         $this->shouldCall('_swapMessageBoxFor_8c02aefc');
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->shouldCall('_syFree')->with(0x8c520000);
-        $this->shouldWriteLong($this->addressOf('_var_8c1ba348'), -1);
+        $this->shouldWriteLong($this->addressOf('_var_backupFileImageBuf_8c1ba348'), -1);
         $this->shouldWriteLong($menuState + 0x18, 2);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->expectPromptTail($menuState, 0, 1, 0);

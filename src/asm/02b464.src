@@ -78,10 +78,10 @@
           .IMPORT     _RouteLoadPushSegmentReloadTask_8c01468e
           .IMPORT     _var_8c1bb8b8
           .IMPORT     _var_8c1bb8bc
-          .IMPORT     _FUN_8c016182
+          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _var_8c1bb8dc
+          .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _push_fadeout_8c022b60
@@ -91,8 +91,8 @@
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _FUN_8c01614c
           .IMPORT     _push_fadein_8c022a9c
-          .IMPORT     _var_8c2285d0
-          .IMPORT     _FUN_8c01e0b4
+          .IMPORT     _var_driverPoints_8c2285d0
+          .IMPORT     _ResultShowPassedRun_8c01e0b4
           .IMPORT     _var_menuState_8c1bc7a8
           .EXPORT     _FUN_8c02b464
           .EXPORT     _FUN_8c02b578
@@ -2660,11 +2660,11 @@ LP_GEN_25024:
           .DATA.L _RouteLoadPushSegmentReloadTask_8c01468e ; H'8C02C824
           .DATA.L _var_8c1bb8b8 ; H'8C02C828
           .DATA.L _var_8c1bb8bc ; H'8C02C82C
-          .DATA.L _FUN_8c016182 ; H'8C02C830
+          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C02C830
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C02C834
           .DATA.L _var_progress_8c1ba1cc ; H'8C02C838
-          .DATA.L _var_8c1bb8dc ; H'8C02C83C
-          .DATA.L _FUN_8c01e0b4 ; H'8C02C840
+          .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C02C83C
+          .DATA.L _ResultShowPassedRun_8c01e0b4 ; H'8C02C840
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C02C844
           .DATA.L _var_isFading_8c226568 ; H'8C02C848
           .DATA.L _push_fadeout_8c022b60 ; H'8C02C84C
@@ -2678,7 +2678,7 @@ LP_GEN_25024:
           .DATA.L LAB_8c02c69a ; H'8C02C86C
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C870
           .DATA.L _push_fadein_8c022a9c ; H'8C02C874
-          .DATA.L _var_8c2285d0 ; H'8C02C878
+          .DATA.L _var_driverPoints_8c2285d0 ; H'8C02C878
           .DATA.L _var_8c22640c ; H'8C02C87C
           .DATA.L _var_menuState_8c1bc7a8 + H'38 ; H'8C02C880
           .SECTION    D, DATA, ALIGN=4

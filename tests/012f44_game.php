@@ -442,8 +442,8 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
         $this->shouldWriteTo('_var_resourceGroup_8c2263a8', -1);
         $this->shouldWriteTo('_var_8c1ba2e0', -1);
-        $this->shouldWriteTo('_var_8c1ba348', -1);
-        $this->shouldWriteTo('_var_8c1ba344', -1);
+        $this->shouldWriteTo('_var_backupFileImageBuf_8c1ba348', -1);
+        $this->shouldWriteTo('_var_vmuIconFileBuf_8c1ba344', -1);
         $this->shouldWriteTo('_var_currentSysResGroupInfo_8c225fb0', -1);
         $this->shouldWriteTo('_var_demoBuf_8c1ba3c4', -1);
         $this->shouldWriteTo('_var_vmGameBuf_8c1bc454', -1);
@@ -596,8 +596,8 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
         $this->shouldWriteTo('_var_resourceGroup_8c2263a8', -1);
         $this->shouldWriteTo('_var_8c1ba2e0', -1);
-        $this->shouldWriteTo('_var_8c1ba348', -1);
-        $this->shouldWriteTo('_var_8c1ba344', -1);
+        $this->shouldWriteTo('_var_backupFileImageBuf_8c1ba348', -1);
+        $this->shouldWriteTo('_var_vmuIconFileBuf_8c1ba344', -1);
         $this->shouldWriteTo('_var_currentSysResGroupInfo_8c225fb0', -1);
         $this->shouldWriteTo('_var_demoBuf_8c1ba3c4', -1);
         $this->shouldWriteTo('_var_vmGameBuf_8c1bc454', -1);
@@ -750,8 +750,8 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
         $this->shouldWriteTo('_var_resourceGroup_8c2263a8', -1);
         $this->shouldWriteTo('_var_8c1ba2e0', -1);
-        $this->shouldWriteTo('_var_8c1ba348', -1);
-        $this->shouldWriteTo('_var_8c1ba344', -1);
+        $this->shouldWriteTo('_var_backupFileImageBuf_8c1ba348', -1);
+        $this->shouldWriteTo('_var_vmuIconFileBuf_8c1ba344', -1);
         $this->shouldWriteTo('_var_currentSysResGroupInfo_8c225fb0', -1);
         $this->shouldWriteTo('_var_demoBuf_8c1ba3c4', -1);
         $this->shouldWriteTo('_var_vmGameBuf_8c1bc454', -1);
@@ -905,8 +905,8 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
         $this->shouldWriteTo('_var_resourceGroup_8c2263a8', -1);
         $this->shouldWriteTo('_var_8c1ba2e0', -1);
-        $this->shouldWriteTo('_var_8c1ba348', -1);
-        $this->shouldWriteTo('_var_8c1ba344', -1);
+        $this->shouldWriteTo('_var_backupFileImageBuf_8c1ba348', -1);
+        $this->shouldWriteTo('_var_vmuIconFileBuf_8c1ba344', -1);
         $this->shouldWriteTo('_var_currentSysResGroupInfo_8c225fb0', -1);
         $this->shouldWriteTo('_var_demoBuf_8c1ba3c4', -1);
         $this->shouldWriteTo('_var_vmGameBuf_8c1bc454', -1);

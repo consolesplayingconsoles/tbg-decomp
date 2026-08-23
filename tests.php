@@ -238,6 +238,20 @@ return [
         ],
         [
             "tests" => [
+                "tests/01d7fc_results/8c01d7fc_drawScoreDigits.php",
+                "tests/01d7fc_results/8c01d864_drawTextboxSprite.php",
+                "tests/01d7fc_results/8c01df8e_startResultsTask.php",
+                "tests/01d7fc_results/8c01e0b4_ResultShowPassedRun.php",
+                "tests/01d7fc_results/8c01e24e_ResultShowFailedRun.php",
+                "tests/01d7fc_results/8c01d8e0_task.php",
+            ],
+            "objects" => [
+                "build/output_test/01d7fc_results_src.obj",
+                "build/output_test/01d7fc_results_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
                 "tests/02af78_event/8c02af78_setProgressFlag.php",
                 "tests/02af78_event/8c02afbe_hasProgressFlag.php",
                 "tests/02af78_event/8c02aff0_hasProgressFlagAlt.php",
@@ -295,7 +309,7 @@ return [
         [
             "tests" => [
                 "tests/01614c_debug_menu/8c01614c_FUN.php",
-                "tests/01614c_debug_menu/8c016182_FUN.php",
+                "tests/01614c_debug_menu/8c016182_DebugMenuFreeSessionAssets.php",
                 "tests/01614c_debug_menu/8c01628c_saveMenuTask.php",
                 "tests/01614c_debug_menu/8c016636_openSaveMenu.php",
                 "tests/01614c_debug_menu/8c01666a_listMenuTask.php",

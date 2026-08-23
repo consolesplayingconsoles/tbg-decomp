@@ -1000,7 +1000,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->shouldReadSymbolOffset('_init_8c03bd80', 0, 0);
-        $this->shouldCall('_FUN_8c016182');
+        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_FUN_8c0159ac');
 
         $this->singleCall('_titleTask_8c015ab8')
