@@ -1,20 +1,20 @@
 ; 8c02e400
           .IMPORT     _init_8c04c940
           .IMPORT     _njCalcPoints
-          .IMPORT     _var_8c228978
-          .IMPORT     _var_8c228974
+          .IMPORT     _var_collideSelfBox_8c228978
+          .IMPORT     _var_collideScanCursor_8c228974
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _njCollisionCheckBB
-          .IMPORT     _var_8c2289d8
-          .IMPORT     _var_8c228b38
-          .IMPORT     _var_8c228a38
+          .IMPORT     _var_collideCandidateBox_8c2289d8
+          .IMPORT     _var_collideQueueCount_8c228b38
+          .IMPORT     _var_collideQueue_8c228a38
           .IMPORT     _njCollisionCheckBS
-          .EXPORT     _FUN_8c02e400
-          .EXPORT     _FUN_8c02e486
-          .EXPORT     _FUN_8c02e48e
-          .EXPORT     _FUN_8c02e4ac
+          .EXPORT     _CollideFindTaskHit_8c02e400
+          .EXPORT     _CollideQueueReset_8c02e486
+          .EXPORT     _CollideQueueAdd_8c02e48e
+          .EXPORT     _CollideQueueTest_8c02e4ac
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02e400:
+_CollideFindTaskHit_8c02e400:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -86,12 +86,12 @@ LAB_8c02e476:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02e486:
+_CollideQueueReset_8c02e486:
           MOV.L       LP_GEN_17818+32,R2
           MOV         #H'0,R3
           RTS
           MOV.L       R3,@R2
-_FUN_8c02e48e:
+_CollideQueueAdd_8c02e48e:
           MOV.L       LP_GEN_17818+32,R5
           MOV         #H'40,R3
           MOV.L       @R5,R2
@@ -108,7 +108,7 @@ _FUN_8c02e48e:
 LAB_8c02e4a8:
           RTS
           NOP
-_FUN_8c02e4ac:
+_CollideQueueTest_8c02e4ac:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -152,12 +152,12 @@ LP_GEN_17818:
           .DATA.W H'0084 ; H'8C02E4F2
           .DATA.L _init_8c04c940 ; H'8C02E4F4
           .DATA.L _njCalcPoints ; H'8C02E4F8
-          .DATA.L _var_8c228978 ; H'8C02E4FC
-          .DATA.L _var_8c228974 ; H'8C02E500
+          .DATA.L _var_collideSelfBox_8c228978 ; H'8C02E4FC
+          .DATA.L _var_collideScanCursor_8c228974 ; H'8C02E500
           .DATA.L _var_tasks_8c1bac28 ; H'8C02E504
           .DATA.L _njCollisionCheckBB ; H'8C02E508
-          .DATA.L _var_8c2289d8 ; H'8C02E50C
-          .DATA.L _var_8c228b38 ; H'8C02E510
-          .DATA.L _var_8c228a38 ; H'8C02E514
+          .DATA.L _var_collideCandidateBox_8c2289d8 ; H'8C02E50C
+          .DATA.L _var_collideQueueCount_8c228b38 ; H'8C02E510
+          .DATA.L _var_collideQueue_8c228a38 ; H'8C02E514
           .DATA.L _njCollisionCheckBS ; H'8C02E518
           .END

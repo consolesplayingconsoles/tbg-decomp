@@ -14,7 +14,7 @@
 #include "027958.h" /* FUN_8c0281ac */
 #include "02d06c.h" /* FUN_8c02d06c */
 #include "02af78_event.h" /* EventApplyFlags_8c02b292 */
-#include "02e400.h" /* FUN_8c02e486, FUN_8c02e48e */
+#include "02e400_collision.h" /* CollideQueueReset_8c02e486, CollideQueueAdd_8c02e48e */
 #include "02fb50_sh4nlfzn.h" /* rand */
 #include "sectionB.h" /* var_trafficSignalFrames_8c227e24, var_busState_8c1bb9d0, ground query globals,
                         * var_pedGroups_8c228230, var_pedPaths_8c228238,
@@ -4956,7 +4956,7 @@ STATIC void pedestrianTask_8c028e00(Task *task, PedestrianState *ped)
                 }
             }
             markPedCrossing_8c02897a(ped->nSignalIdB_0x6c);
-            FUN_8c02e48e(ped);
+            CollideQueueAdd_8c02e48e(ped);
             crossingStarted = TRUE;
         }
     } else if (state == 2) {
@@ -5235,7 +5235,7 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
         }
     }
 
-    FUN_8c02e486();
+    CollideQueueReset_8c02e486();
     clearPedCrossingFlags_8c02890c();
 
     njCalcPoint(&var_busWorldMatrix_8c1bba54, &init_stopLineLocalA_8c04650c, &var_groundQueryPoint_8c1bc460);
@@ -5293,7 +5293,7 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
  * sizes var_pedGroups_8c228230 from the highest group id referenced by any
  * demo entry's list, and installs pedestriansTask_8c0293f6 to drive it every
  * frame. If no route defines any pedestrian groups, skips straight to
- * FUN_8c02e486 instead. */
+ * CollideQueueReset_8c02e486 instead. */
 void ObjectsInitPedestrianGroups_8c0296d6(void)
 {
     PedGroupEntry *groups;
@@ -5317,7 +5317,7 @@ void ObjectsInitPedestrianGroups_8c0296d6(void)
     }
 
     if (var_pedGroupCount_8c228234 < 0) {
-        FUN_8c02e486();
+        CollideQueueReset_8c02e486();
         return;
     }
 

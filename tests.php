@@ -651,5 +651,17 @@ return [
                 "build/output_test/02786c_vehicle_parts_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/02e400_collision/8c02e400_CollideFindTaskHit.php",
+                "tests/02e400_collision/8c02e486_CollideQueueReset.php",
+                "tests/02e400_collision/8c02e48e_CollideQueueAdd.php",
+                "tests/02e400_collision/8c02e4ac_CollideQueueTest.php",
+            ],
+            "objects" => [
+                "build/output_test/02e400_collision_src.obj",
+                "build/output_test/02e400_collision_c.obj",
+            ]
+        ],
     ],
 ];

@@ -43,7 +43,7 @@
           .IMPORT     _var_stopLinePointB_8c228270
           .IMPORT     _var_stopLinePointA_8c228268
           .IMPORT     _var_crosswalkTableEnd_8c228244
-          .IMPORT     _FUN_8c02e48e
+          .IMPORT     _CollideQueueAdd_8c02e48e
           .IMPORT     _GroundProbeTrackPolygon_8c020b6c
           .IMPORT     _var_pedPaths_8c228238
           .IMPORT     _rand
@@ -55,7 +55,7 @@
           .IMPORT     _var_pedGroupDefs_8c22823c
           .IMPORT     _var_pedGroupLists_8c228240
           .IMPORT     _var_tasks_8c1ba808
-          .IMPORT     _FUN_8c02e486
+          .IMPORT     _CollideQueueReset_8c02e486
           .IMPORT     _var_busWorldMatrix_8c1bba54
           .IMPORT     _njCalcPoint
           .IMPORT     _var_playMode_8c1bb8d0
@@ -2195,7 +2195,7 @@ LP_GEN_25196:
           .DATA.L _var_stopLinePointA_8c228268 ; H'8C02905C
           .DATA.L _var_crosswalkTableEnd_8c228244 ; H'8C029060
           .DATA.L _markPedCrossing_8c02897a ; H'8C029064
-          .DATA.L _FUN_8c02e48e ; H'8C029068
+          .DATA.L _CollideQueueAdd_8c02e48e ; H'8C029068
           .DATA.L H'40400000 ; H'8C02906C
           .DATA.L _GroundProbeTrackPolygon_8c020b6c ; H'8C029070
           .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C029074
@@ -2913,7 +2913,7 @@ LP_GEN_46486:
           .DATA.L _var_tasks_8c1ba808 ; H'8C0295F8
           .DATA.L _TaskPush_8c014ae8 ; H'8C0295FC
           .DATA.L _syFree ; H'8C029600
-          .DATA.L _FUN_8c02e486 ; H'8C029604
+          .DATA.L _CollideQueueReset_8c02e486 ; H'8C029604
           .DATA.L _clearPedCrossingFlags_8c02890c ; H'8C029608
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C02960C
           .DATA.L _init_stopLineLocalA_8c04650c ; H'8C029610
@@ -3197,7 +3197,7 @@ LAB_8c029832:
           RTS
           MOV.L       @R15+,R14
 LP_GEN_63109:
-          .DATA.L _FUN_8c02e486 ; H'8C029844
+          .DATA.L _CollideQueueReset_8c02e486 ; H'8C029844
           .DATA.L _var_pedGroups_8c228230 ; H'8C029848
           .DATA.L _syMalloc ; H'8C02984C
           .DATA.L _pedestriansTask_8c0293f6 ; H'8C029850

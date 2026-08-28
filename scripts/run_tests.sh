@@ -171,4 +171,8 @@ compile  src/0206f0_intersect.c
 assemble  src/asm/decompiled/02786c_vehicle_parts.src
 compile  src/02786c_vehicle_parts.c
 
+# 02e400_collision
+assemble  src/asm/decompiled/02e400_collision.src
+compile  src/02e400_collision.c
+
 $sh4objtest suite -s tests.php "$@"

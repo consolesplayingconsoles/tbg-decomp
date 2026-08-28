@@ -1,11 +1,11 @@
 ; 8c02e2dc
           .IMPORT     _njCalcPoints
-          .IMPORT     _var_8c228978
+          .IMPORT     _var_collideSelfBox_8c228978
           .IMPORT     _var_busWorldMatrix_8c1bba54
-          .IMPORT     _var_8c228974
+          .IMPORT     _var_collideScanCursor_8c228974
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _FUN_8c020842
-          .IMPORT     _var_8c2289d8
+          .IMPORT     _var_collideCandidateBox_8c2289d8
           .EXPORT     _FUN_8c02e2dc
           .EXPORT     _FUN_8c02e35a
           .EXPORT     _init_8c04c820 ; 02e2dc.src
@@ -149,15 +149,15 @@ LP_GEN_24334:
           .DATA.W H'0084 ; H'8C02E3D4
           .RES.W 1 ; H'8C02E3D6
           .DATA.L _njCalcPoints ; H'8C02E3D8
-          .DATA.L _var_8c228978 ; H'8C02E3DC
+          .DATA.L _var_collideSelfBox_8c228978 ; H'8C02E3DC
           .DATA.L _init_8c04c820 ; H'8C02E3E0
           .DATA.L _var_busWorldMatrix_8c1bba54 ; H'8C02E3E4
-          .DATA.L _var_8c228974 ; H'8C02E3E8
+          .DATA.L _var_collideScanCursor_8c228974 ; H'8C02E3E8
           .DATA.L _var_tasks_8c1bac28 ; H'8C02E3EC
           .DATA.L _FUN_8c020842 ; H'8C02E3F0
           .DATA.L _init_8c04c940 ; H'8C02E3F4
           .DATA.L H'41400000 ; H'8C02E3F8
-          .DATA.L _var_8c2289d8 ; H'8C02E3FC
+          .DATA.L _var_collideCandidateBox_8c2289d8 ; H'8C02E3FC
           .SECTION    D, DATA, ALIGN=4
 _init_8c04c520:        ; from ghidra
           ;.SDATA      "è¬Uø"

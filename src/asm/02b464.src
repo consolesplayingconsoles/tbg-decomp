@@ -21,7 +21,7 @@
           .IMPORT     _var_8c228668
           .IMPORT     _VibStart_8c010f7a
           .IMPORT     _var_8c22866c
-          .IMPORT     _FUN_8c02e4ac
+          .IMPORT     _CollideQueueTest_8c02e4ac
           .IMPORT     _var_8c228664
           .IMPORT     _FUN_8c02e2dc
           .IMPORT     _njSqrt
@@ -448,7 +448,7 @@ LP_GEN_12602:
           .DATA.W H'7FFF ; H'8C02B6FA
           .DATA.L _var_8c228690 ; H'8C02B6FC
           .DATA.L _var_8c22866c ; H'8C02B700
-          .DATA.L _FUN_8c02e4ac ; H'8C02B704
+          .DATA.L _CollideQueueTest_8c02e4ac ; H'8C02B704
 LAB_8c02b708:
           MOV.L       LP_GEN_48273+10,R12
           MOV.W       LP_GEN_48273,R1

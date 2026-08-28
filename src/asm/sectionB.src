@@ -1614,15 +1614,15 @@ _var_8c22895c:
           .RES.B      4
 _var_8c228960:
           .RES.B      20
-_var_8c228974:
+_var_collideScanCursor_8c228974:
           .RES.B      4
-_var_8c228978:
+_var_collideSelfBox_8c228978:
           .RES.B      96
-_var_8c2289d8:
+_var_collideCandidateBox_8c2289d8:
           .RES.B      96
-_var_8c228a38:
+_var_collideQueue_8c228a38:
           .RES.B      256
-_var_8c228b38:
+_var_collideQueueCount_8c228b38:
           .RES.B      4
 _var_8c228b3c:
           .RES.B      4

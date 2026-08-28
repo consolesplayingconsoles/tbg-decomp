@@ -106,7 +106,7 @@ SRCS = \
 	src/asm/02d968.src \
 	src/asm/02df3c.src \
 	src/asm/02e2dc.src \
-	src/asm/02e400.src \
+	src/02e400_collision.c \
 	src/asm/02e51c.src \
 	src/asm/02f0c8.src \
 	src/asm/02f320.src \
