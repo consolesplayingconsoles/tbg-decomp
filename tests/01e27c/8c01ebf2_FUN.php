@@ -34,7 +34,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_FUN_8c010d8a');
         $this->shouldCall('_SndProc_8c010cd6')->with(0, 0xd);
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_1_idle_while_fading(): void
@@ -157,7 +157,7 @@ return new class extends TestCase {
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 6);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_scrollTowardSelection_8c01ebc8');
 
@@ -344,7 +344,7 @@ return new class extends TestCase {
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
 
@@ -656,7 +656,7 @@ return new class extends TestCase {
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20); // 8 x SDMIDI
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234); // sentinel handle
         $this->setSize('_var_menuTextboxCharLimit_8c225fb8', 4);
-        $this->setSize('_push_fadeout_8c022b60', 4);
+        $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_var_8c22640c', 4);

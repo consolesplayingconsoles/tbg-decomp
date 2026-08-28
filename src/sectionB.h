@@ -8,6 +8,7 @@
 #include "02af78_event.h"
 #include "01bb48_vm_game.h" /* LcdAnim */
 #include "02171c_tile_stream.h" /* TileIndex, TileRect */
+#include "022464_fade.h" /* FadePhase, FadeRequest, FadeMirrorSelect */
 
 /* =================
  * Type Declarations
@@ -413,6 +414,10 @@ extern BusState var_busState_8c1bb9d0;
 extern void* var_busstopDat_8c1bc42c;
 extern void* var_busstopPartsDat_8c1bc428;
 extern NJS_TEXLIST *var_busStopTexlist_8c1bc424;
+extern NJS_CAMERA var_8c1bb904; // 021b9c
+extern NJS_CAMERA var_8c1bb944; // 021b9c
+extern NJS_CAMERA var_8c1bb984; // 022464
+extern FadeMirrorSelect var_mirrorSelect_8c1bbc38; // 022464: which wing mirror FadeUpdate_8c022560 draws; real object is 20 bytes, rest unexplored
 extern CurrentCourse var_currentCourse_8c1bb868;
 extern int var_cutsceneActive_8c1bb900;
 extern int* var_demoBuf_8c1ba3c4;
@@ -481,7 +486,15 @@ extern int var_lcdSlot_8c2263a0;   // 01bb48
 extern void* var_8c226434;
 extern void* var_8c226438;
 extern Struct8c2264b8 var_8c2264b8;
-extern Bool var_8c22655c;
+extern NJS_CAMERA* var_fadeCamera_8c226558; // 022464: camera passed to njSetCamera by draw_8c022464
+extern int var_fadeArrivalVariant_8c22655c; // 022464: bus-stop-arrival overlay layout (0-2) drawn by FadeUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in FadeUpdate_8c022560 handles 0-2)
+extern int var_fadeArrivalGate_8c226560; // 022464: gates FadeUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
+extern FadeRequest var_fadeRequest_8c226564; // 022464: requested fade transition, consumed by FadeUpdate_8c022560
+extern void (*var_fadeCompleteCallback_8c22656c)(void); // 022464: fade-complete callback; sentinel -1 (0xffffffff) means unset
+extern int var_fadeDrawCommandCount_8c226570[3]; // 022464: per-layer draw-command count for var_fadeDrawCommands_8c22657c
+extern char var_fadeDrawCommands_8c22657c[3][0x800]; // 022464: per-layer draw-command queue, 16-byte entries {type, arg1, arg2, arg3}
+extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
+extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
 extern Uint32 var_8c227da0;
 extern int var_8c227da8;
 extern int var_8c227dd4;

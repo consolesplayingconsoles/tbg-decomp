@@ -23,8 +23,8 @@
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
           .IMPORT     _SystemMenuApplyLoadedProgress_8c01b19c
           .IMPORT     _VmGameSetLcdSlot_8c01c8fc
-          .IMPORT     _push_fadein_8c022a9c
-          .IMPORT     _push_fadeout_8c022b60
+          .IMPORT     _FadePushIn_8c022a9c
+          .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _swapMessageBoxFor_8c02aefc
           .IMPORT     _menuTextboxText_8c02af1c
           .IMPORT     _init_8c03bd80
@@ -1379,7 +1379,7 @@ LP_GEN_98979:
           .DATA.L _var_8c22600c ; H'8C019064
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C019068
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01906C
-          .DATA.L _push_fadeout_8c022b60 ; H'8C019070
+          .DATA.L _FadePushOut_8c022b60 ; H'8C019070
 LAB_8c019074:
           MOV         #H'40,R2
           MOV.L       @(H'38,R14),R8
@@ -1526,7 +1526,7 @@ LAB_8c019152:
 LP_GEN_53993:
           .DATA.W H'0080 ; H'8C019178
           .RES.W 1 ; H'8C01917A
-          .DATA.L _push_fadeout_8c022b60 ; H'8C01917C
+          .DATA.L _FadePushOut_8c022b60 ; H'8C01917C
           .DATA.L _const_8c037e78 ; H'8C019180
           .DATA.L _const_8c037ea8 ; H'8C019184
           .DATA.L _var_8c226014 ; H'8C019188
@@ -1678,7 +1678,7 @@ LP_GEN_73468:
           .DATA.L _SystemMenuApplyLoadedProgress_8c01b19c ; H'8C0192A0
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C0192A4
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C0192A8
-          .DATA.L _push_fadeout_8c022b60 ; H'8C0192AC
+          .DATA.L _FadePushOut_8c022b60 ; H'8C0192AC
           .DATA.L _const_8c037ec8 ; H'8C0192B0
           .DATA.L _menuTextboxText_8c02af1c ; H'8C0192B4
           .DATA.L _VmMenuUnmountVms_8c0194de ; H'8C0192B8
@@ -1808,7 +1808,7 @@ LP_GEN_41958:
           .DATA.L _swapMessageBoxFor_8c02aefc ; H'8C0193B8
           .DATA.L _VmGameSetLcdSlot_8c01c8fc ; H'8C0193BC
           .DATA.L _var_vmBusy_8c157a7c ; H'8C0193C0
-          .DATA.L _push_fadein_8c022a9c ; H'8C0193C4
+          .DATA.L _FadePushIn_8c022a9c ; H'8C0193C4
           .SECTION    C, DATA, ALIGN=4
 _const_8c037e60:        ; from defines
           ;.SDATA      "ÉçÅ[ÉhÇ…é∏îsÇµÇ‹ÇµÇΩ"

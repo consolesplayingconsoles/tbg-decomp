@@ -7,7 +7,7 @@ extern int is_fading_8c226568;
 extern int _8c227d80;
 
 // MATCHING
-void push_fadein_8c022a9c(int duration) {
+void FadePushIn_8c022a9c(int duration) {
     Task *task;
     void *state;
     int dur = duration;

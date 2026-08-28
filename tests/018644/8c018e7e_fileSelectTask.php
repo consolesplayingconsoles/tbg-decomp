@@ -88,7 +88,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 2);
         $this->shouldCall('_sdMidiPlay')->with(0x777, 1, 0, 0);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
     }
 
     /* No input: just keep the error box and frame on screen. */
@@ -235,7 +235,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_sdMidiPlay')->with(0x777, 1, 1, 0);
         $this->shouldWriteLong($this->ms + 0x18, 7);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectDraw();
     }
 
@@ -474,7 +474,7 @@ return new class extends TestCase {
         $this->shouldCall('_sdMidiPlay')->with(0x777, 1, 0, 0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectDraw();
         $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
     }
@@ -506,7 +506,7 @@ return new class extends TestCase {
          * load an address on a path that doesn't call it) */
         foreach ([
             '_TxtDrawSprite_8c014f54', '_menuTextboxText_8c02af1c', '_VmGameSetLcdSlot_8c01c8fc',
-            '_swapMessageBoxFor_8c02aefc', '_sdMidiPlay', '_push_fadeout_8c022b60',
+            '_swapMessageBoxFor_8c02aefc', '_sdMidiPlay', '_FadePushOut_8c022b60',
             '_njMemCopy', '_SndStartAdxFadeOut_8c010bae', '_SystemMenuApplyLoadedProgress_8c01b19c',
             '_VmMenuUnmountVms_8c0194de', '_VmMenuSwitchFromTask_8c019e44',
             '_MainMenuSwitchFromTask_8c01a09a',

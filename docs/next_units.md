@@ -54,7 +54,7 @@ Fan-in = 14, the highest of any remaining unit: `0129cc_pause`,
 `012f44_game`, `015ab8_title`, `016d2c_course_menu`, `018644_file_menu`,
 `0193c8_vm_menu`, `019e98_main_menu`, `01a148_option`, `01b19c_system_menu`,
 `01bb48_vm_game`, `01c980_profile_file`, `01d290_album`, `01d7fc_results`,
-`01e27c_practice_menu` all use `push_fadein_8c022a9c`/`push_fadeout_8c022b60`
+`01e27c_practice_menu` all use `FadePushIn_8c022a9c`/`FadePushOut_8c022b60`
 -- essentially every menu/screen unit decompiled so far. It's small and
 self-contained (only depends on the shared data section), and its exports
 are already named (`task_fadein`, `draw`, ...).

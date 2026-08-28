@@ -28,7 +28,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
 
         $this->singleCall('_mainMenuTask_8c019e98')->with(0xbebacafe)->run();
     }
@@ -331,7 +331,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 0, 0);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 5);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,

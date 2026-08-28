@@ -37,7 +37,7 @@ return new class extends TestCase {
         // (plus every callee used by any state) must be resolvable.
         foreach ([
             '_VmMenuUpdateVmusStatus_8c019550', '_RouteLoadIsPvmReady_8c01432a',
-            '_AsqFreeQueues_8c011f7e', '_push_fadein_8c022a9c', '_push_fadeout_8c022b60',
+            '_AsqFreeQueues_8c011f7e', '_FadePushIn_8c022a9c', '_FadePushOut_8c022b60',
             '_PromptHandleMultiple_8c016c58', '_PromptHandleBinary_8c016caa',
             '_CourseMenuInterpolateCursor_8c016d2c', '_CourseMenuFreeResourceGroup_8c0185c4',
             '_MainMenuSwitchFromTask_8c01a09a', '_VmMenuUnmountVms_8c0194de',
@@ -91,7 +91,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 1); // state -> MENU_FADE_IN
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     // Common tail: cases that `break` run drawSelectScreen_8c01be90 then the epilogue draw.
@@ -197,7 +197,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with(new WildcardArgument(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 3);   // MENU_FADE_OUT
         $this->shouldWriteLong($this->ms + 0x1c, 0);   // mode = download
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->midi(0);
         $this->expectMenuDraw(0x6d);
     }
@@ -213,7 +213,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with(new WildcardArgument(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 3);
         $this->shouldWriteLong($this->ms + 0x1c, 1);   // mode = exp load
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->midi(0);
         $this->expectMenuDraw(0x6e);
     }
@@ -229,7 +229,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with(new WildcardArgument(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 0xd);  // EXIT
         $this->shouldCall('_VmMenuUnmountVms_8c0194de');
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->midi(0);
         $this->expectMenuDraw(0x6f);
     }
@@ -246,7 +246,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->ms + 0x18, 0xd);  // EXIT
         $this->midi(1);
         $this->shouldCall('_VmMenuUnmountVms_8c0194de');
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectMenuDraw(0x6d);
     }
 
@@ -260,7 +260,7 @@ return new class extends TestCase {
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
         $this->shouldWriteLong($this->ms + 0x18, 4);   // SELECT_ENTER
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_menu_fade_out_still_fading()
@@ -315,7 +315,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldWriteLong($this->ms + 0x18, 0xc);  // RETURN_FADE_OUT
         $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectEpilogue(1);
     }
 
@@ -345,7 +345,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldWriteLong($this->ms + 0x18, 0xc);  // RETURN_FADE_OUT
         $this->midi(0);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->expectEpilogue(0);
     }
@@ -374,7 +374,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->ms + 0x18, 1);   // MENU_FADE_IN
         $this->shouldWriteLong($this->ms + 0x38, 1);   // selected = field_0x1c
         $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_return_fade_out_still_fading()
@@ -1105,7 +1105,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->shouldWriteLong($this->ms + 0x18, 0xc);  // RETURN_FADE_OUT
         $this->midi(1);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectEpilogue(0);
     }
 };

@@ -1,7 +1,7 @@
 ; 8c022464
-          .IMPORT     _var_8c226570
-          .IMPORT     _var_8c22657c
-          .IMPORT     _var_8c226558
+          .IMPORT     _var_fadeDrawCommandCount_8c226570
+          .IMPORT     _var_fadeDrawCommands_8c22657c
+          .IMPORT     _var_fadeCamera_8c226558
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkModDrawObject
           .IMPORT     _njMultiMatrix
@@ -11,13 +11,13 @@
           .IMPORT     _njCnkEasyDrawObject
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _njUserClipping
-          .IMPORT     _var_8c226560
+          .IMPORT     _var_fadeArrivalGate_8c226560
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _njDrawTexture
           .IMPORT     _njSetScreen
-          .IMPORT     _var_8c22655c
+          .IMPORT     _var_fadeArrivalVariant_8c22655c
           .IMPORT     _njControl3D
-          .IMPORT     _var_8c1bbc38
+          .IMPORT     _var_mirrorSelect_8c1bbc38
           .IMPORT     _var_8c1bb944
           .IMPORT     _init_texlist_8c03bf44
           .IMPORT     _njRenderTextureNumG
@@ -25,11 +25,11 @@
           .IMPORT     _var_8c1bb984
           .IMPORT     _var_8c1bb904
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _var_8c227d7c
-          .IMPORT     _var_8c227d80
-          .IMPORT     _var_8c226564
+          .IMPORT     _var_fadePhase_8c227d7c
+          .IMPORT     _var_fadeProgress_8c227d80
+          .IMPORT     _var_fadeRequest_8c226564
           .IMPORT     _njDrawPolygon
-          .IMPORT     _var_8c22656c
+          .IMPORT     _var_fadeCompleteCallback_8c22656c
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_8c226410
           .IMPORT     __divlu
@@ -37,16 +37,39 @@
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _njSetBackColor
-          .EXPORT     _draw_8c022464
-          .EXPORT     _FUN_8c022560
-          .EXPORT     _FUN_8c0228a2
-          .EXPORT     _FUN_8c022910
-          .EXPORT     _task_fadein_8c022a54
-          .EXPORT     _push_fadein_8c022a9c
-          .EXPORT     _task_fadeout_8c022ad0
-          .EXPORT     _push_fadeout_8c022b60
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _fadeDraw_8c022464
+          .AENDI
+          .EXPORT     _FadeUpdate_8c022560
+          .EXPORT     _FadeStartRunTransition_8c0228a2
+          .EXPORT     _FadeUpdatePlain_8c022910
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _fadeInTask_8c022a54
+          .AENDI
+          .EXPORT     _FadePushIn_8c022a9c
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _fadeOutTask_8c022ad0
+          .AENDI
+          .EXPORT     _FadePushOut_8c022b60
+
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _init_mirrorQuadLeft_8c045438
+          .EXPORT     _init_mirrorQuadRight_8c045498
+          .EXPORT     _init_mirrorQuadTall_8c0454f8
+          .EXPORT     _init_clipMirrorLeft_8c045558
+          .EXPORT     _init_clipMirrorRight_8c045568
+          .EXPORT     _init_clipMirrorView_8c045578
+          .EXPORT     _init_clipMirrorViewTall_8c045588
+          .EXPORT     _init_clipLayer2_8c045598
+          .EXPORT     _init_fadeQuad_8c0455a8
+          .EXPORT     _init_screenFull_8c0455e8
+          .EXPORT     _init_screenMirror_8c0455fc
+          .EXPORT     _init_screenMirrorTall_8c045610
+          .EXPORT     _init_screenLayer2_8c045624
+          .AENDI
+
           .SECTION     P, CODE, ALIGN=4
-_draw_8c022464:
+_fadeDraw_8c022464:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       R13,@-R15
@@ -165,9 +188,9 @@ LAB_8c022520:
           MOV.L       @R15+,R14
 LP_GEN_25565:
           .RES.W 1 ; H'8C022532
-          .DATA.L _var_8c226570 ; H'8C022534
-          .DATA.L _var_8c22657c ; H'8C022538
-          .DATA.L _var_8c226558 ; H'8C02253C
+          .DATA.L _var_fadeDrawCommandCount_8c226570 ; H'8C022534
+          .DATA.L _var_fadeDrawCommands_8c22657c ; H'8C022538
+          .DATA.L _var_fadeCamera_8c226558 ; H'8C02253C
           .DATA.L _njSetCamera ; H'8C022540
           .DATA.L _njCnkModDrawObject ; H'8C022544
           .DATA.L _njMultiMatrix ; H'8C022548
@@ -176,7 +199,7 @@ LP_GEN_25565:
           .DATA.L _njCnkDrawObject ; H'8C022554
           .DATA.L _njCnkEasyDrawObject ; H'8C022558
           .DATA.L _njCnkSimpleDrawObject ; H'8C02255C
-_FUN_8c022560:
+_FadeUpdate_8c022560:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -237,7 +260,7 @@ LAB_8c0225b0:
           NOP
           MOV.L       LP_GEN_55916+56,R3
           MOV.L       R3,@R11
-          BSR         _draw_8c022464
+          BSR         _fadeDraw_8c022464
           MOV         #H'1,R4
           MOV.L       LP_GEN_55916+64,R3
           MOV.L       LP_GEN_55916+60,R4
@@ -311,29 +334,29 @@ LAB_8c02264a:
 LP_GEN_55916:
           .DATA.W H'03E7 ; H'8C022654
           .DATA.W H'0100 ; H'8C022656
-          .DATA.L _init_8c045598 ; H'8C022658
+          .DATA.L _init_clipLayer2_8c045598 ; H'8C022658
           .DATA.L _njUserClipping ; H'8C02265C
-          .DATA.L _var_8c226560 ; H'8C022660
+          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C022660
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C022664
           .DATA.L H'BF95C28F ; H'8C022668
           .DATA.L _njDrawTexture ; H'8C02266C
-          .DATA.L _var_8c226558 ; H'8C022670
+          .DATA.L _var_fadeCamera_8c226558 ; H'8C022670
           .DATA.L _njSetScreen ; H'8C022674
-          .DATA.L _var_8c22655c ; H'8C022678
+          .DATA.L _var_fadeArrivalVariant_8c22655c ; H'8C022678
           .DATA.L _njControl3D ; H'8C02267C
-          .DATA.L _init_8c045578 ; H'8C022680
-          .DATA.L _var_8c1bbc38 ; H'8C022684
-          .DATA.L _init_8c0455fc ; H'8C022688
+          .DATA.L _init_clipMirrorView_8c045578 ; H'8C022680
+          .DATA.L _var_mirrorSelect_8c1bbc38 ; H'8C022684
+          .DATA.L _init_screenMirror_8c0455fc ; H'8C022688
           .DATA.L _var_8c1bb944 ; H'8C02268C
           .DATA.L _init_texlist_8c03bf44 ; H'8C022690
           .DATA.L _njSetTexture ; H'8C022694
           .DATA.L _njRenderTextureNumG ; H'8C022698
-          .DATA.L _init_8c045558 ; H'8C02269C
-          .DATA.L _init_8c045438 ; H'8C0226A0
+          .DATA.L _init_clipMirrorLeft_8c045558 ; H'8C02269C
+          .DATA.L _init_mirrorQuadLeft_8c045438 ; H'8C0226A0
           .DATA.L _var_busStopTexlist_8c1bc424 ; H'8C0226A4
-          .DATA.L _init_8c045568 ; H'8C0226A8
-          .DATA.L _init_8c045498 ; H'8C0226AC
-          .DATA.L _init_8c0455e8 ; H'8C0226B0
+          .DATA.L _init_clipMirrorRight_8c045568 ; H'8C0226A8
+          .DATA.L _init_mirrorQuadRight_8c045498 ; H'8C0226AC
+          .DATA.L _init_screenFull_8c0455e8 ; H'8C0226B0
 LAB_8c0226b4:
           MOV.L       LP_GEN_42584+4,R1
           MOV.W       LP_GEN_42584,R4
@@ -347,7 +370,7 @@ LAB_8c0226b4:
           NOP
           MOV.L       LP_GEN_42584+16,R3
           MOV.L       R3,@R11
-          BSR         _draw_8c022464
+          BSR         _fadeDraw_8c022464
           MOV         #H'1,R4
           MOV.L       LP_GEN_42584+24,R3
           MOV.L       LP_GEN_42584+20,R4
@@ -364,7 +387,7 @@ LAB_8c0226b4:
           NOP
           MOV.L       LP_GEN_42584+36,R3
           MOV.L       R3,@R11
-          BSR         _draw_8c022464
+          BSR         _fadeDraw_8c022464
           MOV         #H'2,R4
           MOV         R9,R5
           JSR         @R14
@@ -379,7 +402,7 @@ LAB_8c0226b4:
           MOV         #H'4,R5
           MOV.L       LP_GEN_42584+48,R3
           MOV.L       R3,@R11
-          BSR         _draw_8c022464
+          BSR         _fadeDraw_8c022464
           MOV         #H'0,R4
           MOV         R9,R5
           JSR         @R14
@@ -405,7 +428,7 @@ LAB_8c022726:
           NOP
           MOV.L       LP_GEN_42584+16,R3
           MOV.L       R3,@R11
-          BSR         _draw_8c022464
+          BSR         _fadeDraw_8c022464
           MOV         #H'1,R4
           MOV.L       LP_GEN_42584+24,R3
           MOV.L       LP_GEN_42584+20,R4
@@ -434,7 +457,7 @@ LAB_8c022726:
 LAB_8c022772:
           MOV.L       LP_GEN_42584+48,R3
           MOV.L       R3,@R11
-          BSR         _draw_8c022464
+          BSR         _fadeDraw_8c022464
           MOV         #H'0,R4
 LAB_8c02277a:
           MOV         R9,R5
@@ -460,22 +483,22 @@ LP_GEN_42584:
           .DATA.W H'0100 ; H'8C0227A0
           .RES.W 1 ; H'8C0227A2
           .DATA.L _njControl3D ; H'8C0227A4
-          .DATA.L _init_8c045588 ; H'8C0227A8
-          .DATA.L _init_8c045610 ; H'8C0227AC
+          .DATA.L _init_clipMirrorViewTall_8c045588 ; H'8C0227A8
+          .DATA.L _init_screenMirrorTall_8c045610 ; H'8C0227AC
           .DATA.L _var_8c1bb944 ; H'8C0227B0
           .DATA.L _init_texlist_8c03bf44 ; H'8C0227B4
           .DATA.L _njSetTexture ; H'8C0227B8
           .DATA.L _njRenderTextureNumG ; H'8C0227BC
-          .DATA.L _init_8c045624 ; H'8C0227C0
+          .DATA.L _init_screenLayer2_8c045624 ; H'8C0227C0
           .DATA.L _var_8c1bb984 ; H'8C0227C4
-          .DATA.L _init_8c0455e8 ; H'8C0227C8
-          .DATA.L _init_8c0454f8 ; H'8C0227CC
+          .DATA.L _init_screenFull_8c0455e8 ; H'8C0227C8
+          .DATA.L _init_mirrorQuadTall_8c0454f8 ; H'8C0227CC
           .DATA.L _var_8c1bb904 ; H'8C0227D0
           .DATA.L _var_busStopTexlist_8c1bc424 ; H'8C0227D4
           .DATA.L _var_isFading_8c226568 ; H'8C0227D8
           .DATA.L H'FF000000 ; H'8C0227DC
-          .DATA.L _var_8c227d7c ; H'8C0227E0
-          .DATA.L _var_8c227d80 ; H'8C0227E4
+          .DATA.L _var_fadePhase_8c227d7c ; H'8C0227E0
+          .DATA.L _var_fadeProgress_8c227d80 ; H'8C0227E4
 LAB_8c0227e8:
           MOV.L       LP_GEN_82363,R2
           MOV.L       @R2,R0
@@ -578,7 +601,7 @@ LAB_8c02288c:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c0228a2:
+_FadeStartRunTransition_8c0228a2:
           MOV.L       LP_GEN_82363+40,R2
           MOV         #H'0,R5
           MOV.L       LP_GEN_82363+36,R6
@@ -610,21 +633,21 @@ LAB_8c0228c0:
           RTS
           MOV.L       R4,@R3
 LP_GEN_82363:
-          .DATA.L _var_8c226564 ; H'8C0228D8
+          .DATA.L _var_fadeRequest_8c226564 ; H'8C0228D8
           .DATA.L H'04400000 ; H'8C0228DC
           .DATA.L H'01000000 ; H'8C0228E0
           .DATA.L H'00044000 ; H'8C0228E4
-          .DATA.L _var_8c226560 ; H'8C0228E8
+          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C0228E8
           .DATA.L H'00FF0000 ; H'8C0228EC
-          .DATA.L _init_8c0455a8 ; H'8C0228F0
+          .DATA.L _init_fadeQuad_8c0455a8 ; H'8C0228F0
           .DATA.L _njDrawPolygon ; H'8C0228F4
-          .DATA.L _var_8c22656c ; H'8C0228F8
-          .DATA.L _var_8c22655c ; H'8C0228FC
+          .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C0228F8
+          .DATA.L _var_fadeArrivalVariant_8c22655c ; H'8C0228FC
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C022900
           .DATA.L _var_8c226410 ; H'8C022904
-          .DATA.L _var_8c227d7c ; H'8C022908
+          .DATA.L _var_fadePhase_8c227d7c ; H'8C022908
           .DATA.L _var_isFading_8c226568 ; H'8C02290C
-_FUN_8c022910:
+_FadeUpdatePlain_8c022910:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_60768+8,R2
           MOV.L       R13,@-R15
@@ -649,7 +672,7 @@ _FUN_8c022910:
           MOV.L       LP_GEN_60768+36,R3
           MOV.L       LP_GEN_60768+32,R2
           MOV.L       R2,@R3
-          BSR         _draw_8c022464
+          BSR         _fadeDraw_8c022464
           MOV         #H'0,R4
 LAB_8c022944:
           MOV.L       LP_GEN_60768+48,R5
@@ -709,20 +732,20 @@ LAB_8c02298c:
 LP_GEN_60768:
           .DATA.W H'0100 ; H'8C0229A8
           .RES.W 1 ; H'8C0229AA
-          .DATA.L _var_8c22656c ; H'8C0229AC
-          .DATA.L _var_8c226560 ; H'8C0229B0
+          .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C0229AC
+          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C0229B0
           .DATA.L _njControl3D ; H'8C0229B4
-          .DATA.L _init_8c045578 ; H'8C0229B8
+          .DATA.L _init_clipMirrorView_8c045578 ; H'8C0229B8
           .DATA.L _njUserClipping ; H'8C0229BC
-          .DATA.L _init_8c0455e8 ; H'8C0229C0
+          .DATA.L _init_screenFull_8c0455e8 ; H'8C0229C0
           .DATA.L _njSetScreen ; H'8C0229C4
           .DATA.L _var_8c1bb904 ; H'8C0229C8
-          .DATA.L _var_8c226558 ; H'8C0229CC
+          .DATA.L _var_fadeCamera_8c226558 ; H'8C0229CC
           .DATA.L H'FF000000 ; H'8C0229D0
           .DATA.L _var_isFading_8c226568 ; H'8C0229D4
-          .DATA.L _var_8c227d7c ; H'8C0229D8
-          .DATA.L _var_8c227d80 ; H'8C0229DC
-          .DATA.L _var_8c226564 ; H'8C0229E0
+          .DATA.L _var_fadePhase_8c227d7c ; H'8C0229D8
+          .DATA.L _var_fadeProgress_8c227d80 ; H'8C0229DC
+          .DATA.L _var_fadeRequest_8c226564 ; H'8C0229E0
           .DATA.L H'04400000 ; H'8C0229E4
           .DATA.L H'01000000 ; H'8C0229E8
 LAB_8c0229ec:
@@ -783,7 +806,7 @@ LAB_8c022a4a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_task_fadein_8c022a54:
+_fadeInTask_8c022a54:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_18675+32,R7
           STS.L       PR,@-R15
@@ -821,7 +844,7 @@ LAB_8c022a8e:
           MOV.L       LP_GEN_18675+44,R2
           JMP         @R2
           MOV.L       @R15+,R14
-_push_fadein_8c022a9c:
+_FadePushIn_8c022a9c:
           STS.L       PR,@-R15
           ADD         #-H'c,R15
           MOV         #H'0,R3
@@ -848,7 +871,7 @@ _push_fadein_8c022a9c:
           LDS.L       @R15+,PR
           RTS
           NOP
-_task_fadeout_8c022ad0:
+_fadeOutTask_8c022ad0:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       R13,@-R15
@@ -925,7 +948,7 @@ LAB_8c022b3c:
           MOV.L       @R15+,R13
           JMP         @R2
           MOV.L       @R15+,R14
-_push_fadeout_8c022b60:
+_FadePushOut_8c022b60:
           STS.L       PR,@-R15
           ADD         #-H'c,R15
           MOV         #H'0,R3
@@ -958,72 +981,68 @@ LP_GEN_18675:
           .DATA.L H'00044000 ; H'8C022B98
           .DATA.L H'01000000 ; H'8C022B9C
           .DATA.L _var_isFading_8c226568 ; H'8C022BA0
-          .DATA.L _var_8c226560 ; H'8C022BA4
+          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C022BA4
           .DATA.L H'00FF0000 ; H'8C022BA8
-          .DATA.L _init_8c0455a8 ; H'8C022BAC
+          .DATA.L _init_fadeQuad_8c0455a8 ; H'8C022BAC
           .DATA.L _njDrawPolygon ; H'8C022BB0
-          .DATA.L _var_8c226564 ; H'8C022BB4
+          .DATA.L _var_fadeRequest_8c226564 ; H'8C022BB4
           .DATA.L H'FF000000 ; H'8C022BB8
-          .DATA.L _var_8c227d80 ; H'8C022BBC
+          .DATA.L _var_fadeProgress_8c227d80 ; H'8C022BBC
           .DATA.L __divlu ; H'8C022BC0
           .DATA.L _TaskFree_8c014b66 ; H'8C022BC4
-          .DATA.L _task_fadein_8c022a54 ; H'8C022BC8
+          .DATA.L _fadeInTask_8c022a54 ; H'8C022BC8
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C022BCC
           .DATA.L _TaskPush_8c014ae8 ; H'8C022BD0
           .DATA.L _njSetBackColor ; H'8C022BD4
-          .DATA.L _task_fadeout_8c022ad0 ; H'8C022BD8
+          .DATA.L _fadeOutTask_8c022ad0 ; H'8C022BD8
           .SECTION    D, DATA, ALIGN=4
-_init_8c045438:        ; from defines
+_init_mirrorQuadLeft_8c045438:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'42, H'00, H'00, H'00, H'42, H'44, H'20, H'57, H'3F, H'00, H'00, H'20, H'3F
           .DATA.B      H'00, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'00, H'00, H'00, H'42, H'00, H'00, H'90, H'43
           .DATA.B      H'44, H'20, H'57, H'3F, H'00, H'00, H'20, H'3F, H'00, H'00, H'FF, H'3E, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'00, H'00, H'40, H'43, H'00, H'00, H'00, H'42, H'44, H'20, H'57, H'3F, H'00, H'00, H'80, H'3B
           .DATA.B      H'00, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'00, H'00, H'40, H'43, H'00, H'00, H'90, H'43
           .DATA.B      H'44, H'20, H'57, H'3F, H'00, H'00, H'80, H'3B, H'00, H'00, H'FF, H'3E, H'FF, H'FF, H'FF, H'FF
-_init_8c045498:        ; from defines
+_init_mirrorQuadRight_8c045498:        ; from defines
           .DATA.B      H'00, H'00, H'E0, H'43, H'00, H'00, H'00, H'42, H'44, H'20, H'57, H'3F, H'00, H'00, H'20, H'3F
           .DATA.B      H'00, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'00, H'00, H'E0, H'43, H'00, H'00, H'90, H'43
           .DATA.B      H'44, H'20, H'57, H'3F, H'00, H'00, H'20, H'3F, H'00, H'00, H'FF, H'3E, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'00, H'00, H'18, H'44, H'00, H'00, H'00, H'42, H'44, H'20, H'57, H'3F, H'00, H'00, H'80, H'3B
           .DATA.B      H'00, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'00, H'00, H'18, H'44, H'00, H'00, H'90, H'43
           .DATA.B      H'44, H'20, H'57, H'3F, H'00, H'00, H'80, H'3B, H'00, H'00, H'FF, H'3E, H'FF, H'FF, H'FF, H'FF
-_init_8c0454f8:        ; from defines
+_init_mirrorQuadTall_8c0454f8:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'42, H'00, H'00, H'00, H'42, H'44, H'20, H'57, H'3F, H'00, H'00, H'20, H'3F
           .DATA.B      H'00, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'00, H'00, H'00, H'42, H'00, H'00, H'C0, H'43
           .DATA.B      H'44, H'20, H'57, H'3F, H'00, H'00, H'20, H'3F, H'00, H'80, H'2F, H'3F, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'00, H'00, H'40, H'43, H'00, H'00, H'00, H'42, H'44, H'20, H'57, H'3F, H'00, H'00, H'80, H'3B
           .DATA.B      H'00, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'00, H'00, H'40, H'43, H'00, H'00, H'C0, H'43
           .DATA.B      H'44, H'20, H'57, H'3F, H'00, H'00, H'80, H'3B, H'00, H'80, H'2F, H'3F, H'FF, H'FF, H'FF, H'FF
-_init_8c045558:        ; from defines
+_init_clipMirrorLeft_8c045558:        ; from defines
           .DATA.B      H'00, H'00, H'80, H'3F, H'00, H'00, H'80, H'3F, H'00, H'00, H'A0, H'40, H'00, H'00, H'00, H'41
-_init_8c045568:        ; from defines
+_init_clipMirrorRight_8c045568:        ; from defines
           .DATA.B      H'00, H'00, H'60, H'41, H'00, H'00, H'80, H'3F, H'00, H'00, H'90, H'41, H'00, H'00, H'00, H'41
-_init_8c045578:        ; from defines
+_init_clipMirrorView_8c045578:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'40, H'00, H'00, H'E0, H'40
-_init_8c045588:        ; from defines
+_init_clipMirrorViewTall_8c045588:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'40, H'00, H'00, H'20, H'41
-_init_8c045598:        ; from defines
+_init_clipLayer2_8c045598:        ; from defines
           .DATA.B      H'00, H'00, H'C0, H'40, H'00, H'00, H'00, H'40, H'00, H'00, H'90, H'41, H'00, H'00, H'10, H'41
-_init_8c0455a8:        ; from defines
+_init_fadeQuad_8c0455a8:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'3F
-_init_8c0455b4:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'F0, H'43, H'00, H'00, H'80, H'3F
-_init_8c0455c4:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'20, H'44, H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'3F
-_init_8c0455d4:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'20, H'44, H'00, H'00, H'F0, H'43, H'00, H'00, H'80, H'3F
-_init_8c0455e4:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'00
-_init_8c0455e8:        ; from defines
+_init_screenFull_8c0455e8:        ; from defines
           .DATA.B      H'00, H'00, H'FA, H'43, H'00, H'00, H'20, H'44, H'00, H'00, H'F0, H'43, H'00, H'00, H'A0, H'43
           .DATA.B      H'00, H'00, H'70, H'43
-_init_8c0455fc:        ; from defines
+_init_screenMirror_8c0455fc:        ; from defines
           .DATA.B      H'00, H'00, H'FA, H'43, H'00, H'00, H'20, H'43, H'00, H'00, H'80, H'43, H'00, H'00, H'A0, H'42
           .DATA.B      H'00, H'00, H'00, H'43
-_init_8c045610:        ; from defines
+_init_screenMirrorTall_8c045610:        ; from defines
           .DATA.B      H'00, H'00, H'FA, H'43, H'00, H'00, H'20, H'43, H'00, H'00, H'B0, H'43, H'00, H'00, H'A0, H'42
           .DATA.B      H'00, H'00, H'30, H'43
-_init_8c045624:        ; from defines
+_init_screenLayer2_8c045624:        ; from defines
           .DATA.B      H'00, H'00, H'FA, H'43, H'00, H'00, H'20, H'44, H'00, H'00, H'F0, H'43, H'00, H'00, H'C8, H'43
           .DATA.B      H'00, H'00, H'40, H'43
           .END

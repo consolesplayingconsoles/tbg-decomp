@@ -55,7 +55,7 @@ return new class extends TestCase {
         $this->setSize('_SndSetAdxVol_8c010972', 4);
         $this->setSize('_SndSetMidiVolAndInitStruct_8c0109f4', 4);
         $this->setSize('_FileMenuResetSoundDefaults_8c0188dc', 4);
-        $this->setSize('_push_fadeout_8c022b60', 4);
+        $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_FUN_8c0107ac', 4);
         $this->setSize('_FUN_8c0106d2', 4);
         $this->setSize('_FUN_8c010720', 4);
@@ -213,7 +213,7 @@ return new class extends TestCase {
         $this->arrange(press: self::TA, state: 1, selected: 8, soundMode: 1);
         $this->shouldWriteLong($this->menu(self::STATE), 9);
         $this->shouldCall('_SndSetSoundMode_8c0108c0')->with(1);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->shouldDrawLabels(8);
         $this->shouldDrawMarkersPlain(1, 0, 0, 0);
@@ -226,7 +226,7 @@ return new class extends TestCase {
         $this->arrange(press: self::TB, state: 1, selected: 0, soundMode: 1);
         $this->shouldWriteLong($this->menu(self::STATE), 9);
         $this->shouldCall('_SndSetSoundMode_8c0108c0')->with(1);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
         $this->shouldDrawLabels(0);
         $this->shouldDrawMarkersPlain(1, 0, 0, 0);

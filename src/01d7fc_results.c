@@ -78,7 +78,7 @@ STATIC void task_8c01d8e0(void)
         if (var_runFailed_8c226408 == 0) {
             var_menuState_8c1bc7a8.state_0x18 = 1;
             SndMidiResetFxAndPlay_8c010846(0, var_runSucceeded_8c1bb8dc == 0 ? 6 : 5);
-            push_fadein_8c022a9c(10);
+            FadePushIn_8c022a9c(10);
             return;
         }
         var_isFading_8c226568 = 0;
@@ -145,7 +145,7 @@ STATIC void task_8c01d8e0(void)
             } else {
                 var_menuState_8c1bc7a8.state_0x18 = 4;
             }
-            push_fadeout_8c022b60(10);
+            FadePushOut_8c022b60(10);
         }
         drawScoreDigits_8c01d7fc(var_scoreTotal_8c226404, 312.0f);
         drawScoreDigits_8c01d7fc(var_scoreEventBonus_8c226400, 266.0f);
@@ -183,7 +183,7 @@ STATIC void task_8c01d8e0(void)
             } else if (vmuStatus == 1) {
                 swapMessageBoxFor_8c02aefc(MSG_VM_CANT_SAVE);
             } else if (vmuStatus != 0) {
-                push_fadein_8c022a9c(10);
+                FadePushIn_8c022a9c(10);
                 return;
             } else {
                 swapMessageBoxFor_8c02aefc(MSG_VM_NOT_CONN_SAVE);
@@ -192,7 +192,7 @@ STATIC void task_8c01d8e0(void)
             var_menuState_8c1bc7a8.state_0x18 = 5;
         }
         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, soundId, 0);
-        push_fadein_8c022a9c(10);
+        FadePushIn_8c022a9c(10);
         return;
     }
     case 5: {
@@ -223,7 +223,7 @@ STATIC void task_8c01d8e0(void)
         promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.selected_0x38);
         if (promptResult == 1) {
             var_menuState_8c1bc7a8.state_0x18 = 0xd;
-            push_fadeout_8c022b60(10);
+            FadePushOut_8c022b60(10);
         } else if (promptResult == 2) {
             var_menuState_8c1bc7a8.state_0x18 = 7;
         }
@@ -232,7 +232,7 @@ STATIC void task_8c01d8e0(void)
     case 7:
         if (!var_isFading_8c226568) {
             var_menuState_8c1bc7a8.state_0x18 = 4;
-            push_fadein_8c022a9c(10);
+            FadePushIn_8c022a9c(10);
             return;
         }
         break;
@@ -261,7 +261,7 @@ STATIC void task_8c01d8e0(void)
                 VmGameSetLcdSlot_8c01c8fc(1);
             } else if (promptResult == 2) {
                 var_menuState_8c1bc7a8.state_0x18 = 0xd;
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             } else if (vmuStatus != 4 && vmuStatus != 5 && vmuStatus != 6) {
                 var_menuState_8c1bc7a8.state_0x18 = 4;
                 var_isFading_8c226568 = 0;
@@ -300,7 +300,7 @@ STATIC void task_8c01d8e0(void)
     case 0xc:
         if (pressedA) {
             var_menuState_8c1bc7a8.state_0x18 = 0xd;
-            push_fadeout_8c022b60(10);
+            FadePushOut_8c022b60(10);
         }
         break;
     case 0xd: {

@@ -10,7 +10,7 @@
 #include "015ab8_title.h"
 #include "016d2c_course_menu.h"
 #include "01e27c_practice_menu.h"
-#include "022464.h"
+#include "022464_fade.h"
 #include "0222dc.h"
 #include "serial_debug.h"
 
@@ -104,7 +104,7 @@ STATIC int update_8c0129cc(void)
         return 0;
     }
 
-    FUN_8c022560();
+    FadeUpdate_8c022560();
     p = var_peripheral_8c1ba358;
 
     if ((p->press & PDD_DGT_ST) != 0) {
@@ -154,7 +154,7 @@ STATIC int update_8c0129cc(void)
                 /* A commits -- start the fade, no mark this frame. */
                 if ((p->press & PDD_DGT_TA) != 0) {
                     CHANGE_RETIRE_PHASE(RETIRE_PHASE_FADING);
-                    push_fadeout_8c022b60(10);
+                    FadePushOut_8c022b60(10);
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                     LOG_DEBUG(("[PAUSE] update_8c0129cc: retire committed, fading out\n"));
                     break;
@@ -232,7 +232,7 @@ void PauseTask_8c012cbc()
     if (update_8c0129cc() != 0) {
         FUN_8c02239c();
         TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
-        FUN_8c022560();
+        FadeUpdate_8c022560();
     }
 }
 
@@ -263,7 +263,7 @@ void PauseToggleTask_8c012d06()
         TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
     }
 
-    FUN_8c022910();
+    FadeUpdatePlain_8c022910();
 }
 
 /*
@@ -303,7 +303,7 @@ void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
         }
         SndStartAdxFadeOut_8c010bae(0);
         SndStartAdxFadeOut_8c010bae(1);
-        push_fadeout_8c022b60(0x1e);
+        FadePushOut_8c022b60(0x1e);
         break;
 
     case DEMO_END_SKIPPED:
@@ -323,7 +323,7 @@ void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
 
     FUN_8c02239c();
     TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
-    FUN_8c022910();
+    FadeUpdatePlain_8c022910();
     TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO, 0.0f, 0.0f, MARK_Z_BASE);
     if ((task->counter_0x0c & 0x18) != 0) {
         TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO_BLINK, 0.0f, 0.0f, MARK_Z_BASE);

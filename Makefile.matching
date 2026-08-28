@@ -53,7 +53,7 @@ SRCS = \
 	src/asm/decompiled/02171c_tile_stream.src \
 	src/asm/021b9c.src \
 	src/asm/0222dc.src \
-	src/asm/022464.src \
+	src/asm/decompiled/022464_fade.src \
 	src/asm/022bdc.src \
 	src/asm/023310.src \
 	src/asm/023938.src \

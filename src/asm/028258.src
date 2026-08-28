@@ -65,7 +65,7 @@
           .IMPORT     _var_8c228278
           .IMPORT     __modls
           .IMPORT     _njMultiMatrix
-          .IMPORT     _var_8c226558
+          .IMPORT     _var_fadeCamera_8c226558
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _var_route_8c18ad1c
@@ -116,11 +116,11 @@
           .IMPORT     _var_peripheral_8c1ba358
           .IMPORT     _SndProc_8c010cd6
           .IMPORT     _FUN_8c010ca6
-          .IMPORT     _var_8c226564
+          .IMPORT     _var_fadeRequest_8c226564
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _EventApplyFlags_8c02b292
           .IMPORT     _RouteLoadStartRouteModelLoadPass_8c013d78
-          .IMPORT     _var_8c226560
+          .IMPORT     _var_fadeArrivalGate_8c226560
           .IMPORT     _var_8c22847c
           .IMPORT     _njDrawScroll
           .IMPORT     _FUN_8c0106ac
@@ -3369,7 +3369,7 @@ LP_GEN_39842:
           .DATA.L _var_8c228278 ; H'8C029A60
           .DATA.L __modls ; H'8C029A64
           .DATA.L _njMultiMatrix ; H'8C029A68
-          .DATA.L _var_8c226558 ; H'8C029A6C
+          .DATA.L _var_fadeCamera_8c226558 ; H'8C029A6C
           .DATA.L _njSetCamera ; H'8C029A70
           .DATA.L _njCnkSimpleDrawObject ; H'8C029A74
           .DATA.L LAB_8c029878 ; H'8C029A78
@@ -5780,12 +5780,12 @@ LP_GEN_90033:
           .DATA.L _SndProc_8c010cd6 ; H'8C02AD44
           .DATA.L _var_peripheral_8c1ba358 ; H'8C02AD48
           .DATA.L _FUN_8c010ca6 ; H'8C02AD4C
-          .DATA.L _var_8c226564 ; H'8C02AD50
+          .DATA.L _var_fadeRequest_8c226564 ; H'8C02AD50
           .DATA.L _var_isFading_8c226568 ; H'8C02AD54
           .DATA.L _TaskFree_8c014b66 ; H'8C02AD58
           .DATA.L _EventApplyFlags_8c02b292 ; H'8C02AD5C
           .DATA.L _RouteLoadStartRouteModelLoadPass_8c013d78 ; H'8C02AD60
-          .DATA.L _var_8c226560 ; H'8C02AD64
+          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C02AD64
           .DATA.L _var_8c22847c ; H'8C02AD68
           .DATA.L _init_8c04ab3c ; H'8C02AD6C
           .DATA.L H'C0400000 ; H'8C02AD70

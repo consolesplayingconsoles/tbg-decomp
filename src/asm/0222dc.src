@@ -8,8 +8,8 @@
           .IMPORT     _var_8c2264f0
           .IMPORT     _var_8c2264f8
           .IMPORT     _FUN_8c0221d0
-          .IMPORT     _var_8c226570
-          .IMPORT     _var_8c22657c
+          .IMPORT     _var_fadeDrawCommandCount_8c226570
+          .IMPORT     _var_fadeDrawCommands_8c22657c
           .EXPORT     _FUN_8c0222dc
           .EXPORT     _FUN_8c02239c
           .EXPORT     _FUN_8c0223ea
@@ -208,6 +208,6 @@ LAB_8c022454:
 LP_GEN_14297:
           .DATA.W H'0080 ; H'8C022458
           .RES.W 1 ; H'8C02245A
-          .DATA.L _var_8c226570 ; H'8C02245C
-          .DATA.L _var_8c22657c ; H'8C022460
+          .DATA.L _var_fadeDrawCommandCount_8c226570 ; H'8C02245C
+          .DATA.L _var_fadeDrawCommands_8c22657c ; H'8C022460
           .END

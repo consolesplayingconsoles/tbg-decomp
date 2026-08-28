@@ -26,7 +26,7 @@
 - else: call FUN_8c0129cc() (the pause menu); if it just opened (returns 1), reset the
   render-command list (FUN_8c02239c, unit 0222dc -- new minimal header) and run the rest
   of the frame's tasks (execTasks_8c014b42(var_tasks_8c1ba5e8)) so the paused frame still draws,
-  then FUN_8c022560() (unowned no-arg fn, already in 022464.h).
+  then FadeUpdate_8c022560() (unowned no-arg fn, already in 022464.h).
 - No params read (Ghidra shows void(void) even though it's called as a TaskAction);
   matches existing precedent (PspTask_8c012324, demoInputTask_8c016bf4) -- declared as
   `void task_8c012cbc()` (empty parens, not `(void)`) since pushTask_8c014ae8's `action`
@@ -57,8 +57,8 @@
   (FUN_8c02239c render-list reset + execTasks_8c014b42) only run while
   var_pauseActive_8c1bb8cc == 0 (i.e. right after toggling on, tasks are
   skipped for that frame; right after toggling off, they run immediately).
-  FUN_8c022910 (owned by 022464, header already existed for FUN_8c022560 --
-  added FUN_8c022910 alongside it) always runs regardless of pause state.
+  FadeUpdatePlain_8c022910 (owned by 022464, header already existed for FadeUpdate_8c022560 --
+  added FadeUpdatePlain_8c022910 alongside it) always runs regardless of pause state.
 - var_peripheral_8c1ba358 is `PDS_PERIPHERAL *`; press field at offset 0x10,
   already declared in 014f54_text_pre_data.h. PDD_DGT_ST is the same Start-button
   bit used throughout FUN_8c0129cc.
@@ -88,7 +88,7 @@
   phase 1 (Start skip) / (0) for phase 2 (timeout). While still fading: counter++
   and fall to draw.
 - Draw tail (all non-returning paths): FUN_8c02239c + execTasks(var_tasks_8c1ba5e8)
-  + FUN_8c022910, drawSprite mark 0x7b @ z=-1.1 (MARK_Z_BASE), and mark 0x7c too
+  + FadeUpdatePlain_8c022910, drawSprite mark 0x7b @ z=-1.1 (MARK_Z_BASE), and mark 0x7c too
   when counter & 0x18 (LP_GEN_94405: H'0708 threshold, H'BF8CCCCD priority).
 - Wrote the whole function on a Ghidra-trust guess and validated against the
   ORIGINAL asm first (10 tests, all green on src.obj) -- confirmed the FPSCR-noise
@@ -128,7 +128,7 @@
 
 ## notes
 - FUN_8c0129cc takes NO param (asm overwrites r4 immediately); Ghidra's param_1 spurious
-- FUN_8c022560() takes NO arg (pushes all regs, never reads r4); Ghidra's arg spurious
+- FadeUpdate_8c022560() takes NO arg (pushes all regs, never reads r4); Ghidra's arg spurious
 - peripheral: press=0x10 (bitmask), x1=0x1c, y1=0x1e (Sint16)
 - priorities: arrows -1.09f (BF8B851F), base -1.1f (BF8CCCCD)
 - init_8c03bf4c: njDrawPolygon vertex data, owned by 012f44_game

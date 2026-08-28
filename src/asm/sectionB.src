@@ -295,7 +295,7 @@
           .EXPORT     _var_8c1bbb50 ; 02df3c
           .EXPORT     _var_8c1bbb5c ; 02df3c
           .EXPORT     _var_8c1bbc2c ; 02412c
-          .EXPORT     _var_8c1bbc38 ; 022464
+          .EXPORT     _var_mirrorSelect_8c1bbc38 ; 022464
           .EXPORT     _var_8c1bbc4c ; 012504_input
                                     ; 020214
                                     ; 02c884
@@ -593,16 +593,16 @@
                                     ; 0222dc
           .EXPORT     _var_8c22654c ; 021b9c
                                     ; 0222dc
-          .EXPORT     _var_8c226558 ; 021b9c
+          .EXPORT     _var_fadeCamera_8c226558 ; 021b9c
                                     ; 022464
                                     ; 028258
-          .EXPORT     _var_8c22655c ; 012f44_game
+          .EXPORT     _var_fadeArrivalVariant_8c22655c ; 012f44_game
                                     ; 022464
                                     ; 02d19c
-          .EXPORT     _var_8c226560 ; 022464
+          .EXPORT     _var_fadeArrivalGate_8c226560 ; 022464
                                     ; 028258
                                     ; 02d19c
-          .EXPORT     _var_8c226564 ; 022464
+          .EXPORT     _var_fadeRequest_8c226564 ; 022464
                                     ; 028258
                                     ; 02b464
                                     ; 02d19c
@@ -624,15 +624,15 @@
                                              ; 028258
                                              ; 02b464
                                              ; 02d19c
-          .EXPORT     _var_8c22656c ; 022464
+          .EXPORT     _var_fadeCompleteCallback_8c22656c ; 022464
                                     ; 02b464
                                     ; 02c884
-          .EXPORT     _var_8c226570 ; 0222dc
+          .EXPORT     _var_fadeDrawCommandCount_8c226570 ; 0222dc
                                     ; 022464
-          .EXPORT     _var_8c22657c ; 0222dc
+          .EXPORT     _var_fadeDrawCommands_8c22657c ; 0222dc
                                     ; 022464
-          .EXPORT     _var_8c227d7c ; 022464
-          .EXPORT     _var_8c227d80 ; 022464
+          .EXPORT     _var_fadePhase_8c227d7c ; 022464
+          .EXPORT     _var_fadeProgress_8c227d80 ; 022464
           .EXPORT     _var_8c227d84 ; 023310
                                     ; 023938
                                     ; 02412c
@@ -1044,7 +1044,7 @@ _var_8c1bbb5c:
           .RES.B      208
 _var_8c1bbc2c:
           .RES.B      12
-_var_8c1bbc38:
+_var_mirrorSelect_8c1bbc38:
           .RES.B      20
 _var_8c1bbc4c:
           .RES.B      56
@@ -1324,25 +1324,25 @@ _var_8c226544:
           .RES.B      8
 _var_8c22654c:
           .RES.B      12
-_var_8c226558:
+_var_fadeCamera_8c226558:
           .RES.B      4
-_var_8c22655c:
+_var_fadeArrivalVariant_8c22655c:
           .RES.B      4
-_var_8c226560:
+_var_fadeArrivalGate_8c226560:
           .RES.B      4
-_var_8c226564:
+_var_fadeRequest_8c226564:
           .RES.B      4
 _var_isFading_8c226568:
           .RES.B      4
-_var_8c22656c:
+_var_fadeCompleteCallback_8c22656c:
           .RES.B      4
-_var_8c226570:
+_var_fadeDrawCommandCount_8c226570:
           .RES.B      12
-_var_8c22657c:
+_var_fadeDrawCommands_8c22657c:
           .RES.B      6144
-_var_8c227d7c:
+_var_fadePhase_8c227d7c:
           .RES.B      4
-_var_8c227d80:
+_var_fadeProgress_8c227d80:
           .RES.B      4
 _var_8c227d84:
           .RES.B      4

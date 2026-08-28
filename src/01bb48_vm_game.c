@@ -9,7 +9,7 @@
 #include "016d2c_course_menu.h"
 #include "0193c8_vm_menu.h"
 #include "019e98_main_menu.h"
-#include "022464.h"
+#include "022464_fade.h"
 #include "0100bc_sound.h"
 #include "028258.h"
 #include "sectionB.h"
@@ -394,7 +394,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
         m->state_0x18 = STATE_MENU_FADE_IN;
         AsqFreeQueues_8c011f7e();
-        push_fadein_8c022a9c(10);
+        FadePushIn_8c022a9c(10);
         return;
 
     case STATE_MENU_FADE_IN:
@@ -414,17 +414,17 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                 case MENU_DOWNLOAD:
                     m->state_0x18 = STATE_MENU_FADE_OUT;
                     m->field_0x1c = MENU_DOWNLOAD;
-                    push_fadeout_8c022b60(10);
+                    FadePushOut_8c022b60(10);
                     break;
                 case MENU_EXP_LOAD:
                     m->state_0x18 = STATE_MENU_FADE_OUT;
                     m->field_0x1c = MENU_EXP_LOAD;
-                    push_fadeout_8c022b60(10);
+                    FadePushOut_8c022b60(10);
                     break;
                 case MENU_EXIT:
                     m->state_0x18 = STATE_EXIT;
                     VmMenuUnmountVms_8c0194de();
-                    push_fadeout_8c022b60(10);
+                    FadePushOut_8c022b60(10);
                     break;
             }
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -432,7 +432,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
             m->state_0x18 = STATE_EXIT;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             VmMenuUnmountVms_8c0194de();
-            push_fadeout_8c022b60(10);
+            FadePushOut_8c022b60(10);
         }
         TxtDrawSprite_8c014f54(
             &m->resourceGroupB_0x0c, slot + 109, 0.0f, 0.0f, -5.0f
@@ -443,7 +443,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
     case STATE_MENU_FADE_OUT:
         if (!var_isFading_8c226568) {
             m->state_0x18 = STATE_SELECT_ENTER;
-            push_fadein_8c022a9c(10);
+            FadePushIn_8c022a9c(10);
             return;
         }
         TxtDrawSprite_8c014f54(
@@ -591,7 +591,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                 } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
                     m->state_0x18 = STATE_RETURN_FADE_OUT;
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
-                    push_fadeout_8c022b60(10);
+                    FadePushOut_8c022b60(10);
                 }
                 drawSelectScreen_8c01be90();
                 break;
@@ -855,7 +855,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
             if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                 m->state_0x18 = STATE_RETURN_FADE_OUT;
                 swapMessageBoxFor_8c02aefc("");
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             }
         } else {
             selectSlot_8c01bf2a(slot);
@@ -872,7 +872,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
         if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
             m->state_0x18 = STATE_RETURN_FADE_OUT;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-            push_fadeout_8c022b60(10);
+            FadePushOut_8c022b60(10);
         }
 
         VmGameSetLcdSlot_8c01c8fc(0);
@@ -887,7 +887,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
         m->state_0x18 = STATE_MENU_FADE_IN;
         m->selected_0x38 = m->field_0x1c;
         swapMessageBoxFor_8c02aefc("");
-        push_fadein_8c022a9c(10);
+        FadePushIn_8c022a9c(10);
         return;
     }
 

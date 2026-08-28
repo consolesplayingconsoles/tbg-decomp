@@ -11,7 +11,7 @@
 #include "028258.h"
 #include "01bb48_vm_game.h"
 #include "01b19c_system_menu.h"
-#include "022464.h"
+#include "022464_fade.h"
 #include "sectionB.h"
 #include "serial_debug.h"
 #include "strings.h"
@@ -524,7 +524,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         if (press & PDD_DGT_TA) {
             CHANGE_STATE(FILE_MENU_STATE_ERROR_FADE_OUT);
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-            push_fadeout_8c022b60(10);
+            FadePushOut_8c022b60(10);
             return;
         }
         menuTextboxText_8c02af1c(0xff);
@@ -565,7 +565,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         } else if (press & PDD_DGT_TB) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             CHANGE_STATE(FILE_MENU_STATE_CANCEL_FADE_OUT);
-            push_fadeout_8c022b60(10);
+            FadePushOut_8c022b60(10);
         } else if (press & PDD_DGT_TA) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             if (var_8c226018[var_menuState_8c1bc7a8.field_0x3c +
@@ -613,7 +613,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);
-            push_fadeout_8c022b60(10);
+            FadePushOut_8c022b60(10);
         } else if (press & PDD_DGT_TB) {
             CHANGE_STATE(FILE_MENU_STATE_READY);
             swapMessageBoxFor_8c02aefc("");
@@ -682,5 +682,5 @@ void FileMenuSwitchFromTask_8c019334(Task *task)
     }
     var_menuState_8c1bc7a8.field_0x3c = 0;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
-    push_fadein_8c022a9c(10);
+    FadePushIn_8c022a9c(10);
 }

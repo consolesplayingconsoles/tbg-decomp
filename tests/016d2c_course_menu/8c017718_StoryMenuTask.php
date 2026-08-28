@@ -27,7 +27,7 @@ return new Class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
         $this->shouldCall('_FUN_8c010d8a');
         $this->shouldCall('_SndProc_8c010cd6')->with(0, 15);
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_fade_in_state_waits_for_fade()
@@ -432,7 +432,7 @@ return new Class extends TestCase {
         $this->shouldWriteLong($base + 0x68, 11);
         $this->shouldWriteLong($base + 0x18, 6);
         // state -> FADE_OUT and fadeout(10)
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldWriteLong($base + 0x48, 1);
         $this->shouldRenderFrame(42, 21, 1);

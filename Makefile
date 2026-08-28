@@ -84,7 +84,7 @@ SRCS = \
 	src/02171c_tile_stream.c \
 	src/asm/021b9c.src \
 	src/asm/0222dc.src \
-	src/asm/022464.src \
+	src/022464_fade.c \
 	src/asm/022bdc.src \
 	src/asm/023310.src \
 	src/asm/023938.src \

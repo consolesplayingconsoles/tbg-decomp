@@ -71,7 +71,7 @@ return new class extends TestCase {
 
         $this->call('_update_8c0129cc');
 
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 0);
         $this->shouldCall('_SndControlAdxtWithOutVol_8c0107d2')->with(0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
@@ -87,7 +87,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad10==0, press&4 -> stop clip, replay midi, draw steer sprite 0x75.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 0);
         $this->shouldCall('_SndControlAdxtWithOutVol_8c0107d2')->with(0);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
@@ -105,7 +105,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad10==0, press&0x20 -> engage steering, draw sprite 0x75.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 1);
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 1);
@@ -124,7 +124,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad10==0, y1 > 0x40 -> engage steering, draw sprite 0x75.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 1);
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 1);
@@ -143,7 +143,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad10==0, no input -> no state change, just draw 0x75 then base.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x75, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
         $this->shouldCall('_njDrawPolygon');
@@ -158,7 +158,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad10!=0, ad08==0, press&4 -> ad08=1, replay midi, draw 0x7a.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 1);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
@@ -175,7 +175,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad10!=0, ad08==0, press&0x10 -> ad10=0, midi(1,3,0), draw 0x7a.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
@@ -192,7 +192,7 @@ return new class extends TestCase {
 
         $this->call('_update_8c0129cc');
 
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
@@ -209,7 +209,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad10!=0, ad08==0, no input -> no state change, just draw 0x7a then base.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
         $this->shouldCall('_njDrawPolygon');
@@ -224,7 +224,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad08==1, press&2 -> ad08=0, draw 0x7a, then midi(1,1,0).
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 1, 0);
@@ -241,9 +241,9 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad08==1, !press&2, ad0c==0, press&4 -> ad08=2, fadeout(10), midi(1,0,0), no arrow draw.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 2);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
         $this->shouldCall('_njDrawPolygon');
@@ -258,7 +258,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad0c==0, press&0x80 -> ad0c=1, midi(1,3,0), draw 0x76.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 1);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
@@ -275,7 +275,7 @@ return new class extends TestCase {
 
         $this->call('_update_8c0129cc');
 
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 1);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
@@ -292,7 +292,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad0c==0, no toggle input -> just draw 0x76.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
         $this->shouldCall('_njDrawPolygon');
@@ -307,7 +307,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad0c!=0, press&4 -> ad08=0, midi(1,0,0), draw 0x77.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x77, 0.0, 0.0, -1.09);
@@ -324,7 +324,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad0c!=0, !press&4, press&0x40 -> ad0c=0, midi(1,3,0), draw 0x77.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 0);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x77, 0.0, 0.0, -1.09);
@@ -341,7 +341,7 @@ return new class extends TestCase {
 
         $this->call('_update_8c0129cc');
 
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 0);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x77, 0.0, 0.0, -1.09);
@@ -358,7 +358,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad0c!=0, no toggle input -> just draw 0x77.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x77, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
         $this->shouldCall('_njDrawPolygon');
@@ -373,7 +373,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // ad08==2, isFading -> draw 0x76 and njDrawPolygon, skip base 0x74 draw.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
         $this->shouldCall('_njDrawPolygon');
         $this->shouldReturn(0);
@@ -387,7 +387,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==PRACTICE -> menuState.selected = var_8c22640c, PracticeMenuLessonRetry_8c01f21c.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
@@ -411,7 +411,7 @@ return new class extends TestCase {
         $this->call('_update_8c0129cc');
 
         // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==NORMAL -> copy backups into progress, CourseMenuFUN.
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
@@ -436,14 +436,14 @@ return new class extends TestCase {
 
     private function setup(int $press, int $ctrl, int $vibport = 0, int $bb8cc = 0, int $ad04 = 0, int $ad10 = 0, int $y1 = 0, int $ad08 = 0, int $ad0c = 0, int $x1 = 0, int $isFading = 0, int $playMode = 0): void
     {
-        $this->setSize('_FUN_8c022560', 4);
+        $this->setSize('_FadeUpdate_8c022560', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_njDrawPolygon', 4);
         $this->setSize('_init_8c03bf4c', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndControlAdxtWithOutVol_8c0107d2', 4);
         $this->setSize('_pdVibMxStop', 4);
-        $this->setSize('_push_fadeout_8c022b60', 4);
+        $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
         $this->setSize($this->practiceLessonRetrySymbol(), 4);

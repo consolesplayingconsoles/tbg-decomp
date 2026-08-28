@@ -101,7 +101,7 @@ STATIC void task_8c012f9c(Task *task, void* state) {
         switch (task->field_0x08) {
             case 0:
                 if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 0) {
-                    var_8c22655c = 0;
+                    var_fadeArrivalVariant_8c22655c = 0;
                     if (r7 == FALSE) {
                         var_busState_8c1bb9d0.mirror_0x268 = 2;
                     } else {
@@ -112,7 +112,7 @@ STATIC void task_8c012f9c(Task *task, void* state) {
                     task->field_0x08 = 1;
                 } else {
                     if (var_busState_8c1bb9d0.mirror_0x268 != 3) {
-                        var_8c22655c = 0;
+                        var_fadeArrivalVariant_8c22655c = 0;
                         TaskFree_8c014b66(task);
                     }
                 }
@@ -124,7 +124,7 @@ STATIC void task_8c012f9c(Task *task, void* state) {
                 break;
         }
     } else {
-        var_8c22655c = 0;
+        var_fadeArrivalVariant_8c22655c = 0;
         if (r7 == FALSE) {
             var_busState_8c1bb9d0.field_0x25c = 0;
         }
@@ -204,7 +204,7 @@ void FUN_8c01306e(void)
     FUN_8c020528();
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &task_8c012f9c, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
-    FUN_8c0228a2();
+    FadeStartRunTransition_8c0228a2();
 }
 
 /* Matched :) */

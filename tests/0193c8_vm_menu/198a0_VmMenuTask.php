@@ -80,7 +80,7 @@ return new class extends TestCase {
         $this->shouldCall('_FUN_8c010d8a');
         $this->shouldCall('_SndProc_8c010cd6');
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
     }
@@ -109,7 +109,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x08, 0);
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
 
         $this->singleCall($this->entryName())->with($state, 0)->run();
     }
@@ -633,7 +633,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_selectedVm_8c1ba34c', 3);
         $this->shouldWriteMenuState(8);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
@@ -747,7 +747,7 @@ return new class extends TestCase {
         $this->shouldWriteMenuState(9);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
@@ -873,7 +873,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_selectedVm_8c1ba34c', -1);
         $this->shouldCall('_FileMenuResetNewGame_8c01895e');
         $this->shouldWrite($task + 0x08, 2); // substate
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawVmWarning_8c019852');
 
@@ -925,7 +925,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("セーブ可能です");
         $this->shouldWrite($task + 0x08, 3); // substate
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawVmWarning_8c019852');
 
@@ -945,7 +945,7 @@ return new class extends TestCase {
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3)
             ->andReturn(1);
         $this->shouldWriteLong($task + 0x08, 1); // substate
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawVmWarning_8c019852');
 
@@ -1186,7 +1186,7 @@ return new class extends TestCase {
         $this->setSize('_swapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_BupGetInfo_8c014bba', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
-        $this->setSize('_push_fadeout_8c022b60', 4);
+        $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_MainMenuSwitchFromTask_8c01a09a', 4);
     }
 

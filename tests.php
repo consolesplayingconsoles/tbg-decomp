@@ -457,5 +457,34 @@ return [
                 "build/output_test/02171c_tile_stream_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/022464/8c022464_fadeDraw_type0.php",
+                "tests/022464/8c022464_fadeDraw_types1to4.php",
+                "tests/022464/8c022464_fadeDraw_types5to6.php",
+                "tests/022464/8c022464_fadeDraw_multi.php",
+                "tests/022464/8c022560_FadeUpdate_idle.php",
+                "tests/022464/8c022560_FadeUpdate_fade_start.php",
+                "tests/022464/8c022560_FadeUpdate_fade_complete.php",
+                "tests/022464/8c022560_FadeUpdate_fade_in.php",
+                "tests/022464/8c022560_FadeUpdate_arrival_no_mirror.php",
+                "tests/022464/8c022560_FadeUpdate_arrival_variants.php",
+                "tests/022464/8c022560_FadeUpdate_edge_states.php",
+                "tests/022464/8c0228a2_FadeStartRunTransition_fade_out_start.php",
+                "tests/022464/8c022910_FadeUpdatePlain_idle.php",
+                "tests/022464/8c022910_FadeUpdatePlain_fade_start.php",
+                "tests/022464/8c022910_FadeUpdatePlain_fade_complete.php",
+                "tests/022464/8c022910_FadeUpdatePlain_gate_draw.php",
+                "tests/022464/8c022910_FadeUpdatePlain_edge_states.php",
+                "tests/022464/8c022a54_fadeInTask.php",
+                "tests/022464/8c022a9c_FadePushIn.php",
+                "tests/022464/8c022ad0_fadeOutTask.php",
+                "tests/022464/8c022b60_FadePushOut.php",
+            ],
+            "objects" => [
+                "build/output_test/022464_fade_src.obj",
+                "build/output_test/022464_fade_c.obj",
+            ]
+        ],
     ],
 ];

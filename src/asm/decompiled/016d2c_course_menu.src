@@ -36,9 +36,9 @@
           .IMPORT     _RouteLoadIsPvmReady_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _FUN_8c010d8a
-          .IMPORT     _push_fadein_8c022a9c
+          .IMPORT     _FadePushIn_8c022a9c
           .IMPORT     _SndMidiResetFxAndPlay_8c010846
-          .IMPORT     _push_fadeout_8c022b60
+          .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
           .IMPORT     _menuTextboxText_8c02af1c
@@ -1584,7 +1584,7 @@ LP_GEN_90654:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C0177E8
           .DATA.L _FUN_8c010d8a ; H'8C0177EC
           .DATA.L _SndProc_8c010cd6 ; H'8C0177F0
-          .DATA.L _push_fadein_8c022a9c ; H'8C0177F4
+          .DATA.L _FadePushIn_8c022a9c ; H'8C0177F4
 LAB_8c0177f8:
           MOV.L       LP_GEN_86103+2,R3
           MOV.L       @R3,R2
@@ -1914,7 +1914,7 @@ LP_GEN_86103:
           .DATA.L _SndMidiResetFxAndPlay_8c010846 ; H'8C017A5C
           .DATA.L _const_8c03628c ; H'8C017A60
           .DATA.L _swapMessageBoxFor_8c02aefc ; H'8C017A64
-          .DATA.L _push_fadeout_8c022b60 ; H'8C017A68
+          .DATA.L _FadePushOut_8c022b60 ; H'8C017A68
           .DATA.L _var_currentSysResGroupInfo_8c225fb0 ; H'8C017A6C
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C017A70
           .DATA.L _var_8c1bb8b8 ; H'8C017A74
@@ -2108,11 +2108,11 @@ LP_GEN_86246:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C017BEC
           .DATA.L _FUN_8c010d8a ; H'8C017BF0
           .DATA.L _SndProc_8c010cd6 ; H'8C017BF4
-          .DATA.L _push_fadein_8c022a9c ; H'8C017BF8
+          .DATA.L _FadePushIn_8c022a9c ; H'8C017BF8
           .DATA.L _var_dialogSequenceIsActive_8c225fb4 ; H'8C017BFC
           .DATA.L _const_8c03628c ; H'8C017C00
           .DATA.L _swapMessageBoxFor_8c02aefc ; H'8C017C04
-          .DATA.L _push_fadeout_8c022b60 ; H'8C017C08
+          .DATA.L _FadePushOut_8c022b60 ; H'8C017C08
 LAB_8c017c0c:
           MOV.L       @R4,R1
           TST         R1,R1
@@ -2547,7 +2547,7 @@ LP_GEN_67544:
           .DATA.L _AsqNop_8c011120 ; H'8C017F74
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C017F78
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C017F7C
-          .DATA.L _push_fadein_8c022a9c ; H'8C017F80
+          .DATA.L _FadePushIn_8c022a9c ; H'8C017F80
           .DATA.L _SndProc_8c010cd6 ; H'8C017F84
           .DATA.L _InputPushTask_8c0128cc ; H'8C017F88
           .DATA.L _TaskPush_8c014ae8 ; H'8C017F8C
@@ -3044,10 +3044,10 @@ LP_GEN_82242:
           .DATA.L _var_isFading_8c226568 ; H'8C018384
           .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C018388
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01838C
-          .DATA.L _push_fadein_8c022a9c ; H'8C018390
+          .DATA.L _FadePushIn_8c022a9c ; H'8C018390
           .DATA.L _SndProc_8c010cd6 ; H'8C018394
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C018398
-          .DATA.L _push_fadeout_8c022b60 ; H'8C01839C
+          .DATA.L _FadePushOut_8c022b60 ; H'8C01839C
           .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C0183A0
           .DATA.L _var_firstClearOfCourse_8c1bb8e0 ; H'8C0183A4
           .DATA.L __divls ; H'8C0183A8

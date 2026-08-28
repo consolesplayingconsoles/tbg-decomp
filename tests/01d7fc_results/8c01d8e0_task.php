@@ -21,8 +21,8 @@ return new class extends TestCase {
             '_swapMessageBoxFor_8c02aefc', '_VmMenuUpdateVmuStatus_8c01967c',
             '_RouteLoadIsPvmReady_8c01432a', '_AsqFreeQueues_8c011f7e',
             '_SndMidiResetFxAndPlay_8c010846', '_sdMidiPlay',
-            '_push_fadeout_8c022b60', '_PromptHandleBinary_8c016caa',
-            '_push_fadein_8c022a9c', '_FileMenuResetProgress_8c01890a',
+            '_FadePushOut_8c022b60', '_PromptHandleBinary_8c016caa',
+            '_FadePushIn_8c022a9c', '_FileMenuResetProgress_8c01890a',
             '_SystemMenuWriteToVmu_8c01b26c', '_VmGameSetLcdSlot_8c01c8fc',
             '_BupGetInfo_8c014bba', '_buStat', '_buGetLastError', '_syFree',
             '_DebugMenuFreeSessionAssets_8c016182', '_CourseMenuReturn_8c017ef2',
@@ -82,7 +82,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawTextboxSprite_8c01d864');
 
@@ -108,7 +108,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 4); // state_0x18 = 4
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_7_waits_while_fading(): void
@@ -231,7 +231,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawTextboxSprite_8c01d864');
 
@@ -409,7 +409,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_SndMidiResetFxAndPlay_8c010846')->with(0, 6);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_0_first_run_starts_fanfare_with_repeat_fx(): void
@@ -429,7 +429,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_SndMidiResetFxAndPlay_8c010846')->with(0, 5);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_0_repeat_run_falls_into_state_4_with_free_slot(): void
@@ -466,7 +466,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 2, 0);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_0_repeat_run_falls_into_state_4_with_slot_in_use(): void
@@ -500,7 +500,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 2, 0);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_0_repeat_run_falls_into_state_4_with_slot_in_use_by_other(): void
@@ -534,7 +534,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 2, 0);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_0_repeat_run_falls_into_state_4_writing(): void
@@ -568,7 +568,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 0, 0);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_0_repeat_run_falls_into_state_4_slot_full(): void
@@ -602,7 +602,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 0, 0);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_0_repeat_run_falls_into_state_4_vm_unusable(): void
@@ -636,7 +636,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 0, 0);
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_0_repeat_run_falls_into_state_4_other_status_just_fades_in(): void
@@ -663,7 +663,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x6c, 3); // selectedVmuSlot_0x6c = vmuStatus
 
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_1_advances_to_2_and_draws_indicator_once_fade_clears(): void
@@ -926,7 +926,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 312.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 266.0);
@@ -955,7 +955,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 312.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 266.0);
@@ -984,7 +984,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 312.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 266.0);
@@ -1013,7 +1013,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 4); // state_0x18 = 4
 
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 312.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 266.0);
@@ -1145,7 +1145,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_drawTextboxSprite_8c01d864');
 

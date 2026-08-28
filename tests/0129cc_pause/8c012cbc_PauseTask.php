@@ -51,7 +51,7 @@ return new class extends TestCase {
         $this->shouldCall('_update_8c0129cc')->andReturn(1);
         $this->shouldCall('_FUN_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
-        $this->shouldCall('_FUN_8c022560');
+        $this->shouldCall('_FadeUpdate_8c022560');
     }
 
     private function setup(
@@ -63,7 +63,7 @@ return new class extends TestCase {
         $this->setSize('_TitlePushTitle_8c015fd6', 4);
         $this->setSize('_FUN_8c02239c', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
-        $this->setSize('_FUN_8c022560', 4);
+        $this->setSize('_FadeUpdate_8c022560', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
 
         $this->initUint32($this->addressOf('_var_resetRequested_8c157a78'), $resetRequested);

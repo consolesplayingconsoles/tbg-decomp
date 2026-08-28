@@ -135,4 +135,8 @@ compile  src/01e27c_practice_menu.c
 assemble  src/asm/decompiled/02171c_tile_stream.src
 compile  src/02171c_tile_stream.c
 
+# 022464_fade
+assemble  src/asm/decompiled/022464_fade.src
+compile  src/022464_fade.c
+
 $sh4objtest suite -s tests.php "$@"

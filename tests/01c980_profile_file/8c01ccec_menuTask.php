@@ -20,13 +20,13 @@ return new class extends TestCase {
 
         $this->setSize('_RouteLoadIsPvmReady_8c01432a', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
-        $this->setSize('_push_fadein_8c022a9c', 4);
+        $this->setSize('_FadePushIn_8c022a9c', 4);
         $this->setSize('_CourseMenuInterpolateCursor_8c016d2c', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_njSetBackColor', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4);
-        $this->setSize('_push_fadeout_8c022b60', 4);
+        $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_PromptHandleMultiple_8c016c58', 4);
         $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);
         $this->setSize('_var_resourceGroup_8c2263a8', 0x0c);
@@ -80,7 +80,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->menu(self::STATE), 1);
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_init_returns_early_when_pvm_not_ready(): void
@@ -369,7 +369,7 @@ return new class extends TestCase {
         $this->call('_menuTask_8c01ccec')->with(0, 0);
         $this->shouldWriteLong($this->menu(self::STATE), 4);
         $this->shouldWriteLong($this->menu(0x38), 2);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 7, 0);
         $this->shouldCall('_drawUnlockGrid_8c01c9f2');
         $this->expectDrawTail();
@@ -384,7 +384,7 @@ return new class extends TestCase {
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
         $this->shouldWriteLong($this->menu(self::STATE), 11);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
         $this->shouldCall('_drawUnlockGrid_8c01c9f2');
         $this->expectDrawTail();
@@ -433,7 +433,7 @@ return new class extends TestCase {
             self::MIDI, 1, 8, 0
         );
         $this->shouldWriteLong($this->menu(self::STATE), 6);
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_page_load_completes_selected_one_plays_other_jingle(): void
@@ -449,7 +449,7 @@ return new class extends TestCase {
             self::MIDI, 1, 7, 0
         );
         $this->shouldWriteLong($this->menu(self::STATE), 6);
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_page_fade_in_waits_for_fade(): void
@@ -495,7 +495,7 @@ return new class extends TestCase {
         $this->call('_menuTask_8c01ccec')->with(0, 0);
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->menu(0x38), 5);
         $this->shouldWriteLong($this->menu(self::STATE), 8);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectDrawChecklistTail();
     }
 
@@ -509,7 +509,7 @@ return new class extends TestCase {
         $this->call('_menuTask_8c01ccec')->with(0, 0);
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->menu(0x38), 5);
         $this->shouldWriteLong($this->menu(self::STATE), 10);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectDrawChecklistTail();
     }
 
@@ -523,7 +523,7 @@ return new class extends TestCase {
         $this->call('_menuTask_8c01ccec')->with(0, 0);
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->menu(0x38), 5);
         $this->shouldWriteLong($this->menu(self::STATE), 10);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
         $this->expectDrawChecklistTail();
     }
@@ -571,7 +571,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(self::STATE), 1);
         $this->shouldWriteLong($this->menu(0x20), $this->floatToUint32(2 * 45.0 + 96.0));
         $this->shouldWriteLong($this->menu(0x24), $this->floatToUint32(3 * 48.0 + 128.0));
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     private function floatToUint32(float $value): int

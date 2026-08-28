@@ -1,0 +1,585 @@
+/* @unit Fade */
+#include <shinobi.h>
+#include <njdef.h>
+#include "sectionB.h"
+#include "012f44_game.h"
+#include "022464_fade.h"
+
+/* ====================
+ * Compiler Definitions
+ * ====================
+ */
+
+/* var_fadeCompleteCallback_8c22656c's unset sentinel. */
+#define FADE_NO_CALLBACK ((void (*)(void))-1)
+
+/* ====================
+ * Type Declarations
+ * ====================
+ */
+
+/* Opaque per-entry callbacks for FadeDrawCommand types 5/6 (see below) --
+ * queued by not-yet-decompiled push helpers in 0222dc.src, which pass
+ * whatever function pointer their own caller supplies, so there is no fixed
+ * SDK signature to name these after. */
+typedef void (*FadeCallback1)(int);
+typedef void (*FadeCallback2)(int, int);
+
+/* FadeDrawCommand.type: which arm of its union holds the remaining 12 bytes.
+ * Anything outside these 7 values is a no-op entry. */
+typedef enum {
+    FADE_CMD_0_DRAW_OBJECT            = 0,
+    FADE_CMD_1_CNK_DRAW_OBJECT        = 1,
+    FADE_CMD_2_CNK_EASY_DRAW_OBJECT   = 2,
+    FADE_CMD_3_CNK_SIMPLE_DRAW_OBJECT = 3,
+    FADE_CMD_4_CNK_MOD_DRAW_OBJECT    = 4,
+    FADE_CMD_5_CALL1                  = 5,
+    FADE_CMD_6_CALL2                  = 6
+} FadeDrawCommandType;
+
+/* One 16-byte entry in var_fadeDrawCommands_8c22657c's per-layer draw-command
+ * queue. */
+typedef struct {
+    FadeDrawCommandType type;
+    union {
+        /* 0-4: an nj*DrawObject variant, type 4 skipping njSetTexture */
+        struct {
+            NJS_MATRIX *matrix;
+            NJS_TEXLIST *texlist;
+            union {
+                NJS_OBJECT *object;        /* type 0 */
+                NJS_CNK_OBJECT *cnkObject; /* types 1-4 */
+            } obj;
+        } draw;
+        /* 5 */
+        struct {
+            FadeCallback1 fn;
+            int arg0;
+        } call1;
+        /* 6 */
+        struct {
+            FadeCallback2 fn;
+            int arg0;
+            int arg1;
+        } call2;
+    } u;
+} FadeDrawCommand;
+
+/* ====================
+ * Initialized Globals
+ * ====================
+ */
+
+STATIC NJS_TEXTURE_VTX init_mirrorQuadLeft_8c045438[4] = {
+    {   /* [0] */
+        /* x, y, z */ 32.0f, 32.0f, 0.8403361f,
+        /* u, v */ 0.625f, 0.0f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [1] */
+        /* x, y, z */ 32.0f, 288.0f, 0.8403361f,
+        /* u, v */ 0.625f, 0.49804688f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [2] */
+        /* x, y, z */ 192.0f, 32.0f, 0.8403361f,
+        /* u, v */ 0.00390625f, 0.0f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [3] */
+        /* x, y, z */ 192.0f, 288.0f, 0.8403361f,
+        /* u, v */ 0.00390625f, 0.49804688f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+};
+STATIC NJS_TEXTURE_VTX init_mirrorQuadRight_8c045498[4] = {
+    {   /* [0] */
+        /* x, y, z */ 448.0f, 32.0f, 0.8403361f,
+        /* u, v */ 0.625f, 0.0f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [1] */
+        /* x, y, z */ 448.0f, 288.0f, 0.8403361f,
+        /* u, v */ 0.625f, 0.49804688f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [2] */
+        /* x, y, z */ 608.0f, 32.0f, 0.8403361f,
+        /* u, v */ 0.00390625f, 0.0f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [3] */
+        /* x, y, z */ 608.0f, 288.0f, 0.8403361f,
+        /* u, v */ 0.00390625f, 0.49804688f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+};
+STATIC NJS_TEXTURE_VTX init_mirrorQuadTall_8c0454f8[4] = {
+    {   /* [0] */
+        /* x, y, z */ 32.0f, 32.0f, 0.8403361f,
+        /* u, v */ 0.625f, 0.0f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [1] */
+        /* x, y, z */ 32.0f, 384.0f, 0.8403361f,
+        /* u, v */ 0.625f, 0.6855469f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [2] */
+        /* x, y, z */ 192.0f, 32.0f, 0.8403361f,
+        /* u, v */ 0.00390625f, 0.0f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+    {   /* [3] */
+        /* x, y, z */ 192.0f, 384.0f, 0.8403361f,
+        /* u, v */ 0.00390625f, 0.6855469f,
+        /* col */ ARGB(0xff, 0xff, 0xff, 0xff),
+    },
+};
+STATIC NJS_POINT2 init_clipMirrorLeft_8c045558[2] = {
+    /* [0] */ { 1.0f, 1.0f },
+    /* [1] */ { 5.0f, 8.0f },
+};
+STATIC NJS_POINT2 init_clipMirrorRight_8c045568[2] = {
+    /* [0] */ { 14.0f, 1.0f },
+    /* [1] */ { 18.0f, 8.0f },
+};
+STATIC NJS_POINT2 init_clipMirrorView_8c045578[2] = {
+    /* [0] */ { 0.0f, 0.0f },
+    /* [1] */ { 4.0f, 7.0f },
+};
+STATIC NJS_POINT2 init_clipMirrorViewTall_8c045588[2] = {
+    /* [0] */ { 0.0f, 0.0f },
+    /* [1] */ { 4.0f, 10.0f },
+};
+STATIC NJS_POINT2 init_clipLayer2_8c045598[2] = {
+    /* [0] */ { 6.0f, 2.0f },
+    /* [1] */ { 18.0f, 9.0f },
+};
+/* Fullscreen fade quad: 4 corners {0,0,1.0}-{0,480,1.0}-{640,0,1.0}-{640,480,1.0}.
+ * The col field of each vertex is poked every frame via displacement addressing
+ * (@(0xc/0x1c/0x2c/0x3c,Rn) in the original asm) -- Ghidra fabricated its own
+ * init_8c0455b4/c4/d4/e4 labels for those mid-array addresses since it doesn't
+ * recognize them as offsets into this array; the real code never names them. */
+STATIC NJS_POLYGON_VTX init_fadeQuad_8c0455a8[4] = {
+    /* [0] */ { 0.0f, 0.0f, 1.0f, ARGB(0, 0, 0, 0) },
+    /* [1] */ { 0.0f, 480.0f, 1.0f, ARGB(0, 0, 0, 0) },
+    /* [2] */ { 640.0f, 0.0f, 1.0f, ARGB(0, 0, 0, 0) },
+    /* [3] */ { 640.0f, 480.0f, 1.0f, ARGB(0, 0, 0, 0) },
+};
+STATIC NJS_SCREEN init_screenFull_8c0455e8 = {
+    /* dist */ 500.0f,
+    /* w, h */ 640.0f, 480.0f,
+    /* cx, cy */ 320.0f, 240.0f,
+};
+STATIC NJS_SCREEN init_screenMirror_8c0455fc = {
+    /* dist */ 500.0f,
+    /* w, h */ 160.0f, 256.0f,
+    /* cx, cy */ 80.0f, 128.0f,
+};
+STATIC NJS_SCREEN init_screenMirrorTall_8c045610 = {
+    /* dist */ 500.0f,
+    /* w, h */ 160.0f, 352.0f,
+    /* cx, cy */ 80.0f, 176.0f,
+};
+STATIC NJS_SCREEN init_screenLayer2_8c045624 = {
+    /* dist */ 500.0f,
+    /* w, h */ 640.0f, 480.0f,
+    /* cx, cy */ 400.0f, 192.0f,
+};
+
+/* ====================
+ * Functions
+ * ====================
+ */
+
+/* Draws the queued command list for layer (0-2). */
+STATIC void fadeDraw_8c022464(int layer)
+{
+  int count;
+  int i;
+  FadeDrawCommandType type;
+  FadeDrawCommand *cmd;
+
+  count = var_fadeDrawCommandCount_8c226570[layer];
+  cmd = (FadeDrawCommand *)var_fadeDrawCommands_8c22657c[layer];
+  for (i = 0; i < count; i++, cmd++) {
+    njSetCamera(var_fadeCamera_8c226558);
+    type = cmd->type;
+    switch (type) {
+      case FADE_CMD_0_DRAW_OBJECT:
+      case FADE_CMD_1_CNK_DRAW_OBJECT:
+      case FADE_CMD_2_CNK_EASY_DRAW_OBJECT:
+      case FADE_CMD_3_CNK_SIMPLE_DRAW_OBJECT:
+      case FADE_CMD_4_CNK_MOD_DRAW_OBJECT:
+        njMultiMatrix(0, cmd->u.draw.matrix);
+        if (type != FADE_CMD_4_CNK_MOD_DRAW_OBJECT) {
+          njSetTexture(cmd->u.draw.texlist);
+        }
+        switch (type) {
+          case FADE_CMD_0_DRAW_OBJECT:
+            njDrawObject(cmd->u.draw.obj.object);
+            break;
+          case FADE_CMD_1_CNK_DRAW_OBJECT:
+            njCnkDrawObject(cmd->u.draw.obj.cnkObject);
+            break;
+          case FADE_CMD_2_CNK_EASY_DRAW_OBJECT:
+            njCnkEasyDrawObject(cmd->u.draw.obj.cnkObject);
+            break;
+          case FADE_CMD_3_CNK_SIMPLE_DRAW_OBJECT:
+            njCnkSimpleDrawObject(cmd->u.draw.obj.cnkObject);
+            break;
+          case FADE_CMD_4_CNK_MOD_DRAW_OBJECT:
+            njCnkModDrawObject(cmd->u.draw.obj.cnkObject);
+            break;
+          default:
+            break;
+        }
+        break;
+      case FADE_CMD_5_CALL1:
+        cmd->u.call1.fn(cmd->u.call1.arg0);
+        break;
+      case FADE_CMD_6_CALL2:
+        cmd->u.call2.fn(cmd->u.call2.arg0, cmd->u.call2.arg1);
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+/* Per-frame bus-stop-arrival overlay (var_fadeArrivalGate_8c226560 gate) plus the generic
+ * screen fade state machine (var_fadePhase_8c227d7c: 0 idle, 1 fading out, 2 fading in,
+ * 3 held-fade-in-complete). var_fadeRequest_8c226564 requests a transition (1 = fade to
+ * color, 2 = fade from color); var_fadeCompleteCallback_8c22656c, if set, is called once when a
+ * transition completes and then cleared to its -1 sentinel.
+ *
+ * Ghidra fabricated a float param here (attributing it to every TxtDrawSprite
+ * priority arg below, which is actually a fixed -1.17 literal) and also
+ * misattributed the var_mirrorSelect_8c1bbc38 reads below to var_busState_8c1bb9d0.mirror_0x268;
+ * its CFG for this function carried 19 "unreachable block" warnings. Raw
+ * disassembly confirms FR4 is never read, so the function takes no argument. */
+void FadeUpdate_8c022560(void)
+{
+  if (var_fadeArrivalGate_8c226560 != 0) {
+    switch (var_fadeArrivalVariant_8c22655c) {
+    case 0:
+      njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
+      switch (var_mirrorSelect_8c1bbc38) {
+        case FADE_MIRROR_NONE:
+          njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorView_8c045578);
+          break;
+        case FADE_MIRROR_LEFT:
+        case FADE_MIRROR_RIGHT:
+        default:
+          njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorView_8c045578);
+          njSetScreen(&init_screenMirror_8c0455fc);
+          var_fadeCamera_8c226558 = &var_8c1bb944;
+          fadeDraw_8c022464(1);
+          njSetTexture(&init_texlist_8c03bf44);
+          njRenderTextureNumG(999);
+          if (var_mirrorSelect_8c1bbc38 == FADE_MIRROR_LEFT) {
+            njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorLeft_8c045558);
+            njDrawTexture(init_mirrorQuadLeft_8c045438, 4, 999, 0);
+            njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorLeft_8c045558);
+            TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x27, 0.0f, 0.0f, -1.17f);
+            njUserClipping(NJD_CLIP_OUTSIDE, init_clipMirrorLeft_8c045558);
+          }
+          else if (var_mirrorSelect_8c1bbc38 == FADE_MIRROR_RIGHT) {
+            njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorRight_8c045568);
+            njDrawTexture(init_mirrorQuadRight_8c045498, 4, 999, 0);
+            njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorRight_8c045568);
+            TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x29, 0.0f, 0.0f, -1.17f);
+            njUserClipping(NJD_CLIP_OUTSIDE, init_clipMirrorRight_8c045568);
+          }
+          break;
+      }
+      njSetScreen(&init_screenFull_8c0455e8);
+      var_fadeCamera_8c226558 = &var_8c1bb904;
+      fadeDraw_8c022464(0);
+      break;
+    case 1:
+      njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
+      njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorViewTall_8c045588);
+      njSetScreen(&init_screenMirrorTall_8c045610);
+      var_fadeCamera_8c226558 = &var_8c1bb944;
+      fadeDraw_8c022464(1);
+      njSetTexture(&init_texlist_8c03bf44);
+      njRenderTextureNumG(999);
+      njUserClipping(NJD_CLIP_INSIDE, init_clipLayer2_8c045598);
+      njSetScreen(&init_screenLayer2_8c045624);
+      var_fadeCamera_8c226558 = &var_8c1bb984;
+      fadeDraw_8c022464(2);
+      njUserClipping(NJD_CLIP_OUTSIDE, init_clipLayer2_8c045598);
+      njSetScreen(&init_screenFull_8c0455e8);
+      njDrawTexture(init_mirrorQuadTall_8c0454f8, 4, 999, 0);
+      var_fadeCamera_8c226558 = &var_8c1bb904;
+      fadeDraw_8c022464(0);
+      njUserClipping(NJD_CLIP_DISABLE, init_clipLayer2_8c045598);
+      TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x28, 0.0f, 0.0f, -1.17f);
+      break;
+    case 2:
+      njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
+      njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorViewTall_8c045588);
+      njSetScreen(&init_screenMirrorTall_8c045610);
+      var_fadeCamera_8c226558 = &var_8c1bb944;
+      fadeDraw_8c022464(1);
+      njSetTexture(&init_texlist_8c03bf44);
+      njRenderTextureNumG(999);
+      njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorViewTall_8c045588);
+      njSetScreen(&init_screenFull_8c0455e8);
+      njDrawTexture(init_mirrorQuadTall_8c0454f8, 4, 999, 0);
+      TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x2a, 0.0f, 0.0f, -1.17f);
+      var_fadeCamera_8c226558 = &var_8c1bb904;
+      fadeDraw_8c022464(0);
+      break;
+    }
+  }
+  njUserClipping(NJD_CLIP_DISABLE, init_clipLayer2_8c045598);
+
+  if (var_fadePhase_8c227d7c == FADE_PHASE_IDLE) {
+    if (var_fadeRequest_8c226564 == FADE_REQUEST_OUT) {
+      var_fadePhase_8c227d7c = FADE_PHASE_OUT;
+      var_fadeProgress_8c227d80 = 0xff000000;
+      var_isFading_8c226568 = 1;
+    }
+    else if (var_fadeRequest_8c226564 == FADE_REQUEST_IN) {
+      var_fadePhase_8c227d7c = FADE_PHASE_IN;
+      var_fadeProgress_8c227d80 = 0;
+      var_isFading_8c226568 = 1;
+    }
+    else {
+      return;
+    }
+  }
+
+  switch (var_fadePhase_8c227d7c) {
+    case FADE_PHASE_OUT: {
+      Uint32 progress = var_fadeProgress_8c227d80 - 0x4400000;
+      var_fadeProgress_8c227d80 = progress;
+      if (progress > 0x1000000) {
+        Uint32 color = progress & 0xff000000;
+        init_fadeQuad_8c0455a8[0].col = color;
+        init_fadeQuad_8c0455a8[1].col = color;
+        init_fadeQuad_8c0455a8[2].col = color;
+        init_fadeQuad_8c0455a8[3].col = color;
+        njDrawPolygon(init_fadeQuad_8c0455a8, 4, 1);
+        return;
+      }
+      break;
+    }
+    case FADE_PHASE_IN: {
+      Uint32 color;
+      var_fadeProgress_8c227d80 = var_fadeProgress_8c227d80 + 0x44000;
+      if (var_fadeProgress_8c227d80 > 0xffffff) {
+        var_fadePhase_8c227d7c = FADE_PHASE_HELD;
+        var_fadeArrivalGate_8c226560 = 0;
+        var_fadeProgress_8c227d80 = 0xff0000;
+      }
+      color = (var_fadeProgress_8c227d80 << 8) & 0xff000000;
+      init_fadeQuad_8c0455a8[0].col = color;
+      init_fadeQuad_8c0455a8[1].col = color;
+      init_fadeQuad_8c0455a8[2].col = color;
+      init_fadeQuad_8c0455a8[3].col = color;
+      njDrawPolygon(init_fadeQuad_8c0455a8, 4, 1);
+      return;
+    }
+    case FADE_PHASE_HELD:
+      break;
+    default:
+      return;
+  }
+
+  /* Fade-out ran to full color, or the held phase was entered: finish. */
+  var_fadePhase_8c227d7c = FADE_PHASE_IDLE;
+  var_fadeRequest_8c226564 = FADE_REQUEST_NONE;
+  var_isFading_8c226568 = 0;
+  if (var_fadeCompleteCallback_8c22656c != FADE_NO_CALLBACK) {
+    (*var_fadeCompleteCallback_8c22656c)();
+    var_fadeCompleteCallback_8c22656c = FADE_NO_CALLBACK;
+  }
+}
+
+void FadeStartRunTransition_8c0228a2(void)
+{
+  if ((var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) || ((var_8c226410 & 8) == 8)) {
+    var_fadeArrivalVariant_8c22655c = 1;
+  }
+  else {
+    var_fadeArrivalVariant_8c22655c = 0;
+  }
+  var_fadePhase_8c227d7c = FADE_PHASE_IDLE;
+  var_fadeArrivalGate_8c226560 = 1;
+  var_fadeRequest_8c226564 = FADE_REQUEST_OUT;
+  var_fadeCompleteCallback_8c22656c = FADE_NO_CALLBACK;
+  var_isFading_8c226568 = 1;
+}
+
+/* Same idle/fading-out/fading-in/held state machine as FadeUpdate_8c022560, minus
+ * its bus-stop-arrival overlay: var_fadeArrivalGate_8c226560 just triggers the plain
+ * fade-out draw. Also guards both fade-out completion checks with
+ * var_isFading_8c226568, letting an external reset of that flag short-cut
+ * the transition. */
+void FadeUpdatePlain_8c022910(void)
+{
+  if (var_fadeArrivalGate_8c226560 != 0) {
+    njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
+    njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorView_8c045578);
+    njSetScreen(&init_screenFull_8c0455e8);
+    var_fadeCamera_8c226558 = &var_8c1bb904;
+    fadeDraw_8c022464(0);
+  }
+  if (var_fadePhase_8c227d7c == FADE_PHASE_IDLE) {
+    if (var_fadeRequest_8c226564 == FADE_REQUEST_OUT) {
+      var_fadePhase_8c227d7c = FADE_PHASE_OUT;
+      var_fadeProgress_8c227d80 = 0xff000000;
+      var_isFading_8c226568 = 1;
+    }
+    else if (var_fadeRequest_8c226564 == FADE_REQUEST_IN) {
+      var_fadePhase_8c227d7c = FADE_PHASE_IN;
+      var_fadeProgress_8c227d80 = 0;
+      var_isFading_8c226568 = 1;
+    }
+    else {
+      return;
+    }
+  }
+
+  switch (var_fadePhase_8c227d7c) {
+    case FADE_PHASE_OUT: {
+      Uint32 progress = var_fadeProgress_8c227d80 - 0x4400000;
+      var_fadeProgress_8c227d80 = progress;
+      if (progress > 0x1000000 && var_isFading_8c226568 != 0) {
+        Uint32 color = progress & 0xff000000;
+        init_fadeQuad_8c0455a8[0].col = color;
+        init_fadeQuad_8c0455a8[1].col = color;
+        init_fadeQuad_8c0455a8[2].col = color;
+        init_fadeQuad_8c0455a8[3].col = color;
+        njDrawPolygon(init_fadeQuad_8c0455a8, 4, 1);
+        return;
+      }
+      break;
+    }
+    case FADE_PHASE_IN: {
+      Uint32 color;
+      var_fadeProgress_8c227d80 = var_fadeProgress_8c227d80 + 0x44000;
+      if (var_fadeProgress_8c227d80 > 0xffffff || var_isFading_8c226568 == 0) {
+        var_fadePhase_8c227d7c = FADE_PHASE_HELD;
+        var_fadeArrivalGate_8c226560 = 0;
+        var_fadeProgress_8c227d80 = 0xff0000;
+      }
+      color = (var_fadeProgress_8c227d80 << 8) & 0xff000000;
+      init_fadeQuad_8c0455a8[0].col = color;
+      init_fadeQuad_8c0455a8[1].col = color;
+      init_fadeQuad_8c0455a8[2].col = color;
+      init_fadeQuad_8c0455a8[3].col = color;
+      njDrawPolygon(init_fadeQuad_8c0455a8, 4, 1);
+      return;
+    }
+    case FADE_PHASE_HELD:
+      break;
+    default:
+      return;
+  }
+
+  /* Fade-out ran to full color (or was cut short), or the held phase was
+   * entered: finish. */
+  var_fadePhase_8c227d7c = FADE_PHASE_IDLE;
+  var_fadeRequest_8c226564 = FADE_REQUEST_NONE;
+  var_isFading_8c226568 = 0;
+  if (var_fadeCompleteCallback_8c22656c != FADE_NO_CALLBACK) {
+    (*var_fadeCompleteCallback_8c22656c)();
+    var_fadeCompleteCallback_8c22656c = FADE_NO_CALLBACK;
+  }
+}
+
+/* Task pushed by FadePushIn_8c022a9c(frames): task->frames_0x08 holds that
+ * frame count. Steps var_fadeProgress_8c227d80 down from 0xff000000 by (0xff000000 /
+ * frames) each tick until it drops to the 0x1000000 floor, then frees
+ * itself. Sibling of fadeOutTask_8c022ad0, which counts the opposite way. */
+STATIC void fadeInTask_8c022a54(FadeInTask *task, void *state)
+{
+  Uint32 level;
+  (void)state;
+
+  level = var_fadeProgress_8c227d80 - 0xff000000 / task->frames_0x08;
+  var_fadeProgress_8c227d80 = level;
+  if (level > 0x1000000) {
+    Uint32 color = level & 0xff000000;
+    init_fadeQuad_8c0455a8[0].col = color;
+    init_fadeQuad_8c0455a8[1].col = color;
+    init_fadeQuad_8c0455a8[2].col = color;
+    init_fadeQuad_8c0455a8[3].col = color;
+    njDrawPolygon(init_fadeQuad_8c0455a8, 4, 1);
+    return;
+  }
+  var_isFading_8c226568 = 0;
+  TaskFree_8c014b66((Task *)task);
+}
+
+/* Starts a fade in over the given frame count. */
+void FadePushIn_8c022a9c(int frames)
+{
+  FadeInTask *task;
+  void *state;
+
+  TaskPush_8c014ae8(var_tasks_8c1ba3c8, fadeInTask_8c022a54, (Task **)&task, &state, 0);
+  task->frames_0x08 = frames;
+  var_fadeProgress_8c227d80 = 0xff000000;
+  var_isFading_8c226568 = 1;
+}
+
+/* Task pushed by FadePushOut_8c022b60(frames): task->frames_0x08 holds the
+ * frame count while task->phase_0x0c is 0 (ramping var_fadeProgress_8c227d80
+ * up by (0xff0000 / frames) each tick). Once it exceeds 0xffffff the screen
+ * holds solid black (njSetBackColor) for two more ticks -- phase_0x0c becomes
+ * 1 and frames_0x08 is reused as that hold counter -- before freeing itself. */
+STATIC void fadeOutTask_8c022ad0(FadeOutTask *task, void *state)
+{
+  FadeOutPhase phase;
+  Uint32 color;
+  (void)state;
+
+  phase = task->phase_0x0c;
+  switch (phase) {
+    case FADE_OUT_PHASE_RAMP:
+      var_fadeProgress_8c227d80 = var_fadeProgress_8c227d80 + 0xff0000 / task->frames_0x08;
+      if (var_fadeProgress_8c227d80 > 0xffffff) {
+        var_fadeProgress_8c227d80 = 0xff0000;
+        njSetBackColor(0, 0, 0);
+        task->frames_0x08 = 0;
+        task->phase_0x0c = FADE_OUT_PHASE_HOLD;
+      }
+      break;
+    case FADE_OUT_PHASE_HOLD: {
+      Uint32 holdCount = task->frames_0x08;
+      task->frames_0x08 = holdCount + 1;
+      if (holdCount > 1) {
+        var_isFading_8c226568 = 0;
+        TaskFree_8c014b66((Task *)task);
+        njSetBackColor(0, 0, 0);
+      }
+      var_fadeProgress_8c227d80 = 0xff0000;
+      break;
+    }
+  }
+  color = (var_fadeProgress_8c227d80 & 0xff0000) << 8;
+  init_fadeQuad_8c0455a8[0].col = color;
+  init_fadeQuad_8c0455a8[1].col = color;
+  init_fadeQuad_8c0455a8[2].col = color;
+  init_fadeQuad_8c0455a8[3].col = color;
+  njDrawPolygon(init_fadeQuad_8c0455a8, 4, 1);
+}
+
+/* Starts a fade out over the given frame count. */
+void FadePushOut_8c022b60(int frames)
+{
+  FadeOutTask *task;
+  void *state;
+
+  TaskPush_8c014ae8(var_tasks_8c1ba3c8, fadeOutTask_8c022ad0, (Task **)&task, &state, 0);
+  task->frames_0x08 = frames;
+  task->phase_0x0c = FADE_OUT_PHASE_RAMP;
+  var_fadeProgress_8c227d80 = 0;
+  var_isFading_8c226568 = 1;
+}

@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c226074', 4);
         $this->setSize('_var_8c1ba290', 5);
         $this->setSize('_TaskSetAction_8c014b3e', 4);
-        $this->setSize('_push_fadein_8c022a9c', 4);
+        $this->setSize('_FadePushIn_8c022a9c', 4);
 
         $task = $this->alloc(0x20);
         $this->call('_OptionSwitchToTopMenu_8c01b122')->with($task, $row);
@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(self::STATE), 0);
         $this->shouldWriteLong($this->menu(self::SELECTED), $row);
         $this->shouldWriteLong($this->addressOf('_var_8c226074'), $this->addressOf('_var_8c1ba290'));
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_setting_row()

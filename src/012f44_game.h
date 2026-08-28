@@ -14,6 +14,7 @@ extern int var_retirePhase_8c18ad08;
 extern int var_confirmChoice_8c18ad0c;
 extern int var_onRetire_8c18ad10;
 extern char init_8c03bf4c[];
+extern NJS_TEXLIST init_texlist_8c03bf44;
 
 void GameTask_8c012f44();
 void FUN_8c01306e(void);

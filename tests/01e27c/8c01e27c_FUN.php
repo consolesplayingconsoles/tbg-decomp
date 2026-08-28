@@ -38,7 +38,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x58, 5);
 
         $this->shouldCall('_SndProc_8c010cd6')->with(0, 0xd);
-        $this->shouldCall('_push_fadein_8c022a9c')->with(10);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
     public function test_state_1_waits_for_fade(): void
@@ -196,7 +196,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x18, 4);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase,
@@ -228,7 +228,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x18, 8);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase,
@@ -289,7 +289,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x18, 5);
         $this->shouldWriteLong($menuStateBase + 0x68, 0);
         $this->shouldCall('_njSetBackColor')->with(0, 0, 0);
-        $this->shouldCall('_push_fadein_8c022a9c')->with(0x14);
+        $this->shouldCall('_FadePushIn_8c022a9c')->with(0x14);
     }
 
     public function test_state_4_draws_while_fading(): void
@@ -390,7 +390,7 @@ return new class extends TestCase {
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x68, 11);
         $this->shouldWriteLong($menuStateBase + 0x18, 7);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(0x14);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(0x14);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase + 0x0c,
             3 + 0x19,
@@ -540,7 +540,7 @@ return new class extends TestCase {
         $this->setSize('_swapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
-        $this->setSize('_push_fadeout_8c022b60', 4);
+        $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_njSetBackColor', 4);
         $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_GamePushLoadingTask_8c013310', 4);

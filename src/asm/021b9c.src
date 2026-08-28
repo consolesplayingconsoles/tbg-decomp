@@ -11,7 +11,7 @@
           .IMPORT     _var_8c2264f8
           .IMPORT     _njCnkSetEasyLight
           .IMPORT     _var_8c2264d8
-          .IMPORT     _var_8c226558
+          .IMPORT     _var_fadeCamera_8c226558
           .IMPORT     _njSetTexture
           .IMPORT     _njSetCamera
           .IMPORT     _var_8c226538
@@ -186,7 +186,7 @@ LP_GEN_32922:
           .DATA.L _var_8c2264f8 ; H'8C021CC8
           .DATA.L _njCnkSetEasyLight ; H'8C021CCC
           .DATA.L _var_8c2264d8 ; H'8C021CD0
-          .DATA.L _var_8c226558 ; H'8C021CD4
+          .DATA.L _var_fadeCamera_8c226558 ; H'8C021CD4
           .DATA.L _njSetTexture ; H'8C021CD8
           .DATA.L _njSetCamera ; H'8C021CDC
           .DATA.L _var_8c226538 ; H'8C021CE0
@@ -575,7 +575,7 @@ LP_GEN_10089:
           .DATA.L _njCnkSetEasyLightIntensity ; H'8C021FDC
           .DATA.L _njSetCamera ; H'8C021FE0
           .DATA.L _njSetTexture ; H'8C021FE4
-          .DATA.L _var_8c226558 ; H'8C021FE8
+          .DATA.L _var_fadeCamera_8c226558 ; H'8C021FE8
           .DATA.L _var_8c226538 ; H'8C021FEC
 LAB_8c021ff0:
           MOV.L       @(H'3c,R15),R3

@@ -49,7 +49,7 @@
           .IMPORT     _var_8c2285d8
           .IMPORT     _var_8c2285dc
           .IMPORT     __modls
-          .IMPORT     _var_8c22656c
+          .IMPORT     _var_fadeCompleteCallback_8c22656c
           .IMPORT     _var_8c22847c
           .IMPORT     _var_8c228714
           .IMPORT     _var_8c22861c
@@ -58,7 +58,7 @@
           .IMPORT     _sdMidiStopAll
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
-          .IMPORT     _var_8c226564
+          .IMPORT     _var_fadeRequest_8c226564
           .IMPORT     _FUN_8c024b4c
           .IMPORT     _SndUpdateAdxVolFade_8c010a40
           .IMPORT     _FUN_8c02b388
@@ -84,13 +84,13 @@
           .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _push_fadeout_8c022b60
+          .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _var_shouldShowFreeRunIntro_8c1bb8c0
           .IMPORT     _PracticeMenuLessonRetry_8c01f21c
           .IMPORT     _var_markTexlist_8c1bc418
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _FUN_8c01614c
-          .IMPORT     _push_fadein_8c022a9c
+          .IMPORT     _FadePushIn_8c022a9c
           .IMPORT     _var_driverPoints_8c2285d0
           .IMPORT     _ResultShowPassedRun_8c01e0b4
           .IMPORT     _var_menuState_8c1bc7a8
@@ -1721,7 +1721,7 @@ LP_GEN_85160:
           .DATA.L _var_8c2285d8 ; H'8C02C0C8
           .DATA.L _var_8c2285dc ; H'8C02C0CC
           .DATA.L __modls ; H'8C02C0D0
-          .DATA.L _var_8c22656c ; H'8C02C0D4
+          .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C02C0D4
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02C0D8
           .DATA.L _var_8c2285c4 ; H'8C02C0DC
 LAB_8c02c0e0:
@@ -2222,7 +2222,7 @@ LP_GEN_93947:
           .DATA.L _sdMidiStopAll ; H'8C02C4A8
           .DATA.L _var_vibport_8c1ba354 ; H'8C02C4AC
           .DATA.L _pdVibMxStop ; H'8C02C4B0
-          .DATA.L _var_8c226564 ; H'8C02C4B4
+          .DATA.L _var_fadeRequest_8c226564 ; H'8C02C4B4
           .DATA.L _FUN_8c024b4c ; H'8C02C4B8
           .DATA.L _SndUpdateAdxVolFade_8c010a40 ; H'8C02C4BC
           .DATA.L _var_8c228564 ; H'8C02C4C0
@@ -2667,7 +2667,7 @@ LP_GEN_25024:
           .DATA.L _ResultShowPassedRun_8c01e0b4 ; H'8C02C840
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C02C844
           .DATA.L _var_isFading_8c226568 ; H'8C02C848
-          .DATA.L _push_fadeout_8c022b60 ; H'8C02C84C
+          .DATA.L _FadePushOut_8c022b60 ; H'8C02C84C
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C850
           .DATA.L _var_shouldShowFreeRunIntro_8c1bb8c0 ; H'8C02C854
           .DATA.L _PracticeMenuLessonRetry_8c01f21c ; H'8C02C858
@@ -2677,7 +2677,7 @@ LP_GEN_25024:
           .DATA.L _FUN_8c01614c ; H'8C02C868
           .DATA.L LAB_8c02c69a ; H'8C02C86C
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C870
-          .DATA.L _push_fadein_8c022a9c ; H'8C02C874
+          .DATA.L _FadePushIn_8c022a9c ; H'8C02C874
           .DATA.L _var_driverPoints_8c2285d0 ; H'8C02C878
           .DATA.L _var_8c22640c ; H'8C02C87C
           .DATA.L _var_menuState_8c1bc7a8 + H'38 ; H'8C02C880

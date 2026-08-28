@@ -31,7 +31,7 @@ return new class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
-        $this->setSize('_push_fadeout_8c022b60', 4);
+        $this->setSize('_FadePushOut_8c022b60', 4);
         // _MainMenuSwitchFromTask_8c01a09a and the three switch-in wrappers are
         // auto-allocated via the init_8c044e28 dispatch table's relocations.
 
@@ -110,7 +110,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(self::STATE), 2);
         $this->shouldWriteLong($this->menu(self::FIELD70), $this->addressOf('_switchToSetting_8c01a3c0'));
         $this->shouldWriteLong($this->menu(self::FIELD74), 2);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->shouldDraw(0);
     }
@@ -121,7 +121,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(self::STATE), 2);
         $this->shouldWriteLong($this->menu(self::FIELD70), $this->addressOf('_switchToAudio_8c01afd8'));
         $this->shouldWriteLong($this->menu(self::FIELD74), 2);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->shouldDraw(2);
     }
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(self::STATE), 2);
         $this->shouldWriteLong($this->menu(self::FIELD70), $this->addressOf('_MainMenuSwitchFromTask_8c01a09a'));
         $this->shouldWriteLong($this->menu(self::FIELD74), 2);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->shouldDraw(3);
     }
@@ -144,7 +144,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(self::STATE), 2);
         $this->shouldWriteLong($this->menu(self::FIELD70), $this->addressOf('_MainMenuSwitchFromTask_8c01a09a'));
         $this->shouldWriteLong($this->menu(self::FIELD74), 2);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
         $this->shouldDraw(1);
     }

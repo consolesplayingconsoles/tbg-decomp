@@ -54,7 +54,7 @@ return new class extends TestCase {
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_FileMenuResetViewDefaults_8c0188bc', 4);
-        $this->setSize('_push_fadeout_8c022b60', 4);
+        $this->setSize('_FadePushOut_8c022b60', 4);
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + self::PRESS, $press);
         $this->initUint16($this->addressOf('_var_peripherals_8c1ba35c') + self::R, $r);
@@ -186,7 +186,7 @@ return new class extends TestCase {
     {
         $this->arrange(press: self::TA, state: 1, selected: 4);
         $this->shouldWriteLong($this->menu(self::STATE), 6);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->shouldDrawRowLabels(selected: 4);
         $this->shouldDrawSensitivityBars(state: 6, accel: 0, brake: 0);
@@ -197,7 +197,7 @@ return new class extends TestCase {
     {
         $this->arrange(press: self::TB, state: 1, selected: 0);
         $this->shouldWriteLong($this->menu(self::STATE), 6);
-        $this->shouldCall('_push_fadeout_8c022b60')->with(10);
+        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
         $this->shouldDrawRowLabels(selected: 0);
         $this->shouldDrawSensitivityBars(state: 6, accel: 0, brake: 0);

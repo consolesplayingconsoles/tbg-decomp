@@ -91,7 +91,7 @@ return new class extends TestCase {
         $this->shouldRead(0xffffe4, $createdTask);
         $this->shouldWrite($createdTask + 0x08, 0);
 
-        $this->shouldCall('_FUN_8c0228a2');
+        $this->shouldCall('_FadeStartRunTransition_8c0228a2');
 
         $this->singleCall('_FUN_8c01306e')->run();
     }
@@ -165,7 +165,7 @@ return new class extends TestCase {
         $this->shouldRead(0xffffe4, $createdTask);
         $this->shouldWrite($createdTask + 0x08, 0);
 
-        $this->shouldCall('_FUN_8c0228a2');
+        $this->shouldCall('_FadeStartRunTransition_8c0228a2');
 
         $this->singleCall('_FUN_8c01306e')->run();
     }
@@ -265,7 +265,7 @@ return new class extends TestCase {
         $this->shouldRead(0xffffe4, $createdTask2);
         $this->shouldWrite($createdTask2 + 0x08, 0);
 
-        $this->shouldCall('_FUN_8c0228a2');
+        $this->shouldCall('_FadeStartRunTransition_8c0228a2');
 
         $this->singleCall('_FUN_8c01306e')->run();
     }

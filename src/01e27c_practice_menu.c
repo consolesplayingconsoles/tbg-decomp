@@ -103,7 +103,7 @@ STATIC void FUN_8c01e27c(Task *task)
             var_menuState_8c1bc7a8.field_0x5c = var_menuState_8c1bc7a8.field_0x54;
             var_menuState_8c1bc7a8.field_0x58 = init_8c0451b4[var_8c22640c + 1] - 1;
             SndProc_8c010cd6(0, 0xd);
-            push_fadein_8c022a9c(10);
+            FadePushIn_8c022a9c(10);
             break;
 
         case STATE_DESCRIPTION_FADE_IN:
@@ -144,12 +144,12 @@ STATIC void FUN_8c01e27c(Task *task)
                 var_menuState_8c1bc7a8.state_0x18 = STATE_CONFIRM_FADE_OUT;
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             } else if (result == 2) {
                 var_menuState_8c1bc7a8.state_0x18 = STATE_CANCEL_FADE_OUT;
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             }
 
             TxtDrawSprite_8c014f54(
@@ -178,7 +178,7 @@ STATIC void FUN_8c01e27c(Task *task)
                 var_menuState_8c1bc7a8.state_0x18 = STATE_LOADING_FADE_IN;
                 var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
                 njSetBackColor(0, 0, 0);
-                push_fadein_8c022a9c(0x14);
+                FadePushIn_8c022a9c(0x14);
                 break;
             }
 
@@ -216,7 +216,7 @@ STATIC void FUN_8c01e27c(Task *task)
         case STATE_LOADING_HOLD:
             if (++var_menuState_8c1bc7a8.logo_timer_0x68 > 10) {
                 var_menuState_8c1bc7a8.state_0x18 = STATE_LOADING_START;
-                push_fadeout_8c022b60(0x14);
+                FadePushOut_8c022b60(0x14);
             }
 
             TxtDrawSprite_8c014f54(
@@ -297,7 +297,7 @@ STATIC void showLesson_8c01e63c(Task *task)
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_FADE_IN;
             SndProc_8c010cd6(0, 0xd);
-            push_fadein_8c022a9c(10);
+            FadePushIn_8c022a9c(10);
             return;
 
         case SHOW_LESSON_STATE_FADE_IN:
@@ -312,11 +312,11 @@ STATIC void showLesson_8c01e63c(Task *task)
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             } else if (var_peripherals_8c1ba35c[0].press & 0x2) {
                 var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_FADE_OUT_START;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             } else if (!(var_peripherals_8c1ba35c[0].press & 0x10)) {
                 if (var_peripherals_8c1ba35c[0].press & 0x20) {
                     if (var_menuState_8c1bc7a8.field_0x40 + 3 < (signed char)init_8c0451ec[var_8c22640c])
@@ -336,7 +336,7 @@ STATIC void showLesson_8c01e63c(Task *task)
             if (var_peripherals_8c1ba35c[0].press & 0x4) {
                 var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_FADE_OUT_START;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             } else if (var_peripherals_8c1ba35c[0].press & 0x10) {
                 var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_VIEW;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
@@ -445,7 +445,7 @@ STATIC void practiceCancelReturn_8c01e920(Task *task)
 
     AsqFreeQueues_8c011f7e();
     var_menuState_8c1bc7a8.state_0x18 = STATE_DESCRIPTION_FADE_IN;
-    push_fadein_8c022a9c(10);
+    FadePushIn_8c022a9c(10);
     // Unreachable: compiled as a tail call, never returns here.
     // coverage:ignore-next-line
 }
@@ -547,7 +547,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
             var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_DIALOG_FADE_IN;
             FUN_8c010d8a();
             SndProc_8c010cd6(0, 0xd);
-            push_fadein_8c022a9c(10);
+            FadePushIn_8c022a9c(10);
             return;
 
         case LESSON_STATE_DIALOG_FADE_IN:
@@ -573,7 +573,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
             if ((var_peripherals_8c1ba35c[0].press & 4) != 0) {
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_CANCEL_FADE_OUT;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             }
             else if ((var_peripherals_8c1ba35c[0].press & 2) != 0) {
                 var_menuState_8c1bc7a8.field_0x1c = var_menuState_8c1bc7a8.state_0x18;
@@ -622,7 +622,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
-                push_fadeout_8c022b60(10);
+                FadePushOut_8c022b60(10);
             }
             else if (result == 2) {
                 var_menuState_8c1bc7a8.state_0x18 = var_menuState_8c1bc7a8.field_0x1c;
@@ -774,7 +774,7 @@ void PracticeMenuLessonStart_8c01f114(Task *task)
 
     AsqFreeQueues_8c011f7e();
     var_menuState_8c1bc7a8.state_0x18 = STATE_DESCRIPTION_FADE_IN;
-    push_fadein_8c022a9c(10);
+    FadePushIn_8c022a9c(10);
 }
 
 /* Called from the pause menu's practice-mode retire confirm: keeps the
