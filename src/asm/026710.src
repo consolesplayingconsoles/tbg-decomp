@@ -44,7 +44,7 @@
           .IMPORT     _var_8c228b44
           .IMPORT     _var_8c1bbd8c
           .IMPORT     _var_8c227e18
-          .IMPORT     _FUN_8c0223ea
+          .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _var_8c228b40
           .IMPORT     _init_8c04c980
@@ -2304,7 +2304,7 @@ LP_GEN_74201:
           .DATA.L _var_demoEntryValue_8c227e14 ; H'8C02780C
           .DATA.L _var_8c227e18 ; H'8C027810
           .DATA.L LAB_8c02756a ; H'8C027814
-          .DATA.L _FUN_8c0223ea ; H'8C027818
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C027818
           .DATA.L _var_tasks_8c1bac28 ; H'8C02781C
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C027820
           .DATA.L _var_8c227e1c ; H'8C027824

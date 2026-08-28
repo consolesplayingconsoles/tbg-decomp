@@ -83,7 +83,7 @@ SRCS = \
 	src/asm/020b6c.src \
 	src/02171c_tile_stream.c \
 	src/asm/021b9c.src \
-	src/asm/0222dc.src \
+	src/0222dc_fadecmd.c \
 	src/022464_fade.c \
 	src/asm/022bdc.src \
 	src/asm/023310.src \

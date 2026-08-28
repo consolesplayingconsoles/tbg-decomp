@@ -14,58 +14,6 @@
 #define FADE_NO_CALLBACK ((void (*)(void))-1)
 
 /* ====================
- * Type Declarations
- * ====================
- */
-
-/* Opaque per-entry callbacks for FadeDrawCommand types 5/6 (see below) --
- * queued by not-yet-decompiled push helpers in 0222dc.src, which pass
- * whatever function pointer their own caller supplies, so there is no fixed
- * SDK signature to name these after. */
-typedef void (*FadeCallback1)(int);
-typedef void (*FadeCallback2)(int, int);
-
-/* FadeDrawCommand.type: which arm of its union holds the remaining 12 bytes.
- * Anything outside these 7 values is a no-op entry. */
-typedef enum {
-    FADE_CMD_0_DRAW_OBJECT            = 0,
-    FADE_CMD_1_CNK_DRAW_OBJECT        = 1,
-    FADE_CMD_2_CNK_EASY_DRAW_OBJECT   = 2,
-    FADE_CMD_3_CNK_SIMPLE_DRAW_OBJECT = 3,
-    FADE_CMD_4_CNK_MOD_DRAW_OBJECT    = 4,
-    FADE_CMD_5_CALL1                  = 5,
-    FADE_CMD_6_CALL2                  = 6
-} FadeDrawCommandType;
-
-/* One 16-byte entry in var_fadeDrawCommands_8c22657c's per-layer draw-command
- * queue. */
-typedef struct {
-    FadeDrawCommandType type;
-    union {
-        /* 0-4: an nj*DrawObject variant, type 4 skipping njSetTexture */
-        struct {
-            NJS_MATRIX *matrix;
-            NJS_TEXLIST *texlist;
-            union {
-                NJS_OBJECT *object;        /* type 0 */
-                NJS_CNK_OBJECT *cnkObject; /* types 1-4 */
-            } obj;
-        } draw;
-        /* 5 */
-        struct {
-            FadeCallback1 fn;
-            int arg0;
-        } call1;
-        /* 6 */
-        struct {
-            FadeCallback2 fn;
-            int arg0;
-            int arg1;
-        } call2;
-    } u;
-} FadeDrawCommand;
-
-/* ====================
  * Initialized Globals
  * ====================
  */

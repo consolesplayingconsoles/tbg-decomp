@@ -11,7 +11,7 @@
 #include "016d2c_course_menu.h"
 #include "01e27c_practice_menu.h"
 #include "022464_fade.h"
-#include "0222dc.h"
+#include "0222dc_fadecmd.h"
 #include "serial_debug.h"
 
 /* ====================

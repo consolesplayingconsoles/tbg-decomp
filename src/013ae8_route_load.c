@@ -91,17 +91,6 @@ typedef struct {
     ModelFiles *modelFiles_0x28;
 } CourseSegment;
 
-/* Appears to be directional lighting followed by color/coefficient records.
- * Roles inferred from value ranges + consumers 023310 */
-typedef struct {
-    float dir0_0x00[3];
-    float rec0_0x0c[3][5];
-    float dir1_0x48[3];
-    float rec1_0x54[5];
-    float dir2_0x68[3];
-    float rec2_0x74[5];
-} CourseSceneParams;
-
 typedef struct {
     // enum ROUTE
     int route_0x00;
@@ -158,7 +147,6 @@ char var_datDir_8c18ad2c[0x20];
 
 enum TIME_OF_DAY var_timeOfDay_8c18ad20;
 
-// Read by driving/render units 023310, 026710, 021b9c, 0222dc, 024b4c
 CourseSceneParams *var_sceneParams_8c18ad24;
 
 int var_pvmReady_8c18adac;

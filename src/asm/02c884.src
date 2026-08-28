@@ -57,7 +57,7 @@
           .IMPORT     _var_8c228908
           .IMPORT     _njSqrt
           .IMPORT     _var_8c1bc450
-          .IMPORT     _FUN_8c0223ea
+          .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_8c1bbc4c
           .IMPORT     _var_fadeCompleteCallback_8c22656c
           .IMPORT     _FUN_8c02c586
@@ -1053,7 +1053,7 @@ LP_GEN_27124:
           .DATA.L _njSqrt ; H'8C02D03C
           .DATA.L _var_8c1bc450 ; H'8C02D040
           .DATA.L LAB_8c02cd92 ; H'8C02D044
-          .DATA.L _FUN_8c0223ea ; H'8C02D048
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02D048
           .DATA.L H'40400000 ; H'8C02D04C
           .DATA.L _var_8c1bbc4c ; H'8C02D050
           .DATA.L _var_8c228710 ; H'8C02D054

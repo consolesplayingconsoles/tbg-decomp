@@ -30,8 +30,8 @@
           .IMPORT     _njCalcVector
           .IMPORT     _var_8c1bb944
           .IMPORT     _var_8c22650c
-          .IMPORT     _FUN_8c022420
-          .IMPORT     _FUN_8c0223ea
+          .IMPORT     _FadeCmdPushCall2_8c022420
+          .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _TileStreamDrawTile_8c021b34
           .EXPORT     _FUN_8c021b9c
           .EXPORT     _FUN_8c0221d0
@@ -935,8 +935,8 @@ LP_GEN_78610:
           .DATA.L _var_8c2264e4 ; H'8C0222C0
           .DATA.L _var_8c22650c ; H'8C0222C4
           .DATA.L _FUN_8c021b9c ; H'8C0222C8
-          .DATA.L _FUN_8c022420 ; H'8C0222CC
+          .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C0222CC
           .DATA.L LAB_8c021ec4 ; H'8C0222D0
           .DATA.L _TileStreamDrawTile_8c021b34 ; H'8C0222D4
-          .DATA.L _FUN_8c0223ea ; H'8C0222D8
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C0222D8
           .END

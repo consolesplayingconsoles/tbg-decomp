@@ -2,11 +2,11 @@
           .IMPORT     _var_8c227e24
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _njSqrt
-          .IMPORT     _FUN_8c022420
+          .IMPORT     _FadeCmdPushCall2_8c022420
           .IMPORT     _var_8c227db8
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _var_8c2285c4
-          .IMPORT     _FUN_8c0223ea
+          .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_8c227e20
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _var_8c1bb890
@@ -334,7 +334,7 @@ LP_GEN_42300:
           .DATA.L _njSqrt ; H'8C028378
           .DATA.L H'43480000 ; H'8C02837C
           .DATA.L _FUN_8c0281ac ; H'8C028380
-          .DATA.L _FUN_8c022420 ; H'8C028384
+          .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C028384
 LAB_8c028388:
           MOV.L       R4,@(H'c,R14)
 LAB_8c02838a:
@@ -473,12 +473,12 @@ LP_GEN_65253:
           .RES.W 1 ; H'8C02847E
           .DATA.L _var_8c227e24 ; H'8C028480
           .DATA.L _FUN_8c028206 ; H'8C028484
-          .DATA.L _FUN_8c022420 ; H'8C028488
+          .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C028488
           .DATA.L _var_8c227db8 ; H'8C02848C
           .DATA.L _njCnkSetSimpleLight ; H'8C028490
           .DATA.L _var_8c2285c4 ; H'8C028494
           .DATA.L LAB_8c0283d4 ; H'8C028498
-          .DATA.L _FUN_8c0223ea ; H'8C02849C
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02849C
           .DATA.L _var_8c227e20 ; H'8C0284A0
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C0284A4
           .DATA.L _var_8c1bb890 ; H'8C0284A8
@@ -2934,7 +2934,7 @@ LP_GEN_59898:
           .DATA.L _var_8c228234 ; H'8C029718
           .DATA.L _var_tasks_8c1ba808 ; H'8C02971C
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C029720
-          .DATA.L _FUN_8c0223ea ; H'8C029724
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C029724
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C029728
           .DATA.L _FUN_8c028b74 ; H'8C02972C
           .DATA.L LAB_8c028a38 ; H'8C029730
@@ -3373,7 +3373,7 @@ LP_GEN_39842:
           .DATA.L _njSetCamera ; H'8C029A70
           .DATA.L _njCnkSimpleDrawObject ; H'8C029A74
           .DATA.L LAB_8c029878 ; H'8C029A78
-          .DATA.L _FUN_8c022420 ; H'8C029A7C
+          .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C029A7C
           .DATA.L _var_routeModels_8c1bc3ec ; H'8C029A80
           .DATA.L _var_route_8c18ad1c ; H'8C029A84
           .DATA.L _init_8c0465d8 ; H'8C029A88
@@ -4087,7 +4087,7 @@ LP_GEN_15421:
           .DATA.L _njSetTexture ; H'8C02A018
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02A01C
           .DATA.L LAB_8c029e46 ; H'8C02A020
-          .DATA.L _FUN_8c0223ea ; H'8C02A024
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A024
           .DATA.L _TaskFree_8c014b66 ; H'8C02A028
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02A02C
           .DATA.L LAB_8c029e68 ; H'8C02A030
@@ -4236,7 +4236,7 @@ LP_GEN_26634:
           .DATA.L H'FF000000 ; H'8C02A14C
           .DATA.L _var_8c1bbd8c ; H'8C02A150
           .DATA.L LAB_8c02a048 ; H'8C02A154
-          .DATA.L _FUN_8c0223ea ; H'8C02A158
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A158
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02A15C
 LAB_8c02a160:
           MOV.L       LP_GEN_26723+10,R1
@@ -4365,7 +4365,7 @@ LP_GEN_26723:
           .DATA.L H'FF000000 ; H'8C02A244
           .DATA.L _var_8c1bbd8c ; H'8C02A248
           .DATA.L LAB_8c02a0d6 ; H'8C02A24C
-          .DATA.L _FUN_8c0223ea ; H'8C02A250
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A250
           .DATA.L _TaskFree_8c014b66 ; H'8C02A254
           .DATA.L _njControl3D ; H'8C02A258
           .DATA.L _njFogDisable ; H'8C02A25C
@@ -4373,7 +4373,7 @@ LP_GEN_26723:
           .DATA.L _njCnkSimpleDrawObject ; H'8C02A264
           .DATA.L _njFogEnable ; H'8C02A268
           .DATA.L _FUN_8c02a1b2 ; H'8C02A26C
-          .DATA.L _FUN_8c022420 ; H'8C02A270
+          .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C02A270
           .DATA.L _njSetConstantAttr ; H'8C02A274
           .DATA.L _njSetConstantMaterial ; H'8C02A278
 LAB_8c02a27c:
@@ -4560,7 +4560,7 @@ LP_GEN_33964:
           .DATA.L H'BF000000 ; H'8C02A3E0
           .DATA.L H'3D4CCCCD ; H'8C02A3E4
           .DATA.L LAB_8c02a206 ; H'8C02A3E8
-          .DATA.L _FUN_8c0223ea ; H'8C02A3EC
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A3EC
 LAB_8c02a3f0:
           MOV.L       @(H'4,R4),R2
           MOV         #H'40,R0
@@ -4894,7 +4894,7 @@ LP_GEN_23851:
           .DATA.L _var_8c227e24 ; H'8C02A66C
           .DATA.L H'4F800000 ; H'8C02A670
           .DATA.L LAB_8c02a47c ; H'8C02A674
-          .DATA.L _FUN_8c0223ea ; H'8C02A678
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A678
           .DATA.L _var_8c2264d8 ; H'8C02A67C
           .DATA.L _var_8c2264e4 ; H'8C02A680
           .DATA.L _njCnkSetSimpleLight ; H'8C02A684

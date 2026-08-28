@@ -105,9 +105,9 @@ Comment out every line of the injected body so the function exists and the file 
 
 You will re-enable it one tested path at a time.
 
-### 5. Choose one path and test it
+### 5. Pick the first path and test it
 
-Choose the path you are most confident about. If none is clear, choose one anyway.
+Pick the first path to test.
 
 Create its test in:
 

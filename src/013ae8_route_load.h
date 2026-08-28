@@ -42,6 +42,17 @@ typedef struct {
     void *nj_0x0c;
 } ModelSlot;
 
+/* Appears to be directional lighting followed by color/coefficient records.
+ * Roles inferred from value ranges + consumers 023310 */
+typedef struct {
+    float dir0_0x00[3];
+    float rec0_0x0c[3][5];
+    float dir1_0x48[3];
+    float rec1_0x54[5];
+    float dir2_0x68[3];
+    float rec2_0x74[5];
+} CourseSceneParams;
+
 /* Asset handles for the loaded course, filled by loadRouteModels_8c014088 from
  * the CourseConfig filename field of the same name, and freed by
  * DebugMenuFreeSessionAssets_8c016182. The names are the course's own file
@@ -78,6 +89,9 @@ typedef struct {
 extern enum ROUTE var_route_8c18ad1c;
 extern enum TIME_OF_DAY var_timeOfDay_8c18ad20;
 extern FogParams *var_fogParams_8c18ad28;
+
+// Read by driving/render units 023310, 026710, 021b9c, 0222dc, 024b4c
+extern CourseSceneParams *var_sceneParams_8c18ad24;
 
 /* 16-byte game_name / VMS sort key baked into the backup file header. */
 extern Sint8 init_8c04410c[16];

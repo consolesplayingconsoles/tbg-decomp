@@ -62,7 +62,7 @@
           .IMPORT     _FUN_8c024b4c
           .IMPORT     _SndUpdateAdxVolFade_8c010a40
           .IMPORT     _FUN_8c02b388
-          .IMPORT     _FUN_8c0223ea
+          .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _var_route_8c18ad1c
@@ -2227,7 +2227,7 @@ LP_GEN_93947:
           .DATA.L _SndUpdateAdxVolFade_8c010a40 ; H'8C02C4BC
           .DATA.L _var_8c228564 ; H'8C02C4C0
           .DATA.L _FUN_8c02b388 ; H'8C02C4C4
-          .DATA.L _FUN_8c0223ea ; H'8C02C4C8
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02C4C8
           .DATA.L LAB_8c02c072 ; H'8C02C4CC
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02C4D0
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C4D4

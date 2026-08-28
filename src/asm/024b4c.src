@@ -58,7 +58,7 @@
           .IMPORT     _njSetCamera
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _njCalcVector
-          .IMPORT     _FUN_8c0223ea
+          .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_8c1bb944
           .EXPORT     _FUN_8c024b4c
           .EXPORT     _FUN_8c024b86
@@ -1468,7 +1468,7 @@ LP_GEN_36343:
           .DATA.L _njCalcVector ; H'8C025670
           .DATA.L LAB_8c024cc8 ; H'8C025674
           .DATA.L _FUN_8c024bb8 ; H'8C025678
-          .DATA.L _FUN_8c0223ea ; H'8C02567C
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02567C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C025680
           .DATA.L _var_8c1bb944 ; H'8C025684
           .DATA.L _njInitCamera ; H'8C025688
@@ -1690,5 +1690,5 @@ LP_GEN_86833:
           .DATA.L _var_8c227dc4 ; H'8C025860
           .DATA.L _njCalcVector ; H'8C025864
           .DATA.L _FUN_8c024bb8 ; H'8C025868
-          .DATA.L _FUN_8c0223ea ; H'8C02586C
+          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02586C
           .END

@@ -12,8 +12,8 @@
           .IMPORT     _var_fadeDrawCommands_8c22657c
           .EXPORT     _FUN_8c0222dc
           .EXPORT     _FUN_8c02239c
-          .EXPORT     _FUN_8c0223ea
-          .EXPORT     _FUN_8c022420
+          .EXPORT     _FadeCmdPushCall1_8c0223ea
+          .EXPORT     _FadeCmdPushCall2_8c022420
           .SECTION     P, CODE, ALIGN=4
 _FUN_8c0222dc:
           STS.L       PR,@-R15
@@ -146,7 +146,7 @@ LAB_8c0223a6:
 LAB_8c0223e6:
           RTS
           MOV.L       @R15+,R14
-_FUN_8c0223ea:
+_FadeCmdPushCall1_8c0223ea:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       LP_GEN_14297+4,R3
@@ -175,7 +175,7 @@ _FUN_8c0223ea:
 LAB_8c02241c:
           RTS
           MOV.L       @R15+,R14
-_FUN_8c022420:
+_FadeCmdPushCall2_8c022420:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       LP_GEN_14297+4,R3

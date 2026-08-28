@@ -135,6 +135,10 @@ compile  src/01e27c_practice_menu.c
 assemble  src/asm/decompiled/02171c_tile_stream.src
 compile  src/02171c_tile_stream.c
 
+# 0222dc_fadecmd
+assemble  src/asm/decompiled/0222dc_fadecmd.src
+compile  src/0222dc_fadecmd.c
+
 # 022464_fade
 assemble  src/asm/decompiled/022464_fade.src
 compile  src/022464_fade.c
