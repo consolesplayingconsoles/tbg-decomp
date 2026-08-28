@@ -110,10 +110,10 @@ return new class extends TestCase {
         $grid = $this->addressOf('_var_groundGridPrimary_8c1bb890');
         $this->initUint32($grid, 0x11111111);
 
-        $this->initUint32($this->addressOf('_var_pendingDemoFlags_8c1bbd8c'), 0);
+        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0);
 
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), $groupCount);
-        $this->initUint32($this->addressOf('_var_demoEntryValue_8c22822c'), 0);
+        $this->initUint32($this->addressOf('_var_activePedPreset_8c22822c'), 0);
 
         // Read unconditionally even when the group-scan/crosswalk loops
         // below have nothing to do.
@@ -202,7 +202,7 @@ return new class extends TestCase {
     public function test_non_demo_mode_registers_mirror_layer()
     {
         $this->setupCommon();
-        // task->field_0x08 already matches var_demoEntryValue_8c22822c (0)
+        // task->field_0x08 already matches var_activePedPreset_8c22822c (0)
         // and demoFlags is 0, so neither the pending-flag toggle nor the
         // group-scan block fires here -- this isolates the draw-callback tail.
         $task = $this->makeTask(0, 1);
@@ -375,7 +375,7 @@ return new class extends TestCase {
     public function test_crosswalk_scratch_built_for_active_group_signalled_node()
     {
         $this->setupCommon(1);
-        $task = $this->makeTask(0, 1); // matches var_demoEntryValue_8c22822c: scan skipped
+        $task = $this->makeTask(0, 1); // matches var_activePedPreset_8c22822c: scan skipped
         $groups = $this->makeGroups(1, 1);
 
         // node0: unsignalled, skipped without an intersection check.
@@ -418,7 +418,7 @@ return new class extends TestCase {
     public function test_crosswalk_high_bits_alone_do_not_signal_a_node()
     {
         $this->setupCommon(1);
-        $task = $this->makeTask(0, 1); // matches var_demoEntryValue_8c22822c: scan skipped
+        $task = $this->makeTask(0, 1); // matches var_activePedPreset_8c22822c: scan skipped
         $groups = $this->makeGroups(1, 1);
 
         // node0: only high bits set (0x1000 & 0xfff == 0) -- must NOT check the

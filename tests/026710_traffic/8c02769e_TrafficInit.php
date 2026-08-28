@@ -18,9 +18,9 @@ return new class extends TestCase {
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
-        $this->setSize('_var_8c227e18', 4);
+        $this->setSize('_var_trafficPresetTable_8c227e18', 4);
         $this->setSize('_var_8c227e1c', 4);
-        $this->setSize('_var_demoEntryValue_8c227e14', 4);
+        $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_8c228b40', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
@@ -80,7 +80,7 @@ return new class extends TestCase {
 
         // macCpu1_0x24 doubles as the per-demo script table -- point it at a
         // real allocation, since TrafficInit_8c02769e itself both caches this
-        // field into var_8c227e18 AND immediately indexes through it below.
+        // field into var_trafficPresetTable_8c227e18 AND immediately indexes through it below.
         $table = $this->alloc(4 * 4);
         $this->initUint32($table + 2 * 4, 0x99990000);
 
@@ -88,7 +88,7 @@ return new class extends TestCase {
         $this->initUint32($course + 0x1c, 0x11110000); // lineCpu_0x1c
         $this->initUint32($course + 0x24, $table); // macCpu1_0x24
 
-        $this->initUint32($this->addressOf('_var_demoEntryValue_8c227e14'), 2);
+        $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 2);
 
         $task = $this->alloc(0x20);
         $state = $this->alloc(4);
@@ -96,7 +96,7 @@ return new class extends TestCase {
         $this->call('_TrafficInit_8c02769e')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_8c227e1c'), 0x11110000);
-        $this->shouldWriteLong($this->addressOf('_var_8c227e18'), $table);
+        $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
         $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04c980'));
 
@@ -122,7 +122,7 @@ return new class extends TestCase {
         $this->initUint32($course + 0x1c, 0);
         $this->initUint32($course + 0x24, $table);
 
-        $this->initUint32($this->addressOf('_var_demoEntryValue_8c227e14'), 0);
+        $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 0);
 
         $task = $this->alloc(0x20);
         $state = $this->alloc(4);
@@ -130,7 +130,7 @@ return new class extends TestCase {
         $this->call('_TrafficInit_8c02769e')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_8c227e1c'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c227e18'), $table);
+        $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
         $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04caec'));
 
@@ -157,7 +157,7 @@ return new class extends TestCase {
         $this->initUint32($course + 0x1c, 0x33330000);
         $this->initUint32($course + 0x24, $table);
 
-        $this->initUint32($this->addressOf('_var_demoEntryValue_8c227e14'), 0);
+        $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 0);
 
         $scene = $this->alloc(0x80);
         $this->initUint32($this->addressOf('_var_sceneParams_8c18ad24'), $scene);
@@ -171,7 +171,7 @@ return new class extends TestCase {
         $this->call('_TrafficInit_8c02769e')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_8c227e1c'), 0x33330000);
-        $this->shouldWriteLong($this->addressOf('_var_8c227e18'), $table);
+        $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
         $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04cd38'));
 

@@ -948,9 +948,9 @@ void FUN_8c0159ac()
         init_demos_8c044154[var_demoIndex_8c1bb8d8].filename,
         &var_demoBuf_8c1ba3c4
     );
-    var_demoEntryValue_8c227e14 =
+    var_activeTrafficPreset_8c227e14 =
         init_demos_8c044154[var_demoIndex_8c1bb8d8].field_0x04;
-    var_demoEntryValue_8c22822c =
+    var_activePedPreset_8c22822c =
         init_demos_8c044154[var_demoIndex_8c1bb8d8].field_0x08;
     RouteLoadResetPvmReady_8c014322();
     AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadSetPvmReady_8c014330);

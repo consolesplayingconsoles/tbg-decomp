@@ -42,8 +42,8 @@ return new class extends TestCase {
             $this->addressOf('_var_demoBuf_8c1ba3c4')
         );
 
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c227e14', 0x08);
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c22822c', 0x04);
+        $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0x08);
+        $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0x04);
 
         $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')
@@ -95,8 +95,8 @@ return new class extends TestCase {
             $this->addressOf('_var_demoBuf_8c1ba3c4')
         );
 
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c227e14', 0x1e);
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c22822c', 0x15);
+        $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0x1e);
+        $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0x15);
 
         $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')

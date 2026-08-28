@@ -36,8 +36,8 @@ return new class extends TestCase {
         $this->setSize('_var_currentCourseConfig_8c18ad18', 4);
 
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_demoEntryValue_8c227e14', 4);
-        $this->setSize('_var_demoEntryValue_8c22822c', 4);
+        $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
+        $this->setSize('_var_activePedPreset_8c22822c', 4);
 
         $this->setSize('_var_progress_8c1ba1cc', 0xd2);
         $this->setSize('_var_8c226410', 4);
@@ -119,8 +119,8 @@ return new class extends TestCase {
 
         $this->shouldCall('_FUN_8c016770');
 
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c227e14', 0);
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c22822c', 0);
+        $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0);
+        $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0);
 
         $this->shouldWriteLongTo('_var_nextStopSegment_8c228710', 7);
         $this->shouldWriteLongTo('_var_prevStopSegment_8c22870c', 6);
@@ -188,8 +188,8 @@ return new class extends TestCase {
 
         $this->shouldCall('_FUN_8c016770');
 
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c227e14', 0);
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c22822c', 0);
+        $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0);
+        $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0);
 
         $this->shouldWriteLongTo('_var_nextStopSegment_8c228710', 3);
         $this->shouldWriteLongTo('_var_prevStopSegment_8c22870c', 2);
@@ -308,8 +308,8 @@ return new class extends TestCase {
 
         $this->shouldCall('_FUN_8c016770');
 
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c227e14', 0);
-        $this->shouldWriteLongTo('_var_demoEntryValue_8c22822c', 0);
+        $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0);
+        $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0);
 
         $this->shouldWriteLongTo('_var_nextStopSegment_8c228710', 5);
         $this->shouldWriteLongTo('_var_prevStopSegment_8c22870c', 4);

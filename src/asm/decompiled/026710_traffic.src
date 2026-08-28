@@ -30,7 +30,7 @@
           .IMPORT     _var_routeModelSlots_8c1bbddc
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _FUN_8c02f0c8
-          .IMPORT     _var_demoEntryValue_8c227e14
+          .IMPORT     _var_activeTrafficPreset_8c227e14
           .IMPORT     _var_trafficModels_8c1bc3f4
           .IMPORT     _VehPartsBind_8c02786c
           .IMPORT     _var_busSimpleLightDir_8c227db8
@@ -42,8 +42,8 @@
           .IMPORT     _var_8c228b3c
           .IMPORT     _ObjectsFUN_8c028958
           .IMPORT     _var_8c228b44
-          .IMPORT     _var_pendingDemoFlags_8c1bbd8c
-          .IMPORT     _var_8c227e18
+          .IMPORT     _var_scenePresetIds_8c1bbd8c
+          .IMPORT     _var_trafficPresetTable_8c227e18
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _var_8c228b40
@@ -2006,7 +2006,7 @@ LP_GEN_41074:
           .DATA.L H'47800000 ; H'8C0275A8
           .DATA.L H'BF000000 ; H'8C0275AC
           .DATA.L H'4F800000 ; H'8C0275B0
-          .DATA.L _var_demoEntryValue_8c227e14 ; H'8C0275B4
+          .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C0275B4
           .DATA.L _init_8c04622c ; H'8C0275B8
           .DATA.L _var_trafficModels_8c1bc3f4 ; H'8C0275BC
           .DATA.L _VehPartsBind_8c02786c ; H'8C0275C0
@@ -2304,9 +2304,9 @@ LP_GEN_74201:
           .DATA.L _ObjectsFUN_8c028958 ; H'8C0277FC
           .DATA.L _var_8c228b44 ; H'8C027800
           .DATA.L H'0000FF00 ; H'8C027804
-          .DATA.L _var_pendingDemoFlags_8c1bbd8c ; H'8C027808
-          .DATA.L _var_demoEntryValue_8c227e14 ; H'8C02780C
-          .DATA.L _var_8c227e18 ; H'8C027810
+          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C027808
+          .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C02780C
+          .DATA.L _var_trafficPresetTable_8c227e18 ; H'8C027810
           .DATA.L _applyTrafficLighting_8c02756a ; H'8C027814
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C027818
           .DATA.L _var_tasks_8c1bac28 ; H'8C02781C

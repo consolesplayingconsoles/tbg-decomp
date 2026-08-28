@@ -826,7 +826,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
             e->originJitterZ_0x2f0 = (float)rnd / 65536.0f - 0.5f;
         }
 
-        e->field_0x2f4 = var_demoEntryValue_8c227e14;
+        e->field_0x2f4 = var_activeTrafficPreset_8c227e14;
         e->scriptCursor_0x2f8 = script;
         e->scriptBase_0x2fc = script;
 
@@ -889,12 +889,12 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * .atariCpu_0x18, var_8c228b3c <- .attrCpu_0x20), and resets var_8c228b44
  * (role for its other, still-undecompiled consumer unclear).
  *
- * Tracks a pending demo-entry switch via var_pendingDemoFlags_8c1bbd8c's
+ * Tracks a traffic-preset switch via var_scenePresetIds_8c1bbd8c's
  * bits 8-15 (a different byte lane than pedestriansTask_8c0293f6's own use
  * of the same packed word): the first time through with field_0x0c == 0 and
- * no demo pending, arms field_0x0c = 2; once a *different* demo id appears,
- * it's latched into var_demoEntryValue_8c227e14 and the task's script
- * cursor (queuedItem_0x18) is refreshed from var_8c227e18[demoId], with
+ * no preset selected, arms field_0x0c = 2; once a *different* preset id appears,
+ * it's latched into var_activeTrafficPreset_8c227e14 and the task's script
+ * cursor (queuedItem_0x18) is refreshed from var_trafficPresetTable_8c227e18[presetId], with
  * field_0x0c reset to 0.
  *
  * Then processes the current script record pointed to by queuedItem_0x18
@@ -918,8 +918,8 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
 STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
 {
     TrafficPlacement *rec;
-    Uint32 demoMask;
-    Sint32 demoId;
+    Uint32 presetMask;
+    Sint32 presetId;
     Sint32 counter;
 
     (void)state;
@@ -933,16 +933,16 @@ STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
     ObjectsFUN_8c028958();
     var_8c228b44 = -1;
 
-    demoMask = var_pendingDemoFlags_8c1bbd8c & 0xff00;
+    presetMask = var_scenePresetIds_8c1bbd8c & 0xff00;
     if (task->field_0x0c == (void *)0) {
-        if (demoMask == 0) {
+        if (presetMask == 0) {
             task->field_0x0c = (void *)2;
         }
-    } else if (demoMask != 0) {
-        demoId = (Sint32)demoMask >> 8;
-        if (var_demoEntryValue_8c227e14 != demoId) {
-            var_demoEntryValue_8c227e14 = demoId;
-            task->queuedItem_0x18 = (void *)var_8c227e18[demoId];
+    } else if (presetMask != 0) {
+        presetId = (Sint32)presetMask >> 8;
+        if (var_activeTrafficPreset_8c227e14 != presetId) {
+            var_activeTrafficPreset_8c227e14 = presetId;
+            task->queuedItem_0x18 = (void *)var_trafficPresetTable_8c227e18[presetId];
             task->field_0x0c = (void *)0;
         }
     }
@@ -966,14 +966,14 @@ STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
     TaskExecGroup_8c014b42(var_tasks_8c1bac28);
 }
 
-/* Reading this needs var_8c227e1c/var_8c227e18 typed as the
+/* Reading this needs var_8c227e1c/var_trafficPresetTable_8c227e18 typed as the
  * already-known CurrentCourse.lineCpu_0x1c/macCpu1_0x24 field values instead
  * of the invented PTR_PTR_8c1bb884/PTR_PTR_8c1bb88c globals -- their
  * addresses are var_currentCourse_8c1bb868 + 0x1c/0x24 -- and var_8c228b40 as
  * Sint32*.
  *
  * Pushes the entry point for trafficUpdateTask_8c0275d4 into var_tasks_8c1ba5e8,
- * caching two per-course table pointers (route path array, per-demo script
+ * caching two per-course table pointers (route path array, per-preset script
  * table) and, on the night route/day table, a copy of two adjacent
  * CourseSceneParams.rec0_0x0c rows plus their per-20-frame deltas -- consumed
  * by initEntryState_8c026748's junction-light path and (rows only,
@@ -985,7 +985,7 @@ void TrafficInit_8c02769e(void)
     void *state;
 
     var_8c227e1c = (Sint32 *)var_currentCourse_8c1bb868.lineCpu_0x1c;
-    var_8c227e18 = (Sint32 *)var_currentCourse_8c1bb868.macCpu1_0x24;
+    var_trafficPresetTable_8c227e18 = (Sint32 *)var_currentCourse_8c1bb868.macCpu1_0x24;
 
     if (var_route_8c18ad1c == ROUTE_WANGAN) {
         var_8c228b40 = init_8c04c980;
@@ -1015,7 +1015,7 @@ void TrafficInit_8c02769e(void)
     }
 
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, trafficUpdateTask_8c0275d4, &task, &state, 0);
-    task->queuedItem_0x18 = (void *)var_8c227e18[var_demoEntryValue_8c227e14];
+    task->queuedItem_0x18 = (void *)var_trafficPresetTable_8c227e18[var_activeTrafficPreset_8c227e14];
     task->field_0x08 = 0;
     task->field_0x0c = (void *)1;
 

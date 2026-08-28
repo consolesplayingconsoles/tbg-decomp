@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->setSize('_var_tasks_8c1bac28', 4);
         $this->setSize('_var_routeModelSlots_8c1bbddc', 0x20 * 0x10);
         $this->setSize('_var_trafficModels_8c1bc3f4', 4);
-        $this->setSize('_var_demoEntryValue_8c227e14', 4);
+        $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
@@ -101,7 +101,7 @@ return new class extends TestCase {
         $this->setModelSlot(0x1c, 0x11110000, 0x22220000);
         $this->setModelSlot(0x1d, 0x33330000, 0x44440000);
         $trafficModelTable = $this->setTrafficModel(0x09, 0x55550000); // init_8c04622c[0xe]==9
-        $this->initUint32($this->addressOf('_var_demoEntryValue_8c227e14'), 0x77);
+        $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 0x77);
 
         $script = $this->alloc(2);
         $this->initUint16($script, 10);
@@ -147,7 +147,7 @@ return new class extends TestCase {
         $this->setModelSlot(0x14, 0x66660000, 0x77770000);
         $this->setModelSlot(0x15, 0x88880000, 0x99990000);
         $this->setTrafficModel(0x06, 0xaaaa0000); // init_8c04622c[0xa]==6
-        $this->initUint32($this->addressOf('_var_demoEntryValue_8c227e14'), 0x88);
+        $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 0x88);
 
         $script = $this->alloc(2);
         $this->initUint16($script, 5); // anything other than 10

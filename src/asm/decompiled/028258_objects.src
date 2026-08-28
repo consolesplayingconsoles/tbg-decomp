@@ -50,8 +50,8 @@
           .IMPORT     _AsqGetRandomA_8c012166
           .IMPORT     _var_pedestrianAssets_8c1bbfdc
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _var_pendingDemoFlags_8c1bbd8c
-          .IMPORT     _var_demoEntryValue_8c22822c
+          .IMPORT     _var_scenePresetIds_8c1bbd8c
+          .IMPORT     _var_activePedPreset_8c22822c
           .IMPORT     _var_pedGroupDefs_8c22823c
           .IMPORT     _var_pedGroupLists_8c228240
           .IMPORT     _var_tasks_8c1ba808
@@ -2750,8 +2750,8 @@ LP_GEN_26341:
           .DATA.L _var_groundGridPrimary_8c1bb890 ; H'8C0294AC
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0294B0
           .DATA.L H'00FF0000 ; H'8C0294B4
-          .DATA.L _var_pendingDemoFlags_8c1bbd8c ; H'8C0294B8
-          .DATA.L _var_demoEntryValue_8c22822c ; H'8C0294BC
+          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C0294B8
+          .DATA.L _var_activePedPreset_8c22822c ; H'8C0294BC
           .DATA.L _var_pedGroups_8c228230 ; H'8C0294C0
           .DATA.L _var_pedGroupCount_8c228234 ; H'8C0294C4
           .DATA.L _var_pedGroupDefs_8c22823c ; H'8C0294C8
@@ -4349,7 +4349,7 @@ LP_GEN_26634:
           .DATA.L _njCnkSimpleDrawObject ; H'8C02A144
           .DATA.L _njFogEnable ; H'8C02A148
           .DATA.L H'FF000000 ; H'8C02A14C
-          .DATA.L _var_pendingDemoFlags_8c1bbd8c ; H'8C02A150
+          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C02A150
           .DATA.L _drawRowModel_8c02a048 ; H'8C02A154
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A158
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02A15C
@@ -4478,7 +4478,7 @@ LP_GEN_26723:
           .DATA.W H'0920 ; H'8C02A240
           .DATA.W H'0800 ; H'8C02A242
           .DATA.L H'FF000000 ; H'8C02A244
-          .DATA.L _var_pendingDemoFlags_8c1bbd8c ; H'8C02A248
+          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C02A248
           .DATA.L _drawRowMotionModel_8c02a0d6 ; H'8C02A24C
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A250
           .DATA.L _TaskFree_8c014b66 ; H'8C02A254
@@ -5005,7 +5005,7 @@ LP_GEN_23851:
           .DATA.L _njCnkSimpleDrawObject ; H'8C02A65C
           .DATA.L _var_fumiTrainTexlist_8c228428 ; H'8C02A660
           .DATA.L H'FF000000 ; H'8C02A664
-          .DATA.L _var_pendingDemoFlags_8c1bbd8c ; H'8C02A668
+          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C02A668
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C02A66C
           .DATA.L H'4F800000 ; H'8C02A670
           .DATA.L _drawFumiCrossing_8c02a47c ; H'8C02A674

@@ -33,8 +33,8 @@
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _AsqRequestDat_8c011182
-          .IMPORT     _var_demoEntryValue_8c227e14
-          .IMPORT     _var_demoEntryValue_8c22822c
+          .IMPORT     _var_activeTrafficPreset_8c227e14
+          .IMPORT     _var_activePedPreset_8c22822c
           .IMPORT     _RouteLoadResetPvmReady_8c014322
           .IMPORT     _RouteLoadSetPvmReady_8c014330
           .IMPORT     _AsqNop_8c011120
@@ -1560,8 +1560,8 @@ LP_GEN_51554:
           .DATA.L _init_demos_8c044154
           .DATA.L _const_system_8c035f74
           .DATA.L _AsqRequestDat_8c011182
-          .DATA.L _var_demoEntryValue_8c227e14
-          .DATA.L _var_demoEntryValue_8c22822c
+          .DATA.L _var_activeTrafficPreset_8c227e14
+          .DATA.L _var_activePedPreset_8c22822c
           .DATA.L _RouteLoadResetPvmReady_8c014322
           .DATA.L _RouteLoadSetPvmReady_8c014330
           .DATA.L _AsqNop_8c011120

@@ -12,8 +12,8 @@ return new class extends TestCase {
 
     public function test_no_match_leaves_counter_at_zero(): void
     {
-        $this->setSize('_var_pendingDemoFlags_8c1bbd8c', 4);
-        $this->initUint32($this->addressOf('_var_pendingDemoFlags_8c1bbd8c'), 0x11000000);
+        $this->setSize('_var_scenePresetIds_8c1bbd8c', 4);
+        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0x11000000);
 
         $task = $this->alloc(0x20);
         $this->initUint32($task + 0x08, 0x22000000);
@@ -25,8 +25,8 @@ return new class extends TestCase {
 
     public function test_match_advances_counter(): void
     {
-        $this->setSize('_var_pendingDemoFlags_8c1bbd8c', 4);
-        $this->initUint32($this->addressOf('_var_pendingDemoFlags_8c1bbd8c'), 0x11ffffff);
+        $this->setSize('_var_scenePresetIds_8c1bbd8c', 4);
+        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0x11ffffff);
 
         $task = $this->alloc(0x20);
         $this->initUint32($task + 0x08, 0x11000000);

@@ -251,8 +251,8 @@ void BusStopSetup_8c02caba(void)
     FUN_8c016770();
 
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
-        var_demoEntryValue_8c227e14 = 0;
-        var_demoEntryValue_8c22822c = 0;
+        var_activeTrafficPreset_8c227e14 = 0;
+        var_activePedPreset_8c22822c = 0;
     }
 
     var_nextStopSegment_8c228710 = var_startStopIndex_8c228704;

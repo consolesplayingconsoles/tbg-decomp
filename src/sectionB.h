@@ -461,11 +461,20 @@ extern void *var_8c1bbd9c;
  * var_busState_8c1bb9d0 (base+0x84) but exported as its own symbol, not a
  * struct field -- coincidentally adjacent, not part of it. */
 extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
-/* Packed demo-entry flags read by pedestriansTask_8c0293f6 (bits 16-23 hold
- * the pending demo entry, gated by a nonzero 0xff0000 field). Also sits at
- * var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not that
- * struct's field_0x3bc -- coincidentally adjacent, not part of it. */
-extern int var_pendingDemoFlags_8c1bbd8c;
+/* Three independent byte fields, each an id selecting a preset content set for
+ * one subsystem, swapped together:
+ *   bits  8-15  traffic     -> var_trafficPresetTable_8c227e18[id]  (026710)
+ *   bits 16-23  pedestrians -> var_pedGroupLists_8c228240[id]       (028258)
+ *   bits 24-31  set pieces  -> matched against RowEntry.sceneGate_0x14;
+ *               nonzero starts the FUMI crossing sequence
+ * Named "preset" rather than "demo": nothing here is the attract-mode demo
+ * (that is var_demoBuffer_8c1bc828 and friends). Most likely the Japanese
+ * sense of "demo" = staged scene, but no writer has been decompiled yet --
+ * it lives in whatever owns var_busState_8c1bb9d0, probably 02b464. Revisit
+ * the top byte's exact trigger semantics when that lands.
+ * Also sits at var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not
+ * that struct's field_0x3bc -- coincidentally adjacent, not part of it. */
+extern int var_scenePresetIds_8c1bbd8c;
 // 026710: cached copies of two CourseSceneParams.rec0_0x0c rows, and their
 // per-20-frame deltas, built by TrafficInit_8c02769e when timeOfDay is
 // TIME_OF_DAY_NIGHT. Each row is split 2+3 like the struct field itself
@@ -611,7 +620,7 @@ extern NJS_OBJECT *var_routeBlinkerNodes_8c228278[4];
 /* Per-group spawn definition, 12-byte entries {int id, float radius, spec
  * list*}, looked up by id in pedestriansTask_8c0293f6. */
 extern void* var_pedGroupDefs_8c22823c;
-/* int*[] indexed by demo entry value; each list is a -1 terminated array of
+/* int*[] indexed by var_activePedPreset_8c22822c; each list is a -1 terminated array of
  * group ids, consumed by pedestriansTask_8c0293f6. */
 extern void* var_pedGroupLists_8c228240;
 /* Per-slot destination pointers for a pending object-asset request, one 0x18-byte
@@ -804,14 +813,14 @@ extern int var_8c22640c;
 extern int var_8c226410;
 extern int var_8c226414[6]; /* dialog id queue built by buildDialogQueue_8c01e992, -1 terminated */
 extern int var_8c22642c; /* lesson attempt counter, incremented on practice retry */
-extern int var_demoEntryValue_8c227e14;
-/* Table indexed by a pending demo entry id (var_pendingDemoFlags_8c1bbd8c's
- * byte at bits 8-15), yielding the traffic script pointer for that demo;
+extern int var_activeTrafficPreset_8c227e14;
+/* Traffic preset table: indexed by var_scenePresetIds_8c1bbd8c's byte at
+ * bits 8-15, yielding that preset's record run in the course's *_MAC_CPU1.DAT;
  * read by trafficUpdateTask_8c0275d4 (026710). */
-extern Sint32 *var_8c227e18;
+extern Sint32 *var_trafficPresetTable_8c227e18;
 /* Base of a per-entry table; 026710_traffic indexes it by a script argument. */
 extern Sint32 *var_8c227e1c;
-extern int var_demoEntryValue_8c22822c;
+extern int var_activePedPreset_8c22822c;
 extern int var_dialogQueue_8c225fbc[4]; // TODO: Confirm length
 extern int var_instructorDialogActive_8c225fb4;
 extern int var_fogParam_8c226504;

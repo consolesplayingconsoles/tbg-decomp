@@ -313,7 +313,7 @@
           .EXPORT     _var_8c1bbd54 ; 02b464
           .EXPORT     _var_8c1bbd70 ; 02e51c
           .EXPORT     _var_8c1bbd80 ; 025870
-          .EXPORT     _var_pendingDemoFlags_8c1bbd8c ; 026710
+          .EXPORT     _var_scenePresetIds_8c1bbd8c ; 026710
                                     ; 028258
           .EXPORT     _var_8c1bbd9c ; 022bdc
                                     ; 023310
@@ -686,11 +686,11 @@
           .EXPORT     _var_8c227e00 ; 025870
           .EXPORT     _var_8c227e0c ; 025870
           .EXPORT     _var_8c227e10 ; 025870
-          .EXPORT     _var_demoEntryValue_8c227e14 ; 014f54_text
+          .EXPORT     _var_activeTrafficPreset_8c227e14 ; 014f54_text
                                                    ; 025b98
                                                    ; 026710
                                                    ; 02c884
-          .EXPORT     _var_8c227e18 ; 026710
+          .EXPORT     _var_trafficPresetTable_8c227e18 ; 026710
           .EXPORT     _var_8c227e1c ; 026710
           .EXPORT     _var_trafficSignalTasks_8c227e20 ; 012f44_game
                                     ; 028258
@@ -700,7 +700,7 @@
           .EXPORT     _var_trafficSignalStates_8c227e28 ; 028258
           .EXPORT     _var_pedCrossingFlags_8c227e2c ; 028258
           .EXPORT     _var_crossingOccupiedFlags_8c22802c ; 028258
-          .EXPORT     _var_demoEntryValue_8c22822c ; 014f54_text
+          .EXPORT     _var_activePedPreset_8c22822c ; 014f54_text
                                                    ; 028258
                                                    ; 02c884
           .EXPORT     _var_pedGroups_8c228230 ; 028258
@@ -1082,7 +1082,7 @@ _var_8c1bbd70:
           .RES.B      16
 _var_8c1bbd80:
           .RES.B      12
-_var_pendingDemoFlags_8c1bbd8c:
+_var_scenePresetIds_8c1bbd8c:
           .RES.B      16
 _var_8c1bbd9c:
           .RES.B      4
@@ -1415,9 +1415,9 @@ _var_8c227e0c:
           .RES.B      4
 _var_8c227e10:
           .RES.B      4
-_var_demoEntryValue_8c227e14:
+_var_activeTrafficPreset_8c227e14:
           .RES.B      4
-_var_8c227e18:
+_var_trafficPresetTable_8c227e18:
           .RES.B      4
 _var_8c227e1c:
           .RES.B      4
@@ -1431,7 +1431,7 @@ _var_pedCrossingFlags_8c227e2c:
           .RES.B      512
 _var_crossingOccupiedFlags_8c22802c:
           .RES.B      512
-_var_demoEntryValue_8c22822c:
+_var_activePedPreset_8c22822c:
           .RES.B      4
 _var_pedGroups_8c228230:
           .RES.B      4

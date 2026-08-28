@@ -101,7 +101,7 @@ typedef struct {
 /* var_pedGroups_8c228230 entry: one per pedestrian-group slot. `active_0x00`
  * tracks whether the group's Task subgroup has been allocated; `wanted_0x04`
  * is refreshed every frame by pedestriansTask_8c0293f6 to say whether the
- * group belongs to the current demo entry, and drives pedGroupTask_8c029078's
+ * group belongs to the current pedestrian preset, and drives pedGroupTask_8c029078's
  * teardown decision. `list_0x08` is the group's own Task subgroup, allocated by
  * pedestriansTask_8c0293f6 and run by pedGroupTask_8c029078: NULL-terminated,
  * with freed slots marked -1. */
@@ -157,8 +157,8 @@ typedef struct {
  * by ObjectsPushTasks_8c02a6ac once loaded. Which members a row uses depends on
  * its type -- dat_0x08 is a plain NJS_OBJECT for type 0, an NJS_MOTION for
  * types 0/3, a DatBlob for type 1; pos_0x0c is type 5 only; the trailing bytes
- * are types 2/3/4 only. demoGate_0x14 is matched against the top byte of
- * var_pendingDemoFlags_8c1bbd8c (see rowModelTask_8c02a08a), and taskFlag_0x15
+ * are types 2/3/4 only. sceneGate_0x14 is matched against the top byte of
+ * var_scenePresetIds_8c1bbd8c (see rowModelTask_8c02a08a), and taskFlag_0x15
  * is routed into the spawned Task's field_0x0c (types 2/3) or field_0x08
  * (type 4). */
 typedef struct {
@@ -166,7 +166,7 @@ typedef struct {
     NJS_CNK_OBJECT *nj_0x04;
     void *dat_0x08;
     ObjectAssetType5Extra pos_0x0c;
-    Sint8 demoGate_0x14;
+    Sint8 sceneGate_0x14;
     Sint8 taskFlag_0x15;
     Uint8 fogEnable_0x16;
     Uint8 control3DEnable_0x17;
@@ -5147,8 +5147,8 @@ STATIC void pedGroupTask_8c029078(Task *task)
 }
 
 /* Per-frame driver for every pedestrian group. Keeps var_pedGroups_8c228230's
- * wanted/active state in sync with the demo entry currently encoded in
- * var_pendingDemoFlags_8c1bbd8c (task->field_0x0c debounces a single
+ * wanted/active state in sync with the pedestrian preset currently encoded in
+ * var_scenePresetIds_8c1bbd8c (task->field_0x0c debounces a single
  * pending-change flag across frames where that field reads 0), spinning up
  * pedGroupTask_8c029078 for each newly-wanted group; rebuilds this frame's
  * crosswalk stop-line intersection scratch (var_crosswalkTableEnd_8c228244/var_crosswalkTable_8c228248) from
@@ -5167,7 +5167,7 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
     int *list;
     PedPathNode *node;
     int *cursor;
-    int demoFlags;
+    int presetField;
     int pageListIndex;
     int i;
     Bool isDemo;
@@ -5180,26 +5180,26 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
 
     var_activeGroundGrid_8c2264d4 = var_groundGridPrimary_8c1bb890;
 
-    demoFlags = var_pendingDemoFlags_8c1bbd8c & 0xff0000;
+    presetField = var_scenePresetIds_8c1bbd8c & 0xff0000;
     if ((int)task->field_0x0c == 0) {
-        if (demoFlags == 0) {
+        if (presetField == 0) {
             task->field_0x0c = (void *)1;
         }
-    } else if (demoFlags != 0) {
-        var_demoEntryValue_8c22822c = (int)(short)(demoFlags >> 16);
+    } else if (presetField != 0) {
+        var_activePedPreset_8c22822c = (int)(short)(presetField >> 16);
         task->field_0x0c = 0;
     }
 
     groups = (PedGroupEntry *)var_pedGroups_8c228230;
 
-    if (task->field_0x08 != var_demoEntryValue_8c22822c) {
-        task->field_0x08 = var_demoEntryValue_8c22822c;
+    if (task->field_0x08 != var_activePedPreset_8c22822c) {
+        task->field_0x08 = var_activePedPreset_8c22822c;
 
         for (i = 0; i < var_pedGroupCount_8c228234; i++) {
             groups[i].wanted_0x04 = 0;
         }
 
-        list = ((int **)var_pedGroupLists_8c228240)[var_demoEntryValue_8c22822c];
+        list = ((int **)var_pedGroupLists_8c228240)[var_activePedPreset_8c22822c];
         for (; *list != -1; list++) {
             pageListIndex = *list;
             group = &groups[pageListIndex];
@@ -5291,7 +5291,7 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
  * loadRouteModels_8c014088 into var_currentCourse_8c1bb868's Hum fields)
  * into var_pedPaths_8c228238/var_pedGroupDefs_8c22823c/var_pedGroupLists_8c228240,
  * sizes var_pedGroups_8c228230 from the highest group id referenced by any
- * demo entry's list, and installs pedestriansTask_8c0293f6 to drive it every
+ * preset's list, and installs pedestriansTask_8c0293f6 to drive it every
  * frame. If no route defines any pedestrian groups, skips straight to
  * CollideQueueReset_8c02e486 instead. */
 void ObjectsInitPedestrianGroups_8c0296d6(void)
@@ -5532,7 +5532,7 @@ void ObjectsStartAssetRequests_8c029ad4(int *table)
             AsqRequestNj_8c011492(var_commonDirCopy_8c18ad8c, (void *)data[0], &slot->nj_0x04, 0);
             AsqRequestPvm_8c011ac0(var_commonDirCopy_8c18ad8c, (void *)data[1], &slot->pvm_0x00,
                 data[2], 0);
-            slot->demoGate_0x14 = ((Sint8 *)data)[0xc];
+            slot->sceneGate_0x14 = ((Sint8 *)data)[0xc];
             slot->taskFlag_0x15 = ((Sint8 *)data)[0xd];
             slot->fogEnable_0x16 = ((Uint8 *)data)[0xe];
             slot->control3DEnable_0x17 = ((Uint8 *)data)[0xf];
@@ -5543,7 +5543,7 @@ void ObjectsStartAssetRequests_8c029ad4(int *table)
             AsqRequestPvm_8c011ac0(var_commonDirCopy_8c18ad8c, (void *)data[1], &slot->pvm_0x00,
                 data[2], 0);
             AsqRequestNj_8c011492(var_commonDirCopy_8c18ad8c, (void *)data[3], &slot->dat_0x08, 0);
-            slot->demoGate_0x14 = ((Sint8 *)data)[0x10];
+            slot->sceneGate_0x14 = ((Sint8 *)data)[0x10];
             slot->taskFlag_0x15 = ((Sint8 *)data)[0x11];
             slot->fogEnable_0x16 = ((Uint8 *)data)[0x12];
             slot->control3DEnable_0x17 = ((Uint8 *)data)[0x13];
@@ -5756,14 +5756,14 @@ STATIC void drawRowModel_8c02a048(int state)
     njControl3D(0x100);
 }
 /* TaskAction for a type-2 row, installed by ObjectsPushTasks_8c02a6ac. Waits
- * until var_pendingDemoFlags_8c1bbd8c's top byte matches this row's stashed marker
+ * until var_scenePresetIds_8c1bbd8c's top byte matches this row's stashed marker
  * (task->field_0x08, set from row[0x14] in ObjectsPushTasks_8c02a6ac), then
  * pushes two draw calls (opaque and translucent fade layers) of the row's
  * model via drawRowModel_8c02a048. */
 STATIC void rowModelTask_8c02a08a(Task *task, RowTaskState *state)
 {
     if (state->phase_0x54 == 0) {
-        if (task->field_0x08 == (int)(var_pendingDemoFlags_8c1bbd8c & 0xff000000)) {
+        if (task->field_0x08 == (int)(var_scenePresetIds_8c1bbd8c & 0xff000000)) {
             state->phase_0x54 = state->phase_0x54 + 1;
         }
     } else if (state->phase_0x54 == 1) {
@@ -5791,7 +5791,7 @@ STATIC void drawRowMotionModel_8c02a0d6(int state)
     njControl3D(0x100);
 }
 /* TaskAction for a type-3 row, installed by ObjectsPushTasks_8c02a6ac. Waits
- * until var_pendingDemoFlags_8c1bbd8c's top byte matches this row's stashed marker
+ * until var_scenePresetIds_8c1bbd8c's top byte matches this row's stashed marker
  * (task->field_0x08, per type-2's rowModelTask_8c02a08a), then animates the row's
  * model (drawRowMotionModel_8c02a0d6) frame by frame; once the frame count
  * (state->frameLimit_0x5c, per type-0's flyByModelTask_8c029e68) runs out, either
@@ -5799,7 +5799,7 @@ STATIC void drawRowMotionModel_8c02a0d6(int state)
 STATIC void rowMotionModelTask_8c02a120(Task *task, RowTaskState *state)
 {
     if (state->phase_0x54 == 0) {
-        if (task->field_0x08 == (int)(var_pendingDemoFlags_8c1bbd8c & 0xff000000)) {
+        if (task->field_0x08 == (int)(var_scenePresetIds_8c1bbd8c & 0xff000000)) {
             state->phase_0x54 = state->phase_0x54 + 1;
         }
     } else if (state->phase_0x54 == 1) {
@@ -6006,7 +6006,7 @@ STATIC void drawFumiCrossing_8c02a47c(int state)
 }
 /* TaskAction for a type-6 (FUMI railway crossing) row, installed by
  * ObjectsPushTasks_8c02a6ac. Cycles the crossing through phases: 0 idles
- * until var_pendingDemoFlags_8c1bbd8c's top byte (a pending demo-entry) goes nonzero; 1 plays
+ * until var_scenePresetIds_8c1bbd8c's top byte (the set-piece trigger) goes nonzero; 1 plays
  * the gate-closing motion (var_fumiCloseMotion_8c228414) for its frame count, then re-arms
  * the counter/threshold pair for the opening motion (var_fumiOpenMotion_8c228418); 2 waits
  * out the randomly chosen passing-train duration (state->trainActive_0x64, set by
@@ -6042,7 +6042,7 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
         return;
     }
 
-    if ((var_pendingDemoFlags_8c1bbd8c & 0xff000000) != 0) {
+    if ((var_scenePresetIds_8c1bbd8c & 0xff000000) != 0) {
         state->phase_0x54 = state->phase_0x54 + 1;
         var_trafficSignalFrames_8c227e24[0] = 0;
     }
@@ -6112,7 +6112,7 @@ void ObjectsPushTasks_8c02a6ac(void)
             state->phase_0x54 = 0;
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
-            task->field_0x08 = (int)row->demoGate_0x14 << 0x18;
+            task->field_0x08 = (int)row->sceneGate_0x14 << 0x18;
             task->field_0x0c = (void *)(int)row->taskFlag_0x15;
             state->fogEnable_0x78 = row->fogEnable_0x16;
             state->control3DEnable_0x79 = row->control3DEnable_0x17;
@@ -6124,7 +6124,7 @@ void ObjectsPushTasks_8c02a6ac(void)
             state->dat_0x48 = dat;
             state->frame_0x58 = 0.0f;
             state->frameLimit_0x5c = (float)*(Uint32 *)((Uint8 *)dat + 4) - 1.0f;
-            task->field_0x08 = (int)row->demoGate_0x14 << 0x18;
+            task->field_0x08 = (int)row->sceneGate_0x14 << 0x18;
             task->field_0x0c = (void *)(int)row->taskFlag_0x15;
             state->fogEnable_0x78 = row->fogEnable_0x16;
             state->control3DEnable_0x79 = row->control3DEnable_0x17;
