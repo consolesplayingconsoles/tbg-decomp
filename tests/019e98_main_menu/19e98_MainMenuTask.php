@@ -1006,10 +1006,10 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $init_dialogSequences_8c044c08 = $this->alloc(64 * 4);
-        $this->initUint32($this->addressOf('_init_dialogSequences_8c044c08'), $init_dialogSequences_8c044c08);
-        $this->initUint32($init_dialogSequences_8c044c08 + 2 * 4, 0xcafe0002);
-        // Used as index for init_dialogSequences_8c044c08
+        $init_instructorDialogs_8c044c08 = $this->alloc(64 * 4);
+        $this->initUint32($this->addressOf('_init_instructorDialogs_8c044c08'), $init_instructorDialogs_8c044c08);
+        $this->initUint32($init_instructorDialogs_8c044c08 + 2 * 4, 0xcafe0002);
+        // Used as index for init_instructorDialogs_8c044c08
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 2);
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 2);
@@ -1034,10 +1034,10 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $init_dialogSequences_8c044c08 = $this->alloc(64 * 4);
-        $this->initUint32($this->addressOf('_init_dialogSequences_8c044c08'), $init_dialogSequences_8c044c08);
-        $this->initUint32($init_dialogSequences_8c044c08 + 2 * 4, 0xcafe0002);
-        // Used as index for init_dialogSequences_8c044c08
+        $init_instructorDialogs_8c044c08 = $this->alloc(64 * 4);
+        $this->initUint32($this->addressOf('_init_instructorDialogs_8c044c08'), $init_instructorDialogs_8c044c08);
+        $this->initUint32($init_instructorDialogs_8c044c08 + 2 * 4, 0xcafe0002);
+        // Used as index for init_instructorDialogs_8c044c08
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 2);
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 2);

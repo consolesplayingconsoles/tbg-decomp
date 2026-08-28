@@ -18,7 +18,7 @@
 #include "016d2c_course_menu.h"
 #include "01614c_debug_menu.h"
 #include "022464_fade.h"
-#include "028258.h"
+#include "028258_objects.h"
 #include "sectionB.h"
 
 
@@ -474,7 +474,7 @@ void TitlePushTitle_8c015fd6 (Bool direct) {
     var_8c1bb8c4 = 1;
 
     njGarbageTexture(var_tex_8c157af8, 3072);
-    FUN_8c02ae3e(0x20, 0x178, -2.0, 0x240, 0x40, 0, 0, -1);
+    ObjectsOpenTextbox_8c02ae3e(0x20, 0x178, -2.0, 0x240, 0x40, 0, 0, -1);
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     var_currentSysResGroupInfo_8c225fb0 = (void *) -1;

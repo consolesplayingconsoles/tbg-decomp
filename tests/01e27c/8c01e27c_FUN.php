@@ -139,8 +139,8 @@ return new class extends TestCase {
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 3);
         $this->shouldWriteLong($menuStateBase + 0x38, 0);
-        // "ç·´ç¿’ã‚’ã¯ã˜ã‚ã¾ã™ã‹ï¼Ÿ" (Shift-JIS bytes, matches const_8c03896c)
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("\x97\xfb\x8f\x4b\x82\xf0\x82\xcd\x82\xb6\x82\xdf\x82\xdc\x82\xb7\x82\xa9\x81\x48");
+        // "—ûK‚ð‚Í‚¶‚ß‚Ü‚·‚©H" (Shift-JIS bytes, matches const_8c03896c)
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("\x97\xfb\x8f\x4b\x82\xf0\x82\xcd\x82\xb6\x82\xdf\x82\xdc\x82\xb7\x82\xa9\x81\x48");
         $this->shouldCall('_sdMidiPlay')->with(
             0x1234,
             1, 0, 0
@@ -171,7 +171,7 @@ return new class extends TestCase {
             2,
             224.0, 300.0, -4.0
         );
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase,
             0,
@@ -203,7 +203,7 @@ return new class extends TestCase {
             2,
             224.0, 300.0, -4.0
         );
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase,
             0,
@@ -235,7 +235,7 @@ return new class extends TestCase {
             3,
             224.0, 300.0, -4.0
         );
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase,
             0,
@@ -262,7 +262,7 @@ return new class extends TestCase {
             2,
             224.0, 300.0, -4.0
         );
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase,
             1,
@@ -309,7 +309,7 @@ return new class extends TestCase {
             2,
             224.0, 300.0, -4.0
         );
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase,
             0,
@@ -492,7 +492,7 @@ return new class extends TestCase {
             2,
             224.0, 300.0, -4.0
         );
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
     }
 
     public function test_state_8_text_reveal_draws_extra_sprite(): void
@@ -512,7 +512,7 @@ return new class extends TestCase {
             2,
             224.0, 300.0, -4.0
         );
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuStateBase,
             1,
@@ -532,12 +532,12 @@ return new class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_init_8c03bd80', 4);
-        $this->setSize('_menuTextboxText_8c02af1c', 4);
+        $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x68); // 2 x PDS_PERIPHERAL
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20); // 8 x SDMIDI
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234); // sentinel handle
-        $this->setSize('_swapMessageBoxFor_8c02aefc', 4);
+        $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);

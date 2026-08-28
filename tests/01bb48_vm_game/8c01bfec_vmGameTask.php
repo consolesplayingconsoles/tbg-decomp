@@ -41,7 +41,7 @@ return new class extends TestCase {
             '_PromptHandleMultiple_8c016c58', '_PromptHandleBinary_8c016caa',
             '_CourseMenuInterpolateCursor_8c016d2c', '_CourseMenuFreeResourceGroup_8c0185c4',
             '_MainMenuSwitchFromTask_8c01a09a', '_VmMenuUnmountVms_8c0194de',
-            '_swapMessageBoxFor_8c02aefc', '_menuTextboxText_8c02af1c',
+            '_ObjectsSwapMessageBoxFor_8c02aefc', '_ObjectsMenuTextboxText_8c02af1c',
             '_sdMidiPlay', '_TxtDrawSprite_8c014f54', '_syFree',
             '__quick_evn_mvn',
         ] as $fn) {
@@ -98,7 +98,7 @@ return new class extends TestCase {
     private function expectEpilogue(int $slot = 0): void
     {
         $this->shouldCall('_drawSelectScreen_8c01be90');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.0);
         $this->shouldWriteLong($this->ms + 0x38, $slot); // selected_0x38 = slot
     }
@@ -127,7 +127,7 @@ return new class extends TestCase {
     // Cases 1/2/3 skip drawSelectScreen_8c01be90 (goto), landing straight on the epilogue draw.
     private function expectDrawEpilogue(int $slot = 0): void
     {
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.0);
         $this->shouldWriteLong($this->ms + 0x38, $slot);
     }
@@ -285,7 +285,7 @@ return new class extends TestCase {
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
         $this->shouldWriteLong($this->ms + 0x18, 9);   // SELECT_INCOMPATIBLE
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ＶＭをセットして下さい");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ＶＭをセットして下さい");
         $this->expectEpilogue(1);
     }
 
@@ -314,7 +314,7 @@ return new class extends TestCase {
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
         $this->shouldWriteLong($this->ms + 0x18, 0xc);  // RETURN_FADE_OUT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectEpilogue(1);
     }
@@ -330,7 +330,7 @@ return new class extends TestCase {
         $this->shouldCall('_selectSlot_8c01bf2a')->with(1);
         $this->shouldCall('__quick_evn_mvn');
         $this->shouldWriteLong($this->ms + 0x18, 5);   // SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         $this->expectEpilogue(1);
     }
 
@@ -373,7 +373,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldWriteLong($this->ms + 0x18, 1);   // MENU_FADE_IN
         $this->shouldWriteLong($this->ms + 0x38, 1);   // selected = field_0x1c
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
@@ -458,7 +458,7 @@ return new class extends TestCase {
         $this->shouldCall('_saveExecFile_8c01bd30')->with(0x8c500000, "TOKYOBUS._VM", 0x2d, 5)->andReturn(0);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(1);
         $this->shouldWriteLong($this->task + 8, 1);   // sub-phase -> save-in-progress
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ダウンロード中です<E>ＶＭを絶対に抜かないで下さい");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ダウンロード中です<E>ＶＭを絶対に抜かないで下さい");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 1);
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
@@ -473,7 +473,7 @@ return new class extends TestCase {
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($this->ms + 0x3c)->andReturn(2);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
@@ -493,7 +493,7 @@ return new class extends TestCase {
         $this->shouldCall('_saveExecFile_8c01bd30')->with(0x8c500000, "TOKYOBUS._VM", 0x2d, 5)->andReturn(0x10);
         $this->shouldCall('_defragDisk_8c01bde4')->with(5)->andReturn(0);
         $this->shouldWriteLong($this->task + 8, 2);   // sub-phase -> defrag-in-progress
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ダウンロード中です<E>ＶＭを絶対に抜かないで下さい");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ダウンロード中です<E>ＶＭを絶対に抜かないで下さい");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 1);
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
@@ -512,7 +512,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($this->ms + 0x3c)->andReturn(1);
         $this->shouldCall('_saveExecFile_8c01bd30')->with(0x8c500000, "TOKYOBUS._VM", 0x2d, 5)->andReturn(0xc);
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
         $this->midi(2);
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
@@ -532,7 +532,7 @@ return new class extends TestCase {
         $this->shouldCall('_saveExecFile_8c01bd30')->with(0x8c500000, "TOKYOBUS._VM", 0x2d, 5)->andReturn(0x10);
         $this->shouldCall('_defragDisk_8c01bde4')->with(5)->andReturn(1); // defrag failed
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
         $this->midi(2);
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
@@ -551,7 +551,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($this->ms + 0x3c)->andReturn(1);
         $this->shouldCall('_saveExecFile_8c01bd30')->with(0x8c500000, "TOKYOBUS._VM", 0x2d, 5)->andReturn(0x11); // SAVE_ERR_FULL
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("空き容量が足りません<E>ダウンロードには４５ブロック必要です");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("空き容量が足りません<E>ダウンロードには４５ブロック必要です");
         $this->midi(2);
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
@@ -570,7 +570,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($this->ms + 0x3c)->andReturn(1);
         $this->shouldCall('_saveExecFile_8c01bd30')->with(0x8c500000, "TOKYOBUS._VM", 0x2d, 5)->andReturn(0xb); // SAVE_ERR_EXISTS
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("既に実行ファイルが存在します");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("既に実行ファイルが存在します");
         $this->midi(2);
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
@@ -586,7 +586,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_pollBupOp_8c01bc44')->with($this->addressOf('_var_lcdAnimDanger_8c2260b8'), 5)->andReturn(0x13);
         $this->shouldWriteLong($this->ms + 0x18, 0xb);  // OP_COMPLETE
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ダウンロードが完了しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ダウンロードが完了しました");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->expectEpilogue(0);
     }
@@ -601,7 +601,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_pollBupOp_8c01bc44')->with($this->addressOf('_var_lcdAnimDanger_8c2260b8'), 5)->andReturn(0xffffffff);
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->expectEpilogue(0);
     }
@@ -616,7 +616,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_pollBupOp_8c01bc44')->with($this->addressOf('_var_lcdAnimDanger_8c2260b8'), 5)->andReturn(0xffffffff);
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->expectEpilogue(0);
     }
@@ -651,7 +651,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($this->ms + 0x3c)->andReturn(1);
         $this->shouldCall('_loadFileEx_8c01be30')->with(5, "TOKYOBUS._VM", $tex, 0, 6)->andReturn(0);
         $this->shouldWriteLong($this->task + 8, 1);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ＶＭを絶対に抜かないで下さい");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ＶＭを絶対に抜かないで下さい");
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(1);
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 1);
         $this->expectDownloadDraw();
@@ -671,7 +671,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($this->ms + 0x3c)->andReturn(1);
         $this->shouldCall('_loadFileEx_8c01be30')->with(5, "TOKYOBUS._VM", $tex, 0, 6)->andReturn(0xffffffff);
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ダウンロードに失敗しました");
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
     }
@@ -685,7 +685,7 @@ return new class extends TestCase {
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($this->ms + 0x3c)->andReturn(2);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
         $this->expectDownloadDraw();
         $this->expectEpilogue(0);
@@ -701,7 +701,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_pollBupOp_8c01bc44')->with($this->addressOf('_var_lcdAnimDanger_8c2260b8'), 5)->andReturn(0xffffffff);
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("データの読み込みに失敗しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("データの読み込みに失敗しました");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->expectEpilogue(0);
     }
@@ -782,7 +782,7 @@ return new class extends TestCase {
         $this->shouldWriteByte($tex + 0x905, 0x05);
         $this->shouldCall('_rewriteExecFile_8c01be60')->with(5, "TOKYOBUS._VM", $tex, 0, 6)->andReturn(0xffffffff);
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("データの書き込みに失敗しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("データの書き込みに失敗しました");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->expectEpilogue(0);
     }
@@ -797,7 +797,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_pollBupOp_8c01bc44')->with($this->addressOf('_var_lcdAnimDanger_8c2260b8'), 5)->andReturn(0x13);
         $this->shouldWriteLong($this->ms + 0x18, 0xb);  // OP_COMPLETE
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ポイントの加算が完了しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ポイントの加算が完了しました");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->expectEpilogue(0);
     }
@@ -812,7 +812,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_pollBupOp_8c01bc44')->with($this->addressOf('_var_lcdAnimDanger_8c2260b8'), 5)->andReturn(0xffffffff);
         $this->shouldWriteLong($this->ms + 0x18, 5);   // back to SELECT
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("データの書き込みに失敗しました");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("データの書き込みに失敗しました");
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->expectEpilogue(0);
     }
@@ -828,7 +828,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->shouldWriteLong($this->ms + 0x18, 9);   // SELECT_INCOMPATIBLE
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ＶＭをセットして下さい");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ＶＭをセットして下さい");
         $this->expectEpilogue(0);
     }
 
@@ -876,7 +876,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->shouldWriteLong($this->ms + 0x18, 7);   // DOWNLOAD
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("交通標識クイズをダウンロードします<E>よろしいですか？");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("交通標識クイズをダウンロードします<E>よろしいですか？");
         $this->midi(0);
         $this->shouldWriteLong($this->ms + 0x6c, 0);   // selectedVmuSlot = selected
         $this->shouldWriteLong($this->ms + 0x3c, 0);   // prompt cursor reset
@@ -896,7 +896,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->shouldWriteLong($this->ms + 0x18, 8);   // EXP_LOAD
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ポイントを加算します<E>よろしいですか？");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ポイントを加算します<E>よろしいですか？");
         $this->midi(0);
         $this->shouldWriteLong($this->ms + 0x6c, 0);
         $this->shouldWriteLong($this->ms + 0x3c, 0);

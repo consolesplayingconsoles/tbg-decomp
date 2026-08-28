@@ -15,7 +15,7 @@
           .IMPORT     _acosf
           .IMPORT     _var_currentSegment_8c228708
           .IMPORT     _FUN_8c02cd6a
-          .IMPORT     _var_8c227e24
+          .IMPORT     _var_trafficSignalFrames_8c227e24
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_8c1bbd9c
           .IMPORT     _FUN_8c02f212
@@ -33,16 +33,16 @@
           .IMPORT     _var_demoEntryValue_8c227e14
           .IMPORT     _var_trafficModels_8c1bc3f4
           .IMPORT     _FUN_8c02786c
-          .IMPORT     _var_8c227db8
+          .IMPORT     _var_busSimpleLightDir_8c227db8
           .IMPORT     _var_8c227dc4
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _njCnkSetEasyLight
           .IMPORT     _var_8c2285c4
-          .IMPORT     _var_8c2264d4
+          .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_8c228b3c
-          .IMPORT     _FUN_8c028958
+          .IMPORT     _ObjectsFUN_8c028958
           .IMPORT     _var_8c228b44
-          .IMPORT     _var_8c1bbd8c
+          .IMPORT     _var_pendingDemoFlags_8c1bbd8c
           .IMPORT     _var_8c227e18
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _TaskExecGroup_8c014b42
@@ -1006,7 +1006,7 @@ LP_GEN_70087:
           .DATA.L H'40C90FD8 ; H'8C026E3C
           .DATA.L _var_currentSegment_8c228708 ; H'8C026E40
           .DATA.L _FUN_8c02cd6a ; H'8C026E44
-          .DATA.L _var_8c227e24 ; H'8C026E48
+          .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C026E48
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C026E4C
           .DATA.L _init_8c0460bc ; H'8C026E50
 LAB_8c026e54:
@@ -2006,7 +2006,7 @@ LP_GEN_41074:
           .DATA.L _init_8c04622c ; H'8C0275B8
           .DATA.L _var_trafficModels_8c1bc3f4 ; H'8C0275BC
           .DATA.L _FUN_8c02786c ; H'8C0275C0
-          .DATA.L _var_8c227db8 ; H'8C0275C4
+          .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C0275C4
           .DATA.L _var_8c227dc4 ; H'8C0275C8
           .DATA.L _njCnkSetSimpleLight ; H'8C0275CC
           .DATA.L _njCnkSetEasyLight ; H'8C0275D0
@@ -2295,12 +2295,12 @@ LAB_8c0277b0:
 LP_GEN_74201:
           .DATA.L _var_8c2285c4 ; H'8C0277EC
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C0277F0
-          .DATA.L _var_8c2264d4 ; H'8C0277F4
+          .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0277F4
           .DATA.L _var_8c228b3c ; H'8C0277F8
-          .DATA.L _FUN_8c028958 ; H'8C0277FC
+          .DATA.L _ObjectsFUN_8c028958 ; H'8C0277FC
           .DATA.L _var_8c228b44 ; H'8C027800
           .DATA.L H'0000FF00 ; H'8C027804
-          .DATA.L _var_8c1bbd8c ; H'8C027808
+          .DATA.L _var_pendingDemoFlags_8c1bbd8c ; H'8C027808
           .DATA.L _var_demoEntryValue_8c227e14 ; H'8C02780C
           .DATA.L _var_8c227e18 ; H'8C027810
           .DATA.L LAB_8c02756a ; H'8C027814

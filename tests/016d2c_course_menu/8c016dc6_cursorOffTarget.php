@@ -57,7 +57,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_menuState_8c1bc7a8') + 0x34, 10.0);
 
         $this->shouldCall('_sdMidiPlay')->with(0x31d131d1);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         $this->shouldReturn(1);
     }
 

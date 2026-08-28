@@ -8,7 +8,7 @@
 #include "019e98_main_menu.h"
 #include "0100bc_sound.h"
 #include "014f54_text.h"
-#include "028258.h"
+#include "028258_objects.h"
 #include "01bb48_vm_game.h"
 #include "01b19c_system_menu.h"
 #include "022464_fade.h"
@@ -489,7 +489,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
     switch (var_menuState_8c1bc7a8.state_0x18) {
     case FILE_MENU_STATE_LOADING:
         if (var_8c226010 == 0) {
-            menuTextboxText_8c02af1c(0xff);
+            ObjectsMenuTextboxText_8c02af1c(0xff);
         } else if (var_8c226010 == 1) {
             var_vmBusy_8c157a7c = 0;
             VmGameSetLcdSlot_8c01c8fc(0);
@@ -498,7 +498,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
                 if (!FileMenuIsSaveValid_8c018804((int *)var_8c225fe0)) {
                     LOG_WARN(("[FILE_MENU] fileSelectTask_8c018e7e: save %d failed validation\n", i));
                     FileMenuFreeBuffers_8c0187d0();
-                    swapMessageBoxFor_8c02aefc(MSG_LOAD_FAIL);
+                    ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOAD_FAIL);
                     CHANGE_STATE(FILE_MENU_STATE_LOAD_ERROR);
                     break;
                 }
@@ -512,7 +512,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             LOG_WARN(("[FILE_MENU] fileSelectTask_8c018e7e: file load failed\n"));
             var_vmBusy_8c157a7c = 0;
             FileMenuFreeBuffers_8c0187d0();
-            swapMessageBoxFor_8c02aefc(MSG_LOAD_FAIL);
+            ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOAD_FAIL);
             CHANGE_STATE(FILE_MENU_STATE_LOAD_ERROR);
             VmGameSetLcdSlot_8c01c8fc(0);
         }
@@ -527,7 +527,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             FadePushOut_8c022b60(10);
             return;
         }
-        menuTextboxText_8c02af1c(0xff);
+        ObjectsMenuTextboxText_8c02af1c(0xff);
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
         break;
@@ -537,7 +537,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             VmMenuSwitchFromTask_8c019e44(task);
             return;
         }
-        menuTextboxText_8c02af1c(0xff);
+        ObjectsMenuTextboxText_8c02af1c(0xff);
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
         break;
@@ -570,9 +570,9 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             if (var_8c226018[var_menuState_8c1bc7a8.field_0x3c +
                              var_menuState_8c1bc7a8.selected_0x38] == 0xa) {
-                swapMessageBoxFor_8c02aefc(MSG_CONFIRM_NEW_FILE);
+                ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_NEW_FILE);
             } else {
-                swapMessageBoxFor_8c02aefc(MSG_CONFIRM_FILE);
+                ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_FILE);
             }
             var_menuState_8c1bc7a8.field_0x40 = 0;
             CHANGE_STATE(FILE_MENU_STATE_CONFIRM);
@@ -616,11 +616,11 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             FadePushOut_8c022b60(10);
         } else if (press & PDD_DGT_TB) {
             CHANGE_STATE(FILE_MENU_STATE_READY);
-            swapMessageBoxFor_8c02aefc("");
+            ObjectsSwapMessageBoxFor_8c02aefc("");
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
         }
         drawFileSelect_8c018d46();
-        menuTextboxText_8c02af1c(0xff);
+        ObjectsMenuTextboxText_8c02af1c(0xff);
         break;
 
     case FILE_MENU_STATE_CONFIRM_FADE_OUT:
@@ -672,7 +672,7 @@ void FileMenuSwitchFromTask_8c019334(Task *task)
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 5 ||
         var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 6) {
         CHANGE_STATE(FILE_MENU_STATE_LOADING);
-        swapMessageBoxFor_8c02aefc(MSG_LOADING_NO_POWER_OFF);
+        ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOADING_NO_POWER_OFF);
         VmGameSetLcdSlot_8c01c8fc(1);
         startVmLoad_8c018784();
         var_vmBusy_8c157a7c = 1;

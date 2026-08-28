@@ -50,10 +50,10 @@ return new class extends TestCase {
         $this->shouldCall('_njGarbageTexture')->with(
             $this->addressOf('_var_tex_8c157af8'), 0xc00
         );
-        $this->shouldCall('_FUN_8c02ae3e')->with(
+        $this->shouldCall('_ObjectsOpenTextbox_8c02ae3e')->with(
             0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1
         );
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 0);
 
@@ -130,10 +130,10 @@ return new class extends TestCase {
         $this->shouldCall('_njGarbageTexture')->with(
             $this->addressOf('_var_tex_8c157af8'), 0xc00
         );
-        $this->shouldCall('_FUN_8c02ae3e')->with(
+        $this->shouldCall('_ObjectsOpenTextbox_8c02ae3e')->with(
             0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1
         );
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 0);
 

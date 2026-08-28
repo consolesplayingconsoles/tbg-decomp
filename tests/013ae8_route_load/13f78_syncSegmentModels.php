@@ -14,7 +14,7 @@ return new class extends TestCase {
         $this->call('_syncSegmentModels_8c013f78');
 
         // ukn_0x1c is 0; then no pairs -> var_currentTileRegionList_8c226534 becomes -1.
-        $this->shouldCall('_FUN_8c029ad4')->with(0);
+        $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
 
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_fogParam_8c226508'), 0);
         $this->shouldWriteLong($this->addressOf('_var_fogParam_8c227dd0'), 0x12345678);
 
-        $this->shouldCall('_FUN_8c029ad4')->with(0);
+        $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
 
@@ -53,7 +53,7 @@ return new class extends TestCase {
             ->andReturn(0x8c990000);
         $this->shouldWriteLong($this->addressOf('_var_segmentModels_8c1bc3f0'), 0x8c990000);
 
-        $this->shouldCall('_FUN_8c029ad4')->with(0);
+        $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
 
@@ -70,7 +70,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_routeModelIndexes_8c18adb0'), $models);
         $this->shouldCall('_syncRouteModelAssets_8c013c34')->with($models);
 
-        $this->shouldCall('_FUN_8c029ad4')->with(0);
+        $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
 
@@ -89,9 +89,9 @@ return new class extends TestCase {
         $this->shouldCall('_syncRouteModelAssets_8c013c34')
             ->with($this->addressOf('_init_8c043fd4'));
 
-        $this->shouldCall('_FUN_8c029ad4')->with(0);
+        $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
-        $this->shouldCall('_FUN_8c02aa36');
+        $this->shouldCall('_ObjectsRequestMessageAssets_8c02aa36');
     }
 
     public function test_reconciles_second_table()
@@ -105,7 +105,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_syncPedestrianAssets_8c013df6')->with($list);
 
-        $this->shouldCall('_FUN_8c029ad4')->with(0);
+        $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
 
@@ -122,7 +122,7 @@ return new class extends TestCase {
 
         $this->call('_syncSegmentModels_8c013f78');
 
-        $this->shouldCall('_FUN_8c029ad4')->with(0);
+        $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0x21);
 
         $basedir = $this->addressOf('_var_datDir_8c18ad2c');
@@ -150,8 +150,8 @@ return new class extends TestCase {
         $this->setSize('_var_segmentModels_8c1bc3f0', 4);
         $this->setSize('_AsqRequestModels_8c012030', 4);
         $this->setSize('_AsqRequestDat_8c011182', 4);
-        $this->setSize('_FUN_8c029ad4', 4);
-        $this->setSize('_FUN_8c02aa36', 4);
+        $this->setSize('_ObjectsStartAssetRequests_8c029ad4', 4);
+        $this->setSize('_ObjectsRequestMessageAssets_8c02aa36', 4);
 
         $holder = $this->alloc(0x10);
         $array = $this->alloc(8 * self::STRIDE);

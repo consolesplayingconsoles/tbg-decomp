@@ -18,7 +18,7 @@ return new class extends TestCase {
 
         $this->call('_fileSelectTask_8c018e7e');
 
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->expectFrame();
     }
 
@@ -55,7 +55,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c225fe0'), self::BASE);
         $this->shouldCall('_FileMenuIsSaveValid_8c018804')->with(self::BASE)->andReturn(0);
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with('ロードに失敗しました');
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('ロードに失敗しました');
         $this->shouldWriteLong($this->ms + 0x18, 1);
         $this->expectFrame();
     }
@@ -69,7 +69,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with('ロードに失敗しました');
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('ロードに失敗しました');
         $this->shouldWriteLong($this->ms + 0x18, 1);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
         $this->expectFrame();
@@ -99,7 +99,7 @@ return new class extends TestCase {
 
         $this->call('_fileSelectTask_8c018e7e');
 
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->expectFrame();
     }
 
@@ -113,7 +113,7 @@ return new class extends TestCase {
 
         $this->call('_fileSelectTask_8c018e7e');
 
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->expectFrame();
     }
 
@@ -251,7 +251,7 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e');
 
         $this->shouldCall('_sdMidiPlay')->with(0x777, 1, 0, 0);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with('新たにファイルを作成します<E>よろしいですか？');
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('新たにファイルを作成します<E>よろしいですか？');
         $this->shouldWriteLong($this->ms + 0x40, 0);
         $this->shouldWriteLong($this->ms + 0x18, 4);
         $this->expectDraw();
@@ -269,7 +269,7 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e');
 
         $this->shouldCall('_sdMidiPlay')->with(0x777, 1, 0, 0);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with('このファイルでよろしいですか？');
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('このファイルでよろしいですか？');
         $this->shouldWriteLong($this->ms + 0x40, 0);
         $this->shouldWriteLong($this->ms + 0x18, 4);
         $this->expectDraw();
@@ -339,10 +339,10 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e');
 
         $this->shouldWriteLong($this->ms + 0x18, 3);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with('');
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('');
         $this->shouldCall('_sdMidiPlay')->with(0x777, 1, 1, 0);
         $this->expectDraw();
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
     }
 
     /* No input: keep the prompt on screen. */
@@ -355,7 +355,7 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e');
 
         $this->expectDraw();
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
     }
 
     /* ---- state 5: waiting for the load fade to finish, then mount ---- */
@@ -476,7 +476,7 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
         $this->expectDraw();
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
     }
 
     private function cursor(int $page, int $selected): void
@@ -505,8 +505,8 @@ return new class extends TestCase {
         /* external functions -- resolved unconditionally (the C literal pool may
          * load an address on a path that doesn't call it) */
         foreach ([
-            '_TxtDrawSprite_8c014f54', '_menuTextboxText_8c02af1c', '_VmGameSetLcdSlot_8c01c8fc',
-            '_swapMessageBoxFor_8c02aefc', '_sdMidiPlay', '_FadePushOut_8c022b60',
+            '_TxtDrawSprite_8c014f54', '_ObjectsMenuTextboxText_8c02af1c', '_VmGameSetLcdSlot_8c01c8fc',
+            '_ObjectsSwapMessageBoxFor_8c02aefc', '_sdMidiPlay', '_FadePushOut_8c022b60',
             '_njMemCopy', '_SndStartAdxFadeOut_8c010bae', '_SystemMenuApplyLoadedProgress_8c01b19c',
             '_VmMenuUnmountVms_8c0194de', '_VmMenuSwitchFromTask_8c019e44',
             '_MainMenuSwitchFromTask_8c01a09a',

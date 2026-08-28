@@ -1,6 +1,6 @@
 ; 8c01e27c
 ; @unit PracticeMenu
-          .IMPORT     _menuTextboxText_8c02af1c
+          .IMPORT     _ObjectsMenuTextboxText_8c02af1c
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _init_8c03bd80
@@ -11,7 +11,7 @@
           .IMPORT     _SndProc_8c010cd6
           .IMPORT     _FadePushIn_8c022a9c
           .IMPORT     _var_peripherals_8c1ba35c
-          .IMPORT     _swapMessageBoxFor_8c02aefc
+          .IMPORT     _ObjectsSwapMessageBoxFor_8c02aefc
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _SndStartAdxFadeOut_8c010bae
@@ -47,14 +47,14 @@
           .IMPORT     __divls
           .IMPORT     _FUN_8c010d8a
           .IMPORT     _CourseMenuPushDialogTask_8c0170c6
-          .IMPORT     _var_dialogSequenceIsActive_8c225fb4
+          .IMPORT     _var_instructorDialogActive_8c225fb4
           .IMPORT     _var_menuTextboxCharLimit_8c225fb8
           .IMPORT     _var_8c22642c
           .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _CourseMenuBuildCourseUnlockList_8c0172dc
           .IMPORT     _CourseMenuApplyUnlocks_8c0173e6
           .IMPORT     _var_playMode_8c1bb8d0
-          .IMPORT     _init_dialogSequences_8c044c08
+          .IMPORT     _init_instructorDialogs_8c044c08
           .IMPORT     _var_tex_8c157af8
           .IMPORT     _njGarbageTexture
           .IMPORT     _var_8c1ba264
@@ -63,7 +63,7 @@
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _TaskPush_8c014ae8
-          .IMPORT     _FUN_8c02ae3e
+          .IMPORT     _ObjectsOpenTextbox_8c02ae3e
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
           .IMPORT     _FUN_8c01f954
@@ -220,7 +220,7 @@ LAB_8c01e356:
 LP_GEN_72974:
           .DATA.W H'00FF ; H'8C01E372
           .DATA.L H'C0800000 ; H'8C01E374
-          .DATA.L _menuTextboxText_8c02af1c ; H'8C01E378
+          .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C01E378
           .DATA.L H'43600000 ; H'8C01E37C
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01E380
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01E384
@@ -520,7 +520,7 @@ _initDescriptionReveal_8c01e576:
           NOP
 LP_GEN_38636:
           .DATA.L _const_8c03896c ; H'8C01E5C0
-          .DATA.L _swapMessageBoxFor_8c02aefc ; H'8C01E5C4
+          .DATA.L _ObjectsSwapMessageBoxFor_8c02aefc ; H'8C01E5C4
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01E5C8
           .DATA.L _sdMidiPlay ; H'8C01E5CC
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C01E5D0
@@ -915,7 +915,7 @@ LP_GEN_46961:
           .DATA.L H'42820000 ; H'8C01E900
           .DATA.L H'C0900000 ; H'8C01E904
           .DATA.L _init_8c0451ec ; H'8C01E908
-          .DATA.L _menuTextboxText_8c02af1c ; H'8C01E90C
+          .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C01E90C
           .DATA.L H'C0A00000 ; H'8C01E910
           .DATA.L H'C0C00000 ; H'8C01E914
           .DATA.L H'C0E00000 ; H'8C01E918
@@ -1226,7 +1226,7 @@ LP_GEN_88702:
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01EB4C
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01EB50
           .DATA.L _const_8c038984 ; H'8C01EB54
-          .DATA.L _swapMessageBoxFor_8c02aefc ; H'8C01EB58
+          .DATA.L _ObjectsSwapMessageBoxFor_8c02aefc ; H'8C01EB58
           .DATA.L _AsqInitQueues_8c011f36 ; H'8C01EB5C
           .DATA.L _AsqResetQueues_8c011f6c ; H'8C01EB60
           .DATA.L _init_8c044274 ; H'8C01EB64
@@ -1550,7 +1550,7 @@ LP_GEN_52292:
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01EDE4
           .DATA.L _var_8c1bb8bc ; H'8C01EDE8
           .DATA.L _var_isFading_8c226568 ; H'8C01EDEC
-          .DATA.L _swapMessageBoxFor_8c02aefc ; H'8C01EDF0
+          .DATA.L _ObjectsSwapMessageBoxFor_8c02aefc ; H'8C01EDF0
           .DATA.L _sdMidiPlay ; H'8C01EDF4
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01EDF8
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01EDFC
@@ -1561,7 +1561,7 @@ LP_GEN_52292:
           .DATA.L _FadePushIn_8c022a9c ; H'8C01EE10
           .DATA.L _var_8c226414 ; H'8C01EE14
           .DATA.L _CourseMenuPushDialogTask_8c0170c6 ; H'8C01EE18
-          .DATA.L _var_dialogSequenceIsActive_8c225fb4 ; H'8C01EE1C
+          .DATA.L _var_instructorDialogActive_8c225fb4 ; H'8C01EE1C
           .DATA.L _const_8c038984 ; H'8C01EE20
           .DATA.L _FadePushOut_8c022b60 ; H'8C01EE24
           .DATA.L _const_8c038988 ; H'8C01EE28
@@ -1928,7 +1928,7 @@ LP_GEN_11294:
           .DATA.L H'42040000 ; H'8C01F0F0
           .DATA.L H'C0000000 ; H'8C01F0F4
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C01F0F8
-          .DATA.L _menuTextboxText_8c02af1c ; H'8C01F0FC
+          .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C01F0FC
           .DATA.L H'C0A00000 ; H'8C01F100
           .DATA.L H'C0C00000 ; H'8C01F104
           .DATA.L H'C0400000 ; H'8C01F108
@@ -2035,7 +2035,7 @@ LP_GEN_22524:
           .DATA.L _var_8c22642c ; H'8C01F1D8
           .DATA.L _var_award_8c1bb8f8 ; H'8C01F1DC
           .DATA.L _var_8c226414 ; H'8C01F1E0
-          .DATA.L _init_dialogSequences_8c044c08 ; H'8C01F1E4
+          .DATA.L _init_instructorDialogs_8c044c08 ; H'8C01F1E4
           .DATA.L _njSetBackColor ; H'8C01F1E8
           .DATA.L _var_tex_8c157af8 ; H'8C01F1EC
           .DATA.L _njGarbageTexture ; H'8C01F1F0
@@ -2217,13 +2217,13 @@ LP_GEN_37649:
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01F370
           .DATA.L _TaskPush_8c014ae8 ; H'8C01F374
           .DATA.L _FUN_8c01ebf2 ; H'8C01F378
-          .DATA.L _init_dialogSequences_8c044c08 ; H'8C01F37C
+          .DATA.L _init_instructorDialogs_8c044c08 ; H'8C01F37C
           .DATA.L _var_tex_8c157af8 ; H'8C01F380
           .DATA.L _njGarbageTexture ; H'8C01F384
           .DATA.L H'C0000000 ; H'8C01F388
-          .DATA.L _FUN_8c02ae3e ; H'8C01F38C
+          .DATA.L _ObjectsOpenTextbox_8c02ae3e ; H'8C01F38C
           .DATA.L _const_8c038984 ; H'8C01F390
-          .DATA.L _swapMessageBoxFor_8c02aefc ; H'8C01F394
+          .DATA.L _ObjectsSwapMessageBoxFor_8c02aefc ; H'8C01F394
           .DATA.L _AsqInitQueues_8c011f36 ; H'8C01F398
           .DATA.L _AsqResetQueues_8c011f6c ; H'8C01F39C
           .DATA.L _var_currentSysResGroupInfo_8c225fb0 ; H'8C01F3A0

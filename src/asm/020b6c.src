@@ -1,5 +1,5 @@
 ; 8c020b6c
-          .IMPORT     _var_8c2264d4
+          .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _acosf
           .IMPORT     _njSqrt
           .EXPORT     _FUN_8c020b6c
@@ -371,7 +371,7 @@ LAB_8c020e12:
           NOP
 LP_GEN_33960:
           .RES.W 1 ; H'8C020E16
-          .DATA.L _var_8c2264d4 ; H'8C020E18
+          .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C020E18
           .DATA.L _acosf ; H'8C020E1C
           .DATA.L _njSqrt ; H'8C020E20
           .DATA.L H'40C90FD8 ; H'8C020E24
@@ -685,7 +685,7 @@ LP_GEN_91312:
           .DATA.L H'47800000 ; H'8C02106C
           .DATA.L H'00008000 ; H'8C021070
           .DATA.L H'7FFFFFFF ; H'8C021074
-          .DATA.L _var_8c2264d4 ; H'8C021078
+          .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C021078
           .DATA.L _njSqrt ; H'8C02107C
 LAB_8c021080:
           MOV.L       @R10,R14
@@ -1255,7 +1255,7 @@ LAB_8c0214b4:
           BRA         LAB_8c0216a8
           MOV.L       R12,@(H'30,R15)
 LP_GEN_81592:
-          .DATA.L _var_8c2264d4 ; H'8C0214B8
+          .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0214B8
           .DATA.L _njSqrt ; H'8C0214BC
           .DATA.L _acosf ; H'8C0214C0
           .DATA.L H'40C90FD8 ; H'8C0214C4

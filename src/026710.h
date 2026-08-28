@@ -3,5 +3,6 @@
 #define _026710_H
 
 void FUN_8c026da4(void *handle);
+void FUN_8c026dcc(int maxId);
 
 #endif // _026710_H

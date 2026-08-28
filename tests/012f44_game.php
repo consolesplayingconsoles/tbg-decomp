@@ -64,17 +64,17 @@ return new class extends TestCase {
             );
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
-        $this->shouldWriteTo('_var_8c22847c', 0);
+        $this->shouldWriteTo('_var_messageBoxActive_8c22847c', 0);
 
         $this->shouldCall('_FUN_8c023610');
-        $this->shouldCall('_FUN_8c02845a');
+        $this->shouldCall('_ObjectsInitTrafficSignals_8c02845a');
         
-        $this->shouldCall('_FUN_8c029920');
+        $this->shouldCall('_ObjectsInitBlinkers_8c029920');
         
-        $this->shouldCall('_FUN_8c0296d6');
+        $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_FUN_8c02769e');
         $this->shouldCall('_FUN_8c0222dc');
-        $this->shouldCall('_FUN_8c02a6ac');
+        $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_FUN_8c02c46a');
         $this->shouldCall('_FUN_8c02018c');
         $this->shouldCall('_FUN_8c02d968');
@@ -141,15 +141,15 @@ return new class extends TestCase {
         $this->shouldCall('_FUN_8c025af4');
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
-        $this->shouldWriteTo('_var_8c22847c', 0);
+        $this->shouldWriteTo('_var_messageBoxActive_8c22847c', 0);
 
         $this->shouldCall('_FUN_8c023610');
-        $this->shouldCall('_FUN_8c02845a');
+        $this->shouldCall('_ObjectsInitTrafficSignals_8c02845a');
         
-        $this->shouldCall('_FUN_8c0296d6');
+        $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_FUN_8c02769e');
         $this->shouldCall('_FUN_8c0222dc');
-        $this->shouldCall('_FUN_8c02a6ac');
+        $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_FUN_8c02c46a');
         $this->shouldCall('_FUN_8c02018c');
         $this->shouldCall('_FUN_8c02d968');
@@ -236,15 +236,15 @@ return new class extends TestCase {
         $this->shouldCall('_FUN_8c025af4');
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
-        $this->shouldWriteTo('_var_8c22847c', 0);
+        $this->shouldWriteTo('_var_messageBoxActive_8c22847c', 0);
 
         $this->shouldCall('_FUN_8c023610');
-        $this->shouldCall('_FUN_8c02845a');
+        $this->shouldCall('_ObjectsInitTrafficSignals_8c02845a');
         
-        $this->shouldCall('_FUN_8c0296d6');
+        $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_FUN_8c02769e');
         $this->shouldCall('_FUN_8c0222dc');
-        $this->shouldCall('_FUN_8c02a6ac');
+        $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_FUN_8c02c46a');
         $this->shouldCall('_FUN_8c02018c');
         $this->shouldCall('_FUN_8c02d968');
@@ -417,7 +417,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
-        $this->shouldWriteTo('_var_8c1bb86c', -1);
+        $this->shouldWriteTo('_var_groundGridFallback_8c1bb86c', -1);
 
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
@@ -427,15 +427,15 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_trafficModels_8c1bc3f4', -1);
 
         $this->shouldCall('_TileStreamClearUnknownVar_8c02171c');
-        $this->shouldCall('_clearUnknownVar_8c029acc');
-        $this->shouldCall('_clearUnknownVars_8c02aa28');
+        $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
+        $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
 
-        $this->shouldWriteTo('_var_8c1bc404', -1);
+        $this->shouldWriteTo('_var_messageTextBoxA_8c1bc404', -1);
         $this->shouldWriteTo('_var_8c226434', -1);
         $this->shouldWriteTo('_var_8c226438', -1);
-        $this->shouldWriteTo('_var_8c228234', -1);
-        $this->shouldWriteTo('_var_8c227e20', -1);
-        $this->shouldWriteTo('_var_8c227e24', -1);
+        $this->shouldWriteTo('_var_pedGroupCount_8c228234', -1);
+        $this->shouldWriteTo('_var_trafficSignalTasks_8c227e20', -1);
+        $this->shouldWriteTo('_var_trafficSignalFrames_8c227e24', -1);
         $this->shouldWriteTo('_var_8c2288f8', -1);
         $this->shouldWriteTo('_var_interiorTexlist_8c1bc438', -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
@@ -571,7 +571,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
-        $this->shouldWriteTo('_var_8c1bb86c', -1);
+        $this->shouldWriteTo('_var_groundGridFallback_8c1bb86c', -1);
 
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
@@ -581,15 +581,15 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_trafficModels_8c1bc3f4', -1);
 
         $this->shouldCall('_TileStreamClearUnknownVar_8c02171c');
-        $this->shouldCall('_clearUnknownVar_8c029acc');
-        $this->shouldCall('_clearUnknownVars_8c02aa28');
+        $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
+        $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
 
-        $this->shouldWriteTo('_var_8c1bc404', -1);
+        $this->shouldWriteTo('_var_messageTextBoxA_8c1bc404', -1);
         $this->shouldWriteTo('_var_8c226434', -1);
         $this->shouldWriteTo('_var_8c226438', -1);
-        $this->shouldWriteTo('_var_8c228234', -1);
-        $this->shouldWriteTo('_var_8c227e20', -1);
-        $this->shouldWriteTo('_var_8c227e24', -1);
+        $this->shouldWriteTo('_var_pedGroupCount_8c228234', -1);
+        $this->shouldWriteTo('_var_trafficSignalTasks_8c227e20', -1);
+        $this->shouldWriteTo('_var_trafficSignalFrames_8c227e24', -1);
         $this->shouldWriteTo('_var_8c2288f8', -1);
         $this->shouldWriteTo('_var_interiorTexlist_8c1bc438', -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
@@ -725,7 +725,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
-        $this->shouldWriteTo('_var_8c1bb86c', -1);
+        $this->shouldWriteTo('_var_groundGridFallback_8c1bb86c', -1);
 
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
@@ -735,15 +735,15 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_trafficModels_8c1bc3f4', -1);
 
         $this->shouldCall('_TileStreamClearUnknownVar_8c02171c');
-        $this->shouldCall('_clearUnknownVar_8c029acc');
-        $this->shouldCall('_clearUnknownVars_8c02aa28');
+        $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
+        $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
 
-        $this->shouldWriteTo('_var_8c1bc404', -1);
+        $this->shouldWriteTo('_var_messageTextBoxA_8c1bc404', -1);
         $this->shouldWriteTo('_var_8c226434', -1);
         $this->shouldWriteTo('_var_8c226438', -1);
-        $this->shouldWriteTo('_var_8c228234', -1);
-        $this->shouldWriteTo('_var_8c227e20', -1);
-        $this->shouldWriteTo('_var_8c227e24', -1);
+        $this->shouldWriteTo('_var_pedGroupCount_8c228234', -1);
+        $this->shouldWriteTo('_var_trafficSignalTasks_8c227e20', -1);
+        $this->shouldWriteTo('_var_trafficSignalFrames_8c227e24', -1);
         $this->shouldWriteTo('_var_8c2288f8', -1);
         $this->shouldWriteTo('_var_interiorTexlist_8c1bc438', -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
@@ -880,7 +880,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
-        $this->shouldWriteTo('_var_8c1bb86c', -1);
+        $this->shouldWriteTo('_var_groundGridFallback_8c1bb86c', -1);
 
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
@@ -890,15 +890,15 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_trafficModels_8c1bc3f4', -1);
 
         $this->shouldCall('_TileStreamClearUnknownVar_8c02171c');
-        $this->shouldCall('_clearUnknownVar_8c029acc');
-        $this->shouldCall('_clearUnknownVars_8c02aa28');
+        $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
+        $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
 
-        $this->shouldWriteTo('_var_8c1bc404', -1);
+        $this->shouldWriteTo('_var_messageTextBoxA_8c1bc404', -1);
         $this->shouldWriteTo('_var_8c226434', -1);
         $this->shouldWriteTo('_var_8c226438', -1);
-        $this->shouldWriteTo('_var_8c228234', -1);
-        $this->shouldWriteTo('_var_8c227e20', -1);
-        $this->shouldWriteTo('_var_8c227e24', -1);
+        $this->shouldWriteTo('_var_pedGroupCount_8c228234', -1);
+        $this->shouldWriteTo('_var_trafficSignalTasks_8c227e20', -1);
+        $this->shouldWriteTo('_var_trafficSignalFrames_8c227e24', -1);
         $this->shouldWriteTo('_var_8c2288f8', -1);
         $this->shouldWriteTo('_var_interiorTexlist_8c1bc438', -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);

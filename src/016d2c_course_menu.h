@@ -8,10 +8,10 @@
 
 typedef struct {
     char *text_0x00;
-    int instructorSpriteNo_0x04;
-} MenuDialog;
+    int spriteNo_0x04;
+} InstructorLine;
 
-extern MenuDialog *init_dialogSequences_8c044c08[66];
+extern InstructorLine *init_instructorDialogs_8c044c08[66];
 
 int CourseMenuInterpolateCursor_8c016d2c(void);
 void CourseMenuRequestCommonResources_8c01852c(void);

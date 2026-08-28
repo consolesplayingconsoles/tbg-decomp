@@ -17,7 +17,7 @@
 #include "01b19c_system_menu.h"
 #include "01c980_profile_file.h"
 #include "01e27c_practice_menu.h"
-#include "028258.h"
+#include "028258_objects.h"
 #include "sectionB.h"
 #include "serial_debug.h"
 #include "serial_debug.h"
@@ -80,13 +80,13 @@ typedef struct {
 
 typedef struct {
     int state_0x00;
-    MenuDialog *dialog_0x04;
+    InstructorLine *dialog_0x04;
     int field_0x08;
     int field_0x0c;
     int field_0x10;
     int field_0x14;
     int *field_0x18;
-} DialogSequenceTaskState;
+} InstructorDialogState;
 
 typedef struct {
     TaskAction action;
@@ -97,84 +97,84 @@ typedef struct {
     int field_0x14;
     int *field_0x18;
     int field_0x1c;
-} DialogSequenceTask;
+} InstructorDialogTask;
 
 enum {
     // --- Story / Training ---
-    SEQ_STORY_INTRO           = 0,
-    // SEQ_SUCCESS_PERFECT       = 1,
-    // SEQ_SUCCESS_HIGH          = 2,
-    // SEQ_SUCCESS_NORMAL        = 3,
-    // SEQ_FAILURE_FINAL         = 4,
-    // SEQ_FREE_RUN_INTRO        = 5,
-    SEQ_STORY_CHOOSE_COURSE   = 6,
-    SEQ_GOOD_PRACTICE         = 7,
-    SEQ_SUCCESS               = 8,
+    INSTR_STORY_INTRO           = 0,
+    // INSTR_SUCCESS_PERFECT       = 1,
+    // INSTR_SUCCESS_HIGH          = 2,
+    // INSTR_SUCCESS_NORMAL        = 3,
+    // INSTR_FAILURE_FINAL         = 4,
+    // INSTR_FREE_RUN_INTRO        = 5,
+    INSTR_STORY_CHOOSE_COURSE   = 6,
+    INSTR_GOOD_PRACTICE         = 7,
+    INSTR_SUCCESS               = 8,
 
     // --- Awards / Unlocks ---
-    SEQ_AWARD_BADGE_GOLD      = 9,
-    SEQ_AWARD_BADGE_SILVER    = 10,
-    SEQ_AWARD_BADGE_BRONZE    = 11,
-    SEQ_FAILURE_RETRY         = 12,
-    SEQ_COURSE_UNLOCKED       = 13,
-    SEQ_PASSENGER_LETTER      = 14,
-    SEQ_COURSE_LOCKED         = 15,
-    // SEQ_FORCE_PRACTICE        = 16,
-    // SEQ_FINAL_DAY             = 17,
+    INSTR_AWARD_BADGE_GOLD      = 9,
+    INSTR_AWARD_BADGE_SILVER    = 10,
+    INSTR_AWARD_BADGE_BRONZE    = 11,
+    INSTR_FAILURE_RETRY         = 12,
+    INSTR_COURSE_UNLOCKED       = 13,
+    INSTR_PASSENGER_LETTER      = 14,
+    INSTR_COURSE_LOCKED         = 15,
+    // INSTR_FORCE_PRACTICE        = 16,
+    // INSTR_FINAL_DAY             = 17,
 
     // --- Lesson Mode ---
-    // SEQ_LESSON_INTRO          = 18,
-    // SEQ_LESSON_COMPLETE       = 19,
-    // SEQ_LESSON_NEXT           = 20,
-    // SEQ_LESSON_RETRY          = 21,
-    // SEQ_LESSON_TIPS           = 22,
-    // SEQ_LESSON_WARNING        = 23,
-    // SEQ_LESSON_CHOOSE         = 24,
-    // SEQ_SCORE_RECORD          = 25,
-    // SEQ_LESSON_FINAL_DAY      = 26,
-    // SEQ_LESSON_PERFECT        = 27,
-    // SEQ_LESSON_GOOD           = 28,
-    // SEQ_LESSON_PASS           = 29,
-    // SEQ_LESSON_FAIL_MINOR     = 30,
-    // SEQ_LESSON_FAIL_MAJOR     = 31,
+    // INSTR_LESSON_INTRO          = 18,
+    // INSTR_LESSON_COMPLETE       = 19,
+    // INSTR_LESSON_NEXT           = 20,
+    // INSTR_LESSON_RETRY          = 21,
+    // INSTR_LESSON_TIPS           = 22,
+    // INSTR_LESSON_WARNING        = 23,
+    // INSTR_LESSON_CHOOSE         = 24,
+    // INSTR_SCORE_RECORD          = 25,
+    // INSTR_LESSON_FINAL_DAY      = 26,
+    // INSTR_LESSON_PERFECT        = 27,
+    // INSTR_LESSON_GOOD           = 28,
+    // INSTR_LESSON_PASS           = 29,
+    // INSTR_LESSON_FAIL_MINOR     = 30,
+    // INSTR_LESSON_FAIL_MAJOR     = 31,
 
     // --- Driving Mistakes / Penalties ---
-    // SEQ_COLLISION_CAR_MINOR   = 32,
-    // SEQ_COLLISION_CAR_MEDIUM  = 33,
-    // SEQ_COLLISION_CAR_SEVERE  = 34,
-    // SEQ_COLLISION_CAR_FATAL   = 35,
-    // SEQ_COLLISION_WALL_MINOR  = 36,
-    // SEQ_COLLISION_WALL_MEDIUM = 37,
-    // SEQ_COLLISION_WALL_SEVERE = 38,
-    // SEQ_NEAR_MISS_PEDESTRIAN  = 39,
-    // SEQ_OFF_COURSE_MINOR      = 40,
-    // SEQ_OFF_COURSE_MEDIUM     = 41,
-    // SEQ_OFF_COURSE_MAJOR      = 42,
-    // SEQ_SPEEDING_MINOR        = 43,
-    // SEQ_SPEEDING_MAJOR        = 44,
-    // SEQ_WRONG_LANE            = 45,
-    // SEQ_LANE_STRADDLE         = 46,
-    // SEQ_NO_SIGNAL             = 47,
-    // SEQ_NO_SIGNAL_TURN        = 48,
-    // SEQ_UKN_49                 = 49,
-    // SEQ_SIGNAL_VIOLATION      = 50,
-    // SEQ_BAD_STOP_LINE         = 51,
-    // SEQ_ILLEGAL_LANE_CHANGE   = 52,
-    // SEQ_BLOCK_INTERSECTION    = 53,
-    // SEQ_WRONG_WAY             = 54,
-    // SEQ_RAPID_ACCEL           = 55,
-    // SEQ_HARD_BRAKE            = 56,
-    // SEQ_SWERVING              = 57,
-    // SEQ_MISSED_STOP           = 58,
-    // SEQ_BAD_STOP_POSITION_1   = 59,
-    // SEQ_BAD_STOP_POSITION_2   = 60,
-    // SEQ_TIME_MANAGEMENT       = 61,
-    // SEQ_ANNOUNCEMENT          = 62,
-    // SEQ_DOOR_OPERATION        = 63,
+    // INSTR_COLLISION_CAR_MINOR   = 32,
+    // INSTR_COLLISION_CAR_MEDIUM  = 33,
+    // INSTR_COLLISION_CAR_SEVERE  = 34,
+    // INSTR_COLLISION_CAR_FATAL   = 35,
+    // INSTR_COLLISION_WALL_MINOR  = 36,
+    // INSTR_COLLISION_WALL_MEDIUM = 37,
+    // INSTR_COLLISION_WALL_SEVERE = 38,
+    // INSTR_NEAR_MISS_PEDESTRIAN  = 39,
+    // INSTR_OFF_COURSE_MINOR      = 40,
+    // INSTR_OFF_COURSE_MEDIUM     = 41,
+    // INSTR_OFF_COURSE_MAJOR      = 42,
+    // INSTR_SPEEDING_MINOR        = 43,
+    // INSTR_SPEEDING_MAJOR        = 44,
+    // INSTR_WRONG_LANE            = 45,
+    // INSTR_LANE_STRADDLE         = 46,
+    // INSTR_NO_SIGNAL             = 47,
+    // INSTR_NO_SIGNAL_TURN        = 48,
+    // INSTR_UKN_49                 = 49,
+    // INSTR_SIGNAL_VIOLATION      = 50,
+    // INSTR_BAD_STOP_LINE         = 51,
+    // INSTR_ILLEGAL_LANE_CHANGE   = 52,
+    // INSTR_BLOCK_INTERSECTION    = 53,
+    // INSTR_WRONG_WAY             = 54,
+    // INSTR_RAPID_ACCEL           = 55,
+    // INSTR_HARD_BRAKE            = 56,
+    // INSTR_SWERVING              = 57,
+    // INSTR_MISSED_STOP           = 58,
+    // INSTR_BAD_STOP_POSITION_1   = 59,
+    // INSTR_BAD_STOP_POSITION_2   = 60,
+    // INSTR_TIME_MANAGEMENT       = 61,
+    // INSTR_ANNOUNCEMENT          = 62,
+    // INSTR_DOOR_OPERATION        = 63,
 
     // --- Free Run Mode ---
-    SEQ_FREE_RUN_INTRO_2       = 64,
-    SEQ_FREE_RUN_CHOOSE_COURSE = 65,
+    INSTR_FREE_RUN_INTRO_2       = 64,
+    INSTR_FREE_RUN_CHOOSE_COURSE = 65,
 };
 
 enum {
@@ -219,7 +219,7 @@ STATIC void courseMenuConfirmInit_8c0184cc(Task *task);
 void CourseMenuFreeResourceGroup_8c0185c4(ResourceGroup *res_group);
 STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state);
 void CourseMenuRequestCommonResources_8c01852c(void);
-MenuDialog *init_dialogSequences_8c044c08[66];
+InstructorLine *init_instructorDialogs_8c044c08[66];
 Uint8 init_courseVariants_8c044d10[30];
 Uint8 init_routeInfoTime_8c044d2e[3 * 3 * 2];
 
@@ -294,7 +294,7 @@ STATIC int cursorOffTarget_8c016dc6()
     var_menuState_8c1bc7a8.cursorVelocity_0x30.x = (x - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x) / 6.0;
     var_menuState_8c1bc7a8.cursorVelocity_0x30.y = (y - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y) / 6.0;
     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
-    swapMessageBoxFor_8c02aefc("");
+    ObjectsSwapMessageBoxFor_8c02aefc("");
     return 1;
 }
 
@@ -352,14 +352,14 @@ void CourseMenuDrawDateAndExp_8c016ee6()
     drawInteger_8c016e6c(var_progress_8c1ba1cc.exp_0x90, 534.0, 82.0);
 }
 
-STATIC void dialogSequenceTask_8c016f98(DialogSequenceTask *task, DialogSequenceTaskState *state)
+STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, InstructorDialogState *state)
 {
     switch(state->state_0x00) {
         case 0: {
             int r;
 
             if (!*(state->dialog_0x04->text_0x00)) {
-                var_dialogSequenceIsActive_8c225fb4 = 0;
+                var_instructorDialogActive_8c225fb4 = 0;
                 TaskFree_8c014b66((void *) task);
                 return;
             }
@@ -369,8 +369,8 @@ STATIC void dialogSequenceTask_8c016f98(DialogSequenceTask *task, DialogSequence
                 task->field_0x18++;
             }
 
-            state->field_0x08 = swapMessageBoxFor_8c02aefc(state->dialog_0x04->text_0x00);
-            var_menuState_8c1bc7a8.instructorSprite_0x60 = state->dialog_0x04->instructorSpriteNo_0x04;
+            state->field_0x08 = ObjectsSwapMessageBoxFor_8c02aefc(state->dialog_0x04->text_0x00);
+            var_menuState_8c1bc7a8.instructorSprite_0x60 = state->dialog_0x04->spriteNo_0x04;
             state->field_0x0c = 1;
             state->field_0x10 = 0;
             state->state_0x00 = 1;
@@ -435,12 +435,12 @@ STATIC void dialogSequenceTask_8c016f98(DialogSequenceTask *task, DialogSequence
 
 void CourseMenuPushDialogTask_8c0170c6(int dialog_index, int *p2)
 {
-    DialogSequenceTask *task;
-    DialogSequenceTaskState *state;
+    InstructorDialogTask *task;
+    InstructorDialogState *state;
 
     TaskPush_8c014ae8(
         var_tasks_8c1ba3c8,
-        &dialogSequenceTask_8c016f98,
+        &instructorDialogTask_8c016f98,
         &task,
         &state,
         0x18
@@ -448,14 +448,14 @@ void CourseMenuPushDialogTask_8c0170c6(int dialog_index, int *p2)
 
     task->field_0x18 = p2;
     state->state_0x00 = 0;
-    state->dialog_0x04 = init_dialogSequences_8c044c08[dialog_index];
-    var_dialogSequenceIsActive_8c225fb4 = 1;
+    state->dialog_0x04 = init_instructorDialogs_8c044c08[dialog_index];
+    var_instructorDialogActive_8c225fb4 = 1;
 }
 
 STATIC void swapDialogMessageBox_8c017108(int sequence)
 {
-    var_menuTextboxCharLimit_8c225fb8 = swapMessageBoxFor_8c02aefc(
-        init_dialogSequences_8c044c08[sequence]->text_0x00
+    var_menuTextboxCharLimit_8c225fb8 = ObjectsSwapMessageBoxFor_8c02aefc(
+        init_instructorDialogs_8c044c08[sequence]->text_0x00
     );
 }
 
@@ -470,7 +470,7 @@ STATIC void handleCourseMenuInput_8c017126()
             .unlocked_0x04 == 0
         ) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
-            swapDialogMessageBox_8c017108(SEQ_COURSE_LOCKED);
+            swapDialogMessageBox_8c017108(INSTR_COURSE_LOCKED);
         } else {
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);
@@ -635,41 +635,41 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
 
     // Default choose course
     if (var_8c1bb8b8 == 0) {
-        var_dialogQueue_8c225fbc[cur++] = SEQ_STORY_CHOOSE_COURSE;
+        var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_CHOOSE_COURSE;
         var_dialogQueue_8c225fbc[cur]   = -1;
         return;
     }
 
     // On the first day, show the intro briefing
     if (var_progress_8c1ba1cc.days_0x00 == 1) {
-        var_dialogQueue_8c225fbc[cur++] = SEQ_STORY_INTRO;
-        var_dialogQueue_8c225fbc[cur++] = SEQ_STORY_CHOOSE_COURSE;
+        var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_INTRO;
+        var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_CHOOSE_COURSE;
         var_dialogQueue_8c225fbc[cur]   = -1;
         return;
     }
 
     // Special Success
     if (var_8c1bb8bc != 0) {
-        var_dialogQueue_8c225fbc[cur++] = SEQ_GOOD_PRACTICE;
-        var_dialogQueue_8c225fbc[cur++] = SEQ_STORY_CHOOSE_COURSE;
+        var_dialogQueue_8c225fbc[cur++] = INSTR_GOOD_PRACTICE;
+        var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_CHOOSE_COURSE;
         var_dialogQueue_8c225fbc[cur]   = -1;
         return;
     }
 
     // Result
     if (var_runSucceeded_8c1bb8dc == 0) {
-        var_dialogQueue_8c225fbc[cur++] = SEQ_FAILURE_RETRY;
+        var_dialogQueue_8c225fbc[cur++] = INSTR_FAILURE_RETRY;
     } else {
-        int award_seq = SEQ_SUCCESS;
-        if      (var_award_8c1bb8f8 == 1) award_seq = SEQ_AWARD_BADGE_BRONZE;
-        else if (var_award_8c1bb8f8 == 2) award_seq = SEQ_AWARD_BADGE_SILVER;
-        else if (var_award_8c1bb8f8 == 3) award_seq = SEQ_AWARD_BADGE_GOLD;
+        int award_seq = INSTR_SUCCESS;
+        if      (var_award_8c1bb8f8 == 1) award_seq = INSTR_AWARD_BADGE_BRONZE;
+        else if (var_award_8c1bb8f8 == 2) award_seq = INSTR_AWARD_BADGE_SILVER;
+        else if (var_award_8c1bb8f8 == 3) award_seq = INSTR_AWARD_BADGE_GOLD;
         var_dialogQueue_8c225fbc[cur++] = award_seq;
     }
 
     // Course unlocked
     if (CourseMenuBuildCourseUnlockList_8c0172dc() != 0) {
-        var_dialogQueue_8c225fbc[cur++] = SEQ_COURSE_UNLOCKED;
+        var_dialogQueue_8c225fbc[cur++] = INSTR_COURSE_UNLOCKED;
     }
 
     // Passenger letter received
@@ -677,11 +677,11 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
         int r = AsqGetRandomInRangeB_8c0121be(6);
         if (var_progress_8c1ba1cc.letters_0x2c[r] == 0) {
             var_progress_8c1ba1cc.letters_0x2c[r] = 1;
-            var_dialogQueue_8c225fbc[cur++] = SEQ_PASSENGER_LETTER;
+            var_dialogQueue_8c225fbc[cur++] = INSTR_PASSENGER_LETTER;
         }
     }
 
-    var_dialogQueue_8c225fbc[cur++] = SEQ_STORY_CHOOSE_COURSE;
+    var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_CHOOSE_COURSE;
 
     var_dialogQueue_8c225fbc[cur] = -1;
 }
@@ -760,9 +760,9 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
 
         case COURSE_MENU_STATE_DIALOG: {
             // Dialog still running
-            if (var_dialogSequenceIsActive_8c225fb4) break;
+            if (var_instructorDialogActive_8c225fb4) break;
 
-            if (var_dialogQueue_8c225fbc[task->field_0x08] == SEQ_COURSE_UNLOCKED) {
+            if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
                 int row;
                 CourseMenuApplyUnlocks_8c0173e6();
                 for (row = 0; row < 3; row++) {
@@ -777,18 +777,18 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, 0x16, 0);
             }
 
-            // TODO: Rename to dialogSequenceIndex
+            // TODO: Rename to instructorDialogIndex
             task->field_0x08++;
 
-            // If we finished the last dialog sequence
+            // If we finished the last dialog
             if (var_dialogQueue_8c225fbc[task->field_0x08] == -1) {
                 CHANGE_STATE(COURSE_MENU_STATE_IDLE);
-                swapMessageBoxFor_8c02aefc("");
+                ObjectsSwapMessageBoxFor_8c02aefc("");
             }
-            // Otherwise, start the next dialog sequence
+            // Otherwise, start the next dialog
             else {
                 CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
-                if (var_dialogQueue_8c225fbc[task->field_0x08] == SEQ_COURSE_UNLOCKED) {
+                if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
                     SndMidiResetFxAndPlay_8c010846(0, 0);
                 }
             }
@@ -867,7 +867,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00, 0x2b, 0.0, 0.0, -4.0
     );
-    if (menuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
+    if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -5.0
         );
@@ -913,9 +913,9 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
 
         case COURSE_MENU_STATE_DIALOG: {
             // Dialog still running
-            if (var_dialogSequenceIsActive_8c225fb4) break;
+            if (var_instructorDialogActive_8c225fb4) break;
 
-            if (var_dialogQueue_8c225fbc[task->field_0x08] == SEQ_COURSE_UNLOCKED) {
+            if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
                 int row;
                 CourseMenuApplyUnlocks_8c0173e6();
                 for (row = 0; row < 3; row++) {
@@ -930,18 +930,18 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, 0x16, 0);
             }
 
-            // TODO: Rename to dialogSequenceIndex
+            // TODO: Rename to instructorDialogIndex
             task->field_0x08++;
 
-            // If we finished the last dialog sequence
+            // If we finished the last dialog
             if (var_dialogQueue_8c225fbc[task->field_0x08] == -1) {
                 CHANGE_STATE(COURSE_MENU_STATE_IDLE);
-                swapMessageBoxFor_8c02aefc("");
+                ObjectsSwapMessageBoxFor_8c02aefc("");
             }
-            // Otherwise, start the next dialog sequence
+            // Otherwise, start the next dialog
             else {
                 CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
-                if (var_dialogQueue_8c225fbc[task->field_0x08] == SEQ_COURSE_UNLOCKED) {
+                if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
                     SndMidiResetFxAndPlay_8c010846(0, 0);
                 }
             }
@@ -1020,7 +1020,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
     // TxtDrawSprite_8c014f54(
     //     &var_menuState_8c1bc7a8.resourceGroupA_0x00, 0x2b, 0.0, 0.0, -4.0
     // );
-    if (menuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
+    if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -5.0
         );
@@ -1046,10 +1046,10 @@ STATIC void buildFreeRunMenuDialogFlow_8c017a20(void)
     int idx = 0;
 
     if (var_shouldShowFreeRunIntro_8c1bb8c0) {
-        var_dialogQueue_8c225fbc[idx++] = SEQ_FREE_RUN_INTRO_2;
+        var_dialogQueue_8c225fbc[idx++] = INSTR_FREE_RUN_INTRO_2;
     }
 
-    var_dialogQueue_8c225fbc[idx++] = SEQ_FREE_RUN_CHOOSE_COURSE;
+    var_dialogQueue_8c225fbc[idx++] = INSTR_FREE_RUN_CHOOSE_COURSE;
     var_dialogQueue_8c225fbc[idx]   = -1;
 
     var_shouldShowFreeRunIntro_8c1bb8c0 = 0;
@@ -1103,9 +1103,9 @@ void CourseMenuSwitchFromTask_8c017e18(Task *task)
 
     // Get instructor sprite from the first dialog entry
     var_menuState_8c1bc7a8.instructorSprite_0x60 =
-        init_dialogSequences_8c044c08[
+        init_instructorDialogs_8c044c08[
             var_dialogQueue_8c225fbc[0]
-        ]->instructorSpriteNo_0x04;
+        ]->spriteNo_0x04;
     task->field_0x08 = 0;
     var_menuTextboxCharLimit_8c225fb8 = 0;
     var_playMode_8c1bb8d0 = 0;
@@ -1172,17 +1172,17 @@ void CourseMenuReturn_8c017ef2(void)
     }
 
     var_menuState_8c1bc7a8.instructorSprite_0x60 =
-        init_dialogSequences_8c044c08[
+        init_instructorDialogs_8c044c08[
             var_dialogQueue_8c225fbc[0]
-        ]->instructorSpriteNo_0x04;
+        ]->spriteNo_0x04;
 
     createdTask->field_0x08 = 0;
 
     var_menuTextboxCharLimit_8c225fb8 = 0;
 
     njGarbageTexture(var_tex_8c157af8, 0xc00);
-    FUN_8c02ae3e(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
-    swapMessageBoxFor_8c02aefc("");
+    ObjectsOpenTextbox_8c02ae3e(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
+    ObjectsSwapMessageBoxFor_8c02aefc("");
     var_playMode_8c1bb8d0 = 0;
 
     FUN_8c017d54();
@@ -1613,7 +1613,7 @@ STATIC CourseMenuButton init_courseMenuButtons_8c04442c[15] = {
     },
 };
 
-STATIC MenuDialog init_seqStoryIntro_8c0445d0[] = {
+STATIC InstructorLine init_seqStoryIntro_8c0445d0[] = {
     { MSG_SEQ_STORY_INTRO_01, 1 },
     { MSG_SEQ_STORY_INTRO_02, 0 },
     { MSG_SEQ_STORY_INTRO_03, 0 },
@@ -1626,7 +1626,7 @@ STATIC MenuDialog init_seqStoryIntro_8c0445d0[] = {
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqSuccessPerfect_8c044620[] = {
+STATIC InstructorLine init_seqSuccessPerfect_8c044620[] = {
     { MSG_SEQ_SUCCESS_PERFECT_01, 0 },
     { MSG_SEQ_SUCCESS_PERFECT_02, 0 },
     { MSG_SEQ_SUCCESS_PERFECT_03, 2 },
@@ -1635,7 +1635,7 @@ STATIC MenuDialog init_seqSuccessPerfect_8c044620[] = {
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqSuccessHigh_8c044650[] = {
+STATIC InstructorLine init_seqSuccessHigh_8c044650[] = {
     { MSG_SEQ_SUCCESS_HIGH_01, 0 },
     { MSG_SEQ_SUCCESS_HIGH_02, 0 },
     { MSG_SEQ_SUCCESS_HIGH_03, 0 },
@@ -1644,7 +1644,7 @@ STATIC MenuDialog init_seqSuccessHigh_8c044650[] = {
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqSuccessNormal_8c044680[] = {
+STATIC InstructorLine init_seqSuccessNormal_8c044680[] = {
     { MSG_SEQ_SUCCESS_HIGH_01, 0 },
     { MSG_SEQ_SUCCESS_NORMAL_02, 0 },
     { MSG_SEQ_SUCCESS_NORMAL_03, 0 },
@@ -1654,7 +1654,7 @@ STATIC MenuDialog init_seqSuccessNormal_8c044680[] = {
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqFailureFinal_8c0446b8[] = {
+STATIC InstructorLine init_seqFailureFinal_8c0446b8[] = {
     { MSG_SEQ_FAILURE_FINAL_01, 0 },
     { MSG_SEQ_FAILURE_FINAL_02, 1 },
     { MSG_SEQ_FAILURE_FINAL_03, 1 },
@@ -1662,93 +1662,93 @@ STATIC MenuDialog init_seqFailureFinal_8c0446b8[] = {
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqFreeRunIntro_8c0446e0[] = {
+STATIC InstructorLine init_seqFreeRunIntro_8c0446e0[] = {
     { MSG_SEQ_FREE_RUN_INTRO_01, 0 },
     { MSG_SEQ_FREE_RUN_INTRO_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqStoryChooseCourse_8c0446f8[] = {
+STATIC InstructorLine init_seqStoryChooseCourse_8c0446f8[] = {
     { MSG_SEQ_STORY_CHOOSE_COURSE_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqGoodPractice_8c044708[] = {
+STATIC InstructorLine init_seqGoodPractice_8c044708[] = {
     { MSG_SEQ_GOOD_PRACTICE_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqSuccess_8c044718[] = {
+STATIC InstructorLine init_seqSuccess_8c044718[] = {
     { MSG_SEQ_SUCCESS_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqAwardBadgeGold_8c044728[] = {
+STATIC InstructorLine init_seqAwardBadgeGold_8c044728[] = {
     { MSG_SEQ_AWARD_BADGE_GOLD_01, 0 },
     { MSG_SEQ_AWARD_BADGE_GOLD_02, 0 },
     { MSG_SEQ_AWARD_BADGE_GOLD_03, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqAwardBadgeSilver_8c044748[] = {
+STATIC InstructorLine init_seqAwardBadgeSilver_8c044748[] = {
     { MSG_SEQ_AWARD_BADGE_SILVER_01, 1 },
     { MSG_SEQ_AWARD_BADGE_SILVER_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqAwardBadgeBronze_8c044760[] = {
+STATIC InstructorLine init_seqAwardBadgeBronze_8c044760[] = {
     { MSG_SEQ_AWARD_BADGE_BRONZE_01, 1 },
     { MSG_SEQ_AWARD_BADGE_BRONZE_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqFailureRetry_8c044778[] = {
+STATIC InstructorLine init_seqFailureRetry_8c044778[] = {
     { MSG_SEQ_FAILURE_RETRY_01, 0 },
     { MSG_SEQ_FAILURE_RETRY_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCourseUnlocked_8c044790[] = {
+STATIC InstructorLine init_seqCourseUnlocked_8c044790[] = {
     { MSG_SEQ_COURSE_UNLOCKED_01, 0 },
     { MSG_SEQ_COURSE_UNLOCKED_02, 0 },
     { MSG_SEQ_COURSE_UNLOCKED_03, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqPassengerLetter_8c0447b0[] = {
+STATIC InstructorLine init_seqPassengerLetter_8c0447b0[] = {
     { MSG_SEQ_PASSENGER_LETTER_01, 0 },
     { MSG_SEQ_PASSENGER_LETTER_02, 0 },
     { MSG_SEQ_PASSENGER_LETTER_03, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCourseLocked_8c0447d0[] = {
+STATIC InstructorLine init_seqCourseLocked_8c0447d0[] = {
     { MSG_SEQ_COURSE_LOCKED_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqForcePractice_8c0447e0[] = {
+STATIC InstructorLine init_seqForcePractice_8c0447e0[] = {
     { MSG_SEQ_FORCE_PRACTICE_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqFinalDay_8c0447f0[] = {
+STATIC InstructorLine init_seqFinalDay_8c0447f0[] = {
     { MSG_SEQ_FINAL_DAY_01, 0 },
     { MSG_SEQ_FINAL_DAY_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonIntro_8c044808[] = {
+STATIC InstructorLine init_seqLessonIntro_8c044808[] = {
     { MSG_SEQ_LESSON_INTRO_01, 0 },
 };
 
 // Unused?
-STATIC MenuDialog init_8c044810[] = {
+STATIC InstructorLine init_8c044810[] = {
     { MSG_INIT_8C044810_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonComplete_8c044820[] = {
+STATIC InstructorLine init_seqLessonComplete_8c044820[] = {
     { MSG_SEQ_LESSON_COMPLETE_01, 0 },
     { MSG_SEQ_LESSON_COMPLETE_02, 0 },
     { MSG_SEQ_LESSON_COMPLETE_03, 0 },
@@ -1756,265 +1756,265 @@ STATIC MenuDialog init_seqLessonComplete_8c044820[] = {
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonNext_8c044848[] = {
+STATIC InstructorLine init_seqLessonNext_8c044848[] = {
     { MSG_SEQ_LESSON_NEXT_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonRetry_8c044858[] = {
+STATIC InstructorLine init_seqLessonRetry_8c044858[] = {
     { MSG_SEQ_LESSON_RETRY_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonTips_8c044868[] = {
+STATIC InstructorLine init_seqLessonTips_8c044868[] = {
     { MSG_SEQ_LESSON_TIPS_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonWarning_8c044878[] = {
+STATIC InstructorLine init_seqLessonWarning_8c044878[] = {
     { MSG_SEQ_LESSON_WARNING_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonChoose_8c044888[] = {
+STATIC InstructorLine init_seqLessonChoose_8c044888[] = {
     { MSG_SEQ_LESSON_CHOOSE_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqScoreRecord_8c044898[] = {
+STATIC InstructorLine init_seqScoreRecord_8c044898[] = {
     { MSG_SEQ_SCORE_RECORD_01, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonFinalDay_8c0448a8[] = {
+STATIC InstructorLine init_seqLessonFinalDay_8c0448a8[] = {
     { MSG_SEQ_LESSON_FINAL_DAY_01, 0 },
     { MSG_SEQ_LESSON_FINAL_DAY_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonPerfect_8c0448c0[] = {
+STATIC InstructorLine init_seqLessonPerfect_8c0448c0[] = {
     { MSG_SEQ_LESSON_PERFECT_01, 0 },
     { MSG_SEQ_LESSON_PERFECT_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonGood_8c0448d8[] = {
+STATIC InstructorLine init_seqLessonGood_8c0448d8[] = {
     { MSG_SEQ_LESSON_GOOD_01, 0 },
     { MSG_SEQ_LESSON_GOOD_02, 0 },
     { MSG_SEQ_LESSON_GOOD_03, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonPass_8c0448f8[] = {
+STATIC InstructorLine init_seqLessonPass_8c0448f8[] = {
     { MSG_SEQ_LESSON_PASS_01, 0 },
     { MSG_SEQ_LESSON_PASS_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonFailMinor_8c044910[] = {
+STATIC InstructorLine init_seqLessonFailMinor_8c044910[] = {
     { MSG_SEQ_LESSON_FAIL_MINOR_01, 1 },
     { MSG_SEQ_LESSON_FAIL_MINOR_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLessonFailMajor_8c044928[] = {
+STATIC InstructorLine init_seqLessonFailMajor_8c044928[] = {
     { MSG_SEQ_LESSON_FAIL_MAJOR_01, 1 },
     { MSG_SEQ_LESSON_FAIL_MAJOR_02, 1 },
     { MSG_SEQ_LESSON_FAIL_MAJOR_03, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCollisionCarMinor_8c044948[] = {
+STATIC InstructorLine init_seqCollisionCarMinor_8c044948[] = {
     { MSG_SEQ_COLLISION_CAR_MINOR_01, 1 },
     { MSG_SEQ_COLLISION_CAR_MINOR_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCollisionCarMedium_8c044960[] = {
+STATIC InstructorLine init_seqCollisionCarMedium_8c044960[] = {
     { MSG_SEQ_COLLISION_CAR_MEDIUM_01, 1 },
     { MSG_SEQ_COLLISION_CAR_MEDIUM_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCollisionCarSevere_8c044978[] = {
+STATIC InstructorLine init_seqCollisionCarSevere_8c044978[] = {
     { MSG_SEQ_COLLISION_CAR_SEVERE_01, 1 },
     { MSG_SEQ_COLLISION_CAR_MEDIUM_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCollisionCarFatal_8c044990[] = {
+STATIC InstructorLine init_seqCollisionCarFatal_8c044990[] = {
     { MSG_SEQ_COLLISION_CAR_FATAL_01, 1 },
     { MSG_SEQ_COLLISION_CAR_FATAL_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCollisionWallMinor_8c0449a8[] = {
+STATIC InstructorLine init_seqCollisionWallMinor_8c0449a8[] = {
     { MSG_SEQ_COLLISION_WALL_MINOR_01, 1 },
     { MSG_SEQ_COLLISION_CAR_MEDIUM_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCollisionWallMedium_8c0449c0[] = {
+STATIC InstructorLine init_seqCollisionWallMedium_8c0449c0[] = {
     { MSG_SEQ_COLLISION_WALL_MEDIUM_01, 1 },
     { MSG_SEQ_COLLISION_CAR_MEDIUM_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqCollisionWallSevere_8c0449d8[] = {
+STATIC InstructorLine init_seqCollisionWallSevere_8c0449d8[] = {
     { MSG_SEQ_COLLISION_WALL_SEVERE_01, 1 },
     { MSG_SEQ_COLLISION_CAR_FATAL_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqNearMissPedestrian_8c0449f0[] = {
+STATIC InstructorLine init_seqNearMissPedestrian_8c0449f0[] = {
     { MSG_SEQ_NEAR_MISS_PEDESTRIAN_01, 1 },
     { MSG_SEQ_NEAR_MISS_PEDESTRIAN_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqOffCourseMinor_8c044a08[] = {
+STATIC InstructorLine init_seqOffCourseMinor_8c044a08[] = {
     { MSG_SEQ_OFF_COURSE_MINOR_01, 1 },
     { MSG_SEQ_OFF_COURSE_MINOR_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqOffCourseMedium_8c044a20[] = {
+STATIC InstructorLine init_seqOffCourseMedium_8c044a20[] = {
     { MSG_SEQ_OFF_COURSE_MINOR_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqOffCourseMajor_8c044a30[] = {
+STATIC InstructorLine init_seqOffCourseMajor_8c044a30[] = {
     { MSG_SEQ_OFF_COURSE_MINOR_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqSpeedingMinor_8c044a40[] = {
+STATIC InstructorLine init_seqSpeedingMinor_8c044a40[] = {
     { MSG_SEQ_SPEEDING_MINOR_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqSpeedingMajor_8c044a50[] = {
+STATIC InstructorLine init_seqSpeedingMajor_8c044a50[] = {
     { MSG_SEQ_SPEEDING_MAJOR_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqWrongLane_8c044a60[] = {
+STATIC InstructorLine init_seqWrongLane_8c044a60[] = {
     { MSG_SEQ_WRONG_LANE_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqLaneStraddle_8c044a70[] = {
+STATIC InstructorLine init_seqLaneStraddle_8c044a70[] = {
     { MSG_SEQ_LANE_STRADDLE_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqNoSignal_8c044a80[] = {
+STATIC InstructorLine init_seqNoSignal_8c044a80[] = {
     { MSG_SEQ_NO_SIGNAL_01, 1 },
     { MSG_SEQ_NO_SIGNAL_02, 1 },
     { MSG_SEQ_NO_SIGNAL_03, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqNoSignalTurn_8c044aa0[] = {
+STATIC InstructorLine init_seqNoSignalTurn_8c044aa0[] = {
     { MSG_SEQ_NO_SIGNAL_TURN_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqUkn49_8c044ab0[] = {
+STATIC InstructorLine init_seqUkn49_8c044ab0[] = {
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqSignalViolation_8c044ab8[] = {
+STATIC InstructorLine init_seqSignalViolation_8c044ab8[] = {
     { MSG_SEQ_SIGNAL_VIOLATION_01, 1 },
     { MSG_SEQ_SIGNAL_VIOLATION_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqBadStopLine_8c044ad0[] = {
+STATIC InstructorLine init_seqBadStopLine_8c044ad0[] = {
     { MSG_SEQ_BAD_STOP_LINE_01, 1 },
     { MSG_SEQ_BAD_STOP_LINE_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqIllegalLaneChange_8c044ae8[] = {
+STATIC InstructorLine init_seqIllegalLaneChange_8c044ae8[] = {
     { MSG_SEQ_ILLEGAL_LANE_CHANGE_01, 1 },
     { MSG_SEQ_ILLEGAL_LANE_CHANGE_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqBlockIntersection_8c044b00[] = {
+STATIC InstructorLine init_seqBlockIntersection_8c044b00[] = {
     { MSG_SEQ_BLOCK_INTERSECTION_01, 1 },
     { MSG_SEQ_BLOCK_INTERSECTION_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqWrongWay_8c044b18[] = {
+STATIC InstructorLine init_seqWrongWay_8c044b18[] = {
     { MSG_SEQ_WRONG_WAY_01, 1 },
     { MSG_SEQ_WRONG_WAY_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqRapidAccel_8c044b30[] = {
+STATIC InstructorLine init_seqRapidAccel_8c044b30[] = {
     { MSG_SEQ_RAPID_ACCEL_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqHardBrake_8c044b40[] = {
+STATIC InstructorLine init_seqHardBrake_8c044b40[] = {
     { MSG_SEQ_HARD_BRAKE_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqSwerving_8c044b50[] = {
+STATIC InstructorLine init_seqSwerving_8c044b50[] = {
     { MSG_SEQ_SWERVING_01, 1 },
     { MSG_SEQ_SWERVING_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqMissedStop_8c044b68[] = {
+STATIC InstructorLine init_seqMissedStop_8c044b68[] = {
     { MSG_SEQ_MISSED_STOP_01, 1 },
     { MSG_SEQ_MISSED_STOP_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqBadStopPosition1_8c044b80[] = {
+STATIC InstructorLine init_seqBadStopPosition1_8c044b80[] = {
     { MSG_SEQ_BAD_STOP_POSITION1_01, 1 },
     { MSG_SEQ_BAD_STOP_POSITION1_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqBadStopPosition2_8c044b98[] = {
+STATIC InstructorLine init_seqBadStopPosition2_8c044b98[] = {
     { MSG_SEQ_BAD_STOP_POSITION1_01, 1 },
     { MSG_SEQ_BAD_STOP_POSITION1_02, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqTimeManagement_8c044bb0[] = {
+STATIC InstructorLine init_seqTimeManagement_8c044bb0[] = {
     { MSG_SEQ_TIME_MANAGEMENT_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqAnnouncement_8c044bc0[] = {
+STATIC InstructorLine init_seqAnnouncement_8c044bc0[] = {
     { MSG_SEQ_ANNOUNCEMENT_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqDoorOperation_8c044bd0[] = {
+STATIC InstructorLine init_seqDoorOperation_8c044bd0[] = {
     { MSG_SEQ_DOOR_OPERATION_01, 1 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqFreeRunIntro2_8c044be0[] = {
+STATIC InstructorLine init_seqFreeRunIntro2_8c044be0[] = {
     { MSG_SEQ_FREE_RUN_INTRO2_01, 0 },
     { MSG_SEQ_FREE_RUN_INTRO2_02, 0 },
     { "", 0 },
 };
 
-STATIC MenuDialog init_seqFreeRunChooseCourse_8c044bf8[] = {
+STATIC InstructorLine init_seqFreeRunChooseCourse_8c044bf8[] = {
     { MSG_SEQ_FREE_RUN_CHOOSE_COURSE_01, 0 },
     { "", 0 },
 };
 
-MenuDialog *init_dialogSequences_8c044c08[] = {
+InstructorLine *init_instructorDialogs_8c044c08[] = {
     init_seqStoryIntro_8c0445d0,
     init_seqSuccessPerfect_8c044620,
     init_seqSuccessHigh_8c044650,

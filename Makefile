@@ -96,7 +96,7 @@ SRCS = \
 	src/asm/026710.src \
 	src/asm/02786c.src \
 	src/asm/027958.src \
-	src/asm/028258.src \
+	src/028258_objects.c \
 	src/02af78_event.c \
 	src/asm/02b2f0.src \
 	src/asm/02b464.src \

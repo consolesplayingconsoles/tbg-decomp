@@ -18,7 +18,7 @@ return new class extends TestCase {
             -5.0,
         );
 
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
     }
 
     public function test_also_draws_textbox_sprite_when_textbox_has_text(): void
@@ -36,7 +36,7 @@ return new class extends TestCase {
             -5.0,
         );
 
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8'),

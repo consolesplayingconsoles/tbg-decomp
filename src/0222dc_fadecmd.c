@@ -28,11 +28,11 @@ void FUN_8c0222dc(void)
     var_8c22654c[1] = var_sceneParams_8c18ad24->rec1_0x54[3];
     var_8c22654c[2] = var_sceneParams_8c18ad24->rec1_0x54[4];
 
-    var_8c2264f0[0] = var_sceneParams_8c18ad24->rec2_0x74[0];
-    var_8c2264f0[1] = var_sceneParams_8c18ad24->rec2_0x74[1];
-    var_8c2264f8[0] = var_sceneParams_8c18ad24->rec2_0x74[2];
-    var_8c2264f8[1] = var_sceneParams_8c18ad24->rec2_0x74[3];
-    var_8c2264f8[2] = var_sceneParams_8c18ad24->rec2_0x74[4];
+    var_fadeLightIntensity_8c2264f0[0] = var_sceneParams_8c18ad24->rec2_0x74[0];
+    var_fadeLightIntensity_8c2264f0[1] = var_sceneParams_8c18ad24->rec2_0x74[1];
+    var_fadeLightColor_8c2264f8[0] = var_sceneParams_8c18ad24->rec2_0x74[2];
+    var_fadeLightColor_8c2264f8[1] = var_sceneParams_8c18ad24->rec2_0x74[3];
+    var_fadeLightColor_8c2264f8[2] = var_sceneParams_8c18ad24->rec2_0x74[4];
 }
 
 void FUN_8c02239c(void)

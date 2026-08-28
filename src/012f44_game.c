@@ -8,6 +8,7 @@
 #include "016bf4_demo_input.h"
 #include "0129cc_pause.h"
 #include "01614c_debug_menu.h"
+#include "028258_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "sectionD.h"
 #include "sectionB.h"
 #include "includes.h"
@@ -185,19 +186,19 @@ void FUN_8c01306e(void)
     }
 
     var_pauseActive_8c1bb8cc = 0;
-    var_8c22847c = 0;
+    var_messageBoxActive_8c22847c = 0;
 
     FUN_8c023610();
-    FUN_8c02845a();
+    ObjectsInitTrafficSignals_8c02845a();
 
     if (var_playMode_8c1bb8d0 != 2) {
-        FUN_8c029920();
+        ObjectsInitBlinkers_8c029920();
     }
 
-    FUN_8c0296d6();
+    ObjectsInitPedestrianGroups_8c0296d6();
     FUN_8c02769e();
     FUN_8c0222dc();
-    FUN_8c02a6ac();
+    ObjectsPushTasks_8c02a6ac();
     FUN_8c02c46a();
     FUN_8c02018c();
     FUN_8c02d968();
@@ -366,7 +367,7 @@ void GameInit_8c0134ec() {
     TaskClear_8c014a9c(var_tasks_8c1bac28, 0x40);
     TaskClear_8c014a9c(var_tasks_8c1bb448, 0x20);
 
-    var_8c1bb86c = (void *) -1;
+    var_groundGridFallback_8c1bb86c = (void *) -1;
 
     RouteLoadClearModelSlots_8c013bbc(var_routeModelSlots_8c1bbddc, 0x20);
     RouteLoadClearModelSlots_8c013bbc(var_pedestrianAssets_8c1bbfdc, 0x41);
@@ -376,15 +377,15 @@ void GameInit_8c0134ec() {
     var_trafficModels_8c1bc3f4 = (LoadedModel *) -1;
 
     TileStreamClearUnknownVar_8c02171c();
-    clearUnknownVar_8c029acc();
-    clearUnknownVars_8c02aa28();
+    ObjectsClearAssetRequestTable_8c029acc();
+    ObjectsClearMessageAssets_8c02aa28();
 
-    var_8c1bc404 = (void *) -1;
+    var_messageTextBoxA_8c1bc404 = (void *) -1;
     var_8c226434 = (void *) -1;
     var_8c226438 = (void *) -1;
-    var_8c228234 = (void *) -1;
-    var_8c227e20 = (void *) -1;
-    var_8c227e24 = (void *) -1;
+    var_pedGroupCount_8c228234 = -1;
+    var_trafficSignalTasks_8c227e20 = (void *) -1;
+    var_trafficSignalFrames_8c227e24 = (void *) -1;
     var_8c2288f8 = (void *) -1;
     var_interiorTexlist_8c1bc438 = (NJS_TEXLIST *) -1;
     var_menuState_8c1bc7a8.resourceGroupA_0x00.tlist_0x00 = (void*) -1;

@@ -3,7 +3,7 @@
           .IMPORT     _var_8c2288d8
           .IMPORT     __quick_odd_mvn
           .IMPORT     _njDrawSprite3D
-          .IMPORT     _var_8c227db8
+          .IMPORT     _var_busSimpleLightDir_8c227db8
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _var_interiorTexlist_8c1bc438
           .IMPORT     _njSetTexture
@@ -36,8 +36,8 @@
           .IMPORT     _var_cutsceneActive_8c1bb900
           .IMPORT     _var_fadeRequest_8c226564
           .IMPORT     _var_fadeArrivalGate_8c226560
-          .IMPORT     _FUN_8c02ad8c
-          .IMPORT     _var_8c22847c
+          .IMPORT     _ObjectsStartMessageBox_8c02ad8c
+          .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _RouteLoadIsPvmReady_8c01432a
           .IMPORT     _FUN_8c02ca96
           .IMPORT     _njReleaseTexture
@@ -373,7 +373,7 @@ LP_GEN_53841:
           .DATA.L _var_8c2288d8 ; H'8C02D3D0
           .DATA.L __quick_odd_mvn ; H'8C02D3D4
           .DATA.L _njDrawSprite3D ; H'8C02D3D8
-          .DATA.L _var_8c227db8 ; H'8C02D3DC
+          .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C02D3DC
           .DATA.L _njCnkSetSimpleLight ; H'8C02D3E0
           .DATA.L _var_interiorTexlist_8c1bc438 ; H'8C02D3E4
           .DATA.L _njSetTexture ; H'8C02D3E8
@@ -913,8 +913,8 @@ LP_GEN_70221:
           .DATA.L _var_cutsceneActive_8c1bb900 ; H'8C02D814
           .DATA.L _var_fadeRequest_8c226564 ; H'8C02D818
           .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C02D81C
-          .DATA.L _FUN_8c02ad8c ; H'8C02D820
-          .DATA.L _var_8c22847c ; H'8C02D824
+          .DATA.L _ObjectsStartMessageBox_8c02ad8c ; H'8C02D820
+          .DATA.L _var_messageBoxActive_8c22847c ; H'8C02D824
           .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C02D828
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02D82C
           .DATA.L _sdMidiPlay ; H'8C02D830

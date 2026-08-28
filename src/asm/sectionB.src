@@ -154,7 +154,7 @@
                                                   ; 023310
                                                   ; 026710
                                                   ; 028258
-          .EXPORT     _var_8c1bb86c ; 012f44_game
+          .EXPORT     _var_groundGridFallback_8c1bb86c ; 012f44_game
                                     ; 027958
                                     ; 028258
                                     ; 02c884
@@ -162,9 +162,9 @@
           .EXPORT     _var_8c1bb878 ; 025b98
           .EXPORT     _var_8c1bb880 ; 027958
           .EXPORT     _var_8c1bb888 ; 025b98
-          .EXPORT     _var_8c1bb890 ; 028258
+          .EXPORT     _var_groundGridPrimary_8c1bb890 ; 028258
           .EXPORT     _var_8c1bb894 ; 02c884
-          .EXPORT     _var_8c1bb8a0 ; 028258
+          .EXPORT     _var_trafficSignalDefs_8c1bb8a0 ; 028258
           .EXPORT     _var_8c1bb8a4 ; 02171c
           .EXPORT     _var_8c1bb8b8 ; 0129cc_pause
                                     ; 016d2c_course_menu
@@ -280,11 +280,11 @@
                                              ; 02d19c
                                              ; 02df3c
                                              ; 02f0c8
-          .EXPORT     _var_8c1bba54 ; 028258
+          .EXPORT     _var_busWorldMatrix_8c1bba54 ; 028258
                                     ; 02d968
                                     ; 02e2dc
           .EXPORT     _var_8c1bbac4 ; 025b98
-          .EXPORT     _var_8c1bbac8 ; 028258
+          .EXPORT     _var_groundHeightFallback_8c1bbac8 ; 028258
           .EXPORT     _var_8c1bbacc ; 025b98
                                     ; 02df3c
                                     ; 02f0c8
@@ -306,14 +306,14 @@
           .EXPORT     _var_8c1bbcb0 ; 0100bc_sound
           .EXPORT     _var_8c1bbcb4 ; 024280
           .EXPORT     _var_8c1bbcc4 ; 012504_input
-          .EXPORT     _var_8c1bbcd8 ; 028258
-          .EXPORT     _var_8c1bbce0 ; 028258
+          .EXPORT     _var_busCameraFocusX_8c1bbcd8 ; 028258
+          .EXPORT     _var_busCameraFocusZ_8c1bbce0 ; 028258
           .EXPORT     _var_8c1bbd1c ; 02b464
           .EXPORT     _var_8c1bbd38 ; 02b464
           .EXPORT     _var_8c1bbd54 ; 02b464
           .EXPORT     _var_8c1bbd70 ; 02e51c
           .EXPORT     _var_8c1bbd80 ; 025870
-          .EXPORT     _var_8c1bbd8c ; 026710
+          .EXPORT     _var_pendingDemoFlags_8c1bbd8c ; 026710
                                     ; 028258
           .EXPORT     _var_8c1bbd9c ; 022bdc
                                     ; 023310
@@ -361,12 +361,12 @@
                                                   ; 026710
           .EXPORT     _var_loadingResourceGroup_8c1bc3f8 ; 012f44_game
                                                          ; 013ae8_route_load
-          .EXPORT     _var_8c1bc404 ; 012f44_game
+          .EXPORT     _var_messageTextBoxA_8c1bc404 ; 012f44_game
                                     ; 01f3c0
                                     ; 028258
-          .EXPORT     _var_8c1bc408 ; 01f3c0
+          .EXPORT     _var_messageTextBoxB_8c1bc408 ; 01f3c0
                                     ; 028258
-          .EXPORT     _var_8c1bc40c ; 028258
+          .EXPORT     _var_messageTextBoxIndex_8c1bc40c ; 028258
           .EXPORT     _var_8c1bc410 ; 012f44_game
                                     ; 023310
                                     ; 024b4c
@@ -406,10 +406,10 @@
           .EXPORT     _var_vmGameBuf_8c1bc454 ; 012f44_game
                                     ; 01614c_debug_menu
                                     ; 01bb48
-          .EXPORT     _var_8c1bc458 ; 023938
+          .EXPORT     _var_crossingIntersectPoint_8c1bc458 ; 023938
                                     ; 028258
           .EXPORT     _var_8c1bc45c ; 023938
-          .EXPORT     _var_8c1bc460 ; 023938
+          .EXPORT     _var_groundQueryPoint_8c1bc460 ; 023938
                                     ; 024b4c
                                     ; 025b98
                                     ; 028258
@@ -458,7 +458,7 @@
                                                            ; 018644_file_menu
                                                            ; 01c980
                                                            ; 01e27c
-          .EXPORT     _var_dialogSequenceIsActive_8c225fb4 ; 016d2c_course_menu
+          .EXPORT     _var_instructorDialogActive_8c225fb4 ; 016d2c_course_menu
                                                            ; 01e27c
                                                            ; 01f3c0
           .EXPORT     _var_menuTextboxCharLimit_8c225fb8 ; 016d2c_course_menu
@@ -552,7 +552,7 @@
           .EXPORT     _var_8c2264c4 ; 02b464
                                     ; 02c884
           .EXPORT     _var_8c2264d0 ; 025b98
-          .EXPORT     _var_8c2264d4 ; 020914
+          .EXPORT     _var_activeGroundGrid_8c2264d4 ; 020914
                                     ; 020b6c
                                     ; 022bdc
                                     ; 023310
@@ -560,20 +560,20 @@
                                     ; 027958
                                     ; 028258
                                     ; 02c884
-          .EXPORT     _var_8c2264d8 ; 021b9c
+          .EXPORT     _var_fadeLightDir0_8c2264d8 ; 021b9c
                                     ; 028258
                                     ; 02d06c
-          .EXPORT     _var_8c2264e4 ; 021b9c
+          .EXPORT     _var_fadeLightDir1_8c2264e4 ; 021b9c
                                     ; 028258
           .EXPORT     _var_8c2264e8 ; 021b9c
           .EXPORT     _var_8c2264ec ; 021b9c
-          .EXPORT     _var_8c2264f0 ; 021b9c
+          .EXPORT     _var_fadeLightIntensity_8c2264f0 ; 021b9c
                                     ; 0222dc
                                     ; 028258
                                     ; 02d06c
           .EXPORT     _var_8c2264f4 ; 028258
                                     ; 02d06c
-          .EXPORT     _var_8c2264f8 ; 021b9c
+          .EXPORT     _var_fadeLightColor_8c2264f8 ; 021b9c
                                     ; 0222dc
                                     ; 028258
                                     ; 02d06c
@@ -661,7 +661,7 @@
                                     ; 024b4c
           .EXPORT     _var_8c227db4 ; 022bdc
                                     ; 023310
-          .EXPORT     _var_8c227db8 ; 024b4c
+          .EXPORT     _var_busSimpleLightDir_8c227db8 ; 024b4c
                                     ; 026710
                                     ; 028258
                                     ; 02d19c
@@ -690,52 +690,52 @@
                                                    ; 02c884
           .EXPORT     _var_8c227e18 ; 026710
           .EXPORT     _var_8c227e1c ; 026710
-          .EXPORT     _var_8c227e20 ; 012f44_game
+          .EXPORT     _var_trafficSignalTasks_8c227e20 ; 012f44_game
                                     ; 028258
-          .EXPORT     _var_8c227e24 ; 012f44_game
+          .EXPORT     _var_trafficSignalFrames_8c227e24 ; 012f44_game
                                     ; 026710
                                     ; 028258
-          .EXPORT     _var_8c227e28 ; 028258
-          .EXPORT     _var_8c227e2c ; 028258
-          .EXPORT     _var_8c22802c ; 028258
+          .EXPORT     _var_trafficSignalStates_8c227e28 ; 028258
+          .EXPORT     _var_pedCrossingFlags_8c227e2c ; 028258
+          .EXPORT     _var_crossingOccupiedFlags_8c22802c ; 028258
           .EXPORT     _var_demoEntryValue_8c22822c ; 014f54_text
                                                    ; 028258
                                                    ; 02c884
-          .EXPORT     _var_8c228230 ; 028258
-          .EXPORT     _var_8c228234 ; 012f44_game
+          .EXPORT     _var_pedGroups_8c228230 ; 028258
+          .EXPORT     _var_pedGroupCount_8c228234 ; 012f44_game
                                     ; 028258
-          .EXPORT     _var_8c228238 ; 028258
-          .EXPORT     _var_8c22823c ; 028258
-          .EXPORT     _var_8c228240 ; 028258
-          .EXPORT     _var_8c228244 ; 028258
-          .EXPORT     _var_8c228248 ; 028258
-          .EXPORT     _var_8c228268 ; 028258
-          .EXPORT     _var_8c228270 ; 028258
-          .EXPORT     _var_8c228278 ; 028258
-          .EXPORT     _var_8c228288 ; 028258
-          .EXPORT     _var_8c228408 ; 028258
-          .EXPORT     _var_8c22840c ; 028258
-          .EXPORT     _var_8c228410 ; 028258
-          .EXPORT     _var_8c228414 ; 028258
-          .EXPORT     _var_8c228418 ; 028258
-          .EXPORT     _var_8c22841c ; 028258
-          .EXPORT     _var_8c228420 ; 028258
-          .EXPORT     _var_8c228424 ; 028258
-          .EXPORT     _var_8c228428 ; 028258
-          .EXPORT     _var_8c22842c ; 028258
-          .EXPORT     _var_8c228430 ; 028258
-          .EXPORT     _var_8c228434 ; 028258
+          .EXPORT     _var_pedPaths_8c228238 ; 028258
+          .EXPORT     _var_pedGroupDefs_8c22823c ; 028258
+          .EXPORT     _var_pedGroupLists_8c228240 ; 028258
+          .EXPORT     _var_crosswalkTableEnd_8c228244 ; 028258
+          .EXPORT     _var_crosswalkTable_8c228248 ; 028258
+          .EXPORT     _var_stopLinePointA_8c228268 ; 028258
+          .EXPORT     _var_stopLinePointB_8c228270 ; 028258
+          .EXPORT     _var_routeBlinkerNodes_8c228278 ; 028258
+          .EXPORT     _var_assetRequestSlots_8c228288 ; 028258
+          .EXPORT     _var_assetRequestTable_8c228408 ; 028258
+          .EXPORT     _var_fumiGateModel_8c22840c ; 028258
+          .EXPORT     _var_fumiTexlist_8c228410 ; 028258
+          .EXPORT     _var_fumiCloseMotion_8c228414 ; 028258
+          .EXPORT     _var_fumiOpenMotion_8c228418 ; 028258
+          .EXPORT     _var_fumiLampModel_8c22841c ; 028258
+          .EXPORT     _var_fumiLampTexlist_8c228420 ; 028258
+          .EXPORT     _var_fumiTrainModel_8c228424 ; 028258
+          .EXPORT     _var_fumiTrainTexlist_8c228428 ; 028258
+          .EXPORT     _var_fumiTrainMotionA_8c22842c ; 028258
+          .EXPORT     _var_fumiTrainMotionB_8c228430 ; 028258
+          .EXPORT     _var_fumiLampNodes_8c228434 ; 028258
           .EXPORT     _var_selectedEventEntry_8c228478 ; 028258
                                                        ; 02af78_event
-          .EXPORT     _var_8c22847c ; 0129cc_pause
+          .EXPORT     _var_messageBoxActive_8c22847c ; 0129cc_pause
                                     ; 012f44_game
                                     ; 028258
                                     ; 02b464
                                     ; 02d19c
-          .EXPORT     _var_8c228480 ; 028258
-          .EXPORT     _var_8c228484 ; 028258
-          .EXPORT     _var_8c228514 ; 028258
-          .EXPORT     _var_8c228518 ; 028258
+          .EXPORT     _var_eventSlides_8c228480 ; 028258
+          .EXPORT     _var_messageAssets_8c228484 ; 028258
+          .EXPORT     _var_messageAssetCount_8c228514 ; 028258
+          .EXPORT     _var_messageTextDat_8c228518 ; 028258
           .EXPORT     _var_routeEvents_8c22851c ; 02af78_event
                                                 ; 02c884
           .EXPORT     _var_eventCandidates_8c228520 ; 02af78_event
@@ -765,7 +765,7 @@
                                     ; 02c884
           .EXPORT     _var_8c2285dc ; 02af78_event
                                     ; 02b464
-          .EXPORT     _var_8c2285e4 ; 020214
+          .EXPORT     _var_mirrorViewLevel_8c2285e4 ; 020214
                                     ; 028258
                                     ; 02b464
           .EXPORT     _var_8c2285fc ; 02b464
@@ -960,7 +960,7 @@ _var_tasks_8c1bb448:
           .RES.B      1056
 _var_currentCourse_8c1bb868:
           .RES.B      4
-_var_8c1bb86c:
+_var_groundGridFallback_8c1bb86c:
           .RES.B      4
 _var_8c1bb870:
           .RES.B      8
@@ -970,11 +970,11 @@ _var_8c1bb880:
           .RES.B      8
 _var_8c1bb888:
           .RES.B      8
-_var_8c1bb890:
+_var_groundGridPrimary_8c1bb890:
           .RES.B      4
 _var_8c1bb894:
           .RES.B      12
-_var_8c1bb8a0:
+_var_trafficSignalDefs_8c1bb8a0:
           .RES.B      4
 _var_8c1bb8a4:
           .RES.B      20
@@ -1024,11 +1024,11 @@ _var_8c1bb984:
           .RES.B      76
 _var_busState_8c1bb9d0:
           .RES.B      132
-_var_8c1bba54:
+_var_busWorldMatrix_8c1bba54:
           .RES.B      112
 _var_8c1bbac4:
           .RES.B      4
-_var_8c1bbac8:
+_var_groundHeightFallback_8c1bbac8:
           .RES.B      4
 _var_8c1bbacc:
           .RES.B      12
@@ -1056,9 +1056,9 @@ _var_8c1bbcb4:
           .RES.B      16
 _var_8c1bbcc4:
           .RES.B      20
-_var_8c1bbcd8:
+_var_busCameraFocusX_8c1bbcd8:
           .RES.B      8
-_var_8c1bbce0:
+_var_busCameraFocusZ_8c1bbce0:
           .RES.B      60
 _var_8c1bbd1c:
           .RES.B      28
@@ -1070,7 +1070,7 @@ _var_8c1bbd70:
           .RES.B      16
 _var_8c1bbd80:
           .RES.B      12
-_var_8c1bbd8c:
+_var_pendingDemoFlags_8c1bbd8c:
           .RES.B      16
 _var_8c1bbd9c:
           .RES.B      4
@@ -1106,11 +1106,11 @@ _var_trafficModels_8c1bc3f4:
           .RES.B      4
 _var_loadingResourceGroup_8c1bc3f8:
           .RES.B      12
-_var_8c1bc404:
+_var_messageTextBoxA_8c1bc404:
           .RES.B      4
-_var_8c1bc408:
+_var_messageTextBoxB_8c1bc408:
           .RES.B      4
-_var_8c1bc40c:
+_var_messageTextBoxIndex_8c1bc40c:
           .RES.B      4
 _var_8c1bc410:
           .RES.B      4
@@ -1148,11 +1148,11 @@ _var_8c1bc450:
           .RES.B      4
 _var_vmGameBuf_8c1bc454:
           .RES.B      4
-_var_8c1bc458:
+_var_crossingIntersectPoint_8c1bc458:
           .RES.B      4
 _var_8c1bc45c:
           .RES.B      4
-_var_8c1bc460:
+_var_groundQueryPoint_8c1bc460:
           .RES.B      12
 _var_8c1bc46c:
           .RES.B      64
@@ -1180,7 +1180,7 @@ _var_demoPrevOn_8c225fac:
           .RES.B      4
 _var_currentSysResGroupInfo_8c225fb0:
           .RES.B      4
-_var_dialogSequenceIsActive_8c225fb4:
+_var_instructorDialogActive_8c225fb4:
           .RES.B      4
 _var_menuTextboxCharLimit_8c225fb8:
           .RES.B      4
@@ -1290,21 +1290,21 @@ _var_8c2264c4:
           .RES.B      12
 _var_8c2264d0:
           .RES.B      4
-_var_8c2264d4:
+_var_activeGroundGrid_8c2264d4:
           .RES.B      4
-_var_8c2264d8:
+_var_fadeLightDir0_8c2264d8:
           .RES.B      12
-_var_8c2264e4:
+_var_fadeLightDir1_8c2264e4:
           .RES.B      4
 _var_8c2264e8:
           .RES.B      4
 _var_8c2264ec:
           .RES.B      4
-_var_8c2264f0:
+_var_fadeLightIntensity_8c2264f0:
           .RES.B      4
 _var_8c2264f4:
           .RES.B      4
-_var_8c2264f8:
+_var_fadeLightColor_8c2264f8:
           .RES.B      12
 _var_fogParam_8c226504:
           .RES.B      4
@@ -1366,7 +1366,7 @@ _var_8c227db0:
           .RES.B      4
 _var_8c227db4:
           .RES.B      4
-_var_8c227db8:
+_var_busSimpleLightDir_8c227db8:
           .RES.B      12
 _var_8c227dc4:
           .RES.B      12
@@ -1406,75 +1406,75 @@ _var_8c227e18:
           .RES.B      4
 _var_8c227e1c:
           .RES.B      4
-_var_8c227e20:
+_var_trafficSignalTasks_8c227e20:
           .RES.B      4
-_var_8c227e24:
+_var_trafficSignalFrames_8c227e24:
           .RES.B      4
-_var_8c227e28:
+_var_trafficSignalStates_8c227e28:
           .RES.B      4
-_var_8c227e2c:
+_var_pedCrossingFlags_8c227e2c:
           .RES.B      512
-_var_8c22802c:
+_var_crossingOccupiedFlags_8c22802c:
           .RES.B      512
 _var_demoEntryValue_8c22822c:
           .RES.B      4
-_var_8c228230:
+_var_pedGroups_8c228230:
           .RES.B      4
-_var_8c228234:
+_var_pedGroupCount_8c228234:
           .RES.B      4
-_var_8c228238:
+_var_pedPaths_8c228238:
           .RES.B      4
-_var_8c22823c:
+_var_pedGroupDefs_8c22823c:
           .RES.B      4
-_var_8c228240:
+_var_pedGroupLists_8c228240:
           .RES.B      4
-_var_8c228244:
+_var_crosswalkTableEnd_8c228244:
           .RES.B      4
-_var_8c228248:
+_var_crosswalkTable_8c228248:
           .RES.B      32
-_var_8c228268:
+_var_stopLinePointA_8c228268:
           .RES.B      8
-_var_8c228270:
+_var_stopLinePointB_8c228270:
           .RES.B      8
-_var_8c228278:
+_var_routeBlinkerNodes_8c228278:
           .RES.B      16
-_var_8c228288:
+_var_assetRequestSlots_8c228288:
           .RES.B      384
-_var_8c228408:
+_var_assetRequestTable_8c228408:
           .RES.B      4
-_var_8c22840c:
+_var_fumiGateModel_8c22840c:
           .RES.B      4
-_var_8c228410:
+_var_fumiTexlist_8c228410:
           .RES.B      4
-_var_8c228414:
+_var_fumiCloseMotion_8c228414:
           .RES.B      4
-_var_8c228418:
+_var_fumiOpenMotion_8c228418:
           .RES.B      4
-_var_8c22841c:
+_var_fumiLampModel_8c22841c:
           .RES.B      4
-_var_8c228420:
+_var_fumiLampTexlist_8c228420:
           .RES.B      4
-_var_8c228424:
+_var_fumiTrainModel_8c228424:
           .RES.B      4
-_var_8c228428:
+_var_fumiTrainTexlist_8c228428:
           .RES.B      4
-_var_8c22842c:
+_var_fumiTrainMotionA_8c22842c:
           .RES.B      4
-_var_8c228430:
+_var_fumiTrainMotionB_8c228430:
           .RES.B      4
-_var_8c228434:
+_var_fumiLampNodes_8c228434:
           .RES.B      68
 _var_selectedEventEntry_8c228478:
           .RES.B      4
-_var_8c22847c:
+_var_messageBoxActive_8c22847c:
           .RES.B      4
-_var_8c228480:
+_var_eventSlides_8c228480:
           .RES.B      4
-_var_8c228484:
+_var_messageAssets_8c228484:
           .RES.B      144
-_var_8c228514:
+_var_messageAssetCount_8c228514:
           .RES.B      4
-_var_8c228518:
+_var_messageTextDat_8c228518:
           .RES.B      4
 _var_routeEvents_8c22851c:
           .RES.B      4
@@ -1494,7 +1494,7 @@ _var_8c2285d8:
           .RES.B      4
 _var_8c2285dc:
           .RES.B      8
-_var_8c2285e4:
+_var_mirrorViewLevel_8c2285e4:
           .RES.B      24
 _var_8c2285fc:
           .RES.B      32

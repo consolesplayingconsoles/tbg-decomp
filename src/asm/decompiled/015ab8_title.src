@@ -19,7 +19,7 @@
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tex_8c157af8
-          .IMPORT     _FUN_8c02ae3e
+          .IMPORT     _ObjectsOpenTextbox_8c02ae3e
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _RouteLoadResetPvmReady_8c014322
@@ -841,7 +841,7 @@ L53:
           .DATA.L     _var_tex_8c157af8 ; H'8c0160d0
           .DATA.L     _njGarbageTexture
           .DATA.L     H'C0000000 ; -2.0
-          .DATA.L     _FUN_8c02ae3e
+          .DATA.L     _ObjectsOpenTextbox_8c02ae3e
           .DATA.L     _AsqInitQueues_8c011f36 ; H'8c0160e0
           .DATA.L     _AsqResetQueues_8c011f6c
           .DATA.L     _var_currentSysResGroupInfo_8c225fb0

@@ -97,6 +97,8 @@ extern CourseSceneParams *var_sceneParams_8c18ad24;
 extern Sint8 init_8c04410c[16];
 
 extern char var_pvrDir_8c18ad4c[0x20];
+extern char var_commonDir_8c18ad6c[0x20];
+extern char var_commonDirCopy_8c18ad8c[0x20];
 extern void *var_datFiles_8c18adb4[4]; /* one per texel layer, freed after TileStreamLoad_8c021810 */
 
 /* =========

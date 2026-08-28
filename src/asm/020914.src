@@ -1,5 +1,5 @@
 ; 8c020914
-          .IMPORT     _var_8c2264d4
+          .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _njSqrt
           .IMPORT     _acosf
           .EXPORT     _FUN_8c020914
@@ -308,7 +308,7 @@ LAB_8c020b30:
           RTS
           MOV.L       @R15+,R14
 LP_GEN_17557:
-          .DATA.L _var_8c2264d4 ; H'8C020B4C
+          .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C020B4C
           .DATA.L H'43160000 ; H'8C020B50
           .DATA.L _njSqrt ; H'8C020B54
           .DATA.L _acosf ; H'8C020B58

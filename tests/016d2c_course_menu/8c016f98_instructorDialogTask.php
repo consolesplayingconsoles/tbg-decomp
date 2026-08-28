@@ -28,9 +28,9 @@ return new class extends TestCase {
         $this->initUint32($state + 0x04, $ukn);
         $this->initUint32($ukn + 0x00, $message);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
-        $this->shouldWriteLongTo("_var_dialogSequenceIsActive_8c225fb4", 0);
+        $this->shouldWriteLongTo("_var_instructorDialogActive_8c225fb4", 0);
         $this->shouldCall("_TaskFree_8c014b66")->with($task);
     }
 
@@ -51,11 +51,11 @@ return new class extends TestCase {
         $this->initUint32($ukn + 0x00, $message);
         $this->initUint32($ukn + 0x04, 0xbebacafe);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldCall('_SndProc_8c010cd6')->with(2, 3);
         $this->shouldWriteLong($task + 0x18, $sound + 4);
-        $this->shouldCall("_swapMessageBoxFor_8c02aefc")
+        $this->shouldCall("_ObjectsSwapMessageBoxFor_8c02aefc")
             ->with("Hello, World!")
             ->andReturn(42);
         $this->shouldWriteLong($state + 0x08, 42);
@@ -81,9 +81,9 @@ return new class extends TestCase {
         $this->initUint32($ukn + 0x00, $message);
         $this->initUint32($ukn + 0x04, 0xbebacafe);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
-        $this->shouldCall("_swapMessageBoxFor_8c02aefc")
+        $this->shouldCall("_ObjectsSwapMessageBoxFor_8c02aefc")
             ->with("Hello, World!")
             ->andReturn(42);
         $this->shouldWriteLong($state + 0x08, 42);
@@ -111,9 +111,9 @@ return new class extends TestCase {
         $this->initUint32($ukn + 0x00, $message);
         $this->initUint32($ukn + 0x04, 0xbebacafe);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
-        $this->shouldCall("_swapMessageBoxFor_8c02aefc")
+        $this->shouldCall("_ObjectsSwapMessageBoxFor_8c02aefc")
             ->with("Hello, World!")
             ->andReturn(42);
         $this->shouldWriteLong($state + 0x08, 42);
@@ -137,7 +137,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x08, 4);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldWriteLong($state + 0x10, 3);
         $this->shouldWriteLong($state + 0x0c, 4);
@@ -158,7 +158,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x08, 4);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldWriteLong($state + 0x10, 2);
         $this->shouldWriteLongTo('_var_menuTextboxCharLimit_8c225fb8', 3);
@@ -177,7 +177,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x08, 5);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldWriteLong($state + 0x10, 3);
         $this->shouldWriteLong($state + 0x0c, 4);
@@ -198,7 +198,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x08, 4);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 4);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldWriteLong($state + 0x10, 99);
         $this->shouldWriteLong($state + 0x00, 2);
@@ -223,7 +223,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x08, 5);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 4);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldWriteLong($state + 0x10, 99);
         $this->shouldWriteLong($state + 0x00, 2);
@@ -246,7 +246,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x0c, 3);
         $this->initUint32($state + 0x08, 5);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x08, 0);
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         // $this->shouldWriteLong($state + 0x0c, 5);
         $this->shouldWriteLong($state + 0x00, 1);
@@ -264,7 +264,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x0c, 2);
         $this->initUint32($state + 0x08, 5);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x08, 4);
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldWriteLong($state + 0x0c, 4);
         // $this->shouldWriteLong($state + 0x00, 3);
@@ -282,7 +282,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x0c, 3);
         $this->initUint32($state + 0x08, 5);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x08, 4);
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldWriteLong($state + 0x0c, 5);
         $this->shouldWriteLong($state + 0x00, 3);
@@ -303,7 +303,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x14, 1);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 4);
 
-        $this->call('_dialogSequenceTask_8c016f98')->with($task, $state);
+        $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
         $this->shouldWriteLong($state + 0x04, 0xcafe000c);
         $this->shouldWriteLong($state + 0x00, 0);
@@ -327,7 +327,7 @@ return new class extends TestCase {
     public function resolveSymbols()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 52 * 2);
-        $this->setSize('_var_dialogSequenceIsActive_8c225fb4', 4);
+        $this->setSize('_var_instructorDialogActive_8c225fb4', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
         // Functions
         $this->setSize('_SndProc_8c010cd6', 0x4);

@@ -16,7 +16,7 @@
           .IMPORT     _var_8c22640c
           .IMPORT     _SndProc_8c010cd6
           .IMPORT     _var_8c228710
-          .IMPORT     _var_8c2285e4
+          .IMPORT     _var_mirrorViewLevel_8c2285e4
           .IMPORT     _var_8c227d9c
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _var_8c1ba293
@@ -433,7 +433,7 @@ LP_GEN_85437:
           .DATA.L _var_8c22640c ; H'8C020504
           .DATA.L _SndProc_8c010cd6 ; H'8C020508
           .DATA.L _var_8c228710 ; H'8C02050C
-          .DATA.L _var_8c2285e4 ; H'8C020510
+          .DATA.L _var_mirrorViewLevel_8c2285e4 ; H'8C020510
           .DATA.L _var_8c227d9c ; H'8C020514
           .DATA.L _AsqGetRandomB_8c0121a8 ; H'8C020518
           .DATA.L _var_vibport_8c1ba354 ; H'8C02051C

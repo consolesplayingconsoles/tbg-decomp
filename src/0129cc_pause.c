@@ -82,7 +82,7 @@ STATIC int update_8c0129cc(void)
     /* Idle until opened (Start / no controller connected), unless suppressed. */
     if (!var_pauseActive_8c1bb8cc) {
         if (((var_peripheral_8c1ba358->press & PDD_DGT_ST) != 0 || var_activeCtrlType_8c157a70 == -1)
-            && var_8c22847c == 0) {
+            && var_messageBoxActive_8c22847c == 0) {
             var_pauseActive_8c1bb8cc = TRUE;
             var_pauseSettle_8c18ad04 = 0;
             var_onRetire_8c18ad10 = 0;

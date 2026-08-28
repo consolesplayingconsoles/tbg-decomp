@@ -86,6 +86,37 @@ crossing), and the menu message-box API (`swapMessageBoxFor_8c02aefc`,
 `02171c`/`022464` -- do it after those two, or split off the pedestrian half
 first.
 
+**Status (2026-08-25):** `trafficSignalTask_8c028258`, `snapPointToGround_8c02840c`,
+`FUN_8c0288b2`/`FUN_8c028900` (accessors), `FUN_8c0288be` (teardown),
+`FUN_8c02890c`/`FUN_8c028958` (sibling range-clear loops, each zeroing 64
+8-byte entries in the two arrays sandwiched between `var_8c227e28` and
+`var_demoEntryValue_8c22822c`), and `FUN_8c02897a`/`FUN_8c028984`/
+`FUN_8c02898e`/`FUN_8c028998` (raw-index set-to-1 / read accessors into
+those same two arrays -- plain word index, not the 2-word entry stride the
+clear loops use, so each element is probably a single flag/value slot, not
+half of a struct pair), and `FUN_8c0289ac` (path-follower step: advances a
+position along a linked list of 6-float segments `{length, offX, offZ,
+dirX, dirZ, heading}` by a signed delta, forward or backward per a
+direction flag, wrapping at the path's start/loop-back pointers; returns
+whether the current segment changed) are done; stubs remain for the rest
+to lock in address order.
+
+`FUN_8c02845a` (scene-object spawn/init) is now done too, and it explains the
+unit's core data model. `var_8c1bb8a0` points at a table of 14-int entries
+terminated by `type == 0`: `{type, id, linkedId, rotA, posA[3], rotB, posB[3],
+durations[3]}`. It allocates two id-indexed arrays -- `var_8c227e24` (per-id
+frame/state) and `var_8c227e28` (per-id task-state pointer) -- then spawns one
+task per flagged id: `type == 1` becomes a `trafficSignalTask_8c028258` with two
+optional `njUnitMatrix`/`njTranslate`/`njRotateY` transforms, and `type 2/3/4`
+become `FUN_8c02833c` tasks that link themselves into a sibling task's back-link
+slot (`state[0x2f..0x31]`, one per type) and take their model pair from
+`var_routeModels_8c1bc3ec[2*(type-1)]`.
+
+Decompiling it also turned up three functions missing from the unit's stub list
+-- `FUN_8c02833c`, `FUN_8c0283d4`, `FUN_8c0283e8` -- now stubbed and exported.
+Next: `FUN_8c02833c` (the type 2/3/4 task action, already understood from the
+spawn side) and `FUN_8c0283d4`/`FUN_8c0283e8`, both small.
+
 ## 5. `026710` (traffic vehicle spawner, 13 functions) + `02c884` (9 functions) -- pair
 
 Fan-in = 2 each (`012f44_game`+`013ae8_route_load` for `026710`;

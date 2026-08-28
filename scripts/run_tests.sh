@@ -143,4 +143,8 @@ compile  src/0222dc_fadecmd.c
 assemble  src/asm/decompiled/022464_fade.src
 compile  src/022464_fade.c
 
+# 028258_objects
+assemble  src/asm/decompiled/028258_objects.src
+compile  src/028258_objects.c
+
 $sh4objtest suite -s tests.php "$@"

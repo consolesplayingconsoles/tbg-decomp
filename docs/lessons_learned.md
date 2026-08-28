@@ -191,6 +191,12 @@ just `run_tests.sh`): that link, via UNDEFINED EXTERNAL SYMBOL, is the only
 check that proves the sed reached every caller -- it's the verification step,
 not a pre-sed grep.
 
+A further reason not to scope the sed from a grep: in this shell `grep` is
+aliased to `ugrep`, whose `\b` doesn't fire next to a leading underscore, so
+`\b_FUN_8c...\b` matches nothing in `.src` labels or PHP `'_FUN_...'` string
+literals. The filtered list comes back empty and the rename looks done. Use
+`command grep` when you do need to search for one.
+
 ## Strength-reduced loops and nested ifs fold back to idiomatic C
 
 **Found in:** `02af78_event` (2026-07-12)
@@ -339,3 +345,76 @@ error (or `-v --disasm`), and hardcode that. It's usually the same address
 for both objects; branch on `$this->objectFile` (see
 `tests/016d2c_course_menu/8c0170c6_FUN_pushDialogTask.php` for the pattern)
 only if it isn't.
+
+## Ghidra drops a called SDK function's float argument entirely if it has no prototype
+
+`trafficSignalTask_8c028258` (`028258`) calls `njSqrt`, but Ghidra decompiled it
+as `njSqrt()` with zero arguments -- the real SH4 float argument register (FR4)
+was left untracked because the imported `njSqrt` symbol had no prototype
+(`param_count: 0` via `get_function_signature`). Worse, once the function's own
+prototype was force-recomputed, Ghidra "fixed" the mismatch by inventing a
+phantom incoming float parameter on the *caller* instead, shared identically
+between two logically distinct branches -- a strictly worse, actively
+misleading result. Fixed by setting `njSqrt`'s prototype explicitly
+(`mcp__ghidra__set_function_prototype` -> `float njSqrt(float n)`) before
+decompiling the caller. Worth checking whenever a call to a no-body/imported
+SDK function shows no arguments in Ghidra's output.
+
+## Mock addressOf() for two adjacent external symbols doesn't preserve their real relative offset
+
+`FUN_8c02890c`/`FUN_8c028958` (`028258`) each zero-fill one of two adjacent
+64-entry arrays (`var_8c227e2c`, `var_8c22802c`) that are external to the
+unit under test (defined in `sectionB.src`). The compiler folded
+`FUN_8c028958`'s loop base into `var_8c227e2c + 0x200` instead of relocating
+`var_8c22802c` directly -- plausible since the two symbols sit back-to-back
+in the same section. `addressOf()` on an external symbol allocates it via
+the test's own bump allocator, independent of any other symbol, so two
+separately-`addressOf()`'d adjacent globals land at unrelated mock
+addresses and the offset-folded reference resolves somewhere unexpected.
+Fix: compute the second address explicitly from the first
+(`addressOf('_var_8c227e2c') + 0x200`) and pin it with
+`rellocate('_var_8c22802c', ...)` before calling `addressOf('_var_8c22802c')`,
+so both the offset-folded asm reference and the C object's direct symbol
+reference agree.
+
+## `_quick_odd_mvn` is a struct copy, and Ghidra renders it as a bare no-arg call
+
+SHC compiles a small struct assignment (e.g. `NJS_POINT3 a = b;`) into a call to
+the runtime helper `_quick_odd_mvn`, which takes **dest in R1, src in R2, byte
+count in R0** -- not the R4-R7 default. Ghidra has no body for it, so it shows up
+as `_quick_odd_mvn();` with no arguments, which is easy to skim past and drop
+entirely: `FUN_8c02845a` (`028258`) had two such calls copying the entry's two
+position vectors into the task state, and omitting them still compiled and still
+passed the tests that did not reach them.
+
+Two consequences when writing the C and its test:
+
+- Translate the call back into the struct assignment it came from (SHC then
+  re-emits the same helper call); do not open-code three word copies.
+- No DSL calling convention covers three operands (`Rori`/`Riro` cap at two), so
+  `->with()` checks R4 and fails. Assert the operands inside `->do()` instead:
+  the callback is bound to the simulator, so `$this->getRegister(1|2|0)->value`
+  reads them directly.
+
+## `->with()` covers stack arguments too -- declare all of them
+
+`DefaultCallingConvention` overflows past R4-R7 into stack slots and
+`ArgumentVerifier` handles `StackOffset`, so a 5-argument call like
+`TaskPush_8c014ae8(tasks, action, &task, &state, alloc_size)` can have *every*
+argument declared in `->with()`, `alloc_size` included -- a wrong one reports
+`Unexpected argument ... in stack offset 0`. Don't hand-roll a check that reads
+`@R15` in `do()`; the DSL already does it, with better messages.
+
+`do()`'s `$params` is exactly the list passed to `->with()` (plain ints), so once
+all five are declared, filling the out-params is just
+`$this->memory->writeUInt32($params[2], U32::of($task))`. With no `->with()`,
+`$params` is empty -- which is a reason to declare the arguments, not a reason to
+go read registers.
+
+The two out-param addresses are stack locals and *do* differ per object (for
+`FUN_8c02845a`: `0xffffcc`/`0xffffc8` in the asm object, `0xffffd0`/`0xffffcc` in
+the C one). That is what the project's `isAsmObject()` helper is for -- branch the
+`->with()` values on it (see `tests/010fe8_heap/8c01102a_heapAlloc.php`), rather
+than inventing a way to avoid knowing the addresses. Discover each one by running
+with a placeholder and reading the `Expected ..., got 0x...` mismatch, and check
+the failure's object file before concluding the two agree.

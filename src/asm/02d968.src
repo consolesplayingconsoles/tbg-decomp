@@ -18,7 +18,7 @@
           .IMPORT     _var_8c228940
           .IMPORT     _var_8c22891c
           .IMPORT     _var_route_8c18ad1c
-          .IMPORT     _var_8c1bba54
+          .IMPORT     _var_busWorldMatrix_8c1bba54
           .IMPORT     _var_8c22895c
           .IMPORT     _var_8c228960
           .IMPORT     _var_8c228718
@@ -324,7 +324,7 @@ LP_GEN_52173:
           .DATA.L _var_route_8c18ad1c ; H'8C02DBAC
           .DATA.L H'BFCCCCCD ; H'8C02DBB0
           .DATA.L H'3F666666 ; H'8C02DBB4
-          .DATA.L _var_8c1bba54 ; H'8C02DBB8
+          .DATA.L _var_busWorldMatrix_8c1bba54 ; H'8C02DBB8
           .DATA.L H'3E19999A ; H'8C02DBBC
           .DATA.L H'3E8A3D71 ; H'8C02DBC0
           .DATA.L H'3F428F5C ; H'8C02DBC4

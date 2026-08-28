@@ -28,6 +28,13 @@ names/types directly. Tools are deferred — fetch schemas with ToolSearch
   not truth.
 - Strings: many "strings" are literal hex address text (e.g. `"8c033380"`);
   `list_strings` filtering is picky and reports "no quality strings" easily.
+- **`rename_data` / `set_global` reject our global names.** The server enforces a
+  `g_` + Hungarian convention and refuses `var_name_8c<addr>` outright. Use
+  `batch_create_labels` (what `sync_ghidra_symbols.py` uses) -- it only warns.
+  But a created label lands as a *secondary* symbol, so the decompiler keeps
+  showing the old name: `batch_delete_labels` the old one to promote the new.
+- Struct fields get auto-renamed to Hungarian on create (`child` -> `pChild`).
+  Refer to them by the stored name, or `offset:N`, when modifying.
 
 ## Common tools
 

@@ -9,6 +9,7 @@
 #include "01bb48_vm_game.h" /* LcdAnim */
 #include "02171c_tile_stream.h" /* TileIndex, TileRect */
 #include "022464_fade.h" /* FadePhase, FadeRequest, FadeMirrorSelect */
+#include "028258_objects.h" /* TrafficSignal, TrafficSignalDef */
 
 /* =================
  * Type Declarations
@@ -112,10 +113,12 @@ typedef struct {
     int field_0x0ec;
     int field_0x0f0;
 
-    float field_0x0f4;
+    /* Averaged with posX_0x2fc/posZ_0x304 by rowMaterialModelTask_8c02a27c to get a
+     * distance-fade reference point. */
+    float posX_0x0f4;
 
     int field_0x0f8;
-    int field_0x0fc;
+    float posZ_0x0fc;
 
     float field_0x100;
 
@@ -384,8 +387,11 @@ extern void* var_8c1ba33c;
 extern void* var_vmuIconFileBuf_8c1ba344;
 extern void* var_backupFileImageBuf_8c1ba348;
 extern int var_8c1ba350;        // 018644: selected save slot / new-file index
-extern void* var_8c1bb86c;
+extern TrafficSignalDef *var_trafficSignalDefs_8c1bb8a0; // 028258: signal table, terminated by type_0x00 == 0
+extern void* var_groundGridFallback_8c1bb86c;
+extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into var_activeGroundGrid_8c2264d4
 extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
+extern float var_groundHeightFallback_8c1bbac8; // fallback ground height when both grid queries miss
 extern int var_8c1bb8bc;
 extern int var_8c1bb8c4;
 extern int var_pauseActive_8c1bb8cc;
@@ -402,15 +408,35 @@ extern float var_8c1bbc4c;
 extern int var_8c1bbc84;
 extern Uint32 var_8c1bbcb0;
 extern int var_8c1bbcc4;
-extern void* var_8c1bc404;
+/* Bus-to-camera-focus vector (x, _, z); written by
+ * gameplayRenderBusUpdateCamera_8c025078, read by FUN_8c028b74 via njArcTan2.
+ * Immediately follows var_busState_8c1bb9d0 in memory but exported as its
+ * own symbols, not struct fields -- coincidentally adjacent, not part of it. */
+extern float var_busCameraFocusX_8c1bbcd8;
+extern float var_busCameraFocusZ_8c1bbce0;
+extern void* var_messageTextBoxA_8c1bc404;
+extern void* var_messageTextBoxB_8c1bc408; /* second half of the double-buffered message textbox pair */
+extern int var_messageTextBoxIndex_8c1bc40c;   /* active index (0/1) into (&var_messageTextBoxA_8c1bc404)[idx] */
 extern void* var_8c1bc410;
 extern void* var_8c1bc414;
 extern void* var_8c1bc440;
 extern void* var_8c1bc444;
 extern float var_8c1bc450;
+extern NJS_POINT3 var_groundQueryPoint_8c1bc460; // scratch world point for ground-height queries, e.g. FUN_8c02840c
 extern void* var_vmGameBuf_8c1bc454;
+extern float var_crossingIntersectPoint_8c1bc458; // FUN_8c0206f0's intersection-point output (x); [1] (var_8c1bc45c) holds y
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
+/* Bus world matrix; pedestriansTask_8c0293f6 uses it via njCalcPoint to
+ * place the crosswalk stop-line scratch points. Immediately follows
+ * var_busState_8c1bb9d0 (base+0x84) but exported as its own symbol, not a
+ * struct field -- coincidentally adjacent, not part of it. */
+extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
+/* Packed demo-entry flags read by pedestriansTask_8c0293f6 (bits 16-23 hold
+ * the pending demo entry, gated by a nonzero 0xff0000 field). Also sits at
+ * var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not that
+ * struct's field_0x3bc -- coincidentally adjacent, not part of it. */
+extern int var_pendingDemoFlags_8c1bbd8c;
 extern void* var_busstopDat_8c1bc42c;
 extern void* var_busstopPartsDat_8c1bc428;
 extern NJS_TEXLIST *var_busStopTexlist_8c1bc424;
@@ -486,11 +512,14 @@ extern int var_lcdSlot_8c2263a0;   // 01bb48
 extern void* var_8c226434;
 extern void* var_8c226438;
 extern Struct8c2264b8 var_8c2264b8;
+extern void* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for FUN_8c020914/FUN_8c020f7e
+extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c: light direction for fade layer 0
+extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c: light direction for fade layer 1 (mirror side)
 /* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Two separate
  * symbols (not one float[5]) because each is exported/imported on its own in
  * src/asm/sectionB.src -- coincidentally adjacent, not one C variable. */
-extern float var_8c2264f0[2]; // [0..1]
-extern float var_8c2264f8[3]; // [2..4]
+extern float var_fadeLightIntensity_8c2264f0[2]; // [0..1]
+extern float var_fadeLightColor_8c2264f8[3]; // [2..4]
 /* 0222dc: same deal, for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
 extern float var_8c226544[2]; // [0..1]
 extern float var_8c22654c[3]; // [2..4]
@@ -503,13 +532,97 @@ extern int var_fadeDrawCommandCount_8c226570[3]; // 022464: per-layer draw-comma
 extern char var_fadeDrawCommands_8c22657c[3][0x800]; // 022464: per-layer draw-command queue, 16-byte entries {type, arg1, arg2, arg3}
 extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
 extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
+extern int var_8c227d9c;
 extern Uint32 var_8c227da0;
 extern int var_8c227da8;
+extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by gameplayRenderBusUpdateCamera_8c025078
 extern int var_8c227dd4;
-extern void* var_8c227e20;
-extern void* var_8c227e24;
-extern void* var_8c228234;
-extern int var_8c22847c;
+extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by ObjectsInitTrafficSignals_8c02845a */
+extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by ObjectsGetTrafficSignalFrame_8c028900 */
+extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */
+extern int var_pedCrossingFlags_8c227e2c[128]; /* 64 8-byte entries, zeroed by clearPedCrossingFlags_8c02890c */
+extern int var_crossingOccupiedFlags_8c22802c[128]; /* 64 8-byte entries, zeroed by ObjectsFUN_8c028958 */
+/* 12-byte entries {active, unused, list*}; list is NULL-terminated, holes
+ * marked -1. Read by FUN_8c028b74; var_pedGroupCount_8c228234 is the count. */
+extern void* var_pedGroups_8c228230;
+extern int var_pedGroupCount_8c228234; /* -1 sentinel means not yet loaded */
+/* 12-byte entries {float *first, float *last, float length}, indexed in
+ * lockstep with var_pedGroups_8c228230 by pedGroupTask_8c029078. */
+extern void* var_pedPaths_8c228238;
+/* Crosswalk table walked by pedestrianTask_8c028e00: entries are pairs of
+ * path-node pointers, terminated by the end pointer var_crosswalkTableEnd_8c228244. */
+extern int* var_crosswalkTableEnd_8c228244;
+extern int var_crosswalkTable_8c228248[8];
+extern float var_stopLinePointA_8c228268[2]; /* segment-intersection scratch, param1 for FUN_8c0206f0 */
+extern float var_stopLinePointB_8c228270[2]; /* segment-intersection scratch, param2 for FUN_8c0206f0 */
+/* nodes[0] = the route's blinker model (var_routeModels_8c1bc3ec[9]); [1..3]
+ * are its child/sibling tree, filled by resolveObjectChildren_8c029868. */
+extern NJS_OBJECT *var_routeBlinkerNodes_8c228278[4];
+/* Per-group spawn definition, 12-byte entries {int id, float radius, spec
+ * list*}, looked up by id in pedestriansTask_8c0293f6. */
+extern void* var_pedGroupDefs_8c22823c;
+/* int*[] indexed by demo entry value; each list is a -1 terminated array of
+ * group ids, consumed by pedestriansTask_8c0293f6. */
+extern void* var_pedGroupLists_8c228240;
+/* Per-slot destination pointers for a pending object-asset request, one 0x18-byte
+ * entry per table row processed by ObjectsStartAssetRequests_8c029ad4 (up to 16
+ * rows), also read/freed by ObjectsFreeAssetRequests_8c029cfe and ObjectsPushTasks_8c02a6ac. Raw bytes:
+ * which fields are used depends on the row's type. */
+extern Uint8 var_assetRequestSlots_8c228288[16 * 0x18];
+/* Table currently in flight for ObjectsStartAssetRequests_8c029ad4: an array of
+ * {type, dataPtr} pairs terminated by type == -1. -1 when nothing is queued. */
+extern int *var_assetRequestTable_8c228408;
+/* Fixed asset handles for the type-6 ("FUMI" railway crossing) row, shared by
+ * every table that includes one -- there is only ever one railway crossing. */
+extern void *var_fumiGateModel_8c22840c;
+extern void *var_fumiTexlist_8c228410;
+extern void *var_fumiCloseMotion_8c228414;
+extern void *var_fumiOpenMotion_8c228418;
+extern void *var_fumiLampModel_8c22841c;
+extern void *var_fumiLampTexlist_8c228420;
+extern void *var_fumiTrainModel_8c228424;
+extern void *var_fumiTrainTexlist_8c228428;
+extern void *var_fumiTrainMotionA_8c22842c;
+extern void *var_fumiTrainMotionB_8c228430;
+/* nodes[0] = the FUMI lamp model (var_fumiLampModel_8c22841c); [1..16] are its
+ * grandchild tree, filled by resolveObjectGrandchildren_8c02a322. */
+extern NJS_OBJECT *var_fumiLampNodes_8c228434[17];
+extern int var_messageBoxActive_8c22847c;
+
+/* One entry of var_eventSlides_8c228480[event]/state->slide_0x10, terminated
+ * by an entry whose layers_0x00 is (unsigned short *)-1. layers_0x00 is a base
+ * image id plus 0-2 overlay ids, all drawn in the same frame in `pr` order.
+ * lineListIndex_0x04 selects the line list out of var_messageTextDat_8c228518
+ * (an array of EventLine*). */
+typedef struct {
+    unsigned short *layers_0x00;
+    int lineListIndex_0x04;
+} EventSlide;
+
+/* Per-event slide table for the route selected by
+ * ObjectsRequestMessageAssets_8c02aa36: init_shinjukuEvents_8c049a6c / init_wanganEvents_8c04843c /
+ * init_omeEvents_8c04a9c8, indexed by var_selectedEventEntry_8c228478. */
+extern EventSlide **var_eventSlides_8c228480;
+
+/* Dedup table of message pvm/dat assets requested by
+ * ObjectsRequestMessageAssets_8c02aa36, one entry per distinct id seen
+ * across the selected event's slides; count in var_messageAssetCount_8c228514. */
+typedef struct {
+    int id_0x00;
+    void *pvm_0x04;
+    void *dat_0x08;
+} MessageAssetEntry;
+extern MessageAssetEntry var_messageAssets_8c228484[12];
+
+extern int var_messageAssetCount_8c228514;
+
+/* One line of dialogue within a slide, walked by state->line_0x18; terminated
+ * by an entry whose text_0x00 points at an empty string. */
+typedef struct {
+    char *text_0x00;
+    int voiceId_0x04;
+} EventLine;
+extern EventLine **var_messageTextDat_8c228518;
 
 /* unlock-candidate scratch list built by EventScanCandidates_8c02b03c;
  * var_routeEvents_8c22851c points at the active route's EventEntry table */
@@ -528,6 +641,8 @@ extern int var_driverPoints_8c2285d0;
 extern int var_8c2285d8;
 extern int var_8c2285dc;
 
+extern int var_mirrorViewLevel_8c2285e4; /* 2 = mirror-view draw enabled; gates pedestriansTask_8c0293f6's FUN_8c02d06c registration */
+
 extern int var_8c228704;
 extern void* var_8c2288f8;
 extern Sint8 var_coursesToUnlock_8c225fd4[];
@@ -545,12 +660,12 @@ extern LoadedModel *var_tileLayerSlots_8c226520[5]; /* per-layer tile grids, wid
 extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
 extern int var_8c22640c;
 extern int var_8c226410;
-extern int var_8c226414[6]; /* dialog sequence id queue built by buildDialogQueue_8c01e992, -1 terminated */
+extern int var_8c226414[6]; /* dialog id queue built by buildDialogQueue_8c01e992, -1 terminated */
 extern int var_8c22642c; /* lesson attempt counter, incremented on practice retry */
 extern int var_demoEntryValue_8c227e14;
 extern int var_demoEntryValue_8c22822c;
 extern int var_dialogQueue_8c225fbc[4]; // TODO: Confirm length
-extern int var_dialogSequenceIsActive_8c225fb4;
+extern int var_instructorDialogActive_8c225fb4;
 extern int var_fogParam_8c226504;
 extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;

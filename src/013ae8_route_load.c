@@ -8,7 +8,7 @@
 #include "014f54_text.h"
 #include "02171c_tile_stream.h"
 #include "026710.h"
-#include "028258.h"
+#include "028258_objects.h"
 #include "02af78_event.h"
 #include "02c884.h"
 #include "sectionD.h"
@@ -84,7 +84,7 @@ typedef struct {
     Sint8 *routeModelIndexes_0x10;
     void *ukn_0x14;
     Sint8 *pedestrianModelList_0x18;
-    // scene object list (FUN_8c029ad4 streams nj/pvm/dat; e.g. O_FUMI railroad crossing)
+    // scene object list (ObjectsStartAssetRequests_8c029ad4 streams nj/pvm/dat; e.g. O_FUMI railroad crossing)
     void *sceneObjectList_0x1c;
     char **datFilenames_0x20;
     FogParams *fog_0x24;
@@ -405,7 +405,7 @@ STATIC void syncSegmentModels_8c013f78(void)
         syncPedestrianAssets_8c013df6(entry->pedestrianModelList_0x18);
     }
 
-    FUN_8c029ad4(entry->sceneObjectList_0x1c);
+    ObjectsStartAssetRequests_8c029ad4(entry->sceneObjectList_0x1c);
 
     if (entry->tileRegionList_0x0c == 0) {
         var_currentTileRegionList_8c226534 = (void *)-1;
@@ -418,7 +418,7 @@ STATIC void syncSegmentModels_8c013f78(void)
 
     /* Cutscene armed for this segment: run its setup. */
     if (var_cutsceneActive_8c1bb900 != 0 && var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) {
-        FUN_8c02aa36();
+        ObjectsRequestMessageAssets_8c02aa36();
     }
 }
 

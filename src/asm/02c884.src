@@ -1,10 +1,10 @@
 ; 8c02c884
           .IMPORT     _var_8c228718
           .IMPORT     _var_8c2288d8
-          .IMPORT     _init_8c04623c
+          .IMPORT     _init_pedestrianTexAnims_8c04623c
           .IMPORT     _var_8c228794
-          .IMPORT     _var_8c1bb86c
-          .IMPORT     _var_8c2264d4
+          .IMPORT     _var_groundGridFallback_8c1bb86c
+          .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_8c228900
           .IMPORT     _FUN_8c020914
           .IMPORT     _FUN_8c020f7e
@@ -428,10 +428,10 @@ LP_GEN_58192:
           .DATA.L _var_8c228718 ; H'8C02CB18
           .DATA.L H'3C656042 ; H'8C02CB1C
           .DATA.L _var_8c2288d8 ; H'8C02CB20
-          .DATA.L _init_8c04623c ; H'8C02CB24
+          .DATA.L _init_pedestrianTexAnims_8c04623c ; H'8C02CB24
           .DATA.L _var_8c228794 ; H'8C02CB28
-          .DATA.L _var_8c1bb86c ; H'8C02CB2C
-          .DATA.L _var_8c2264d4 ; H'8C02CB30
+          .DATA.L _var_groundGridFallback_8c1bb86c ; H'8C02CB2C
+          .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C02CB30
           .DATA.L _var_8c228900 ; H'8C02CB34
           .DATA.L _FUN_8c020914 ; H'8C02CB38
           .DATA.L _FUN_8c020f7e ; H'8C02CB3C

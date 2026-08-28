@@ -4,6 +4,7 @@
 #include "015ab8_title.h"
 #include "016d2c_course_menu.h"
 #include "016108.h"
+#include "028258_objects.h" /* ObjectsFreeTextboxes_8c02af32 */
 #include "sectionB.h"
 
 /* Matched */
@@ -13,6 +14,6 @@ void RgFreeResourceGroups_8c016108()
     CourseMenuFreeResourceGroup_8c0185c4(&var_menuState_8c1bc7a8.resourceGroupB_0x0c);
     CourseMenuFreeResourceGroup_8c0185c4(&var_resourceGroup_8c2263a8);
 
-    free_8c1bc404_8c02af32();
+    ObjectsFreeTextboxes_8c02af32();
     var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
 }

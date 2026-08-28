@@ -14,8 +14,8 @@ return new class extends TestCase {
         $this->setSize('_FUN_8c0221d0', 4);
         $this->setSize('_var_8c226544', 8);
         $this->setSize('_var_8c22654c', 12);
-        $this->setSize('_var_8c2264f0', 8);
-        $this->setSize('_var_8c2264f8', 12);
+        $this->setSize('_var_fadeLightIntensity_8c2264f0', 8);
+        $this->setSize('_var_fadeLightColor_8c2264f8', 12);
     }
 
     private function toRaw(float $v): int {
@@ -65,10 +65,10 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_8c22654c') + 4, 4.0);
         $this->shouldWriteFloat($this->addressOf('_var_8c22654c') + 8, 5.0);
 
-        $this->shouldWriteFloat($this->addressOf('_var_8c2264f0'), 6.0);
-        $this->shouldWriteFloat($this->addressOf('_var_8c2264f0') + 4, 7.0);
-        $this->shouldWriteFloat($this->addressOf('_var_8c2264f8'), 8.0);
-        $this->shouldWriteFloat($this->addressOf('_var_8c2264f8') + 4, 9.0);
-        $this->shouldWriteFloat($this->addressOf('_var_8c2264f8') + 8, 10.0);
+        $this->shouldWriteFloat($this->addressOf('_var_fadeLightIntensity_8c2264f0'), 6.0);
+        $this->shouldWriteFloat($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 4, 7.0);
+        $this->shouldWriteFloat($this->addressOf('_var_fadeLightColor_8c2264f8'), 8.0);
+        $this->shouldWriteFloat($this->addressOf('_var_fadeLightColor_8c2264f8') + 4, 9.0);
+        $this->shouldWriteFloat($this->addressOf('_var_fadeLightColor_8c2264f8') + 8, 10.0);
     }
 };

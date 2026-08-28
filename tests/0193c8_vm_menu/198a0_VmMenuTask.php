@@ -76,7 +76,7 @@ return new class extends TestCase {
         };
 
         $this->shouldCall('__quick_evn_mvn')->do($mvn);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("セーブ可能です");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブ可能です");
         $this->shouldCall('_FUN_8c010d8a');
         $this->shouldCall('_SndProc_8c010cd6');
 
@@ -168,10 +168,10 @@ return new class extends TestCase {
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 3, 0);
         $this->shouldCall('_initCursorLerp_8c019788')->with(2);
         $this->shouldWriteMenuState(3);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("セーブ可能です");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブ可能です");
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot(2);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -394,7 +394,7 @@ return new class extends TestCase {
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 0, 0);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("よろしいですか？");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("よろしいですか？");
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x6c, 1);
         $this->shouldCall('_BupGetInfo_8c014bba')->with(1)->andReturn(0x5a5a5a5a);
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x78, 0x5a5a5a5a);
@@ -402,7 +402,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot(1);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -425,7 +425,7 @@ return new class extends TestCase {
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 0, 0);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("よろしいですか？");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("よろしいですか？");
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x6c, 1);
         $this->shouldCall('_BupGetInfo_8c014bba')->with(1)->andReturn(0x5a5a5a5a);
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x78, 0x5a5a5a5a);
@@ -433,7 +433,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot(1);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -456,7 +456,7 @@ return new class extends TestCase {
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 0, 0);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("よろしいですか？");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("よろしいですか？");
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x6c, 1);
         $this->shouldCall('_BupGetInfo_8c014bba')->with(1)->andReturn(0x5a5a5a5a);
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x78, 0x5a5a5a5a);
@@ -464,7 +464,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot(1);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -487,12 +487,12 @@ return new class extends TestCase {
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 0, 0);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ファイルを設定しないとセーブできません<E>このままゲームを開始してもよろしいですか？");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ファイルを設定しないとセーブできません<E>このままゲームを開始してもよろしいですか？");
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 5);
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot(8);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -518,7 +518,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot(1);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -547,7 +547,7 @@ return new class extends TestCase {
         $this->shouldCall('_CourseMenuInterpolateCursor_8c016d2c')->andReturn(0);
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot(1);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -568,10 +568,10 @@ return new class extends TestCase {
         $this->shouldCall('_CourseMenuInterpolateCursor_8c016d2c')->andReturn(1);
 
         $this->shouldWriteMenuState(2);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("セーブ可能です");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブ可能です");
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot(1);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -605,7 +605,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->shouldWriteSelectedSlot(1);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -644,7 +644,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->shouldWriteSelectedSlot(3);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -670,7 +670,7 @@ return new class extends TestCase {
             })
             ->andReturn(2);
 
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("セーブ可能です");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブ可能です");
         $this->shouldWriteMenuState(2);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
@@ -682,7 +682,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->shouldWriteSelectedSlot(3);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -716,7 +716,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->shouldWriteSelectedSlot(8);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -758,7 +758,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->shouldWriteSelectedSlot(8);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -784,7 +784,7 @@ return new class extends TestCase {
             })
             ->andReturn(2);
 
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("ファイルを設定せずに<E>ゲームを開始します");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ファイルを設定せずに<E>ゲームを開始します");
         $this->shouldWriteMenuState(2);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
@@ -796,7 +796,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0xff);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
         $this->shouldWriteSelectedSlot(8);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();
@@ -923,7 +923,7 @@ return new class extends TestCase {
         };
         $this->shouldCall('__quick_evn_mvn')->do($mvn);
 
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("セーブ可能です");
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブ可能です");
         $this->shouldWrite($task + 0x08, 3); // substate
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
@@ -1182,8 +1182,8 @@ return new class extends TestCase {
 
         // Functions
         $this->setSize('_sdMidiPlay', 4);
-        $this->setSize('_menuTextboxText_8c02af1c', 4);
-        $this->setSize('_swapMessageBoxFor_8c02aefc', 4);
+        $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
+        $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_BupGetInfo_8c014bba', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
@@ -1235,11 +1235,11 @@ return new class extends TestCase {
                 "セーブデータがあります",
             ];
             $message = $messages[$slots[$expectedSlot]];
-            $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with($message);
+            $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with($message);
         }
 
         $this->shouldCall('_drawVmMenu_8c0197c0');
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with(0x20);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20);
         $this->shouldWriteSelectedSlot($expectedSlot);
 
         $this->singleCall($this->entryName())->with(0, 0)->run();

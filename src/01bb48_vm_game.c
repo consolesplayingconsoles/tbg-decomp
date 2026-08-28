@@ -11,7 +11,7 @@
 #include "019e98_main_menu.h"
 #include "022464_fade.h"
 #include "0100bc_sound.h"
-#include "028258.h"
+#include "028258_objects.h"
 #include "sectionB.h"
 #include "strings.h"
 
@@ -366,14 +366,14 @@ STATIC void selectSlot_8c01bf2a(int slot)
             case VMU_STATUS_NOT_AVAILABLE:
             case VMU_STATUS_NOT_ENOUGH_SPACE:
             case VMU_STATUS_SAVING_POSSIBLE:
-                swapMessageBoxFor_8c02aefc(MSG_QUIZ_NONE);
+                ObjectsSwapMessageBoxFor_8c02aefc(MSG_QUIZ_NONE);
                 break;
             case VMU_STATUS_SAVE_EXISTS:
             case VMU_STATUS_SAVE_EXISTS_NO_SPACE:
-                swapMessageBoxFor_8c02aefc(MSG_QUIZ_EXISTS);
+                ObjectsSwapMessageBoxFor_8c02aefc(MSG_QUIZ_EXISTS);
                 break;
             default:
-                swapMessageBoxFor_8c02aefc("");
+                ObjectsSwapMessageBoxFor_8c02aefc("");
                 break;
         }
     }
@@ -465,7 +465,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                 VMU_STATUS_PROCEED_WITHOUT_SAVING
             ) {
                 m->state_0x18 = STATE_SELECT_INCOMPATIBLE;
-                swapMessageBoxFor_8c02aefc(MSG_VM_SET_PLEASE);
+                ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_SET_PLEASE);
             } else {
                 selectSlot_8c01bf2a(slot);
                 m->pos.vmSelect.cursor_0x20 = m->pos.vmSelect.cursorTarget_0x28;
@@ -489,7 +489,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
         // If we reached the no-save slot, no VM is connected.
         if (var_vmuStatus_8c226048[i] == VMU_STATUS_PROCEED_WITHOUT_SAVING) {
             m->state_0x18 = STATE_SELECT_INCOMPATIBLE;
-            swapMessageBoxFor_8c02aefc(MSG_VM_SET_PLEASE);
+            ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_SET_PLEASE);
             drawSelectScreen_8c01be90();
             break;
         }
@@ -572,7 +572,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                 if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                     if (m->field_0x1c == MENU_DOWNLOAD) {
                         m->state_0x18 = STATE_DOWNLOAD;
-                        swapMessageBoxFor_8c02aefc(MSG_CONFIRM_DL_QUIZ);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_DL_QUIZ);
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                     } else if (
                         var_vmuStatus_8c226048[slot] == VMU_STATUS_SAVE_EXISTS
@@ -580,7 +580,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             VMU_STATUS_SAVE_EXISTS_NO_SPACE
                     ) {
                         m->state_0x18 = STATE_EXP_LOAD;
-                        swapMessageBoxFor_8c02aefc(MSG_CONFIRM_ADD_POINTS);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_ADD_POINTS);
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                     } else {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
@@ -628,7 +628,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             case SAVE_STARTED: {
                                 VmGameSetLcdSlot_8c01c8fc(1);
                                 task->field_0x08 = DOWNLOAD_PHASE_SAVING;
-                                swapMessageBoxFor_8c02aefc(
+                                ObjectsSwapMessageBoxFor_8c02aefc(
                                     MSG_DOWNLOADING_NO_REMOVE
                                 );
                                 var_vmBusy_8c157a7c = 1;
@@ -644,7 +644,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             case SAVE_ERR_BUSY:
                             case SAVE_ERR_NO_CARD: {
                                 m->state_0x18 = STATE_SELECT;
-                                swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
+                                ObjectsSwapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                                 break;
                             }
@@ -652,13 +652,13 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             case SAVE_NEEDS_DEFRAG: {
                                 if (defragDisk_8c01bde4(m->selectedVmuSlot_0x6c) != 0) {
                                     m->state_0x18 = STATE_SELECT;
-                                    swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
+                                    ObjectsSwapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                                     break;
                                 }
 
                                 task->field_0x08 = DOWNLOAD_PHASE_DEFRAG_SAVING;
-                                swapMessageBoxFor_8c02aefc(
+                                ObjectsSwapMessageBoxFor_8c02aefc(
                                     MSG_DOWNLOADING_NO_REMOVE
                                 );
                                 var_vmBusy_8c157a7c = 1;
@@ -667,7 +667,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                             case SAVE_ERR_FULL: {
                                 m->state_0x18 = STATE_SELECT;
-                                swapMessageBoxFor_8c02aefc(
+                                ObjectsSwapMessageBoxFor_8c02aefc(
                                     MSG_DL_NEED_45_BLOCKS
                                 );
                                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
@@ -676,7 +676,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                             case SAVE_ERR_EXISTS: {
                                 m->state_0x18 = STATE_SELECT;
-                                swapMessageBoxFor_8c02aefc(MSG_EXE_EXISTS);
+                                ObjectsSwapMessageBoxFor_8c02aefc(MSG_EXE_EXISTS);
                                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                                 break;
                             }
@@ -686,7 +686,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                     }
 
                     case 2: {
-                        swapMessageBoxFor_8c02aefc("");
+                        ObjectsSwapMessageBoxFor_8c02aefc("");
                         m->state_0x18 = STATE_SELECT;
                         break;
                     }
@@ -703,12 +703,12 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                     case VMGAME_BUP_IDLE:
                     case VMGAME_BUP_SAVE_DONE:
                         m->state_0x18 = STATE_OP_COMPLETE;
-                        swapMessageBoxFor_8c02aefc(MSG_DL_DONE);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_DL_DONE);
                         var_vmBusy_8c157a7c = 0;
                         break;
                     case VMGAME_BUP_ERROR:
                         m->state_0x18 = STATE_SELECT;
-                        swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                         var_vmBusy_8c157a7c = 0;
                         break;
                 }
@@ -729,7 +729,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                         break;
                     case VMGAME_BUP_ERROR:
                         m->state_0x18 = STATE_SELECT;
-                        swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                         var_vmBusy_8c157a7c = 0;
                         break;
                 }
@@ -751,19 +751,19 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                         if (load == -1) {
                             m->state_0x18 = STATE_SELECT;
-                            swapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
+                            ObjectsSwapMessageBoxFor_8c02aefc(MSG_DL_FAIL);
                             break;
                         }
 
                         task->field_0x08 = EXP_PHASE_LOADING;
-                        swapMessageBoxFor_8c02aefc(MSG_VM_NO_REMOVE);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_NO_REMOVE);
                         VmGameSetLcdSlot_8c01c8fc(1);
                         var_vmBusy_8c157a7c = 1;
                         break;
                     }
 
                     case 2: {
-                        swapMessageBoxFor_8c02aefc("");
+                        ObjectsSwapMessageBoxFor_8c02aefc("");
                         m->state_0x18 = STATE_SELECT;
                         break;
                     }
@@ -802,7 +802,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                         if (rewrite == -1) {
                             m->state_0x18 = STATE_SELECT;
-                            swapMessageBoxFor_8c02aefc(MSG_WRITE_FAIL);
+                            ObjectsSwapMessageBoxFor_8c02aefc(MSG_WRITE_FAIL);
                             var_vmBusy_8c157a7c = 0;
                             break;
                         }
@@ -813,7 +813,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
                     case VMGAME_BUP_ERROR: {
                         m->state_0x18 = STATE_SELECT;
-                        swapMessageBoxFor_8c02aefc(MSG_READ_FAIL);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_READ_FAIL);
                         var_vmBusy_8c157a7c = 0;
                         break;
                     }
@@ -829,12 +829,12 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                     case VMGAME_BUP_IDLE:
                     case VMGAME_BUP_SAVE_DONE:
                         m->state_0x18 = STATE_OP_COMPLETE;
-                        swapMessageBoxFor_8c02aefc(MSG_POINTS_ADDED);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_POINTS_ADDED);
                         var_vmBusy_8c157a7c = 0;
                         break;
                     case VMGAME_BUP_ERROR:
                         m->state_0x18 = STATE_SELECT;
-                        swapMessageBoxFor_8c02aefc(MSG_WRITE_FAIL);
+                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_WRITE_FAIL);
                         var_vmBusy_8c157a7c = 0;
                         break;
                 }
@@ -854,14 +854,14 @@ STATIC void vmGameTask_8c01bfec(Task *task)
         if (var_vmuStatus_8c226048[slot] == VMU_STATUS_PROCEED_WITHOUT_SAVING) {
             if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                 m->state_0x18 = STATE_RETURN_FADE_OUT;
-                swapMessageBoxFor_8c02aefc("");
+                ObjectsSwapMessageBoxFor_8c02aefc("");
                 FadePushOut_8c022b60(10);
             }
         } else {
             selectSlot_8c01bf2a(slot);
             m->pos.vmSelect.cursor_0x20 = m->pos.vmSelect.cursorTarget_0x28;
             m->state_0x18 = STATE_SELECT;
-            swapMessageBoxFor_8c02aefc("");
+            ObjectsSwapMessageBoxFor_8c02aefc("");
         }
 
         drawSelectScreen_8c01be90();
@@ -886,7 +886,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
         m->state_0x18 = STATE_MENU_FADE_IN;
         m->selected_0x38 = m->field_0x1c;
-        swapMessageBoxFor_8c02aefc("");
+        ObjectsSwapMessageBoxFor_8c02aefc("");
         FadePushIn_8c022a9c(10);
         return;
     }
@@ -906,7 +906,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
     }
 
-    menuTextboxText_8c02af1c(0xff);
+    ObjectsMenuTextboxText_8c02af1c(0xff);
     TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 1, 0.0f, 0.0f, -4.0f);
     m->selected_0x38 = slot;
 }
@@ -929,7 +929,7 @@ void VmGameSwitchToTopMenu_8c01c880(Task *task)
         AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322
     );
 
-    swapMessageBoxFor_8c02aefc("");
+    ObjectsSwapMessageBoxFor_8c02aefc("");
 }
 
 void VmGameResetLcdAnims_8c01c8dc(void)

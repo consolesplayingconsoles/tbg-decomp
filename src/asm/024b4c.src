@@ -13,7 +13,7 @@
           .IMPORT     _var_8c227df4
           .IMPORT     _var_8c227df8
           .IMPORT     _var_8c227dfc
-          .IMPORT     _var_8c227db8
+          .IMPORT     _var_busSimpleLightDir_8c227db8
           .IMPORT     _var_8c227dc4
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _var_busState_8c1bb9d0
@@ -34,7 +34,7 @@
           .IMPORT     _njSqrt
           .IMPORT     _acosf
           .IMPORT     __divls
-          .IMPORT     _var_8c1bc460
+          .IMPORT     _var_groundQueryPoint_8c1bc460
           .IMPORT     _var_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njRotateY
@@ -208,7 +208,7 @@ LP_GEN_17430:
           .DATA.L _var_8c227df4 ; H'8C024C68
           .DATA.L _var_8c227df8 ; H'8C024C6C
           .DATA.L _var_8c227dfc ; H'8C024C70
-          .DATA.L _var_8c227db8 ; H'8C024C74
+          .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C024C74
           .DATA.L _var_8c227dc4 ; H'8C024C78
           .DATA.L _njCnkSetSimpleLight ; H'8C024C7C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024C80
@@ -300,7 +300,7 @@ LP_GEN_54676:
           .DATA.L _njCnkSimpleDrawShapeMotion ; H'8C024D38
           .DATA.L _njControl3D ; H'8C024D3C
           .DATA.L _njCnkModDrawObject ; H'8C024D40
-          .DATA.L _var_8c227db8 ; H'8C024D44
+          .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C024D44
           .DATA.L _njCnkSetSimpleLight ; H'8C024D48
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024D4C
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C024D50
@@ -582,7 +582,7 @@ LP_GEN_17475:
           .DATA.W H'03C8 ; H'8C024F78
           .RES.W 1 ; H'8C024F7A
           .DATA.L __divls ; H'8C024F7C
-          .DATA.L _var_8c1bc460 ; H'8C024F80
+          .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C024F80
           .DATA.L _var_8c1bc46c ; H'8C024F84
           .DATA.L _njUnitMatrix ; H'8C024F88
           .DATA.L _njRotateY ; H'8C024F8C
@@ -1177,7 +1177,7 @@ LP_GEN_73507:
           .DATA.L _var_8c1bc46c ; H'8C025418
           .DATA.L _njSetMatrix ; H'8C02541C
           .DATA.L _njRotateY ; H'8C025420
-          .DATA.L _var_8c1bc460 ; H'8C025424
+          .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C025424
           .DATA.L _njCalcPoint ; H'8C025428
           .DATA.L _var_8c1bb904 ; H'8C02542C
           .DATA.L _njTranslateCameraPosition ; H'8C025430
@@ -1464,7 +1464,7 @@ LP_GEN_36343:
           .DATA.L _njPointCameraInterest ; H'8C025660
           .DATA.L _njSetCamera ; H'8C025664
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C025668
-          .DATA.L _var_8c227db8 ; H'8C02566C
+          .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C02566C
           .DATA.L _njCalcVector ; H'8C025670
           .DATA.L LAB_8c024cc8 ; H'8C025674
           .DATA.L _FUN_8c024bb8 ; H'8C025678

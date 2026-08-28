@@ -80,7 +80,7 @@ return new Class extends TestCase {
         $this->initMenuStateUint32(0x60, 42);
 
         // Dialog is still running => should just break (no state advance, no new dialog)
-        $this->initUint32($this->addressOf('_var_dialogSequenceIsActive_8c225fb4'), 1);
+        $this->initUint32($this->addressOf('_var_instructorDialogActive_8c225fb4'), 1);
 
         $this->initUint32($this->addressOf('_var_menuTextboxCharLimit_8c225fb8'), 21);
 
@@ -101,13 +101,13 @@ return new Class extends TestCase {
         $this->initMenuStateUint32(0x18, 2);
         $this->initMenuStateUint32(0x60, 42);
 
-        $this->initUint32($this->addressOf('_var_dialogSequenceIsActive_8c225fb4'), 0);
+        $this->initUint32($this->addressOf('_var_instructorDialogActive_8c225fb4'), 0);
         $this->initUint32($this->addressOf('_var_menuTextboxCharLimit_8c225fb8'), 21);
 
-        // Dialog sequences:
-        // current != SEQ_COURSE_UNLOCKED to avoid unlock branch,
+        // Dialog queue:
+        // current != INSTR_COURSE_UNLOCKED to avoid unlock branch,
         // next != -1 to indicate there's more dialogs,
-        // next also != SEQ_COURSE_UNLOCKED so no midiReset call.
+        // next also != INSTR_COURSE_UNLOCKED so no midiReset call.
         $seqBase = $this->addressOf('_var_dialogQueue_8c225fbc');
         $this->initUint32($seqBase + 0, 0x05); // current
         $this->initUint32($seqBase + 4, 0x22); // next (pushed)
@@ -118,7 +118,7 @@ return new Class extends TestCase {
         $this->call('_courseMenuFreeRunMenuTask_8c017ada')->with($task, 0);
 
         // Effects (no course-unlock branch, just advance + push next)
-        $this->shouldWriteLong($task + 0x08, 1);                // ++dialogSequenceIndex
+        $this->shouldWriteLong($task + 0x08, 1);                // ++instructorDialogIndex
         $this->shouldCall('_CourseMenuPushDialogTask_8c0170c6')->with(0x22, 0); // start next sequence
 
         $this->shouldRenderFrame(
@@ -135,10 +135,10 @@ return new Class extends TestCase {
         $this->initMenuStateUint32(0x18, 2);
         $this->initMenuStateUint32(0x60, 42);
 
-        $this->initUint32($this->addressOf('_var_dialogSequenceIsActive_8c225fb4'), 0);
+        $this->initUint32($this->addressOf('_var_instructorDialogActive_8c225fb4'), 0);
         $this->initUint32($this->addressOf('_var_menuTextboxCharLimit_8c225fb8'), 21);
 
-        // Dialog sequences:
+        // Dialog queue:
         // current == 0x22,
         // next == -1 to indicate there's more dialogs,
         $seqBase = $this->addressOf('_var_dialogQueue_8c225fbc');
@@ -151,9 +151,9 @@ return new Class extends TestCase {
         $this->call('_courseMenuFreeRunMenuTask_8c017ada')->with($task, 0);
 
         // Effects
-        $this->shouldWriteLong($task + 0x08, 1); // ++dialogSequenceIndex
+        $this->shouldWriteLong($task + 0x08, 1); // ++instructorDialogIndex
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 3);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')
             ->with("");
 
         $this->shouldRenderFrame(
@@ -465,7 +465,7 @@ return new Class extends TestCase {
         $this->setSize('_var_dialogQueue_8c225fbc', 4 * 4);
         $this->setSize('_init_8c03bd80', 4);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_dialogSequenceIsActive_8c225fb4', 4); // dialog-running flag
+        $this->setSize('_var_instructorDialogActive_8c225fb4', 4); // dialog-running flag
         $this->setSize('_const_8c03628c', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
         // menu-entry onSelect callback into the Save unit (address taken in a table)
@@ -504,7 +504,7 @@ return new Class extends TestCase {
         $this->shouldCall('_drawCourseButtons_8c017590');
         $this->shouldDrawSprite(0x0c, 0x09, 0.0, 0.0, -5.0);
         // $this->shouldDrawSprite(0x00, 0x2b, 0.0, 0.0, -4.0);
-        $this->shouldCall('_menuTextboxText_8c02af1c')->with($textboxIndex)->andReturn($menuTextboxReturns);
+        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with($textboxIndex)->andReturn($menuTextboxReturns);
         if ($menuTextboxReturns) {
             $this->shouldDrawSprite(0x00, 1, 0.0, 0.0, -5.0);
         }

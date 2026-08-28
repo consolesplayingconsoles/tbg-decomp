@@ -10,7 +10,7 @@
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
 #include "01f3c0.h"
-#include "028258.h"
+#include "028258_objects.h"
 #include "0100bc_sound.h"
 #include "sectionB.h"
 #include "serial_debug.h"
@@ -124,7 +124,7 @@ STATIC void FUN_8c01e27c(Task *task)
                 } else {
                     var_menuState_8c1bc7a8.state_0x18 = STATE_PROMPT;
                     var_menuState_8c1bc7a8.selected_0x38 = 0;
-                    swapMessageBoxFor_8c02aefc(const_8c03896c);
+                    ObjectsSwapMessageBoxFor_8c02aefc(const_8c03896c);
                 }
 
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -158,7 +158,7 @@ STATIC void FUN_8c01e27c(Task *task)
                 224.0f, 300.0f, -4.0f
             );
 
-            if (menuTextboxText_8c02af1c(0xff))
+            if (ObjectsMenuTextboxText_8c02af1c(0xff))
                 TxtDrawSprite_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
@@ -188,7 +188,7 @@ STATIC void FUN_8c01e27c(Task *task)
                 224.0f, 300.0f, -4.0f
             );
 
-            if (menuTextboxText_8c02af1c(0xff))
+            if (ObjectsMenuTextboxText_8c02af1c(0xff))
                 TxtDrawSprite_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
@@ -260,7 +260,7 @@ STATIC void FUN_8c01e27c(Task *task)
                 224.0f, 300.0f, -4.0f
             );
 
-            if (menuTextboxText_8c02af1c(0xff))
+            if (ObjectsMenuTextboxText_8c02af1c(0xff))
                 TxtDrawSprite_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
@@ -398,7 +398,7 @@ STATIC void showLesson_8c01e63c(Task *task)
             0.0f, 0.0f, -4.5f
         );
 
-    if (menuTextboxText_8c02af1c(0xff))
+    if (ObjectsMenuTextboxText_8c02af1c(0xff))
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00,
             1,
@@ -431,7 +431,7 @@ STATIC void practiceCancelReturn_8c01e920(Task *task)
 {
     TaskSetAction_8c014b3e(task, showLesson_8c01e63c);
     var_menuState_8c1bc7a8.field_0x40 = 0;
-    swapMessageBoxFor_8c02aefc(const_8c038984);
+    ObjectsSwapMessageBoxFor_8c02aefc(const_8c038984);
 
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
@@ -450,9 +450,9 @@ STATIC void practiceCancelReturn_8c01e920(Task *task)
     // coverage:ignore-next-line
 }
 
-/* Builds the post-lesson dialog sequence queue (var_8c226414, -1 terminated).
- * IDs below are dialog_sequences_8c044c08 indices, same numbering as
- * 016d2c_course_menu's (currently unexported) lesson-mode SEQ_LESSON_* range
+/* Builds the post-lesson dialog queue (var_8c226414, -1 terminated).
+ * IDs below are instructorDialogs_8c044c08 indices, same numbering as
+ * 016d2c_course_menu's (currently unexported) lesson-mode INSTR_LESSON_* range
  * 18-31: 0x16 = TIPS, 0x17 = WARNING, 0x18 = CHOOSE, 0x19 = SCORE_RECORD,
  * 0x1a = FINAL_DAY, 0x1b = PERFECT, 0x1c = GOOD, 0x1d = PASS,
  * 0x1e = FAIL_MINOR, 0x1f = FAIL_MAJOR. */
@@ -558,11 +558,11 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
             break;
 
         case LESSON_STATE_DIALOG_QUEUE:
-            if (var_dialogSequenceIsActive_8c225fb4 == 0) {
+            if (var_instructorDialogActive_8c225fb4 == 0) {
                 task->field_0x08++;
                 if (var_8c226414[task->field_0x08] == -1) {
                     var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_MENU;
-                    swapMessageBoxFor_8c02aefc(const_8c038984);
+                    ObjectsSwapMessageBoxFor_8c02aefc(const_8c038984);
                 } else {
                     CourseMenuPushDialogTask_8c0170c6(var_8c226414[task->field_0x08], 0);
                 }
@@ -580,18 +580,18 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_QUIT_PROMPT;
                 var_menuState_8c1bc7a8.field_0x3c = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
-                var_menuTextboxCharLimit_8c225fb8 = swapMessageBoxFor_8c02aefc(const_8c038988);
+                var_menuTextboxCharLimit_8c225fb8 = ObjectsSwapMessageBoxFor_8c02aefc(const_8c038988);
             }
             else if ((var_peripherals_8c1ba35c[0].press & 0x10) != 0) {
                 if (var_menuState_8c1bc7a8.selected_0x38 != 0) {
                     var_menuState_8c1bc7a8.selected_0x38--;
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
-                    swapMessageBoxFor_8c02aefc(const_8c038984);
+                    ObjectsSwapMessageBoxFor_8c02aefc(const_8c038984);
                 }
             }
             else if ((var_peripherals_8c1ba35c[0].press & 0x20) != 0) {
                 var_menuState_8c1bc7a8.selected_0x38++;
-                swapMessageBoxFor_8c02aefc(const_8c038984);
+                ObjectsSwapMessageBoxFor_8c02aefc(const_8c038984);
                 if (var_menuState_8c1bc7a8.selected_0x38 > 10) {
                     var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_MENU_LOCKED;
                 }
@@ -606,7 +606,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_QUIT_PROMPT;
                 var_menuState_8c1bc7a8.field_0x3c = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-                var_menuTextboxCharLimit_8c225fb8 = swapMessageBoxFor_8c02aefc(const_8c038988);
+                var_menuTextboxCharLimit_8c225fb8 = ObjectsSwapMessageBoxFor_8c02aefc(const_8c038988);
             }
             else if ((var_peripherals_8c1ba35c[0].press & 0x10) != 0) {
                 var_menuState_8c1bc7a8.selected_0x38--;
@@ -626,7 +626,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
             }
             else if (result == 2) {
                 var_menuState_8c1bc7a8.state_0x18 = var_menuState_8c1bc7a8.field_0x1c;
-                swapMessageBoxFor_8c02aefc(const_8c038984);
+                ObjectsSwapMessageBoxFor_8c02aefc(const_8c038984);
                 var_menuTextboxCharLimit_8c225fb8 = 0;
             }
 
@@ -727,7 +727,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x19, 0.0f, 0.0f, -2.0f);
     }
 
-    if (menuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8)) {
+    if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8)) {
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -5.0f);
     }
 
@@ -758,7 +758,7 @@ void PracticeMenuLessonStart_8c01f114(Task *task)
     buildDialogQueue_8c01e992();
     task->field_0x08 = 0;
     var_menuState_8c1bc7a8.instructorSprite_0x60 =
-        init_dialogSequences_8c044c08[var_8c226414[0]]->instructorSpriteNo_0x04;
+        init_instructorDialogs_8c044c08[var_8c226414[0]]->spriteNo_0x04;
     njSetBackColor(0, 0, 0);
     njGarbageTexture(var_tex_8c157af8, 0xc00);
 
@@ -810,12 +810,12 @@ void PracticeMenuLessonRetry_8c01f21c(void)
 
     var_menuState_8c1bc7a8.state_0x18 = STATE_INIT;
     var_menuState_8c1bc7a8.instructorSprite_0x60 =
-        init_dialogSequences_8c044c08[var_8c226414[0]]->instructorSpriteNo_0x04;
+        init_instructorDialogs_8c044c08[var_8c226414[0]]->spriteNo_0x04;
     created_task->field_0x08 = 0;
 
     njGarbageTexture(var_tex_8c157af8, 0xc00);
-    FUN_8c02ae3e(0x20, 0x180, -2.0f, 0x240, 0x40, 0, 0, -1);
-    swapMessageBoxFor_8c02aefc(const_8c038984);
+    ObjectsOpenTextbox_8c02ae3e(0x20, 0x180, -2.0f, 0x240, 0x40, 0, 0, -1);
+    ObjectsSwapMessageBoxFor_8c02aefc(const_8c038984);
 
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();

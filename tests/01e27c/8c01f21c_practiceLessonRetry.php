@@ -117,8 +117,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($createdTask + 0x08, 0);
 
         $this->shouldCall('_njGarbageTexture')->with($this->addressOf('_var_tex_8c157af8'), 0xc00);
-        $this->shouldCall('_FUN_8c02ae3e')->with(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
-        $this->shouldCall('_swapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_ObjectsOpenTextbox_8c02ae3e')->with(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
+        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
 
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
         $this->shouldCall('_AsqResetQueues_8c011f6c');
@@ -144,8 +144,8 @@ return new class extends TestCase {
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $this->setSize('_var_tex_8c157af8', 4);
-        $this->setSize('_FUN_8c02ae3e', 4);
-        $this->setSize('_swapMessageBoxFor_8c02aefc', 4);
+        $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
+        $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_AsqInitQueues_8c011f36', 4);
         $this->setSize('_AsqResetQueues_8c011f6c', 4);
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
@@ -157,14 +157,14 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_8c22642c'), 42);
 
-        // var_8c226414[0] indexes init_dialogSequences_8c044c08 for the
-        // dialog's instructorSpriteNo_0x04 (MenuDialog+4). Every branch here
+        // var_8c226414[0] indexes init_instructorDialogs_8c044c08 for the
+        // dialog's spriteNo_0x04 (InstructorLine+4). Every branch here
         // ends up with 0x18 (CHOOSE) as the first queued entry, since
         // buildDialogQueue_8c01e992 is mocked out (no real side effects).
         $this->initUint32($this->addressOf('_var_8c226414'), 0x18);
-        $this->setSize('_init_dialogSequences_8c044c08', 66 * 4);
+        $this->setSize('_init_instructorDialogs_8c044c08', 66 * 4);
         $dialog = $this->alloc(8);
         $this->initUint32($dialog + 4, 0x2a);
-        $this->initUint32($this->addressOf('_init_dialogSequences_8c044c08') + 0x18 * 4, $dialog);
+        $this->initUint32($this->addressOf('_init_instructorDialogs_8c044c08') + 0x18 * 4, $dialog);
     }
 };

@@ -4,7 +4,7 @@
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_8c228660
           .IMPORT     _var_midiHandles_8c0fcd28
-          .IMPORT     _var_8c1bc460
+          .IMPORT     _var_groundQueryPoint_8c1bc460
           .IMPORT     _var_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njRotateY
@@ -13,7 +13,7 @@
           .IMPORT     _var_8c227d88
           .IMPORT     _var_8c227d84
           .IMPORT     _FUN_8c0207fa
-          .IMPORT     _var_8c1bc458
+          .IMPORT     _var_crossingIntersectPoint_8c1bc458
           .IMPORT     _var_8c1bc45c
           .IMPORT     _FUN_8c0206f0
           .IMPORT     _FUN_8c02081c
@@ -586,7 +586,7 @@ LP_GEN_13112:
           .DATA.W H'029C ; H'8C023D90
           .DATA.W H'02A0 ; H'8C023D92
           .DATA.L _var_busState_8c1bb9d0 ; H'8C023D94
-          .DATA.L _var_8c1bc460 ; H'8C023D98
+          .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C023D98
           .DATA.L _var_8c1bc46c ; H'8C023D9C
           .DATA.L _njUnitMatrix ; H'8C023DA0
           .DATA.L _njRotateY ; H'8C023DA4
@@ -768,7 +768,7 @@ LP_GEN_21361:
           .DATA.L _var_8c1bc46c ; H'8C023EF8
           .DATA.L _njUnitMatrix ; H'8C023EFC
           .DATA.L _njRotateY ; H'8C023F00
-          .DATA.L _var_8c1bc460 ; H'8C023F04
+          .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C023F04
           .DATA.L _njCalcPoint ; H'8C023F08
           .DATA.L _FUN_8c020f7e ; H'8C023F0C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C023F10
@@ -1042,7 +1042,7 @@ LP_GEN_73891:
           .DATA.W H'0334 ; H'8C024110
           .RES.W 1 ; H'8C024112
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C024114
-          .DATA.L _var_8c1bc458 ; H'8C024118
+          .DATA.L _var_crossingIntersectPoint_8c1bc458 ; H'8C024118
           .DATA.L _var_8c1bc45c ; H'8C02411C
           .DATA.L _FUN_8c0206f0 ; H'8C024120
           .DATA.L _sdMidiPlay ; H'8C024124

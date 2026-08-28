@@ -45,14 +45,14 @@
           .IMPORT     _DemoInputTask_8c016bf4
           .IMPORT     _FUN_8c025af4
           .IMPORT     _var_pauseActive_8c1bb8cc
-          .IMPORT     _var_8c22847c
+          .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _FUN_8c023610
-          .IMPORT     _FUN_8c02845a
-          .IMPORT     _FUN_8c029920
-          .IMPORT     _FUN_8c0296d6
+          .IMPORT     _ObjectsInitTrafficSignals_8c02845a
+          .IMPORT     _ObjectsInitBlinkers_8c029920
+          .IMPORT     _ObjectsInitPedestrianGroups_8c0296d6
           .IMPORT     _FUN_8c02769e
           .IMPORT     _FUN_8c0222dc
-          .IMPORT     _FUN_8c02a6ac
+          .IMPORT     _ObjectsPushTasks_8c02a6ac
           .IMPORT     _FUN_8c02c46a
           .IMPORT     _FUN_8c02018c
           .IMPORT     _FUN_8c02d968
@@ -108,7 +108,7 @@
           .IMPORT     _njSetTextureName
           .IMPORT     _njSetRenderWidth
           .IMPORT     _njLoadTexture
-          .IMPORT     _var_8c1bb86c
+          .IMPORT     _var_groundGridFallback_8c1bb86c
           .IMPORT     _var_routeModelSlots_8c1bbddc
           .IMPORT     _RouteLoadClearModelSlots_8c013bbc
           .IMPORT     _var_pedestrianAssets_8c1bbfdc
@@ -116,14 +116,14 @@
           .IMPORT     _var_segmentModels_8c1bc3f0
           .IMPORT     _var_trafficModels_8c1bc3f4
           .IMPORT     _TileStreamClearUnknownVar_8c02171c
-          .IMPORT     _clearUnknownVar_8c029acc
-          .IMPORT     _clearUnknownVars_8c02aa28
-          .IMPORT     _var_8c1bc404
+          .IMPORT     _ObjectsClearAssetRequestTable_8c029acc
+          .IMPORT     _ObjectsClearMessageAssets_8c02aa28
+          .IMPORT     _var_messageTextBoxA_8c1bc404
           .IMPORT     _var_8c226434
           .IMPORT     _var_8c226438
-          .IMPORT     _var_8c228234
-          .IMPORT     _var_8c227e20
-          .IMPORT     _var_8c227e24
+          .IMPORT     _var_pedGroupCount_8c228234
+          .IMPORT     _var_trafficSignalTasks_8c227e20
+          .IMPORT     _var_trafficSignalFrames_8c227e24
           .IMPORT     _var_8c2288f8
           .IMPORT     _var_interiorTexlist_8c1bc438
           .IMPORT     _var_menuState_8c1bc7a8
@@ -753,15 +753,15 @@ LP_GEN_38000:
           .DATA.L _DemoInputTask_8c016bf4
           .DATA.L _FUN_8c025af4
           .DATA.L _var_pauseActive_8c1bb8cc
-          .DATA.L _var_8c22847c
+          .DATA.L _var_messageBoxActive_8c22847c
           .DATA.L _FUN_8c023610
-          .DATA.L _FUN_8c02845a
+          .DATA.L _ObjectsInitTrafficSignals_8c02845a
           .DATA.L _var_playMode_8c1bb8d0
-          .DATA.L _FUN_8c029920
-          .DATA.L _FUN_8c0296d6
+          .DATA.L _ObjectsInitBlinkers_8c029920
+          .DATA.L _ObjectsInitPedestrianGroups_8c0296d6
           .DATA.L _FUN_8c02769e
           .DATA.L _FUN_8c0222dc
-          .DATA.L _FUN_8c02a6ac
+          .DATA.L _ObjectsPushTasks_8c02a6ac
           .DATA.L _FUN_8c02c46a
           .DATA.L _FUN_8c02018c
           .DATA.L _FUN_8c02d968
@@ -1177,7 +1177,7 @@ LP_GEN_90231:
           .DATA.L _var_tasks_8c1ba808
           .DATA.L _var_tasks_8c1bac28
           .DATA.L _var_tasks_8c1bb448
-          .DATA.L _var_8c1bb86c
+          .DATA.L _var_groundGridFallback_8c1bb86c
           .DATA.L _var_routeModelSlots_8c1bbddc
           .DATA.L _RouteLoadClearModelSlots_8c013bbc
           .DATA.L _var_pedestrianAssets_8c1bbfdc
@@ -1185,14 +1185,14 @@ LP_GEN_90231:
           .DATA.L _var_segmentModels_8c1bc3f0
           .DATA.L _var_trafficModels_8c1bc3f4
           .DATA.L _TileStreamClearUnknownVar_8c02171c
-          .DATA.L _clearUnknownVar_8c029acc
-          .DATA.L _clearUnknownVars_8c02aa28
-          .DATA.L _var_8c1bc404
+          .DATA.L _ObjectsClearAssetRequestTable_8c029acc
+          .DATA.L _ObjectsClearMessageAssets_8c02aa28
+          .DATA.L _var_messageTextBoxA_8c1bc404
           .DATA.L _var_8c226434
           .DATA.L _var_8c226438
-          .DATA.L _var_8c228234
-          .DATA.L _var_8c227e20
-          .DATA.L _var_8c227e24
+          .DATA.L _var_pedGroupCount_8c228234
+          .DATA.L _var_trafficSignalTasks_8c227e20
+          .DATA.L _var_trafficSignalFrames_8c227e24
           .DATA.L _var_8c2288f8
           .DATA.L _var_interiorTexlist_8c1bc438
           .DATA.L _var_menuState_8c1bc7a8

@@ -477,7 +477,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_retirePhase_8c18ad08'), $ad08);
         $this->initUint32($this->addressOf('_var_confirmChoice_8c18ad0c'), $ad0c);
         $this->initUint32($this->addressOf('_var_activeCtrlType_8c157a70'), $ctrl);
-        $this->initUint32($this->addressOf('_var_8c22847c'), 0);
+        $this->initUint32($this->addressOf('_var_messageBoxActive_8c22847c'), 0);
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), $vibport);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), $isFading);

@@ -104,11 +104,11 @@ return new class extends TestCase {
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_FadePushIn_8c022a9c', 4);
 
-        // var_8c226414[0] indexes init_dialogSequences_8c044c08 for the
-        // dialog's instructorSpriteNo_0x04 (MenuDialog+4).
+        // var_8c226414[0] indexes init_instructorDialogs_8c044c08 for the
+        // dialog's spriteNo_0x04 (InstructorLine+4).
         $this->initUint32($this->addressOf('_var_8c226414'), 0);
         $dialog = $this->alloc(8);
         $this->initUint32($dialog + 4, 0x2a);
-        $this->initUint32($this->addressOf('_init_dialogSequences_8c044c08'), $dialog);
+        $this->initUint32($this->addressOf('_init_instructorDialogs_8c044c08'), $dialog);
     }
 };

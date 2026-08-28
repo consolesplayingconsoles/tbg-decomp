@@ -32,10 +32,10 @@
           .IMPORT     _var_fogParam_8c227dd0
           .IMPORT     _var_cutsceneActive_8c1bb900
           .IMPORT     _var_playMode_8c1bb8d0
-          .IMPORT     _FUN_8c029ad4
+          .IMPORT     _ObjectsStartAssetRequests_8c029ad4
           .IMPORT     _var_currentTileRegionList_8c226534
           .IMPORT     _AsqRequestDat_8c011182
-          .IMPORT     _FUN_8c02aa36
+          .IMPORT     _ObjectsRequestMessageAssets_8c02aa36
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _strcpy
           .IMPORT     _var_routeModels_8c1bc3ec
@@ -961,12 +961,12 @@ LP_GEN_25668:
           .DATA.L _var_cutsceneActive_8c1bb900
           .DATA.L _var_playMode_8c1bb8d0
           .DATA.L _init_8c043fd4
-          .DATA.L _FUN_8c029ad4
+          .DATA.L _ObjectsStartAssetRequests_8c029ad4
           .DATA.L _var_currentTileRegionList_8c226534
           .DATA.L _var_datFiles_8c18adb4
           .DATA.L _var_datDir_8c18ad2c
           .DATA.L _AsqRequestDat_8c011182
-          .DATA.L _FUN_8c02aa36
+          .DATA.L _ObjectsRequestMessageAssets_8c02aa36
           .DATA.L _var_currentCourse_8c1bb868
           .DATA.L _init_courseTable_8c043ca4
           .DATA.L _var_route_8c18ad1c

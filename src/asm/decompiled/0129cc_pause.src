@@ -5,7 +5,7 @@
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_peripheral_8c1ba358
           .IMPORT     _var_activeCtrlType_8c157a70
-          .IMPORT     _var_8c22847c
+          .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _var_onRetire_8c18ad10
           .IMPORT     _SndControlAdxtWithOutVol_8c0107d2
           .IMPORT     _var_vibport_8c1ba354
@@ -331,7 +331,7 @@ LP_GEN_41107:
           .DATA.L _sdMidiPlay
           .DATA.L _var_peripheral_8c1ba358
           .DATA.L _var_activeCtrlType_8c157a70
-          .DATA.L _var_8c22847c
+          .DATA.L _var_messageBoxActive_8c22847c
           .DATA.L _var_onRetire_8c18ad10
           .DATA.L _SndControlAdxtWithOutVol_8c0107d2
           .DATA.L _var_vibport_8c1ba354

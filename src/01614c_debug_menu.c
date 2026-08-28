@@ -14,7 +14,7 @@
 #include "016d2c_course_menu.h"
 #include "018644_file_menu.h"
 #include "02171c_tile_stream.h"
-#include "028258.h"
+#include "028258_objects.h"
 #include "02c884.h"
 #include "02f320.h"
 #include "0193c8_vm_menu.h"
@@ -62,9 +62,9 @@ STATIC void startReplayLoad_8c016b4c(void);
 
 /* debug menu listMenuTask_8c01666a lists/selects from; scanned until a "" (terminator) name */
 DebugMenuEntry init_debugMenuEntries_8c04429c[] = {
-    { "SHINJYUKU_EVENT",       FUN_8c02aa36,             {0,  0, 0} },
-    { "WANGAN_EVENT",          FUN_8c02aa36,             {1,  0, 0} },
-    { "OUME_EVENT",            FUN_8c02aa36,             {2,  0, 0} },
+    { "SHINJYUKU_EVENT",       ObjectsRequestMessageAssets_8c02aa36,             {0,  0, 0} },
+    { "WANGAN_EVENT",          ObjectsRequestMessageAssets_8c02aa36,             {1,  0, 0} },
+    { "OUME_EVENT",            ObjectsRequestMessageAssets_8c02aa36,             {2,  0, 0} },
     { "WANGAN_DAY",            FUN_8c0167c0,             {0, 10, 0} },
     { "WANGAN_DAY_AUTO",       FUN_8c0167c0,             {0, 10, 1} },
     { "SHINJYUKU_DAY",         FUN_8c0167c0,             {9, 20, 0} },
@@ -91,8 +91,8 @@ DebugMenuEntry init_debugMenuEntries_8c04429c[] = {
 
 void FUN_8c01614c(void)
 {
-    FUN_8c0297da();
-    FUN_8c0288be();
+    ObjectsFreePedestrianGroups_8c0297da();
+    ObjectsFreeTrafficSignals_8c0288be();
     FUN_8c02ca96();
     TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
     TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
@@ -112,8 +112,8 @@ void DebugMenuFreeSessionAssets_8c016182(void)
     VibClear_8c010fbe();
     FUN_8c01614c();
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
-    FUN_8c02adee();
-    FUN_8c029cfe();
+    ObjectsFreeMessageAssets_8c02adee();
+    ObjectsFreeAssetRequests_8c029cfe();
     RouteLoadFreePedestrianAssets_8c013ee4();
     RouteLoadFreeAllRouteModels_8c013dae();
     AsqFreeModels_8c0120fe((LoadedModel **)&var_routeModels_8c1bc3ec);
