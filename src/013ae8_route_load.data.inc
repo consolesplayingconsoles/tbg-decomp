@@ -221,7 +221,7 @@ STATIC ModelFiles init_8c03c57c[2] = {
 
 CourseSegment init_courseOmeDaySegments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c4, 0x0000, 0x005c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c4, 0x0000, 0x005c,
         /* ukn_0x08 */ init_8c03c10e,
         /* tileRegionList_0x0c */ init_8c03c17e,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -233,7 +233,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ init_8c03c55c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c5, 0x0000, 0x005d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c5, 0x0000, 0x005d,
         /* ukn_0x08 */ init_8c03c118,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -245,7 +245,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c6, 0x0000, 0x005e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c6, 0x0000, 0x005e,
         /* ukn_0x08 */ init_8c03c11c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -257,7 +257,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c7, 0x0000, 0x005f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c7, 0x0000, 0x005f,
         /* ukn_0x08 */ init_8c03c120,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -269,7 +269,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c8, 0x0000, 0x0060,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c8, 0x0000, 0x0060,
         /* ukn_0x08 */ init_8c03c126,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -281,7 +281,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0061,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0061,
         /* ukn_0x08 */ init_8c03c130,
         /* tileRegionList_0x0c */ init_8c03c186,
         /* routeModelIndexes_0x10 */ NULL,
@@ -293,7 +293,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ca, 0x0000, 0x0062,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ca, 0x0000, 0x0062,
         /* ukn_0x08 */ init_8c03c136,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -305,7 +305,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00cb, 0x0000, 0x0063,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00cb, 0x0000, 0x0063,
         /* ukn_0x08 */ init_8c03c13a,
         /* tileRegionList_0x0c */ init_8c03c18e,
         /* routeModelIndexes_0x10 */ NULL,
@@ -317,7 +317,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cc, 0x0000, 0x0064,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cc, 0x0000, 0x0064,
         /* ukn_0x08 */ init_8c03c140,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -329,7 +329,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cd, 0x0000, 0x0065,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cd, 0x0000, 0x0065,
         /* ukn_0x08 */ init_8c03c144,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -341,7 +341,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ce, 0x0000, 0x0066,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ce, 0x0000, 0x0066,
         /* ukn_0x08 */ init_8c03c148,
         /* tileRegionList_0x0c */ init_8c03c196,
         /* routeModelIndexes_0x10 */ NULL,
@@ -353,7 +353,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cf, 0x0000, 0x0067,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cf, 0x0000, 0x0067,
         /* ukn_0x08 */ init_8c03c14e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -365,7 +365,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d0, 0x0000, 0x0068,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d0, 0x0000, 0x0068,
         /* ukn_0x08 */ init_8c03c152,
         /* tileRegionList_0x0c */ init_8c03c19e,
         /* routeModelIndexes_0x10 */ NULL,
@@ -377,7 +377,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d1, 0x0000, 0x0069,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d1, 0x0000, 0x0069,
         /* ukn_0x08 */ init_8c03c158,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -389,7 +389,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d2, 0x0000, 0x006a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d2, 0x0000, 0x006a,
         /* ukn_0x08 */ init_8c03c15c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -401,7 +401,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d3, 0x0000, 0x006b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d3, 0x0000, 0x006b,
         /* ukn_0x08 */ init_8c03c160,
         /* tileRegionList_0x0c */ init_8c03c1a6,
         /* routeModelIndexes_0x10 */ NULL,
@@ -413,7 +413,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d4, 0x0000, 0x006c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d4, 0x0000, 0x006c,
         /* ukn_0x08 */ init_8c03c164,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -425,7 +425,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d5, 0x0000, 0x006d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d5, 0x0000, 0x006d,
         /* ukn_0x08 */ init_8c03c168,
         /* tileRegionList_0x0c */ init_8c03c1ae,
         /* routeModelIndexes_0x10 */ NULL,
@@ -437,7 +437,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d6, 0x0000, 0x006e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d6, 0x0000, 0x006e,
         /* ukn_0x08 */ init_8c03c16c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -449,7 +449,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d7, 0x0000, 0x006f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d7, 0x0000, 0x006f,
         /* ukn_0x08 */ init_8c03c170,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -461,7 +461,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d8, 0x0000, 0x0070,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d8, 0x0000, 0x0070,
         /* ukn_0x08 */ init_8c03c174,
         /* tileRegionList_0x0c */ init_8c03c1b6,
         /* routeModelIndexes_0x10 */ NULL,
@@ -473,7 +473,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d9, 0x0000, 0x0071,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d9, 0x0000, 0x0071,
         /* ukn_0x08 */ init_8c03c178,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -485,7 +485,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00da, 0x0000, 0x0072,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00da, 0x0000, 0x0072,
         /* ukn_0x08 */ init_8c03c17c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -497,7 +497,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -512,7 +512,7 @@ CourseSegment init_courseOmeDaySegments[24] = {
 
 CourseSegment init_courseOmeEveningSegments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c4, 0x0000, 0x005c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c4, 0x0000, 0x005c,
         /* ukn_0x08 */ init_8c03c10e,
         /* tileRegionList_0x0c */ init_8c03c17e,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -524,7 +524,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ init_8c03c56c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c5, 0x0000, 0x005d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c5, 0x0000, 0x005d,
         /* ukn_0x08 */ init_8c03c118,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -536,7 +536,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c6, 0x0000, 0x005e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c6, 0x0000, 0x005e,
         /* ukn_0x08 */ init_8c03c11c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -548,7 +548,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c7, 0x0000, 0x005f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c7, 0x0000, 0x005f,
         /* ukn_0x08 */ init_8c03c120,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -560,7 +560,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c8, 0x0000, 0x0060,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c8, 0x0000, 0x0060,
         /* ukn_0x08 */ init_8c03c126,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -572,7 +572,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0061,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0061,
         /* ukn_0x08 */ init_8c03c130,
         /* tileRegionList_0x0c */ init_8c03c186,
         /* routeModelIndexes_0x10 */ NULL,
@@ -584,7 +584,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ca, 0x0000, 0x0062,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ca, 0x0000, 0x0062,
         /* ukn_0x08 */ init_8c03c136,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -596,7 +596,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00cb, 0x0000, 0x0063,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00cb, 0x0000, 0x0063,
         /* ukn_0x08 */ init_8c03c13a,
         /* tileRegionList_0x0c */ init_8c03c18e,
         /* routeModelIndexes_0x10 */ NULL,
@@ -608,7 +608,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cc, 0x0000, 0x0064,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cc, 0x0000, 0x0064,
         /* ukn_0x08 */ init_8c03c140,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -620,7 +620,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cd, 0x0000, 0x0065,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cd, 0x0000, 0x0065,
         /* ukn_0x08 */ init_8c03c144,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -632,7 +632,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ce, 0x0000, 0x0066,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ce, 0x0000, 0x0066,
         /* ukn_0x08 */ init_8c03c148,
         /* tileRegionList_0x0c */ init_8c03c196,
         /* routeModelIndexes_0x10 */ NULL,
@@ -644,7 +644,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cf, 0x0000, 0x0067,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cf, 0x0000, 0x0067,
         /* ukn_0x08 */ init_8c03c14e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -656,7 +656,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d0, 0x0000, 0x0068,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d0, 0x0000, 0x0068,
         /* ukn_0x08 */ init_8c03c152,
         /* tileRegionList_0x0c */ init_8c03c19e,
         /* routeModelIndexes_0x10 */ NULL,
@@ -668,7 +668,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d1, 0x0000, 0x0069,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d1, 0x0000, 0x0069,
         /* ukn_0x08 */ init_8c03c158,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -680,7 +680,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d2, 0x0000, 0x006a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d2, 0x0000, 0x006a,
         /* ukn_0x08 */ init_8c03c15c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -692,7 +692,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d3, 0x0000, 0x006b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d3, 0x0000, 0x006b,
         /* ukn_0x08 */ init_8c03c160,
         /* tileRegionList_0x0c */ init_8c03c1a6,
         /* routeModelIndexes_0x10 */ NULL,
@@ -704,7 +704,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d4, 0x0000, 0x006c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d4, 0x0000, 0x006c,
         /* ukn_0x08 */ init_8c03c164,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -716,7 +716,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d5, 0x0000, 0x006d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d5, 0x0000, 0x006d,
         /* ukn_0x08 */ init_8c03c168,
         /* tileRegionList_0x0c */ init_8c03c1ae,
         /* routeModelIndexes_0x10 */ NULL,
@@ -728,7 +728,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d6, 0x0000, 0x006e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d6, 0x0000, 0x006e,
         /* ukn_0x08 */ init_8c03c16c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -740,7 +740,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d7, 0x0000, 0x006f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d7, 0x0000, 0x006f,
         /* ukn_0x08 */ init_8c03c170,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -752,7 +752,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d8, 0x0000, 0x0070,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d8, 0x0000, 0x0070,
         /* ukn_0x08 */ init_8c03c174,
         /* tileRegionList_0x0c */ init_8c03c1b6,
         /* routeModelIndexes_0x10 */ NULL,
@@ -764,7 +764,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d9, 0x0000, 0x0071,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d9, 0x0000, 0x0071,
         /* ukn_0x08 */ init_8c03c178,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -776,7 +776,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00da, 0x0000, 0x0072,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00da, 0x0000, 0x0072,
         /* ukn_0x08 */ init_8c03c17c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -788,7 +788,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -803,7 +803,7 @@ CourseSegment init_courseOmeEveningSegments[24] = {
 
 CourseSegment init_courseOmeNightSegments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c4, 0x0000, 0x005c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c4, 0x0000, 0x005c,
         /* ukn_0x08 */ init_8c03c10e,
         /* tileRegionList_0x0c */ init_8c03c17e,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -815,7 +815,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ init_8c03c57c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c5, 0x0000, 0x005d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c5, 0x0000, 0x005d,
         /* ukn_0x08 */ init_8c03c118,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -827,7 +827,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c6, 0x0000, 0x005e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00c6, 0x0000, 0x005e,
         /* ukn_0x08 */ init_8c03c11c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -839,7 +839,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c7, 0x0000, 0x005f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c7, 0x0000, 0x005f,
         /* ukn_0x08 */ init_8c03c120,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -851,7 +851,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c8, 0x0000, 0x0060,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c8, 0x0000, 0x0060,
         /* ukn_0x08 */ init_8c03c126,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -863,7 +863,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0061,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0061,
         /* ukn_0x08 */ init_8c03c130,
         /* tileRegionList_0x0c */ init_8c03c186,
         /* routeModelIndexes_0x10 */ NULL,
@@ -875,7 +875,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ca, 0x0000, 0x0062,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ca, 0x0000, 0x0062,
         /* ukn_0x08 */ init_8c03c136,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -887,7 +887,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00cb, 0x0000, 0x0063,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00cb, 0x0000, 0x0063,
         /* ukn_0x08 */ init_8c03c13a,
         /* tileRegionList_0x0c */ init_8c03c18e,
         /* routeModelIndexes_0x10 */ NULL,
@@ -899,7 +899,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cc, 0x0000, 0x0064,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cc, 0x0000, 0x0064,
         /* ukn_0x08 */ init_8c03c140,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -911,7 +911,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cd, 0x0000, 0x0065,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cd, 0x0000, 0x0065,
         /* ukn_0x08 */ init_8c03c144,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -923,7 +923,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ce, 0x0000, 0x0066,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ce, 0x0000, 0x0066,
         /* ukn_0x08 */ init_8c03c148,
         /* tileRegionList_0x0c */ init_8c03c196,
         /* routeModelIndexes_0x10 */ NULL,
@@ -935,7 +935,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cf, 0x0000, 0x0067,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00cf, 0x0000, 0x0067,
         /* ukn_0x08 */ init_8c03c14e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -947,7 +947,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d0, 0x0000, 0x0068,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d0, 0x0000, 0x0068,
         /* ukn_0x08 */ init_8c03c152,
         /* tileRegionList_0x0c */ init_8c03c19e,
         /* routeModelIndexes_0x10 */ NULL,
@@ -959,7 +959,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d1, 0x0000, 0x0069,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d1, 0x0000, 0x0069,
         /* ukn_0x08 */ init_8c03c158,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -971,7 +971,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d2, 0x0000, 0x006a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d2, 0x0000, 0x006a,
         /* ukn_0x08 */ init_8c03c15c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -983,7 +983,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d3, 0x0000, 0x006b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d3, 0x0000, 0x006b,
         /* ukn_0x08 */ init_8c03c160,
         /* tileRegionList_0x0c */ init_8c03c1a6,
         /* routeModelIndexes_0x10 */ NULL,
@@ -995,7 +995,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d4, 0x0000, 0x006c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d4, 0x0000, 0x006c,
         /* ukn_0x08 */ init_8c03c164,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1007,7 +1007,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d5, 0x0000, 0x006d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d5, 0x0000, 0x006d,
         /* ukn_0x08 */ init_8c03c168,
         /* tileRegionList_0x0c */ init_8c03c1ae,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1019,7 +1019,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d6, 0x0000, 0x006e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d6, 0x0000, 0x006e,
         /* ukn_0x08 */ init_8c03c16c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1031,7 +1031,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d7, 0x0000, 0x006f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d7, 0x0000, 0x006f,
         /* ukn_0x08 */ init_8c03c170,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1043,7 +1043,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d8, 0x0000, 0x0070,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d8, 0x0000, 0x0070,
         /* ukn_0x08 */ init_8c03c174,
         /* tileRegionList_0x0c */ init_8c03c1b6,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1055,7 +1055,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d9, 0x0000, 0x0071,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00d9, 0x0000, 0x0071,
         /* ukn_0x08 */ init_8c03c178,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1067,7 +1067,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00da, 0x0000, 0x0072,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00da, 0x0000, 0x0072,
         /* ukn_0x08 */ init_8c03c17c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1079,7 +1079,7 @@ CourseSegment init_courseOmeNightSegments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1919,7 +1919,7 @@ STATIC IntPtr init_8c03e16c[8] = {
 
 CourseSegment init_courseShinjukuDay0Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -1931,7 +1931,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da1c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1943,7 +1943,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1955,7 +1955,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1967,7 +1967,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1979,7 +1979,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -1991,7 +1991,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2003,7 +2003,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2015,7 +2015,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2027,7 +2027,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2039,7 +2039,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2051,7 +2051,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2063,7 +2063,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2075,7 +2075,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2087,7 +2087,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2099,7 +2099,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2111,7 +2111,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2123,7 +2123,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2135,7 +2135,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2147,7 +2147,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2159,7 +2159,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2171,7 +2171,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2183,7 +2183,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2195,7 +2195,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2210,7 +2210,7 @@ CourseSegment init_courseShinjukuDay0Segments[24] = {
 
 CourseSegment init_courseShinjukuDay1Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -2222,7 +2222,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da1c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2234,7 +2234,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2246,7 +2246,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2258,7 +2258,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2270,7 +2270,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2282,7 +2282,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2294,7 +2294,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2306,7 +2306,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2318,7 +2318,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2330,7 +2330,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2342,7 +2342,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2354,7 +2354,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2366,7 +2366,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2378,7 +2378,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2390,7 +2390,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2402,7 +2402,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2414,7 +2414,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2426,7 +2426,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2438,7 +2438,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2450,7 +2450,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2462,7 +2462,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2474,7 +2474,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2486,7 +2486,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2501,7 +2501,7 @@ CourseSegment init_courseShinjukuDay1Segments[24] = {
 
 CourseSegment init_courseShinjukuDay2Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -2513,7 +2513,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da1c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2525,7 +2525,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2537,7 +2537,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2549,7 +2549,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2561,7 +2561,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2573,7 +2573,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2585,7 +2585,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2597,7 +2597,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2609,7 +2609,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2621,7 +2621,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2633,7 +2633,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2645,7 +2645,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2657,7 +2657,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2669,7 +2669,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2681,7 +2681,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2693,7 +2693,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2705,7 +2705,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2717,7 +2717,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2729,7 +2729,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2741,7 +2741,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2753,7 +2753,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2765,7 +2765,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2777,7 +2777,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2792,7 +2792,7 @@ CourseSegment init_courseShinjukuDay2Segments[24] = {
 
 CourseSegment init_courseShinjukuEvening0Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -2804,7 +2804,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da2c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2816,7 +2816,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2828,7 +2828,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2840,7 +2840,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2852,7 +2852,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2864,7 +2864,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2876,7 +2876,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2888,7 +2888,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2900,7 +2900,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2912,7 +2912,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2924,7 +2924,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2936,7 +2936,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2948,7 +2948,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2960,7 +2960,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2972,7 +2972,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2984,7 +2984,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -2996,7 +2996,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3008,7 +3008,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3020,7 +3020,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3032,7 +3032,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3044,7 +3044,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3056,7 +3056,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3068,7 +3068,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3083,7 +3083,7 @@ CourseSegment init_courseShinjukuEvening0Segments[24] = {
 
 CourseSegment init_courseShinjukuEvening1Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -3095,7 +3095,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da2c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3107,7 +3107,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3119,7 +3119,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3131,7 +3131,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3143,7 +3143,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3155,7 +3155,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3167,7 +3167,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3179,7 +3179,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3191,7 +3191,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3203,7 +3203,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3215,7 +3215,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3227,7 +3227,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3239,7 +3239,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3251,7 +3251,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3263,7 +3263,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3275,7 +3275,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3287,7 +3287,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3299,7 +3299,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3311,7 +3311,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3323,7 +3323,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3335,7 +3335,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3347,7 +3347,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3359,7 +3359,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3374,7 +3374,7 @@ CourseSegment init_courseShinjukuEvening1Segments[24] = {
 
 CourseSegment init_courseShinjukuEvening2Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -3386,7 +3386,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da2c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3398,7 +3398,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3410,7 +3410,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3422,7 +3422,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3434,7 +3434,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3446,7 +3446,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3458,7 +3458,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3470,7 +3470,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3482,7 +3482,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3494,7 +3494,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3506,7 +3506,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3518,7 +3518,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3530,7 +3530,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3542,7 +3542,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3554,7 +3554,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3566,7 +3566,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3578,7 +3578,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3590,7 +3590,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3602,7 +3602,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3614,7 +3614,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3626,7 +3626,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3638,7 +3638,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3650,7 +3650,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3665,7 +3665,7 @@ CourseSegment init_courseShinjukuEvening2Segments[24] = {
 
 CourseSegment init_courseShinjukuNight0Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -3677,7 +3677,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da3c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3689,7 +3689,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3701,7 +3701,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3713,7 +3713,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3725,7 +3725,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3737,7 +3737,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3749,7 +3749,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3761,7 +3761,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3773,7 +3773,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3785,7 +3785,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3797,7 +3797,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3809,7 +3809,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3821,7 +3821,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3833,7 +3833,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3845,7 +3845,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3857,7 +3857,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3869,7 +3869,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3881,7 +3881,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3893,7 +3893,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3905,7 +3905,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3917,7 +3917,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3929,7 +3929,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3941,7 +3941,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3956,7 +3956,7 @@ CourseSegment init_courseShinjukuNight0Segments[24] = {
 
 CourseSegment init_courseShinjukuNight1Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -3968,7 +3968,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da3c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3980,7 +3980,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -3992,7 +3992,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4004,7 +4004,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4016,7 +4016,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4028,7 +4028,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4040,7 +4040,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4052,7 +4052,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4064,7 +4064,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4076,7 +4076,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4088,7 +4088,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4100,7 +4100,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4112,7 +4112,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4124,7 +4124,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4136,7 +4136,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4148,7 +4148,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4160,7 +4160,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4172,7 +4172,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4184,7 +4184,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4196,7 +4196,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4208,7 +4208,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4220,7 +4220,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4232,7 +4232,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4247,7 +4247,7 @@ CourseSegment init_courseShinjukuNight1Segments[24] = {
 
 CourseSegment init_courseShinjukuNight2Segments[24] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c03d750,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -4259,7 +4259,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ init_8c03da3c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4271,7 +4271,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c03d6c4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4283,7 +4283,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c03d758,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4295,7 +4295,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4307,7 +4307,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fe, 0x0000, 0x0098,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ init_8c03d760,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4319,7 +4319,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x00ff, 0x0000, 0x0099,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4331,7 +4331,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x009a,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4343,7 +4343,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0101, 0x0000, 0x009b,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4355,7 +4355,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x009c,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4367,7 +4367,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ init_8c03d76c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4379,7 +4379,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4391,7 +4391,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4403,7 +4403,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4415,7 +4415,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4427,7 +4427,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x00a2,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ init_8c03d774,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4439,7 +4439,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0109, 0x0000, 0x00a3,
         /* ukn_0x08 */ init_8c03d72e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4451,7 +4451,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [17] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x010a, 0x0000, 0x00a4,
         /* ukn_0x08 */ init_8c03d732,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4463,7 +4463,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [18] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c03d77c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4475,7 +4475,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [19] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010c, 0x0000, 0x00a6,
         /* ukn_0x08 */ init_8c03d73c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4487,7 +4487,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [20] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c03d784,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4499,7 +4499,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [21] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010e, 0x0000, 0x00a8,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ init_8c03d78c,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4511,7 +4511,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [22] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x00a9,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -4523,7 +4523,7 @@ CourseSegment init_courseShinjukuNight2Segments[24] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [23] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5211,7 +5211,7 @@ STATIC IntPtr init_8c04134c[7] = {
 
 CourseSegment init_courseWanganDaySegments[17] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b44,
         /* tileRegionList_0x0c */ init_8c040bb8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5223,7 +5223,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ init_8c040e38,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0001, 0x0000, 0x0001,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0001, 0x0000, 0x0001,
         /* ukn_0x08 */ init_8c040b50,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5235,7 +5235,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0002,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0002,
         /* ukn_0x08 */ init_8c040b54,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5247,7 +5247,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0003, 0x0000, 0x0003,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0003, 0x0000, 0x0003,
         /* ukn_0x08 */ init_8c040b64,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5259,7 +5259,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0003,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0003,
         /* ukn_0x08 */ init_8c040b68,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5271,7 +5271,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0004,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0004,
         /* ukn_0x08 */ init_8c040b78,
         /* tileRegionList_0x0c */ init_8c040bd8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5283,7 +5283,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0005, 0x0000, 0x0005,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0005, 0x0000, 0x0005,
         /* ukn_0x08 */ init_8c040b7e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5295,7 +5295,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0006, 0x0000, 0x0006,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0006, 0x0000, 0x0006,
         /* ukn_0x08 */ init_8c040b82,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5307,7 +5307,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0007, 0x0000, 0x0007,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0007, 0x0000, 0x0007,
         /* ukn_0x08 */ init_8c040b86,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5319,7 +5319,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0008, 0x0000, 0x0008,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0008, 0x0000, 0x0008,
         /* ukn_0x08 */ init_8c040b8c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5331,7 +5331,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0009,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0009,
         /* ukn_0x08 */ init_8c040b9c,
         /* tileRegionList_0x0c */ init_8c040be0,
         /* routeModelIndexes_0x10 */ init_8c03c0ed,
@@ -5343,7 +5343,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000a, 0x0000, 0x000a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000a, 0x0000, 0x000a,
         /* ukn_0x08 */ init_8c040ba2,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5355,7 +5355,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000b, 0x0000, 0x000b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000b, 0x0000, 0x000b,
         /* ukn_0x08 */ init_8c040ba6,
         /* tileRegionList_0x0c */ init_8c040be8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5367,7 +5367,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ init_8c040e48,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000c, 0x0000, 0x000c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000c, 0x0000, 0x000c,
         /* ukn_0x08 */ init_8c040bac,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5379,7 +5379,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x000d, 0x0000, 0x000d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x000d, 0x0000, 0x000d,
         /* ukn_0x08 */ init_8c040bb2,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5391,7 +5391,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000e, 0x0000, 0x000e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000e, 0x0000, 0x000e,
         /* ukn_0x08 */ init_8c040bb6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5403,7 +5403,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5418,7 +5418,7 @@ CourseSegment init_courseWanganDaySegments[17] = {
 
 CourseSegment init_courseWanganEveningSegments[17] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b44,
         /* tileRegionList_0x0c */ init_8c040bb8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5430,7 +5430,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ init_8c040e58,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0001, 0x0000, 0x0001,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0001, 0x0000, 0x0001,
         /* ukn_0x08 */ init_8c040b50,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5442,7 +5442,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0002,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0002,
         /* ukn_0x08 */ init_8c040b54,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5454,7 +5454,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0003, 0x0000, 0x0003,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0003, 0x0000, 0x0003,
         /* ukn_0x08 */ init_8c040b64,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5466,7 +5466,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0003,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0003,
         /* ukn_0x08 */ init_8c040b68,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5478,7 +5478,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0004,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0004,
         /* ukn_0x08 */ init_8c040b78,
         /* tileRegionList_0x0c */ init_8c040bd8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5490,7 +5490,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0005, 0x0000, 0x0005,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0005, 0x0000, 0x0005,
         /* ukn_0x08 */ init_8c040b7e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5502,7 +5502,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0006, 0x0000, 0x0006,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0006, 0x0000, 0x0006,
         /* ukn_0x08 */ init_8c040b82,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5514,7 +5514,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0007, 0x0000, 0x0007,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0007, 0x0000, 0x0007,
         /* ukn_0x08 */ init_8c040b86,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5526,7 +5526,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0008, 0x0000, 0x0008,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0008, 0x0000, 0x0008,
         /* ukn_0x08 */ init_8c040b8c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5538,7 +5538,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0009,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0009,
         /* ukn_0x08 */ init_8c040b9c,
         /* tileRegionList_0x0c */ init_8c040be0,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5550,7 +5550,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000a, 0x0000, 0x000a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000a, 0x0000, 0x000a,
         /* ukn_0x08 */ init_8c040ba2,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5562,7 +5562,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000b, 0x0000, 0x000b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000b, 0x0000, 0x000b,
         /* ukn_0x08 */ init_8c040ba6,
         /* tileRegionList_0x0c */ init_8c040be8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5574,7 +5574,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ init_8c040e68,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000c, 0x0000, 0x000c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000c, 0x0000, 0x000c,
         /* ukn_0x08 */ init_8c040bac,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5586,7 +5586,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x000d, 0x0000, 0x000d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x000d, 0x0000, 0x000d,
         /* ukn_0x08 */ init_8c040bb2,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5598,7 +5598,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000e, 0x0000, 0x000e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000e, 0x0000, 0x000e,
         /* ukn_0x08 */ init_8c040bb6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5610,7 +5610,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5625,7 +5625,7 @@ CourseSegment init_courseWanganEveningSegments[17] = {
 
 CourseSegment init_courseWanganNightSegments[17] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b44,
         /* tileRegionList_0x0c */ init_8c040bb8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5637,7 +5637,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ init_8c040e78,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0001, 0x0000, 0x0001,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0001, 0x0000, 0x0001,
         /* ukn_0x08 */ init_8c040b50,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5649,7 +5649,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0002,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0002,
         /* ukn_0x08 */ init_8c040b54,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5661,7 +5661,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0003, 0x0000, 0x0003,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0003, 0x0000, 0x0003,
         /* ukn_0x08 */ init_8c040b64,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5673,7 +5673,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0003,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0003,
         /* ukn_0x08 */ init_8c040b68,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5685,7 +5685,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0004,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0004,
         /* ukn_0x08 */ init_8c040b78,
         /* tileRegionList_0x0c */ init_8c040bd8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5697,7 +5697,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0005, 0x0000, 0x0005,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0005, 0x0000, 0x0005,
         /* ukn_0x08 */ init_8c040b7e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5709,7 +5709,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0006, 0x0000, 0x0006,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x0006, 0x0000, 0x0006,
         /* ukn_0x08 */ init_8c040b82,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5721,7 +5721,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0007, 0x0000, 0x0007,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0007, 0x0000, 0x0007,
         /* ukn_0x08 */ init_8c040b86,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5733,7 +5733,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0008, 0x0000, 0x0008,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0008, 0x0000, 0x0008,
         /* ukn_0x08 */ init_8c040b8c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5745,7 +5745,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0009,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0009,
         /* ukn_0x08 */ init_8c040b9c,
         /* tileRegionList_0x0c */ init_8c040be0,
         /* routeModelIndexes_0x10 */ init_8c03c0ed,
@@ -5757,7 +5757,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [11] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000a, 0x0000, 0x000a,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000a, 0x0000, 0x000a,
         /* ukn_0x08 */ init_8c040ba2,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5769,7 +5769,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [12] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000b, 0x0000, 0x000b,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000b, 0x0000, 0x000b,
         /* ukn_0x08 */ init_8c040ba6,
         /* tileRegionList_0x0c */ init_8c040be8,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -5781,7 +5781,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ init_8c040e88,
     },
     {   /* [13] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000c, 0x0000, 0x000c,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000c, 0x0000, 0x000c,
         /* ukn_0x08 */ init_8c040bac,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5793,7 +5793,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [14] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x000d, 0x0000, 0x000d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0003, 0x000d, 0x0000, 0x000d,
         /* ukn_0x08 */ init_8c040bb2,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5805,7 +5805,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [15] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000e, 0x0000, 0x000e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000e, 0x0000, 0x000e,
         /* ukn_0x08 */ init_8c040bb6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -5817,7 +5817,7 @@ CourseSegment init_courseWanganNightSegments[17] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [16] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6065,7 +6065,7 @@ STATIC Uint8 init_8c042008[8] = { 0x4e, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course27Segments[3] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ca, 0x0000, 0x0062,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ca, 0x0000, 0x0062,
         /* ukn_0x08 */ init_8c03c136,
         /* tileRegionList_0x0c */ init_8c042000,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6077,7 +6077,7 @@ CourseSegment init_course27Segments[3] = {
         /* modelFiles_0x28 */ init_8c03c55c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0045, 0x0000, 0x0064,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0045, 0x0000, 0x0064,
         /* ukn_0x08 */ init_8c03c140,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6089,7 +6089,7 @@ CourseSegment init_course27Segments[3] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6137,7 +6137,7 @@ STATIC Uint8 init_8c042114[8] = { 0xae, 0x15, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course28Segments[3] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d6, 0x0000, 0x006e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d6, 0x0000, 0x006e,
         /* ukn_0x08 */ init_8c03c16c,
         /* tileRegionList_0x0c */ init_8c04210c,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6149,7 +6149,7 @@ CourseSegment init_course28Segments[3] = {
         /* modelFiles_0x28 */ init_8c03c55c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d7, 0x0000, 0x006f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d7, 0x0000, 0x006f,
         /* ukn_0x08 */ init_8c03c170,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6161,7 +6161,7 @@ CourseSegment init_course28Segments[3] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6209,7 +6209,7 @@ STATIC Uint8 init_8c042220[8] = { 0xd2, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course29Segments[3] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0061,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0061,
         /* ukn_0x08 */ init_8c03c130,
         /* tileRegionList_0x0c */ init_8c042218,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6221,7 +6221,7 @@ CourseSegment init_course29Segments[3] = {
         /* modelFiles_0x28 */ init_8c03c55c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ca, 0x0000, 0x0062,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ca, 0x0000, 0x0062,
         /* ukn_0x08 */ init_8c03c136,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6233,7 +6233,7 @@ CourseSegment init_course29Segments[3] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6281,7 +6281,7 @@ STATIC Uint8 init_8c04232c[8] = { 0x56, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course30Segments[3] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010b, 0x0000, 0x00a5,
         /* ukn_0x08 */ init_8c03d736,
         /* tileRegionList_0x0c */ init_8c042324,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6293,7 +6293,7 @@ CourseSegment init_course30Segments[3] = {
         /* modelFiles_0x28 */ init_8c03da1c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x00a7,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6305,7 +6305,7 @@ CourseSegment init_course30Segments[3] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6362,7 +6362,7 @@ STATIC Uint8 init_8c042438[8] = { 0xd2, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course31Segments[3] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000f, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000f, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ init_8c042430,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6374,7 +6374,7 @@ CourseSegment init_course31Segments[3] = {
         /* modelFiles_0x28 */ init_8c03da1c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6386,7 +6386,7 @@ CourseSegment init_course31Segments[3] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6434,7 +6434,7 @@ STATIC Uint8 init_8c042544[8] = { 0xa6, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course32Segments[3] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b44,
         /* tileRegionList_0x0c */ init_8c04253c,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6446,7 +6446,7 @@ CourseSegment init_course32Segments[3] = {
         /* modelFiles_0x28 */ init_8c040e38,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0001, 0x0000, 0x0001,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0001, 0x0000, 0x0001,
         /* ukn_0x08 */ init_8c040b50,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6458,7 +6458,7 @@ CourseSegment init_course32Segments[3] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6506,7 +6506,7 @@ STATIC Uint8 init_8c042650[8] = { 0xa6, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course33Segments[3] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c03d6b8,
         /* tileRegionList_0x0c */ init_8c042648,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6518,7 +6518,7 @@ CourseSegment init_course33Segments[3] = {
         /* modelFiles_0x28 */ init_8c03da1c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c03d6c0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6530,7 +6530,7 @@ CourseSegment init_course33Segments[3] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6578,7 +6578,7 @@ STATIC Uint8 init_8c04275c[12] = { 0x80, 0xc6, 0x13, 0x00, 0x88, 0xcd, 0x13, 0x0
 
 CourseSegment init_course34Segments[4] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0001, 0x0000, 0x0001,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0001, 0x0000, 0x0001,
         /* ukn_0x08 */ init_8c040b44,
         /* tileRegionList_0x0c */ init_8c042754,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6590,7 +6590,7 @@ CourseSegment init_course34Segments[4] = {
         /* modelFiles_0x28 */ init_8c040e38,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0002,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0002,
         /* ukn_0x08 */ init_8c040b50,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6602,7 +6602,7 @@ CourseSegment init_course34Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0003, 0x0000, 0x0003,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0003, 0x0000, 0x0003,
         /* ukn_0x08 */ init_8c040b54,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6614,7 +6614,7 @@ CourseSegment init_course34Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6664,7 +6664,7 @@ STATIC Uint8 init_8c0428a8[8] = { 0x80, 0xc6, 0x13, 0x00, 0x90, 0xd4, 0x13, 0x00
 
 CourseSegment init_course35Segments[3] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x005e, 0x0000, 0x0005,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x005e, 0x0000, 0x0005,
         /* ukn_0x08 */ init_8c042880,
         /* tileRegionList_0x0c */ init_8c0428a0,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6676,7 +6676,7 @@ CourseSegment init_course35Segments[3] = {
         /* modelFiles_0x28 */ init_8c040e38,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0006, 0x0000, 0x0006,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0006, 0x0000, 0x0006,
         /* ukn_0x08 */ init_8c04288a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6688,7 +6688,7 @@ CourseSegment init_course35Segments[3] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6741,7 +6741,7 @@ STATIC Uint8 init_8c0429cc[24] = { 0x80, 0xc6, 0x13, 0x00, 0x4a, 0xcf, 0x13, 0x0
 
 CourseSegment init_course36Segments[6] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x009d,
         /* ukn_0x08 */ init_8c04299c,
         /* tileRegionList_0x0c */ init_8c0429c4,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6753,7 +6753,7 @@ CourseSegment init_course36Segments[6] = {
         /* modelFiles_0x28 */ init_8c03da1c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0104, 0x0000, 0x009e,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0104, 0x0000, 0x009e,
         /* ukn_0x08 */ init_8c0429a4,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6765,7 +6765,7 @@ CourseSegment init_course36Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0105, 0x0000, 0x009f,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0105, 0x0000, 0x009f,
         /* ukn_0x08 */ init_8c0429a8,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6777,7 +6777,7 @@ CourseSegment init_course36Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x00a0,
         /* ukn_0x08 */ init_8c0429ac,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6789,7 +6789,7 @@ CourseSegment init_course36Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0107, 0x0000, 0x00a1,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0107, 0x0000, 0x00a1,
         /* ukn_0x08 */ init_8c0429b0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6801,7 +6801,7 @@ CourseSegment init_course36Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6861,7 +6861,7 @@ STATIC Uint8 init_8c042ba0[24] = { 0x80, 0xf5, 0x20, 0x00, 0xe0, 0xfe, 0x20, 0x0
 
 CourseSegment init_course37Segments[6] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00f9, 0x0000, 0x0093,
         /* ukn_0x08 */ init_8c042b54,
         /* tileRegionList_0x0c */ init_8c042b90,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6873,7 +6873,7 @@ CourseSegment init_course37Segments[6] = {
         /* modelFiles_0x28 */ init_8c03da3c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fa, 0x0000, 0x0094,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fa, 0x0000, 0x0094,
         /* ukn_0x08 */ init_8c042b5a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6885,7 +6885,7 @@ CourseSegment init_course37Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fb, 0x0000, 0x0095,
         /* ukn_0x08 */ init_8c042b5e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6897,7 +6897,7 @@ CourseSegment init_course37Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0096,
         /* ukn_0x08 */ init_8c042b62,
         /* tileRegionList_0x0c */ init_8c042b98,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6909,7 +6909,7 @@ CourseSegment init_course37Segments[6] = {
         /* modelFiles_0x28 */ init_8c03da3c,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fd, 0x0000, 0x0097,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fd, 0x0000, 0x0097,
         /* ukn_0x08 */ init_8c042b6a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6921,7 +6921,7 @@ CourseSegment init_course37Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -6982,7 +6982,7 @@ STATIC Uint8 init_8c042d68[8] = { 0x02, 0x00, 0x08, 0x04, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course38Segments[9] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00fc, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d6cc,
         /* tileRegionList_0x0c */ init_8c042d58,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -6994,7 +6994,7 @@ CourseSegment init_course38Segments[9] = {
         /* modelFiles_0x28 */ init_8c03da3c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fd, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d6de,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7006,7 +7006,7 @@ CourseSegment init_course38Segments[9] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fe, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00fe, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d6f0,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7018,7 +7018,7 @@ CourseSegment init_course38Segments[9] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00ff, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00ff, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7030,7 +7030,7 @@ CourseSegment init_course38Segments[9] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7042,7 +7042,7 @@ CourseSegment init_course38Segments[9] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0101, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0101, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7054,7 +7054,7 @@ CourseSegment init_course38Segments[9] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7066,7 +7066,7 @@ CourseSegment init_course38Segments[9] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0103, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7078,7 +7078,7 @@ CourseSegment init_course38Segments[9] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7093,7 +7093,7 @@ CourseSegment init_course38Segments[9] = {
 
 CourseSegment init_course39Segments[11] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ff, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00ff, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d6f6,
         /* tileRegionList_0x0c */ init_8c042d60,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7105,7 +7105,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ init_8c03da1c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0100, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d6fa,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7117,7 +7117,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0101, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0101, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d704,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7129,7 +7129,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0102, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d708,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7141,7 +7141,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0103, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0103, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d70c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7153,7 +7153,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0104, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d714,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7165,7 +7165,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0105, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0105, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d71a,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7177,7 +7177,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [7] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0106, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d71e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7189,7 +7189,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [8] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0107, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0107, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d722,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7201,7 +7201,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [9] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0108, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d726,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7213,7 +7213,7 @@ CourseSegment init_course39Segments[11] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [10] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7228,7 +7228,7 @@ CourseSegment init_course39Segments[11] = {
 
 CourseSegment init_course40Segments[4] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x010d, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d742,
         /* tileRegionList_0x0c */ init_8c042d68,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7240,7 +7240,7 @@ CourseSegment init_course40Segments[4] = {
         /* modelFiles_0x28 */ init_8c03da3c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010e, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x010e, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d748,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7252,7 +7252,7 @@ CourseSegment init_course40Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x016c, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03d74e,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7264,7 +7264,7 @@ CourseSegment init_course40Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7389,7 +7389,7 @@ STATIC Uint8 init_8c043338[8] = { 0x01, 0x00, 0x08, 0x05, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course41Segments[7] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b44,
         /* tileRegionList_0x0c */ init_8c043318,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7401,7 +7401,7 @@ CourseSegment init_course41Segments[7] = {
         /* modelFiles_0x28 */ init_8c040e38,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0001, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0001, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b50,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7413,7 +7413,7 @@ CourseSegment init_course41Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0002, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b54,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7425,7 +7425,7 @@ CourseSegment init_course41Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0003, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0003, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b64,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7437,7 +7437,7 @@ CourseSegment init_course41Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b68,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7449,7 +7449,7 @@ CourseSegment init_course41Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b78,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7461,7 +7461,7 @@ CourseSegment init_course41Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7476,7 +7476,7 @@ CourseSegment init_course41Segments[7] = {
 
 CourseSegment init_course42Segments[4] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0003, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0003, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b64,
         /* tileRegionList_0x0c */ init_8c043320,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7488,7 +7488,7 @@ CourseSegment init_course42Segments[4] = {
         /* modelFiles_0x28 */ init_8c040e58,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0116, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b68,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7500,7 +7500,7 @@ CourseSegment init_course42Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0004, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b78,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7512,7 +7512,7 @@ CourseSegment init_course42Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7527,7 +7527,7 @@ CourseSegment init_course42Segments[4] = {
 
 CourseSegment init_course43Segments[5] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0006, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0006, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b82,
         /* tileRegionList_0x0c */ init_8c043328,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7539,7 +7539,7 @@ CourseSegment init_course43Segments[5] = {
         /* modelFiles_0x28 */ init_8c040e78,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0007, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0007, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b86,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7551,7 +7551,7 @@ CourseSegment init_course43Segments[5] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0008, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x0008, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b8c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7563,7 +7563,7 @@ CourseSegment init_course43Segments[5] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b9c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7575,7 +7575,7 @@ CourseSegment init_course43Segments[5] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7590,7 +7590,7 @@ CourseSegment init_course43Segments[5] = {
 
 CourseSegment init_course44Segments[4] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x0009, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040b9c,
         /* tileRegionList_0x0c */ init_8c043330,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7602,7 +7602,7 @@ CourseSegment init_course44Segments[4] = {
         /* modelFiles_0x28 */ init_8c040e58,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000a, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000a, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040ba2,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7614,7 +7614,7 @@ CourseSegment init_course44Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000b, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000b, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040ba6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7626,7 +7626,7 @@ CourseSegment init_course44Segments[4] = {
         /* modelFiles_0x28 */ init_8c040e68,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7641,7 +7641,7 @@ CourseSegment init_course44Segments[4] = {
 
 CourseSegment init_course45Segments[4] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000c, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000c, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040bac,
         /* tileRegionList_0x0c */ init_8c043338,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7653,7 +7653,7 @@ CourseSegment init_course45Segments[4] = {
         /* modelFiles_0x28 */ init_8c040e88,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000d, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x000d, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040bb2,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7665,7 +7665,7 @@ CourseSegment init_course45Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000e, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x000e, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c040bb6,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7677,7 +7677,7 @@ CourseSegment init_course45Segments[4] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7831,7 +7831,7 @@ STATIC Uint8 init_8c043990[8] = { 0x0a, 0x03, 0x13, 0x0b, 0x00, 0x00, 0x00, 0x00
 
 CourseSegment init_course46Segments[7] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c4, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c4, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c10e,
         /* tileRegionList_0x0c */ init_8c043988,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7843,7 +7843,7 @@ CourseSegment init_course46Segments[7] = {
         /* modelFiles_0x28 */ init_8c03c55c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c5, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c5, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c118,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7855,7 +7855,7 @@ CourseSegment init_course46Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c6, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c6, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c11c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7867,7 +7867,7 @@ CourseSegment init_course46Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c7, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c7, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c120,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7879,7 +7879,7 @@ CourseSegment init_course46Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c8, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00c8, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c126,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7891,7 +7891,7 @@ CourseSegment init_course46Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00c9, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c130,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7903,7 +7903,7 @@ CourseSegment init_course46Segments[7] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [6] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7918,7 +7918,7 @@ CourseSegment init_course46Segments[7] = {
 
 CourseSegment init_course47Segments[6] = {
     {   /* [0] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d6, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00d6, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c16c,
         /* tileRegionList_0x0c */ init_8c043990,
         /* routeModelIndexes_0x10 */ init_8c03c0d0,
@@ -7930,7 +7930,7 @@ CourseSegment init_course47Segments[6] = {
         /* modelFiles_0x28 */ init_8c03c56c,
     },
     {   /* [1] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d7, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d7, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c170,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7942,7 +7942,7 @@ CourseSegment init_course47Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [2] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d8, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d8, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c174,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7954,7 +7954,7 @@ CourseSegment init_course47Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [3] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d9, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0001, 0x00d9, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c178,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7966,7 +7966,7 @@ CourseSegment init_course47Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [4] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00da, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0002, 0x00da, 0x0000, 0x0000,
         /* ukn_0x08 */ init_8c03c17c,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,
@@ -7978,7 +7978,7 @@ CourseSegment init_course47Segments[6] = {
         /* modelFiles_0x28 */ NULL,
     },
     {   /* [5] */
-        /* ukn_0x00, ukn_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
+        /* ukn_0x00, stopAreaId_0x02, ukn_0x04, ukn_0x06 */ 0x0000, 0x0000, 0x0000, 0x0000,
         /* ukn_0x08 */ NULL,
         /* tileRegionList_0x0c */ NULL,
         /* routeModelIndexes_0x10 */ NULL,

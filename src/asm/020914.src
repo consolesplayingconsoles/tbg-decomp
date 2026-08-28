@@ -2,9 +2,9 @@
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _njSqrt
           .IMPORT     _acosf
-          .EXPORT     _FUN_8c020914
+          .EXPORT     _GroundQueryFindPolygon_8c020914
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c020914:
+_GroundQueryFindPolygon_8c020914:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

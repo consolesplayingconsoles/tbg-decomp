@@ -12,7 +12,7 @@ void DebugMenuDemoRecordTask_8c01677e(Task *task, void *state);
  * 012f44_game.c's game-start logic when a debug-menu course entry is picked. */
 typedef struct {
     int courseId_0x00;
-    int field_0x04;
+    int startStopIndex_0x04;
     int inputMapSel_0x08;
 } DebugMenuCourseSel;
 

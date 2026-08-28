@@ -100,8 +100,8 @@ return new class extends TestCase {
 
     public function test_segment_change_triggers_ground_snap()
     {
-        $this->setSize('_FUN_8c020b6c', 4);
-        $this->setSize('_FUN_8c020f7e', 4);
+        $this->setSize('_GroundProbeTrackPolygon_8c020b6c', 4);
+        $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
 
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_SPRITE_X, fdec(12.0));
@@ -115,18 +115,18 @@ return new class extends TestCase {
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 0.0);
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 1);
         $this->shouldCall('_advancePedPathPos_8c0289ac')->with($ped)->andReturn(1);
-        $this->shouldCall('_FUN_8c020b6c')
+        $this->shouldCall('_GroundProbeTrackPolygon_8c020b6c')
             ->with(10.0, 99.0, 30.0, $ped + self::OFF_GROUND)
             ->do(function () use ($ped) {
                 $this->writeUInt32($ped + 0x28 + 0x0c, 0, U32::of(1));
             });
-        $this->shouldCall('_FUN_8c020f7e')->with($ped + self::OFF_GROUND, $ped);
+        $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->with($ped + self::OFF_GROUND, $ped);
     }
 
     public function test_pedestrian_kind_without_crossing_still_snaps_to_ground()
     {
-        $this->setSize('_FUN_8c020b6c', 4);
-        $this->setSize('_FUN_8c020f7e', 4);
+        $this->setSize('_GroundProbeTrackPolygon_8c020b6c', 4);
+        $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
 
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_KIND, 1);
@@ -141,7 +141,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 0.0);
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 1);
         $this->shouldCall('_advancePedPathPos_8c0289ac')->with($ped)->andReturn(0);
-        $this->shouldCall('_FUN_8c020b6c')
+        $this->shouldCall('_GroundProbeTrackPolygon_8c020b6c')
             ->with(0.0, 0.0, 0.0, $ped + self::OFF_GROUND)
             ->do(function () use ($ped) {
                 $this->writeUInt32($ped + 0x28 + 0x0c, 0, U32::of(0));

@@ -100,7 +100,7 @@ SRCS = \
 	src/02af78_event.c \
 	src/asm/02b2f0.src \
 	src/asm/02b464.src \
-	src/asm/02c884.src \
+	src/02c884_bus_stop.c \
 	src/asm/02d06c.src \
 	src/asm/02d19c.src \
 	src/asm/02d968.src \

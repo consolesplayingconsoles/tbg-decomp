@@ -12,9 +12,9 @@
           .IMPORT     _var_groundGridPrimary_8c1bb890
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_groundQueryPoint_8c1bc460
-          .IMPORT     _FUN_8c020914
+          .IMPORT     _GroundQueryFindPolygon_8c020914
           .IMPORT     _var_groundGridFallback_8c1bb86c
-          .IMPORT     _FUN_8c020f7e
+          .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _var_trafficSignalDefs_8c1bb8a0
           .IMPORT     _syMalloc
           .IMPORT     _var_trafficSignalStates_8c227e28
@@ -44,7 +44,7 @@
           .IMPORT     _var_stopLinePointA_8c228268
           .IMPORT     _var_crosswalkTableEnd_8c228244
           .IMPORT     _FUN_8c02e48e
-          .IMPORT     _FUN_8c020b6c
+          .IMPORT     _GroundProbeTrackPolygon_8c020b6c
           .IMPORT     _var_pedPaths_8c228238
           .IMPORT     _rand
           .IMPORT     _AsqGetRandomA_8c012166
@@ -599,9 +599,9 @@ LP_GEN_65253:
           .DATA.L _var_groundGridPrimary_8c1bb890 ; H'8C0284A8
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0284AC
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C0284B0
-          .DATA.L _FUN_8c020914 ; H'8C0284B4
+          .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C0284B4
           .DATA.L _var_groundGridFallback_8c1bb86c ; H'8C0284B8
-          .DATA.L _FUN_8c020f7e ; H'8C0284BC
+          .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C0284BC
           .DATA.L _var_trafficSignalDefs_8c1bb8a0 ; H'8C0284C0
 LAB_8c0284c4:
           MOV.L       @(H'4,R4),R3
@@ -2197,8 +2197,8 @@ LP_GEN_25196:
           .DATA.L _markPedCrossing_8c02897a ; H'8C029064
           .DATA.L _FUN_8c02e48e ; H'8C029068
           .DATA.L H'40400000 ; H'8C02906C
-          .DATA.L _FUN_8c020b6c ; H'8C029070
-          .DATA.L _FUN_8c020f7e ; H'8C029074
+          .DATA.L _GroundProbeTrackPolygon_8c020b6c ; H'8C029070
+          .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C029074
 _pedGroupTask_8c029078:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
@@ -2526,8 +2526,8 @@ LAB_8c029296:
 LP_GEN_39471:
           .DATA.W H'0FFF ; H'8C0292F0
           .RES.W 1 ; H'8C0292F2
-          .DATA.L _FUN_8c020914 ; H'8C0292F4
-          .DATA.L _FUN_8c020f7e ; H'8C0292F8
+          .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C0292F4
+          .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C0292F8
 LAB_8c0292fc:
           MOV         #H'70,R3
           MOV.L       LP_GEN_26341,R5
@@ -2737,8 +2737,8 @@ LAB_8c029464:
 LP_GEN_26341:
           .DATA.L _pedStaticObjectTask_8c02903e ; H'8C02947C
           .DATA.L _TaskPush_8c014ae8 ; H'8C029480
-          .DATA.L _FUN_8c020914 ; H'8C029484
-          .DATA.L _FUN_8c020f7e ; H'8C029488
+          .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C029484
+          .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C029488
           .DATA.L H'3C75C28F ; H'8C02948C
           .DATA.L _var_pedestrianAssets_8c1bbfdc ; H'8C029490
           .DATA.L _TaskFree_8c014b66 ; H'8C029494
@@ -3497,13 +3497,13 @@ LP_GEN_39842:
           .DATA.L _routeBlinkerTask_8c029904 ; H'8C029A94
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C029A98
           .DATA.L _TaskPush_8c014ae8 ; H'8C029A9C
-          .DATA.L _FUN_8c020f7e ; H'8C029AA0
+          .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C029AA0
           .DATA.L _njRotateY ; H'8C029AA4
           .DATA.L H'47800000 ; H'8C029AA8
           .DATA.L H'43B40000 ; H'8C029AAC
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C029AB0
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C029AB4
-          .DATA.L _FUN_8c020914 ; H'8C029AB8
+          .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C029AB8
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C029ABC
           .DATA.L _var_groundHeightFallback_8c1bbac8 ; H'8C029AC0
           .DATA.L _njUnitMatrix ; H'8C029AC4

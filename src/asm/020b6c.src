@@ -2,12 +2,12 @@
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _acosf
           .IMPORT     _njSqrt
-          .EXPORT     _FUN_8c020b6c
-          .EXPORT     _FUN_8c020f7e
-          .EXPORT     _FUN_8c020fe4
-          .EXPORT     _FUN_8c021290
+          .EXPORT     _GroundProbeTrackPolygon_8c020b6c
+          .EXPORT     _GroundProbeInterpolateHeight_8c020f7e
+          .EXPORT     _GroundProbeFindPolygonAtHeight_8c020fe4
+          .EXPORT     _GroundProbeTrackPolygonAtHeight_8c021290
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c020b6c:
+_GroundProbeTrackPolygon_8c020b6c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -555,7 +555,7 @@ LAB_8c020f62:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c020f7e:
+_GroundProbeInterpolateHeight_8c020f7e:
           MOV.L       @(H'c,R4),R3
           TST         R3,R3
           BT          LAB_8c020fe0
@@ -609,7 +609,7 @@ LAB_8c020fdc:
 LAB_8c020fe0:
           RTS
           NOP
-_FUN_8c020fe4:
+_GroundProbeFindPolygonAtHeight_8c020fe4:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -962,7 +962,7 @@ LP_GEN_43412:
           .DATA.L H'40C90FD8 ; H'8C021284
           .DATA.L H'00008000 ; H'8C021288
           .DATA.L H'7FFFFFFF ; H'8C02128C
-_FUN_8c021290:
+_GroundProbeTrackPolygonAtHeight_8c021290:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

@@ -22,8 +22,8 @@ if (!function_exists('fdec')) {
 return new class extends TestCase {
     public function test_primary_grid_hit_skips_fallback_query()
     {
-        $this->setSize('_FUN_8c020914', 4);
-        $this->setSize('_FUN_8c020f7e', 4);
+        $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
+        $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
 
         $point = $this->addressOf('_var_groundQueryPoint_8c1bc460');
@@ -40,17 +40,17 @@ return new class extends TestCase {
 
         $resultPtr = null;
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x11111111);
-        $this->shouldCall('_FUN_8c020914')
+        $this->shouldCall('_GroundQueryFindPolygon_8c020914')
             ->with(1.0, 2.0, 3.0)
             ->do(function () use (&$resultPtr) {
                 $resultPtr = $this->registers[4]->value;
                 $this->memory->writeUInt32($resultPtr + 0xc, U32::of(1));
             });
-        $this->shouldCall('_FUN_8c020f7e')
+        $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')
             ->do(function () use (&$resultPtr, $point) {
                 if ($this->registers[4]->value !== $resultPtr || $this->registers[5]->value !== $point) {
                     throw new RuntimeException(sprintf(
-                        '_FUN_8c020f7e: expected result=%08x point=%08x, got result=%08x point=%08x',
+                        '_GroundProbeInterpolateHeight_8c020f7e: expected result=%08x point=%08x, got result=%08x point=%08x',
                         $resultPtr, $point, $this->registers[4]->value, $this->registers[5]->value,
                     ));
                 }
@@ -59,8 +59,8 @@ return new class extends TestCase {
 
     public function test_primary_grid_miss_falls_back_to_secondary_grid()
     {
-        $this->setSize('_FUN_8c020914', 4);
-        $this->setSize('_FUN_8c020f7e', 4);
+        $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
+        $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
 
         $point = $this->addressOf('_var_groundQueryPoint_8c1bc460');
@@ -76,24 +76,24 @@ return new class extends TestCase {
         $this->call('_snapPointToGround_8c02840c');
 
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x11111111);
-        $this->shouldCall('_FUN_8c020914')
+        $this->shouldCall('_GroundQueryFindPolygon_8c020914')
             ->with(1.0, 2.0, 3.0)
             ->do(function () {
                 $this->memory->writeUInt32($this->registers[4]->value + 0xc, U32::of(0));
             });
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x22222222);
         $resultPtr = null;
-        $this->shouldCall('_FUN_8c020914')
+        $this->shouldCall('_GroundQueryFindPolygon_8c020914')
             ->with(1.0, 2.0, 3.0)
             ->do(function () use (&$resultPtr) {
                 $resultPtr = $this->registers[4]->value;
                 $this->memory->writeUInt32($resultPtr + 0xc, U32::of(1));
             });
-        $this->shouldCall('_FUN_8c020f7e')
+        $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')
             ->do(function () use (&$resultPtr, $point) {
                 if ($this->registers[4]->value !== $resultPtr || $this->registers[5]->value !== $point) {
                     throw new RuntimeException(sprintf(
-                        '_FUN_8c020f7e: expected result=%08x point=%08x, got result=%08x point=%08x',
+                        '_GroundProbeInterpolateHeight_8c020f7e: expected result=%08x point=%08x, got result=%08x point=%08x',
                         $resultPtr, $point, $this->registers[4]->value, $this->registers[5]->value,
                     ));
                 }

@@ -14,6 +14,7 @@ one short and dated with the unit where it was found.
 - [Marking known-dead asm lines with coverage tags](#marking-known-dead-asm-lines-with-coverage-tags)
 - [Renaming an exported symbol: unit tests won't catch a missed caller](#renaming-an-exported-symbol-unit-tests-wont-catch-a-missed-caller)
 - [Strength-reduced loops and nested ifs fold back to idiomatic C](#strength-reduced-loops-and-nested-ifs-fold-back-to-idiomatic-c)
+- [Ghidra's SSA variable reuse can hide two different real values](#ghidras-ssa-variable-reuse-can-hide-two-different-real-values)
 
 ## Struct fields can be separately-imported symbols in asm
 
@@ -418,3 +419,203 @@ the C one). That is what the project's `isAsmObject()` helper is for -- branch t
 than inventing a way to avoid knowing the addresses. Discover each one by running
 with a placeholder and reading the `Expected ..., got 0x...` mismatch, and check
 the failure's object file before concluding the two agree.
+
+## `lint.sh` is not a per-function gate mid-unit
+
+`scripts/lint.sh` starts with `make clean all`, and per AGENTS.md the
+non-matching full build is *expected* to fail from the moment a unit is
+scaffolded until its last function is ported: other units import symbols the
+half-written `.c` does not define yet, so the link dies on `UNDEFINED EXTERNAL
+SYMBOL`. Running `lint.sh` after each function therefore reports a failure that
+means nothing about the function just written.
+
+Use `scripts/check_naming.py` as the per-function check instead -- it reads the
+built objects, which are produced before the link fails. Save the full `lint.sh`
+for when the unit is complete.
+
+`scripts/check_private_decls.py` is also transiently wrong mid-unit: while some
+functions are still asm, a `static` C function whose only in-unit caller has not
+been ported yet is dropped entirely, so symbols look private that won't be once
+the unit is finished.
+
+## A unit can have more functions than its `.src` exports
+
+`02c884_bus_stop`'s `.src` exported 9 symbols, but the unit has 10 functions.
+`drawStopMarker_8c02cd92` is never exported and never directly called -- its
+address is only taken, by `FadeCmdPushCall1_8c0223ea` -- so Ghidra merged it
+into the neighbouring function and it appears as a bare `LAB_` in the asm.
+
+Count the unit's function labels, not its `.EXPORT` lines, and treat an
+address-taken-only callee as a function in its own right. `028258` hit the same
+thing from the other direction: decompiling turned up three functions
+(`FUN_8c02833c`, `FUN_8c0283d4`, `FUN_8c0283e8`) missing from the stub list.
+
+## Test memory does not start zeroed
+
+A test that never zero-fills the state it reads can pass for the wrong reason.
+`var_8c2286a4` was typed `char[96]` and read byte-indexed in one function and
+word-indexed (`SHLL2`) in another; the byte-indexed C was simply wrong, but its
+test never discriminated, because whatever indexing it used read
+garbage-nonzero out of uninitialised test memory.
+
+Two habits fall out of this. Zero-fill the region a test depends on, and include
+at least one case the code under test must *reject* -- a test where everything
+passes proves nothing. Then confirm the test can actually fail: revert the C
+body and watch it go red. When the asm object and the C object disagree, the asm
+is the ground truth.
+
+## Forcing a caller's own prototype can hallucinate an argument Ghidra can't verify
+
+**Found in:** `026710_traffic` (2026-08-28)
+
+`TrafficInitEntryState_8c026748` (`026710_traffic`) has no real float parameters
+at all -- its whole first "instruction argument" shape was an artifact of my
+own `set_function_prototype` calls on the function itself and on unprototyped
+callees it invokes (`GroundQueryFindPolygon_8c020914`, `FUN_8c02e51c`). Each time I forced a
+guessed signature, Ghidra's decompiler dutifully produced a plausible-looking
+`in_frN`/`unaff_rN` value to satisfy it -- convincing pseudocode with zero
+grounding, since neither function had a real prototype to check against. The
+`--disasm` trace (obtained legitimately, per the skill's step-5 allowance,
+while debugging the resulting failing tests) showed the truth: both callees
+actually take a full `(x, y, z, out)` ground/junction-query quadruple built
+from *entry fields* (`entry->0xf4`, a constant `0.0`, `entry->0xfc` /
+`entry->0xf8`), and the caller's own function takes only `(entry, scriptIp)`
+-- no floats at all.
+
+**Fix:** setting a callee's prototype before decompiling a caller (per
+`docs/ghidra-mcp.md`'s normal step 1) is fine for callees whose signature is
+already established elsewhere. For a callee this project hasn't decompiled or
+verified yet, treat Ghidra's resulting register names as an unverified guess,
+not a fact -- write the test with your best guess, and when it fails with
+`Unexpected argument ... in frN`, trust the simulator's reported value (it
+reflects the real relocatable operand) over Ghidra's variable name, and
+re-derive the call from the concrete `--disasm` trace instead of trying a
+different forced prototype.
+
+## An uninitialized-register write is real but not test-reproducible; use forceStop()
+
+**Found in:** `026710_traffic` (2026-08-28)
+
+`TrafficInitEntryState_8c026748`'s decoration path (`entry`'s script-header
+word `== 10`) skips the vehicle path-walk entirely, leaving a path-segment
+pointer local (`unaff_r11` / `seg`) and a distance local (`in_dr14` / `dist`)
+unset -- yet the function unconditionally stores both to `entry+0x2b8` and
+`entry+0x2c0/0x2bc` regardless of path taken. This is a genuine original-game
+read of a register the function itself never initializes on that path. Float
+registers (`FR0`-`FR15`) start at a fixed `0.0` in sh4objtest's simulator, but
+general-purpose registers (`R0`-`R14`) are filled with `random_int()` at
+startup (`Simulator.php`), so a `MOV.L Rn,@...` write of such a register (here
+`R11`, holding the pointer) produces a *different* value on every single test
+run -- there is no expected value to hardcode, not even a "same for both
+objects" one from a single failing run.
+
+**Fix:** don't chase this with a fixed expected value (it won't reproduce) or
+skip the write silently (every write must be consumed by the expectation
+queue, in order, or the next real expectation mismatches on address). Assert
+everything deterministic up to the write immediately before the
+uninitialized one, then call `$this->forceStop()` -- it stops the simulator
+as soon as the queue empties, so the untestable write (and anything after it)
+never executes. Note this in a comment so a future reader doesn't mistake the
+short assertion list for incomplete coverage.
+
+## Ghidra's SSA variable reuse can hide two different real values
+
+**Found in:** `026710_traffic` (2026-08-28)
+
+`TrafficUpdateHeading_8c026bc4` (`026710_traffic`) takes a float parameter Ghidra
+showed as flowing straight into `njSqrt(param_1)` -- plausible, since the rest
+of the function reads like a distance normalization. Probing the asm object
+directly (mock `njSqrt`, read the `Unexpected argument ... Expected 25, got
+500` mismatch) proved the parameter is completely unused: the real argument is
+the inline `dx*dx + dy*dy` (`njHypot`'s expansion), computed from two struct
+fields the function already reads for something else. A caller passing a
+value nothing downstream reads is a real, if odd, property of the original
+game -- not a decompilation mistake to "fix" by wiring the parameter in.
+
+Separately, Ghidra's pseudocode reused one `fVar3` for two different real
+values: the normalized heading component, then (after `fVar3 = halfWidth *
+fVar3`) the corner-offset scaled by vehicle half-width. The final `acosf(fVar3)`
+in the printed pseudocode reads as the *second* value, but probing (mock
+`acosf`, check its argument) showed the real call receives the *original*,
+pre-scale value -- the compiler kept it in a register Ghidra's SSA naming
+collapsed into the same display name as the overwrite.
+
+**Fix:** never trust that two appearances of the same Ghidra variable name
+share the same real value once an intervening assignment reuses it, and never
+assume an incoming parameter is actually read just because a call site's
+argument shape "fits". Confirm both with a dual-object probe test: mock the
+callee, assert a guessed argument, and read the real value off the failure's
+"got" side rather than reasoning about it from the pseudocode alone.
+
+## Proving a test can fail: gut the whole body, never inject an early `return`
+
+A test is only worth its green if it goes red when the code is wrong. The check
+is to replace the function's body and confirm the test fails on the C object
+while the asm object still passes.
+
+Replace the **entire** body by brace matching. Injecting an early `return` after
+the declarations does not work: this is C89, and a function with initialized
+declarations then produces a *compile* error. A compile error is not a
+discriminating failure -- it looks like one in the output and will happily
+manufacture false positives for tests that in fact assert nothing.
+
+Record the literal failure line from the gutted run (`Pending expectations:
+WriteExpectation`, `ReturnExpectation`, a count of pending Call/Write
+expectations). "It failed" is not evidence; the pending-expectation line is.
+
+Never register a test in `tests.php` for a function whose body is not live.
+
+## A data-gap coincidence can point the base-symbol-plus-offset trap at the wrong base
+
+**Found in:** `026710_traffic` (2026-08-28)
+
+`FUN_8c026dcc` reads a standalone Ghidra global `PTR_PTR_8c1bb88c`, and
+`sectionB.src` happens to have an unexported 4-byte gap at exactly that
+address (between `var_8c1bb888`'s 8-byte reservation and
+`var_groundGridPrimary_8c1bb890`) -- a plausible-looking match for the
+"invented base+offset global" pattern. It was the wrong base: the
+dual-object test's `.src` object failed with `Trying to read from
+unresolved relocation _var_currentCourse_8c1bb868` once `var_8c1bb888` was
+wired up and resolvable, proving the real read targets a completely
+different, already-known struct 0x24 bytes in -- `var_currentCourse_8c1bb868
+.macCpu1_0x24` (`CurrentCourse`, `013ae8_route_load.h`), whose asset-file
+field doubles as a per-scene-object-type table pointer once loaded and
+`FUN_8c026da4`-relocated.
+
+**Fix:** an address falling inside a plausible-looking gap is only a
+hypothesis. Confirm it the same way as any other guess here -- run the
+dual-object test and read the concrete failure -- before writing the
+supporting header/comment changes; an unresolved-relocation error naming a
+completely different symbol than the one just wired up is a strong signal
+the guessed base was wrong, not that the new global still needs seeding.
+
+## A section-B symbol can only move between files at a B-range boundary
+
+Moving `_var_8c227e1c`'s 4-byte reservation out of the middle of `sectionB.src`
+into a unit's own B section shifted every later section-B symbol down 4 bytes.
+The build still linked and every per-function test still passed -- only
+`make -f Makefile.matching` caught it, with `Oops, build differs :/`.
+
+Section B is one contiguous allocation whose order is fixed by the original
+layout, so a symbol may only change owner if it sits at the start or end of the
+range. Otherwise leave the reservation in `sectionB.src`, `.IMPORT` it from the
+unit's `.src`, take it from `sectionB.h` in the C, and `setSize` it in tests
+like any other section-B extern.
+
+The move looks locally valid, which is what makes it dangerous. Run the
+matching build after any data-ownership change, not just the tests.
+
+## Renames must be swept across the whole graph, not just the unit
+
+Per-function agents sweep only the files they touch. After a unit's functions
+are renamed, other units' `.src`, `.c` and test files can still reference the
+old `FUN_` names; the non-matching build tolerates this until the matching
+build's link fails on them.
+
+Two things make this hard to read. A stale object from before a file rename
+(e.g. `build/output_matching/src/asm/<old>.obj`) keeps getting linked and
+reports misleading undefined-symbol names -- `make -f Makefile.matching clean`
+first. And the failure surfaces only at final link, long after the rename.
+
+Sweep with `command grep -ran '<old_name>' src/ tests/` across the entire tree
+when a unit's naming settles.

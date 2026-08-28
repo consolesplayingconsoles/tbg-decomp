@@ -15,7 +15,7 @@
 #include "018644_file_menu.h"
 #include "02171c_tile_stream.h"
 #include "028258_objects.h"
-#include "02c884.h"
+#include "02c884_bus_stop.h"
 #include "02f320.h"
 #include "0193c8_vm_menu.h"
 #include "sectionB.h"
@@ -93,7 +93,7 @@ void FUN_8c01614c(void)
 {
     ObjectsFreePedestrianGroups_8c0297da();
     ObjectsFreeTrafficSignals_8c0288be();
-    FUN_8c02ca96();
+    BusStopFreeTaskGroup_8c02ca96();
     TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
     TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba808);

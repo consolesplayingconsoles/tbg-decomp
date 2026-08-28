@@ -154,8 +154,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($state + 0x00, 12.0); // sprite.p.x
         $this->shouldWriteFloat($state + 0x08, 34.0); // sprite.p.z
 
-        $this->shouldCall('_FUN_8c020914')->with(12.0, 0.0, 34.0, $state + 0x28);
-        $this->shouldCall('_FUN_8c020f7e')->with($state + 0x28, $state);
+        $this->shouldCall('_GroundQueryFindPolygon_8c020914')->with(12.0, 0.0, 34.0, $state + 0x28);
+        $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->with($state + 0x28, $state);
 
         $this->shouldWriteLong($state + 0x38, 5); // nKindId
         $this->shouldWriteLong($state + 0x3c, 2); // nKind
@@ -204,8 +204,8 @@ return new class extends TestCase {
     private function assertPedestrianEpilogue(int $state, int $nKindId, int $texlist): void
     {
         $this->shouldCall('_advancePedPathPos_8c0289ac')->with($state)->andReturn(0);
-        $this->shouldCall('_FUN_8c020914')->with(0.0, 0.0, 0.0, $state + 0x28);
-        $this->shouldCall('_FUN_8c020f7e')->with($state + 0x28, $state);
+        $this->shouldCall('_GroundQueryFindPolygon_8c020914')->with(0.0, 0.0, 0.0, $state + 0x28);
+        $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->with($state + 0x28, $state);
         $this->shouldWriteFloat($state + 0x0c, 0.015);
         $this->shouldWriteFloat($state + 0x10, 0.015);
         $this->shouldWriteLong($state + 0x14, 0);
@@ -254,8 +254,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x3c, 0); // nKind
         $this->shouldWriteLong($state + 0x40, 0); // nReverse
         $this->shouldCall('_advancePedPathPos_8c0289ac')->with($state)->andReturn(0);
-        $this->shouldCall('_FUN_8c020914')->with(0.0, 0.0, 0.0, $state + 0x28);
-        $this->shouldCall('_FUN_8c020f7e')->with($state + 0x28, $state);
+        $this->shouldCall('_GroundQueryFindPolygon_8c020914')->with(0.0, 0.0, 0.0, $state + 0x28);
+        $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->with($state + 0x28, $state);
         $this->shouldWriteFloat($state + 0x0c, 0.015);
         $this->shouldWriteFloat($state + 0x10, 0.015);
         $this->shouldWriteLong($state + 0x14, 0);
@@ -431,8 +431,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x40, 1); // nReverse
 
         $this->shouldCall('_advancePedPathPos_8c0289ac')->with($state)->andReturn(0);
-        $this->shouldCall('_FUN_8c020914')->with(0.0, 0.0, 0.0, $state + 0x28);
-        $this->shouldCall('_FUN_8c020f7e')->with($state + 0x28, $state);
+        $this->shouldCall('_GroundQueryFindPolygon_8c020914')->with(0.0, 0.0, 0.0, $state + 0x28);
+        $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->with($state + 0x28, $state);
         $this->shouldWriteFloat($state + 0x0c, 0.015);
         $this->shouldWriteFloat($state + 0x10, 0.015);
         $this->shouldWriteLong($state + 0x14, 0);
@@ -553,8 +553,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x40, 0); // nReverse
 
         $this->shouldCall('_advancePedPathPos_8c0289ac')->with($state)->andReturn(0);
-        $this->shouldCall('_FUN_8c020914')->with(0.0, 0.0, 0.0, $state + 0x28);
-        $this->shouldCall('_FUN_8c020f7e')->with($state + 0x28, $state);
+        $this->shouldCall('_GroundQueryFindPolygon_8c020914')->with(0.0, 0.0, 0.0, $state + 0x28);
+        $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->with($state + 0x28, $state);
 
         $this->shouldWriteFloat($state + 0x0c, 0.015);
         $this->shouldWriteFloat($state + 0x10, 0.015);

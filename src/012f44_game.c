@@ -215,7 +215,7 @@ void FUN_8c01328c() {
   
     if (var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) {
         var_currentCourse_8c1bb868.courseId_0x00 = var_debugMenuCourseSel_8c1bc824->courseId_0x00;
-        var_8c228704 = var_debugMenuCourseSel_8c1bc824->field_0x04;
+        var_startStopIndex_8c228704 = var_debugMenuCourseSel_8c1bc824->startStopIndex_0x04;
         var_inputMapSel_8c1bb8c8 = var_debugMenuCourseSel_8c1bc824->inputMapSel_0x08;
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
     } else if ((var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) && (var_8c1bb8d4 != 0)) {
@@ -242,7 +242,7 @@ void GamePushLoadingTask_8c013310(int p1) {
   
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         var_currentCourse_8c1bb868.courseId_0x00 = p1;
-        var_8c228704 = 0;
+        var_startStopIndex_8c228704 = 0;
         var_inputMapSel_8c1bb8c8 = var_progress_8c1ba1cc.field_0xc5;
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
     } else if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO && var_8c1bb8d4 != 0) {
@@ -386,7 +386,7 @@ void GameInit_8c0134ec() {
     var_pedGroupCount_8c228234 = -1;
     var_trafficSignalTasks_8c227e20 = (void *) -1;
     var_trafficSignalFrames_8c227e24 = (void *) -1;
-    var_8c2288f8 = (void *) -1;
+    var_stopTaskGroup_8c2288f8 = (void *) -1;
     var_interiorTexlist_8c1bc438 = (NJS_TEXLIST *) -1;
     var_menuState_8c1bc7a8.resourceGroupA_0x00.tlist_0x00 = (void*) -1;
     var_menuState_8c1bc7a8.resourceGroupB_0x0c.tlist_0x00 = (void*) -1;

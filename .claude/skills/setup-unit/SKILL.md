@@ -65,11 +65,38 @@ Given `<addr>` (e.g. `018644`):
    ],
    ```
 
+8. **Port the unit's data** (sections C and D) from the asm into the C file, before
+   decompiling any function. Tests need the real initializers and constant tables to
+   assert against, and doing it up front avoids porting them piecemeal later.
+   `scripts/dump_src_data.py` does this mechanically -- never hand-retype the tables:
+   ```bash
+   scripts/dump_src_data.py src/asm/decompiled/<addr>.src > /tmp/<addr>_data.c
+   ```
+   Paste its output into `src/<addr>.c`'s **Initialized Globals** section (see the C
+   Source File Structure banners in AGENTS.md). It emits untyped `STATIC Uint8[]` /
+   `STATIC int[]` blocks in file order; give a block a real struct type by hand
+   afterward where that buys readability. `--exclude` / `--only` narrow the dump, and
+   `--check-forward-refs` confirms every `.DATA.L` target is defined earlier in the
+   file.
+
+   Both objects defining the same symbol is fine -- `<addr>_src.obj` and
+   `<addr>_c.obj` are never linked together.
+
 ## Verify
 
 ```bash
 ./docker-run.sh ./scripts/run_tests.sh
 ```
+
+Confirm the ported data is byte-identical to the asm's:
+
+```bash
+scripts/dcdiff.py build/output_matching/src/asm/decompiled/<addr>.obj build/output/src/<addr>.obj
+```
+
+Sections C/D/B must match (P is code and is expected to differ). `scripts/check_data_match.sh`
+runs this across every decompiled unit; its `NOT_MATCHING` allowlist is for units that
+don't match yet.
 
 The new object should assemble and compile with 0 errors/warnings and the suite still
 pass -- an empty test group builds its objects but asserts nothing.

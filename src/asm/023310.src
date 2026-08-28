@@ -1,10 +1,10 @@
 ; 8c023310
           .IMPORT     _var_currentSegment_8c228708
-          .IMPORT     _FUN_8c02cd7a
+          .IMPORT     _BusStopGetStopArea_8c02cd7a
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_sceneParams_8c18ad24
-          .IMPORT     _FUN_8c020914
-          .IMPORT     _FUN_8c020f7e
+          .IMPORT     _GroundQueryFindPolygon_8c020914
+          .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_8c226410
           .IMPORT     _FUN_8c023938
@@ -31,11 +31,11 @@
           .IMPORT     _FUN_8c02eab4
           .IMPORT     _FUN_8c02ec50
           .IMPORT     _FUN_8c02e51c
-          .IMPORT     _FUN_8c02cd6a
+          .IMPORT     _BusStopGetSegment_8c02cd6a
           .IMPORT     _FUN_8c023cba
           .IMPORT     _move_bus_model_8c020594
           .IMPORT     _var_8c227d8c
-          .IMPORT     _FUN_8c020fe4
+          .IMPORT     _GroundProbeFindPolygonAtHeight_8c020fe4
           .EXPORT     _FUN_8c023310
           .EXPORT     _FUN_8c023610
           .SECTION     P, CODE, ALIGN=4
@@ -165,11 +165,11 @@ LP_GEN_83541:
           .DATA.W H'025C ; H'8C023400
           .RES.W 1 ; H'8C023402
           .DATA.L _var_currentSegment_8c228708 ; H'8C023404
-          .DATA.L _FUN_8c02cd7a ; H'8C023408
+          .DATA.L _BusStopGetStopArea_8c02cd7a ; H'8C023408
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02340C
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C023410
-          .DATA.L _FUN_8c020914 ; H'8C023414
-          .DATA.L _FUN_8c020f7e ; H'8C023418
+          .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C023414
+          .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C023418
           .DATA.L H'409CCCCD ; H'8C02341C
           .DATA.L H'40200000 ; H'8C023420
           .DATA.L H'3FA00000 ; H'8C023424
@@ -693,12 +693,12 @@ LP_GEN_45139:
           .DATA.L _var_route_8c18ad1c ; H'8C023840
           .DATA.L _FUN_8c02e69c ; H'8C023844
           .DATA.L _var_currentSegment_8c228708 ; H'8C023848
-          .DATA.L _FUN_8c020fe4 ; H'8C02384C
+          .DATA.L _GroundProbeFindPolygonAtHeight_8c020fe4 ; H'8C02384C
           .DATA.L _FUN_8c02eab4 ; H'8C023850
           .DATA.L _FUN_8c02ec50 ; H'8C023854
-          .DATA.L _FUN_8c020914 ; H'8C023858
+          .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C023858
           .DATA.L _FUN_8c02e51c ; H'8C02385C
-          .DATA.L _FUN_8c02cd6a ; H'8C023860
+          .DATA.L _BusStopGetSegment_8c02cd6a ; H'8C023860
           .DATA.L _FUN_8c023938 ; H'8C023864
           .DATA.L _FUN_8c023cba ; H'8C023868
           .DATA.L _var_8c1bbd9c ; H'8C02386C

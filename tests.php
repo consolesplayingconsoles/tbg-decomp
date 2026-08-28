@@ -268,6 +268,24 @@ return [
         ],
         [
             "tests" => [
+                "tests/02c884/8c02c884_resetStopState.php",
+                "tests/02c884/8c02c8ae_pickWaitingPassengers.php",
+                "tests/02c884/8c02ca96_BusStopFreeTaskGroup.php",
+                "tests/02c884/8c02caba_BusStopSetup.php",
+                "tests/02c884/8c02ccae_advanceStopSegment.php",
+                "tests/02c884/8c02cd6a_BusStopGetSegment.php",
+                "tests/02c884/8c02cd7a_BusStopGetStopArea.php",
+                "tests/02c884/8c02ccc6_BusStopUpdateStopHeadings.php",
+                "tests/02c884/8c02cd92_drawStopMarker.php",
+                "tests/02c884/8c02ce48_BusStopUpdateArrival.php",
+            ],
+            "objects" => [
+                "build/output_test/02c884_bus_stop_src.obj",
+                "build/output_test/02c884_bus_stop_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
                 "tests/013ae8_route_load/13ae8_requestVehicleAssets.php",
                 "tests/013ae8_route_load/13b5a_freeVehicleAssets.php",
                 "tests/013ae8_route_load/13bbc_RouteLoadClearModelSlots.php",

@@ -31,7 +31,7 @@
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _FUN_8c02d0fc
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _var_8c2288f8
+          .IMPORT     _var_stopTaskGroup_8c2288f8
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _var_cutsceneActive_8c1bb900
           .IMPORT     _var_fadeRequest_8c226564
@@ -39,7 +39,7 @@
           .IMPORT     _ObjectsStartMessageBox_8c02ad8c
           .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _RouteLoadIsPvmReady_8c01432a
-          .IMPORT     _FUN_8c02ca96
+          .IMPORT     _BusStopFreeTaskGroup_8c02ca96
           .IMPORT     _njReleaseTexture
           .IMPORT     _var_8c227d9c
           .IMPORT     _var_8c227da4
@@ -908,7 +908,7 @@ LP_GEN_70221:
           .DATA.L H'3D888889 ; H'8C02D800
           .DATA.L _var_8c228960 ; H'8C02D804
           .DATA.L _var_8c228958 ; H'8C02D808
-          .DATA.L _var_8c2288f8 ; H'8C02D80C
+          .DATA.L _var_stopTaskGroup_8c2288f8 ; H'8C02D80C
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C02D810
           .DATA.L _var_cutsceneActive_8c1bb900 ; H'8C02D814
           .DATA.L _var_fadeRequest_8c226564 ; H'8C02D818
@@ -918,7 +918,7 @@ LP_GEN_70221:
           .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C02D828
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02D82C
           .DATA.L _sdMidiPlay ; H'8C02D830
-          .DATA.L _FUN_8c02ca96 ; H'8C02D834
+          .DATA.L _BusStopFreeTaskGroup_8c02ca96 ; H'8C02D834
           .DATA.L _var_interiorTexlist_8c1bc438 ; H'8C02D838
           .DATA.L _njReleaseTexture ; H'8C02D83C
           .DATA.L _var_8c227d9c ; H'8C02D840

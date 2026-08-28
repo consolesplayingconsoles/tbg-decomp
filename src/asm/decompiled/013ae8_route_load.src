@@ -45,7 +45,7 @@
           .IMPORT     _FUN_8c026da4
           .IMPORT     _FUN_8c028de8
           .IMPORT     _FUN_8c028dd0
-          .IMPORT     _FUN_8c02caba
+          .IMPORT     _BusStopSetup_8c02caba
           .IMPORT     _EventPickForSegment_8c02b170
           .IMPORT     _TileStreamRequestUpload_8c02190a
           .IMPORT     _TileStreamLoad_8c021810
@@ -1328,7 +1328,7 @@ LP_GEN_90737:
           .DATA.L _FUN_8c026da4
           .DATA.L _FUN_8c028de8
           .DATA.L _FUN_8c028dd0
-          .DATA.L _FUN_8c02caba
+          .DATA.L _BusStopSetup_8c02caba
           .DATA.L _EventPickForSegment_8c02b170
           .DATA.L _TileStreamRequestUpload_8c02190a
           .DATA.L _TileStreamLoad_8c021810
@@ -1859,7 +1859,7 @@ LP_GEN_48435:
           .DATA.L _FUN_8c026da4
           .DATA.L _FUN_8c028de8
           .DATA.L _FUN_8c028dd0
-          .DATA.L _FUN_8c02caba
+          .DATA.L _BusStopSetup_8c02caba
           .DATA.L _EventPickForSegment_8c02b170
           .DATA.L _TileStreamRequestUpload_8c02190a
           .DATA.L _TaskFree_8c014b66

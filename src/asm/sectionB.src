@@ -158,7 +158,7 @@
                                     ; 027958
                                     ; 028258
                                     ; 02c884
-          .EXPORT     _var_8c1bb870 ; 02c884
+          .EXPORT     _var_stopAreaTable_8c1bb870 ; 02c884
           .EXPORT     _var_8c1bb878 ; 025b98
           .EXPORT     _var_8c1bb880 ; 027958
           .EXPORT     _var_8c1bb888 ; 025b98
@@ -543,6 +543,8 @@
           .EXPORT     _var_8c22643c ; 01fa78
                                     ; 02c884
           .EXPORT     _var_8c226450 ; 02b464
+                                    ; 02c884
+          .EXPORT     _var_8c226454 ; 02c884
           .EXPORT     _var_uknVol_8c226468 ; 0100bc_sound
           .EXPORT     _var_8c226478 ; 01fa78
           .EXPORT     _var_8c2264a8 ; 01fa78
@@ -756,21 +758,31 @@
                                     ; 02d19c
                                     ; 02d968
           .EXPORT     _var_8c2285c8 ; 02b2f0
+                                    ; 02c884
+          .EXPORT     _var_8c2285cc ; 02c884
           .EXPORT     _var_driverPoints_8c2285d0 ; 01d7fc
                                     ; 01e27c
                                     ; 01fa78
                                     ; 02b464
+                                    ; 02c884
+          .EXPORT     _var_8c2285d4 ; 02c884
           .EXPORT     _var_8c2285d8 ; 02af78_event
                                     ; 02b464
                                     ; 02c884
           .EXPORT     _var_8c2285dc ; 02af78_event
                                     ; 02b464
+                                    ; 02c884
           .EXPORT     _var_mirrorViewLevel_8c2285e4 ; 020214
                                     ; 028258
                                     ; 02b464
+                                    ; 02c884
+          .EXPORT     _var_8c2285e8 ; 02c884
+          .EXPORT     _var_stopMinDistance_8c2285ec ; 02c884
           .EXPORT     _var_8c2285fc ; 02b464
           .EXPORT     _var_8c22861c ; 02b464
           .EXPORT     _var_8c228634 ; 02b464
+                                    ; 02c884
+          .EXPORT     _var_8c228640 ; 02c884
           .EXPORT     _var_8c22864c ; 024280
           .EXPORT     _var_8c228660 ; 022bdc
                                     ; 023938
@@ -792,7 +804,7 @@
           .EXPORT     _var_8c22869c ; 02b464
           .EXPORT     _var_8c2286a0 ; 02b464
           .EXPORT     _var_8c2286a4 ; 02c884
-          .EXPORT     _var_8c228704 ; 012f44_game
+          .EXPORT     _var_startStopIndex_8c228704 ; 012f44_game
                                     ; 02c884
           .EXPORT     _var_currentSegment_8c228708 ; 012f44_game
                                                    ; 013ae8_route_load
@@ -802,9 +814,9 @@
                                                    ; 02c884
                                                    ; 02d19c
                                                    ; 02d968
-          .EXPORT     _var_8c22870c ; 020214
+          .EXPORT     _var_prevStopSegment_8c22870c ; 020214
                                     ; 02c884
-          .EXPORT     _var_8c228710 ; 020214
+          .EXPORT     _var_nextStopSegment_8c228710 ; 020214
                                     ; 02b464
                                     ; 02c884
           .EXPORT     _var_8c228714 ; 02b464
@@ -821,7 +833,7 @@
           .EXPORT     _var_8c2288d8 ; 02c884
                                     ; 02d06c
                                     ; 02d19c
-          .EXPORT     _var_8c2288f8 ; 012f44_game
+          .EXPORT     _var_stopTaskGroup_8c2288f8 ; 012f44_game
                                     ; 02c884
                                     ; 02d19c
                                     ; 02d968
@@ -962,7 +974,7 @@ _var_currentCourse_8c1bb868:
           .RES.B      4
 _var_groundGridFallback_8c1bb86c:
           .RES.B      4
-_var_8c1bb870:
+_var_stopAreaTable_8c1bb870:
           .RES.B      8
 _var_8c1bb878:
           .RES.B      8
@@ -1275,7 +1287,10 @@ _var_8c226438:
 _var_8c22643c:
           .RES.B      20
 _var_8c226450:
-          .RES.B      24
+          .RES.B      4
+_var_8c226454:
+          .RES.B      4
+          .RES.B      16
 _var_uknVol_8c226468:
           .RES.B      16
 _var_8c226478:
@@ -1487,21 +1502,34 @@ _var_8c228564:
 _var_8c2285c4:
           .RES.B      4
 _var_8c2285c8:
-          .RES.B      8
+          .RES.B      4
+_var_8c2285cc:
+          .RES.B      4
 _var_driverPoints_8c2285d0:
-          .RES.B      8
+          .RES.B      4
+_var_8c2285d4:
+          .RES.B      4
 _var_8c2285d8:
           .RES.B      4
 _var_8c2285dc:
           .RES.B      8
 _var_mirrorViewLevel_8c2285e4:
-          .RES.B      24
+          .RES.B      4
+_var_8c2285e8:
+          .RES.B      4
+_var_stopMinDistance_8c2285ec:
+          .RES.B      4
+          .RES.B      12
 _var_8c2285fc:
           .RES.B      32
 _var_8c22861c:
           .RES.B      24
 _var_8c228634:
-          .RES.B      24
+          .RES.B      4
+          .RES.B      8
+_var_8c228640:
+          .RES.B      4
+          .RES.B      8
 _var_8c22864c:
           .RES.B      20
 _var_8c228660:
@@ -1540,13 +1568,13 @@ _var_8c2286a0:
           .RES.B      4
 _var_8c2286a4:
           .RES.B      96
-_var_8c228704:
+_var_startStopIndex_8c228704:
           .RES.B      4
 _var_currentSegment_8c228708:
           .RES.B      4
-_var_8c22870c:
+_var_prevStopSegment_8c22870c:
           .RES.B      4
-_var_8c228710:
+_var_nextStopSegment_8c228710:
           .RES.B      4
 _var_8c228714:
           .RES.B      4
@@ -1558,7 +1586,7 @@ _var_8c228798:
           .RES.B      320
 _var_8c2288d8:
           .RES.B      32
-_var_8c2288f8:
+_var_stopTaskGroup_8c2288f8:
           .RES.B      4
 _var_8c2288fc:
           .RES.B      4

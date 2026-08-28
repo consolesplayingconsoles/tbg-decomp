@@ -75,4 +75,6 @@ int ObjectsSwapMessageBoxFor_8c02aefc(char *text);
 int ObjectsMenuTextboxText_8c02af1c(int limit);
 void ObjectsFreeTextboxes_8c02af32(void);
 
+extern NJS_TEXANIM init_pedestrianTexAnims_8c04623c[];
+
 #endif // _028258_OBJECTS_H

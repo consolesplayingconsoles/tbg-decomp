@@ -41,7 +41,7 @@
           .IMPORT     _var_8c228634
           .IMPORT     _var_8c1bbd54
           .IMPORT     _var_8c1ba374
-          .IMPORT     _FUN_8c02ce48
+          .IMPORT     _BusStopUpdateArrival_8c02ce48
           .IMPORT     _var_8c226410
           .IMPORT     _var_mirrorViewLevel_8c2285e4
           .IMPORT     _var_8c2264c4
@@ -67,14 +67,14 @@
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _var_8c22640c
-          .IMPORT     _var_8c228710
+          .IMPORT     _var_nextStopSegment_8c228710
           .IMPORT     _ObjectsFreePedestrianGroups_8c0297da
           .IMPORT     _ObjectsFreeTrafficSignals_8c0288be
           .IMPORT     _TaskFreeGroup_8c014ab4
           .IMPORT     _var_tasks_8c1bb448
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_tasks_8c1ba3c8
-          .IMPORT     _FUN_8c02ccc6
+          .IMPORT     _BusStopUpdateStopHeadings_8c02ccc6
           .IMPORT     _RouteLoadPushSegmentReloadTask_8c01468e
           .IMPORT     _var_8c1bb8b8
           .IMPORT     _var_8c1bb8bc
@@ -1578,7 +1578,7 @@ LP_GEN_59291:
           .DATA.W H'025C ; H'8C02BFB2
           .DATA.W H'0708 ; H'8C02BFB4
           .RES.W 1 ; H'8C02BFB6
-          .DATA.L _FUN_8c02ce48 ; H'8C02BFB8
+          .DATA.L _BusStopUpdateArrival_8c02ce48 ; H'8C02BFB8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02BFBC
           .DATA.L _var_8c226410 ; H'8C02BFC0
           .DATA.L _var_mirrorViewLevel_8c2285e4 ; H'8C02BFC4
@@ -2648,7 +2648,7 @@ LAB_8c02c7f2:
           JMP         @R3
           MOV.L       @R15+,R14
 LP_GEN_25024:
-          .DATA.L _var_8c228710 ; H'8C02C800
+          .DATA.L _var_nextStopSegment_8c228710 ; H'8C02C800
           .DATA.L _ObjectsFreePedestrianGroups_8c0297da ; H'8C02C804
           .DATA.L _ObjectsFreeTrafficSignals_8c0288be ; H'8C02C808
           .DATA.L _TaskFreeGroup_8c014ab4 ; H'8C02C80C
@@ -2656,7 +2656,7 @@ LP_GEN_25024:
           .DATA.L _var_tasks_8c1bac28 ; H'8C02C814
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02C818
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C02C81C
-          .DATA.L _FUN_8c02ccc6 ; H'8C02C820
+          .DATA.L _BusStopUpdateStopHeadings_8c02ccc6 ; H'8C02C820
           .DATA.L _RouteLoadPushSegmentReloadTask_8c01468e ; H'8C02C824
           .DATA.L _var_8c1bb8b8 ; H'8C02C828
           .DATA.L _var_8c1bb8bc ; H'8C02C82C

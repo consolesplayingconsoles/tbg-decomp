@@ -2,7 +2,7 @@
           .IMPORT     _AsqGetRandomInRangeB_8c0121be
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
-          .IMPORT     _var_8c22870c
+          .IMPORT     _var_prevStopSegment_8c22870c
           .IMPORT     _var_8c2264b8
           .IMPORT     _var_8c2285c4
           .IMPORT     _TaskFree_8c014b66
@@ -15,7 +15,7 @@
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _var_8c22640c
           .IMPORT     _SndProc_8c010cd6
-          .IMPORT     _var_8c228710
+          .IMPORT     _var_nextStopSegment_8c228710
           .IMPORT     _var_mirrorViewLevel_8c2285e4
           .IMPORT     _var_8c227d9c
           .IMPORT     _var_vibport_8c1ba354
@@ -166,7 +166,7 @@ LP_GEN_12106:
           .DATA.L _AsqGetRandomInRangeB_8c0121be ; H'8C020314
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C020318
           .DATA.L _sdMidiPlay ; H'8C02031C
-          .DATA.L _var_8c22870c ; H'8C020320
+          .DATA.L _var_prevStopSegment_8c22870c ; H'8C020320
           .DATA.L _var_8c2264b8 ; H'8C020324
           .DATA.L _var_8c2285c4 ; H'8C020328
           .DATA.L _TaskFree_8c014b66 ; H'8C02032C
@@ -432,7 +432,7 @@ LP_GEN_85437:
           .DATA.L _var_route_8c18ad1c ; H'8C020500
           .DATA.L _var_8c22640c ; H'8C020504
           .DATA.L _SndProc_8c010cd6 ; H'8C020508
-          .DATA.L _var_8c228710 ; H'8C02050C
+          .DATA.L _var_nextStopSegment_8c228710 ; H'8C02050C
           .DATA.L _var_mirrorViewLevel_8c2285e4 ; H'8C020510
           .DATA.L _var_8c227d9c ; H'8C020514
           .DATA.L _AsqGetRandomB_8c0121a8 ; H'8C020518

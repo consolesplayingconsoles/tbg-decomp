@@ -7,10 +7,10 @@
 #include "014a9c_tasks.h"
 #include "014f54_text.h"
 #include "02171c_tile_stream.h"
-#include "026710.h"
+#include "026710_traffic.h"
 #include "028258_objects.h"
 #include "02af78_event.h"
-#include "02c884.h"
+#include "02c884_bus_stop.h"
 #include "sectionD.h"
 #include "sectionB.h"
 #include "serial_debug.h"
@@ -68,57 +68,6 @@ enum SEGMENT_RELOAD_STATE {
     SEGMENT_RELOAD_STATE_IDLE      = 2,
     SEGMENT_RELOAD_STATE_DONE      = 3,
 };
-
-typedef struct {
-    // 0..3
-    Uint16 ukn_0x00;
-    // id, 0..0x16c
-    Uint16 ukn_0x02;
-    // always 0
-    Uint16 ukn_0x04;
-    // id, 0..0xa9
-    Uint16 ukn_0x06;
-    void *ukn_0x08;
-    // tile-region list (gates dat-file requests); element layout unconfirmed
-    void *tileRegionList_0x0c;
-    Sint8 *routeModelIndexes_0x10;
-    void *ukn_0x14;
-    Sint8 *pedestrianModelList_0x18;
-    // scene object list (ObjectsStartAssetRequests_8c029ad4 streams nj/pvm/dat; e.g. O_FUMI railroad crossing)
-    void *sceneObjectList_0x1c;
-    char **datFilenames_0x20;
-    FogParams *fog_0x24;
-    ModelFiles *modelFiles_0x28;
-} CourseSegment;
-
-typedef struct {
-    // enum ROUTE
-    int route_0x00;
-    // enum TIME_OF_DAY
-    int timeOfDay_0x04;
-    CourseSegment *segments_0x08;
-    void *ukn_0x0c;
-    CourseSceneParams *sceneParams_0x10;
-    int ukn_0x14;
-    int ukn_0x18;
-    /* nj/dat asset names, loaded by loadRouteModels_8c014088 into the
-     * CurrentCourse field of the same name. */
-    char *atariBusFile_0x1c;
-    char *lineBusFile_0x20;
-    void *ukn_0x24;      /* not a filename: copied straight into CurrentCourse.ukn_0x0c */
-    char *attrBusFile_0x28;
-    char *attrMarkFile_0x2c;
-    char *atariCpuFile_0x30;
-    char *lineCpuFile_0x34;
-    char *attrCpuFile_0x38;
-    char *macCpu1File_0x3c;
-    char *atariHumFile_0x40;
-    char *lineHumFile_0x44;
-    char *macHumG0File_0x48;
-    char *macHumM0File_0x4c;
-    char *macSignalFile_0x50;
-    char *tileLayerFiles_0x54[5];
-} CourseConfig;
 
 /* Placeholder types for the nested table/record
    tree hung off the CourseSegment pointer slots. */
@@ -561,7 +510,7 @@ STATIC void routeLoadTask_8c014338(Task *task, void *state)
                 FUN_8c026da4(var_currentCourse_8c1bb868.macCpu1_0x24);
                 FUN_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
                 FUN_8c028dd0(var_currentCourse_8c1bb868.macHumM0_0x34);
-                FUN_8c02caba();
+                BusStopSetup_8c02caba();
                 // Arm this segment's cutscene first: syncSegmentModels reads cutsceneActive.
                 EventPickForSegment_8c02b170();
                 AsqResetQueues_8c011f6c();
@@ -725,7 +674,7 @@ void RouteLoadUnusedTask_8c014784(Task *task, void *state)
                 FUN_8c026da4(var_currentCourse_8c1bb868.macCpu1_0x24);
                 FUN_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
                 FUN_8c028dd0(var_currentCourse_8c1bb868.macHumM0_0x34);
-                FUN_8c02caba();
+                BusStopSetup_8c02caba();
                 // Arm this segment's cutscene first: syncSegmentModels reads cutsceneActive.
                 EventPickForSegment_8c02b170();
                 AsqResetQueues_8c011f6c();

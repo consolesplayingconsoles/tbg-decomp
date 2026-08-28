@@ -371,6 +371,8 @@ typedef struct {
  * VIEW/VIBRATION/SCREEN ROLL); var_8c226074 points here while that screen is
  * active. Sits exactly at &var_progress_8c1ba1cc.field_0xc4 (0x1ba1cc+0xc4),
  * but kept as its own symbol since it's owned by sectionB.src, not decompiled.
+ * [0] (DIFFICULTY) is read by BusStopSetup_8c02caba to pick the run's
+ * driver-points reset value.
  */
 extern char var_8c1ba290[5];
 
@@ -389,7 +391,20 @@ extern void* var_backupFileImageBuf_8c1ba348;
 extern int var_8c1ba350;        // 018644: selected save slot / new-file index
 extern TrafficSignalDef *var_trafficSignalDefs_8c1bb8a0; // 028258: signal table, terminated by type_0x00 == 0
 extern void* var_groundGridFallback_8c1bb86c;
+
+/* base of an 8-byte-stride table of stop-area records, indexed by a segment
+ * record's stopAreaId_0x02 (BusStopGetStopArea_8c02cd7a, 02c884); each slot
+ * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
+extern void *var_stopAreaTable_8c1bb870;
+
 extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into var_activeGroundGrid_8c2264d4
+
+/* pointer to a table of 12-byte stop spawn-area records, indexed by a
+ * segment record's field_0x06 (BusStopGetSegment_8c02cd6a, 02c884); a record's field_0x00
+ * is a spawn-area pointer (see var_8c22890c below), the rest is unknown.
+ * The symbol itself reserves 12 bytes; only the leading 4 (the table
+ * pointer) are used by pickWaitingPassengers_8c02c8ae. */
+extern void *var_8c1bb894;
 extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
 extern float var_groundHeightFallback_8c1bbac8; // fallback ground height when both grid queries miss
 extern int var_8c1bb8bc;
@@ -404,6 +419,8 @@ extern int var_8c1bb8ec;
 extern int var_8c1bb8f0;
 extern int var_8c1bb8f4;
 extern int var_award_8c1bb8f8;
+/* Checked against 0.0 by BusStopUpdateArrival_8c02ce48 (02c884) to gate stop
+ * arrival; likely a current-speed value (role/owner elsewhere unclear). */
 extern float var_8c1bbc4c;
 extern int var_8c1bbc84;
 extern Uint32 var_8c1bbcb0;
@@ -421,12 +438,24 @@ extern void* var_8c1bc410;
 extern void* var_8c1bc414;
 extern void* var_8c1bc440;
 extern void* var_8c1bc444;
+/* Current "fuu" stop-marker animation frame, driven by
+ * BusStopUpdateArrival_8c02ce48 (02c884): counts up by 1.0 per frame while
+ * the bus approaches a stop, wrapping to 0 at var_8c1bc450. */
+extern float var_8c1bc44c;
 extern float var_8c1bc450;
+/* Scratch matrix for the "fuu" stop-marker model, built each frame by
+ * drawStopMarker_8c02cd92 (02c884). */
+extern NJS_MATRIX var_8c1bc46c;
 extern NJS_POINT3 var_groundQueryPoint_8c1bc460; // scratch world point for ground-height queries, e.g. FUN_8c02840c
 extern void* var_vmGameBuf_8c1bc454;
 extern float var_crossingIntersectPoint_8c1bc458; // FUN_8c0206f0's intersection-point output (x); [1] (var_8c1bc45c) holds y
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
+/* Sentinel pointer value marking the player's bus as a stand-in "entry" in
+ * traffic-avoidance code that otherwise walks a list of real traffic entries
+ * (see TrafficComputeBlockedSpeed_8c026eaa) -- identity-compared, never
+ * dereferenced through this symbol itself. */
+extern void *var_8c1bbd9c;
 /* Bus world matrix; pedestriansTask_8c0293f6 uses it via njCalcPoint to
  * place the crosswalk stop-line scratch points. Immediately follows
  * var_busState_8c1bb9d0 (base+0x84) but exported as its own symbol, not a
@@ -511,8 +540,17 @@ extern char var_defragBuf_8c2261a0[512]; // 01bb48: buDefragDisk work buffer
 extern int var_lcdSlot_8c2263a0;   // 01bb48
 extern void* var_8c226434;
 extern void* var_8c226438;
+/* Read (!= -1 sentinel) by BusStopUpdateArrival_8c02ce48 (02c884); role/owner
+ * (02b464) unclear. */
+extern int var_8c226450;
+/* Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
+ * transition; role/owner (02b464) unclear. */
+extern int var_8c226454;
 extern Struct8c2264b8 var_8c2264b8;
-extern void* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for FUN_8c020914/FUN_8c020f7e
+/* Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
+ * transition; role/owner (02b464) unclear. */
+extern int var_8c2264c4;
+extern void* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c: light direction for fade layer 0
 extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c: light direction for fade layer 1 (mirror side)
 /* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Two separate
@@ -536,6 +574,7 @@ extern int var_8c227d9c;
 extern Uint32 var_8c227da0;
 extern int var_8c227da8;
 extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by gameplayRenderBusUpdateCamera_8c025078
+extern float var_8c227dc4[3];
 extern int var_8c227dd4;
 extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by ObjectsInitTrafficSignals_8c02845a */
 extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by ObjectsGetTrafficSignalFrame_8c028900 */
@@ -630,21 +669,113 @@ extern EventEntry* var_routeEvents_8c22851c;
 extern int var_eventCandidates_8c228520[];
 extern int var_eventCandidateCount_8c228560;
 
+extern int var_8c228634;
+/* Set to 1 by BusStopUpdateArrival_8c02ce48 (02c884) when var_8c226450 is
+ * armed; role/owner (02b464) unclear. */
+extern int var_8c228640;
+
 extern int var_8c2285c4[];
+
+/* Set by trafficUpdateTask_8c0275d4 (026710); role for other consumers
+ * (023310, 02e51c, 025b98, 022bdc, 02f0c8, still undecompiled) unclear. */
+extern void *var_8c228b3c;
+/* One of init_8c04c980/init_8c04caec/init_8c04cd38 (sectionD), picked by
+ * route in TrafficInit_8c02769e (026710); role for 02f0c8 (still
+ * undecompiled) unclear. */
+extern Sint32 *var_8c228b40;
+/* Set to -1 by trafficUpdateTask_8c0275d4 (026710); role for 02f0c8 (still
+ * undecompiled) unclear. */
+extern int var_8c228b44;
+
+extern int var_8c2285c8;
+/* Set to 0x1e by BusStopUpdateArrival_8c02ce48 (02c884) on stop completion;
+ * role/owner unclear. */
+extern int var_8c2285cc;
 
 /* run completion percentage (0-100); read by ResultShowPassedRun_8c01e0b4
  * to pick the award tier and as the score's EXP component */
 extern int var_driverPoints_8c2285d0;
+
+/* set alongside var_driverPoints_8c2285d0 by BusStopSetup_8c02caba (same
+ * 100/200 value); role elsewhere unclear */
+extern int var_8c2285d4;
 
 /* gate for EventPickForSegment_8c02b170: only runs while
  * var_8c2285dc <= var_8c2285d8 (role of each side unclear) */
 extern int var_8c2285d8;
 extern int var_8c2285dc;
 
-extern int var_mirrorViewLevel_8c2285e4; /* 2 = mirror-view draw enabled; gates pedestriansTask_8c0293f6's FUN_8c02d06c registration */
+/* Bus-stop arrival state machine driven by BusStopUpdateArrival_8c02ce48
+ * (02c884): 0 = cruising, 1 = departed-previous-stop wait, 2 = approaching
+ * (mirror-view draw enabled -- gates pedestriansTask_8c0293f6's
+ * FUN_8c02d06c registration), 3 = stopped/waiting, 4 = finishing. */
+extern int var_mirrorViewLevel_8c2285e4;
+/* Set to 0 or 2 by BusStopUpdateArrival_8c02ce48 depending on how the
+ * approach (state 2) ended; role elsewhere unclear. */
+extern int var_8c2285e8;
+/* Running minimum distance-to-stop while approaching (state 2), reset to
+ * 9999.0 on arming. */
+extern float var_stopMinDistance_8c2285ec;
 
-extern int var_8c228704;
-extern void* var_8c2288f8;
+/* per-segment "has an active stop" flag, one word each, indexed by a segment
+ * record's candidate-list entry byte (see BusStopGetSegment_8c02cd6a, 02c884) */
+extern int var_8c2286a4[24];
+
+/* index of the stop the run starts from: 0 for a normal course start, or the
+ * debug menu's per-entry startStopIndex_0x04 to begin partway along the route */
+extern int var_startStopIndex_8c228704;
+
+extern int var_prevStopSegment_8c22870c; // segment index of the previous stop
+extern int var_nextStopSegment_8c228710; // segment index of the upcoming stop
+
+/* upcoming stop's heading angle (njArcTan2 of its stop-area record's
+ * direction vector, see NinjaApi.h), sign-extended from the low 16 bits by
+ * BusStopUpdateStopHeadings_8c02ccc6 */
+extern int var_8c228714;
+
+/* number of slots filled in var_8c228798 by pickWaitingPassengers_8c02c8ae
+ * (0-16); read by 02d06c/02d968 to spawn that many passenger tasks. */
+extern int var_8c228794;
+
+/* one waiting passenger picked for the upcoming stop by
+ * pickWaitingPassengers_8c02c8ae */
+typedef struct {
+    void *spot_0x00;  // chosen candidate-stop entry (segment record's list at +8)
+    NJS_POINT3 pos_0x04; // world position; y filled in by the ground snap
+    float index_0x10; // 0, 1, 2, ... in pick order
+} WaitingPassengerSlot;
+extern WaitingPassengerSlot var_8c228798[16];
+
+/* fixed 31-slot table of scripted/special waiting-passenger schedule entries,
+ * one per fixed stop position along the route; -1 = unused. Read by
+ * FUN_8c02d968 to spawn each slot's passenger task. */
+extern int var_8c228718[31];
+
+/* shared NJS_SPRITE used to draw a waiting passenger; only sx/sy/ang/tanim
+ * are reset up front, p and tlist are set per-draw. */
+extern NJS_SPRITE var_8c2288d8;
+
+/* current (about-to-depart) stop's heading angle, same computation as
+ * var_8c228714 but masked unsigned instead of sign-extended; sits right
+ * after var_stopTaskGroup_8c2288f8 */
+extern int var_8c2288fc;
+
+/* scratch ground-query point for the upcoming stop, snapped to ground by
+ * pickWaitingPassengers_8c02c8ae; x/z (only) also set by
+ * BusStopUpdateStopHeadings_8c02ccc6 ahead of that ground snap */
+extern NJS_POINT3 var_8c228900;
+/* Coincidentally sits at var_8c228900's .z (base+8) and is its own exported
+ * symbol, used by drawStopMarker_8c02cd92 (02c884). */
+extern float var_8c228908;
+
+/* spawn-area record for the upcoming stop's segment (var_8c1bb894 entry
+ * selected by its segment record's field_0x06); fields at +4/+8 are the
+ * area's (x, z) origin, +0xc/+0x10 its (dx, dz) extent */
+extern char *var_8c22890c;
+
+/* Task group for the bus-stop subsystem's waiting-passenger/departure tasks
+ * (see FUN_8c02d968); -1 means not currently allocated. */
+extern void* var_stopTaskGroup_8c2288f8;
 extern Sint8 var_coursesToUnlock_8c225fd4[];
 extern int var_currentSegment_8c228708;
 

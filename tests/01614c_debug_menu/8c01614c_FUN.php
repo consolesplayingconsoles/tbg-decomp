@@ -11,7 +11,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsFreePedestrianGroups_8c0297da');
         $this->shouldCall('_ObjectsFreeTrafficSignals_8c0288be');
-        $this->shouldCall('_FUN_8c02ca96');
+        $this->shouldCall('_BusStopFreeTaskGroup_8c02ca96');
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bb448'));
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bac28'));
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba808'));

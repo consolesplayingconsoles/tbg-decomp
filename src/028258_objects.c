@@ -7,8 +7,8 @@
 #include "014f54_text.h" /* enum PLAY_MODE */
 #include "0100bc_sound.h" /* FUN_8c010ca6, SndProc_8c010cd6, FUN_8c0106ac */
 #include "0206f0.h" /* FUN_8c0206f0 */
-#include "020914.h" /* FUN_8c020914 */
-#include "020b6c.h" /* FUN_8c020f7e, FUN_8c020b6c */
+#include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
+#include "020b6c_ground_probe.h"
 #include "0222dc_fadecmd.h" /* FadeCmdPushCall2_8c022420 */
 #include "022464_fade.h" /* FadeRequest, var_fadeRequest_8c226564, var_fadeArrivalGate_8c226560 */
 #include "027958.h" /* FUN_8c0281ac */
@@ -27,13 +27,6 @@
  * Type Declarations
  * ====================
  */
-
-/* Ground-polygon match written by FUN_8c020914 and consumed by
- * FUN_8c020f7e; only the trailing count_0x0c is read here. */
-typedef struct {
-    char field_0x00[0xc];
-    int count_0x0c;
-} GroundQueryResult;
 
 /* One blinker spawn point, terminated by an all-zero entry. angleDeg_0x08 is a
  * real int despite sitting in a float-stepped table (ObjectsInitBlinkers_8c029920
@@ -4453,12 +4446,12 @@ STATIC void snapPointToGround_8c02840c(void)
     GroundQueryResult result;
 
     var_activeGroundGrid_8c2264d4 = var_groundGridPrimary_8c1bb890;
-    FUN_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
+    GroundQueryFindPolygon_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
     if (result.count_0x0c == 0) {
         var_activeGroundGrid_8c2264d4 = var_groundGridFallback_8c1bb86c;
-        FUN_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
+        GroundQueryFindPolygon_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
     }
-    FUN_8c020f7e(&result, (float *)&var_groundQueryPoint_8c1bc460);
+    GroundProbeInterpolateHeight_8c020f7e(&result, (float *)&var_groundQueryPoint_8c1bc460);
 }
 
 /* Spawns a task per entry of the var_trafficSignalDefs_8c1bb8a0 table (see
@@ -4997,10 +4990,10 @@ STATIC void pedestrianTask_8c028e00(Task *task, PedestrianState *ped)
         ped->nAnimPhase_0x5c = ped->nAnimPhase_0x5c + 1;
 
         if ((advancePedPathPos_8c0289ac(ped) || (ped->nKind_0x3c == 1 && !crossingStarted)) &&
-            (FUN_8c020b6c(ped->sprite_0x00.p.x - ped->flBaseX_0x20, ped->sprite_0x00.p.y,
+            (GroundProbeTrackPolygon_8c020b6c(ped->sprite_0x00.p.x - ped->flBaseX_0x20, ped->sprite_0x00.p.y,
                           ped->sprite_0x00.p.z - ped->flBaseZ_0x24, &ped->aGround_0x28),
              ped->aGround_0x28.count_0x0c != 0)) {
-            FUN_8c020f7e(&ped->aGround_0x28, (float *)ped);
+            GroundProbeInterpolateHeight_8c020f7e(&ped->aGround_0x28, (float *)ped);
         }
     }
 }
@@ -5108,9 +5101,9 @@ STATIC void pedGroupTask_8c029078(Task *task)
                     state->nReverse_0x40 = spec->nReverse_0x03;
 
                     advancePedPathPos_8c0289ac(state);
-                    FUN_8c020914(state->sprite_0x00.p.x, state->sprite_0x00.p.y, state->sprite_0x00.p.z,
+                    GroundQueryFindPolygon_8c020914(state->sprite_0x00.p.x, state->sprite_0x00.p.y, state->sprite_0x00.p.z,
                             &state->aGround_0x28);
-                    FUN_8c020f7e(&state->aGround_0x28, (float *)state);
+                    GroundProbeInterpolateHeight_8c020f7e(&state->aGround_0x28, (float *)state);
                 } else {
                     pushFailed = 1;
                 }
@@ -5122,8 +5115,8 @@ STATIC void pedGroupTask_8c029078(Task *task)
                     state->sprite_0x00.p.x = spec->flX_0x04;
                     state->sprite_0x00.p.z = spec->flZ_0x08;
 
-                    FUN_8c020914(state->sprite_0x00.p.x, 0.0f, state->sprite_0x00.p.z, &state->aGround_0x28);
-                    FUN_8c020f7e(&state->aGround_0x28, (float *)state);
+                    GroundQueryFindPolygon_8c020914(state->sprite_0x00.p.x, 0.0f, state->sprite_0x00.p.z, &state->aGround_0x28);
+                    GroundProbeInterpolateHeight_8c020f7e(&state->aGround_0x28, (float *)state);
 
                     state->nKindId_0x38 = spec->nKindId_0x00;
                     state->nKind_0x3c = spec->nKind_0x02;
@@ -5432,7 +5425,7 @@ STATIC void routeBlinkerTask_8c029904(Task *task, void *state)
  * Each point's height is resolved with its own inline ground-query fallback
  * (not snapPointToGround_8c02840c's, which differs at the tail): try the
  * var_groundGridPrimary_8c1bb890 grid first, leaving var_groundQueryPoint_8c1bc460.y untouched on a hit; else
- * try the var_groundGridFallback_8c1bb86c grid and fill the height via FUN_8c020f7e on a hit;
+ * try the var_groundGridFallback_8c1bb86c grid and fill the height via GroundProbeInterpolateHeight_8c020f7e on a hit;
  * else fall back to the hardcoded var_groundHeightFallback_8c1bbac8 height. */
 void ObjectsInitBlinkers_8c029920(void)
 {
@@ -5477,12 +5470,12 @@ void ObjectsInitBlinkers_8c029920(void)
         var_groundQueryPoint_8c1bc460.z = p->z_0x04;
 
         var_activeGroundGrid_8c2264d4 = var_groundGridPrimary_8c1bb890;
-        FUN_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
+        GroundQueryFindPolygon_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
         if (result.count_0x0c == 0) {
             var_activeGroundGrid_8c2264d4 = var_groundGridFallback_8c1bb86c;
-            FUN_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
+            GroundQueryFindPolygon_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
             if (result.count_0x0c != 0) {
-                FUN_8c020f7e(&result, (float *)&var_groundQueryPoint_8c1bc460);
+                GroundProbeInterpolateHeight_8c020f7e(&result, (float *)&var_groundQueryPoint_8c1bc460);
             } else {
                 var_groundQueryPoint_8c1bc460.y = var_groundHeightFallback_8c1bbac8;
             }

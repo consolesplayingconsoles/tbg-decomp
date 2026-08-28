@@ -436,7 +436,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_pedGroupCount_8c228234', -1);
         $this->shouldWriteTo('_var_trafficSignalTasks_8c227e20', -1);
         $this->shouldWriteTo('_var_trafficSignalFrames_8c227e24', -1);
-        $this->shouldWriteTo('_var_8c2288f8', -1);
+        $this->shouldWriteTo('_var_stopTaskGroup_8c2288f8', -1);
         $this->shouldWriteTo('_var_interiorTexlist_8c1bc438', -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
@@ -590,7 +590,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_pedGroupCount_8c228234', -1);
         $this->shouldWriteTo('_var_trafficSignalTasks_8c227e20', -1);
         $this->shouldWriteTo('_var_trafficSignalFrames_8c227e24', -1);
-        $this->shouldWriteTo('_var_8c2288f8', -1);
+        $this->shouldWriteTo('_var_stopTaskGroup_8c2288f8', -1);
         $this->shouldWriteTo('_var_interiorTexlist_8c1bc438', -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
@@ -744,7 +744,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_pedGroupCount_8c228234', -1);
         $this->shouldWriteTo('_var_trafficSignalTasks_8c227e20', -1);
         $this->shouldWriteTo('_var_trafficSignalFrames_8c227e24', -1);
-        $this->shouldWriteTo('_var_8c2288f8', -1);
+        $this->shouldWriteTo('_var_stopTaskGroup_8c2288f8', -1);
         $this->shouldWriteTo('_var_interiorTexlist_8c1bc438', -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
@@ -899,7 +899,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_pedGroupCount_8c228234', -1);
         $this->shouldWriteTo('_var_trafficSignalTasks_8c227e20', -1);
         $this->shouldWriteTo('_var_trafficSignalFrames_8c227e24', -1);
-        $this->shouldWriteTo('_var_8c2288f8', -1);
+        $this->shouldWriteTo('_var_stopTaskGroup_8c2288f8', -1);
         $this->shouldWriteTo('_var_interiorTexlist_8c1bc438', -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);

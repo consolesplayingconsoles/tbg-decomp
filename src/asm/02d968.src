@@ -24,7 +24,7 @@
           .IMPORT     _var_8c228718
           .IMPORT     _var_8c228794
           .IMPORT     _syMalloc
-          .IMPORT     _var_8c2288f8
+          .IMPORT     _var_stopTaskGroup_8c2288f8
           .IMPORT     _TaskClear_8c014a9c
           .IMPORT     _var_passengerCount_8c1bb8e4
           .IMPORT     _rand
@@ -337,7 +337,7 @@ LP_GEN_52173:
           .DATA.L _var_8c228718 ; H'8C02DBE0
           .DATA.L _var_8c228794 ; H'8C02DBE4
           .DATA.L _syMalloc ; H'8C02DBE8
-          .DATA.L _var_8c2288f8 ; H'8C02DBEC
+          .DATA.L _var_stopTaskGroup_8c2288f8 ; H'8C02DBEC
           .DATA.L _TaskClear_8c014a9c ; H'8C02DBF0
           .DATA.L _var_passengerCount_8c1bb8e4 ; H'8C02DBF4
           .DATA.L _rand ; H'8C02DBF8
@@ -478,7 +478,7 @@ LP_GEN_81852:
           .DATA.W H'00F8 ; H'8C02DD00
           .RES.W 1 ; H'8C02DD02
           .DATA.L _FUN_8c02d21c ; H'8C02DD04
-          .DATA.L _var_8c2288f8 ; H'8C02DD08
+          .DATA.L _var_stopTaskGroup_8c2288f8 ; H'8C02DD08
           .DATA.L _TaskPush_8c014ae8 ; H'8C02DD0C
           .DATA.L _var_8c228798 ; H'8C02DD10
           .DATA.L __quick_odd_mvn ; H'8C02DD14
@@ -751,7 +751,7 @@ LAB_8c02defa:
 LP_GEN_19590:
           .RES.W 1 ; H'8C02DF16
           .DATA.L _task_8c02d5ca ; H'8C02DF18
-          .DATA.L _var_8c2288f8 ; H'8C02DF1C
+          .DATA.L _var_stopTaskGroup_8c2288f8 ; H'8C02DF1C
           .DATA.L _TaskPush_8c014ae8 ; H'8C02DF20
           .DATA.L _init_8c04c3e4 ; H'8C02DF24
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02DF28

@@ -168,28 +168,28 @@ return new class extends TestCase {
                 case 0:
                     // Primary grid hit: height left untouched.
                     $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x11111111);
-                    $this->shouldCall('_FUN_8c020914')
+                    $this->shouldCall('_GroundQueryFindPolygon_8c020914')
                         ->with($x, $currentY, $z)
                         ->do(function () {
                             $this->memory->writeUInt32($this->registers[4]->value + 0xc, U32::of(1));
                         });
                     break;
                 case 1:
-                    // Primary grid miss, secondary grid hit: height filled by FUN_8c020f7e.
+                    // Primary grid miss, secondary grid hit: height filled by GroundProbeInterpolateHeight_8c020f7e.
                     $groundY = 42.0 + $i;
                     $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x11111111);
-                    $this->shouldCall('_FUN_8c020914')
+                    $this->shouldCall('_GroundQueryFindPolygon_8c020914')
                         ->with($x, $currentY, $z)
                         ->do(function () {
                             $this->memory->writeUInt32($this->registers[4]->value + 0xc, U32::of(0));
                         });
                     $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x22222222);
-                    $this->shouldCall('_FUN_8c020914')
+                    $this->shouldCall('_GroundQueryFindPolygon_8c020914')
                         ->with($x, $currentY, $z)
                         ->do(function () {
                             $this->memory->writeUInt32($this->registers[4]->value + 0xc, U32::of(1));
                         });
-                    $this->shouldCall('_FUN_8c020f7e')->do(function () use ($point, $groundY) {
+                    $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->do(function () use ($point, $groundY) {
                         $this->memory->writeUInt32($point + 0x4, U32::of(fdec8c029920($groundY)));
                     });
                     $currentY = $groundY;
@@ -197,13 +197,13 @@ return new class extends TestCase {
                 default:
                     // Both grids miss: hardcoded fallback height.
                     $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x11111111);
-                    $this->shouldCall('_FUN_8c020914')
+                    $this->shouldCall('_GroundQueryFindPolygon_8c020914')
                         ->with($x, $currentY, $z)
                         ->do(function () {
                             $this->memory->writeUInt32($this->registers[4]->value + 0xc, U32::of(0));
                         });
                     $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x22222222);
-                    $this->shouldCall('_FUN_8c020914')
+                    $this->shouldCall('_GroundQueryFindPolygon_8c020914')
                         ->with($x, $currentY, $z)
                         ->do(function () {
                             $this->memory->writeUInt32($this->registers[4]->value + 0xc, U32::of(0));

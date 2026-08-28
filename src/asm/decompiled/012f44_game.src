@@ -60,7 +60,7 @@
           .IMPORT     _FadeStartRunTransition_8c0228a2
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_debugMenuCourseSel_8c1bc824
-          .IMPORT     _var_8c228704
+          .IMPORT     _var_startStopIndex_8c228704
           .IMPORT     _var_inputMapSel_8c1bb8c8
           .IMPORT     _AsqGetRandomA_8c012166
           .IMPORT     _var_8c227dd4
@@ -124,7 +124,7 @@
           .IMPORT     _var_pedGroupCount_8c228234
           .IMPORT     _var_trafficSignalTasks_8c227e20
           .IMPORT     _var_trafficSignalFrames_8c227e24
-          .IMPORT     _var_8c2288f8
+          .IMPORT     _var_stopTaskGroup_8c2288f8
           .IMPORT     _var_interiorTexlist_8c1bc438
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_resourceGroup_8c2263a8
@@ -771,7 +771,7 @@ LP_GEN_38000:
           .DATA.L _var_currentCourse_8c1bb868
           .DATA.L _var_seed_8c157a64
           .DATA.L _var_debugMenuCourseSel_8c1bc824
-          .DATA.L _var_8c228704
+          .DATA.L _var_startStopIndex_8c228704
           .DATA.L _var_inputMapSel_8c1bb8c8
           .DATA.L _AsqGetRandomA_8c012166
           .DATA.L _var_8c227dd4
@@ -1193,7 +1193,7 @@ LP_GEN_90231:
           .DATA.L _var_pedGroupCount_8c228234
           .DATA.L _var_trafficSignalTasks_8c227e20
           .DATA.L _var_trafficSignalFrames_8c227e24
-          .DATA.L _var_8c2288f8
+          .DATA.L _var_stopTaskGroup_8c2288f8
           .DATA.L _var_interiorTexlist_8c1bc438
           .DATA.L _var_menuState_8c1bc7a8
           .DATA.L _var_resourceGroup_8c2263a8

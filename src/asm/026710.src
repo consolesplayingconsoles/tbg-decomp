@@ -5,8 +5,8 @@
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _var_8c1bbdb0
           .IMPORT     _var_8c1bbdd0
-          .IMPORT     _FUN_8c020914
-          .IMPORT     _FUN_8c020f7e
+          .IMPORT     _GroundQueryFindPolygon_8c020914
+          .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _njCos
           .IMPORT     _njSin
           .IMPORT     _AsqGetRandomA_8c012166
@@ -26,7 +26,7 @@
           .IMPORT     _FUN_8c025b98
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _FUN_8c02eab4
-          .IMPORT     _FUN_8c020b6c
+          .IMPORT     _GroundProbeTrackPolygon_8c020b6c
           .IMPORT     _var_routeModelSlots_8c1bbddc
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _FUN_8c02f0c8
@@ -56,7 +56,7 @@
           .IMPORT     _var_8c1bbdb8
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _FUN_8c02656a
-          .IMPORT     _FUN_8c021290
+          .IMPORT     _GroundProbeTrackPolygonAtHeight_8c021290
           .EXPORT     _FUN_8c026710
           .EXPORT     _FUN_8c026748
           .EXPORT     _FUN_8c026bc4
@@ -445,8 +445,8 @@ LP_GEN_59685:
           .DATA.L _var_8c1bbdb0 ; H'8C0269E4
           .DATA.L _var_8c1bbdd0 ; H'8C0269E8
           .DATA.L H'C0000000 ; H'8C0269EC
-          .DATA.L _FUN_8c020914 ; H'8C0269F0
-          .DATA.L _FUN_8c020f7e ; H'8C0269F4
+          .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C0269F0
+          .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C0269F4
           .DATA.L _init_8c0460c8 ; H'8C0269F8
 LAB_8c0269fc:
           MOV.L       LP_GEN_22736+32,R2
@@ -1742,7 +1742,7 @@ LP_GEN_87611:
           .DATA.L _TaskPush_8c014ae8 ; H'8C0273AC
           .DATA.L _FUN_8c02656a ; H'8C0273B0
           .DATA.L H'00008000 ; H'8C0273B4
-          .DATA.L _FUN_8c021290 ; H'8C0273B8
+          .DATA.L _GroundProbeTrackPolygonAtHeight_8c021290 ; H'8C0273B8
           .DATA.L _FUN_8c02eab4 ; H'8C0273BC
 LAB_8c0273c0:
           MOV.W       LP_GEN_50256,R0
@@ -1831,7 +1831,7 @@ LP_GEN_50256:
           .DATA.W H'0510 ; H'8C02745A
           .DATA.W H'0304 ; H'8C02745C
           .RES.W 1 ; H'8C02745E
-          .DATA.L _FUN_8c020b6c ; H'8C027460
+          .DATA.L _GroundProbeTrackPolygon_8c020b6c ; H'8C027460
           .DATA.L _FUN_8c02e51c ; H'8C027464
           .DATA.L _var_routeModelSlots_8c1bbddc ; H'8C027468
           .DATA.L _TaskFree_8c014b66 ; H'8C02746C
