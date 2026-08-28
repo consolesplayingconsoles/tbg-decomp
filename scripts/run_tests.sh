@@ -159,4 +159,8 @@ compile  src/028258_objects.c
 assemble  src/asm/decompiled/020914_ground_query.src
 compile  src/020914_ground_query.c
 
+# 020b6c_ground_probe
+assemble  src/asm/decompiled/020b6c_ground_probe.src
+compile  src/020b6c_ground_probe.c
+
 $sh4objtest suite -s tests.php "$@"

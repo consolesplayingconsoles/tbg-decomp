@@ -80,7 +80,7 @@ SRCS = \
 	src/0207d4.c \
 	src/asm/02081c.src \
 	src/020914_ground_query.c \
-	src/asm/020b6c.src \
+	src/020b6c_ground_probe.c \
 	src/02171c_tile_stream.c \
 	src/asm/021b9c.src \
 	src/0222dc_fadecmd.c \

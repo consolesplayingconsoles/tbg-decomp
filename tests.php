@@ -621,5 +621,17 @@ return [
                 "build/output_test/020914_ground_query_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/020b6c/8c020b6c_GroundProbeTrackPolygon.php",
+                "tests/020b6c/8c020f7e_GroundProbeInterpolateHeight.php",
+                "tests/020b6c/8c020fe4_GroundProbeFindPolygonAtHeight.php",
+                "tests/020b6c/8c021290_GroundProbeTrackPolygonAtHeight.php",
+            ],
+            "objects" => [
+                "build/output_test/020b6c_ground_probe_src.obj",
+                "build/output_test/020b6c_ground_probe_c.obj",
+            ]
+        ],
     ],
 ];
