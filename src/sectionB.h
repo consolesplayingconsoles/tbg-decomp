@@ -7,6 +7,7 @@
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
 #include "01bb48_vm_game.h" /* LcdAnim */
+#include "02171c_tile_stream.h" /* TileIndex, TileRect */
 
 /* =================
  * Type Declarations
@@ -252,9 +253,10 @@ typedef struct {
     int gear_0x2f4;
 
     int field_0x2f8;
-    int field_0x2fc;
-    int field_0x300;
-    int field_0x304;
+    /* draw position, read by TileStreamDrawTile_8c021b34 */
+    float posX_0x2fc;
+    float posY_0x300;
+    float posZ_0x304;
     int field_0x308;
     int field_0x30c;
     int field_0x310;
@@ -515,7 +517,11 @@ extern int var_currentSegment_8c228708;
  * EventApplyFlags_8c02b292 */
 extern int var_selectedEventEntry_8c228478;
 extern void* var_currentSysResGroupInfo_8c225fb0;
-extern int var_currentTileRegionList_8c226534;
+extern TileIndex *var_8c22650c[5]; /* per-layer grid dims, copied from
+                                    * var_currentCourse_8c1bb868.slots_0x04[14..18] by TileStreamInit_8c02175a */
+extern LoadedModel *var_tileLayerSlots_8c226520[5]; /* per-layer tile grids, width * height slots each;
+                                                      * layers 0-3 hold texture+model pairs, layer 4 model only */
+extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
 extern int var_8c22640c;
 extern int var_8c226410;
 extern int var_8c226414[6]; /* dialog sequence id queue built by buildDialogQueue_8c01e992, -1 terminated */

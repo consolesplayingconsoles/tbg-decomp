@@ -12,7 +12,7 @@ return new class extends TestCase {
         $entry = $this->setup(2, 1, 1);
         $this->call('_freeSegmentModels_8c013f22');
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_segmentModels_8c1bc3f0'));
-        $this->shouldCall('_FUN_8c021a24');
+        $this->shouldCall('_TileStreamReleaseAll_8c021a24');
     }
 
     public function test_only_frees_pairs_when_handoff_flag_clear()
@@ -26,7 +26,7 @@ return new class extends TestCase {
     {
         $this->setup(0, 0, 1);
         $this->call('_freeSegmentModels_8c013f22');
-        $this->shouldCall('_FUN_8c021a24');
+        $this->shouldCall('_TileStreamReleaseAll_8c021a24');
     }
 
     public function test_does_nothing_when_both_flags_clear()
@@ -45,7 +45,7 @@ return new class extends TestCase {
         $this->setSize('_var_currentSegment_8c228708', 4);
         $this->setSize('_var_segmentModels_8c1bc3f0', 4);
         $this->setSize('_AsqFreeModels_8c0120fe', 4);
-        $this->setSize('_FUN_8c021a24', 4);
+        $this->setSize('_TileStreamReleaseAll_8c021a24', 4);
 
         $holder = $this->alloc(0x10);
         $array = $this->alloc(4 * self::STRIDE);

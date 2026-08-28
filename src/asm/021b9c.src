@@ -4,7 +4,7 @@
           .IMPORT     _var_fogParam_8c226508
           .IMPORT     _var_fogParam_8c226504
           .IMPORT     _njControl3D
-          .IMPORT     _var_8c226520
+          .IMPORT     _var_tileLayerSlots_8c226520
           .IMPORT     _var_8c226544
           .IMPORT     _var_8c22654c
           .IMPORT     _var_8c2264f0
@@ -32,7 +32,7 @@
           .IMPORT     _var_8c22650c
           .IMPORT     _FUN_8c022420
           .IMPORT     _FUN_8c0223ea
-          .IMPORT     _FUN_8c021b34
+          .IMPORT     _TileStreamDrawTile_8c021b34
           .EXPORT     _FUN_8c021b9c
           .EXPORT     _FUN_8c0221d0
           .SECTION     P, CODE, ALIGN=4
@@ -179,7 +179,7 @@ LP_GEN_32922:
           .DATA.L _var_fogParam_8c226508 ; H'8C021CAC
           .DATA.L _var_fogParam_8c226504 ; H'8C021CB0
           .DATA.L _njControl3D ; H'8C021CB4
-          .DATA.L _var_8c226520 ; H'8C021CB8
+          .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021CB8
           .DATA.L _var_8c226544 ; H'8C021CBC
           .DATA.L _var_8c22654c ; H'8C021CC0
           .DATA.L _var_8c2264f0 ; H'8C021CC4
@@ -567,7 +567,7 @@ LP_GEN_10089:
           .DATA.L _njControl3D ; H'8C021FBC
           .DATA.L _var_busState_8c1bb9d0 ; H'8C021FC0
           .DATA.L __divls ; H'8C021FC4
-          .DATA.L _var_8c226520 ; H'8C021FC8
+          .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021FC8
           .DATA.L _var_8c226544 ; H'8C021FCC
           .DATA.L _var_8c22654c ; H'8C021FD0
           .DATA.L _var_8c2264f0 ; H'8C021FD4
@@ -937,6 +937,6 @@ LP_GEN_78610:
           .DATA.L _FUN_8c021b9c ; H'8C0222C8
           .DATA.L _FUN_8c022420 ; H'8C0222CC
           .DATA.L LAB_8c021ec4 ; H'8C0222D0
-          .DATA.L _FUN_8c021b34 ; H'8C0222D4
+          .DATA.L _TileStreamDrawTile_8c021b34 ; H'8C0222D4
           .DATA.L _FUN_8c0223ea ; H'8C0222D8
           .END

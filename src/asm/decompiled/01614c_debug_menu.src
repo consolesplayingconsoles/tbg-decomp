@@ -62,7 +62,7 @@
           .IMPORT     _FUN_8c02ca96
           .IMPORT     _FUN_8c02adee
           .IMPORT     _FUN_8c029cfe
-          .IMPORT     _FUN_8c021724
+          .IMPORT     _TileStreamTeardown_8c021724
           .IMPORT     _FileMenuFreeBuffers_8c0187d0
           .IMPORT     _VmMenuFreeAndClear_8c019504
           .IMPORT     _VmMenuUpdateVmusStatus_8c019550
@@ -441,7 +441,7 @@ LP_GEN_42967:
           .DATA.L _var_routeModels_8c1bc3ec ; H'8C0163C8
           .DATA.L _var_segmentModels_8c1bc3f0 ; H'8C0163CC
           .DATA.L _var_trafficModels_8c1bc3f4 ; H'8C0163D0
-          .DATA.L _FUN_8c021724 ; H'8C0163D4
+          .DATA.L _TileStreamTeardown_8c021724 ; H'8C0163D4
           .DATA.L _RouteLoadFreeVehicleAssets_8c013b5a ; H'8C0163D8
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C0163DC
           .DATA.L _syFree ; H'8C0163E0

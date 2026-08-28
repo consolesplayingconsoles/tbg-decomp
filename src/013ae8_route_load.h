@@ -4,6 +4,7 @@
 
 #include <shinobi.h>
 #include "014a9c_tasks.h"
+#include "02171c_tile_stream.h" /* TileIndex */
 
 /* =================
  * Type Declarations
@@ -41,10 +42,32 @@ typedef struct {
     void *nj_0x0c;
 } ModelSlot;
 
+/* Asset handles for the loaded course, filled by loadRouteModels_8c014088 from
+ * the CourseConfig filename field of the same name, and freed by
+ * DebugMenuFreeSessionAssets_8c016182. The names are the course's own file
+ * names (Shinjuku day: "s_atari_bus.dat", "sd_road_x.dat", ...): atari =
+ * collision, line = route path, attr = attributes, mac = machine/actor,
+ * hum = pedestrian. */
 typedef struct {
     int courseId_0x00;
-    // asset handles filled by loadRouteModels
-    void *slots_0x04[19];
+    void *atariBus_0x04;
+    void *lineBus_0x08;
+    void *ukn_0x0c;      /* not a filename: a table pointer copied from the config, and not owned */
+    void *attrBus_0x10;
+    void *attrMark_0x14;
+    void *atariCpu_0x18;
+    void *lineCpu_0x1c;
+    void *attrCpu_0x20;
+    void *macCpu1_0x24;
+    void *atariHum_0x28;
+    void *lineHum_0x2c;  /* the one asset kept as a model rather than a texlist */
+    void *macHumG0_0x30;
+    void *macHumM0_0x34;
+    void *macSignal_0x38;
+    /* road_x, machi_x (town), uv_x, shadow_x -- Ome splits uv into uv1/uv2,
+     * Shinjuku and Wangan repeat shadow_x for the model-only 5th layer.
+     * Consumed by TileStreamInit_8c02175a. */
+    TileIndex *tileLayers_0x3c[5];
 } CurrentCourse;
 
 /* =====================
@@ -58,6 +81,9 @@ extern FogParams *var_fogParams_8c18ad28;
 
 /* 16-byte game_name / VMS sort key baked into the backup file header. */
 extern Sint8 init_8c04410c[16];
+
+extern char var_pvrDir_8c18ad4c[0x20];
+extern void *var_datFiles_8c18adb4[4]; /* one per texel layer, freed after TileStreamLoad_8c021810 */
 
 /* =========
  * Functions

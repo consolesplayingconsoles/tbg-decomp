@@ -303,3 +303,39 @@ Compiler-emitted `(short)x * 100` lowers to `MULS.W`, not `MUL.L`; sh4objtest's
 for `0x200f` on both objects identically (a real tooling gap, not a C bug).
 Fixed upstream in the sh4objtest repo (mirrors the `MUL.L` case, sign-extends
 the 16-bit operands into `macl`) and the `tbg-decomp` Docker image rebuilt.
+
+## Ghidra can label a raw address inside another struct as its own fresh global
+
+`TileStreamInit_8c02175a` (`02171c`) reads a 5-pointer array Ghidra decompiled
+as a standalone global `var_8c1bb8a4`. The address `0x8c1bb8a4` is actually
+`var_currentCourse_8c1bb868 + 0x3c`, i.e. `slots_0x04[14]` inside the existing
+`CurrentCourse` struct -- Ghidra has no notion of the struct field here, since
+the instruction loads a plain absolute address from the literal pool, so it
+just names that address like any other global. A dual-object test caught it:
+`setSize`-ing a fake `var_8c1bb8a4` gave the C object a plausible mock address
+that happened not to match the `_src.obj`'s real relocation target, so only
+the `.src` side failed with an unrelated-looking garbage value. Fixed by
+indexing into the real struct (`var_currentCourse_8c1bb868.slots_0x04[14 +
+i]`) instead of declaring a new global. Worth checking whenever a Ghidra
+global's address falls inside an already-known struct's range.
+
+## Every call to an exported symbol is intercepted, even same-object ones
+
+sh4objtest's `matchBranch` treats *any* branch whose target resolves to a
+named symbol as a call that must be in the expectation queue -- it doesn't
+distinguish "external, must be mocked" from "same-object, could just run for
+real". So once a `STATIC` helper is exported under `.AIFDEF UNIT_TESTING`
+(required to test it directly), every caller's test must also add a
+`shouldCall()` entry for it, even calls you'd rather let execute for real.
+`TileStreamLoad_8c021810`'s test mocks `lookupTile_8c0217de` outright instead
+(already covered by its own test file), which is simpler than trying to let
+it "pass through" -- there's no such option in the DSL.
+
+For stack-local out-params (e.g. `njReadBinary`'s `&fpos`/`&rtype`) whose
+address you can't predict, don't reach for `WildcardArgument` or hardcoded
+per-object addresses without checking first: run the test with a guessed
+placeholder, read the real value off the `Unexpected argument ... got 0x...`
+error (or `-v --disasm`), and hardcode that. It's usually the same address
+for both objects; branch on `$this->objectFile` (see
+`tests/016d2c_course_menu/8c0170c6_FUN_pushDialogTask.php` for the pattern)
+only if it isn't.

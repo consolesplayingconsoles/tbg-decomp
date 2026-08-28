@@ -22,8 +22,8 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
-            $this->addressOf('_FUN_8c021810'),
-            $this->addressOf('_FUN_8c02190a'),
+            $this->addressOf('_TileStreamLoad_8c021810'),
+            $this->addressOf('_TileStreamRequestUpload_8c02190a'),
             0,
             $this->addressOf('_RouteLoadSetPvmReady_8c014330'),
         );
@@ -146,8 +146,8 @@ return new class extends TestCase {
             '_TaskFree_8c014b66' => 4,
             '_FUN_8c01306e' => 4,
             '_EventPickForSegment_8c02b170' => 4,
-            '_FUN_8c021810' => 4,
-            '_FUN_8c02190a' => 4,
+            '_TileStreamLoad_8c021810' => 4,
+            '_TileStreamRequestUpload_8c02190a' => 4,
             '__modls' => 4,
         ] as $sym => $size) {
             $this->setSize($sym, $size);

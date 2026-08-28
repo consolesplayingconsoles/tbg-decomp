@@ -1,5 +1,5 @@
 ; 8c02171c
-          .IMPORT     _var_8c226520
+          .IMPORT     _var_tileLayerSlots_8c226520
           .IMPORT     _syFree
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_8c22650c
@@ -19,21 +19,25 @@
           .IMPORT     _njSetTexture
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _njFogEnable
-          .EXPORT     _clearUnknownVar_8c02171c
-          .EXPORT     _FUN_8c021724
-          .EXPORT     _FUN_8c02175a
-          .EXPORT     _FUN_8c0217de
-          .EXPORT     _FUN_8c021810
-          .EXPORT     _FUN_8c02190a
-          .EXPORT     _FUN_8c021a24
-          .EXPORT     _FUN_8c021b34
+          .EXPORT     _TileStreamClearUnknownVar_8c02171c
+          .EXPORT     _TileStreamTeardown_8c021724
+          .EXPORT     _TileStreamInit_8c02175a
+          .EXPORT     _TileStreamLoad_8c021810
+          .EXPORT     _TileStreamRequestUpload_8c02190a
+          .EXPORT     _TileStreamReleaseAll_8c021a24
+          .EXPORT     _TileStreamDrawTile_8c021b34
+
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _lookupTile_8c0217de
+          .AENDI
+
           .SECTION     P, CODE, ALIGN=4
-_clearUnknownVar_8c02171c:
+_TileStreamClearUnknownVar_8c02171c:
           MOV.L       LP_GEN_62938+2,R3
           MOV         #-H'1,R2
           RTS
           MOV.L       R2,@R3
-_FUN_8c021724:
+_TileStreamTeardown_8c021724:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       LP_GEN_62938+2,R13
@@ -43,7 +47,7 @@ _FUN_8c021724:
           MOV.L       @R13,R0
           CMP/EQ      #-H'1,R0
           BT          LAB_8c02174e
-          BSR         _FUN_8c021a24
+          BSR         _TileStreamReleaseAll_8c021a24
           NOP
           MOV         R13,R12
           MOV.L       LP_GEN_62938+6,R11
@@ -63,7 +67,7 @@ LAB_8c02174e:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02175a:
+_TileStreamInit_8c02175a:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV         #H'0,R13
@@ -134,7 +138,7 @@ LAB_8c0217c6:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c0217de:
+_lookupTile_8c0217de:
           ADD         #-H'8,R15
           MOV         R7,R2
           SHLL2       R4
@@ -161,7 +165,7 @@ LAB_8c021804:
           MOV.L       R7,@R6
           RTS
           ADD         #H'8,R15
-_FUN_8c021810:
+_TileStreamLoad_8c021810:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -215,7 +219,7 @@ LAB_8c021858:
           MOV.L       R3,@(H'4,R15)
           MOV.L       @(H'14,R15),R7
           MOV.L       @R7,R7
-          BSR         _FUN_8c0217de
+          BSR         _lookupTile_8c0217de
           MOV         R13,R4
           TST         R0,R0
           BT          LAB_8c0218ba
@@ -296,7 +300,7 @@ LAB_8c0218f6:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02190a:
+_TileStreamRequestUpload_8c02190a:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -370,7 +374,7 @@ LAB_8c02196a:
           SHLL        R13
 LP_GEN_62938:
           .RES.W 1 ; H'8C02198E
-          .DATA.L _var_8c226520 ; H'8C021990
+          .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021990
           .DATA.L _syFree ; H'8C021994
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C021998
           .DATA.L _var_8c22650c ; H'8C02199C
@@ -444,7 +448,7 @@ LAB_8c021a10:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c021a24:
+_TileStreamReleaseAll_8c021a24:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -578,11 +582,11 @@ LP_GEN_62772:
           .DATA.L _AsqRequestTexlist_8c01181c ; H'8C021B18
           .DATA.L _syFree ; H'8C021B1C
           .DATA.L _var_8c1bb8a4 ; H'8C021B20
-          .DATA.L _var_8c226520 ; H'8C021B24
+          .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021B24
           .DATA.L _var_8c22651c ; H'8C021B28
           .DATA.L _var_8c22650c ; H'8C021B2C
           .DATA.L _njReleaseTexture ; H'8C021B30
-_FUN_8c021b34:
+_TileStreamDrawTile_8c021b34:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           MOV.L       LP_GEN_51118+4,R3

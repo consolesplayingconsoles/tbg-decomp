@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_routeModels_8c1bc3ec'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_segmentModels_8c1bc3f0'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_trafficModels_8c1bc3f4'));
-        $this->shouldCall('_FUN_8c021724');
+        $this->shouldCall('_TileStreamTeardown_8c021724');
         $this->shouldCall('_RouteLoadFreeVehicleAssets_8c013b5a');
 
         // slot 2 is not freed here
@@ -80,7 +80,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_routeModels_8c1bc3ec'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_segmentModels_8c1bc3f0'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_trafficModels_8c1bc3f4'));
-        $this->shouldCall('_FUN_8c021724');
+        $this->shouldCall('_TileStreamTeardown_8c021724');
         $this->shouldCall('_RouteLoadFreeVehicleAssets_8c013b5a');
         $this->shouldCall('_RgFreeResourceGroups_8c016108');
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');

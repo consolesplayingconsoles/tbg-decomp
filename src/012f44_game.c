@@ -21,6 +21,7 @@
 #include "018644_file_menu.h"
 #include "01bb48_vm_game.h"
 #include "02fb50_sh4nlfzn_post_data.h"
+#include "02171c_tile_stream.h"
 
 // #define CACHE_BUFSIZE   0x20000
 // #define SHAPE_BUFSIZE   512
@@ -374,7 +375,7 @@ void GameInit_8c0134ec() {
     var_segmentModels_8c1bc3f0 = (LoadedModel *) -1;
     var_trafficModels_8c1bc3f4 = (LoadedModel *) -1;
 
-    clearUnknownVar_8c02171c();
+    TileStreamClearUnknownVar_8c02171c();
     clearUnknownVar_8c029acc();
     clearUnknownVars_8c02aa28();
 

@@ -59,7 +59,7 @@ return new class extends TestCase {
         $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
 
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
-        $this->shouldCall('_FUN_8c02175a');
+        $this->shouldCall('_TileStreamInit_8c02175a');
         $this->shouldCall('_FUN_8c026da4')->with(0x8cd00008);
         $this->shouldCall('_FUN_8c028de8')->with(0x8cd0000b);
         $this->shouldCall('_FUN_8c028dd0')->with(0x8cd0000c);
@@ -71,7 +71,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
-            $this->addressOf('_FUN_8c02190a'),
+            $this->addressOf('_TileStreamRequestUpload_8c02190a'),
             0,
             $this->addressOf('_RouteLoadSetPvmReady_8c014330'),
         );
@@ -195,13 +195,13 @@ return new class extends TestCase {
             '_InputDispatchTask_8c012970' => 4,
             '_TaskFree_8c014b66' => 4,
             '_FUN_8c01306e' => 4,
-            '_FUN_8c02175a' => 4,
+            '_TileStreamInit_8c02175a' => 4,
             '_FUN_8c026da4' => 4,
             '_FUN_8c028de8' => 4,
             '_FUN_8c028dd0' => 4,
             '_FUN_8c02caba' => 4,
             '_EventPickForSegment_8c02b170' => 4,
-            '_FUN_8c02190a' => 4,
+            '_TileStreamRequestUpload_8c02190a' => 4,
             '__modls' => 4,
         ] as $sym => $size) {
             $this->setSize($sym, $size);

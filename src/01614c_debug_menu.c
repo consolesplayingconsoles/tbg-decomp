@@ -13,7 +13,7 @@
 #include "016108.h"
 #include "016d2c_course_menu.h"
 #include "018644_file_menu.h"
-#include "02171c.h"
+#include "02171c_tile_stream.h"
 #include "028258.h"
 #include "02c884.h"
 #include "02f320.h"
@@ -119,16 +119,30 @@ void DebugMenuFreeSessionAssets_8c016182(void)
     AsqFreeModels_8c0120fe((LoadedModel **)&var_routeModels_8c1bc3ec);
     AsqFreeModels_8c0120fe(&var_segmentModels_8c1bc3f0);
     AsqFreeModels_8c0120fe(&var_trafficModels_8c1bc3f4);
-    FUN_8c021724();
+    TileStreamTeardown_8c021724();
     RouteLoadFreeVehicleAssets_8c013b5a();
 
-    if (var_currentCourse_8c1bb868.slots_0x04[0] != (void *)-1) {
-        for (i = 0; i < 19; i++) {
-            if (i != 2) { /* slot 2 is not owned here */
-                syFree(var_currentCourse_8c1bb868.slots_0x04[i]);
-            }
+    if (var_currentCourse_8c1bb868.atariBus_0x04 != (void *)-1) {
+        CurrentCourse *course = &var_currentCourse_8c1bb868;
+
+        syFree(course->atariBus_0x04);
+        syFree(course->lineBus_0x08);
+        /* ukn_0x0c is borrowed from the course config, not owned */
+        syFree(course->attrBus_0x10);
+        syFree(course->attrMark_0x14);
+        syFree(course->atariCpu_0x18);
+        syFree(course->lineCpu_0x1c);
+        syFree(course->attrCpu_0x20);
+        syFree(course->macCpu1_0x24);
+        syFree(course->atariHum_0x28);
+        syFree(course->lineHum_0x2c);
+        syFree(course->macHumG0_0x30);
+        syFree(course->macHumM0_0x34);
+        syFree(course->macSignal_0x38);
+        for (i = 0; i < 5; i++) {
+            syFree(course->tileLayers_0x3c[i]);
         }
-        var_currentCourse_8c1bb868.slots_0x04[0] = (void *)-1;
+        course->atariBus_0x04 = (void *)-1;
     }
     if (var_demoBuf_8c1ba3c4 != (int *)-1) {
         syFree(var_demoBuf_8c1ba3c4);

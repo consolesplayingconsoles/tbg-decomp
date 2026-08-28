@@ -131,4 +131,8 @@ compile  src/01c980_profile_file.c
 assemble  src/asm/decompiled/01e27c_practice_menu.src
 compile  src/01e27c_practice_menu.c
 
+# 02171c_tile_stream
+assemble  src/asm/decompiled/02171c_tile_stream.src
+compile  src/02171c_tile_stream.c
+
 $sh4objtest suite -s tests.php "$@"

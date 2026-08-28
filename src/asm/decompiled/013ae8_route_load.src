@@ -26,7 +26,7 @@
           .IMPORT     _var_currentSegment_8c228708
           .IMPORT     _var_segmentModels_8c1bc3f0
           .IMPORT     _AsqFreeModels_8c0120fe
-          .IMPORT     _FUN_8c021a24
+          .IMPORT     _TileStreamReleaseAll_8c021a24
           .IMPORT     _var_fogParam_8c226504
           .IMPORT     _var_fogParam_8c226508
           .IMPORT     _var_fogParam_8c227dd0
@@ -41,14 +41,14 @@
           .IMPORT     _var_routeModels_8c1bc3ec
           .IMPORT     _var_loadingResourceGroup_8c1bc3f8
           .IMPORT     _njLoadCacheTexture
-          .IMPORT     _FUN_8c02175a
+          .IMPORT     _TileStreamInit_8c02175a
           .IMPORT     _FUN_8c026da4
           .IMPORT     _FUN_8c028de8
           .IMPORT     _FUN_8c028dd0
           .IMPORT     _FUN_8c02caba
           .IMPORT     _EventPickForSegment_8c02b170
-          .IMPORT     _FUN_8c02190a
-          .IMPORT     _FUN_8c021810
+          .IMPORT     _TileStreamRequestUpload_8c02190a
+          .IMPORT     _TileStreamLoad_8c021810
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _var_loadScreenActive_8c157a6c
           .IMPORT     _njReleaseTexture
@@ -692,7 +692,7 @@ LP_GEN_91607:
           .DATA.L _var_currentSegment_8c228708
           .DATA.L _var_segmentModels_8c1bc3f0
           .DATA.L _AsqFreeModels_8c0120fe
-          .DATA.L _FUN_8c021a24
+          .DATA.L _TileStreamReleaseAll_8c021a24
 
 _syncSegmentModels_8c013f78:
           MOV.L       LP_GEN_25668+4,R0
@@ -1323,15 +1323,15 @@ LP_GEN_90737:
           .DATA.L _RouteLoadSetPvmReady_8c014330
           .DATA.L _AsqNop_8c011120
           .DATA.L _AsqProcessQueues_8c011fe0
-          .DATA.L _FUN_8c02175a
+          .DATA.L _TileStreamInit_8c02175a
           .DATA.L _var_currentCourse_8c1bb868
           .DATA.L _FUN_8c026da4
           .DATA.L _FUN_8c028de8
           .DATA.L _FUN_8c028dd0
           .DATA.L _FUN_8c02caba
           .DATA.L _EventPickForSegment_8c02b170
-          .DATA.L _FUN_8c02190a
-          .DATA.L _FUN_8c021810
+          .DATA.L _TileStreamRequestUpload_8c02190a
+          .DATA.L _TileStreamLoad_8c021810
           .DATA.L _TaskFree_8c014b66
           .DATA.L _AsqFreeQueues_8c011f7e
           .DATA.L _var_loadScreenActive_8c157a6c
@@ -1497,8 +1497,8 @@ LP_GEN_28406:
           .DATA.L _EventPickForSegment_8c02b170
           .DATA.L _AsqResetQueues_8c011f6c
           .DATA.L _RouteLoadSetPvmReady_8c014330
-          .DATA.L _FUN_8c02190a
-          .DATA.L _FUN_8c021810
+          .DATA.L _TileStreamRequestUpload_8c02190a
+          .DATA.L _TileStreamLoad_8c021810
           .DATA.L _AsqNop_8c011120
           .DATA.L _AsqProcessQueues_8c011fe0
 
@@ -1854,14 +1854,14 @@ LP_GEN_48435:
           .DATA.L _RouteLoadSetPvmReady_8c014330
           .DATA.L _AsqNop_8c011120
           .DATA.L _AsqProcessQueues_8c011fe0
-          .DATA.L _FUN_8c02175a
+          .DATA.L _TileStreamInit_8c02175a
           .DATA.L _var_currentCourse_8c1bb868
           .DATA.L _FUN_8c026da4
           .DATA.L _FUN_8c028de8
           .DATA.L _FUN_8c028dd0
           .DATA.L _FUN_8c02caba
           .DATA.L _EventPickForSegment_8c02b170
-          .DATA.L _FUN_8c02190a
+          .DATA.L _TileStreamRequestUpload_8c02190a
           .DATA.L _TaskFree_8c014b66
           .DATA.L _AsqFreeQueues_8c011f7e
           .DATA.L _var_loadScreenActive_8c157a6c

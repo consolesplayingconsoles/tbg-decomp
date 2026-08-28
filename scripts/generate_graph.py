@@ -23,6 +23,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -45,11 +46,14 @@ def discover_objects():
 
 
 def inspect(obj):
-    out = subprocess.run(
-        ["sh4objtest", "inspect", str(obj), "--format=json"],
-        capture_output=True, text=True, check=True,
-    ).stdout
-    return json.loads(out)
+    # Large objects' JSON dumps get truncated when piped (subprocess PIPE) --
+    # route through a temp file instead.
+    with tempfile.NamedTemporaryFile(suffix=".json") as tmp:
+        subprocess.run(
+            ["sh4objtest", "inspect", str(obj), "--format=json", f"--output={tmp.name}"],
+            check=True,
+        )
+        return json.loads(Path(tmp.name).read_text())
 
 
 def build_graph(dump_dir=None):

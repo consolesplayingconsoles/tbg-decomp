@@ -6,7 +6,7 @@
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
 #include "014f54_text.h"
-#include "02171c.h"
+#include "02171c_tile_stream.h"
 #include "026710.h"
 #include "028258.h"
 #include "02af78_event.h"
@@ -112,8 +112,23 @@ typedef struct {
     CourseSceneParams *sceneParams_0x10;
     int ukn_0x14;
     int ukn_0x18;
-    // nj/dat asset names loaded by loadRouteModels.
-    char *filenames_0x1c[19];
+    /* nj/dat asset names, loaded by loadRouteModels_8c014088 into the
+     * CurrentCourse field of the same name. */
+    char *atariBusFile_0x1c;
+    char *lineBusFile_0x20;
+    void *ukn_0x24;      /* not a filename: copied straight into CurrentCourse.ukn_0x0c */
+    char *attrBusFile_0x28;
+    char *attrMarkFile_0x2c;
+    char *atariCpuFile_0x30;
+    char *lineCpuFile_0x34;
+    char *attrCpuFile_0x38;
+    char *macCpu1File_0x3c;
+    char *atariHumFile_0x40;
+    char *lineHumFile_0x44;
+    char *macHumG0File_0x48;
+    char *macHumM0File_0x4c;
+    char *macSignalFile_0x50;
+    char *tileLayerFiles_0x54[5];
 } CourseConfig;
 
 /* Placeholder types for the nested table/record
@@ -356,7 +371,7 @@ STATIC void freeSegmentModels_8c013f22(void)
         AsqFreeModels_8c0120fe(&var_segmentModels_8c1bc3f0);
     }
     if (entry->tileRegionList_0x0c != 0) {
-        FUN_8c021a24();
+        TileStreamReleaseAll_8c021a24();
     }
 }
 
@@ -405,9 +420,9 @@ STATIC void syncSegmentModels_8c013f78(void)
     FUN_8c029ad4(entry->sceneObjectList_0x1c);
 
     if (entry->tileRegionList_0x0c == 0) {
-        var_currentTileRegionList_8c226534 = -1;
+        var_currentTileRegionList_8c226534 = (void *)-1;
     } else {
-        var_currentTileRegionList_8c226534 = (int)entry->tileRegionList_0x0c;
+        var_currentTileRegionList_8c226534 = entry->tileRegionList_0x0c;
         for (i = 0; i < 4; i++) {
             AsqRequestDat_8c011182(var_datDir_8c18ad2c, entry->datFilenames_0x20[i], &var_datFiles_8c18adb4[i]);
         }
@@ -423,6 +438,11 @@ STATIC void syncSegmentModels_8c013f78(void)
  * route id, and request all of its files. */
 STATIC void loadRouteModels_8c014088(void)
 {
+    CourseConfig *config;
+    CurrentCourse *course;
+    char *dir;
+    int i;
+
     LOG_DEBUG(("[ROUTE_LOAD] requesting course %d models\n", var_currentCourse_8c1bb868.courseId_0x00));
 
     var_currentCourseConfig_8c18ad18 = init_courseTable_8c043ca4[var_currentCourse_8c1bb868.courseId_0x00];
@@ -484,25 +504,27 @@ STATIC void loadRouteModels_8c014088(void)
     strcpy(var_commonDirCopy_8c18ad8c, var_commonDir_8c18ad6c);
     strcpy(var_datDir_8c18ad2c, var_commonDir_8c18ad6c);
 
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[0], &var_currentCourse_8c1bb868.slots_0x04[0], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[1], &var_currentCourse_8c1bb868.slots_0x04[1], 0);
-    var_currentCourse_8c1bb868.slots_0x04[2] = var_currentCourseConfig_8c18ad18->filenames_0x1c[2];
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[3], &var_currentCourse_8c1bb868.slots_0x04[3], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[4], &var_currentCourse_8c1bb868.slots_0x04[4], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[5], &var_currentCourse_8c1bb868.slots_0x04[5], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[6], &var_currentCourse_8c1bb868.slots_0x04[6], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[7], &var_currentCourse_8c1bb868.slots_0x04[7], 0);
-    AsqRequestDat_8c011182(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[8], &var_currentCourse_8c1bb868.slots_0x04[8]);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[9], &var_currentCourse_8c1bb868.slots_0x04[9], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[10], 0, &var_currentCourse_8c1bb868.slots_0x04[10]);
-    AsqRequestDat_8c011182(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[11], &var_currentCourse_8c1bb868.slots_0x04[11]);
-    AsqRequestDat_8c011182(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[12], &var_currentCourse_8c1bb868.slots_0x04[12]);
-    AsqRequestDat_8c011182(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[13], &var_currentCourse_8c1bb868.slots_0x04[13]);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[14], &var_currentCourse_8c1bb868.slots_0x04[14], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[15], &var_currentCourse_8c1bb868.slots_0x04[15], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[16], &var_currentCourse_8c1bb868.slots_0x04[16], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[17], &var_currentCourse_8c1bb868.slots_0x04[17], 0);
-    AsqRequestNj_8c011492(var_commonDir_8c18ad6c, var_currentCourseConfig_8c18ad18->filenames_0x1c[18], &var_currentCourse_8c1bb868.slots_0x04[18], 0);
+    config = var_currentCourseConfig_8c18ad18;
+    course = &var_currentCourse_8c1bb868;
+    dir = var_commonDir_8c18ad6c;
+
+    AsqRequestNj_8c011492(dir, config->atariBusFile_0x1c, &course->atariBus_0x04, 0);
+    AsqRequestNj_8c011492(dir, config->lineBusFile_0x20, &course->lineBus_0x08, 0);
+    course->ukn_0x0c = config->ukn_0x24;
+    AsqRequestNj_8c011492(dir, config->attrBusFile_0x28, &course->attrBus_0x10, 0);
+    AsqRequestNj_8c011492(dir, config->attrMarkFile_0x2c, &course->attrMark_0x14, 0);
+    AsqRequestNj_8c011492(dir, config->atariCpuFile_0x30, &course->atariCpu_0x18, 0);
+    AsqRequestNj_8c011492(dir, config->lineCpuFile_0x34, &course->lineCpu_0x1c, 0);
+    AsqRequestNj_8c011492(dir, config->attrCpuFile_0x38, &course->attrCpu_0x20, 0);
+    AsqRequestDat_8c011182(dir, config->macCpu1File_0x3c, &course->macCpu1_0x24);
+    AsqRequestNj_8c011492(dir, config->atariHumFile_0x40, &course->atariHum_0x28, 0);
+    AsqRequestNj_8c011492(dir, config->lineHumFile_0x44, 0, &course->lineHum_0x2c);
+    AsqRequestDat_8c011182(dir, config->macHumG0File_0x48, &course->macHumG0_0x30);
+    AsqRequestDat_8c011182(dir, config->macHumM0File_0x4c, &course->macHumM0_0x34);
+    AsqRequestDat_8c011182(dir, config->macSignalFile_0x50, &course->macSignal_0x38);
+    for (i = 0; i < 5; i++) {
+        AsqRequestNj_8c011492(dir, config->tileLayerFiles_0x54[i], &course->tileLayers_0x3c[i], 0);
+    }
 
     requestVehicleAssets_8c013ae8();
     var_routeModels_8c1bc3ec = AsqRequestModels_8c012030(var_commonDir_8c18ad6c, init_8c0440dc, 0x10);
@@ -547,17 +569,17 @@ STATIC void routeLoadTask_8c014338(Task *task, void *state)
 
         case ROUTE_LOAD_STATE_POST_LOAD: {
             if (RouteLoadIsPvmReady_8c01432a() != 0) {
-                FUN_8c02175a();
-                FUN_8c026da4(var_currentCourse_8c1bb868.slots_0x04[8]);
-                FUN_8c028de8(var_currentCourse_8c1bb868.slots_0x04[11]);
-                FUN_8c028dd0(var_currentCourse_8c1bb868.slots_0x04[12]);
+                TileStreamInit_8c02175a();
+                FUN_8c026da4(var_currentCourse_8c1bb868.macCpu1_0x24);
+                FUN_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
+                FUN_8c028dd0(var_currentCourse_8c1bb868.macHumM0_0x34);
                 FUN_8c02caba();
                 // Arm this segment's cutscene first: syncSegmentModels reads cutsceneActive.
                 EventPickForSegment_8c02b170();
                 AsqResetQueues_8c011f6c();
                 syncSegmentModels_8c013f78();
                 RouteLoadResetPvmReady_8c014322();
-                AsqProcessQueues_8c011fe0(AsqNop_8c011120, FUN_8c021810, FUN_8c02190a, 0, RouteLoadSetPvmReady_8c014330);
+                AsqProcessQueues_8c011fe0(AsqNop_8c011120, TileStreamLoad_8c021810, TileStreamRequestUpload_8c02190a, 0, RouteLoadSetPvmReady_8c014330);
                 CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_WAIT);
             }
             break;
@@ -626,7 +648,7 @@ STATIC void unknownSegmentReloadTask_8c014550(Task *task, void *state)
             AsqResetQueues_8c011f6c();
             syncSegmentModels_8c013f78();
             RouteLoadResetPvmReady_8c014322();
-            AsqProcessQueues_8c011fe0(AsqNop_8c011120, FUN_8c021810, FUN_8c02190a, 0, RouteLoadSetPvmReady_8c014330);
+            AsqProcessQueues_8c011fe0(AsqNop_8c011120, TileStreamLoad_8c021810, TileStreamRequestUpload_8c02190a, 0, RouteLoadSetPvmReady_8c014330);
             CHANGE_SEGMENT_RELOAD_STATE(task, SEGMENT_RELOAD_STATE_WAIT);
             break;
         }
@@ -711,17 +733,17 @@ void RouteLoadUnusedTask_8c014784(Task *task, void *state)
 
         case ROUTE_LOAD_STATE_POST_LOAD: {
             if (RouteLoadIsPvmReady_8c01432a() != 0) {
-                FUN_8c02175a();
-                FUN_8c026da4(var_currentCourse_8c1bb868.slots_0x04[8]);
-                FUN_8c028de8(var_currentCourse_8c1bb868.slots_0x04[11]);
-                FUN_8c028dd0(var_currentCourse_8c1bb868.slots_0x04[12]);
+                TileStreamInit_8c02175a();
+                FUN_8c026da4(var_currentCourse_8c1bb868.macCpu1_0x24);
+                FUN_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
+                FUN_8c028dd0(var_currentCourse_8c1bb868.macHumM0_0x34);
                 FUN_8c02caba();
                 // Arm this segment's cutscene first: syncSegmentModels reads cutsceneActive.
                 EventPickForSegment_8c02b170();
                 AsqResetQueues_8c011f6c();
                 syncSegmentModels_8c013f78();
                 RouteLoadResetPvmReady_8c014322();
-                AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, FUN_8c02190a, 0, RouteLoadSetPvmReady_8c014330);
+                AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, TileStreamRequestUpload_8c02190a, 0, RouteLoadSetPvmReady_8c014330);
                 CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_WAIT);
             }
             break;

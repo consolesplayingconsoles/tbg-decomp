@@ -115,7 +115,7 @@
           .IMPORT     _var_routeModels_8c1bc3ec
           .IMPORT     _var_segmentModels_8c1bc3f0
           .IMPORT     _var_trafficModels_8c1bc3f4
-          .IMPORT     _clearUnknownVar_8c02171c
+          .IMPORT     _TileStreamClearUnknownVar_8c02171c
           .IMPORT     _clearUnknownVar_8c029acc
           .IMPORT     _clearUnknownVars_8c02aa28
           .IMPORT     _var_8c1bc404
@@ -1184,7 +1184,7 @@ LP_GEN_90231:
           .DATA.L _var_routeModels_8c1bc3ec
           .DATA.L _var_segmentModels_8c1bc3f0
           .DATA.L _var_trafficModels_8c1bc3f4
-          .DATA.L _clearUnknownVar_8c02171c
+          .DATA.L _TileStreamClearUnknownVar_8c02171c
           .DATA.L _clearUnknownVar_8c029acc
           .DATA.L _clearUnknownVars_8c02aa28
           .DATA.L _var_8c1bc404

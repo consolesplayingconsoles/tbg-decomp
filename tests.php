@@ -441,5 +441,21 @@ return [
                 "build/output_test/01e27c_practice_menu_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/02171c/8c02171c_TileStreamClearUnknownVar.php",
+                "tests/02171c/8c021724_TileStreamTeardown.php",
+                "tests/02171c/8c02175a_TileStreamInit.php",
+                "tests/02171c/8c0217de_lookupTile.php",
+                "tests/02171c/8c021810_TileStreamLoad.php",
+                "tests/02171c/8c02190a_TileStreamRequestUpload.php",
+                "tests/02171c/8c021a24_TileStreamReleaseAll.php",
+                "tests/02171c/8c021b34_TileStreamDrawTile.php",
+            ],
+            "objects" => [
+                "build/output_test/02171c_tile_stream_src.obj",
+                "build/output_test/02171c_tile_stream_c.obj",
+            ]
+        ],
     ],
 ];

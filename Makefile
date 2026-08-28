@@ -74,7 +74,7 @@ SRCS = \
 	src/asm/02081c.src \
 	src/asm/020914.src \
 	src/asm/020b6c.src \
-	src/asm/02171c.src \
+	src/02171c_tile_stream.c \
 	src/asm/021b9c.src \
 	src/asm/0222dc.src \
 	src/asm/022464.src \

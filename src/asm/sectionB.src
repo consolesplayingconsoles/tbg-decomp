@@ -584,7 +584,7 @@
           .EXPORT     _var_8c22650c ; 02171c
                                     ; 021b9c
           .EXPORT     _var_8c22651c ; 02171c
-          .EXPORT     _var_8c226520 ; 02171c
+          .EXPORT     _var_tileLayerSlots_8c226520 ; 02171c
                                     ; 021b9c
           .EXPORT     _var_currentTileRegionList_8c226534 ; 013ae8_route_load
                                                           ; 02171c
@@ -1314,7 +1314,7 @@ _var_8c22650c:
           .RES.B      16
 _var_8c22651c:
           .RES.B      4
-_var_8c226520:
+_var_tileLayerSlots_8c226520:
           .RES.B      20
 _var_currentTileRegionList_8c226534:
           .RES.B      4
