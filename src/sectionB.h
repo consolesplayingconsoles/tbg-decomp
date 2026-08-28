@@ -466,6 +466,17 @@ extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
  * var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not that
  * struct's field_0x3bc -- coincidentally adjacent, not part of it. */
 extern int var_pendingDemoFlags_8c1bbd8c;
+// 026710: cached copies of two CourseSceneParams.rec0_0x0c rows, and their
+// per-20-frame deltas, built by TrafficInit_8c02769e when timeOfDay is
+// TIME_OF_DAY_NIGHT. Each row is split 2+3 like the struct field itself
+// (var_8c1bbdb4/var_8c1bbdac are var_8c1bbdb0[1]/var_8c1bbda8[1],
+// separately-imported aliases for the same addresses in 027958).
+extern float var_8c1bbda0[2]; // (row2 - row1) / 20, first 2 components
+extern float var_8c1bbda8[2]; // cached rec0_0x0c[1][0..1]
+extern float var_8c1bbdb0[2]; // cached rec0_0x0c[2][0..1]
+extern float var_8c1bbdb8[3]; // (row2 - row1) / 20, last 3 components
+extern float var_8c1bbdc4[3]; // cached rec0_0x0c[1][2..4]
+extern float var_8c1bbdd0[3]; // cached rec0_0x0c[2][2..4]
 extern void* var_busstopDat_8c1bc42c;
 extern void* var_busstopPartsDat_8c1bc428;
 extern NJS_TEXLIST *var_busStopTexlist_8c1bc424;
@@ -794,6 +805,12 @@ extern int var_8c226410;
 extern int var_8c226414[6]; /* dialog id queue built by buildDialogQueue_8c01e992, -1 terminated */
 extern int var_8c22642c; /* lesson attempt counter, incremented on practice retry */
 extern int var_demoEntryValue_8c227e14;
+/* Table indexed by a pending demo entry id (var_pendingDemoFlags_8c1bbd8c's
+ * byte at bits 8-15), yielding the traffic script pointer for that demo;
+ * read by trafficUpdateTask_8c0275d4 (026710). */
+extern Sint32 *var_8c227e18;
+/* Base of a per-entry table; 026710_traffic indexes it by a script argument. */
+extern Sint32 *var_8c227e1c;
 extern int var_demoEntryValue_8c22822c;
 extern int var_dialogQueue_8c225fbc[4]; // TODO: Confirm length
 extern int var_instructorDialogActive_8c225fb4;

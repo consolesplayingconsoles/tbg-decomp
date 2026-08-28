@@ -196,7 +196,7 @@ void FUN_8c01306e(void)
     }
 
     ObjectsInitPedestrianGroups_8c0296d6();
-    FUN_8c02769e();
+    TrafficInit_8c02769e();
     FUN_8c0222dc();
     ObjectsPushTasks_8c02a6ac();
     FUN_8c02c46a();

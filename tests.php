@@ -589,5 +589,28 @@ return [
                 "build/output_test/028258_objects_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/026710_traffic/8c026710_TrafficReadScriptArgs.php",
+                "tests/026710_traffic/8c026748_initEntryState.php",
+                "tests/026710_traffic/8c026bc4_TrafficUpdateHeading.php",
+                "tests/026710_traffic/8c026ca2_TrafficAdvanceOnPath.php",
+                "tests/026710_traffic/8c026da4_FUN.php",
+                "tests/026710_traffic/8c026dcc_FUN.php",
+                "tests/026710_traffic/8c026eaa_TrafficComputeBlockedSpeed.php",
+                "tests/026710_traffic/8c026f7e_FUN.php",
+                "tests/026710_traffic/8c026fb0_TrafficRemainingPathDistance.php",
+                "tests/026710_traffic/8c026fcc_FUN.php",
+                "tests/026710_traffic/8c027012_TrafficRunEntryScript.php",
+                "tests/026710_traffic/8c0272b8_spawnEntry.php",
+                "tests/026710_traffic/8c02756a_applyTrafficLighting.php",
+                "tests/026710_traffic/8c0275d4_trafficUpdateTask.php",
+                "tests/026710_traffic/8c02769e_TrafficInit.php",
+            ],
+            "objects" => [
+                "build/output_test/026710_traffic_src.obj",
+                "build/output_test/026710_traffic_c.obj",
+            ]
+        ],
     ],
 ];

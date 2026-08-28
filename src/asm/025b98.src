@@ -14,17 +14,17 @@
           .IMPORT     _FUN_8c02f08a
           .IMPORT     _var_groundQueryPoint_8c1bc460
           .IMPORT     _FUN_8c02f0c8
-          .IMPORT     _FUN_8c026eaa
+          .IMPORT     _TrafficComputeBlockedSpeed_8c026eaa
           .IMPORT     _FUN_8c026fcc
           .IMPORT     _FUN_8c026f7e
-          .IMPORT     _FUN_8c026fb0
+          .IMPORT     _TrafficRemainingPathDistance_8c026fb0
           .IMPORT     _FUN_8c0207d4
-          .IMPORT     _FUN_8c026ca2
-          .IMPORT     _FUN_8c027012
+          .IMPORT     _TrafficAdvanceOnPath_8c026ca2
+          .IMPORT     _TrafficRunEntryScript_8c027012
           .IMPORT     _var_demoEntryValue_8c227e14
-          .IMPORT     _FUN_8c026710
-          .IMPORT     _FUN_8c02e400
-          .IMPORT     _FUN_8c026bc4
+          .IMPORT     _TrafficReadScriptArgs_8c026710
+          .IMPORT     _CollideFindTaskHit_8c02e400
+          .IMPORT     _TrafficUpdateHeading_8c026bc4
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _prob_blinker_8c028022
           .IMPORT     _var_8c1bbac4
@@ -576,7 +576,7 @@ LP_GEN_70698:
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C025FA4
           .DATA.L H'41000000 ; H'8C025FA8
           .DATA.L _FUN_8c02f0c8 ; H'8C025FAC
-          .DATA.L _FUN_8c026eaa ; H'8C025FB0
+          .DATA.L _TrafficComputeBlockedSpeed_8c026eaa ; H'8C025FB0
 LAB_8c025fb4:
           MOV.W       LP_GEN_89798,R0
           MOV         #H'4,R3
@@ -741,9 +741,9 @@ LP_GEN_89798:
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C0260E8
           .DATA.L H'41000000 ; H'8C0260EC
           .DATA.L _FUN_8c02f0c8 ; H'8C0260F0
-          .DATA.L _FUN_8c026eaa ; H'8C0260F4
+          .DATA.L _TrafficComputeBlockedSpeed_8c026eaa ; H'8C0260F4
           .DATA.L _FUN_8c026f7e ; H'8C0260F8
-          .DATA.L _FUN_8c026fb0 ; H'8C0260FC
+          .DATA.L _TrafficRemainingPathDistance_8c026fb0 ; H'8C0260FC
           .DATA.L H'41900000 ; H'8C026100
           .DATA.L H'401A2D0E ; H'8C026104
           .DATA.L H'3F000000 ; H'8C026108
@@ -1134,11 +1134,11 @@ LP_GEN_44316:
           .DATA.W H'029C ; H'8C0263D2
           .DATA.W H'019C ; H'8C0263D4
           .RES.W 1 ; H'8C0263D6
-          .DATA.L _FUN_8c026ca2 ; H'8C0263D8
-          .DATA.L _FUN_8c027012 ; H'8C0263DC
+          .DATA.L _TrafficAdvanceOnPath_8c026ca2 ; H'8C0263D8
+          .DATA.L _TrafficRunEntryScript_8c027012 ; H'8C0263DC
           .DATA.L _var_demoEntryValue_8c227e14 ; H'8C0263E0
-          .DATA.L _FUN_8c026710 ; H'8C0263E4
-          .DATA.L _FUN_8c02e400 ; H'8C0263E8
+          .DATA.L _TrafficReadScriptArgs_8c026710 ; H'8C0263E4
+          .DATA.L _CollideFindTaskHit_8c02e400 ; H'8C0263E8
           .DATA.L H'3DCCCCCD ; H'8C0263EC
 LAB_8c0263f0:
           MOVA        LP_GEN_81398+10,R0
@@ -1248,8 +1248,8 @@ LP_GEN_81398:
           .DATA.W H'0510 ; H'8C0264AE
           .DATA.L H'41000000 ; H'8C0264B0
           .DATA.L _FUN_8c02f0c8 ; H'8C0264B4
-          .DATA.L _FUN_8c027012 ; H'8C0264B8
-          .DATA.L _FUN_8c026bc4 ; H'8C0264BC
+          .DATA.L _TrafficRunEntryScript_8c027012 ; H'8C0264B8
+          .DATA.L _TrafficUpdateHeading_8c026bc4 ; H'8C0264BC
           .DATA.L _var_timeOfDay_8c18ad20 ; H'8C0264C0
 LAB_8c0264c4:
           MOV.L       LP_GEN_51630+22,R3
@@ -1533,7 +1533,7 @@ LP_GEN_53982:
           .DATA.W H'027C ; H'8C0266EA
           .DATA.W H'0490 ; H'8C0266EC
           .DATA.W H'02F4 ; H'8C0266EE
-          .DATA.L _FUN_8c026bc4 ; H'8C0266F0
+          .DATA.L _TrafficUpdateHeading_8c026bc4 ; H'8C0266F0
           .DATA.L _var_8c1bbac4 ; H'8C0266F4
           .DATA.L _var_8c1bbacc ; H'8C0266F8
           .DATA.L _njSqrt ; H'8C0266FC

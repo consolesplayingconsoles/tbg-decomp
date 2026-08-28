@@ -93,7 +93,7 @@ SRCS = \
 	src/asm/024b4c.src \
 	src/asm/025870.src \
 	src/asm/025b98.src \
-	src/asm/026710.src \
+	src/026710_traffic.c \
 	src/asm/02786c.src \
 	src/asm/027958.src \
 	src/028258_objects.c \

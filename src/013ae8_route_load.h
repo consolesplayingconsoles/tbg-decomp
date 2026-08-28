@@ -70,6 +70,9 @@ typedef struct {
     void *atariCpu_0x18;
     void *lineCpu_0x1c;
     void *attrCpu_0x20;
+    /* once loaded (and FUN_8c026da4-relocated), doubles as a table of
+     * per-scene-object-type placed-instance list pointers, indexed by a
+     * CourseSegment.sceneObjectTypeIds_0x14 entry (see FUN_8c026dcc, 026710) */
     void *macCpu1_0x24;
     void *atariHum_0x28;
     void *lineHum_0x2c;  /* the one asset kept as a model rather than a texlist */

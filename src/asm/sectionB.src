@@ -859,15 +859,15 @@
           .EXPORT     _var_8c228960 ; 02d06c
                                     ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c228974 ; 02df3c
+          .EXPORT     _var_collideScanCursor_8c228974 ; 02df3c
                                     ; 02e2dc
                                     ; 02e400
-          .EXPORT     _var_8c228978 ; 02e2dc
+          .EXPORT     _var_collideSelfBox_8c228978 ; 02e2dc
                                     ; 02e400
-          .EXPORT     _var_8c2289d8 ; 02e2dc
+          .EXPORT     _var_collideCandidateBox_8c2289d8 ; 02e2dc
                                     ; 02e400
-          .EXPORT     _var_8c228a38 ; 02e400
-          .EXPORT     _var_8c228b38 ; 02e400
+          .EXPORT     _var_collideQueue_8c228a38 ; 02e400
+          .EXPORT     _var_collideQueueCount_8c228b38 ; 02e400
           .EXPORT     _var_8c228b3c ; 022bdc
                                     ; 023310
                                     ; 025b98

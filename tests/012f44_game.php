@@ -72,7 +72,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsInitBlinkers_8c029920');
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
-        $this->shouldCall('_FUN_8c02769e');
+        $this->shouldCall('_TrafficInit_8c02769e');
         $this->shouldCall('_FUN_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_FUN_8c02c46a');
@@ -147,7 +147,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsInitTrafficSignals_8c02845a');
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
-        $this->shouldCall('_FUN_8c02769e');
+        $this->shouldCall('_TrafficInit_8c02769e');
         $this->shouldCall('_FUN_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_FUN_8c02c46a');
@@ -242,7 +242,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsInitTrafficSignals_8c02845a');
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
-        $this->shouldCall('_FUN_8c02769e');
+        $this->shouldCall('_TrafficInit_8c02769e');
         $this->shouldCall('_FUN_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_FUN_8c02c46a');

@@ -103,6 +103,10 @@ compile  src/02af78_event.c
 assemble  src/asm/decompiled/02c884_bus_stop.src
 compile  src/02c884_bus_stop.c
 
+# 026710_traffic
+assemble  src/asm/decompiled/026710_traffic.src
+compile  src/026710_traffic.c
+
 # 0129cc
 assemble  src/asm/decompiled/0129cc_pause.src
 compile  src/0129cc_pause.c

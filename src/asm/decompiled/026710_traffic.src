@@ -14,7 +14,7 @@
           .IMPORT     _njSqrt
           .IMPORT     _acosf
           .IMPORT     _var_currentSegment_8c228708
-          .IMPORT     _FUN_8c02cd6a
+          .IMPORT     _BusStopGetSegment_8c02cd6a
           .IMPORT     _var_trafficSignalFrames_8c227e24
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_8c1bbd9c
@@ -32,7 +32,7 @@
           .IMPORT     _FUN_8c02f0c8
           .IMPORT     _var_demoEntryValue_8c227e14
           .IMPORT     _var_trafficModels_8c1bc3f4
-          .IMPORT     _FUN_8c02786c
+          .IMPORT     _VehPartsBind_8c02786c
           .IMPORT     _var_busSimpleLightDir_8c227db8
           .IMPORT     _var_8c227dc4
           .IMPORT     _njCnkSetSimpleLight
@@ -57,21 +57,25 @@
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _FUN_8c02656a
           .IMPORT     _GroundProbeTrackPolygonAtHeight_8c021290
-          .EXPORT     _FUN_8c026710
-          .EXPORT     _FUN_8c026748
-          .EXPORT     _FUN_8c026bc4
-          .EXPORT     _FUN_8c026ca2
+          .EXPORT     _TrafficReadScriptArgs_8c026710
+          .EXPORT     _TrafficUpdateHeading_8c026bc4
+          .EXPORT     _TrafficAdvanceOnPath_8c026ca2
           .EXPORT     _FUN_8c026da4
           .EXPORT     _FUN_8c026dcc
-          .EXPORT     _FUN_8c026eaa
+          .EXPORT     _TrafficComputeBlockedSpeed_8c026eaa
           .EXPORT     _FUN_8c026f7e
-          .EXPORT     _FUN_8c026fb0
+          .EXPORT     _TrafficRemainingPathDistance_8c026fb0
           .EXPORT     _FUN_8c026fcc
-          .EXPORT     _FUN_8c027012
-          .EXPORT     _FUN_8c0272b8
-          .EXPORT     _FUN_8c02769e
+          .EXPORT     _TrafficRunEntryScript_8c027012
+          .EXPORT     _TrafficInit_8c02769e
+          .AIFDEF     UNIT_TESTING
+          .EXPORT     _initEntryState_8c026748
+          .EXPORT     _spawnEntry_8c0272b8
+          .EXPORT     _applyTrafficLighting_8c02756a
+          .EXPORT     _trafficUpdateTask_8c0275d4
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c026710:
+_TrafficReadScriptArgs_8c026710:
           MOV.W       LP_GEN_49807,R6
           MOV.L       LP_GEN_49807+8,R7
           ADD         R4,R6
@@ -103,7 +107,7 @@ LAB_8c02673a:
           MOV         #-H'1,R2
           RTS
           MOV.L       R2,@R6
-_FUN_8c026748:
+_initEntryState_8c026748:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -675,7 +679,7 @@ LAB_8c026ba8:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c026bc4:
+_TrafficUpdateHeading_8c026bc4:
           MOV.W       LP_GEN_90046+2,R0
           MOV.L       R14,@-R15
           MOV         R4,R14
@@ -788,7 +792,7 @@ LAB_8c026c92:
           FMOV.S      @R15+,FR15
           RTS
           MOV.L       @R15+,R14
-_FUN_8c026ca2:
+_TrafficAdvanceOnPath_8c026ca2:
           MOV.L       R14,@-R15
           MOV         R4,R14
           FMOV.S      FR15,@-R15
@@ -1005,7 +1009,7 @@ LP_GEN_70087:
           .DATA.L H'47800000 ; H'8C026E38
           .DATA.L H'40C90FD8 ; H'8C026E3C
           .DATA.L _var_currentSegment_8c228708 ; H'8C026E40
-          .DATA.L _FUN_8c02cd6a ; H'8C026E44
+          .DATA.L _BusStopGetSegment_8c02cd6a ; H'8C026E44
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C026E48
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C026E4C
           .DATA.L _init_8c0460bc ; H'8C026E50
@@ -1060,7 +1064,7 @@ LAB_8c026ea0:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c026eaa:
+_TrafficComputeBlockedSpeed_8c026eaa:
           MOV.L       R14,@-R15
           MOVA        LP_GEN_83164+8,R0
           MOV.L       R13,@-R15
@@ -1197,7 +1201,7 @@ LAB_8c026fa2:
 LAB_8c026fac:
           RTS
           NOP
-_FUN_8c026fb0:
+_TrafficRemainingPathDistance_8c026fb0:
           MOV.W       LP_GEN_56012+6,R0
           MOV.L       @(R0,R4),R5
           ADD         #H'4,R0
@@ -1251,7 +1255,7 @@ LAB_8c026ffa:
           ADD         #H'4,R0
           RTS
           FMOV        FR4,@(R0,R4)
-_FUN_8c027012:
+_TrafficRunEntryScript_8c027012:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -1322,7 +1326,7 @@ LAB_8c02708a:
           NOP
 LAB_8c02708e:
           MOV         R15,R5
-          BSR         _FUN_8c026748
+          BSR         _initEntryState_8c026748
           MOV         R14,R4
           MOV.W       LP_GEN_71863,R0
           FLDI0       FR4
@@ -1566,7 +1570,7 @@ LAB_8c027210:
           MOV         R15,R5
           ADD         R4,R3
           MOV.L       R3,@(R0,R12)
-          BSR         _FUN_8c026748
+          BSR         _initEntryState_8c026748
           MOV         R14,R4
 LAB_8c027260:
           MOV         R11,R9
@@ -1614,7 +1618,7 @@ LP_GEN_97359:
           .DATA.L _var_8c227e1c ; H'8C0272AC
           .DATA.L H'41200000 ; H'8C0272B0
           .DATA.L H'00008000 ; H'8C0272B4
-_FUN_8c0272b8:
+_spawnEntry_8c0272b8:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -1803,7 +1807,7 @@ LAB_8c027422:
           CMP/EQ      #H'a,R0
           BT          LAB_8c0274da
           MOV         R13,R5
-          BSR         _FUN_8c026710
+          BSR         _TrafficReadScriptArgs_8c026710
           MOV.L       @R15,R4
           MOVA        LP_GEN_50256+32,R0
           MOV.L       @R15,R6
@@ -1937,16 +1941,16 @@ LAB_8c0274da:
           MOV.L       LP_GEN_41074+38,R3
           JSR         @R3
           MOV.L       @R15,R4
-          BSR         _FUN_8c027012
+          BSR         _TrafficRunEntryScript_8c027012
           MOV.L       @R15,R4
           MOV.W       @R13,R0
           EXTU.W      R0,R0
           CMP/EQ      #H'a,R0
           BT          LAB_8c02754a
-          BSR         _FUN_8c026ca2
+          BSR         _TrafficAdvanceOnPath_8c026ca2
           MOV         R14,R4
 LAB_8c02754a:
-          BSR         _FUN_8c026bc4
+          BSR         _TrafficUpdateHeading_8c026bc4
           MOV         R14,R4
 LAB_8c02754e:
           MOV         #H'1,R0
@@ -1964,7 +1968,7 @@ LAB_8c027550:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-LAB_8c02756a:
+_applyTrafficLighting_8c02756a:
           MOV.L       R14,@-R15
           TST         R4,R4
           STS.L       PR,@-R15
@@ -2005,12 +2009,12 @@ LP_GEN_41074:
           .DATA.L _var_demoEntryValue_8c227e14 ; H'8C0275B4
           .DATA.L _init_8c04622c ; H'8C0275B8
           .DATA.L _var_trafficModels_8c1bc3f4 ; H'8C0275BC
-          .DATA.L _FUN_8c02786c ; H'8C0275C0
+          .DATA.L _VehPartsBind_8c02786c ; H'8C0275C0
           .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C0275C4
           .DATA.L _var_8c227dc4 ; H'8C0275C8
           .DATA.L _njCnkSetSimpleLight ; H'8C0275CC
           .DATA.L _njCnkSetEasyLight ; H'8C0275D0
-LAB_8c0275d4:
+_trafficUpdateTask_8c0275d4:
           MOV.L       LP_GEN_74201,R2
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
@@ -2087,7 +2091,7 @@ LAB_8c027660:
           MOV         #H'8,R0
           MOV.L       @(H'4,R13),R5
           FMOV.S      @(R0,R13),FR4
-          BSR         _FUN_8c0272b8
+          BSR         _spawnEntry_8c0272b8
           MOV.W       @R13,R4
           TST         R0,R0
           BT          LAB_8c027676
@@ -2118,7 +2122,7 @@ LAB_8c027696:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02769e:
+_TrafficInit_8c02769e:
           STS.L       PR,@-R15
           ADD         #-H'28,R15
           MOV.L       LP_GEN_74201+4,R4
@@ -2303,7 +2307,7 @@ LP_GEN_74201:
           .DATA.L _var_pendingDemoFlags_8c1bbd8c ; H'8C027808
           .DATA.L _var_demoEntryValue_8c227e14 ; H'8C02780C
           .DATA.L _var_8c227e18 ; H'8C027810
-          .DATA.L LAB_8c02756a ; H'8C027814
+          .DATA.L _applyTrafficLighting_8c02756a ; H'8C027814
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C027818
           .DATA.L _var_tasks_8c1bac28 ; H'8C02781C
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C027820
@@ -2322,7 +2326,7 @@ LP_GEN_74201:
           .DATA.L _var_8c1bbda0 ; H'8C027854
           .DATA.L H'41A00000 ; H'8C027858
           .DATA.L _var_8c1bbdb8 ; H'8C02785C
-          .DATA.L LAB_8c0275d4 ; H'8C027860
+          .DATA.L _trafficUpdateTask_8c0275d4 ; H'8C027860
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C027864
           .DATA.L _TaskPush_8c014ae8 ; H'8C027868
           .SECTION    D, DATA, ALIGN=4
