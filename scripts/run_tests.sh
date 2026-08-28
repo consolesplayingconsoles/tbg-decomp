@@ -155,4 +155,8 @@ compile  src/022464_fade.c
 assemble  src/asm/decompiled/028258_objects.src
 compile  src/028258_objects.c
 
+# 020914_ground_query
+assemble  src/asm/decompiled/020914_ground_query.src
+compile  src/020914_ground_query.c
+
 $sh4objtest suite -s tests.php "$@"

@@ -1,0 +1,158 @@
+/* @unit GroundQuery */
+
+#include <shinobi.h>
+#include "020914_ground_query.h"
+#include "sectionB.h"
+
+/* ====================
+ * Type Declarations
+ * ====================
+ */
+
+typedef struct {
+    float x, y, z;
+} GroundVertex;
+
+/* One 150-unit grid cell: the polygons whose footprint touches it. */
+typedef struct {
+    int count_0x00;
+    int *polyIds_0x04;
+} GroundCell;
+
+typedef struct {
+    int vertexCount_0x00;
+    int *vertexIds_0x04;
+    float normalX_0x08;     /* precomputed plane normal */
+    float normalY_0x0c;
+    float normalZ_0x10;
+    int attr_0x14;  /* sign bit selects the concave containment test */
+} GroundPoly;
+
+typedef struct {
+    int cellsX_0x00;
+    int cellsZ_0x04;
+    float cellSizeX_0x08;
+    float cellSizeZ_0x0c;
+    GroundCell *cells_0x10;
+    GroundPoly *polys_0x14;
+    GroundVertex *verts_0x18;
+} GroundGrid;
+
+#define CELL_SIZE 150.0f
+
+/* 2*pi as the original spelled it -- 3 ULP short of the real value. */
+#define TWO_PI 6.283184f
+
+/* ====================
+ * Functions
+ * ====================
+ */
+
+/* Looks up the ground polygon under world point (x, z) -- y is unused -- in
+ * the grid currently selected by var_activeGroundGrid_8c2264d4, writing the
+ * match (or a zeroed count on miss) to *out.
+ *
+ * Each candidate is tested one of two ways, chosen by the sign of its attr:
+ * a cross-product walk for convex polygons, or a winding-angle sum in BAMS
+ * (inside when it exceeds half a turn) for concave ones. */
+void GroundQueryFindPolygon_8c020914(float x, float y, float z, GroundQueryResult *out)
+{
+    GroundGrid *grid = (GroundGrid *)var_activeGroundGrid_8c2264d4;
+    GroundCell *cell;
+    int cx, cz;
+    int i;
+
+    cx = (int)(x / CELL_SIZE);
+    if (cx >= grid->cellsX_0x00) {
+        cx = grid->cellsX_0x00 - 1;
+    }
+
+    cz = (int)(z / CELL_SIZE);
+    if (cz >= grid->cellsZ_0x04) {
+        cz = grid->cellsZ_0x04 - 1;
+    }
+
+    /* Only the upper bound is clamped; a negative coordinate indexes before
+     * the cell array. Original behaviour. */
+    cell = &grid->cells_0x10[cz * grid->cellsX_0x00 + cx];
+
+    for (i = 0; i < cell->count_0x00; i++) {
+        int *slot = &cell->polyIds_0x04[i];
+        GroundPoly *poly = &grid->polys_0x14[*slot];
+        int n = poly->vertexCount_0x00;
+        int *ids = poly->vertexIds_0x04;
+        GroundVertex *v;
+        float pdx, pdz;
+        int hit;
+        int j;
+
+        /* Edges are walked as vectors from the query point, starting at the
+         * last vertex so the first edge closes the loop. */
+        v = &grid->verts_0x18[ids[n - 1]];
+        pdx = v->x - x;
+        pdz = v->z - z;
+
+        if (poly->attr_0x14 >= 0) {
+            for (j = 0; j < n; j++) {
+                float dx, dz;
+
+                v = &grid->verts_0x18[ids[j]];
+                dx = v->x - x;
+                dz = v->z - z;
+
+                if (0.0f > pdx * dz - pdz * dx) {
+                    break;
+                }
+
+                pdx = dx;
+                pdz = dz;
+            }
+
+            hit = (j == n);
+        } else {
+            int acc = 0;
+
+            for (j = 0; j < n; j++) {
+                float dx, dz, cross, cosT;
+                int angle;
+
+                v = &grid->verts_0x18[ids[j]];
+                dx = v->x - x;
+                dz = v->z - z;
+
+                cross = pdx * dz - pdz * dx;
+                cosT = (pdx * dx + pdz * dz)
+                     / (njSqrt(pdx * pdx + pdz * pdz) * njSqrt(dx * dx + dz * dz));
+
+                if (cosT > 1.0f) {
+                    cosT = 1.0f;
+                } else if (-1.0f > cosT) {
+                    cosT = -1.0f;
+                }
+
+                angle = (int)(acosf(cosT) * 65536.0f / TWO_PI);
+                if (0.0f > cross) {
+                    acc -= angle;
+                } else {
+                    acc += angle;
+                }
+
+                pdx = dx;
+                pdz = dz;
+            }
+
+            hit = acc > 0x8000;
+        }
+
+        if (hit) {
+            out->attr_0x00 = grid->polys_0x14[*slot].attr_0x14 & 0x7fffffff;
+            out->polyIdSlot_0x04 = slot;
+            out->vertexIds_0x08 = grid->polys_0x14[*slot].vertexIds_0x04;
+            out->count_0x0c = n;
+            return;
+        }
+    }
+
+    out->vertexIds_0x08 = 0;
+    out->count_0x0c = 0;
+}

@@ -612,5 +612,14 @@ return [
                 "build/output_test/026710_traffic_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/020914/8c020914_GroundQueryFindPolygon.php",
+            ],
+            "objects" => [
+                "build/output_test/020914_ground_query_src.obj",
+                "build/output_test/020914_ground_query_c.obj",
+            ]
+        ],
     ],
 ];

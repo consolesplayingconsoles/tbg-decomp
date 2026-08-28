@@ -79,7 +79,7 @@ SRCS = \
 	src/asm/0206f0.src \
 	src/0207d4.c \
 	src/asm/02081c.src \
-	src/asm/020914.src \
+	src/020914_ground_query.c \
 	src/asm/020b6c.src \
 	src/02171c_tile_stream.c \
 	src/asm/021b9c.src \
