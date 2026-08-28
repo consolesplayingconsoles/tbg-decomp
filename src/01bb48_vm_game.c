@@ -13,7 +13,7 @@
 #include "0100bc_sound.h"
 #include "028258.h"
 #include "sectionB.h"
-#include "strings_ja_jp.sjis.h"
+#include "strings.h"
 
 /* =================
  * Type Declarations

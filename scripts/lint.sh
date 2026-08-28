@@ -7,7 +7,10 @@
 # silently skip the checks after it.
 set -e
 
-make clean all
+# Pin the canonical (Japanese) config: the naming rules trace every symbol back
+# to an address in the original binary, which only this build has. Passed on the
+# command line so an exported GAME_LANG can't override the Makefile's `?=`.
+make clean all GAME_LANG=ja
 
 set +e
 fail=0

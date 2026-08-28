@@ -25,6 +25,41 @@
     ((a & 0x1) << 15) | ((r & 0x1F) << 10) | ((g & 0x1F) << 5) | (b & 0x1F) \
 )
 
+/* String encoding and on-screen layout, per language. Japanese values must
+ * stay exactly what the code used before this split existed.
+ *
+ * Japanese is a fixed GLYPH_WIDTH grid. English advances per glyph from the
+ * ink metrics measured off BUS_FONT.FFF (init_glyphInkEn below): the font's
+ * alphanumerics are drawn proportionally inside the fixed cell, spanning 4px
+ * ('I') to 20px ('m'), so a fixed pitch either collides or gapes.
+ *
+ * GLYPH_ADVANCE_MIN is the narrowest advance any glyph can take. It bounds
+ * the token buffer, which must hold the most characters a line can ever fit. */
+#define TEXT_TAG_BYTES 3
+#ifdef GAME_LANG_EN
+#define TEXT_CHAR_BYTES    1
+#define TEXT_ASCII_FIRST   0x20
+#define TEXT_ASCII_COUNT   0x5f
+/* Side bearing added to each glyph's ink width. The one knob worth tuning. */
+#define TEXT_GLYPH_GAP     2
+#define TEXT_GLYPH_INK_MIN  3 /* narrowest ink in the table below */
+#define GLYPH_ADVANCE_MIN  (TEXT_GLYPH_INK_MIN + TEXT_GLYPH_GAP)
+/* The panel art is inset from the text area the callers pass in, so wrapping
+ * at the full width runs the line over the artwork's edge. Japanese never
+ * shows it: 24 fixed columns land inside, and its strings are authored to
+ * fit. Wrap short by this much per side; centring still uses the full width,
+ * which puts the slack back as an even margin. */
+#define TEXT_BOX_MARGIN    24
+#define TEXT_WRAP_WIDTH(box) ((box)->width_0x0c - 2 * TEXT_BOX_MARGIN)
+#define TEXT_GLYPH(c)         (init_glyphMetricsEn[(Uint8)(c) - TEXT_ASCII_FIRST])
+#define TEXT_GLYPH_CODE(c)    (TEXT_GLYPH(c).code)
+#define TEXT_GLYPH_ADVANCE(c) (TEXT_GLYPH(c).advance)
+#define TEXT_GLYPH_BEARING(c) (TEXT_GLYPH(c).bearing)
+#else
+#define TEXT_CHAR_BYTES   2
+#define GLYPH_ADVANCE_MIN GLYPH_WIDTH
+#endif
+
 /* =================
  * Type Declarations
  * =================
@@ -42,10 +77,122 @@ typedef struct {
     int field_0x08;
 } DemoEntry;
 
+#ifdef GAME_LANG_EN
+typedef struct {
+    Uint16 code;    /* full-width Shift-JIS code point */
+    Uint8 advance;  /* pen step: ink width plus the side bearing */
+    Uint8 bearing;  /* ink start column within the cell */
+} GlyphMetric;
+#endif
+
 /* ===================
  * Initialized Globals
  * ===================
  */
+
+#ifdef GAME_LANG_EN
+/* Indexed by ASCII - TEXT_ASCII_FIRST. Measured off
+ * tests/014f54_text/data/BUS_FONT.FFF with the same glyph lookup and 2bpp
+ * unpack the engine uses, so the numbers follow whatever the font draws; the
+ * ink width is left summed with TEXT_GLYPH_GAP so a row stays hand-tunable. */
+STATIC const GlyphMetric init_glyphMetricsEn[TEXT_ASCII_COUNT] = {
+    { 0x8140,  6 + TEXT_GLYPH_GAP,  0 }, /* sp */
+    { 0x8149,  6 + TEXT_GLYPH_GAP, 10 }, /* '!' */
+    { 0x8168, 10 + TEXT_GLYPH_GAP,  0 }, /* '"' */
+    { 0x8194, 17 + TEXT_GLYPH_GAP,  4 }, /* '#' */
+    { 0x8190, 16 + TEXT_GLYPH_GAP,  4 }, /* '$' */
+    { 0x8193, 21 + TEXT_GLYPH_GAP,  2 }, /* '%' */
+    { 0x8195, 15 + TEXT_GLYPH_GAP,  5 }, /* '&' */
+    { 0x8166,  4 + TEXT_GLYPH_GAP,  1 }, /* ''' */
+    { 0x8169,  5 + TEXT_GLYPH_GAP, 18 }, /* '(' */
+    { 0x816A,  6 + TEXT_GLYPH_GAP,  1 }, /* ')' */
+    { 0x8196, 16 + TEXT_GLYPH_GAP,  4 }, /* '*' */
+    { 0x817B, 18 + TEXT_GLYPH_GAP,  4 }, /* '+' */
+    { 0x8143,  5 + TEXT_GLYPH_GAP,  1 }, /* ',' */
+    { 0x817C, 18 + TEXT_GLYPH_GAP,  4 }, /* '-' */
+    { 0x8144,  4 + TEXT_GLYPH_GAP,  1 }, /* '.' */
+    { 0x815E, 23 + TEXT_GLYPH_GAP,  1 }, /* '/' */
+    { 0x824F, 18 + TEXT_GLYPH_GAP,  4 }, /* '0' */
+    { 0x8250,  6 + TEXT_GLYPH_GAP,  9 }, /* '1' */
+    { 0x8251, 13 + TEXT_GLYPH_GAP,  6 }, /* '2' */
+    { 0x8252, 14 + TEXT_GLYPH_GAP,  6 }, /* '3' */
+    { 0x8253, 18 + TEXT_GLYPH_GAP,  4 }, /* '4' */
+    { 0x8254, 15 + TEXT_GLYPH_GAP,  5 }, /* '5' */
+    { 0x8255, 15 + TEXT_GLYPH_GAP,  5 }, /* '6' */
+    { 0x8256, 15 + TEXT_GLYPH_GAP,  5 }, /* '7' */
+    { 0x8257, 14 + TEXT_GLYPH_GAP,  5 }, /* '8' */
+    { 0x8258, 15 + TEXT_GLYPH_GAP,  5 }, /* '9' */
+    { 0x8146,  4 + TEXT_GLYPH_GAP, 10 }, /* ':' */
+    { 0x8147,  4 + TEXT_GLYPH_GAP, 10 }, /* ';' */
+    { 0x8183, 13 + TEXT_GLYPH_GAP,  6 }, /* '<' */
+    { 0x8181, 18 + TEXT_GLYPH_GAP,  4 }, /* '=' */
+    { 0x8184, 12 + TEXT_GLYPH_GAP,  6 }, /* '>' */
+    { 0x8148, 15 + TEXT_GLYPH_GAP,  5 }, /* '?' */
+    { 0x8197, 20 + TEXT_GLYPH_GAP,  3 }, /* '@' */
+    { 0x8260, 19 + TEXT_GLYPH_GAP,  3 }, /* 'A' */
+    { 0x8261, 17 + TEXT_GLYPH_GAP,  4 }, /* 'B' */
+    { 0x8262, 18 + TEXT_GLYPH_GAP,  4 }, /* 'C' */
+    { 0x8263, 16 + TEXT_GLYPH_GAP,  4 }, /* 'D' */
+    { 0x8264, 15 + TEXT_GLYPH_GAP,  5 }, /* 'E' */
+    { 0x8265, 15 + TEXT_GLYPH_GAP,  5 }, /* 'F' */
+    { 0x8266, 17 + TEXT_GLYPH_GAP,  4 }, /* 'G' */
+    { 0x8267, 16 + TEXT_GLYPH_GAP,  4 }, /* 'H' */
+    { 0x8268,  4 + TEXT_GLYPH_GAP, 10 }, /* 'I' */
+    { 0x8269, 13 + TEXT_GLYPH_GAP,  6 }, /* 'J' */
+    { 0x826A, 17 + TEXT_GLYPH_GAP,  4 }, /* 'K' */
+    { 0x826B, 15 + TEXT_GLYPH_GAP,  5 }, /* 'L' */
+    { 0x826C, 19 + TEXT_GLYPH_GAP,  3 }, /* 'M' */
+    { 0x826D, 18 + TEXT_GLYPH_GAP,  4 }, /* 'N' */
+    { 0x826E, 18 + TEXT_GLYPH_GAP,  3 }, /* 'O' */
+    { 0x826F, 16 + TEXT_GLYPH_GAP,  4 }, /* 'P' */
+    { 0x8270, 18 + TEXT_GLYPH_GAP,  3 }, /* 'Q' */
+    { 0x8271, 17 + TEXT_GLYPH_GAP,  4 }, /* 'R' */
+    { 0x8272, 17 + TEXT_GLYPH_GAP,  4 }, /* 'S' */
+    { 0x8273, 17 + TEXT_GLYPH_GAP,  4 }, /* 'T' */
+    { 0x8274, 17 + TEXT_GLYPH_GAP,  4 }, /* 'U' */
+    { 0x8275, 17 + TEXT_GLYPH_GAP,  4 }, /* 'V' */
+    { 0x8276, 20 + TEXT_GLYPH_GAP,  2 }, /* 'W' */
+    { 0x8277, 16 + TEXT_GLYPH_GAP,  4 }, /* 'X' */
+    { 0x8278, 18 + TEXT_GLYPH_GAP,  4 }, /* 'Y' */
+    { 0x8279, 15 + TEXT_GLYPH_GAP,  5 }, /* 'Z' */
+    { 0x816D,  8 + TEXT_GLYPH_GAP, 16 }, /* '[' */
+    { 0x815F, 23 + TEXT_GLYPH_GAP,  1 }, /* '\\' */
+    { 0x816E,  8 + TEXT_GLYPH_GAP,  1 }, /* ']' */
+    { 0x814F, 12 + TEXT_GLYPH_GAP,  6 }, /* '^' */
+    { 0x8151, 24 + TEXT_GLYPH_GAP,  0 }, /* '_' */
+    { 0x814D,  8 + TEXT_GLYPH_GAP,  8 }, /* '`' */
+    { 0x8281, 13 + TEXT_GLYPH_GAP,  6 }, /* 'a' */
+    { 0x8282, 14 + TEXT_GLYPH_GAP,  6 }, /* 'b' */
+    { 0x8283, 12 + TEXT_GLYPH_GAP,  6 }, /* 'c' */
+    { 0x8284, 14 + TEXT_GLYPH_GAP,  5 }, /* 'd' */
+    { 0x8285, 12 + TEXT_GLYPH_GAP,  6 }, /* 'e' */
+    { 0x8286, 10 + TEXT_GLYPH_GAP,  8 }, /* 'f' */
+    { 0x8287, 13 + TEXT_GLYPH_GAP,  6 }, /* 'g' */
+    { 0x8288, 12 + TEXT_GLYPH_GAP,  6 }, /* 'h' */
+    { 0x8289,  5 + TEXT_GLYPH_GAP, 10 }, /* 'i' */
+    { 0x828A,  7 + TEXT_GLYPH_GAP,  8 }, /* 'j' */
+    { 0x828B, 14 + TEXT_GLYPH_GAP,  5 }, /* 'k' */
+    { 0x828C,  5 + TEXT_GLYPH_GAP, 10 }, /* 'l' */
+    { 0x828D, 20 + TEXT_GLYPH_GAP,  3 }, /* 'm' */
+    { 0x828E, 14 + TEXT_GLYPH_GAP,  6 }, /* 'n' */
+    { 0x828F, 14 + TEXT_GLYPH_GAP,  6 }, /* 'o' */
+    { 0x8290, 14 + TEXT_GLYPH_GAP,  6 }, /* 'p' */
+    { 0x8291, 14 + TEXT_GLYPH_GAP,  6 }, /* 'q' */
+    { 0x8292, 12 + TEXT_GLYPH_GAP,  7 }, /* 'r' */
+    { 0x8293, 13 + TEXT_GLYPH_GAP,  6 }, /* 's' */
+    { 0x8294,  9 + TEXT_GLYPH_GAP,  8 }, /* 't' */
+    { 0x8295, 14 + TEXT_GLYPH_GAP,  6 }, /* 'u' */
+    { 0x8296, 14 + TEXT_GLYPH_GAP,  5 }, /* 'v' */
+    { 0x8297, 19 + TEXT_GLYPH_GAP,  3 }, /* 'w' */
+    { 0x8298, 13 + TEXT_GLYPH_GAP,  6 }, /* 'x' */
+    { 0x8299, 13 + TEXT_GLYPH_GAP,  6 }, /* 'y' */
+    { 0x829A, 13 + TEXT_GLYPH_GAP,  6 }, /* 'z' */
+    { 0x816F,  8 + TEXT_GLYPH_GAP, 16 }, /* '{' */
+    { 0x8162,  3 + TEXT_GLYPH_GAP, 11 }, /* '|' */
+    { 0x8170,  8 + TEXT_GLYPH_GAP,  1 }, /* '}' */
+    { 0x8160, 21 + TEXT_GLYPH_GAP,  2 }, /* '~' */
+};
+#endif
 
 STATIC NJS_TEXANIM init_tanim_8c044128 = {
     GLYPH_WIDTH,  /* width */
@@ -365,7 +512,12 @@ void TxtDestroy_8c01529c()
     LOG_INFO(("[TXT] Destroying text module\n"));
 
     for (i = 0; i < GLYPH_COUNT; i++) {
-        if (var_8c1bc7a0[i] < -19) {
+        /* Unsigned, as the asm's EXTU.W before the compare has it: releases
+         * the slots holding a glyph index and skips the 0xffff free marker.
+         * Signed, every slot looks free and the textures leak, so a later
+         * njLoadTexture at the same global index silently keeps the old
+         * glyph. */
+        if ((Uint16) var_8c1bc7a0[i] < 0xffed) {
             njReleaseTexture(&var_glyphTexlists_8c1bc790[i]);
         }
     };
@@ -413,7 +565,7 @@ TextBox* TxtCreateTextBox_8c0152fc(
     box->palette_0x24[1] = ARGB1555(1, 10, 10, 10);
     box->palette_0x24[2] = ARGB1555(1, 15, 15, 15);
     box->palette_0x24[3] = ARGB1555(1, 17, 17, 17);
-    max_chars = 0x28 + (width / GLYPH_WIDTH) * (height / GLYPH_HEIGHT);
+    max_chars = 0x28 + (width / GLYPH_ADVANCE_MIN) * (height / GLYPH_HEIGHT);
     box->tokens_0x2c = syMalloc(max_chars * sizeof(Uint16));
     box->line_offsets_0x34 = syMalloc(height / GLYPH_HEIGHT * sizeof(Float));
     box->enable_offset_0x30 = enable_offset;
@@ -450,7 +602,7 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
     int current_line;
     int character_count;
     int line_count;
-    const int characters_per_line = box->width_0x0c / GLYPH_WIDTH;
+    const int characters_per_line = box->width_0x0c / GLYPH_ADVANCE_MIN;
 
     // Check if the box already contains characters
     if (*box->tokens_0x2c != (Uint16) -1) {
@@ -491,8 +643,9 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
 
     // Calculate the number of characters (excluding tags)
     // In Shift JIS, characters can be 1 or 2 bytes.
-    // This assumes 2 bytes per character.
-    character_count = (strlen(text) - box->tag_count_0x22 * 3) / 2;
+    // This assumes 2 bytes per character (1 for GAME_LANG_EN's ASCII).
+    character_count =
+        (strlen(text) - box->tag_count_0x22 * TEXT_TAG_BYTES) / TEXT_CHAR_BYTES;
 
     box->text_0x38 = text;
     box->processed_char_count_0x1c = 0;
@@ -520,6 +673,17 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
             continue;
         }
 
+#ifdef GAME_LANG_EN
+        // line_offsets_0x34 accumulates pixels, not columns
+        if (box->line_offsets_0x34[current_line] + TEXT_GLYPH_ADVANCE(*text)
+                > TEXT_WRAP_WIDTH(box)) {
+            if (current_line >= line_count)
+                break;
+            current_line++;
+        }
+
+        box->line_offsets_0x34[current_line] += TEXT_GLYPH_ADVANCE(*text);
+#else
         // Wrap text if the current line is full
         if (box->line_offsets_0x34[current_line] / 2 >= characters_per_line) {
             if (current_line >= line_count)
@@ -527,15 +691,25 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
             current_line++;
         };
 
+        // BUG (kept, see tests/014f54_text/1543a_TxtPrepareTextBoxLayout.php
+        // test_processExceedingLineBreaks): current_line can still equal
+        // line_count here, writing one float past line_offsets_0x34. Applies
+        // in GAME_LANG_EN too.
         box->line_offsets_0x34[current_line] += 1;
+#endif
 
         text++;
     }
 
     // Center-align text on each line
     for (i = 0; i < line_count; i++) {
+#ifdef GAME_LANG_EN
+        box->line_offsets_0x34[i] =
+            (box->width_0x0c - box->line_offsets_0x34[i]) / 2;
+#else
         box->line_offsets_0x34[i] =
             (characters_per_line - (box->line_offsets_0x34[i] / 2)) / 2;
+#endif
     }
 
     return character_count;
@@ -547,6 +721,10 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
     int token_limit = 0;
     int row = 0;
     int col = 0;
+#ifdef GAME_LANG_EN
+    /* col is a pixel pen in English, so the source char drives each step. */
+    char *penChar = box->text_0x38;
+#endif
 
     if (box->text_0x38 == NULL || !*box->text_0x38) {
         return 0;
@@ -568,8 +746,8 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
             unsigned nextChar; // Move down the scope?
 
             currentChar = box->text_0x38
-                + box->processed_tag_count_0x1e * 3
-                + box->processed_char_count_0x1c * 2;
+                + box->processed_tag_count_0x1e * TEXT_TAG_BYTES
+                + box->processed_char_count_0x1c * TEXT_CHAR_BYTES;
 
             if (*currentChar == '<') {
                 nextChar = currentChar[1];
@@ -606,8 +784,12 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
                         NJS_TEXINFO texInfo;
 
                         unpackGlyph_8c015110(
+#ifdef GAME_LANG_EN
+                            TEXT_GLYPH_CODE(*currentChar),
+#else
                             ((*currentChar & 0xFF) << 8)
                                 | (currentChar[1] & 0xFF),
+#endif
                             box->palette_0x24,
                             var_busFont_8c1ba1c8,
                             var_glyphBuffer_8c1bc7a4
@@ -653,17 +835,34 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
             var_fontResourceGroup_8c1bc794.tlist_0x00 =
                 &var_glyphTexlists_8c1bc790[box->tokens_0x2c[token_idx]];
             // Wrap line
+#ifdef GAME_LANG_EN
+            if (col + TEXT_GLYPH_ADVANCE(*penChar) > TEXT_WRAP_WIDTH(box)) {
+                col = 0;
+                row++;
+            }
+#else
             if ((col + 1) * GLYPH_WIDTH > box->width_0x0c) {
                 col = 0;
                 row++;
             }
+#endif
 
             if ((row + 1) * GLYPH_HEIGHT <= box->height_0x10) {
                 if (box->enable_offset_0x30 == -1) {
+#ifdef GAME_LANG_EN
+                    /* col is a pixel pen; back off by the bearing so the ink,
+                     * not the cell, lands on it. */
+                    int x = col - TEXT_GLYPH_BEARING(*penChar)
+                        + box->x_0x00 + box->x2_0x14;
+                    int y = row * GLYPH_HEIGHT + box->y_0x04 + box->y2_0x18;
+
+                    x += box->line_offsets_0x34[row];
+#else
                     int x = col * GLYPH_WIDTH + box->x_0x00 + box->x2_0x14;
                     int y = row * GLYPH_HEIGHT + box->y_0x04 + box->y2_0x18;
 
                     x += box->line_offsets_0x34[row] * GLYPH_WIDTH;
+#endif
 
                     TxtDrawSprite_8c014f54(
                         &var_fontResourceGroup_8c1bc794,
@@ -686,13 +885,24 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
 
             }
 
+#ifdef GAME_LANG_EN
+            col += TEXT_GLYPH_ADVANCE(*penChar);
+#else
             col++;
+#endif
         }
         // Line break
         else if (box->tokens_0x2c[token_idx] == 0xfffe) {
             col = 0;
             row += 1;
         }
+
+#ifdef GAME_LANG_EN
+        /* Tokens are emitted one per source element, so walking the text in
+         * step with them recovers the character behind each glyph token. */
+        penChar += (box->tokens_0x2c[token_idx] < 0xffed)
+            ? TEXT_CHAR_BYTES : TEXT_TAG_BYTES;
+#endif
     }
 
     return 1;

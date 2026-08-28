@@ -14,7 +14,7 @@
 #include "022464.h"
 #include "sectionB.h"
 #include "serial_debug.h"
-#include "strings_ja_jp.sjis.h"
+#include "strings.h"
 
 /* ====================
  * Compiler Definitions

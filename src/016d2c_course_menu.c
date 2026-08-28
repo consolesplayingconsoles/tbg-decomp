@@ -21,7 +21,7 @@
 #include "sectionB.h"
 #include "serial_debug.h"
 #include "serial_debug.h"
-#include "strings_ja_jp.sjis.h"
+#include "strings.h"
 
 // TODO:
 // - Review comments

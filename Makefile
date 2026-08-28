@@ -15,6 +15,10 @@ LOG_LEVEL ?=
 # DEBUG_MENU=1 boots straight into the debug menu instead of the title (and
 # installs the Ninja print font it needs). Dev-only; not byte-matching.
 DEBUG_MENU ?=
+# GAME_LANG=en selects the (in-progress) half-width English text mode in
+# 014f54_text.c instead of the default Japanese one. Not named LANG: that's
+# a standard shell env var and would be inherited silently.
+GAME_LANG ?= ja
 
 SHC_DEFINES := __SHC__
 ifeq ($(SERIAL_DEBUG),1)
@@ -22,6 +26,9 @@ SHC_DEFINES += SERIAL_DEBUG
 endif
 ifeq ($(DEBUG_MENU),1)
 SHC_DEFINES += DEBUG_MENU
+endif
+ifeq ($(GAME_LANG),en)
+SHC_DEFINES += GAME_LANG_EN
 endif
 ifneq ($(LOG_LEVEL),)
 SHC_DEFINES += DEBUG_LEVEL=LOG_LEVEL_$(LOG_LEVEL)
@@ -121,10 +128,18 @@ all: create_dirs $(OUTPUT_DIR)/tbg.bin
 create_dirs:
 	@mkdir -p $(OUTPUT_DIR)/src/asm
 
-$(OUTPUT_DIR)/src/asm/%.obj: src/asm/%.src
+# The defines are baked into every object, but make only compares timestamps --
+# so flipping GAME_LANG/SERIAL_DEBUG/... would otherwise leave stale objects
+# built with the old set. Rewrite the stamp only when the set actually changes.
+DEFINES_STAMP := $(BUILD_DIR)/.defines
+$(shell mkdir -p $(BUILD_DIR); \
+        [ "$$(cat $(DEFINES_STAMP) 2>/dev/null)" = "$(SHC_DEFINES)" ] \
+        || printf '%s' "$(SHC_DEFINES)" > $(DEFINES_STAMP))
+
+$(OUTPUT_DIR)/src/asm/%.obj: src/asm/%.src $(DEFINES_STAMP)
 	wibo "$(SHC_BIN)/asmsh.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" $(ASMSH_FLAGS)
 
-$(OUTPUT_DIR)/src/%.obj: src/%.c
+$(OUTPUT_DIR)/src/%.obj: src/%.c $(DEFINES_STAMP)
 	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" -sub=$(BUILD_DIR)/shc.sub $(SHC_DEFINE_ARG)
 	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -code=asm -object="$(subst /,\\,$@).src" -sub=$(BUILD_DIR)/shc.sub
 

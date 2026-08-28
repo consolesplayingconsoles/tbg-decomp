@@ -21,7 +21,7 @@
 #include "028258.h"
 #include "sectionB.h"
 #include "serial_debug.h"
-#include "strings_ja_jp.sjis.h"
+#include "strings.h"
 
 /* ====================
  * Initialized Globals

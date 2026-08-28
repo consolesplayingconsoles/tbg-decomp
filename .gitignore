@@ -10,6 +10,7 @@
 1ST_READ.BIN
 
 scripts/set_kt.sh
+build/.defines
 build/lnk.sub
 build/lnk_matching.sub
 

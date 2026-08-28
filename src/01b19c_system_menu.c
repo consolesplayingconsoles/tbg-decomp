@@ -18,7 +18,7 @@
 #include "01614c_debug_menu.h"
 #include "0100bc_sound.h"
 #include "serial_debug.h"
-#include "strings_ja_jp.sjis.h"
+#include "strings.h"
 
 /* ====================
  * Type Declarations
