@@ -24,18 +24,11 @@
 #include "strings_ja_jp.sjis.h"
 
 /* ====================
- * Non-initialized Globals
- * ====================
- */
-
-STATIC int var_runFailed_8c226408;
-
-/* ====================
  * Initialized Globals
  * ====================
  */
 
-STATIC const unsigned char init_courseClearScoreTable_8c0451a0[] = {
+STATIC unsigned char init_courseClearScoreTable_8c0451a0[] = {
     0xf0, 0x00, 0x40, 0x01, 0x54, 0x01, 0xc8, 0x00, 0x18, 0x01, 0x2c, 0x01, 0xc8, 0x00, 0xdc, 0x00,
     0x04, 0x01, 0x00, 0x00,
 };

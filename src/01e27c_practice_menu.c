@@ -64,9 +64,9 @@ enum LESSON_STATE {
 
 /* Message-box text (Shift-JIS, private to this unit). Sized to include the
  * archived asm's trailing zero padding. */
-STATIC char const_8c03896c[24] = MSG_CONFIRM_START_PRACTICE;
-STATIC char const_8c038984[4] = "";
-STATIC char const_8c038988[44] = MSG_CONFIRM_QUIT_PRACTICE;
+STATIC const char const_8c03896c[24] = MSG_CONFIRM_START_PRACTICE;
+STATIC const char const_8c038984[4] = "";
+STATIC const char const_8c038988[44] = MSG_CONFIRM_QUIT_PRACTICE;
 
 /* Cumulative per-course description-page offsets: course N's pages run
  * [init_8c0451b4[N], init_8c0451b4[N+1]). */

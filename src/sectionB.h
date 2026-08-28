@@ -555,5 +555,7 @@ extern int var_scoreBadgeBonus_8c2263f8;
 extern int var_scorePassengerBonus_8c2263fc;
 extern int var_scoreEventBonus_8c226400;
 extern int var_scoreTotal_8c226404;
+/* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
+extern int var_runFailed_8c226408;
 
 #endif // _0FCD20_SECTIONB_H
