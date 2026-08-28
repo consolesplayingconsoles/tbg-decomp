@@ -386,7 +386,7 @@ return new class extends TestCase {
 
         $this->call('_update_8c0129cc');
 
-        // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==PRACTICE -> menuState.selected = var_8c22640c, FUN_8c01f21c.
+        // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==PRACTICE -> menuState.selected = var_8c22640c, PracticeMenuLessonRetry_8c01f21c.
         $this->shouldCall('_FUN_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
@@ -430,7 +430,7 @@ return new class extends TestCase {
     private function practiceLessonRetrySymbol(): string
     {
         return str_ends_with($this->objectFile, '_src.obj')
-            ? '_FUN_8c01f21c'
+            ? '_PracticeMenuLessonRetry_8c01f21c'
             : '_PracticeMenuLessonRetry_8c01f21c';
     }
 

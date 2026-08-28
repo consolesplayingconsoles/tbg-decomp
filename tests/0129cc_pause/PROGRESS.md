@@ -10,12 +10,12 @@
 - [x] branch: ad08==0 (sprite 0x7a): press&4 -> ad08=1/midi(1,0,0) | (press&0x10||y1<-0x40) -> ad10=0/midi(1,3,0) | idle
 - [x] branch: ad08==1 (sprite 0x76/0x77/0x7a): press&2 -> ad08=0/draw0x7a/midi(1,1,0) | ad0c==0{press&4 -> ad08=2/fadeout(10)/midi(1,0,0) no draw | (press&0x80||x1>0x40) toggle ad0c=1/draw0x76} | ad0c!=0{press&4 -> ad08=0/midi(1,0,0) | (press&0x40||x1<-0x40) toggle ad0c=0 | draw0x77}
 - [x] branch: ad08==2 isFading==0, playMode!=PRACTICE: reset bb8dc/b8/bc=0, DebugMenuFreeSessionAssets_8c016182(), copy var_8c1ba2b8->progress.field_0x04[5] & var_8c1ba2cc->progress.field_0x18[5], CourseMenuFUN_8c017ef2(), return 0
-- [x] branch: ad08==2 isFading==0, playMode==PRACTICE: ...DebugMenuFreeSessionAssets_8c016182(), menuState.selected_0x38 = var_8c22640c, FUN_8c01f21c(), return 0
+- [x] branch: ad08==2 isFading==0, playMode==PRACTICE: ...DebugMenuFreeSessionAssets_8c016182(), menuState.selected_0x38 = var_8c22640c, PracticeMenuLessonRetry_8c01f21c(), return 0
 - [x] branch: ad08==2 isFading!=0: draw 0x76 + njDrawPolygon, return 0 (skips base draw)
 
 **FUN_8c0129cc DONE -- c.obj coverage 100%, 24 tests.**
 **Refactored to switch(ad08)+guard clauses; same side effects/order, 24 tests still green. Backup: scratchpad 0129cc.c.pre-refactor.bak. Naming suggestions in function docblock.**
-**IDENTIFIED: this is the in-drive PAUSE menu (CONTINUE / RETIRE, RETIRE has YES/NO confirm). njDrawPolygon = dimmed backdrop quad. press bits now use PDD_DGT_* macros (ST=8 A=4 B=2 KU/KD/KL/KR=0x10/20/40/80). Marks: 0x74 base, 0x75 CONTINUE, 0x7a RETIRE, 0x76 confirm YES, 0x77 confirm NO. State: ad10 0=CONTINUE/1=RETIRE, ad08 0=idle/1=confirm/2=fading, ad0c 0=YES/1=NO(default). ad08==2 -> CourseMenuFUN (leave drive) or FUN_8c01f21c (practice).**
+**IDENTIFIED: this is the in-drive PAUSE menu (CONTINUE / RETIRE, RETIRE has YES/NO confirm). njDrawPolygon = dimmed backdrop quad. press bits now use PDD_DGT_* macros (ST=8 A=4 B=2 KU/KD/KL/KR=0x10/20/40/80). Marks: 0x74 base, 0x75 CONTINUE, 0x7a RETIRE, 0x76 confirm YES, 0x77 confirm NO. State: ad10 0=CONTINUE/1=RETIRE, ad08 0=idle/1=confirm/2=fading, ad0c 0=YES/1=NO(default). ad08==2 -> CourseMenuFUN (leave drive) or PracticeMenuLessonRetry_8c01f21c (practice).**
 **Renamed vars (kept 8c<addr> suffix; sed'd across src+tests, incl. asm .src owners 012f44_game.src/014f54_text_pre_data.src and PHP `_var_...` strings): var_8c1bb8cc->var_pauseActive_8c1bb8cc, var_8c18ad04->var_pauseSettle_8c18ad04, var_8c18ad10->var_onRetire_8c18ad10, var_8c18ad08->var_retirePhase_8c18ad08, var_8c18ad0c->var_confirmChoice_8c18ad0c. Added private #defines in 0129cc.c: MARK_BASE/CONTINUE/RETIRE/CONFIRM_YES/CONFIRM_NO, MARK_Z_ARROW/MARK_Z_BASE, STICK_THRESHOLD, RETIRE_PHASE_IDLE/CONFIRM/FADING, CONFIRM_YES/CONFIRM_NO. Full suite still 284/284.**
 
 ## task_8c012cbc  DONE
@@ -136,7 +136,7 @@
 - press&4 deactivate branch writes var_pauseActive_8c1bb8cc=0 (NOT bb8b8; Ghidra puVar1 = bb8cc there)
 - draws always fall through to base 0x74 draw; every branch-N test must also declare the 0x74 draw + njDrawPolygon (single ordered expectation queue: writes AND calls interleaved, strict order)
 - to see the failing instruction: sh4objtest test <php> <obj.obj> -d  (suite/-c hides disasm)
-- Ghidra PTR-name aliases (resolved via LP_GEN_43727 pool @asm:600): FUN_8c012de0=DebugMenuFreeSessionAssets_8c016182 (01614c_debug_menu.h); FUN_8c012e10=FUN_8c01f21c (01e27c.h); DAT_8c012e0c=var_menuState_8c1bc7a8.selected_0x38 (015ab8_title.h)
+- Ghidra PTR-name aliases (resolved via LP_GEN_43727 pool @asm:600): FUN_8c012de0=DebugMenuFreeSessionAssets_8c016182 (01614c_debug_menu.h); FUN_8c012e10=PracticeMenuLessonRetry_8c01f21c (01e27c.h); DAT_8c012e0c=var_menuState_8c1bc7a8.selected_0x38 (015ab8_title.h)
 - ad04>=5 progress-commit block in Ghidra is DEAD (ad04 maxes at 2 in that branch); real reachable copy lives in ad08==2 path
-- new externs added: var_8c22640c (int, sectionB.h), FUN_8c01f21c (01e27c.h); DebugMenuFreeSessionAssets_8c016182/CourseMenuFUN_8c017ef2/menuState/isFading/playMode/progress already had headers
+- new externs added: var_8c22640c (int, sectionB.h), PracticeMenuLessonRetry_8c01f21c (01e27c.h); DebugMenuFreeSessionAssets_8c016182/CourseMenuFUN_8c017ef2/menuState/isFading/playMode/progress already had headers
 - ad08==2 isFading!=0 draws 0x76 at FR14=-1.09 (same arrow priority), then njDrawPolygon, returns WITHOUT base 0x74 draw
