@@ -19,3 +19,6 @@ build/lnk_matching.sub
 .claude/settings.local.json
 
 __pycache__/
+log.txt
+log2.txt
+log3.txt
