@@ -686,7 +686,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 // VM Warning Fade out to Main Menu
                 case 2: {
                     if (!var_isFading_8c226568) {
-                        MainMenuSwitchFromTask_8c01a09a(task);
+                        MainMenuSwitchFromTask_8c01a09a(task, 0);
                         return;
                     }
                     break;
@@ -731,7 +731,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 break;
             }
             if (init_8c03bd80) return;
-            MainMenuSwitchFromTask_8c01a09a(task);
+            MainMenuSwitchFromTask_8c01a09a(task, 0);
             return;
         }
 

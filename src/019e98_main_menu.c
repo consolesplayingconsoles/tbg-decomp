@@ -202,11 +202,11 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
     );
 }
 
-void MainMenuSwitchFromTask_8c01a09a(Task* task) {
+void MainMenuSwitchFromTask_8c01a09a(Task* task, int selected) {
     TaskSetAction_8c014b3e(task, mainMenuTask_8c019e98);
     CHANGE_STATE(MAIN_MENU_STATE_INIT);
-    var_menuState_8c1bc7a8.selected_0x38 = 0;
-    var_menuState_8c1bc7a8.field_0x5c = 0;
+    var_menuState_8c1bc7a8.selected_0x38 = selected;
+    var_menuState_8c1bc7a8.field_0x5c = selected * 2;
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     CourseMenuRequestSysResgrp_8c018568(

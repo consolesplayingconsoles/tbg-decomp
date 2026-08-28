@@ -854,7 +854,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 return;
 
             var_8c1bb8b8 = 0;
-            MainMenuSwitchFromTask_8c01a09a(task);
+            MainMenuSwitchFromTask_8c01a09a(task, var_menuState_8c1bc7a8.field_0x1c);
             return;
         }
     }
@@ -1007,7 +1007,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
                 return;
 
             // var_8c1bb8b8 = 0;
-            MainMenuSwitchFromTask_8c01a09a(task);
+            MainMenuSwitchFromTask_8c01a09a(task, 1);
             return;
         }
     }

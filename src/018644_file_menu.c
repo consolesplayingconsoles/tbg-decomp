@@ -638,7 +638,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             break;
         }
         var_currentSysResGroupInfo_8c225fb0 = (void *)-1;
-        MainMenuSwitchFromTask_8c01a09a(task);
+        MainMenuSwitchFromTask_8c01a09a(task, 0);
         return;
 
     case FILE_MENU_STATE_CANCEL_FADE_OUT:

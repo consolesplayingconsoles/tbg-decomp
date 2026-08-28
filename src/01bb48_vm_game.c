@@ -900,7 +900,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
         CourseMenuFreeResourceGroup_8c0185c4(&var_resourceGroup_8c2263a8);
         syFree(var_vmGameBuf_8c1bc454);
         var_vmGameBuf_8c1bc454 = (void *)0xffffffff;
-        MainMenuSwitchFromTask_8c01a09a(task);
+        MainMenuSwitchFromTask_8c01a09a(task, 3);
         return;
     }
 

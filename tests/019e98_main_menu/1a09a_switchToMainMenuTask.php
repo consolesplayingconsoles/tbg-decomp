@@ -12,11 +12,12 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $task = 0xbebacafe;
+        $selected = 3;
 
         $this->shouldCall('_TaskSetAction_8c014b3e')->with($task, $this->addressOf('_mainMenuTask_8c019e98'));
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0);
-        $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 0);
-        $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x5c, 0);
+        $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, $selected);
+        $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x5c, $selected * 2);
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
@@ -32,7 +33,7 @@ return new class extends TestCase {
             $this->addressOf('_RouteLoadResetPvmReady_8c014322')
         );
 
-        $this->singleCall('_MainMenuSwitchFromTask_8c01a09a')->with($task)->run();
+        $this->singleCall('_MainMenuSwitchFromTask_8c01a09a')->with($task, $selected)->run();
     }
 
     private function resolveSymbols(): void

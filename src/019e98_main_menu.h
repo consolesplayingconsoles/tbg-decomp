@@ -3,6 +3,6 @@
 
 #include "014a9c_tasks.h"
 
-void MainMenuSwitchFromTask_8c01a09a(Task* task);
+void MainMenuSwitchFromTask_8c01a09a(Task* task, int selected);
 
 #endif // _MAIN_MENU_H
