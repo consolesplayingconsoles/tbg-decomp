@@ -1,7 +1,7 @@
 ; 8c0206f0
-          .EXPORT     _FUN_8c0206f0
+          .EXPORT     _IntersectSegments_8c0206f0
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c0206f0:
+_IntersectSegments_8c0206f0:
           FMOV.S      @R5,FR4
           FMOV.S      @R4,FR3
           FLDI0       FR2

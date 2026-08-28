@@ -45,7 +45,7 @@ return new class extends TestCase {
     }
 
     /**
-     * Checks _FUN_8c0206f0's R4/R5/R7/stack-arg operands (a0, a1, b1, out);
+     * Checks _IntersectSegments_8c0206f0's R4/R5/R7/stack-arg operands (a0, a1, b1, out);
      * arg3 (pos, a stack local) is intentionally not checked, see caller.
      */
     private function assertCrossingArgs(int $expectedB1): Closure
@@ -64,7 +64,7 @@ return new class extends TestCase {
             );
             $want = sprintf('a0=%08x a1=%08x b1=%08x out=%08x', $wantA0, $wantA1, $expectedB1, $wantOut);
             if ($got !== $want) {
-                throw new RuntimeException("_FUN_8c0206f0: expected $want, got $got");
+                throw new RuntimeException("_IntersectSegments_8c0206f0: expected $want, got $got");
             }
         };
     }
@@ -210,7 +210,7 @@ return new class extends TestCase {
 
     public function test_state4_crosswalk_match_forward_blocks_movement()
     {
-        $this->setSize('_FUN_8c0206f0', 4);
+        $this->setSize('_IntersectSegments_8c0206f0', 4);
         $this->setSize('_var_stopLinePointA_8c228268', 8);
         $this->setSize('_var_stopLinePointB_8c228270', 8);
         $this->setSize('_var_crossingIntersectPoint_8c1bc458', 4);
@@ -239,7 +239,7 @@ return new class extends TestCase {
         // (pos) is a stack local computed just before the call, so it can't
         // be pinned to a known address; check the other four by hand instead
         // of wildcarding it.
-        $this->shouldCall('_FUN_8c0206f0')
+        $this->shouldCall('_IntersectSegments_8c0206f0')
             ->do($this->assertCrossingArgs($other + 4))
             ->andReturn(1);
         $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
@@ -249,7 +249,7 @@ return new class extends TestCase {
 
     public function test_state4_crosswalk_match_reverse_keeps_moving()
     {
-        $this->setSize('_FUN_8c0206f0', 4);
+        $this->setSize('_IntersectSegments_8c0206f0', 4);
         $this->setSize('_var_stopLinePointA_8c228268', 8);
         $this->setSize('_var_stopLinePointB_8c228270', 8);
         $this->setSize('_var_crossingIntersectPoint_8c1bc458', 4);
@@ -277,7 +277,7 @@ return new class extends TestCase {
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
         // reverse (nReverse == 1) passes entry[0] + 4 (== node + 4), not entry[1] + 4.
-        $this->shouldCall('_FUN_8c0206f0')
+        $this->shouldCall('_IntersectSegments_8c0206f0')
             ->do($this->assertCrossingArgs($node + 4))
             ->andReturn(0);
         $this->shouldCall('_markPedCrossing_8c02897a')->with(9);

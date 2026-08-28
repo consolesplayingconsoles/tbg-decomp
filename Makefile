@@ -76,7 +76,7 @@ SRCS = \
 	src/asm/020214.src \
 	src/020528.c \
 	src/asm/020594.src \
-	src/asm/0206f0.src \
+	src/0206f0_intersect.c \
 	src/0207d4.c \
 	src/asm/02081c.src \
 	src/020914_ground_query.c \

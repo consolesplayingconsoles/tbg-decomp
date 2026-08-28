@@ -448,7 +448,7 @@ extern float var_8c1bc450;
 extern NJS_MATRIX var_8c1bc46c;
 extern NJS_POINT3 var_groundQueryPoint_8c1bc460; // scratch world point for ground-height queries, e.g. FUN_8c02840c
 extern void* var_vmGameBuf_8c1bc454;
-extern float var_crossingIntersectPoint_8c1bc458; // FUN_8c0206f0's intersection-point output (x); [1] (var_8c1bc45c) holds y
+extern float var_crossingIntersectPoint_8c1bc458; // IntersectSegments_8c0206f0's intersection-point output (x); [1] (var_8c1bc45c) holds y
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
 /* Sentinel pointer value marking the player's bus as a stand-in "entry" in
@@ -603,8 +603,8 @@ extern void* var_pedPaths_8c228238;
  * path-node pointers, terminated by the end pointer var_crosswalkTableEnd_8c228244. */
 extern int* var_crosswalkTableEnd_8c228244;
 extern int var_crosswalkTable_8c228248[8];
-extern float var_stopLinePointA_8c228268[2]; /* segment-intersection scratch, param1 for FUN_8c0206f0 */
-extern float var_stopLinePointB_8c228270[2]; /* segment-intersection scratch, param2 for FUN_8c0206f0 */
+extern float var_stopLinePointA_8c228268[2]; /* segment-intersection scratch, param1 for IntersectSegments_8c0206f0 */
+extern float var_stopLinePointB_8c228270[2]; /* segment-intersection scratch, param2 for IntersectSegments_8c0206f0 */
 /* nodes[0] = the route's blinker model (var_routeModels_8c1bc3ec[9]); [1..3]
  * are its child/sibling tree, filled by resolveObjectChildren_8c029868. */
 extern NJS_OBJECT *var_routeBlinkerNodes_8c228278[4];

@@ -15,7 +15,7 @@
           .IMPORT     _FUN_8c0207fa
           .IMPORT     _var_crossingIntersectPoint_8c1bc458
           .IMPORT     _var_8c1bc45c
-          .IMPORT     _FUN_8c0206f0
+          .IMPORT     _IntersectSegments_8c0206f0
           .IMPORT     _FUN_8c02081c
           .EXPORT     _FUN_8c023938
           .EXPORT     _FUN_8c023bce
@@ -1044,7 +1044,7 @@ LP_GEN_73891:
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C024114
           .DATA.L _var_crossingIntersectPoint_8c1bc458 ; H'8C024118
           .DATA.L _var_8c1bc45c ; H'8C02411C
-          .DATA.L _FUN_8c0206f0 ; H'8C024120
+          .DATA.L _IntersectSegments_8c0206f0 ; H'8C024120
           .DATA.L _sdMidiPlay ; H'8C024124
           .DATA.L _FUN_8c02081c ; H'8C024128
           .END

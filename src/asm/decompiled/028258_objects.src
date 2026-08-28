@@ -38,7 +38,7 @@
           .IMPORT     _var_busCameraFocusX_8c1bbcd8
           .IMPORT     _atan2f
           .IMPORT     _var_crosswalkTable_8c228248
-          .IMPORT     _FUN_8c0206f0
+          .IMPORT     _IntersectSegments_8c0206f0
           .IMPORT     _var_crossingIntersectPoint_8c1bc458
           .IMPORT     _var_stopLinePointB_8c228270
           .IMPORT     _var_stopLinePointA_8c228268
@@ -2189,7 +2189,7 @@ LP_GEN_25196:
           .DATA.L H'0FFF0000 ; H'8C029044
           .DATA.L _isCrossingOccupied_8c02898e ; H'8C029048
           .DATA.L _var_crosswalkTable_8c228248 ; H'8C02904C
-          .DATA.L _FUN_8c0206f0 ; H'8C029050
+          .DATA.L _IntersectSegments_8c0206f0 ; H'8C029050
           .DATA.L _var_crossingIntersectPoint_8c1bc458 ; H'8C029054
           .DATA.L _var_stopLinePointB_8c228270 ; H'8C029058
           .DATA.L _var_stopLinePointA_8c228268 ; H'8C02905C
@@ -3045,7 +3045,7 @@ LP_GEN_59898:
           .DATA.L _var_crossingIntersectPoint_8c1bc458 ; H'8C029708
           .DATA.L _var_stopLinePointB_8c228270 ; H'8C02970C
           .DATA.L _var_stopLinePointA_8c228268 ; H'8C029710
-          .DATA.L _FUN_8c0206f0 ; H'8C029714
+          .DATA.L _IntersectSegments_8c0206f0 ; H'8C029714
           .DATA.L _var_pedGroupCount_8c228234 ; H'8C029718
           .DATA.L _var_tasks_8c1ba808 ; H'8C02971C
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C029720

@@ -6,7 +6,7 @@
 #include "014a9c_tasks.h" /* Task */
 #include "014f54_text.h" /* enum PLAY_MODE */
 #include "0100bc_sound.h" /* FUN_8c010ca6, SndProc_8c010cd6, FUN_8c0106ac */
-#include "0206f0.h" /* FUN_8c0206f0 */
+#include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
 #include "0222dc_fadecmd.h" /* FadeCmdPushCall2_8c022420 */
@@ -4942,12 +4942,12 @@ STATIC void pedestrianTask_8c028e00(Task *task, PedestrianState *ped)
                     pos[0] = ped->sprite_0x00.p.x;
                     pos[1] = ped->sprite_0x00.p.z;
                     if (ped->nReverse_0x40 == 0) {
-                        if (FUN_8c0206f0(var_stopLinePointA_8c228268, var_stopLinePointB_8c228270, pos,
+                        if (IntersectSegments_8c0206f0(var_stopLinePointA_8c228268, var_stopLinePointB_8c228270, pos,
                                 (float *)(entry[1] + 4), &var_crossingIntersectPoint_8c1bc458) != 0) {
                             shouldMove = FALSE;
                         }
                     } else {
-                        if (FUN_8c0206f0(var_stopLinePointA_8c228268, var_stopLinePointB_8c228270, pos,
+                        if (IntersectSegments_8c0206f0(var_stopLinePointA_8c228268, var_stopLinePointB_8c228270, pos,
                                 (float *)(*entry + 4), &var_crossingIntersectPoint_8c1bc458) != 0) {
                             shouldMove = FALSE;
                         }
@@ -5253,7 +5253,7 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
         if (groups[pageListIndex].active_0x00 != 0) {
             for (node = paths[pageListIndex].pFirst_0x00; node->flLength_0x00 != 0.0f; node++) {
                 if ((node->nFlags_0x14 & 0xfff) != 0 &&
-                        FUN_8c0206f0(var_stopLinePointA_8c228268, var_stopLinePointB_8c228270,
+                        IntersectSegments_8c0206f0(var_stopLinePointA_8c228268, var_stopLinePointB_8c228270,
                                 &node->flBaseX_0x04, &node[1].flBaseX_0x04,
                                 &var_crossingIntersectPoint_8c1bc458)) {
                     cursor = var_crosswalkTableEnd_8c228244;

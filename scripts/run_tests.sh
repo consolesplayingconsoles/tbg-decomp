@@ -163,4 +163,8 @@ compile  src/020914_ground_query.c
 assemble  src/asm/decompiled/020b6c_ground_probe.src
 compile  src/020b6c_ground_probe.c
 
+# 0206f0_intersect
+assemble  src/asm/decompiled/0206f0_intersect.src
+compile  src/0206f0_intersect.c
+
 $sh4objtest suite -s tests.php "$@"

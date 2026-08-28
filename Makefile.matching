@@ -45,7 +45,7 @@ SRCS = \
 	src/asm/020214.src \
 	src/020528.c \
 	src/asm/020594.src \
-	src/asm/0206f0.src \
+	src/asm/decompiled/0206f0_intersect.src \
 	src/asm/decompiled/0207d4.src \
 	src/asm/02081c.src \
 	src/asm/decompiled/020914_ground_query.src \

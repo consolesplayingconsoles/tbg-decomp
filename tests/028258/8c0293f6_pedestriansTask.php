@@ -401,7 +401,7 @@ return new class extends TestCase {
 
         $this->expectGroundScratch();
 
-        $this->shouldCall('_FUN_8c0206f0')
+        $this->shouldCall('_IntersectSegments_8c0206f0')
             ->with($this->addressOf('_var_stopLinePointA_8c228268'), $this->addressOf('_var_stopLinePointB_8c228270'),
                 $node + 0x18 + 0x04, $node + 0x18 + 0x1c, $this->addressOf('_var_crossingIntersectPoint_8c1bc458'))
             ->andReturn(1);
@@ -443,8 +443,8 @@ return new class extends TestCase {
 
         $this->expectGroundScratch();
 
-        // node0 is skipped entirely: the only FUN_8c0206f0 call is for node1.
-        $this->shouldCall('_FUN_8c0206f0')
+        // node0 is skipped entirely: the only IntersectSegments_8c0206f0 call is for node1.
+        $this->shouldCall('_IntersectSegments_8c0206f0')
             ->with($this->addressOf('_var_stopLinePointA_8c228268'), $this->addressOf('_var_stopLinePointB_8c228270'),
                 $node + 0x18 + 0x04, $node + 0x18 + 0x1c, $this->addressOf('_var_crossingIntersectPoint_8c1bc458'))
             ->andReturn(0);

@@ -633,5 +633,14 @@ return [
                 "build/output_test/020b6c_ground_probe_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/0206f0_intersect/8c0206f0_IntersectSegments.php",
+            ],
+            "objects" => [
+                "build/output_test/0206f0_intersect_src.obj",
+                "build/output_test/0206f0_intersect_c.obj",
+            ]
+        ],
     ],
 ];
