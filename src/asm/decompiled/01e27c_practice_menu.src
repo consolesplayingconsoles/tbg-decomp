@@ -68,12 +68,24 @@
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
           .IMPORT     _FUN_8c01f954
           .EXPORT     _FUN_8c01e27c
+          .AIFDEF UNIT_TESTING
           .EXPORT     _initDescriptionReveal_8c01e576
+          .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _showLesson_8c01e63c
+          .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _practiceCancelReturn_8c01e920
+          .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _buildDialogQueue_8c01e992
+          .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _drawDigits_8c01ead8
+          .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _scrollTowardSelection_8c01ebc8
+          .AENDI
           .EXPORT     _PracticeMenuLessonStart_8c01f114
           .EXPORT     _PracticeMenuLessonRetry_8c01f21c
 

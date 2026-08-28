@@ -72,10 +72,18 @@
           .IMPORT     _var_passengerCount_8c1bb8e4
           .IMPORT     _var_eventCount_8c1bb8e8
           .IMPORT     _FUN_8c01f954
+          .AIFDEF UNIT_TESTING
           .EXPORT     _drawScoreDigits_8c01d7fc
+          .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _drawTextboxSprite_8c01d864
+          .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _task_8c01d8e0
+          .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _startResultsTask_8c01df8e
+          .AENDI
           .EXPORT     _ResultShowFailedRun_8c01e24e
           .EXPORT     _ResultShowPassedRun_8c01e0b4
 
