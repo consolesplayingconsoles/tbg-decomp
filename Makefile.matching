@@ -63,7 +63,7 @@ SRCS = \
 	src/asm/025870.src \
 	src/asm/025b98.src \
 	src/asm/decompiled/026710_traffic.src \
-	src/asm/02786c.src \
+	src/asm/decompiled/02786c_vehicle_parts.src \
 	src/asm/027958.src \
 	src/asm/decompiled/028258_objects.src \
 	src/asm/decompiled/02af78_event.src \

@@ -94,7 +94,7 @@ SRCS = \
 	src/asm/025870.src \
 	src/asm/025b98.src \
 	src/026710_traffic.c \
-	src/asm/02786c.src \
+	src/02786c_vehicle_parts.c \
 	src/asm/027958.src \
 	src/028258_objects.c \
 	src/02af78_event.c \

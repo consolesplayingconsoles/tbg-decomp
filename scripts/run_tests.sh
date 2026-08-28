@@ -167,4 +167,8 @@ compile  src/020b6c_ground_probe.c
 assemble  src/asm/decompiled/0206f0_intersect.src
 compile  src/0206f0_intersect.c
 
+# 02786c_vehicle_parts
+assemble  src/asm/decompiled/02786c_vehicle_parts.src
+compile  src/02786c_vehicle_parts.c
+
 $sh4objtest suite -s tests.php "$@"

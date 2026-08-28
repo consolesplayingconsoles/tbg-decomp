@@ -642,5 +642,14 @@ return [
                 "build/output_test/0206f0_intersect_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/02786c_vehicle_parts/8c02786c_VehPartsBind.php",
+            ],
+            "objects" => [
+                "build/output_test/02786c_vehicle_parts_src.obj",
+                "build/output_test/02786c_vehicle_parts_c.obj",
+            ]
+        ],
     ],
 ];
