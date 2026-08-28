@@ -64,7 +64,7 @@ return new class extends TestCase {
     {
         $this->setup(0xb);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 0xc); // state_0x18 = 0xc
 
@@ -78,7 +78,7 @@ return new class extends TestCase {
         $this->setup(0xc);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 4); // press & PDD_TA
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
@@ -93,7 +93,7 @@ return new class extends TestCase {
     {
         $this->setup(0xc);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_drawTextboxSprite_8c01d864');
 
@@ -104,7 +104,7 @@ return new class extends TestCase {
     {
         $this->setup(7);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 4); // state_0x18 = 4
 
@@ -116,7 +116,7 @@ return new class extends TestCase {
         $this->setup(7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_drawTextboxSprite_8c01d864');
 
@@ -129,7 +129,7 @@ return new class extends TestCase {
         $this->initUint32($this->ms + 0x1c, 5); // field_0x1c: garbage, must be reset
         $this->initUint32($this->ms + 0x38, 5); // selected_0x38: garbage, must be reset
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 9);   // state_0x18 = 9
         $this->shouldWriteLong($this->ms + 0x1c, 0);   // field_0x1c = 0
@@ -145,7 +145,7 @@ return new class extends TestCase {
         $this->setup(8);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_drawTextboxSprite_8c01d864');
 
@@ -157,7 +157,7 @@ return new class extends TestCase {
         $this->setup(10);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 4); // press & PDD_DGT_TA
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブを中止しますか？");
 
@@ -173,7 +173,7 @@ return new class extends TestCase {
     {
         $this->setup(10);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_drawTextboxSprite_8c01d864');
 
@@ -189,7 +189,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')
             ->with(0, 0x11223344, 3);
@@ -221,7 +221,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -249,7 +249,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1); // must be reset to 0
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x11223344); // handle 0
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -277,7 +277,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 4); // busy: writing
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -298,7 +298,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), 1); // must be reset to 0
         $this->initUint32($this->addressOf('_var_backupFileImageBuf_8c1ba348'), 0x11223344); // must be freed
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_BupGetInfo_8c014bba')->with(0);
         $this->shouldCall('_buStat')->with(0)->andReturn(0);
@@ -329,7 +329,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), 1);
         $this->initUint32($this->addressOf('_var_backupFileImageBuf_8c1ba348'), 0x11223344);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_BupGetInfo_8c014bba')->with(0);
         $this->shouldCall('_buStat')->with(0)->andReturn(0);
@@ -358,7 +358,7 @@ return new class extends TestCase {
         $this->initUint32($this->ms + 0x1c, 1); // field_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_BupGetInfo_8c014bba')->with(0);
         $this->shouldCall('_buStat')->with(0)->andReturn(1);
@@ -373,7 +373,7 @@ return new class extends TestCase {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0xffffffff); // -1: no VM selected
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
     }
@@ -385,7 +385,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
 
@@ -399,7 +399,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 0); // first run
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
 
@@ -419,7 +419,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 0); // first run
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
 
@@ -444,7 +444,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 0); // free slot
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
 
@@ -479,7 +479,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 1); // in use by this game
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -513,7 +513,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2); // in use by another game
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -547,7 +547,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 4); // busy: writing
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -581,7 +581,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 5); // slot full
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -615,7 +615,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 6); // unusable
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -648,7 +648,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // not the first run
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 3); // unknown status
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -672,7 +672,7 @@ return new class extends TestCase {
         $this->initUint32($this->ms + 0x64, 5); // startTimer_0x64: garbage, must be reset
         $this->initUint32($this->ms + 0x68, 5); // logo_timer_0x68: garbage, must be reset
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 2); // state_0x18 = 2
         $this->shouldWriteLong($this->ms + 0x64, 0); // startTimer_0x64 = 0
@@ -689,7 +689,7 @@ return new class extends TestCase {
         $this->setup(1);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
@@ -703,7 +703,7 @@ return new class extends TestCase {
         $this->initUint32($this->ms + 0x64, 0); // startTimer_0x64
         $this->initUint32($this->ms + 0x68, 0); // logo_timer_0x68: below threshold after increment
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x68, 1); // logo_timer_0x68 = 1
 
@@ -720,7 +720,7 @@ return new class extends TestCase {
         $this->initUint32($this->ms + 0x68, 10); // logo_timer_0x68: crosses threshold on increment
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 0x10, 0x55667788); // index 4
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
         $this->shouldWriteLong($this->ms + 0x64, 1);  // startTimer_0x64 = 1
@@ -744,7 +744,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0); // no award
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 0x10, 0x55667788); // index 4
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
         $this->shouldWriteLong($this->ms + 0x64, 7);  // startTimer_0x64 = 7
@@ -776,7 +776,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 3); // gold
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 0x10, 0x55667788); // index 4
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
         $this->shouldWriteLong($this->ms + 0x64, 7);  // startTimer_0x64 = 7
@@ -810,7 +810,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 2); // silver
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 0x10, 0x55667788); // index 4
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
         $this->shouldWriteLong($this->ms + 0x64, 7);  // startTimer_0x64 = 7
@@ -844,7 +844,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 1); // bronze
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 0x10, 0x55667788); // index 4
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
         $this->shouldWriteLong($this->ms + 0x64, 7);  // startTimer_0x64 = 7
@@ -875,7 +875,7 @@ return new class extends TestCase {
         $this->setup(3);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0); // no award
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 312.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 266.0);
@@ -896,7 +896,7 @@ return new class extends TestCase {
         $this->setup(3);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 2); // silver
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 312.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 266.0);
@@ -922,7 +922,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0xffffffff); // -1: no VM selected
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
@@ -951,7 +951,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 0); // days_0x00
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
@@ -980,7 +980,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 0x1f); // days_0x00 > 0x1e
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 0xd); // state_0x18 = 0xd
 
@@ -1009,7 +1009,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 0x1e); // days_0x00 == 0x1e (not exceeded)
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 4); // state_0x18 = 4
 
@@ -1037,7 +1037,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
 
@@ -1055,7 +1055,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2);
         $this->initUint32($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c matches
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -1074,7 +1074,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2);
         $this->initUint32($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c matches
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -1097,7 +1097,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 1);
         $this->initUint32($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c: mismatched
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -1116,7 +1116,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -1135,7 +1135,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
 
@@ -1159,7 +1159,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -1181,7 +1181,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
@@ -1199,7 +1199,7 @@ return new class extends TestCase {
         $this->setup(0xd);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
 
@@ -1214,7 +1214,7 @@ return new class extends TestCase {
         $this->setup(0xd);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
 
@@ -1226,7 +1226,7 @@ return new class extends TestCase {
         $this->setup(0xd);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
 
@@ -1239,7 +1239,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 0);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 0x1f); // days_0x00 > 0x1e
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
 
@@ -1254,7 +1254,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 0);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 0x1e); // days_0x00 == 0x1e (not exceeded)
 
-        $this->call('_task_8c01d8e0');
+        $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
 

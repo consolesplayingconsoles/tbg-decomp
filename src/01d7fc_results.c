@@ -62,7 +62,7 @@ STATIC void drawTextboxSprite_8c01d864(void)
     TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
 }
 
-STATIC void task_8c01d8e0(void)
+STATIC void resultsTask_8c01d8e0(void)
 {
     Bool pressedA = var_peripherals_8c1ba35c[0].press & PDD_DGT_TA;
 
@@ -343,7 +343,7 @@ STATIC void startResultsTask_8c01df8e(void)
 
     InputPushTask_8c0128cc(0);
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, GameTask_8c012f44, &created_task, &created_state, 0);
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, task_8c01d8e0, &created_task, &created_state, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba3c8, resultsTask_8c01d8e0, &created_task, &created_state, 0);
     var_menuState_8c1bc7a8.state_0x18 = 0;
     njGarbageTexture(var_tex_8c157af8, 0xc00);
     ObjectsOpenTextbox_8c02ae3e(0x20, 0x180, -2.0f, 0x240, 0x40, 0, 0, -1);

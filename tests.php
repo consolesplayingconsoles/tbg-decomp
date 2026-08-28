@@ -243,7 +243,7 @@ return [
                 "tests/01d7fc_results/8c01df8e_startResultsTask.php",
                 "tests/01d7fc_results/8c01e0b4_ResultShowPassedRun.php",
                 "tests/01d7fc_results/8c01e24e_ResultShowFailedRun.php",
-                "tests/01d7fc_results/8c01d8e0_task.php",
+                "tests/01d7fc_results/8c01d8e0_resultsTask.php",
             ],
             "objects" => [
                 "build/output_test/01d7fc_results_src.obj",
