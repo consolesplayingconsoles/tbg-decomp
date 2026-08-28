@@ -750,13 +750,13 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
                 comparedTextureCount = comparedItem->texlist_0x04->nbTexture;
                 comparedTextures = comparedItem->texlist_0x04->textures;
 
-                if (comparedTextureCount) {
-                    for (comparedIndex = 0; comparedIndex < comparedTextureCount; comparedIndex++)
-                    {
-                        if (!strcmp(currentTexture->filename, comparedTextures[comparedIndex].filename)) {
-                            currentTexture->texaddr = comparedTextures[comparedIndex].texaddr;
-                            break;
-                        }
+                /* comparedIndex must be 0 when there is nothing to compare
+                 * against: the "not found" test below reads it either way. */
+                for (comparedIndex = 0; comparedIndex < comparedTextureCount; comparedIndex++)
+                {
+                    if (!strcmp(currentTexture->filename, comparedTextures[comparedIndex].filename)) {
+                        currentTexture->texaddr = comparedTextures[comparedIndex].texaddr;
+                        break;
                     }
                 }
 
@@ -774,6 +774,7 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
             if (queueIdx == var_texlistQueueCount_8c157a68) {
                 alreadyLoaded = FALSE;
             }
+
         }
 
         if (alreadyLoaded) {

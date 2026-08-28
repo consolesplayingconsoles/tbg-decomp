@@ -737,6 +737,65 @@ return new class extends TestCase {
         return str_ends_with($this->objectFile, '_src.obj');
     }
 
+    /* An already-processed queue entry whose texlist has nbTexture == 0
+     * contributes no filenames to compare against, so the search must fall
+     * through to the next entry -- it must NOT count as a match. Guarding the
+     * compare loop with `if (comparedTextureCount)` leaves comparedIndex
+     * uninitialized here, which breaks out early and wrongly marks the
+     * texlist already-loaded, so it never reaches njSetTexture. */
+    public function test_emptyComparedTexlistIsNotAMatch()
+    {
+        $itemSize = 8;
+        $queueLength = 8;
+        $queue = $this->alloc($queueLength * $itemSize);
+
+        $dirStrAddress = $this->allocString('\\DIR');
+        $this->initUint32($this->addressOf('_var_queueBaseDir_8c157a80'), $dirStrAddress);
+        $this->initUint32($this->addressOf('_var_texlistQueueCount_8c157a68'), 1);
+        $this->initUint32($this->addressOf('_var_texlistQueue_8c157aac'), $queue);
+        $this->initUint32($this->addressOf('_var_texlistQueueRear_8c157ab0'), $queue + 2 * $itemSize);
+
+        $task = $this->alloc(0x1c);
+        $this->initUint32($task + 0x18, $queue + 1 * $itemSize);
+
+        // QueuedTexlist A: already processed, but holds no textures
+        $texlistA = $this->alloc(0x8);
+        $this->initUint32($texlistA + 0x0, 0);
+        $this->initUint32($texlistA + 0x4, 0);  // nbTexture
+        $this->initUint32($queue + 0 * $itemSize + 0, $dirStrAddress);
+        $this->initUint32($queue + 0 * $itemSize + 4, $texlistA);
+
+        // QueuedTexlist B: the one being processed, a single unloaded texture
+        $texnameSize = 0xc;
+        $texturesB = $this->alloc($texnameSize);
+        $texBAFile = $this->allocString('TEX_B_A');
+        $this->initTexname($texturesB, $texBAFile, 0, 0);
+
+        $texlistB = $this->alloc(0x8);
+        $this->initUint32($texlistB + 0x0, $texturesB);
+        $this->initUint32($texlistB + 0x4, 1);  // nbTexture
+        $this->initUint32($queue + 1 * $itemSize + 0, $dirStrAddress);
+        $this->initUint32($queue + 1 * $itemSize + 4, $texlistB);
+
+        // No strcmp: entry A has no filenames to compare against.
+        $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
+        $this->shouldCall($strCmp)
+            ->with($dirStrAddress, $dirStrAddress)
+            ->andReturn(strcmp('\\DIR', '\\DIR'));
+
+        $this->shouldCall('_njSetTexture')->with($texlistB);
+        $this->shouldCall('_njLoadTextureNum')->with(0);
+
+        $this->shouldWriteTo('_var_texlistQueueCount_8c157a68', 2);
+        $this->shouldWriteTo('_var_texlistQueueIsIdle_8c157ab8', 1);
+        $this->shouldCall('_TaskFree_8c014b66')
+            ->with($task);
+
+        $this->singleCall('_taskLoadQueuedTexlists_8c01183e')
+            ->with($task, 0)
+            ->run();
+    }
+
     public function initTexname($address, int $name, int $attr, int $addr)
     {
         $this->initUint32($address, $name);
