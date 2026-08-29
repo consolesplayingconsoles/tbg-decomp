@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->setSize('_init_8c03bd80', 4);
         $this->setSize('_var_vibport_8c1ba354', 4);
         $this->setSize('_var_fadeRequest_8c226564', 4);
-        $this->setSize('_FUN_8c02b388', 4);
+        $this->setSize('_DriveMsgDraw_8c02b388', 4);
         $this->setSize('_var_8c22866c', 4);
 
         return $base;

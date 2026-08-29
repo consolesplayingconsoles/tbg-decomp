@@ -1,6 +1,6 @@
 ; 8c025b98
           .IMPORT     _FUN_8c02081c
-          .IMPORT     _FUN_8c02dfca
+          .IMPORT     _TrafficLookaheadScan_8c02dfca
           .IMPORT     _var_8c1bbd9c
           .IMPORT     _var_8c1bb878
           .IMPORT     _var_8c228b3c
@@ -153,7 +153,7 @@ LP_GEN_90361:
           .DATA.L H'47D2F000 ; H'8C025C74
           .DATA.L H'447A0000 ; H'8C025C78
           .DATA.L H'40400000 ; H'8C025C7C
-          .DATA.L _FUN_8c02dfca ; H'8C025C80
+          .DATA.L _TrafficLookaheadScan_8c02dfca ; H'8C025C80
 LAB_8c025c84:
           MOVA        LP_GEN_24120+30,R0
           FMOV        FR13,FR4
@@ -298,7 +298,7 @@ LP_GEN_24120:
           .DATA.W H'0438 ; H'8C025D88
           .RES.W 1 ; H'8C025D8A
           .DATA.L H'40A00000 ; H'8C025D8C
-          .DATA.L _FUN_8c02dfca ; H'8C025D90
+          .DATA.L _TrafficLookaheadScan_8c02dfca ; H'8C025D90
           .DATA.L _var_8c1bbd9c ; H'8C025D94
           .DATA.L _var_8c1bb878 ; H'8C025D98
           .DATA.L _var_8c228b3c ; H'8C025D9C

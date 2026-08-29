@@ -67,13 +67,13 @@ SRCS = \
 	src/asm/decompiled/027958.src \
 	src/asm/decompiled/028258_objects.src \
 	src/asm/decompiled/02af78_event.src \
-	src/asm/02b2f0.src \
+	src/asm/decompiled/02b2f0.src \
 	src/asm/decompiled/02b464_drive_points.src \
 	src/asm/decompiled/02c884_bus_stop.src \
 	src/asm/02d06c.src \
 	src/asm/02d19c.src \
 	src/asm/02d968.src \
-	src/asm/02df3c.src \
+	src/asm/decompiled/02df3c.src \
 	src/asm/02e2dc.src \
 	src/asm/decompiled/02e400_collision.src \
 	src/asm/decompiled/02e51c.src \

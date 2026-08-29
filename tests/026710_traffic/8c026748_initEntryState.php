@@ -21,7 +21,7 @@ if (!function_exists('fdec')) {
 // (entry+0x2e8), resolves world position/heading from the current record,
 // looks up ground height, fills in the vehicle's dimension/animation state
 // from its variant table (entry+0x2e0 indexes init_8c0460c8/cc/d0/d4, a
-// 16-row x4-float table), and pushes its driving task via FUN_8c02df3c.
+// 16-row x4-float table), and pushes its driving task via TrafficLookaheadInit_8c02df3c.
 
 return new class extends TestCase {
     private int $entry;
@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_AsqGetRandomA_8c012166', 4);
-        $this->setSize('_FUN_8c02df3c', 4);
+        $this->setSize('_TrafficLookaheadInit_8c02df3c', 4);
     }
 
     private function allocEntry(): void {
@@ -188,7 +188,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->entry + 0x4f4, $this->pathArr);
         $this->shouldWriteLong($this->entry + 0x4f8, 0);
         $this->shouldWriteFloat($this->entry + 0x4fc, 4.5);
-        $this->shouldCall('_FUN_8c02df3c')->with($this->entry);
+        $this->shouldCall('_TrafficLookaheadInit_8c02df3c')->with($this->entry);
     }
 
     // Second path-block record has len == 0.0, so the segment-advance loop
@@ -340,7 +340,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->entry + 0x4f4, $block1);
         $this->shouldWriteLong($this->entry + 0x4f8, 1);
         $this->shouldWriteFloat($this->entry + 0x4fc, 3.5);
-        $this->shouldCall('_FUN_8c02df3c')->with($this->entry);
+        $this->shouldCall('_TrafficLookaheadInit_8c02df3c')->with($this->entry);
     }
 
     // A decoration entry (script header word == 10): the path-walk and

@@ -856,12 +856,17 @@ extern int var_8c2286a0;
 /* One pending driver-comment banner: `count`/`ids` are a {count, id...}
  * list from init_8c04c35c (02b464), `duration` the computed on-screen time,
  * `holdFrames` a fixed 60. [0] is the currently-displayed message;
- * [1..3] are queued behind it, shifted forward as each one finishes. */
+ * [1..3] are queued behind it, shifted forward as each one finishes.
+ *
+ * DriveMsgDraw_8c02b388 (02b2f0) reads `ids` as the 16x16-atlas glyph
+ * indices for the slot's banner (low nibble = column, high nibble = row),
+ * `glyphCount` as how many of them to draw, and `duration` (despite its
+ * name) as the row's starting x -- real asm behavior, not touched here. */
 typedef struct {
     int count;
     int *ids;
     float duration;
-    int field_0x0c;
+    int glyphCount_0x0c;
     int field_0x10;
     int holdFrames;
 } DriveMsgSlot;

@@ -722,6 +722,16 @@ return [
         ],
         [
             "tests" => [
+                "tests/02b2f0/8c02b2f0_drawMsgGlyphRow.php",
+                "tests/02b2f0/8c02b388_DriveMsgDraw.php",
+            ],
+            "objects" => [
+                "build/output_test/02b2f0_src.obj",
+                "build/output_test/02b2f0_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
                 "tests/02b464_drive_points/8c02b464_adjust.php",
                 "tests/02b464_drive_points/8c02b578_armCooldowns.php",
                 "tests/02b464_drive_points/8c02b6d4_handleBump.php",
@@ -744,6 +754,16 @@ return [
             "objects" => [
                 "build/output_test/02b464_drive_points_src.obj",
                 "build/output_test/02b464_drive_points_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
+                "tests/02df3c/8c02df3c_TrafficLookaheadInit.php",
+                "tests/02df3c/8c02dfca_TrafficLookaheadScan.php",
+            ],
+            "objects" => [
+                "build/output_test/02df3c_src.obj",
+                "build/output_test/02df3c_c.obj",
             ]
         ],
         [

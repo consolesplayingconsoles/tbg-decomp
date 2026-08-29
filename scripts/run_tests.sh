@@ -195,9 +195,17 @@ compile  src/02e400_collision.c
 assemble  src/asm/decompiled/02f0c8.src
 compile  src/02f0c8.c
 
+# 02b2f0
+assemble  src/asm/decompiled/02b2f0.src
+compile  src/02b2f0.c
+
 # 02b464
 assemble  src/asm/decompiled/02b464_drive_points.src
 compile  src/02b464_drive_points.c
+
+# 02df3c
+assemble  src/asm/decompiled/02df3c.src
+compile  src/02df3c.c
 
 # 02f320
 assemble  src/asm/decompiled/02f320_replay_codec.src

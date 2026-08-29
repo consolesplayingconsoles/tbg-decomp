@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->setSize('_CollideFindTaskHit_8c02e400', 4);
         $this->setSize('_FUN_8c027c3c', 4);
         $this->setSize('_FUN_8c02081c', 4);
-        $this->setSize('_FUN_8c02dfca', 4);
+        $this->setSize('_TrafficLookaheadScan_8c02dfca', 4);
         $this->setSize('_FUN_8c02f0c8', 4);
         $this->setSize('_FUN_8c028022', 4);
         $this->setSize('_TrafficAdvanceOnPath_8c026ca2', 4);
@@ -230,7 +230,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x410, -1); // unaff_r8 = -1 on a miss
         $this->shouldWriteLong($entry + 0x50c, 0);
 
-        $this->shouldCall('_FUN_8c02dfca')->with($task, $entry, f32(1.0 * 36.0 + 1.0))->andReturn(0);
+        $this->shouldCall('_TrafficLookaheadScan_8c02dfca')->with($task, $entry, f32(1.0 * 36.0 + 1.0))->andReturn(0);
         $this->shouldWriteLong($entry + 0x424, 0);
         $this->shouldWriteLong($entry + 0x2d4, 0);
 

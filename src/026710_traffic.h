@@ -213,7 +213,11 @@ typedef struct {
     float field_0x490;
     Uint32 field_0x494;
     Uint32 field_0x498;
-    Uint8 padding_0x49c[0x50];
+    /* Cache of upcoming path positions (x,z pairs) at 5-unit intervals,
+     * built by TrafficLookaheadInit_8c02df3c/TrafficLookaheadScan_8c02dfca (02df3c) from field_0x4f4/0x4fc/
+     * 0x4f8's path-walk cursor. Terminated by a 9999.0 sentinel in the
+     * next unwritten slot's x; up to 10 pairs fit. */
+    float lookaheadPoints_0x49c[10][2];
     /* float, not Sint32 -- TrafficDriveVehicle_8c025b98 decrements it by
      * the frame's speed like an odometer. */
     float field_0x4ec;

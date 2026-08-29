@@ -8,10 +8,12 @@
           .IMPORT     _var_driveMsgQueue_8c228564
           .IMPORT     _njQuadTextureEnd
           .IMPORT     _TxtDrawSprite_8c014f54
-          .EXPORT     _FUN_8c02b2f0
-          .EXPORT     _FUN_8c02b388
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _drawMsgGlyphRow_8c02b2f0
+          .AENDI
+          .EXPORT     _DriveMsgDraw_8c02b388
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02b2f0:
+_drawMsgGlyphRow_8c02b2f0:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -90,7 +92,7 @@ LAB_8c02b370:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02b388:
+_DriveMsgDraw_8c02b388:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -136,7 +138,7 @@ LAB_8c02b3c4:
           MOV         #H'8,R0
           MOV.L       @(H'c,R14),R5
           FMOV        FR15,FR5
-          BSR         _FUN_8c02b2f0
+          BSR         _drawMsgGlyphRow_8c02b2f0
           FMOV.S      @(R0,R14),FR4
 LAB_8c02b3e4:
           ADD         #H'1,R13

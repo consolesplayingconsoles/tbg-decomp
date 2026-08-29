@@ -98,13 +98,13 @@ SRCS = \
 	src/027958.c \
 	src/028258_objects.c \
 	src/02af78_event.c \
-	src/asm/02b2f0.src \
+	src/02b2f0.c \
 	src/02b464_drive_points.c \
 	src/02c884_bus_stop.c \
 	src/asm/02d06c.src \
 	src/asm/02d19c.src \
 	src/asm/02d968.src \
-	src/asm/02df3c.src \
+	src/02df3c.c \
 	src/asm/02e2dc.src \
 	src/02e400_collision.c \
 	src/02e51c.c \

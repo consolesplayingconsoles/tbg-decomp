@@ -9,10 +9,10 @@
           .IMPORT     _var_collideScanCursor_8c228974
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_8c1bbd9c
-          .EXPORT     _FUN_8c02df3c
-          .EXPORT     _FUN_8c02dfca
+          .EXPORT     _TrafficLookaheadInit_8c02df3c
+          .EXPORT     _TrafficLookaheadScan_8c02dfca
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02df3c:
+_TrafficLookaheadInit_8c02df3c:
           MOV.W       LP_GEN_79081+2,R0
           MOV.W       LP_GEN_79081,R6
           MOV.L       @(R0,R4),R5
@@ -89,7 +89,7 @@ LAB_8c02dfba:
           ADD         #H'8,R0
           RTS
           FMOV        FR4,@(R0,R4)
-_FUN_8c02dfca:
+_TrafficLookaheadScan_8c02dfca:
           ADD         #-H'4,R15
           MOV.W       LP_GEN_79081+6,R0
           FMOV.S      @(R0,R5),FR6

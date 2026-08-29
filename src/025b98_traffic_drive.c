@@ -7,7 +7,7 @@
 #include "027958.h"             /* FUN_8c027c3c, FUN_8c028022 */
 #include "02e400_collision.h"   /* CollideFindTaskHit_8c02e400 */
 #include "02e51c.h"             /* FUN_8c02e51c, FUN_8c02f08a */
-#include "02dfca.h"             /* FUN_8c02dfca */
+#include "02df3c.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
 #include "02f0c8.h"             /* FUN_8c02f0c8, FUN_8c02f28a */
 #include "0207d4.h"             /* FUN_8c0207d4, Struct8c0207d4 */
 #include "02081c.h"             /* FUN_8c02081c */
@@ -131,7 +131,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  * Normal driving (0/2) first resolves a junction under the entity's own
  * position (entry->field_0x2cc, one of FUN_8c02e51c/eab4) to get a signal
  * id (field_0x410) and refreshes an obstacle-braking distance (fVar8) by
- * scanning ahead with FUN_8c02dfca over a lookahead of
+ * scanning ahead with TrafficLookaheadScan_8c02dfca over a lookahead of
  * speed_0x27c*36.0 + field_0x41c (+5.0 once already braking, to stop the
  * candidate flapping in and out of range every frame). It then walks a
  * handful of independent little state machines keyed to that signal id and
@@ -208,7 +208,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             if (e->field_0x424 != 0) {
                 lookahead += 5.0f;
             }
-            ahead = FUN_8c02dfca(task, e, lookahead);
+            ahead = TrafficLookaheadScan_8c02dfca(task, e, lookahead);
             if (ahead == (void *)0) {
                 e->field_0x424 = 0;
                 e->field_0x2d4 = 0;

@@ -10,7 +10,7 @@
           .IMPORT     _njCos
           .IMPORT     _njSin
           .IMPORT     _AsqGetRandomA_8c012166
-          .IMPORT     _FUN_8c02df3c
+          .IMPORT     _TrafficLookaheadInit_8c02df3c
           .IMPORT     _njSqrt
           .IMPORT     _acosf
           .IMPORT     _var_currentSegment_8c228708
@@ -660,7 +660,7 @@ LP_GEN_22736:
           .DATA.L _AsqGetRandomA_8c012166 ; H'8C026B94
           .DATA.L H'4F800000 ; H'8C026B98
           .DATA.L H'40200000 ; H'8C026B9C
-          .DATA.L _FUN_8c02df3c ; H'8C026BA0
+          .DATA.L _TrafficLookaheadInit_8c02df3c ; H'8C026BA0
 LAB_8c026ba4:
           MOV.W       LP_GEN_90046,R0
           FMOV        FR14,@(R0,R14)

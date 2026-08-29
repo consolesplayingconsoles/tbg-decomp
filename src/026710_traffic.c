@@ -261,7 +261,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
         e->field_0x4f4 = seg;
         e->field_0x4f8 = e->field_0x300;
         e->field_0x4fc = dist + 2.5f;
-        FUN_8c02df3c(entry);
+        TrafficLookaheadInit_8c02df3c(entry);
     }
 }
 

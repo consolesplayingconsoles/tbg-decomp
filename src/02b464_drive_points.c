@@ -248,7 +248,7 @@ STATIC void adjust_8c02b464(int msgSet, int delta) {
             var_driveMsgQueue_8c228564[0].count = count;
             var_driveMsgQueue_8c228564[0].ids = &init_8c04c35c[msgSet][1];
             var_driveMsgQueue_8c228564[0].duration = (float)((t + (t < 0)) >> 1);
-            var_driveMsgQueue_8c228564[0].field_0x0c = 0;
+            var_driveMsgQueue_8c228564[0].glyphCount_0x0c = 0;
             var_driveMsgQueue_8c228564[0].field_0x10 = 0;
             var_driveMsgQueue_8c228564[0].holdFrames = 0x3c;
         }
@@ -1146,16 +1146,16 @@ tail:
     for (i = 0; i < 4; i++) {
         DriveMsgSlot *slot = &var_driveMsgQueue_8c228564[i];
         if (slot->holdFrames != 0) {
-            if (slot->field_0x0c < slot->count) {
+            if (slot->glyphCount_0x0c < slot->count) {
                 slot->field_0x10 = slot->field_0x10 + 1;
-                slot->field_0x0c = slot->field_0x10 >> 1;
+                slot->glyphCount_0x0c = slot->field_0x10 >> 1;
             } else {
                 slot->holdFrames = slot->holdFrames - 1;
             }
         }
     }
 
-    FadeCmdPushCall1_8c0223ea(0, FUN_8c02b388, 0);
+    FadeCmdPushCall1_8c0223ea(0, DriveMsgDraw_8c02b388, 0);
 }
 
 /* Starts a drive: installs taskCallback_8c02c072 (phase 0, idle -- it goes
