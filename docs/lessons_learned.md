@@ -769,3 +769,10 @@ Porting section C/D float data, a "clean-looking" constant may be one ULP off
 the value you would write by hand: `02e2dc`'s box tables needed
 `3.0500001907348633f`, not `3.05f`. Write the exact round-tripped decimal from
 the original bytes and let `dcdiff.py` confirm, rather than tidying the literal.
+
+## A `static const float` can break the data match
+
+Introducing one for a literal (e.g. a fade rate) puts it in a constant section
+the original object does not have, so `check_data_match.sh` reports a section
+the asm never emitted. Inline the literal at its use site instead. Hit in
+`02d19c`.
