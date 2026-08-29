@@ -286,6 +286,14 @@ using a real, separate linker symbol that only *coincides* with the struct
 field's address because sectionB.src lays the two out back to back -- don't
 "fix" that caller too without checking its own asm first.
 
+A second shape of the same trap: when the base register holds a
+compile-time-constant address (e.g. `r14` = `&var_busState_8c1bb9d0`), Ghidra
+folds `r14 + 0x340` straight into the absolute literal `0x8c1bbd10` and shows it
+as its own global. Several unrelated-looking globals a few hundred bytes apart,
+all inside one struct's extent, are the tell -- they are just
+`field_0x340`/`field_0x35c`/`field_0x378`. Found in `BusInitStart_8c023610`
+(023310_bus_init).
+
 ## A same-object `const` used in a new test needs `.EXPORT` in the archived `.src` too
 
 A `STATIC const` array already sitting in the C file (message box text, etc.)
