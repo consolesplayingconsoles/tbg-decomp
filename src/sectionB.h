@@ -437,6 +437,9 @@ extern int var_8c1bbc2c;
 extern float var_8c1bbc4c;
 extern int var_8c1bbc84;
 extern Uint32 var_8c1bbcb0;
+/* Minimum scaled throttle step (see FUN_8c024320's `step`) for a trigger
+ * push to count as accelerating rather than coasting. */
+extern int var_8c1bbcb4;
 extern int var_8c1bbcc4;
 /* Bus-to-camera-focus vector (x, _, z); written by
  * BusRenderUpdateCamera_8c025078, read by FUN_8c028b74 via njArcTan2.
@@ -816,6 +819,17 @@ extern int var_8c228640;
  * directly by this symbol rather than through the array/field form. */
 extern unsigned short var_8c1ba374;
 
+/* PDS_PERIPHERAL.l of var_peripherals_8c1ba35c[0], addressed directly (see
+ * var_8c1ba374 above for .r). */
+extern unsigned short var_8c1ba376;
+
+/* Saved input deadzone thresholds (progress struct field_0xd0/0xd1),
+ * addressed directly rather than through var_progress_8c1ba1cc -- .r's and
+ * .l's respectively (see var_8c1ba374/var_8c1ba376 above). Always consumed
+ * as an unsigned byte (every read is followed by EXTU.B in the asm). */
+extern unsigned char var_8c1ba29c;
+extern unsigned char var_8c1ba29d;
+
 /* [0]/[1] a duplicated traffic-signal id (FUN_8c02b8b8, 02b464), addressed
  * both directly and via var_8c2285c4[14]/[15]; [3]/[4] a threshold/counter
  * pair graded by FUN_8c02b986 (via var_8c2285c4[17]/[18] there); [6] a
@@ -893,6 +907,10 @@ typedef struct {
 extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
 extern int var_8c2285c4[];
+
+/* var_8c2285c4[34] (0x22864c), addressed directly by FUN_8c024320: set to 1
+ * on the very first upshift out of gear 0. */
+extern int var_8c22864c;
 
 /* Set by trafficUpdateTask_8c0275d4 (026710); selects the junction
  * attribute grid FUN_8c02e51c (02e51c) searches. TrafficDriveVehicle_8c025b98

@@ -89,7 +89,7 @@ SRCS = \
 	src/023310_bus_init.c \
 	src/023938_bus_drive.c \
 	src/02412c.c \
-	src/asm/024280.src \
+	src/024280.c \
 	src/024b4c_bus_render.c \
 	src/025870.c \
 	src/025b98_traffic_drive.c \

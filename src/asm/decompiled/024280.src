@@ -23,11 +23,13 @@
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
           .EXPORT     _FUN_8c024280
-          .EXPORT     _FUN_8c0242ce
           .EXPORT     _FUN_8c024320
-          .EXPORT     _FUN_8c024530
-          .EXPORT     _FUN_8c024606
           .EXPORT     _FUN_8c0246b2
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _debugGearOverride_8c0242ce
+          .EXPORT     _applyBraking_8c024530
+          .EXPORT     _applyBrakingSfx_8c024606
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
 _FUN_8c024280:
           MOVA        LP_GEN_37903+18,R0
@@ -74,7 +76,7 @@ LAB_8c0242c4:
           BF          LAB_8c02429c
           RTS
           NOP
-_FUN_8c0242ce:
+_debugGearOverride_8c0242ce:
           MOV.L       LP_GEN_37903+26,R2
           MOV.L       @R2,R3
           TST         R3,R3
@@ -377,7 +379,7 @@ LP_GEN_22782:
           .DATA.L _asinf ; H'8C024524
           .DATA.L H'47800000 ; H'8C024528
           .DATA.L H'40C90FD8 ; H'8C02452C
-_FUN_8c024530:
+_applyBraking_8c024530:
           MOV.L       LP_GEN_12192+12,R1
           MOV.L       LP_GEN_12192+16,R3
           MOV.L       R14,@-R15
@@ -488,7 +490,7 @@ LAB_8c0245ac:
           RTS
           MOV.L       @R15+,R14
 ; var_8c1ba29d looks like a saved input deadzone threshold (other input axis, .l)
-_FUN_8c024606:
+_applyBrakingSfx_8c024606:
           MOV.L       LP_GEN_12192+16,R2
           MOV.L       LP_GEN_12192+12,R3
           MOV.L       R14,@-R15
@@ -580,7 +582,7 @@ _FUN_8c0246b2:
           MOV.L       LP_GEN_30719+20,R11
           MOV.L       LP_GEN_30719+24,R14
           MOV.L       LP_GEN_30719+16,R10
-          BSR         _FUN_8c024606
+          BSR         _applyBrakingSfx_8c024606
           MOV         #H'0,R13
           MOV.W       @(H'1a,R11),R0
           MOV.L       LP_GEN_30719+28,R4
@@ -692,7 +694,7 @@ LAB_8c024794:
           JSR         @R1
           NOP
 LAB_8c0247ac:
-          BSR         _FUN_8c0242ce
+          BSR         _debugGearOverride_8c0242ce
           NOP
           BRA         LAB_8c024918
           NOP
@@ -730,7 +732,7 @@ LAB_8c0247d6:
           BRA         LAB_8c0248e2
           FMOV        FR15,@(R0,R10)
 LAB_8c0247f0:
-          BSR         _FUN_8c024530
+          BSR         _applyBraking_8c024530
           NOP
           MOV.W       LP_GEN_66287+6,R0
           MOV.L       @(R0,R14),R3
@@ -859,7 +861,7 @@ LAB_8c0248e2:
           FMOV.S      @(R0,R14),FR2
           FCMP/EQ     FR3,FR2
           BF          LAB_8c024914
-          BSR         _FUN_8c0242ce
+          BSR         _debugGearOverride_8c0242ce
           NOP
           MOV.W       LP_GEN_83961+6,R0
           MOV         #H'1e,R3

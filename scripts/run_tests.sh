@@ -271,4 +271,8 @@ compile  src/020214.c
 assemble  src/asm/decompiled/021b9c.src
 compile  src/021b9c.c
 
+# 024280
+assemble  src/asm/decompiled/024280.src
+compile  src/024280.c
+
 $sh4objtest suite -s tests.php "$@"
