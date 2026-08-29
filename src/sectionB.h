@@ -616,8 +616,13 @@ extern Struct8c226458 var_8c226458; // 01fa78
 extern DrawVertex8c226478 var_8c226478[3]; // 01fa78
 extern Struct8c2264a8 var_8c2264a8; // 01fa78
 extern Struct8c2264b8 var_8c2264b8;
-/* Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
- * transition; role/owner (02b464) unclear. */
+/* Sits at var_8c2264b8's base+0xc (its field_0x0c) -- a one-shot latch set by
+ * BusTask_8c022bdc (022bdc) when the A button is first pressed while driving.
+ * Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
+ * transition; role/owner (02b464) unclear. Exported as its own symbol and
+ * addressed that way by that caller, not through the struct -- coincidentally
+ * adjacent, not that struct's field per se (but 022bdc's own asm does access
+ * it via the struct base, so this unit uses var_8c2264b8.field_0x0c). */
 extern int var_8c2264c4;
 extern void* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c: light direction for fade layer 0
@@ -649,8 +654,12 @@ extern int var_8c227d9c;
 extern Uint32 var_8c227da0;
 extern int var_8c227da8;
 extern int var_8c227dac; /* zeroed alongside var_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
+/* Door-timer counter driven by BusTask_8c022bdc (022bdc): counts up by 0.5/frame
+ * while boarding (bus_substate_0x3c0==1), capped at var_8c227db4, then counts
+ * back down by 0.5/frame once departing (bus_substate_0x3c0==3) until it hits 0. */
+extern float var_8c227db0;
 /* Unsigned-int-to-float conversion of *(var_8c1bc410+4), minus 1.0; set by
- * FUN_8c023610, read by task_bus_8c022bdc (022bdc). */
+ * FUN_8c023610, read by BusTask_8c022bdc (022bdc). */
 extern float var_8c227db4;
 extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by gameplayRenderBusUpdateCamera_8c025078
 extern float var_8c227dc4[3];

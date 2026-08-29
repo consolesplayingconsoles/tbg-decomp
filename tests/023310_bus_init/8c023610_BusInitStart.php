@@ -14,7 +14,7 @@ if (!function_exists('f32')) {
 /*
  * _BusInitStart_8c023610(void): the per-run bootstrap for the player's bus.
  * Resets the ground-grid globals from var_currentCourse_8c1bb868, arms
- * task_bus_8c022bdc via TaskPush_8c014ae8, binds the bus body model
+ * BusTask_8c022bdc via TaskPush_8c014ae8, binds the bus body model
  * (VehPartsBind_8c02786c), picks a (route, timeOfDay) content-swap pointer
  * and a ground-query dispatch table (normal vs. the Wangan-route/segment-10
  * *AtHeight variants), calls busInitPlaceBus_8c023310 to place the bus, then
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bc410', 4);
         $this->setSize('_var_8c227db4', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
-        $this->setSize('_task_bus_8c022bdc', 4);
+        $this->setSize('_BusTask_8c022bdc', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_var_8c1bbf7c', 0x60);
         $this->setSize('_var_trafficModels_8c1bc3f4', 4);
@@ -144,7 +144,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
-            $this->addressOf('_task_bus_8c022bdc'),
+            $this->addressOf('_BusTask_8c022bdc'),
         );
 
         $this->shouldWriteLongTo('_var_8c1bbd9c', $base);

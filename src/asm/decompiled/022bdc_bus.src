@@ -32,9 +32,9 @@
           .IMPORT     _gameplayRenderBusUpdateCamera_8c025078
           .IMPORT     _demoUpdateCamera_8c025906
           .IMPORT     _FUN_8c025604
-          .EXPORT     _task_bus_8c022bdc
+          .EXPORT     _BusTask_8c022bdc
           .SECTION     P, CODE, ALIGN=4
-_task_bus_8c022bdc:
+_BusTask_8c022bdc:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

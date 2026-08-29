@@ -13,7 +13,7 @@
 #include "02e51c.h"               /* FUN_8c02e51c, FUN_8c02e69c, FUN_8c02ec50 */
 #include "02eab4.h"               /* FUN_8c02eab4 */
 #include "020594.h"               /* move_bus_model_8c020594 */
-#include "022bdc.h"               /* task_bus_8c022bdc */
+#include "022bdc_bus.h"               /* BusTask_8c022bdc */
 
 /* Same imprecise 2*pi literal as GroundQueryFindPolygon_8c020914's TWO_PI
  * (0x40C90FD8, 3 ULP short of the true value). */
@@ -144,7 +144,7 @@ STATIC void busInitPlaceBus_8c023310(void)
 }
 
 /* Places the player's bus for the start of a run and arms its per-frame
- * task. task_bus_8c022bdc's ground-query family is picked per route/segment:
+ * task. BusTask_8c022bdc's ground-query family is picked per route/segment:
  * the Wangan route's segment 10 (an elevated-road overlap) gets the
  * *AtHeight variants, every other case gets the plain ones. */
 void BusInitStart_8c023610(void)
@@ -172,7 +172,7 @@ void BusInitStart_8c023610(void)
     }
     var_8c227db4 = f - 1.0f;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &task_bus_8c022bdc, &created_task, &created_state, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &BusTask_8c022bdc, &created_task, &created_state, 0);
 
     var_8c1bbd9c = &var_busState_8c1bb9d0;
     var_busState_8c1bb9d0.field_0x004 = (int)var_8c1bbf7c[2];

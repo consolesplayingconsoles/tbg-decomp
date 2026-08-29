@@ -1,0 +1,360 @@
+/* @unit Bus */
+#include <shinobi.h>
+
+#include "sectionB.h"
+#include "013ae8_route_load.h"    /* CurrentCourse */
+#include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, FUN_8c010c6e */
+#include "014a9c_tasks.h"         /* Task */
+#include "020594.h"               /* move_bus_model_8c020594 */
+#include "023938.h"               /* FUN_8c023938/023cba/023e7e */
+#include "024280.h"               /* FUN_8c0246b2/024280 */
+#include "02412c.h"               /* FUN_8c02412c */
+#include "02081c.h"               /* FUN_8c02081c */
+#include "024b4c.h"               /* gameplayRenderBusUpdateCamera_8c025078, FUN_8c025604 */
+#include "025870.h"               /* demoUpdateCamera_8c025906 */
+#include "027958.h"               /* prob_blinker_8c028022 */
+#include "022bdc_bus.h"           /* BusTask_8c022bdc */
+
+/* Same imprecise 2*pi literal as GroundQueryFindPolygon_8c020914's TWO_PI
+ * (0x40C90FD8, 3 ULP short of the true value). */
+#define TWO_PI 6.283184f
+
+/* =====================
+ * Type Declarations
+ * =====================
+ */
+
+/* Shape shared by BusState.field_0x2cc/field_0x2d0's ground/junction query
+ * callees (FUN_8c02e51c/FUN_8c02e69c/FUN_8c02ec50/FUN_8c02eab4/
+ * GroundQueryFindPolygon_8c020914/GroundProbeFindPolygonAtHeight_8c020fe4,
+ * picked once by BusInitStart_8c023610). */
+typedef void *(*GroundQueryFn)(float x, float y, float z, void *out);
+
+/* =====================
+ * Functions
+ * =====================
+ */
+
+/* Per-frame player-bus dispatcher: advances the boarding/departure door
+ * timer, the driving/knockback/braking state machine, steering, ground/
+ * junction queries used by other systems, blinkers, and the camera. Pushed
+ * as the run's task action by BusInitStart_8c023610 (023310_bus_init). */
+void BusTask_8c022bdc(Task *task, void *state)
+{
+    float prevSpeed;
+    int ang;
+    int i;
+
+    (void)task;
+    (void)state;
+
+    prevSpeed = var_busState_8c1bb9d0.speed_0x27c;
+
+    var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
+    var_8c228660 = 0;
+    var_busState_8c1bb9d0.blinker_0x080 = 0;
+
+    /* Current heading angle from the bus's own forward direction
+     * (field_0x274/field_0x278), signed by whether the bus is moving toward
+     * increasing or decreasing X. */
+    ang = (int)((acosf(var_busState_8c1bb9d0.field_0x278) * 65536.0f) / TWO_PI);
+    if (var_busState_8c1bb9d0.posX_0x0f4 > var_busState_8c1bb9d0.posHistory_0x100[0].x) {
+        ang = -ang;
+    }
+    var_busState_8c1bb9d0.ang_0x250 = ang;
+
+    if (var_busState_8c1bb9d0.bus_state_0x2b4 == 0) {
+        /* Boarding: substate 0 waits for the doors-open trigger, substate 1
+         * ramps var_8c227db0 up to var_8c227db4 (door hold time) then moves
+         * to substate 2 (BusStop drives the rest from there). */
+        if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 0) {
+            if (var_busState_8c1bb9d0.field_0x3c4 != 0) {
+                sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x1d, 0);
+                var_8c227db0 = 0.0f;
+                var_busState_8c1bb9d0.bus_substate_0x3c0 = 1;
+            }
+        } else if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 1) {
+            var_8c227db0 += 0.5f;
+            if (var_8c227db4 < var_8c227db0) {
+                var_8c227db0 = var_8c227db4;
+                var_busState_8c1bb9d0.bus_substate_0x3c0 = 2;
+                var_busState_8c1bb9d0.field_0x3c4 = 0;
+            }
+        }
+    } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 1) {
+        /* Driving: substate 2 waits for the doors-close trigger (A button or
+         * scripted), substate 3 ramps var_8c227db0 back down to 0 then
+         * returns to substate 0. */
+        if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 2) {
+            if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
+                var_busState_8c1bb9d0.field_0x3c4 = 1;
+            }
+            if (var_busState_8c1bb9d0.field_0x3c4 != 0) {
+                sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x1e, 0);
+                var_busState_8c1bb9d0.bus_substate_0x3c0 = 3;
+            }
+        } else if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 3) {
+            var_8c227db0 -= 0.5f;
+            if (var_8c227db0 < 0.0f) {
+                var_busState_8c1bb9d0.bus_substate_0x3c0 = 0;
+                var_busState_8c1bb9d0.field_0x3c4 = 0;
+            }
+        }
+
+        FUN_8c0246b2();
+
+        /* One-shot A-button latch, seen through var_8c2264b8's struct base
+         * (coincidentally aliases the separately-imported var_8c2264c4 used
+         * by other units -- see sectionB.h). */
+        if (var_8c2264b8.field_0x0c == 0 &&
+            (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
+            var_8c2264b8.field_0x0c = 1;
+        }
+
+        if (var_inputMapSel_8c1bb8c8 == 0) {
+            /* Direct (non-mapped) steering: move straight along the current
+             * heading angle. */
+            int steerAng = var_busState_8c1bb9d0.ang_0x258 + ang;
+            float sinA = njSin(steerAng);
+            float cosA = njCos(steerAng);
+
+            var_busState_8c1bb9d0.posX_0x0f4 -= var_busState_8c1bb9d0.speed_0x27c * sinA;
+            var_busState_8c1bb9d0.posZ_0x0fc -= var_busState_8c1bb9d0.speed_0x27c * cosA;
+        } else {
+            /* Mapped-route steering: ramp field_0x2c4 toward 2.0 (its
+             * neutral/centered value) at prevSpeed per frame. */
+            if (var_busState_8c1bb9d0.field_0x2c4 != 2.0f &&
+                var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
+                if (var_busState_8c1bb9d0.field_0x2c4 <= 2.0f) {
+                    var_busState_8c1bb9d0.field_0x2c4 += prevSpeed;
+                    if (var_busState_8c1bb9d0.field_0x2c4 > 2.0f) {
+                        var_busState_8c1bb9d0.field_0x2c4 = 2.0f;
+                    }
+                } else {
+                    var_busState_8c1bb9d0.field_0x2c4 -= prevSpeed;
+                    if (var_busState_8c1bb9d0.field_0x2c4 < 2.0f) {
+                        var_busState_8c1bb9d0.field_0x2c4 = 2.0f;
+                    }
+                }
+            }
+
+            FUN_8c023e7e();
+
+            if (var_busState_8c1bb9d0.field_0x334 == 0) {
+                var_busState_8c1bb9d0.field_0x2bc += var_busState_8c1bb9d0.speed_0x27c;
+                var_busState_8c1bb9d0.field_0x2c0 += var_busState_8c1bb9d0.speed_0x27c;
+            }
+
+            FUN_8c02412c();
+        }
+
+        if (var_busState_8c1bb9d0.mirror_0x268 != 0) {
+            FUN_8c024280();
+        }
+    } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 2) {
+        /* Knockback/reverse: slide along the collision-knockback direction
+         * (dir_x/dir_z), decelerating to a stop, then resume driving (or
+         * braking, if the run is basically over). */
+        var_busState_8c1bb9d0.posX_0x0f4 += prevSpeed * var_busState_8c1bb9d0.dir_x_0x29c;
+        var_busState_8c1bb9d0.posZ_0x0fc += prevSpeed * var_busState_8c1bb9d0.dir_z_0x2a0;
+        var_busState_8c1bb9d0.posHistory_0x100[0].x += prevSpeed * var_busState_8c1bb9d0.dir_x2_0x2ac;
+        var_busState_8c1bb9d0.posHistory_0x100[0].z += prevSpeed * var_busState_8c1bb9d0.dir_z2_0x2b0;
+        var_busState_8c1bb9d0.speed_0x27c -= 0.1f;
+        if (var_busState_8c1bb9d0.speed_0x27c <= 0.0f) {
+            if (var_inputMapSel_8c1bb8c8 != 0) {
+                var_busState_8c1bb9d0.field_0x2c4 =
+                    FUN_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.field_0x0ec);
+            }
+            var_busState_8c1bb9d0.bus_state_0x2b4 = (var_8c2285c4[0] < 3) ? 1 : 3;
+            var_busState_8c1bb9d0.speed_0x27c = 0.0f;
+        }
+    } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 4) {
+        /* Braking to a stop (run over): ramp speed_0x27c toward 0 at
+         * 0.02/frame, snapping to exactly 0 and moving to state 3 once it
+         * crosses, then keep moving along field_0x274/field_0x278. */
+        if (var_busState_8c1bb9d0.speed_0x27c <= 0.0f) {
+            var_busState_8c1bb9d0.speed_0x27c += 0.02f;
+            if (var_busState_8c1bb9d0.speed_0x27c > 0.0f) {
+                var_busState_8c1bb9d0.speed_0x27c = 0.0f;
+                var_busState_8c1bb9d0.bus_state_0x2b4 = 3;
+            }
+        } else {
+            var_busState_8c1bb9d0.speed_0x27c -= 0.02f;
+            if (var_busState_8c1bb9d0.speed_0x27c < 0.0f) {
+                var_busState_8c1bb9d0.speed_0x27c = 0.0f;
+                var_busState_8c1bb9d0.bus_state_0x2b4 = 3;
+            }
+        }
+        var_busState_8c1bb9d0.posX_0x0f4 -= var_busState_8c1bb9d0.speed_0x27c * var_busState_8c1bb9d0.field_0x274;
+        var_busState_8c1bb9d0.posZ_0x0fc -= var_busState_8c1bb9d0.speed_0x27c * var_busState_8c1bb9d0.field_0x278;
+    }
+    /* bus_state_0x2b4 == 3 (fully stopped): nothing else to do here, falls
+     * straight into the shared tail below. */
+
+    FUN_8c010c6e();
+
+    if (var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
+        int *result;
+
+        FUN_8c023938();
+        FUN_8c023cba();
+
+        var_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2d0)(
+            var_busState_8c1bb9d0.posHistory_0x100[2].x, var_busState_8c1bb9d0.posHistory_0x100[2].y,
+            var_busState_8c1bb9d0.posHistory_0x100[2].z, &var_busState_8c1bb9d0.field_0x340);
+        if (result != NULL) {
+            var_busState_8c1bb9d0.field_0x34c = result[0];
+            var_busState_8c1bb9d0.field_0x350 = result[1];
+            var_busState_8c1bb9d0.field_0x354 = result[2];
+            var_busState_8c1bb9d0.field_0x358 = result[3];
+        }
+
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2d0)(
+            var_busState_8c1bb9d0.posHistory_0x100[3].x, var_busState_8c1bb9d0.posHistory_0x100[3].y,
+            var_busState_8c1bb9d0.posHistory_0x100[3].z, &var_busState_8c1bb9d0.field_0x35c);
+        if (result != NULL) {
+            var_busState_8c1bb9d0.field_0x368 = result[0];
+            var_busState_8c1bb9d0.field_0x36c = result[1];
+            var_busState_8c1bb9d0.field_0x370 = result[2];
+            var_busState_8c1bb9d0.field_0x374 = result[3];
+        }
+
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2d0)(
+            var_busState_8c1bb9d0.posHistory_0x100[0].x, var_busState_8c1bb9d0.posHistory_0x100[0].y,
+            var_busState_8c1bb9d0.posHistory_0x100[0].z, &var_busState_8c1bb9d0.field_0x378);
+        if (result != NULL) {
+            var_busState_8c1bb9d0.field_0x384 = result[0];
+            var_busState_8c1bb9d0.field_0x388 = result[1];
+            var_busState_8c1bb9d0.field_0x38c = result[2];
+            var_busState_8c1bb9d0.field_0x390 = result[3];
+        }
+
+        var_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2cc)(
+            var_busState_8c1bb9d0.posX_0x0f4, var_busState_8c1bb9d0.posY_0x0f8,
+            var_busState_8c1bb9d0.posZ_0x0fc, &var_busState_8c1bb9d0.field_0x394);
+        if (result == NULL) {
+            var_busState_8c1bb9d0.field_0x3a0 = -1;
+            var_busState_8c1bb9d0.field_0x2dc = 0;
+        } else {
+            var_busState_8c1bb9d0.field_0x3a0 = result[0];
+            var_busState_8c1bb9d0.field_0x2dc = result[1];
+        }
+
+        var_8c228b3c = var_currentCourse_8c1bb868.attrMark_0x14;
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2cc)(
+            var_busState_8c1bb9d0.posX_0x0f4, var_busState_8c1bb9d0.posY_0x0f8,
+            var_busState_8c1bb9d0.posZ_0x0fc, &var_busState_8c1bb9d0.field_0x3a4);
+        if (result == NULL) {
+            var_busState_8c1bb9d0.field_0x3b0 = 0;
+            var_busState_8c1bb9d0.field_0x3b4 = 0;
+            var_busState_8c1bb9d0.field_0x3b8 = 0;
+            var_busState_8c1bb9d0.field_0x3bc = 0;
+        } else {
+            var_busState_8c1bb9d0.field_0x3b0 = result[0];
+            var_busState_8c1bb9d0.field_0x3b4 = result[1];
+            var_busState_8c1bb9d0.field_0x3b8 = result[2];
+            var_busState_8c1bb9d0.field_0x3bc = result[3];
+        }
+    }
+
+    if (var_inputMapSel_8c1bb8c8 != 0) {
+        /* Smooth ang_0x258 toward a target derived from field_0x254, at most
+         * 0xb6 per frame, clamped to +-0x2aaa. */
+        int target = var_busState_8c1bb9d0.field_0x254 - var_busState_8c1bb9d0.ang_0x250;
+
+        if (var_busState_8c1bb9d0.ang_0x258 < target) {
+            if (var_busState_8c1bb9d0.ang_0x258 - target < -0xb6) {
+                target = var_busState_8c1bb9d0.ang_0x258 + 0xb6;
+            }
+        } else if (var_busState_8c1bb9d0.ang_0x258 - target > 0xb6) {
+            target = var_busState_8c1bb9d0.ang_0x258 - 0xb6;
+        }
+
+        if (target > 0x2aaa) {
+            var_busState_8c1bb9d0.ang_0x258 = 0x2aaa;
+        } else if (target < -0x2aaa) {
+            var_busState_8c1bb9d0.ang_0x258 = -0x2aaa;
+        } else {
+            var_busState_8c1bb9d0.ang_0x258 = target;
+        }
+    }
+
+    var_busState_8c1bb9d0.distance_traveled_0x070 -= (int)(var_busState_8c1bb9d0.speed_0x27c * 65536.0f);
+    var_busState_8c1bb9d0.ang_0x074 = var_busState_8c1bb9d0.ang_0x258;
+
+    /* Shift the 4-entry acceleration history left by one, summing the three
+     * carried-over samples, then append the new sample and scale to acc_0x078. */
+    {
+        float sum = 0.0f;
+
+        for (i = 0; i < 3; i++) {
+            sum += var_busState_8c1bb9d0.acc_hist_0x280[i + 1];
+            var_busState_8c1bb9d0.acc_hist_0x280[i] = var_busState_8c1bb9d0.acc_hist_0x280[i + 1];
+        }
+        var_busState_8c1bb9d0.acc_hist_0x280[3] = var_busState_8c1bb9d0.speed_0x27c - prevSpeed;
+        sum += var_busState_8c1bb9d0.acc_hist_0x280[3];
+        var_busState_8c1bb9d0.acc_0x078 = (int)(sum * 1024.0f);
+    }
+    if (var_busState_8c1bb9d0.acc_0x078 < -0x5b) {
+        var_busState_8c1bb9d0.acc_0x078 = -0x5b;
+    } else if (var_busState_8c1bb9d0.acc_0x078 > 0x5b) {
+        var_busState_8c1bb9d0.acc_0x078 = 0x5b;
+    }
+
+    var_busState_8c1bb9d0.ang_0x07c =
+        (int)-(var_busState_8c1bb9d0.speed_0x27c * (float)var_busState_8c1bb9d0.ang_0x258 * 0.2f);
+    if (var_busState_8c1bb9d0.ang_0x07c < -0x2d8) {
+        var_busState_8c1bb9d0.ang_0x07c = -0x2d8;
+    } else if (var_busState_8c1bb9d0.ang_0x07c > 0x2d8) {
+        var_busState_8c1bb9d0.ang_0x07c = 0x2d8;
+    }
+
+    if (var_timeOfDay_8c18ad20 == 1) {
+        var_busState_8c1bb9d0.blinker_0x080 |= 0x10;
+    } else if (var_timeOfDay_8c18ad20 == 2) {
+        prob_blinker_8c028022(var_8c1bbd9c);
+    }
+
+    if (var_busState_8c1bb9d0.gear_0x2f4 == 5) {
+        /* Reverse gear: hazard-style double blinker, toggled every 16 frames
+         * via field_0x2f8's bit 4. */
+        int wasSet = var_busState_8c1bb9d0.field_0x2f8 & 0x10;
+
+        var_busState_8c1bb9d0.field_0x2f8 += 1;
+        if (wasSet != 0) {
+            var_busState_8c1bb9d0.blinker_0x080 |= 6;
+        }
+    } else if (var_busState_8c1bb9d0.field_0x25c == 0) {
+        var_busState_8c1bb9d0.field_0x260 = 0;
+        sdMidiStop(var_midiHandles_8c0fcd28[1]);
+    } else {
+        /* Left/right turn signal: play the tick SFX on the first frame, then
+         * toggle the blinker bit every 16 frames via field_0x260's bit 4. */
+        int wasSet;
+
+        if (var_busState_8c1bb9d0.field_0x260 == 0) {
+            sdMidiPlay(var_midiHandles_8c0fcd28[1], 1, 0x17, 0);
+        }
+        wasSet = var_busState_8c1bb9d0.field_0x260 & 0x10;
+        var_busState_8c1bb9d0.field_0x260 += 1;
+        if (wasSet == 0) {
+            if (var_busState_8c1bb9d0.field_0x25c == 1) {
+                var_busState_8c1bb9d0.blinker_0x080 |= 2;
+            } else {
+                var_busState_8c1bb9d0.blinker_0x080 |= 4;
+            }
+        }
+    }
+
+    move_bus_model_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
+
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
+        demoUpdateCamera_8c025906();
+    } else {
+        gameplayRenderBusUpdateCamera_8c025078();
+    }
+
+    FUN_8c025604();
+}

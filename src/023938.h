@@ -10,6 +10,10 @@ void FUN_8c023bce(void);
  * arguments; role unclear. */
 void FUN_8c023938(void);
 
+/* Called by BusTask_8c022bdc (022bdc) with no arguments, once per frame while
+ * driving; role unclear. */
+void FUN_8c023e7e(void);
+
 /* Called by FUN_8c023610 (023310_bus_init) with no arguments; role unclear. */
 void FUN_8c023cba(void);
 

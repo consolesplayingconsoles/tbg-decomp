@@ -54,7 +54,7 @@ SRCS = \
 	src/asm/021b9c.src \
 	src/asm/decompiled/0222dc_fadecmd.src \
 	src/asm/decompiled/022464_fade.src \
-	src/asm/022bdc.src \
+	src/asm/decompiled/022bdc_bus.src \
 	src/asm/decompiled/023310_bus_init.src \
 	src/asm/023938.src \
 	src/asm/02412c.src \

@@ -760,5 +760,14 @@ return [
                 "build/output_test/023310_bus_init_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/022bdc_bus/8c022bdc_BusTask.php",
+            ],
+            "objects" => [
+                "build/output_test/022bdc_bus_src.obj",
+                "build/output_test/022bdc_bus_c.obj",
+            ]
+        ],
     ],
 ];
