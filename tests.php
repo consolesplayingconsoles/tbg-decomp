@@ -461,6 +461,19 @@ return [
         ],
         [
             "tests" => [
+                "tests/01f3c0_ending/8c01f3c0_selectEndingDialog.php",
+                "tests/01f3c0_ending/8c01f42c_updateEndingOverlay.php",
+                "tests/01f3c0_ending/8c01f50e_scrollCreditsText.php",
+                "tests/01f3c0_ending/8c01f658_creditsTask.php",
+                "tests/01f3c0_ending/8c01f954_EndingStart.php",
+            ],
+            "objects" => [
+                "build/output_test/01f3c0_ending_src.obj",
+                "build/output_test/01f3c0_ending_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
                 "tests/02171c/8c02171c_TileStreamClearUnknownVar.php",
                 "tests/02171c/8c021724_TileStreamTeardown.php",
                 "tests/02171c/8c02175a_TileStreamInit.php",

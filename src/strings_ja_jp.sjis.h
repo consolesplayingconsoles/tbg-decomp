@@ -239,4 +239,46 @@
 #define MSG_CONFIRM_QUIT_PRACTICE "—ûKƒ‚[ƒh‚ðI—¹‚µ‚Ü‚·<E>‚æ‚ë‚µ‚¢‚Å‚·‚©H"
 #define MSG_RESULT_CANCEL_SAVE "ƒZ[ƒu‚ð’†Ž~‚µ‚Ü‚·‚©H"
 
+
+/* Ending staff-roll credit lines, in scroll order (01f3c0_ending).
+ * Each corresponds to one const_8c... block in that unit; see
+ * docs/next_units.md / the unit itself for how they are addressed. */
+#define MSG_ENDING_CREDITS_01 "`‚f‚`‚l‚d@‚c‚d‚r‚h‚f‚m`<E><E><E>‚j‚d‚m‚i‚h@‚m‚`‚j‚`‚m‚n<E><E><E><E><E><E>`‚n‚q‚h‚f‚h‚m‚`‚k@‚o‚k‚`‚m`<E><E><E>‚s‚`‚j‚d‚n@‚x‚`‚f‚h" /* const_8c0389b4 */
+#define MSG_ENDING_CREDITS_02 "<E><E><E>`‚l‚`‚h‚m@‚o‚q‚n‚f‚q‚`‚l‚l‚d‚q`<E><E><E>‚j‚`‚y‚t‚`‚j‚h@‚s‚n‚h‚c‚`<E><E><E><E><E><E>`‚r‚t‚a@‚o‚q‚n‚f‚q‚`‚l‚l‚d‚q`" /* const_8c038a40 */
+#define MSG_ENDING_CREDITS_03 "‚x‚n‚t‚g‚d‚h@‚r‚`‚s‚n<E><E>‚r‚g‚h‚m‚h‚b‚g‚h‚q‚n@‚s‚`‚j‚`‚g‚`‚r‚g‚h<E><E><E><E><E><E>`‚`‚r‚r‚h‚r‚s‚`‚m‚s@‚o‚q‚n‚f‚q‚`‚l‚l‚d‚q`<E><E><E>‚l‚h‚s‚r‚t‚m‚n‚q‚h@‚l‚`‚s‚r‚t‚c‚`<E><E>‚l‚h‚m‚n‚q‚t@‚l‚h‚x‚`‚i‚h‚l‚`" /* const_8c038ac4 */
+#define MSG_ENDING_CREDITS_04 "<E><E><E><E>`‚u‚l@‚o‚q‚n‚f‚q‚`‚l‚l‚d‚q`<E><E><E>‚i‚t‚m@‚h‚r‚g‚h‚c‚`<E><E>‚`‚j‚h‚n@‚r‚g‚h‚q‚`‚h‚r‚g‚h<E><E>iŠ”Ž®‰ïŽÐƒ^ƒNƒgƒT[ƒrƒXj" /* const_8c038b98 */
+#define MSG_ENDING_CREDITS_05 "<E><E>`‚r‚t‚o‚o‚n‚q‚s@‚o‚q‚n‚f‚q‚`‚l‚l‚d‚q`<E><E><E>‚s‚n‚q‚t@‚m‚`‚j‚`‚f‚`‚v‚`" /* const_8c038c24 */
+#define MSG_ENDING_CREDITS_06 "<E><E><E><E><E><E>`‚b‚g‚`‚q‚`‚b‚s‚d‚q@‚c‚d‚r‚h‚f‚m`<E><E><E>‚m‚n‚a‚t‚n@‚j‚t‚r‚t‚m‚n‚j‚h" /* const_8c038c78 */
+#define MSG_ENDING_CREDITS_07 "<E><E><E><E><E><E><E><E><E><E>`‚b‚f@‚c‚d‚r‚h‚f‚m‚d‚q`<E><E><E>`‚„‚‰‚’‚…‚ƒ‚”‚‚’`" /* const_8c038cd4 */
+#define MSG_ENDING_CREDITS_08 "‚s‚n‚r‚g‚h‚`‚j‚h@‚l‚`‚q‚t‚x‚`‚l‚`<E><E>‚x‚`‚r‚t‚e‚t‚l‚h@‚r‚n‚d‚i‚h‚l‚`<E><E>iŠ”Ž®‰ïŽÐƒEƒYj<E><E><E><E>`‚ƒ‚‚’`<E><E>‚m‚n‚a‚t‚g‚h‚s‚n@‚x‚`‚l‚`‚l‚n‚s‚n<E><E>‚s‚n‚l‚n‚d@‚e‚t‚i‚h‚r‚`‚v‚`" /* const_8c038d2c */
+#define MSG_ENDING_CREDITS_09 "<E>`‚“‚ˆ‚‰‚Ž‚Š‚•‚‹‚••‚—‚‚Ž‚‡‚‚Ž`<E><E>‚s‚`‚j‚`‚x‚`@‚x‚n‚r‚g‚h‚c‚`<E><E>‚j‚`‚y‚t‚m‚n‚q‚h@‚s‚`‚a‚`‚s‚`<E><E>‚j‚`‚s‚r‚t‚x‚t‚j‚h@‚l‚h‚x‚`‚n<E><E>‚l‚h‚s‚r‚t‚n@‚s‚d‚q‚`‚n<E><E>‚l‚`‚m‚`‚a‚t@‚j‚n‚i‚h‚l‚`<E><E>‚f‚d‚m‚f‚n@‚h‚s‚n" /* const_8c038dec */
+#define MSG_ENDING_CREDITS_10 "‚j‚d‚h‚i‚h@‚m‚`‚j‚`‚m‚h‚r‚g‚h<E><E>iŠ”Ž®‰ïŽÐƒEƒYj<E><E><E><E>`‚‚•‚‚…`<E><E>‚x‚`‚r‚t‚g‚h‚q‚n@‚j‚`‚m‚n‚t<E><E>‚x‚n‚r‚g‚h‚m‚n‚q‚h@‚g‚h‚q‚`‚h<E><E>‚x‚t‚s‚`‚j‚`@‚x‚`‚l‚`‚y‚`‚j‚h<E><E>i—LŒÀ‰ïŽÐƒ^ƒCƒj[ƒA[ƒgj" /* const_8c038ed4 */
+#define MSG_ENDING_CREDITS_11 "<E><E>‚s‚d‚q‚t‚n@‚h‚b‚g‚h‚l‚t‚q‚`<E><E>‚j‚n‚t‚i‚h@‚n‚f‚`‚s‚`<E><E>iŠ”Ž®‰ïŽÐƒZƒsƒAj<E><E><E><E>`‚…‚–‚…‚Ž‚”`<E><E>‚r‚x‚n‚i‚h@‚l‚`‚s‚r‚t‚c‚`<E><E>‚g‚`‚x‚`‚s‚n@‚r‚g‚h‚m‚n‚g‚`‚q‚`" /* const_8c038fac */
+#define MSG_ENDING_CREDITS_12 "<E>‚r‚`‚b‚g‚h‚j‚n@‚r‚`‚j‚`‚t‚d<E><E>‚m‚n‚a‚t‚g‚h‚s‚n@‚j‚h‚q‚h‚s‚n‚t‚r‚g‚h<E><E>‚`‚j‚h‚s‚d‚q‚t@‚s‚`‚j‚`‚n<E><E>‚j‚t‚m‚h‚g‚`‚q‚t@‚`‚q‚`‚h<E><E>‚b‚g‚h‚g‚h‚q‚n@‚j‚t‚r‚g‚h‚a‚d<E><E>‚x‚t‚t‚h‚b‚g‚h‚q‚n@‚r‚g‚h‚l‚`‚c‚`<E><E>‚g‚h‚c‚d‚l‚h‚s‚r‚t@‚r‚g‚h‚n‚m‚n" /* const_8c039064 */
+#define MSG_ENDING_CREDITS_13 "‚m‚`‚n‚x‚`@‚t‚d‚c‚`<E><E>iŠ”Ž®‰ïŽÐƒEƒYj<E><E><E><E>`‚–‚@‚‡‚’‚‚‚ˆ‚‰‚ƒ`<E><E>‚m‚`‚n‚`‚j‚h@‚r‚g‚h‚l‚n‚f‚`‚l‚`<E><E><E><E>`‚f‚q‚`‚o‚g‚h‚b@‚r‚t‚o‚o‚n‚q‚s`<E><E>‚x‚t‚s‚`‚j‚`@‚l‚t‚q‚`‚j‚`‚l‚h" /* const_8c039164 */
+#define MSG_ENDING_CREDITS_14 "<E>i—LŒÀ‰ïŽÐƒGƒ€EƒNƒŠƒGƒCƒgj<E><E><E>‚l‚`‚r‚`‚j‚`‚y‚t@‚j‚n‚a‚`‚x‚`‚r‚g‚h<E><E>i—LŒÀ‰ïŽÐƒr[ƒgƒŠƒ“ƒNƒXj<E><E><E><E>`‚‚ˆ‚‚”‚`<E><E>‚g‚h‚r‚`‚r‚g‚h@‚l‚`‚q‚t‚x‚`‚l‚`" /* const_8c03922c */
+#define MSG_ENDING_CREDITS_15 "<E>`‚–‚‰‚„‚…‚`<E><E>‚s‚`‚j‚`‚e‚t‚l‚h@‚l‚h‚m‚`‚l‚h<E><E>iŠ”Ž®‰ïŽÐƒwƒLƒTƒSƒ“j<E><E><E><E>`‚…‚–‚…‚Ž‚”`<E><E>‚r‚g‚h‚f‚d‚j‚n@‚r‚`‚j‚t‚l‚`<E><E>i—LŒÀ‰ïŽÐƒSƒŠƒ‰j" /* const_8c0392dc */
+#define MSG_ENDING_CREDITS_16 "<E>‚j‚`‚y‚t‚r‚t‚j‚d@‚x‚n‚r‚g‚h‚g‚`‚q‚`<E><E>iƒGƒhƒ‚ƒ“j" /* const_8c039384 */
+#define MSG_ENDING_CREDITS_17 "<E><E><E><E>`‚r‚b‚d‚m‚`‚q‚h‚n@‚v‚q‚h‚s‚d‚q`<E><E><E>‚`‚r‚`‚s‚n@‚h‚y‚t‚l‚h" /* const_8c0393c0 */
+#define MSG_ENDING_CREDITS_18 "<E><E><E><E><E><E><E><E>`‚u‚n‚h‚b‚d@‚`‚b‚s‚n‚q`<E><E><E>‚r‚x‚n‚s‚n@‚j‚`‚r‚g‚h‚h<E><E>‚r‚`‚x‚t‚q‚h@‚r‚`‚c‚`‚n‚j‚`" /* const_8c039410 */
+#define MSG_ENDING_CREDITS_19 "‚j‚d‚m‚i‚h@‚g‚`‚l‚`‚c‚`<E><E>‚l‚`‚r‚`‚j‚`‚y‚t@‚r‚t‚y‚t‚j‚h<E><E>‚x‚n‚j‚n@‚r‚n‚t‚l‚h<E><E>‚l‚`‚j‚n‚s‚n@‚s‚r‚t‚l‚t‚q‚`<E><E>‚r‚`‚b‚g‚h‚j‚n@‚j‚n‚i‚h‚l‚`<E><E>‚s‚n‚r‚g‚h‚s‚`‚j‚`@‚r‚g‚h‚l‚h‚y‚t<E><E>‚l‚h‚s‚r‚t‚`‚j‚h@‚l‚`‚c‚n‚m‚n<E><E>‚s‚n‚l‚n‚g‚h‚q‚n@‚s‚r‚t‚a‚n‚h" /* const_8c039488 */
+#define MSG_ENDING_CREDITS_20 "<E>‚m‚`‚n‚j‚h@‚a‚`‚m‚c‚n<E><E>‚r‚d‚h‚i‚h‚q‚n@‚b‚g‚n‚c‚`<E><E>‚c‚`‚h‚r‚t‚j‚d@‚d‚f‚`‚v‚`<E><E>‚x‚t‚t‚j‚h@‚g‚`‚l‚`‚m‚n<E><E>‚x‚t‚l‚h‚j‚n@‚h‚v‚`‚l‚n‚s‚n<E><E>‚`‚j‚h‚j‚n@‚j‚n‚h‚j‚d<E><E>‚x‚n‚r‚g‚h‚j‚n@‚j‚`‚l‚d‚h" /* const_8c039594 */
+#define MSG_ENDING_CREDITS_21 "‚r‚d‚s‚r‚t@‚n‚g‚`‚r‚g‚h<E><E><E><E><E><E>`‚u‚n‚h‚b‚d@‚b‚n‚n‚q‚c‚h‚m‚`‚s‚d`<E><E><E>‚s‚`‚j‚`‚j‚n@‚g‚`‚r‚d‚f‚`‚v‚`<E><E>i—LŒÀ‰ïŽÐ]èƒvƒƒ_ƒNƒVƒ‡ƒ“j" /* const_8c03966c */
+#define MSG_ENDING_CREDITS_22 "<E><E><E>`‚l‚t‚r‚h‚b`<E><E><E>`‚‚’‚‚„‚•‚ƒ‚…‚’`<E><E>‚g‚d‚d|‚i‚n‚n‚m@‚j‚h‚l<E><E>iŠ”Ž®‰ïŽÐƒAƒbƒgƒ}ƒ“j<E><E><E><E>`‚„‚‰‚’‚…‚ƒ‚”‚‚’`" /* const_8c039708 */
+#define MSG_ENDING_CREDITS_23 "<E>‚s‚d‚s‚r‚t‚q‚n@‚l‚t‚s‚`<E><E>iŠ”Ž®‰ïŽÐƒAƒbƒgƒ}ƒ“j<E><E><E><E><E><E>`‚l‚t‚r‚h‚b‚h‚`‚m`<E><E><E>`‚‹‚…‚™‚‚‚‚‚’‚„`<E><E>‚x‚n‚r‚g‚h‚`‚j‚h@‚s‚`‚m‚m‚n" /* const_8c039798 */
+#define MSG_ENDING_CREDITS_24 "<E><E><E>`‚‚‚‚“‚“`<E><E>‚l‚`‚r‚`‚s‚n‚l‚n@‚n‚n‚l‚n‚s‚n<E><E><E><E>`‚‡‚•‚‰‚”‚‚’`<E><E>‚g‚h‚c‚d‚`‚j‚h@‚`‚h‚g‚`‚q‚`" /* const_8c039838 */
+#define MSG_ENDING_CREDITS_25 "`‚o‚q‚n‚f‚q‚`‚l`<E><E>‚h‚b‚g‚h‚q‚n‚t@‚s‚`‚j‚t‚v‚`<E><E><E><E><E><E>`‚r‚n‚t‚m‚c@‚d‚e‚e‚d‚b‚s`<E><E><E>‚s‚n‚l‚n‚l‚h‚s‚r‚t@‚l‚`‚s‚r‚t‚r‚g‚h‚s‚`<E><E>‚x‚n‚r‚g‚h‚x‚t‚j‚h@‚j‚`‚c‚n‚n‚j‚`" /* const_8c0398b0 */
+#define MSG_ENDING_CREDITS_26 "i—LŒÀ‰ïŽÐƒeƒB[ƒYƒ~ƒ…[ƒWƒbƒNj<E><E><E><E><E><E>`‚h‚m‚s‚d‚q‚e‚`‚b‚d•‚o‚`‚b‚j‚`‚f‚d`<E><E><E>`‚„‚‰‚’‚…‚ƒ‚”‚‚’`<E><E>‚g‚h‚c‚d‚m‚n‚q‚h@‚j‚`‚v‚`‚j‚`‚l‚h" /* const_8c03996c */
+#define MSG_ENDING_CREDITS_27 "`‚„‚…‚“‚‰‚‡‚Ž‚…‚’`<E><E>‚s‚`‚j‚d‚r‚g‚h@‚`‚q‚`‚h<E><E><E><E><E><E>`‚o‚q‚n‚l‚n‚s‚h‚n‚m`<E><E><E>‚s‚n‚l‚n‚l‚h@‚j‚h‚x‚n‚m‚n" /* const_8c039a0c */
+#define MSG_ENDING_CREDITS_28 "<E><E>`‚r‚o‚d‚b‚h‚`‚k@‚s‚g‚`‚m‚j‚r`<E><E><E>‚g‚h‚q‚n‚x‚t‚j‚h@‚l‚h‚x‚`‚m‚n<E><E>‚x‚`‚r‚t‚r‚g‚h@‚x‚`‚l‚`‚r‚g‚h‚s‚`<E><E>‚j‚`‚y‚t‚g‚h‚j‚n@‚l‚n‚q‚h‚h<E><E>‚i‚t‚m‚h‚b‚g‚h@‚r‚g‚h‚l‚h‚y‚t<E><E>‚x‚n‚r‚g‚h‚l‚h‚s‚r‚t@‚v‚`‚j‚`‚h" /* const_8c039a8c */
+#define MSG_ENDING_CREDITS_29 "‚s‚`‚c‚`‚r‚g‚h@‚s‚`‚j‚d‚y‚`‚j‚h<E><E>iŠ”Ž®‰ïŽÐƒZƒKEƒGƒ“ƒ^[ƒvƒ‰ƒCƒ[ƒXj<E><E><E>‚l‚`‚r‚`‚m‚n‚a‚t@‚s‚r‚t‚j‚`‚l‚n‚s‚n<E><E>iŠ”Ž®‰ïŽÐƒ‰ƒ“ƒhEƒz[Ij<E><E><E>‚j‚d‚m@‚`‚r‚n<E><E>iƒfƒWƒvƒ‰ƒlƒbƒg—LŒÀ‰ïŽÐj" /* const_8c039b70 */
+#define MSG_ENDING_CREDITS_30 "—LŒÀ‰ïŽÐƒ}ƒ‰ƒJƒX“d‹C‰ÈŠw<E><E><E>‚s‚`‚j‚d‚r‚g‚h@‚g‚`‚r‚d‚f‚`‚v‚`<E><E>‚l‚`‚m‚`‚a‚t@‚r‚`‚h‚s‚n‚t<E><E>‚i‚t‚m‚x‚`@‚`‚a‚d<E><E>‚g‚h‚c‚d‚x‚t‚j‚h@‚m‚`‚r‚t" /* const_8c039c40 */
+#define MSG_ENDING_CREDITS_31 "<E><E><E><E><E>`‚o‚q‚n‚c‚t‚b‚s@‚o‚k‚`‚m‚m‚h‚m‚f`<E><E><E>‚x‚n‚r‚g‚h‚l‚h@‚r‚`‚s‚n<E><E>‚s‚`‚h‚r‚d‚j‚h@‚m‚`‚f‚`‚l‚h‚m‚d<E><E>i”„‚ê‚éƒRƒ~ƒ…ƒjƒP[ƒVƒ‡ƒ“Š”Ž®‰ïŽÐj" /* const_8c039cdc */
+#define MSG_ENDING_CREDITS_32 "‚x‚`‚r‚t‚e‚t‚l‚h@‚r‚`‚j‚`‚r‚g‚h‚s‚`<E><E>‚j‚d‚m‚i‚h@‚m‚`‚j‚`‚m‚n" /* const_8c039d84 */
+#define MSG_ENDING_CREDITS_33 "`‚c‚h‚q‚d‚b‚s‚n‚q`<E><E><E>‚j‚d‚m‚i‚h@‚m‚`‚j‚`‚m‚n" /* const_8c039dc8 */
+#define MSG_ENDING_CREDITS_34 "<E>`‚o‚q‚n‚c‚t‚b‚d‚q`<E><E><E>‚x‚`‚r‚t‚e‚t‚l‚h@‚r‚`‚j‚`‚r‚g‚h‚s‚`" /* const_8c039e00 */
+#define MSG_ENDING_CREDITS_35 "<E><E>`‚d‚w‚d‚b‚s‚h‚u‚d@‚o‚q‚n‚c‚t‚b‚d‚q`<E><E><E>‚g‚h‚c‚d‚`‚j‚h@‚s‚r‚t‚i‚h‚j‚`‚v‚`" /* const_8c039e48 */
+#define MSG_ENDING_CREDITS_36 "<E><E><E>‹¦—Í@“Œ‹ž“sŒð’Ê‹Ç" /* const_8c039ea0 */
+#define MSG_ENDING_CREDITS_37 "<E><E><E><E><E>Šé‰æEŠJ”­@Š”Ž®‰ïŽÐƒtƒH[ƒeƒBƒtƒ@ƒCƒu<E><E>»‘¢”Ì”„@Š”Ž®‰ïŽÐ@ƒZƒKEƒGƒ“ƒ^[ƒvƒ‰ƒCƒ[ƒX<E><E>›‚e‚n‚q‚s‚x‚e‚h‚u‚d@‚P‚X‚X‚X" /* const_8c039ebc */
+
 #endif /* STRINGS_JA_JP_SJIS_H */

@@ -139,6 +139,10 @@ compile  src/01c980_profile_file.c
 assemble  src/asm/decompiled/01e27c_practice_menu.src
 compile  src/01e27c_practice_menu.c
 
+# 01f3c0_ending
+assemble  src/asm/decompiled/01f3c0_ending.src
+compile  src/01f3c0_ending.c
+
 # 02171c_tile_stream
 assemble  src/asm/decompiled/02171c_tile_stream.src
 compile  src/02171c_tile_stream.c

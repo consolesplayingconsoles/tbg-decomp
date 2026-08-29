@@ -71,7 +71,7 @@ SRCS = \
 	src/01d290_album.c \
 	src/01d7fc_results.c \
 	src/01e27c_practice_menu.c \
-	src/asm/01f3c0.src \
+	src/01f3c0_ending.c \
 	src/asm/01fa78.src \
 	src/asm/020214.src \
 	src/020528.c \

@@ -25,10 +25,21 @@ return new class extends TestCase {
 
         $this->call('_ReplayCodecUnpack_8c02fa14')->with($srcBuf, $destSlot, 100);
 
-        $this->shouldCall('_memcpy')->do(function () {
+        // dst (r4) is &headerSize, a callee-local stack slot whose address
+        // isn't knowable ahead of the call -- capture it at runtime instead
+        // of asserting it. src/len are known, so those are checked directly.
+        $this->shouldCall('_memcpy')->do(function () use ($srcBuf) {
             $dst = $this->registers[4]->value;
             $src = $this->registers[5]->value;
             $len = $this->registers[6]->value;
+
+            if ($src !== $srcBuf || $len !== 4) {
+                throw new RuntimeException(sprintf(
+                    '_memcpy: expected src=0x%08x len=4, got src=0x%08x len=%d',
+                    $srcBuf, $src, $len
+                ));
+            }
+
             for ($i = 0; $i < $len; $i++) {
                 $this->memory->writeUInt8($dst + $i, $this->memory->readUInt8($src + $i));
             }

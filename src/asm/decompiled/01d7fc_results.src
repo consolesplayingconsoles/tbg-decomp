@@ -71,7 +71,7 @@
           .IMPORT     _var_driverPoints_8c2285d0
           .IMPORT     _var_passengerCount_8c1bb8e4
           .IMPORT     _var_eventCount_8c1bb8e8
-          .IMPORT     _FUN_8c01f954
+          .IMPORT     _EndingStart_8c01f954
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawScoreDigits_8c01d7fc
           .AENDI
@@ -1011,7 +1011,7 @@ LP_GEN_50614:
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01DF20
           .DATA.L _CourseMenuBuildCourseUnlockList_8c0172dc ; H'8C01DF24
           .DATA.L _CourseMenuApplyUnlocks_8c0173e6 ; H'8C01DF28
-          .DATA.L _FUN_8c01f954 ; H'8C01DF2C
+          .DATA.L _EndingStart_8c01f954 ; H'8C01DF2C
           .DATA.L _TitlePushTitle_8c015fd6 ; H'8C01DF30
 LAB_8c01df34:
           MOV.L       LP_GEN_43538+10,R3

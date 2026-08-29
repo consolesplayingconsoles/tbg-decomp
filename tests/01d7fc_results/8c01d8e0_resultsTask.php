@@ -34,7 +34,7 @@ return new class extends TestCase {
             '_CourseMenuRequestSysResgrp_8c018568',
             '_CourseMenuRequestCommonResources_8c01852c', '_AsqRequestDat_8c011182',
             '_RouteLoadSetPvmReady_8c014330', '_RouteLoadResetPvmReady_8c014322',
-            '_AsqNop_8c011120', '_AsqProcessQueues_8c011fe0', '_FUN_8c01f954',
+            '_AsqNop_8c011120', '_AsqProcessQueues_8c011fe0', '_EndingStart_8c01f954',
         ] as $fn) {
             $this->setSize($fn, 4);
         }
@@ -1245,7 +1245,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc');
         $this->shouldCall('_CourseMenuApplyUnlocks_8c0173e6');
-        $this->shouldCall('_FUN_8c01f954');
+        $this->shouldCall('_EndingStart_8c01f954');
     }
 
     public function test_state_0xd_normal_return_to_course_menu(): void

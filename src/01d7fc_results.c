@@ -17,7 +17,7 @@
 #include "0193c8_vm_menu.h"
 #include "01b19c_system_menu.h"
 #include "01bb48_vm_game.h"
-#include "01f3c0.h"
+#include "01f3c0_ending.h"
 #include "028258_objects.h"
 #include "sectionB.h"
 #include "serial_debug.h"
@@ -315,7 +315,7 @@ STATIC void resultsTask_8c01d8e0(void)
             if (var_progress_8c1ba1cc.days_0x00 > 0x1e) {
                 CourseMenuBuildCourseUnlockList_8c0172dc();
                 CourseMenuApplyUnlocks_8c0173e6();
-                FUN_8c01f954();
+                EndingStart_8c01f954();
                 return;
             }
             CourseMenuReturn_8c017ef2();

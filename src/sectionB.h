@@ -948,6 +948,7 @@ extern int var_8c22640c;
 extern int var_8c226410;
 extern int var_8c226414[6]; /* dialog id queue built by buildDialogQueue_8c01e992, -1 terminated */
 extern int var_8c22642c; /* lesson attempt counter, incremented on practice retry */
+extern void *var_8c226430; /* selected ending dialog id list, set by selectEndingDialog_8c01f3c0 */
 extern int var_activeTrafficPreset_8c227e14;
 /* Traffic preset table: indexed by var_scenePresetIds_8c1bbd8c's byte at
  * bits 8-15, yielding that preset's record run in the course's *_MAC_CPU1.DAT;

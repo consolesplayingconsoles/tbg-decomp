@@ -66,7 +66,7 @@
           .IMPORT     _ObjectsOpenTextbox_8c02ae3e
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
-          .IMPORT     _FUN_8c01f954
+          .IMPORT     _EndingStart_8c01f954
           .EXPORT     _FUN_8c01e27c
           .AIFDEF UNIT_TESTING
           .EXPORT     _initDescriptionReveal_8c01e576
@@ -1797,7 +1797,7 @@ LP_GEN_11122:
           .RES.W 1 ; H'8C01EFD2
           .DATA.L _CourseMenuBuildCourseUnlockList_8c0172dc ; H'8C01EFD4
           .DATA.L _CourseMenuApplyUnlocks_8c0173e6 ; H'8C01EFD8
-          .DATA.L _FUN_8c01f954 ; H'8C01EFDC
+          .DATA.L _EndingStart_8c01f954 ; H'8C01EFDC
           .DATA.L H'C0A00000 ; H'8C01EFE0
           .DATA.L H'43A00000 ; H'8C01EFE4
           .DATA.L H'43640000 ; H'8C01EFE8

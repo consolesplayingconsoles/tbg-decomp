@@ -45,11 +45,22 @@
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _ResultShowFailedRun_8c01e24e
-          .EXPORT     _FUN_8c01f3c0
-          .EXPORT     _FUN_8c01f50e
-          .EXPORT     _FUN_8c01f954
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _selectEndingDialog_8c01f3c0
+          .EXPORT     _updateEndingOverlay_8c01f42c
+          .EXPORT     _scrollCreditsText_8c01f50e
+          .EXPORT     _creditsTask_8c01f658
+          .EXPORT     _init_8c04528c
+          .EXPORT     _init_8c045290
+          .EXPORT     _init_8c045324
+          .AENDI
+          .EXPORT     _EndingStart_8c01f954
+          .EXPORT     _init_8c04522c
+          .EXPORT     _init_8c045244
+          .EXPORT     _init_8c04525c
+          .EXPORT     _init_8c045278
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c01f3c0:
+_selectEndingDialog_8c01f3c0:
           MOV.L       R14,@-R15
           MOV         #H'0,R4
           MOV.L       LP_GEN_39506+2,R14
@@ -114,7 +125,7 @@ LAB_8c01f426:
 LAB_8c01f428:
           RTS
           MOV.L       @R15+,R14
-LAB_8c01f42c:
+_updateEndingOverlay_8c01f42c:
           MOV.L       R14,@-R15
           MOVA        LP_GEN_39506+30,R0
           MOV.L       LP_GEN_39506+34,R14
@@ -234,7 +245,7 @@ LAB_8c01f4e8:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_FUN_8c01f50e:
+_scrollCreditsText_8c01f50e:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_39506+34,R14
           MOV.L       R13,@-R15
@@ -385,7 +396,7 @@ LAB_8c01f63c:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-LAB_8c01f658:
+_creditsTask_8c01f658:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -622,7 +633,7 @@ LAB_8c01f824:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         LAB_8c01f42c
+          BRA         _updateEndingOverlay_8c01f42c
           MOV.L       @R15+,R14
 LAB_8c01f836:
           MOV.L       @R4,R2
@@ -631,7 +642,7 @@ LAB_8c01f836:
           MOV         #H'5,R3
           MOV.L       R3,@(H'18,R14)
 LAB_8c01f840:
-          BSR         _FUN_8c01f50e
+          BSR         _scrollCreditsText_8c01f50e
           NOP
           MOV         #H'68,R0
           MOV.L       @(R0,R14),R3
@@ -741,7 +752,7 @@ LAB_8c01f918:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _FUN_8c01f50e
+          BRA         _scrollCreditsText_8c01f50e
           MOV.L       @R15+,R14
 LAB_8c01f92a:
           ADD         #H'8,R15
@@ -761,11 +772,11 @@ LP_GEN_28976:
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01F948
           .DATA.L _ResultShowFailedRun_8c01e24e ; H'8C01F94C
           .DATA.L _TitlePushTitle_8c015fd6 ; H'8C01F950
-_FUN_8c01f954:
+_EndingStart_8c01f954:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           ADD         #-H'8,R15
-          BSR         _FUN_8c01f3c0
+          BSR         _selectEndingDialog_8c01f3c0
           NOP
           MOV.L       LP_GEN_38893+10,R2
           MOV.L       LP_GEN_38893+14,R0
@@ -868,7 +879,7 @@ LP_GEN_38893:
           .DATA.L _GameTask_8c012f44 ; H'8C01FA28
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01FA2C
           .DATA.L _TaskPush_8c014ae8 ; H'8C01FA30
-          .DATA.L LAB_8c01f658 ; H'8C01FA34
+          .DATA.L _creditsTask_8c01f658 ; H'8C01FA34
           .DATA.L _var_tex_8c157af8 ; H'8C01FA38
           .DATA.L _njGarbageTexture ; H'8C01FA3C
           .DATA.L H'C0000000 ; H'8C01FA40

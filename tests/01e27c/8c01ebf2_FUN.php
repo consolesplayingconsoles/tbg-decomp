@@ -552,7 +552,7 @@ return new class extends TestCase {
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc');
         $this->shouldCall('_CourseMenuApplyUnlocks_8c0173e6');
-        $this->shouldCall('_FUN_8c01f954');
+        $this->shouldCall('_EndingStart_8c01f954');
     }
 
     public function test_state_7_nonzero_gamemode_skips_progress_update(): void
@@ -669,7 +669,7 @@ return new class extends TestCase {
         $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_CourseMenuBuildCourseUnlockList_8c0172dc', 4);
         $this->setSize('_CourseMenuApplyUnlocks_8c0173e6', 4);
-        $this->setSize('_FUN_8c01f954', 4);
+        $this->setSize('_EndingStart_8c01f954', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
         $this->setSize('_CourseMenuDrawDateAndExp_8c016ee6', 4);
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);

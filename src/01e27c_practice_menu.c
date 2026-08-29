@@ -9,7 +9,7 @@
 #include "01614c_debug_menu.h"
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
-#include "01f3c0.h"
+#include "01f3c0_ending.h"
 #include "028258_objects.h"
 #include "0100bc_sound.h"
 #include "sectionB.h"
@@ -678,7 +678,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
                 if (var_progress_8c1ba1cc.days_0x00 > 0x1e && var_gameMode_8c1bb8fc != 1) {
                     CourseMenuBuildCourseUnlockList_8c0172dc();
                     CourseMenuApplyUnlocks_8c0173e6();
-                    FUN_8c01f954();
+                    EndingStart_8c01f954();
                     return;
                 }
 
