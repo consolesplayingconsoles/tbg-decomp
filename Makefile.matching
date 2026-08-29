@@ -72,7 +72,7 @@ SRCS = \
 	src/asm/decompiled/02c884_bus_stop.src \
 	src/asm/02d06c.src \
 	src/asm/02d19c.src \
-	src/asm/02d968.src \
+	src/asm/decompiled/02d968.src \
 	src/asm/decompiled/02df3c.src \
 	src/asm/02e2dc.src \
 	src/asm/decompiled/02e400_collision.src \

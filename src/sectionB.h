@@ -1012,6 +1012,25 @@ extern float var_8c228908;
  * area's (x, z) origin, +0xc/+0x10 its (dx, dz) extent */
 extern char *var_8c22890c;
 
+/* Six consecutive NJS_POINT3 anchor points (0x228910-0x22894c, 12 bytes
+ * apart), set up by FUN_8c02d968 in bus-local space at course start and
+ * read by 02d19c. var_8c228928 and var_8c22894c are each transformed to
+ * world space in place (njCalcPoint against var_busWorldMatrix_8c1bba54);
+ * the other four stay in local space. */
+extern NJS_POINT3 var_8c228910;
+extern NJS_POINT3 var_8c22891c;
+extern NJS_POINT3 var_8c228928;
+extern NJS_POINT3 var_8c228934;
+extern NJS_POINT3 var_8c228940;
+extern NJS_POINT3 var_8c22894c;
+
+extern float var_8c228958; // immediately follows var_8c22894c; not read or written by FUN_8c02d968
+extern int var_8c22895c;   // set to 0 by FUN_8c02d968; meaning otherwise unclear
+
+/* 20-byte record following the six anchor points; word0 mirrors the
+ * transformed var_8c22894c.y, the rest (words 1-4) are float 1.0 constants. */
+extern float var_8c228960[5];
+
 /* Task group for the bus-stop subsystem's waiting-passenger/departure tasks
  * (see FUN_8c02d968); -1 means not currently allocated. */
 extern void* var_stopTaskGroup_8c2288f8;

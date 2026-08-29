@@ -98,12 +98,20 @@ remaining callee), `020214` (`020528`'s callee), `02b2f0`/`02412c`/`02d06c`
   explaining the split is cosmetic (mirrors the asm object for testing, not a
   real call boundary). This is case (b) of the Ghidra function-boundary
   problem noted below.
-- `FUN_8c02e35a` in `02e2dc` -- still open. Verified again this pass: still
-  `.EXPORT`ed, still zero BSR/JSR references anywhere in `src/` or `tests/`.
-  Float-heavy (`FMOV`, `FR12`-`FR15` pressure, trig-shaped), unreachable and
-  unread. `02e2dc` is itself a decompile target now (see table above, called
-  by `02b464_drive_points`); worth a fresh look once that unit is open in
-  Ghidra.
+- `FUN_8c02e35a` in `02e2dc` -- **RESOLVED, unlike `FUN_8c01fe84`.** Direct
+  inspection of `src/asm/02e2dc.src` shows it is a real, separate function:
+  it starts right after `FUN_8c02e2dc`'s `RTS`/delay-slot epilogue (line 81)
+  with its own full prologue (`MOV.L R14,@-R15` ... `STS.L PR,@-R15`,
+  line 82 on) and its own matching epilogue -- not a fallthrough into a
+  shared tail, so this is not case (b) below. It genuinely has zero
+  references anywhere in `src/` -- no `BSR`/`JSR`, and no `.DATA.L
+  _FUN_8c02e35a` literal-pool pointer either (ruling out case (c), a
+  pointer-only caller). It is real, complete, compiled code that the
+  shipped binary never calls: confirmed dead code, not a Ghidra artifact.
+  Float-heavy (`FMOV`, `FR12`-`FR15` pressure, trig-shaped). When `02e2dc`
+  is decompiled, keep it for object parity as `unused_8c02e35a` (`STATIC`,
+  `.EXPORT` gated under `.AIFDEF UNIT_TESTING`), per the `unused_8c0104bc`/
+  `unused_8c020676` precedent.
 
 ## Ghidra function-boundary reliability
 

@@ -103,7 +103,7 @@ SRCS = \
 	src/02c884_bus_stop.c \
 	src/asm/02d06c.src \
 	src/asm/02d19c.src \
-	src/asm/02d968.src \
+	src/02d968.c \
 	src/02df3c.c \
 	src/asm/02e2dc.src \
 	src/02e400_collision.c \

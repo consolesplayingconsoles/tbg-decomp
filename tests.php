@@ -888,5 +888,14 @@ return [
                 "build/output_test/025b98_traffic_drive_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/02d968/8c02d968_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/02d968_src.obj",
+                "build/output_test/02d968_c.obj",
+            ]
+        ],
     ],
 ];
