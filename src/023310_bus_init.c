@@ -10,8 +10,7 @@
 #include "023938.h"
 #include "023310_bus_init.h"
 #include "02786c_vehicle_parts.h" /* VehPartsBind_8c02786c */
-#include "02e51c.h"               /* FUN_8c02e51c, FUN_8c02e69c, FUN_8c02ec50 */
-#include "02eab4.h"               /* FUN_8c02eab4 */
+#include "02e51c.h"               /* FUN_8c02e51c, FUN_8c02eab4, FUN_8c02e69c, FUN_8c02ec50 */
 #include "020594.h"               /* move_bus_model_8c020594 */
 #include "022bdc_bus.h"               /* BusTask_8c022bdc */
 

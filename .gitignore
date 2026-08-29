@@ -23,3 +23,6 @@ __pycache__/
 log.txt
 log2.txt
 log3.txt
+
+# Personal review queue, not project docs
+NEEDS_ATTENTION.md

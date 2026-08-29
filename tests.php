@@ -797,5 +797,18 @@ return [
                 "build/output_test/025870_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/02e51c/8c02e51c_FUN.php",
+                "tests/02e51c/8c02eab4_FUN.php",
+                "tests/02e51c/8c02e69c_FUN.php",
+                "tests/02e51c/8c02ec50_FUN.php",
+                "tests/02e51c/8c02f08a_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/02e51c_src.obj",
+                "build/output_test/02e51c_c.obj",
+            ]
+        ],
     ],
 ];

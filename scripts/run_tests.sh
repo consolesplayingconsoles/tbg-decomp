@@ -211,4 +211,8 @@ compile  src/024b4c_bus_render.c
 assemble  src/asm/decompiled/025870.src
 compile  src/025870.c
 
+# 02e51c
+assemble  src/asm/decompiled/02e51c.src
+compile  src/02e51c.c
+
 $sh4objtest suite -s tests.php "$@"
