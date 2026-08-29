@@ -26,7 +26,7 @@
           .IMPORT     _CollideFindTaskHit_8c02e400
           .IMPORT     _TrafficUpdateHeading_8c026bc4
           .IMPORT     _var_timeOfDay_8c18ad20
-          .IMPORT     _prob_blinker_8c028022
+          .IMPORT     _FUN_8c028022
           .IMPORT     _var_8c1bbac4
           .IMPORT     _var_8c1bbacc
           .IMPORT     _njSqrt
@@ -1417,7 +1417,7 @@ LP_GEN_51630:
           .DATA.W H'01B0 ; H'8C0265FA
           .DATA.W H'029C ; H'8C0265FC
           .RES.W 1 ; H'8C0265FE
-          .DATA.L _prob_blinker_8c028022 ; H'8C026600
+          .DATA.L _FUN_8c028022 ; H'8C026600
           .DATA.L _var_8c1bbac4 ; H'8C026604
           .DATA.L _var_8c1bbacc ; H'8C026608
           .DATA.L _njSqrt ; H'8C02660C

@@ -28,10 +28,14 @@
           .IMPORT     _var_8c1bbdc4
           .IMPORT     _GroundProbeTrackPolygonAtHeight_8c021290
           .EXPORT     _FUN_8c027958
-          .EXPORT     _prob_blinker_8c028022
+          .EXPORT     _FUN_8c028022
           .EXPORT     _FUN_8c027c3c
           .EXPORT     _FUN_8c0281ac
           .EXPORT     _FUN_8c028206
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _busDrawSimpleCb_8c027a88
+          .EXPORT     _busDrawSimpleCb_8c027bac
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
 _FUN_8c027958:
           MOV         #H'78,R0
@@ -206,7 +210,7 @@ LAB_8c027a7e:
 LAB_8c027a84:
           RTS
           NOP
-LAB_8c027a88:
+_busDrawSimpleCb_8c027a88:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -345,7 +349,7 @@ LP_GEN_89751:
           .DATA.L _njCnkSetEasyLightIntensity ; H'8C027BA0
           .DATA.L _njCnkSetEasyLightColor ; H'8C027BA4
           .DATA.L _njCnkEasyDrawObject ; H'8C027BA8
-LAB_8c027bac:
+_busDrawSimpleCb_8c027bac:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -511,7 +515,7 @@ LP_GEN_94732:
           .DATA.L H'43480000 ; H'8C027D00
           .DATA.L H'3E322D0E ; H'8C027D04
           .DATA.L H'425C0000 ; H'8C027D08
-          .DATA.L LAB_8c027a88 ; H'8C027D0C
+          .DATA.L _busDrawSimpleCb_8c027a88 ; H'8C027D0C
 LAB_8c027d10:
           MOV.L       LP_GEN_22833+26,R5
           MOV         #H'0,R4
@@ -665,13 +669,13 @@ LP_GEN_22833:
           .DATA.W H'0250 ; H'8C027E26
           .DATA.W H'FF4A ; H'8C027E28
           .DATA.W H'FD28 ; H'8C027E2A
-          .DATA.L LAB_8c027a88 ; H'8C027E2C
+          .DATA.L _busDrawSimpleCb_8c027a88 ; H'8C027E2C
           .DATA.L _njSqrt ; H'8C027E30
           .DATA.L H'42480000 ; H'8C027E34
           .DATA.L H'3F774BC7 ; H'8C027E38
           .DATA.L H'41E00000 ; H'8C027E3C
           .DATA.L H'41700000 ; H'8C027E40
-          .DATA.L LAB_8c027bac ; H'8C027E44
+          .DATA.L _busDrawSimpleCb_8c027bac ; H'8C027E44
           .DATA.L _GroundProbeTrackPolygonAtHeight_8c021290 ; H'8C027E48
           .DATA.L H'42AAAAAB ; H'8C027E4C
           .DATA.L H'47800000 ; H'8C027E50
@@ -917,7 +921,7 @@ LAB_8c02800a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_prob_blinker_8c028022:
+_FUN_8c028022:
           MOV.W       LP_GEN_83484+28,R0
           MOV         #H'18,R3
           MOV.L       LP_GEN_83484+50,R6

@@ -823,5 +823,20 @@ return [
                 "build/output_test/02e51c_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/027958/8c027958_FUN.php",
+                "tests/027958/8c0281ac_FUN.php",
+                "tests/027958/8c028206_FUN.php",
+                "tests/027958/8c028022_FUN.php",
+                "tests/027958/8c027a88_busDrawSimpleCb.php",
+                "tests/027958/8c027bac_busDrawSimpleCb.php",
+                "tests/027958/8c027c3c_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/027958_src.obj",
+                "build/output_test/027958_c.obj",
+            ]
+        ],
     ],
 ];

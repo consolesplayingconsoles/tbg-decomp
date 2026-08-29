@@ -383,6 +383,10 @@ extern void* var_groundGridFallback_8c1bb86c;
  * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
 extern void *var_stopAreaTable_8c1bb870;
 
+/* Restored into var_activeGroundGrid_8c2264d4 by FUN_8c027c3c (027958) after
+ * a traffic entity's fallback-grid ground probe. */
+extern void* var_8c1bb880;
+
 extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into var_activeGroundGrid_8c2264d4
 
 /* pointer to a table of 12-byte stop spawn-area records, indexed by a
@@ -493,6 +497,8 @@ extern float var_8c1bbdb0[2]; // cached rec0_0x0c[2][0..1]
 extern float var_8c1bbdb8[3]; // (row2 - row1) / 20, last 3 components
 extern float var_8c1bbdc4[3]; // cached rec0_0x0c[1][2..4]
 extern float var_8c1bbdd0[3]; // cached rec0_0x0c[2][2..4]
+extern float var_8c1bbdb4; // alias of var_8c1bbdb0[1] (027958)
+extern float var_8c1bbdac; // alias of var_8c1bbda8[1] (027958)
 extern void* var_busstopDat_8c1bc42c;
 extern void* var_busstopPartsDat_8c1bc428;
 extern NJS_TEXLIST *var_busStopTexlist_8c1bc424;

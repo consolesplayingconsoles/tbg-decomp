@@ -25,7 +25,7 @@ if (!function_exists('fdec')) {
  * change, no sdMidiPlay), speed_0x27c==0 (skips the FUN_8c023938/023cba/
  * ground-query block), var_inputMapSel_8c1bb8c8==0 (skips the steering-
  * smoothing block -- state 0 never reads steering itself), timeOfDay
- * neither DAY nor NIGHT (skips the blinker/prob_blinker branch), gear!=5
+ * neither DAY nor NIGHT (skips the blinker branch), gear!=5
  * and field_0x25c==0 (sdMidiStop, not sdMidiPlay), and playMode != DEMO
  * (BusRenderUpdateCamera_8c025078 instead of demoUpdateCamera).
  */
@@ -56,7 +56,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c228b3c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_8c1bbd9c', 4);
-        $this->setSize('_prob_blinker_8c028022', 4);
+        $this->setSize('_FUN_8c028022', 4);
         $this->setSize('_sdMidiStop', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_move_bus_model_8c020594', 4);
@@ -135,7 +135,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x07c, 0);
 
         // var_timeOfDay_8c18ad20 == 0: neither the DAY blinker bit nor
-        // prob_blinker_8c028022 runs.
+        // FUN_8c028022 runs.
 
         // gear_0x2f4 != 5, field_0x25c == 0: field_0x260 = 0, sdMidiStop.
         $this->shouldWriteLong($base + 0x260, 0);

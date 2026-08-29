@@ -25,7 +25,7 @@
           .IMPORT     _var_8c228b3c
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _var_8c1bbd9c
-          .IMPORT     _prob_blinker_8c028022
+          .IMPORT     _FUN_8c028022
           .IMPORT     _sdMidiStop
           .IMPORT     _move_bus_model_8c020594
           .IMPORT     _var_playMode_8c1bb8d0
@@ -928,7 +928,7 @@ LP_GEN_14264:
           .DATA.L H'3E4CCCCD ; H'8C023294
           .DATA.L _var_timeOfDay_8c18ad20 ; H'8C023298
           .DATA.L _var_8c1bbd9c ; H'8C02329C
-          .DATA.L _prob_blinker_8c028022 ; H'8C0232A0
+          .DATA.L _FUN_8c028022 ; H'8C0232A0
           .DATA.L _sdMidiStop ; H'8C0232A4
 LAB_8c0232a8:
           MOV.W       LP_GEN_51967,R0

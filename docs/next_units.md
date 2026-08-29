@@ -63,7 +63,7 @@ bus task"), which is a per-frame dispatcher fanning out into **eight** further
 units: `020594` (`move_bus_model_8c020594`, also already named), `02081c`,
 `023938`, `024280`, `02412c`, `024b4c` (incl.
 `gameplayRenderBusUpdateCamera_8c025078`), `025870`
-(`DemoUpdateCamera_8c025906`), and `027958` (`prob_blinker_8c028022`). None of
+(`DemoUpdateCamera_8c025906`), and `027958` (`FUN_8c028022`). None of
 that fan-out is visible in the fan-in table above because `022bdc` currently
 has zero decompiled callers -- decompiling `023310` is what turns the whole
 cluster from invisible into a ranked, attackable second wave. This is the
