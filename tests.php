@@ -750,5 +750,15 @@ return [
                 "build/output_test/02f320_replay_codec_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/023310_bus_init/8c023310_busInitPlaceBus.php",
+                "tests/023310_bus_init/8c023610_BusInitStart.php",
+            ],
+            "objects" => [
+                "build/output_test/023310_bus_init_src.obj",
+                "build/output_test/023310_bus_init_c.obj",
+            ]
+        ],
     ],
 ];

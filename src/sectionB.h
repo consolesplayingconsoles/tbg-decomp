@@ -119,11 +119,9 @@ typedef struct {
     int field_0x0b8;
     int field_0x0bc;
     int field_0x0c0;
-    int field_0x0c4;
-    int field_0x0c8;
-    int field_0x0cc;
-    int field_0x0d0;
-    int field_0x0d4;
+    /* Copy of var_sceneParams_8c18ad24->rec0_0x0c[0] (the primary directional
+     * light's coefficient row), set by busInitPlaceBus_8c023310. */
+    float field_0x0c4[5];
     int field_0x0d8;
     int field_0x0dc;
     int field_0x0e0;
@@ -133,49 +131,18 @@ typedef struct {
     int field_0x0f0;
 
     /* Averaged with posX_0x2fc/posZ_0x304 by rowMaterialModelTask_8c02a27c to get a
-     * distance-fade reference point. */
+     * distance-fade reference point. posY_0x0f8 (and posHistory_0x100 below)
+     * is filled in by busInitPlaceBus_8c023310 via GroundProbeInterpolateHeight_8c020f7e --
+     * it treats {posX_0x0f4, posY_0x0f8, posZ_0x0fc} as one contiguous float[3]. */
     float posX_0x0f4;
+    float posY_0x0f8;
+    float posZ_0x0fc; /* field_0x108 below also exported standalone as var_8c1bbad8 (02f0c8) */
 
-    int field_0x0f8;
-    float posZ_0x0fc;
-
-    float field_0x100;
-
-    int field_0x104;
-    float field_0x108; /* also exported standalone as var_8c1bbad8 (02f0c8) */
-    int field_0x10c;
-    int field_0x110;
-    int field_0x114;
-    int field_0x118;
-    int field_0x11c;
-    int field_0x120;
-    int field_0x124;
-    int field_0x128;
-    int field_0x12c;
-    int field_0x130;
-    int field_0x134;
-    int field_0x138;
-    int field_0x13c;
-    int field_0x140;
-    int field_0x144;
-    int field_0x148;
-    int field_0x14c;
-    int field_0x150;
-    int field_0x154;
-    int field_0x158;
-    int field_0x15c;
-    int field_0x160;
-    int field_0x164;
-    int field_0x168;
-    int field_0x16c;
-    int field_0x170;
-    int field_0x174;
-    int field_0x178;
-    int field_0x17c;
-    int field_0x180;
-    int field_0x184;
-    int field_0x188;
-    int field_0x18c;
+    /* Waypoint-position history, 12 entries. busInitPlaceBus_8c023310 seeds
+     * rec[0]/rec[1]'s x/z 4.9m/8.0m behind the spawn stop and every rec's y
+     * from the just-computed ground height (posY_0x0f8), leaving rec[2..11]'s
+     * x/z untouched (stale). */
+    NJS_POINT3 posHistory_0x100[12];
     int field_0x190;
     int field_0x194;
     int field_0x198;
@@ -219,11 +186,13 @@ typedef struct {
     int field_0x230;
     int field_0x234;
     int field_0x238;
-    int field_0x23c;
+    /* Written as float literals (4.9/2.5/1.25/2.6) by busInitPlaceBus_8c023310;
+     * field_0x240 is skipped by that write and its role is unclear. */
+    float field_0x23c;
     int field_0x240;
-    int field_0x244;
-    int field_0x248;
-    int field_0x24c;
+    float field_0x244;
+    float field_0x248;
+    float field_0x24c;
 
     int ang_0x250;
 
@@ -238,8 +207,10 @@ typedef struct {
     int mirror_0x268;
 
     int field_0x26c;
-    int field_0x270;
-    int field_0x274;
+    float field_0x270;
+    /* dx component of the spawn stop area's direction (StopAreaRecord.dx_0x0c);
+     * paired with field_0x278 (dz). */
+    float field_0x274;
 
     float field_0x278;
     float speed_0x27c;
@@ -262,10 +233,10 @@ typedef struct {
 
     int bus_state_0x2b4;
 
-    int field_0x2b8;
-    int field_0x2bc;
-    int field_0x2c0;
-    int field_0x2c4;
+    int field_0x2b8; /* the spawn stop area's StopAreaRecord*, cast to int */
+    float field_0x2bc;
+    float field_0x2c0;
+    float field_0x2c4;
     int field_0x2c8;
     int field_0x2cc;
     int field_0x2d0;
@@ -340,6 +311,11 @@ typedef struct {
     int bus_substate_0x3c0;
 
     int field_0x3c4;
+
+    /* Zeroed by FUN_8c023610. Overlaps var_scenePresetIds_8c1bbd8c+0xc
+     * (that symbol's reserved span runs 4 bytes past this struct's end) --
+     * coincidentally adjacent, not that symbol's field. */
+    int field_0x3c8;
 } BusState;
 
 typedef struct {
@@ -555,6 +531,9 @@ extern ResourceGroup var_loadingResourceGroup_8c1bc3f8;
 extern void* var_markDat_8c1bc420;
 extern void* var_markPartsDat_8c1bc41c;
 extern NJS_TEXLIST *var_markTexlist_8c1bc418;
+/* Read by FUN_8c023610 at +8/+0xc for the bus's field_0x004/field_0x00c
+ * (VehPartsBind_8c02786c inputs); role of the rest unclear. */
+extern void *var_8c1bbf7c[24];
 extern ModelSlot var_pedestrianAssets_8c1bbfdc[0x41];
 extern PDS_PERIPHERAL *var_peripheral_8c1ba358;
 extern PDS_PERIPHERAL var_peripherals_8c1ba35c[2];
@@ -660,9 +639,19 @@ extern int var_fadeDrawCommandCount_8c226570[3]; // 022464: per-layer draw-comma
 extern char var_fadeDrawCommands_8c22657c[3][0x800]; // 022464: per-layer draw-command queue, 16-byte entries {type, arg1, arg2, arg3}
 extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
 extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
+/* Mirrors var_currentCourse_8c1bb868.lineBus_0x08, reset by FUN_8c023610
+ * alongside var_activeGroundGrid_8c2264d4/var_8c228b3c/var_8c227d88. */
+extern void *var_8c227d84;
+/* Mirrors var_currentCourse_8c1bb868.ukn_0x0c. */
+extern void *var_8c227d88;
+extern int var_8c227d8c; // 024280
 extern int var_8c227d9c;
 extern Uint32 var_8c227da0;
 extern int var_8c227da8;
+extern int var_8c227dac; /* zeroed alongside var_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
+/* Unsigned-int-to-float conversion of *(var_8c1bc410+4), minus 1.0; set by
+ * FUN_8c023610, read by task_bus_8c022bdc (022bdc). */
+extern float var_8c227db4;
 extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by gameplayRenderBusUpdateCamera_8c025078
 extern float var_8c227dc4[3];
 extern int var_8c227dd4;

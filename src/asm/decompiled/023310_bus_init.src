@@ -36,10 +36,12 @@
           .IMPORT     _move_bus_model_8c020594
           .IMPORT     _var_8c227d8c
           .IMPORT     _GroundProbeFindPolygonAtHeight_8c020fe4
-          .EXPORT     _FUN_8c023310
-          .EXPORT     _FUN_8c023610
+          .EXPORT     _BusInitStart_8c023610
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _busInitPlaceBus_8c023310
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c023310:
+_busInitPlaceBus_8c023310:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -415,7 +417,7 @@ LAB_8c023602:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c023610:
+_BusInitStart_8c023610:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -566,7 +568,7 @@ LAB_8c02373e:
           ADD         #H'4,R0
           MOV.L       R12,@(R0,R14)
 LAB_8c02374e:
-          BSR         _FUN_8c023310
+          BSR         _busInitPlaceBus_8c023310
           NOP
           MOV.W       LP_GEN_45139+2,R0
           MOV         #H'0,R13

@@ -66,7 +66,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
         $this->shouldWriteTo('_var_messageBoxActive_8c22847c', 0);
 
-        $this->shouldCall('_FUN_8c023610');
+        $this->shouldCall('_BusInitStart_8c023610');
         $this->shouldCall('_ObjectsInitTrafficSignals_8c02845a');
         
         $this->shouldCall('_ObjectsInitBlinkers_8c029920');
@@ -143,7 +143,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
         $this->shouldWriteTo('_var_messageBoxActive_8c22847c', 0);
 
-        $this->shouldCall('_FUN_8c023610');
+        $this->shouldCall('_BusInitStart_8c023610');
         $this->shouldCall('_ObjectsInitTrafficSignals_8c02845a');
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
@@ -238,7 +238,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
         $this->shouldWriteTo('_var_messageBoxActive_8c22847c', 0);
 
-        $this->shouldCall('_FUN_8c023610');
+        $this->shouldCall('_BusInitStart_8c023610');
         $this->shouldCall('_ObjectsInitTrafficSignals_8c02845a');
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');

@@ -46,7 +46,7 @@
           .IMPORT     _FUN_8c025af4
           .IMPORT     _var_pauseActive_8c1bb8cc
           .IMPORT     _var_messageBoxActive_8c22847c
-          .IMPORT     _FUN_8c023610
+          .IMPORT     _BusInitStart_8c023610
           .IMPORT     _ObjectsInitTrafficSignals_8c02845a
           .IMPORT     _ObjectsInitBlinkers_8c029920
           .IMPORT     _ObjectsInitPedestrianGroups_8c0296d6
@@ -754,7 +754,7 @@ LP_GEN_38000:
           .DATA.L _FUN_8c025af4
           .DATA.L _var_pauseActive_8c1bb8cc
           .DATA.L _var_messageBoxActive_8c22847c
-          .DATA.L _FUN_8c023610
+          .DATA.L _BusInitStart_8c023610
           .DATA.L _ObjectsInitTrafficSignals_8c02845a
           .DATA.L _var_playMode_8c1bb8d0
           .DATA.L _ObjectsInitBlinkers_8c029920

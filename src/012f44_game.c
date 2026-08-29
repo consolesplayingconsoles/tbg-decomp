@@ -24,6 +24,7 @@
 #include "01bb48_vm_game.h"
 #include "02fb50_sh4nlfzn_post_data.h"
 #include "02171c_tile_stream.h"
+#include "023310_bus_init.h"
 
 // #define CACHE_BUFSIZE   0x20000
 // #define SHAPE_BUFSIZE   512
@@ -189,7 +190,7 @@ void FUN_8c01306e(void)
     var_pauseActive_8c1bb8cc = 0;
     var_messageBoxActive_8c22847c = 0;
 
-    FUN_8c023610();
+    BusInitStart_8c023610();
     ObjectsInitTrafficSignals_8c02845a();
 
     if (var_playMode_8c1bb8d0 != 2) {

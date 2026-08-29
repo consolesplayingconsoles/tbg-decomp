@@ -86,7 +86,7 @@ SRCS = \
 	src/0222dc_fadecmd.c \
 	src/022464_fade.c \
 	src/asm/022bdc.src \
-	src/asm/023310.src \
+	src/023310_bus_init.c \
 	src/asm/023938.src \
 	src/asm/02412c.src \
 	src/asm/024280.src \

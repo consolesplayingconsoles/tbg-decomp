@@ -195,4 +195,8 @@ compile  src/02b464_drive_points.c
 assemble  src/asm/decompiled/02f320_replay_codec.src
 compile  src/02f320_replay_codec.c
 
+# 023310_bus_init
+assemble  src/asm/decompiled/023310_bus_init.src
+compile  src/023310_bus_init.c
+
 $sh4objtest suite -s tests.php "$@"
