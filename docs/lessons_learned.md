@@ -449,6 +449,21 @@ Count the unit's function labels, not its `.EXPORT` lines, and treat an
 address-taken-only callee as a function in its own right. `028258` hit the same
 thing from the other direction: decompiling turned up three functions
 (`FUN_8c02833c`, `FUN_8c0283d4`, `FUN_8c0283e8`) missing from the stub list.
+`02b464_drive_points` (2026-08-28/29) had six, all reachable only via
+TaskPush pointers, including the master per-frame `taskCallback_8c02c072`.
+
+**The inverse also happens:** an `.EXPORT`ed symbol that *isn't* a function at
+all, just a label mid-body. `01fa78`'s `FUN_8c01fe84` (found 2026-08-29) is a
+fallthrough point inside `FUN_8c01fbac` sharing its epilogue, exported and
+Ghidra-shown as its own function, with zero BSR/JSR references anywhere in
+the tree -- nothing actually calls it as a function; the "call" is a plain
+fallthrough. Four units running now have had wrong Ghidra function boundaries
+in one of these two directions. Neither the export list nor Ghidra's function
+list is reliable; walk the asm for prologue/epilogue pairs directly:
+
+    command grep -aoP '\.DATA\.L\s+\K(LAB|_?FUN)_\w+' <unit>.src | sort -u
+
+A bare `LAB_` hit is a candidate function Ghidra folded into a neighbour.
 
 ## Test memory does not start zeroed
 

@@ -1,37 +1,168 @@
 # Next Decompilation Targets
 
-Relocation-graph analysis regenerated 2026-08-28 by `scripts/generate-graph.sh`
-after `02171c`, `022464`, `0222dc`, `028258`, `02c884` and `026710` all landed.
-The previous target list is fully exhausted; this is the next round.
+Relocation-graph analysis regenerated 2026-08-29 by `scripts/generate-graph.sh`
+after `02f0c8`, `02f320`, `02b464`, `01f3c0` and `01fa78` all landed. The
+previous target list is fully exhausted; this is the next round.
 
 "Fan-in" is how many already-decompiled (`.c`) units call into a given unit
-(code edges only), per `build/inspect_graph/graph.json`. Ranked by fan-in, then
-size.
+(code edges only), per `build/inspect_graph/graph.json`. Ranked by fan-in,
+then size. "Bytes" is the raw `src/asm/<unit>.src` file size.
+
+Every remaining raw-asm unit now sits at fan-in <= 1 -- the graph's
+high-fan-in nodes are exhausted, so size (and the leverage notes below) is
+doing the tie-breaking now, not fan-in.
 
 | Fan-in | Exports | Bytes | Unit | Called by |
 |---|---|---|---|---|
-| 2 | 16 | 34 K | `02f320` | `014f54_text`, `01614c_debug_menu` |
-| 2 | 3 | 85 K | `01f3c0` | `01d7fc_results`, `01e27c_practice_menu` |
-| 2 | 13 | 99 K | `02b464` | `012f44_game`, `02c884_bus_stop` |
-| 1 | 3 | 10 K | `02f0c8` | `026710_traffic` |
-| 1 | 6 | 34 K | `01fa78` | `012f44_game` |
+| 1 | 7 | 56 K | `024b4c` | `02b464_drive_points` |
+| 1 | 2 | 50 K | `025b98` | `026710_traffic` |
+| 1 | 5 | 46 K | `02e51c` | `026710_traffic` |
+| 1 | 5 | 41 K | `025870` | `012f44_game` |
+| 1 | 5 | 39 K | `027958` | `028258_objects` |
+| 1 | 5 | 34 K | `023938` | `02b464_drive_points` |
+| 1 | 2 | 31 K | `021b9c` | `0222dc_fadecmd` |
+| 1 | 2 | 27 K | `023310` | `012f44_game` |
+| 1 | 2 | 25 K | `02d968` | `012f44_game` |
+| 1 | 4 | 17 K | `02e2dc` | `02b464_drive_points` |
+| 1 | 2 | 15 K | `02df3c` | `026710_traffic` |
+| 1 | 1 | 14 K | `020214` | `020528` |
+| 1 | 2 | 6 K | `02b2f0` | `02b464_drive_points` |
+| 1 | 3 | 6 K | `02d06c` | `028258_objects` |
+
+**Second wave (fan-in 0 from decompiled code today, but real game code
+reachable once their asm callers are decompiled):** `022bdc` (32 K, called
+only by still-asm `023310` -- see below), `024280` (38 K, called only by
+still-asm `022bdc`), `02412c` (6 K, ditto), `020594` (6 K, ditto),
+`02081c` (4 K, ditto), `02d19c` (36 K, called only by still-asm `02d968`).
+These aren't priority-ranked yet because nothing decompiled calls them; they
+surface into the table above as their callers land.
+
+**Not real decompilation targets -- excluded from the table:**
+- `04f6c0_SDK.src` (~44k lines) and `02fb50_sh4nlfzn.src` (~7.8k) -- SDK/library
+  code, not game code.
+- `02af78_pre_data.src` -- a parked Ghidra data extraction, not wireable as-is.
+  See its file header and the "A raw Ghidra data extraction isn't wireable
+  just because it exists" entry in `docs/lessons_learned.md`.
+- `sectionB.src`, `sectionD.src`, `03327c_strt1_sectionC.src` -- data/section
+  files, not units.
+- `04ce10_slots.src` (75 K) -- also data-only (`hasCode: false` in the graph,
+  no BSR/JSR in the file at all): three `init_*` tables consumed by the
+  already-decompiled `013ae8_route_load`. A `move-data` job, not a
+  `decompile-function` one.
+- `010000.src` -- the IP.BIN-era boot header; not even in either Makefile's
+  `SRCS`.
 
 ## Suggested order
 
-`02f0c8` -> `02f320` -> `02b464`. (`0206f0`, `02786c` and `02e400` are done.)
+Start with **`023310`** (27 K, fan-in 1 from `012f44_game`).
+
+It looks unremarkable by size, but it's the on-ramp to the biggest cluster of
+undecompiled gameplay code left in the project: `023310` calls
+`task_bus_8c022bdc` (`022bdc`, 32 K, already partly named -- literally "the
+bus task"), which is a per-frame dispatcher fanning out into **eight** further
+units: `020594` (`move_bus_model_8c020594`, also already named), `02081c`,
+`023938`, `024280`, `02412c`, `024b4c` (incl.
+`gameplayRenderBusUpdateCamera_8c025078`), `025870`
+(`demoUpdateCamera_8c025906`), and `027958` (`prob_blinker_8c028022`). None of
+that fan-out is visible in the fan-in table above because `022bdc` currently
+has zero decompiled callers -- decompiling `023310` is what turns the whole
+cluster from invisible into a ranked, attackable second wave. This is the
+main player-bus driving/physics/camera subsystem; it's worth more to unlock
+now than its 27 K would suggest.
+
+In parallel or right after, close out the two subsystems that landed tonight
+-- both still call out to several raw-asm units each, and finishing those
+calls turns `02b464_drive_points` and `026710_traffic` fully-C:
+
+- `02b464_drive_points` still depends on four: `024b4c` -> `023938` ->
+  `02e2dc` -> `02b2f0` (note `024b4c` is shared with the `022bdc` cluster
+  above -- decompile it once, it satisfies both).
+- `026710_traffic` still depends on three: `025b98` (the moving-vehicle /
+  fixed-decoration task bodies `FUN_8c025b98`/`FUN_8c02656a` that
+  `spawnEntry_8c0272b8` installs -- see the `026710_traffic` entry below) ->
+  `02e51c` -> `02df3c`.
+
+Lower priority, smaller and more isolated: `021b9c` (`0222dc_fadecmd`'s one
+remaining callee), `02d968`/`020214` (chase these after `012f44_game`'s other
+dependents), `02d06c` (`028258_objects`'s other callee).
 
 ## Two dead functions worth a look
 
-Unreachable code, found by scanning every function label against all references
-(see `docs/lessons_learned.md` on counting labels, not exports):
+- `FUN_8c01fe84` in `01fa78` -- **RESOLVED.** It was never a separate
+  function: the `.src` `.EXPORT`ed a label sitting mid-body inside
+  `FUN_8c01fbac` (pure fallthrough into a shared epilogue, zero BSR/JSR
+  references anywhere in the tree). Decompiled as `01fa78.c`'s
+  `FUN_8c01fe84`, called directly from `FUN_8c01fbac`, with a comment
+  explaining the split is cosmetic (mirrors the asm object for testing, not a
+  real call boundary). This is case (b) of the Ghidra function-boundary
+  problem noted below.
+- `FUN_8c02e35a` in `02e2dc` -- still open. Verified again this pass: still
+  `.EXPORT`ed, still zero BSR/JSR references anywhere in `src/` or `tests/`.
+  Float-heavy (`FMOV`, `FR12`-`FR15` pressure, trig-shaped), unreachable and
+  unread. `02e2dc` is itself a decompile target now (see table above, called
+  by `02b464_drive_points`); worth a fresh look once that unit is open in
+  Ghidra.
 
-- `FUN_8c01fe84` in `01fa78`
-- `FUN_8c02e35a` in `02e2dc`
+## Ghidra function-boundary reliability
 
-Both are float-heavy (`FMOV`, `FR12`-`FR15` pressure, trig-shaped) and are
-called by nothing. Unreachable *and* unread.
+Four units in a row now have had wrong function boundaries out of Ghidra, in
+two distinct ways:
+
+1. **Merging separate functions into one range**, dismissing the leftover
+   code as "unreachable blocks" (`026710_traffic`'s
+   `applyTrafficLighting_8c02756a`/`trafficUpdateTask_8c0275d4`,
+   `02c884_bus_stop`'s `drawStopMarker_8c02cd92`, and more found in
+   `02b464_drive_points` -- six functions reachable only via TaskPush
+   pointers, including the master per-frame `taskCallback_8c02c072`).
+2. **A `.EXPORT`ed label mid-body that isn't a function at all**
+   (`FUN_8c01fe84`, above -- pure fallthrough into a shared epilogue).
+
+Trusting the export list or Ghidra's function list misses both. The reliable
+method is walking the asm for prologue/epilogue pairs directly:
+
+    command grep -aoP '\.DATA\.L\s+\K(LAB|_?FUN)_\w+' <unit>.src | sort -u
+
+A bare `LAB_` hit is a candidate unexported function Ghidra folded into a
+neighbour.
 
 ## Reference: recently completed units
+
+### `02b464_drive_points` (ShortUnit `DrivePoints`) -- done, driving-evaluation/penalty subsystem
+
+Ghidra had hidden six functions reachable only via TaskPush pointers,
+including the master per-frame `taskCallback_8c02c072` -- see the boundary
+note above. Still depends on four raw-asm units: `024b4c`, `023938`,
+`02e2dc`, `02b2f0` (see the priority table and suggested order above).
+
+### `02f320_replay_codec` (ShortUnit `ReplayCodec`) -- done
+
+Confirmed **LZW with LRU eviction**, not lzhuf/adaptive-Huffman as first
+hypothesised from the `Sint16`-counter shape. See
+`docs/lessons_learned.md`'s `02f320_replay_codec` entries (EXTS.W and the
+codec details).
+
+### `01f3c0_ending` (ShortUnit `Ending`) -- done
+
+Post-game staff roll, gated on `var_progress_8c1ba1cc.days_0x00 > 30`. Credit
+strings were extracted to `strings_ja_jp.sjis.h`, which cost the unit's
+section-data byte-match -- now in `check_data_match.sh`'s NOT_MATCHING
+allowlist.
+
+### `01fa78` -- done, left deliberately hex-only (no `@unit` tag)
+
+Turned out broader than the "violation checker" working hypothesis: it's a
+general in-drive HUD -- violation popup icons, next-stop icon, driver-points
+meter, turn signals, rotating needle, speedometer, and two timers. See the
+`FUN_8c01fe84` note above for its Ghidra-boundary quirk.
+
+**Open item:** `FUN_8c01ff48`'s wiper/gear/lane-change/headlight/
+traffic-signal/points-ramp branches are UNTESTED. Worth a follow-up pass with
+targeted tests before the unit is considered fully verified.
+
+### `02f0c8` -- done, left hex-only
+
+Spawn-clearance path scanner + continuation, plus an unrelated marker-group
+lookup.
 
 ### `02e400_collision` (ShortUnit `Collide`) -- done, 4/4 functions
 
