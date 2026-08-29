@@ -1,41 +1,42 @@
 # Next Decompilation Targets
 
-Relocation-graph analysis regenerated 2026-08-29 by `scripts/generate-graph.sh`
-after `02f0c8`, `02f320`, `02b464`, `01f3c0` and `01fa78` all landed. The
+Relocation-graph analysis regenerated 2026-08-29 by `make graph` after
+`022bdc_bus`, `023310_bus_init`, `024b4c_bus_render`, `025870`, `02e51c`,
+`023938_bus_drive`, `027958` and `025b98_traffic_drive` all landed. The
 previous target list is fully exhausted; this is the next round.
 
 "Fan-in" is how many already-decompiled (`.c`) units call into a given unit
 (code edges only), per `build/inspect_graph/graph.json`. Ranked by fan-in,
 then size. "Bytes" is the raw `src/asm/<unit>.src` file size.
 
-Every remaining raw-asm unit now sits at fan-in <= 1 -- the graph's
-high-fan-in nodes are exhausted, so size (and the leverage notes below) is
-doing the tie-breaking now, not fan-in.
+Landing the bus/traffic cluster pulled several units that were fan-in 1 (or
+invisible "second wave") last round up to fan-in 2-3, since their callers
+are now decompiled themselves. The table is genuinely fan-in-ranked again,
+not just size order.
 
 | Fan-in | Exports | Bytes | Unit | Called by |
 |---|---|---|---|---|
-| 1 | 7 | 56 K | `024b4c` | `02b464_drive_points` |
-| 1 | 2 | 50 K | `025b98` | `026710_traffic` |
-| 1 | 5 | 46 K | `02e51c` | `026710_traffic` |
-| 1 | 5 | 41 K | `025870` | `012f44_game` |
-| 1 | 5 | 39 K | `027958` | `028258_objects` |
-| 1 | 5 | 34 K | `023938` | `02b464_drive_points` |
+| 3 | 1 | 6 K | `020594` | `022bdc_bus`, `023310_bus_init`, `027958` |
+| 3 | 2 | 4 K | `02081c` | `022bdc_bus`, `023938_bus_drive`, `025b98_traffic_drive` |
+| 2 | 2 | 15 K | `02df3c` | `025b98_traffic_drive`, `026710_traffic` |
+| 1 | 6 | 38 K | `024280` | `022bdc_bus` |
 | 1 | 2 | 31 K | `021b9c` | `0222dc_fadecmd` |
-| 1 | 2 | 27 K | `023310` | `012f44_game` |
 | 1 | 2 | 25 K | `02d968` | `012f44_game` |
 | 1 | 4 | 17 K | `02e2dc` | `02b464_drive_points` |
-| 1 | 2 | 15 K | `02df3c` | `026710_traffic` |
 | 1 | 1 | 14 K | `020214` | `020528` |
 | 1 | 2 | 6 K | `02b2f0` | `02b464_drive_points` |
+| 1 | 1 | 6 K | `02412c` | `022bdc_bus` |
 | 1 | 3 | 6 K | `02d06c` | `028258_objects` |
 
 **Second wave (fan-in 0 from decompiled code today, but real game code
-reachable once their asm callers are decompiled):** `022bdc` (32 K, called
-only by still-asm `023310` -- see below), `024280` (38 K, called only by
-still-asm `022bdc`), `02412c` (6 K, ditto), `020594` (6 K, ditto),
-`02081c` (4 K, ditto), `02d19c` (36 K, called only by still-asm `02d968`).
-These aren't priority-ranked yet because nothing decompiled calls them; they
-surface into the table above as their callers land.
+reachable once its asm caller is decompiled):** `02d19c` (36 K, 9 exports,
+called only by still-asm `02d968`). Not priority-ranked yet because nothing
+decompiled calls it directly -- but decompiling `02d968` doesn't just surface
+`02d19c` itself: `02d19c` in turn calls into `02d06c`, which is *already* a
+target above (called today by `028258_objects`). So finishing `02d968` ->
+`02d19c` adds a second caller to `02d06c` as a side effect. Also note
+`02e2dc` (already a table target) calls into `02081c` -- decompiling `02e2dc`
+will bump `02081c`'s fan-in from 3 to 4.
 
 **Not real decompilation targets -- excluded from the table:**
 - `04f6c0_SDK.src` (~44k lines) and `02fb50_sh4nlfzn.src` (~7.8k) -- SDK/library
@@ -54,37 +55,38 @@ surface into the table above as their callers land.
 
 ## Suggested order
 
-Start with **`023310`** (27 K, fan-in 1 from `012f44_game`).
+The `023310` bus cluster (previous round's pick) is now fully decompiled --
+`022bdc_bus`, `023938_bus_drive`, `024b4c_bus_render`, `025870`, `02e51c`,
+`027958` and `025b98_traffic_drive` all landed. That's exactly why the two
+tiny units at the top of the table today (`020594`, `02081c`) sit at fan-in
+3: they're leftover callees shared across that whole now-decompiled cluster.
 
-It looks unremarkable by size, but it's the on-ramp to the biggest cluster of
-undecompiled gameplay code left in the project: `023310` calls
-`task_bus_8c022bdc` (`022bdc`, 32 K, already partly named -- literally "the
-bus task"), which is a per-frame dispatcher fanning out into **eight** further
-units: `020594` (`move_bus_model_8c020594`, also already named), `02081c`,
-`023938`, `024280`, `02412c`, `024b4c` (incl.
-`gameplayRenderBusUpdateCamera_8c025078`), `025870`
-(`DemoUpdateCamera_8c025906`), and `027958` (`FUN_8c028022`). None of
-that fan-out is visible in the fan-in table above because `022bdc` currently
-has zero decompiled callers -- decompiling `023310` is what turns the whole
-cluster from invisible into a ranked, attackable second wave. This is the
-main player-bus driving/physics/camera subsystem; it's worth more to unlock
-now than its 27 K would suggest.
+Start with **`020594`** (6 K, fan-in 3) and **`02081c`** (4 K, fan-in 3).
+Both are small, already partly named or purely `FUN_`-labelled, and each
+closes out one remaining dependency for three already-finished units at
+once (`Bus`, `BusInit`/`BusDrive`/`TrafficDrive` respectively). Cheapest
+leverage left in the graph.
 
-In parallel or right after, close out the two subsystems that landed tonight
--- both still call out to several raw-asm units each, and finishing those
-calls turns `02b464_drive_points` and `026710_traffic` fully-C:
+Next, **`02df3c`** (15 K, fan-in 2) is the last raw-asm callee of *both*
+`025b98_traffic_drive` and `026710_traffic` -- decompiling it turns the
+entire traffic subsystem fully-C.
 
-- `02b464_drive_points` still depends on four: `024b4c` -> `023938` ->
-  `02e2dc` -> `02b2f0` (note `024b4c` is shared with the `022bdc` cluster
-  above -- decompile it once, it satisfies both).
-- `026710_traffic` still depends on three: `025b98` (the moving-vehicle /
-  fixed-decoration task bodies `FUN_8c025b98`/`FUN_8c02656a` that
-  `spawnEntry_8c0272b8` installs -- see the `026710_traffic` entry below) ->
-  `02e51c` -> `02df3c`.
+After that, **`02d968`** (25 K, fan-in 1 from `012f44_game`) is worth
+promoting above its raw fan-in suggests: it's a smaller echo of last round's
+`023310` pattern. `02d968` calls into `02d19c` (36 K, 9 exports), which is
+currently invisible (fan-in 0, nothing decompiled calls it directly) --
+finishing `02d968` immediately makes `02d19c` a ranked target, and `02d19c`
+itself calls into `02d06c` (already in the table above, called by
+`028258_objects`), so it also bumps `02d06c`'s fan-in from 1 to 2. No other
+remaining unit hides a cluster this way -- the rest of the graph (`024280`,
+`021b9c`, `02e2dc`, `020214`, `02b2f0`, `02412c`, `02d06c`) is flat: one
+caller each, no further asm-to-asm fan-out (`02e2dc` -> `02081c` is the only
+other asm-to-asm code edge left, and `02081c` is already covered above).
 
-Lower priority, smaller and more isolated: `021b9c` (`0222dc_fadecmd`'s one
-remaining callee), `02d968`/`020214` (chase these after `012f44_game`'s other
-dependents), `02d06c` (`028258_objects`'s other callee).
+Lower priority, smaller and more isolated once the above land: `024280`
+(38 K, `022bdc_bus`'s other callee), `021b9c` (`0222dc_fadecmd`'s one
+remaining callee), `020214` (`020528`'s callee), `02b2f0`/`02412c`/`02d06c`
+(the small single-caller leftovers).
 
 ## Two dead functions worth a look
 
@@ -105,8 +107,8 @@ dependents), `02d06c` (`028258_objects`'s other callee).
 
 ## Ghidra function-boundary reliability
 
-Four units in a row now have had wrong function boundaries out of Ghidra, in
-two distinct ways:
+Several units in a row now have had wrong function boundaries -- or an
+incomplete call graph -- out of Ghidra, in three distinct ways:
 
 1. **Merging separate functions into one range**, dismissing the leftover
    code as "unreachable blocks" (`026710_traffic`'s
@@ -116,9 +118,18 @@ two distinct ways:
    pointers, including the master per-frame `taskCallback_8c02c072`).
 2. **A `.EXPORT`ed label mid-body that isn't a function at all**
    (`FUN_8c01fe84`, above -- pure fallthrough into a shared epilogue).
+3. **A real, separately `.EXPORT`ed function with no visible caller at all**
+   in Ghidra's decompilation, because the only reference is a raw pointer
+   sitting in another function's literal pool (`.DATA.L`) rather than any
+   `BSR`/`JSR` -- `024b4c_bus_render`'s `drawFrontBusModel_8c024cc8` and
+   `027958`'s `busDrawSimpleCb_8c027a88`/`busDrawSimpleCb_8c027bac`. Unlike
+   (1) these aren't merged into a neighbour -- Ghidra does list them as
+   functions -- but nothing in the pseudocode calls them, so a straight
+   BSR/JSR-based call-graph reading skips them entirely.
 
-Trusting the export list or Ghidra's function list misses both. The reliable
-method is walking the asm for prologue/epilogue pairs directly:
+Trusting the export list, Ghidra's function list, or a BSR/JSR-only call
+graph misses at least one of these three. The reliable method for (1)/(2)
+is walking the asm for prologue/epilogue pairs directly:
 
     command grep -aoP '\.DATA\.L\s+\K(LAB|_?FUN)_\w+' <unit>.src | sort -u
 
@@ -127,12 +138,114 @@ neighbour.
 
 ## Reference: recently completed units
 
+### `025b98_traffic_drive` (ShortUnit `TrafficDrive`) -- done, 2/2 functions
+
+The two per-entity `TaskAction`s `spawnEntry_8c0272b8` (`026710_traffic`)
+installs: `TrafficDriveVehicle_8c025b98` for a moving CPU vehicle,
+`TrafficDriveDecoration_8c02656a` for a fixed one (traffic light, sign, ...).
+
+`TrafficDriveVehicle_8c025b98` dispatches on `driveState_0x2b4`, a 4-state
+field (0/2 normal driving, 1 collision-push, 3 waiting for its own spawn box
+to clear) -- named (renamed from a too-narrow `knockbackActive_0x2b4`) once
+it turned out to hold more than a boolean push flag. `TrafficDriveDecoration`
+shares the same collision-push shape via `driveState_0x2b4 == 1`.
+
+`TrafficEntry.groundProbe_0x190` is declared `[4]` (`026710_traffic.h`), but
+both this unit and `027958` only ever read/write indices `[0..2]` -- **no
+reader for `groundProbe_0x190[3]` has been found anywhere in the tree.**
+Genuinely open; worth a fresh grep once more of the traffic cluster is
+decompiled.
+
+### `027958` -- done, left deliberately hex-only
+
+Bundles three unrelated jobs that happened to end up in one Ghidra-drawn
+range: bus blinker-light state (`FUN_8c027958`/`FUN_8c028022`), traffic-
+signal draw callbacks for `028258_objects` (`FUN_8c0281ac`/`FUN_8c028206`),
+and a ground-alignment matrix helper for `025b98` (`FUN_8c027c3c`). Same
+"exports span unrelated jobs" reasoning as `02e51c` below -- no `@unit` tag,
+left hex-addressed.
+
+Two of its seven functions -- `busDrawSimpleCb_8c027a88`/
+`busDrawSimpleCb_8c027bac`, registered as `FadeCmdPushCall2_8c022420` draw
+callbacks by `FUN_8c027c3c` (itself called once per frame per moving
+traffic entity by `TrafficDriveVehicle_8c025b98`) -- are case (3) of the
+Ghidra boundary/call-graph note above.
+
+### `023938_bus_drive` (ShortUnit `BusDrive`) -- done, 5/5 functions
+
+Per-frame driving update for the player's bus: `FUN_8c023938` fills 10
+corner/lookahead ground-sample points via the bus's ground-query callback
+(`BusState.field_0x2c8`, picked once by `busInitPlaceBus_8c023310`);
+`FUN_8c023cba` turns those samples into a steering-correction direction and
+averaged height, falling back to the private `busDriveDecelerate_8c023bea`
+(a braking-pitch sound cue) when the lane-offset path data isn't ready;
+`BusDriveStop_8c023bce` resets the drivetrain to idle (`bus_state_0x2b4 ==
+2`) after a knockback (called by `02b464`) or after that braking update.
+The public entry points are shared between
+`busInitPlaceBus_8c023310`/`BusInitStart_8c023610` (one-time setup) and
+`BusTask_8c022bdc` (every frame).
+
+### `022bdc_bus` (ShortUnit `Bus`) -- done, 1/1 function
+
+`BusTask_8c022bdc` is the player-bus per-frame dispatcher: door-timer
+advance, the driving/knockback/braking state machine, steering, the ground/
+junction queries other systems reuse, blinkers, and the camera. Pushed as
+the run's task action by `BusInitStart_8c023610` (`023310_bus_init`).
+
+The unit itself is a single cleanly-exported function -- the "hidden
+function" discovery in this cluster was one level over, in
+`024b4c_bus_render` (`drawFrontBusModel_8c024cc8`, see below): decompiling
+`Bus` is what turned that whole render subsystem's dependency into a live,
+rankable target rather than dead weight nothing decompiled called yet.
+
+### `023310_bus_init` (ShortUnit `BusInit`) -- done, 2/2 functions
+
+`busInitPlaceBus_8c023310` places the player's bus at the current run's
+starting stop (ground/junction-query callback selection included) and
+`BusInitStart_8c023610` arms its per-frame task (`BusTask_8c022bdc`). Called
+once at the start of a run.
+
+### `024b4c_bus_render` (ShortUnit `BusRender`) -- done, 8/8 functions
+
+Lights, textures, draws and cameras the player's bus model: the gameplay
+camera (`BusRenderUpdateCamera_8c025078`, using the private
+`positionCamera_8c024d6c` helper), the mirror camera
+(`BusRenderUpdateMirrorCamera_8c025604`), the third-person model
+(`FUN_8c024bb8`), a turn-blink state machine (`FUN_8c024f32`, driven by
+`FUN_8c024b4c`/`FUN_8c024b86`'s frame-history shift).
+
+`drawFrontBusModel_8c024cc8` (the dashboard-view model) is reachable only
+via a function pointer sitting in `BusRenderUpdateMirrorCamera_8c025604`'s
+literal pool -- case (3) of the Ghidra boundary/call-graph note above.
+
+### `025870` (ShortUnit `Demo`) -- done, 5/5 functions
+
+Demo/attract-mode playback (`FUN_8c025870`, `DemoUpdateCamera_8c025906`,
+`FUN_8c025af4`) plus the in-drive "next stop" textbox: `FUN_8c0258ba`
+repositions the bus draw point, and its 4-phase state machine
+`stopTextboxTask_8c0259e8` is a `TaskPush_8c014ae8` action -- exported
+normally in the `.src`, but reachable only by address (installed as a
+callback, never called by name in this unit). Worth remembering even when
+Ghidra's export list looks complete: a `TaskPush` install site can hide a
+function's real call graph the same way a raw literal pool does.
+
+### `02e51c` -- done, left deliberately hex-only (no `@unit` tag)
+
+Two unrelated jobs sharing one Ghidra-drawn address range, hence no
+`ShortUnit` tag: four float-heavy grid/junction geometry lookups
+(`FUN_8c02e51c`/`eab4`/`e69c`/`ec50`, road-junction-under-a-point queries,
+same `(x, y, z, out)` shape as `GroundQueryFindPolygon_8c020914` but a
+different 3-field result layout) and one unrelated integer task-scan
+(`FUN_8c02f08a`). Exports spanning genuinely unrelated jobs is exactly the
+`@unit`-tag exemption case -- same reasoning applies to `027958` above.
+
 ### `02b464_drive_points` (ShortUnit `DrivePoints`) -- done, driving-evaluation/penalty subsystem
 
 Ghidra had hidden six functions reachable only via TaskPush pointers,
 including the master per-frame `taskCallback_8c02c072` -- see the boundary
-note above. Still depends on four raw-asm units: `024b4c`, `023938`,
-`02e2dc`, `02b2f0` (see the priority table and suggested order above).
+note above. Two of its four raw-asm dependencies (`024b4c`, `023938`) have
+since been decompiled (see their own entries above); it still depends on
+`02e2dc` and `02b2f0` (see the priority table and suggested order above).
 
 ### `02f320_replay_codec` (ShortUnit `ReplayCodec`) -- done
 
@@ -174,8 +287,8 @@ Two independent collision services sharing one file. No section C/D data.
   scans the whole task array `var_tasks_8c1bac28` through the module-global
   cursor `var_collideScanCursor_8c228974`, skipping `self` and any `action ==
   -1` slot, and returns the first candidate entry whose box overlaps per
-  `njCollisionCheckBB`. Callers are in the still-asm `025b98` (moving-vehicle
-  task).
+  `njCollisionCheckBB`. Callers are in `025b98_traffic_drive`'s
+  `TrafficDriveVehicle_8c025b98` (moving-vehicle task).
 - `CollideQueueReset_8c02e486` / `CollideQueueAdd_8c02e48e(obj)` /
   `CollideQueueTest_8c02e4ac()` -- a 64-slot pointer queue
   (`var_collideQueue_8c228a38`, count `var_collideQueueCount_8c228b38`).
@@ -286,8 +399,10 @@ as it is in its sibling `GroundProbeTrackPolygon_8c020b6c`.
 All three callers pair it with `GroundProbeInterpolateHeight_8c020f7e` (in `020b6c_ground_probe`), which interpolates
 a point's height from the returned polygon: `028258_objects` snaps decorations
 and pedestrians to the ground, `026710_traffic` grounds a spawning vehicle on
-its path, `02c884_bus_stop` grounds waiting-passenger sprites. A fourth,
-still-undecompiled caller lives in `src/asm/023310.src`.
+its path, `02c884_bus_stop` grounds waiting-passenger sprites. A fourth
+caller, `023310_bus_init`'s `busInitPlaceBus_8c023310`, has since landed
+too -- it also stashes the function pointer itself in
+`BusState.field_0x2c8` for `022bdc_bus`'s per-frame dispatcher to invoke.
 
 The real 4-field `GroundQueryResult` now lives in `020914_ground_query.h`; the
 opaque local duplicates in `028258_objects.c` and `02c884_bus_stop.c` are gone.
@@ -321,8 +436,9 @@ two-level fixup turning self-relative dwords into absolute pointers over
 collision meshes as the active ground grid and advances a per-record counter;
 crossing `threshold` calls `spawnEntry_8c0272b8`, which gates some type codes
 behind a per-(route, time-of-day) day bitmask (`init_8c046208`) and allocates a
-task running `FUN_8c025b98` (moving vehicle) or `FUN_8c02656a` (fixed
-decoration).
+task running `TrafficDriveVehicle_8c025b98` (moving vehicle) or
+`TrafficDriveDecoration_8c02656a` (fixed decoration) -- see the
+`025b98_traffic_drive` entry below.
 
 **Stepping** is a bytecode VM: `TrafficRunEntryScript_8c027012` dispatches
 opcodes 0 spawn, 1 advance path block, 2/3 config, 4 skip, 5/6/7 decoration
