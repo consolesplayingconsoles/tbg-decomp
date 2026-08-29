@@ -39,7 +39,7 @@ void *FUN_8c02ec50(float x, float y, float z, void *out);
 /* Scans var_tasks_8c1bac28 for a traffic entry (task state, other than
  * self's) whose field_0x410 equals value; falls back to the player bus's
  * own BusState.field_0x3a0 when no other task matches. Returns nonzero on
- * either match. Consumed by still-asm FUN_8c025b98 (025b98). */
+ * either match. Consumed by TrafficDriveVehicle_8c025b98 (025b98_traffic_drive). */
 int FUN_8c02f08a(Task *self, int value);
 
 #endif // _02E51C_H

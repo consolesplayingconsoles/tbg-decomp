@@ -753,3 +753,12 @@ looks suspicious, so this only surfaced as an unexpected-write-order failure
 against `_src.obj`. Whenever two writes are both observable, check their order
 against the asm rather than reading it off the decompile, and assert the order
 in the test.
+
+## `FCMP/GT Fm,Fn` tests `Fn > Fm`, not `Fm > Fn`
+
+The operand order reads backwards from the mnemonic. Getting it inverted flips
+a comparison's sense while still compiling and still looking right -- in
+`TrafficDriveDecoration_8c02656a` (025b98_traffic_drive) it turned a "free the
+task when the entity is FAR from the reference point" into "when it is near".
+Only the dual-object test caught it. Check the operand order against the SH4
+manual whenever a float comparison's branch sense matters.

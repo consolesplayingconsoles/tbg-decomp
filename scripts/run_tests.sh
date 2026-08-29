@@ -223,4 +223,8 @@ compile  src/02e51c.c
 assemble  src/asm/decompiled/027958.src
 compile  src/027958.c
 
+# 025b98
+assemble  src/asm/decompiled/025b98_traffic_drive.src
+compile  src/025b98_traffic_drive.c
+
 $sh4objtest suite -s tests.php "$@"

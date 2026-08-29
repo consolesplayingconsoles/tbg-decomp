@@ -397,6 +397,12 @@ extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into
 extern void *var_8c1bb894;
 extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
 extern float var_groundHeightFallback_8c1bbac8; // fallback ground height when both grid queries miss
+/* Sits at var_busState_8c1bb9d0's base+0xf4 -- same address as its
+ * posX_0x0f4 field -- but exported as its own symbol and referenced that
+ * way by TrafficDriveDecoration_8c02656a (025b98_traffic_drive), not
+ * through the struct. Coincidentally adjacent, not part of it (same
+ * pattern as var_8c1bbacc below). */
+extern float var_8c1bbac4;
 /* Sits at var_busState_8c1bb9d0's base+0xfc -- same address as its
  * posZ_0x0fc field -- but exported as its own symbol and referenced that
  * way by FUN_8c02f0c8 (02f0c8), not through the struct. Coincidentally
@@ -863,9 +869,17 @@ extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
 extern int var_8c2285c4[];
 
-/* Set by trafficUpdateTask_8c0275d4 (026710); role for other consumers
- * (023310, 02e51c, 025b98, 022bdc, 02f0c8, still undecompiled) unclear. */
+/* Set by trafficUpdateTask_8c0275d4 (026710); selects the junction
+ * attribute grid FUN_8c02e51c (02e51c) searches. TrafficDriveVehicle_8c025b98
+ * (025b98) swaps it to var_8c1bb878 for its own junction-under-entity query,
+ * then restores var_8c1bb888 -- role for other consumers (023310, 022bdc,
+ * 02f0c8, still undecompiled) unclear. */
 extern void *var_8c228b3c;
+extern void *var_8c1bb878;
+extern void *var_8c1bb888;
+/* Set to 1 by TrafficDriveVehicle_8c025b98 (025b98) on a stopped-at-junction
+ * hit; never read there. Role/other consumers unclear. */
+extern Sint32 var_8c2264d0;
 /* One of init_8c04c980/init_8c04caec/init_8c04cd38 (sectionD), picked by
  * route in TrafficInit_8c02769e (026710); role for 02f0c8 (still
  * undecompiled) unclear. */

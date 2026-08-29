@@ -8,8 +8,7 @@
 #include "0222dc_fadecmd.h"
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
-#include "025b98.h"
-#include "02656a.h"
+#include "025b98_traffic_drive.h"
 #include "026710_traffic.h"
 #include "028258_objects.h"
 #include "02786c_vehicle_parts.h"
@@ -126,7 +125,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     /* 4 bytes larger than GroundQueryResult; the extra word keeps the frame
      * layout the original build had. */
     Uint8 groundBuf[20];
-    Uint32 *zeroPtr;
+    float *zeroPtr;
     Uint16 speedRandom;
 
     if (type != 10) {
@@ -216,15 +215,15 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     e->field_0x104 = e->posY_0xf8;
     e->field_0x11c = e->posY_0xf8;
     e->field_0x128 = e->posY_0xf8;
-    e->field_0x198 = 0;
-    e->field_0x19c = 0;
-    e->field_0x1a8 = 0;
-    e->field_0x1ac = 0;
-    e->field_0x1b8 = 0;
-    e->field_0x1bc = 0;
-    e->field_0x1c8 = 0;
-    e->field_0x1cc = 0;
-    e->field_0x2b4 = 0;
+    e->groundProbe_0x190[0].vertexIds_0x08 = 0;
+    e->groundProbe_0x190[0].count_0x0c = 0;
+    e->groundProbe_0x190[1].vertexIds_0x08 = 0;
+    e->groundProbe_0x190[1].count_0x0c = 0;
+    e->groundProbe_0x190[2].vertexIds_0x08 = 0;
+    e->groundProbe_0x190[2].count_0x0c = 0;
+    e->groundProbe_0x190[3].vertexIds_0x08 = 0;
+    e->groundProbe_0x190[3].count_0x0c = 0;
+    e->driveState_0x2b4 = 0;
     e->pathRecord_0x2b8 = seg;
     e->pathDistanceCopy_0x2c0 = dist;
     e->pathDistance_0x2bc = dist;
@@ -234,15 +233,15 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     e->field_0x2dc = 0;
 
     if (type == 10) {
-        e->field_0x27c = 0;
+        e->speed_0x27c = 0;
     } else {
-        zeroPtr = &e->field_0x284;
+        zeroPtr = &e->field_0x280[1];
         e->field_0x414 = (float)*(Uint16 *)(scriptCursor + 4) / 65536.0f;
-        e->field_0x27c = e->field_0x414 / 2.0f;
+        e->speed_0x27c = e->field_0x414 / 2.0f;
         do {
             *zeroPtr = 0;
             zeroPtr++;
-        } while (zeroPtr < (Uint32 *)&e->field_0x290);
+        } while (zeroPtr < &e->field_0x290);
         e->field_0x290 = init_8c0461c8[variantIdx];
         e->field_0x418 = 9999.0f;
         e->field_0x424 = 0;
@@ -258,7 +257,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
         e->field_0x474 = 0;
         *scriptIp = scriptCursor + 6;
         e->field_0x490 = 9999.0f;
-        e->field_0x4ec = 0;
+        e->field_0x4ec = 0.0f;
         e->field_0x4f4 = seg;
         e->field_0x4f8 = e->field_0x300;
         e->field_0x4fc = dist + 2.5f;
@@ -447,12 +446,12 @@ float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *oth
         }
 
         if (o->pathDistanceCopy_0x2c0 <= e->pathDistanceCopy_0x2c0) {
-            o->field_0x418 = e->field_0x27c + margin;
+            o->field_0x418 = e->speed_0x27c + margin;
             if (o->field_0x418 < 0.0f) {
                 o->field_0x418 = 0.0f;
             }
         } else {
-            candidate = o->field_0x27c + margin;
+            candidate = o->speed_0x27c + margin;
             result = candidate;
             if (candidate < 0.0f) {
                 result = 0.0f;
@@ -721,8 +720,8 @@ done:
  * today" and the entry is skipped entirely (still returns 1, as if spawned).
  *
  * The script's header word (*script) selects the driving task: 10 marks a
- * fixed decoration (FUN_8c02656a, entry+0x2e4=1), anything else a
- * path-following vehicle (FUN_8c025b98, entry+0x2e4=0). typeCode's 0x8000/
+ * fixed decoration (TrafficDriveDecoration_8c02656a, entry+0x2e4=1), anything else a
+ * path-following vehicle (TrafficDriveVehicle_8c025b98, entry+0x2e4=0). typeCode's 0x8000/
  * 0x4000 bits pick the animation kind (entry+0x48c) and the ground/junction
  * query callback pair stored at entry+0x2c8/0x2cc (elevated-road vs. normal).
  *
@@ -772,13 +771,13 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
     }
 
     if (*script == 10) {
-        if (!TaskPush_8c014ae8(var_tasks_8c1bac28, FUN_8c02656a, &task, &entryVoid, 0x514)) {
+        if (!TaskPush_8c014ae8(var_tasks_8c1bac28, TrafficDriveDecoration_8c02656a, &task, &entryVoid, 0x514)) {
             return 0;
         }
         e = (TrafficEntry *)entryVoid;
         e->field_0x2e4 = 1;
     } else {
-        if (!TaskPush_8c014ae8(var_tasks_8c1bac28, FUN_8c025b98, &task, &entryVoid, 0x514)) {
+        if (!TaskPush_8c014ae8(var_tasks_8c1bac28, TrafficDriveVehicle_8c025b98, &task, &entryVoid, 0x514)) {
             return 0;
         }
         e = (TrafficEntry *)entryVoid;

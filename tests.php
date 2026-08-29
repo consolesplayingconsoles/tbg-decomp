@@ -838,5 +838,15 @@ return [
                 "build/output_test/027958_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/025b98_traffic_drive/8c02656a_TrafficDriveDecoration.php",
+                "tests/025b98_traffic_drive/8c025b98_TrafficDriveVehicle.php",
+            ],
+            "objects" => [
+                "build/output_test/025b98_traffic_drive_src.obj",
+                "build/output_test/025b98_traffic_drive_c.obj",
+            ]
+        ],
     ],
 ];

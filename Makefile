@@ -92,7 +92,7 @@ SRCS = \
 	src/asm/024280.src \
 	src/024b4c_bus_render.c \
 	src/025870.c \
-	src/asm/025b98.src \
+	src/025b98_traffic_drive.c \
 	src/026710_traffic.c \
 	src/02786c_vehicle_parts.c \
 	src/027958.c \

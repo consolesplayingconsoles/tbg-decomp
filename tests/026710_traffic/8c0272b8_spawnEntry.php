@@ -22,8 +22,8 @@ return new class extends TestCase {
         $this->setSize('_FUN_8c02e51c', 4);
         $this->setSize('_GroundProbeTrackPolygonAtHeight_8c021290', 4);
         $this->setSize('_FUN_8c02eab4', 4);
-        $this->setSize('_FUN_8c025b98', 4);
-        $this->setSize('_FUN_8c02656a', 4);
+        $this->setSize('_TrafficDriveVehicle_8c025b98', 4);
+        $this->setSize('_TrafficDriveDecoration_8c02656a', 4);
         $this->setSize('_var_tasks_8c1bac28', 4);
         $this->setSize('_var_routeModelSlots_8c1bbddc', 0x20 * 0x10);
         $this->setSize('_var_trafficModels_8c1bc3f4', 4);
@@ -85,7 +85,7 @@ return new class extends TestCase {
     // Same typeCode, but (route=SHINJUKU, timeOfDay=EVENING) has bit 15 set
     // in init_8c046208, and days_0x00=16 sets that same bit in the day mask
     // -- the day gate passes and the entry is spawned as a fixed decoration
-    // (script header word == 10): FUN_8c02656a's task action, entry+0x2e4=1,
+    // (script header word == 10): TrafficDriveDecoration_8c02656a's task action, entry+0x2e4=1,
     // and the moving-vehicle-only block (TrafficReadScriptArgs_8c026710,
     // FUN_8c02f0c8, entry+0x2e8/0x2ec/0x2f0, TrafficAdvanceOnPath_8c026ca2)
     // is skipped entirely.
@@ -136,7 +136,7 @@ return new class extends TestCase {
     }
 
     // A typeCode outside the 0x1c/0x1e day-gated range spawns a moving
-    // vehicle (*script != 10): TaskPush uses FUN_8c025b98 (entry+0x2e4=0),
+    // vehicle (*script != 10): TaskPush uses TrafficDriveVehicle_8c025b98 (entry+0x2e4=0),
     // and the full moving-vehicle setup runs, including the taxi/tour-bus
     // random flag (typeCode 0x14, odd random -> entry+0x510 |= 0x40).
     public function test_movingVehicleFullPath(): void {

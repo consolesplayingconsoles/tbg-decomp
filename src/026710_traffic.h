@@ -4,6 +4,8 @@
 
 #include <shinobi.h>
 
+#include "020914_ground_query.h" /* GroundQueryResult */
+
 /* One record of a path block: a run of these terminated by length == 0.
  * TrafficAdvanceOnPath_8c026ca2 walks them to find the record containing the
  * entry's distance-along-path, then projects the world position from the
@@ -30,8 +32,8 @@ typedef struct {
 /* The 0x514-byte task state spawnEntry_8c0272b8 allocates for every CPU
  * vehicle and fixed decoration. Fields are named only where this unit,
  * 02786c_vehicle_parts and 02e400_collision establish a meaning; the rest stay
- * field_/padding_ until the per-frame drivers FUN_8c025b98 (moving vehicle)
- * and FUN_8c02656a (decoration) are decompiled -- they own most of it. */
+ * field_/padding_ until the per-frame drivers TrafficDriveVehicle_8c025b98 (moving vehicle)
+ * and TrafficDriveDecoration_8c02656a (decoration) are decompiled -- they own most of it. */
 typedef struct {
     Uint32 field_0x000;
     NJS_TEXLIST *texlistLarge_0x04;
@@ -94,18 +96,17 @@ typedef struct {
     float field_0x124;
     float field_0x128;
     float field_0x12c;
-    Uint8 padding_0x130[0x68];
-    Uint32 field_0x198;
-    Uint32 field_0x19c;
-    Uint8 padding_0x1a0[0x8];
-    Uint32 field_0x1a8;
-    Uint32 field_0x1ac;
-    Uint8 padding_0x1b0[0x8];
-    Uint32 field_0x1b8;
-    Uint32 field_0x1bc;
-    Uint8 padding_0x1c0[0x8];
-    Uint32 field_0x1c8;
-    Uint32 field_0x1cc;
+    Uint8 padding_0x130[0x60];
+    /* 4 scratch ground-probe results. spawnEntry_8c0272b8 clears each one's
+     * vertexIds_0x08/count_0x0c (leaving attr_0x00/polyIdSlot_0x04
+     * untouched -- real asm behavior). Only the first 3 (0x190/0x1a0/0x1b0)
+     * are confirmed consumers: per 027958.h/FUN_8c027c3c, which fills them
+     * through field_0x2c8's probe callback and interpolates posY_0xf8/
+     * field_0x11c/field_0x128 from them; their .attr_0x00 words are read as
+     * a "probe already valid" gate by TrafficDriveDecoration_8c02656a,
+     * which clears their .count_0x0c to force a re-probe. The 4th
+     * (0x1c0)'s reader is not yet identified. */
+    GroundQueryResult groundProbe_0x190[4];
     Uint8 padding_0x1d0[0x6c];
     float width_0x23c;
     float length_0x240;
@@ -123,13 +124,36 @@ typedef struct {
     float field_0x270;
     float field_0x274;
     float field_0x278;
-    float field_0x27c;
-    Uint32 field_0x280;
-    Uint32 field_0x284;
-    Uint8 padding_0x288[0x8];
+    /* Same offset/role as BusState.speed_0x27c: a ramp value
+     * TrafficDriveDecoration_8c02656a nudges by +-0.1 per frame and
+     * projects along dirX_0x29c/dirZ_0x2a0 to slide the entity. */
+    float speed_0x27c;
+    /* 4-slot ring buffer, shifted down by one slot (0x284->0x280,
+     * 0x288->0x284, 0x28c->0x288, 0x28c unchanged) every frame by
+     * TrafficDriveVehicle_8c025b98's shared tail, which sums the 3 shifted-
+     * out slots plus this frame's speed delta into the heading value passed
+     * to FUN_8c027c3c. Was 2 Uint32 + 8 bytes of padding; all 4 slots are
+     * float (was Uint32/Uint32/padding, wrong -- see that function). */
+    float field_0x280[4];
     float field_0x290;
-    Uint8 padding_0x294[0x20];
-    Uint32 field_0x2b4;
+    Uint8 padding_0x294[0x8];
+    /* Same offset/role as BusState.dir_x_0x29c/dir_z_0x2a0 (its collision
+     * knockback direction): applied to posX_0xf4/field_0x100 (front) and
+     * posZ_0xfc/field_0x108 (rear) by TrafficDriveDecoration_8c02656a. */
+    float dirX_0x29c;
+    float dirZ_0x2a0;
+    Uint8 padding_0x2a4[0x10];
+    /* Same offset as BusState.bus_state_0x2b4. The top-level state driving
+     * both per-frame drivers: 0/2 = normal driving (TrafficDriveVehicle_8c025b98's
+     * main body; 2 additionally blends the ground-snapped height back down
+     * to normal, then reverts to 0), 1 = being pushed by
+     * speed_0x27c/dirX_0x29c/dirZ_0x2a0 (collision knockback for a moving
+     * vehicle, or the whole story for a fixed decoration -- see
+     * TrafficDriveDecoration_8c02656a), 3 = waiting for the entity's own
+     * spawn box to clear after a script reload before resuming. Unrelated
+     * to field_0x474's own 1-4 sequencing for the junction-wait script
+     * opcodes (5/6/7/8). */
+    Uint32 driveState_0x2b4;
     PathRecord *pathRecord_0x2b8;
     float pathDistance_0x2bc;
     float pathDistanceCopy_0x2c0;
@@ -190,7 +214,9 @@ typedef struct {
     Uint32 field_0x494;
     Uint32 field_0x498;
     Uint8 padding_0x49c[0x50];
-    Sint32 field_0x4ec;
+    /* float, not Sint32 -- TrafficDriveVehicle_8c025b98 decrements it by
+     * the frame's speed like an odometer. */
+    float field_0x4ec;
     Uint32 field_0x4f0;
     PathRecord *field_0x4f4;
     Uint32 field_0x4f8;

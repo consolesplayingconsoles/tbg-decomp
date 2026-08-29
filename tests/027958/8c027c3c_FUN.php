@@ -13,7 +13,7 @@ if (!function_exists('fdec')) {
 
 /*
  * FUN_8c027c3c(TrafficEntry *entity, float heading): called once per frame
- * per traffic entity by FUN_8c025b98 (025b98, still raw asm). See 027958.h
+ * per traffic entity by TrafficDriveVehicle_8c025b98 (025b98, still raw asm). See 027958.h
  * for the full description; this test covers the near/far draw-registration
  * cone tests, the ground-probe-pointer realign trigger, the suspension-lean
  * integer easing, and the ground re-probe/grid-swap block.

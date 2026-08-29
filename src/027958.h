@@ -34,7 +34,7 @@ void FUN_8c0281ac(int objArg, int matrixArg);
  * frame_0x0c. */
 void FUN_8c028206(int objArg, int matrixArg);
 
-/* Called by FUN_8c025b98 (025b98, still raw asm) once per frame for each
+/* Called by TrafficDriveVehicle_8c025b98 (025b98_traffic_drive) once per frame for each
  * moving traffic entity, passing the entity itself and its current heading
  * (as a 0..1 turn fraction, scaled by 45000.0 below to match acc_0x078's
  * fixed-point units). Two jobs:
@@ -55,13 +55,13 @@ void FUN_8c028206(int objArg, int matrixArg);
  *    mirroring BusState's distance_traveled_0x070/ang_0x074/acc_0x078/
  *    ang_0x07c -- the same fields FUN_8c027958 reads for blinker-light
  *    placement) and, unless skipped (field_0x494 already 1 and speed
- *    field_0x27c is 0 -- i.e. stationary and already aligned), re-probes 3
+ *    speed_0x27c is 0 -- i.e. stationary and already aligned), re-probes 3
  *    ground points (field_0x118/0x124/0x100, each an (x,y,z) triple) through
  *    entity->field_0x2c8 (a per-entity ground-probe function pointer) into
  *    3 scratch GroundQueryResult buffers at entity+0x190/0x1a0/0x1b0,
  *    interpolates height at 2 of them into posY_0xf8, and re-aligns the
  *    entity's world matrix (worldMatrix_0x84) to the ground via
- *    move_bus_model_8c020594. field_0x2b4 == 1 temporarily swaps the active
+ *    move_bus_model_8c020594. driveState_0x2b4 == 1 temporarily swaps the active
  *    ground grid to the fallback grid for these probes. */
 void FUN_8c027c3c(TrafficEntry *entity, float heading);
 

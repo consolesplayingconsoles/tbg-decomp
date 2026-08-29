@@ -215,14 +215,14 @@ void FUN_8c027c3c(TrafficEntry *entity, float heading)
     if (registered || entity->field_0x490 < 85.333336f) {
         int prev, delta, headingDelta;
 
-        entity->field_0x070 -= (int)(entity->field_0x27c * 65536.0f);
+        entity->field_0x070 -= (int)(entity->speed_0x27c * 65536.0f);
 
         headingDelta = entity->headingAlt_0x254 - entity->heading_0x250;
         entity->field_0x258 = headingDelta;
         entity->field_0x074 = headingDelta;
 
         prev = entity->field_0x07c;
-        delta = (int)-((float)headingDelta * entity->field_0x27c) - prev;
+        delta = (int)-((float)headingDelta * entity->speed_0x27c) - prev;
         if (delta < 0) {
             if (delta < -0xb6) {
                 delta = -0xb6;
@@ -263,13 +263,13 @@ void FUN_8c027c3c(TrafficEntry *entity, float heading)
         }
         entity->field_0x078 = delta;
 
-        if (entity->field_0x494 == 0 || entity->field_0x27c != 0.0f) {
+        if (entity->field_0x494 == 0 || entity->speed_0x27c != 0.0f) {
             GroundProbeFn_027c3c probe = (GroundProbeFn_027c3c)entity->field_0x2c8;
-            GroundQueryResult *probeA = (GroundQueryResult *)((char *)entity + 0x190);
-            GroundQueryResult *probeB = (GroundQueryResult *)((char *)entity + 0x1a0);
-            GroundQueryResult *probeC = (GroundQueryResult *)((char *)entity + 0x1b0);
+            GroundQueryResult *probeA = &entity->groundProbe_0x190[0];
+            GroundQueryResult *probeB = &entity->groundProbe_0x190[1];
+            GroundQueryResult *probeC = &entity->groundProbe_0x190[2];
 
-            if (entity->field_0x2b4 == 1) {
+            if (entity->driveState_0x2b4 == 1) {
                 var_activeGroundGrid_8c2264d4 = var_groundGridFallback_8c1bb86c;
             }
 
@@ -282,7 +282,7 @@ void FUN_8c027c3c(TrafficEntry *entity, float heading)
             entity->posY_0xf8 = (entity->field_0x11c + entity->field_0x128) / 2.0f;
             GroundProbeInterpolateHeight_8c020f7e(probeC, &entity->field_0x100);
 
-            if (entity->field_0x2b4 == 1) {
+            if (entity->driveState_0x2b4 == 1) {
                 var_activeGroundGrid_8c2264d4 = var_8c1bb880;
             }
 
