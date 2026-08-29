@@ -1,5 +1,18 @@
 # Next Decompilation Targets
 
+> **All game-code units are decompiled** (2026-08-29). `src/asm/` now holds only
+> the excluded set: `04f6c0_SDK` and `02fb50_sh4nlfzn` (library code),
+> `sectionB`/`sectionD`/`03327c_strt1_sectionC` (section data), `04ce10_slots`
+> (pure data -- a `move-data` job, not a decompile target), `010000`, and the
+> parked `02af78_pre_data` (see its file header and `docs/lessons_learned.md`).
+>
+> The priority table below is kept for its per-unit notes, which remain
+> accurate; every unit in it has since landed. Remaining work is no longer
+> "which unit next" but the open items in each unit's own notes -- untested
+> branches, `FUN_` placeholders whose role is still unclear, and the
+> `TrafficEntry.groundProbe_0x190[3]` question (checked across eight units, no
+> reader found anywhere).
+
 Relocation-graph analysis regenerated 2026-08-29 by `make graph` after
 `022bdc_bus`, `023310_bus_init`, `024b4c_bus_render`, `025870`, `02e51c`,
 `023938_bus_drive`, `027958` and `025b98_traffic_drive` all landed. The
