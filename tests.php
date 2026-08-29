@@ -952,5 +952,16 @@ return [
                 "build/output_test/020214_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/021b9c/8c021b9c_FUN.php",
+                "tests/021b9c/8c021ec4_FUN.php",
+                "tests/021b9c/8c0221d0_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/021b9c_src.obj",
+                "build/output_test/021b9c_c.obj",
+            ]
+        ],
     ],
 ];

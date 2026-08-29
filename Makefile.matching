@@ -51,7 +51,7 @@ SRCS = \
 	src/asm/decompiled/020914_ground_query.src \
 	src/asm/decompiled/020b6c_ground_probe.src \
 	src/asm/decompiled/02171c_tile_stream.src \
-	src/asm/021b9c.src \
+	src/asm/decompiled/021b9c.src \
 	src/asm/decompiled/0222dc_fadecmd.src \
 	src/asm/decompiled/022464_fade.src \
 	src/asm/decompiled/022bdc_bus.src \

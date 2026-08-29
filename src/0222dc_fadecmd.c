@@ -4,7 +4,7 @@
 #include "011120_asset_queues.h" /* LoadedModel */
 #include "013ae8_route_load.h" /* CourseSceneParams */
 #include "014a9c_tasks.h"
-#include "0221d0.h"
+#include "021b9c.h"
 #include "022464_fade.h" /* FadeDrawCommand, FadeCallback1, FadeCallback2 */
 #include "sectionB.h"
 
@@ -18,7 +18,7 @@ void FUN_8c0222dc(void)
     Task *task;
     LoadedModel *state;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &FUN_8c0221d0, &task, (void **)&state, 8);
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, FUN_8c0221d0, &task, (void **)&state, 8);
     state->texlist = var_segmentModels_8c1bc3f0->texlist;
     state->njDest = var_segmentModels_8c1bc3f0->njDest;
 

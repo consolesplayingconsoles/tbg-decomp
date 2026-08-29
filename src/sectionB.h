@@ -639,6 +639,11 @@ extern int var_8c2264c4;
 extern void* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c: light direction for fade layer 0
 extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c: light direction for fade layer 1 (mirror side)
+/* 021b9c's simple-light draw block for fade layer 1 addresses these two as
+ * their own symbols rather than var_fadeLightDir1_8c2264e4[1]/[2] -- same
+ * bytes, exported separately in src/asm/sectionB.src. */
+extern float var_8c2264e8; // alias of var_fadeLightDir1_8c2264e4[1]
+extern float var_8c2264ec; // alias of var_fadeLightDir1_8c2264e4[2]
 /* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Two separate
  * symbols (not one float[5]) because each is exported/imported on its own in
  * src/asm/sectionB.src -- coincidentally adjacent, not one C variable. */
@@ -1062,6 +1067,7 @@ extern TileIndex *var_8c22650c[5]; /* per-layer grid dims, copied from
 extern LoadedModel *var_tileLayerSlots_8c226520[5]; /* per-layer tile grids, width * height slots each;
                                                       * layers 0-3 hold texture+model pairs, layer 4 model only */
 extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
+extern float var_8c226538[3]; // 021b9c: scratch light-direction vector for the visible-tile draw pass
 extern int var_8c22640c;
 extern int var_8c226410;
 extern int var_8c226414[6]; /* dialog id queue built by buildDialogQueue_8c01e992, -1 terminated */
