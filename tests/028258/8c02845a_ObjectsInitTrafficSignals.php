@@ -71,7 +71,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($flagsVar, $flags);
         $this->shouldCall('_syMalloc')->with(4)->andReturn($slots);
         $this->shouldWriteLong($slotsVar, $slots);
-        $this->shouldCall('_FUN_8c026dcc')->with(0);
+        $this->shouldCall('_TrafficMarkSignalIdsInUse_8c026dcc')->with(0);
     }
 
     public function test_no_flagged_ids_returns_before_task_group()
@@ -97,7 +97,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
         $this->shouldCall('_syMalloc')->with(0xc)->andReturn($slots);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalStates_8c227e28'), $slots);
-        $this->shouldCall('_FUN_8c026dcc')->with(2);
+        $this->shouldCall('_TrafficMarkSignalIdsInUse_8c026dcc')->with(2);
     }
 
     public function test_flagged_id_allocates_group_but_spawns_nothing()
@@ -126,7 +126,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
         $this->shouldCall('_syMalloc')->with(8)->andReturn($slots);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalStates_8c227e28'), $slots);
-        $this->shouldCall('_FUN_8c026dcc')->with(1);
+        $this->shouldCall('_TrafficMarkSignalIdsInUse_8c026dcc')->with(1);
         $this->shouldWriteLong($flags + 0x00, 1); // marking loop flags linked id 0
 
         // count == 1, so the group holds (1 + 1) * 0x20 bytes.
@@ -195,7 +195,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
         $this->shouldCall('_syMalloc')->with(0x10)->andReturn($slots);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalStates_8c227e28'), $slots);
-        $this->shouldCall('_FUN_8c026dcc')->with(3);
+        $this->shouldCall('_TrafficMarkSignalIdsInUse_8c026dcc')->with(3);
         $this->shouldWriteLong($flags + 1 * 4, 1);
 
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
@@ -302,7 +302,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
         $this->shouldCall('_syMalloc')->with(0x10)->andReturn($slots);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalStates_8c227e28'), $slots);
-        $this->shouldCall('_FUN_8c026dcc')->with(3);
+        $this->shouldCall('_TrafficMarkSignalIdsInUse_8c026dcc')->with(3);
         $this->shouldWriteLong($flags + 1 * 4, 1);
 
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
@@ -413,7 +413,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
         $this->shouldCall('_syMalloc')->with(0x10)->andReturn($slots);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalStates_8c227e28'), $slots);
-        $this->shouldCall('_FUN_8c026dcc')->with(3);
+        $this->shouldCall('_TrafficMarkSignalIdsInUse_8c026dcc')->with(3);
         $this->shouldWriteLong($flags + 1 * 4, 1);
 
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
@@ -649,7 +649,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
         $this->shouldCall('_syMalloc')->with(0xc)->andReturn($slots);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalStates_8c227e28'), $slots);
-        $this->shouldCall('_FUN_8c026dcc')->with(2);
+        $this->shouldCall('_TrafficMarkSignalIdsInUse_8c026dcc')->with(2);
         $this->shouldWriteLong($flags + 1 * 4, 1);
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalTasks_8c227e20'), $group);
@@ -750,7 +750,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
         $this->shouldCall('_syMalloc')->with(0xc)->andReturn($slots);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalStates_8c227e28'), $slots);
-        $this->shouldCall('_FUN_8c026dcc')->with(2);
+        $this->shouldCall('_TrafficMarkSignalIdsInUse_8c026dcc')->with(2);
         $this->shouldWriteLong($flags + 1 * 4, 1);
 
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);

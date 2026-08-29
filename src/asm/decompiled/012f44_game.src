@@ -53,7 +53,7 @@
           .IMPORT     _TrafficInit_8c02769e
           .IMPORT     _FUN_8c0222dc
           .IMPORT     _ObjectsPushTasks_8c02a6ac
-          .IMPORT     _FUN_8c02c46a
+          .IMPORT     _DrivePointsReset_8c02c46a
           .IMPORT     _FUN_8c02018c
           .IMPORT     _FUN_8c02d968
           .IMPORT     _FUN_8c020528
@@ -762,7 +762,7 @@ LP_GEN_38000:
           .DATA.L _TrafficInit_8c02769e
           .DATA.L _FUN_8c0222dc
           .DATA.L _ObjectsPushTasks_8c02a6ac
-          .DATA.L _FUN_8c02c46a
+          .DATA.L _DrivePointsReset_8c02c46a
           .DATA.L _FUN_8c02018c
           .DATA.L _FUN_8c02d968
           .DATA.L _FUN_8c020528

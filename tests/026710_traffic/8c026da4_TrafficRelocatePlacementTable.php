@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c026da4 is a relocation fixup applied to a freshly-loaded blob: an
+// TrafficRelocatePlacementTable_8c026da4 is a relocation fixup applied to a freshly-loaded blob: an
 // array of self-relative dword offsets (relative to the blob's own base,
 // "handle"), terminated by 0. Each offset addresses a run of 0xc-byte
 // records; the outer array slot is overwritten with the record's absolute
@@ -18,7 +18,7 @@ return new class extends TestCase {
         $handle = $this->alloc(4);
         $this->initUint32($handle + 0x00, 0);
 
-        $this->call('_FUN_8c026da4')->with($handle);
+        $this->call('_TrafficRelocatePlacementTable_8c026da4')->with($handle);
     }
 
     // One outer entry whose record chain is a single record (its +4 field
@@ -38,7 +38,7 @@ return new class extends TestCase {
         $this->initUint32($handle + 0x14, 0);
         $this->initUint32($handle + 0x18, 0x5678);
 
-        $this->call('_FUN_8c026da4')->with($handle);
+        $this->call('_TrafficRelocatePlacementTable_8c026da4')->with($handle);
 
         // Outer slot becomes the record's absolute address.
         $this->shouldWriteLong($handle + 0x00, $handle + 0x10);
@@ -73,7 +73,7 @@ return new class extends TestCase {
         $this->initUint32($handle + 0x34, 0);
         $this->initUint32($handle + 0x38, 0x6666);
 
-        $this->call('_FUN_8c026da4')->with($handle);
+        $this->call('_TrafficRelocatePlacementTable_8c026da4')->with($handle);
 
         // Outer entry A relocated to its absolute record address.
         $this->shouldWriteLong($handle + 0x00, $handle + 0x10);

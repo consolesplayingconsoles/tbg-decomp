@@ -15,7 +15,7 @@
 #include "02c884_bus_stop.h" /* BusStopGetSegment_8c02cd6a */
 #include "0222dc_fadecmd.h" /* FadeCmdPushCall1_8c0223ea */
 #include "0100bc_sound.h" /* SndStartAdxFadeOut_8c010bae */
-#include "02b464.h" /* FUN_8c02c586, FUN_8c02c784 */
+#include "02b464_drive_points.h" /* FUN_8c02c586, FUN_8c02c784 */
 
 /* ====================
  * Functions
@@ -297,7 +297,7 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
 }
 
 /* Per-frame bus-stop arrival state machine, installed as a raw callback in
- * a dispatch table in the driving task (02b464); its argument (if any) is
+ * a dispatch table in the driving task (02b464_drive_points); its argument (if any) is
  * unused -- Ghidra's decompile invented a used "distanceSq" float parameter
  * from register content that state 2 actually recomputes itself (see
  * below). States:

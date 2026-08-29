@@ -18,6 +18,7 @@
 #include "scif.h"
 #include "011120_asset_queues.h"
 #include "013ae8_route_load.h"
+#include "02b464_drive_points.h" /* DrivePointsReset_8c02c46a */
 #include "014b8c_backup.h"
 #include "018644_file_menu.h"
 #include "01bb48_vm_game.h"
@@ -199,7 +200,7 @@ void FUN_8c01306e(void)
     TrafficInit_8c02769e();
     FUN_8c0222dc();
     ObjectsPushTasks_8c02a6ac();
-    FUN_8c02c46a();
+    DrivePointsReset_8c02c46a();
     FUN_8c02018c();
     FUN_8c02d968();
     FUN_8c020528();

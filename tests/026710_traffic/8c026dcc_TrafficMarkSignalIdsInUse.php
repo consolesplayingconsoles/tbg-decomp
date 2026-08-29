@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c026dcc rebuilds var_trafficSignalFrames_8c227e24 (in-use flags for
+// TrafficMarkSignalIdsInUse_8c026dcc rebuilds var_trafficSignalFrames_8c227e24 (in-use flags for
 // signal ids 0..maxId) for the current segment. With no scene-object-type
 // list at all (CourseSegment.sceneObjectTypeIds_0x14 == NULL), every id is
 // conservatively marked in-use. Otherwise every id starts free, then every
@@ -29,7 +29,7 @@ return new class extends TestCase {
         $frames = $this->alloc(4 * 4);
         $this->initUint32($this->addressOf('_var_trafficSignalFrames_8c227e24'), $frames);
 
-        $this->call('_FUN_8c026dcc')->with(2);
+        $this->call('_TrafficMarkSignalIdsInUse_8c026dcc')->with(2);
 
         $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
         $this->shouldWriteLong($frames + 0, 1);
@@ -49,7 +49,7 @@ return new class extends TestCase {
         $frames = $this->alloc(4);
         $this->initUint32($this->addressOf('_var_trafficSignalFrames_8c227e24'), $frames);
 
-        $this->call('_FUN_8c026dcc')->with(0xffffffff); // maxId = -1
+        $this->call('_TrafficMarkSignalIdsInUse_8c026dcc')->with(0xffffffff); // maxId = -1
 
         $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(0)->andReturn($seg);
     }
@@ -68,7 +68,7 @@ return new class extends TestCase {
         $frames = $this->alloc(4 * 3);
         $this->initUint32($this->addressOf('_var_trafficSignalFrames_8c227e24'), $frames);
 
-        $this->call('_FUN_8c026dcc')->with(2);
+        $this->call('_TrafficMarkSignalIdsInUse_8c026dcc')->with(2);
 
         $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(5)->andReturn($seg);
         $this->shouldWriteLong($frames + 0, 0);
@@ -108,7 +108,7 @@ return new class extends TestCase {
         $frames = $this->alloc(4 * 8);
         $this->initUint32($this->addressOf('_var_trafficSignalFrames_8c227e24'), $frames);
 
-        $this->call('_FUN_8c026dcc')->with(7);
+        $this->call('_TrafficMarkSignalIdsInUse_8c026dcc')->with(7);
 
         $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(0)->andReturn($seg);
         for ($i = 0; $i < 7; $i++) {

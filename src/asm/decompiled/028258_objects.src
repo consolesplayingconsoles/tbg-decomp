@@ -18,7 +18,7 @@
           .IMPORT     _var_trafficSignalDefs_8c1bb8a0
           .IMPORT     _syMalloc
           .IMPORT     _var_trafficSignalStates_8c227e28
-          .IMPORT     _FUN_8c026dcc
+          .IMPORT     _TrafficMarkSignalIdsInUse_8c026dcc
           .IMPORT     _TaskClear_8c014a9c
           .IMPORT     _var_routeModels_8c1bc3ec
           .IMPORT     _TaskPush_8c014ae8
@@ -695,7 +695,7 @@ LP_GEN_52240:
           .DATA.L _syMalloc ; H'8C028560
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C028564
           .DATA.L _var_trafficSignalStates_8c227e28 ; H'8C028568
-          .DATA.L _FUN_8c026dcc ; H'8C02856C
+          .DATA.L _TrafficMarkSignalIdsInUse_8c026dcc ; H'8C02856C
           .DATA.L _var_trafficSignalDefs_8c1bb8a0 ; H'8C028570
           .DATA.L _var_trafficSignalTasks_8c227e20 ; H'8C028574
           .DATA.L _TaskClear_8c014a9c ; H'8C028578

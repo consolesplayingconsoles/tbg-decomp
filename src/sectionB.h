@@ -123,7 +123,7 @@ typedef struct {
     float field_0x100;
 
     int field_0x104;
-    int field_0x108;
+    float field_0x108; /* also exported standalone as var_8c1bbad8 (02f0c8) */
     int field_0x10c;
     int field_0x110;
     int field_0x114;
@@ -229,12 +229,17 @@ typedef struct {
     int field_0x290;
     int field_0x294;
     int field_0x298;
-    int field_0x29c;
-    int field_0x2a0;
+
+    /* Collision knockback direction (unit vector), set by
+     * DrivePointsHandleBump_8c02b6d4 (02b464); field_0x2ac/0x2b0 mirror
+     * 0x29c/0x2a0 (role of the duplicate pair unclear). */
+    float dir_x_0x29c;
+    float dir_z_0x2a0;
+
     int field_0x2a4;
     int field_0x2a8;
-    int field_0x2ac;
-    int field_0x2b0;
+    float dir_x2_0x2ac;
+    float dir_z2_0x2b0;
 
     int bus_state_0x2b4;
 
@@ -407,6 +412,14 @@ extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into
 extern void *var_8c1bb894;
 extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
 extern float var_groundHeightFallback_8c1bbac8; // fallback ground height when both grid queries miss
+/* Sits at var_busState_8c1bb9d0's base+0xfc -- same address as its
+ * posZ_0x0fc field -- but exported as its own symbol and referenced that
+ * way by FUN_8c02f0c8 (02f0c8), not through the struct. Coincidentally
+ * adjacent, not part of it (same pattern as var_busCameraFocusX_8c1bbcd8). */
+extern float var_8c1bbacc;
+/* Sits at var_busState_8c1bb9d0's base+0x108 (its field_0x108); exported as
+ * its own symbol and referenced that way by FUN_8c02f0c8 (02f0c8). */
+extern float var_8c1bbad8;
 extern int var_8c1bb8bc;
 extern int var_8c1bb8c4;
 extern int var_pauseActive_8c1bb8cc;
@@ -451,11 +464,20 @@ extern void* var_vmGameBuf_8c1bc454;
 extern float var_crossingIntersectPoint_8c1bc458; // IntersectSegments_8c0206f0's intersection-point output (x); [1] (var_8c1bc45c) holds y
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
-/* Sentinel pointer value marking the player's bus as a stand-in "entry" in
- * traffic-avoidance code that otherwise walks a list of real traffic entries
- * (see TrafficComputeBlockedSpeed_8c026eaa) -- identity-compared, never
- * dereferenced through this symbol itself. */
-extern void *var_8c1bbd9c;
+/* Sit at var_busState_8c1bb9d0's base+0x34c/+0x368/+0x384 (its field_0x34c/
+ * field_0x368/field_0x384) but are exported as their own symbols and
+ * addressed that way by FUN_8c02b986/FUN_8c02bb1c/FUN_8c02bcd8 (02b464),
+ * not through the struct. */
+extern int var_8c1bbd1c;
+extern int var_8c1bbd38;
+extern int var_8c1bbd54;
+/* Points at the player's own BusState (presumably &var_busState_8c1bb9d0).
+ * Used in 026710_traffic.c only as a sentinel "entry" marking the player's
+ * bus in traffic-avoidance code that otherwise walks a list of real traffic
+ * entries (see TrafficComputeBlockedSpeed_8c026eaa) -- identity-compared,
+ * never dereferenced there. 02b464 does dereference it, for the player's
+ * side of a collision response. */
+extern BusState *var_8c1bbd9c;
 /* Bus world matrix; pedestriansTask_8c0293f6 uses it via njCalcPoint to
  * place the crosswalk stop-line scratch points. Immediately follows
  * var_busState_8c1bb9d0 (base+0x84) but exported as its own symbol, not a
@@ -689,10 +711,90 @@ extern EventEntry* var_routeEvents_8c22851c;
 extern int var_eventCandidates_8c228520[];
 extern int var_eventCandidateCount_8c228560;
 
-extern int var_8c228634;
+/* [0] compared against var_8c228688's 0xf000000 bits in FUN_8c02bb1c
+ * (02b464), addressed directly; [1]/[2] (0x228638/0x22863c) are the same
+ * two ints but addressed only via var_8c2285c4[29]/[30] -- no code
+ * reaches them through this symbol. Role unclear. */
+extern int var_8c228634[3];
 /* Set to 1 by BusStopUpdateArrival_8c02ce48 (02c884) when var_8c226450 is
- * armed; role/owner (02b464) unclear. */
+ * armed; read by FUN_8c02bcd8 (02b464) only via var_8c2285c4[31] -- no code
+ * reaches it through this symbol. */
 extern int var_8c228640;
+
+/* PDS_PERIPHERAL.r (see 010e90.h) of var_peripherals_8c1ba35c[0], addressed
+ * directly by this symbol rather than through the array/field form. */
+extern unsigned short var_8c1ba374;
+
+/* [0]/[1] a duplicated traffic-signal id (FUN_8c02b8b8, 02b464), addressed
+ * both directly and via var_8c2285c4[14]/[15]; [3]/[4] a threshold/counter
+ * pair graded by FUN_8c02b986 (via var_8c2285c4[17]/[18] there); [6] a
+ * driving-state latch toggled by FUN_8c02bb1c. [0] cleared to ready by
+ * DrivePointsArmCooldowns_8c02b578 (types 1-3). Other slots unclear.
+ *
+ * var_8c2285c4[11]/[12]/[13] (0x2285f0/f4/f8, just before this array) have
+ * no export of their own; [13] is a one-shot "already graded" latch read
+ * by FUN_8c02b8b8. */
+extern int var_8c2285fc[8];
+
+/* [5] (0x228630) compared against var_8c228684 in FUN_8c02b986/FUN_8c02bb1c
+ * (02b464), addressed only via var_8c2285c4[27] -- no code reaches it
+ * through this symbol. Other slots unclear. */
+extern int var_8c22861c[6];
+
+/* Bitflags set elsewhere (022bdc, still undecompiled); bits 0x2/0x4 are
+ * read by DrivePointsHandleFlags_8c02b7ea (02b464) to grade a driver-points
+ * penalty -- both set is worse than either alone. Other bits unclear. */
+extern int var_8c228660;
+
+/* The vehicle/pedestrian the player's bus is currently bumping into, set by
+ * DrivePointsHandleBump_8c02b6d4 (02b464) from FUN_8c02e2dc's result;
+ * var_8c228668 is a redundant copy of the same pointer. */
+extern BusState *var_8c228664;
+extern BusState *var_8c228668;
+/* Player's speed at the moment of the current bump; read to grade the
+ * DrivePointsAdjust_8c02b464 penalty and vibration strength. */
+extern float var_8c22866c;
+/* var_8c228664's speed_0x27c, saved before DrivePointsHandleBump_8c02b6d4
+ * (02b464) overwrites it as part of the knockback response. */
+extern float var_8c228670;
+
+/* Bump-grading scratch (02b464): [674]/[67c]/[678] a timestamp/threshold
+ * trio compared in FUN_8c02b986; [680] the offense-type code driving
+ * FUN_8c02b864/886/8b8/986's penalty picks; [684] a timestamp compared
+ * against var_8c22861c[5]; [688] a bitflag word tested against 0xf000000;
+ * [68c] a small state code (0/1/2) gating several of the above. */
+extern int var_8c228674;
+extern int var_8c228678;
+extern int var_8c22867c;
+extern int var_8c228680;
+extern int var_8c228684;
+extern int var_8c228688;
+extern int var_8c22868c;
+
+/* Per-offense-type cooldowns armed by DrivePointsArmCooldowns_8c02b578
+ * (02b464) to a large frame count (0x96/0xd2), presumably counted down by
+ * a still-undecompiled function; DrivePointsHandleBump_8c02b6d4 treats
+ * slot 0 as expired/ready once it goes negative. Role of each slot beyond
+ * that unclear. */
+extern int var_8c228690;
+extern int var_8c228694;
+extern int var_8c228698;
+extern int var_8c22869c;
+extern int var_8c2286a0;
+
+/* One pending driver-comment banner: `count`/`ids` are a {count, id...}
+ * list from init_8c04c35c (02b464), `duration` the computed on-screen time,
+ * `holdFrames` a fixed 60. [0] is the currently-displayed message;
+ * [1..3] are queued behind it, shifted forward as each one finishes. */
+typedef struct {
+    int count;
+    int *ids;
+    float duration;
+    int field_0x0c;
+    int field_0x10;
+    int holdFrames;
+} DriveMsgSlot;
+extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
 extern int var_8c2285c4[];
 
@@ -703,9 +805,21 @@ extern void *var_8c228b3c;
  * route in TrafficInit_8c02769e (026710); role for 02f0c8 (still
  * undecompiled) unclear. */
 extern Sint32 *var_8c228b40;
-/* Set to -1 by trafficUpdateTask_8c0275d4 (026710); role for 02f0c8 (still
- * undecompiled) unclear. */
-extern int var_8c228b44;
+/* Cached pointer into a var_8c228b40 id-group (FUN_8c02f28a, 02f0c8) --
+ * -1 means "not cached yet"; reset to -1 by trafficUpdateTask_8c0275d4
+ * (026710). */
+extern Sint32 *var_8c228b44;
+/* Sample-point scratch buffer written by FUN_8c02f0c8 (02f0c8): up to 10
+ * (x, z) pairs projected along a traffic entry's upcoming path, walked by
+ * FUN_8c02f212 to find nearby occupants. */
+extern float var_8c228b48[20];
+/* Task-slot pointer to exclude from FUN_8c02f212's scan (02f0c8); never
+ * written within 02f0c8 itself -- setter still unclear. */
+extern void *var_8c228b98;
+/* Read/write cursor into var_8c228b48, consumed by FUN_8c02f212 (02f0c8). */
+extern float *var_8c228b9c;
+/* One-past-the-end of the valid range in var_8c228b48 (02f0c8). */
+extern float *var_8c228ba0;
 
 extern int var_8c2285c8;
 /* Set to 0x1e by BusStopUpdateArrival_8c02ce48 (02c884) on stop completion;

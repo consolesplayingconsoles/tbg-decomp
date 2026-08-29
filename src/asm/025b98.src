@@ -15,8 +15,8 @@
           .IMPORT     _var_groundQueryPoint_8c1bc460
           .IMPORT     _FUN_8c02f0c8
           .IMPORT     _TrafficComputeBlockedSpeed_8c026eaa
-          .IMPORT     _FUN_8c026fcc
-          .IMPORT     _FUN_8c026f7e
+          .IMPORT     _TrafficSeekPathRecord_8c026fcc
+          .IMPORT     _TrafficUpdateFrameFlags_8c026f7e
           .IMPORT     _TrafficRemainingPathDistance_8c026fb0
           .IMPORT     _FUN_8c0207d4
           .IMPORT     _TrafficAdvanceOnPath_8c026ca2
@@ -737,12 +737,12 @@ LP_GEN_89798:
           .DATA.W H'0484 ; H'8C0260DE
           .DATA.W H'0428 ; H'8C0260E0
           .RES.W 1 ; H'8C0260E2
-          .DATA.L _FUN_8c026fcc ; H'8C0260E4
+          .DATA.L _TrafficSeekPathRecord_8c026fcc ; H'8C0260E4
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C0260E8
           .DATA.L H'41000000 ; H'8C0260EC
           .DATA.L _FUN_8c02f0c8 ; H'8C0260F0
           .DATA.L _TrafficComputeBlockedSpeed_8c026eaa ; H'8C0260F4
-          .DATA.L _FUN_8c026f7e ; H'8C0260F8
+          .DATA.L _TrafficUpdateFrameFlags_8c026f7e ; H'8C0260F8
           .DATA.L _TrafficRemainingPathDistance_8c026fb0 ; H'8C0260FC
           .DATA.L H'41900000 ; H'8C026100
           .DATA.L H'401A2D0E ; H'8C026104

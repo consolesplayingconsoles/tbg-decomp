@@ -175,4 +175,12 @@ compile  src/02786c_vehicle_parts.c
 assemble  src/asm/decompiled/02e400_collision.src
 compile  src/02e400_collision.c
 
+# 02f0c8
+assemble  src/asm/decompiled/02f0c8.src
+compile  src/02f0c8.c
+
+# 02b464
+assemble  src/asm/decompiled/02b464_drive_points.src
+compile  src/02b464_drive_points.c
+
 $sh4objtest suite -s tests.php "$@"

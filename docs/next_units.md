@@ -181,7 +181,7 @@ exported and only address-taken, so they had been merged into
 Anything that comes back as a bare `LAB_` is an unexported function.
 
 **`*_mac_cpu1.dat`** (`slots_0x04[8]`, via `CurrentCourse.macCpu1_0x24`) is the
-CPU-vehicle placement table, relocated in place at load by `FUN_8c026da4` -- a
+CPU-vehicle placement table, relocated in place at load by `TrafficRelocatePlacementTable_8c026da4` -- a
 two-level fixup turning self-relative dwords into absolute pointers over
 0xc-byte records. `TrafficInit_8c02769e` caches the base;
 `trafficUpdateTask_8c0275d4` walks it as `{typeCode, threshold, script, progress}`.

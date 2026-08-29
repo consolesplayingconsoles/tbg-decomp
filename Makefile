@@ -99,7 +99,7 @@ SRCS = \
 	src/028258_objects.c \
 	src/02af78_event.c \
 	src/asm/02b2f0.src \
-	src/asm/02b464.src \
+	src/02b464_drive_points.c \
 	src/02c884_bus_stop.c \
 	src/asm/02d06c.src \
 	src/asm/02d19c.src \
@@ -108,7 +108,7 @@ SRCS = \
 	src/asm/02e2dc.src \
 	src/02e400_collision.c \
 	src/asm/02e51c.src \
-	src/asm/02f0c8.src \
+	src/02f0c8.c \
 	src/asm/02f320.src \
 	src/scif.c \
 	src/serial_debug.c \

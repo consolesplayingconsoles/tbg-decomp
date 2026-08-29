@@ -4481,7 +4481,7 @@ void ObjectsInitTrafficSignals_8c02845a(void)
     allocSize = (maxId + 1) * 4;
     var_trafficSignalFrames_8c227e24 = syMalloc(allocSize);
     var_trafficSignalStates_8c227e28 = syMalloc(allocSize);
-    FUN_8c026dcc(maxId);
+    TrafficMarkSignalIdsInUse_8c026dcc(maxId);
 
     for (def = var_trafficSignalDefs_8c1bb8a0; def->type_0x00 != 0; def++) {
         if (def->type_0x00 != 1) {

@@ -387,7 +387,7 @@ Sint32 TrafficAdvanceOnPath_8c026ca2(float unused, TrafficEntry *entry)
  * self-relative offset into an absolute pointer, walking 0xc-byte strides
  * until a record's +4 field is 0. Same shape as FUN_8c028dd0/FUN_8c028de8
  * in 028258_objects.c. */
-void FUN_8c026da4(void *handle)
+void TrafficRelocatePlacementTable_8c026da4(void *handle)
 {
     Sint32 *outer;
     TrafficPlacement *rec;
@@ -473,13 +473,13 @@ float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *oth
  * decoration script (opcode 5 = fixed id, same opcode table as
  * TrafficReadScriptArgs_8c026710) across every scene-object type listed for
  * this segment marks its id in-use -- one type's placed-object list is a run
- * of FUN_8c026da4-fixed-up 0xc-byte records, each holding its own script
+ * of TrafficRelocatePlacementTable_8c026da4-fixed-up 0xc-byte records, each holding its own script
  * pointer at +4, terminated by a 0 there. The per-type table base is
  * var_currentCourse_8c1bb868.macCpu1_0x24 (Ghidra showed it as a standalone
  * global at that address's coincidental offset into the CurrentCourse
  * struct -- confirmed via dual-object probe, "unresolved relocation
  * _var_currentCourse_8c1bb868" on a guess that didn't read that struct). */
-void FUN_8c026dcc(int maxId)
+void TrafficMarkSignalIdsInUse_8c026dcc(int maxId)
 {
     CourseSegment *seg;
     Uint8 *typeIds;
@@ -514,7 +514,7 @@ void FUN_8c026dcc(int maxId)
     }
 }
 
-void FUN_8c026f7e(TrafficEntry *entry)
+void TrafficUpdateFrameFlags_8c026f7e(TrafficEntry *entry)
 {
     TrafficEntry *e = entry;
     Uint32 counter = e->field_0x260;
@@ -556,7 +556,7 @@ float TrafficRemainingPathDistance_8c026fb0(TrafficEntry *entry)
     return remaining;
 }
 
-void FUN_8c026fcc(TrafficEntry *entry, PathRecord *seg)
+void TrafficSeekPathRecord_8c026fcc(TrafficEntry *entry, PathRecord *seg)
 {
     TrafficEntry *e = entry;
     Sint32 segIdx;
@@ -814,7 +814,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         if (*script != 10) {
             TrafficReadScriptArgs_8c026710(e, script);
 
-            if (FUN_8c02f0c8(task, e, (Sint32)e->resolvedArgs_0x304[0], 0) != 0) {
+            if (FUN_8c02f0c8(task, e, (Sint32)e->resolvedArgs_0x304[0], 0, 8.0f, 8.0f) != 0) {
                 TaskFree_8c014b66(task);
                 return 0;
             }
@@ -931,7 +931,7 @@ STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
     var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariCpu_0x18;
     var_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
     ObjectsFUN_8c028958();
-    var_8c228b44 = -1;
+    var_8c228b44 = (Sint32 *)-1;
 
     presetMask = var_scenePresetIds_8c1bbd8c & 0xff00;
     if (task->field_0x0c == (void *)0) {

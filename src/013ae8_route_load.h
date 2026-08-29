@@ -70,9 +70,9 @@ typedef struct {
     void *atariCpu_0x18;
     void *lineCpu_0x1c;
     void *attrCpu_0x20;
-    /* once loaded (and FUN_8c026da4-relocated), doubles as a table of
+    /* once loaded (and TrafficRelocatePlacementTable_8c026da4-relocated), doubles as a table of
      * per-scene-object-type placed-instance list pointers, indexed by a
-     * CourseSegment.sceneObjectTypeIds_0x14 entry (see FUN_8c026dcc, 026710) */
+     * CourseSegment.sceneObjectTypeIds_0x14 entry (see TrafficMarkSignalIdsInUse_8c026dcc, 026710) */
     void *macCpu1_0x24;
     void *atariHum_0x28;
     void *lineHum_0x2c;  /* the one asset kept as a model rather than a texlist */
@@ -116,7 +116,7 @@ typedef struct {
     void *tileRegionList_0x0c;
     Sint8 *routeModelIndexes_0x10;
     // list of scene-object-type ids present in this segment, terminated by
-    // 0xff (see FUN_8c026dcc, 026710)
+    // 0xff (see TrafficMarkSignalIdsInUse_8c026dcc, 026710)
     Uint8 *sceneObjectTypeIds_0x14;
     Sint8 *pedestrianModelList_0x18;
     // scene object list (ObjectsStartAssetRequests_8c029ad4 streams nj/pvm/dat; e.g. O_FUMI railroad crossing)

@@ -60,7 +60,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
         $this->shouldCall('_TileStreamInit_8c02175a');
-        $this->shouldCall('_FUN_8c026da4')->with(0x8cd00008);
+        $this->shouldCall('_TrafficRelocatePlacementTable_8c026da4')->with(0x8cd00008);
         $this->shouldCall('_FUN_8c028de8')->with(0x8cd0000b);
         $this->shouldCall('_FUN_8c028dd0')->with(0x8cd0000c);
         $this->shouldCall('_BusStopSetup_8c02caba');
@@ -196,7 +196,7 @@ return new class extends TestCase {
             '_TaskFree_8c014b66' => 4,
             '_FUN_8c01306e' => 4,
             '_TileStreamInit_8c02175a' => 4,
-            '_FUN_8c026da4' => 4,
+            '_TrafficRelocatePlacementTable_8c026da4' => 4,
             '_FUN_8c028de8' => 4,
             '_FUN_8c028dd0' => 4,
             '_BusStopSetup_8c02caba' => 4,

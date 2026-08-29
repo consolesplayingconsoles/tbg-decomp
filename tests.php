@@ -595,12 +595,12 @@ return [
                 "tests/026710_traffic/8c026748_initEntryState.php",
                 "tests/026710_traffic/8c026bc4_TrafficUpdateHeading.php",
                 "tests/026710_traffic/8c026ca2_TrafficAdvanceOnPath.php",
-                "tests/026710_traffic/8c026da4_FUN.php",
-                "tests/026710_traffic/8c026dcc_FUN.php",
+                "tests/026710_traffic/8c026da4_TrafficRelocatePlacementTable.php",
+                "tests/026710_traffic/8c026dcc_TrafficMarkSignalIdsInUse.php",
                 "tests/026710_traffic/8c026eaa_TrafficComputeBlockedSpeed.php",
-                "tests/026710_traffic/8c026f7e_FUN.php",
+                "tests/026710_traffic/8c026f7e_TrafficUpdateFrameFlags.php",
                 "tests/026710_traffic/8c026fb0_TrafficRemainingPathDistance.php",
-                "tests/026710_traffic/8c026fcc_FUN.php",
+                "tests/026710_traffic/8c026fcc_TrafficSeekPathRecord.php",
                 "tests/026710_traffic/8c027012_TrafficRunEntryScript.php",
                 "tests/026710_traffic/8c0272b8_spawnEntry.php",
                 "tests/026710_traffic/8c02756a_applyTrafficLighting.php",
@@ -661,6 +661,43 @@ return [
             "objects" => [
                 "build/output_test/02e400_collision_src.obj",
                 "build/output_test/02e400_collision_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
+                "tests/02f0c8/8c02f0c8_FUN.php",
+                "tests/02f0c8/8c02f212_FUN.php",
+                "tests/02f0c8/8c02f28a_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/02f0c8_src.obj",
+                "build/output_test/02f0c8_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
+                "tests/02b464_drive_points/8c02b464_DrivePointsAdjust.php",
+                "tests/02b464_drive_points/8c02b578_DrivePointsArmCooldowns.php",
+                "tests/02b464_drive_points/8c02b6d4_DrivePointsHandleBump.php",
+                "tests/02b464_drive_points/8c02b7ea_DrivePointsHandleFlags.php",
+                "tests/02b464_drive_points/8c02b864_FUN.php",
+                "tests/02b464_drive_points/8c02b886_FUN.php",
+                "tests/02b464_drive_points/8c02b8b8_FUN.php",
+                "tests/02b464_drive_points/8c02b986_FUN.php",
+                "tests/02b464_drive_points/8c02bb1c_FUN.php",
+                "tests/02b464_drive_points/8c02bcd8_FUN.php",
+                "tests/02b464_drive_points/8c02c072_taskCallback.php",
+                "tests/02b464_drive_points/8c02c46a_DrivePointsReset.php",
+                "tests/02b464_drive_points/8c02c624_FUN.php",
+                "tests/02b464_drive_points/8c02c76a_FUN.php",
+                "tests/02b464_drive_points/8c02c586_FUN.php",
+                "tests/02b464_drive_points/8c02c69a_FUN.php",
+                "tests/02b464_drive_points/8c02c738_FUN.php",
+                "tests/02b464_drive_points/8c02c784_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/02b464_drive_points_src.obj",
+                "build/output_test/02b464_drive_points_c.obj",
             ]
         ],
     ],

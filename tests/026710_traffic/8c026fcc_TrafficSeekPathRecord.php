@@ -10,7 +10,7 @@ if (!function_exists('fdec')) {
     }
 }
 
-// FUN_8c026fcc seeks the entry's path-record cursor forward by the distance
+// TrafficSeekPathRecord_8c026fcc seeks the entry's path-record cursor forward by the distance
 // already accumulated at entry+0x2c0, walking {len,x,y,dx,dy} records from
 // the passed-in segment pointer. On a len==0 block-end sentinel it advances
 // the entry's block index (entry+0x300) and continues from the next block's
@@ -57,7 +57,7 @@ return new class extends TestCase {
         ]);
         $entry = $this->allocEntry(fdec(3.0), 0, [$seg]);
 
-        $this->call('_FUN_8c026fcc')->with($entry, $seg);
+        $this->call('_TrafficSeekPathRecord_8c026fcc')->with($entry, $seg);
 
         // Block index never advances: the array write-back lands back on
         // slot 0, and the seg pointer is unchanged.
@@ -80,7 +80,7 @@ return new class extends TestCase {
         ]);
         $entry = $this->allocEntry(fdec(7.0), 0, [$seg0, $seg1]);
 
-        $this->call('_FUN_8c026fcc')->with($entry, $seg0);
+        $this->call('_TrafficSeekPathRecord_8c026fcc')->with($entry, $seg0);
 
         $this->shouldWriteLong($entry + 0x300, 1);
         // Array write-back lands on the new block index's slot (1).

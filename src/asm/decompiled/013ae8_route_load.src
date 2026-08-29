@@ -42,7 +42,7 @@
           .IMPORT     _var_loadingResourceGroup_8c1bc3f8
           .IMPORT     _njLoadCacheTexture
           .IMPORT     _TileStreamInit_8c02175a
-          .IMPORT     _FUN_8c026da4
+          .IMPORT     _TrafficRelocatePlacementTable_8c026da4
           .IMPORT     _FUN_8c028de8
           .IMPORT     _FUN_8c028dd0
           .IMPORT     _BusStopSetup_8c02caba
@@ -1325,7 +1325,7 @@ LP_GEN_90737:
           .DATA.L _AsqProcessQueues_8c011fe0
           .DATA.L _TileStreamInit_8c02175a
           .DATA.L _var_currentCourse_8c1bb868
-          .DATA.L _FUN_8c026da4
+          .DATA.L _TrafficRelocatePlacementTable_8c026da4
           .DATA.L _FUN_8c028de8
           .DATA.L _FUN_8c028dd0
           .DATA.L _BusStopSetup_8c02caba
@@ -1856,7 +1856,7 @@ LP_GEN_48435:
           .DATA.L _AsqProcessQueues_8c011fe0
           .DATA.L _TileStreamInit_8c02175a
           .DATA.L _var_currentCourse_8c1bb868
-          .DATA.L _FUN_8c026da4
+          .DATA.L _TrafficRelocatePlacementTable_8c026da4
           .DATA.L _FUN_8c028de8
           .DATA.L _FUN_8c028dd0
           .DATA.L _BusStopSetup_8c02caba

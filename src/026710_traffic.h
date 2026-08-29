@@ -18,7 +18,7 @@ typedef struct {
 
 /* One CPU-vehicle placement record from the course's *_MAC_CPU1.DAT, walked by
  * trafficUpdateTask_8c0275d4. A run of these is terminated by script == NULL;
- * FUN_8c026da4 relocates `script` from a self-relative offset to a pointer at
+ * TrafficRelocatePlacementTable_8c026da4 relocates `script` from a self-relative offset to a pointer at
  * load time. `progress` is the entry's start distance along its path. */
 typedef struct {
     Uint16 typeCode_0x00;
@@ -205,12 +205,12 @@ typedef struct {
 void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script);
 void TrafficUpdateHeading_8c026bc4(float unused, TrafficEntry *entry);
 Sint32 TrafficAdvanceOnPath_8c026ca2(float unused, TrafficEntry *entry);
-void FUN_8c026da4(void *handle);
-void FUN_8c026dcc(int maxId);
+void TrafficRelocatePlacementTable_8c026da4(void *handle);
+void TrafficMarkSignalIdsInUse_8c026dcc(int maxId);
 float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *other);
-void FUN_8c026f7e(TrafficEntry *entry);
+void TrafficUpdateFrameFlags_8c026f7e(TrafficEntry *entry);
 float TrafficRemainingPathDistance_8c026fb0(TrafficEntry *entry);
-void FUN_8c026fcc(TrafficEntry *entry, PathRecord *seg);
+void TrafficSeekPathRecord_8c026fcc(TrafficEntry *entry, PathRecord *seg);
 Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry);
 void TrafficInit_8c02769e(void);
 

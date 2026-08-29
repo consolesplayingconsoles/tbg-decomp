@@ -60,12 +60,12 @@
           .EXPORT     _TrafficReadScriptArgs_8c026710
           .EXPORT     _TrafficUpdateHeading_8c026bc4
           .EXPORT     _TrafficAdvanceOnPath_8c026ca2
-          .EXPORT     _FUN_8c026da4
-          .EXPORT     _FUN_8c026dcc
+          .EXPORT     _TrafficRelocatePlacementTable_8c026da4
+          .EXPORT     _TrafficMarkSignalIdsInUse_8c026dcc
           .EXPORT     _TrafficComputeBlockedSpeed_8c026eaa
-          .EXPORT     _FUN_8c026f7e
+          .EXPORT     _TrafficUpdateFrameFlags_8c026f7e
           .EXPORT     _TrafficRemainingPathDistance_8c026fb0
-          .EXPORT     _FUN_8c026fcc
+          .EXPORT     _TrafficSeekPathRecord_8c026fcc
           .EXPORT     _TrafficRunEntryScript_8c027012
           .EXPORT     _TrafficInit_8c02769e
           .AIFDEF     UNIT_TESTING
@@ -923,7 +923,7 @@ LAB_8c026d96:
           FMOV.S      @R15+,FR15
           RTS
           MOV.L       @R15+,R14
-_FUN_8c026da4:
+_TrafficRelocatePlacementTable_8c026da4:
           BRA         LAB_8c026dc2
           MOV         R4,R6
 LAB_8c026da8:
@@ -948,7 +948,7 @@ LAB_8c026dc2:
           BF          LAB_8c026da8
           RTS
           NOP
-_FUN_8c026dcc:
+_TrafficMarkSignalIdsInUse_8c026dcc:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       R13,@-R15
@@ -1173,7 +1173,7 @@ LAB_8c026f6a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c026f7e:
+_TrafficUpdateFrameFlags_8c026f7e:
           MOV.W       LP_GEN_56012,R0
           MOV         #H'10,R2
           MOV.L       @(R0,R4),R3
@@ -1217,7 +1217,7 @@ LAB_8c026fba:
           BF          LAB_8c026fba
           RTS
           FMOV        FR4,FR0
-_FUN_8c026fcc:
+_TrafficSeekPathRecord_8c026fcc:
           MOV.W       LP_GEN_56012+8,R0
           MOV         R4,R6
           FMOV.S      @(R0,R4),FR4
