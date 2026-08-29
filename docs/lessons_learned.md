@@ -776,3 +776,10 @@ Introducing one for a literal (e.g. a fade rate) puts it in a constant section
 the original object does not have, so `check_data_match.sh` reports a section
 the asm never emitted. Inline the literal at its use site instead. Hit in
 `02d19c`.
+
+## Mocking `__divls` with `UInt::div()` gives unsigned division
+
+The helper divides unsigned, so a mock built on it is silently wrong for
+negative dividends -- it passes every non-negative case and fails only at a
+clamp boundary. Do the signed division manually (`intdiv` on `signedValue()`).
+Hit in `021b9c`'s clamp-boundary test.
