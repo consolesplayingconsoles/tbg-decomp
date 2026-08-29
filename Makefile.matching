@@ -59,7 +59,7 @@ SRCS = \
 	src/asm/023938.src \
 	src/asm/02412c.src \
 	src/asm/024280.src \
-	src/asm/024b4c.src \
+	src/asm/decompiled/024b4c_bus_render.src \
 	src/asm/025870.src \
 	src/asm/025b98.src \
 	src/asm/decompiled/026710_traffic.src \

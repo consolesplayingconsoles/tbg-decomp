@@ -27,7 +27,7 @@ if (!function_exists('fdec')) {
  * smoothing block -- state 0 never reads steering itself), timeOfDay
  * neither DAY nor NIGHT (skips the blinker/prob_blinker branch), gear!=5
  * and field_0x25c==0 (sdMidiStop, not sdMidiPlay), and playMode != DEMO
- * (gameplayRenderBusUpdateCamera_8c025078 instead of demoUpdateCamera).
+ * (BusRenderUpdateCamera_8c025078 instead of demoUpdateCamera).
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -61,9 +61,9 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_move_bus_model_8c020594', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_gameplayRenderBusUpdateCamera_8c025078', 4);
+        $this->setSize('_BusRenderUpdateCamera_8c025078', 4);
         $this->setSize('_demoUpdateCamera_8c025906', 4);
-        $this->setSize('_FUN_8c025604', 4);
+        $this->setSize('_BusRenderUpdateMirrorCamera_8c025604', 4);
         $this->setSize('_var_8c2285c4', 4);
     }
 
@@ -147,8 +147,8 @@ return new class extends TestCase {
         );
 
         // playMode != PLAY_MODE_DEMO (2): gameplay camera update.
-        $this->shouldCall('_gameplayRenderBusUpdateCamera_8c025078');
+        $this->shouldCall('_BusRenderUpdateCamera_8c025078');
 
-        $this->shouldCall('_FUN_8c025604');
+        $this->shouldCall('_BusRenderUpdateMirrorCamera_8c025604');
     }
 };

@@ -183,9 +183,11 @@ typedef struct {
     int field_0x224;
     int field_0x228;
     int field_0x22c;
-    int field_0x230;
+    /* Bus heading unit vector (x,z), dotted and crossed against the move
+     * delta by BusRenderPositionCamera_8c024d6c to size/sign its turn. */
+    float field_0x230;
     int field_0x234;
-    int field_0x238;
+    float field_0x238;
     /* Written as float literals (4.9/2.5/1.25/2.6) by busInitPlaceBus_8c023310;
      * field_0x240 is skipped by that write and its role is unclear. */
     float field_0x23c;
@@ -206,7 +208,9 @@ typedef struct {
 
     int mirror_0x268;
 
-    int field_0x26c;
+    /* Divided by field_0x270 by BusRenderUpdateCamera_8c025078 for the
+     * mode-1 camera's Y bob -- a real float field (FMOV.S load), not int. */
+    float field_0x26c;
     float field_0x270;
     /* dx component of the spawn stop area's direction (StopAreaRecord.dx_0x0c);
      * paired with field_0x278 (dz). */
@@ -261,17 +265,24 @@ typedef struct {
     float posX_0x2fc;
     float posY_0x300;
     float posZ_0x304;
-    int field_0x308;
-    int field_0x30c;
-    int field_0x310;
-    int field_0x314;
-    int field_0x318;
-    int field_0x31c;
-    int field_0x320;
-    int field_0x324;
+    /* Last move-delta vector (x,y,z) applied to posX_0x2fc/posZ_0x304 --
+     * rotated toward field_0x230/field_0x238 first when the raw bearing
+     * change is large -- and its magnitude, all written by
+     * BusRenderPositionCamera_8c024d6c. */
+    float field_0x308;
+    float field_0x30c;
+    float field_0x310;
+    float field_0x314;
+    /* Rear-view-mirror camera's local offset (x,y,z), picked by
+     * mirror_0x268 and rotated by field_0x084 into field_0x318/0x32c world
+     * offsets, all by BusRenderUpdateMirrorCamera_8c025604. */
+    float field_0x318;
+    float field_0x31c;
+    float field_0x320;
+    float field_0x324;
     int field_0x328;
-    int field_0x32c;
-    int field_0x330;
+    float field_0x32c;
+    float field_0x330;
     int field_0x334;
     int field_0x338;
     int field_0x33c;
@@ -439,7 +450,7 @@ extern int var_8c1bbc84;
 extern Uint32 var_8c1bbcb0;
 extern int var_8c1bbcc4;
 /* Bus-to-camera-focus vector (x, _, z); written by
- * gameplayRenderBusUpdateCamera_8c025078, read by FUN_8c028b74 via njArcTan2.
+ * BusRenderUpdateCamera_8c025078, read by FUN_8c028b74 via njArcTan2.
  * Immediately follows var_busState_8c1bb9d0 in memory but exported as its
  * own symbols, not struct fields -- coincidentally adjacent, not part of it. */
 extern float var_busCameraFocusX_8c1bbcd8;
@@ -650,8 +661,12 @@ extern void *var_8c227d84;
 /* Mirrors var_currentCourse_8c1bb868.ukn_0x0c. */
 extern void *var_8c227d88;
 extern int var_8c227d8c; // 024280
+/* Fixed camera-interest point for BusRenderUpdateCamera_8c025078's
+ * var_8c227d9c==4 mode. */
+extern float var_8c227d90[3];
 extern int var_8c227d9c;
 extern Uint32 var_8c227da0;
+extern int var_8c227da4; /* 02d19c/024b4c: shifted into var_8c227da8 each frame alongside var_8c227d9c->var_8c227da0 */
 extern int var_8c227da8;
 extern int var_8c227dac; /* zeroed alongside var_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
 /* Door-timer counter driven by BusTask_8c022bdc (022bdc): counts up by 0.5/frame
@@ -661,9 +676,23 @@ extern float var_8c227db0;
 /* Unsigned-int-to-float conversion of *(var_8c1bc410+4), minus 1.0; set by
  * FUN_8c023610, read by BusTask_8c022bdc (022bdc). */
 extern float var_8c227db4;
-extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by gameplayRenderBusUpdateCamera_8c025078
+extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by BusRenderUpdateCamera_8c025078
 extern float var_8c227dc4[3];
 extern int var_8c227dd4;
+/* Five prev/current float pairs, each shifted (dd8->ddc, de0->de4, de8->dec,
+ * df0->df4, df8->dfc) every frame by FUN_8c024b4c (024b4c). */
+extern float var_8c227dd8;
+extern float var_8c227ddc;
+extern float var_8c227de0;
+extern float var_8c227de4;
+extern float var_8c227de8;
+extern float var_8c227dec;
+extern float var_8c227df0;
+extern float var_8c227df4;
+/* BusRenderUpdateCamera_8c025078's quarter-sine ease-angle accumulator
+ * (BAMS units, 0 to 0x4000) -- a real int (MOV.L/ADD/CMP/GE), not float. */
+extern Sint32 var_8c227df8;
+extern Sint32 var_8c227dfc;
 extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by ObjectsInitTrafficSignals_8c02845a */
 extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by ObjectsGetTrafficSignalFrame_8c028900 */
 extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */

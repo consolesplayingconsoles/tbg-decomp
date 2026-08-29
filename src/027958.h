@@ -5,6 +5,9 @@
 void FUN_8c0281ac(int arg0, int arg1);
 void FUN_8c028206(int arg0, int arg1);
 
+/* Called by FUN_8c024bb8 (024b4c) with the player's BusState each frame. */
+void FUN_8c027958(void *busState);
+
 /* Called by BusTask_8c022bdc (022bdc) with the player's BusState
  * (var_8c1bbd9c) each frame at night (var_timeOfDay_8c18ad20 == 2);
  * probabilistically toggles the bus's blinkers. */

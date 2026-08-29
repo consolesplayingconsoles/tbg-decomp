@@ -203,4 +203,8 @@ compile  src/023310_bus_init.c
 assemble  src/asm/decompiled/022bdc_bus.src
 compile  src/022bdc_bus.c
 
+# 024b4c
+assemble  src/asm/decompiled/024b4c_bus_render.src
+compile  src/024b4c_bus_render.c
+
 $sh4objtest suite -s tests.php "$@"

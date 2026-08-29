@@ -1,0 +1,535 @@
+/* @unit BusRender */
+
+#include <shinobi.h>
+
+#include "serial_debug.h"
+#include "sectionB.h"
+#include "027958.h"
+#include "0222dc_fadecmd.h"
+#include "024b4c_bus_render.h"
+
+/* ====================
+ * Compiler Definitions
+ * ====================
+ */
+
+#define TWO_PI 6.283184f
+
+/* ====================
+ * Functions
+ * ====================
+ */
+
+void FUN_8c024b4c(void)
+{
+    var_8c227da0 = var_8c227d9c;
+    var_8c227da8 = var_8c227da4;
+    var_8c227ddc = var_8c227dd8;
+    var_8c227de4 = var_8c227de0;
+    var_8c227dec = var_8c227de8;
+    var_8c227df4 = var_8c227df0;
+    var_8c227dfc = var_8c227df8;
+}
+
+/* Reverse-direction mirror of FUN_8c024b4c: shifts 6 of the 7 pairs back
+ * (var_8c227df8/dfc is not touched here), then tail-calls FUN_8c024f32. */
+void FUN_8c024b86(void)
+{
+    var_8c227d9c = var_8c227da0;
+    var_8c227da4 = var_8c227da8;
+    var_8c227dd8 = var_8c227ddc;
+    var_8c227de0 = var_8c227de4;
+    var_8c227de8 = var_8c227dec;
+    var_8c227df0 = var_8c227df4;
+
+    FUN_8c024f32();
+}
+
+/* Turn-blink state machine (var_8c227d9c: 0=off/reset, 1 & 4=idle,
+ * 2/3=turn-rate cases scaled 18.0/30.0) -- the asm computes this twice via
+ * two duplicated switch statements with identical results each time;
+ * collapsed here into one pass. Called with no arguments. */
+void FUN_8c024f32(void)
+{
+    float dx = 0.0f;
+    float dz = 0.0f;
+
+    switch (var_8c227d9c) {
+    case 0:
+        var_busState_8c1bb9d0.field_0x3c8 = 0;
+        return;
+    case 1:
+    case 4:
+        return;
+    case 2:
+        dx = var_busState_8c1bb9d0.field_0x274 * 18.0f;
+        dz = var_busState_8c1bb9d0.field_0x278 * 18.0f;
+        var_8c227df0 = (var_8c227da4 != 0) ? var_8c227de0 : 5.0f;
+        break;
+    case 3:
+        dx = var_busState_8c1bb9d0.field_0x274 * 30.0f;
+        dz = var_busState_8c1bb9d0.field_0x278 * 30.0f;
+        var_8c227df0 = (var_8c227da4 != 0) ? var_8c227de0 : 18.0f;
+        break;
+    }
+
+    var_busState_8c1bb9d0.posX_0x2fc = var_busState_8c1bb9d0.posX_0x0f4 + dx;
+    var_busState_8c1bb9d0.posZ_0x304 = var_busState_8c1bb9d0.posZ_0x0fc + dz;
+}
+
+/* Lights, textures and draws the third-person bus model with its door/etc
+ * shape motion. altLight selects the alternate light direction
+ * (var_8c227dc4) when non-NULL, else the default (var_busSimpleLightDir) --
+ * it is otherwise unused. The drawn object is always busState.field_0x00c;
+ * only the animation frame depends on the special bus substate
+ * (bus_substate_0x3c0 != 0 -> var_8c227db0, else frame 0). */
+void FUN_8c024bb8(void *altLight)
+{
+    float *dir = altLight ? var_8c227dc4 : var_busSimpleLightDir_8c227db8;
+    float frame = (var_busState_8c1bb9d0.bus_substate_0x3c0 != 0) ? var_8c227db0 : 0.0f;
+
+    njCnkSetSimpleLight(dir[0], dir[1], dir[2]);
+    njCnkSetSimpleLightIntensity(var_busState_8c1bb9d0.field_0x0c4[0],
+                                  var_busState_8c1bb9d0.field_0x0c4[1]);
+    njCnkSetSimpleLightColor(var_busState_8c1bb9d0.field_0x0c4[2],
+                              var_busState_8c1bb9d0.field_0x0c4[3],
+                              var_busState_8c1bb9d0.field_0x0c4[4]);
+    FUN_8c027958(&var_busState_8c1bb9d0);
+    njMultiMatrix(NULL, (NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084);
+    njSetTexture((NJS_TEXLIST *)var_busState_8c1bb9d0.field_0x004);
+    njCnkSimpleDrawShapeMotion((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.field_0x00c,
+                                var_8c1bc410, var_8c1bc414, frame);
+
+    njControl3D(NJD_CONTROL_3D_MODEL_CLIP | NJD_CONTROL_3D_SHADOW | NJD_CONTROL_3D_TRANS_MODIFIER);
+    njCnkModDrawObject((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.field_0x014);
+    njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
+}
+
+/* Lights, textures and draws the front (dashboard-view) bus model --
+ * unconditionally with the default light direction and frame-less
+ * (njCnkSimpleDrawObject, no shape motion). Reachable only via a function
+ * pointer in BusRenderUpdateMirrorCamera_8c025604's literal pool, not by any BSR/JSR in this unit. */
+STATIC void drawFrontBusModel_8c024cc8(void)
+{
+    njCnkSetSimpleLight(var_busSimpleLightDir_8c227db8[0],
+                         var_busSimpleLightDir_8c227db8[1],
+                         var_busSimpleLightDir_8c227db8[2]);
+    njCnkSetSimpleLightIntensity(var_busState_8c1bb9d0.field_0x0c4[0],
+                                  var_busState_8c1bb9d0.field_0x0c4[1]);
+    njCnkSetSimpleLightColor(var_busState_8c1bb9d0.field_0x0c4[2],
+                              var_busState_8c1bb9d0.field_0x0c4[3],
+                              var_busState_8c1bb9d0.field_0x0c4[4]);
+    njMultiMatrix(NULL, (NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084);
+    njSetTexture(var_frontTexlist_8c1bc430);
+    njCnkSimpleDrawObject((NJS_CNK_OBJECT *)var_frontNj_8c1bc434);
+}
+
+/* Called by BusTask_8c022bdc (022bdc) with no arguments each frame outside
+ * demo playback; drives the gameplay camera.
+ *
+ * First eases var_8c227df0 (a per-mode "turn rate"/zoom parameter) between
+ * var_8c227dd8 and a target via a quarter-sine ramp over var_8c227df8,
+ * driven by a state machine on var_8c227da4 (0..3) gated by a scripted cue
+ * nibble in busState.field_0x3b8's bits 24-27: nonzero-and-not-9 starts the
+ * ramp toward a target angle encoded in that nibble (or a fixed 5.0/18.0
+ * depending on var_8c227d9c), an exact 9 starts it back toward
+ * var_8c227d9c's own 5.0/18.0 default. Y button cycles the camera mode
+ * var_8c227d9c (0..3) when allowed.
+ *
+ * Then positions/aims the camera per var_8c227d9c: 0 = fixed follow behind
+ * the bus (rotated by an eased yaw in busState.field_0x3c8), 1 = a
+ * bump/sway follow using busState.field_0x274/0x278 and 0x26c/0x270,
+ * 2/3 = smooth chase via BusRenderPositionCamera_8c024d6c, 4 = fixed on
+ * var_8c227d90. Modes 0/1 additionally roll the camera by the road's pitch
+ * (from recent Y waypoint history). Finally activates the camera, recomputes
+ * the simple light direction from the course's primary light, and queues
+ * the appropriate bus draw (front dashboard model for mode 0, third-person
+ * model for modes 2/3, none otherwise). */
+void BusRenderUpdateCamera_8c025078(void)
+{
+    Sint32 cue = var_busState_8c1bb9d0.field_0x3b8 & 0x0F000000;
+    float turnFactor;
+    Sint32 ang;
+
+    if (var_8c227da4 == 0) {
+        if (cue != 0 && cue != 0x09000000) {
+            var_8c227de0 = (float)(Sint8)(cue >> 24);
+            if (var_8c227d9c == 0 || var_8c227d9c == 1) {
+                var_8c227da4 = 2;
+            } else if (var_8c227d9c != 2 || var_8c227de0 < 5.0f) {
+                var_8c227dd8 = var_8c227df0;
+                var_8c227de8 = var_8c227df0 - var_8c227de0;
+                var_8c227df8 = 0;
+                var_8c227dac = 1;
+                var_8c227da4 = 1;
+            } else {
+                var_8c227da4 = 2;
+            }
+        }
+    } else if (var_8c227da4 == 1) {
+        var_8c227df8 += 0x222;
+        if (var_8c227df8 < 0x4000) {
+            var_8c227df0 = var_8c227dd8 - njSin(var_8c227df8) * var_8c227de8;
+        } else {
+            var_8c227df0 = var_8c227de0;
+            var_8c227dac = 0;
+            var_8c227da4 = 2;
+        }
+    } else if (var_8c227da4 == 2) {
+        if (cue == 0x09000000) {
+            if (var_8c227d9c == 0 || var_8c227d9c == 1) {
+                var_8c227da4 = 0;
+            } else {
+                if (var_8c227d9c == 2) {
+                    if (var_8c227df0 < 5.0f) {
+                        var_8c227de0 = 5.0f;
+                    } else {
+                        var_8c227da4 = 0;
+                        goto afterRamp;
+                    }
+                } else {
+                    var_8c227de0 = 18.0f;
+                }
+                var_8c227dd8 = var_8c227df0;
+                var_8c227de8 = var_8c227de0 - var_8c227df0;
+                var_8c227df8 = 0;
+                var_8c227dac = 1;
+                var_8c227da4 = 3;
+            }
+        }
+    } else /* var_8c227da4 == 3 */ {
+        var_8c227df8 += 0x222;
+        if (var_8c227df8 < 0x4000) {
+            var_8c227df0 = var_8c227dd8 + njSin(var_8c227df8) * var_8c227de8;
+        } else {
+            var_8c227df0 = var_8c227de0;
+            var_8c227dac = 0;
+            var_8c227da4 = 0;
+        }
+    }
+afterRamp:
+
+    if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TY)
+        && var_8c1bbc84 == 1
+        && (var_8c227dac == 0 || var_8c227d9c < 2)) {
+        var_8c227d9c++;
+        if (var_8c227d9c > 3) {
+            var_8c227d9c = 0;
+        }
+        FUN_8c024f32();
+    }
+
+    njInitCamera(&var_8c1bb904);
+    njSetCameraAngle(&var_8c1bb904, 10194);
+    njSetCameraDepth(&var_8c1bb904, -1.0f, var_fogParam_8c227dd0);
+
+    turnFactor = (float)var_busState_8c1bb9d0.acc_0x078 * 360.0f / 65536.0f / -8.0f;
+    ang = var_busState_8c1bb9d0.ang_0x07c;
+
+    if (var_8c227d9c == 0) {
+        Sint32 target;
+
+        if (var_progress_8c1ba1cc.field_0xc7[1] != 0) {
+            ang = 0;
+            turnFactor = 0.0f;
+        }
+
+        var_busState_8c1bb9d0.posX_0x2fc = var_busState_8c1bb9d0.posX_0x0f4;
+        var_busState_8c1bb9d0.posZ_0x304 = var_busState_8c1bb9d0.posZ_0x0fc;
+        var_busState_8c1bb9d0.posY_0x300 =
+            var_busState_8c1bb9d0.posY_0x0f8 + turnFactor + 2.0f;
+
+        target = var_busState_8c1bb9d0.ang_0x258 / 3;
+        if (var_busState_8c1bb9d0.field_0x3c8 != 0 || target < -728 || target > 728) {
+            if (var_busState_8c1bb9d0.field_0x3c8 < target) {
+                var_busState_8c1bb9d0.field_0x3c8 += 60;
+                if (var_busState_8c1bb9d0.field_0x3c8 > target) {
+                    var_busState_8c1bb9d0.field_0x3c8 = target;
+                }
+            } else {
+                var_busState_8c1bb9d0.field_0x3c8 -= 60;
+                if (var_busState_8c1bb9d0.field_0x3c8 < target) {
+                    var_busState_8c1bb9d0.field_0x3c8 = target;
+                }
+            }
+        }
+
+        njSetMatrix(&var_8c1bc46c, (NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084);
+        njRotateY(&var_8c1bc46c, var_busState_8c1bb9d0.field_0x3c8);
+
+        var_groundQueryPoint_8c1bc460.x = 0.0f;
+        var_groundQueryPoint_8c1bc460.y = 2.0f;
+        var_groundQueryPoint_8c1bc460.z = -1.0f;
+        njCalcPoint(&var_8c1bc46c, &var_groundQueryPoint_8c1bc460, &var_groundQueryPoint_8c1bc460);
+
+        var_busState_8c1bb9d0.field_0x308 =
+            var_busState_8c1bb9d0.posX_0x0f4 - var_groundQueryPoint_8c1bc460.x;
+        var_busState_8c1bb9d0.field_0x30c =
+            var_busState_8c1bb9d0.posY_0x0f8 - var_groundQueryPoint_8c1bc460.y;
+        var_busState_8c1bb9d0.field_0x310 =
+            var_busState_8c1bb9d0.posZ_0x0fc - var_groundQueryPoint_8c1bc460.z;
+        var_busState_8c1bb9d0.field_0x314 = 1.0f;
+
+        njTranslateCameraPosition(&var_8c1bb904,
+                                   var_busState_8c1bb9d0.posX_0x2fc,
+                                   var_busState_8c1bb9d0.posY_0x300,
+                                   var_busState_8c1bb9d0.posZ_0x304);
+
+        njPointCameraInterest(&var_8c1bb904,
+                               var_groundQueryPoint_8c1bc460.x,
+                               var_groundQueryPoint_8c1bc460.y,
+                               var_groundQueryPoint_8c1bc460.z);
+    } else if (var_8c227d9c == 1) {
+        float roll;
+
+        if (var_progress_8c1ba1cc.field_0xc7[1] != 0) {
+            ang = 0;
+            turnFactor = 0.0f;
+        }
+
+        var_busState_8c1bb9d0.field_0x308 = var_busState_8c1bb9d0.field_0x274 * 1.0f;
+        var_busState_8c1bb9d0.field_0x310 = var_busState_8c1bb9d0.field_0x278 * 1.0f;
+        var_busState_8c1bb9d0.field_0x314 = 2.0f;
+        var_busState_8c1bb9d0.posX_0x2fc =
+            var_busState_8c1bb9d0.posX_0x0f4 + var_busState_8c1bb9d0.field_0x308;
+        var_busState_8c1bb9d0.posZ_0x304 =
+            var_busState_8c1bb9d0.posZ_0x0fc + var_busState_8c1bb9d0.field_0x310;
+        var_busState_8c1bb9d0.posY_0x300 =
+            2.0f * (var_busState_8c1bb9d0.field_0x26c / var_busState_8c1bb9d0.field_0x270)
+            + var_busState_8c1bb9d0.posY_0x0f8 + turnFactor + 2.0f;
+
+        njTranslateCameraPosition(&var_8c1bb904,
+                                   var_busState_8c1bb9d0.posX_0x2fc,
+                                   var_busState_8c1bb9d0.posY_0x300,
+                                   var_busState_8c1bb9d0.posZ_0x304);
+
+        njPointCameraInterest(&var_8c1bb904,
+                               var_busState_8c1bb9d0.posX_0x0f4,
+                               var_busState_8c1bb9d0.posY_0x0f8 + 2.0f,
+                               var_busState_8c1bb9d0.posZ_0x0fc);
+
+        roll = atan2f(var_busState_8c1bb9d0.posHistory_0x100[2].y
+                       - var_busState_8c1bb9d0.posHistory_0x100[3].y,
+                       2.33f);
+        njRollCameraInterest(&var_8c1bb904, (Sint32)(roll * 65536.0f / TWO_PI) + ang);
+        goto cameraTail;
+    } else if (var_8c227d9c == 2) {
+        BusRenderPositionCamera_8c024d6c(18.0f, var_8c227df0, 0.5f);
+        goto cameraTail;
+    } else if (var_8c227d9c == 3) {
+        BusRenderPositionCamera_8c024d6c(30.0f, var_8c227df0, 2.0f);
+        goto cameraTail;
+    } else if (var_8c227d9c == 4) {
+        var_busState_8c1bb9d0.field_0x308 =
+            var_busState_8c1bb9d0.posX_0x2fc - var_8c227d90[0];
+        var_busState_8c1bb9d0.field_0x310 =
+            var_busState_8c1bb9d0.posZ_0x304 - var_8c227d90[2];
+
+        njTranslateCameraPosition(&var_8c1bb904,
+                                   var_busState_8c1bb9d0.posX_0x2fc,
+                                   var_busState_8c1bb9d0.posY_0x300,
+                                   var_busState_8c1bb9d0.posZ_0x304);
+        njPointCameraInterest(&var_8c1bb904, var_8c227d90[0], var_8c227d90[1], var_8c227d90[2]);
+        goto cameraTail;
+    } else {
+        goto cameraTail;
+    }
+
+    {
+        float roll = atan2f(var_busState_8c1bb9d0.posHistory_0x100[2].y
+                             - var_busState_8c1bb9d0.posHistory_0x100[3].y,
+                             2.33f);
+        njRollCameraInterest(&var_8c1bb904, (Sint32)(roll * 65536.0f / TWO_PI) + ang);
+    }
+
+cameraTail:
+    njSetCamera(&var_8c1bb904);
+
+    var_busSimpleLightDir_8c227db8[0] = var_sceneParams_8c18ad24->dir0_0x00[0];
+    var_busSimpleLightDir_8c227db8[1] = var_sceneParams_8c18ad24->dir0_0x00[1];
+    var_busSimpleLightDir_8c227db8[2] = var_sceneParams_8c18ad24->dir0_0x00[2];
+    njCalcVector(NULL, (NJS_VECTOR *)var_busSimpleLightDir_8c227db8,
+                 (NJS_VECTOR *)var_busSimpleLightDir_8c227db8);
+
+    if (var_8c227d9c == 0) {
+        FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)drawFrontBusModel_8c024cc8, 0);
+    } else if (var_8c227d9c == 2 || var_8c227d9c == 3) {
+        FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)FUN_8c024bb8, 0);
+    }
+}
+
+/* Moves busState's draw position (posX_0x2fc/posY_0x300/posZ_0x304) dist
+ * along the unit vector from the current position (posX_0x0f4/posZ_0x0fc)
+ * toward it, dyOffset in Y; when the resulting bearing change from the
+ * bus's stored heading (field_0x230/field_0x238) exceeds ~5 degrees, clamps
+ * the turn rate and rotates the move by the clamped amount instead. Then
+ * points the camera at the new position, with its interest aimed at the
+ * unmoved position offset by interestDyOffset in Y. Called by
+ * BusRenderUpdateCamera_8c025078. */
+void BusRenderPositionCamera_8c024d6c(float dist, float dyOffset, float interestDyOffset)
+{
+    NJS_POINT3 *groundPt = &var_groundQueryPoint_8c1bc460;
+    float posX0 = var_busState_8c1bb9d0.posX_0x0f4;
+    float posZ0 = var_busState_8c1bb9d0.posZ_0x0fc;
+    float dx, dz, travel, moveX, moveZ;
+    Sint32 angleInt;
+
+    var_busState_8c1bb9d0.field_0x314 = dist;
+
+    dx = var_busState_8c1bb9d0.posX_0x2fc - posX0;
+    dz = var_busState_8c1bb9d0.posZ_0x304 - posZ0;
+    travel = njSqrt(dx * dx + dz * dz);
+
+    var_busState_8c1bb9d0.posX_0x2fc = posX0 + dist * (dx / travel);
+    var_busState_8c1bb9d0.posY_0x300 = var_busState_8c1bb9d0.posY_0x0f8 + dyOffset;
+    var_busState_8c1bb9d0.posZ_0x304 = posZ0 + dist * (dz / travel);
+
+    moveX = var_busState_8c1bb9d0.posX_0x2fc - posX0;
+    moveZ = var_busState_8c1bb9d0.posZ_0x304 - posZ0;
+
+    angleInt = (Sint32)(acosf((moveX * var_busState_8c1bb9d0.field_0x230
+                               + moveZ * var_busState_8c1bb9d0.field_0x238)
+                              / (dist * 4.9f))
+                        * 65536.0f / TWO_PI);
+
+    if (angleInt > 910) {
+        Sint32 angleAfterTurn;
+        Sint32 turnStep;
+        float cross;
+
+        if (angleInt > 5461) {
+            angleAfterTurn = 5461;
+        } else {
+            Sint32 turnLimit = angleInt / 30 / 2;
+            if (turnLimit < 45) {
+                turnLimit = 45;
+            }
+            angleAfterTurn = angleInt - turnLimit;
+            if (angleAfterTurn < 0) {
+                angleAfterTurn = 0;
+            }
+        }
+
+        turnStep = angleInt - angleAfterTurn;
+        cross = moveZ * var_busState_8c1bb9d0.field_0x230
+              - moveX * var_busState_8c1bb9d0.field_0x238;
+        if (cross < 0.0f) {
+            turnStep = -turnStep;
+        }
+
+        groundPt->x = moveX;
+        groundPt->z = moveZ;
+        njUnitMatrix(&var_8c1bc46c);
+        njRotateY(&var_8c1bc46c, turnStep);
+        njCalcPoint(&var_8c1bc46c, groundPt,
+                    (NJS_POINT3 *)&var_busState_8c1bb9d0.field_0x308);
+
+        var_busState_8c1bb9d0.posX_0x2fc = posX0 + var_busState_8c1bb9d0.field_0x308;
+        var_busState_8c1bb9d0.posZ_0x304 = posZ0 + var_busState_8c1bb9d0.field_0x310;
+    } else {
+        var_busState_8c1bb9d0.field_0x308 = moveX;
+        var_busState_8c1bb9d0.field_0x310 = moveZ;
+    }
+
+    njTranslateCameraPosition(&var_8c1bb904,
+                               var_busState_8c1bb9d0.posX_0x2fc,
+                               var_busState_8c1bb9d0.posY_0x300,
+                               var_busState_8c1bb9d0.posZ_0x304);
+    njPointCameraInterest(&var_8c1bb904, posX0,
+                           var_busState_8c1bb9d0.posY_0x0f8 + interestDyOffset,
+                           posZ0);
+}
+
+/* Called last by BusTask_8c022bdc (022bdc) with no arguments, once per
+ * frame. No-op unless busState.mirror_0x268 is nonzero. Otherwise picks a
+ * local mirror-camera offset/interest by mirror_0x268 (1/2/3, else stale),
+ * rotates the offset into world space by the bus's world matrix
+ * (field_0x084), positions the separate mirror camera (var_8c1bb944)
+ * there, points its interest at the same-rotated per-mode interest
+ * vector, rolls it by recent Y waypoint history, activates it, and queues
+ * FUN_8c024bb8 on fade layer 1 with the alt light direction
+ * (var_8c227dc4, recomputed here from the course's primary light). */
+void BusRenderUpdateMirrorCamera_8c025604(void)
+{
+    float offsetX, offsetY, offsetZ;
+    NJS_POINT3 interest;
+    float dx, dz;
+    float roll;
+
+    if (var_busState_8c1bb9d0.mirror_0x268 == 0) {
+        return;
+    }
+
+    njInitCamera(&var_8c1bb944);
+    njSetCameraAngle(&var_8c1bb944, 9102);
+
+    /* offsetY/interestY and offsetZ default to these for every mode below;
+     * the mirror_0x268 default case (neither 1, 2 nor 3) leaves
+     * offsetX/interestX/interestZ genuinely uninitialized here, matching
+     * the original asm exactly (that path is otherwise unreachable, since
+     * the only writer of mirror_0x268 is documented elsewhere as 0..3). */
+    offsetY = 4.2f;
+    offsetZ = -14.2f;
+
+    switch (var_busState_8c1bb9d0.mirror_0x268) {
+    case 1:
+        offsetX = -1.5f;
+        interest.x = -2.55f;
+        interest.y = 0.2f;
+        interest.z = 4.0f;
+        break;
+    case 2:
+        offsetX = 1.5f;
+        interest.x = 2.55f;
+        interest.y = 0.2f;
+        interest.z = 4.0f;
+        break;
+    case 3:
+        offsetX = -2.0f;
+        offsetY = 2.2f;
+        offsetZ = -5.2f;
+        interest.x = -0.75f;
+        interest.y = 2.0f;
+        interest.z = 7.6f;
+        break;
+    }
+
+    var_busState_8c1bb9d0.field_0x318 = offsetX;
+    var_busState_8c1bb9d0.field_0x31c = offsetY;
+    var_busState_8c1bb9d0.field_0x320 = offsetZ;
+
+    njSetCameraDepth(&var_8c1bb944, -1.0f, -50.0f);
+
+    /* Both the offset and the interest point are rotated into world space
+     * by the bus's world matrix. */
+    njCalcPoint((NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084,
+                (NJS_POINT3 *)&var_busState_8c1bb9d0.field_0x318,
+                (NJS_POINT3 *)&var_busState_8c1bb9d0.field_0x318);
+    njCalcPoint((NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084, &interest, &interest);
+
+    njTranslateCameraPosition(&var_8c1bb944,
+                               var_busState_8c1bb9d0.field_0x318,
+                               var_busState_8c1bb9d0.field_0x31c,
+                               var_busState_8c1bb9d0.field_0x320);
+    njPointCameraInterest(&var_8c1bb944, interest.x, interest.y, interest.z);
+
+    roll = atan2f(var_busState_8c1bb9d0.posHistory_0x100[3].y
+                   - var_busState_8c1bb9d0.posHistory_0x100[2].y,
+                   2.33f);
+    njRollCameraInterest(&var_8c1bb944, (Sint32)(roll * 65536.0f / TWO_PI));
+
+    dx = interest.x - var_busState_8c1bb9d0.field_0x318;
+    dz = interest.z - var_busState_8c1bb9d0.field_0x320;
+    var_busState_8c1bb9d0.field_0x324 = dx;
+    var_busState_8c1bb9d0.field_0x32c = dz;
+    var_busState_8c1bb9d0.field_0x330 = njSqrt(dx * dx + dz * dz);
+
+    njSetCamera(&var_8c1bb944);
+
+    var_8c227dc4[0] = var_sceneParams_8c18ad24->dir0_0x00[0];
+    var_8c227dc4[1] = var_sceneParams_8c18ad24->dir0_0x00[1];
+    var_8c227dc4[2] = var_sceneParams_8c18ad24->dir0_0x00[2];
+    njCalcVector(NULL, (NJS_VECTOR *)var_8c227dc4, (NJS_VECTOR *)var_8c227dc4);
+
+    FadeCmdPushCall1_8c0223ea(1, (FadeCallback1)FUN_8c024bb8, 1);
+}

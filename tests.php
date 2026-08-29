@@ -769,5 +769,20 @@ return [
                 "build/output_test/022bdc_bus_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/024b4c_bus_render/8c024b4c_FUN.php",
+                "tests/024b4c_bus_render/8c024b86_FUN.php",
+                "tests/024b4c_bus_render/8c024f32_FUN.php",
+                "tests/024b4c_bus_render/8c024bb8_FUN.php",
+                "tests/024b4c_bus_render/8c024d6c_BusRenderPositionCamera.php",
+                "tests/024b4c_bus_render/8c025078_BusRenderUpdateCamera.php",
+                "tests/024b4c_bus_render/8c025604_BusRenderUpdateMirrorCamera.php",
+            ],
+            "objects" => [
+                "build/output_test/024b4c_bus_render_src.obj",
+                "build/output_test/024b4c_bus_render_c.obj",
+            ]
+        ],
     ],
 ];

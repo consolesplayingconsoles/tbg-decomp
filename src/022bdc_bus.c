@@ -10,7 +10,7 @@
 #include "024280.h"               /* FUN_8c0246b2/024280 */
 #include "02412c.h"               /* FUN_8c02412c */
 #include "02081c.h"               /* FUN_8c02081c */
-#include "024b4c.h"               /* gameplayRenderBusUpdateCamera_8c025078, FUN_8c025604 */
+#include "024b4c_bus_render.h"               /* BusRenderUpdateCamera_8c025078, BusRenderUpdateMirrorCamera_8c025604 */
 #include "025870.h"               /* demoUpdateCamera_8c025906 */
 #include "027958.h"               /* prob_blinker_8c028022 */
 #include "022bdc_bus.h"           /* BusTask_8c022bdc */
@@ -353,8 +353,8 @@ void BusTask_8c022bdc(Task *task, void *state)
     if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
         demoUpdateCamera_8c025906();
     } else {
-        gameplayRenderBusUpdateCamera_8c025078();
+        BusRenderUpdateCamera_8c025078();
     }
 
-    FUN_8c025604();
+    BusRenderUpdateMirrorCamera_8c025604();
 }

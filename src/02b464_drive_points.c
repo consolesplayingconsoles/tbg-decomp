@@ -17,7 +17,7 @@
 #include "01e27c_practice_menu.h"
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
-#include "024b4c.h"
+#include "024b4c_bus_render.h"
 #include "02b2f0.h"
 
 /* ====================
