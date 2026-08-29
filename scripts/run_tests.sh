@@ -207,6 +207,10 @@ compile  src/022bdc_bus.c
 assemble  src/asm/decompiled/024b4c_bus_render.src
 compile  src/024b4c_bus_render.c
 
+# 023938
+assemble  src/asm/decompiled/023938_bus_drive.src
+compile  src/023938_bus_drive.c
+
 # 025870
 assemble  src/asm/decompiled/025870.src
 compile  src/025870.c

@@ -6,7 +6,7 @@
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, FUN_8c010c6e */
 #include "014a9c_tasks.h"         /* Task */
 #include "020594.h"               /* move_bus_model_8c020594 */
-#include "023938.h"               /* FUN_8c023938/023cba/023e7e */
+#include "023938_bus_drive.h"               /* FUN_8c023938/023cba/023e7e */
 #include "024280.h"               /* FUN_8c0246b2/024280 */
 #include "02412c.h"               /* FUN_8c02412c */
 #include "02081c.h"               /* FUN_8c02081c */

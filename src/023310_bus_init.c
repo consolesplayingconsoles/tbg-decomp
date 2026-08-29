@@ -7,7 +7,7 @@
 #include "02c884_bus_stop.h"   /* StopAreaRecord, BusStopGetStopArea_8c02cd7a */
 #include "020914_ground_query.h"
 #include "020b6c_ground_probe.h"
-#include "023938.h"
+#include "023938_bus_drive.h"
 #include "023310_bus_init.h"
 #include "02786c_vehicle_parts.h" /* VehPartsBind_8c02786c */
 #include "02e51c.h"               /* FUN_8c02e51c, FUN_8c02eab4, FUN_8c02e69c, FUN_8c02ec50 */
@@ -90,26 +90,13 @@ STATIC void busInitPlaceBus_8c023310(void)
         var_busState_8c1bb9d0.posHistory_0x100[i].y = var_busState_8c1bb9d0.posY_0x0f8;
     }
 
-    var_busState_8c1bb9d0.field_0x198 = 0;
-    var_busState_8c1bb9d0.field_0x19c = 0;
-    var_busState_8c1bb9d0.field_0x1a8 = 0;
-    var_busState_8c1bb9d0.field_0x1ac = 0;
-    var_busState_8c1bb9d0.field_0x1b8 = 0;
-    var_busState_8c1bb9d0.field_0x1bc = 0;
-    var_busState_8c1bb9d0.field_0x1c8 = 0;
-    var_busState_8c1bb9d0.field_0x1cc = 0;
-    var_busState_8c1bb9d0.field_0x1d8 = 0;
-    var_busState_8c1bb9d0.field_0x1dc = 0;
-    var_busState_8c1bb9d0.field_0x1e8 = 0;
-    var_busState_8c1bb9d0.field_0x1ec = 0;
-    var_busState_8c1bb9d0.field_0x1f8 = 0;
-    var_busState_8c1bb9d0.field_0x1fc = 0;
-    var_busState_8c1bb9d0.field_0x208 = 0;
-    var_busState_8c1bb9d0.field_0x20c = 0;
-    var_busState_8c1bb9d0.field_0x218 = 0;
-    var_busState_8c1bb9d0.field_0x21c = 0;
-    var_busState_8c1bb9d0.field_0x228 = 0;
-    var_busState_8c1bb9d0.field_0x22c = 0;
+    /* Seed all 10 corner ground-samples (023938_bus_drive.h) as misses,
+     * matching GroundQueryFindPolygon_8c020914's own miss path -- attr_0x00/
+     * polyIdSlot_0x04 are left stale/uninitialized. */
+    for (i = 0; i < 10; i++) {
+        var_busState_8c1bb9d0.groundSamples_0x190[i].vertexIds_0x08 = 0;
+        var_busState_8c1bb9d0.groundSamples_0x190[i].count_0x0c = 0;
+    }
 
     var_busState_8c1bb9d0.speed_0x27c = 0.0f;
     /* acc_hist_0x280[0] is left untouched -- only the 3 history slots are reset. */

@@ -10,6 +10,7 @@
 #include "02171c_tile_stream.h" /* TileIndex, TileRect */
 #include "022464_fade.h" /* FadePhase, FadeRequest, FadeMirrorSelect */
 #include "028258_objects.h" /* TrafficSignal, TrafficSignalDef */
+#include "020914_ground_query.h" /* GroundQueryResult */
 
 /* =================
  * Type Declarations
@@ -127,8 +128,11 @@ typedef struct {
     int field_0x0e0;
     int field_0x0e4;
     int field_0x0e8;
-    int field_0x0ec;
-    int field_0x0f0;
+    /* Last confirmed lane-crossing point (x,z), read by FUN_8c02081c
+     * (022bdc) and written by FUN_8c023e7e (023938) -- real float fields
+     * (FMOV.S stores), not int. */
+    float field_0x0ec;
+    float field_0x0f0;
 
     /* Averaged with posX_0x2fc/posZ_0x304 by rowMaterialModelTask_8c02a27c to get a
      * distance-fade reference point. posY_0x0f8 (and posHistory_0x100 below)
@@ -143,46 +147,12 @@ typedef struct {
      * from the just-computed ground height (posY_0x0f8), leaving rec[2..11]'s
      * x/z untouched (stale). */
     NJS_POINT3 posHistory_0x100[12];
-    int field_0x190;
-    int field_0x194;
-    int field_0x198;
-    int field_0x19c;
-    int field_0x1a0;
-    int field_0x1a4;
-    int field_0x1a8;
-    int field_0x1ac;
-    int field_0x1b0;
-    int field_0x1b4;
-    int field_0x1b8;
-    int field_0x1bc;
-    int field_0x1c0;
-    int field_0x1c4;
-    int field_0x1c8;
-    int field_0x1cc;
-    int field_0x1d0;
-    int field_0x1d4;
-    int field_0x1d8;
-    int field_0x1dc;
-    int field_0x1e0;
-    int field_0x1e4;
-    int field_0x1e8;
-    int field_0x1ec;
-    int field_0x1f0;
-    int field_0x1f4;
-    int field_0x1f8;
-    int field_0x1fc;
-    int field_0x200;
-    int field_0x204;
-    int field_0x208;
-    int field_0x20c;
-    int field_0x210;
-    int field_0x214;
-    int field_0x218;
-    int field_0x21c;
-    int field_0x220;
-    int field_0x224;
-    int field_0x228;
-    int field_0x22c;
+
+    /* 10 ground-polygon samples around the bus, taken by FUN_8c023938 at
+     * corner/lookahead points derived from posHistory_0x100, then read back
+     * by FUN_8c023cba to average a lane-offset ground height. */
+    GroundQueryResult groundSamples_0x190[10];
+
     /* Bus heading unit vector (x,z), dotted and crossed against the move
      * delta by positionCamera_8c024d6c to size/sign its turn. */
     float field_0x230;
@@ -473,6 +443,7 @@ extern NJS_MATRIX var_8c1bc46c;
 extern NJS_POINT3 var_groundQueryPoint_8c1bc460; // scratch world point for ground-height queries, e.g. FUN_8c02840c
 extern void* var_vmGameBuf_8c1bc454;
 extern float var_crossingIntersectPoint_8c1bc458; // IntersectSegments_8c0206f0's intersection-point output (x); [1] (var_8c1bc45c) holds y
+extern float var_8c1bc45c; // var_crossingIntersectPoint_8c1bc458's y, immediately adjacent -- see that field's comment
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
 /* Sit at var_busState_8c1bb9d0's base+0x34c/+0x368/+0x384 (its field_0x34c/

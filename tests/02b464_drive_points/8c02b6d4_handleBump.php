@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $this->setSize('_CollideQueueTest_8c02e4ac', 4);
         $this->setSize('_FUN_8c02e2dc', 4);
-        $this->setSize('_FUN_8c023bce', 4);
+        $this->setSize('_BusDriveStop_8c023bce', 4);
         $this->setSize('_VibStart_8c010f7a', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
@@ -114,7 +114,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($other + 0x19c, 0);
         $this->shouldWriteLong($other + 0x1ac, 0);
         $this->shouldWriteLong($other + 0x1bc, 0);
-        $this->shouldCall('_FUN_8c023bce');
+        $this->shouldCall('_BusDriveStop_8c023bce');
         $this->shouldWriteFloat($me + 0x27c, $this->f32($this->f32(2.5) + $this->f32(0.3))); // var_8c228670 + 0.3
         $this->shouldWriteFloat($me + 0x29c, -$this->f32(3.0 / 5.0));
         $this->shouldWriteFloat($me + 0x2a0, -$this->f32(4.0 / 5.0));
@@ -159,7 +159,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($other + 0x29c, $this->f32(3.0 / 5.0));
         $this->shouldWriteFloat($other + 0x2a0, $this->f32(4.0 / 5.0));
         // No field_0x19c/0x1ac/0x1bc zeroing on this branch.
-        $this->shouldCall('_FUN_8c023bce');
+        $this->shouldCall('_BusDriveStop_8c023bce');
         $this->shouldWriteFloat($me + 0x27c, $this->f32($this->f32(2.5) + $this->f32(0.3)));
         $this->shouldWriteFloat($me + 0x29c, -$this->f32(3.0 / 5.0));
         $this->shouldWriteFloat($me + 0x2a0, -$this->f32(4.0 / 5.0));
@@ -205,7 +205,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($other + 0x19c, 0);
         $this->shouldWriteLong($other + 0x1ac, 0);
         $this->shouldWriteLong($other + 0x1bc, 0);
-        $this->shouldCall('_FUN_8c023bce');
+        $this->shouldCall('_BusDriveStop_8c023bce');
         $this->shouldWriteFloat($me + 0x27c, $this->f32($this->f32(2.5) + $this->f32(0.3)));
         $this->shouldWriteFloat($me + 0x29c, -$this->f32(3.0 / 5.0));
         $this->shouldWriteFloat($me + 0x2a0, -$this->f32(4.0 / 5.0));

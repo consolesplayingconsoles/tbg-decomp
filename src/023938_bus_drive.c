@@ -1,0 +1,371 @@
+/* @unit BusDrive */
+#include <shinobi.h>
+#include "serial_debug.h" /* STATIC */
+
+#include <sg_sd.h>
+#include "sectionB.h"
+#include "0100bc_sound.h" /* var_midiHandles_8c0fcd28 */
+#include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
+#include "020b6c_ground_probe.h" /* GroundProbeInterpolateHeight_8c020f7e */
+#include "0207d4.h" /* FUN_8c0207fa, Struct8c0207d4 */
+#include "02081c.h" /* FUN_8c02081c */
+#include "023938_bus_drive.h"
+
+/* ====================
+ * Type Declarations
+ * ====================
+ */
+
+/* var_busState_8c1bb9d0.field_0x2c8's real signature: set by 023310_bus_init
+ * to GroundQueryFindPolygon_8c020914 or one of the GroundProbe* variants
+ * (020b6c_ground_probe.h), all sharing this shape. */
+typedef void (*GroundQueryFn)(float x, float y, float z, GroundQueryResult *out);
+
+/* One point on a route line segment (var_8c227d84 entries point into an
+ * array of these): remaining distance to the NEXT point, that point's
+ * world x/z, and the unit direction (dx,dz) of the segment leading to it. */
+typedef struct {
+    float len_0x00;
+    float x_0x04;
+    float z_0x08;
+    float dx_0x0c;
+    float dz_0x10;
+} LinePoint;
+
+/* var_8c227d84 entry: a route line's point list plus its total length. */
+typedef struct {
+    LinePoint *points_0x00;
+    float length_0x04;
+} LineBusSegment;
+
+/* var_8c227d88 entry, 0xc bytes/6 ushorts; only the 3 read by
+ * FUN_8c023e7e are named -- the rest are unused so far. */
+typedef struct {
+    Uint16 fwdNext_0x00;
+    Uint16 backNext_0x02;
+    Uint16 pad_0x04[3];
+    Uint16 fallbackNext_0x0a;
+} LineBusNode;
+
+/* ====================
+ * Functions
+ * ====================
+ */
+
+/* Resets the bus's drivetrain to idle: clears the collision-reset latch
+ * (field_0x2e4), zeroes gear_0x2f4 unless it's already in reverse (5), and
+ * marks bus_state_0x2b4 == 2. Called both by handleBump_8c02b6d4 (02b464)
+ * after a collision knockback and internally after a braking-sound update. */
+void BusDriveStop_8c023bce(void)
+{
+    var_busState_8c1bb9d0.field_0x2e4 = 0;
+    if (var_busState_8c1bb9d0.gear_0x2f4 != 5) {
+        var_busState_8c1bb9d0.gear_0x2f4 = 0;
+    }
+    var_busState_8c1bb9d0.bus_state_0x2b4 = 2;
+}
+
+/* Plays a braking-pitch sound cue keyed by speed_0x27c, damps speed_0x27c
+ * toward it, and marks var_8c228660's corresponding bit, then stops the
+ * drivetrain (BusDriveStop_8c023bce). Called by FUN_8c023cba whenever the
+ * lane-offset path data isn't ready. */
+STATIC void busDriveDecelerate_8c023bea(void)
+{
+    if (var_busState_8c1bb9d0.speed_0x27c < 0.1388889f) {
+        sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x13, 0);
+        var_busState_8c1bb9d0.speed_0x27c = 0.3f;
+        var_8c228660 |= 2;
+    } else if (var_busState_8c1bb9d0.speed_0x27c < 0.2777778f) {
+        sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x14, 0);
+        var_busState_8c1bb9d0.speed_0x27c = var_busState_8c1bb9d0.speed_0x27c / 2.0f + 0.3f;
+        var_8c228660 |= 4;
+    } else {
+        sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x15, 0);
+        var_busState_8c1bb9d0.speed_0x27c = var_busState_8c1bb9d0.speed_0x27c / 2.0f + 0.3f;
+        var_8c228660 |= 6;
+    }
+
+    BusDriveStop_8c023bce();
+}
+
+/* Rebuilds the bus's steering-correction direction (dir_x_0x29c/dir_z_0x2a0
+ * and their scaled mirrors dir_x2_0x2ac/dir_z2_0x2b0) from the corner
+ * ground-probe results FUN_8c023938 filled into groundSamples_0x190, then
+ * averages two pairs of those probes' interpolated heights into
+ * posY_0x0f8/posHistory_0x100[0].y and fans those out to the lane-offset
+ * posHistory entries used for steering lookahead. Called by FUN_8c023610
+ * (023310_bus_init) and BusTask_8c022bdc (022bdc) once per frame while
+ * driving. */
+void FUN_8c023cba(void)
+{
+    GroundQueryResult *gs = var_busState_8c1bb9d0.groundSamples_0x190;
+    NJS_POINT3 *hist = var_busState_8c1bb9d0.posHistory_0x100;
+    NJS_POINT3 *p = &var_groundQueryPoint_8c1bc460;
+    int skipUpdate = 0;
+
+    if (gs[6].attr_0x00 == 0 || gs[7].attr_0x00 == 0) {
+        /* Neither of this frame's forward-lookahead probes hit a polygon --
+         * bail out to the braking path and just mirror the last-known
+         * heading vector (field_0x230/0x238) into the steering fields. */
+        busDriveDecelerate_8c023bea();
+        var_busState_8c1bb9d0.dir_x2_0x2ac = var_busState_8c1bb9d0.field_0x230;
+        var_busState_8c1bb9d0.dir_x_0x29c = var_busState_8c1bb9d0.field_0x230;
+        var_busState_8c1bb9d0.dir_z2_0x2b0 = var_busState_8c1bb9d0.field_0x238;
+        var_busState_8c1bb9d0.dir_z_0x2a0 = var_busState_8c1bb9d0.field_0x238;
+    } else {
+        float sign = 1.0f;
+        int useDivide = 0;
+
+        if (gs[4].attr_0x00 != 0 && gs[0].attr_0x00 != 0) {
+            if (gs[2].attr_0x00 != 0 && gs[8].attr_0x00 != 0) {
+                sign = -1.0f;
+                if (gs[5].attr_0x00 == 0 || gs[1].attr_0x00 == 0) {
+                    useDivide = 1;
+                } else if (gs[3].attr_0x00 != 0 && gs[9].attr_0x00 != 0) {
+                    skipUpdate = 1;
+                }
+            }
+        } else {
+            useDivide = 1;
+        }
+
+        if (!skipUpdate) {
+            busDriveDecelerate_8c023bea();
+            p->x = sign;
+            p->z = 0.0f;
+            njUnitMatrix(&var_8c1bc46c);
+            njRotateY(&var_8c1bc46c, var_busState_8c1bb9d0.ang_0x250);
+            njCalcPoint(&var_8c1bc46c, p, p);
+            var_busState_8c1bb9d0.dir_x_0x29c = p->x;
+            var_busState_8c1bb9d0.dir_z_0x2a0 = p->z;
+            if (useDivide) {
+                var_busState_8c1bb9d0.dir_x2_0x2ac = p->x / 2.0f;
+                var_busState_8c1bb9d0.dir_z2_0x2b0 = p->z / 2.0f;
+            } else {
+                var_busState_8c1bb9d0.dir_x2_0x2ac = p->x * 2.0f;
+                var_busState_8c1bb9d0.dir_z2_0x2b0 = p->z * 2.0f;
+            }
+        }
+    }
+
+    GroundProbeInterpolateHeight_8c020f7e(&gs[0], (float *)&hist[2]);
+    GroundProbeInterpolateHeight_8c020f7e(&gs[1], (float *)&hist[3]);
+    var_busState_8c1bb9d0.posY_0x0f8 = (hist[2].y + hist[3].y) / 2.0f;
+
+    GroundProbeInterpolateHeight_8c020f7e(&gs[2], (float *)&hist[4]);
+    GroundProbeInterpolateHeight_8c020f7e(&gs[3], (float *)&hist[5]);
+    hist[0].y = (hist[4].y + hist[5].y) / 2.0f;
+
+    hist[7].y = var_busState_8c1bb9d0.posY_0x0f8;
+    hist[6].y = var_busState_8c1bb9d0.posY_0x0f8;
+    hist[9].y = var_busState_8c1bb9d0.posY_0x0f8;
+    hist[8].y = var_busState_8c1bb9d0.posY_0x0f8;
+    hist[11].y = hist[0].y;
+    hist[10].y = hist[0].y;
+}
+
+/* Computes 10 corner/lookahead ground-sample points around the bus from its
+ * heading (posHistory_0x100[0] vs posX_0x0f4/posZ_0x0fc) and queries each
+ * through the ground-query callback in field_0x2c8 (GroundQueryFindPolygon_
+ * 8c020914 or a GroundProbe* variant, all sharing the same (x,y,z,out)
+ * signature), filling groundSamples_0x190. Also seeds posHistory_0x100[0]/[1]
+ * (no probe for those two) and the heading unit vector field_0x274/0x278.
+ * Called by busInitPlaceBus_8c023310/FUN_8c023610 (023310_bus_init) and
+ * BusTask_8c022bdc (022bdc). */
+void FUN_8c023938(void)
+{
+    GroundQueryFn query = (GroundQueryFn)var_busState_8c1bb9d0.field_0x2c8;
+    NJS_POINT3 *hist = var_busState_8c1bb9d0.posHistory_0x100;
+    GroundQueryResult *gs = var_busState_8c1bb9d0.groundSamples_0x190;
+    float origX = var_busState_8c1bb9d0.posX_0x0f4;
+    float origZ = var_busState_8c1bb9d0.posZ_0x0fc;
+    float dx = hist[0].x - origX;
+    float dz = hist[0].z - origZ;
+    float dist = njSqrt(dx * dx + dz * dz);
+    float ndx = dx / dist;
+    float ndz = dz / dist;
+    float lat, lon;
+    float baseX, baseZ;
+
+    /* Write order matters here (Ghidra reorders these): field_0x274/0x278
+     * land before field_0x230/0x238 in the real asm. */
+    var_busState_8c1bb9d0.field_0x274 = ndx;
+    var_busState_8c1bb9d0.field_0x278 = ndz;
+    var_busState_8c1bb9d0.field_0x230 = ndx * 4.9f;
+    var_busState_8c1bb9d0.field_0x238 = ndz * 4.9f;
+
+    hist[0].x = origX + var_busState_8c1bb9d0.field_0x230;
+    hist[0].z = origZ + var_busState_8c1bb9d0.field_0x238;
+    hist[1].x = origX + ndx * 8.0f;
+    hist[1].z = origZ + ndz * 8.0f;
+
+    lat = ndz * 1.25f;
+    lon = ndx * 1.25f;
+
+    hist[2].x = origX - lat;
+    hist[2].z = origZ + lon;
+    query(hist[2].x, hist[2].y, hist[2].z, &gs[0]);
+
+    hist[3].x = origX + lat;
+    hist[3].z = origZ - lon;
+    query(hist[3].x, hist[3].y, hist[3].z, &gs[1]);
+
+    hist[4].x = hist[1].x - lat;
+    hist[4].z = hist[1].z + lon;
+    query(hist[4].x, hist[4].y, hist[4].z, &gs[2]);
+
+    hist[5].x = origX + lat;
+    hist[5].z = origZ - lon;
+    query(hist[5].x, hist[5].y, hist[5].z, &gs[3]);
+
+    /* Same x/z formula as hist[4] -- a separate probe slot (gs[8]) for the
+     * same point, original-game duplication preserved. */
+    hist[10].x = hist[1].x - lat;
+    hist[10].z = hist[1].z + lon;
+    query(hist[10].x, hist[10].y, hist[10].z, &gs[8]);
+
+    hist[11].x = hist[1].x + lat;
+    hist[11].z = hist[1].z - lon;
+    query(hist[11].x, hist[11].y, hist[11].z, &gs[9]);
+
+    baseX = origX - ndx * 2.6f;
+    baseZ = origZ - ndz * 2.6f;
+
+    hist[6].x = baseX - lat;
+    hist[6].z = baseZ + lon;
+    query(hist[6].x, var_busState_8c1bb9d0.posY_0x0f8, hist[6].z, &gs[4]);
+
+    hist[7].x = baseX + lat;
+    hist[7].z = baseZ - lon;
+    query(hist[7].x, var_busState_8c1bb9d0.posY_0x0f8, hist[7].z, &gs[5]);
+
+    lat /= 2.0f;
+    lon /= 2.0f;
+
+    hist[8].x = baseX - lat;
+    hist[8].z = baseZ + lon;
+    query(hist[8].x, hist[0].y, hist[8].z, &gs[6]);
+
+    hist[9].x = baseX + lat;
+    hist[9].z = baseZ - lon;
+    query(hist[9].x, hist[0].y, hist[9].z, &gs[7]);
+}
+
+/* Walks the current route line segment forward by the bus's per-frame move
+ * distance to find the next lane-crossing point, then confirms it against
+ * the crossing segment via IntersectSegments_8c0206f0. Advances through
+ * var_8c227d88's linked segment records (fwdNext_0x00/backNext_0x02,
+ * falling back to fallbackNext_0x0a when a segment runs out of points) and
+ * indexes var_8c227d84 for each segment's point list. Called once per frame
+ * by BusTask_8c022bdc (022bdc). */
+void FUN_8c023e7e(void)
+{
+    LineBusSegment *segs = (LineBusSegment *)var_8c227d84;
+    LineBusNode *nodes = (LineBusNode *)var_8c227d88;
+    Uint16 idx;
+    LinePoint *seg;
+    LinePoint *segEnd;
+    float remaining;
+    float traveled;
+    float cand[2];
+    float side;
+    int found;
+
+    if (var_busState_8c1bb9d0.field_0x334 != 0) {
+        if (var_busState_8c1bb9d0.field_0x2c4 == 2.0f) {
+            var_busState_8c1bb9d0.field_0x25c = 0;
+            var_busState_8c1bb9d0.mirror_0x268 = 0;
+            var_busState_8c1bb9d0.field_0x334 = 0;
+        }
+        return;
+    }
+
+    if (var_busState_8c1bb9d0.field_0x338 == 2) {
+        return;
+    }
+
+    if (var_busState_8c1bb9d0.field_0x338 == 0) {
+        idx = nodes[var_busState_8c1bb9d0.field_0x33c].fwdNext_0x00;
+    } else if (var_busState_8c1bb9d0.field_0x338 == 1) {
+        idx = nodes[var_busState_8c1bb9d0.field_0x33c].backNext_0x02;
+    }
+
+    if (idx != 0xffff) {
+        seg = segs[idx].points_0x00;
+        remaining = var_busState_8c1bb9d0.speed_0x27c * 128.0f
+                  + segs[idx].length_0x04 * var_busState_8c1bb9d0.field_0x2c0
+                  / segs[var_busState_8c1bb9d0.field_0x33c].length_0x04;
+
+        segEnd = seg;
+        traveled = remaining;
+        while (segEnd->len_0x00 <= remaining) {
+            remaining -= segEnd->len_0x00;
+            segEnd += 1;
+            if (segEnd->len_0x00 == 0.0f) {
+                idx = nodes[idx].fallbackNext_0x0a;
+                if (idx == 0xffff) {
+                    var_busState_8c1bb9d0.field_0x338 = 2;
+                    return;
+                }
+                segEnd = segs[idx].points_0x00;
+                traveled = remaining;
+            }
+        }
+
+        cand[0] = remaining * segEnd->dx_0x0c + segEnd->x_0x04;
+        cand[1] = remaining * segEnd->dz_0x10 + segEnd->z_0x08;
+
+        side = FUN_8c0207fa((Struct8c0207d4 *)&var_busState_8c1bb9d0.posX_0x0f4,
+                             (Struct8c0207d4 *)&var_busState_8c1bb9d0.field_0x0ec,
+                             (Struct8c0207d4 *)cand);
+
+        if (var_busState_8c1bb9d0.field_0x338 == 0) {
+            if (side > 0.0f) {
+                var_busState_8c1bb9d0.field_0x338 = 2;
+                return;
+            }
+        } else if (var_busState_8c1bb9d0.field_0x338 == 1 && side < 0.0f) {
+            var_busState_8c1bb9d0.field_0x338 = 2;
+            return;
+        }
+
+        found = 0;
+        while (!found) {
+            if (seg == segEnd) {
+                var_busState_8c1bb9d0.field_0x0ec = cand[0];
+                var_busState_8c1bb9d0.field_0x0f0 = cand[1];
+                var_busState_8c1bb9d0.field_0x2c4 =
+                    FUN_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, cand);
+                var_busState_8c1bb9d0.field_0x334 = 1;
+                var_busState_8c1bb9d0.field_0x33c = idx;
+                var_busState_8c1bb9d0.field_0x2bc = remaining;
+                var_busState_8c1bb9d0.field_0x2c0 = traveled;
+                var_busState_8c1bb9d0.field_0x2b8 = (int)segEnd;
+                return;
+            }
+
+            {
+                LinePoint *next = seg + 1;
+                Uint16 nextIdx = idx;
+                if (next->len_0x00 == 0.0f) {
+                    nextIdx = nodes[idx].fallbackNext_0x0a;
+                    next = segs[nextIdx].points_0x00;
+                }
+                var_8c1bc45c = var_busState_8c1bb9d0.posZ_0x0fc;
+                var_crossingIntersectPoint_8c1bc458 = var_busState_8c1bb9d0.posX_0x0f4;
+                found = IntersectSegments_8c0206f0(&var_crossingIntersectPoint_8c1bc458, cand,
+                                                    &seg->x_0x04, &next->x_0x04,
+                                                    &var_crossingIntersectPoint_8c1bc458);
+                idx = nextIdx;
+                seg = next;
+            }
+        }
+
+        /* Preserves the original bug documented on var_midiHandles_8c0fcd28:
+         * this call passes the array's address, not a live SDMIDI handle
+         * value (unlike every other sdMidiPlay call site in this codebase). */
+        sdMidiPlay((SDMIDI)(int)&var_midiHandles_8c0fcd28[0], 1, 2, 0);
+    }
+
+    var_busState_8c1bb9d0.field_0x338 = 2;
+}

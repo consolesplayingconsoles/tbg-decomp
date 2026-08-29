@@ -15,7 +15,7 @@
           .IMPORT     _var_8c22869c
           .IMPORT     _var_8c2286a0
           .IMPORT     _var_8c2285fc
-          .IMPORT     _FUN_8c023bce
+          .IMPORT     _BusDriveStop_8c023bce
           .IMPORT     _var_8c1bbd9c
           .IMPORT     _var_8c228670
           .IMPORT     _var_8c228668
@@ -380,7 +380,7 @@ LP_GEN_34364:
           .DATA.L _var_8c22869c ; H'8C02B65C
           .DATA.L _var_8c2286a0 ; H'8C02B660
           .DATA.L _var_8c2285fc ; H'8C02B664
-          .DATA.L _FUN_8c023bce ; H'8C02B668
+          .DATA.L _BusDriveStop_8c023bce ; H'8C02B668
           .DATA.L _var_8c1bbd9c ; H'8C02B66C
           .DATA.L H'3E99999A ; H'8C02B670
           .DATA.L _var_8c228670 ; H'8C02B674

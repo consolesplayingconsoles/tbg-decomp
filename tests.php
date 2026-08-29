@@ -786,6 +786,19 @@ return [
         ],
         [
             "tests" => [
+                "tests/023938_bus_drive/8c023bce_BusDriveStop.php",
+                "tests/023938_bus_drive/8c023bea_busDriveDecelerate.php",
+                "tests/023938_bus_drive/8c023938_FUN.php",
+                "tests/023938_bus_drive/8c023cba_FUN.php",
+                "tests/023938_bus_drive/8c023e7e_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/023938_bus_drive_src.obj",
+                "build/output_test/023938_bus_drive_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
                 "tests/025870/8c025870_FUN.php",
                 "tests/025870/8c0258ba_FUN.php",
                 "tests/025870/8c025906_demoUpdateCamera.php",

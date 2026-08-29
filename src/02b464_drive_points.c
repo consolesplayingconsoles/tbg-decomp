@@ -8,7 +8,7 @@
 #include "010e90.h"
 #include "02e400_collision.h"
 #include "02e2dc.h"
-#include "023938.h"
+#include "023938_bus_drive.h"
 #include "028258_objects.h"
 #include "02c884_bus_stop.h"
 #include "014a9c_tasks.h"
@@ -297,7 +297,7 @@ STATIC void armCooldowns_8c02b578(int type) {
  *
  * Otherwise, knocks both vehicles apart along the line between them (scaled
  * by the OTHER's speed_0x27c, forced to at least var_8c22866c + 0.3 -- see
- * FUN_8c023bce), vibrates the pad harder the faster the player was going,
+ * BusDriveStop_8c023bce), vibrates the pad harder the faster the player was going,
  * and -- only once the type-1 cooldown has actually expired (var_8c228690
  * counted past 0 to negative; see armCooldowns_8c02b578) --
  * grades a driver-points penalty by the player's speed and re-arms it. */
@@ -334,9 +334,9 @@ STATIC void handleBump_8c02b6d4(void) {
         other->speed_0x27c = var_8c22866c + 0.3f;
         other->dir_x_0x29c = dx / dist;
         other->dir_z_0x2a0 = dz / dist;
-        other->field_0x19c = 0;
-        other->field_0x1ac = 0;
-        other->field_0x1bc = 0;
+        other->groundSamples_0x190[0].count_0x0c = 0;
+        other->groundSamples_0x190[1].count_0x0c = 0;
+        other->groundSamples_0x190[2].count_0x0c = 0;
     } else {
         other->bus_state_0x2b4 = 1;
         other->speed_0x27c = var_8c22866c + 0.3f;
@@ -344,7 +344,7 @@ STATIC void handleBump_8c02b6d4(void) {
         other->dir_z_0x2a0 = dz / dist;
     }
 
-    FUN_8c023bce();
+    BusDriveStop_8c023bce();
 
     var_8c1bbd9c->speed_0x27c = var_8c228670 + 0.3f;
     var_8c1bbd9c->dir_x_0x29c = -other->dir_x_0x29c;
