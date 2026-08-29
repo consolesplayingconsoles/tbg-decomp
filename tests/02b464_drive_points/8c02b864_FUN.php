@@ -11,8 +11,8 @@ return new class extends TestCase {
 
         $this->call('_FUN_8c02b864');
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(8, 0xffffff38); // -200
-        $this->shouldCall('_DrivePointsArmCooldowns_8c02b578')->with(2);
+        $this->shouldCall('_adjust_8c02b464')->with(8, 0xffffff38); // -200
+        $this->shouldCall('_armCooldowns_8c02b578')->with(2);
         $this->shouldWriteLongTo('_var_8c228690', 0x7fff);
     }
 

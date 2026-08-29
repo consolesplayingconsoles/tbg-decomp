@@ -43,10 +43,10 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $this->alloc(0x2b8));
 
-        $this->call('_DrivePointsHandleBump_8c02b6d4');
+        $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0x1234);
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x1f, 0xffffff38); // -200
+        $this->shouldCall('_adjust_8c02b464')->with(0x1f, 0xffffff38); // -200
         $this->shouldWriteLongTo('_var_8c228690', 0x7fff);
     }
 
@@ -58,7 +58,7 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x2b4, 2); // bus_state_0x2b4 != 1
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
 
-        $this->call('_DrivePointsHandleBump_8c02b6d4');
+        $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
     }
@@ -71,7 +71,7 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x2b4, 1); // bus_state_0x2b4 == 1 (driving)
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
 
-        $this->call('_DrivePointsHandleBump_8c02b6d4');
+        $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
         $this->shouldCall('_FUN_8c02e2dc')->andReturn(0);
@@ -98,7 +98,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c228690'), 0xfffffffb); // -5: cooldown expired
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
 
-        $this->call('_DrivePointsHandleBump_8c02b6d4');
+        $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
         $this->shouldCall('_FUN_8c02e2dc')->andReturn($other);
@@ -121,8 +121,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($me + 0x2ac, -$this->f32(3.0 / 5.0));
         $this->shouldWriteFloat($me + 0x2b0, -$this->f32(4.0 / 5.0));
         $this->shouldCall('_VibStart_8c010f7a')->with(4);
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(1, 0xffffffe2); // -30
-        $this->shouldCall('_DrivePointsArmCooldowns_8c02b578')->with(1);
+        $this->shouldCall('_adjust_8c02b464')->with(1, 0xffffffe2); // -30
+        $this->shouldCall('_armCooldowns_8c02b578')->with(1);
     }
 
     public function test_high_speed_bump_with_field_0x2e4_set_skips_extra_zeroing(): void
@@ -145,7 +145,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c228690'), 0); // cooldown still active
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
 
-        $this->call('_DrivePointsHandleBump_8c02b6d4');
+        $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
         $this->shouldCall('_FUN_8c02e2dc')->andReturn($other);
@@ -189,7 +189,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c228690'), 0xffffffff); // -1: cooldown expired
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
 
-        $this->call('_DrivePointsHandleBump_8c02b6d4');
+        $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
         $this->shouldCall('_FUN_8c02e2dc')->andReturn($other);
@@ -212,7 +212,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($me + 0x2ac, -$this->f32(3.0 / 5.0));
         $this->shouldWriteFloat($me + 0x2b0, -$this->f32(4.0 / 5.0));
         $this->shouldCall('_VibStart_8c010f7a')->with(5);
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(2, 0xffffffc4); // -60
-        $this->shouldCall('_DrivePointsArmCooldowns_8c02b578')->with(1);
+        $this->shouldCall('_adjust_8c02b464')->with(2, 0xffffffc4); // -60
+        $this->shouldCall('_armCooldowns_8c02b578')->with(1);
     }
 };

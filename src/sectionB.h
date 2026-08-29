@@ -184,7 +184,7 @@ typedef struct {
     int field_0x228;
     int field_0x22c;
     /* Bus heading unit vector (x,z), dotted and crossed against the move
-     * delta by BusRenderPositionCamera_8c024d6c to size/sign its turn. */
+     * delta by positionCamera_8c024d6c to size/sign its turn. */
     float field_0x230;
     int field_0x234;
     float field_0x238;
@@ -225,7 +225,7 @@ typedef struct {
     int field_0x298;
 
     /* Collision knockback direction (unit vector), set by
-     * DrivePointsHandleBump_8c02b6d4 (02b464); field_0x2ac/0x2b0 mirror
+     * handleBump_8c02b6d4 (02b464); field_0x2ac/0x2b0 mirror
      * 0x29c/0x2a0 (role of the duplicate pair unclear). */
     float dir_x_0x29c;
     float dir_z_0x2a0;
@@ -268,7 +268,7 @@ typedef struct {
     /* Last move-delta vector (x,y,z) applied to posX_0x2fc/posZ_0x304 --
      * rotated toward field_0x230/field_0x238 first when the raw bearing
      * change is large -- and its magnitude, all written by
-     * BusRenderPositionCamera_8c024d6c. */
+     * positionCamera_8c024d6c. */
     float field_0x308;
     float field_0x30c;
     float field_0x310;
@@ -817,7 +817,7 @@ extern unsigned short var_8c1ba374;
  * both directly and via var_8c2285c4[14]/[15]; [3]/[4] a threshold/counter
  * pair graded by FUN_8c02b986 (via var_8c2285c4[17]/[18] there); [6] a
  * driving-state latch toggled by FUN_8c02bb1c. [0] cleared to ready by
- * DrivePointsArmCooldowns_8c02b578 (types 1-3). Other slots unclear.
+ * armCooldowns_8c02b578 (types 1-3). Other slots unclear.
  *
  * var_8c2285c4[11]/[12]/[13] (0x2285f0/f4/f8, just before this array) have
  * no export of their own; [13] is a one-shot "already graded" latch read
@@ -830,19 +830,19 @@ extern int var_8c2285fc[8];
 extern int var_8c22861c[6];
 
 /* Bitflags set elsewhere (022bdc, still undecompiled); bits 0x2/0x4 are
- * read by DrivePointsHandleFlags_8c02b7ea (02b464) to grade a driver-points
+ * read by handleFlags_8c02b7ea (02b464) to grade a driver-points
  * penalty -- both set is worse than either alone. Other bits unclear. */
 extern int var_8c228660;
 
 /* The vehicle/pedestrian the player's bus is currently bumping into, set by
- * DrivePointsHandleBump_8c02b6d4 (02b464) from FUN_8c02e2dc's result;
+ * handleBump_8c02b6d4 (02b464) from FUN_8c02e2dc's result;
  * var_8c228668 is a redundant copy of the same pointer. */
 extern BusState *var_8c228664;
 extern BusState *var_8c228668;
 /* Player's speed at the moment of the current bump; read to grade the
- * DrivePointsAdjust_8c02b464 penalty and vibration strength. */
+ * adjust_8c02b464 penalty and vibration strength. */
 extern float var_8c22866c;
-/* var_8c228664's speed_0x27c, saved before DrivePointsHandleBump_8c02b6d4
+/* var_8c228664's speed_0x27c, saved before handleBump_8c02b6d4
  * (02b464) overwrites it as part of the knockback response. */
 extern float var_8c228670;
 
@@ -859,9 +859,9 @@ extern int var_8c228684;
 extern int var_8c228688;
 extern int var_8c22868c;
 
-/* Per-offense-type cooldowns armed by DrivePointsArmCooldowns_8c02b578
+/* Per-offense-type cooldowns armed by armCooldowns_8c02b578
  * (02b464) to a large frame count (0x96/0xd2), presumably counted down by
- * a still-undecompiled function; DrivePointsHandleBump_8c02b6d4 treats
+ * a still-undecompiled function; handleBump_8c02b6d4 treats
  * slot 0 as expired/ready once it goes negative. Role of each slot beyond
  * that unclear. */
 extern int var_8c228690;

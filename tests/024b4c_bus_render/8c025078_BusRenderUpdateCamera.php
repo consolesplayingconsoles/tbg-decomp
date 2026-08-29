@@ -20,7 +20,7 @@ if (!function_exists('fdec')) {
  * busState.field_0x3b8's bits 24-27. The Y button cycles the camera mode
  * var_8c227d9c (0..3) when allowed. Then positions/aims the camera per
  * var_8c227d9c (0=fixed follow, 1=bump/sway follow, 2/3=smooth chase via
- * BusRenderPositionCamera_8c024d6c, 4=fixed on var_8c227d90; modes 0/1 also
+ * positionCamera_8c024d6c, 4=fixed on var_8c227d90; modes 0/1 also
  * roll by recent Y history), activates the camera, recomputes the simple
  * light direction, and queues the bus draw callback for modes 0/2/3.
  */
@@ -174,7 +174,7 @@ return new class extends TestCase {
 
         $this->expectAlwaysAndTail();
 
-        $this->shouldCall('_BusRenderPositionCamera_8c024d6c')->with(30.0, 12.0, 2.0);
+        $this->shouldCall('_positionCamera_8c024d6c')->with(30.0, 12.0, 2.0);
 
         $this->expectTail('_FUN_8c024bb8');
     }
@@ -257,7 +257,7 @@ return new class extends TestCase {
 
         $this->expectAlwaysAndTail();
 
-        $this->shouldCall('_BusRenderPositionCamera_8c024d6c')->with(18.0, 3.0, 0.5);
+        $this->shouldCall('_positionCamera_8c024d6c')->with(18.0, 3.0, 0.5);
 
         $this->expectTail('_FUN_8c024bb8');
     }
@@ -323,7 +323,7 @@ return new class extends TestCase {
         $this->expectAlwaysAndTail();
 
         // Positioning for the new mode (2) follows.
-        $this->shouldCall('_BusRenderPositionCamera_8c024d6c')->with(18.0, 0.0, 0.5);
+        $this->shouldCall('_positionCamera_8c024d6c')->with(18.0, 0.0, 0.5);
 
         $this->expectTail('_FUN_8c024bb8');
     }
@@ -405,7 +405,7 @@ return new class extends TestCase {
         // No advance, no FUN_8c024f32 call.
         $this->expectAlwaysAndTail();
 
-        $this->shouldCall('_BusRenderPositionCamera_8c024d6c')->with(18.0, 0.0, 0.5);
+        $this->shouldCall('_positionCamera_8c024d6c')->with(18.0, 0.0, 0.5);
 
         $this->expectTail('_FUN_8c024bb8');
     }

@@ -65,18 +65,25 @@ STATIC Uint8 init_8c045414[] = {
 };
 
 /* ====================
+ * Forward Declarations
+ * ====================
+ */
+
+STATIC void FUN_8c01fe84(Sint32 speed);
+
+/* ====================
  * Functions
  * ====================
  */
 
-void FUN_8c01fa78(int a, int b) {
+STATIC void FUN_8c01fa78(int a, int b) {
     var_8c2264a8.field_0x00 = a;
     var_8c2264a8.field_0x08 = b;
 }
 
 /* Draws a 6-digit HH:MM:SS readout from a 30fps frame count (108000 = 1h,
  * 1800 = 1min, 30 = 1sec), tens-then-units per field. */
-void FUN_8c01fa80(int frames, float y, int spriteBase) {
+STATIC void FUN_8c01fa80(int frames, float y, int spriteBase) {
     int hours = frames / 108000;
     int minutes = (frames % 108000) / 1800;
     int seconds = (frames % 1800) / 30;
@@ -97,7 +104,7 @@ void FUN_8c01fa80(int frames, float y, int spriteBase) {
  * readout + two timers drawn by the FUN_8c01fe84 tail. Installed as a
  * FadeCallback1 and as a TaskPush_8c014ae8 action, so it must keep this
  * exact signature. */
-void FUN_8c01fbac(int arg0) {
+STATIC void FUN_8c01fbac(int arg0) {
     float barWidth, barWidthInner;
     Angle angle;
     Sint32 speed;
@@ -231,7 +238,7 @@ void FUN_8c01fbac(int arg0) {
  * real behavior in both objects: as a genuine call in the C object, and
  * (since the .src object can't have it mocked away either) via inline
  * assertions in that same file's assertSpeedTail() for the .src object. */
-void FUN_8c01fe84(Sint32 speed) {
+STATIC void FUN_8c01fe84(Sint32 speed) {
     Sint32 units, tens;
 
     if (speed < 0) {
@@ -253,7 +260,7 @@ void FUN_8c01fe84(Sint32 speed) {
  * signal, wipers, gear, lane-change, headlights) into message codes staged
  * via FUN_8c01fa78, ramps the driver-points meter display, and tail-calls
  * FUN_8c01fbac (the popup/meter renderer) through the fade-command queue. */
-void FUN_8c01ff48() {
+STATIC void FUN_8c01ff48() {
     unsigned int blinker = var_busState_8c1bb9d0.field_0x3b0 & 7;
     unsigned int wiper;
     unsigned int gear;

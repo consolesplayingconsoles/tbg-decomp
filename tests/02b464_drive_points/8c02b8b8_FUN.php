@@ -42,8 +42,8 @@ return new class extends TestCase {
 
         $this->call('_FUN_8c02b8b8');
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x16, 0xffffffce); // -50
-        $this->shouldCall('_DrivePointsArmCooldowns_8c02b578')->with(3);
+        $this->shouldCall('_adjust_8c02b464')->with(0x16, 0xffffffce); // -50
+        $this->shouldCall('_armCooldowns_8c02b578')->with(3);
         $this->shouldWriteLong($graded, 0);
         $this->shouldWriteLong($signal0, 0);
     }
@@ -86,8 +86,8 @@ return new class extends TestCase {
         $this->call('_FUN_8c02b8b8');
 
         $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(5)->andReturn(0);
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x10, 0xffffffba); // -70
-        $this->shouldCall('_DrivePointsArmCooldowns_8c02b578')->with(3);
+        $this->shouldCall('_adjust_8c02b464')->with(0x10, 0xffffffba); // -70
+        $this->shouldCall('_armCooldowns_8c02b578')->with(3);
         $this->shouldWriteLong($graded, 0);
         $this->shouldWriteLong($signal0, 0);
     }
@@ -110,7 +110,7 @@ return new class extends TestCase {
         $this->call('_FUN_8c02b8b8');
 
         $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(5)->andReturn(1);
-        $this->shouldCall('_DrivePointsArmCooldowns_8c02b578')->with(3);
+        $this->shouldCall('_armCooldowns_8c02b578')->with(3);
         $this->shouldWriteLong($graded, 0);
         $this->shouldWriteLong($signal0, 0);
     }

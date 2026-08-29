@@ -62,7 +62,6 @@
           .IMPORT     _var_8c1bb944
           .EXPORT     _FUN_8c024b4c
           .EXPORT     _FUN_8c024b86
-          .EXPORT     _BusRenderPositionCamera_8c024d6c
           .EXPORT     _FUN_8c024f32
           .EXPORT     _BusRenderUpdateCamera_8c025078
           .EXPORT     _BusRenderUpdateMirrorCamera_8c025604
@@ -70,6 +69,7 @@
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawFrontBusModel_8c024cc8
+          .EXPORT     _positionCamera_8c024d6c
           .AENDI
 
           .SECTION     P, CODE, ALIGN=4
@@ -315,7 +315,7 @@ LP_GEN_54676:
           .DATA.L _njSetTexture ; H'8C024D60
           .DATA.L _var_frontNj_8c1bc434 ; H'8C024D64
           .DATA.L _njCnkSimpleDrawObject ; H'8C024D68
-_BusRenderPositionCamera_8c024d6c:
+_positionCamera_8c024d6c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           FMOV.S      FR15,@-R15
@@ -1287,7 +1287,7 @@ LAB_8c0254ea:
           FMOV.S      @R0,FR4
           FMOV        FR15,FR6
 LAB_8c0254f2:
-          BSR         _BusRenderPositionCamera_8c024d6c
+          BSR         _positionCamera_8c024d6c
           NOP
           BRA         LAB_8c02557e
           NOP

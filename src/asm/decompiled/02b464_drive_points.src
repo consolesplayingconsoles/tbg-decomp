@@ -94,20 +94,20 @@
           .IMPORT     _var_driverPoints_8c2285d0
           .IMPORT     _ResultShowPassedRun_8c01e0b4
           .IMPORT     _var_menuState_8c1bc7a8
-          .EXPORT     _DrivePointsAdjust_8c02b464
-          .EXPORT     _DrivePointsArmCooldowns_8c02b578
-          .EXPORT     _DrivePointsHandleBump_8c02b6d4
-          .EXPORT     _DrivePointsHandleFlags_8c02b7ea
+          .EXPORT     _DrivePointsReset_8c02c46a
+          .EXPORT     _FUN_8c02c586
+          .EXPORT     _FUN_8c02c784
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _adjust_8c02b464
+          .EXPORT     _armCooldowns_8c02b578
+          .EXPORT     _handleBump_8c02b6d4
+          .EXPORT     _handleFlags_8c02b7ea
           .EXPORT     _FUN_8c02b864
           .EXPORT     _FUN_8c02b886
           .EXPORT     _FUN_8c02b8b8
           .EXPORT     _FUN_8c02b986
           .EXPORT     _FUN_8c02bb1c
           .EXPORT     _FUN_8c02bcd8
-          .EXPORT     _DrivePointsReset_8c02c46a
-          .EXPORT     _FUN_8c02c586
-          .EXPORT     _FUN_8c02c784
-          .AIFDEF UNIT_TESTING
           .EXPORT     _init_8c04bef0
           .EXPORT     _init_8c04c35c
           .EXPORT     _taskCallback_8c02c072
@@ -117,7 +117,7 @@
           .EXPORT     _FUN_8c02c738
           .AENDI
           .SECTION     P, CODE, ALIGN=4
-_DrivePointsAdjust_8c02b464:
+_adjust_8c02b464:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       LP_GEN_45010+4,R3
@@ -255,7 +255,7 @@ LP_GEN_45010:
           .DATA.L _sdMidiPlay ; H'8C02B56C
           .DATA.L __quick_evn_mvn ; H'8C02B570
           .DATA.L _init_8c04c35c ; H'8C02B574
-_DrivePointsArmCooldowns_8c02b578:
+_armCooldowns_8c02b578:
           MOV.L       LP_GEN_34364+24,R1
           MOV         #H'1,R5
           MOV.L       LP_GEN_34364+16,R3
@@ -412,20 +412,20 @@ LAB_8c02b6a8:
           MOV         #H'2,R4
           MOV         #-H'3c,R5
 LAB_8c02b6b0:
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           NOP
           BRA         LAB_8c02b6be
           NOP
 LAB_8c02b6b8:
           MOV.W       LP_GEN_12602,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'0,R4
 LAB_8c02b6be:
           LDS.L       @R15+,PR
           MOV         #H'1,R4
           FMOV.S      @R15+,FR14
           FMOV.S      @R15+,FR15
-          BRA         _DrivePointsArmCooldowns_8c02b578
+          BRA         _armCooldowns_8c02b578
           MOV.L       @R15+,R14
 LAB_8c02b6ca:
           LDS.L       @R15+,PR
@@ -433,7 +433,7 @@ LAB_8c02b6ca:
           FMOV.S      @R15+,FR15
           RTS
           MOV.L       @R15+,R14
-_DrivePointsHandleBump_8c02b6d4:
+_handleBump_8c02b6d4:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -446,7 +446,7 @@ _DrivePointsHandleBump_8c02b6d4:
           TST         R0,R0
           BT          LAB_8c02b708
           MOV.W       LP_GEN_12602,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'1f,R4
           MOV.L       LP_GEN_12602+4,R3
           MOV.W       LP_GEN_12602+2,R2
@@ -575,7 +575,7 @@ LAB_8c02b7dc:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_DrivePointsHandleFlags_8c02b7ea:
+_handleFlags_8c02b7ea:
           MOV.L       LP_GEN_48273+50,R3
           STS.L       PR,@-R15
           MOV.L       @R3,R0
@@ -594,7 +594,7 @@ _DrivePointsHandleFlags_8c02b7ea:
           NOP
 LAB_8c02b80a:
           MOV         #-H'1e,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'3,R4
           BRA         LAB_8c02b858
           NOP
@@ -623,11 +623,11 @@ LAB_8c02b850:
           MOV.W       LP_GEN_71333,R5
           MOV         #H'5,R4
 LAB_8c02b854:
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           NOP
 LAB_8c02b858:
           MOV         #H'1,R4
-          BRA         _DrivePointsArmCooldowns_8c02b578
+          BRA         _armCooldowns_8c02b578
           LDS.L       @R15+,PR
 LAB_8c02b85e:
           LDS.L       @R15+,PR
@@ -641,9 +641,9 @@ _FUN_8c02b864:
           CMP/EQ      R3,R2
           BF          LAB_8c02b880
           MOV.W       LP_GEN_71333,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'8,R4
-          BSR         _DrivePointsArmCooldowns_8c02b578
+          BSR         _armCooldowns_8c02b578
           MOV         #H'2,R4
           MOV.L       LP_GEN_71333+18,R3
           MOV.W       LP_GEN_71333+2,R2
@@ -672,10 +672,10 @@ LAB_8c02b8a4:
           MOV         #H'6,R4
           MOV         #-H'f,R5
 LAB_8c02b8a8:
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           NOP
           MOV         #H'2,R4
-          BRA         _DrivePointsArmCooldowns_8c02b578
+          BRA         _armCooldowns_8c02b578
           LDS.L       @R15+,PR
 LAB_8c02b8b2:
           LDS.L       @R15+,PR
@@ -698,9 +698,9 @@ _FUN_8c02b8b8:
           CMP/EQ      #H'2,R0
           BF          LAB_8c02b8e0
           MOV         #-H'32,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'16,R4
-          BSR         _DrivePointsArmCooldowns_8c02b578
+          BSR         _armCooldowns_8c02b578
           MOV         #H'3,R4
 LAB_8c02b8e0:
           MOV.W       LP_GEN_71333+6,R0
@@ -729,7 +729,7 @@ LAB_8c02b8e0:
           TST         R0,R0
           BF          LAB_8c02b97e
           MOV         #-H'5,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'11,R4
           MOV         #H'1,R3
           BRA         LAB_8c02b97e
@@ -766,10 +766,10 @@ LAB_8c02b954:
           TST         R0,R0
           BF          LAB_8c02b974
           MOV         #-H'46,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'10,R4
 LAB_8c02b974:
-          BSR         _DrivePointsArmCooldowns_8c02b578
+          BSR         _armCooldowns_8c02b578
           MOV         #H'3,R4
 LAB_8c02b978:
           MOV         #H'0,R4
@@ -805,12 +805,12 @@ LAB_8c02b9ae:
           MOV         #H'c,R4
           MOV         #-H'32,R5
 LAB_8c02b9b2:
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           NOP
           MOV.L       @(H'2c,R14),R2
           ADD         #H'1,R2
           MOV.L       R2,@(H'2c,R14)
-          BSR         _DrivePointsArmCooldowns_8c02b578
+          BSR         _armCooldowns_8c02b578
           MOV         #H'4,R4
           BRA         LAB_8c02b9c6
           NOP
@@ -843,9 +843,9 @@ LAB_8c02b9c6:
           TST         R3,R2
           BT          LAB_8c02ba2c
           MOV         #-H'a,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'12,R4
-          BSR         _DrivePointsArmCooldowns_8c02b578
+          BSR         _armCooldowns_8c02b578
           MOV         #H'4,R4
           BRA         LAB_8c02bada
           NOP
@@ -946,7 +946,7 @@ LAB_8c02bac0:
           MOV         #H'e,R4
           MOV         #-H'14,R5
 LAB_8c02bac4:
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           NOP
           MOV         #H'48,R0
           MOV.L       @(R0,R14),R2
@@ -1015,9 +1015,9 @@ _FUN_8c02bb1c:
           FCMP/EQ     FR3,FR2
           BF          LAB_8c02bb5e
           MOV         #-H'50,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'13,R4
-          BSR         _DrivePointsArmCooldowns_8c02b578
+          BSR         _armCooldowns_8c02b578
           MOV         #H'5,R4
 LAB_8c02bb5e:
           MOV.W       LP_GEN_46467+4,R0
@@ -1060,13 +1060,13 @@ LAB_8c02bb5e:
           FCMP/GT     FR1,FR4
           BF          LAB_8c02bbb6
           MOV         #-H'a,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'9,R4
           BRA         LAB_8c02bbc4
           NOP
 LAB_8c02bbb6:
           MOV         #-H'1e,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'a,R4
           BRA         LAB_8c02bbc4
           NOP
@@ -1143,7 +1143,7 @@ LAB_8c02bc4c:
           BT          LAB_8c02bc6c
 LAB_8c02bc66:
           MOV         #-H'8,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'f,R4
 LAB_8c02bc6c:
           MOV         #H'50,R0
@@ -1194,7 +1194,7 @@ LAB_8c02bcba:
           BT          LAB_8c02bcc6
 LAB_8c02bcc0:
           MOV         #-H'8,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'f,R4
 LAB_8c02bcc6:
           MOV         #H'50,R0
@@ -1321,7 +1321,7 @@ LAB_8c02bda6:
           MOV.L       R2,@(R0,R14)
 LAB_8c02bdba:
           MOV         #-H'1e,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'14,R4
           BRA         LAB_8c02bdc8
           NOP
@@ -1358,7 +1358,7 @@ LAB_8c02bdec:
           MOV         #H'78,R2
           MOV         #-H'32,R5
           MOV.L       R2,@(R0,R14)
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'15,R4
           BRA         LAB_8c02be28
           NOP
@@ -1417,7 +1417,7 @@ LAB_8c02be5c:
           MOV.W       LP_GEN_20612+4,R0
           MOV         #-H'5,R5
           MOV.L       R13,@(R0,R14)
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'17,R4
           BRA         LAB_8c02be80
           NOP
@@ -1444,7 +1444,7 @@ LAB_8c02be8e:
           TST         R2,R2
           BF          LAB_8c02beba
           MOV         #-H'5,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'18,R4
           MOV.W       LP_GEN_20612+10,R0
           MOV         #H'3c,R3
@@ -1487,7 +1487,7 @@ LAB_8c02bee8:
           BT/S        LAB_8c02bf34
           MOV.L       R3,@(R0,R14)
           MOV         #-H'5,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'19,R4
           MOV         #H'3c,R2
           MOV         R2,R0
@@ -1550,7 +1550,7 @@ LAB_8c02bf64:
           MOV.L       R2,@(R0,R14)
           BF          LAB_8c02bf7c
           MOV         #-H'50,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'13,R4
           MOV         #H'60,R0
           MOV.L       R13,@(R0,R14)
@@ -1577,7 +1577,7 @@ LAB_8c02bf94:
           TST         R2,R2
           BF          LAB_8c02bfcc
           MOV         #-H'5,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'20,R4
           MOV.L       LP_GEN_59291+24,R2
           BRA         LAB_8c02bfde
@@ -1598,7 +1598,7 @@ LAB_8c02bfcc:
           TST         R1,R1
           BT          LAB_8c02bfde
           MOV         #H'14,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'1e,R4
           MOV         #H'7c,R0
           MOV.L       R13,@(R0,R14)
@@ -1613,7 +1613,7 @@ LAB_8c02bfde:
           FCMP/EQ     FR3,FR2
           BT          LAB_8c02bffa
           MOV         #-H'f,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'21,R4
           MOV.W       LP_GEN_85160+4,R0
           MOV.L       R11,@(R0,R12)
@@ -1654,7 +1654,7 @@ LAB_8c02c00c:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _DrivePointsAdjust_8c02b464
+          BRA         _adjust_8c02b464
           MOV.L       @R15+,R14
 LAB_8c02c044:
           MOV.L       @(H'18,R14),R3
@@ -1671,7 +1671,7 @@ LAB_8c02c044:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _DrivePointsAdjust_8c02b464
+          BRA         _adjust_8c02b464
           MOV.L       @R15+,R14
 LAB_8c02c064:
           LDS.L       @R15+,PR
@@ -1851,7 +1851,7 @@ LAB_8c02c17c:
           AND         R2,R1
           MOV.L       R1,@(R0,R14)
 LAB_8c02c1c4:
-          BSR         _DrivePointsHandleBump_8c02b6d4
+          BSR         _handleBump_8c02b6d4
           NOP
           MOV.L       LP_GEN_52528+32,R2
           MOV.L       @R2,R0
@@ -1901,7 +1901,7 @@ LAB_8c02c21e:
           CMP/PZ      R2
           BT/S        LAB_8c02c272
           MOV.L       R2,@R4
-          BSR         _DrivePointsHandleFlags_8c02b7ea
+          BSR         _handleFlags_8c02b7ea
           NOP
           MOV.L       LP_GEN_39176+12,R4
           MOV.L       @R4,R3
@@ -2019,7 +2019,7 @@ LAB_8c02c30e:
           BT          LAB_8c02c320
 LAB_8c02c31a:
           MOV         #-H'3,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'1b,R4
 LAB_8c02c320:
           MOV.W       LP_GEN_30870+6,R0
@@ -2033,7 +2033,7 @@ LAB_8c02c320:
           BT          LAB_8c02c34a
 LAB_8c02c332:
           MOV         #-H'8,R5
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           MOV         #H'f,R4
           BRA         LAB_8c02c34a
           NOP
@@ -2045,7 +2045,7 @@ LAB_8c02c342:
           MOV         #H'1a,R4
           MOV         #-H'14,R5
 LAB_8c02c346:
-          BSR         _DrivePointsAdjust_8c02b464
+          BSR         _adjust_8c02b464
           NOP
 LAB_8c02c34a:
           MOV         #H'1e,R2

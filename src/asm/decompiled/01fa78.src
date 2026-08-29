@@ -22,13 +22,13 @@
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
+          .EXPORT     _FUN_8c02018c
+          .AIFDEF UNIT_TESTING
           .EXPORT     _FUN_8c01fa78
           .EXPORT     _FUN_8c01fa80
           .EXPORT     _FUN_8c01fbac
           .EXPORT     _FUN_8c01fe84
           .EXPORT     _FUN_8c01ff48
-          .EXPORT     _FUN_8c02018c
-          .AIFDEF UNIT_TESTING
           .EXPORT     _init_8c045334
           .EXPORT     _init_8c045374
           .EXPORT     _init_8c0453b4

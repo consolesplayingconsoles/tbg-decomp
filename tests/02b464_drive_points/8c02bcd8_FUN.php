@@ -121,7 +121,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1); // var_8c2285dc incremented
     }
@@ -142,7 +142,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1); // var_8c2285dc incremented
     }
@@ -164,7 +164,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -180,13 +180,13 @@ return new class extends TestCase {
 
         $this->call('_FUN_8c02bcd8');
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x14, 0xffffffe2); // -30
+        $this->shouldCall('_adjust_8c02b464')->with(0x14, 0xffffffe2); // -30
         $this->shouldWriteLong($base + 0x64, 1); // sigState -> 1
         $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4] hold-timer reset
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -208,7 +208,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -229,7 +229,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -249,11 +249,11 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x68, -1);
         $this->shouldWriteLong($base + 0x68, 0x78);
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x15, 0xffffffce); // -50
+        $this->shouldCall('_adjust_8c02b464')->with(0x15, 0xffffffce); // -50
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -275,11 +275,11 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x8c, 0xf);
         $this->shouldWriteLong($base + 0x84, 0);
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x17, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x17, 0xfffffffb); // -5
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -304,7 +304,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -323,14 +323,14 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x68, 0);
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x18, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x18, 0xfffffffb); // -5
         $this->shouldWriteFloat($base + 0x90, 0.0);
         $this->shouldWriteLong($base + 0x94, 0x3c);
         $this->shouldCall('_VibStart_8c010f7a')->with(3);
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -353,12 +353,12 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x68, 0);
 
         $this->shouldWriteLong($base + 0x98, -1);
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x19, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x19, 0xfffffffb); // -5
         $this->shouldWriteLong($base + 0x98, 0x3c);
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -378,11 +378,11 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x58, 1);
 
         $this->shouldWriteLong($base + 0x60, 0x70a); // var_8c22861c[2] incremented past threshold
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x13, 0xffffffb0); // -80
+        $this->shouldCall('_adjust_8c02b464')->with(0x13, 0xffffffb0); // -80
         $this->shouldWriteLong($base + 0x60, 0);
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -403,7 +403,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x5c, 1);
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
         $this->shouldWriteLong($base + 0x18, 1);
     }
@@ -423,7 +423,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x1e, 0x14); // +20
+        $this->shouldCall('_adjust_8c02b464')->with(0x1e, 0x14); // +20
         $this->shouldWriteLong($base + 0x7c, 0);
 
         $this->shouldWriteLong($base + 0x18, 1);
@@ -445,7 +445,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x21, 0xfffffff1); // -15
+        $this->shouldCall('_adjust_8c02b464')->with(0x21, 0xfffffff1); // -15
         $this->shouldWriteLong($this->addressOf('_var_busState_8c1bb9d0') + 0x3c4, 1);
 
         $this->shouldWriteLong($base + 0x18, 1);
@@ -471,7 +471,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x18, -1);
         $this->shouldWriteLong($base + 0x18, 0);
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x1d, 0xffffff38); // -200
+        $this->shouldCall('_adjust_8c02b464')->with(0x1d, 0xffffff38); // -200
     }
 
     // playMode 1 with the "ready" bit set: the countdown is skipped (falls
@@ -491,7 +491,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
 
         $this->shouldWriteLong($base + 0x18, 1); // var_8c2285dc incremented (bit 1 set -> else branch)
@@ -514,7 +514,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(0x20, 0xfffffffb); // -5
+        $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong($this->addressOf('_var_8c2264c4'), 1);
 
         $this->shouldWriteLong($base + 0x18, 30);
@@ -524,6 +524,6 @@ return new class extends TestCase {
             ->using(new \Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention())
             ->andReturn(0);
 
-        $this->shouldCall('_DrivePointsAdjust_8c02b464')->with(-1, -1);
+        $this->shouldCall('_adjust_8c02b464')->with(-1, -1);
     }
 };

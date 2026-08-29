@@ -702,10 +702,10 @@ return [
         ],
         [
             "tests" => [
-                "tests/02b464_drive_points/8c02b464_DrivePointsAdjust.php",
-                "tests/02b464_drive_points/8c02b578_DrivePointsArmCooldowns.php",
-                "tests/02b464_drive_points/8c02b6d4_DrivePointsHandleBump.php",
-                "tests/02b464_drive_points/8c02b7ea_DrivePointsHandleFlags.php",
+                "tests/02b464_drive_points/8c02b464_adjust.php",
+                "tests/02b464_drive_points/8c02b578_armCooldowns.php",
+                "tests/02b464_drive_points/8c02b6d4_handleBump.php",
+                "tests/02b464_drive_points/8c02b7ea_handleFlags.php",
                 "tests/02b464_drive_points/8c02b864_FUN.php",
                 "tests/02b464_drive_points/8c02b886_FUN.php",
                 "tests/02b464_drive_points/8c02b8b8_FUN.php",
@@ -775,7 +775,7 @@ return [
                 "tests/024b4c_bus_render/8c024b86_FUN.php",
                 "tests/024b4c_bus_render/8c024f32_FUN.php",
                 "tests/024b4c_bus_render/8c024bb8_FUN.php",
-                "tests/024b4c_bus_render/8c024d6c_BusRenderPositionCamera.php",
+                "tests/024b4c_bus_render/8c024d6c_positionCamera.php",
                 "tests/024b4c_bus_render/8c025078_BusRenderUpdateCamera.php",
                 "tests/024b4c_bus_render/8c025604_BusRenderUpdateMirrorCamera.php",
             ],

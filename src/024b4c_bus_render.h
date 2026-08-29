@@ -21,16 +21,6 @@ void FUN_8c024f32(void);
  * (undecompiled). */
 void FUN_8c024bb8(void *altLight);
 
-/* Moves busState's draw position (posX_0x2fc/posY_0x300/posZ_0x304) dist
- * along the unit vector from the current position (posX_0x0f4/posZ_0x0fc)
- * toward it, dyOffset in Y; when the resulting bearing change from the
- * bus's stored heading (field_0x230/field_0x238) exceeds ~5 degrees, clamps
- * the turn rate and rotates the move by the clamped amount instead. Then
- * points the camera at the new position, with its interest aimed at the
- * unmoved position offset by interestDyOffset in Y. Called by
- * BusRenderUpdateCamera_8c025078. */
-void BusRenderPositionCamera_8c024d6c(float dist, float dyOffset, float interestDyOffset);
-
 /* Called by BusTask_8c022bdc (022bdc) with no arguments each frame outside
  * demo playback (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO); updates the
  * gameplay camera to follow the player's bus. */

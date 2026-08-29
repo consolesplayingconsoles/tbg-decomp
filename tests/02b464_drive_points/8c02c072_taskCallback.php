@@ -106,7 +106,7 @@ return new class extends TestCase {
 
         // Same-object callees: mock rather than let them really execute
         // (their own dependencies aren't set up in this test).
-        $this->shouldCall('_DrivePointsHandleBump_8c02b6d4')->andReturn(0);
+        $this->shouldCall('_handleBump_8c02b6d4')->andReturn(0);
         $this->shouldCall('_FUN_8c02b864')->andReturn(0);
         $this->shouldWriteLong($this->addressOf('_var_8c228690'), 4);
         $this->shouldCall('_FUN_8c02bcd8')->andReturn(0);

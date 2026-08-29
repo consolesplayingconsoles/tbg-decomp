@@ -13,7 +13,7 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * _BusRenderPositionCamera_8c024d6c(float dist, float dyOffset, float interestDyOffset):
+ * _positionCamera_8c024d6c(float dist, float dyOffset, float interestDyOffset):
  * moves busState's posX_0x2fc/posY_0x300/posZ_0x304 by dist along the unit
  * vector from the current position (posX_0x0f4/posZ_0x0fc) toward it,
  * dyOffset in Y; when the resulting bearing change from the bus's stored
@@ -67,7 +67,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0x230, 1.0); // heading x
         $this->initFloat($base + 0x238, 0.0); // heading z
 
-        $this->call('_BusRenderPositionCamera_8c024d6c')->with(10.0, 2.0, 7.0);
+        $this->call('_positionCamera_8c024d6c')->with(10.0, 2.0, 7.0);
 
         $this->shouldWriteFloat($base + 0x314, 10.0);
         $this->shouldCall('_njSqrt')->with(25.0)->andReturn(5.0);
@@ -110,7 +110,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0x230, 0.0); // heading x
         $this->initFloat($base + 0x238, -1.0); // heading z
 
-        $this->call('_BusRenderPositionCamera_8c024d6c')->with(1.0, 0.0, 0.0);
+        $this->call('_positionCamera_8c024d6c')->with(1.0, 0.0, 0.0);
 
         $this->shouldWriteFloat($base + 0x314, 1.0);
         $this->shouldCall('_njSqrt')->with(1.0)->andReturn(1.0);
@@ -166,7 +166,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0x230, 0.0); // heading x
         $this->initFloat($base + 0x238, 1.0); // heading z (flipped vs prior test)
 
-        $this->call('_BusRenderPositionCamera_8c024d6c')->with(1.0, 0.0, 0.0);
+        $this->call('_positionCamera_8c024d6c')->with(1.0, 0.0, 0.0);
 
         $this->shouldWriteFloat($base + 0x314, 1.0);
         $this->shouldCall('_njSqrt')->with(1.0)->andReturn(1.0);
@@ -227,7 +227,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0x230, 0.0); // heading x
         $this->initFloat($base + 0x238, 1.0); // heading z
 
-        $this->call('_BusRenderPositionCamera_8c024d6c')->with(1.0, 0.0, 0.0);
+        $this->call('_positionCamera_8c024d6c')->with(1.0, 0.0, 0.0);
 
         $this->shouldWriteFloat($base + 0x314, 1.0);
         $this->shouldCall('_njSqrt')->with(1.0)->andReturn(1.0);

@@ -16,6 +16,13 @@
 #define TWO_PI 6.283184f
 
 /* ====================
+ * Forward Declarations
+ * ====================
+ */
+
+STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDyOffset);
+
+/* ====================
  * Functions
  * ====================
  */
@@ -139,7 +146,7 @@ STATIC void drawFrontBusModel_8c024cc8(void)
  * Then positions/aims the camera per var_8c227d9c: 0 = fixed follow behind
  * the bus (rotated by an eased yaw in busState.field_0x3c8), 1 = a
  * bump/sway follow using busState.field_0x274/0x278 and 0x26c/0x270,
- * 2/3 = smooth chase via BusRenderPositionCamera_8c024d6c, 4 = fixed on
+ * 2/3 = smooth chase via positionCamera_8c024d6c, 4 = fixed on
  * var_8c227d90. Modes 0/1 additionally roll the camera by the road's pitch
  * (from recent Y waypoint history). Finally activates the camera, recomputes
  * the simple light direction from the course's primary light, and queues
@@ -314,10 +321,10 @@ afterRamp:
         njRollCameraInterest(&var_8c1bb904, (Sint32)(roll * 65536.0f / TWO_PI) + ang);
         goto cameraTail;
     } else if (var_8c227d9c == 2) {
-        BusRenderPositionCamera_8c024d6c(18.0f, var_8c227df0, 0.5f);
+        positionCamera_8c024d6c(18.0f, var_8c227df0, 0.5f);
         goto cameraTail;
     } else if (var_8c227d9c == 3) {
-        BusRenderPositionCamera_8c024d6c(30.0f, var_8c227df0, 2.0f);
+        positionCamera_8c024d6c(30.0f, var_8c227df0, 2.0f);
         goto cameraTail;
     } else if (var_8c227d9c == 4) {
         var_busState_8c1bb9d0.field_0x308 =
@@ -366,7 +373,7 @@ cameraTail:
  * points the camera at the new position, with its interest aimed at the
  * unmoved position offset by interestDyOffset in Y. Called by
  * BusRenderUpdateCamera_8c025078. */
-void BusRenderPositionCamera_8c024d6c(float dist, float dyOffset, float interestDyOffset)
+STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDyOffset)
 {
     NJS_POINT3 *groundPt = &var_groundQueryPoint_8c1bc460;
     float posX0 = var_busState_8c1bb9d0.posX_0x0f4;

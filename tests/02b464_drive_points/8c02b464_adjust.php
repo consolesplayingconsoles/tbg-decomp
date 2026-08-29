@@ -30,7 +30,7 @@ return new class extends TestCase {
     {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2);
 
-        $this->call('_DrivePointsAdjust_8c02b464')->with(5, 0xfffffff6); // delta = -10
+        $this->call('_adjust_8c02b464')->with(5, 0xfffffff6); // delta = -10
     }
 
     public function test_penalty_counts_and_tracks_worst_offense_silently(): void
@@ -45,7 +45,7 @@ return new class extends TestCase {
         $this->initUint32($this->maxAddr(), 100);
 
         // msgSet = -1: no banner queued, no sound.
-        $this->call('_DrivePointsAdjust_8c02b464')->with(0xffffffff, 0xfffffff6); // -10, worse than -5
+        $this->call('_adjust_8c02b464')->with(0xffffffff, 0xfffffff6); // -10, worse than -5
 
         $this->shouldWriteLongTo('_var_8c1bb8f4', 4);
         $this->shouldWriteLong($this->pointsAddr(), 40);
@@ -64,7 +64,7 @@ return new class extends TestCase {
         $this->initUint32($this->pointsAddr(), 50);
         $this->initUint32($this->maxAddr(), 100);
 
-        $this->call('_DrivePointsAdjust_8c02b464')->with(0xffffffff, 0xfffffffb); // -5, not worse
+        $this->call('_adjust_8c02b464')->with(0xffffffff, 0xfffffffb); // -5, not worse
 
         $this->shouldWriteLongTo('_var_8c1bb8f4', 4);
         $this->shouldWriteLong($this->pointsAddr(), 45);
@@ -80,7 +80,7 @@ return new class extends TestCase {
         $this->initUint32($this->pointsAddr(), 95);
         $this->initUint32($this->maxAddr(), 100);
 
-        $this->call('_DrivePointsAdjust_8c02b464')->with(0xffffffff, 10); // +10, over the max
+        $this->call('_adjust_8c02b464')->with(0xffffffff, 10); // +10, over the max
 
         $this->shouldWriteLong($this->pointsAddr(), 105);
         $this->shouldWriteLong($this->pointsAddr(), 100); // re-clamped
@@ -97,7 +97,7 @@ return new class extends TestCase {
         $this->initUint32($this->pointsAddr(), 3);
         $this->initUint32($this->maxAddr(), 100);
 
-        $this->call('_DrivePointsAdjust_8c02b464')->with(0xffffffff, 0xfffffff6); // -10
+        $this->call('_adjust_8c02b464')->with(0xffffffff, 0xfffffff6); // -10
 
         $this->shouldWriteLongTo('_var_8c1bb8f4', 1);
         $this->shouldWriteLong($this->pointsAddr(), 0xfffffff9); // 3 - 10
@@ -114,7 +114,7 @@ return new class extends TestCase {
         $this->initUint8($this->addressOf('_var_8c1ba290'), 2); // DIFFICULTY == 2
 
         // Positive delta while gated: no writes at all, function returns immediately.
-        $this->call('_DrivePointsAdjust_8c02b464')->with(0xffffffff, 10);
+        $this->call('_adjust_8c02b464')->with(0xffffffff, 10);
     }
 
     public function test_bonus_not_gated_at_difficulty_2_during_scored_run(): void
@@ -127,7 +127,7 @@ return new class extends TestCase {
         $this->initUint32($this->pointsAddr(), 50);
         $this->initUint32($this->maxAddr(), 100);
 
-        $this->call('_DrivePointsAdjust_8c02b464')->with(0xffffffff, 10);
+        $this->call('_adjust_8c02b464')->with(0xffffffff, 10);
 
         $this->shouldWriteLong($this->pointsAddr(), 60);
     }
@@ -156,7 +156,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 0x14, 0x1234);
 
-        $this->call('_DrivePointsAdjust_8c02b464')->with($msgSet, 10); // +10, praise jingle
+        $this->call('_adjust_8c02b464')->with($msgSet, 10); // +10, praise jingle
 
         $this->shouldWriteLong($this->pointsAddr(), 60);
 

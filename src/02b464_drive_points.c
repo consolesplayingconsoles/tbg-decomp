@@ -206,7 +206,7 @@ STATIC int *init_8c04c35c[] = {
  * Also tracks the single worst penalty of the run (var_8c1bb8ec/var_8c1bb8f0)
  * and how many penalty events occurred (var_8c1bb8f4), for the results
  * screen. */
-void DrivePointsAdjust_8c02b464(int msgSet, int delta) {
+STATIC void adjust_8c02b464(int msgSet, int delta) {
     if (var_playMode_8c1bb8d0 == 2) {
         return;
     }
@@ -258,7 +258,7 @@ void DrivePointsAdjust_8c02b464(int msgSet, int delta) {
 /* Arms one offense type's cooldown (var_8c228690/694/698/69c/6a0), resetting
  * all 5 to ready (1) first. Types 1-3 additionally clear var_8c2285fc; types
  * 4-5 (and any other value) return without touching it. */
-void DrivePointsArmCooldowns_8c02b578(int type) {
+STATIC void armCooldowns_8c02b578(int type) {
     var_8c228690 = 1;
     var_8c228694 = 1;
     var_8c228698 = 1;
@@ -299,14 +299,14 @@ void DrivePointsArmCooldowns_8c02b578(int type) {
  * by the OTHER's speed_0x27c, forced to at least var_8c22866c + 0.3 -- see
  * FUN_8c023bce), vibrates the pad harder the faster the player was going,
  * and -- only once the type-1 cooldown has actually expired (var_8c228690
- * counted past 0 to negative; see DrivePointsArmCooldowns_8c02b578) --
+ * counted past 0 to negative; see armCooldowns_8c02b578) --
  * grades a driver-points penalty by the player's speed and re-arms it. */
-void DrivePointsHandleBump_8c02b6d4(void) {
+STATIC void handleBump_8c02b6d4(void) {
     BusState *other;
     float dx, dz, dist;
 
     if (CollideQueueTest_8c02e4ac() != NULL) {
-        DrivePointsAdjust_8c02b464(0x1f, -200);
+        adjust_8c02b464(0x1f, -200);
         var_8c228690 = 0x7fff;
         return;
     }
@@ -365,21 +365,21 @@ void DrivePointsHandleBump_8c02b6d4(void) {
     }
 
     if (var_8c22866c < 0.1388889f) {
-        DrivePointsAdjust_8c02b464(1, -30);
+        adjust_8c02b464(1, -30);
     } else if (var_8c22866c < 0.2777778f) {
-        DrivePointsAdjust_8c02b464(2, -60);
+        adjust_8c02b464(2, -60);
     } else {
-        DrivePointsAdjust_8c02b464(0, -200);
+        adjust_8c02b464(0, -200);
     }
 
-    DrivePointsArmCooldowns_8c02b578(1);
+    armCooldowns_8c02b578(1);
 }
 
 /* Grades a driver-points penalty from var_8c228660's bits 0x2/0x4 (set
  * elsewhere, still-undecompiled 022bdc): neither set is a no-op, either
  * alone is a mild penalty, both together the worst. Arms the type-1
  * cooldown whenever a penalty was applied. */
-void DrivePointsHandleFlags_8c02b7ea(void) {
+STATIC void handleFlags_8c02b7ea(void) {
     unsigned int flags = var_8c228660 & 6;
 
     if (flags == 0) {
@@ -387,22 +387,22 @@ void DrivePointsHandleFlags_8c02b7ea(void) {
     }
 
     if (flags == 2) {
-        DrivePointsAdjust_8c02b464(3, -30);
+        adjust_8c02b464(3, -30);
     } else if (flags == 4) {
-        DrivePointsAdjust_8c02b464(4, -60);
+        adjust_8c02b464(4, -60);
     } else if (flags == 6) {
-        DrivePointsAdjust_8c02b464(5, -200);
+        adjust_8c02b464(5, -200);
     }
 
-    DrivePointsArmCooldowns_8c02b578(1);
+    armCooldowns_8c02b578(1);
 }
 
 /* Grades a driver-points penalty when var_8c228680 signals a specific
  * offense code. */
-void FUN_8c02b864(void) {
+STATIC void FUN_8c02b864(void) {
     if (var_8c228680 == 0x30000) {
-        DrivePointsAdjust_8c02b464(8, -200);
-        DrivePointsArmCooldowns_8c02b578(2);
+        adjust_8c02b464(8, -200);
+        armCooldowns_8c02b578(2);
         var_8c228690 = 0x7fff;
     }
 }
@@ -410,14 +410,14 @@ void FUN_8c02b864(void) {
 /* Grades a driver-points penalty when var_8c228680 is nonzero and
  * var_8c22868c != 2, splitting the penalty by offense code 0x20000 vs any
  * other nonzero value. */
-void FUN_8c02b886(void) {
+STATIC void FUN_8c02b886(void) {
     if (var_8c228680 != 0 && var_8c22868c != 2) {
         if (var_8c228680 == 0x20000) {
-            DrivePointsAdjust_8c02b464(7, -40);
+            adjust_8c02b464(7, -40);
         } else {
-            DrivePointsAdjust_8c02b464(6, -15);
+            adjust_8c02b464(6, -15);
         }
-        DrivePointsArmCooldowns_8c02b578(2);
+        armCooldowns_8c02b578(2);
     }
 }
 
@@ -427,23 +427,23 @@ void FUN_8c02b886(void) {
  * with the player still moving grades a further penalty via
  * ObjectsGetTrafficSignalFrame_8c028900; a signal that goes away with the
  * player stopped and the bus not driving through it grades another. */
-void FUN_8c02b8b8(void) {
+STATIC void FUN_8c02b8b8(void) {
     int signalId;
     /* var_8c2285c4[13] (0x2285f8, right before var_8c2285fc) has no export
      * of its own -- a one-shot "already graded this signal" latch. */
     int *graded = &var_8c2285c4[13];
 
     if (var_inputMapSel_8c1bb8c8 == 0 && var_8c228680 == 0 && var_8c22868c == 2) {
-        DrivePointsAdjust_8c02b464(0x16, -50);
-        DrivePointsArmCooldowns_8c02b578(3);
+        adjust_8c02b464(0x16, -50);
+        armCooldowns_8c02b578(3);
     }
 
     if ((var_busState_8c1bb9d0.field_0x34c & 0xfff) == 0) {
         if (var_8c2285fc[0] != 0 && (var_busState_8c1bb9d0.field_0x358 & 0xf000000) == 0) {
             if (ObjectsGetTrafficSignalFrame_8c028900(var_8c2285fc[0] & 0xffff) == 0) {
-                DrivePointsAdjust_8c02b464(0x10, -70);
+                adjust_8c02b464(0x10, -70);
             }
-            DrivePointsArmCooldowns_8c02b578(3);
+            armCooldowns_8c02b578(3);
         }
         *graded = 0;
         var_8c2285fc[0] = 0;
@@ -453,7 +453,7 @@ void FUN_8c02b8b8(void) {
         var_8c2285fc[1] = signalId;
         if (*graded == 0 && var_8c22866c == 0.0f
             && ObjectsGetTrafficSignalFrame_8c028900(var_8c2285fc[0]) == 0) {
-            DrivePointsAdjust_8c02b464(0x11, -5);
+            adjust_8c02b464(0x11, -5);
             *graded = 1;
         }
     }
@@ -466,7 +466,7 @@ void FUN_8c02b8b8(void) {
  * grades a third, timeout-based one (var_8c2285fc[3]/[4], via
  * var_8c2285c4[17]/[18]) when the player's signal duration exceeds a
  * threshold picked from var_8c1bbd1c's turn-direction bits. */
-void FUN_8c02b986(void) {
+STATIC void FUN_8c02b986(void) {
     /* 1 if the checked side is >= var_8c22867c, 2 if it's less -- mirrors
      * which of the two comparisons below actually ran (the other is
      * short-circuited whenever the first is an exact match). */
@@ -478,12 +478,12 @@ void FUN_8c02b986(void) {
         *repeatCount = 0;
     } else {
         if (*repeatCount == 0) {
-            DrivePointsAdjust_8c02b464(0xb, -10);
+            adjust_8c02b464(0xb, -10);
         } else {
-            DrivePointsAdjust_8c02b464(0xc, -50);
+            adjust_8c02b464(0xc, -50);
         }
         *repeatCount = *repeatCount + 1;
-        DrivePointsArmCooldowns_8c02b578(4);
+        armCooldowns_8c02b578(4);
     }
 
     if (var_8c2285c4[27] == var_8c228684 || (var_8c1bbd1c & 0x40000) == 0
@@ -515,17 +515,17 @@ void FUN_8c02b986(void) {
                 if (threshold < var_8c2285c4[17]) {
                     var_8c2285c4[17] = 0;
                     if (var_8c2285c4[18] == 0) {
-                        DrivePointsAdjust_8c02b464(0xd, -10);
+                        adjust_8c02b464(0xd, -10);
                     } else {
-                        DrivePointsAdjust_8c02b464(0xe, -20);
+                        adjust_8c02b464(0xe, -20);
                     }
                     var_8c2285c4[18] = var_8c2285c4[18] + 1;
                 }
             }
         }
     } else {
-        DrivePointsAdjust_8c02b464(0x12, -10);
-        DrivePointsArmCooldowns_8c02b578(4);
+        adjust_8c02b464(0x12, -10);
+        armCooldowns_8c02b578(4);
     }
 
     if (var_8c22866c != 0.0f) {
@@ -543,7 +543,7 @@ void FUN_8c02b986(void) {
  * tracks whether the bus is stopped at a signal (var_8c2285c4[20], i.e.
  * var_8c2285fc[6]) and, once it moves off with the wrong turn signal for
  * the lane taken, grades a fourth. */
-void FUN_8c02bb1c(void) {
+STATIC void FUN_8c02bb1c(void) {
     int laneDelta;
     float speedLimit;
 
@@ -551,8 +551,8 @@ void FUN_8c02bb1c(void) {
         && (var_busState_8c1bb9d0.field_0x3b4 & 0xff000000) != 0
         && ObjectsGetTrafficSignalFrame_8c028900(var_8c2285c4[15] & 0xffff) == 0
         && var_8c22866c == 0.0f) {
-        DrivePointsAdjust_8c02b464(0x13, -80);
-        DrivePointsArmCooldowns_8c02b578(5);
+        adjust_8c02b464(0x13, -80);
+        armCooldowns_8c02b578(5);
     }
 
     speedLimit = (float)(((var_busState_8c1bb9d0.field_0x34c & 0xf00000) >> 0x14) * 10) * 1000.0f
@@ -564,9 +564,9 @@ void FUN_8c02bb1c(void) {
         if (var_8c2285c4[12] < 0) {
             var_8c2285c4[12] = 0x78;
             if (speedLimit + 0.18518518f <= var_8c22866c) {
-                DrivePointsAdjust_8c02b464(10, -30);
+                adjust_8c02b464(10, -30);
             } else {
-                DrivePointsAdjust_8c02b464(9, -10);
+                adjust_8c02b464(9, -10);
             }
         }
     }
@@ -576,7 +576,7 @@ void FUN_8c02bb1c(void) {
         if ((laneDelta < 0 && var_8c1bbd9c->field_0x25c != 1)
             || (laneDelta >= 1 && var_8c1bbd9c->field_0x25c != 2)) {
             if ((var_8c228688 & 0xf000000) != 0 && (var_8c228634[0] & 0xf000000) != 0) {
-                DrivePointsAdjust_8c02b464(0xf, -8);
+                adjust_8c02b464(0xf, -8);
             }
         }
     }
@@ -610,7 +610,7 @@ void FUN_8c02bb1c(void) {
         }
     }
 
-    DrivePointsAdjust_8c02b464(0xf, -8);
+    adjust_8c02b464(0xf, -8);
     var_8c2285c4[20] = 0;
 }
 
@@ -625,7 +625,7 @@ void FUN_8c02bb1c(void) {
  * penalty; and finally advances the run's pass/fail progress counter
  * (var_8c2285dc), applying a further silent penalty periodically once it
  * runs long past var_8c2285d8. */
-void FUN_8c02bcd8(void) {
+STATIC void FUN_8c02bcd8(void) {
     int laneDelta;
     unsigned int turnBits;
     int sigState;
@@ -657,7 +657,7 @@ void FUN_8c02bcd8(void) {
 
     if (sigState == 2) {
         if (turnBits != 0x10000000) {
-            DrivePointsAdjust_8c02b464(0x14, -30);
+            adjust_8c02b464(0x14, -30);
             var_8c22861c[3] = 1;
         } else if (var_8c22866c == 0.0f) {
             var_8c22861c[3] = 5;
@@ -679,7 +679,7 @@ void FUN_8c02bcd8(void) {
             var_8c22861c[4] = var_8c22861c[4] - 1;
             if (var_8c22861c[4] < 0) {
                 var_8c22861c[4] = 0x78;
-                DrivePointsAdjust_8c02b464(0x15, -50);
+                adjust_8c02b464(0x15, -50);
             }
         } else {
             var_8c22861c[4] = 0;
@@ -706,7 +706,7 @@ void FUN_8c02bcd8(void) {
             var_8c2285c4[35] = var_8c2285c4[35] + 1;
             if (var_8c2285c4[35] > 0xe) {
                 var_8c2285c4[33] = 0;
-                DrivePointsAdjust_8c02b464(0x17, -5);
+                adjust_8c02b464(0x17, -5);
             }
         }
     }
@@ -719,7 +719,7 @@ void FUN_8c02bcd8(void) {
     {
         float *timer654 = (float *)&var_8c2285c4[36];
         if (*timer654 > 0.01f && var_8c2285c4[37] == 0) {
-            DrivePointsAdjust_8c02b464(0x18, -5);
+            adjust_8c02b464(0x18, -5);
             *timer654 = 0.0f;
             var_8c2285c4[37] = 0x3c;
             VibStart_8c010f7a(3);
@@ -732,7 +732,7 @@ void FUN_8c02bcd8(void) {
             /* var_8c2285c4[38] (0x22865c, no export of its own) */
             var_8c2285c4[38] = var_8c2285c4[38] - 1;
             if (var_8c2285c4[38] < 0) {
-                DrivePointsAdjust_8c02b464(0x19, -5);
+                adjust_8c02b464(0x19, -5);
                 var_8c2285c4[38] = 0x3c;
             }
         } else {
@@ -751,7 +751,7 @@ void FUN_8c02bcd8(void) {
         if (var_8c22866c == 0.0f) {
             var_8c22861c[2] = var_8c22861c[2] + 1;
             if (var_8c22861c[2] > 0x708) {
-                DrivePointsAdjust_8c02b464(0x13, -80);
+                adjust_8c02b464(0x13, -80);
                 var_8c22861c[2] = 0;
             }
         } else {
@@ -765,16 +765,16 @@ void FUN_8c02bcd8(void) {
         || var_mirrorViewLevel_8c2285e4 == 0
         || var_8c2264c4 != 0) {
         if (var_8c2285c4[31] != 0) {
-            DrivePointsAdjust_8c02b464(0x1e, 20);
+            adjust_8c02b464(0x1e, 20);
             var_8c2285c4[31] = 0;
         }
     } else {
-        DrivePointsAdjust_8c02b464(0x20, -5);
+        adjust_8c02b464(0x20, -5);
         var_8c2264c4 = 1;
     }
 
     if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 2 && var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
-        DrivePointsAdjust_8c02b464(0x21, -15);
+        adjust_8c02b464(0x21, -15);
         var_busState_8c1bb9d0.field_0x3c4 = 1;
     }
 
@@ -782,14 +782,14 @@ void FUN_8c02bcd8(void) {
         var_8c2285dc = var_8c2285dc - 1;
         if (var_8c2285dc < 0) {
             var_8c2285dc = 0;
-            DrivePointsAdjust_8c02b464(0x1d, -200);
+            adjust_8c02b464(0x1d, -200);
             return;
         }
     } else {
         var_8c2285dc = var_8c2285dc + 1;
         if (var_8c226450 != -1 && var_8c2285d8 < var_8c2285dc
             && var_8c2285dc % 30 == 0) {
-            DrivePointsAdjust_8c02b464(-1, -1);
+            adjust_8c02b464(-1, -1);
             return;
         }
     }
@@ -1034,7 +1034,7 @@ STATIC void taskCallback_8c02c072() {
             var_8c22861c[5] = laneAlias;
         }
 
-        DrivePointsHandleBump_8c02b6d4();
+        handleBump_8c02b6d4();
 
         flags = var_8c228660 & 6;
         if (flags != 0) {
@@ -1054,7 +1054,7 @@ STATIC void taskCallback_8c02c072() {
         FUN_8c02b864();
         var_8c228690 = var_8c228690 - 1;
         if (var_8c228690 < 0) {
-            DrivePointsHandleFlags_8c02b7ea();
+            handleFlags_8c02b7ea();
             var_8c228694 = var_8c228694 - 1;
             if (var_8c228694 < 0) {
                 FUN_8c02b886();
@@ -1095,16 +1095,16 @@ STATIC void taskCallback_8c02c072() {
             if (var_inputMapSel_8c1bb8c8 == 0) {
                 int diff = var_nextStopSegment_8c228710 - var_busState_8c1bb9d0.ang_0x250;
                 if ((diff < -0x71c && diff > -0xf8e3) || (diff > 0x71c && diff < 0xf8e3)) {
-                    DrivePointsAdjust_8c02b464(0x1b, -3);
+                    adjust_8c02b464(0x1b, -3);
                 }
             }
             if (var_busState_8c1bb9d0.field_0x25c != 1 || var_8c22861c[0] < 0x3c) {
-                DrivePointsAdjust_8c02b464(0xf, -8);
+                adjust_8c02b464(0xf, -8);
             }
         } else if (var_8c2285c4[9] == 1) {
-            DrivePointsAdjust_8c02b464(0x1c, -10);
+            adjust_8c02b464(0x1c, -10);
         } else if (var_8c2285c4[9] == 2) {
-            DrivePointsAdjust_8c02b464(0x1a, -20);
+            adjust_8c02b464(0x1a, -20);
         }
 
         var_8c2285c4[0] = 4;
