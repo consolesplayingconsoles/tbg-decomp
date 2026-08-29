@@ -71,7 +71,7 @@ SRCS = \
 	src/asm/decompiled/02b464_drive_points.src \
 	src/asm/decompiled/02c884_bus_stop.src \
 	src/asm/decompiled/02d06c.src \
-	src/asm/02d19c.src \
+	src/asm/decompiled/02d19c.src \
 	src/asm/decompiled/02d968.src \
 	src/asm/decompiled/02df3c.src \
 	src/asm/decompiled/02e2dc.src \

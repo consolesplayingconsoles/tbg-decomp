@@ -900,6 +900,22 @@ return [
         ],
         [
             "tests" => [
+                "tests/02d19c/8c02d19c_FUN.php",
+                "tests/02d19c/8c02d1f4_FUN.php",
+                "tests/02d19c/8c02d5ca_FUN.php",
+                "tests/02d19c/8c02d5d8_FUN.php",
+                "tests/02d19c/8c02d21c_FUN.php",
+                "tests/02d19c/8c02d46c_FUN.php",
+                "tests/02d19c/8c02d644_FUN.php",
+                "tests/02d19c/8c02d8f0_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/02d19c_src.obj",
+                "build/output_test/02d19c_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
                 "tests/02d968/8c02d968_FUN.php",
             ],
             "objects" => [

@@ -102,7 +102,7 @@ SRCS = \
 	src/02b464_drive_points.c \
 	src/02c884_bus_stop.c \
 	src/02d06c.c \
-	src/asm/02d19c.src \
+	src/02d19c.c \
 	src/02d968.c \
 	src/02df3c.c \
 	src/02e2dc.c \

@@ -247,6 +247,10 @@ compile  src/027958.c
 assemble  src/asm/decompiled/025b98_traffic_drive.src
 compile  src/025b98_traffic_drive.c
 
+# 02d19c
+assemble  src/asm/decompiled/02d19c.src
+compile  src/02d19c.c
+
 # 02d968
 assemble  src/asm/decompiled/02d968.src
 compile  src/02d968.c

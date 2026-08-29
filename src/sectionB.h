@@ -1039,7 +1039,7 @@ extern NJS_POINT3 var_8c228934;
 extern NJS_POINT3 var_8c228940;
 extern NJS_POINT3 var_8c22894c;
 
-extern float var_8c228958; // immediately follows var_8c22894c; not read or written by FUN_8c02d968
+extern int var_8c228958; // immediately follows var_8c22894c; not read or written by FUN_8c02d968; written 1 as a "done" flag by 02d19c's task actions (int, not float -- despite the name matching the anchor-point float run, it's never read as a float anywhere)
 extern int var_8c22895c;   // set to 0 by FUN_8c02d968; meaning otherwise unclear
 
 /* 20-byte record following the six anchor points; word0 mirrors the

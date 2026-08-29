@@ -9,7 +9,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 // See the function's header comment in src/02d968.c for the full
 // branch/field breakdown. Covers the demo-mode early return, route
 // dispatch, waiting-passenger spawning (FUN_8c02d21c), the scripted
-// schedule's unmatched-segment spawn (task_8c02d5ca), the Fisher-Yates
+// schedule's unmatched-segment spawn (FUN_8c02d5ca), the Fisher-Yates
 // shuffle (_quick_evn_mvn), and the shuffled matched-segment spawn
 // (FUN_8c02d46c).
 
@@ -105,7 +105,7 @@ return new class extends TestCase {
         $this->setSize('_var_passengerCount_8c1bb8e4', 4);
         $this->setSize('_init_8c04c3e4', 8 * 31);
         $this->setSize('_var_currentSegment_8c228708', 4);
-        $this->setSize('_task_8c02d5ca', 4);
+        $this->setSize('_FUN_8c02d5ca', 4);
         $this->setSize('_FUN_8c02d21c', 4);
         $this->setSize('_FUN_8c02d46c', 4);
 
@@ -363,7 +363,7 @@ return new class extends TestCase {
     private function commonSpawnLoopSymbols(): void {
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_FUN_8c02d644', 4);
-        $this->setSize('_task_8c02d5ca', 4);
+        $this->setSize('_FUN_8c02d5ca', 4);
         $this->setSize('_FUN_8c02d21c', 4);
         $this->setSize('_FUN_8c02d46c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
@@ -400,7 +400,7 @@ return new class extends TestCase {
     }
 
     // A scripted-schedule slot whose stop segment does NOT match the bus's
-    // current segment is spawned immediately via task_8c02d5ca (never
+    // current segment is spawned immediately via FUN_8c02d5ca (never
     // collected into the shuffle buffer). Exercises the previously
     // UNVERIFIED "no match" branch: field write order is ref_0x00,
     // field_0x08, field_0x0c (= var_8c228934.y), field_0x10, field_0x14
@@ -475,7 +475,7 @@ return new class extends TestCase {
         $this->shouldCall('_syMalloc')->with(0xf8)->andReturn($matchedBuf);
 
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($group, $this->addressOf('_task_8c02d5ca'))
+            ->with($group, $this->addressOf('_FUN_8c02d5ca'))
             ->do(function () use ($task, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state));

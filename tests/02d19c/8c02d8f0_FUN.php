@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+
+use Lhsazevedo\Sh4ObjTest\TestCase;
+
+return new class extends TestCase {
+    private function resolveSymbols(): void
+    {
+        $this->setSize('_TaskFree_8c014b66', 4);
+        $this->setSize('_FUN_8c024f32', 4);
+        $this->setSize('_var_isFading_8c226568', 4);
+        $this->setSize('_var_8c1bbc84', 4);
+        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_8c227da4', 4);
+        $this->setSize('_var_fadeArrivalVariant_8c22655c', 4);
+    }
+
+    public function test_not_fading_resets_state_and_frees_task(): void
+    {
+        $this->resolveSymbols();
+
+        $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
+
+        $task = $this->alloc(0x20);
+        $state = $this->alloc(4);
+
+        $this->call('_FUN_8c02d8f0')->with($task, $state);
+
+        $this->shouldWriteLongTo('_var_8c1bbc84', 1);
+        $this->shouldWriteLongTo('_var_fadeArrivalVariant_8c22655c', 0);
+        $this->shouldWriteLongTo('_var_8c227d9c', 2);
+        $this->shouldWriteLongTo('_var_8c227da4', 0);
+        $this->shouldCall('_FUN_8c024f32');
+        $this->shouldCall('_TaskFree_8c014b66')->with($task);
+    }
+
+    public function test_fading_does_nothing(): void
+    {
+        $this->resolveSymbols();
+
+        $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
+
+        $task = $this->alloc(0x20);
+        $state = $this->alloc(4);
+
+        $this->call('_FUN_8c02d8f0')->with($task, $state);
+    }
+};

@@ -56,7 +56,7 @@
           .EXPORT     _FUN_8c02d1f4
           .EXPORT     _FUN_8c02d21c
           .EXPORT     _FUN_8c02d46c
-          .EXPORT     _task_8c02d5ca
+          .EXPORT     _FUN_8c02d5ca
           .EXPORT     _FUN_8c02d5d8
           .EXPORT     _FUN_8c02d644
           .EXPORT     _FUN_8c02d8f0
@@ -620,7 +620,7 @@ LAB_8c02d5b8:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_task_8c02d5ca:
+_FUN_8c02d5ca:
           MOV         R5,R6
           MOV.L       R5,@-R15
           MOV.L       LP_GEN_80933+58,R3

@@ -10,29 +10,6 @@
  * ====================
  */
 
-/* TaskPush_8c014ae8 state, exactly the 0x38 bytes all three spawn paths
- * (FUN_8c02d21c, task_8c02d5ca, FUN_8c02d46c -- all still asm, in 02d19c)
- * ask for. The three callbacks disagree on what several of the fields mean
- * (e.g. field_0x08/0x0c/0x10 is an NJS_POINT3 for FUN_8c02d21c/FUN_8c02d46c
- * but an {int, float, float} triple for task_8c02d5ca), so this is kept as
- * raw words rather than one semantically-typed struct. */
-typedef struct {
-    void *ref_0x00;
-    Uint32 field_0x04;
-    Uint32 field_0x08;
-    Uint32 field_0x0c;
-    Uint32 field_0x10;
-    Uint32 field_0x14;
-    Uint32 field_0x18;
-    Uint32 field_0x1c;
-    Uint32 field_0x20;
-    Uint32 field_0x24;
-    Uint32 field_0x28;
-    Uint32 field_0x2c;
-    Uint32 field_0x30;
-    Uint32 field_0x34;
-} StopScheduleState;
-
 /* local_44's element type: one entry per var_8c228718 slot sharing the
  * bus's current segment, built up before being Fisher-Yates shuffled and
  * spawned via FUN_8c02d46c. */
@@ -195,7 +172,7 @@ skip_anchor_points:
     }
 
     /* Walk the scripted schedule table. A slot whose stop segment differs
-     * from the bus's current segment is spawned immediately (task_8c02d5ca);
+     * from the bus's current segment is spawned immediately (FUN_8c02d5ca);
      * a slot that matches is collected into matchedBuf to be shuffled and
      * spawned below (FUN_8c02d46c) instead. */
     matchedBuf = (void *)syMalloc(0xf8);
@@ -211,7 +188,7 @@ skip_anchor_points:
             matched[count].index_0x04 = i;
             count++;
         } else {
-            TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &task_8c02d5ca, &task,
+            TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &FUN_8c02d5ca, &task,
                                (void **)&state, sizeof(StopScheduleState));
             state->ref_0x00 = scriptEntry;
             state->field_0x08 = (Uint32)init_8c04c3e4[i].field_0x00;
