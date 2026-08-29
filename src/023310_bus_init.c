@@ -11,7 +11,7 @@
 #include "023310_bus_init.h"
 #include "02786c_vehicle_parts.h" /* VehPartsBind_8c02786c */
 #include "02e51c.h"               /* FUN_8c02e51c, FUN_8c02eab4, FUN_8c02e69c, FUN_8c02ec50 */
-#include "020594.h"               /* move_bus_model_8c020594 */
+#include "020594.h"               /* VehicleModelPlace_8c020594 */
 #include "022bdc_bus.h"               /* BusTask_8c022bdc */
 
 /* Same imprecise 2*pi literal as GroundQueryFindPolygon_8c020914's TWO_PI
@@ -214,7 +214,7 @@ void BusInitStart_8c023610(void)
     FUN_8c023938();
     FUN_8c023cba();
 
-    move_bus_model_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
+    VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
 
     result = FUN_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[2].x,
                            var_busState_8c1bb9d0.posHistory_0x100[2].y,

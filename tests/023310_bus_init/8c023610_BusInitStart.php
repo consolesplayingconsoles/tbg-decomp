@@ -52,7 +52,7 @@ return new class extends TestCase {
         $this->setSize('_BusStopGetSegment_8c02cd6a', 4);
         $this->setSize('_FUN_8c023938', 4);
         $this->setSize('_FUN_8c023cba', 4);
-        $this->setSize('_move_bus_model_8c020594', 4);
+        $this->setSize('_VehicleModelPlace_8c020594', 4);
         $this->setSize('_var_8c1bbd9c', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
@@ -185,7 +185,7 @@ return new class extends TestCase {
         $this->shouldCall('_FUN_8c023938');
         $this->shouldCall('_FUN_8c023cba');
 
-        $this->shouldCall('_move_bus_model_8c020594')->with(
+        $this->shouldCall('_VehicleModelPlace_8c020594')->with(
             $this->addressOf('_var_busWorldMatrix_8c1bba54'),
             $base,
         );

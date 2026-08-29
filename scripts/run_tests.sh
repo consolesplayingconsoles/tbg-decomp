@@ -55,6 +55,14 @@ compile  src/0193c8_vm_menu.c
 assemble  src/asm/decompiled/0207d4.src
 compile  src/0207d4.c
 
+# 020594
+assemble  src/asm/decompiled/020594.src
+compile  src/020594.c
+
+# 02081c
+assemble  src/asm/decompiled/02081c.src
+compile  src/02081c.c
+
 # 016c58_prompt
 assemble  src/asm/decompiled/016c58_prompt.src
 compile  src/016c58_prompt.c

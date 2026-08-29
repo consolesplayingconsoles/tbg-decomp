@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bb880', 4);
         $this->setSize('_FadeCmdPushCall2_8c022420', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
-        $this->setSize('_move_bus_model_8c020594', 4);
+        $this->setSize('_VehicleModelPlace_8c020594', 4);
         $this->setSize('_njMultiMatrix', 4);
         $this->setSize('_GroundProbeTrackPolygonAtHeight_8c021290', 4);
     }
@@ -278,7 +278,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entity + 0xf8, fdec((2.0 + 5.0) / 2.0)); // posY_0xf8
         $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->with($probeC, $entity + 0x100);
 
-        $this->shouldCall('_move_bus_model_8c020594')->with($entity + 0x84, $entity);
+        $this->shouldCall('_VehicleModelPlace_8c020594')->with($entity + 0x84, $entity);
         $this->shouldWriteLong($entity + 0x494, 1);
     }
 
@@ -339,7 +339,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', $primary);
 
-        $this->shouldCall('_move_bus_model_8c020594')->with($entity + 0x84, $entity);
+        $this->shouldCall('_VehicleModelPlace_8c020594')->with($entity + 0x84, $entity);
         $this->shouldWriteLong($entity + 0x494, 1);
     }
 };

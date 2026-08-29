@@ -33,7 +33,7 @@
           .IMPORT     _FUN_8c02e51c
           .IMPORT     _BusStopGetSegment_8c02cd6a
           .IMPORT     _FUN_8c023cba
-          .IMPORT     _move_bus_model_8c020594
+          .IMPORT     _VehicleModelPlace_8c020594
           .IMPORT     _var_8c227d8c
           .IMPORT     _GroundProbeFindPolygonAtHeight_8c020fe4
           .EXPORT     _BusInitStart_8c023610
@@ -704,7 +704,7 @@ LP_GEN_45139:
           .DATA.L _FUN_8c023938 ; H'8C023864
           .DATA.L _FUN_8c023cba ; H'8C023868
           .DATA.L _var_8c1bbd9c ; H'8C02386C
-          .DATA.L _move_bus_model_8c020594 ; H'8C023870
+          .DATA.L _VehicleModelPlace_8c020594 ; H'8C023870
 LAB_8c023874:
           MOV.W       LP_GEN_98696,R0
           MOV.L       R13,@(R0,R14)

@@ -98,6 +98,26 @@ return [
         ],
         [
             'tests' => [
+                "tests/020594/8c020594_VehicleModelPlace.php",
+                "tests/020594/8c020676_unused.php",
+            ],
+            'objects' => [
+                "build/output_test/020594_src.obj",
+                "build/output_test/020594_c.obj",
+            ],
+        ],
+        [
+            'tests' => [
+                "tests/02081c/8c02081c_FUN.php",
+                "tests/02081c/8c020842_FUN.php",
+            ],
+            'objects' => [
+                "build/output_test/02081c_src.obj",
+                "build/output_test/02081c_c.obj",
+            ],
+        ],
+        [
+            'tests' => [
                 "tests/016c58.php"
             ],
             'objects' => [

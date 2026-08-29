@@ -17,7 +17,7 @@
           .IMPORT     _var_groundGridFallback_8c1bb86c
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_8c1bb880
-          .IMPORT     _move_bus_model_8c020594
+          .IMPORT     _VehicleModelPlace_8c020594
           .IMPORT     _var_8c1bbda0
           .IMPORT     _var_8c1bbdb8
           .IMPORT     _var_8c1bbdb0
@@ -975,7 +975,7 @@ LP_GEN_83484:
           .DATA.L _var_groundGridFallback_8c1bb86c ; H'8C028080
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C028084
           .DATA.L _var_8c1bb880 ; H'8C028088
-          .DATA.L _move_bus_model_8c020594 ; H'8C02808C
+          .DATA.L _VehicleModelPlace_8c020594 ; H'8C02808C
           .DATA.L _var_8c1bbda0 ; H'8C028090
           .DATA.L _var_8c1bbdb8 ; H'8C028094
 LAB_8c028098:

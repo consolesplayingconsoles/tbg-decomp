@@ -59,7 +59,7 @@ return new class extends TestCase {
         $this->setSize('_FUN_8c028022', 4);
         $this->setSize('_sdMidiStop', 4);
         $this->setSize('_sdMidiPlay', 4);
-        $this->setSize('_move_bus_model_8c020594', 4);
+        $this->setSize('_VehicleModelPlace_8c020594', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_BusRenderUpdateCamera_8c025078', 4);
         $this->setSize('_DemoUpdateCamera_8c025906', 4);
@@ -141,7 +141,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x260, 0);
         $this->shouldCall('_sdMidiStop')->with($midiHandle1);
 
-        $this->shouldCall('_move_bus_model_8c020594')->with(
+        $this->shouldCall('_VehicleModelPlace_8c020594')->with(
             $this->addressOf('_var_busWorldMatrix_8c1bba54'),
             $base,
         );

@@ -75,10 +75,10 @@ SRCS = \
 	src/01fa78.c \
 	src/asm/020214.src \
 	src/020528.c \
-	src/asm/020594.src \
+	src/020594.c \
 	src/0206f0_intersect.c \
 	src/0207d4.c \
-	src/asm/02081c.src \
+	src/02081c.c \
 	src/020914_ground_query.c \
 	src/020b6c_ground_probe.c \
 	src/02171c_tile_stream.c \

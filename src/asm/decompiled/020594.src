@@ -3,9 +3,12 @@
           .IMPORT     _atan2f
           .IMPORT     _njRotateZ
           .IMPORT     _njDistanceP2P
-          .EXPORT     _move_bus_model_8c020594
+          .EXPORT     _VehicleModelPlace_8c020594
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _unused_8c020676
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
-_move_bus_model_8c020594:
+_VehicleModelPlace_8c020594:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.W       LP_GEN_96031,R0
@@ -119,6 +122,7 @@ _move_bus_model_8c020594:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
+_unused_8c020676:                ; function: unused_8c020676
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

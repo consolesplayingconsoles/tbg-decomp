@@ -5,7 +5,7 @@
 #include "013ae8_route_load.h"    /* CurrentCourse */
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, FUN_8c010c6e */
 #include "014a9c_tasks.h"         /* Task */
-#include "020594.h"               /* move_bus_model_8c020594 */
+#include "020594.h"               /* VehicleModelPlace_8c020594 */
 #include "023938_bus_drive.h"               /* FUN_8c023938/023cba/023e7e */
 #include "024280.h"               /* FUN_8c0246b2/024280 */
 #include "02412c.h"               /* FUN_8c02412c */
@@ -348,7 +348,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         }
     }
 
-    move_bus_model_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
+    VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
         DemoUpdateCamera_8c025906();

@@ -44,10 +44,10 @@ SRCS = \
 	src/asm/decompiled/01fa78.src \
 	src/asm/020214.src \
 	src/020528.c \
-	src/asm/020594.src \
+	src/asm/decompiled/020594.src \
 	src/asm/decompiled/0206f0_intersect.src \
 	src/asm/decompiled/0207d4.src \
-	src/asm/02081c.src \
+	src/asm/decompiled/02081c.src \
 	src/asm/decompiled/020914_ground_query.src \
 	src/asm/decompiled/020b6c_ground_probe.src \
 	src/asm/decompiled/02171c_tile_stream.src \

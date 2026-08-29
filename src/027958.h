@@ -61,7 +61,7 @@ void FUN_8c028206(int objArg, int matrixArg);
  *    3 scratch GroundQueryResult buffers at entity+0x190/0x1a0/0x1b0,
  *    interpolates height at 2 of them into posY_0xf8, and re-aligns the
  *    entity's world matrix (worldMatrix_0x84) to the ground via
- *    move_bus_model_8c020594. driveState_0x2b4 == 1 temporarily swaps the active
+ *    VehicleModelPlace_8c020594. driveState_0x2b4 == 1 temporarily swaps the active
  *    ground grid to the fallback grid for these probes. */
 void FUN_8c027c3c(TrafficEntry *entity, float heading);
 

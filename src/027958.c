@@ -11,7 +11,7 @@
 #include "026710_traffic.h"     /* TrafficEntry */
 #include "020914_ground_query.h" /* GroundQueryResult */
 #include "020b6c_ground_probe.h" /* GroundProbeTrackPolygonAtHeight_8c021290, GroundProbeInterpolateHeight_8c020f7e */
-#include "020594.h"              /* move_bus_model_8c020594 */
+#include "020594.h"              /* VehicleModelPlace_8c020594 */
 #include "0222dc_fadecmd.h"      /* FadeCmdPushCall2_8c022420 */
 #include "028258_objects.h"     /* TrafficSignal */
 #include "027958.h"
@@ -286,7 +286,7 @@ void FUN_8c027c3c(TrafficEntry *entity, float heading)
                 var_activeGroundGrid_8c2264d4 = var_8c1bb880;
             }
 
-            move_bus_model_8c020594(&entity->worldMatrix_0x84, entity);
+            VehicleModelPlace_8c020594(&entity->worldMatrix_0x84, (BusState *)entity);
             entity->field_0x494 = 1;
             return;
         }
