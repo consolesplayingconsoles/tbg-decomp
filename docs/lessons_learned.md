@@ -762,3 +762,10 @@ a comparison's sense while still compiling and still looking right -- in
 task when the entity is FAR from the reference point" into "when it is near".
 Only the dual-object test caught it. Check the operand order against the SH4
 manual whenever a float comparison's branch sense matters.
+
+## Float literals need full round-trip precision to byte-match
+
+Porting section C/D float data, a "clean-looking" constant may be one ULP off
+the value you would write by hand: `02e2dc`'s box tables needed
+`3.0500001907348633f`, not `3.05f`. Write the exact round-tripped decimal from
+the original bytes and let `dcdiff.py` confirm, rather than tidying the literal.
