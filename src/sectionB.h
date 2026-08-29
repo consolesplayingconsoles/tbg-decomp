@@ -361,6 +361,10 @@ typedef struct {
  * driver-points reset value.
  */
 extern char var_8c1ba290[5];
+/* Sits at var_8c1ba290[3] (the VIBRATION toggle byte) -- exported as its own
+ * symbol and read that way by FUN_8c020214 (020214) to gate an end-of-frame
+ * VibStop_8c010fae call, not through the array. */
+extern char var_8c1ba293;
 
 extern int var_exp_8c1ba25c; // EXP shown on the VMU icon status line (see 01b19c_system_menu)
 
@@ -423,6 +427,11 @@ extern int var_8c1bb8ec;
 extern int var_8c1bb8f0;
 extern int var_8c1bb8f4;
 extern int var_award_8c1bb8f8;
+/* Reserved 12 bytes; only the leading int is read so far, compared against 2
+ * by FUN_8c02412c (02412c) to pick a mapped-route node's alternate next
+ * segment. */
+extern int var_8c1bbc2c;
+
 /* Checked against 0.0 by BusStopUpdateArrival_8c02ce48 (02c884) to gate stop
  * arrival; likely a current-speed value (role/owner elsewhere unclear). */
 extern float var_8c1bbc4c;
@@ -613,13 +622,19 @@ extern Struct8c226458 var_8c226458; // 01fa78
 extern DrawVertex8c226478 var_8c226478[3]; // 01fa78
 extern Struct8c2264a8 var_8c2264a8; // 01fa78
 extern Struct8c2264b8 var_8c2264b8;
+/* Sits at var_8c2264b8's base+0x4 (its field_0x04) -- a standalone countdown
+ * used only by FUN_8c020214 (020214)'s field_0x18-armed idle-chime branch,
+ * separately from field_0x04's OTHER role as that same struct's per-state
+ * timer in its main state machine (the two roles are never live at once). */
+extern int var_8c2264bc;
 /* Sits at var_8c2264b8's base+0xc (its field_0x0c) -- a one-shot latch set by
- * BusTask_8c022bdc (022bdc) when the A button is first pressed while driving.
- * Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
- * transition; role/owner (02b464) unclear. Exported as its own symbol and
- * addressed that way by that caller, not through the struct -- coincidentally
- * adjacent, not that struct's field per se (but 022bdc's own asm does access
- * it via the struct base, so this unit uses var_8c2264b8.field_0x0c). */
+ * BusTask_8c022bdc (022bdc) when the A button is first pressed while driving,
+ * gating whether FUN_8c020214 (020214)'s first announcement chime has fired
+ * yet. Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
+ * transition. Exported as its own symbol and addressed that way by that
+ * caller, not through the struct -- coincidentally adjacent, not that
+ * struct's field per se (but 022bdc's own asm does access it via the struct
+ * base, so this unit uses var_8c2264b8.field_0x0c). */
 extern int var_8c2264c4;
 extern void* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c: light direction for fade layer 0

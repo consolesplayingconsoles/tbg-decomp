@@ -42,7 +42,7 @@ SRCS = \
 	src/asm/decompiled/01e27c_practice_menu.src \
 	src/asm/decompiled/01f3c0_ending.src \
 	src/asm/decompiled/01fa78.src \
-	src/asm/020214.src \
+	src/asm/decompiled/020214.src \
 	src/020528.c \
 	src/asm/decompiled/020594.src \
 	src/asm/decompiled/0206f0_intersect.src \
@@ -57,7 +57,7 @@ SRCS = \
 	src/asm/decompiled/022bdc_bus.src \
 	src/asm/decompiled/023310_bus_init.src \
 	src/asm/decompiled/023938_bus_drive.src \
-	src/asm/02412c.src \
+	src/asm/decompiled/02412c.src \
 	src/asm/024280.src \
 	src/asm/decompiled/024b4c_bus_render.src \
 	src/asm/decompiled/025870.src \
@@ -70,7 +70,7 @@ SRCS = \
 	src/asm/decompiled/02b2f0.src \
 	src/asm/decompiled/02b464_drive_points.src \
 	src/asm/decompiled/02c884_bus_stop.src \
-	src/asm/02d06c.src \
+	src/asm/decompiled/02d06c.src \
 	src/asm/02d19c.src \
 	src/asm/decompiled/02d968.src \
 	src/asm/decompiled/02df3c.src \

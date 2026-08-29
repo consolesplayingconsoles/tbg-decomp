@@ -73,7 +73,7 @@ SRCS = \
 	src/01e27c_practice_menu.c \
 	src/01f3c0_ending.c \
 	src/01fa78.c \
-	src/asm/020214.src \
+	src/020214.c \
 	src/020528.c \
 	src/020594.c \
 	src/0206f0_intersect.c \
@@ -88,7 +88,7 @@ SRCS = \
 	src/022bdc_bus.c \
 	src/023310_bus_init.c \
 	src/023938_bus_drive.c \
-	src/asm/02412c.src \
+	src/02412c.c \
 	src/asm/024280.src \
 	src/024b4c_bus_render.c \
 	src/025870.c \
@@ -101,7 +101,7 @@ SRCS = \
 	src/02b2f0.c \
 	src/02b464_drive_points.c \
 	src/02c884_bus_stop.c \
-	src/asm/02d06c.src \
+	src/02d06c.c \
 	src/asm/02d19c.src \
 	src/02d968.c \
 	src/02df3c.c \

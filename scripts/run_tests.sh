@@ -251,4 +251,16 @@ compile  src/025b98_traffic_drive.c
 assemble  src/asm/decompiled/02d968.src
 compile  src/02d968.c
 
+# 02d06c
+assemble  src/asm/decompiled/02d06c.src
+compile  src/02d06c.c
+
+# 02412c
+assemble  src/asm/decompiled/02412c.src
+compile  src/02412c.c
+
+# 020214
+assemble  src/asm/decompiled/020214.src
+compile  src/020214.c
+
 $sh4objtest suite -s tests.php "$@"

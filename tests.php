@@ -907,5 +907,34 @@ return [
                 "build/output_test/02d968_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/02d06c/8c02d06c_FUN.php",
+                "tests/02d06c/8c02d0fc_FUN.php",
+                "tests/02d06c/8c02d146_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/02d06c_src.obj",
+                "build/output_test/02d06c_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
+                "tests/02412c/8c02412c_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/02412c_src.obj",
+                "build/output_test/02412c_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
+                "tests/020214/8c020214_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/020214_src.obj",
+                "build/output_test/020214_c.obj",
+            ]
+        ],
     ],
 ];
