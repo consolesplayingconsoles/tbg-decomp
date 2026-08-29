@@ -792,6 +792,16 @@ return [
         ],
         [
             "tests" => [
+                "tests/02e2dc/8c02e2dc_FUN.php",
+                "tests/02e2dc/8c02e35a_unused.php",
+            ],
+            "objects" => [
+                "build/output_test/02e2dc_src.obj",
+                "build/output_test/02e2dc_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
                 "tests/023310_bus_init/8c023310_busInitPlaceBus.php",
                 "tests/023310_bus_init/8c023610_BusInitStart.php",
             ],

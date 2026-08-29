@@ -1090,12 +1090,13 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-/* CollideFindTaskHit_8c02e400 (02e400): cursor into var_tasks_8c1bac28 during
- * its scan, left pointing at the terminating (action == 0) slot on exit. */
+/* CollideFindTaskHit_8c02e400 (02e400) and FUN_8c02e2dc (02e2dc): cursor
+ * into var_tasks_8c1bac28 during its scan, left pointing at the terminating
+ * (action == 0) slot on exit. */
 extern Task *var_collideScanCursor_8c228974;
-/* CollideFindTaskHit_8c02e400 scratch: world-space oriented bounding box,
- * njCalcPoints'd from the entry passed in (self) and from the current
- * candidate task respectively. */
+/* CollideFindTaskHit_8c02e400/FUN_8c02e2dc scratch: world-space oriented
+ * bounding box, njCalcPoints'd from the entry/bus passed in (self) and from
+ * the current candidate task respectively. */
 extern NJS_BOX var_collideSelfBox_8c228978;
 extern NJS_BOX var_collideCandidateBox_8c2289d8;
 /* CollideQueueAdd_8c02e48e/CollideQueueTest_8c02e4ac: fixed 64-slot queue of

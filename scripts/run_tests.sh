@@ -211,6 +211,10 @@ compile  src/02df3c.c
 assemble  src/asm/decompiled/02f320_replay_codec.src
 compile  src/02f320_replay_codec.c
 
+# 02e2dc
+assemble  src/asm/decompiled/02e2dc.src
+compile  src/02e2dc.c
+
 # 023310_bus_init
 assemble  src/asm/decompiled/023310_bus_init.src
 compile  src/023310_bus_init.c

@@ -7,10 +7,11 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 // FUN_8c02d968: course-start setup for the bus-stop passenger subsystem.
 // See the function's header comment in src/02d968.c for the full
-// branch/field breakdown. This suite covers the demo-mode early-return
-// path only; the full spawn logic (route dispatch, waiting-passenger and
-// scripted-schedule task spawning, the Fisher-Yates shuffle) is not yet
-// covered -- see docs/next_units.md.
+// branch/field breakdown. Covers the demo-mode early return, route
+// dispatch, waiting-passenger spawning (FUN_8c02d21c), the scripted
+// schedule's unmatched-segment spawn (task_8c02d5ca), the Fisher-Yates
+// shuffle (_quick_evn_mvn), and the shuffled matched-segment spawn
+// (FUN_8c02d46c).
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
@@ -356,6 +357,330 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_passengerCount_8c1bb8e4', 6);
 
         $this->shouldCall('_syMalloc')->with(0xf8)->andReturn($matchedBuf);
+        $this->shouldCall('_syFree')->with($matchedBuf);
+    }
+
+    private function commonSpawnLoopSymbols(): void {
+        $this->setSize('_TaskPush_8c014ae8', 4);
+        $this->setSize('_FUN_8c02d644', 4);
+        $this->setSize('_task_8c02d5ca', 4);
+        $this->setSize('_FUN_8c02d21c', 4);
+        $this->setSize('_FUN_8c02d46c', 4);
+        $this->setSize('_var_tasks_8c1ba5e8', 4);
+        $this->setSize('_var_playMode_8c1bb8d0', 4);
+        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_njSetTexture', 4);
+        $this->setSize('_njLoadCacheTexture', 4);
+        $this->setSize('_FUN_8c025870', 4);
+        $this->setSize('_var_interiorTexlist_8c1bc438', 4);
+        $this->setSize('_var_route_8c18ad1c', 4);
+        $this->setSize('_var_busWorldMatrix_8c1bba54', 0x40);
+        $this->setSize('_njCalcPoint', 4);
+        $this->setSize('_var_8c228928', 12);
+        $this->setSize('_var_8c228910', 12);
+        $this->setSize('_var_8c22891c', 12);
+        $this->setSize('_var_8c228934', 12);
+        $this->setSize('_var_8c228940', 12);
+        $this->setSize('_var_8c22894c', 12);
+        $this->setSize('_var_8c228960', 20);
+        $this->setSize('_var_8c22895c', 4);
+        $this->setSize('_var_8c228718', 31 * 4);
+        $this->setSize('_var_8c228794', 4);
+        $this->setSize('_var_8c228798', 4);
+        $this->setSize('_var_passengerCount_8c1bb8e4', 4);
+        $this->setSize('_syMalloc', 4);
+        $this->setSize('_TaskClear_8c014a9c', 4);
+        $this->setSize('_var_stopTaskGroup_8c2288f8', 4);
+        $this->setSize('_syFree', 4);
+        $this->setSize('_rand', 4);
+        $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
+        $this->setSize('__quick_evn_mvn', 4);
+        $this->setSize('_init_8c04c3e4', 8 * 31);
+        $this->setSize('_var_currentSegment_8c228708', 4);
+    }
+
+    // A scripted-schedule slot whose stop segment does NOT match the bus's
+    // current segment is spawned immediately via task_8c02d5ca (never
+    // collected into the shuffle buffer). Exercises the previously
+    // UNVERIFIED "no match" branch: field write order is ref_0x00,
+    // field_0x08, field_0x0c (= var_8c228934.y), field_0x10, field_0x14
+    // (dispatched on the schedule index), a conditional re-write of
+    // field_0x0c (-= 0.18f, only for index < 0x14), then field_0x28 = 1.
+    // No field_0x18/0x1c/0x20/0x24/0x2c/0x30/0x34 writes and no rand()
+    // calls happen on this path (those belong to the other two spawns).
+    public function test_scriptedScheduleUnmatchedSlot(): void {
+        $this->commonSpawnLoopSymbols();
+
+        $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
+        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 3); // skip anchor points
+        $this->initUint32($this->addressOf('_var_8c228794'), 0); // no waiting passengers
+        $this->initUint32($this->addressOf('_var_currentSegment_8c228708'), 5);
+
+        $scheduleBase = $this->addressOf('_var_8c228718');
+        for ($i = 0; $i < 31; $i++) {
+            $this->initUint32($scheduleBase + $i * 4, 0xffffffff);
+        }
+
+        // Slot 5 (< 0x14): stop segment 7 != current segment 5 -> no match.
+        $entry = $this->alloc(2);
+        $this->initUint8($entry + 0, 9); // stop-type byte; unused on this path
+        $this->initUint8($entry + 1, 7); // segment byte
+        $this->initUint32($scheduleBase + 5 * 4, $entry);
+
+        $this->initFloat($this->addressOf('_var_8c228934') + 4, 1.25); // .y
+
+        $init3e4Base = $this->addressOf('_init_8c04c3e4');
+        $this->initUint32($init3e4Base + 5 * 8 + 0, 0x1234abcd); // field_0x00 (int, raw-copied)
+        $this->initFloat($init3e4Base + 5 * 8 + 4, 0.5);          // field_0x04
+
+        $interiorTexlist = $this->alloc(4);
+        $this->initUint32($this->addressOf('_var_interiorTexlist_8c1bc438'), $interiorTexlist);
+
+        $mainState = $this->alloc(8);
+        $mainTask = $this->alloc(0x20);
+        $group = $this->alloc(0x20);
+        $matchedBuf = $this->alloc(0xf8);
+        $state = $this->alloc(0x38);
+        $task = $this->alloc(0x20);
+
+        $this->call('_FUN_8c02d968');
+
+        $this->shouldCall('_TaskPush_8c014ae8')
+            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_FUN_8c02d644'))
+            ->do(function () use ($mainTask, $mainState) {
+                $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
+                $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($mainState));
+            })
+            ->andReturn(1);
+        $this->shouldWriteLong($mainState + 0, 0);
+        $this->shouldWriteLong($mainState + 4, 0);
+
+        $this->shouldCall('_njSetTexture')->with($interiorTexlist);
+        $this->shouldCall('_njLoadCacheTexture')->with($interiorTexlist);
+        $this->shouldCall('_FUN_8c025870');
+
+        $p960 = $this->addressOf('_var_8c228960');
+        $this->shouldWriteLongTo('_var_8c22895c', 0);
+        $this->shouldWriteFloat($p960 + 0, $this->f32(0.0));
+        $this->shouldWriteFloat($p960 + 4, $this->f32(1.0));
+        $this->shouldWriteFloat($p960 + 8, $this->f32(1.0));
+        $this->shouldWriteFloat($p960 + 0xc, $this->f32(1.0));
+
+        // n = 1 used schedule slot -> group sized for (0 + 1 + 1) * 0x20.
+        $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
+        $this->shouldWriteLongTo('_var_stopTaskGroup_8c2288f8', $group);
+        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
+
+        $this->shouldCall('_syMalloc')->with(0xf8)->andReturn($matchedBuf);
+
+        $this->shouldCall('_TaskPush_8c014ae8')
+            ->with($group, $this->addressOf('_task_8c02d5ca'))
+            ->do(function () use ($task, $state) {
+                $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task));
+                $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state));
+            })
+            ->andReturn(1);
+        $this->shouldWriteLong($state + 0x00, $entry);
+        $this->shouldWriteLong($state + 0x08, 0x1234abcd);
+        $this->shouldWriteFloat($state + 0x0c, $this->f32(1.25));
+        $this->shouldWriteFloat($state + 0x10, $this->f32(0.5));
+        $this->shouldWriteLong($state + 0x14, 0x20);
+        $this->shouldWriteFloat($state + 0x0c, $this->f32($this->f32(1.25) - $this->f32(0.18)));
+        $this->shouldWriteLong($state + 0x28, 1);
+
+        // Shuffle/spawn loops are both empty (count == 0): no
+        // AsqGetRandomInRangeA/_quick_evn_mvn/FUN_8c02d46c calls.
+        $this->shouldCall('_syFree')->with($matchedBuf);
+    }
+
+    // Simulates the __quick_evn_mvn 3-word-struct-copy runtime helper
+    // (dest R1, src R2, byte count R0 -- see docs/lessons_learned.md), so
+    // the Fisher-Yates shuffle below actually reorders the matched buffer
+    // and the final FUN_8c02d46c pushes can be asserted against the real
+    // post-shuffle contents.
+    private function simulateQuickEvnMvn(): void {
+        $this->shouldCall('__quick_evn_mvn')->do(function () {
+            $dst = $this->getRegister(1)->value;
+            $src = $this->getRegister(2)->value;
+            $len = $this->getRegister(0)->value;
+            for ($i = 0; $i < $len; $i++) {
+                $this->memory->writeUInt8($dst + $i, $this->memory->readUInt8($src + $i));
+            }
+        });
+    }
+
+    // Two scripted-schedule slots whose stop segment MATCHES the bus's
+    // current segment are collected into the shuffle buffer instead of
+    // being spawned directly, Fisher-Yates shuffled (AsqGetRandomInRangeA
+    // + three _quick_evn_mvn struct copies per iteration: tmp = matched[i];
+    // matched[i] = matched[randIdx]; matched[randIdx] = tmp), then spawned
+    // via FUN_8c02d46c in the shuffled order. randIdx is forced to 0 both
+    // iterations, which reverses the two-element buffer -- so the spawn
+    // loop's position-0 push must carry the ORIGINALLY-second slot and
+    // vice versa, proving the shuffle (not just the field writes) is
+    // correct. Exercises the previously UNVERIFIED shuffle and
+    // shuffled-spawn field write order: ref_0x00, field_0x04 (= 0),
+    // field_0x08, field_0x0c (= var_8c228934.y), field_0x10, field_0x14
+    // (+ conditional field_0x0c -= 0.18f), field_0x18/0x1c (rand()-derived),
+    // field_0x20 (= spawn position), field_0x24 (= original schedule
+    // index), field_0x28 (= 1), field_0x2c (= position % 4), field_0x30,
+    // field_0x34 (= field_0x30 - 8).
+    public function test_scriptedScheduleShuffleAndSpawn(): void {
+        $this->commonSpawnLoopSymbols();
+
+        $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
+        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 3); // skip anchor points
+        $this->initUint32($this->addressOf('_var_8c228794'), 0); // no waiting passengers
+        $this->initUint32($this->addressOf('_var_currentSegment_8c228708'), 5);
+
+        $scheduleBase = $this->addressOf('_var_8c228718');
+        for ($i = 0; $i < 31; $i++) {
+            $this->initUint32($scheduleBase + $i * 4, 0xffffffff);
+        }
+
+        // Slot 2 and slot 7, both segment 5 -> both match current segment.
+        // matched[0] = {entryA, index=2}; matched[1] = {entryB, index=7}.
+        $entryA = $this->alloc(2);
+        $this->initUint8($entryA + 0, 2); // init_8c04c4dc[2] == 0x02
+        $this->initUint8($entryA + 1, 5);
+        $this->initUint32($scheduleBase + 2 * 4, $entryA);
+
+        $entryB = $this->alloc(2);
+        $this->initUint8($entryB + 0, 10); // init_8c04c4dc[10] == 0x00
+        $this->initUint8($entryB + 1, 5);
+        $this->initUint32($scheduleBase + 7 * 4, $entryB);
+
+        $this->initFloat($this->addressOf('_var_8c228934') + 4, 1.25); // .y
+
+        $init3e4Base = $this->addressOf('_init_8c04c3e4');
+        // Indexed by SPAWN POSITION (0, 1), not the original schedule
+        // index (2, 7) -- verified against the asm, not a Ghidra artifact.
+        $this->initUint32($init3e4Base + 0 * 8 + 0, 0x1111);
+        $this->initFloat($init3e4Base + 0 * 8 + 4, 0.25);
+        $this->initUint32($init3e4Base + 1 * 8 + 0, 0x2222);
+        $this->initFloat($init3e4Base + 1 * 8 + 4, 0.75);
+
+        $interiorTexlist = $this->alloc(4);
+        $this->initUint32($this->addressOf('_var_interiorTexlist_8c1bc438'), $interiorTexlist);
+
+        $mainState = $this->alloc(8);
+        $mainTask = $this->alloc(0x20);
+        $group = $this->alloc(0x20);
+        $matchedBuf = $this->alloc(0xf8);
+        $state0 = $this->alloc(0x38);
+        $task0 = $this->alloc(0x20);
+        $state1 = $this->alloc(0x38);
+        $task1 = $this->alloc(0x20);
+
+        $this->call('_FUN_8c02d968');
+
+        $this->shouldCall('_TaskPush_8c014ae8')
+            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_FUN_8c02d644'))
+            ->do(function () use ($mainTask, $mainState) {
+                $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
+                $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($mainState));
+            })
+            ->andReturn(1);
+        $this->shouldWriteLong($mainState + 0, 0);
+        $this->shouldWriteLong($mainState + 4, 0);
+
+        $this->shouldCall('_njSetTexture')->with($interiorTexlist);
+        $this->shouldCall('_njLoadCacheTexture')->with($interiorTexlist);
+        $this->shouldCall('_FUN_8c025870');
+
+        $p960 = $this->addressOf('_var_8c228960');
+        $this->shouldWriteLongTo('_var_8c22895c', 0);
+        $this->shouldWriteFloat($p960 + 0, $this->f32(0.0));
+        $this->shouldWriteFloat($p960 + 4, $this->f32(1.0));
+        $this->shouldWriteFloat($p960 + 8, $this->f32(1.0));
+        $this->shouldWriteFloat($p960 + 0xc, $this->f32(1.0));
+
+        // n = 2 used schedule slots -> group sized for (0 + 2 + 1) * 0x20.
+        $this->shouldCall('_syMalloc')->with(0x60)->andReturn($group);
+        $this->shouldWriteLongTo('_var_stopTaskGroup_8c2288f8', $group);
+        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 2);
+
+        $this->shouldCall('_syMalloc')->with(0xf8)->andReturn($matchedBuf);
+
+        // The classify walk collects both matched slots into matchedBuf,
+        // in schedule order (index 2 before index 7), before the shuffle.
+        $this->shouldWriteLong($matchedBuf + 0 * 8 + 0, $entryA);
+        $this->shouldWriteLong($matchedBuf + 0 * 8 + 4, 2);
+        $this->shouldWriteLong($matchedBuf + 1 * 8 + 0, $entryB);
+        $this->shouldWriteLong($matchedBuf + 1 * 8 + 4, 7);
+
+        // Fisher-Yates shuffle, count == 2. randIdx forced to 0 on both
+        // iterations: i=0 swaps matched[0] with itself (no-op); i=1 swaps
+        // matched[1] with matched[0], reversing the pair.
+        $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(0);
+        $this->simulateQuickEvnMvn();
+        $this->simulateQuickEvnMvn();
+        $this->simulateQuickEvnMvn();
+        $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(0);
+        $this->simulateQuickEvnMvn();
+        $this->simulateQuickEvnMvn();
+        $this->simulateQuickEvnMvn();
+
+        // Spawn position 0 now carries the originally-second slot
+        // (entryB / schedule index 7); position 1 carries the first
+        // (entryA / schedule index 2) -- proving the reversal actually
+        // happened, not just that the field writes look plausible.
+        $rand0x = 100;
+        $rand0z = 200;
+        $this->shouldCall('_TaskPush_8c014ae8')
+            ->with($group, $this->addressOf('_FUN_8c02d46c'))
+            ->do(function () use ($task0, $state0) {
+                $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task0));
+                $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state0));
+            })
+            ->andReturn(1);
+        $this->shouldWriteLong($state0 + 0x00, $entryB);
+        $this->shouldWriteLong($state0 + 0x04, 0);
+        $this->shouldWriteLong($state0 + 0x08, 0x1111);
+        $this->shouldWriteFloat($state0 + 0x0c, $this->f32(1.25));
+        $this->shouldWriteFloat($state0 + 0x10, $this->f32(0.25));
+        $this->shouldWriteLong($state0 + 0x14, 0x20);
+        $this->shouldWriteFloat($state0 + 0x0c, $this->f32($this->f32(1.25) - $this->f32(0.18)));
+        $this->shouldCall('_rand')->andReturn($rand0x);
+        $this->shouldWriteFloat($state0 + 0x18, $this->f32(((float)$rand0x / 32768.0) * 0.2));
+        $this->shouldCall('_rand')->andReturn($rand0z);
+        $this->shouldWriteFloat($state0 + 0x1c, $this->f32(((float)$rand0z / 32768.0) * 0.2));
+        $this->shouldWriteLong($state0 + 0x20, 0);
+        $this->shouldWriteLong($state0 + 0x24, 7);
+        $this->shouldWriteLong($state0 + 0x28, 1);
+        $this->shouldWriteLong($state0 + 0x2c, 0);
+        $this->shouldWriteLong($state0 + 0x30, 0x36); // init_8c04c4dc[10] (0x00) + 0x36
+        $this->shouldWriteLong($state0 + 0x34, 0x2e);
+
+        $rand1x = 300;
+        $rand1z = 400;
+        $this->shouldCall('_TaskPush_8c014ae8')
+            ->with($group, $this->addressOf('_FUN_8c02d46c'))
+            ->do(function () use ($task1, $state1) {
+                $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task1));
+                $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state1));
+            })
+            ->andReturn(1);
+        $this->shouldWriteLong($state1 + 0x00, $entryA);
+        $this->shouldWriteLong($state1 + 0x04, 0);
+        $this->shouldWriteLong($state1 + 0x08, 0x2222);
+        $this->shouldWriteFloat($state1 + 0x0c, $this->f32(1.25));
+        $this->shouldWriteFloat($state1 + 0x10, $this->f32(0.75));
+        $this->shouldWriteLong($state1 + 0x14, 0x20);
+        $this->shouldWriteFloat($state1 + 0x0c, $this->f32($this->f32(1.25) - $this->f32(0.18)));
+        $this->shouldCall('_rand')->andReturn($rand1x);
+        $this->shouldWriteFloat($state1 + 0x18, $this->f32(((float)$rand1x / 32768.0) * 0.2));
+        $this->shouldCall('_rand')->andReturn($rand1z);
+        $this->shouldWriteFloat($state1 + 0x1c, $this->f32(((float)$rand1z / 32768.0) * 0.2));
+        $this->shouldWriteLong($state1 + 0x20, 1);
+        $this->shouldWriteLong($state1 + 0x24, 2);
+        $this->shouldWriteLong($state1 + 0x28, 1);
+        $this->shouldWriteLong($state1 + 0x2c, 1);
+        $this->shouldWriteLong($state1 + 0x30, 0x38); // init_8c04c4dc[2] (0x02) + 0x36
+        $this->shouldWriteLong($state1 + 0x34, 0x30);
+
         $this->shouldCall('_syFree')->with($matchedBuf);
     }
 };
