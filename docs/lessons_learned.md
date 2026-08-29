@@ -569,7 +569,7 @@ Never register a test in `tests.php` for a function whose body is not live.
 
 **Found in:** `026710_traffic` (2026-08-28)
 
-`FUN_8c026dcc` reads a standalone Ghidra global `PTR_PTR_8c1bb88c`, and
+`TrafficMarkSignalIdsInUse_8c026dcc` reads a standalone Ghidra global `PTR_PTR_8c1bb88c`, and
 `sectionB.src` happens to have an unexported 4-byte gap at exactly that
 address (between `var_8c1bb888`'s 8-byte reservation and
 `var_groundGridPrimary_8c1bb890`) -- a plausible-looking match for the
@@ -580,7 +580,7 @@ wired up and resolvable, proving the real read targets a completely
 different, already-known struct 0x24 bytes in -- `var_currentCourse_8c1bb868
 .macCpu1_0x24` (`CurrentCourse`, `013ae8_route_load.h`), whose asset-file
 field doubles as a per-scene-object-type table pointer once loaded and
-`FUN_8c026da4`-relocated.
+`TrafficRelocatePlacementTable_8c026da4`-relocated.
 
 **Fix:** an address falling inside a plausible-looking gap is only a
 hypothesis. Confirm it the same way as any other guess here -- run the
@@ -619,3 +619,35 @@ first. And the failure surfaces only at final link, long after the rename.
 
 Sweep with `command grep -ran '<old_name>' src/ tests/` across the entire tree
 when a unit's naming settles.
+
+## A raw Ghidra data extraction isn't wireable just because it exists
+
+**Found in:** `02af78_pre_data.src` (2026-08-28)
+
+This file is a Ghidra extraction of the section D data spanning roughly
+`8c044de0`..`8c04ab6c`, immediately preceding `02af78_event`'s own
+`EventEntry` tables. Adding it to either Makefile's `SRCS` fails at link with
+~590 `UNDEFINED EXTERNAL SYMBOL` errors, in **both** `Makefile` and
+`Makefile.matching`. Most of what it `.IMPORT`s (section C consts, one
+section B var) already has a real owner elsewhere in the tree, but that owner
+doesn't yet make the symbol visible to this file:
+
+- For a still-undecompiled owner (`01f3c0.src`, `01fa78.src`, `024280.src`,
+  `025870.src`, and even the already-decompiled `028258_objects.src`), the
+  label exists but is never `.EXPORT`ed -- nothing outside that file has
+  needed it yet.
+- For the C-based `Makefile`, an owner that *is* decompiled (e.g.
+  `01bb48_vm_game`) only ports data its decompiled C functions actually
+  reference; a lot of this span's consts aren't referenced by any decompiled
+  function yet, so they don't exist in the `.c` at all even though the
+  archived `.src` still has them.
+- One import, `_var_8c2260ac`, isn't even current: the live name is
+  `_var_lcdAnimBus_8c2260ac` (`sectionB.src`/`.h`). This file is a
+  point-in-time snapshot from before that rename, not a maintained source.
+
+So this isn't a link-order problem (contrast the separate, already-resolved
+`02af78`/`03bd80_sectionD` `EventEntry`-ownership gap) -- it needs real work
+in each true owner (`.EXPORT` + C definition) before this file's imports
+resolve, split out block-by-block with `scripts/move_data.py` per
+`.claude/skills/move-data/SKILL.md`. Until that happens the file stays
+unwired, with a comment at its head pointing here.

@@ -1,3 +1,24 @@
+; NOT WIRED INTO EITHER MAKEFILE -- staging/reference only, do not add to SRCS.
+;
+; Ghidra extraction of the section D data spanning roughly 8c044de0..8c04ab6c,
+; immediately preceding 02af78_event's own EventEntry tables. Adding this
+; file to SRCS fails at link with ~590 UNDEFINED EXTERNAL SYMBOL errors in
+; BOTH Makefile and Makefile.matching: most of what it imports already
+; belongs to another unit (see the per-block "; <unit>.src" comments below),
+; but that owner doesn't export the symbol yet -- either it's a still-private
+; label in a still-undecompiled owner (01f3c0, 01fa78, 024280, 025870, even
+; the decompiled 028258_objects.src), or (for the C-based Makefile) it's data
+; the owner's decompiled .c never ended up referencing. One import,
+; _var_8c2260ac, is a pre-rename name no longer used anywhere else in the
+; tree (now _var_lcdAnimBus_8c2260ac) -- this file is a point-in-time
+; snapshot, not a maintained source.
+;
+; To un-park: split blocks out to their real owners with scripts/move_data.py
+; (.claude/skills/move-data/SKILL.md), adding the missing .EXPORT (and C
+; definition, for the non-matching build) as each block lands, until this
+; file is empty and can be deleted. See docs/lessons_learned.md (2026-08-28)
+; for the concrete link errors.
+
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
           .IMPORT     _FUN_8c01a3c0
           .IMPORT     _FUN_8c01a89c
