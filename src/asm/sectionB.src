@@ -545,6 +545,7 @@
           .EXPORT     _var_8c226450 ; 02b464
                                     ; 02c884
           .EXPORT     _var_8c226454 ; 02c884
+          .EXPORT     _var_8c226458 ; 01fa78
           .EXPORT     _var_uknVol_8c226468 ; 0100bc_sound
           .EXPORT     _var_8c226478 ; 01fa78
           .EXPORT     _var_8c2264a8 ; 01fa78
@@ -1290,6 +1291,7 @@ _var_8c226450:
           .RES.B      4
 _var_8c226454:
           .RES.B      4
+_var_8c226458:
           .RES.B      16
 _var_uknVol_8c226468:
           .RES.B      16

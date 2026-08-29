@@ -143,6 +143,10 @@ compile  src/01e27c_practice_menu.c
 assemble  src/asm/decompiled/01f3c0_ending.src
 compile  src/01f3c0_ending.c
 
+# 01fa78
+assemble  src/asm/decompiled/01fa78.src
+compile  src/01fa78.c
+
 # 02171c_tile_stream
 assemble  src/asm/decompiled/02171c_tile_stream.src
 compile  src/02171c_tile_stream.c

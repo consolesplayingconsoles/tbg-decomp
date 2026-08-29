@@ -1,0 +1,60 @@
+<?php declare(strict_types=1);
+
+use Lhsazevedo\Sh4ObjTest\TestCase;
+
+return new class extends TestCase {
+    private function setup(): int
+    {
+        $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
+        $this->setSize('_var_8c22643c', 0x6c);
+        $base = $this->addressOf('_var_8c22643c');
+        $this->rellocate('_var_8c226450', $base + 0x14);
+        $this->rellocate('_var_8c226454', $base + 0x18);
+        $this->rellocate('_var_8c226458', $base + 0x1c);
+        $this->rellocate('_var_uknVol_8c226468', $base + 0x2c);
+        $this->rellocate('_var_8c226478', $base + 0x3c);
+
+        $this->setSize('_var_8c2264a8', 0x10);
+
+        // Zero the whole scratch region and bus state by default; each test
+        // overrides only the bits it cares about.
+        for ($off = 0; $off < 0x6c; $off += 4) {
+            $this->initUint32($base + $off, 0);
+        }
+        for ($off = 0; $off < 0x3c8; $off += 4) {
+            $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + $off, 0);
+        }
+        for ($off = 0; $off < 0x10; $off += 4) {
+            $this->initUint32($this->addressOf('_var_8c2264a8') + $off, 0);
+        }
+        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0);
+
+        return $base;
+    }
+
+    public function test_idle_frame_pushes_meter_render_with_zero_message(): void
+    {
+        $this->setup();
+
+        $this->call('_FUN_8c01ff48');
+
+        $this->shouldWriteSymbolOffset('_var_8c2264a8', 0x04, 0); // out-of-window: no comment digit
+        $this->shouldWriteSymbolOffset('_var_8c22643c', 0x18, 1); // var_8c226454 += 1
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_FUN_8c01fbac'), 0);
+    }
+
+    public function test_blinker_bit_stages_message_and_arms_flag(): void
+    {
+        $base = $this->setup();
+        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b0, 3); // blinker bits 0-2 = 3
+
+        $this->call('_FUN_8c01ff48');
+
+        $this->shouldWriteSymbolOffset('_var_8c22643c', 0x14, 3 + 0x1f); // var_8c226450
+        $this->shouldWriteSymbolOffset('_var_8c22643c', 0x10, 1); // flag
+        $this->shouldWriteSymbolOffset('_var_8c22643c', 0x18, 0); // var_8c226454 reset
+        $this->shouldWriteSymbolOffset('_var_8c2264a8', 0x04, 0); // out-of-window: no comment digit
+        $this->shouldWriteSymbolOffset('_var_8c22643c', 0x18, 1); // var_8c226454 += 1 (later, ends at 1)
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_FUN_8c01fbac'), 0);
+    }
+};

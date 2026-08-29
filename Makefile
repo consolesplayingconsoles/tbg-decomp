@@ -72,7 +72,7 @@ SRCS = \
 	src/01d7fc_results.c \
 	src/01e27c_practice_menu.c \
 	src/01f3c0_ending.c \
-	src/asm/01fa78.src \
+	src/01fa78.c \
 	src/asm/020214.src \
 	src/020528.c \
 	src/asm/020594.src \

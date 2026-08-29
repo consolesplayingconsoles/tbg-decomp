@@ -28,6 +28,12 @@
           .EXPORT     _FUN_8c01fe84
           .EXPORT     _FUN_8c01ff48
           .EXPORT     _FUN_8c02018c
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _init_8c045334
+          .EXPORT     _init_8c045374
+          .EXPORT     _init_8c0453b4
+          .EXPORT     _init_8c045414
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
 _FUN_8c01fa78:
           MOV.L       LP_GEN_77638+4,R6

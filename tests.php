@@ -474,6 +474,19 @@ return [
         ],
         [
             "tests" => [
+                "tests/01fa78/8c01fa78_FUN.php",
+                "tests/01fa78/8c01fa80_FUN.php",
+                "tests/01fa78/8c01fbac_FUN.php",
+                "tests/01fa78/8c01ff48_FUN.php",
+                "tests/01fa78/8c02018c_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/01fa78_src.obj",
+                "build/output_test/01fa78_c.obj",
+            ]
+        ],
+        [
+            "tests" => [
                 "tests/02171c/8c02171c_TileStreamClearUnknownVar.php",
                 "tests/02171c/8c021724_TileStreamTeardown.php",
                 "tests/02171c/8c02175a_TileStreamInit.php",
