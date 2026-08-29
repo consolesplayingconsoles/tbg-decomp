@@ -62,7 +62,7 @@ return new class extends TestCase {
         $this->setSize('_move_bus_model_8c020594', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_BusRenderUpdateCamera_8c025078', 4);
-        $this->setSize('_demoUpdateCamera_8c025906', 4);
+        $this->setSize('_DemoUpdateCamera_8c025906', 4);
         $this->setSize('_BusRenderUpdateMirrorCamera_8c025604', 4);
         $this->setSize('_var_8c2285c4', 4);
     }

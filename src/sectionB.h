@@ -507,6 +507,9 @@ extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
  * the top byte's exact trigger semantics when that lands.
  * Also sits at var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not
  * that struct's field_0x3bc -- coincidentally adjacent, not part of it. */
+/* Used by DemoUpdateCamera_8c025906's LAB_8c0259e8 helper task, not yet
+ * decompiled (025870). */
+extern NJS_POINT3 var_8c1bbd80;
 extern int var_scenePresetIds_8c1bbd8c;
 // 026710: cached copies of two CourseSceneParams.rec0_0x0c rows, and their
 // per-20-frame deltas, built by TrafficInit_8c02769e when timeOfDay is
@@ -693,6 +696,16 @@ extern float var_8c227df4;
  * (BAMS units, 0 to 0x4000) -- a real int (MOV.L/ADD/CMP/GE), not float. */
 extern Sint32 var_8c227df8;
 extern Sint32 var_8c227dfc;
+/* Local-space offset transformed by the bus's world matrix into
+ * posX_0x2fc/posY_0x300/posZ_0x304 for DemoUpdateCamera_8c025906's
+ * var_8c227d9c==7 mode; also used directly (untransformed, y relative to
+ * ground) for mode 5 and transformed for mode 6 by FUN_8c0258ba (025870). */
+extern NJS_POINT3 var_8c227e00;
+/* Selected route's stop-announcement table (one of init_8c045674/
+ * init_8c045b60/init_8c045ee4, picked by var_route_8c18ad1c), each 20-byte
+ * record: {kind, x, y, z, name}. Set by FUN_8c025af4 (025870). */
+extern int *var_8c227e0c;
+extern int var_8c227e10; /* set to 1 by FUN_8c025af4 once the stop textbox task is armed (025870) */
 extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by ObjectsInitTrafficSignals_8c02845a */
 extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by ObjectsGetTrafficSignalFrame_8c028900 */
 extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */

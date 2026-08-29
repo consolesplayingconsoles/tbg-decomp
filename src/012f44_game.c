@@ -25,6 +25,7 @@
 #include "02fb50_sh4nlfzn_post_data.h"
 #include "02171c_tile_stream.h"
 #include "023310_bus_init.h"
+#include "025870.h"
 
 // #define CACHE_BUFSIZE   0x20000
 // #define SHAPE_BUFSIZE   512

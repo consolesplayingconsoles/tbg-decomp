@@ -784,5 +784,18 @@ return [
                 "build/output_test/024b4c_bus_render_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/025870/8c025870_FUN.php",
+                "tests/025870/8c0258ba_FUN.php",
+                "tests/025870/8c025906_demoUpdateCamera.php",
+                "tests/025870/8c0259e8_stopTextboxTask.php",
+                "tests/025870/8c025af4_FUN.php",
+            ],
+            "objects" => [
+                "build/output_test/025870_src.obj",
+                "build/output_test/025870_c.obj",
+            ]
+        ],
     ],
 ];
