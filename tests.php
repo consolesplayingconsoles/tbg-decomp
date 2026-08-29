@@ -700,5 +700,29 @@ return [
                 "build/output_test/02b464_drive_points_c.obj",
             ]
         ],
+        [
+            "tests" => [
+                "tests/02f320_replay_codec/8c02f320_ReplayCodecInit.php",
+                "tests/02f320_replay_codec/8c02f3a0_ReplayCodecGetBit.php",
+                "tests/02f320_replay_codec/8c02f3e0_ReplayCodecGetBits.php",
+                "tests/02f320_replay_codec/8c02f49c_ReplayCodecPutBit.php",
+                "tests/02f320_replay_codec/8c02f4da_ReplayCodecPutBits.php",
+                "tests/02f320_replay_codec/8c02f556_ReplayCodecSwapNodes.php",
+                "tests/02f320_replay_codec/8c02f58a_ReplayCodecListInsert.php",
+                "tests/02f320_replay_codec/8c02f636_ReplayCodecLzwFindChild.php",
+                "tests/02f320_replay_codec/8c02f668_ReplayCodecLzwInsertChild.php",
+                "tests/02f320_replay_codec/8c02f6ac_ReplayCodecLzwRemoveChild.php",
+                "tests/02f320_replay_codec/8c02f704_ReplayCodecInitTables.php",
+                "tests/02f320_replay_codec/8c02f740_ReplayCodecExtendDict.php",
+                "tests/02f320_replay_codec/8c02f824_ReplayCodecWriteCode.php",
+                "tests/02f320_replay_codec/8c02f892_ReplayCodecReadCode.php",
+                "tests/02f320_replay_codec/8c02f934_ReplayCodecPack.php",
+                "tests/02f320_replay_codec/8c02fa14_ReplayCodecUnpack.php",
+            ],
+            "objects" => [
+                "build/output_test/02f320_replay_codec_src.obj",
+                "build/output_test/02f320_replay_codec_c.obj",
+            ]
+        ],
     ],
 ];

@@ -24,8 +24,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($local1, $this->addressOf('_var_demoBuffer_8c1bc828'));
 
-        $this->shouldCall('_FUN_8c02f320');
-        $this->shouldCall('_FUN_readDemo_8c02fa14')
+        $this->shouldCall('_ReplayCodecInit_8c02f320');
+        $this->shouldCall('_ReplayCodecUnpack_8c02fa14')
             ->with(
                 $var_demoBuf_8c1ba3c4 + 4 * 4,
                 $local1,

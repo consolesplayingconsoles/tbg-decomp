@@ -18,24 +18,26 @@
           .IMPORT     _var_8c235bb4
           .IMPORT     _var_8c228ba8
           .IMPORT     _memset
-          .EXPORT     _FUN_8c02f49c
-          .EXPORT     _FUN_8c02f4da
-          .EXPORT     _FUN_8c02f556
-          .EXPORT     _FUN_8c02f58a
-          .EXPORT     _FUN_8c02f636
-          .EXPORT     _FUN_8c02f668
-          .EXPORT     _FUN_8c02f6ac
-          .EXPORT     _FUN_8c02f704
-          .EXPORT     _FUN_8c02f740
-          .EXPORT     _FUN_8c02f824
-          .EXPORT     _FUN_8c02f892
-          .EXPORT     _FUN_8c02f934
-          .EXPORT     _FUN_readDemo_8c02fa14
-          .EXPORT     _FUN_8c02f320
-          .EXPORT     _FUN_8c02f3a0
-          .EXPORT     _FUN_8c02f3e0
+          .EXPORT     _ReplayCodecPack_8c02f934
+          .EXPORT     _ReplayCodecUnpack_8c02fa14
+          .EXPORT     _ReplayCodecInit_8c02f320
+          .AIFDEF     UNIT_TESTING
+          .EXPORT     _getBit_8c02f3a0
+          .EXPORT     _getBits_8c02f3e0
+          .EXPORT     _putBit_8c02f49c
+          .EXPORT     _putBits_8c02f4da
+          .EXPORT     _swapNodes_8c02f556
+          .EXPORT     _listInsert_8c02f58a
+          .EXPORT     _lzwFindChild_8c02f636
+          .EXPORT     _lzwInsertChild_8c02f668
+          .EXPORT     _lzwRemoveChild_8c02f6ac
+          .EXPORT     _initTables_8c02f704
+          .EXPORT     _extendDict_8c02f740
+          .EXPORT     _writeCode_8c02f824
+          .EXPORT     _readCode_8c02f892
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02f320:
+_ReplayCodecInit_8c02f320:
           MOV.L       LP_GEN_89603+4,R3
           MOV         #H'0,R4
           MOV.L       LP_GEN_89603+12,R0
@@ -100,7 +102,7 @@ _FUN_8c02f320:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02f3a0:
+_getBit_8c02f3a0:
           MOV.L       LP_GEN_89603+8,R6
           MOV.L       LP_GEN_89603+16,R1
           MOV.W       @R6,R3
@@ -135,7 +137,7 @@ LAB_8c02f3d8:
           AND         #H'1,R0
           RTS
           NOP
-_FUN_8c02f3e0:
+_getBits_8c02f3e0:
           MOV.L       R14,@-R15
           MOV         #H'8,R0
           MOV.L       R13,@-R15
@@ -215,7 +217,7 @@ LP_GEN_89603:
           .DATA.L _var_8c231bb0 ; H'8C02F490
           .DATA.L _var_8c233bb0 ; H'8C02F494
           .DATA.L _var_8c235bb4 ; H'8C02F498
-_FUN_8c02f49c:
+_putBit_8c02f49c:
           MOV.L       LP_GEN_45840+4,R6
           EXTU.W      R4,R4
           MOV.L       LP_GEN_45840+8,R0
@@ -249,7 +251,7 @@ LAB_8c02f4ba:
 LAB_8c02f4d6:
           RTS
           MOV.L       R7,@R5
-_FUN_8c02f4da:
+_putBits_8c02f4da:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R11,@-R15
@@ -314,7 +316,7 @@ LAB_8c02f524:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02f556:
+_swapNodes_8c02f556:
           MOV.L       LP_GEN_45840+20,R7
           EXTS.W      R4,R3
           MOV.L       LP_GEN_45840+28,R5
@@ -343,7 +345,7 @@ LAB_8c02f576:
 LAB_8c02f586:
           RTS
           NOP
-_FUN_8c02f58a:
+_listInsert_8c02f58a:
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
           MOV.L       R11,@-R15
@@ -428,7 +430,7 @@ LAB_8c02f628:
           MOV.L       @R15+,R12
           RTS
           MOV.L       @R15+,R13
-_FUN_8c02f636:
+_lzwFindChild_8c02f636:
           ADD         #-H'4,R15
           MOV.W       R4,@R15
           MOV.W       @R15,R4
@@ -457,7 +459,7 @@ LAB_8c02f662:
           MOV         R4,R0
           RTS
           ADD         #H'4,R15
-_FUN_8c02f668:
+_lzwInsertChild_8c02f668:
           ADD         #-H'4,R15
           MOV.L       LP_GEN_77923+10,R0
           EXTS.W      R5,R3
@@ -493,7 +495,7 @@ LAB_8c02f6a4:
           MOV.W       R5,@(R0,R7)
           RTS
           ADD         #H'4,R15
-_FUN_8c02f6ac:
+_lzwRemoveChild_8c02f6ac:
           ADD         #-H'8,R15
           EXTS.W      R4,R0
           MOV.L       LP_GEN_77923+18,R6
@@ -537,7 +539,7 @@ LP_GEN_77923:
           .DATA.L _var_8c228bae ; H'8C02F6F8
           .DATA.L _var_8c229bae ; H'8C02F6FC
           .DATA.L _var_8c22fbae ; H'8C02F700
-_FUN_8c02f704:
+_initTables_8c02f704:
           MOV.L       R13,@-R15
           MOV         #H'0,R4
           MOV.L       R12,@-R15
@@ -569,7 +571,7 @@ LAB_8c02f71c:
           MOV.L       @R15+,R12
           RTS
           MOV.L       @R15+,R13
-_FUN_8c02f740:
+_extendDict_8c02f740:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -608,7 +610,7 @@ LAB_8c02f770:
           ADD         #-H'2,R9
           MOV.W       @R9,R9
           MOV         R9,R5
-          BSR         _FUN_8c02f636
+          BSR         _lzwFindChild_8c02f636
           MOV         R13,R4
           MOV         R0,R14
           EXTS.W      R0,R0
@@ -629,14 +631,14 @@ LAB_8c02f7a8:
           EXTS.W      R4,R3
           CMP/EQ      R3,R8
           BT          LAB_8c02f7e8
-          BSR         _FUN_8c02f556
+          BSR         _swapNodes_8c02f556
           MOV         R4,R14
-          BSR         _FUN_8c02f6ac
+          BSR         _lzwRemoveChild_8c02f6ac
           MOV         R14,R4
 LAB_8c02f7ba:
           MOV         R14,R5
           MOV         R9,R6
-          BSR         _FUN_8c02f668
+          BSR         _lzwInsertChild_8c02f668
           MOV         R13,R4
           MOV.W       LP_GEN_83918+2,R2
           CMP/GE      R2,R8
@@ -651,7 +653,7 @@ LAB_8c02f7d0:
           SHLL        R5
           MOV.W       @(R0,R5),R5
 LAB_8c02f7d8:
-          BSR         _FUN_8c02f58a
+          BSR         _listInsert_8c02f58a
           NOP
 LAB_8c02f7dc:
           MOV.L       @R15,R3
@@ -683,7 +685,7 @@ LP_GEN_83918:
           .DATA.L _var_8c235bb2 ; H'8C02F818
           .DATA.L _var_8c235bb0 ; H'8C02F81C
           .DATA.L _var_8c233bb0 ; H'8C02F820
-_FUN_8c02f824:
+_writeCode_8c02f824:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -698,11 +700,11 @@ _FUN_8c02f824:
           CMP/GE      R2,R3
           BT          LAB_8c02f850
           MOV         R15,R5
-          BSR         _FUN_8c02f49c
+          BSR         _putBit_8c02f49c
           MOV         #H'0,R4
           MOV         R13,R5
           MOV         R15,R6
-          BSR         _FUN_8c02f4da
+          BSR         _putBits_8c02f4da
           MOV         #H'8,R4
           BRA         LAB_8c02f882
           NOP
@@ -727,12 +729,12 @@ LAB_8c02f868:
           CMP/GE      R3,R2
           BT          LAB_8c02f85c
           MOV         R15,R5
-          BSR         _FUN_8c02f49c
+          BSR         _putBit_8c02f49c
           MOV         #H'1,R4
           MOV.L       LP_GEN_72222+16,R5
           MOV         R15,R6
           ADD         R13,R5
-          BSR         _FUN_8c02f4da
+          BSR         _putBits_8c02f4da
           MOV.W       @R14,R4
 LAB_8c02f882:
           MOV.L       @R15,R2
@@ -743,7 +745,7 @@ LAB_8c02f882:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02f892:
+_readCode_8c02f892:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -771,7 +773,7 @@ _FUN_8c02f892:
 LAB_8c02f8c2:
           MOV         R15,R5
           ADD         #H'8,R5
-          BSR         _FUN_8c02f3a0
+          BSR         _getBit_8c02f3a0
           MOV         R15,R4
           MOV.L       @(H'8,R15),R3
           MOV         R0,R4
@@ -785,7 +787,7 @@ LAB_8c02f8c2:
           MOV         R15,R6
           MOV         R15,R5
           ADD         #H'8,R6
-          BSR         _FUN_8c02f3e0
+          BSR         _getBits_8c02f3e0
           MOV         #H'8,R4
           MOV.L       @R15,R2
           MOV         R0,R4
@@ -796,7 +798,7 @@ LAB_8c02f8f0:
           MOV         R15,R6
           MOV         R15,R5
           ADD         #H'8,R6
-          BSR         _FUN_8c02f3e0
+          BSR         _getBits_8c02f3e0
           MOV.W       @R13,R4
           MOV.L       @(H'8,R15),R2
           MOV         R0,R4
@@ -827,7 +829,7 @@ LP_GEN_72222:
           .DATA.L _var_8c235c7c ; H'8C02F928
           .DATA.L _var_8c235c7e ; H'8C02F92C
           .DATA.L H'0000FF00 ; H'8C02F930
-_FUN_8c02f934:
+_ReplayCodecPack_8c02f934:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -841,7 +843,7 @@ _FUN_8c02f934:
           MOV.L       R6,@(H'14,R15)
           MOV.L       R5,@(H'8,R15)
           MOV         R4,R9
-          BSR         _FUN_8c02f320
+          BSR         _ReplayCodecInit_8c02f320
           MOV.L       R3,@(H'4,R15)
           MOV.L       @(H'8,R15),R1
           MOV         #H'4,R6
@@ -854,7 +856,7 @@ _FUN_8c02f934:
           ADD         #H'14,R5
           MOV.L       @R15,R2
           ADD         #H'4,R2
-          BSR         _FUN_8c02f704
+          BSR         _initTables_8c02f704
           MOV.L       R2,@R15
           MOV.B       @R9+,R13
           MOV         #H'0,R10
@@ -889,10 +891,10 @@ LAB_8c02f98e:
           BRA         LAB_8c02f9b2
           MOV.W       @(R0,R12),R12
 LAB_8c02f9a8:
-          BSR         _FUN_8c02f556
+          BSR         _swapNodes_8c02f556
           MOV         R14,R4
           MOV         R12,R5
-          BSR         _FUN_8c02f58a
+          BSR         _listInsert_8c02f58a
           MOV         R14,R4
 LAB_8c02f9b2:
           EXTS.W      R10,R0
@@ -906,7 +908,7 @@ LAB_8c02f9b2:
           ADD         #H'1,R3
           MOV         R13,R5
           MOV.L       R3,@(H'4,R15)
-          BSR         _FUN_8c02f636
+          BSR         _lzwFindChild_8c02f636
           MOV         R11,R4
           MOV.W       LP_GEN_73719,R2
           MOV         R0,R14
@@ -914,14 +916,14 @@ LAB_8c02f9b2:
           CMP/EQ      R2,R3
           BF          LAB_8c02f98e
           MOV         R15,R5
-          BSR         _FUN_8c02f824
+          BSR         _writeCode_8c02f824
           MOV         R11,R4
           MOV.W       @(H'10,R15),R0
           MOV         R10,R5
           MOV         R0,R7
           MOV.W       @(H'c,R15),R0
           MOV         R0,R6
-          BSR         _FUN_8c02f740
+          BSR         _extendDict_8c02f740
           MOV         R8,R4
 LAB_8c02f9ea:
           MOV.L       @(H'4,R15),R3
@@ -930,7 +932,7 @@ LAB_8c02f9ea:
           BF          LAB_8c02f97e
           MOV         #H'0,R5
           MOV         R15,R6
-          BSR         _FUN_8c02f4da
+          BSR         _putBits_8c02f4da
           MOV         #H'7,R4
           MOV.L       @R15,R3
           MOV.L       @(H'8,R15),R2
@@ -945,7 +947,7 @@ LAB_8c02f9ea:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_readDemo_8c02fa14:
+_ReplayCodecUnpack_8c02fa14:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -973,9 +975,9 @@ _FUN_readDemo_8c02fa14:
           MOV.L       R2,@(H'20,R15)
           MOV.L       @R15,R3
           ADD         #H'4,R3
-          BSR         _FUN_8c02f320
+          BSR         _ReplayCodecInit_8c02f320
           MOV.L       R3,@R15
-          BSR         _FUN_8c02f704
+          BSR         _initTables_8c02f704
           NOP
           MOV.W       LP_GEN_73719,R11
           MOV         R12,R13
@@ -997,7 +999,7 @@ LAB_8c02fa78:
           MOV.L       @(H'c,R15),R5
           MOV         R15,R4
           MOV         R15,R6
-          BSR         _FUN_8c02f892
+          BSR         _readCode_8c02f892
           ADD         #H'20,R4
           MOV         R0,R14
           EXTS.W      R0,R0
@@ -1026,11 +1028,11 @@ LAB_8c02faa6:
           MOV.W       @R3,R1
           CMP/EQ      R1,R4
           BT          LAB_8c02fac2
-          BSR         _FUN_8c02f556
+          BSR         _swapNodes_8c02f556
           MOV         R14,R4
           MOV.L       LP_GEN_11328+8,R2
           MOV.W       @R2,R5
-          BSR         _FUN_8c02f58a
+          BSR         _listInsert_8c02f58a
           MOV         R14,R4
 LAB_8c02fac2:
           ADD         #H'1,R13
@@ -1075,7 +1077,7 @@ LAB_8c02fb08:
           MOV         R0,R7
           MOV.W       @(H'18,R15),R0
           MOV         R0,R6
-          BSR         _FUN_8c02f740
+          BSR         _extendDict_8c02f740
           MOV         R13,R5
           MOV.L       @(H'4,R15),R3
           EXTS.W      R13,R2

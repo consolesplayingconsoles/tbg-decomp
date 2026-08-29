@@ -164,8 +164,8 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_currentCourse_8c1bb868', 7);
         $this->shouldWriteLongTo('_var_inputMapSel_8c1bb8c8', 3);
         $this->shouldWriteLongTo('_var_seed_8c157a64', 0x1234);
-        $this->shouldCall('_FUN_8c02f320');
-        $this->shouldCall('_FUN_readDemo_8c02fa14')
+        $this->shouldCall('_ReplayCodecInit_8c02f320');
+        $this->shouldCall('_ReplayCodecUnpack_8c02fa14')
             ->with($demoBuf + 0x10, $this->destOffset(), 0x30);
         $this->shouldCall('_syFree')->with($demoBuf);
         $this->shouldWriteLongTo('_var_demoBuf_8c1ba3c4', 0xffffffff);
@@ -246,8 +246,8 @@ return new class extends TestCase {
         $this->setSize('_BupUnmount_8c014c46', 4);
         $this->setSize('_njPrint', 4);
         $this->setSize('__divlu', 4);
-        $this->setSize('_FUN_8c02f320', 4);
-        $this->setSize('_FUN_readDemo_8c02fa14', 4);
+        $this->setSize('_ReplayCodecInit_8c02f320', 4);
+        $this->setSize('_ReplayCodecUnpack_8c02fa14', 4);
         $this->onCall('__divlu', function () {
             $this->setRegister(0, $this->getRegister(1)->div($this->getRegister(0)));
         });

@@ -109,7 +109,7 @@ SRCS = \
 	src/02e400_collision.c \
 	src/asm/02e51c.src \
 	src/02f0c8.c \
-	src/asm/02f320.src \
+	src/02f320_replay_codec.c \
 	src/scif.c \
 	src/serial_debug.c \
 	src/asm/sectionD.src \

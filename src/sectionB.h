@@ -821,6 +821,27 @@ extern float *var_8c228b9c;
 /* One-past-the-end of the valid range in var_8c228b48 (02f0c8). */
 extern float *var_8c228ba0;
 
+/* ReplayCodec (02f320) working state and buffers: LZ ring buffer / match
+ * tables plus adaptive-code tables used by ReplayCodecInit_8c02f320 and its
+ * pack/unpack routines. */
+extern Uint32 var_8c228ba4;
+extern Sint16 var_8c228ba8; /* signed bit-buffer fill count; goes negative to trigger a refill */
+extern Uint16 var_8c228baa;
+extern Uint16 var_8c228bac;
+extern Uint8 var_8c228bae[0x1000];
+extern Uint8 var_8c229bae[0x2000];
+extern Uint8 var_8c22bbae[0x2000];
+extern Uint8 var_8c22dbae[0x2000];
+extern Uint8 var_8c22fbae[0x2000];
+extern Uint16 var_8c231bae;
+extern Uint8 var_8c231bb0[0x2000];
+extern Uint8 var_8c233bb0[0x2000];
+extern Uint16 var_8c235bb0;
+extern Uint16 var_8c235bb2;
+extern Uint8 var_8c235bb4[200];
+extern Uint16 var_8c235c7c;
+extern Uint16 var_8c235c7e;
+
 extern int var_8c2285c8;
 /* Set to 0x1e by BusStopUpdateArrival_8c02ce48 (02c884) on stop completion;
  * role/owner unclear. */

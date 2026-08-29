@@ -15,8 +15,8 @@
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_inputMapSel_8c1bb8c8
           .IMPORT     _var_seed_8c157a64
-          .IMPORT     _FUN_8c02f320
-          .IMPORT     _FUN_readDemo_8c02fa14
+          .IMPORT     _ReplayCodecInit_8c02f320
+          .IMPORT     _ReplayCodecUnpack_8c02fa14
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _FUN_8c01328c
           .IMPORT     _var_tasks_8c1ba3c8
@@ -1544,8 +1544,8 @@ LP_GEN_51554:
           .DATA.L _var_inputMapSel_8c1bb8c8
           .DATA.L _var_seed_8c157a64
           .DATA.L _var_demoBuffer_8c1bc828
-          .DATA.L _FUN_8c02f320
-          .DATA.L _FUN_readDemo_8c02fa14
+          .DATA.L _ReplayCodecInit_8c02f320
+          .DATA.L _ReplayCodecUnpack_8c02fa14
           .DATA.L _syFree
           .DATA.L _TaskFree_8c014b66
           .DATA.L _FUN_8c01328c

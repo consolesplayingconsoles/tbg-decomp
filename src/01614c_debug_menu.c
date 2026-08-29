@@ -16,7 +16,7 @@
 #include "02171c_tile_stream.h"
 #include "028258_objects.h"
 #include "02c884_bus_stop.h"
-#include "02f320.h"
+#include "02f320_replay_codec.h"
 #include "0193c8_vm_menu.h"
 #include "sectionB.h"
 #include "serial_debug.h"
@@ -463,8 +463,8 @@ STATIC void startReplaySave_8c016924(void)
     var_demoBuf_8c1ba3c4 = buf;
     dest = (char *)buf + 0x10;
 
-    FUN_8c02f320();
-    FUN_8c02f934(var_demoBuffer_8c1bc828, &dest, size);
+    ReplayCodecInit_8c02f320();
+    ReplayCodecPack_8c02f934(var_demoBuffer_8c1bc828, &dest, size);
 
     buf[0] = var_8c228ba4;
     buf[1] = var_currentCourse_8c1bb868.courseId_0x00;
@@ -534,8 +534,8 @@ STATIC void replayLoadTask_8c0169bc(Task *task, void *state)
         var_inputMapSel_8c1bb8c8 = var_demoBuf_8c1ba3c4[2];
         var_seed_8c157a64 = var_demoBuf_8c1ba3c4[3];
         dest = var_demoBuffer_8c1bc828;
-        FUN_8c02f320();
-        FUN_readDemo_8c02fa14(&var_demoBuf_8c1ba3c4[4], &dest, var_demoBuf_8c1ba3c4[0]);
+        ReplayCodecInit_8c02f320();
+        ReplayCodecUnpack_8c02fa14(&var_demoBuf_8c1ba3c4[4], &dest, var_demoBuf_8c1ba3c4[0]);
         syFree(var_demoBuf_8c1ba3c4);
         var_demoBuf_8c1ba3c4 = (int *)-1;
         BupUnmount_8c014c46(var_selectedVm_8c1ba34c);

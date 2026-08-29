@@ -78,7 +78,7 @@ SRCS = \
 	src/asm/decompiled/02e400_collision.src \
 	src/asm/02e51c.src \
 	src/asm/decompiled/02f0c8.src \
-	src/asm/02f320.src \
+	src/asm/decompiled/02f320_replay_codec.src \
 	src/asm/sectionD.src \
 	src/asm/04ce10_slots.src \
 	src/asm/02fb50_sh4nlfzn.src \

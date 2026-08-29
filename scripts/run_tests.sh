@@ -183,4 +183,8 @@ compile  src/02f0c8.c
 assemble  src/asm/decompiled/02b464_drive_points.src
 compile  src/02b464_drive_points.c
 
+# 02f320
+assemble  src/asm/decompiled/02f320_replay_codec.src
+compile  src/02f320_replay_codec.c
+
 $sh4objtest suite -s tests.php "$@"

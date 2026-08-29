@@ -7,6 +7,7 @@
 #include "014f54_text.h"
 #include "sectionB.h"
 #include "serial_debug.h"
+#include "02f320_replay_codec.h"
 
 /* ====================
  * Compiler Definitions
@@ -919,8 +920,8 @@ STATIC void FUN_8c01594c(Task *task)
     var_inputMapSel_8c1bb8c8 = var_demoBuf_8c1ba3c4[2];
     var_seed_8c157a64 = var_demoBuf_8c1ba3c4[3];
     local = var_demoBuffer_8c1bc828;
-    FUN_8c02f320();
-    FUN_readDemo_8c02fa14(&var_demoBuf_8c1ba3c4[4], &local, var_demoBuf_8c1ba3c4[0]);
+    ReplayCodecInit_8c02f320();
+    ReplayCodecUnpack_8c02fa14(&var_demoBuf_8c1ba3c4[4], &local, var_demoBuf_8c1ba3c4[0]);
     syFree(var_demoBuf_8c1ba3c4);
     var_demoBuf_8c1ba3c4 = (int *) -1;
     TaskFree_8c014b66(task);

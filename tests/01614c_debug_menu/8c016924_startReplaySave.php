@@ -95,8 +95,8 @@ return new class extends TestCase {
 
         $this->shouldCall('_syMalloc')->with(0x38)->andReturn($malloc);
         $this->shouldWriteLongTo('_var_demoBuf_8c1ba3c4', $malloc);
-        $this->shouldCall('_FUN_8c02f320');
-        $this->shouldCall('_FUN_8c02f934')->with($bufBase, $this->destOffset(), 0x38);
+        $this->shouldCall('_ReplayCodecInit_8c02f320');
+        $this->shouldCall('_ReplayCodecPack_8c02f934')->with($bufBase, $this->destOffset(), 0x38);
         $this->shouldWriteLong($malloc + 0x00, 0x99);
         $this->shouldWriteLong($malloc + 0x04, 7);
         $this->shouldWriteLong($malloc + 0x08, 3);
@@ -130,8 +130,8 @@ return new class extends TestCase {
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
         $this->setSize('_var_seed_8c157a64', 4);
         $this->setSize('_syMalloc', 4);
-        $this->setSize('_FUN_8c02f320', 4);
-        $this->setSize('_FUN_8c02f934', 4);
+        $this->setSize('_ReplayCodecInit_8c02f320', 4);
+        $this->setSize('_ReplayCodecPack_8c02f934', 4);
         /*
          * startReplaySave_8c016924's real end-of-buffer bound check reuses &var_demoCursor_8c225fa8
          * as a linker-layout coincidence (base + REPLAY_BUFFER_CAPACITY*8 lands exactly on

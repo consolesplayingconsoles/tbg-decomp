@@ -651,3 +651,63 @@ in each true owner (`.EXPORT` + C definition) before this file's imports
 resolve, split out block-by-block with `scripts/move_data.py` per
 `.claude/skills/move-data/SKILL.md`. Until that happens the file stays
 unwired, with a comment at its head pointing here.
+
+## `02f320_replay_codec`: EXTS.W blocks testing most of this unit against `_src.obj`
+
+**Found in:** `02f320_replay_codec` (2026-08-28)
+
+This unit is a bit/byte-stream codec (LZ-style compressor with an adaptive
+code table, likely lzhuf-family) working on `Sint16` counters. SHC's asm
+output habitually re-sign-extends a 16-bit value with `EXTS.W` right after
+loading/storing it via `MOV.W` (which already sign-extends into the 32-bit
+register on real SH4) -- e.g. `FUN_8c02f3a0` (`GetBit`-shaped): decrement a
+`Sint16` counter, store it back, then `EXTS.W`+`CMP/PZ` to branch on its
+sign. `sh4objtest` does not implement `EXTS.W` (documented limitation), so
+any test that calls a function whose asm executes one crashes with `Unknown
+instruction 633f` -- and this happens on the **archived original** `_src.obj`,
+which cannot be changed, not on anything the C side does. There is no way to
+route around it by picking different test inputs; the instruction executes
+unconditionally on every call.
+
+Confirmed only `ReplayCodecInit_8c02f320` (no `Sint16` branches) is testable
+so far. Every other exported function in this unit reads a `Sint16` counter
+and branches on it in the same idiom, so this likely blocks dual-object
+testing for most of the unit until `sh4objtest` gains `EXTS.W` support.
+
+**Resolved:** `sh4objtest` v0.1.45 added `EXTS.W`. The rest of the unit
+decompiled normally against `_src.obj` afterward -- see the entry below for
+the one other instruction-coverage gap hit along the way.
+
+## `02f320_replay_codec`: confirms the lzhuf/LZW hypothesis; `sh4objtest` gap on `MOV.W @Rm+,Rn`
+
+**Found in:** `02f320_replay_codec` (2026-08-29)
+
+Finishing this unit's remaining 15 functions confirmed the codec is
+**LZW** (not lzhuf): `extendDict_8c02f740`/`ReplayCodecPack_8c02f934`/
+`ReplayCodecUnpack_8c02fa14` build a growing (parent code, appended byte)
+dictionary via hash-chained buckets (`lzwFindChild_8c02f636` /
+`lzwInsertChild_8c02f668` / `lzwRemoveChild_8c02f6ac`), decode a code by
+walking `var_8c229bae` (parent-of) back to a literal byte, and once the
+fixed 4096-entry table fills, evict the least-recently-used code (tracked by
+a `listInsert_8c02f58a`/`swapNodes_8c02f556` recency list, move-to-front on
+reuse) -- classic LZW with LRU replacement, not an adaptive-Huffman tree.
+`readCode_8c02f892`/`writeCode_8c02f824` are the classic escalating-code-width
+primitives (9-bit codes growing as the table fills, an extra control bit
+picking literal-byte vs. dictionary-code).
+
+Separately: a straightforward C copy loop (`for (i...) dest[i] =
+srcWordArray[i];`, reading a `Sint16` scratch buffer and truncating to a
+byte) made SHC emit `MOV.W @Rm+,Rn` (word load, post-increment) --
+`sh4objtest` doesn't implement that addressing form and throws `Unknown
+instruction NNNN` (varies with the register-number bits in the opcode).
+Confirmed by dumping the compiled listing with `shc -code=asm` (`compile()`
+in `scripts/run_tests.sh` already does this into
+`build/output_test/<unit>_c.src`) and reading the disassembly around the
+crash address printed by `-v --disasm`. The *original* archived asm never
+uses this addressing mode anywhere in the unit -- circumstantial evidence
+it's cold/rare in real SHC-era output, not just untested in `sh4objtest`.
+Two different rewrites of the loop (plain indexed, split start-index) still
+produced the same word-post-increment codegen; only reading through an
+explicit `Uint8*` alias (byte loads only, already well-exercised elsewhere)
+avoided it. Prefer a byte-typed view for tight array-copy loops over a
+16-bit scratch buffer when only the low byte is ever meaningful.

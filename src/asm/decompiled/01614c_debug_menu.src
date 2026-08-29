@@ -43,8 +43,8 @@
           .IMPORT     _BupLoad_8c014bc6
           .IMPORT     _ObjectsRequestMessageAssets_8c02aa36
           .IMPORT     _var_8c1bb8d4
-          .IMPORT     _FUN_8c02f934
-          .IMPORT     _FUN_readDemo_8c02fa14
+          .IMPORT     _ReplayCodecPack_8c02f934
+          .IMPORT     _ReplayCodecUnpack_8c02fa14
           .IMPORT     _sdMidiStopAll
           .IMPORT     _pdVibMxStop
           .IMPORT     _syFree
@@ -56,7 +56,7 @@
           .IMPORT     __divlu
           .IMPORT     _buStat
           .IMPORT     _syMalloc
-          .IMPORT     _FUN_8c02f320
+          .IMPORT     _ReplayCodecInit_8c02f320
           .IMPORT     _ObjectsFreePedestrianGroups_8c0297da
           .IMPORT     _ObjectsFreeTrafficSignals_8c0288be
           .IMPORT     _BusStopFreeTaskGroup_8c02ca96
@@ -1287,8 +1287,8 @@ LP_GEN_65913:
           .DATA.L _var_demoBuffer_8c1bc828 ; H'8C016A80
           .DATA.L _var_demoBuf_8c1ba3c4 ; H'8C016A84
           .DATA.L _syMalloc ; H'8C016A88
-          .DATA.L _FUN_8c02f320 ; H'8C016A8C
-          .DATA.L _FUN_8c02f934 ; H'8C016A90
+          .DATA.L _ReplayCodecInit_8c02f320 ; H'8C016A8C
+          .DATA.L _ReplayCodecPack_8c02f934 ; H'8C016A90
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C016A94
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C016A98
           .DATA.L _var_seed_8c157a64 ; H'8C016A9C
@@ -1430,8 +1430,8 @@ LP_GEN_41084:
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C016BB8
           .DATA.L _var_seed_8c157a64 ; H'8C016BBC
           .DATA.L _var_demoBuffer_8c1bc828 ; H'8C016BC0
-          .DATA.L _FUN_8c02f320 ; H'8C016BC4
-          .DATA.L _FUN_readDemo_8c02fa14 ; H'8C016BC8
+          .DATA.L _ReplayCodecInit_8c02f320 ; H'8C016BC4
+          .DATA.L _ReplayCodecUnpack_8c02fa14 ; H'8C016BC8
           .DATA.L _syFree ; H'8C016BCC
           .DATA.L _BupUnmount_8c014c46 ; H'8C016BD0
           .DATA.L _TaskFree_8c014b66 ; H'8C016BD4
