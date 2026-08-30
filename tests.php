@@ -523,10 +523,10 @@ return [
         ],
         [
             "tests" => [
-                "tests/fadecmd/8c0222dc_FUN.php",
-                "tests/fadecmd/8c02239c_FUN.php",
-                "tests/fadecmd/8c0223ea_FadeCmdPushCall1.php",
-                "tests/fadecmd/8c022420_FadeCmdPushCall2.php",
+                "tests/0222dc_fadecmd/8c0222dc_FUN.php",
+                "tests/0222dc_fadecmd/8c02239c_FUN.php",
+                "tests/0222dc_fadecmd/8c0223ea_FadeCmdPushCall1.php",
+                "tests/0222dc_fadecmd/8c022420_FadeCmdPushCall2.php",
             ],
             "objects" => [
                 "build/output_test/0222dc_fadecmd_src.obj",
