@@ -673,11 +673,11 @@ void *FUN_8c02ec50(float x, float y, float z, void *outParam)
 }
 
 /* Scans var_tasks_8c1bac28 for a traffic entry (task state, other than
- * self's) whose field_0x410 equals value; falls back to the player bus's
- * own BusState.field_0x3a0 when no other task matches. Returns nonzero on
+ * self's) whose signalId_0x410 equals value; falls back to the player bus's
+ * own BusState.fallbackTaskMatchId_0x3a0 when no other task matches. Returns nonzero on
  * either match.
  *
- * BusState.field_0x3a0 is imported by the original asm as a standalone
+ * BusState.fallbackTaskMatchId_0x3a0 is imported by the original asm as a standalone
  * symbol (var_8c1bbd70), but that address is inside var_busState_8c1bb9d0 --
  * a linker coincidence, not a separate global. */
 int FUN_8c02f08a(Task *self, int value)
@@ -686,10 +686,10 @@ int FUN_8c02f08a(Task *self, int value)
 
     for (t = var_tasks_8c1bac28; t->action != NULL; t++) {
         if ((void *)t->action != (void *)-1 && t != self &&
-            ((TrafficEntry *)t->state)->field_0x410 == value) {
+            ((TrafficEntry *)t->state)->signalId_0x410 == value) {
             return 1;
         }
     }
 
-    return var_busState_8c1bb9d0.field_0x3a0 == value;
+    return var_busState_8c1bb9d0.fallbackTaskMatchId_0x3a0 == value;
 }

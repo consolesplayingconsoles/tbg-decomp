@@ -272,9 +272,9 @@ STATIC int keyConfigEditExit_8c01a4b4(void)
  * KEY CONFIGURE screen task. Rows 0-2 are controller-dependent settings, row 3 =
  * DEFAULT (reset), row 4 = RETURN. Confirming a row 0-2 switches state_0x18 to
  * (row + 2): state 2 = button-assignment edit (BT_CONTROLLER/BT_RACING pick from
- * PlayerProgress.field_0xc7[5..8], selected by the A/B variant in field_0xc5),
- * state 3 = ACCEL sensitivity (field_0xd0, from the right trigger), state 4 =
- * BRAKE sensitivity (field_0xd1, from the left trigger); state 6 = fade-out.
+ * PlayerProgress.controlAndDisplayFlags_0xc7[5..8], selected by the A/B variant in driveMode_0xc5),
+ * state 3 = ACCEL sensitivity (accelSensitivity_0xd0, from the right trigger), state 4 =
+ * BRAKE sensitivity (brakeSensitivity_0xd1, from the left trigger); state 6 = fade-out.
  */
 STATIC void keyConfigTask_8c01a50c(Task *task)
 {
@@ -323,17 +323,17 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 
         case 2: {
             if (!keyConfigEditExit_8c01a4b4()) {
-                if (var_progress_8c1ba1cc.field_0xc5 == 0) {
+                if (var_progress_8c1ba1cc.driveMode_0xc5 == 0) {
                     if (var_activeCtrlType_8c157a70 == BT_CONTROLLER) {
-                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.field_0xc7[5], 3);
+                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5], 3);
                     } else if (var_activeCtrlType_8c157a70 == BT_RACING) {
-                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.field_0xc7[7], 2);
+                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[7], 2);
                     }
                 } else {
                     if (var_activeCtrlType_8c157a70 == BT_CONTROLLER) {
-                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.field_0xc7[6], 3);
+                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6], 3);
                     } else if (var_activeCtrlType_8c157a70 == BT_RACING) {
-                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.field_0xc7[8], 3);
+                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8], 3);
                     }
                 }
             }
@@ -342,9 +342,9 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 
         case 3: {
             if (!keyConfigEditExit_8c01a4b4()) {
-                var_progress_8c1ba1cc.field_0xd0 = (char)var_peripherals_8c1ba35c[0].r;
-                if ((unsigned char)var_progress_8c1ba1cc.field_0xd0 > 0x80) {
-                    var_progress_8c1ba1cc.field_0xd0 = 0x80;
+                var_progress_8c1ba1cc.accelSensitivity_0xd0 = (char)var_peripherals_8c1ba35c[0].r;
+                if ((unsigned char)var_progress_8c1ba1cc.accelSensitivity_0xd0 > 0x80) {
+                    var_progress_8c1ba1cc.accelSensitivity_0xd0 = 0x80;
                 }
             }
             break;
@@ -352,9 +352,9 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 
         case 4: {
             if (!keyConfigEditExit_8c01a4b4()) {
-                var_progress_8c1ba1cc.field_0xd1 = (char)var_peripherals_8c1ba35c[0].l;
-                if ((unsigned char)var_progress_8c1ba1cc.field_0xd1 > 0x80) {
-                    var_progress_8c1ba1cc.field_0xd1 = 0x80;
+                var_progress_8c1ba1cc.brakeSensitivity_0xd1 = (char)var_peripherals_8c1ba35c[0].l;
+                if ((unsigned char)var_progress_8c1ba1cc.brakeSensitivity_0xd1 > 0x80) {
+                    var_progress_8c1ba1cc.brakeSensitivity_0xd1 = 0x80;
                 }
             }
             break;
@@ -377,17 +377,17 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
     if (m->state_0x18 == 2) {
         int idx = -1;
 
-        if (var_progress_8c1ba1cc.field_0xc5 == 0) {
+        if (var_progress_8c1ba1cc.driveMode_0xc5 == 0) {
             if (var_activeCtrlType_8c157a70 == BT_CONTROLLER) {
-                idx = var_progress_8c1ba1cc.field_0xc7[5] + 0x35;
+                idx = var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5] + 0x35;
             } else if (var_activeCtrlType_8c157a70 == BT_RACING) {
-                idx = var_progress_8c1ba1cc.field_0xc7[7] + 0x3b;
+                idx = var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[7] + 0x3b;
             }
         } else {
             if (var_activeCtrlType_8c157a70 == BT_CONTROLLER) {
-                idx = var_progress_8c1ba1cc.field_0xc7[6] + 0x38;
+                idx = var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6] + 0x38;
             } else if (var_activeCtrlType_8c157a70 == BT_RACING) {
-                idx = var_progress_8c1ba1cc.field_0xc7[8] + 0x3d;
+                idx = var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8] + 0x3d;
             }
         }
 
@@ -397,10 +397,10 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
     } else {
         float x;
 
-        x = drawSensitivityBar_8c01a42a(144.0f, var_progress_8c1ba1cc.field_0xd0);
+        x = drawSensitivityBar_8c01a42a(144.0f, var_progress_8c1ba1cc.accelSensitivity_0xd0);
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, (m->state_0x18 == 3) ? 0x44 : 0x43,
                                x - 10.0f, 124.0f, -5.0f);
-        x = drawSensitivityBar_8c01a42a(224.0f, var_progress_8c1ba1cc.field_0xd1);
+        x = drawSensitivityBar_8c01a42a(224.0f, var_progress_8c1ba1cc.brakeSensitivity_0xd1);
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, (m->state_0x18 == 4) ? 0x44 : 0x43,
                                x - 10.0f, 203.0f, -5.0f);
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x40, 0.0f, 0.0f, -5.0f);
@@ -542,7 +542,7 @@ STATIC void soundTestFieldDraw_8c01aaaa(float x, float y, int *digits, int count
  * AUDIO screen task. Rows 0-6 are settings, row 7 = DEFAULT (reset), row 8 = RETURN.
  * Confirming row N (N<7) enters edit state N+2:
  *   state 2       = SOUND mode (STEREO/MONO, var_soundMode_8c226070)
- *   state 3/4/5   = MUSIC/SFX/VOICE volume (field_0xd4/0xd5/0xd6, 0-10)
+ *   state 3/4/5   = MUSIC/SFX/VOICE volume (musicVolume_0xd4/sfxVolume_0xd5/voiceVolume_0xd6, 0-10)
  *   state 6/7/8   = MUSIC/SFX/VOICE sound-test digit fields
  * state 9 = fade-out, then hand back to the OPTION top menu (cursor on AUDIO = row 2).
  * The volume/sound-mode markers blink (drawn every other frame) while their row is
@@ -603,25 +603,25 @@ STATIC void audioTask_8c01ab08(Task *task)
         }
 
         case 3: {   /* MUSIC volume */
-            audioEditValue_8c01a8b6(&var_progress_8c1ba1cc.field_0xd4, 10);
+            audioEditValue_8c01a8b6(&var_progress_8c1ba1cc.musicVolume_0xd4, 10);
             if (press & PDD_DGT_TA) {
-                SndSetAdxVol_8c010972(var_progress_8c1ba1cc.field_0xd4, 0);
+                SndSetAdxVol_8c010972(var_progress_8c1ba1cc.musicVolume_0xd4, 0);
             }
             break;
         }
 
         case 4: {   /* SFX volume */
-            audioEditValue_8c01a8b6(&var_progress_8c1ba1cc.field_0xd5, 10);
+            audioEditValue_8c01a8b6(&var_progress_8c1ba1cc.sfxVolume_0xd5, 10);
             if (press & PDD_DGT_TA) {
-                SndSetMidiVolAndInitStruct_8c0109f4(var_progress_8c1ba1cc.field_0xd5);
+                SndSetMidiVolAndInitStruct_8c0109f4(var_progress_8c1ba1cc.sfxVolume_0xd5);
             }
             break;
         }
 
         case 5: {   /* VOICE volume */
-            audioEditValue_8c01a8b6(&var_progress_8c1ba1cc.field_0xd6, 10);
+            audioEditValue_8c01a8b6(&var_progress_8c1ba1cc.voiceVolume_0xd6, 10);
             if (press & PDD_DGT_TA) {
-                SndSetAdxVol_8c010972(var_progress_8c1ba1cc.field_0xd6, 1);
+                SndSetAdxVol_8c010972(var_progress_8c1ba1cc.voiceVolume_0xd6, 1);
             }
             break;
         }
@@ -680,15 +680,15 @@ STATIC void audioTask_8c01ab08(Task *task)
     }
     if (m->state_0x18 != 3 || (m->logo_timer_0x68++ & 1)) {
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
-                               (float)var_progress_8c1ba1cc.field_0xd4 * 20.0f + 400.0f, 110.0f, -4.0f);
+                               (float)var_progress_8c1ba1cc.musicVolume_0xd4 * 20.0f + 400.0f, 110.0f, -4.0f);
     }
     if (m->state_0x18 != 4 || (m->logo_timer_0x68++ & 1)) {
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
-                               (float)var_progress_8c1ba1cc.field_0xd5 * 20.0f + 400.0f, 146.0f, -4.0f);
+                               (float)var_progress_8c1ba1cc.sfxVolume_0xd5 * 20.0f + 400.0f, 146.0f, -4.0f);
     }
     if (m->state_0x18 != 5 || (m->logo_timer_0x68++ & 1)) {
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
-                               (float)var_progress_8c1ba1cc.field_0xd6 * 20.0f + 400.0f, 182.0f, -4.0f);
+                               (float)var_progress_8c1ba1cc.voiceVolume_0xd6 * 20.0f + 400.0f, 182.0f, -4.0f);
     }
 
     soundTestFieldDraw_8c01aaaa(441.0f, 225.0f, var_8c226078, 2);

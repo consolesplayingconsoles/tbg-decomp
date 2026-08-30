@@ -75,8 +75,8 @@ return new class extends TestCase {
         $this->initUint32($entry + 0x2a0, fdec(0.5)); // dirZ
         $this->initUint32($entry + 0xf4, fdec(10.0)); // posX
         $this->initUint32($entry + 0xfc, fdec(0.0));  // posZ
-        $this->initUint32($entry + 0x100, fdec(12.0)); // field_0x100
-        $this->initUint32($entry + 0x108, fdec(0.0));  // field_0x108
+        $this->initUint32($entry + 0x100, fdec(12.0)); // frontPointX_0x100
+        $this->initUint32($entry + 0x108, fdec(0.0));  // frontPointZ_0x108
 
         $this->call('_TrafficDriveVehicle_8c025b98')->with($task, $entry);
 
@@ -98,7 +98,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($entry + 0x284, 0.0);
         $this->shouldWriteFloat($entry + 0x288, 0.0);
         $this->shouldWriteFloat($entry + 0x28c, 0.0); // slot 3 re-stored unchanged
-        $this->shouldWriteLong($entry + 0x080, 0); // |= field_0x510 (0); speed != 0 so no |=1
+        $this->shouldWriteLong($entry + 0x080, 0); // |= extraLightFlags_0x510 (0); speed != 0 so no |=1
         $this->shouldWriteFloat($entry + 0x27c, f32(1.9));
 
         $this->shouldCall('_njSqrt')->with(f32(12.0 * 12.0 + 1.0 * 1.0))->andReturn(12.04);
@@ -140,7 +140,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($entry + 0x288, 0.0);
         $this->shouldWriteFloat($entry + 0x28c, 0.0); // slot 3 re-stored unchanged
         $this->shouldWriteLong($entry + 0x080, 1); // speed == 0 -> |= 1
-        $this->shouldWriteLong($entry + 0x080, 1); // |= field_0x510 (0), unchanged
+        $this->shouldWriteLong($entry + 0x080, 1); // |= extraLightFlags_0x510 (0), unchanged
         $this->shouldWriteFloat($entry + 0x27c, 0.0);
 
         $this->shouldCall('_njSqrt')->andReturn(10.0);
@@ -240,7 +240,7 @@ return new class extends TestCase {
         // speed(1.0) == laneLimit(1.0): path advance/script run.
         $this->shouldWriteFloat($entry + 0x2bc, 1.0); // pathDistance += speed
         $this->shouldWriteFloat($entry + 0x2c0, 1.0); // pathDistanceCopy += speed
-        $this->shouldWriteFloat($entry + 0x4ec, -1.0); // field_0x4ec -= speed
+        $this->shouldWriteFloat($entry + 0x4ec, -1.0); // lookaheadCacheLen_0x4ec -= speed
 
         $this->shouldCall('_TrafficAdvanceOnPath_8c026ca2')->andReturn(0);
         $this->shouldCall('_TrafficRunEntryScript_8c027012')->with($entry)->andReturn(0);
@@ -271,7 +271,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($entry + 0x288, 0.0);
         $this->shouldWriteFloat($entry + 0x28c, 0.0); // slot 3 re-stored unchanged
         $this->shouldWriteLong($entry + 0x080, 1); // speed == 0 -> |= 1
-        $this->shouldWriteLong($entry + 0x080, 1); // |= field_0x510 (0), unchanged
+        $this->shouldWriteLong($entry + 0x080, 1); // |= extraLightFlags_0x510 (0), unchanged
         $this->shouldWriteFloat($entry + 0x27c, 0.0);
 
         $this->shouldCall('_njSqrt')->andReturn(0.0);

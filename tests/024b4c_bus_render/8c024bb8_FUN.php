@@ -9,7 +9,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * third-person bus model with its door/etc shape motion. altLight only
  * selects the light direction (non-NULL -> var_8c227dc4, NULL ->
  * var_busSimpleLightDir_8c227db8). The drawn object is always
- * busState.field_0x00c; only the animation frame depends on the special
+ * busState.modelLarge_0x00c; only the animation frame depends on the special
  * bus substate (bus_substate_0x3c0 != 0 -> var_8c227db0, else frame 0).
  */
 return new class extends TestCase {

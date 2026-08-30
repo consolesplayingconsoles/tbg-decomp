@@ -28,22 +28,22 @@ void VehicleModelPlace_8c020594(NJS_MATRIX *matrix, BusState *bus)
     Float sinT = dy / dist;
     Float angle;
 
-    bus->field_0x270 = cosT;
-    bus->field_0x26c = sinT;
+    bus->pitchCos_0x270 = cosT;
+    bus->pitchSin_0x26c = sinT;
 
-    m[0] = bus->field_0x278;
+    m[0] = bus->headingDirZ_0x278;
     m[1] = 0.0f;
-    m[2] = -bus->field_0x274;
+    m[2] = -bus->headingDirX_0x274;
     m[3] = 0.0f;
 
-    m[4] = -(bus->field_0x274 * sinT);
+    m[4] = -(bus->headingDirX_0x274 * sinT);
     m[5] = cosT;
-    m[6] = -(bus->field_0x278 * sinT);
+    m[6] = -(bus->headingDirZ_0x278 * sinT);
     m[7] = 0.0f;
 
-    m[8] = bus->field_0x274 * cosT;
+    m[8] = bus->headingDirX_0x274 * cosT;
     m[9] = sinT;
-    m[10] = bus->field_0x278 * cosT;
+    m[10] = bus->headingDirZ_0x278 * cosT;
     m[11] = 0.0f;
 
     angle = atan2f(bus->posHistory_0x100[3].y - bus->posHistory_0x100[2].y,

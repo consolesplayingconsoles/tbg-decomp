@@ -17,7 +17,7 @@ if (!function_exists('fdec')) {
  * frame. First eases var_8c227df0 between var_8c227dd8 and a target via a
  * quarter-sine ramp over var_8c227df8, driven by a state machine on
  * var_8c227da4 (0..3) gated by a scripted cue nibble in
- * busState.field_0x3b8's bits 24-27. The Y button cycles the camera mode
+ * busState.markAudioCue_0x3b8's bits 24-27. The Y button cycles the camera mode
  * var_8c227d9c (0..3) when allowed. Then positions/aims the camera per
  * var_8c227d9c (0=fixed follow, 1=bump/sway follow, 2/3=smooth chase via
  * positionCamera_8c024d6c, 4=fixed on var_8c227d90; modes 0/1 also
@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->initUint32($address, fdec($value));
     }
 
-    /** Sets busState.field_0x3b8's cue nibble to a raw masked value (e.g. 0x09000000 or 0x05000000). */
+    /** Sets busState.markAudioCue_0x3b8's cue nibble to a raw masked value (e.g. 0x09000000 or 0x05000000). */
     private function setCue(int $base, int $maskedCue): void
     {
         // Only bits 24-27 are read (masked with 0x0F000000); other bits are
@@ -343,7 +343,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0x0f8, 6.0);
         $this->initFloat($base + 0x0fc, 7.0);
         $this->initUint32($base + 0x258, 0); // target = 0
-        $this->initUint32($base + 0x3c8, 0); // field_0x3c8 = 0, in-range target: no clamp step
+        $this->initUint32($base + 0x3c8, 0); // cameraYawEase_0x3c8 = 0, in-range target: no clamp step
         $this->initFloat($base + 0x11c, 0.0); // posHistory[2].y
         $this->initFloat($base + 0x128, 0.0); // posHistory[3].y
 

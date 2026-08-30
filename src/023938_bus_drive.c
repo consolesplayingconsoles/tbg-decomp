@@ -17,7 +17,7 @@
  * ====================
  */
 
-/* var_busState_8c1bb9d0.field_0x2c8's real signature: set by 023310_bus_init
+/* var_busState_8c1bb9d0.groundProbeFn_0x2c8's real signature: set by 023310_bus_init
  * to GroundQueryFindPolygon_8c020914 or one of the GroundProbe* variants
  * (020b6c_ground_probe.h), all sharing this shape. */
 typedef void (*GroundQueryFn)(float x, float y, float z, GroundQueryResult *out);
@@ -28,12 +28,12 @@ typedef void (*GroundQueryFn)(float x, float y, float z, GroundQueryResult *out)
  */
 
 /* Resets the bus's drivetrain to idle: clears the collision-reset latch
- * (field_0x2e4), zeroes gear_0x2f4 unless it's already in reverse (5), and
+ * (needleCurrentValue_0x2e4), zeroes gear_0x2f4 unless it's already in reverse (5), and
  * marks bus_state_0x2b4 == 2. Called both by handleBump_8c02b6d4 (02b464)
  * after a collision knockback and internally after a braking-sound update. */
 void BusDriveStop_8c023bce(void)
 {
-    var_busState_8c1bb9d0.field_0x2e4 = 0;
+    var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = 0;
     if (var_busState_8c1bb9d0.gear_0x2f4 != 5) {
         var_busState_8c1bb9d0.gear_0x2f4 = 0;
     }
@@ -81,12 +81,12 @@ void FUN_8c023cba(void)
     if (gs[6].attr_0x00 == 0 || gs[7].attr_0x00 == 0) {
         /* Neither of this frame's forward-lookahead probes hit a polygon --
          * bail out to the braking path and just mirror the last-known
-         * heading vector (field_0x230/0x238) into the steering fields. */
+         * heading vector (headingX_0x230/0x238) into the steering fields. */
         busDriveDecelerate_8c023bea();
-        var_busState_8c1bb9d0.dir_x2_0x2ac = var_busState_8c1bb9d0.field_0x230;
-        var_busState_8c1bb9d0.dir_x_0x29c = var_busState_8c1bb9d0.field_0x230;
-        var_busState_8c1bb9d0.dir_z2_0x2b0 = var_busState_8c1bb9d0.field_0x238;
-        var_busState_8c1bb9d0.dir_z_0x2a0 = var_busState_8c1bb9d0.field_0x238;
+        var_busState_8c1bb9d0.dir_x2_0x2ac = var_busState_8c1bb9d0.headingX_0x230;
+        var_busState_8c1bb9d0.dir_x_0x29c = var_busState_8c1bb9d0.headingX_0x230;
+        var_busState_8c1bb9d0.dir_z2_0x2b0 = var_busState_8c1bb9d0.headingZ_0x238;
+        var_busState_8c1bb9d0.dir_z_0x2a0 = var_busState_8c1bb9d0.headingZ_0x238;
     } else {
         float sign = 1.0f;
         int useDivide = 0;
@@ -141,15 +141,15 @@ void FUN_8c023cba(void)
 
 /* Computes 10 corner/lookahead ground-sample points around the bus from its
  * heading (posHistory_0x100[0] vs posX_0x0f4/posZ_0x0fc) and queries each
- * through the ground-query callback in field_0x2c8 (GroundQueryFindPolygon_
+ * through the ground-query callback in groundProbeFn_0x2c8 (GroundQueryFindPolygon_
  * 8c020914 or a GroundProbe* variant, all sharing the same (x,y,z,out)
  * signature), filling groundSamples_0x190. Also seeds posHistory_0x100[0]/[1]
- * (no probe for those two) and the heading unit vector field_0x274/0x278.
+ * (no probe for those two) and the heading unit vector headingDirX_0x274/0x278.
  * Called by busInitPlaceBus_8c023310/BusInitStart_8c023610 (023310_bus_init) and
  * BusTask_8c022bdc (022bdc). */
 void FUN_8c023938(void)
 {
-    GroundQueryFn query = (GroundQueryFn)var_busState_8c1bb9d0.field_0x2c8;
+    GroundQueryFn query = (GroundQueryFn)var_busState_8c1bb9d0.groundProbeFn_0x2c8;
     NJS_POINT3 *hist = var_busState_8c1bb9d0.posHistory_0x100;
     GroundQueryResult *gs = var_busState_8c1bb9d0.groundSamples_0x190;
     float origX = var_busState_8c1bb9d0.posX_0x0f4;
@@ -162,15 +162,15 @@ void FUN_8c023938(void)
     float lat, lon;
     float baseX, baseZ;
 
-    /* Write order matters here (Ghidra reorders these): field_0x274/0x278
-     * land before field_0x230/0x238 in the real asm. */
-    var_busState_8c1bb9d0.field_0x274 = ndx;
-    var_busState_8c1bb9d0.field_0x278 = ndz;
-    var_busState_8c1bb9d0.field_0x230 = ndx * 4.9f;
-    var_busState_8c1bb9d0.field_0x238 = ndz * 4.9f;
+    /* Write order matters here (Ghidra reorders these): headingDirX_0x274/0x278
+     * land before headingX_0x230/0x238 in the real asm. */
+    var_busState_8c1bb9d0.headingDirX_0x274 = ndx;
+    var_busState_8c1bb9d0.headingDirZ_0x278 = ndz;
+    var_busState_8c1bb9d0.headingX_0x230 = ndx * 4.9f;
+    var_busState_8c1bb9d0.headingZ_0x238 = ndz * 4.9f;
 
-    hist[0].x = origX + var_busState_8c1bb9d0.field_0x230;
-    hist[0].z = origZ + var_busState_8c1bb9d0.field_0x238;
+    hist[0].x = origX + var_busState_8c1bb9d0.headingX_0x230;
+    hist[0].z = origZ + var_busState_8c1bb9d0.headingZ_0x238;
     hist[1].x = origX + ndx * 8.0f;
     hist[1].z = origZ + ndz * 8.0f;
 
@@ -246,33 +246,33 @@ void FUN_8c023e7e(void)
     float side;
     int found;
 
-    if (var_busState_8c1bb9d0.field_0x334 != 0) {
-        if (var_busState_8c1bb9d0.field_0x2c4 == 2.0f) {
-            var_busState_8c1bb9d0.field_0x25c = 0;
+    if (var_busState_8c1bb9d0.crossingSearchDone_0x334 != 0) {
+        if (var_busState_8c1bb9d0.laneOffset_0x2c4 == 2.0f) {
+            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
             var_busState_8c1bb9d0.mirror_0x268 = 0;
-            var_busState_8c1bb9d0.field_0x334 = 0;
+            var_busState_8c1bb9d0.crossingSearchDone_0x334 = 0;
         }
         return;
     }
 
-    if (var_busState_8c1bb9d0.field_0x338 == 2) {
+    if (var_busState_8c1bb9d0.crossingSearchSide_0x338 == 2) {
         return;
     }
 
-    if (var_busState_8c1bb9d0.field_0x338 == 0) {
-        idx = nodes[var_busState_8c1bb9d0.field_0x33c].fwdNext_0x00;
+    if (var_busState_8c1bb9d0.crossingSearchSide_0x338 == 0) {
+        idx = nodes[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c].fwdNext_0x00;
     } else {
-        /* field_0x338 only ever holds 0, 1 or 2 (024280.c) and 2 already
+        /* crossingSearchSide_0x338 only ever holds 0, 1 or 2 (024280.c) and 2 already
          * returned above, so this covers 1 -- the original leaves the
          * register unset for any other value. */
-        idx = nodes[var_busState_8c1bb9d0.field_0x33c].backNext_0x02;
+        idx = nodes[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c].backNext_0x02;
     }
 
     if (idx != 0xffff) {
         seg = segs[idx].points_0x00;
         remaining = var_busState_8c1bb9d0.speed_0x27c * 128.0f
-                  + segs[idx].length_0x04 * var_busState_8c1bb9d0.field_0x2c0
-                  / segs[var_busState_8c1bb9d0.field_0x33c].length_0x04;
+                  + segs[idx].length_0x04 * var_busState_8c1bb9d0.lineSegmentProgress_0x2c0
+                  / segs[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c].length_0x04;
 
         segEnd = seg;
         traveled = remaining;
@@ -282,7 +282,7 @@ void FUN_8c023e7e(void)
             if (segEnd->len_0x00 == 0.0f) {
                 idx = nodes[idx].fallbackNext_0x0a;
                 if (idx == 0xffff) {
-                    var_busState_8c1bb9d0.field_0x338 = 2;
+                    var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
                     return;
                 }
                 segEnd = segs[idx].points_0x00;
@@ -294,31 +294,31 @@ void FUN_8c023e7e(void)
         cand[1] = remaining * segEnd->dz_0x10 + segEnd->z_0x08;
 
         side = FUN_8c0207fa((Struct8c0207d4 *)&var_busState_8c1bb9d0.posX_0x0f4,
-                             (Struct8c0207d4 *)&var_busState_8c1bb9d0.field_0x0ec,
+                             (Struct8c0207d4 *)&var_busState_8c1bb9d0.laneTargetX_0x0ec,
                              (Struct8c0207d4 *)cand);
 
-        if (var_busState_8c1bb9d0.field_0x338 == 0) {
+        if (var_busState_8c1bb9d0.crossingSearchSide_0x338 == 0) {
             if (side > 0.0f) {
-                var_busState_8c1bb9d0.field_0x338 = 2;
+                var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
                 return;
             }
-        } else if (var_busState_8c1bb9d0.field_0x338 == 1 && side < 0.0f) {
-            var_busState_8c1bb9d0.field_0x338 = 2;
+        } else if (var_busState_8c1bb9d0.crossingSearchSide_0x338 == 1 && side < 0.0f) {
+            var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
             return;
         }
 
         found = 0;
         while (!found) {
             if (seg == segEnd) {
-                var_busState_8c1bb9d0.field_0x0ec = cand[0];
-                var_busState_8c1bb9d0.field_0x0f0 = cand[1];
-                var_busState_8c1bb9d0.field_0x2c4 =
+                var_busState_8c1bb9d0.laneTargetX_0x0ec = cand[0];
+                var_busState_8c1bb9d0.laneTargetZ_0x0f0 = cand[1];
+                var_busState_8c1bb9d0.laneOffset_0x2c4 =
                     GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, cand);
-                var_busState_8c1bb9d0.field_0x334 = 1;
-                var_busState_8c1bb9d0.field_0x33c = idx;
-                var_busState_8c1bb9d0.field_0x2bc = remaining;
-                var_busState_8c1bb9d0.field_0x2c0 = traveled;
-                var_busState_8c1bb9d0.field_0x2b8 = (int)segEnd;
+                var_busState_8c1bb9d0.crossingSearchDone_0x334 = 1;
+                var_busState_8c1bb9d0.currentLineNodeIdx_0x33c = idx;
+                var_busState_8c1bb9d0.lineSegmentRemaining_0x2bc = remaining;
+                var_busState_8c1bb9d0.lineSegmentProgress_0x2c0 = traveled;
+                var_busState_8c1bb9d0.currentLinePointPtr_0x2b8 = (int)segEnd;
                 return;
             }
 
@@ -345,5 +345,5 @@ void FUN_8c023e7e(void)
         sdMidiPlay((SDMIDI)(int)&var_midiHandles_8c0fcd28[0], 1, 2, 0);
     }
 
-    var_busState_8c1bb9d0.field_0x338 = 2;
+    var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
 }

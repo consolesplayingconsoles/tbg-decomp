@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // TrafficPathScanTypeInGroup_8c02f28a(typeCode): if var_8c228b44 isn't cached (-1), scans
-// var_tasks_8c1bac28 for the first live task whose entry has field_0x50c
+// var_tasks_8c1bac28 for the first live task whose entry has atGroundJunction_0x50c
 // != 0, then walks the -1-separated id groups of var_8c228b40 to find the
-// group containing that entry's field_0x450 marker, caching its start in
+// group containing that entry's signalWaitFrameId_0x450 marker, caching its start in
 // var_8c228b44. Either way, returns 1 if typeCode appears (before a -1
 // terminator) in that cached group, else 0.
 
@@ -33,7 +33,7 @@ return new class extends TestCase {
         return $task;
     }
 
-    // entry with field_0x450 (marker) and field_0x50c (active flag)
+    // entry with signalWaitFrameId_0x450 (marker) and atGroundJunction_0x50c (active flag)
     private function makeEntry(int $marker, int $active): int {
         $entry = $this->alloc(0x514);
         $this->initUint32($entry + 0x450, $marker);
@@ -74,7 +74,7 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    // Not cached, and no task has an active (field_0x50c != 0) entry: the
+    // Not cached, and no task has an active (atGroundJunction_0x50c != 0) entry: the
     // task scan hits the zero-action terminator and returns 0 immediately,
     // leaving var_8c228b44 untouched.
     public function test_uncached_noActiveTask_returnsZero(): void {

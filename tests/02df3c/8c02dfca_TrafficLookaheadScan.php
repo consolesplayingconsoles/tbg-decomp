@@ -6,11 +6,11 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // TrafficLookaheadScan_8c02dfca(self, entry, lookahead): tops
 // entry->lookaheadPoints_0x49c back up to 20.0 units ahead if it fell short
-// (entry->field_0x4ec < 20.0 -- same path-walk as TrafficLookaheadInit_8c02df3c,
+// (entry->lookaheadCacheLen_0x4ec < 20.0 -- same path-walk as TrafficLookaheadInit_8c02df3c,
 // but first shifting the still-valid tail of the old cache down to slot 0),
 // then scans the cache for a candidate within lookahead+5.0 units: the
 // player bus's own recent-history/current position (var_busState_8c1bb9d0),
-// or another live traffic entry's front-reference (field_0x10c/0x114) or
+// or another live traffic entry's front-reference (rearPointX_0x10c/rearPointZ_0x114) or
 // current (posX_0xf4/posZ_0xfc) position, via the shared
 // var_collideScanCursor_8c228974/var_tasks_8c1bac28 scan (self excluded).
 // Returns var_8c1bbd9c (player), the matched entry, or NULL.
@@ -172,7 +172,7 @@ return new class extends TestCase {
         $this->shouldReturn($candidateEntry);
     }
 
-    // Refill needed (field_0x4ec == 0.0) and the path cursor is already the
+    // Refill needed (lookaheadCacheLen_0x4ec == 0.0) and the path cursor is already the
     // -1 "exhausted" sentinel: the shift loop is a no-op (nothing cached
     // yet), the refill's own inner loop ends immediately without writing
     // anything (only a register-local bump, no memory store -- matches
@@ -194,7 +194,7 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    // Refill needed: field_0x4ec == 15.0 means 3 cached pairs already exist
+    // Refill needed: lookaheadCacheLen_0x4ec == 15.0 means 3 cached pairs already exist
     // (slots 0-2) plus a 9999.0 terminator at slot 3. The shift loop drops
     // slot 0 and copies slots 1-3 down to 0-2 (consuming the old
     // terminator into slot 2), then the walk appends exactly one fresh
@@ -234,13 +234,13 @@ return new class extends TestCase {
         $this->shouldWriteFloat($out + 0x14, 5.0);
 
         // append one fresh point (dist == 0.0 on the never-exhausted segment).
-        // field_0x4ec's running total stays a register the whole walk (unlike
+        // lookaheadCacheLen_0x4ec's running total stays a register the whole walk (unlike
         // TrafficLookaheadInit_8c02df3c's per-iteration store) -- it's only
         // written once, below, alongside the terminator/cursor/distance.
         $this->shouldWriteFloat($out + 0x18, 0.0);
         $this->shouldWriteFloat($out + 0x1c, 0.0);
 
-        // new terminator + cursor/distance/field_0x4ec
+        // new terminator + cursor/distance/lookaheadCacheLen_0x4ec
         $this->shouldWriteFloat($out + 0x20, 9999.0);
         $this->shouldWriteLong($entry + 0x4f4, $seg);
         $this->shouldWriteFloat($entry + 0x4fc, 5.0);

@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * showMark_8c01fa78(a, b): writes both args into var_8c2264a8 -- field_0x00 = a,
- * field_0x08 = b. field_0x04/0x0c untouched.
+ * showMark_8c01fa78(a, b): writes both args into var_8c2264a8 -- markSpriteId_0x00 = a,
+ * displayTimer_0x08 = b. turnSignalIconId_0x04/blinkCounter_0x0c untouched.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void

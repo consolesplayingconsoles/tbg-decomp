@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _DriveCueTask_8c020214(Task*, void*): ambient driving-cue task, see 020214.h. The
- * struct at var_8c2264b8 is aliased by var_8c2264bc (its own field_0x04,
+ * struct at var_8c2264b8 is aliased by var_8c2264bc (its own idleChimeTimer_0x04,
  * separately imported) -- both are rellocate()'d onto the same allocation.
  */
 return new class extends TestCase {
@@ -43,7 +43,7 @@ return new class extends TestCase {
         return $this->addressOf('_var_8c2264b8');
     }
 
-    /** Sets up the struct's fields (field_0x00 and field_0x08's dispatch
+    /** Sets up the struct's fields (idleChimeState_0x00 and stopAnnounceState_0x08's dispatch
      * values default to something inert so a test can focus on one switch). */
     private function initStruct(int $f00, int $f04, int $f08, int $f0c, int $f10, int $f14, int $f18): void
     {
@@ -98,19 +98,19 @@ return new class extends TestCase {
     }
 
     // ------------------------------------------------------------------
-    // field_0x00 == 0: idle/first-chime state.
+    // idleChimeState_0x00 == 0: idle/first-chime state.
     // ------------------------------------------------------------------
 
     /**
-     * field_0x18 != 0 -- dead in real gameplay (it's reset to 0 every call
+     * firstChimeArmed_0x18 != 0 -- dead in real gameplay (it's reset to 0 every call
      * below and never written anywhere else), but the branch is real code
      * that a test can still drive directly.
      */
-    public function test_state0_plays_first_chime_when_field_0x18_set(): void
+    public function test_state0_plays_first_chime_when_firstChimeArmed_0x18_set(): void
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initStruct(0, 0, 4 /* dead switch2 case */, 0, 0, 0, 1 /* field_0x18 != 0 */);
+        $this->initStruct(0, 0, 4 /* dead switch2 case */, 0, 0, 0, 1 /* firstChimeArmed_0x18 != 0 */);
 
         $task = $this->alloc(4);
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
@@ -123,7 +123,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
 
-        // var_8c227d9c stays 0 (< 2): field_0x14 gets reset to 0.
+        // var_8c227d9c stays 0 (< 2): nearStopChimeLatch_0x14 gets reset to 0.
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
 
@@ -205,7 +205,7 @@ return new class extends TestCase {
     }
 
     // ------------------------------------------------------------------
-    // field_0x00 == 1: periodic-chime cooldown.
+    // idleChimeState_0x00 == 1: periodic-chime cooldown.
     // ------------------------------------------------------------------
 
     public function test_state1_counts_down(): void
@@ -239,13 +239,13 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->struct() + 0x00, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
-        // field_0x14 was just reset to 0 above by this very case, and stays
+        // nearStopChimeLatch_0x14 was just reset to 0 above by this very case, and stays
         // 0 (var_8c227d9c still 0 by default).
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
 
     // ------------------------------------------------------------------
-    // field_0x08 == 0: stop-approach jingle, first chime.
+    // stopAnnounceState_0x08 == 0: stop-approach jingle, first chime.
     // ------------------------------------------------------------------
 
     public function test_switch2_state0_skips_when_latch_unset(): void
@@ -258,7 +258,7 @@ return new class extends TestCase {
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
-        // nearFlag took on field_0x0c's value (0) here, and var_8c227d9c<2
+        // nearFlag took on nearStopLatch_0x0c's value (0) here, and var_8c227d9c<2
         // resets it to 0 too either way.
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
@@ -280,7 +280,7 @@ return new class extends TestCase {
 
         // nearFlag = midiHandles[2] (0, the zeroed alloc) -- var_8c227d9c<2
         // resets it to 0 either way, so this doesn't distinguish the two,
-        // but confirms the field_0x14 write still happens.
+        // but confirms the nearStopChimeLatch_0x14 write still happens.
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
 
@@ -313,14 +313,14 @@ return new class extends TestCase {
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
-        // No sdMidiPlay/field_0x08 write -- inner block skipped. nearFlag
-        // stays field_0x0c's value (1), so var_8c227d9c<2 still forces the
+        // No sdMidiPlay/stopAnnounceState_0x08 write -- inner block skipped. nearFlag
+        // stays nearStopLatch_0x0c's value (1), so var_8c227d9c<2 still forces the
         // final flag to 0 for this test.
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
 
     // ------------------------------------------------------------------
-    // field_0x08 == 1: waiting for the stop-crossing SndProc cue.
+    // stopAnnounceState_0x08 == 1: waiting for the stop-crossing SndProc cue.
     // ------------------------------------------------------------------
 
     public function test_switch2_state1_practice_mode_ordinary_course(): void
@@ -364,7 +364,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1); // ROUTE_WANGAN
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 5); // same: reached
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // -> field_0x10=30
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // -> stopAnnounceTimer_0x10=30
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
@@ -462,7 +462,7 @@ return new class extends TestCase {
     }
 
     // ------------------------------------------------------------------
-    // field_0x08 == 2: waiting to advance to state 3.
+    // stopAnnounceState_0x08 == 2: waiting to advance to state 3.
     // ------------------------------------------------------------------
 
     public function test_switch2_state2_waits_for_timer(): void
@@ -496,7 +496,7 @@ return new class extends TestCase {
     }
 
     // ------------------------------------------------------------------
-    // field_0x08 == 3: no-op while the A-press latch (field_0x0c) is still
+    // stopAnnounceState_0x08 == 3: no-op while the A-press latch (nearStopLatch_0x0c) is still
     // set; restarts the jingle sequence once it's been reset elsewhere.
     // ------------------------------------------------------------------
 
@@ -504,13 +504,13 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initStruct(4, 0, 3, 1 /* field_0x0c set */, 0, 0, 0);
+        $this->initStruct(4, 0, 3, 1 /* nearStopLatch_0x0c set */, 0, 0, 0);
 
         $task = $this->alloc(4);
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
-        // field_0x08 stays 3 (no write). Marker chime gate forced to 0
+        // stopAnnounceState_0x08 stays 3 (no write). Marker chime gate forced to 0
         // (var_8c227d9c < 2).
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
@@ -519,7 +519,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initStruct(4, 0, 3, 0 /* field_0x0c unset */, 0, 0, 0);
+        $this->initStruct(4, 0, 3, 0 /* nearStopLatch_0x0c unset */, 0, 0, 0);
 
         $task = $this->alloc(4);
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
@@ -563,7 +563,7 @@ return new class extends TestCase {
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
-        // No sdMidiPlay -- field_0x14 already 1 and nearFlag matched, so
+        // No sdMidiPlay -- nearStopChimeLatch_0x14 already 1 and nearFlag matched, so
         // it's left alone (no re-write either way).
     }
 

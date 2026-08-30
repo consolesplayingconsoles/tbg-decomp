@@ -183,11 +183,11 @@ void FileMenuResetControlDefaults_8c018862(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuResetControlDefaults_8c018862\n"));
 
-    var_progress_8c1ba1cc.field_0xc4 = 1;
-    var_progress_8c1ba1cc.field_0xc5 = 0;
-    var_progress_8c1ba1cc.field_0xc6 = 2;
-    var_progress_8c1ba1cc.field_0xc7[0] = 0;
-    var_progress_8c1ba1cc.field_0xc7[1] = 0;
+    var_progress_8c1ba1cc.difficulty_0xc4 = 1;
+    var_progress_8c1ba1cc.driveMode_0xc5 = 0;
+    var_progress_8c1ba1cc.defaultView_0xc6 = 2;
+    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[0] = 0;
+    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] = 0;
 }
 
 /*
@@ -198,12 +198,12 @@ void FileMenuResetViewDefaults_8c0188bc(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuResetViewDefaults_8c0188bc\n"));
 
-    var_progress_8c1ba1cc.field_0xc7[5] = 0;
-    var_progress_8c1ba1cc.field_0xc7[6] = 0;
-    var_progress_8c1ba1cc.field_0xc7[7] = 0;
-    var_progress_8c1ba1cc.field_0xc7[8] = 0;
-    var_progress_8c1ba1cc.field_0xd0 = 0x10;
-    var_progress_8c1ba1cc.field_0xd1 = 0x10;
+    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5] = 0;
+    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6] = 0;
+    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[7] = 0;
+    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8] = 0;
+    var_progress_8c1ba1cc.accelSensitivity_0xd0 = 0x10;
+    var_progress_8c1ba1cc.brakeSensitivity_0xd1 = 0x10;
 }
 
 /*
@@ -218,9 +218,9 @@ void FileMenuResetSoundDefaults_8c0188dc(void)
     if (var_soundMode_8c226070 < 0) {
         var_soundMode_8c226070 = 0;
     }
-    var_progress_8c1ba1cc.field_0xd4 = 9;
-    var_progress_8c1ba1cc.field_0xd5 = 5;
-    var_progress_8c1ba1cc.field_0xd6 = 9;
+    var_progress_8c1ba1cc.musicVolume_0xd4 = 9;
+    var_progress_8c1ba1cc.sfxVolume_0xd5 = 5;
+    var_progress_8c1ba1cc.voiceVolume_0xd6 = 9;
 }
 
 /*
@@ -235,11 +235,11 @@ void FileMenuResetProgress_8c01890a(void)
 
     var_progress_8c1ba1cc.days_0x00 = 1;
     for (i = 0; i < 5; i++) {
-        var_progress_8c1ba1cc.field_0x04[i] = 0;
+        var_progress_8c1ba1cc.eventProgressFlags_0x04[i] = 0;
     }
     for (i = 0; i < 9; i++) {
         var_progress_8c1ba1cc.courses_0x44[i].unlocked_0x00 = 0;
-        var_progress_8c1ba1cc.courses_0x44[i].field_0x02 = 0;
+        var_progress_8c1ba1cc.courses_0x44[i].everPlayed_0x02 = 0;
         var_progress_8c1ba1cc.courses_0x44[i].storyAward_0x03 = 0;
     }
     var_progress_8c1ba1cc.courses_0x44[0].unlocked_0x00 = 1;
@@ -262,7 +262,7 @@ void FileMenuResetNewGame_8c01895e(void)
 
     FileMenuResetProgress_8c01890a();
     for (i = 0; i < 5; i++) {
-        var_progress_8c1ba1cc.field_0x18[i] = 0;
+        var_progress_8c1ba1cc.profileProgressFlags_0x18[i] = 0;
     }
     for (i = 0; i < 6; i++) {
         var_progress_8c1ba1cc.letters_0x2c[i] = 0;
@@ -273,10 +273,10 @@ void FileMenuResetNewGame_8c01895e(void)
     }
     var_progress_8c1ba1cc.courses_0x44[0].new_0x01 = 1;
     var_progress_8c1ba1cc.courses_0x44[6].new_0x01 = 1;
-    var_progress_8c1ba1cc.field_0x8c = 0;
+    var_progress_8c1ba1cc.profileUnlockedCount_0x8c = 0;
     var_progress_8c1ba1cc.field_0x94 = 0;
     for (i = 0; i < 11; i++) {
-        var_progress_8c1ba1cc.field_0x98[i] = 0;
+        var_progress_8c1ba1cc.practiceLessonBestScores_0x98[i] = 0;
     }
 }
 
@@ -295,9 +295,9 @@ void FileMenuApplySoundSettings_8c0189fc(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuApplySoundSettings_8c0189fc\n"));
 
-    SndSetAdxVol_8c010972(var_progress_8c1ba1cc.field_0xd4, 0);
-    SndSetMidiVolAndInitStruct_8c0109f4(var_progress_8c1ba1cc.field_0xd5);
-    SndSetAdxVol_8c010972(var_progress_8c1ba1cc.field_0xd6, 1);
+    SndSetAdxVol_8c010972(var_progress_8c1ba1cc.musicVolume_0xd4, 0);
+    SndSetMidiVolAndInitStruct_8c0109f4(var_progress_8c1ba1cc.sfxVolume_0xd5);
+    SndSetAdxVol_8c010972(var_progress_8c1ba1cc.voiceVolume_0xd6, 1);
 }
 
 /*
@@ -394,7 +394,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
         }
     }
 
-    drawNumber_8c018aa2(save->field_0x8c, x + 77.0, 244.0);
+    drawNumber_8c018aa2(save->profileUnlockedCount_0x8c, x + 77.0, 244.0);
     drawNumber_8c018aa2(save->exp_0x90, x + 77.0, 264.0);
 
     y = 279.0;

@@ -20,14 +20,14 @@ void *FUN_8c02e51c(float x, float y, float z, void *out);
 
 /* Height-filtered counterpart of FUN_8c02e51c, same (x, y, z, out) shape and
  * result layout; y drives the height filter here. Stored in
- * BusState.field_0x2cc (023310_bus_init) for the Wangan-route/segment-10
+ * BusState.junctionQueryFnCpu_0x2cc (023310_bus_init) for the Wangan-route/segment-10
  * special case, paired with FUN_8c02ec50. Also stored as a traffic entry's
  * junction-query callback by spawnEntry_8c0272b8 (026710_traffic.h) for the
  * elevated-road case (entry type code bit 0x4000 set). */
 void *FUN_8c02eab4(float x, float y, float z, void *out);
 
 /* Same (x, y, z, out) shape and result layout as FUN_8c02e51c; stored in
- * BusState.field_0x2d0 (023310_bus_init) as the normal-case lookup, paired
+ * BusState.junctionQueryFnRoute_0x2d0 (023310_bus_init) as the normal-case lookup, paired
  * with the AtHeight variant FUN_8c02ec50 for the Wangan-route/segment-10
  * special case. */
 void *FUN_8c02e69c(float x, float y, float z, void *out);
@@ -37,8 +37,8 @@ void *FUN_8c02e69c(float x, float y, float z, void *out);
 void *FUN_8c02ec50(float x, float y, float z, void *out);
 
 /* Scans var_tasks_8c1bac28 for a traffic entry (task state, other than
- * self's) whose field_0x410 equals value; falls back to the player bus's
- * own BusState.field_0x3a0 when no other task matches. Returns nonzero on
+ * self's) whose signalId_0x410 equals value; falls back to the player bus's
+ * own BusState.fallbackTaskMatchId_0x3a0 when no other task matches. Returns nonzero on
  * either match. Consumed by TrafficDriveVehicle_8c025b98 (025b98_traffic_drive). */
 int FUN_8c02f08a(Task *self, int value);
 

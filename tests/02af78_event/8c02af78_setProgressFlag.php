@@ -9,8 +9,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * bitsets of the progress struct at var_progress_8c1ba1cc+0x04 and +0x18.
  *
  *   word = index >> 5;   mask = 1 << (index & 0x1f);
- *   field_0x04[word] |= mask;
- *   field_0x18[word] |= mask;
+ *   eventProgressFlags_0x04[word] |= mask;
+ *   profileProgressFlags_0x18[word] |= mask;
  */
 return new class extends TestCase {
     const FIELD_0X04 = 0x04;

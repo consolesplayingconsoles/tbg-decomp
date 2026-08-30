@@ -417,7 +417,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         for ($i = 0; $i < 5; $i++) {
-            // field_0x04[i] = var_8c1ba2b8[i]; field_0x18[i] = var_8c1ba2cc[i].
+            // eventProgressFlags_0x04[i] = var_8c1ba2b8[i]; profileProgressFlags_0x18[i] = var_8c1ba2cc[i].
             $this->shouldWriteLong($prog + 0x04 + $i * 4, 0x100 + $i);
             $this->shouldWriteLong($prog + 0x18 + $i * 4, 0x200 + $i);
         }

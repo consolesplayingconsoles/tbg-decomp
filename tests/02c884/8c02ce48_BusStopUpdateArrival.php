@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
     }
 
-    // State 0, high byte of field_0x3b4 matches the upcoming stop segment --
+    // State 0, high byte of markCueByte_0x3b4 matches the upcoming stop segment --
     // arms the approach (state 2).
     public function test_state0_arms_approach(): void
     {
@@ -137,7 +137,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_8c1bc44c'), 0.0);
     }
 
-    // State 0, high byte of field_0x3b4 matches the previous stop segment --
+    // State 0, high byte of markCueByte_0x3b4 matches the previous stop segment --
     // arms the post-departure wait (state 1).
     public function test_state0_arms_wait(): void
     {
@@ -319,7 +319,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 0.0))[1]);
         $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
         $this->initUint32($this->addressOf('_var_stopMinDistance_8c2285ec'), unpack('L', pack('f', 50.0))[1]);
-        $busBase = $this->initBusState(0, 7, 5.0); // moving, field_0x3b4 low byte == nextStopSegment
+        $busBase = $this->initBusState(0, 7, 5.0); // moving, markCueByte_0x3b4 low byte == nextStopSegment
 
         $this->seedStopOffset(20.0, 0.0);
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();

@@ -6,8 +6,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _FUN_8c024f32(void): turn-blink state machine driven by var_8c227d9c.
- * 0 -> zeroes busState.field_0x3c8 and returns; 1/4 -> no-op; 2/3 -> scale
- * busState's spawn-stop direction (field_0x274/0x278, always read/scaled by
+ * 0 -> zeroes busState.cameraYawEase_0x3c8 and returns; 1/4 -> no-op; 2/3 -> scale
+ * busState's spawn-stop direction (headingDirX_0x274/0x278, always read/scaled by
  * 18.0/30.0) and accumulate into busState.posX_0x2fc/posZ_0x304; var_8c227df0
  * gets var_8c227de0 when var_8c227da4 != 0, else a fixed 5.0/18.0.
  */

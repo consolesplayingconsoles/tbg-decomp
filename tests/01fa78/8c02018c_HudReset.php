@@ -55,8 +55,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x10, 0);
         $this->shouldWriteLong($base + 0x14, -1); // var_8c226450
         $this->shouldWriteLong($base + 0x18, 0); // var_8c226454
-        $this->shouldWriteFloat($base + 0x20, 42.0); // var_8c226458.field_0x04
-        $this->shouldWriteFloat($base + 0x1c, 42.0); // var_8c226458.field_0x00
+        $this->shouldWriteFloat($base + 0x20, 42.0); // var_8c226458.lastSample_0x04
+        $this->shouldWriteFloat($base + 0x1c, 42.0); // var_8c226458.displayedValue_0x00
         $this->shouldWriteFloat($base + 0x28, 1.0); // var_8c226458.field_0x0c
         $this->shouldWriteFloat($base + 0x2c, 0.0); // var_engineRpm_8c226468
         $this->shouldWriteLong($base + 0x30, 0); // var_8c22646c

@@ -197,7 +197,7 @@ return new class extends TestCase {
         }
     }
 
-    // Normal play mode (0): falls to the {field_0x25c=0, mirror=3} arm.
+    // Normal play mode (0): falls to the {mirrorButtonState_0x25c=0, mirror=3} arm.
     // dx < 0 -> posHistory[0].x (stopX - dx*4.9) > stopX -> no negate.
     public function test_normal_play_mode(): void
     {
@@ -215,7 +215,7 @@ return new class extends TestCase {
     }
 
     // Practice mode (1) with the debug bit (0x8) clear: takes the
-    // {field_0x25c=2, mirror=2} arm. dx > 0 -> negate branch taken.
+    // {mirrorButtonState_0x25c=2, mirror=2} arm. dx > 0 -> negate branch taken.
     public function test_practice_mode_without_debug_bit(): void
     {
         $this->runAndAssert(
@@ -232,7 +232,7 @@ return new class extends TestCase {
     }
 
     // Practice mode (1) with the debug bit set: falls back to the
-    // {field_0x25c=0, mirror=3} arm, same as normal play.
+    // {mirrorButtonState_0x25c=0, mirror=3} arm, same as normal play.
     public function test_practice_mode_with_debug_bit(): void
     {
         $this->runAndAssert(

@@ -24,7 +24,7 @@ return new class extends TestCase {
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
-        $this->rellocate('_var_8c1bbd1c', $busState + 0x34c); // field_0x34c alias
+        $this->rellocate('_var_8c1bbd1c', $busState + 0x34c); // junctionARoadFlags_0x34c alias
         $this->rellocate('_var_8c1bbd54', $busState + 0x384); // field_0x384 alias
         $this->setSize('_var_8c228684', 4);
         $this->setSize('_var_8c22866c', 4);
@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($busPtr + 0x25c, 0);
         $this->shouldWriteLong($busPtr + 0x268, 0);
         $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4], hold-timer no-op reset
-        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], field_0x25c-unchanged counter
+        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], mirrorButtonState_0x25c-unchanged counter
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
@@ -138,7 +138,7 @@ return new class extends TestCase {
         $this->call('_FUN_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4], hold-timer no-op reset
-        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], field_0x25c-unchanged counter
+        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], mirrorButtonState_0x25c-unchanged counter
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 

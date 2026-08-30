@@ -47,8 +47,8 @@ void FUN_8c024b86(void)
 }
 
 /* Re-seats busState's camera draw position (posX_0x2fc/posZ_0x304), offsetting
- * it ahead of the bus along its heading (field_0x274/field_0x278) by a
- * turn-rate factor picked by var_8c227d9c: 0 just resets field_0x3c8 and
+ * it ahead of the bus along its heading (headingDirX_0x274/headingDirZ_0x278) by a
+ * turn-rate factor picked by var_8c227d9c: 0 just resets cameraYawEase_0x3c8 and
  * leaves the position untouched; 1 and 4 are no-ops; 2 and 3 offset it by
  * 18.0/30.0 (or var_8c227de0, once var_8c227da4 is set) and update
  * var_8c227df0 to match. */
@@ -59,19 +59,19 @@ void FUN_8c024f32(void)
 
     switch (var_8c227d9c) {
     case 0:
-        var_busState_8c1bb9d0.field_0x3c8 = 0;
+        var_busState_8c1bb9d0.cameraYawEase_0x3c8 = 0;
         return;
     case 1:
     case 4:
         return;
     case 2:
-        dx = var_busState_8c1bb9d0.field_0x274 * 18.0f;
-        dz = var_busState_8c1bb9d0.field_0x278 * 18.0f;
+        dx = var_busState_8c1bb9d0.headingDirX_0x274 * 18.0f;
+        dz = var_busState_8c1bb9d0.headingDirZ_0x278 * 18.0f;
         var_8c227df0 = (var_8c227da4 != 0) ? var_8c227de0 : 5.0f;
         break;
     case 3:
-        dx = var_busState_8c1bb9d0.field_0x274 * 30.0f;
-        dz = var_busState_8c1bb9d0.field_0x278 * 30.0f;
+        dx = var_busState_8c1bb9d0.headingDirX_0x274 * 30.0f;
+        dz = var_busState_8c1bb9d0.headingDirZ_0x278 * 30.0f;
         var_8c227df0 = (var_8c227da4 != 0) ? var_8c227de0 : 18.0f;
         break;
     }
@@ -83,7 +83,7 @@ void FUN_8c024f32(void)
 /* Lights, textures and draws the third-person bus model with its door/etc
  * shape motion. altLight selects the alternate light direction
  * (var_8c227dc4) when non-NULL, else the default (var_busSimpleLightDir) --
- * it is otherwise unused. The drawn object is always busState.field_0x00c;
+ * it is otherwise unused. The drawn object is always busState.modelLarge_0x00c;
  * only the animation frame depends on the special bus substate
  * (bus_substate_0x3c0 != 0 -> var_8c227db0, else frame 0). */
 void FUN_8c024bb8(void *altLight)
@@ -92,19 +92,19 @@ void FUN_8c024bb8(void *altLight)
     float frame = (var_busState_8c1bb9d0.bus_substate_0x3c0 != 0) ? var_8c227db0 : 0.0f;
 
     njCnkSetSimpleLight(dir[0], dir[1], dir[2]);
-    njCnkSetSimpleLightIntensity(var_busState_8c1bb9d0.field_0x0c4[0],
-                                  var_busState_8c1bb9d0.field_0x0c4[1]);
-    njCnkSetSimpleLightColor(var_busState_8c1bb9d0.field_0x0c4[2],
-                              var_busState_8c1bb9d0.field_0x0c4[3],
-                              var_busState_8c1bb9d0.field_0x0c4[4]);
+    njCnkSetSimpleLightIntensity(var_busState_8c1bb9d0.lightCoeffRow_0x0c4[0],
+                                  var_busState_8c1bb9d0.lightCoeffRow_0x0c4[1]);
+    njCnkSetSimpleLightColor(var_busState_8c1bb9d0.lightCoeffRow_0x0c4[2],
+                              var_busState_8c1bb9d0.lightCoeffRow_0x0c4[3],
+                              var_busState_8c1bb9d0.lightCoeffRow_0x0c4[4]);
     BusDrawUpdateModels_8c027958(&var_busState_8c1bb9d0);
-    njMultiMatrix(NULL, (NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084);
-    njSetTexture((NJS_TEXLIST *)var_busState_8c1bb9d0.field_0x004);
-    njCnkSimpleDrawShapeMotion((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.field_0x00c,
+    njMultiMatrix(NULL, &var_busState_8c1bb9d0.worldMatrix_0x084);
+    njSetTexture((NJS_TEXLIST *)var_busState_8c1bb9d0.texlistLarge_0x004);
+    njCnkSimpleDrawShapeMotion((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.modelLarge_0x00c,
                                 var_8c1bc410, var_8c1bc414, frame);
 
     njControl3D(NJD_CONTROL_3D_MODEL_CLIP | NJD_CONTROL_3D_SHADOW | NJD_CONTROL_3D_TRANS_MODIFIER);
-    njCnkModDrawObject((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.field_0x014);
+    njCnkModDrawObject((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.bodyModel_0x014);
     njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
 }
 
@@ -117,12 +117,12 @@ STATIC void drawFrontBusModel_8c024cc8(void)
     njCnkSetSimpleLight(var_busSimpleLightDir_8c227db8[0],
                          var_busSimpleLightDir_8c227db8[1],
                          var_busSimpleLightDir_8c227db8[2]);
-    njCnkSetSimpleLightIntensity(var_busState_8c1bb9d0.field_0x0c4[0],
-                                  var_busState_8c1bb9d0.field_0x0c4[1]);
-    njCnkSetSimpleLightColor(var_busState_8c1bb9d0.field_0x0c4[2],
-                              var_busState_8c1bb9d0.field_0x0c4[3],
-                              var_busState_8c1bb9d0.field_0x0c4[4]);
-    njMultiMatrix(NULL, (NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084);
+    njCnkSetSimpleLightIntensity(var_busState_8c1bb9d0.lightCoeffRow_0x0c4[0],
+                                  var_busState_8c1bb9d0.lightCoeffRow_0x0c4[1]);
+    njCnkSetSimpleLightColor(var_busState_8c1bb9d0.lightCoeffRow_0x0c4[2],
+                              var_busState_8c1bb9d0.lightCoeffRow_0x0c4[3],
+                              var_busState_8c1bb9d0.lightCoeffRow_0x0c4[4]);
+    njMultiMatrix(NULL, &var_busState_8c1bb9d0.worldMatrix_0x084);
     njSetTexture(var_frontTexlist_8c1bc430);
     njCnkSimpleDrawObject((NJS_CNK_OBJECT *)var_frontNj_8c1bc434);
 }
@@ -132,15 +132,15 @@ STATIC void drawFrontBusModel_8c024cc8(void)
  * First eases var_8c227df0 (a per-mode "turn rate"/zoom parameter) between
  * var_8c227dd8 and a target via a quarter-sine ramp over var_8c227df8,
  * driven by a state machine on var_8c227da4 (0..3) gated by a scripted cue
- * nibble in busState.field_0x3b8's bits 24-27: nonzero-and-not-9 starts the
+ * nibble in busState.markAudioCue_0x3b8's bits 24-27: nonzero-and-not-9 starts the
  * ramp toward a target angle encoded in that nibble (or a fixed 5.0/18.0
  * depending on var_8c227d9c), an exact 9 starts it back toward
  * var_8c227d9c's own 5.0/18.0 default. Y button cycles the camera mode
  * var_8c227d9c (0..3) when allowed.
  *
  * Then positions/aims the camera per var_8c227d9c: 0 = fixed follow behind
- * the bus (rotated by an eased yaw in busState.field_0x3c8), 1 = a
- * bump/sway follow using busState.field_0x274/0x278 and 0x26c/0x270,
+ * the bus (rotated by an eased yaw in busState.cameraYawEase_0x3c8), 1 = a
+ * bump/sway follow using busState.headingDirX_0x274/0x278 and 0x26c/0x270,
  * 2/3 = smooth chase via positionCamera_8c024d6c, 4 = fixed on
  * var_8c227d90. Modes 0/1 additionally roll the camera by the road's pitch
  * (from recent Y waypoint history). Finally activates the camera, recomputes
@@ -149,7 +149,7 @@ STATIC void drawFrontBusModel_8c024cc8(void)
  * model for modes 2/3, none otherwise). */
 void BusRenderUpdateCamera_8c025078(void)
 {
-    Sint32 cue = var_busState_8c1bb9d0.field_0x3b8 & 0x0F000000;
+    Sint32 cue = var_busState_8c1bb9d0.markAudioCue_0x3b8 & 0x0F000000;
     float turnFactor;
     Sint32 ang;
 
@@ -224,7 +224,7 @@ void BusRenderUpdateCamera_8c025078(void)
     case 0: {
         Sint32 target;
 
-        if (var_progress_8c1ba1cc.field_0xc7[1] != 0) {
+        if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] != 0) {
             ang = 0;
             turnFactor = 0.0f;
         }
@@ -235,35 +235,35 @@ void BusRenderUpdateCamera_8c025078(void)
             var_busState_8c1bb9d0.posY_0x0f8 + turnFactor + 2.0f;
 
         target = var_busState_8c1bb9d0.ang_0x258 / 3;
-        if (var_busState_8c1bb9d0.field_0x3c8 != 0 || target < -728 || target > 728) {
-            if (var_busState_8c1bb9d0.field_0x3c8 < target) {
-                var_busState_8c1bb9d0.field_0x3c8 += 60;
-                if (var_busState_8c1bb9d0.field_0x3c8 > target) {
-                    var_busState_8c1bb9d0.field_0x3c8 = target;
+        if (var_busState_8c1bb9d0.cameraYawEase_0x3c8 != 0 || target < -728 || target > 728) {
+            if (var_busState_8c1bb9d0.cameraYawEase_0x3c8 < target) {
+                var_busState_8c1bb9d0.cameraYawEase_0x3c8 += 60;
+                if (var_busState_8c1bb9d0.cameraYawEase_0x3c8 > target) {
+                    var_busState_8c1bb9d0.cameraYawEase_0x3c8 = target;
                 }
             } else {
-                var_busState_8c1bb9d0.field_0x3c8 -= 60;
-                if (var_busState_8c1bb9d0.field_0x3c8 < target) {
-                    var_busState_8c1bb9d0.field_0x3c8 = target;
+                var_busState_8c1bb9d0.cameraYawEase_0x3c8 -= 60;
+                if (var_busState_8c1bb9d0.cameraYawEase_0x3c8 < target) {
+                    var_busState_8c1bb9d0.cameraYawEase_0x3c8 = target;
                 }
             }
         }
 
-        njSetMatrix(&var_8c1bc46c, (NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084);
-        njRotateY(&var_8c1bc46c, var_busState_8c1bb9d0.field_0x3c8);
+        njSetMatrix(&var_8c1bc46c, &var_busState_8c1bb9d0.worldMatrix_0x084);
+        njRotateY(&var_8c1bc46c, var_busState_8c1bb9d0.cameraYawEase_0x3c8);
 
         var_groundQueryPoint_8c1bc460.x = 0.0f;
         var_groundQueryPoint_8c1bc460.y = 2.0f;
         var_groundQueryPoint_8c1bc460.z = -1.0f;
         njCalcPoint(&var_8c1bc46c, &var_groundQueryPoint_8c1bc460, &var_groundQueryPoint_8c1bc460);
 
-        var_busState_8c1bb9d0.field_0x308 =
+        var_busState_8c1bb9d0.moveDeltaX_0x308 =
             var_busState_8c1bb9d0.posX_0x0f4 - var_groundQueryPoint_8c1bc460.x;
-        var_busState_8c1bb9d0.field_0x30c =
+        var_busState_8c1bb9d0.moveDeltaY_0x30c =
             var_busState_8c1bb9d0.posY_0x0f8 - var_groundQueryPoint_8c1bc460.y;
-        var_busState_8c1bb9d0.field_0x310 =
+        var_busState_8c1bb9d0.moveDeltaZ_0x310 =
             var_busState_8c1bb9d0.posZ_0x0fc - var_groundQueryPoint_8c1bc460.z;
-        var_busState_8c1bb9d0.field_0x314 = 1.0f;
+        var_busState_8c1bb9d0.moveDeltaMagnitude_0x314 = 1.0f;
 
         njTranslateCameraPosition(&var_8c1bb904,
                                    var_busState_8c1bb9d0.posX_0x2fc,
@@ -277,20 +277,20 @@ void BusRenderUpdateCamera_8c025078(void)
         break;
     }
     case 1:
-        if (var_progress_8c1ba1cc.field_0xc7[1] != 0) {
+        if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] != 0) {
             ang = 0;
             turnFactor = 0.0f;
         }
 
-        var_busState_8c1bb9d0.field_0x308 = var_busState_8c1bb9d0.field_0x274 * 1.0f;
-        var_busState_8c1bb9d0.field_0x310 = var_busState_8c1bb9d0.field_0x278 * 1.0f;
-        var_busState_8c1bb9d0.field_0x314 = 2.0f;
+        var_busState_8c1bb9d0.moveDeltaX_0x308 = var_busState_8c1bb9d0.headingDirX_0x274 * 1.0f;
+        var_busState_8c1bb9d0.moveDeltaZ_0x310 = var_busState_8c1bb9d0.headingDirZ_0x278 * 1.0f;
+        var_busState_8c1bb9d0.moveDeltaMagnitude_0x314 = 2.0f;
         var_busState_8c1bb9d0.posX_0x2fc =
-            var_busState_8c1bb9d0.posX_0x0f4 + var_busState_8c1bb9d0.field_0x308;
+            var_busState_8c1bb9d0.posX_0x0f4 + var_busState_8c1bb9d0.moveDeltaX_0x308;
         var_busState_8c1bb9d0.posZ_0x304 =
-            var_busState_8c1bb9d0.posZ_0x0fc + var_busState_8c1bb9d0.field_0x310;
+            var_busState_8c1bb9d0.posZ_0x0fc + var_busState_8c1bb9d0.moveDeltaZ_0x310;
         var_busState_8c1bb9d0.posY_0x300 =
-            2.0f * (var_busState_8c1bb9d0.field_0x26c / var_busState_8c1bb9d0.field_0x270)
+            2.0f * (var_busState_8c1bb9d0.pitchSin_0x26c / var_busState_8c1bb9d0.pitchCos_0x270)
             + var_busState_8c1bb9d0.posY_0x0f8 + turnFactor + 2.0f;
 
         njTranslateCameraPosition(&var_8c1bb904,
@@ -310,9 +310,9 @@ void BusRenderUpdateCamera_8c025078(void)
         positionCamera_8c024d6c(30.0f, var_8c227df0, 2.0f);
         break;
     case 4:
-        var_busState_8c1bb9d0.field_0x308 =
+        var_busState_8c1bb9d0.moveDeltaX_0x308 =
             var_busState_8c1bb9d0.posX_0x2fc - var_8c227d90[0];
-        var_busState_8c1bb9d0.field_0x310 =
+        var_busState_8c1bb9d0.moveDeltaZ_0x310 =
             var_busState_8c1bb9d0.posZ_0x304 - var_8c227d90[2];
 
         njTranslateCameraPosition(&var_8c1bb904,
@@ -351,7 +351,7 @@ void BusRenderUpdateCamera_8c025078(void)
 /* Moves busState's draw position (posX_0x2fc/posY_0x300/posZ_0x304) dist
  * along the unit vector from the current position (posX_0x0f4/posZ_0x0fc)
  * toward it, dyOffset in Y; when the resulting bearing change from the
- * bus's stored heading (field_0x230/field_0x238) exceeds ~5 degrees, clamps
+ * bus's stored heading (headingX_0x230/headingZ_0x238) exceeds ~5 degrees, clamps
  * the turn rate and rotates the move by the clamped amount instead. Then
  * points the camera at the new position, with its interest aimed at the
  * unmoved position offset by interestDyOffset in Y. */
@@ -363,7 +363,7 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
     float dx, dz, travel, moveX, moveZ;
     Sint32 angleInt;
 
-    var_busState_8c1bb9d0.field_0x314 = dist;
+    var_busState_8c1bb9d0.moveDeltaMagnitude_0x314 = dist;
 
     dx = var_busState_8c1bb9d0.posX_0x2fc - posX0;
     dz = var_busState_8c1bb9d0.posZ_0x304 - posZ0;
@@ -376,8 +376,8 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
     moveX = var_busState_8c1bb9d0.posX_0x2fc - posX0;
     moveZ = var_busState_8c1bb9d0.posZ_0x304 - posZ0;
 
-    angleInt = (Sint32)(acosf((moveX * var_busState_8c1bb9d0.field_0x230
-                               + moveZ * var_busState_8c1bb9d0.field_0x238)
+    angleInt = (Sint32)(acosf((moveX * var_busState_8c1bb9d0.headingX_0x230
+                               + moveZ * var_busState_8c1bb9d0.headingZ_0x238)
                               / (dist * 4.9f))
                         * 65536.0f / TWO_PI);
 
@@ -400,8 +400,8 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
         }
 
         turnStep = angleInt - angleAfterTurn;
-        cross = moveZ * var_busState_8c1bb9d0.field_0x230
-              - moveX * var_busState_8c1bb9d0.field_0x238;
+        cross = moveZ * var_busState_8c1bb9d0.headingX_0x230
+              - moveX * var_busState_8c1bb9d0.headingZ_0x238;
         if (cross < 0.0f) {
             turnStep = -turnStep;
         }
@@ -411,13 +411,13 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
         njUnitMatrix(&var_8c1bc46c);
         njRotateY(&var_8c1bc46c, turnStep);
         njCalcPoint(&var_8c1bc46c, groundPt,
-                    (NJS_POINT3 *)&var_busState_8c1bb9d0.field_0x308);
+                    (NJS_POINT3 *)&var_busState_8c1bb9d0.moveDeltaX_0x308);
 
-        var_busState_8c1bb9d0.posX_0x2fc = posX0 + var_busState_8c1bb9d0.field_0x308;
-        var_busState_8c1bb9d0.posZ_0x304 = posZ0 + var_busState_8c1bb9d0.field_0x310;
+        var_busState_8c1bb9d0.posX_0x2fc = posX0 + var_busState_8c1bb9d0.moveDeltaX_0x308;
+        var_busState_8c1bb9d0.posZ_0x304 = posZ0 + var_busState_8c1bb9d0.moveDeltaZ_0x310;
     } else {
-        var_busState_8c1bb9d0.field_0x308 = moveX;
-        var_busState_8c1bb9d0.field_0x310 = moveZ;
+        var_busState_8c1bb9d0.moveDeltaX_0x308 = moveX;
+        var_busState_8c1bb9d0.moveDeltaZ_0x310 = moveZ;
     }
 
     njTranslateCameraPosition(&var_8c1bb904,
@@ -432,7 +432,7 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
 /* No-op unless busState.mirror_0x268 is nonzero. Otherwise picks a
  * local mirror-camera offset/interest by mirror_0x268 (1/2/3, else stale),
  * rotates the offset into world space by the bus's world matrix
- * (field_0x084), positions the separate mirror camera (var_8c1bb944)
+ * (worldMatrix_0x084), positions the separate mirror camera (var_8c1bb944)
  * there, points its interest at the same-rotated per-mode interest
  * vector, rolls it by recent Y waypoint history, activates it, and queues
  * FUN_8c024bb8 on fade layer 1 with the alt light direction
@@ -482,23 +482,23 @@ void BusRenderUpdateMirrorCamera_8c025604(void)
         break;
     }
 
-    var_busState_8c1bb9d0.field_0x318 = offsetX;
-    var_busState_8c1bb9d0.field_0x31c = offsetY;
-    var_busState_8c1bb9d0.field_0x320 = offsetZ;
+    var_busState_8c1bb9d0.mirrorWorldOffsetX_0x318 = offsetX;
+    var_busState_8c1bb9d0.mirrorWorldOffsetY_0x31c = offsetY;
+    var_busState_8c1bb9d0.mirrorWorldOffsetZ_0x320 = offsetZ;
 
     njSetCameraDepth(&var_8c1bb944, -1.0f, -50.0f);
 
     /* Both the offset and the interest point are rotated into world space
      * by the bus's world matrix. */
-    njCalcPoint((NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084,
-                (NJS_POINT3 *)&var_busState_8c1bb9d0.field_0x318,
-                (NJS_POINT3 *)&var_busState_8c1bb9d0.field_0x318);
-    njCalcPoint((NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084, &interest, &interest);
+    njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084,
+                (NJS_POINT3 *)&var_busState_8c1bb9d0.mirrorWorldOffsetX_0x318,
+                (NJS_POINT3 *)&var_busState_8c1bb9d0.mirrorWorldOffsetX_0x318);
+    njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084, &interest, &interest);
 
     njTranslateCameraPosition(&var_8c1bb944,
-                               var_busState_8c1bb9d0.field_0x318,
-                               var_busState_8c1bb9d0.field_0x31c,
-                               var_busState_8c1bb9d0.field_0x320);
+                               var_busState_8c1bb9d0.mirrorWorldOffsetX_0x318,
+                               var_busState_8c1bb9d0.mirrorWorldOffsetY_0x31c,
+                               var_busState_8c1bb9d0.mirrorWorldOffsetZ_0x320);
     njPointCameraInterest(&var_8c1bb944, interest.x, interest.y, interest.z);
 
     roll = atan2f(var_busState_8c1bb9d0.posHistory_0x100[3].y
@@ -506,11 +506,11 @@ void BusRenderUpdateMirrorCamera_8c025604(void)
                    2.33f);
     njRollCameraInterest(&var_8c1bb944, (Sint32)(roll * 65536.0f / TWO_PI));
 
-    dx = interest.x - var_busState_8c1bb9d0.field_0x318;
-    dz = interest.z - var_busState_8c1bb9d0.field_0x320;
-    var_busState_8c1bb9d0.field_0x324 = dx;
-    var_busState_8c1bb9d0.field_0x32c = dz;
-    var_busState_8c1bb9d0.field_0x330 = njSqrt(dx * dx + dz * dz);
+    dx = interest.x - var_busState_8c1bb9d0.mirrorWorldOffsetX_0x318;
+    dz = interest.z - var_busState_8c1bb9d0.mirrorWorldOffsetZ_0x320;
+    var_busState_8c1bb9d0.mirrorDirX_0x324 = dx;
+    var_busState_8c1bb9d0.mirrorDirZ_0x32c = dz;
+    var_busState_8c1bb9d0.mirrorDist_0x330 = njSqrt(dx * dx + dz * dz);
 
     njSetCamera(&var_8c1bb944);
 

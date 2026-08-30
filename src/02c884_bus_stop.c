@@ -299,10 +299,10 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
 
 /* Per-frame bus-stop arrival state machine, called once per frame by
  * 02b464_drive_points. States:
- * 0 = cruising -- watches var_busState_8c1bb9d0.field_0x3b4 for a
+ * 0 = cruising -- watches var_busState_8c1bb9d0.markCueByte_0x3b4 for a
  *     just-crossed segment (its high byte) matching the next or previous
  *     stop segment, arming state 2 (approach) or 1 (post-departure wait);
- * 1 = waits for field_0x3b4's low byte to clear, then re-arms cruising and
+ * 1 = waits for markCueByte_0x3b4's low byte to clear, then re-arms cruising and
  *     advances to the next stop segment;
  * 2 = approach -- tracks the running minimum straight-line distance from
  *     the bus (busState's posX_0x0f4/posZ_0x0fc) to the upcoming stop
@@ -311,7 +311,7 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
  *     once close enough and halted (var_8c1bbc4c == 0), or once the stop
  *     segment is reached outright (bus_state 4);
  * 3 = idle, waiting for something external to request the finish;
- * 4 = finishes the stop once field_0x3b0's top byte is set, installing the
+ * 4 = finishes the stop once markDriveFlags_0x3b0's top byte is set, installing the
  *     fade-complete callback and starting both ADX fade-outs. */
 void BusStopUpdateArrival_8c02ce48(void)
 {
@@ -320,8 +320,8 @@ void BusStopUpdateArrival_8c02ce48(void)
     float dx, dz;
 
     if (var_stopPhase_8c2285e4 == 0) {
-        if ((var_busState_8c1bb9d0.field_0x3b4 & 0xff00) != 0) {
-            crossedSegment = (var_busState_8c1bb9d0.field_0x3b4 & 0xff00) >> 8;
+        if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff00) != 0) {
+            crossedSegment = (var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff00) >> 8;
             if (crossedSegment == var_nextStopSegment_8c228710) {
                 var_stopPhase_8c2285e4 = 2;
                 var_stopMinDistance_8c2285ec = 9999.0f;
@@ -334,7 +334,7 @@ void BusStopUpdateArrival_8c02ce48(void)
             }
         }
     } else if (var_stopPhase_8c2285e4 == 1) {
-        if ((var_busState_8c1bb9d0.field_0x3b4 & 0xff) != 0) {
+        if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff) != 0) {
             var_stopPhase_8c2285e4 = 0;
             if (var_8c226450 != -1) {
                 var_8c228640 = 1;
@@ -360,14 +360,14 @@ void BusStopUpdateArrival_8c02ce48(void)
             var_stopPhase_8c2285e4 = 3;
             var_8c2285c4[0] = 3;
             var_8c2285e8 = 0;
-        } else if ((var_busState_8c1bb9d0.field_0x3b4 & 0xff) == var_nextStopSegment_8c228710) {
+        } else if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff) == var_nextStopSegment_8c228710) {
             var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
             var_stopPhase_8c2285e4 = 3;
             var_8c2285c4[0] = 3;
             var_8c2285e8 = 2;
         }
     } else if (var_stopPhase_8c2285e4 == 4) {
-        if ((var_busState_8c1bb9d0.field_0x3b0 & 0xff000000) != 0) {
+        if ((var_busState_8c1bb9d0.markDriveFlags_0x3b0 & 0xff000000) != 0) {
             var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
             var_stopPhase_8c2285e4 = 3;
             var_8c2285e8 = 0;

@@ -1250,10 +1250,10 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 DebugMenuFreeSessionAssets_8c016182();
 
                 // Step 2: Get course index and check if unlocked
-                if (var_progress_8c1ba1cc.courses_0x44[courseIndex].field_0x02 == 0) {
+                if (var_progress_8c1ba1cc.courses_0x44[courseIndex].everPlayed_0x02 == 0) {
                     // Course not unlocked, mark it
                     var_firstClearOfCourse_8c1bb8e0 = 1;
-                    var_progress_8c1ba1cc.courses_0x44[courseIndex].field_0x02 = 1;
+                    var_progress_8c1ba1cc.courses_0x44[courseIndex].everPlayed_0x02 = 1;
                 } else {
                     var_firstClearOfCourse_8c1bb8e0 = 0;
                 }
@@ -1267,8 +1267,8 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
 
                 // Step 4: Copy progress data to two arrays (5 uint32 values each)
                 for (i = 0; i < 5; i++) {
-                    var_8c1ba2b8[i] = ((int*)(&var_progress_8c1ba1cc.field_0x04))[i];
-                    var_8c1ba2cc[i] = ((int*)(&var_progress_8c1ba1cc.field_0x04))[i + 5];
+                    var_8c1ba2b8[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i];
+                    var_8c1ba2cc[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i + 5];
                 }
 
                 // Step 5: Update courseId_0x50 by adding day-based lookup value

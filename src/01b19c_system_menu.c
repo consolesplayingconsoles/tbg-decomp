@@ -69,9 +69,9 @@ STATIC void updateVmuIconText_8c01b206(void);
 /* Restore the runtime session values from a just-loaded save. */
 void SystemMenuApplyLoadedProgress_8c01b19c(void)
 {
-    var_8c1bb8b8 = var_progress_8c1ba1cc.field_0xd8;
-    var_8c1bb8bc = var_progress_8c1ba1cc.field_0xdc;
-    var_runSucceeded_8c1bb8dc = var_progress_8c1ba1cc.field_0xe0;
+    var_8c1bb8b8 = var_progress_8c1ba1cc.introDialogQueued_0xd8;
+    var_8c1bb8bc = var_progress_8c1ba1cc.introDialogPending_0xdc;
+    var_runSucceeded_8c1bb8dc = var_progress_8c1ba1cc.runSucceeded_0xe0;
     /* only the low byte is written; upper 3 bytes of the int slot are left alone */
     var_award_8c1bb8f8 = var_progress_8c1ba1cc.award_0xe4;
 }
@@ -118,12 +118,12 @@ void SystemMenuWriteToVmu_8c01b26c(void)
 {
     int size;
 
-    var_progress_8c1ba1cc.field_0xd8 = var_8c1bb8b8;
-    var_progress_8c1ba1cc.field_0xdc = var_8c1bb8bc;
-    var_progress_8c1ba1cc.field_0xe0 = var_runSucceeded_8c1bb8dc;
+    var_progress_8c1ba1cc.introDialogQueued_0xd8 = var_8c1bb8b8;
+    var_progress_8c1ba1cc.introDialogPending_0xdc = var_8c1bb8bc;
+    var_progress_8c1ba1cc.runSucceeded_0xe0 = var_runSucceeded_8c1bb8dc;
     var_progress_8c1ba1cc.award_0xe4 = var_award_8c1bb8f8;
     ProfileFileUpdateUnlocks_8c01c980();
-    var_progress_8c1ba1cc.field_0x8c = var_profileUnlockedCount_8c2263a4;
+    var_progress_8c1ba1cc.profileUnlockedCount_0x8c = var_profileUnlockedCount_8c2263a4;
     updateVmuIconText_8c01b206();
 
     memset(&var_8c1ba2e4, 0, 0x60);

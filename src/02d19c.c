@@ -445,7 +445,7 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
             }
 
             var_busState_8c1bb9d0.bus_state_0x2b4 = 1;
-            var_busState_8c1bb9d0.field_0x25c =
+            var_busState_8c1bb9d0.mirrorButtonState_0x25c =
                 (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE && var_route_8c18ad1c == ROUTE_OME &&
                  var_currentSegment_8c228708 == 0) ? 1 : 2;
 

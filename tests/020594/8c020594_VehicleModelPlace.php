@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // Builds a bus/traffic-entity placement matrix: a rotation basis from the
 // bus's field_0x23c width and the height delta between posY_0x0f8 and
-// posHistory_0x100[0].y (also stashing the cos/sin as field_0x270/0x26c
+// posHistory_0x100[0].y (also stashing the cos/sin as pitchCos_0x270/0x26c
 // for the camera bob elsewhere), a yaw from atan2f of two more history
 // points via njRotateZ, then the translation row from the bus's current
 // position.
@@ -42,8 +42,8 @@ return new class extends TestCase {
         $this->initFloat($bus + 0xf8, 10.0);  // posY_0x0f8
         $this->initFloat($bus + 0x104, 14.0); // posHistory_0x100[0].y
         $this->initFloat($bus + 0x23c, 3.0);  // field_0x23c (width)
-        $this->initFloat($bus + 0x278, 2.0);  // field_0x278
-        $this->initFloat($bus + 0x274, 1.0);  // field_0x274
+        $this->initFloat($bus + 0x278, 2.0);  // headingDirZ_0x278
+        $this->initFloat($bus + 0x274, 1.0);  // headingDirX_0x274
         $this->initFloat($bus + 0x11c, 1.0);  // posHistory_0x100[2].y
         $this->initFloat($bus + 0x128, 5.0);  // posHistory_0x100[3].y
         $this->initFloat($bus + 0x244, 2.0);  // field_0x244
@@ -61,19 +61,19 @@ return new class extends TestCase {
         $this->shouldWriteFloat($bus + 0x270, $cosT);
         $this->shouldWriteFloat($bus + 0x26c, $sinT);
 
-        $this->shouldWriteFloat($matrix + 0x00, 2.0);                    // field_0x278
+        $this->shouldWriteFloat($matrix + 0x00, 2.0);                    // headingDirZ_0x278
         $this->shouldWriteFloat($matrix + 0x04, 0.0);
-        $this->shouldWriteFloat($matrix + 0x08, -1.0);                   // -field_0x274
+        $this->shouldWriteFloat($matrix + 0x08, -1.0);                   // -headingDirX_0x274
         $this->shouldWriteFloat($matrix + 0x0c, 0.0);
 
-        $this->shouldWriteFloat($matrix + 0x10, -$this->f32(1.0 * $sinT)); // -(field_0x274*sinT)
+        $this->shouldWriteFloat($matrix + 0x10, -$this->f32(1.0 * $sinT)); // -(headingDirX_0x274*sinT)
         $this->shouldWriteFloat($matrix + 0x14, $cosT);
-        $this->shouldWriteFloat($matrix + 0x18, -$this->f32(2.0 * $sinT)); // -(field_0x278*sinT)
+        $this->shouldWriteFloat($matrix + 0x18, -$this->f32(2.0 * $sinT)); // -(headingDirZ_0x278*sinT)
         $this->shouldWriteFloat($matrix + 0x1c, 0.0);
 
-        $this->shouldWriteFloat($matrix + 0x20, $this->f32(1.0 * $cosT)); // field_0x274*cosT
+        $this->shouldWriteFloat($matrix + 0x20, $this->f32(1.0 * $cosT)); // headingDirX_0x274*cosT
         $this->shouldWriteFloat($matrix + 0x24, $sinT);
-        $this->shouldWriteFloat($matrix + 0x28, $this->f32(2.0 * $cosT)); // field_0x278*cosT
+        $this->shouldWriteFloat($matrix + 0x28, $this->f32(2.0 * $cosT)); // headingDirZ_0x278*cosT
         $this->shouldWriteFloat($matrix + 0x2c, 0.0);
 
         // atan2f(posHistory[3].y - posHistory[2].y, field_0x244) = atan2f(4.0, 2.0)

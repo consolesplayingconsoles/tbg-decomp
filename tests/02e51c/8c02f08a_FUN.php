@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // FUN_8c02f08a scans var_tasks_8c1bac28 for a task (other than self, and
-// skipping the -1 sentinel) whose state's field_0x410 equals value. If none
+// skipping the -1 sentinel) whose state's signalId_0x410 equals value. If none
 // match by the zero-action terminator, it falls back to comparing value
-// against var_busState_8c1bb9d0.field_0x3a0 (imported by the original asm
+// against var_busState_8c1bb9d0.fallbackTaskMatchId_0x3a0 (imported by the original asm
 // under its own symbol, var_8c1bbd70, but that address actually lands
 // inside var_busState_8c1bb9d0 -- a linker coincidence).
 
@@ -15,7 +15,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        // The original asm imports BusState.field_0x3a0 under its own
+        // The original asm imports BusState.fallbackTaskMatchId_0x3a0 under its own
         // symbol, var_8c1bbd70 -- a linker coincidence, not a real global.
         $this->rellocate('_var_8c1bbd70', $this->addressOf('_var_busState_8c1bb9d0') + 0x3a0);
     }
@@ -60,7 +60,7 @@ return new class extends TestCase {
     }
 
     // A matching task is skipped when it is self, even though its
-    // field_0x410 equals value; the scan continues to the terminator and
+    // signalId_0x410 equals value; the scan continues to the terminator and
     // falls through to the (non-matching) busState comparison.
     public function test_selfTask_isSkipped(): void {
         $this->resolveSymbols();
@@ -90,7 +90,7 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    // A real, non-self, non-sentinel task whose state's field_0x410
+    // A real, non-self, non-sentinel task whose state's signalId_0x410
     // matches value: returns 1 without reaching the terminator or the
     // busState fallback.
     public function test_matchingTask_returnsOne(): void {
@@ -106,7 +106,7 @@ return new class extends TestCase {
         $this->shouldReturn(1);
     }
 
-    // A real task whose field_0x410 does not match value: rejected, scan
+    // A real task whose signalId_0x410 does not match value: rejected, scan
     // continues to the terminator, and the busState fallback also fails.
     public function test_nonMatchingTask_fallsThroughToNoMatch(): void {
         $this->resolveSymbols();

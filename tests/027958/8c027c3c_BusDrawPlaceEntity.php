@@ -216,7 +216,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entity + 0x07c, 0);
         $this->shouldWriteLong($entity + 0x078, 0);
 
-        // Falls through past the (skipped) probe block: field_0x494 reset.
+        // Falls through past the (skipped) probe block: groundAligned_0x494 reset.
         $this->shouldWriteLong($entity + 0x494, 0);
     }
 
@@ -255,7 +255,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
 
         // field_0x2c8 == GroundProbeTrackPolygonAtHeight_8c021290: registered
-        // stays true and field_0x494 is reset.
+        // stays true and groundAligned_0x494 is reset.
         $this->shouldWriteLong($entity + 0x494, 0);
 
         // Suspension-lean easing.
@@ -265,7 +265,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entity + 0x07c, -25); // -(50*0.5) clamped within +-0xb6/+-0x2d8
         $this->shouldWriteLong($entity + 0x078, 137); // (int)(0.01*45000)=450, clamped to +-0x89=137
 
-        // Ground re-probe (field_0x494 == 0 -> probes fire).
+        // Ground re-probe (groundAligned_0x494 == 0 -> probes fire).
         $probeA = $entity + 0x190;
         $probeB = $entity + 0x1a0;
         $probeC = $entity + 0x1b0;

@@ -19,8 +19,8 @@ if (!function_exists('f32')) {
  * and a ground-query dispatch table (normal vs. the Wangan-route/segment-10
  * *AtHeight variants), calls busInitPlaceBus_8c023310 to place the bus, then
  * runs three FUN_8c02e69c region lookups (seeded from the just-computed
- * posHistory_0x100[2]/[3] breadcrumbs) into field_0x340/0x35c/0x378,
- * copying each 4-word hit into field_0x34c/0x368/0x384 or zeroing on a miss.
+ * posHistory_0x100[2]/[3] breadcrumbs) into junctionASlot_0x340/0x35c/0x378,
+ * copying each 4-word hit into junctionARoadFlags_0x34c/0x368/0x384 or zeroing on a miss.
  * busInitPlaceBus_8c023310 is mocked here; its own test covers its body.
  */
 return new class extends TestCase {
@@ -281,7 +281,7 @@ return new class extends TestCase {
     // field_0x058 array, route 1 -> slot 4 (field_0x05c) gets the override.
     // All 3 lookups miss. rawTimeBits negative to exercise the unsigned
     // conversion's +2^32 correction. Practice mode without the debug bit ->
-    // field_0x3c4 = 0.
+    // mirrorPendingToggle_0x3c4 = 0.
     public function test_wangan_segment10_night_misses(): void
     {
         $this->runAndAssert(

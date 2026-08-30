@@ -130,55 +130,55 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     if (type != 10) {
         seg = e->resolvedArgs_0x304[0];
         scriptCursor = *scriptIp + 2;
-        e->field_0x300 = 0;
-        dist = e->field_0x2e8 + 2.0f;
+        e->blockIndex_0x300 = 0;
+        dist = e->spawnProgress_0x2e8 + 2.0f;
         while (seg->length_0x00 <= dist) {
             dist -= seg->length_0x00;
             seg++;
             if (seg->length_0x00 == 0.0f) {
-                segIdx = e->field_0x300 + 1;
-                e->field_0x300 = segIdx;
+                segIdx = e->blockIndex_0x300 + 1;
+                e->blockIndex_0x300 = segIdx;
                 seg = e->resolvedArgs_0x304[segIdx];
                 scriptCursor += 6;
             }
         }
     }
 
-    e->field_0x408 = 0;
-    e->field_0x40c = 0;
-    e->field_0x504 = 0;
-    e->field_0x508 = 0;
-    e->field_0x50c = 0;
+    e->junctionVertexIds_0x408 = 0;
+    e->junctionHitCount_0x40c = 0;
+    e->junctionVertexIds2_0x504 = 0;
+    e->junctionHitCount2_0x508 = 0;
+    e->atGroundJunction_0x50c = 0;
     variantIdx = e->variantIndex_0x2e0;
     e->field_0x064 = 0;
     e->field_0x068 = 0;
     e->field_0x06c = 0;
-    e->field_0x070 = 0;
-    e->field_0x074 = 0;
-    e->field_0x078 = 0;
-    e->field_0x07c = 0;
-    e->field_0x080 = 0;
+    e->distanceTraveled_0x070 = 0;
+    e->ang_0x074 = 0;
+    e->acc_0x078 = 0;
+    e->ang_0x07c = 0;
+    e->blinker_0x080 = 0;
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT && type == 10 &&
         (junction = FUN_8c02e51c(e->posX_0xf4, e->posY_0xf8,
-                                  e->posZ_0xfc, &e->field_0x404)) != (void *)0 &&
+                                  e->posZ_0xfc, &e->junctionSlot_0x404)) != (void *)0 &&
         *(Sint32 *)((Uint8 *)junction + 4) != 0) {
-        e->field_0x0c4 = var_8c1bbdb0[0];
-        e->field_0x0c8 = var_8c1bbdb0[1];
-        e->field_0x0cc = var_8c1bbdd0[0];
-        e->field_0x0d0 = var_8c1bbdd0[1];
-        e->field_0x0d4 = var_8c1bbdd0[2];
+        e->simpleLightIntensity0_0x0c4 = var_8c1bbdb0[0];
+        e->simpleLightIntensity1_0x0c8 = var_8c1bbdb0[1];
+        e->simpleLightColorR_0x0cc = var_8c1bbdd0[0];
+        e->simpleLightColorG_0x0d0 = var_8c1bbdd0[1];
+        e->simpleLightColorB_0x0d4 = var_8c1bbdd0[2];
     } else {
-        e->field_0x0d8 = var_sceneParams_8c18ad24->rec0_0x0c[2][0];
-        e->field_0x0dc = var_sceneParams_8c18ad24->rec0_0x0c[2][1];
-        e->field_0x0e0 = var_sceneParams_8c18ad24->rec0_0x0c[2][2];
-        e->field_0x0e4 = var_sceneParams_8c18ad24->rec0_0x0c[2][3];
-        e->field_0x0e8 = var_sceneParams_8c18ad24->rec0_0x0c[2][4];
-        e->field_0x0c4 = var_sceneParams_8c18ad24->rec0_0x0c[1][0];
-        e->field_0x0c8 = var_sceneParams_8c18ad24->rec0_0x0c[1][1];
-        e->field_0x0cc = var_sceneParams_8c18ad24->rec0_0x0c[1][2];
-        e->field_0x0d0 = var_sceneParams_8c18ad24->rec0_0x0c[1][3];
-        e->field_0x0d4 = var_sceneParams_8c18ad24->rec0_0x0c[1][4];
+        e->easyLightIntensity0_0x0d8 = var_sceneParams_8c18ad24->rec0_0x0c[2][0];
+        e->easyLightIntensity1_0x0dc = var_sceneParams_8c18ad24->rec0_0x0c[2][1];
+        e->easyLightColorR_0x0e0 = var_sceneParams_8c18ad24->rec0_0x0c[2][2];
+        e->easyLightColorG_0x0e4 = var_sceneParams_8c18ad24->rec0_0x0c[2][3];
+        e->easyLightColorB_0x0e8 = var_sceneParams_8c18ad24->rec0_0x0c[2][4];
+        e->simpleLightIntensity0_0x0c4 = var_sceneParams_8c18ad24->rec0_0x0c[1][0];
+        e->simpleLightIntensity1_0x0c8 = var_sceneParams_8c18ad24->rec0_0x0c[1][1];
+        e->simpleLightColorR_0x0cc = var_sceneParams_8c18ad24->rec0_0x0c[1][2];
+        e->simpleLightColorG_0x0d0 = var_sceneParams_8c18ad24->rec0_0x0c[1][3];
+        e->simpleLightColorB_0x0d4 = var_sceneParams_8c18ad24->rec0_0x0c[1][4];
     }
 
     if (type != 10) {
@@ -196,10 +196,10 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     e->height_0x244 = dims[1];
     e->halfHeight_0x248 = dims[1] / 2.0f;
     e->groundOffset_0x24c = dims[2];
-    e->field_0x258 = 0;
-    e->field_0x268 = 0;
-    e->field_0x270 = 1.0f;
-    e->field_0x26c = 0;
+    e->headingDelta_0x258 = 0;
+    e->mirrorVisible_0x268 = 0;
+    e->headingCos_0x270 = 1.0f;
+    e->headingSin_0x26c = 0;
 
     if (type == 10) {
         e->field_0x278 = njCos(e->heading_0x250);
@@ -209,11 +209,11 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
         e->field_0x274 = seg->dirX_0x0c;
     }
 
-    e->field_0x100 = e->posX_0xf4 - e->width_0x23c * e->field_0x274;
-    e->field_0x108 = e->posZ_0xfc - e->width_0x23c * e->field_0x278;
-    e->field_0x104 = e->posY_0xf8;
-    e->field_0x11c = e->posY_0xf8;
-    e->field_0x128 = e->posY_0xf8;
+    e->frontPointX_0x100 = e->posX_0xf4 - e->width_0x23c * e->field_0x274;
+    e->frontPointZ_0x108 = e->posZ_0xfc - e->width_0x23c * e->field_0x278;
+    e->frontPointY_0x104 = e->posY_0xf8;
+    e->probeSideAY_0x11c = e->posY_0xf8;
+    e->probeSideBY_0x128 = e->posY_0xf8;
     e->groundProbe_0x190[0].vertexIds_0x08 = 0;
     e->groundProbe_0x190[0].count_0x0c = 0;
     e->groundProbe_0x190[1].vertexIds_0x08 = 0;
@@ -227,39 +227,39 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     e->pathDistanceCopy_0x2c0 = dist;
     e->pathDistance_0x2bc = dist;
     e->projectDistance_0x2c4 = 2.0f;
-    e->field_0x2d4 = 0;
-    e->field_0x2d8 = 0;
-    e->field_0x2dc = 0;
+    e->busAheadFlag_0x2d4 = 0;
+    e->lightFadeState_0x2d8 = 0;
+    e->lightFadeTrigger_0x2dc = 0;
 
     if (type == 10) {
         e->speed_0x27c = 0;
     } else {
         zeroPtr = &e->field_0x280[1];
-        e->field_0x414 = (float)*(Uint16 *)(scriptCursor + 4) / 65536.0f;
-        e->speed_0x27c = e->field_0x414 / 2.0f;
+        e->laneOffsetRatio_0x414 = (float)*(Uint16 *)(scriptCursor + 4) / 65536.0f;
+        e->speed_0x27c = e->laneOffsetRatio_0x414 / 2.0f;
         do {
             *zeroPtr = 0;
             zeroPtr++;
         } while (zeroPtr < &e->field_0x290);
         e->field_0x290 = init_8c0461c8[variantIdx];
         e->field_0x418 = 9999.0f;
-        e->field_0x424 = 0;
-        e->field_0x428 = 0;
+        e->obstacleLimitActive_0x424 = 0;
+        e->curveLimitActive_0x428 = 0;
         speedRandom = AsqGetRandomA_8c012166();
-        e->field_0x41c = (float)speedRandom / 65536.0f + 1.0f;
-        e->field_0x42c = 0;
-        e->field_0x448 = 0;
-        e->field_0x450 = 0xffffffff;
-        e->field_0x458 = 0;
-        e->field_0x498 = 0;
-        e->field_0x468 = 0;
-        e->field_0x474 = 0;
+        e->lookaheadMargin_0x41c = (float)speedRandom / 65536.0f + 1.0f;
+        e->yieldState_0x42c = 0;
+        e->signalWaitState_0x448 = 0;
+        e->signalWaitFrameId_0x450 = 0xffffffff;
+        e->attachmentWaitState_0x458 = 0;
+        e->pendingAttachmentRelease_0x498 = 0;
+        e->mergeWaitState_0x468 = 0;
+        e->junctionWaitState_0x474 = 0;
         *scriptIp = scriptCursor + 6;
         e->field_0x490 = 9999.0f;
-        e->field_0x4ec = 0.0f;
-        e->field_0x4f4 = seg;
-        e->field_0x4f8 = e->field_0x300;
-        e->field_0x4fc = dist + 2.5f;
+        e->lookaheadCacheLen_0x4ec = 0.0f;
+        e->lookaheadCursor_0x4f4 = seg;
+        e->lookaheadCursorBlock_0x4f8 = e->blockIndex_0x300;
+        e->lookaheadCursorDist_0x4fc = dist + 2.5f;
         TrafficLookaheadInit_8c02df3c(entry);
     }
 }
@@ -280,8 +280,8 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
 void TrafficUpdateHeading_8c026bc4(float unused, TrafficEntry *entry)
 {
     TrafficEntry *e = entry;
-    float dx = e->field_0x100 - e->posX_0xf4;
-    float dy = e->field_0x108 - e->posZ_0xfc;
+    float dx = e->frontPointX_0x100 - e->posX_0xf4;
+    float dy = e->frontPointZ_0x108 - e->posZ_0xfc;
     float dist = njSqrt(dx * dx + dy * dy);
     float halfDx, halfDy;
     float angle;
@@ -292,17 +292,17 @@ void TrafficUpdateHeading_8c026bc4(float unused, TrafficEntry *entry)
     e->field_0x274 = dx;
     e->field_0x278 = dy;
 
-    e->field_0x100 = dx * e->width_0x23c + e->posX_0xf4;
-    e->field_0x108 = dy * e->width_0x23c + e->posZ_0xfc;
-    e->field_0x10c = dx * e->length_0x240 + e->posX_0xf4;
-    e->field_0x114 = dy * e->length_0x240 + e->posZ_0xfc;
+    e->frontPointX_0x100 = dx * e->width_0x23c + e->posX_0xf4;
+    e->frontPointZ_0x108 = dy * e->width_0x23c + e->posZ_0xfc;
+    e->rearPointX_0x10c = dx * e->length_0x240 + e->posX_0xf4;
+    e->rearPointZ_0x114 = dy * e->length_0x240 + e->posZ_0xfc;
 
     halfDy = e->halfHeight_0x248 * dy;
     halfDx = e->halfHeight_0x248 * dx;
-    e->field_0x118 = e->posX_0xf4 - halfDy;
-    e->field_0x120 = e->posZ_0xfc + halfDx;
-    e->field_0x124 = e->posX_0xf4 + halfDy;
-    e->field_0x12c = e->posZ_0xfc - halfDx;
+    e->probeSideAX_0x118 = e->posX_0xf4 - halfDy;
+    e->probeSideAZ_0x120 = e->posZ_0xfc + halfDx;
+    e->probeSideBX_0x124 = e->posX_0xf4 + halfDy;
+    e->probeSideBZ_0x12c = e->posZ_0xfc - halfDx;
 
     angle = acosf(dy);
     iAngle = (int)((angle * 65536.0) / 6.283184);
@@ -354,8 +354,8 @@ Sint32 TrafficAdvanceOnPath_8c026ca2(float unused, TrafficEntry *entry)
 
     segX = dist * seg->dirX_0x0c + seg->x_0x04 + e->originJitterX_0x2ec;
     segY = dist * seg->dirZ_0x10 + seg->z_0x08 + e->originJitterZ_0x2f0;
-    e->field_0x0ec = segX;
-    e->field_0x0f0 = segY;
+    e->pathPointX_0x0ec = segX;
+    e->pathPointZ_0x0f0 = segY;
 
     dx = e->posX_0xf4 - segX;
     dy = e->posZ_0xfc - segY;
@@ -422,10 +422,10 @@ float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *oth
 
     for (; o != NULL; o = (TrafficEntry *)TrafficPathScanNext_8c02f212()) {
         if (o == (TrafficEntry *)var_8c1bbd9c) {
-            dot = (o->field_0x100 - var_busState_8c1bb9d0.posX_0x0f4) *
-                      (o->field_0x100 - o->posX_0xf4) +
-                  (o->field_0x108 - o->posZ_0xfc) *
-                      (o->field_0x108 - var_busState_8c1bb9d0.posZ_0x0fc);
+            dot = (o->frontPointX_0x100 - var_busState_8c1bb9d0.posX_0x0f4) *
+                      (o->frontPointX_0x100 - o->posX_0xf4) +
+                  (o->frontPointZ_0x108 - o->posZ_0xfc) *
+                      (o->frontPointZ_0x108 - var_busState_8c1bb9d0.posZ_0x0fc);
             if (dot < 0.0f) {
                 candidate = var_busState_8c1bb9d0.speed_0x27c + margin;
                 result = candidate;
@@ -503,14 +503,14 @@ void TrafficMarkSignalIdsInUse_8c026dcc(int maxId)
 void TrafficUpdateFrameFlags_8c026f7e(TrafficEntry *entry)
 {
     TrafficEntry *e = entry;
-    Uint32 counter = e->field_0x260;
+    Uint32 counter = e->blinkCounter_0x260;
 
-    e->field_0x260 = counter + 1;
+    e->blinkCounter_0x260 = counter + 1;
     if ((counter & 0x10) == 0) {
-        if (e->field_0x47c == 0) {
-            e->field_0x080 = e->field_0x080 | 2;
+        if (e->junctionWaitTurnDir_0x47c == 0) {
+            e->blinker_0x080 = e->blinker_0x080 | 2;
         } else {
-            e->field_0x080 = e->field_0x080 | 4;
+            e->blinker_0x080 = e->blinker_0x080 | 4;
         }
     }
 }
@@ -546,13 +546,13 @@ void TrafficSeekPathRecord_8c026fcc(TrafficEntry *entry, PathRecord *seg)
         dist -= seg->length_0x00;
         seg++;
         if (seg->length_0x00 == 0.0f) {
-            segIdx = e->field_0x300 + 1;
-            e->field_0x300 = segIdx;
+            segIdx = e->blockIndex_0x300 + 1;
+            e->blockIndex_0x300 = segIdx;
             seg = e->resolvedArgs_0x304[segIdx];
         }
     }
 
-    e->resolvedArgs_0x304[e->field_0x300] = seg;
+    e->resolvedArgs_0x304[e->blockIndex_0x300] = seg;
     e->pathRecord_0x2b8 = seg;
     e->pathDistance_0x2bc = dist;
 }
@@ -608,7 +608,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
 
         if (op == 0) {
             initEntryState_8c026748(entry, (int *)&ip);
-            e->field_0x2e8 = 0;
+            e->spawnProgress_0x2e8 = 0;
             spawned = 1;
             continue;
         }
@@ -618,49 +618,49 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
                 break;
             }
             spawned = 1;
-            blockIdx = e->field_0x300 + 1;
-            e->field_0x300 = blockIdx;
+            blockIdx = e->blockIndex_0x300 + 1;
+            e->blockIndex_0x300 = blockIdx;
             e->pathRecord_0x2b8 = e->resolvedArgs_0x304[blockIdx];
             ip = cur + 3;
-            e->field_0x414 = (float)cur[2] / 65536.0f;
+            e->laneOffsetRatio_0x414 = (float)cur[2] / 65536.0f;
             continue;
         }
 
         if (op == 2 || op == 3) {
-            e->field_0x42c = 1;
-            e->field_0x430 = (op == 3) ? 1 : 0;
-            e->field_0x434 = cur[1];
-            e->field_0x438 = cur[2];
+            e->yieldState_0x42c = 1;
+            e->yieldPriority_0x430 = (op == 3) ? 1 : 0;
+            e->yieldEnterSignalId_0x434 = cur[1];
+            e->yieldExitSignalId_0x438 = cur[2];
             ip = cur + 3;
             continue;
         } else if (op == 4) {
             ip = cur + 3;
             continue;
         } else if (op == 5) {
-            e->field_0x448 = 2;
-            e->field_0x450 = cur[1];
-            e->field_0x454 = e->field_0x300;
+            e->signalWaitState_0x448 = 2;
+            e->signalWaitFrameId_0x450 = cur[1];
+            e->signalWaitArmedBlock_0x454 = e->blockIndex_0x300;
             ip = cur + 2;
             continue;
         } else if (op == 6) {
-            e->field_0x458 = 2;
-            e->field_0x45c = cur[1];
-            e->field_0x460 = cur[2];
-            e->field_0x464 = e->field_0x300;
+            e->attachmentWaitState_0x458 = 2;
+            e->attachmentId_0x45c = cur[1];
+            e->attachmentExitSignalId_0x460 = cur[2];
+            e->attachmentArmedBlock_0x464 = e->blockIndex_0x300;
             ip = cur + 3;
             continue;
         } else if (op == 7) {
-            e->field_0x468 = 2;
-            e->field_0x46c = cur[1];
-            e->field_0x470 = e->field_0x300;
+            e->mergeWaitState_0x468 = 2;
+            e->mergeWaitSignalId_0x46c = cur[1];
+            e->mergeWaitArmedBlock_0x470 = e->blockIndex_0x300;
             ip = cur + 2;
             continue;
         } else if (op == 8) {
-            e->field_0x474 = 1;
-            e->field_0x478 = cur[1];
-            e->field_0x47c = cur[2];
+            e->junctionWaitState_0x474 = 1;
+            e->junctionWaitSignalId_0x478 = cur[1];
+            e->junctionWaitTurnDir_0x47c = cur[2];
             e->junctionPath_0x484 = var_cpuPathBlocks_8c227e1c[cur[3]];
-            e->field_0x480 = e->field_0x300;
+            e->junctionWaitArmedBlock_0x480 = e->blockIndex_0x300;
             ip = cur + 4;
             continue;
         } else if (op == 9) {
@@ -753,16 +753,16 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
             return 0;
         }
         e = (TrafficEntry *)entryVoid;
-        e->field_0x2e4 = 1;
+        e->isDecoration_0x2e4 = 1;
     } else {
         if (!TaskPush_8c014ae8(var_tasks_8c1bac28, TrafficDriveVehicle_8c025b98, &task, &entryVoid, 0x514)) {
             return 0;
         }
         e = (TrafficEntry *)entryVoid;
-        e->field_0x2e4 = 0;
+        e->isDecoration_0x2e4 = 0;
     }
 
-    e->field_0x48c = (typeCode & 0x8000) ? 4 : 3;
+    e->animKind_0x48c = (typeCode & 0x8000) ? 4 : 3;
 
     if (typeCode & 0x4000) {
         e->probeFn_0x2c8 = GroundProbeTrackPolygonAtHeight_8c021290;
@@ -782,9 +782,9 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
          * as a completed spawn -- it does not report failure here. */
         TaskFree_8c014b66(task);
     } else {
-        e->field_0x510 = 0;
+        e->extraLightFlags_0x510 = 0;
         if ((typeCode == 0x14 || typeCode == 0x16) && (AsqGetRandomA_8c012166() & 1) != 0) {
-            e->field_0x510 |= 0x40;
+            e->extraLightFlags_0x510 |= 0x40;
         }
 
         if (*script != 10) {
@@ -795,14 +795,14 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
                 return 0;
             }
 
-            e->field_0x2e8 = progress;
+            e->spawnProgress_0x2e8 = progress;
             rnd = AsqGetRandomA_8c012166();
             e->originJitterX_0x2ec = (float)rnd / 65536.0f - 0.5f;
             rnd = AsqGetRandomA_8c012166();
             e->originJitterZ_0x2f0 = (float)rnd / 65536.0f - 0.5f;
         }
 
-        e->field_0x2f4 = var_activeTrafficPreset_8c227e14;
+        e->spawnPresetId_0x2f4 = var_activeTrafficPreset_8c227e14;
         e->scriptBase_0x2f8 = script;
         e->scriptCursor_0x2fc = script;
 

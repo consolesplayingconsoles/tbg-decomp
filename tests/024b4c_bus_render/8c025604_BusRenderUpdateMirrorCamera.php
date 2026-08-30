@@ -17,7 +17,7 @@ if (!function_exists('fdec')) {
  * called last each frame by BusTask_8c022bdc. No-op unless
  * busState.mirror_0x268 is nonzero. Otherwise picks a local mirror-camera
  * offset/interest by mirror_0x268 (1/2/3), rotates BOTH the offset and the
- * interest point into world space by the bus's world matrix (field_0x084,
+ * interest point into world space by the bus's world matrix (worldMatrix_0x084,
  * two separate njCalcPoint calls), positions the mirror camera (var_8c1bb944)
  * at the rotated offset, points its interest at the rotated interest point,
  * rolls it by recent Y waypoint history, activates it, and queues
@@ -101,7 +101,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSetCameraDepth')->with($camera, -1.0, -50.0);
 
-        // First njCalcPoint rotates the offset (in place at field_0x318).
+        // First njCalcPoint rotates the offset (in place at mirrorWorldOffsetX_0x318).
         $this->shouldCall('_njCalcPoint')
             ->with($base + 0x084, $base + 0x318, $base + 0x318)
             ->do(function () use ($base, $rotatedOffsetX, $rotatedOffsetY, $rotatedOffsetZ) {

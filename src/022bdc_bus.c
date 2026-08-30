@@ -21,7 +21,7 @@
  * =====================
  */
 
-/* Shape shared by BusState.field_0x2cc/field_0x2d0's ground/junction query
+/* Shape shared by BusState.junctionQueryFnCpu_0x2cc/junctionQueryFnRoute_0x2d0's ground/junction query
  * callees (FUN_8c02e51c/FUN_8c02e69c/FUN_8c02ec50/FUN_8c02eab4/
  * GroundQueryFindPolygon_8c020914/GroundProbeFindPolygonAtHeight_8c020fe4,
  * picked once by BusInitStart_8c023610). */
@@ -52,9 +52,9 @@ void BusTask_8c022bdc(Task *task, void *state)
     var_busState_8c1bb9d0.blinker_0x080 = 0;
 
     /* Current heading angle from the bus's own forward direction
-     * (field_0x274/field_0x278), signed by whether the bus is moving toward
+     * (headingDirX_0x274/headingDirZ_0x278), signed by whether the bus is moving toward
      * increasing or decreasing X. */
-    ang = (int)((acosf(var_busState_8c1bb9d0.field_0x278) * 65536.0f) / TWO_PI);
+    ang = (int)((acosf(var_busState_8c1bb9d0.headingDirZ_0x278) * 65536.0f) / TWO_PI);
     if (var_busState_8c1bb9d0.posX_0x0f4 > var_busState_8c1bb9d0.posHistory_0x100[0].x) {
         ang = -ang;
     }
@@ -65,7 +65,7 @@ void BusTask_8c022bdc(Task *task, void *state)
          * ramps var_8c227db0 up to var_8c227db4 (door hold time) then moves
          * to substate 2 (BusStop drives the rest from there). */
         if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 0) {
-            if (var_busState_8c1bb9d0.field_0x3c4 != 0) {
+            if (var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 != 0) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x1d, 0);
                 var_8c227db0 = 0.0f;
                 var_busState_8c1bb9d0.bus_substate_0x3c0 = 1;
@@ -75,7 +75,7 @@ void BusTask_8c022bdc(Task *task, void *state)
             if (var_8c227db4 < var_8c227db0) {
                 var_8c227db0 = var_8c227db4;
                 var_busState_8c1bb9d0.bus_substate_0x3c0 = 2;
-                var_busState_8c1bb9d0.field_0x3c4 = 0;
+                var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
             }
         }
     } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 1) {
@@ -84,9 +84,9 @@ void BusTask_8c022bdc(Task *task, void *state)
          * returns to substate 0. */
         if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 2) {
             if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
-                var_busState_8c1bb9d0.field_0x3c4 = 1;
+                var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 1;
             }
-            if (var_busState_8c1bb9d0.field_0x3c4 != 0) {
+            if (var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 != 0) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x1e, 0);
                 var_busState_8c1bb9d0.bus_substate_0x3c0 = 3;
             }
@@ -94,7 +94,7 @@ void BusTask_8c022bdc(Task *task, void *state)
             var_8c227db0 -= 0.5f;
             if (var_8c227db0 < 0.0f) {
                 var_busState_8c1bb9d0.bus_substate_0x3c0 = 0;
-                var_busState_8c1bb9d0.field_0x3c4 = 0;
+                var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
             }
         }
 
@@ -103,9 +103,9 @@ void BusTask_8c022bdc(Task *task, void *state)
         /* One-shot A-button latch, seen through var_8c2264b8's struct base
          * (coincidentally aliases the separately-imported var_8c2264c4 used
          * by other units -- see sectionB.h). */
-        if (var_8c2264b8.field_0x0c == 0 &&
+        if (var_8c2264b8.nearStopLatch_0x0c == 0 &&
             (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
-            var_8c2264b8.field_0x0c = 1;
+            var_8c2264b8.nearStopLatch_0x0c = 1;
         }
 
         if (var_inputMapSel_8c1bb8c8 == 0) {
@@ -118,28 +118,28 @@ void BusTask_8c022bdc(Task *task, void *state)
             var_busState_8c1bb9d0.posX_0x0f4 -= var_busState_8c1bb9d0.speed_0x27c * sinA;
             var_busState_8c1bb9d0.posZ_0x0fc -= var_busState_8c1bb9d0.speed_0x27c * cosA;
         } else {
-            /* Mapped-route steering: ramp field_0x2c4 toward 2.0 (its
+            /* Mapped-route steering: ramp laneOffset_0x2c4 toward 2.0 (its
              * neutral/centered value) at prevSpeed per frame. */
-            if (var_busState_8c1bb9d0.field_0x2c4 != 2.0f &&
+            if (var_busState_8c1bb9d0.laneOffset_0x2c4 != 2.0f &&
                 var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
-                if (var_busState_8c1bb9d0.field_0x2c4 <= 2.0f) {
-                    var_busState_8c1bb9d0.field_0x2c4 += prevSpeed;
-                    if (var_busState_8c1bb9d0.field_0x2c4 > 2.0f) {
-                        var_busState_8c1bb9d0.field_0x2c4 = 2.0f;
+                if (var_busState_8c1bb9d0.laneOffset_0x2c4 <= 2.0f) {
+                    var_busState_8c1bb9d0.laneOffset_0x2c4 += prevSpeed;
+                    if (var_busState_8c1bb9d0.laneOffset_0x2c4 > 2.0f) {
+                        var_busState_8c1bb9d0.laneOffset_0x2c4 = 2.0f;
                     }
                 } else {
-                    var_busState_8c1bb9d0.field_0x2c4 -= prevSpeed;
-                    if (var_busState_8c1bb9d0.field_0x2c4 < 2.0f) {
-                        var_busState_8c1bb9d0.field_0x2c4 = 2.0f;
+                    var_busState_8c1bb9d0.laneOffset_0x2c4 -= prevSpeed;
+                    if (var_busState_8c1bb9d0.laneOffset_0x2c4 < 2.0f) {
+                        var_busState_8c1bb9d0.laneOffset_0x2c4 = 2.0f;
                     }
                 }
             }
 
             FUN_8c023e7e();
 
-            if (var_busState_8c1bb9d0.field_0x334 == 0) {
-                var_busState_8c1bb9d0.field_0x2bc += var_busState_8c1bb9d0.speed_0x27c;
-                var_busState_8c1bb9d0.field_0x2c0 += var_busState_8c1bb9d0.speed_0x27c;
+            if (var_busState_8c1bb9d0.crossingSearchDone_0x334 == 0) {
+                var_busState_8c1bb9d0.lineSegmentRemaining_0x2bc += var_busState_8c1bb9d0.speed_0x27c;
+                var_busState_8c1bb9d0.lineSegmentProgress_0x2c0 += var_busState_8c1bb9d0.speed_0x27c;
             }
 
             BusLineAdvance_8c02412c();
@@ -159,8 +159,8 @@ void BusTask_8c022bdc(Task *task, void *state)
         var_busState_8c1bb9d0.speed_0x27c -= 0.1f;
         if (var_busState_8c1bb9d0.speed_0x27c <= 0.0f) {
             if (var_inputMapSel_8c1bb8c8 != 0) {
-                var_busState_8c1bb9d0.field_0x2c4 =
-                    GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.field_0x0ec);
+                var_busState_8c1bb9d0.laneOffset_0x2c4 =
+                    GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.laneTargetX_0x0ec);
             }
             var_busState_8c1bb9d0.bus_state_0x2b4 = (var_8c2285c4[0] < 3) ? 1 : 3;
             var_busState_8c1bb9d0.speed_0x27c = 0.0f;
@@ -168,7 +168,7 @@ void BusTask_8c022bdc(Task *task, void *state)
     } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 4) {
         /* Braking to a stop (run over): ramp speed_0x27c toward 0 at
          * 0.02/frame, snapping to exactly 0 and moving to state 3 once it
-         * crosses, then keep moving along field_0x274/field_0x278. */
+         * crosses, then keep moving along headingDirX_0x274/headingDirZ_0x278. */
         if (var_busState_8c1bb9d0.speed_0x27c <= 0.0f) {
             var_busState_8c1bb9d0.speed_0x27c += 0.02f;
             if (var_busState_8c1bb9d0.speed_0x27c > 0.0f) {
@@ -182,8 +182,8 @@ void BusTask_8c022bdc(Task *task, void *state)
                 var_busState_8c1bb9d0.bus_state_0x2b4 = 3;
             }
         }
-        var_busState_8c1bb9d0.posX_0x0f4 -= var_busState_8c1bb9d0.speed_0x27c * var_busState_8c1bb9d0.field_0x274;
-        var_busState_8c1bb9d0.posZ_0x0fc -= var_busState_8c1bb9d0.speed_0x27c * var_busState_8c1bb9d0.field_0x278;
+        var_busState_8c1bb9d0.posX_0x0f4 -= var_busState_8c1bb9d0.speed_0x27c * var_busState_8c1bb9d0.headingDirX_0x274;
+        var_busState_8c1bb9d0.posZ_0x0fc -= var_busState_8c1bb9d0.speed_0x27c * var_busState_8c1bb9d0.headingDirZ_0x278;
     }
     /* bus_state_0x2b4 == 3 (fully stopped): nothing else to do here, falls
      * straight into the shared tail below. */
@@ -197,69 +197,69 @@ void BusTask_8c022bdc(Task *task, void *state)
         FUN_8c023cba();
 
         var_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
-        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2d0)(
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0)(
             var_busState_8c1bb9d0.posHistory_0x100[2].x, var_busState_8c1bb9d0.posHistory_0x100[2].y,
-            var_busState_8c1bb9d0.posHistory_0x100[2].z, &var_busState_8c1bb9d0.field_0x340);
+            var_busState_8c1bb9d0.posHistory_0x100[2].z, &var_busState_8c1bb9d0.junctionASlot_0x340);
         if (result != NULL) {
-            var_busState_8c1bb9d0.field_0x34c = result[0];
+            var_busState_8c1bb9d0.junctionARoadFlags_0x34c = result[0];
             var_busState_8c1bb9d0.field_0x350 = result[1];
             var_busState_8c1bb9d0.field_0x354 = result[2];
-            var_busState_8c1bb9d0.field_0x358 = result[3];
+            var_busState_8c1bb9d0.junctionARoadFlags2_0x358 = result[3];
         }
 
-        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2d0)(
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0)(
             var_busState_8c1bb9d0.posHistory_0x100[3].x, var_busState_8c1bb9d0.posHistory_0x100[3].y,
-            var_busState_8c1bb9d0.posHistory_0x100[3].z, &var_busState_8c1bb9d0.field_0x35c);
+            var_busState_8c1bb9d0.posHistory_0x100[3].z, &var_busState_8c1bb9d0.junctionBSlot_0x35c);
         if (result != NULL) {
-            var_busState_8c1bb9d0.field_0x368 = result[0];
-            var_busState_8c1bb9d0.field_0x36c = result[1];
+            var_busState_8c1bb9d0.junctionBRoadFlags_0x368 = result[0];
+            var_busState_8c1bb9d0.junctionBAttr1_0x36c = result[1];
             var_busState_8c1bb9d0.field_0x370 = result[2];
-            var_busState_8c1bb9d0.field_0x374 = result[3];
+            var_busState_8c1bb9d0.junctionBRoadFlags2_0x374 = result[3];
         }
 
-        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2d0)(
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0)(
             var_busState_8c1bb9d0.posHistory_0x100[0].x, var_busState_8c1bb9d0.posHistory_0x100[0].y,
-            var_busState_8c1bb9d0.posHistory_0x100[0].z, &var_busState_8c1bb9d0.field_0x378);
+            var_busState_8c1bb9d0.posHistory_0x100[0].z, &var_busState_8c1bb9d0.junctionCSlot_0x378);
         if (result != NULL) {
             var_busState_8c1bb9d0.field_0x384 = result[0];
             var_busState_8c1bb9d0.field_0x388 = result[1];
             var_busState_8c1bb9d0.field_0x38c = result[2];
-            var_busState_8c1bb9d0.field_0x390 = result[3];
+            var_busState_8c1bb9d0.junctionCRoadFlags_0x390 = result[3];
         }
 
         var_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
-        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2cc)(
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnCpu_0x2cc)(
             var_busState_8c1bb9d0.posX_0x0f4, var_busState_8c1bb9d0.posY_0x0f8,
-            var_busState_8c1bb9d0.posZ_0x0fc, &var_busState_8c1bb9d0.field_0x394);
+            var_busState_8c1bb9d0.posZ_0x0fc, &var_busState_8c1bb9d0.cpuAttrOutSlot_0x394);
         if (result == NULL) {
-            var_busState_8c1bb9d0.field_0x3a0 = -1;
-            var_busState_8c1bb9d0.field_0x2dc = 0;
+            var_busState_8c1bb9d0.fallbackTaskMatchId_0x3a0 = -1;
+            var_busState_8c1bb9d0.lightFadeGate_0x2dc = 0;
         } else {
-            var_busState_8c1bb9d0.field_0x3a0 = result[0];
-            var_busState_8c1bb9d0.field_0x2dc = result[1];
+            var_busState_8c1bb9d0.fallbackTaskMatchId_0x3a0 = result[0];
+            var_busState_8c1bb9d0.lightFadeGate_0x2dc = result[1];
         }
 
         var_8c228b3c = var_currentCourse_8c1bb868.attrMark_0x14;
-        result = ((GroundQueryFn)var_busState_8c1bb9d0.field_0x2cc)(
+        result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnCpu_0x2cc)(
             var_busState_8c1bb9d0.posX_0x0f4, var_busState_8c1bb9d0.posY_0x0f8,
-            var_busState_8c1bb9d0.posZ_0x0fc, &var_busState_8c1bb9d0.field_0x3a4);
+            var_busState_8c1bb9d0.posZ_0x0fc, &var_busState_8c1bb9d0.markAttrOutSlot_0x3a4);
         if (result == NULL) {
-            var_busState_8c1bb9d0.field_0x3b0 = 0;
-            var_busState_8c1bb9d0.field_0x3b4 = 0;
-            var_busState_8c1bb9d0.field_0x3b8 = 0;
-            var_busState_8c1bb9d0.field_0x3bc = 0;
+            var_busState_8c1bb9d0.markDriveFlags_0x3b0 = 0;
+            var_busState_8c1bb9d0.markCueByte_0x3b4 = 0;
+            var_busState_8c1bb9d0.markAudioCue_0x3b8 = 0;
+            var_busState_8c1bb9d0.markExtra_0x3bc = 0;
         } else {
-            var_busState_8c1bb9d0.field_0x3b0 = result[0];
-            var_busState_8c1bb9d0.field_0x3b4 = result[1];
-            var_busState_8c1bb9d0.field_0x3b8 = result[2];
-            var_busState_8c1bb9d0.field_0x3bc = result[3];
+            var_busState_8c1bb9d0.markDriveFlags_0x3b0 = result[0];
+            var_busState_8c1bb9d0.markCueByte_0x3b4 = result[1];
+            var_busState_8c1bb9d0.markAudioCue_0x3b8 = result[2];
+            var_busState_8c1bb9d0.markExtra_0x3bc = result[3];
         }
     }
 
     if (var_inputMapSel_8c1bb8c8 != 0) {
-        /* Smooth ang_0x258 toward a target derived from field_0x254, at most
+        /* Smooth ang_0x258 toward a target derived from targetHeadingAngle_0x254, at most
          * 0xb6 per frame, clamped to +-0x2aaa. */
-        int target = var_busState_8c1bb9d0.field_0x254 - var_busState_8c1bb9d0.ang_0x250;
+        int target = var_busState_8c1bb9d0.targetHeadingAngle_0x254 - var_busState_8c1bb9d0.ang_0x250;
 
         if (var_busState_8c1bb9d0.ang_0x258 < target) {
             if (var_busState_8c1bb9d0.ang_0x258 - target < -0xb6) {
@@ -316,28 +316,28 @@ void BusTask_8c022bdc(Task *task, void *state)
 
     if (var_busState_8c1bb9d0.gear_0x2f4 == 5) {
         /* Reverse gear: hazard-style double blinker, toggled every 16 frames
-         * via field_0x2f8's bit 4. */
-        int wasSet = var_busState_8c1bb9d0.field_0x2f8 & 0x10;
+         * via hazardBlinkCounter_0x2f8's bit 4. */
+        int wasSet = var_busState_8c1bb9d0.hazardBlinkCounter_0x2f8 & 0x10;
 
-        var_busState_8c1bb9d0.field_0x2f8 += 1;
+        var_busState_8c1bb9d0.hazardBlinkCounter_0x2f8 += 1;
         if (wasSet != 0) {
             var_busState_8c1bb9d0.blinker_0x080 |= 6;
         }
-    } else if (var_busState_8c1bb9d0.field_0x25c == 0) {
-        var_busState_8c1bb9d0.field_0x260 = 0;
+    } else if (var_busState_8c1bb9d0.mirrorButtonState_0x25c == 0) {
+        var_busState_8c1bb9d0.turnSignalBlinkCounter_0x260 = 0;
         sdMidiStop(var_midiHandles_8c0fcd28[1]);
     } else {
         /* Left/right turn signal: play the tick SFX on the first frame, then
-         * toggle the blinker bit every 16 frames via field_0x260's bit 4. */
+         * toggle the blinker bit every 16 frames via turnSignalBlinkCounter_0x260's bit 4. */
         int wasSet;
 
-        if (var_busState_8c1bb9d0.field_0x260 == 0) {
+        if (var_busState_8c1bb9d0.turnSignalBlinkCounter_0x260 == 0) {
             sdMidiPlay(var_midiHandles_8c0fcd28[1], 1, 0x17, 0);
         }
-        wasSet = var_busState_8c1bb9d0.field_0x260 & 0x10;
-        var_busState_8c1bb9d0.field_0x260 += 1;
+        wasSet = var_busState_8c1bb9d0.turnSignalBlinkCounter_0x260 & 0x10;
+        var_busState_8c1bb9d0.turnSignalBlinkCounter_0x260 += 1;
         if (wasSet == 0) {
-            if (var_busState_8c1bb9d0.field_0x25c == 1) {
+            if (var_busState_8c1bb9d0.mirrorButtonState_0x25c == 1) {
                 var_busState_8c1bb9d0.blinker_0x080 |= 2;
             } else {
                 var_busState_8c1bb9d0.blinker_0x080 |= 4;

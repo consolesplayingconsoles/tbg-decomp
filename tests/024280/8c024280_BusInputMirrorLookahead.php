@@ -8,7 +8,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // BusState.mirror_0x268 is set. Computes lookahead = max(busSpeed -
 // 0.18518517911434174, 0), then scans var_tasks_8c1bac28 (skipping the -1
 // sentinel, stopping at the zero-action terminator) and, for each traffic
-// entry with field_0x268 set whose heading_0x250 is within 0x4000 (~90
+// entry with mirrorVisible_0x268 set whose heading_0x250 is within 0x4000 (~90
 // degrees) of the bus's own ang_0x250, writes lookahead to that entry's
 // field_0x418.
 
@@ -25,7 +25,7 @@ return new class extends TestCase {
         return $task;
     }
 
-    // entry = { ..., heading_0x250 @ 0x250, field_0x268 @ 0x268, field_0x418 @ 0x418 }
+    // entry = { ..., heading_0x250 @ 0x250, mirrorVisible_0x268 @ 0x268, field_0x418 @ 0x418 }
     private function makeEntry(int $field0x268, int $heading0x250): int {
         $entry = $this->alloc(0x420);
         $this->initUint32($entry + 0x268, $field0x268);

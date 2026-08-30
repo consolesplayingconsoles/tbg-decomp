@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _EventHasProgressFlagAlt_8c02aff0(index): tests progress flag bit `index` in the
- * field_0x18 bitset of var_progress_8c1ba1cc (see setProgressFlag_8c02af78).
+ * profileProgressFlags_0x18 bitset of var_progress_8c1ba1cc (see setProgressFlag_8c02af78).
  * Returns the masked word, not normalized to 0/1.
  */
 return new class extends TestCase {

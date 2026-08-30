@@ -60,9 +60,9 @@ return new class extends TestCase {
 
         // The archived asm still imports these under their pre-simplification
         // names; alias them onto the same cells the C reads via
-        // var_progress_8c1ba1cc.field_0x98[]/var_8c2285c4[3].
+        // var_progress_8c1ba1cc.practiceLessonBestScores_0x98[]/var_8c2285c4[3].
         // var_8c1ba264 is indexed directly by var_8c22640c in the asm, so
-        // it aliases the array base (field_0x98[0]), not the [3] cell.
+        // it aliases the array base (practiceLessonBestScores_0x98[0]), not the [3] cell.
         $this->rellocate('_var_8c1ba264', $progressBase + 0x98);
         $this->rellocate('_var_driverPoints_8c2285d0', $candidateScoreAddr);
 

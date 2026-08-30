@@ -17,7 +17,7 @@ if (!function_exists('fdec')) {
  * moves busState's posX_0x2fc/posY_0x300/posZ_0x304 by dist along the unit
  * vector from the current position (posX_0x0f4/posZ_0x0fc) toward it,
  * dyOffset in Y; when the resulting bearing change from the bus's stored
- * heading (field_0x230/field_0x238) exceeds ~5 degrees (angleInt > 910),
+ * heading (headingX_0x230/headingZ_0x238) exceeds ~5 degrees (angleInt > 910),
  * clamps the turn-angle step and rotates the move by it instead (sign from
  * a cross-product test) before applying it. Then positions the camera at
  * the new location and points its interest at the unmoved position offset

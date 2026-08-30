@@ -20,13 +20,13 @@ return new class extends TestCase {
     const RACING = 0x700fe;       // BT_RACING
 
     // PlayerProgress field offsets from var_progress_8c1ba1cc.
-    const VARIANT = 0xc5;         // field_0xc5 -- A/B button-config variant
-    const CHOICE_A_PAD = 0xcc;    // field_0xc7[5] -- variant A, BT_CONTROLLER
-    const CHOICE_B_PAD = 0xcd;    // field_0xc7[6] -- variant B, BT_CONTROLLER
-    const CHOICE_A_RACE = 0xce;   // field_0xc7[7] -- variant A, BT_RACING
-    const CHOICE_B_RACE = 0xcf;   // field_0xc7[8] -- variant B, BT_RACING
-    const ACCEL = 0xd0;           // field_0xd0
-    const BRAKE = 0xd1;           // field_0xd1
+    const VARIANT = 0xc5;         // driveMode_0xc5 -- A/B button-config variant
+    const CHOICE_A_PAD = 0xcc;    // controlAndDisplayFlags_0xc7[5] -- variant A, BT_CONTROLLER
+    const CHOICE_B_PAD = 0xcd;    // controlAndDisplayFlags_0xc7[6] -- variant B, BT_CONTROLLER
+    const CHOICE_A_RACE = 0xce;   // controlAndDisplayFlags_0xc7[7] -- variant A, BT_RACING
+    const CHOICE_B_RACE = 0xcf;   // controlAndDisplayFlags_0xc7[8] -- variant B, BT_RACING
+    const ACCEL = 0xd0;           // accelSensitivity_0xd0
+    const BRAKE = 0xd1;           // brakeSensitivity_0xd1
 
     private int $task = 0;
 

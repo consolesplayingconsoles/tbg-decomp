@@ -430,17 +430,17 @@ return new class extends TestCase {
 
         // Initialize player progress struct with course data
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
-        // Course index will be 12/3 = 4, so we need course[4].field_0x02
+        // Course index will be 12/3 = 4, so we need course[4].everPlayed_0x02
         // Courses start at offset 0x44, each is 8 bytes
         // course[4] is at 0x44 + 4*8 = 0x44 + 32 = 0x64
-        // field_0x02 is at 0x64 + 2 = 0x66
+        // everPlayed_0x02 is at 0x64 + 2 = 0x66
         $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0x66, 0); // not unlocked
 
         // Initialize progress->days_0x00
         $progressBase = $this->addressOf('_var_progress_8c1ba1cc');
         $this->initUint32($progressBase + 0x00, 5); // days = 5
 
-        // Initialize progress->field_0x04 data (two arrays of 5 uint32 values)
+        // Initialize progress->eventProgressFlags_0x04 data (two arrays of 5 uint32 values)
         for ($i = 0; $i < 5; $i++) {
             $this->initUint32($progressBase + 0x04 + $i * 4, 0x1000 + $i); // First array
             $this->initUint32($progressBase + 0x04 + 0x14 + $i * 4, 0x2000 + $i); // Second array
@@ -457,7 +457,7 @@ return new class extends TestCase {
             $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         }
 
-        // Step 2: Check if course is unlocked (read course[4].field_0x02)
+        // Step 2: Check if course is unlocked (read course[4].everPlayed_0x02)
         // Course is not unlocked (we init'd it to 0), so write 1 to var_firstClearOfCourse_8c1bb8e0
         $this->shouldWriteLong($this->addressOf('_var_firstClearOfCourse_8c1bb8e0'), 1);
         if ($this->isAsmObject()) {
@@ -474,12 +474,12 @@ return new class extends TestCase {
 
         // Step 4: Copy progress data to two pointer arrays (5 uint32 values each)
         for ($i = 0; $i < 5; $i++) {
-            // Copy from progress->field_0x04 to var_8c1ba2b8
+            // Copy from progress->eventProgressFlags_0x04 to var_8c1ba2b8
             $this->shouldWriteLong(
                 $this->addressOf('_var_8c1ba2b8') + $i * 4,
                 0x1000 + $i
             );
-            // Copy from progress->field_0x04 + 0x14 to var_8c1ba2cc
+            // Copy from progress->eventProgressFlags_0x04 + 0x14 to var_8c1ba2cc
             $this->shouldWriteLong(
                 $this->addressOf('_var_8c1ba2cc') + $i * 4,
                 0x2000 + $i
@@ -508,17 +508,17 @@ return new class extends TestCase {
 
         // Initialize player progress struct with course data
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
-        // Course index will be 12/3 = 4, so we need course[4].field_0x02
+        // Course index will be 12/3 = 4, so we need course[4].everPlayed_0x02
         // Courses start at offset 0x44, each is 8 bytes
         // course[4] is at 0x44 + 4*8 = 0x44 + 32 = 0x64
-        // field_0x02 is at 0x64 + 2 = 0x66
+        // everPlayed_0x02 is at 0x64 + 2 = 0x66
         $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0x66, 1); // already unlocked
 
         // Initialize progress->days_0x00
         $progressBase = $this->addressOf('_var_progress_8c1ba1cc');
         $this->initUint32($progressBase + 0x00, 5); // days = 5
 
-        // Initialize progress->field_0x04 data (two arrays of 5 uint32 values)
+        // Initialize progress->eventProgressFlags_0x04 data (two arrays of 5 uint32 values)
         for ($i = 0; $i < 5; $i++) {
             $this->initUint32($progressBase + 0x04 + $i * 4, 0x1000 + $i); // First array
             $this->initUint32($progressBase + 0x04 + 0x14 + $i * 4, 0x2000 + $i); // Second array
@@ -535,8 +535,8 @@ return new class extends TestCase {
             $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         }
 
-        // Step 2: Course is already unlocked (field_0x02 == 1), so write 0 to var_firstClearOfCourse_8c1bb8e0
-        // No write to course[4].field_0x02
+        // Step 2: Course is already unlocked (everPlayed_0x02 == 1), so write 0 to var_firstClearOfCourse_8c1bb8e0
+        // No write to course[4].everPlayed_0x02
         $this->shouldWriteLong($this->addressOf('_var_firstClearOfCourse_8c1bb8e0'), 0);
 
         // Step 3: Initialize various game state variables (this always happens)

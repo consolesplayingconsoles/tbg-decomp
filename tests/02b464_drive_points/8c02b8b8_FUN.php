@@ -136,7 +136,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($signal0, 0);
     }
 
-    // NOTE: the "signal present" branch (field_0x34c & 0xfff != 0, which
+    // NOTE: the "signal present" branch (junctionARoadFlags_0x34c & 0xfff != 0, which
     // assigns signalId via what compiles to EXTS.W) can't be exercised
     // here: sh4objtest doesn't implement EXTS.W yet, and that's true of the
     // unmodified .src object too, not just the C translation (see

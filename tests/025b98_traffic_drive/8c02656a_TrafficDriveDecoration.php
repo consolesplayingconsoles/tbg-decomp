@@ -48,8 +48,8 @@ return new class extends TestCase {
         $this->initUint32($entry + 0x2b4, 0); // knockbackActive
         $this->initUint32($entry + 0xf4, fdec(10.0));  // posX
         $this->initUint32($entry + 0xfc, fdec(0.0));   // posZ
-        $this->initUint32($entry + 0x100, fdec(12.0)); // field_0x100
-        $this->initUint32($entry + 0x108, fdec(0.0));  // field_0x108
+        $this->initUint32($entry + 0x100, fdec(12.0)); // frontPointX_0x100
+        $this->initUint32($entry + 0x108, fdec(0.0));  // frontPointZ_0x108
         $this->initUint32($entry + 0x27c, fdec(0.0));  // speed
         $this->initUint32($entry + 0x2f4, 5);          // preset id
         return $entry;
@@ -118,8 +118,8 @@ return new class extends TestCase {
         // dx = 1.0*2.0 = 2.0, dz = 0.5*2.0 = 1.0
         $this->shouldWriteFloat($entry + 0xf4, 12.0);   // posX += dx
         $this->shouldWriteFloat($entry + 0xfc, 1.0);    // posZ += dz
-        $this->shouldWriteFloat($entry + 0x100, 14.0);  // field_0x100 += dx
-        $this->shouldWriteFloat($entry + 0x108, 1.0);   // field_0x108 += dz
+        $this->shouldWriteFloat($entry + 0x100, 14.0);  // frontPointX_0x100 += dx
+        $this->shouldWriteFloat($entry + 0x108, 1.0);   // frontPointZ_0x108 += dz
         $this->shouldWriteFloat($entry + 0x27c, f32(1.9)); // speed -= 0.1
 
         // leftover = dx = 2.0
@@ -150,8 +150,8 @@ return new class extends TestCase {
         $dz = f32(0.5 * f32(2.1));
         $this->shouldWriteFloat($entry + 0xf4, f32(10.0 - $dx));  // posX -= dx
         $this->shouldWriteFloat($entry + 0xfc, f32(0.0 - $dz));   // posZ -= dz
-        $this->shouldWriteFloat($entry + 0x100, f32(12.0 - $dx)); // field_0x100 -= dx
-        $this->shouldWriteFloat($entry + 0x108, f32(0.0 - $dz));  // field_0x108 -= dz
+        $this->shouldWriteFloat($entry + 0x100, f32(12.0 - $dx)); // frontPointX_0x100 -= dx
+        $this->shouldWriteFloat($entry + 0x108, f32(0.0 - $dz));  // frontPointZ_0x108 -= dz
 
         $this->shouldWriteLong($entry + 0x2b4, 0);
         $this->shouldWriteLong($entry + 0x19c, 0);

@@ -17,7 +17,7 @@ if (!function_exists('fdec')) {
  * bus's draw position (posX_0x2fc/posY_0x300/posZ_0x304) from var_8c227e00
  * transformed by the bus's world matrix; then, for 5/6/7, points the camera
  * at that draw position, aims it at the bus's ground position, and updates
- * the field_0x308/field_0x310 delta. Any other state is a no-op past the
+ * the moveDeltaX_0x308/moveDeltaZ_0x310 delta. Any other state is a no-op past the
  * camera setup.
  */
 return new class extends TestCase {

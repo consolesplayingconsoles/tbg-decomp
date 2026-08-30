@@ -8,10 +8,10 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * _FUN_8c023938(void): computes 10 corner/lookahead ground-sample points
  * around the bus from its heading (posHistory_0x100[0] vs posX_0x0f4/
  * posZ_0x0fc) and queries each through the ground-query callback stored at
- * field_0x2c8 (GroundQueryFindPolygon_8c020914 or a GroundProbe* variant),
+ * groundProbeFn_0x2c8 (GroundQueryFindPolygon_8c020914 or a GroundProbe* variant),
  * filling groundSamples_0x190. Also reseeds posHistory_0x100[0]/[1] (the
  * only two entries not probed) and the heading unit vector
- * field_0x274/field_0x278. Called once per frame while driving, by both
+ * headingDirX_0x274/headingDirZ_0x278. Called once per frame while driving, by both
  * busInitPlaceBus_8c023310/FUN_8c023610 (023310_bus_init) and
  * BusTask_8c022bdc (022bdc).
  */
@@ -56,17 +56,17 @@ return new class extends TestCase {
             $this->initUint32($base + 0x100 + $i * 0xc + 4, $this->fdec(7.0));
         }
 
-        $this->initUint32($base + 0x2c8, $query); // field_0x2c8
+        $this->initUint32($base + 0x2c8, $query); // groundProbeFn_0x2c8
 
         $this->call('_FUN_8c023938')->with();
 
         $this->shouldCall('_njSqrt')->with(100.0)->andReturn(10.0);
 
         // ndx=0, ndz=1 -- heading fields and posHistory[0]/[1].
-        $this->shouldWriteFloat($base + 0x274, 0.0);   // field_0x274 = ndx
-        $this->shouldWriteFloat($base + 0x278, 1.0);   // field_0x278 = ndz
-        $this->shouldWriteFloat($base + 0x230, 0.0);   // field_0x230 = ndx*4.9
-        $this->shouldWriteFloat($base + 0x238, 4.9);   // field_0x238 = ndz*4.9
+        $this->shouldWriteFloat($base + 0x274, 0.0);   // headingDirX_0x274 = ndx
+        $this->shouldWriteFloat($base + 0x278, 1.0);   // headingDirZ_0x278 = ndz
+        $this->shouldWriteFloat($base + 0x230, 0.0);   // headingX_0x230 = ndx*4.9
+        $this->shouldWriteFloat($base + 0x238, 4.9);   // headingZ_0x238 = ndz*4.9
         $this->shouldWriteFloat($base + 0x100, 100.0); // posHistory[0].x
         $this->shouldWriteFloat($base + 0x108, $this->f32(200.0 + 4.9)); // posHistory[0].z
         $this->shouldWriteFloat($base + 0x10c, 100.0); // posHistory[1].x

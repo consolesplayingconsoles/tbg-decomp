@@ -126,7 +126,7 @@ return new class extends TestCase {
     }
 
     // The second sample (13.0, 0.0) lands within 2.5 of the bus's secondary
-    // point (field_0x100 / var_8c1bbad8) -- the first sample doesn't match
+    // point (frontPointX_0x100 / var_8c1bbad8) -- the first sample doesn't match
     // either bus point or any task.
     public function test_matchesBusSecondaryPoint_returnsBusSentinel(): void {
         $this->resolveSymbols();

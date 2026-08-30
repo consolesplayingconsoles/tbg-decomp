@@ -16,7 +16,7 @@ void FUN_8c024b86(void);
 void FUN_8c024f32(void);
 
 /* Lights, textures and draws the third-person bus model (with door/etc
- * shape motion, always busState.field_0x00c); altLight only selects the
+ * shape motion, always busState.modelLarge_0x00c); altLight only selects the
  * light direction (non-NULL -> var_8c227dc4). Called by 025870. */
 void FUN_8c024bb8(void *altLight);
 
@@ -27,7 +27,7 @@ void BusRenderUpdateCamera_8c025078(void);
 /* No-op unless busState.mirror_0x268 is nonzero. Otherwise picks a
  * local mirror-camera offset/interest by mirror_0x268 (1/2/3, else stale),
  * rotates the offset into world space by the bus's world matrix
- * (field_0x084), positions the separate mirror camera (var_8c1bb944)
+ * (worldMatrix_0x084), positions the separate mirror camera (var_8c1bb944)
  * there, points its interest at the same-rotated per-mode interest
  * vector, rolls it by recent Y waypoint history, activates it, and queues
  * FUN_8c024bb8 on fade layer 1 with the alt light direction

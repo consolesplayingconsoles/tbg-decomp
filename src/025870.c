@@ -363,7 +363,7 @@ STATIC void FUN_8c0258ba(void)
         var_busState_8c1bb9d0.posZ_0x304 = var_8c227e00.z;
         break;
     case 6:
-        njCalcPoint((NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084,
+        njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084,
                     &var_8c227e00,
                     (NJS_POINT3 *)&var_busState_8c1bb9d0.posX_0x2fc);
         break;
@@ -382,7 +382,7 @@ void DemoUpdateCamera_8c025906(void)
     njSetCameraDepth(&var_8c1bb904, -1.0f, -300.0f);
 
     if (var_8c227d9c == 7) {
-        njCalcPoint((NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084,
+        njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084,
                     &var_8c227e00,
                     (NJS_POINT3 *)&var_busState_8c1bb9d0.posX_0x2fc);
     }
@@ -396,9 +396,9 @@ void DemoUpdateCamera_8c025906(void)
                                var_busState_8c1bb9d0.posX_0x0f4,
                                var_busState_8c1bb9d0.posY_0x0f8,
                                var_busState_8c1bb9d0.posZ_0x0fc);
-        var_busState_8c1bb9d0.field_0x308 =
+        var_busState_8c1bb9d0.moveDeltaX_0x308 =
             var_busState_8c1bb9d0.posX_0x2fc - var_busState_8c1bb9d0.posX_0x0f4;
-        var_busState_8c1bb9d0.field_0x310 =
+        var_busState_8c1bb9d0.moveDeltaZ_0x310 =
             var_busState_8c1bb9d0.posZ_0x304 - var_busState_8c1bb9d0.posZ_0x0fc;
     }
 }

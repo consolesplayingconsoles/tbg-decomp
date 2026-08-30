@@ -15,7 +15,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_FileMenuResetProgress_8c01890a');
 
-        // field_0x18[5]
+        // profileProgressFlags_0x18[5]
         for ($off = 0x18; $off < 0x2c; $off += 4) {
             $this->shouldWriteLong($base + $off, 0);
         }
@@ -32,10 +32,10 @@ return new class extends TestCase {
         // mark courses 0 and 6 as new
         $this->shouldWriteByte($base + 0x45, 1);
         $this->shouldWriteByte($base + 0x75, 1);
-        // field_0x8c, field_0x94
+        // profileUnlockedCount_0x8c, field_0x94
         $this->shouldWriteLong($base + 0x8c, 0);
         $this->shouldWriteLong($base + 0x94, 0);
-        // field_0x98[11]
+        // practiceLessonBestScores_0x98[11]
         for ($off = 0x98; $off < 0xc4; $off += 4) {
             $this->shouldWriteLong($base + $off, 0);
         }

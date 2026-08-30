@@ -11,9 +11,9 @@ void BusDrawUpdateModels_8c027958(BusState *bus);
 
 /* Called by BusTask_8c022bdc (022bdc) with the player's BusState
  * (var_8c1bbd9c) each frame at night (var_timeOfDay_8c18ad20 == 2). Forces
- * blinker_0x080 bits 0x08/0x10 on, and crossfades field_0x0c4[0..4] (the
+ * blinker_0x080 bits 0x08/0x10 on, and crossfades lightCoeffRow_0x0c4[0..4] (the
  * bus's directional-light coefficient row) between its cached day/night
- * values over 20 frames, gated by field_0x2dc. */
+ * values over 20 frames, gated by lightFadeGate_0x2dc. */
 void BusDrawFadeLights_8c028022(BusState *bus);
 
 /* FadeCmdPushCall2_8c022420 callback (FadeCallback2, hence the (int, int)
@@ -40,18 +40,18 @@ void BusDrawSignalAttachment_8c028206(int objArg, int matrixArg);
  *    player") selects busDrawSimpleCb_8c027a88 (which additionally draws
  *    bodyModel_0x14 up close); a separate, tighter far test (50m range,
  *    ~15-degree cone around what looks like the rear-view mirror camera's
- *    world position/direction, field_0x318.._0x330) selects
+ *    world position/direction, mirrorWorldOffsetX_0x318.._0x330) selects
  *    busDrawSimpleCb_8c027bac. Either can fire independently (both draw
  *    calls can be queued the same frame); each callback also picks a near
  *    vs. far LOD/night-vs-day light variant from the distance and
  *    var_timeOfDay_8c18ad20.
  *
- * 2. Advances this entity's suspension-lean state (field_0x070/074/078/07c,
+ * 2. Advances this entity's suspension-lean state (distanceTraveled_0x070/ang_0x074/acc_0x078/ang_0x07c,
  *    mirroring BusState's distance_traveled_0x070/ang_0x074/acc_0x078/
  *    ang_0x07c -- the same fields BusDrawUpdateModels_8c027958 reads for blinker-light
- *    placement) and, unless skipped (field_0x494 already 1 and speed
+ *    placement) and, unless skipped (groundAligned_0x494 already 1 and speed
  *    speed_0x27c is 0 -- i.e. stationary and already aligned), re-probes 3
- *    ground points (field_0x118/0x124/0x100, each an (x,y,z) triple) through
+ *    ground points (probeSideAX_0x118/probeSideBX_0x124/frontPointX_0x100, each an (x,y,z) triple) through
  *    entity->probeFn_0x2c8 (a per-entity ground-probe function pointer) into
  *    3 scratch GroundQueryResult buffers at entity+0x190/0x1a0/0x1b0,
  *    interpolates height at 2 of them into posY_0xf8, and re-aligns the

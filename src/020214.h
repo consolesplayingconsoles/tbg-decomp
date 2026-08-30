@@ -9,11 +9,11 @@
  * has reached its ending phase (var_8c2285c4[0] >= 3). While active: plays a
  * periodic idle chime/vibration once the bus is moving fast enough
  * (var_8c1bbc4c) and a countdown (var_8c2264bc) expires, then -- gated by
- * the A-press latch var_8c2264b8.field_0x0c -- runs a stop-approach jingle
- * sequence once per drive (field_0x08's state machine, restarted if the
+ * the A-press latch var_8c2264b8.nearStopLatch_0x0c -- runs a stop-approach jingle
+ * sequence once per drive (stopAnnounceState_0x08's state machine, restarted if the
  * latch gets cleared again by 02c884), then a "near stop marker" chime
  * gated by var_8c227d9c's mirror-view level and a route/segment match,
- * latched by field_0x14, and finally stops any active controller vibration
+ * latched by nearStopChimeLatch_0x14, and finally stops any active controller vibration
  * when the VIBRATION setting is off. */
 void DriveCueTask_8c020214(Task *task, void *state);
 

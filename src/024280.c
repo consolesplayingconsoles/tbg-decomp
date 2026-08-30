@@ -46,7 +46,7 @@ STATIC GearTableEntry init_8c045638[5] = {
 
 /* Called by BusTask_8c022bdc when BusState.mirror_0x268 is set: gives every
  * traffic entry roughly ahead of the bus (within ~90 degrees of its own
- * heading) that has field_0x268 set a lookahead distance derived from the
+ * heading) that has mirrorVisible_0x268 set a lookahead distance derived from the
  * bus's own speed, for use by the mirror view. */
 void BusInputMirrorLookahead_8c024280(void)
 {
@@ -67,7 +67,7 @@ void BusInputMirrorLookahead_8c024280(void)
         }
 
         entry = (TrafficEntry *)task->state;
-        if (entry->field_0x268 == 0) {
+        if (entry->mirrorVisible_0x268 == 0) {
             continue;
         }
 
@@ -100,7 +100,7 @@ STATIC void debugGearOverride_8c0242ce(void)
  * amount that grows with both current speed and how far the trigger moved
  * since var_8c1ba29d's saved deadzone, clamping speed to 0; downshifts one
  * gear if the new speed drops under the next-lower gear's top speed; then
- * derives the needle target_0x2e8/field_0x2e4 pair from the current gear's
+ * derives the needle target_0x2e8/needleCurrentValue_0x2e4 pair from the current gear's
  * table entry via asinf; and folds the brake amount into var_8c2285c4[36]'s
  * running average (a smoothed brake-intensity value). */
 STATIC void applyBraking_8c024530(void)
@@ -134,7 +134,7 @@ STATIC void applyBraking_8c024530(void)
     var_busState_8c1bb9d0.target_0x2e8 = ratio;
 
     angle = (int)((asinf(ratio / 6000.0f) * 65536.0f) / TWO_PI);
-    var_busState_8c1bb9d0.field_0x2e4 = angle;
+    var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = angle;
 
     smoothedBrake = (float *)&var_8c2285c4[36];
     *smoothedBrake += brakeAmount;
@@ -143,7 +143,7 @@ STATIC void applyBraking_8c024530(void)
 
 /* Throttle handler: while the .r trigger clears its saved deadzone
  * (var_8c1ba29c) by at least var_8c1bbcb4's minimum scaled step, ramps
- * BusState.field_0x2e4 (an engine-RPM needle) toward that step at a
+ * BusState.needleCurrentValue_0x2e4 (an engine-RPM needle) toward that step at a
  * per-gear rate (init_8c045638[gear].field_0x00), feeds it through njSin to
  * derive target_0x2e8/speed_0x27c, and upshifts (playing a shift-cue MIDI
  * note) once speed clears the next gear's top speed -- or, already at the
@@ -152,7 +152,7 @@ STATIC void applyBraking_8c024530(void)
  * if speed drops under the current gear's own top speed, then -- for
  * every coast and every upshift, but not a plain top-gear clamp or an
  * accelerate that didn't yet clear the next gear -- recomputes
- * target_0x2e8/field_0x2e4 directly from the (possibly new) gear via
+ * target_0x2e8/needleCurrentValue_0x2e4 directly from the (possibly new) gear via
  * asinf, the same needle formula as applyBraking_8c024530. */
 STATIC void applyThrottle_8c024320(void)
 {
@@ -170,13 +170,13 @@ STATIC void applyThrottle_8c024320(void)
     if (trigger > deadzone && step >= var_8c1bbcb4) {
         gear = var_busState_8c1bb9d0.gear_0x2f4;
 
-        var_busState_8c1bb9d0.field_0x2e4 += init_8c045638[gear].field_0x00;
-        if (var_busState_8c1bb9d0.field_0x2e4 > step) {
-            var_busState_8c1bb9d0.field_0x2e4 = step;
+        var_busState_8c1bb9d0.needleCurrentValue_0x2e4 += init_8c045638[gear].field_0x00;
+        if (var_busState_8c1bb9d0.needleCurrentValue_0x2e4 > step) {
+            var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = step;
         }
 
         var_busState_8c1bb9d0.target_0x2e8 =
-            njSin(var_busState_8c1bb9d0.field_0x2e4) * 6000.0f;
+            njSin(var_busState_8c1bb9d0.needleCurrentValue_0x2e4) * 6000.0f;
         var_busState_8c1bb9d0.speed_0x27c =
             var_busState_8c1bb9d0.target_0x2e8 * init_8c045638[gear].field_0x04;
 
@@ -214,7 +214,7 @@ STATIC void applyThrottle_8c024320(void)
     gear = var_busState_8c1bb9d0.gear_0x2f4;
     var_busState_8c1bb9d0.target_0x2e8 =
         var_busState_8c1bb9d0.speed_0x27c / init_8c045638[gear].field_0x04;
-    var_busState_8c1bb9d0.field_0x2e4 =
+    var_busState_8c1bb9d0.needleCurrentValue_0x2e4 =
         (int)((asinf(var_busState_8c1bb9d0.target_0x2e8 / 6000.0f) * 65536.0f) / TWO_PI);
 }
 
@@ -251,12 +251,12 @@ STATIC void applyBrakingSfx_8c024606(void)
 /* Per-frame driving dispatcher, called by BusTask_8c022bdc while driving.
  *
  * First plays the brake SFX (applyBrakingSfx_8c024606), then drives
- * BusState.field_0x2e0 (the needle-ramp mode) through three states:
+ * BusState.needleRampMode_0x2e0 (the needle-ramp mode) through three states:
  *
  *   0 (relax): braking sets blinker_0x080's bit 0; otherwise, once the
- *     throttle clears half its deadzone, resets field_0x2ec and switches to
+ *     throttle clears half its deadzone, resets idleFrameCounter_0x2ec and switches to
  *     mode 1, kicking off a vibration cue (VibStart_8c010f7a(0)).
- *   1 (settle): braking still sets blinker_0x080's bit 0; field_0x2ec counts
+ *   1 (settle): braking still sets blinker_0x080's bit 0; idleFrameCounter_0x2ec counts
  *     frames, and once it exceeds 30, either aborts back to mode 0 (stopping
  *     any vibration) if the pedals are pressed, or advances to mode 2 (ramp)
  *     if they're not.
@@ -269,23 +269,23 @@ STATIC void applyBrakingSfx_8c024606(void)
  *     tracking a forward-gear idle-frame counter in var_8c2285c4[32] (reset
  *     at rest, else incremented -- a separate, undocumented int slot, not
  *     related to [36]). Mode 2 then always checks speed_0x27c == 0.0: if so, calls
- *     debugGearOverride_8c0242ce and, once field_0x2ec (idle-at-rest frames)
+ *     debugGearOverride_8c0242ce and, once idleFrameCounter_0x2ec (idle-at-rest frames)
  *     reaches 30, drops back to mode 1 (again kicking VibStart_8c010f7a(0));
- *     otherwise resets field_0x2ec to 0.
+ *     otherwise resets idleFrameCounter_0x2ec to 0.
  *
  * After the mode dispatch, handles the two rear/side-mirror-view buttons
- * (PDS_PERIPHERAL.press bits 0x400 and 0x2) via BusState.field_0x25c (a
+ * (PDS_PERIPHERAL.press bits 0x400 and 0x2) via BusState.mirrorButtonState_0x25c (a
  * small per-button press/hold/release state) toggling mirror_0x268 between
  * its 0/1/2 modes, gated by a var_8c2285c4[27] check against a sentinel
  * (0x10000000) or against var_8c228634[0]. In mapped-route steering mode
- * (var_inputMapSel_8c1bb8c8 != 0) this is everything -- field_0x338 is
- * force-set to 2 first, bailing out entirely if field_0x334 is set; the
- * first button's held (case 1) state clears field_0x338 back to 0 instead
+ * (var_inputMapSel_8c1bb8c8 != 0) this is everything -- crossingSearchSide_0x338 is
+ * force-set to 2 first, bailing out entirely if crossingSearchDone_0x334 is set; the
+ * first button's held (case 1) state clears crossingSearchSide_0x338 back to 0 instead
  * of touching mirror_0x268.
  *
  * In direct steering mode (var_inputMapSel_8c1bb8c8 == 0), the same two
- * buttons instead only clear mirror_0x268/field_0x25c on release (never
- * setting field_0x338), and execution always continues into a steering-
+ * buttons instead only clear mirror_0x268/mirrorButtonState_0x25c on release (never
+ * setting crossingSearchSide_0x338), and execution always continues into a steering-
  * wheel force-feedback ramp: PDS_PERIPHERAL.x1 (the analog steering axis,
  * dead-zoned by 8 either side) is converted to a target angle (BAM units,
  * via a 60-degree max deflection) for BusState.ang_0x258, then eased toward
@@ -311,14 +311,14 @@ void BusInputUpdate_8c0246b2(void)
     throttleTrigger = pad->r;
     throttleDeadzone = var_8c1ba29c;
 
-    mode = var_busState_8c1bb9d0.field_0x2e0;
+    mode = var_busState_8c1bb9d0.needleRampMode_0x2e0;
     switch (mode) {
     case 0: /* relax */
         if (brakeTrigger > brakeDeadzone) {
             var_busState_8c1bb9d0.blinker_0x080 |= 1;
         } else if (throttleTrigger > (Uint16)(throttleDeadzone / 2)) {
-            var_busState_8c1bb9d0.field_0x2ec = 0;
-            var_busState_8c1bb9d0.field_0x2e0 = 1;
+            var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
+            var_busState_8c1bb9d0.needleRampMode_0x2e0 = 1;
             VibStart_8c010f7a(0);
         }
         debugGearOverride_8c0242ce();
@@ -331,8 +331,8 @@ void BusInputUpdate_8c0246b2(void)
             var_busState_8c1bb9d0.blinker_0x080 |= 1;
         }
 
-        counter = var_busState_8c1bb9d0.field_0x2ec;
-        var_busState_8c1bb9d0.field_0x2ec = counter + 1;
+        counter = var_busState_8c1bb9d0.idleFrameCounter_0x2ec;
+        var_busState_8c1bb9d0.idleFrameCounter_0x2ec = counter + 1;
 
         if (counter > 30) {
             /* Advance to the ramp only if the throttle is STILL held (the
@@ -340,12 +340,12 @@ void BusInputUpdate_8c0246b2(void)
              * anything else -- throttle let go, or the brake now pressed --
              * aborts back to relax. */
             if (throttleTrigger > throttleDeadzone && !(brakeTrigger > brakeDeadzone)) {
-                var_busState_8c1bb9d0.field_0x2e0 = 2;
-                var_busState_8c1bb9d0.field_0x2ec = 0;
+                var_busState_8c1bb9d0.needleRampMode_0x2e0 = 2;
+                var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
                 var_busState_8c1bb9d0.field_0x2f0 = 0;
             } else {
-                var_busState_8c1bb9d0.field_0x2ec = 0;
-                var_busState_8c1bb9d0.field_0x2e0 = 0;
+                var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
+                var_busState_8c1bb9d0.needleRampMode_0x2e0 = 0;
                 if (var_vibport_8c1ba354 != (Uint32)-1) {
                     pdVibMxStop(var_vibport_8c1ba354);
                 }
@@ -415,15 +415,15 @@ void BusInputUpdate_8c0246b2(void)
 
         if (var_busState_8c1bb9d0.speed_0x27c == 0.0f) {
             debugGearOverride_8c0242ce();
-            if (var_busState_8c1bb9d0.field_0x2ec >= 30) {
-                var_busState_8c1bb9d0.field_0x2e0 = 1;
-                var_busState_8c1bb9d0.field_0x2ec = 0;
+            if (var_busState_8c1bb9d0.idleFrameCounter_0x2ec >= 30) {
+                var_busState_8c1bb9d0.needleRampMode_0x2e0 = 1;
+                var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
                 VibStart_8c010f7a(0);
             } else {
-                var_busState_8c1bb9d0.field_0x2ec += 1;
+                var_busState_8c1bb9d0.idleFrameCounter_0x2ec += 1;
             }
         } else {
-            var_busState_8c1bb9d0.field_0x2ec = 0;
+            var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
         }
         break;
 
@@ -434,43 +434,43 @@ void BusInputUpdate_8c0246b2(void)
     press = pad->press;
 
     if (var_inputMapSel_8c1bb8c8 != 0) {
-        var_busState_8c1bb9d0.field_0x338 = 2;
-        if (var_busState_8c1bb9d0.field_0x334 != 0) {
+        var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
+        if (var_busState_8c1bb9d0.crossingSearchDone_0x334 != 0) {
             return;
         }
 
         if ((press & 0x400) != 0) {
-            switch (var_busState_8c1bb9d0.field_0x25c) {
+            switch (var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
             case 0:
-                var_busState_8c1bb9d0.field_0x25c = 1;
+                var_busState_8c1bb9d0.mirrorButtonState_0x25c = 1;
                 if (var_8c2285c4[27] != 0x10000000) {
                     var_busState_8c1bb9d0.mirror_0x268 = 1;
                 }
                 break;
             case 1:
-                var_busState_8c1bb9d0.field_0x338 = 0;
+                var_busState_8c1bb9d0.crossingSearchSide_0x338 = 0;
                 break;
             case 2:
-                var_busState_8c1bb9d0.field_0x25c = 0;
+                var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
                 var_busState_8c1bb9d0.mirror_0x268 = 0;
                 break;
             default:
                 break;
             }
         } else if ((press & 2) != 0) {
-            switch (var_busState_8c1bb9d0.field_0x25c) {
+            switch (var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
             case 0:
-                var_busState_8c1bb9d0.field_0x25c = 2;
+                var_busState_8c1bb9d0.mirrorButtonState_0x25c = 2;
                 if ((var_8c2285c4[27] & ~1) != (var_8c228634[0] << 4)) {
                     var_busState_8c1bb9d0.mirror_0x268 = 2;
                 }
                 break;
             case 1:
-                var_busState_8c1bb9d0.field_0x25c = 0;
+                var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
                 var_busState_8c1bb9d0.mirror_0x268 = 0;
                 break;
             case 2:
-                var_busState_8c1bb9d0.field_0x338 = 1;
+                var_busState_8c1bb9d0.crossingSearchSide_0x338 = 1;
                 break;
             default:
                 break;
@@ -480,35 +480,35 @@ void BusInputUpdate_8c0246b2(void)
     }
 
     /* Direct steering mode: same two mirror buttons, but case 1 (held) just
-     * clears back to 0 on either button, and field_0x338 is never touched
+     * clears back to 0 on either button, and crossingSearchSide_0x338 is never touched
      * here -- then the steering force-feedback ramp always runs below. */
     if ((press & 0x400) != 0) {
-        switch (var_busState_8c1bb9d0.field_0x25c) {
+        switch (var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
         case 0:
-            var_busState_8c1bb9d0.field_0x25c = 1;
+            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 1;
             if (var_8c2285c4[27] != 0x10000000) {
                 var_busState_8c1bb9d0.mirror_0x268 = 1;
             }
             break;
         case 1:
         case 2:
-            var_busState_8c1bb9d0.field_0x25c = 0;
+            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
             var_busState_8c1bb9d0.mirror_0x268 = 0;
             break;
         default:
             break;
         }
     } else if ((press & 2) != 0) {
-        switch (var_busState_8c1bb9d0.field_0x25c) {
+        switch (var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
         case 0:
-            var_busState_8c1bb9d0.field_0x25c = 2;
+            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 2;
             if ((var_8c2285c4[27] & ~1) != (var_8c228634[0] << 4)) {
                 var_busState_8c1bb9d0.mirror_0x268 = 2;
             }
             break;
         case 1:
         case 2:
-            var_busState_8c1bb9d0.field_0x25c = 0;
+            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
             var_busState_8c1bb9d0.mirror_0x268 = 0;
             break;
         default:

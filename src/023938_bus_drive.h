@@ -19,7 +19,7 @@ typedef struct {
 } LineBusSegment;
 
 /* var_8c227d88 entry, 0xc bytes/6 ushorts; altNext_0x04[1] is the next
- * segment when field_0x25c == 1, altNext_0x04[2] is the next segment when
+ * segment when mirrorButtonState_0x25c == 1, altNext_0x04[2] is the next segment when
  * var_8c1bbc2c == 2, altNext_0x04[0] is the default (used by 02412c);
  * fwdNext_0x00/backNext_0x02 are read by FUN_8c023e7e. */
 typedef struct {
@@ -34,9 +34,9 @@ typedef struct {
 void BusDriveStop_8c023bce(void);
 
 /* Computes 10 corner/lookahead ground-sample points around the bus and
- * queries each through the ground-query callback in field_0x2c8, filling
+ * queries each through the ground-query callback in groundProbeFn_0x2c8, filling
  * groundSamples_0x190; also reseeds posHistory_0x100[0]/[1] and the heading
- * unit vector field_0x274/0x278. Called by busInitPlaceBus_8c023310/
+ * unit vector headingDirX_0x274/0x278. Called by busInitPlaceBus_8c023310/
  * BusInitStart_8c023610 (023310_bus_init) and BusTask_8c022bdc (022bdc). */
 void FUN_8c023938(void);
 

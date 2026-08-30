@@ -17,11 +17,11 @@ return new class extends TestCase {
 
         // days_0x00
         $this->shouldWriteLong($base + 0x00, 1);
-        // field_0x04[5]
+        // eventProgressFlags_0x04[5]
         for ($off = 0x04; $off < 0x18; $off += 4) {
             $this->shouldWriteLong($base + $off, 0);
         }
-        // courses_0x44[9]: clear unlocked_0x00, field_0x02, storyAward_0x03
+        // courses_0x44[9]: clear unlocked_0x00, everPlayed_0x02, storyAward_0x03
         for ($i = 0; $i < 9; $i++) {
             $c = $base + 0x44 + $i * 8;
             $this->shouldWriteByte($c + 0, 0);

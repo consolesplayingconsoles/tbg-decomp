@@ -2235,26 +2235,26 @@ STATIC void setProgressFlag_8c02af78(int index)
     int word = index >> 5;
     int mask = 1 << (index & 0x1f);
 
-    var_progress_8c1ba1cc.field_0x04[word] |= mask;
-    var_progress_8c1ba1cc.field_0x18[word] |= mask;
+    var_progress_8c1ba1cc.eventProgressFlags_0x04[word] |= mask;
+    var_progress_8c1ba1cc.profileProgressFlags_0x18[word] |= mask;
 }
 
-/* Tests progress flag in the field_0x04 bitset */
+/* Tests progress flag in the eventProgressFlags_0x04 bitset */
 STATIC int hasProgressFlag_8c02afbe(int index)
 {
     int word = index >> 5;
     int mask = 1 << (index & 0x1f);
 
-    return var_progress_8c1ba1cc.field_0x04[word] & mask;
+    return var_progress_8c1ba1cc.eventProgressFlags_0x04[word] & mask;
 }
 
-/* Tests progress flag in the field_0x18 bitset */
+/* Tests progress flag in the profileProgressFlags_0x18 bitset */
 int EventHasProgressFlagAlt_8c02aff0(int index)
 {
     int word = index >> 5;
     int mask = 1 << (index & 0x1f);
 
-    return var_progress_8c1ba1cc.field_0x18[word] & mask;
+    return var_progress_8c1ba1cc.profileProgressFlags_0x18[word] & mask;
 }
 
 STATIC void setRunEventFlag_8c02b022(int index)

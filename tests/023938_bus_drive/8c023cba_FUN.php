@@ -93,8 +93,8 @@ return new class extends TestCase {
 
         $this->seedAllHits($base);
         $this->initUint32($this->groundSampleAttr($base, 6), 0); // gs[6] miss
-        $this->initUint32($base + 0x230, $this->fdec(0.6)); // field_0x230 (heading x)
-        $this->initUint32($base + 0x238, $this->fdec(0.8)); // field_0x238 (heading z)
+        $this->initUint32($base + 0x230, $this->fdec(0.6)); // headingX_0x230 (heading x)
+        $this->initUint32($base + 0x238, $this->fdec(0.8)); // headingZ_0x238 (heading z)
 
         $this->call('_FUN_8c023cba')->with();
 

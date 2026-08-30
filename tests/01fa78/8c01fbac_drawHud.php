@@ -171,16 +171,16 @@ return new class extends TestCase {
 
         // Driver-comment popup: both staged icons and arg0's icon are drawn.
         $popup = $this->addressOf('_var_8c2264a8');
-        $this->initUint32($popup + 0x00, 0x40); // field_0x00 (icon id)
-        $this->initUint32($popup + 0x04, 0x30); // field_0x04 (id, doubles as its own gate)
-        $this->initUint32($popup + 0x08, 1);    // field_0x08 (gate for field_0x00)
+        $this->initUint32($popup + 0x00, 0x40); // markSpriteId_0x00 (icon id)
+        $this->initUint32($popup + 0x04, 0x30); // turnSignalIconId_0x04 (id, doubles as its own gate)
+        $this->initUint32($popup + 0x08, 1);    // displayTimer_0x08 (gate for markSpriteId_0x00)
 
         // Next-stop icon: mirror level 0, armed, blink window open.
         $this->initUint32($base + 0x14, 5);  // var_8c226450
         $this->initUint32($base + 0x18, 61); // var_8c226454 (> 60)
 
         // Driver-points meter: (50.0 * 202.0) / 100 + 38.0 = 139.0, inner = 123.0.
-        $this->initUint32($base + 0x1c, unpack('L', pack('f', 50.0))[1]); // var_8c226458.field_0x00
+        $this->initUint32($base + 0x1c, unpack('L', pack('f', 50.0))[1]); // var_8c226458.displayedValue_0x00
         $this->initUint32($dp + 0x10, 100); // var_8c2285d4 (divisor)
 
         // Both turn-signal bits set.

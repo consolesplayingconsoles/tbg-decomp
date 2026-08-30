@@ -132,7 +132,7 @@ STATIC void task_8c012f9c(Task *task, void* state) {
     } else {
         var_fadeArrivalVariant_8c22655c = 0;
         if (r7 == FALSE) {
-            var_busState_8c1bb9d0.field_0x25c = 0;
+            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
         }
 
         var_busState_8c1bb9d0.mirror_0x268 = 0;
@@ -234,7 +234,7 @@ void FUN_8c01328c() {
     AsqSetSeedA_8c012160(var_seed_8c157a64);
     AsqSetSeedB_8c0121a2(var_seed_8c157a64);
     AsqApplyButtonConfig_8c0121e8();
-    var_8c227da0 = var_progress_8c1ba1cc.field_0xc6;
+    var_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
     var_8c227da8 = 0;
 
     RouteLoadPushTask_8c0144fc();
@@ -248,7 +248,7 @@ void GamePushLoadingTask_8c013310(int p1) {
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         var_currentCourse_8c1bb868.courseId_0x00 = p1;
         var_startStopIndex_8c228704 = 0;
-        var_inputMapSel_8c1bb8c8 = var_progress_8c1ba1cc.field_0xc5;
+        var_inputMapSel_8c1bb8c8 = var_progress_8c1ba1cc.driveMode_0xc5;
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
     } else if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO && var_8c1bb8d4 != 0) {
         var_8c227dd4 = init_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
@@ -260,7 +260,7 @@ void GamePushLoadingTask_8c013310(int p1) {
     AsqSetSeedA_8c012160(var_seed_8c157a64);
     AsqSetSeedB_8c0121a2(var_seed_8c157a64);
     AsqApplyButtonConfig_8c0121e8();
-    var_8c227da0 = var_progress_8c1ba1cc.field_0xc6;
+    var_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
     var_8c227da8 = 0;
 
     RouteLoadPushTask_8c0144fc();

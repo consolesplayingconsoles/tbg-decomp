@@ -7,13 +7,13 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // applyThrottle_8c024320: STATIC, called from BusInputUpdate_8c0246b2 each frame while driving.
 // While the .r trigger (var_8c1ba374) clears its saved deadzone
 // (var_8c1ba29c) by at least var_8c1bbcb4's minimum scaled step, ramps
-// BusState.field_0x2e4 toward that step by init_8c045638[gear].field_0x00,
+// BusState.needleCurrentValue_0x2e4 toward that step by init_8c045638[gear].field_0x00,
 // feeds it through njSin to derive target_0x2e8/speed_0x27c, and upshifts
 // (with a shift-cue MIDI note) once speed clears the next gear's top speed
 // -- or, at the top gear, just clamps speed to its max. Otherwise coasts:
 // decays speed_0x27c by 0.00025 (clamped to 0), downshifting (same cue) if
 // speed drops under the current gear's own top speed, then -- for every
-// coast and every upshift -- recomputes target_0x2e8/field_0x2e4 from the
+// coast and every upshift -- recomputes target_0x2e8/needleCurrentValue_0x2e4 from the
 // (possibly new) gear via asinf, same formula as applyBraking_8c024530.
 //
 // asinf's return is mocked to 0.0 throughout: sh4objtest has no FPU

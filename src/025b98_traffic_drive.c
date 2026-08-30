@@ -62,8 +62,8 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
             leftover = dx;
             e->posX_0xf4 += dx;
             e->posZ_0xfc += dz;
-            e->field_0x100 += dx;
-            e->field_0x108 += dz;
+            e->frontPointX_0x100 += dx;
+            e->frontPointZ_0x108 += dz;
             newSpeed = speed - 0.1f;
         } else {
             speed += 0.1f;
@@ -72,8 +72,8 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
             leftover = dz;
             e->posX_0xf4 -= dx;
             e->posZ_0xfc -= dz;
-            e->field_0x100 -= dx;
-            e->field_0x108 -= dz;
+            e->frontPointX_0x100 -= dx;
+            e->frontPointZ_0x108 -= dz;
             newSpeed = 0.0f;
         }
 
@@ -92,7 +92,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
     dz = var_8c1bbacc - e->posZ_0xfc;
     e->field_0x490 = njSqrt(dx * dx + dz * dz);
 
-    if (e->field_0x490 > 200.0f && e->field_0x2f4 != var_activeTrafficPreset_8c227e14) {
+    if (e->field_0x490 > 200.0f && e->spawnPresetId_0x2f4 != var_activeTrafficPreset_8c227e14) {
         TaskFree_8c014b66(task);
         return;
     }
@@ -121,26 +121,26 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  *
  * Normal driving (0/2) first resolves a junction under the entity's own
  * position (entry->junctionQueryFn_0x2cc, one of FUN_8c02e51c/eab4) to get a signal
- * id (field_0x410) and refreshes an obstacle-braking distance (fVar8) by
+ * id (signalId_0x410) and refreshes an obstacle-braking distance (fVar8) by
  * scanning ahead with TrafficLookaheadScan_8c02dfca over a lookahead of
- * speed_0x27c*36.0 + field_0x41c (+5.0 once already braking, to stop the
+ * speed_0x27c*36.0 + lookaheadMargin_0x41c (+5.0 once already braking, to stop the
  * candidate flapping in and out of range every frame). It then walks a
  * handful of independent little state machines keyed to that signal id and
- * to resolvedArgs_0x304[0]/field_0x300 (which path block the entity is
- * currently in) -- a junction yield sequence (field_0x42c/0x430/0x434/
+ * to resolvedArgs_0x304[0]/blockIndex_0x300 (which path block the entity is
+ * currently in) -- a junction yield sequence (yieldState_0x42c/0x430/0x434/
  * 0x438), and three "decoration" waits for traffic-light frame/attachment
- * changes (field_0x448/0x458+0x498/0x468), each armed by
+ * changes (signalWaitState_0x448/0x458+0x498/0x468), each armed by
  * TrafficRunEntryScript_8c027012's opcodes 5/6/7 and torn down once the
  * entity leaves the block that armed it -- before picking the frame's
  * actual speed limit as the smallest of: the obstacle distance (fVar8,
  * converted to a speed via /108000*3000), a curve/lane-offset limit
- * (min of field_0x414/0x418), and a signal-stop limit (only computed once
+ * (min of laneOffsetRatio_0x414/0x418), and a signal-stop limit (only computed once
  * flagged by the light logic above, via TrafficRemainingPathDistance_8c026fb0).
  * Whichever bound wins gets its own "still constrained" flag
- * (field_0x424/0x428) set for next frame's lookahead widening.
+ * (obstacleLimitActive_0x424/0x428) set for next frame's lookahead widening.
  *
  * If the resulting speed is nonzero, advances position/pathDistance by it,
- * decrements field_0x4ec, runs the driveState==2 ground-blend above, then
+ * decrements lookaheadCacheLen_0x4ec, runs the driveState==2 ground-blend above, then
  * advances along the path (TrafficAdvanceOnPath_8c026ca2) and the entry's
  * script (TrafficRunEntryScript_8c027012). Running out of script instantly
  * frees the task and returns -- skipping the shared tail's ring-buffer/
@@ -165,7 +165,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
      * a genuine uninitialized-read quirk of the original asm). */
     float heading = 0.0f;
 
-    e->field_0x080 = 0;
+    e->blinker_0x080 = 0;
 
     if (e->driveState_0x2b4 == 0 || e->driveState_0x2b4 == 2) {
         /* ---- normal driving: junction lookup + obstacle scan ---- */
@@ -173,51 +173,51 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
 
         if (speed != 0.0f) {
             void *hit = e->junctionQueryFn_0x2cc(
-                e->posX_0xf4, e->posY_0xf8, e->posZ_0xfc, &e->field_0x404);
+                e->posX_0xf4, e->posY_0xf8, e->posZ_0xfc, &e->junctionSlot_0x404);
             if (hit == (void *)0) {
                 signalId = -1;
-                e->field_0x2dc = 0;
+                e->lightFadeTrigger_0x2dc = 0;
             } else {
                 signalId = *(Sint32 *)hit;
-                e->field_0x2dc = *((Sint32 *)hit + 1);
+                e->lightFadeTrigger_0x2dc = *((Sint32 *)hit + 1);
             }
         }
         /* speed == 0.0: signalId is genuinely left uninitialized here in
          * the original asm (Ghidra flags it "unaff_r8") -- whatever
-         * garbage was last in that register gets stored to field_0x410
+         * garbage was last in that register gets stored to signalId_0x410
          * below. A real original-game quirk, not something to paper over;
          * not bit-reproducible in C, so left as an uninitialized read. */
-        e->field_0x410 = signalId;
-        e->field_0x50c = 0;
+        e->signalId_0x410 = signalId;
+        e->atGroundJunction_0x50c = 0;
 
         {
             /* lookahead widens by 5.0 once already braking for an
              * obstacle, so the candidate doesn't flap in and out of range
              * every frame. */
-            float lookahead = speed * 36.0f + e->field_0x41c;
+            float lookahead = speed * 36.0f + e->lookaheadMargin_0x41c;
             TrafficEntry *ahead;
-            if (e->field_0x424 != 0) {
+            if (e->obstacleLimitActive_0x424 != 0) {
                 lookahead += 5.0f;
             }
             ahead = TrafficLookaheadScan_8c02dfca(task, e, lookahead);
             if (ahead == NULL) {
-                e->field_0x424 = 0;
-                e->field_0x2d4 = 0;
+                e->obstacleLimitActive_0x424 = 0;
+                e->busAheadFlag_0x2d4 = 0;
             } else {
-                brakeDist = GeomDistanceXZ_8c02081c(&ahead->field_0x10c, &e->field_0x0ec);
+                brakeDist = GeomDistanceXZ_8c02081c(&ahead->rearPointX_0x10c, &e->pathPointX_0x0ec);
                 if (ahead == (TrafficEntry *)var_8c1bbd9c) {
-                    float busDist = GeomDistanceXZ_8c02081c(&ahead->posX_0xf4, &e->field_0x0ec);
+                    float busDist = GeomDistanceXZ_8c02081c(&ahead->posX_0xf4, &e->pathPointX_0x0ec);
                     if (busDist < brakeDist) {
                         brakeDist = busDist;
                     }
                     brakeDist -= 5.0f;
                 }
-                brakeDist -= e->field_0x41c;
+                brakeDist -= e->lookaheadMargin_0x41c;
                 if (brakeDist < 0.0f) {
                     brakeDist = 0.0f;
                 }
-                e->field_0x2d4 = ahead->field_0x2d4;
-                if (e->field_0x2d4 != 0) {
+                e->busAheadFlag_0x2d4 = ahead->busAheadFlag_0x2d4;
+                if (e->busAheadFlag_0x2d4 != 0) {
                     /* Junction/collision query at the candidate's own
                      * position, on the fallback attribute grid -- role of
                      * var_8c228b3c/var_8c1bb878/var_8c1bb888 beyond this
@@ -228,11 +228,11 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                             ahead->posX_0xf4,
                             ahead->posY_0xf8,
                             ahead->posZ_0xfc,
-                            &e->field_0x500);
+                            &e->junctionSlot2_0x500);
                         if (junction != (void *)0 &&
                             (*(Uint32 *)((Uint8 *)junction + 0xc) & 0xf000000) == 0) {
-                            e->field_0x50c = 1;
-                            if (speed == 0.0f && e->field_0x468 != 2) {
+                            e->atGroundJunction_0x50c = 1;
+                            if (speed == 0.0f && e->mergeWaitState_0x468 != 2) {
                                 var_8c2264d0 = 1;
                             }
                         }
@@ -243,21 +243,21 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         }
 
         /* ---- junction yield sequence ---- */
-        if (e->field_0x42c == 1) {
-            if (signalId == (Sint32)e->field_0x434) {
-                e->field_0x42c = 2;
-                e->field_0x260 = 0;
+        if (e->yieldState_0x42c == 1) {
+            if (signalId == (Sint32)e->yieldEnterSignalId_0x434) {
+                e->yieldState_0x42c = 2;
+                e->blinkCounter_0x260 = 0;
             }
-        } else if (e->field_0x42c == 2) {
-            if (signalId == (Sint32)e->field_0x438) {
-                e->field_0x42c = 0;
+        } else if (e->yieldState_0x42c == 2) {
+            if (signalId == (Sint32)e->yieldExitSignalId_0x438) {
+                e->yieldState_0x42c = 0;
             } else {
-                Uint32 waitCount = e->field_0x260++;
+                Uint32 waitCount = e->blinkCounter_0x260++;
                 if ((waitCount & 0x10) == 0) {
-                    if (e->field_0x430 == 0) {
-                        e->field_0x080 |= 2;
+                    if (e->yieldPriority_0x430 == 0) {
+                        e->blinker_0x080 |= 2;
                     } else {
-                        e->field_0x080 |= 4;
+                        e->blinker_0x080 |= 4;
                     }
                 }
             }
@@ -267,78 +267,78 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         {
             Sint32 stopFlag = 0;
 
-            if (e->field_0x448 == 2) {
-                if (e->field_0x454 == e->field_0x300) {
-                    Sint32 frame = ObjectsGetTrafficSignalFrame_8c028900(e->field_0x450);
-                    if (frame != 1 || TrafficPathScanTypeInGroup_8c02f28a(e->field_0x450) != 0) {
+            if (e->signalWaitState_0x448 == 2) {
+                if (e->signalWaitArmedBlock_0x454 == e->blockIndex_0x300) {
+                    Sint32 frame = ObjectsGetTrafficSignalFrame_8c028900(e->signalWaitFrameId_0x450);
+                    if (frame != 1 || TrafficPathScanTypeInGroup_8c02f28a(e->signalWaitFrameId_0x450) != 0) {
                         stopFlag = 1;
                     }
                 } else {
-                    e->field_0x448 = 0;
+                    e->signalWaitState_0x448 = 0;
                 }
             }
 
-            if (e->field_0x458 == 2 && e->field_0x464 != e->field_0x300) {
-                e->field_0x458 = 3;
+            if (e->attachmentWaitState_0x458 == 2 && e->attachmentArmedBlock_0x464 != e->blockIndex_0x300) {
+                e->attachmentWaitState_0x458 = 3;
             }
 
-            if (e->field_0x458 == 2) {
-                if (ObjectsFUN_8c028998(e->field_0x45c) != 0) {
+            if (e->attachmentWaitState_0x458 == 2) {
+                if (ObjectsFUN_8c028998(e->attachmentId_0x45c) != 0) {
                     stopFlag = 1;
                 }
-            } else if (e->field_0x458 == 3) {
-                if (signalId == (Sint32)e->field_0x460) {
-                    e->field_0x458 = 0;
+            } else if (e->attachmentWaitState_0x458 == 3) {
+                if (signalId == (Sint32)e->attachmentExitSignalId_0x460) {
+                    e->attachmentWaitState_0x458 = 0;
                 } else {
-                    ObjectsFUN_8c028984(e->field_0x45c);
+                    ObjectsFUN_8c028984(e->attachmentId_0x45c);
                 }
             }
 
-            if (e->field_0x498 != 0) {
-                if (e->field_0x464 == e->field_0x300) {
-                    ObjectsFUN_8c028984(e->field_0x498);
+            if (e->pendingAttachmentRelease_0x498 != 0) {
+                if (e->attachmentArmedBlock_0x464 == e->blockIndex_0x300) {
+                    ObjectsFUN_8c028984(e->pendingAttachmentRelease_0x498);
                 } else {
-                    e->field_0x498 = 0;
+                    e->pendingAttachmentRelease_0x498 = 0;
                 }
             }
 
-            if (e->field_0x468 == 2) {
-                if (e->field_0x470 == e->field_0x300) {
-                    if (FUN_8c02f08a(task, e->field_0x46c) != 0) {
+            if (e->mergeWaitState_0x468 == 2) {
+                if (e->mergeWaitArmedBlock_0x470 == e->blockIndex_0x300) {
+                    if (FUN_8c02f08a(task, e->mergeWaitSignalId_0x46c) != 0) {
                         stopFlag = 1;
                     }
                 } else {
-                    e->field_0x468 = 0;
+                    e->mergeWaitState_0x468 = 0;
                 }
             }
 
-            /* ---- junction-wait sub-state (field_0x474, 1-4; unrelated
+            /* ---- junction-wait sub-state (junctionWaitState_0x474, 1-4; unrelated
              * to driveState_0x2b4) ---- */
             {
                 float waitAdvance = speed * 30.0f;
-                Sint32 waitState = e->field_0x474;
+                Sint32 waitState = e->junctionWaitState_0x474;
 
                 if (waitState == 1) {
-                    if (signalId == (Sint32)e->field_0x478) {
-                        e->field_0x474 = 2;
-                        e->field_0x488 = 30;
-                        e->field_0x260 = 30;
+                    if (signalId == (Sint32)e->junctionWaitSignalId_0x478) {
+                        e->junctionWaitState_0x474 = 2;
+                        e->junctionWaitTimer_0x488 = 30;
+                        e->blinkCounter_0x260 = 30;
                     }
                 } else if (waitState == 2) {
-                    if (--e->field_0x488 < 1) {
-                        e->field_0x474 = 3;
-                        e->field_0x41c = speed / 30.0f;
+                    if (--e->junctionWaitTimer_0x488 < 1) {
+                        e->junctionWaitState_0x474 = 3;
+                        e->lookaheadMargin_0x41c = speed / 30.0f;
                     }
                     TrafficUpdateFrameFlags_8c026f7e(e);
                 } else if (waitState == 3) {
-                    if (e->field_0x480 == e->field_0x300) {
+                    if (e->junctionWaitArmedBlock_0x480 == e->blockIndex_0x300) {
                         float halfWindow = e->width_0x23c + 8.0f;
                         void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, e->junctionPath_0x484,
-                                                     e->field_0x300,
+                                                     e->blockIndex_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
                         if (hitBox == (void *)0) {
-                            e->field_0x474 = 4;
+                            e->junctionWaitState_0x474 = 4;
                             TrafficSeekPathRecord_8c026fcc(e, e->junctionPath_0x484);
                             e->pathDistance_0x2bc += waitAdvance;
                             e->pathDistanceCopy_0x2c0 += waitAdvance;
@@ -349,7 +349,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                                 e->pathRecord_0x2b8->dirZ_0x10 * e->pathDistance_0x2bc +
                                 e->pathRecord_0x2b8->z_0x08;
                             e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(
-                                &var_groundQueryPoint_8c1bc460, &e->field_0x0ec);
+                                &var_groundQueryPoint_8c1bc460, &e->pathPointX_0x0ec);
                         } else {
                             brakeDist = TrafficComputeBlockedSpeed_8c026eaa(e, (TrafficEntry *)hitBox);
                         }
@@ -368,14 +368,14 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                             e->pathRecord_0x2b8->dirZ_0x10 * e->pathDistance_0x2bc +
                             e->pathRecord_0x2b8->z_0x08;
                         e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(
-                            &var_groundQueryPoint_8c1bc460, &e->field_0x0ec);
+                            &var_groundQueryPoint_8c1bc460, &e->pathPointX_0x0ec);
                     }
                     TrafficUpdateFrameFlags_8c026f7e(e);
                 } else if (waitState == 4) {
                     if (e->projectDistance_0x2c4 != 2.0f) {
                         float halfWindow = e->width_0x23c + 8.0f;
                         void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, e->junctionPath_0x484,
-                                                     e->field_0x300,
+                                                     e->blockIndex_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
                         if (hitBox != (void *)0) {
@@ -383,7 +383,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                         }
                         TrafficUpdateFrameFlags_8c026f7e(e);
                     } else {
-                        e->field_0x474 = 0;
+                        e->junctionWaitState_0x474 = 0;
                     }
                 }
             }
@@ -397,10 +397,10 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 Sint32 coastDown = 0;
 
                 if (stopFlag == 0) {
-                    e->field_0x428 = 0;
+                    e->curveLimitActive_0x428 = 0;
                 } else {
                     signalLimit = TrafficRemainingPathDistance_8c026fb0(e);
-                    if (e->field_0x428 == 0) {
+                    if (e->curveLimitActive_0x428 == 0) {
                         float slack = speed * 18.0f - signalLimit + 2.409f;
                         if (slack > 0.5f || slack < 0.0f) {
                             signalLimit = 9999.0f;
@@ -408,7 +408,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                     }
                 }
 
-                laneLimit = e->field_0x418 <= e->field_0x414 ? e->field_0x418 : e->field_0x414;
+                laneLimit = e->field_0x418 <= e->laneOffsetRatio_0x414 ? e->field_0x418 : e->laneOffsetRatio_0x414;
 
                 if (brakeDist != 9999.0f) {
                     obstacleLimit = brakeDist * 3000.0f / 108000.0f;
@@ -433,7 +433,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 } else if (curveLimit <= obstacleLimit) {
                     if (curveLimit < laneLimit) {
                         laneLimit = curveLimit;
-                        e->field_0x428 = 1;
+                        e->curveLimitActive_0x428 = 1;
                     } else {
                         coastDown = 1;
                     }
@@ -442,7 +442,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                     coastDown = 1;
                 } else {
                     laneLimit = obstacleLimit;
-                    e->field_0x424 = 1;
+                    e->obstacleLimitActive_0x424 = 1;
                 }
                 if (coastDown != 0 && laneLimit < speed) {
                     laneLimit = speed - 0.003f;
@@ -452,7 +452,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 }
 
                 /* ---- integrate speed towards laneLimit ---- */
-                if (e->field_0x424 != 0 || e->field_0x428 != 0 || laneLimit < speed) {
+                if (e->obstacleLimitActive_0x424 != 0 || e->curveLimitActive_0x428 != 0 || laneLimit < speed) {
                     if (speed - laneLimit <= 0.02f) {
                         speed = laneLimit;
                     } else {
@@ -472,15 +472,15 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         if (speed != 0.0f) {
             e->pathDistance_0x2bc += speed;
             e->pathDistanceCopy_0x2c0 += speed;
-            e->field_0x4ec -= speed;
+            e->lookaheadCacheLen_0x4ec -= speed;
 
             if (e->driveState_0x2b4 == 2) {
                 float lateral = FUN_8c0207d4((Struct8c0207d4 *)&e->posX_0xf4,
-                                              (Struct8c0207d4 *)&e->field_0x100,
-                                              (Struct8c0207d4 *)&e->field_0x0ec);
+                                              (Struct8c0207d4 *)&e->frontPointX_0x100,
+                                              (Struct8c0207d4 *)&e->pathPointX_0x0ec);
                 if (lateral < 0.0f) {
                     if (e->projectDistance_0x2c4 <= 2.0f) {
-                        e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(&e->posX_0xf4, &e->field_0x0ec);
+                        e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(&e->posX_0xf4, &e->pathPointX_0x0ec);
                         if (e->projectDistance_0x2c4 >= 2.0f) {
                             e->projectDistance_0x2c4 = 2.0f;
                             e->driveState_0x2b4 = 0;
@@ -496,12 +496,12 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             }
 
             if (TrafficAdvanceOnPath_8c026ca2(0.0f, e) == 0) {
-                if (e->field_0x458 == 2) {
-                    e->field_0x498 = e->field_0x45c;
+                if (e->attachmentWaitState_0x458 == 2) {
+                    e->pendingAttachmentRelease_0x498 = e->attachmentId_0x45c;
                 }
                 if (TrafficRunEntryScript_8c027012(e) == 0) {
-                    if (e->field_0x2f4 == var_activeTrafficPreset_8c227e14 &&
-                        e->field_0x48c == 3) {
+                    if (e->spawnPresetId_0x2f4 == var_activeTrafficPreset_8c227e14 &&
+                        e->animKind_0x48c == 3) {
                         e->scriptBase_0x2f8 = e->scriptCursor_0x2fc;
                         TrafficReadScriptArgs_8c026710(e, e->scriptBase_0x2f8);
                         e->driveState_0x2b4 = 3;
@@ -531,14 +531,14 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             heading = dx;
             e->posX_0xf4 += dx;
             e->posZ_0xfc += dz;
-            e->field_0x100 += dx;
-            e->field_0x108 += dz;
+            e->frontPointX_0x100 += dx;
+            e->frontPointZ_0x108 += dz;
             speed -= 0.1f;
         }
 
         if (speed <= 0.0f) {
             e->driveState_0x2b4 = 2;
-            e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(&e->posX_0xf4, &e->field_0x0ec);
+            e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(&e->posX_0xf4, &e->pathPointX_0x0ec);
             speed = 0.0f;
             e->groundProbe_0x190[0].count_0x0c = 0;
             e->groundProbe_0x190[1].count_0x0c = 0;
@@ -574,13 +574,13 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         e->field_0x280[3] = lastSlot;
         sum += speed - e->speed_0x27c;
 
-        if (speed == 0.0f || (Sint32)e->field_0x078 < 0) {
-            e->field_0x080 |= 1;
+        if (speed == 0.0f || (Sint32)e->acc_0x078 < 0) {
+            e->blinker_0x080 |= 1;
         }
-        e->field_0x080 |= e->field_0x510;
+        e->blinker_0x080 |= e->extraLightFlags_0x510;
 
         if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_EVENING) {
-            e->field_0x080 |= 0x10;
+            e->blinker_0x080 |= 0x10;
         } else if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT) {
             BusDrawFadeLights_8c028022((BusState *)e);
         }
@@ -593,8 +593,8 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             e->field_0x490 = njSqrt(dx * dx + dz * dz);
         }
 
-        if (e->field_0x490 <= 200.0f || e->field_0x2f4 == var_activeTrafficPreset_8c227e14) {
-            e->field_0x268 = 0;
+        if (e->field_0x490 <= 200.0f || e->spawnPresetId_0x2f4 == var_activeTrafficPreset_8c227e14) {
+            e->mirrorVisible_0x268 = 0;
             BusDrawPlaceEntity_8c027c3c(e, sum);
             return;
         }

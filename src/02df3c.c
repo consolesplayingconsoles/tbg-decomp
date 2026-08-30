@@ -12,7 +12,7 @@
  * ====================
  */
 
-/* Seeds entry->lookaheadPoints_0x49c from scratch (entry->field_0x4ec/0x4f4/
+/* Seeds entry->lookaheadPoints_0x49c from scratch (entry->lookaheadCacheLen_0x4ec/0x4f4/
  * 0x4fc/0x4f8 all start at 0 at this point), walking the path in 5-unit
  * steps out to 25.0 units and writing each step's world (x,z) into the
  * cache, then terminates it with a 9999.0 sentinel. -1 in the path cursor
@@ -21,23 +21,23 @@
 void TrafficLookaheadInit_8c02df3c(TrafficEntry *entry)
 {
     float *out = (float *)entry->lookaheadPoints_0x49c;
-    PathRecord *cursor = entry->field_0x4f4;
-    float dist = entry->field_0x4fc;
+    PathRecord *cursor = entry->lookaheadCursor_0x4f4;
+    float dist = entry->lookaheadCursorDist_0x4fc;
 
     for (;;) {
-        if (entry->field_0x4ec >= 25.0f) {
+        if (entry->lookaheadCacheLen_0x4ec >= 25.0f) {
             *out = 9999.0f;
-            entry->field_0x4f4 = cursor;
-            entry->field_0x4fc = dist;
+            entry->lookaheadCursor_0x4f4 = cursor;
+            entry->lookaheadCursorDist_0x4fc = dist;
             return;
         }
 
         for (;;) {
             if (cursor == (PathRecord *)-1) {
-                entry->field_0x4ec += 5.0f;
+                entry->lookaheadCacheLen_0x4ec += 5.0f;
                 *out = 9999.0f;
-                entry->field_0x4f4 = cursor;
-                entry->field_0x4fc = dist;
+                entry->lookaheadCursor_0x4f4 = cursor;
+                entry->lookaheadCursorDist_0x4fc = dist;
                 return;
             }
             if (dist < cursor->length_0x00) {
@@ -46,15 +46,15 @@ void TrafficLookaheadInit_8c02df3c(TrafficEntry *entry)
             dist -= cursor->length_0x00;
             cursor++;
             if (cursor->length_0x00 == 0.0f) {
-                entry->field_0x4f8++;
-                cursor = entry->resolvedArgs_0x304[entry->field_0x4f8];
+                entry->lookaheadCursorBlock_0x4f8++;
+                cursor = entry->resolvedArgs_0x304[entry->lookaheadCursorBlock_0x4f8];
             }
         }
 
         out[0] = dist * cursor->dirX_0x0c + cursor->x_0x04;
         out[1] = dist * cursor->dirZ_0x10 + cursor->z_0x08;
         out += 2;
-        entry->field_0x4ec += 5.0f;
+        entry->lookaheadCacheLen_0x4ec += 5.0f;
         dist += 5.0f;
     }
 }
@@ -70,7 +70,7 @@ void TrafficLookaheadInit_8c02df3c(TrafficEntry *entry)
  * the traffic-entry scan. */
 void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float lookahead)
 {
-    float cacheDist = entry->field_0x4ec;
+    float cacheDist = entry->lookaheadCacheLen_0x4ec;
     float *out = (float *)entry->lookaheadPoints_0x49c;
     float remain;
 
@@ -86,16 +86,16 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
             out += 2;
         }
 
-        cursor = entry->field_0x4f4;
-        dist = entry->field_0x4fc;
+        cursor = entry->lookaheadCursor_0x4f4;
+        dist = entry->lookaheadCursorDist_0x4fc;
 
         for (; cacheDist < 20.0f; cacheDist += 5.0f) {
             while (cursor != (PathRecord *)-1 && dist >= cursor->length_0x00) {
                 dist -= cursor->length_0x00;
                 cursor++;
                 if (cursor->length_0x00 == 0.0f) {
-                    entry->field_0x4f8++;
-                    cursor = entry->resolvedArgs_0x304[entry->field_0x4f8];
+                    entry->lookaheadCursorBlock_0x4f8++;
+                    cursor = entry->resolvedArgs_0x304[entry->lookaheadCursorBlock_0x4f8];
                 }
             }
             if (cursor == (PathRecord *)-1) {
@@ -113,9 +113,9 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
             return NULL;
         }
         *out = 9999.0f;
-        entry->field_0x4f4 = cursor;
-        entry->field_0x4fc = dist;
-        entry->field_0x4ec = cacheDist;
+        entry->lookaheadCursor_0x4f4 = cursor;
+        entry->lookaheadCursorDist_0x4fc = dist;
+        entry->lookaheadCacheLen_0x4ec = cacheDist;
     }
 
     out = (float *)entry->lookaheadPoints_0x49c;
@@ -183,8 +183,8 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
             if (var_collideScanCursor_8c228974 != self
                 && var_collideScanCursor_8c228974->action != (TaskAction)-1) {
                 TrafficEntry *candidate = (TrafficEntry *)var_collideScanCursor_8c228974->state;
-                if ((fabsf(candidate->field_0x10c - px) < 2.5f &&
-                     fabsf(candidate->field_0x114 - pz) < 2.5f) ||
+                if ((fabsf(candidate->rearPointX_0x10c - px) < 2.5f &&
+                     fabsf(candidate->rearPointZ_0x114 - pz) < 2.5f) ||
                     (fabsf(candidate->posX_0xf4 - px) < 2.5f &&
                      fabsf(candidate->posZ_0xfc - pz) < 2.5f)) {
                     return candidate;

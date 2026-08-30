@@ -7,12 +7,12 @@
 #include "020914_ground_query.h" /* GroundQueryResult */
 
 /* Ground-probe callback stored in TrafficEntry.probeFn_0x2c8: same shape as
- * BusState's field_0x2c8 (023938_bus_drive.c), one of
+ * BusState's groundProbeFn_0x2c8 (023938_bus_drive.c), one of
  * GroundProbeTrackPolygon_8c020b6c/GroundProbeTrackPolygonAtHeight_8c021290. */
 typedef void (*GroundProbeFn)(float x, float y, float z, GroundQueryResult *out);
 
 /* Junction/collision query callback stored in TrafficEntry.junctionQueryFn_0x2cc:
- * same shape as BusState's field_0x2cc/0x2d0 (022bdc_bus.c), one of
+ * same shape as BusState's junctionQueryFnCpu_0x2cc/junctionQueryFnRoute_0x2d0 (022bdc_bus.c), one of
  * FUN_8c02e51c/FUN_8c02eab4. Distinct signature from GroundProbeFn above --
  * this one returns a hit pointer instead of writing through out. */
 typedef void *(*JunctionQueryFn)(float x, float y, float z, void *out);
@@ -47,25 +47,25 @@ typedef struct {
  * (moving vehicle) and TrafficDriveDecoration_8c02656a (decoration) own
  * most of it. */
 typedef struct {
-    Uint32 field_0x000;
+    Uint32 typeCode_0x000;
     NJS_TEXLIST *texlistLarge_0x04;
     NJS_TEXLIST *texlistSmall_0x08;
     NJS_OBJECT *modelLarge_0x0c;
     void *modelSmall_0x10;
     void *bodyModel_0x14;
-    NJS_OBJECT *field_0x018;
-    NJS_OBJECT *field_0x01c;
-    NJS_OBJECT *field_0x020;
-    NJS_OBJECT *field_0x024;
-    NJS_OBJECT *field_0x028;
-    NJS_OBJECT *field_0x02c;
-    NJS_OBJECT *field_0x030;
-    NJS_OBJECT *field_0x034;
-    NJS_OBJECT *field_0x038;
-    NJS_OBJECT *field_0x03c;
-    NJS_OBJECT *field_0x040;
-    NJS_OBJECT *field_0x044;
-    NJS_OBJECT *field_0x048;
+    NJS_OBJECT *steerNode_0x018;
+    NJS_OBJECT *wheelNode1_0x01c;
+    NJS_OBJECT *wheelNode2_0x020;
+    NJS_OBJECT *wheelNode3_0x024;
+    NJS_OBJECT *wheelNode4_0x028;
+    NJS_OBJECT *blinkerLight0_0x02c;
+    NJS_OBJECT *blinkerLight1_0x030;
+    NJS_OBJECT *blinkerLight2_0x034;
+    NJS_OBJECT *blinkerLight3_0x038;
+    NJS_OBJECT *blinkerLight4_0x03c;
+    NJS_OBJECT *turnLampA_0x040;
+    NJS_OBJECT *turnLampB_0x044;
+    NJS_OBJECT *turnLampC_0x048;
     NJS_OBJECT *field_0x04c;
     NJS_OBJECT *field_0x050;
     NJS_OBJECT *field_0x054;
@@ -75,46 +75,46 @@ typedef struct {
     Uint32 field_0x064;
     Uint32 field_0x068;
     Uint32 field_0x06c;
-    Uint32 field_0x070;
-    Uint32 field_0x074;
-    Uint32 field_0x078;
-    Uint32 field_0x07c;
-    Uint32 field_0x080;
+    Uint32 distanceTraveled_0x070;
+    Uint32 ang_0x074;
+    Uint32 acc_0x078;
+    Uint32 ang_0x07c;
+    Uint32 blinker_0x080;
     NJS_MATRIX worldMatrix_0x84;
-    float field_0x0c4;
-    float field_0x0c8;
-    float field_0x0cc;
-    float field_0x0d0;
-    float field_0x0d4;
-    float field_0x0d8;
-    float field_0x0dc;
-    float field_0x0e0;
-    float field_0x0e4;
-    float field_0x0e8;
-    float field_0x0ec;
-    float field_0x0f0;
+    float simpleLightIntensity0_0x0c4;
+    float simpleLightIntensity1_0x0c8;
+    float simpleLightColorR_0x0cc;
+    float simpleLightColorG_0x0d0;
+    float simpleLightColorB_0x0d4;
+    float easyLightIntensity0_0x0d8;
+    float easyLightIntensity1_0x0dc;
+    float easyLightColorR_0x0e0;
+    float easyLightColorG_0x0e4;
+    float easyLightColorB_0x0e8;
+    float pathPointX_0x0ec;
+    float pathPointZ_0x0f0;
     float posX_0xf4;
     float posY_0xf8;
     float posZ_0xfc;
-    float field_0x100;
-    float field_0x104;
-    float field_0x108;
-    float field_0x10c;
+    float frontPointX_0x100;
+    float frontPointY_0x104;
+    float frontPointZ_0x108;
+    float rearPointX_0x10c;
     Uint32 field_0x110;
-    float field_0x114;
-    float field_0x118;
-    float field_0x11c;
-    float field_0x120;
-    float field_0x124;
-    float field_0x128;
-    float field_0x12c;
+    float rearPointZ_0x114;
+    float probeSideAX_0x118;
+    float probeSideAY_0x11c;
+    float probeSideAZ_0x120;
+    float probeSideBX_0x124;
+    float probeSideBY_0x128;
+    float probeSideBZ_0x12c;
     Uint8 padding_0x130[0x60];
     /* 4 scratch ground-probe results. spawnEntry_8c0272b8 clears each one's
      * vertexIds_0x08/count_0x0c (leaving attr_0x00/polyIdSlot_0x04
      * untouched -- real asm behavior). Only the first 3 (0x190/0x1a0/0x1b0)
      * are confirmed consumers: per 027958.h/BusDrawPlaceEntity_8c027c3c, which fills them
      * through probeFn_0x2c8's probe callback and interpolates posY_0xf8/
-     * field_0x11c/field_0x128 from them; their .attr_0x00 words are read as
+     * probeSideAY_0x11c/probeSideBY_0x128 from them; their .attr_0x00 words are read as
      * a "probe already valid" gate by TrafficDriveDecoration_8c02656a,
      * which clears their .count_0x0c to force a re-probe. The 4th
      * (0x1c0)'s reader is not yet identified. */
@@ -127,13 +127,13 @@ typedef struct {
     float groundOffset_0x24c;
     Sint32 heading_0x250;
     Sint32 headingAlt_0x254;
-    Uint32 field_0x258;
+    Uint32 headingDelta_0x258;
     Uint32 field_0x25c;
-    Uint32 field_0x260;
+    Uint32 blinkCounter_0x260;
     Uint32 field_0x264;
-    Uint32 field_0x268;
-    Sint32 field_0x26c;
-    float field_0x270;
+    Uint32 mirrorVisible_0x268;
+    Sint32 headingSin_0x26c;
+    float headingCos_0x270;
     float field_0x274;
     float field_0x278;
     /* Same offset/role as BusState.speed_0x27c: a ramp value
@@ -150,8 +150,8 @@ typedef struct {
     float field_0x290;
     Uint8 padding_0x294[0x8];
     /* Same offset/role as BusState.dir_x_0x29c/dir_z_0x2a0 (its collision
-     * knockback direction): applied to posX_0xf4/field_0x100 (front) and
-     * posZ_0xfc/field_0x108 (rear) by TrafficDriveDecoration_8c02656a. */
+     * knockback direction): applied to posX_0xf4/frontPointX_0x100 (front) and
+     * posZ_0xfc/frontPointZ_0x108 (rear) by TrafficDriveDecoration_8c02656a. */
     float dirX_0x29c;
     float dirZ_0x2a0;
     Uint8 padding_0x2a4[0x10];
@@ -163,7 +163,7 @@ typedef struct {
      * vehicle, or the whole story for a fixed decoration -- see
      * TrafficDriveDecoration_8c02656a), 3 = waiting for the entity's own
      * spawn box to clear after a script reload before resuming. Unrelated
-     * to field_0x474's own 1-4 sequencing for the junction-wait script
+     * to junctionWaitState_0x474's own 1-4 sequencing for the junction-wait script
      * opcodes (5/6/7/8). */
     Uint32 driveState_0x2b4;
     PathRecord *pathRecord_0x2b8;
@@ -173,75 +173,75 @@ typedef struct {
     GroundProbeFn probeFn_0x2c8;
     JunctionQueryFn junctionQueryFn_0x2cc;
     Uint32 field_0x2d0;
-    Uint32 field_0x2d4;
-    Uint32 field_0x2d8;
-    Uint32 field_0x2dc;
+    Uint32 busAheadFlag_0x2d4;
+    Uint32 lightFadeState_0x2d8;
+    Uint32 lightFadeTrigger_0x2dc;
     Sint32 variantIndex_0x2e0;
-    Sint32 field_0x2e4;
-    float field_0x2e8;
+    Sint32 isDecoration_0x2e4;
+    float spawnProgress_0x2e8;
     float originJitterX_0x2ec;
     float originJitterZ_0x2f0;
-    Sint32 field_0x2f4;
+    Sint32 spawnPresetId_0x2f4;
     Uint16 *scriptBase_0x2f8;
     Uint16 *scriptCursor_0x2fc;
-    Sint32 field_0x300;
+    Sint32 blockIndex_0x300;
     /* inline array of per-path-block record pointers, indexed by
-     * field_0x300; TrafficReadScriptArgs_8c026710 fills it from the
+     * blockIndex_0x300; TrafficReadScriptArgs_8c026710 fills it from the
      * script's opcode-1 path ids and terminates it with -1 */
     PathRecord *resolvedArgs_0x304[64];
-    Uint32 field_0x404;
-    Uint32 field_0x408;
-    Uint32 field_0x40c;
-    Uint32 field_0x410;
-    float field_0x414;
+    Uint32 junctionSlot_0x404;
+    Uint32 junctionVertexIds_0x408;
+    Uint32 junctionHitCount_0x40c;
+    Uint32 signalId_0x410;
+    float laneOffsetRatio_0x414;
     float field_0x418;
-    float field_0x41c;
+    float lookaheadMargin_0x41c;
     Uint32 field_0x420;
-    Uint32 field_0x424;
-    Uint32 field_0x428;
-    Uint32 field_0x42c;
-    Sint32 field_0x430;
-    Uint32 field_0x434;
-    Uint32 field_0x438;
+    Uint32 obstacleLimitActive_0x424;
+    Uint32 curveLimitActive_0x428;
+    Uint32 yieldState_0x42c;
+    Sint32 yieldPriority_0x430;
+    Uint32 yieldEnterSignalId_0x434;
+    Uint32 yieldExitSignalId_0x438;
     Uint8 padding_0x43c[0xc];
-    Uint32 field_0x448;
+    Uint32 signalWaitState_0x448;
     Uint32 field_0x44c;
-    Uint32 field_0x450;
-    Uint32 field_0x454;
-    Uint32 field_0x458;
-    Uint32 field_0x45c;
-    Uint32 field_0x460;
-    Uint32 field_0x464;
-    Uint32 field_0x468;
-    Uint32 field_0x46c;
-    Uint32 field_0x470;
-    Uint32 field_0x474;
-    Uint32 field_0x478;
-    Sint32 field_0x47c;
-    Uint32 field_0x480;
+    Uint32 signalWaitFrameId_0x450;
+    Uint32 signalWaitArmedBlock_0x454;
+    Uint32 attachmentWaitState_0x458;
+    Uint32 attachmentId_0x45c;
+    Uint32 attachmentExitSignalId_0x460;
+    Uint32 attachmentArmedBlock_0x464;
+    Uint32 mergeWaitState_0x468;
+    Uint32 mergeWaitSignalId_0x46c;
+    Uint32 mergeWaitArmedBlock_0x470;
+    Uint32 junctionWaitState_0x474;
+    Uint32 junctionWaitSignalId_0x478;
+    Sint32 junctionWaitTurnDir_0x47c;
+    Uint32 junctionWaitArmedBlock_0x480;
     PathRecord *junctionPath_0x484;
-    Uint32 field_0x488;
-    Sint32 field_0x48c;
+    Uint32 junctionWaitTimer_0x488;
+    Sint32 animKind_0x48c;
     float field_0x490;
-    Uint32 field_0x494;
-    Uint32 field_0x498;
+    Uint32 groundAligned_0x494;
+    Uint32 pendingAttachmentRelease_0x498;
     /* Cache of upcoming path positions (x,z pairs) at 5-unit intervals,
-     * built by TrafficLookaheadInit_8c02df3c/TrafficLookaheadScan_8c02dfca (02df3c) from field_0x4f4/0x4fc/
+     * built by TrafficLookaheadInit_8c02df3c/TrafficLookaheadScan_8c02dfca (02df3c) from lookaheadCursor_0x4f4/0x4fc/
      * 0x4f8's path-walk cursor. Terminated by a 9999.0 sentinel in the
      * next unwritten slot's x; up to 10 pairs fit. */
     float lookaheadPoints_0x49c[10][2];
     /* float, not Sint32 -- TrafficDriveVehicle_8c025b98 decrements it by
      * the frame's speed like an odometer. */
-    float field_0x4ec;
+    float lookaheadCacheLen_0x4ec;
     Uint32 field_0x4f0;
-    PathRecord *field_0x4f4;
-    Uint32 field_0x4f8;
-    float field_0x4fc;
-    Uint32 field_0x500;
-    Uint32 field_0x504;
-    Uint32 field_0x508;
-    Uint32 field_0x50c;
-    Uint32 field_0x510;
+    PathRecord *lookaheadCursor_0x4f4;
+    Uint32 lookaheadCursorBlock_0x4f8;
+    float lookaheadCursorDist_0x4fc;
+    Uint32 junctionSlot2_0x500;
+    Uint32 junctionVertexIds2_0x504;
+    Uint32 junctionHitCount2_0x508;
+    Uint32 atGroundJunction_0x50c;
+    Uint32 extraLightFlags_0x510;
 } TrafficEntry;
 
 void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script);

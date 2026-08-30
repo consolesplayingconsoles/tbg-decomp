@@ -31,7 +31,7 @@ return new class extends TestCase {
     }
 
     // A single segment long enough that it's never exhausted: every point
-    // is projected from the same record, and field_0x4ec climbs straight
+    // is projected from the same record, and lookaheadCacheLen_0x4ec climbs straight
     // from 0.0 to 25.0 in 5.0 steps, one point per step, then the loop's
     // top-of-loop check exits and writes the sentinel/cursor/distance.
     public function test_singleLongSegment_fillsFivePoints(): void {
@@ -71,9 +71,9 @@ return new class extends TestCase {
         $this->shouldWriteFloat($entry + 0x4fc, 25.0);
     }
 
-    // entry->field_0x4f4 already holds the -1 "path exhausted" sentinel
+    // entry->lookaheadCursor_0x4f4 already holds the -1 "path exhausted" sentinel
     // (never resolved), so the very first inner-loop check ends the walk
-    // immediately: field_0x4ec advances by 5.0, the cache's only entry is
+    // immediately: lookaheadCacheLen_0x4ec advances by 5.0, the cache's only entry is
     // the 9999.0 terminator, and the cursor/distance are stored back
     // unchanged.
     public function test_sentinelCursor_endsImmediately(): void {
@@ -95,7 +95,7 @@ return new class extends TestCase {
 
     // The current segment (length 5.0) is exhausted by a starting distance
     // of 6.0: the walk subtracts the segment's length, advances past its
-    // terminator, bumps field_0x4f8 (the resolvedArgs index) from 0 to 1,
+    // terminator, bumps lookaheadCursorBlock_0x4f8 (the resolvedArgs index) from 0 to 1,
     // and re-resolves the cursor from resolvedArgs_0x304[1] before writing
     // its first point.
     public function test_segmentExhausted_advancesViaResolvedArgs(): void {

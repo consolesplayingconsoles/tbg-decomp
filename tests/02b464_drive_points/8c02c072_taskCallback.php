@@ -80,7 +80,7 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x34c, 0);
         $this->initUint32($busState + 0x36c, 0x80); // skip the steering-angle offense-code branch
         $this->initUint32($busState + 0x358, 0);
-        $this->initUint32($busState + 0x374, 1); // != field_0x358 alias -> skip the lane-alias re-latch
+        $this->initUint32($busState + 0x374, 1); // != junctionARoadFlags2_0x358 alias -> skip the lane-alias re-latch
         $this->initUint32($busState + 0x390, 0);
 
         $this->initUint32($base + 0x6c, 0); // var_8c22861c[5]
@@ -99,7 +99,7 @@ return new class extends TestCase {
 
         $this->shouldWriteFloat($this->addressOf('_var_8c22866c'), 0.0);
         $this->shouldWriteLong($this->addressOf('_var_8c228680'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c22868c'), 0); // field_0x36c high bit set -> skip grading
+        $this->shouldWriteLong($this->addressOf('_var_8c22868c'), 0); // junctionBAttr1_0x36c high bit set -> skip grading
         $this->shouldWriteLong($this->addressOf('_var_8c228684'), 0); // var_8c22861c[5]
         $this->shouldWriteLong($this->addressOf('_var_8c228688'), 0); // var_8c228634[0]
         $this->shouldWriteLong($this->addressOf('_var_8c228674'), 0);

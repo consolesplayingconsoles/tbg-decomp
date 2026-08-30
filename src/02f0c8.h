@@ -26,7 +26,7 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
                     Sint32 argIndex, float startProgress, float window);
 
 /* Caches (var_8c228b44) the id-group of var_8c228b40 containing the first
- * live task's entry->field_0x450 marker, then reports whether typeCode is a
+ * live task's entry->signalWaitFrameId_0x450 marker, then reports whether typeCode is a
  * member of that same group. */
 Sint32 TrafficPathScanTypeInGroup_8c02f28a(Sint32 typeCode);
 

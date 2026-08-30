@@ -713,7 +713,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
             spriteId = row + 1;
         }
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, spriteId, 48.0f, y, -4.5f);
-        drawDigits_8c01ead8(var_progress_8c1ba1cc.field_0x98[row], y);
+        drawDigits_8c01ead8(var_progress_8c1ba1cc.practiceLessonBestScores_0x98[row], y);
         row++;
         y += 33.0f;
     }
@@ -795,8 +795,8 @@ void PracticeMenuLessonRetry_8c01f21c(void)
         var_8c226414[0] = 0x18;
         var_8c226414[1] = -1;
     } else {
-        if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.field_0x98[var_8c22640c] < var_8c2285c4[3]) {
-            var_progress_8c1ba1cc.field_0x98[var_8c22640c] = var_8c2285c4[3];
+        if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_8c22640c] < var_8c2285c4[3]) {
+            var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_8c22640c] = var_8c2285c4[3];
             var_award_8c1bb8f8 = 1;
         }
 

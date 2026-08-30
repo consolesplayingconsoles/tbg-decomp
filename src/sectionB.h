@@ -19,15 +19,15 @@
  * =================
  */
 
-/* Set by showMark_8c01fa78 (01fa78): field_0x00 = its first arg, field_0x08 =
- * its second. Both, plus field_0x04, are read as pending sprite ids in
- * drawHud_8c01fbac's tail (drawSpeedAndTimers_8c01fe84 split); field_0x0c unread so far. */
+/* Set by showMark_8c01fa78 (01fa78): markSpriteId_0x00 = its first arg, displayTimer_0x08 =
+ * its second. Both, plus turnSignalIconId_0x04, are read as pending sprite ids in
+ * drawHud_8c01fbac's tail (drawSpeedAndTimers_8c01fe84 split); blinkCounter_0x0c unread so far. */
 typedef struct {
-    int field_0x00;
-    int field_0x04;
-    int field_0x08;
-    int field_0x0c;
-} Struct8c2264a8;
+    int markSpriteId_0x00;
+    int turnSignalIconId_0x04;
+    int displayTimer_0x08;
+    int blinkCounter_0x0c;
+} HudMarkState;
 
 /* A screen-space vertex used with njDrawPolygon: position plus a packed
  * color, matching the layout of init_8c045334/init_8c045374/init_8c0453b4
@@ -39,14 +39,14 @@ typedef struct {
 } DrawVertex8c226478;
 
 typedef struct {
-    int field_0x00;
-    int field_0x04;
-    int field_0x08;
-    int field_0x0c;
-    int field_0x10;
-    int field_0x14;
-    int field_0x18;
-} Struct8c2264b8;
+    int idleChimeState_0x00;
+    int idleChimeTimer_0x04;
+    int stopAnnounceState_0x08;
+    int nearStopLatch_0x0c;
+    int stopAnnounceTimer_0x10;
+    int nearStopChimeLatch_0x14;
+    int firstChimeArmed_0x18;
+} DriveCueState;
 
 typedef struct {
     Uint32 on;   /* 0x00 */
@@ -72,21 +72,21 @@ typedef struct {
 // TODO:
 typedef struct {
     int field_0x000;
-    int field_0x004;
+    int texlistLarge_0x004;
     int field_0x008;
-    int field_0x00c;
+    int modelLarge_0x00c;
     int field_0x010;
-    int field_0x014;
+    int bodyModel_0x014;
     NJS_OBJECT *field_0x018;
-    NJS_OBJECT *field_0x01c;
-    NJS_OBJECT *field_0x020;
-    NJS_OBJECT *field_0x024;
+    NJS_OBJECT *frontWheelA_0x01c;
+    NJS_OBJECT *frontWheelB_0x020;
+    NJS_OBJECT *rearWheel_0x024;
     NJS_OBJECT *field_0x028;
-    NJS_OBJECT *field_0x02c;
-    NJS_OBJECT *field_0x030;
-    NJS_OBJECT *field_0x034;
-    NJS_OBJECT *field_0x038;
-    NJS_OBJECT *field_0x03c;
+    NJS_OBJECT *blinkerLightA_0x02c;
+    NJS_OBJECT *blinkerLightB_0x030;
+    NJS_OBJECT *blinkerLightC_0x034;
+    NJS_OBJECT *blinkerLightD_0x038;
+    NJS_OBJECT *blinkerLightE_0x03c;
     NJS_OBJECT *field_0x040;
     NJS_OBJECT *field_0x044;
     NJS_OBJECT *field_0x048;
@@ -100,36 +100,24 @@ typedef struct {
     int acc_0x078;
     int ang_0x07c;
     int blinker_0x080;
-    int field_0x084;
 
-    int field_0x088;
-    int field_0x08c;
-    int field_0x090;
-    int field_0x094;
-    int field_0x098;
-    int field_0x09c;
-    int field_0x0a0;
-    int field_0x0a4;
-    int field_0x0a8;
-    int field_0x0ac;
-    int field_0x0b0;
-    int field_0x0b4;
-    int field_0x0b8;
-    int field_0x0bc;
-    int field_0x0c0;
+    /* Bus's world transform matrix, applied by njMultiMatrix/njSetMatrix
+     * before drawing and used by njCalcPoint to place the mirror camera. */
+    NJS_MATRIX worldMatrix_0x084;
+
     /* Copy of var_sceneParams_8c18ad24->rec0_0x0c[0] (the primary directional
      * light's coefficient row), set by busInitPlaceBus_8c023310. */
-    float field_0x0c4[5];
-    int field_0x0d8;
-    int field_0x0dc;
-    int field_0x0e0;
-    int field_0x0e4;
-    int field_0x0e8;
+    float lightCoeffRow_0x0c4[5];
+    int easyLightIntensityA_0x0d8;
+    int easyLightIntensityB_0x0dc;
+    int easyLightColorR_0x0e0;
+    int easyLightColorG_0x0e4;
+    int easyLightColorB_0x0e8;
     /* Last confirmed lane-crossing point (x,z), read by GeomDistanceXZ_8c02081c
      * (022bdc) and written by FUN_8c023e7e (023938) -- real float fields
      * (FMOV.S stores), not int. */
-    float field_0x0ec;
-    float field_0x0f0;
+    float laneTargetX_0x0ec;
+    float laneTargetZ_0x0f0;
 
     /* Averaged with posX_0x2fc/posZ_0x304 by rowMaterialModelTask_8c02a27c to get a
      * distance-fade reference point. posY_0x0f8 (and posHistory_0x100 below)
@@ -152,9 +140,9 @@ typedef struct {
 
     /* Bus heading unit vector (x,z), dotted and crossed against the move
      * delta by positionCamera_8c024d6c to size/sign its turn. */
-    float field_0x230;
+    float headingX_0x230;
     int field_0x234;
-    float field_0x238;
+    float headingZ_0x238;
     /* Written as float literals (4.9/2.5/1.25/2.6) by busInitPlaceBus_8c023310;
      * field_0x240 is skipped by that write and its role is unclear. */
     float field_0x23c;
@@ -165,25 +153,25 @@ typedef struct {
 
     int ang_0x250;
 
-    int field_0x254;
+    int targetHeadingAngle_0x254;
 
     int ang_0x258;
 
-    int field_0x25c;
-    int field_0x260;
+    int mirrorButtonState_0x25c;
+    int turnSignalBlinkCounter_0x260;
     int field_0x264;
 
     int mirror_0x268;
 
-    /* Divided by field_0x270 by BusRenderUpdateCamera_8c025078 for the
+    /* Divided by pitchCos_0x270 by BusRenderUpdateCamera_8c025078 for the
      * mode-1 camera's Y bob -- a real float field (FMOV.S load), not int. */
-    float field_0x26c;
-    float field_0x270;
+    float pitchSin_0x26c;
+    float pitchCos_0x270;
     /* dx component of the spawn stop area's direction (StopAreaRecord.dx_0x0c);
-     * paired with field_0x278 (dz). */
-    float field_0x274;
+     * paired with headingDirZ_0x278 (dz). */
+    float headingDirX_0x274;
 
-    float field_0x278;
+    float headingDirZ_0x278;
     float speed_0x27c;
     float acc_hist_0x280[4];
 
@@ -204,96 +192,96 @@ typedef struct {
 
     int bus_state_0x2b4;
 
-    int field_0x2b8; /* the spawn stop area's StopAreaRecord*, cast to int */
-    float field_0x2bc;
-    float field_0x2c0;
-    float field_0x2c4;
-    int field_0x2c8;
-    int field_0x2cc;
-    int field_0x2d0;
+    int currentLinePointPtr_0x2b8; /* the spawn stop area's StopAreaRecord*, cast to int */
+    float lineSegmentRemaining_0x2bc;
+    float lineSegmentProgress_0x2c0;
+    float laneOffset_0x2c4;
+    int groundProbeFn_0x2c8;
+    int junctionQueryFnCpu_0x2cc;
+    int junctionQueryFnRoute_0x2d0;
     int field_0x2d4;
-    int field_0x2d8;
-    int field_0x2dc;
+    int lightFadeState_0x2d8;
+    int lightFadeGate_0x2dc;
     /* Needle-ramp mode for drawHud_8c01fbac's var_engineRpm_8c226468 (01fa78):
      * 0 = relax toward 0, 1 = settle to 500, 2 = ramp toward target_0x2e8. */
-    int field_0x2e0;
-    int field_0x2e4;
-    /* Target value for field_0x2e0 == 2; a real float field -- the asm
+    int needleRampMode_0x2e0;
+    int needleCurrentValue_0x2e4;
+    /* Target value for needleRampMode_0x2e0 == 2; a real float field -- the asm
      * loads it with FMOV.S directly, no int-to-float conversion (Ghidra's
      * decompile shows a spurious int cast here). */
     float target_0x2e8;
-    int field_0x2ec;
+    int idleFrameCounter_0x2ec;
     int field_0x2f0;
 
     int gear_0x2f4;
 
-    int field_0x2f8;
+    int hazardBlinkCounter_0x2f8;
     /* draw position, read by TileStreamDrawTile_8c021b34 */
     float posX_0x2fc;
     float posY_0x300;
     float posZ_0x304;
     /* Last move-delta vector (x,y,z) applied to posX_0x2fc/posZ_0x304 --
-     * rotated toward field_0x230/field_0x238 first when the raw bearing
+     * rotated toward headingX_0x230/headingZ_0x238 first when the raw bearing
      * change is large -- and its magnitude, all written by
      * positionCamera_8c024d6c. */
-    float field_0x308;
-    float field_0x30c;
-    float field_0x310;
-    float field_0x314;
+    float moveDeltaX_0x308;
+    float moveDeltaY_0x30c;
+    float moveDeltaZ_0x310;
+    float moveDeltaMagnitude_0x314;
     /* Rear-view-mirror camera's local offset (x,y,z), picked by
-     * mirror_0x268 and rotated by field_0x084 into field_0x318/0x32c world
+     * mirror_0x268 and rotated by worldMatrix_0x084 into mirrorWorldOffsetX_0x318/0x32c world
      * offsets, all by BusRenderUpdateMirrorCamera_8c025604. */
-    float field_0x318;
-    float field_0x31c;
-    float field_0x320;
-    float field_0x324;
+    float mirrorWorldOffsetX_0x318;
+    float mirrorWorldOffsetY_0x31c;
+    float mirrorWorldOffsetZ_0x320;
+    float mirrorDirX_0x324;
     int field_0x328;
-    float field_0x32c;
-    float field_0x330;
-    int field_0x334;
-    int field_0x338;
-    int field_0x33c;
-    int field_0x340;
+    float mirrorDirZ_0x32c;
+    float mirrorDist_0x330;
+    int crossingSearchDone_0x334;
+    int crossingSearchSide_0x338;
+    int currentLineNodeIdx_0x33c;
+    int junctionASlot_0x340;
     int field_0x344;
     int field_0x348;
-    int field_0x34c;
+    int junctionARoadFlags_0x34c;
     int field_0x350;
     int field_0x354;
-    int field_0x358;
-    int field_0x35c;
+    int junctionARoadFlags2_0x358;
+    int junctionBSlot_0x35c;
     int field_0x360;
     int field_0x364;
-    int field_0x368;
-    int field_0x36c;
+    int junctionBRoadFlags_0x368;
+    int junctionBAttr1_0x36c;
     int field_0x370;
-    int field_0x374;
-    int field_0x378;
+    int junctionBRoadFlags2_0x374;
+    int junctionCSlot_0x378;
     int field_0x37c;
     int field_0x380;
     int field_0x384;
     int field_0x388;
     int field_0x38c;
-    int field_0x390;
-    int field_0x394;
+    int junctionCRoadFlags_0x390;
+    int cpuAttrOutSlot_0x394;
     int field_0x398;
     int field_0x39c;
-    int field_0x3a0;
-    int field_0x3a4;
+    int fallbackTaskMatchId_0x3a0;
+    int markAttrOutSlot_0x3a4;
     int field_0x3a8;
     int field_0x3ac;
-    int field_0x3b0;
-    int field_0x3b4;
-    int field_0x3b8;
-    int field_0x3bc;
+    int markDriveFlags_0x3b0;
+    int markCueByte_0x3b4;
+    int markAudioCue_0x3b8;
+    int markExtra_0x3bc;
 
     int bus_substate_0x3c0;
 
-    int field_0x3c4;
+    int mirrorPendingToggle_0x3c4;
 
     /* Zeroed by BusInitStart_8c023610. Overlaps var_scenePresetIds_8c1bbd8c+0xc
      * (that symbol's reserved span runs 4 bytes past this struct's end) --
      * coincidentally adjacent, not that symbol's field. */
-    int field_0x3c8;
+    int cameraYawEase_0x3c8;
 } BusState;
 
 /* Per-course badge tier, ratcheted from var_award_8c1bb8f8 (driver points)
@@ -309,10 +297,10 @@ enum {
 typedef struct {
     Uint8 unlocked_0x00;
     Uint8 new_0x01;
-    Uint8 field_0x02;
+    Uint8 everPlayed_0x02;
     Uint8 storyAward_0x03;
     Uint8 freeRunAward_0x04;
-    Uint8 field_0x05[3]; // Padding?
+    Uint8 reserved_0x05[3]; // Padding?
 } CourseProgress;
 
 typedef struct {
@@ -320,49 +308,49 @@ typedef struct {
 
     /* unlock-flag bitsets set together by setProgressFlag_8c02af78
      * and tested individually by hasProgressFlag_8c02afbe/EventHasProgressFlagAlt_8c02aff0 */
-    int field_0x04[5];
-    int field_0x18[5];
+    int eventProgressFlags_0x04[5];
+    int profileProgressFlags_0x18[5];
 
     int letters_0x2c[6];
     CourseProgress courses_0x44[9];
-    int field_0x8c;
+    int profileUnlockedCount_0x8c;
     int exp_0x90; // aliased by var_exp_8c1ba25c (01b19c_system_menu addresses it directly; others via this field)
     int field_0x94;
-    int field_0x98[11];
-    signed char field_0xc4;
-    char field_0xc5;
-    char field_0xc6;
+    int practiceLessonBestScores_0x98[11];
+    signed char difficulty_0xc4;
+    char driveMode_0xc5;
+    char defaultView_0xc6;
 
     /* covers the bytes 011120_asset_queues.c indexes at 0xcc-0xcf */
-    char field_0xc7[9];
+    char controlAndDisplayFlags_0xc7[9];
 
     /* 0xd0/0xd1 look like saved input deadzone
      * thresholds (see applyThrottle_8c024320/FUN_8c024606) */
-    char field_0xd0;
-    char field_0xd1;
+    char accelSensitivity_0xd0;
+    char brakeSensitivity_0xd1;
     char field_0xd2;
     char field_0xd3;
 
     /* AUDIO MUSIC/SFX/VOICE volume (0-10); reset with the sound mode
      * (see FileMenuResetSoundDefaults_8c0188dc) */
-    char field_0xd4;
-    char field_0xd5;
-    char field_0xd6;
-    char field_0xd7; // padding
+    char musicVolume_0xd4;
+    char sfxVolume_0xd5;
+    char voiceVolume_0xd6;
+    char reserved_0xd7; // padding
 
     /* mirrored to/from var_8c1bb8b8/bc/dc/var_award_8c1bb8f8 by 01b19c_system_menu
      * on load (see SystemMenuApplyLoadedProgress_8c01b19c) and save (SystemMenuWriteToVmu_8c01b26c) */
-    int field_0xd8;
-    int field_0xdc;
-    int field_0xe0;
+    int introDialogQueued_0xd8;
+    int introDialogPending_0xdc;
+    int runSucceeded_0xe0;
     char award_0xe4;
-    char field_0xe5[3]; // padding
+    char reserved_0xe5[3]; // padding
 } PlayerProgress;
 
 /*
  * SETTING screen's 5 persisted toggle bytes (DIFFICULTY/DRIVE MODE/DEFAULT
  * VIEW/VIBRATION/SCREEN ROLL); var_8c226074 points here while that screen is
- * active. Sits exactly at &var_progress_8c1ba1cc.field_0xc4 (0x1ba1cc+0xc4),
+ * active. Sits exactly at &var_progress_8c1ba1cc.difficulty_0xc4 (0x1ba1cc+0xc4),
  * but kept as its own symbol since it's owned by sectionB.src, not decompiled.
  * [0] (DIFFICULTY) is read by BusStopSetup_8c02caba to pick the run's
  * driver-points reset value.
@@ -450,7 +438,7 @@ extern int var_8c1bbcb4;
 extern int var_8c1bbcc4;
 /* Bus-to-camera-focus vector (x, _, z); written by
  * BusRenderUpdateCamera_8c025078, read by drawPedestrians_8c028b74 via
- * njArcTan2. Alias var_busState_8c1bb9d0.field_0x308 / .field_0x310
+ * njArcTan2. Alias var_busState_8c1bb9d0.moveDeltaX_0x308 / .moveDeltaZ_0x310
  * (base+0x308/+0x310), exported as their own symbols instead of struct
  * fields; 028258_objects.c reads through these what 024b4c_bus_render.c
  * writes through the struct. */
@@ -477,8 +465,8 @@ extern float var_crossingIntersectPoint_8c1bc458; // IntersectSegments_8c0206f0'
 extern float var_8c1bc45c; // var_crossingIntersectPoint_8c1bc458's y, immediately adjacent -- see that field's comment
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
-/* Sit at var_busState_8c1bb9d0's base+0x34c/+0x368/+0x384 (its field_0x34c/
- * field_0x368/field_0x384) but are exported as their own symbols and
+/* Sit at var_busState_8c1bb9d0's base+0x34c/+0x368/+0x384 (its junctionARoadFlags_0x34c/
+ * junctionBRoadFlags_0x368/field_0x384) but are exported as their own symbols and
  * addressed that way by FUN_8c02b986/FUN_8c02bb1c/FUN_8c02bcd8 (02b464),
  * not through the struct. */
 extern int var_8c1bbd1c;
@@ -508,7 +496,7 @@ extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
  * it lives in whatever owns var_busState_8c1bb9d0, probably 02b464. Revisit
  * the top byte's exact trigger semantics when that lands.
  * Also sits at var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not
- * that struct's field_0x3bc -- coincidentally adjacent, not part of it. */
+ * that struct's markExtra_0x3bc -- coincidentally adjacent, not part of it. */
 /* Used by stopTextboxTask_8c0259e8 (025870). */
 extern NJS_POINT3 var_8c1bbd80;
 extern int var_scenePresetIds_8c1bbd8c;
@@ -548,7 +536,7 @@ extern ResourceGroup var_loadingResourceGroup_8c1bc3f8;
 extern void* var_markDat_8c1bc420;
 extern void* var_markPartsDat_8c1bc41c;
 extern NJS_TEXLIST *var_markTexlist_8c1bc418;
-/* Read by BusInitStart_8c023610 at +8/+0xc for the bus's field_0x004/field_0x00c
+/* Read by BusInitStart_8c023610 at +8/+0xc for the bus's texlistLarge_0x004/modelLarge_0x00c
  * (VehPartsBind_8c02786c inputs); role of the rest unclear. */
 extern void *var_8c1bbf7c[24];
 extern ModelSlot var_pedestrianAssets_8c1bbfdc[0x41];
@@ -610,9 +598,9 @@ typedef struct {
     int field_0x04;
     int field_0x08;
     int field_0x0c;
-    int field_0x10;
-} Struct8c22643c;
-extern Struct8c22643c var_8c22643c; // 01fa78
+    int turnSignalLatched_0x10;
+} HudSignalCueState;
+extern HudSignalCueState var_8c22643c; // 01fa78
 /* Read (!= -1 sentinel) by BusStopUpdateArrival_8c02ce48 (02c884); role/owner
  * (02b464) unclear. */
 extern int var_8c226450;
@@ -620,32 +608,32 @@ extern int var_8c226450;
  * transition; role/owner (02b464) unclear. */
 extern int var_8c226454;
 /* Driver-points meter fill scratch (01fa78, HudReset_8c02018c/hudUpdateTask_8c01ff48):
- * field_0x00 the displayed (ramped) value, field_0x04 the last raw
- * var_driverPoints_8c2285d0 sample, field_0x08 the per-frame ramp step
+ * displayedValue_0x00 the displayed (ramped) value, lastSample_0x04 the last raw
+ * var_driverPoints_8c2285d0 sample, rampStep_0x08 the per-frame ramp step
  * ((new-old)/20). field_0x0c seeded to a fixed 1.0f; unread so far. */
 typedef struct {
-    float field_0x00;
-    float field_0x04;
-    float field_0x08;
+    float displayedValue_0x00;
+    float lastSample_0x04;
+    float rampStep_0x08;
     float field_0x0c;
-} Struct8c226458;
-extern Struct8c226458 var_8c226458; // 01fa78
+} DriverPointsMeterState;
+extern DriverPointsMeterState var_8c226458; // 01fa78
 extern DrawVertex8c226478 var_8c226478[3]; // 01fa78
-extern Struct8c2264a8 var_8c2264a8; // 01fa78
-extern Struct8c2264b8 var_8c2264b8;
-/* Sits at var_8c2264b8's base+0x4 (its field_0x04) -- a standalone countdown
- * used only by DriveCueTask_8c020214 (020214)'s field_0x18-armed idle-chime branch,
- * separately from field_0x04's OTHER role as that same struct's per-state
+extern HudMarkState var_8c2264a8; // 01fa78
+extern DriveCueState var_8c2264b8;
+/* Sits at var_8c2264b8's base+0x4 (its idleChimeTimer_0x04) -- a standalone countdown
+ * used only by DriveCueTask_8c020214 (020214)'s firstChimeArmed_0x18-armed idle-chime branch,
+ * separately from idleChimeTimer_0x04's OTHER role as that same struct's per-state
  * timer in its main state machine (the two roles are never live at once). */
 extern int var_8c2264bc;
-/* Sits at var_8c2264b8's base+0xc (its field_0x0c) -- a one-shot latch set by
+/* Sits at var_8c2264b8's base+0xc (its nearStopLatch_0x0c) -- a one-shot latch set by
  * BusTask_8c022bdc (022bdc) when the A button is first pressed while driving,
  * gating whether DriveCueTask_8c020214 (020214)'s first announcement chime has fired
  * yet. Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
  * transition. Exported as its own symbol and addressed that way by that
  * caller, not through the struct -- coincidentally adjacent, not that
  * struct's field per se (but 022bdc's own asm does access it via the struct
- * base, so this unit uses var_8c2264b8.field_0x0c). */
+ * base, so this unit uses var_8c2264b8.nearStopLatch_0x0c). */
 extern int var_8c2264c4;
 extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c: light direction for fade layer 0
@@ -831,7 +819,7 @@ extern unsigned short var_8c1ba374;
  * var_8c1ba374 above for .r). */
 extern unsigned short var_8c1ba376;
 
-/* Saved input deadzone thresholds (progress struct field_0xd0/0xd1),
+/* Saved input deadzone thresholds (progress struct accelSensitivity_0xd0/brakeSensitivity_0xd1),
  * addressed directly rather than through var_progress_8c1ba1cc -- .r's and
  * .l's respectively (see var_8c1ba374/var_8c1ba376 above). Always consumed
  * as an unsigned byte (every read is followed by EXTU.B in the asm). */
@@ -873,7 +861,7 @@ extern float var_8c22866c;
 extern float var_8c228670;
 
 /* Bump-grading scratch (02b464): [674]/[678]/[67c] are
- * var_busState_8c1bb9d0.field_0x358/0x374/0x390 masked with 0xf0000001 --
+ * var_busState_8c1bb9d0.junctionARoadFlags2_0x358/0x374/0x390 masked with 0xf0000001 --
  * the bus's three road-probe results, snapshotted for the lane-change check
  * in FUN_8c02b986; [680] the offense-type code driving
  * FUN_8c02b864/886/8b8/986's penalty picks; [684] a timestamp compared
@@ -1119,7 +1107,7 @@ extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 extern int var_menuTextboxCharLimit_8c225fb8;
-extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1cc.field_0x8c by 01b19c_system_menu
+extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1cc.profileUnlockedCount_0x8c by 01b19c_system_menu
 extern char var_profileUnlocked_8c2263b4[56]; // one byte per PROFILE FILE grid slot (55 used, 1 pad byte); set by ProfileFile
 extern ResourceGroup* var_resourceGroup_8c2263a8;
 extern Sint8 var_soundMode_8c226070;

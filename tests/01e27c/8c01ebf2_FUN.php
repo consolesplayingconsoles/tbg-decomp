@@ -594,7 +594,7 @@ return new class extends TestCase {
         $progressBase = $this->addressOf('_var_progress_8c1ba1cc');
         for ($i = 0; $i < 5; $i++) {
             $row = $scroll + $i;
-            $this->initUint32($progressBase + 0x98 + $row * 4, $row); // field_0x98[row], single digit
+            $this->initUint32($progressBase + 0x98 + $row * 4, $row); // practiceLessonBestScores_0x98[row], single digit
         }
     }
 

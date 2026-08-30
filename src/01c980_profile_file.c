@@ -338,7 +338,7 @@ ResourceGroupInfo *init_8c045148[6] = {
 
 /* Refreshes the 55-slot unlock grid: a slot unlocks once any progress flag
  * in its init_profileUnlockFlags_8c044ffc list is set. Also tallies the unlocked count into
- * var_profileUnlockedCount_8c2263a4 (saved to the VMU as var_progress_8c1ba1cc.field_0x8c). */
+ * var_profileUnlockedCount_8c2263a4 (saved to the VMU as var_progress_8c1ba1cc.profileUnlockedCount_0x8c). */
 void ProfileFileUpdateUnlocks_8c01c980(void)
 {
     int i;

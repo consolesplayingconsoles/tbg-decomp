@@ -130,14 +130,14 @@ Sint32 TrafficPathScanTypeInGroup_8c02f28a(Sint32 typeCode)
                 return 0;
             }
             if (t->action != (TaskAction)-1 &&
-                ((TrafficEntry *)t->state)->field_0x50c != 0) {
+                ((TrafficEntry *)t->state)->atGroundJunction_0x50c != 0) {
                 break;
             }
         }
 
         scan = var_8c228b40;
         group = var_8c228b40;
-        while (((TrafficEntry *)t->state)->field_0x450 != (Uint32)*scan) {
+        while (((TrafficEntry *)t->state)->signalWaitFrameId_0x450 != (Uint32)*scan) {
             if (*scan == -1) {
                 scan++;
                 group = scan;

@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 // BusInputUpdate_8c0246b2: PUBLIC, called by BusTask_8c022bdc (022bdc) once per frame
 // while driving. See 024280.c for the full breakdown of the three-state
-// field_0x2e0 dispatch (relax/settle/ramp) and the mirror-button +
+// needleRampMode_0x2e0 dispatch (relax/settle/ramp) and the mirror-button +
 // steering-wheel-ramp tail that follows it.
 
 return new class extends TestCase {
@@ -238,7 +238,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c2285c4') + 0x80, 1); // idle counter += 1 (speed != 0)
         $this->shouldCall('_applyBraking_8c024530');
         $this->shouldWriteLong($bus + 0x080, 1);
-        // speed_0x27c != 0.0 (untouched by the mocked call): resets field_0x2ec.
+        // speed_0x27c != 0.0 (untouched by the mocked call): resets idleFrameCounter_0x2ec.
         $this->shouldWriteLong($bus + 0x2ec, 0);
 
         $this->forceStop();
@@ -274,7 +274,7 @@ return new class extends TestCase {
         $this->shouldCall('_applyThrottle_8c024320');
         $this->shouldWriteFloat($this->addressOf('_var_8c2285c4') + 0x90, 0.0);
         // speed_0x27c == 0.0 (the mocked call doesn't touch it): the mode-2
-        // tail runs debugGearOverride and, since field_0x2ec (10) < 30, just
+        // tail runs debugGearOverride and, since idleFrameCounter_0x2ec (10) < 30, just
         // increments it.
         $this->shouldCall('_debugGearOverride_8c0242ce');
         $this->shouldWriteLong($bus + 0x2ec, 11);

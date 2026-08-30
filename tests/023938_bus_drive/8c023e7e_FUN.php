@@ -173,18 +173,18 @@ return new class extends TestCase {
         $this->initUint32($base + 0x338, 0); // forward mode
         $this->initUint32($base + 0x33c, 5); // current segment index
         $this->initUint32($base + 0x27c, $this->fdec(0.0)); // speed_0x27c
-        $this->initUint32($base + 0x2c0, $this->fdec(25.0)); // field_0x2c0
+        $this->initUint32($base + 0x2c0, $this->fdec(25.0)); // lineSegmentProgress_0x2c0
         $this->initUint32($this->addressOf('_var_8c227d88'), $nodes);
         $this->initUint32($this->addressOf('_var_8c227d84'), $segs);
         $this->setNodeFwd($nodes, 5, 7);
 
         $this->call('_FUN_8c023e7e')->with();
 
-        // remaining = 0*128 + segs[7].length(50) * field_0x2c0(25) / segs[5].length(25) = 50.0
+        // remaining = 0*128 + segs[7].length(50) * lineSegmentProgress_0x2c0(25) / segs[5].length(25) = 50.0
         // cand = remaining*dx + x, remaining*dz + z = (60.0, 20.0)
         $this->shouldCallFun0207fa($base, 60.0, 20.0, -5.0); // side <= 0, not killed in forward mode
-        $this->shouldWriteFloat($base + 0xec, 60.0); // field_0x0ec = cand.x
-        $this->shouldWriteFloat($base + 0xf0, 20.0); // field_0x0f0 = cand.z
+        $this->shouldWriteFloat($base + 0xec, 60.0); // laneTargetX_0x0ec = cand.x
+        $this->shouldWriteFloat($base + 0xf0, 20.0); // laneTargetZ_0x0f0 = cand.z
         $this->shouldCall('_GeomDistanceXZ_8c02081c')->do(function () use ($base) {
             if ($this->registers[4]->value !== $base + 0xf4) {
                 throw new RuntimeException('GeomDistanceXZ_8c02081c param1: unexpected address');
@@ -200,9 +200,9 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x2c4, 99.0);
         $this->shouldWriteLong($base + 0x334, 1);
         $this->shouldWriteLong($base + 0x33c, 7);
-        $this->shouldWriteFloat($base + 0x2bc, 50.0); // field_0x2bc = remaining
-        $this->shouldWriteFloat($base + 0x2c0, 50.0); // field_0x2c0 = traveled
-        $this->shouldWriteLong($base + 0x2b8, $point); // field_0x2b8 = segEnd
+        $this->shouldWriteFloat($base + 0x2bc, 50.0); // lineSegmentRemaining_0x2bc = remaining
+        $this->shouldWriteFloat($base + 0x2c0, 50.0); // lineSegmentProgress_0x2c0 = traveled
+        $this->shouldWriteLong($base + 0x2b8, $point); // currentLinePointPtr_0x2b8 = segEnd
     }
 
     public function test_side_check_kills_track_before_any_crossing(): void
