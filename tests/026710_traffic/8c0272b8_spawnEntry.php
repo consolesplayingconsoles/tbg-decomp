@@ -64,7 +64,7 @@ return new class extends TestCase {
             ->andReturn(1);
     }
 
-    // typeCode 0x1c's day mask (per-route/time-of-day bit in init_8c046208)
+    // typeCode 0x1c's day mask (per-route/time-of-day bit in init_dayMasks_8c046208)
     // is clear for (route=SHINJUKU, timeOfDay=DAY) regardless of the day
     // count -- the entry is skipped entirely: no TaskPush, still returns 1.
     public function test_dayGateBlocksSpawn(): void {
@@ -83,7 +83,7 @@ return new class extends TestCase {
     }
 
     // Same typeCode, but (route=SHINJUKU, timeOfDay=EVENING) has bit 15 set
-    // in init_8c046208, and days_0x00=16 sets that same bit in the day mask
+    // in init_dayMasks_8c046208, and days_0x00=16 sets that same bit in the day mask
     // -- the day gate passes and the entry is spawned as a fixed decoration
     // (script header word == 10): TrafficDriveDecoration_8c02656a's task action, entry+0x2e4=1,
     // and the moving-vehicle-only block (TrafficReadScriptArgs_8c026710,

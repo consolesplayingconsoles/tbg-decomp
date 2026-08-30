@@ -64,12 +64,10 @@ STATIC float init_8c0461c8[] = {
     0.004f, 0.001f, 0.01f, 0.01f,
 };
 
-STATIC Uint8 init_8c046208[] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x01, 0x00, 0x40, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x02, 0x00, 0x00,
+STATIC Uint32 init_dayMasks_8c046208[3][3] = {
+    { 0x00000000, 0x00008000, 0x01000000 },
+    { 0x00004000, 0x00000000, 0x08000000 },
+    { 0x00000000, 0x00000000, 0x00000200 },
 };
 
 STATIC Uint8 init_8c04622c[] = {
@@ -716,7 +714,7 @@ done:
  * ignore it -- see their own comments).
  *
  * typeCode's low byte is first checked against a per-(route,timeOfDay) day
- * bitmask (init_8c046208): for typeCode 0x1c/0x1e, a clear bit means "not
+ * bitmask (init_dayMasks_8c046208): for typeCode 0x1c/0x1e, a clear bit means "not
  * today" and the entry is skipped entirely (still returns 1, as if spawned).
  *
  * The script's header word (*script) selects the driving task: 10 marks a
@@ -763,8 +761,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         dayShift = var_progress_8c1ba1cc.days_0x00 - 1;
         dayMask = (dayShift < 0) ? (1u >> ((Uint32)(-dayShift) & 0x1f))
                                   : (1u << ((Uint32)dayShift & 0x1f));
-        tableWord = *(Uint32 *)(init_8c046208 + var_timeOfDay_8c18ad20 * 4 +
-                                 var_route_8c18ad1c * 0xc);
+        tableWord = init_dayMasks_8c046208[var_route_8c18ad1c][var_timeOfDay_8c18ad20];
         if ((dayMask & tableWord) == 0) {
             return 1;
         }
