@@ -637,7 +637,7 @@ extern int var_8c2264bc;
  * struct's field per se (but 022bdc's own asm does access it via the struct
  * base, so this unit uses var_8c2264b8.field_0x0c). */
 extern int var_8c2264c4;
-extern void* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
+extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c: light direction for fade layer 0
 extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c: light direction for fade layer 1 (mirror side)
 /* 021b9c's simple-light draw block for fade layer 1 addresses these two as

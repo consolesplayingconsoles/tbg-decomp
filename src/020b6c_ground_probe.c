@@ -10,38 +10,6 @@
  * ====================
  */
 
-/* Mirrors GroundQueryFindPolygon_8c020914's private layout (020914_ground_query.c) --
- * kept as a separate copy per sibling-function convention, not shared via a header. */
-
-typedef struct {
-    float x, y, z;
-} GroundVertex;
-
-/* One 150-unit grid cell: the polygons whose footprint touches it. */
-typedef struct {
-    int count_0x00;
-    int *polyIds_0x04;
-} GroundCell;
-
-typedef struct {
-    int vertexCount_0x00;
-    int *vertexIds_0x04;
-    float normalX_0x08;     /* precomputed plane normal */
-    float normalY_0x0c;
-    float normalZ_0x10;
-    int attr_0x14;  /* sign bit selects the concave containment test */
-} GroundPoly;
-
-typedef struct {
-    int cellsX_0x00;
-    int cellsZ_0x04;
-    float cellSizeX_0x08;
-    float cellSizeZ_0x0c;
-    GroundCell *cells_0x10;
-    GroundPoly *polys_0x14;
-    GroundVertex *verts_0x18;
-} GroundGrid;
-
 #define CELL_SIZE 150.0f
 
 /* 2*pi as the original spelled it -- 3 ULP short of the real value. */
@@ -62,7 +30,7 @@ typedef struct {
  * incoming parameter). Original behaviour. */
 void GroundProbeTrackPolygon_8c020b6c(float x, float y, float z, GroundQueryResult *out)
 {
-    GroundGrid *grid = (GroundGrid *)var_activeGroundGrid_8c2264d4;
+    GroundGrid *grid = var_activeGroundGrid_8c2264d4;
     GroundPoly *poly;
     int *slot;
     int n;
@@ -260,7 +228,7 @@ void GroundProbeTrackPolygon_8c020b6c(float x, float y, float z, GroundQueryResu
  * takes the first vertex's height outright. */
 void GroundProbeInterpolateHeight_8c020f7e(GroundQueryResult *result, float *point)
 {
-    GroundGrid *grid = (GroundGrid *)var_activeGroundGrid_8c2264d4;
+    GroundGrid *grid = var_activeGroundGrid_8c2264d4;
     GroundPoly *poly;
     GroundVertex *v0;
 
@@ -291,7 +259,7 @@ void GroundProbeInterpolateHeight_8c020f7e(GroundQueryResult *result, float *poi
  * surface street beneath it. The height check runs before the containment test. */
 void GroundProbeFindPolygonAtHeight_8c020fe4(float x, float y, float z, GroundQueryResult *out)
 {
-    GroundGrid *grid = (GroundGrid *)var_activeGroundGrid_8c2264d4;
+    GroundGrid *grid = var_activeGroundGrid_8c2264d4;
     GroundCell *cell;
     int cx, cz;
     int i;
@@ -411,7 +379,7 @@ void GroundProbeFindPolygonAtHeight_8c020fe4(float x, float y, float z, GroundQu
  * surface street beneath it. */
 void GroundProbeTrackPolygonAtHeight_8c021290(float x, float y, float z, GroundQueryResult *out)
 {
-    GroundGrid *grid = (GroundGrid *)var_activeGroundGrid_8c2264d4;
+    GroundGrid *grid = var_activeGroundGrid_8c2264d4;
     GroundPoly *poly;
     int *slot;
     int n;
