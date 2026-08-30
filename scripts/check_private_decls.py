@@ -46,6 +46,17 @@ from check_naming import NO_ADDR_ALLOWLIST
 SH4OBJTEST = os.environ.get("SH4OBJTEST", "sh4objtest")
 
 TRAILING_COMMENT = re.compile(r"\s*//.*$")
+BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
+
+
+def strip_comments(text):
+    """Blank out /* ... */ and // comments (keeping newlines, so line-based
+    scans and match positions elsewhere in the file are unaffected). A header
+    prototype and a doc comment that happens to name that same function ahead
+    of a "(" must not be conflated -- see header_declares."""
+    text = BLOCK_COMMENT.sub(lambda m: "\n" * m.group().count("\n"), text)
+    return "\n".join(TRAILING_COMMENT.sub("", line) for line in text.splitlines())
+
 
 # Functions we deliberately keep public even though nothing currently references
 # them across units (so the object-level check would call them private):
@@ -91,12 +102,16 @@ def owning_kind(obj, obj_root):
 
 def header_declares(header_text, name, kind):
     """A function is declared by a prototype `... name(`; data by a bare
-    word-boundary match on a non-comment line (mirrors check_naming.py)."""
+    word-boundary match on a non-comment line (mirrors check_naming.py). Both
+    kinds are matched against comment-stripped text: a doc comment that merely
+    *names* a function ahead of a following "(" (e.g. an unrelated call
+    example) must not false-match as a declaration."""
+    stripped = strip_comments(header_text)
     if kind == "func":
-        return re.search(r"\b" + re.escape(name) + r"\s*\(", header_text) is not None
+        return re.search(r"\b" + re.escape(name) + r"\s*\(", stripped) is not None
     word = re.compile(r"\b" + re.escape(name) + r"\b")
-    for line in header_text.splitlines():
-        if word.search(TRAILING_COMMENT.sub("", line)):
+    for line in stripped.splitlines():
+        if word.search(line):
             return True
     return False
 
