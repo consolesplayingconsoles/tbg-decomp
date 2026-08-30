@@ -18,6 +18,28 @@ enum ROUTE {
     ROUTE_OME      = 2,
 };
 
+typedef enum {
+    ROUTE_LOAD_STATE_INIT      = 0,
+    ROUTE_LOAD_STATE_POST_LOAD = 1,
+    ROUTE_LOAD_STATE_WAIT      = 2,
+    ROUTE_LOAD_STATE_IDLE      = 3,
+    ROUTE_LOAD_STATE_DONE      = 4,
+} RouteLoadState;
+
+/* Task private state for routeLoadTask_8c014338/RouteLoadUnusedTask_8c014784:
+ * stage_0x08 the ROUTE_LOAD_STATE_* stage, frame_0x0c the loading-animation
+ * frame counter round-tripped through Task's void* field_0x0c. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    RouteLoadState stage_0x08;
+    int frame_0x0c;
+    int field_0x10;
+    int field_0x14;
+    void *queuedItem_0x18;
+    int field_0x1c;
+} RouteLoadTask;
+
 enum TIME_OF_DAY {
     TIME_OF_DAY_DAY     = 0,
     TIME_OF_DAY_EVENING = 1,
@@ -183,6 +205,6 @@ void RouteLoadStartRouteModelLoadPass_8c013d78(void);
 void RouteLoadFreeAllRouteModels_8c013dae(void);
 void RouteLoadFreePedestrianAssets_8c013ee4(void);
 int RouteLoadIsPvmReady_8c01432a(void);
-void RouteLoadUnusedTask_8c014784(Task *task, void *state);
+void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state);
 
 #endif // _013AE8_ROUTE_LOAD_H

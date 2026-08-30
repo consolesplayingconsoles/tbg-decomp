@@ -40,13 +40,13 @@ char *DEBUG_segmentReloadStateNames[] = {
 
 #define CHANGE_LOAD_STATE(task, x) \
     do { \
-        (task)->field_0x08 = x; \
+        (task)->stage_0x08 = x; \
         LOG_DEBUG(("[ROUTE_LOAD] State changed: %s\n", DEBUG_routeLoadStateNames[x])); \
     } while (0)
 
 #define CHANGE_SEGMENT_RELOAD_STATE(task, x) \
     do { \
-        (task)->field_0x08 = x; \
+        (task)->stage_0x08 = x; \
         LOG_DEBUG(("[ROUTE_LOAD] State changed: %s\n", DEBUG_segmentReloadStateNames[x])); \
     } while (0)
 
@@ -55,20 +55,25 @@ char *DEBUG_segmentReloadStateNames[] = {
  * ====================
  */
 
-enum ROUTE_LOAD_STATE {
-    ROUTE_LOAD_STATE_INIT      = 0,
-    ROUTE_LOAD_STATE_POST_LOAD = 1,
-    ROUTE_LOAD_STATE_WAIT      = 2,
-    ROUTE_LOAD_STATE_IDLE      = 3,
-    ROUTE_LOAD_STATE_DONE      = 4,
-};
-
-enum SEGMENT_RELOAD_STATE {
+typedef enum {
     SEGMENT_RELOAD_STATE_POST_LOAD = 0,
     SEGMENT_RELOAD_STATE_WAIT      = 1,
     SEGMENT_RELOAD_STATE_IDLE      = 2,
     SEGMENT_RELOAD_STATE_DONE      = 3,
-};
+} SegmentReloadState;
+
+/* Task private state for unknownSegmentReloadTask_8c014550, same shape as
+ * RouteLoadTask (013ae8_route_load.h) but with its own state enum. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    SegmentReloadState stage_0x08;
+    int frame_0x0c;
+    int field_0x10;
+    int field_0x14;
+    void *queuedItem_0x18;
+    int field_0x1c;
+} SegmentReloadTask;
 
 /* Placeholder types for the nested table/record
    tree hung off the CourseSegment pointer slots. */
@@ -489,11 +494,11 @@ void RouteLoadSetPvmReady_8c014330(void)
 
 /* The route loads in stages. Full load runs
  * once at course entry via routeLoadTask. */
-STATIC void routeLoadTask_8c014338(Task *task, void *state)
+STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
 {
     int frame;
 
-    switch (task->field_0x08) {
+    switch (task->stage_0x08) {
         case ROUTE_LOAD_STATE_INIT: {
             AsqResetQueues_8c011f6c();
             njSetTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
@@ -537,7 +542,7 @@ STATIC void routeLoadTask_8c014338(Task *task, void *state)
         }
 
         case ROUTE_LOAD_STATE_DONE: {
-            TaskFree_8c014b66(task);
+            TaskFree_8c014b66((Task *) task);
             AsqFreeQueues_8c011f7e();
             var_loadScreenActive_8c157a6c = 0;
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
@@ -549,14 +554,14 @@ STATIC void routeLoadTask_8c014338(Task *task, void *state)
 
     TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
     // Loading animation
-    frame = (int) task->field_0x0c;
-    task->field_0x0c = (void *) (frame + 1);
+    frame = task->frame_0x0c;
+    task->frame_0x0c = frame + 1;
     TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
 
 void RouteLoadPushTask_8c0144fc(void)
 {
-    Task *task;
+    RouteLoadTask *task;
     void *state;
 
     LOG_DEBUG(("[ROUTE_LOAD] pushing routeLoadTask_8c014338\n"));
@@ -564,9 +569,9 @@ void RouteLoadPushTask_8c0144fc(void)
     njSetBackColor(0xff418dff, 0xff418dff, 0xff418dff);
     var_loadScreenActive_8c157a6c = 1;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *) routeLoadTask_8c014338, &task, &state, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *) routeLoadTask_8c014338, (Task **) &task, &state, 0);
     CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_INIT);
-    task->field_0x0c = 0;
+    task->frame_0x0c = 0;
 
     njGarbageTexture(var_tex_8c157af8, 0xc00);
 
@@ -575,11 +580,11 @@ void RouteLoadPushTask_8c0144fc(void)
 
 /* Segment-boundary reload: load the new segment's assets,
  * rebind the interior texture, then hand off to the input task. */
-STATIC void unknownSegmentReloadTask_8c014550(Task *task, void *state)
+STATIC void unknownSegmentReloadTask_8c014550(SegmentReloadTask *task, void *state)
 {
     int frame;
 
-    switch (task->field_0x08) {
+    switch (task->stage_0x08) {
         case SEGMENT_RELOAD_STATE_POST_LOAD: {
             // Arm this segment's cutscene first: syncSegmentModels reads cutsceneActive.
             EventPickForSegment_8c02b170();
@@ -605,7 +610,7 @@ STATIC void unknownSegmentReloadTask_8c014550(Task *task, void *state)
         }
 
         case SEGMENT_RELOAD_STATE_DONE: {
-            TaskFree_8c014b66(task);
+            TaskFree_8c014b66((Task *) task);
             AsqFreeQueues_8c011f7e();
             var_loadScreenActive_8c157a6c = 0;
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
@@ -619,14 +624,14 @@ STATIC void unknownSegmentReloadTask_8c014550(Task *task, void *state)
 
     TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
     // Loading animation
-    frame = (int) task->field_0x0c;
-    task->field_0x0c = (void *) (frame + 1);
+    frame = task->frame_0x0c;
+    task->frame_0x0c = frame + 1;
     TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
 
 void RouteLoadPushSegmentReloadTask_8c01468e(void)
 {
-    Task *task;
+    SegmentReloadTask *task;
     void *state;
 
     if (var_progress_8c1ba1cc.difficulty_0xc4 < 2 || var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
@@ -639,9 +644,9 @@ void RouteLoadPushSegmentReloadTask_8c01468e(void)
     LOG_DEBUG(("[ROUTE_LOAD] pushing unknownSegmentReloadTask_8c014550\n"));
 
     var_loadScreenActive_8c157a6c = 1;
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *) unknownSegmentReloadTask_8c014550, &task, &state, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *) unknownSegmentReloadTask_8c014550, (Task **) &task, &state, 0);
     CHANGE_SEGMENT_RELOAD_STATE(task, SEGMENT_RELOAD_STATE_POST_LOAD);
-    task->field_0x0c = 0;
+    task->frame_0x0c = 0;
     freeSegmentModels_8c013f22();
 
     njGarbageTexture(var_tex_8c157af8, 0xc00);
@@ -653,11 +658,11 @@ void RouteLoadPushSegmentReloadTask_8c01468e(void)
 
 /* Like routeLoadTask_8c014338, but on completion binds the interior texture and
  * hands off to the input task (as unknownSegmentReloadTask_8c014550 does). */
-void RouteLoadUnusedTask_8c014784(Task *task, void *state)
+void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state)
 {
     int frame;
 
-    switch (task->field_0x08) {
+    switch (task->stage_0x08) {
         case ROUTE_LOAD_STATE_INIT: {
             AsqResetQueues_8c011f6c();
             njSetTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
@@ -701,7 +706,7 @@ void RouteLoadUnusedTask_8c014784(Task *task, void *state)
         }
 
         case ROUTE_LOAD_STATE_DONE: {
-            TaskFree_8c014b66(task);
+            TaskFree_8c014b66((Task *) task);
             AsqFreeQueues_8c011f7e();
             var_loadScreenActive_8c157a6c = 0;
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
@@ -715,7 +720,7 @@ void RouteLoadUnusedTask_8c014784(Task *task, void *state)
 
     TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
     // Loading animation
-    frame = (int) task->field_0x0c;
-    task->field_0x0c = (void *) (frame + 1);
+    frame = task->frame_0x0c;
+    task->frame_0x0c = frame + 1;
     TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
