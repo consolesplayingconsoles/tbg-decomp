@@ -130,22 +130,17 @@ STATIC void putBits_8c02f4da(Sint16 count, Uint32 value, Uint8 **dest)
  * "escape"/most-recent slot (var_8c235bb2) when it already holds that role. */
 STATIC void swapNodes_8c02f556(Sint16 code)
 {
-    Sint16 *parent;
-    Sint16 *child;
     Sint16 p;
     Sint16 c;
 
-    parent = (Sint16 *)&var_8c231bb0;
-    child = (Sint16 *)&var_8c233bb0;
-
     if (code == (Sint16)var_8c235bb2) {
-        var_8c235bb2 = parent[code];
-        child[var_8c235bb2] = 0x1000;
+        var_8c235bb2 = var_8c231bb0[code];
+        var_8c233bb0[var_8c235bb2] = 0x1000;
     } else {
-        c = child[code];
-        p = parent[code];
-        parent[c] = p;
-        child[p] = c;
+        c = var_8c233bb0[code];
+        p = var_8c231bb0[code];
+        var_8c231bb0[c] = p;
+        var_8c233bb0[p] = c;
     }
 }
 
@@ -156,32 +151,26 @@ STATIC void swapNodes_8c02f556(Sint16 code)
  * `after` otherwise. */
 STATIC void listInsert_8c02f58a(Sint16 code, Sint16 after)
 {
-    Sint16 *next;
-    Sint16 *prev;
-
-    next = (Sint16 *)&var_8c231bb0;
-    prev = (Sint16 *)&var_8c233bb0;
-
     if (var_8c235bb0 == 0x1000) {
-        next[code] = 0x1000;
-        prev[code] = 0x1000;
+        var_8c231bb0[code] = 0x1000;
+        var_8c233bb0[code] = 0x1000;
         var_8c235bb2 = code;
         var_8c235bb0 = code;
     } else if (after == 0x1000) {
-        prev[code] = 0x1000;
-        next[code] = var_8c235bb2;
-        prev[var_8c235bb2] = code;
+        var_8c233bb0[code] = 0x1000;
+        var_8c231bb0[code] = var_8c235bb2;
+        var_8c233bb0[var_8c235bb2] = code;
         var_8c235bb2 = code;
     } else if (after == (Sint16)var_8c235bb0) {
-        prev[code] = var_8c235bb0;
-        next[code] = 0x1000;
-        next[var_8c235bb0] = code;
+        var_8c233bb0[code] = var_8c235bb0;
+        var_8c231bb0[code] = 0x1000;
+        var_8c231bb0[var_8c235bb0] = code;
         var_8c235bb0 = code;
     } else {
-        prev[code] = after;
-        next[code] = next[after];
-        prev[next[code]] = code;
-        next[after] = code;
+        var_8c233bb0[code] = after;
+        var_8c231bb0[code] = var_8c231bb0[after];
+        var_8c233bb0[var_8c231bb0[code]] = code;
+        var_8c231bb0[after] = code;
     }
 }
 
@@ -190,16 +179,11 @@ STATIC void listInsert_8c02f58a(Sint16 code, Sint16 after)
  * equals `value`; returns its code, or 0x1000 (NIL) if absent. */
 STATIC Sint32 lzwFindChild_8c02f636(Sint16 parent, Uint16 value)
 {
-    Sint16 *bucket;
-    Sint16 *next;
     Sint16 node;
 
-    bucket = (Sint16 *)&var_8c22bbae;
-    next = (Sint16 *)&var_8c22dbae;
-
-    node = bucket[parent];
+    node = var_8c22bbae[parent];
     while (node != 0x1000 && value != var_8c228bae[node]) {
-        node = next[node];
+        node = var_8c22dbae[node];
     }
 
     return (Sint32)node;
@@ -210,57 +194,39 @@ STATIC Sint32 lzwFindChild_8c02f636(Sint16 parent, Uint16 value)
  * (var_8c22bbae/var_8c22dbae/var_8c22fbae). */
 STATIC void lzwInsertChild_8c02f668(Sint16 parentCode, Sint16 code, Uint8 value)
 {
-    Sint16 *bucket;
-    Sint16 *next;
-    Sint16 *prev;
-    Sint16 *parentOf;
     Sint16 oldHead;
 
-    bucket = (Sint16 *)&var_8c22bbae;
-    next = (Sint16 *)&var_8c22dbae;
-    prev = (Sint16 *)&var_8c22fbae;
-    parentOf = (Sint16 *)&var_8c229bae;
-
     var_8c228bae[code] = value;
-    parentOf[code] = parentCode;
-    prev[code] = 0x1000;
-    bucket[code] = 0x1000;
+    var_8c229bae[code] = parentCode;
+    var_8c22fbae[code] = 0x1000;
+    var_8c22bbae[code] = 0x1000;
 
-    oldHead = bucket[parentCode];
-    next[code] = oldHead;
+    oldHead = var_8c22bbae[parentCode];
+    var_8c22dbae[code] = oldHead;
     if (oldHead != 0x1000) {
-        prev[oldHead] = code;
+        var_8c22fbae[oldHead] = code;
     }
-    bucket[parentCode] = code;
+    var_8c22bbae[parentCode] = code;
 }
 
 /* Unlinks dictionary node `code` from its hash-chain bucket, updating its
  * parent's bucket head if `code` was the head. */
 STATIC void lzwRemoveChild_8c02f6ac(Sint16 code)
 {
-    Sint16 *bucket;
-    Sint16 *next;
-    Sint16 *prev;
-    Sint16 *parentOf;
     Sint16 prevNode;
     Sint16 nextNode;
 
-    bucket = (Sint16 *)&var_8c22bbae;
-    next = (Sint16 *)&var_8c22dbae;
-    prev = (Sint16 *)&var_8c22fbae;
-    parentOf = (Sint16 *)&var_8c229bae;
-
-    prevNode = prev[code];
-    nextNode = next[code];
+    prevNode = var_8c22fbae[code];
+    nextNode = var_8c22dbae[code];
 
     if (prevNode == 0x1000) {
-        bucket[parentOf[code]] = nextNode;
+        var_8c22bbae[var_8c229bae[code]] = nextNode;
     } else {
-        next[prevNode] = nextNode;
+        var_8c22dbae[prevNode] = nextNode;
     }
 
     if (nextNode != 0x1000) {
-        prev[nextNode] = prevNode;
+        var_8c22fbae[nextNode] = prevNode;
     }
 }
 
@@ -270,22 +236,13 @@ STATIC void lzwRemoveChild_8c02f6ac(Sint16 code)
 STATIC void initTables_8c02f704(void)
 {
     Sint16 i;
-    Uint16 *dbae;
-    Uint16 *fbae;
-    Uint16 *bbae;
-    Uint16 *bae9;
-
-    dbae = (Uint16 *)&var_8c22dbae;
-    fbae = (Uint16 *)&var_8c22fbae;
-    bbae = (Uint16 *)&var_8c22bbae;
-    bae9 = (Uint16 *)&var_8c229bae;
 
     for (i = 0; i < 0x100; i++) {
         var_8c228bae[i] = (Uint8)i;
-        dbae[i] = 0x1000;
-        fbae[i] = 0x1000;
-        bbae[i] = 0x1000;
-        bae9[i] = 0x1000;
+        var_8c22dbae[i] = 0x1000;
+        var_8c22fbae[i] = 0x1000;
+        var_8c22bbae[i] = 0x1000;
+        var_8c229bae[i] = 0x1000;
     }
 }
 
@@ -303,9 +260,6 @@ STATIC void extendDict_8c02f740(Sint16 *symbols, Sint16 count, Sint16 parentCode
     Sint16 newCode;
     Sint16 value;
     Sint16 afterCode;
-    Sint16 *prev;
-
-    prev = (Sint16 *)&var_8c233bb0;
 
     if (parentCode == (Sint16)0x1000 || count <= 0) {
         return;
@@ -337,7 +291,7 @@ STATIC void extendDict_8c02f740(Sint16 *symbols, Sint16 count, Sint16 parentCode
 
             afterCode = (Sint16)var_8c235bb0;
             if (parentCode > 0xff) {
-                afterCode = prev[parentCode];
+                afterCode = var_8c233bb0[parentCode];
             }
             listInsert_8c02f58a(newCode, afterCode);
         }
@@ -426,11 +380,7 @@ void ReplayCodecPack_8c02f934(void *src, void **dest, Uint32 size)
     Sint16 prevParent;
     Sint16 prevCount;
     Sint16 recency;
-    Sint16 *symBuf;
-    Sint16 *recencyPrev;
 
-    symBuf = (Sint16 *)&var_8c235bb4;
-    recencyPrev = (Sint16 *)&var_8c233bb0;
     count = 0;
     consumed = 0;
 
@@ -458,14 +408,14 @@ void ReplayCodecPack_8c02f934(void *src, void **dest, Uint32 size)
             matchCode = currentCode;
             if (matchCode > 0xff) {
                 if (matchCode == recency) {
-                    recency = recencyPrev[matchCode];
+                    recency = var_8c233bb0[matchCode];
                 } else {
                     swapNodes_8c02f556(matchCode);
                     listInsert_8c02f58a(matchCode, recency);
                 }
             }
 
-            symBuf[count] = nextByte;
+            var_8c235bb4[count] = nextByte;
             count++;
             nextByte = *srcPtr++;
             consumed++;
@@ -473,7 +423,7 @@ void ReplayCodecPack_8c02f934(void *src, void **dest, Uint32 size)
         } while (currentCode != 0x1000);
 
         writeCode_8c02f824((Sint32)matchCode, &destPtr);
-        extendDict_8c02f740(symBuf, count, prevParent, prevCount);
+        extendDict_8c02f740(var_8c235bb4, count, prevParent, prevCount);
     }
 
     putBits_8c02f4da(7, 0, &destPtr);
@@ -501,11 +451,6 @@ void ReplayCodecUnpack_8c02fa14(void *src, void **dest, Uint32 size)
     Sint16 leafCode;
     Sint16 walkCode;
     Sint16 i;
-    Sint16 *symBuf;
-    Sint16 *parentOf;
-
-    symBuf = (Sint16 *)&var_8c235bb4;
-    parentOf = (Sint16 *)&var_8c229bae;
 
     consumed = 0;
     destPtr = (Uint8 *)*dest;
@@ -549,12 +494,15 @@ void ReplayCodecUnpack_8c02fa14(void *src, void **dest, Uint32 size)
                 listInsert_8c02f58a((Sint16)readResult, (Sint16)var_8c235bb0);
             }
             expandCount++;
-            symBuf[100 - expandCount] = var_8c228bae[code];
-            walkCode = parentOf[code];
+            var_8c235bb4[100 - expandCount] = var_8c228bae[code];
+            walkCode = var_8c229bae[code];
             readResult = walkCode;
         }
 
         {
+            /* Byte-typed view, not a plain Sint16 index: SHC compiles a
+             * direct word-array copy loop into MOV.W @Rm+,Rn, which
+             * sh4objtest's interpreter doesn't implement. */
             Uint8 *symBufBytes;
             Sint16 start;
 
@@ -566,7 +514,7 @@ void ReplayCodecUnpack_8c02fa14(void *src, void **dest, Uint32 size)
             destPtr += expandCount;
         }
 
-        extendDict_8c02f740(symBuf, expandCount, prevCode, prevExpandCount);
+        extendDict_8c02f740(var_8c235bb4, expandCount, prevCode, prevExpandCount);
         outputCount += (Uint32)(Uint16)expandCount;
         prevCode = leafCode;
     }

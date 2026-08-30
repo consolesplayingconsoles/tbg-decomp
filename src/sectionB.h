@@ -951,16 +951,16 @@ extern Sint16 var_8c228ba8; /* signed bit-buffer fill count; goes negative to tr
 extern Uint16 var_8c228baa;
 extern Uint16 var_8c228bac;
 extern Uint8 var_8c228bae[0x1000];
-extern Uint8 var_8c229bae[0x2000];
-extern Uint8 var_8c22bbae[0x2000];
-extern Uint8 var_8c22dbae[0x2000];
-extern Uint8 var_8c22fbae[0x2000];
+extern Sint16 var_8c229bae[0x1000];
+extern Sint16 var_8c22bbae[0x1000];
+extern Sint16 var_8c22dbae[0x1000];
+extern Sint16 var_8c22fbae[0x1000];
 extern Uint16 var_8c231bae;
-extern Uint8 var_8c231bb0[0x2000];
-extern Uint8 var_8c233bb0[0x2000];
+extern Sint16 var_8c231bb0[0x1000];
+extern Sint16 var_8c233bb0[0x1000];
 extern Uint16 var_8c235bb0;
 extern Uint16 var_8c235bb2;
-extern Uint8 var_8c235bb4[200];
+extern Sint16 var_8c235bb4[100];
 extern Uint16 var_8c235c7c;
 extern Uint16 var_8c235c7e;
 
