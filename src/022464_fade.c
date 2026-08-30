@@ -106,9 +106,7 @@ STATIC NJS_POINT2 init_clipLayer2_8c045598[2] = {
 };
 /* Fullscreen fade quad: 4 corners {0,0,1.0}-{0,480,1.0}-{640,0,1.0}-{640,480,1.0}.
  * The col field of each vertex is poked every frame via displacement addressing
- * (@(0xc/0x1c/0x2c/0x3c,Rn) in the original asm) -- Ghidra fabricated its own
- * init_8c0455b4/c4/d4/e4 labels for those mid-array addresses since it doesn't
- * recognize them as offsets into this array; the real code never names them. */
+ * (@(0xc/0x1c/0x2c/0x3c,Rn) in the original asm). */
 STATIC NJS_POLYGON_VTX init_fadeQuad_8c0455a8[4] = {
     /* [0] */ { 0.0f, 0.0f, 1.0f, ARGB(0, 0, 0, 0) },
     /* [1] */ { 0.0f, 480.0f, 1.0f, ARGB(0, 0, 0, 0) },
@@ -202,11 +200,9 @@ STATIC void fadeDraw_8c022464(int layer)
  * color, 2 = fade from color); var_fadeCompleteCallback_8c22656c, if set, is called once when a
  * transition completes and then cleared to its -1 sentinel.
  *
- * Ghidra fabricated a float param here (attributing it to every TxtDrawSprite
- * priority arg below, which is actually a fixed -1.17 literal) and also
- * misattributed the var_mirrorSelect_8c1bbc38 reads below to var_busState_8c1bb9d0.mirror_0x268;
- * its CFG for this function carried 19 "unreachable block" warnings. Raw
- * disassembly confirms FR4 is never read, so the function takes no argument. */
+ * Every TxtDrawSprite priority arg below is a fixed -1.17 literal, not a
+ * parameter -- raw disassembly confirms FR4 is never read, so the function
+ * takes no argument. */
 void FadeUpdate_8c022560(void)
 {
   if (var_fadeArrivalGate_8c226560 != 0) {

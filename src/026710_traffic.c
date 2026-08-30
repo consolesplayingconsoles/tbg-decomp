@@ -397,14 +397,6 @@ void TrafficRelocatePlacementTable_8c026da4(void *handle)
     }
 }
 
-/* Ghidra needed its prototype forced to
- * `float FUN_8c026eaa(void *entry, void *other)`, matching its only caller's
- * two-pointer call sites and float use of the result. Its CONCAT44/ulonglong
- * dance is an artifact of modelling that return as a paired double register:
- * the high dword is always 0 and the real return is a plain float in FR0, so
- * the store of it to other's 0x418 field is just storing 0.0f (both
- * interpretations share the same all-zero bit pattern). */
-
 /* Scans the global list of traffic entries starting at "other" (advanced via
  * TrafficPathScanNext_8c02f212, an accessor with no arguments -- the list cursor is
  * maintained elsewhere) looking for one whose path projection is ahead of
@@ -471,10 +463,7 @@ float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *oth
  * this segment marks its id in-use -- one type's placed-object list is a run
  * of TrafficRelocatePlacementTable_8c026da4-fixed-up 0xc-byte records, each holding its own script
  * pointer at +4, terminated by a 0 there. The per-type table base is
- * var_currentCourse_8c1bb868.macCpu1_0x24 (Ghidra showed it as a standalone
- * global at that address's coincidental offset into the CurrentCourse
- * struct -- confirmed via dual-object probe, "unresolved relocation
- * _var_currentCourse_8c1bb868" on a guess that didn't read that struct). */
+ * var_currentCourse_8c1bb868.macCpu1_0x24. */
 void TrafficMarkSignalIdsInUse_8c026dcc(int maxId)
 {
     CourseSegment *seg;
@@ -524,12 +513,6 @@ void TrafficUpdateFrameFlags_8c026f7e(TrafficEntry *entry)
         }
     }
 }
-
-/* Discounting the CONCAT44/in_fr1 artifact --
- * same float-as-double-return misreading noted in
- * TrafficComputeBlockedSpeed_8c026eaa's header comment; the real return is a
- * plain float in FR0.
- */
 
 /* Sums the {len,...} record lengths from the entry's current path record
  * (entry+0x2b8) to the end of the current path block (len==0 terminator),
@@ -861,17 +844,6 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
     njCnkSetSimpleLight(dir[0], dir[1], dir[2]);
     njCnkSetEasyLight(dir[0], dir[1], dir[2]);
 }
-/* Not detected as a function by Ghidra at this hidden
- * address -- nothing calls it directly, only the .DATA.L pool entry
- * TaskPush_8c014ae8 uses.
- *
- * same unused-first-float-argument pattern as TrafficUpdateHeading_8c026bc4
- * and TrafficAdvanceOnPath_8c026ca2. var_8c1bb880/var_8c1bb888 are
- * var_currentCourse_8c1bb868's atariCpu_0x18/attrCpu_0x20 fields (see
- * 013ae8_route_load.h); var_8c2264d4 is the already-named
- * var_activeGroundGrid_8c2264d4. lightCallback_8c02756a is this unit's own
- * applyTrafficLighting_8c02756a.
- */
 
 /* Per-frame TaskAction driving the traffic subsystem: pushed once (with no
  * extra state -- its own Task struct doubles as the state, see field_0x08/
