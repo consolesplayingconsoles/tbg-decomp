@@ -988,156 +988,153 @@ void FUN_8c02c784(void) {
 STATIC void taskCallback_8c02c072() {
     int i;
 
-    if (var_8c2285c4[0] == 0) {
-        goto tail;
-    }
+    if (var_8c2285c4[0] != 0) {
+        if (var_8c2285c4[0] == 2) {
+            unsigned int flags;
+            int vib;
+            int laneAlias;
 
-    if (var_8c2285c4[0] == 2) {
-        unsigned int flags;
-        int vib;
-        int laneAlias;
-
-        var_8c22866c = var_busState_8c1bb9d0.speed_0x27c;
-        var_8c228680 = var_busState_8c1bb9d0.field_0x368 & 0x30000;
-        if (var_8c228680 < (var_busState_8c1bb9d0.field_0x34c & 0x30000)) {
-            var_8c228680 = var_busState_8c1bb9d0.field_0x34c & 0x30000;
-        }
-
-        if ((var_busState_8c1bb9d0.field_0x36c & 0x80) == 0) {
-            int ang = var_busState_8c1bb9d0.ang_0x250
-                      + (var_busState_8c1bb9d0.field_0x36c & 0xf) * -0x1000;
-            if (var_busState_8c1bb9d0.ang_0x250 < 0) {
-                ang += 0x10000;
+            var_8c22866c = var_busState_8c1bb9d0.speed_0x27c;
+            var_8c228680 = var_busState_8c1bb9d0.field_0x368 & 0x30000;
+            if (var_8c228680 < (var_busState_8c1bb9d0.field_0x34c & 0x30000)) {
+                var_8c228680 = var_busState_8c1bb9d0.field_0x34c & 0x30000;
             }
-            if ((ang < 0x4001 || ang > 0xbfff) && (ang > -0x4001 || ang < -0xbfff)) {
-                var_8c22868c = 1;
+
+            if ((var_busState_8c1bb9d0.field_0x36c & 0x80) == 0) {
+                int ang = var_busState_8c1bb9d0.ang_0x250
+                          + (var_busState_8c1bb9d0.field_0x36c & 0xf) * -0x1000;
+                if (var_busState_8c1bb9d0.ang_0x250 < 0) {
+                    ang += 0x10000;
+                }
+                if ((ang < 0x4001 || ang > 0xbfff) && (ang > -0x4001 || ang < -0xbfff)) {
+                    var_8c22868c = 1;
+                } else {
+                    var_8c22868c = 2;
+                }
             } else {
-                var_8c22868c = 2;
+                var_8c22868c = 0;
             }
-        } else {
-            var_8c22868c = 0;
-        }
 
-        var_8c228684 = var_8c22861c[5];
-        var_8c228688 = var_8c228634[0];
-        laneAlias = var_busState_8c1bb9d0.field_0x358 & 0xf0000001;
-        var_8c228674 = laneAlias;
-        var_8c228678 = var_busState_8c1bb9d0.field_0x374 & 0xf0000001;
-        var_8c22867c = var_busState_8c1bb9d0.field_0x390 & 0xf0000001;
-        if (laneAlias == var_8c228678) {
-            var_8c228634[0] = var_busState_8c1bb9d0.field_0x358 & 0xf000000;
-            var_8c22861c[5] = laneAlias;
-        }
-
-        handleBump_8c02b6d4();
-
-        flags = var_8c228660 & 6;
-        if (flags != 0) {
-            vib = 0;
-            if (flags == 2) {
-                vib = 4;
-            } else if (flags == 4) {
-                vib = 5;
-            } else if (flags == 6) {
-                vib = 6;
+            var_8c228684 = var_8c22861c[5];
+            var_8c228688 = var_8c228634[0];
+            laneAlias = var_busState_8c1bb9d0.field_0x358 & 0xf0000001;
+            var_8c228674 = laneAlias;
+            var_8c228678 = var_busState_8c1bb9d0.field_0x374 & 0xf0000001;
+            var_8c22867c = var_busState_8c1bb9d0.field_0x390 & 0xf0000001;
+            if (laneAlias == var_8c228678) {
+                var_8c228634[0] = var_busState_8c1bb9d0.field_0x358 & 0xf000000;
+                var_8c22861c[5] = laneAlias;
             }
-            if (vib != 0) {
-                VibStart_8c010f7a(vib);
-            }
-        }
 
-        FUN_8c02b864();
-        var_8c228690 = var_8c228690 - 1;
-        if (var_8c228690 < 0) {
-            handleFlags_8c02b7ea();
-            var_8c228694 = var_8c228694 - 1;
-            if (var_8c228694 < 0) {
-                FUN_8c02b886();
-                var_8c228698 = var_8c228698 - 1;
-                if (var_8c228698 < 0) {
-                    FUN_8c02b8b8();
-                    var_8c22869c = var_8c22869c - 1;
-                    if (var_8c22869c < 0) {
-                        FUN_8c02b986();
-                        var_8c2286a0 = var_8c2286a0 - 1;
-                        if (var_8c2286a0 < 0) {
-                            FUN_8c02bb1c();
+            handleBump_8c02b6d4();
+
+            flags = var_8c228660 & 6;
+            if (flags != 0) {
+                vib = 0;
+                if (flags == 2) {
+                    vib = 4;
+                } else if (flags == 4) {
+                    vib = 5;
+                } else if (flags == 6) {
+                    vib = 6;
+                }
+                if (vib != 0) {
+                    VibStart_8c010f7a(vib);
+                }
+            }
+
+            FUN_8c02b864();
+            var_8c228690 = var_8c228690 - 1;
+            if (var_8c228690 < 0) {
+                handleFlags_8c02b7ea();
+                var_8c228694 = var_8c228694 - 1;
+                if (var_8c228694 < 0) {
+                    FUN_8c02b886();
+                    var_8c228698 = var_8c228698 - 1;
+                    if (var_8c228698 < 0) {
+                        FUN_8c02b8b8();
+                        var_8c22869c = var_8c22869c - 1;
+                        if (var_8c22869c < 0) {
+                            FUN_8c02b986();
+                            var_8c2286a0 = var_8c2286a0 - 1;
+                            if (var_8c2286a0 < 0) {
+                                FUN_8c02bb1c();
+                            }
                         }
                     }
                 }
             }
-        }
 
-        FUN_8c02bcd8();
-        var_8c228634[1] = var_busState_8c1bb9d0.field_0x34c;
-        var_8c228634[2] = var_busState_8c1bb9d0.field_0x368;
+            FUN_8c02bcd8();
+            var_8c228634[1] = var_busState_8c1bb9d0.field_0x34c;
+            var_8c228634[2] = var_busState_8c1bb9d0.field_0x368;
 
-        if (var_driverPoints_8c2285d0 != 0) {
-            goto tail;
-        }
-
-        var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
-        var_8c2285c4[0] = 4;
-        var_8c2285c4[2] = 0x1e;
-        var_messageBoxActive_8c22847c = 1;
-        if (var_playMode_8c1bb8d0 == 1) {
-            var_fadeCompleteCallback_8c22656c = FUN_8c02c784;
-        } else {
-            var_fadeCompleteCallback_8c22656c = FUN_8c02c76a;
-        }
-    } else if (var_8c2285c4[0] == 3) {
-        if (var_8c2285c4[9] == 0) {
-            if (var_inputMapSel_8c1bb8c8 == 0) {
-                int diff = var_8c228714 - var_busState_8c1bb9d0.ang_0x250;
-                if ((diff < -0x71c && diff > -0xf8e3) || (diff > 0x71c && diff < 0xf8e3)) {
-                    adjust_8c02b464(0x1b, -3);
+            if (var_driverPoints_8c2285d0 == 0) {
+                var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
+                var_8c2285c4[0] = 4;
+                var_8c2285c4[2] = 0x1e;
+                var_messageBoxActive_8c22847c = 1;
+                if (var_playMode_8c1bb8d0 == 1) {
+                    var_fadeCompleteCallback_8c22656c = FUN_8c02c784;
+                } else {
+                    var_fadeCompleteCallback_8c22656c = FUN_8c02c76a;
                 }
-            }
-            if (var_busState_8c1bb9d0.field_0x25c != 1 || var_8c22861c[0] < 0x3c) {
-                adjust_8c02b464(0xf, -8);
-            }
-        } else if (var_8c2285c4[9] == 1) {
-            adjust_8c02b464(0x1c, -10);
-        } else if (var_8c2285c4[9] == 2) {
-            adjust_8c02b464(0x1a, -20);
-        }
 
-        var_8c2285c4[0] = 4;
-        var_8c2285c4[2] = 0x1e;
-        var_messageBoxActive_8c22847c = 1;
-        if (var_playMode_8c1bb8d0 == 1) {
-            var_fadeCompleteCallback_8c22656c = FUN_8c02c784;
-        } else if (var_driverPoints_8c2285d0 == 0) {
-            var_fadeCompleteCallback_8c22656c = FUN_8c02c76a;
-        } else {
-            var_fadeCompleteCallback_8c22656c = FUN_8c02c624;
-        }
-
-        if (var_driverPoints_8c2285d0 > 0 && FUN_8c02c586() != 0) {
-            var_8c2285c4[1] = 1;
-        }
-    } else {
-        if (var_8c2285c4[0] == 4) {
-            var_8c2285c4[2] = var_8c2285c4[2] - 1;
-            if (var_8c2285c4[2] < 0 && init_8c03bd80 == 0) {
-                sdMidiStopAll();
-                if (var_vibport_8c1ba354 != -1) {
-                    pdVibMxStop(var_vibport_8c1ba354);
+                SndStartAdxFadeOut_8c010bae(0);
+                SndStartAdxFadeOut_8c010bae(1);
+            }
+        } else if (var_8c2285c4[0] == 3) {
+            if (var_8c2285c4[9] == 0) {
+                if (var_inputMapSel_8c1bb8c8 == 0) {
+                    int diff = var_8c228714 - var_busState_8c1bb9d0.ang_0x250;
+                    if ((diff < -0x71c && diff > -0xf8e3) || (diff > 0x71c && diff < 0xf8e3)) {
+                        adjust_8c02b464(0x1b, -3);
+                    }
                 }
-                var_8c2285c4[0] = 5;
-                var_fadeRequest_8c226564 = FADE_REQUEST_IN;
-                FUN_8c024b4c();
+                if (var_busState_8c1bb9d0.field_0x25c != 1 || var_8c22861c[0] < 0x3c) {
+                    adjust_8c02b464(0xf, -8);
+                }
+            } else if (var_8c2285c4[9] == 1) {
+                adjust_8c02b464(0x1c, -10);
+            } else if (var_8c2285c4[9] == 2) {
+                adjust_8c02b464(0x1a, -20);
+            }
+
+            var_8c2285c4[0] = 4;
+            var_8c2285c4[2] = 0x1e;
+            var_messageBoxActive_8c22847c = 1;
+            if (var_playMode_8c1bb8d0 == 1) {
+                var_fadeCompleteCallback_8c22656c = FUN_8c02c784;
+            } else if (var_driverPoints_8c2285d0 == 0) {
+                var_fadeCompleteCallback_8c22656c = FUN_8c02c76a;
             } else {
-                SndUpdateAdxVolFade_8c010a40();
+                var_fadeCompleteCallback_8c22656c = FUN_8c02c624;
+            }
+
+            if (var_driverPoints_8c2285d0 > 0 && FUN_8c02c586() != 0) {
+                var_8c2285c4[1] = 1;
+            }
+
+            SndStartAdxFadeOut_8c010bae(0);
+            SndStartAdxFadeOut_8c010bae(1);
+        } else {
+            if (var_8c2285c4[0] == 4) {
+                var_8c2285c4[2] = var_8c2285c4[2] - 1;
+                if (var_8c2285c4[2] < 0 && init_8c03bd80 == 0) {
+                    sdMidiStopAll();
+                    if (var_vibport_8c1ba354 != -1) {
+                        pdVibMxStop(var_vibport_8c1ba354);
+                    }
+                    var_8c2285c4[0] = 5;
+                    var_fadeRequest_8c226564 = FADE_REQUEST_IN;
+                    FUN_8c024b4c();
+                } else {
+                    SndUpdateAdxVolFade_8c010a40();
+                }
             }
         }
-        goto tail;
     }
 
-    SndStartAdxFadeOut_8c010bae(0);
-    SndStartAdxFadeOut_8c010bae(1);
-
-tail:
     for (i = 0; i < 4; i++) {
         DriveMsgSlot *slot = &var_driveMsgQueue_8c228564[i];
         if (slot->holdFrames != 0) {
