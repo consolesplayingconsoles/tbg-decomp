@@ -9,7 +9,7 @@ return new class extends TestCase {
         // value = 12h * 108000 + 34m * 1800 + 56s * 30 (30fps-based frame count)
         $value = 12 * 108000 + 34 * 1800 + 56 * 30;
 
-        $this->call('_FUN_8c01fa80')->with($value, 12.0, 0x64);
+        $this->call('_drawTimeDigits_8c01fa80')->with($value, 12.0, 0x64);
 
         $this->shouldCall('__divls')->with($value, 108000)->using(new RiroCallingConvention())->andReturn(12);
         $this->shouldCall('__modls')->with($value, 108000)->using(new RiroCallingConvention())->andReturn(1080);

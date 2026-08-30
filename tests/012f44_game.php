@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->shouldCall('_FUN_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
-        $this->shouldCall('_FUN_8c02018c');
+        $this->shouldCall('_HudReset_8c02018c');
         $this->shouldCall('_FUN_8c02d968');
         $this->shouldCall('_FUN_8c020528');
 
@@ -151,7 +151,7 @@ return new class extends TestCase {
         $this->shouldCall('_FUN_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
-        $this->shouldCall('_FUN_8c02018c');
+        $this->shouldCall('_HudReset_8c02018c');
         $this->shouldCall('_FUN_8c02d968');
         $this->shouldCall('_FUN_8c020528');
 
@@ -246,7 +246,7 @@ return new class extends TestCase {
         $this->shouldCall('_FUN_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
-        $this->shouldCall('_FUN_8c02018c');
+        $this->shouldCall('_HudReset_8c02018c');
         $this->shouldCall('_FUN_8c02d968');
         $this->shouldCall('_FUN_8c020528');
 

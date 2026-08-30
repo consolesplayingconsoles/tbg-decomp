@@ -39,11 +39,11 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 42);
 
-        $this->call('_FUN_8c02018c');
+        $this->call('_HudReset_8c02018c');
 
         $this->shouldCall('_TaskPush_8c014ae8')->do($this->taskPushCheck(
             $this->addressOf('_var_tasks_8c1ba5e8'),
-            $this->addressOf('_FUN_8c01ff48'),
+            $this->addressOf('_hudUpdateTask_8c01ff48'),
         ));
 
         $this->shouldWriteLong($base + 0x00, 0);

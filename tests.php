@@ -494,11 +494,11 @@ return [
         ],
         [
             "tests" => [
-                "tests/01fa78/8c01fa78_FUN.php",
-                "tests/01fa78/8c01fa80_FUN.php",
-                "tests/01fa78/8c01fbac_FUN.php",
-                "tests/01fa78/8c01ff48_FUN.php",
-                "tests/01fa78/8c02018c_FUN.php",
+                "tests/01fa78/8c01fa78_showMark.php",
+                "tests/01fa78/8c01fa80_drawTimeDigits.php",
+                "tests/01fa78/8c01fbac_drawHud.php",
+                "tests/01fa78/8c01ff48_hudUpdateTask.php",
+                "tests/01fa78/8c02018c_HudReset.php",
             ],
             "objects" => [
                 "build/output_test/01fa78_src.obj",

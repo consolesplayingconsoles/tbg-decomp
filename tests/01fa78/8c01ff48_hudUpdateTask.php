@@ -36,11 +36,11 @@ return new class extends TestCase {
     {
         $this->setup();
 
-        $this->call('_FUN_8c01ff48');
+        $this->call('_hudUpdateTask_8c01ff48');
 
         $this->shouldWriteSymbolOffset('_var_8c2264a8', 0x04, 0); // out-of-window: no comment digit
         $this->shouldWriteSymbolOffset('_var_8c22643c', 0x18, 1); // var_8c226454 += 1
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_FUN_8c01fbac'), 0);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawHud_8c01fbac'), 0);
     }
 
     public function test_blinker_bit_stages_message_and_arms_flag(): void
@@ -48,13 +48,13 @@ return new class extends TestCase {
         $base = $this->setup();
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b0, 3); // blinker bits 0-2 = 3
 
-        $this->call('_FUN_8c01ff48');
+        $this->call('_hudUpdateTask_8c01ff48');
 
         $this->shouldWriteSymbolOffset('_var_8c22643c', 0x14, 3 + 0x1f); // var_8c226450
         $this->shouldWriteSymbolOffset('_var_8c22643c', 0x10, 1); // flag
         $this->shouldWriteSymbolOffset('_var_8c22643c', 0x18, 0); // var_8c226454 reset
         $this->shouldWriteSymbolOffset('_var_8c2264a8', 0x04, 0); // out-of-window: no comment digit
         $this->shouldWriteSymbolOffset('_var_8c22643c', 0x18, 1); // var_8c226454 += 1 (later, ends at 1)
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_FUN_8c01fbac'), 0);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawHud_8c01fbac'), 0);
     }
 };

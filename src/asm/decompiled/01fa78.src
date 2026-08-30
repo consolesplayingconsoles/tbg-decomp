@@ -22,25 +22,25 @@
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
-          .EXPORT     _FUN_8c02018c
+          .EXPORT     _HudReset_8c02018c
           .AIFDEF UNIT_TESTING
-          .EXPORT     _FUN_8c01fa78
-          .EXPORT     _FUN_8c01fa80
-          .EXPORT     _FUN_8c01fbac
-          .EXPORT     _FUN_8c01fe84
-          .EXPORT     _FUN_8c01ff48
+          .EXPORT     _showMark_8c01fa78
+          .EXPORT     _drawTimeDigits_8c01fa80
+          .EXPORT     _drawHud_8c01fbac
+          .EXPORT     _drawSpeedAndTimers_8c01fe84
+          .EXPORT     _hudUpdateTask_8c01ff48
           .EXPORT     _init_8c045334
           .EXPORT     _init_8c045374
           .EXPORT     _init_8c0453b4
           .EXPORT     _init_8c045414
           .AENDI
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c01fa78:
+_showMark_8c01fa78:
           MOV.L       LP_GEN_77638+4,R6
           MOV.L       R4,@R6
           RTS
           MOV.L       R5,@(H'8,R6)
-_FUN_8c01fa80:
+_drawTimeDigits_8c01fa80:
           MOV.L       R14,@-R15
           MOV         R4,R1
           MOV.L       R13,@-R15
@@ -179,7 +179,7 @@ LP_GEN_77638:
           .DATA.L H'43E88000 ; H'8C01FBA0
           .DATA.L H'43FD0000 ; H'8C01FBA4
           .DATA.L H'43F70000 ; H'8C01FBA8
-_FUN_8c01fbac:
+_drawHud_8c01fbac:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -550,7 +550,7 @@ LAB_8c01fe04:
           FDIV        FR1,FR2
           FTRC        FR2,FPUL
           STS         FPUL,R9
-_FUN_8c01fe84:
+_drawSpeedAndTimers_8c01fe84:
           CMP/PZ      R9
           BT          LAB_8c01fe8a
           NEG         R9,R9
@@ -581,12 +581,12 @@ LAB_8c01fe8a:
           MOVA        LP_GEN_41663+70,R0
           FMOV.S      @R0,FR4
           MOV         #H'a,R5
-          BSR         _FUN_8c01fa80
+          BSR         _drawTimeDigits_8c01fa80
           MOV.L       @(H'14,R10),R4
           MOVA        LP_GEN_41663+74,R0
           FMOV.S      @R0,FR4
           MOV         #H'14,R5
-          BSR         _FUN_8c01fa80
+          BSR         _drawTimeDigits_8c01fa80
           MOV.L       @(H'18,R10),R4
           MOVA        LP_GEN_41663+78,R0
           MOV.L       LP_GEN_41663+62,R4
@@ -633,7 +633,7 @@ LP_GEN_41663:
           .DATA.L H'43C90000 ; H'8C01FF3C
           .DATA.L H'43D38000 ; H'8C01FF40
           .DATA.L H'BF9D70A4 ; H'8C01FF40
-_FUN_8c01ff48:
+_hudUpdateTask_8c01ff48:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -686,7 +686,7 @@ LAB_8c01ff82:
           NOP
 LAB_8c01ffa8:
           MOV         R9,R5
-          BSR         _FUN_8c01fa78
+          BSR         _showMark_8c01fa78
           MOV         #H'18,R4
           BRA         LAB_8c01ffc0
           NOP
@@ -698,7 +698,7 @@ LAB_8c01ffb8:
           MOV         #H'17,R4
           MOV         R9,R5
 LAB_8c01ffbc:
-          BSR         _FUN_8c01fa78
+          BSR         _showMark_8c01fa78
           NOP
 LAB_8c01ffc0:
           MOV.W       LP_GEN_64387,R0
@@ -722,13 +722,13 @@ LAB_8c01ffc0:
           NOP
 LAB_8c01ffe6:
           MOV         R9,R5
-          BSR         _FUN_8c01fa78
+          BSR         _showMark_8c01fa78
           MOV         #H'1c,R4
           BRA         LAB_8c01fff6
           NOP
 LAB_8c01fff0:
           MOV         R9,R5
-          BSR         _FUN_8c01fa78
+          BSR         _showMark_8c01fa78
           MOV         #H'1d,R4
 LAB_8c01fff6:
           BRA         LAB_8c020062
@@ -756,7 +756,7 @@ LAB_8c02002a:
           TST         R3,R2
           BT          LAB_8c020038
           MOV         R9,R5
-          BSR         _FUN_8c01fa78
+          BSR         _showMark_8c01fa78
           MOV         #H'1b,R4
 LAB_8c020038:
           MOV.W       LP_GEN_71798+2,R0
@@ -772,7 +772,7 @@ LAB_8c020038:
           EXTS.W      R9,R9
           MOV         R9,R4
           MOV         #H'78,R5
-          BSR         _FUN_8c01fa78
+          BSR         _showMark_8c01fa78
           ADD         #H'1e,R4
           MOV.L       R10,@(H'38,R14)
           BRA         LAB_8c020062
@@ -938,7 +938,7 @@ LAB_8c020174:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_FUN_8c02018c:
+_HudReset_8c02018c:
           STS.L       PR,@-R15
           ADD         #-H'8,R15
           MOV         #H'0,R3
@@ -990,9 +990,9 @@ LP_GEN_28448:
           .RES.W 1 ; H'8C0201EA
           .DATA.L _var_driverPoints_8c2285d0 ; H'8C0201EC
           .DATA.L H'41A00000 ; H'8C0201F0
-          .DATA.L _FUN_8c01fbac ; H'8C0201F4
+          .DATA.L _drawHud_8c01fbac ; H'8C0201F4
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C0201F8
-          .DATA.L _FUN_8c01ff48 ; H'8C0201FC
+          .DATA.L _hudUpdateTask_8c01ff48 ; H'8C0201FC
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C020200
           .DATA.L _TaskPush_8c014ae8 ; H'8C020204
           .DATA.L _var_8c22643c ; H'8C020208

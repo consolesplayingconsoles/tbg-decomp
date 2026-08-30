@@ -7,6 +7,7 @@
 #include "014f54_text.h"
 #include "016bf4_demo_input.h"
 #include "0129cc_pause.h"
+#include "01fa78.h" /* HudReset_8c02018c */
 #include "01614c_debug_menu.h"
 #include "028258_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "sectionD.h"
@@ -204,7 +205,7 @@ void FUN_8c01306e(void)
     FUN_8c0222dc();
     ObjectsPushTasks_8c02a6ac();
     DrivePointsReset_8c02c46a();
-    FUN_8c02018c();
+    HudReset_8c02018c();
     FUN_8c02d968();
     FUN_8c020528();
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &task_8c012f9c, &created_task, &created_state, 0);

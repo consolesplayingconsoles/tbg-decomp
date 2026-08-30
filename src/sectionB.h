@@ -17,9 +17,9 @@
  * =================
  */
 
-/* Set by FUN_8c01fa78 (01fa78): field_0x00 = its first arg, field_0x08 =
+/* Set by showMark_8c01fa78 (01fa78): field_0x00 = its first arg, field_0x08 =
  * its second. Both, plus field_0x04, are read as pending sprite ids in
- * FUN_8c01fbac's tail (FUN_8c01fe84 split); field_0x0c unread so far. */
+ * drawHud_8c01fbac's tail (drawSpeedAndTimers_8c01fe84 split); field_0x0c unread so far. */
 typedef struct {
     int field_0x00;
     int field_0x04;
@@ -30,7 +30,7 @@ typedef struct {
 /* A screen-space vertex used with njDrawPolygon: position plus a packed
  * color, matching the layout of init_8c045334/init_8c045374/init_8c0453b4
  * (01fa78). var_8c226478 holds 3 of these -- x/y/z filled per-frame by
- * njCalcPoint, color seeded once by FUN_8c02018c. */
+ * njCalcPoint, color seeded once by HudReset_8c02018c. */
 typedef struct {
     float x, y, z;
     Uint32 color;
@@ -217,7 +217,7 @@ typedef struct {
     int field_0x2d4;
     int field_0x2d8;
     int field_0x2dc;
-    /* Needle-ramp mode for FUN_8c01fbac's var_uknVol_8c226468 (01fa78):
+    /* Needle-ramp mode for drawHud_8c01fbac's var_uknVol_8c226468 (01fa78):
      * 0 = relax toward 0, 1 = settle to 500, 2 = ramp toward target_0x2e8. */
     int field_0x2e0;
     int field_0x2e4;
@@ -595,7 +595,7 @@ extern int var_lcdSlot_8c2263a0;   // 01bb48
 extern void* var_8c226434;
 extern void* var_8c226438;
 /* Turn-signal/traffic-signal violation checker scratch (01fa78,
- * FUN_8c01fbac/FUN_8c02018c). Zeroed by FUN_8c02018c; field_0x08/0x0c unread
+ * drawHud_8c01fbac/HudReset_8c02018c). Zeroed by HudReset_8c02018c; field_0x08/0x0c unread
  * so far. */
 typedef struct {
     int field_0x00;
@@ -611,7 +611,7 @@ extern int var_8c226450;
 /* Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
  * transition; role/owner (02b464) unclear. */
 extern int var_8c226454;
-/* Driver-points meter fill scratch (01fa78, FUN_8c02018c/FUN_8c01ff48):
+/* Driver-points meter fill scratch (01fa78, HudReset_8c02018c/hudUpdateTask_8c01ff48):
  * field_0x00 the displayed (ramped) value, field_0x04 the last raw
  * var_driverPoints_8c2285d0 sample, field_0x08 the per-frame ramp step
  * ((new-old)/20). field_0x0c seeded to a fixed 1.0f; unread so far. */

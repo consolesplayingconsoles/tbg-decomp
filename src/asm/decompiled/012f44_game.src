@@ -54,7 +54,7 @@
           .IMPORT     _FUN_8c0222dc
           .IMPORT     _ObjectsPushTasks_8c02a6ac
           .IMPORT     _DrivePointsReset_8c02c46a
-          .IMPORT     _FUN_8c02018c
+          .IMPORT     _HudReset_8c02018c
           .IMPORT     _FUN_8c02d968
           .IMPORT     _FUN_8c020528
           .IMPORT     _FadeStartRunTransition_8c0228a2
@@ -763,7 +763,7 @@ LP_GEN_38000:
           .DATA.L _FUN_8c0222dc
           .DATA.L _ObjectsPushTasks_8c02a6ac
           .DATA.L _DrivePointsReset_8c02c46a
-          .DATA.L _FUN_8c02018c
+          .DATA.L _HudReset_8c02018c
           .DATA.L _FUN_8c02d968
           .DATA.L _FUN_8c020528
           .DATA.L _task_8c012f9c

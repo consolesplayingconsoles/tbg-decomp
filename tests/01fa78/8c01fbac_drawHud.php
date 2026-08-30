@@ -4,16 +4,16 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention;
 
 /*
- * _FUN_8c01fbac(int arg0): the in-drive HUD render. arg0 is the driver-
- * comment message code FUN_8c01ff48 stages through the fade-command queue.
+ * _drawHud_8c01fbac(int arg0): the in-drive HUD render. arg0 is the driver-
+ * comment message code hudUpdateTask_8c01ff48 stages through the fade-command queue.
  * var_8c226450/454/458/uknVol_8c226468/8c226478 all alias into the
  * var_8c22643c scratch block, and var_8c2285d4/d8/dc/mirrorViewLevel_8c2285e4
- * all alias into var_8c2285c4 -- see FUN_8c01ff48's test for the same
+ * all alias into var_8c2285c4 -- see hudUpdateTask_8c01ff48's test for the same
  * aliasing and 02b464_drive_points for the var_8c2285c4 convention.
  * init_8c045334/374/3b4/414 were local (unexported) labels in the .src
  * object; gated .EXPORTs under .AIFDEF UNIT_TESTING were added so tests can
  * see them, matching init_fadeQuad_8c0455a8's convention in 022464_fade.
- * The FUN_8c01fe84 tail is exercised in its own test file and mocked here.
+ * The drawSpeedAndTimers_8c01fe84 tail is exercised in its own test file and mocked here.
  */
 return new class extends TestCase {
     private function setup(): array
@@ -78,8 +78,8 @@ return new class extends TestCase {
         return str_ends_with($this->objectFile, '_src.obj');
     }
 
-    // FUN_8c01fbac falls through into FUN_8c01fe84's code in the original
-    // asm (no BSR/JSR anywhere reaches that label -- see FUN_8c01fbac's own
+    // drawHud_8c01fbac falls through into drawSpeedAndTimers_8c01fe84's code in the original
+    // asm (no BSR/JSR anywhere reaches that label -- see drawHud_8c01fbac's own
     // comment), so the .src object can't have that call mocked away: it
     // just keeps executing the real digit/timer draws. The C object made
     // it a real call, which can be mocked. var_8c2285d8/dc are assumed 0
@@ -96,11 +96,11 @@ return new class extends TestCase {
             $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, $units, 320.0, 420.0, -1.21);
             $this->shouldCall('__divls')->with($abs, 10)->using(new RiroCallingConvention())->andReturn($tens);
             $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, $tens, 308.0, 420.0, -1.21);
-            $this->shouldCall('_FUN_8c01fa80')->with(0, 402.0, 10);
-            $this->shouldCall('_FUN_8c01fa80')->with(0, 423.0, 20);
+            $this->shouldCall('_drawTimeDigits_8c01fa80')->with(0, 402.0, 10);
+            $this->shouldCall('_drawTimeDigits_8c01fa80')->with(0, 423.0, 20);
             $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x24, 0.0, 0.0, -1.23);
         } else {
-            $this->shouldCall('_FUN_8c01fe84')->with($speed);
+            $this->shouldCall('_drawSpeedAndTimers_8c01fe84')->with($speed);
         }
     }
 
@@ -160,7 +160,7 @@ return new class extends TestCase {
         $this->setup();
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
 
-        $this->call('_FUN_8c01fbac')->with(0);
+        $this->call('_drawHud_8c01fbac')->with(0);
 
         // No calls, no writes -- pure early return.
     }
@@ -196,7 +196,7 @@ return new class extends TestCase {
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
         $busStop = $this->addressOf('_var_busStopTexlist_8c1bc424');
 
-        $this->call('_FUN_8c01fbac')->with(7);
+        $this->call('_drawHud_8c01fbac')->with(7);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x40, 0.0, 0.0, -1.21);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x30, 0.0, 0.0, -1.2);
@@ -241,7 +241,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x18, 61); // var_8c226454 (> 60)
         $this->initUint32($dp + 0x10, 100);  // var_8c2285d4 (avoid div-by-zero)
 
-        $this->call('_FUN_8c01fbac')->with(0);
+        $this->call('_drawHud_8c01fbac')->with(0);
 
         $busStop = $this->addressOf('_var_busStopTexlist_8c1bc424');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x1e, 0.0, 0.0, -1.2);
@@ -257,7 +257,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x18, 61); // var_8c226454 (> 60) -- level 2 ignores var_8c226450
         $this->initUint32($dp + 0x10, 100);  // var_8c2285d4
 
-        $this->call('_FUN_8c01fbac')->with(0);
+        $this->call('_drawHud_8c01fbac')->with(0);
 
         $busStop = $this->addressOf('_var_busStopTexlist_8c1bc424');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x1f, 0.0, 0.0, -1.2);
@@ -274,7 +274,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x18, 0);  // var_8c226454 (blink window closed, bits 1/2 clear)
         $this->initUint32($dp + 0x10, 100);  // var_8c2285d4
 
-        $this->call('_FUN_8c01fbac')->with(0);
+        $this->call('_drawHud_8c01fbac')->with(0);
 
         $this->assertAlwaysOnTail(0, 0, 0);
     }
@@ -287,7 +287,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0, 1); // needle mode 1
         $this->initUint32($base + 0x2c, unpack('L', pack('f', 100.0))[1]); // var_uknVol_8c226468 < 500
 
-        $this->call('_FUN_8c01fbac')->with(0);
+        $this->call('_drawHud_8c01fbac')->with(0);
 
         $this->assertMeterAndBorders();
 
@@ -305,7 +305,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e8, unpack('L', pack('f', 650.0))[1]); // target_0x2e8 > 500
         $this->initUint32($base + 0x2c, unpack('L', pack('f', 600.0))[1]); // above target -> ramp up, overshoots
 
-        $this->call('_FUN_8c01fbac')->with(0);
+        $this->call('_drawHud_8c01fbac')->with(0);
 
         $this->assertMeterAndBorders();
 

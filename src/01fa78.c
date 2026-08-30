@@ -1,3 +1,4 @@
+/* @unit Hud */
 #include <shinobi.h>
 
 #include "01fa78.h"
@@ -16,7 +17,7 @@
 /* Driver-points meter fill quad: 4 DrawVertex8c226478-shaped vertices
  * (x,y,z,color), left edge fixed at x=38.0 (vertices 0/1), right edge
  * (vertices 2/3, offsets 0x20/0x30) overwritten every frame by
- * FUN_8c01fbac. Kept as raw bytes to stay byte-identical with the asm. */
+ * drawHud_8c01fbac. Kept as raw bytes to stay byte-identical with the asm. */
 STATIC Uint8 init_8c045334[] = {
     0x00, 0x00, 0x18, 0x42, 0x00, 0x00, 0xD8, 0x43,
     0xFB, 0x91, 0x53, 0x3F, 0x00, 0xF4, 0x00, 0xFF,
@@ -55,7 +56,7 @@ STATIC Uint8 init_8c0453b4[] = {
 };
 
 /* 3 NJS_POINT3 local-space corners of the rotating needle triangle
- * (FUN_8c01fbac), njCalcPoint'd through var_8c1bc46c into var_8c226478. */
+ * (drawHud_8c01fbac), njCalcPoint'd through var_8c1bc46c into var_8c226478. */
 STATIC Uint8 init_8c045414[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0,
     0x08, 0xD6, 0x51, 0x3F, 0x00, 0x00, 0x00, 0x00,
@@ -69,21 +70,21 @@ STATIC Uint8 init_8c045414[] = {
  * ====================
  */
 
-STATIC void FUN_8c01fe84(Sint32 speed);
+STATIC void drawSpeedAndTimers_8c01fe84(Sint32 speed);
 
 /* ====================
  * Functions
  * ====================
  */
 
-STATIC void FUN_8c01fa78(int a, int b) {
+STATIC void showMark_8c01fa78(int a, int b) {
     var_8c2264a8.field_0x00 = a;
     var_8c2264a8.field_0x08 = b;
 }
 
 /* Draws a 6-digit HH:MM:SS readout from a 30fps frame count (108000 = 1h,
  * 1800 = 1min, 30 = 1sec), tens-then-units per field. */
-STATIC void FUN_8c01fa80(int frames, float y, int spriteBase) {
+STATIC void drawTimeDigits_8c01fa80(int frames, float y, int spriteBase) {
     int hours = frames / 108000;
     int minutes = (frames % 108000) / 1800;
     int seconds = (frames % 1800) / 30;
@@ -97,14 +98,14 @@ STATIC void FUN_8c01fa80(int frames, float y, int spriteBase) {
 }
 
 /* Per-frame in-drive HUD renderer: driver-comment popup icons (var_8c2264a8,
- * plus arg0 -- the message code FUN_8c01ff48 stages through the fade-command
+ * plus arg0 -- the message code hudUpdateTask_8c01ff48 stages through the fade-command
  * queue), the next-stop icon (blinking once armed), the driver-points meter
  * bar, both turn-signal icons, a rotating needle driven by the steering/lane
  * state machine (var_uknVol_8c226468's 500-unit ramp), and the speed
- * readout + two timers drawn by the FUN_8c01fe84 tail. Installed as a
+ * readout + two timers drawn by the drawSpeedAndTimers_8c01fe84 tail. Installed as a
  * FadeCallback1 and as a TaskPush_8c014ae8 action, so it must keep this
  * exact signature. */
-STATIC void FUN_8c01fbac(int arg0) {
+STATIC void drawHud_8c01fbac(int arg0) {
     float barWidth, barWidthInner;
     Angle angle;
     Sint32 speed;
@@ -220,25 +221,25 @@ STATIC void FUN_8c01fbac(int arg0) {
 
     /* Speed readout (var_busState_8c1bb9d0.speed_0x27c converted to a
      * display unit) plus the two elapsed/remaining timers, split out to
-     * FUN_8c01fe84 -- see that function for the digit layout. */
+     * drawSpeedAndTimers_8c01fe84 -- see that function for the digit layout. */
     speed = (Sint32)((var_busState_8c1bb9d0.speed_0x27c * 108000.0f) / 1000.0f);
-    FUN_8c01fe84(speed);
+    drawSpeedAndTimers_8c01fe84(speed);
 }
 
-/* Tail of FUN_8c01fbac's HUD render, split out because the original asm
- * falls through into this label from FUN_8c01fbac with no other reference
- * to it anywhere in the tree (see FUN_8c01fbac). Draws the 2-digit speed
+/* Tail of drawHud_8c01fbac's HUD render, split out because the original asm
+ * falls through into this label from drawHud_8c01fbac with no other reference
+ * to it anywhere in the tree (see drawHud_8c01fbac). Draws the 2-digit speed
  * value (its sign discarded) and the two elapsed-time readouts.
  *
  * No standalone test file: the asm label has no real prologue of its own
- * (it inherits FUN_8c01fbac's), so a direct call in the .src object reads
+ * (it inherits drawHud_8c01fbac's), so a direct call in the .src object reads
  * its argument from a stale R9 instead of R4 and its epilogue restores an
  * unestablished stack frame -- there is no way to invoke it in isolation
- * against that object. FUN_8c01fbac's own tests exercise this function's
+ * against that object. drawHud_8c01fbac's own tests exercise this function's
  * real behavior in both objects: as a genuine call in the C object, and
  * (since the .src object can't have it mocked away either) via inline
  * assertions in that same file's assertSpeedTail() for the .src object. */
-STATIC void FUN_8c01fe84(Sint32 speed) {
+STATIC void drawSpeedAndTimers_8c01fe84(Sint32 speed) {
     Sint32 units, tens;
 
     if (speed < 0) {
@@ -250,17 +251,17 @@ STATIC void FUN_8c01fe84(Sint32 speed) {
     tens = speed / 10;
     TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, tens, 308.0f, 420.0f, -1.21f);
 
-    FUN_8c01fa80(var_8c2285d8, 402.0f, 10);
-    FUN_8c01fa80(var_8c2285dc, 423.0f, 20);
+    drawTimeDigits_8c01fa80(var_8c2285d8, 402.0f, 10);
+    drawTimeDigits_8c01fa80(var_8c2285dc, 423.0f, 20);
 
     TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x24, 0.0f, 0.0f, -1.23f);
 }
 
 /* Per-frame driver-comment popup logic: turns bus-state bit changes (turn
  * signal, wipers, gear, lane-change, headlights) into message codes staged
- * via FUN_8c01fa78, ramps the driver-points meter display, and tail-calls
- * FUN_8c01fbac (the popup/meter renderer) through the fade-command queue. */
-STATIC void FUN_8c01ff48() {
+ * via showMark_8c01fa78, ramps the driver-points meter display, and tail-calls
+ * drawHud_8c01fbac (the popup/meter renderer) through the fade-command queue. */
+STATIC void hudUpdateTask_8c01ff48() {
     unsigned int blinker = var_busState_8c1bb9d0.field_0x3b0 & 7;
     unsigned int wiper;
     unsigned int gear;
@@ -284,11 +285,11 @@ STATIC void FUN_8c01ff48() {
     wiper = var_busState_8c1bb9d0.field_0x3b0 & 0x30000;
     if (wiper != 0) {
         if (wiper == 0x20000) {
-            FUN_8c01fa78(0x18, 300);
+            showMark_8c01fa78(0x18, 300);
         } else if (wiper == 0x30000) {
-            FUN_8c01fa78(0x19, 300);
+            showMark_8c01fa78(0x19, 300);
         } else if (wiper == 0x10000) {
-            FUN_8c01fa78(0x17, 300);
+            showMark_8c01fa78(0x17, 300);
         }
     }
 
@@ -296,9 +297,9 @@ STATIC void FUN_8c01ff48() {
     if (uknVolScratch[2] == 0) {
         if (gear != 0) {
             if (gear == 0x40000) {
-                FUN_8c01fa78(0x1c, 0xb4);
+                showMark_8c01fa78(0x1c, 0xb4);
             } else if (gear == 0x80000) {
-                FUN_8c01fa78(0x1d, 0xb4);
+                showMark_8c01fa78(0x1d, 0xb4);
             }
             uknVolScratch[2] = 1;
             goto afterGear;
@@ -308,13 +309,13 @@ STATIC void FUN_8c01ff48() {
     }
 
     if ((var_busState_8c1bb9d0.field_0x3b0 & 0x100) != 0) {
-        FUN_8c01fa78(0x1b, 0xb4);
+        showMark_8c01fa78(0x1b, 0xb4);
     }
 
     lane = var_busState_8c1bb9d0.field_0x3b8 & 0xff0000;
     if (uknVolScratch[3] == 0) {
         if (lane != 0) {
-            FUN_8c01fa78((short)(lane >> 0x10) + 0x1e, 0x78);
+            showMark_8c01fa78((short)(lane >> 0x10) + 0x1e, 0x78);
             uknVolScratch[3] = 1;
             var_8c2264a8.field_0x0c = 0;
         }
@@ -382,16 +383,16 @@ afterGear:
         }
     }
 
-    FadeCmdPushCall1_8c0223ea(0, FUN_8c01fbac, messageArg);
+    FadeCmdPushCall1_8c0223ea(0, drawHud_8c01fbac, messageArg);
 }
 
-/* Installs FUN_8c01ff48 as a per-frame task and resets the violation-checker
+/* Installs hudUpdateTask_8c01ff48 as a per-frame task and resets the violation-checker
  * and popup/meter scratch state for a fresh run. */
-void FUN_8c02018c() {
+void HudReset_8c02018c(void) {
     Task *createdTask;
     void *createdState;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, FUN_8c01ff48, &createdTask, &createdState, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, hudUpdateTask_8c01ff48, &createdTask, &createdState, 0);
 
     var_8c22643c.field_0x00 = 0;
     var_8c22643c.field_0x04 = 0;
