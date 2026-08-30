@@ -16,10 +16,8 @@
  * ====================
  */
 
-/* One 20-byte entry of the per-route stop tables (init_8c045674/
- * init_8c045b60/init_8c045ee4): {kind, pos, name}. A cast-only view over
- * those flat int arrays -- see the comment above init_8c045674 for why the
- * arrays themselves stay untyped. */
+/* One 20-byte entry of the per-route stop tables (init_stopsShinjuku_8c045674/
+ * init_stopsWangan_8c045b60/init_stopsOme_8c045ee4): {kind, pos, name}. */
 typedef struct {
     int kind_0x00;
     NJS_POINT3 pos_0x04;
@@ -39,328 +37,293 @@ typedef struct {
  * ====================
  */
 
-STATIC const Uint8 const_8c039f78[] = {
+STATIC const Uint8 const_stopNameNakanoBashi_8c039f78[] = {
     0x92, 0x86, 0x83, 0x6D, 0x8B, 0xB4, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039f80[] = {
+STATIC const Uint8 const_stopNameNone_8c039f80[] = {
     0x00, 0x00, 0x00, 0x00,
 };
 
 /* "\x88\xea\x83\x6D\x8b\xb4" -- SHIFT-JIS place name (dump_src_data.py
  * doesn't decode live .SDATA directives, only commented-out ones). */
-STATIC const Uint8 const_8c039f84[] = {
+STATIC const Uint8 const_stopNameIchinoBashi_8c039f84[] = {
     0x88, 0xEA, 0x83, 0x6D, 0x8B, 0xB4, 0x00, 0x00,
 };
 
 /* "\x94\xd1\x91\x71\x95\xd0\x92\xac" -- SHIFT-JIS place name (same
- * dump_src_data.py .SDATA limitation as const_8c039f84). */
-STATIC const Uint8 const_8c039f8c[] = {
+ * dump_src_data.py .SDATA limitation as const_stopNameIchinoBashi_8c039f84). */
+STATIC const Uint8 const_stopNameIikuraKatamachi_8c039f8c[] = {
     0x94, 0xD1, 0x91, 0x71, 0x95, 0xD0, 0x92, 0xAC, 0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039f98[] = {
+STATIC const Uint8 const_stopNameRoppongiKousaten_8c039f98[] = {
     0x98, 0x5A, 0x96, 0x7B, 0x96, 0xD8, 0x8C, 0xF0,
     0x8D, 0xB7, 0x93, 0x5F, 0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039fa8[] = {
+STATIC const Uint8 const_stopNameRoppongi_8c039fa8[] = {
     0x98, 0x5A, 0x96, 0x7B, 0x96, 0xD8, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039fb0[] = {
+STATIC const Uint8 const_stopNameBoueichouMae_8c039fb0[] = {
     0x96, 0x68, 0x89, 0x71, 0x92, 0xA1, 0x91, 0x4F,
     0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039fbc[] = {
+STATIC const Uint8 const_stopNameAkasaka8Chome_8c039fbc[] = {
     0x90, 0xD4, 0x8D, 0xE2, 0x94, 0xAA, 0x92, 0x9A,
     0x96, 0xDA, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039fc8[] = {
+STATIC const Uint8 const_stopNameMinamiAoyama1Chome_8c039fc8[] = {
     0x93, 0xEC, 0x90, 0xC2, 0x8E, 0x52, 0x88, 0xEA,
     0x92, 0x9A, 0x96, 0xDA, 0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039fd8[] = {
+STATIC const Uint8 const_stopNameAoyama1Chome_8c039fd8[] = {
     0x90, 0xC2, 0x8E, 0x52, 0x88, 0xEA, 0x92, 0x9A,
     0x96, 0xDA, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039fe4[] = {
+STATIC const Uint8 const_stopNameAoyama1ChomeKousaten_8c039fe4[] = {
     0x90, 0xC2, 0x8E, 0x52, 0x88, 0xEA, 0x92, 0x9A,
     0x96, 0xDA, 0x8C, 0xF0, 0x8D, 0xB7, 0x93, 0x5F,
     0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c039ff8[] = {
+STATIC const Uint8 const_stopNameAkasakaGoyouchi_8c039ff8[] = {
     0x90, 0xD4, 0x8D, 0xE2, 0x8C, 0xE4, 0x97, 0x70,
     0x92, 0x6E, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a004[] = {
+STATIC const Uint8 const_stopNameAoyamaToeiApartMae_8c03a004[] = {
     0x90, 0xC2, 0x8E, 0x52, 0x93, 0x73, 0x89, 0x63,
     0x83, 0x41, 0x83, 0x70, 0x81, 0x5B, 0x83, 0x67,
     0x91, 0x4F, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a018[] = {
+STATIC const Uint8 const_stopNameMeijiKinenkan_8c03a018[] = {
     0x96, 0xBE, 0x8E, 0xA1, 0x8B, 0x4C, 0x94, 0x4F,
     0x8A, 0xD9, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a024[] = {
+STATIC const Uint8 const_stopNameJinguuGaien_8c03a024[] = {
     0x90, 0x5F, 0x8B, 0x7B, 0x8A, 0x4F, 0x89, 0x91,
     0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a030[] = {
+STATIC const Uint8 const_stopNameShinanomachiEki_8c03a030[] = {
     0x90, 0x4D, 0x94, 0x5A, 0x92, 0xAC, 0x89, 0x77,
     0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a03c[] = {
+STATIC const Uint8 const_stopNameShinanomachiEkiMae_8c03a03c[] = {
     0x90, 0x4D, 0x94, 0x5A, 0x92, 0xAC, 0x89, 0x77,
     0x91, 0x4F, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a048[] = {
+STATIC const Uint8 const_stopNameYotsuya3Chome_8c03a048[] = {
     0x8E, 0x6C, 0x92, 0x4A, 0x8E, 0x4F, 0x92, 0x9A,
     0x96, 0xDA, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a054[] = {
+STATIC const Uint8 const_stopNameYotsuya4Chome_8c03a054[] = {
     0x8E, 0x6C, 0x92, 0x4A, 0x8E, 0x6C, 0x92, 0x9A,
     0x96, 0xDA, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a060[] = {
+STATIC const Uint8 const_stopNameShinjuku1Chome_8c03a060[] = {
     0x90, 0x56, 0x8F, 0x68, 0x88, 0xEA, 0x92, 0x9A,
     0x96, 0xDA, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a06c[] = {
+STATIC const Uint8 const_stopNameShinjuku2Chome_8c03a06c[] = {
     0x90, 0x56, 0x8F, 0x68, 0x93, 0xF1, 0x92, 0x9A,
     0x96, 0xDA, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a078[] = {
+STATIC const Uint8 const_stopNameShinjukuDoori_8c03a078[] = {
     0x90, 0x56, 0x8F, 0x68, 0x92, 0xCA, 0x82, 0xE8,
     0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a084[] = {
+STATIC const Uint8 const_stopNameShiokazeKouenIriguchi_8c03a084[] = {
     0x92, 0xAA, 0x95, 0x97, 0x8C, 0xF6, 0x89, 0x80,
     0x93, 0xFC, 0x8C, 0xFB, 0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a094[] = {
+STATIC const Uint8 const_stopNameDaibaEkiMae_8c03a094[] = {
     0x91, 0xE4, 0x8F, 0xEA, 0x89, 0x77, 0x91, 0x4F,
     0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a0a0[] = {
+STATIC const Uint8 const_stopNameFujiTerebiMae_8c03a0a0[] = {
     0x83, 0x74, 0x83, 0x57, 0x83, 0x65, 0x83, 0x8C,
     0x83, 0x72, 0x91, 0x4F, 0x00, 0x00, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a0b0[] = {
+STATIC const Uint8 const_stopNameOdaibaKaihinKouenEkiMae_8c03a0b0[] = {
     0x82, 0xA8, 0x91, 0xE4, 0x8F, 0xEA, 0x8A, 0x43,
     0x95, 0x6C, 0x8C, 0xF6, 0x89, 0x80, 0x89, 0x77,
     0x91, 0x4F, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a0c4[] = {
+STATIC const Uint8 const_stopNameHigashiOmeEkiMae_8c03a0c4[] = {
     0x93, 0x8C, 0x90, 0xC2, 0x94, 0x7E, 0x89, 0x77,
     0x91, 0x4F, 0x00, 0x00,
 };
 
-STATIC const Uint8 const_8c03a0d0[] = {
+STATIC const Uint8 const_stopNameOmeShiyakushoMae_8c03a0d0[] = {
     0x90, 0xC2, 0x94, 0x7E, 0x8E, 0x73, 0x96, 0xF0,
     0x8F, 0x8A, 0x91, 0x4F, 0x00, 0x00, 0x00, 0x00,
 };
 
 /* Per-route stop-announcement tables, picked by var_route_8c18ad1c
- * (FUN_8c025af4): init_8c045674 = ROUTE_SHINJUKU, init_8c045b60 =
- * ROUTE_WANGAN, init_8c045ee4 = ROUTE_OME. Flat records of 5 words each --
- * {kind, x, y, z, name} -- kept untyped since the fields interleave int and
- * float and the original .src marks two internal boundaries
+ * (FUN_8c025af4): init_stopsShinjuku_8c045674 = ROUTE_SHINJUKU,
+ * init_stopsWangan_8c045b60 = ROUTE_WANGAN, init_stopsOme_8c045ee4 =
+ * ROUTE_OME. The original .src marks two internal boundaries
  * (init_8c046000/init_8c04608a) that don't land on a record boundary
  * (mid-record split, not real symbols -- nothing else in the game
- * references them), so they're folded into init_8c045ee4 here. */
-STATIC int init_8c045674[] = {
-    0x00000001, 0x40800000, 0x3F000000, 0xC0800000,
-    (int)const_8c039f78, 0x00000000, 0x45815000, 0x41500000,
-    0x458B2000, (int)const_8c039f80, 0x00000000, 0x45767000,
-    0x41980000, 0x4589E800, (int)const_8c039f84, 0x00000000,
-    0x45754000, 0x40800000, 0x45865000, (int)const_8c039f80,
-    0x00000000, 0x4576C000, 0x3E99999A, 0x45686000,
-    (int)const_8c039f8c, 0x00000002, 0xC0000000, 0x3F800000,
-    0xC1200000, (int)const_8c039f80, 0x00000001, 0xC0000000,
-    0x3F800000, 0x40C00000, (int)const_8c039f80, 0x00000002,
-    0x40400000, 0x3F4CCCCD, 0x41200000, (int)const_8c039f80,
-    0x00000002, 0xC0800000, 0x40200000, 0xC1200000,
-    (int)const_8c039f80, 0x00000002, 0x40400000, 0x40200000,
-    0xC1C80000, (int)const_8c039f80, 0x00000001, 0x40400000,
-    0x40200000, 0xC1C80000, (int)const_8c039f80, 0x00000002,
-    0x40F00000, 0x3FE66666, 0x00000000, (int)const_8c039f80,
-    0x00000002, 0x41300000, 0x3FE66666, 0x00000000,
-    (int)const_8c039f80, 0x00000000, 0x45592000, 0x3F800000,
-    0x455B7000, (int)const_8c039f98, 0x00000000, 0x4556E000,
-    0x42200000, 0x45559000, (int)const_8c039fa8, 0x00000002,
-    0xC0400000, 0x40000000, 0xC0C00000, (int)const_8c039f80,
-    0x00000001, 0xC0C9999A, 0x40000000, 0xC0C00000,
-    (int)const_8c039f80, 0x00000000, 0x45452000, 0x4099999A,
-    0x45471000, (int)const_8c039fb0, 0x00000002, 0xC0A00000,
-    0x40400000, 0x41100000, (int)const_8c039f80, 0x00000001,
-    0xC0200000, 0x40400000, 0xC0400000, (int)const_8c039fbc,
-    0x00000002, 0xC0800000, 0x41780000, 0x41A00000,
-    (int)const_8c039f80, 0x00000000, 0x4536CB33, 0x40A00000,
-    0x45217000, (int)const_8c039fc8, 0x00000002, 0xC0000000,
-    0x3F333333, 0x41000000, (int)const_8c039fd8, 0x00000000,
-    0x452CC000, 0x40E00000, 0x451B1000, (int)const_8c039fe4,
-    0x00000002, 0x41F00000, 0x3F000000, 0x00000000,
-    (int)const_8c039f80, 0x00000002, 0x41F00000, 0x3F000000,
-    0x00000000, (int)const_8c039f80, 0x00000000, 0x4522F000,
-    0x3F800000, 0x450C4000, (int)const_8c039ff8, 0x00000000,
-    0x45205000, 0x3F000000, 0x45075000, (int)const_8c03a004,
-    0x00000002, 0xC0A00000, 0x3F000000, 0xC0400000,
-    (int)const_8c039f80, 0x00000001, 0xC0A00000, 0x3F000000,
-    0xC0400000, (int)const_8c03a018, 0x00000000, 0x45160000,
-    0x40C00000, 0x44D56000, (int)const_8c03a024, 0x00000002,
-    0xC1700000, 0x40B00000, 0xC0E00000, (int)const_8c03a030,
-    0x00000001, 0xC1700000, 0x40B00000, 0xC0E00000,
-    (int)const_8c039f80, 0x00000002, 0xC0C00000, 0x3F800000,
-    0x00000000, (int)const_8c03a03c, 0x00000002, 0xC0C00000,
-    0x3F800000, 0xC0A00000, (int)const_8c039f80, 0x00000001,
-    0xC0A00000, 0x3F800000, 0xC0A00000, (int)const_8c039f80,
-    0x00000002, 0xC0A00000, 0x3F800000, 0x40A00000,
-    (int)const_8c039f80, 0x00000000, 0x45170000, 0x420C0000,
-    0x44408000, (int)const_8c03a048, 0x00000002, 0x00000000,
-    0x40E00000, 0x41C80000, (int)const_8c039f80, 0x00000002,
-    0x00000000, 0x40E00000, 0x41C80000, (int)const_8c039f80,
-    0x00000000, 0x44FFE000, 0x3F000000, 0x44504000,
-    (int)const_8c03a054, 0x00000002, 0x40400000, 0x3F000000,
-    0x40E00000, (int)const_8c039f80, 0x00000002, 0xC0400000,
-    0x3F000000, 0x40E00000, (int)const_8c03a060, 0x00000000,
-    0x44CA6000, 0x40C00000, 0x44378000, (int)const_8c03a06c,
-    0x00000000, 0x44B50000, 0x40E00000, 0x442D8000,
-    (int)const_8c039f80, 0x00000002, 0x00000000, 0x40200000,
-    0xC1A00000, (int)const_8c039f80, 0x00000000, 0x44926000,
-    0x3F800000, 0x44030000, (int)const_8c03a078, 0x00000000,
-    0x44926000, 0x3F800000, 0x44030000, (int)const_8c039f80,
-    0x00000000, 0x44926000, 0x3F800000, 0x44030000,
-    (int)const_8c039f80, 0x00000000, 0x44800000, 0x3F800000,
-    0x43E88000, (int)const_8c039f80, 0x00000000, 0x4482E000,
-    0x3F800000, 0x43EF8000, (int)const_8c039f80, 0x00000001,
-    0xC0400000, 0x3F4CCCCD, 0xC0400000, (int)const_8c039f80,
-    0x00000000, 0x446CC000, 0x40A00000, 0x43C70000,
-    (int)const_8c039f80, 0x00000002, 0xC0800000, 0x40A00000,
-    0xC1700000, (int)const_8c039f80, 0x00000001, 0xC0800000,
-    0x40A00000, 0xC1700000, (int)const_8c039f80, 0x00000000,
-    0x44248000, 0x40A00000, 0x43960000, (int)const_8c039f80,
-    0x00000000, 0x44248000, 0x40A00000, 0x43960000,
-    (int)const_8c039f80, 0x00000000, 0x44230000, 0x3FC00000,
-    0x43520000, (int)const_8c039f80, 0x00000000, 0x44120000,
-    0x00000000, 0x432B0000, (int)const_8c039f80, 0x00000002,
-    0xC0800000, 0x3F000000, 0x40A00000, (int)const_8c039f80,
-    0x00000002, 0x00000000, 0x40200000, 0x41200000,
-    (int)const_8c039f80, 0x00000000, 0x440B8000, 0x41200000,
-    0x439F0000, (int)const_8c039f80, 0x00000000, 0x43DF8000,
-    0x00000000, 0x43B00000, (int)const_8c039f80,
+ * references them), so they're folded into init_stopsOme_8c045ee4 here. */
+STATIC StopRecord init_stopsShinjuku_8c045674[] = {
+    {1, {4.0f, 0.5f, -4.0f}, (char *)const_stopNameNakanoBashi_8c039f78},
+    {0, {4138.0f, 13.0f, 4452.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {3943.0f, 19.0f, 4413.0f}, (char *)const_stopNameIchinoBashi_8c039f84},
+    {0, {3924.0f, 4.0f, 4298.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {3948.0f, 0.30000001192092896f, 3718.0f}, (char *)const_stopNameIikuraKatamachi_8c039f8c},
+    {2, {-2.0f, 1.0f, -10.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-2.0f, 1.0f, 6.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {3.0f, 0.800000011920929f, 10.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-4.0f, 2.5f, -10.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {3.0f, 2.5f, -25.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {3.0f, 2.5f, -25.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {7.5f, 1.7999999523162842f, 0.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {11.0f, 1.7999999523162842f, 0.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {3474.0f, 1.0f, 3511.0f}, (char *)const_stopNameRoppongiKousaten_8c039f98},
+    {0, {3438.0f, 40.0f, 3417.0f}, (char *)const_stopNameRoppongi_8c039fa8},
+    {2, {-3.0f, 2.0f, -6.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-6.300000190734863f, 2.0f, -6.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {3154.0f, 4.800000190734863f, 3185.0f}, (char *)const_stopNameBoueichouMae_8c039fb0},
+    {2, {-5.0f, 3.0f, 9.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-2.5f, 3.0f, -3.0f}, (char *)const_stopNameAkasaka8Chome_8c039fbc},
+    {2, {-4.0f, 15.5f, 20.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2924.699951171875f, 5.0f, 2583.0f}, (char *)const_stopNameMinamiAoyama1Chome_8c039fc8},
+    {2, {-2.0f, 0.699999988079071f, 8.0f}, (char *)const_stopNameAoyama1Chome_8c039fd8},
+    {0, {2764.0f, 7.0f, 2481.0f}, (char *)const_stopNameAoyama1ChomeKousaten_8c039fe4},
+    {2, {30.0f, 0.5f, 0.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {30.0f, 0.5f, 0.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2607.0f, 1.0f, 2244.0f}, (char *)const_stopNameAkasakaGoyouchi_8c039ff8},
+    {0, {2565.0f, 0.5f, 2165.0f}, (char *)const_stopNameAoyamaToeiApartMae_8c03a004},
+    {2, {-5.0f, 0.5f, -3.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-5.0f, 0.5f, -3.0f}, (char *)const_stopNameMeijiKinenkan_8c03a018},
+    {0, {2400.0f, 6.0f, 1707.0f}, (char *)const_stopNameJinguuGaien_8c03a024},
+    {2, {-15.0f, 5.5f, -7.0f}, (char *)const_stopNameShinanomachiEki_8c03a030},
+    {1, {-15.0f, 5.5f, -7.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-6.0f, 1.0f, 0.0f}, (char *)const_stopNameShinanomachiEkiMae_8c03a03c},
+    {2, {-6.0f, 1.0f, -5.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-5.0f, 1.0f, -5.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-5.0f, 1.0f, 5.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2416.0f, 35.0f, 770.0f}, (char *)const_stopNameYotsuya3Chome_8c03a048},
+    {2, {0.0f, 7.0f, 25.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {0.0f, 7.0f, 25.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2047.0f, 0.5f, 833.0f}, (char *)const_stopNameYotsuya4Chome_8c03a054},
+    {2, {3.0f, 0.5f, 7.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 0.5f, 7.0f}, (char *)const_stopNameShinjuku1Chome_8c03a060},
+    {0, {1619.0f, 6.0f, 734.0f}, (char *)const_stopNameShinjuku2Chome_8c03a06c},
+    {0, {1448.0f, 7.0f, 694.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {0.0f, 2.5f, -20.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {1171.0f, 1.0f, 524.0f}, (char *)const_stopNameShinjukuDoori_8c03a078},
+    {0, {1171.0f, 1.0f, 524.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {1171.0f, 1.0f, 524.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {1024.0f, 1.0f, 465.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {1047.0f, 1.0f, 479.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-3.0f, 0.800000011920929f, -3.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {947.0f, 5.0f, 398.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-4.0f, 5.0f, -15.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-4.0f, 5.0f, -15.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {658.0f, 5.0f, 300.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {658.0f, 5.0f, 300.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {652.0f, 1.5f, 210.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {584.0f, 0.0f, 171.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-4.0f, 0.5f, 5.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {0.0f, 2.5f, 10.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {558.0f, 10.0f, 318.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {447.0f, 0.0f, 352.0f}, (char *)const_stopNameNone_8c039f80},
 };
 
-STATIC int init_8c045b60[] = {
-    0x00000000, 0x456D0000, 0x3F99999A, 0x4534D000,
-    (int)const_8c039f80, 0x00000000, 0x4576B000, 0x41500000,
-    0x45322000, (int)const_8c039f80, 0x00000002, 0xC0400000,
-    0x40400000, 0xC1000000, (int)const_8c039f80, 0x00000002,
-    0x40400000, 0x40400000, 0xC1000000, (int)const_8c039f80,
-    0x00000000, 0x459B9000, 0x41000000, 0x4546C000,
-    (int)const_8c039f80, 0x00000000, 0x459B9000, 0x40C00000,
-    0x4546C000, (int)const_8c039f80, 0x00000002, 0x40400000,
-    0x3F000000, 0xC0E00000, (int)const_8c039f80, 0x00000000,
-    0x45815000, 0x41500000, 0x458B2000, (int)const_8c039f80,
-    0x00000002, 0x40400000, 0x41500000, 0xC0A00000,
-    (int)const_8c039f80, 0x00000002, 0xC0400000, 0x41500000,
-    0xC0A00000, (int)const_8c039f80, 0x00000000, 0x4560E000,
-    0x40000000, 0x4556A000, (int)const_8c039f80, 0x00000002,
-    0x40A00000, 0x40800000, 0xC1A00000, (int)const_8c039f80,
-    0x00000002, 0xC0400000, 0x3E99999A, 0x40000000,
-    (int)const_8c039f80, 0x00000000, 0x45482000, 0x3FC00000,
-    0x45656000, (int)const_8c039f80, 0x00000002, 0xC0400000,
-    0x40200000, 0x00000000, (int)const_8c039f80, 0x00000000,
-    0x45264000, 0x3F800000, 0x457E7000, (int)const_8c039f80,
-    0x00000002, 0x41200000, 0x3FC00000, 0x00000000,
-    (int)const_8c039f80, 0x00000002, 0xC0400000, 0x3F000000,
-    0x41200000, (int)const_8c039f80, 0x00000001, 0xC0400000,
-    0x3F000000, 0x41200000, (int)const_8c039f80, 0x00000000,
-    0x452B6000, 0x41FC0000, 0x45931000, (int)const_8c039f80,
-    0x00000002, 0x41680000, 0x3FC00000, 0x41500000,
-    (int)const_8c03a084, 0x00000001, 0x41680000, 0x3FC00000,
-    0x41500000, (int)const_8c039f80, 0x00000000, 0x44ED4000,
-    0x40000000, 0x456CD000, (int)const_8c039f80, 0x00000000,
-    0x45034000, 0x41C80000, 0x456BA000, (int)const_8c03a094,
-    0x00000000, 0x45044000, 0x3F000000, 0x456C4000,
-    (int)const_8c039f80, 0x00000000, 0x45031000, 0x3F4CCCCD,
-    0x45646000, (int)const_8c039f80, 0x00000000, 0x4512C000,
-    0x41400000, 0x455D7000, (int)const_8c03a0a0, 0x00000002,
-    0x3F800000, 0x3F800000, 0xC1000000, (int)const_8c039f80,
-    0x00000002, 0x3F800000, 0x3F800000, 0xC1000000,
-    (int)const_8c039f80, 0x00000002, 0x41000000, 0x3FC00000,
-    0xC1300000, (int)const_8c03a0b0, 0x00000001, 0x41000000,
-    0x3FC00000, 0xC1300000, (int)const_8c039f80, 0x00000002,
-    0x41000000, 0x3FC00000, 0x00000000, (int)const_8c039f80,
-    0x00000001, 0x41000000, 0x3FC00000, 0x00000000,
-    (int)const_8c039f80, 0x00000000, 0x452DB000, 0x41500000,
-    0x4547C000, (int)const_8c039f80, 0x00000000, 0x452DB000,
-    0x411CCCCD, 0x4547C000, (int)const_8c039f80, 0x00000002,
-    0xC0066666, 0x3F000000, 0x40E00000, (int)const_8c039f80,
-    0x00000000, 0x45241E66, 0x411B3333, 0x4532A99A,
-    (int)const_8c039f80, 0x00000000, 0x448E4000, 0x3F000000,
-    0x44094000, (int)const_8c039f80, 0x00000002, 0xC0400000,
-    0x3F000000, 0x40C00000, (int)const_8c039f80, 0x00000000,
-    0x448B2000, 0x3F000000, 0x43E70000, (int)const_8c039f80,
-    0x00000002, 0x00000000, 0x41840000, 0x42200000,
-    (int)const_8c039f80, 0x00000000, 0x44728000, 0x3F000000,
-    0x43AC8000, (int)const_8c039f80, 0x00000002, 0x40400000,
-    0x3FC00000, 0xC1A00000, (int)const_8c039f80, 0x00000001,
-    0x40400000, 0x3FC00000, 0xC1A00000, (int)const_8c039f80,
-    0x00000000, 0x442D0000, 0x3FC00000, 0x43928000,
-    (int)const_8c039f80,
+STATIC StopRecord init_stopsWangan_8c045b60[] = {
+    {0, {3792.0f, 1.2000000476837158f, 2893.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {3947.0f, 13.0f, 2850.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 3.0f, -8.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {3.0f, 3.0f, -8.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {4978.0f, 8.0f, 3180.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {4978.0f, 6.0f, 3180.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {3.0f, 0.5f, -7.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {4138.0f, 13.0f, 4452.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {3.0f, 13.0f, -5.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 13.0f, -5.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {3598.0f, 2.0f, 3434.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {5.0f, 4.0f, -20.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 0.30000001192092896f, 2.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {3202.0f, 1.5f, 3670.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 2.5f, 0.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2660.0f, 1.0f, 4071.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {10.0f, 1.5f, 0.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 0.5f, 10.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-3.0f, 0.5f, 10.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2742.0f, 31.5f, 4706.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {14.5f, 1.5f, 13.0f}, (char *)const_stopNameShiokazeKouenIriguchi_8c03a084},
+    {1, {14.5f, 1.5f, 13.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {1898.0f, 2.0f, 3789.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2100.0f, 25.0f, 3770.0f}, (char *)const_stopNameDaibaEkiMae_8c03a094},
+    {0, {2116.0f, 0.5f, 3780.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2097.0f, 0.800000011920929f, 3654.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2348.0f, 12.0f, 3543.0f}, (char *)const_stopNameFujiTerebiMae_8c03a0a0},
+    {2, {1.0f, 1.0f, -8.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {1.0f, 1.0f, -8.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {8.0f, 1.5f, -11.0f}, (char *)const_stopNameOdaibaKaihinKouenEkiMae_8c03a0b0},
+    {1, {8.0f, 1.5f, -11.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {8.0f, 1.5f, 0.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {8.0f, 1.5f, 0.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2779.0f, 13.0f, 3196.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2779.0f, 9.800000190734863f, 3196.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-2.0999999046325684f, 0.5f, 7.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2625.89990234375f, 9.699999809265137f, 2858.60009765625f}, (char *)const_stopNameNone_8c039f80},
+    {0, {1138.0f, 0.5f, 549.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 0.5f, 6.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {1113.0f, 0.5f, 462.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {0.0f, 16.5f, 40.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {970.0f, 0.5f, 345.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {3.0f, 1.5f, -20.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {3.0f, 1.5f, -20.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {692.0f, 1.5f, 293.0f}, (char *)const_stopNameNone_8c039f80},
 };
 
-STATIC int init_8c045ee4[] = {
-    0x00000000, 0x45DA8000, 0x3F333333, 0x45C2119A,
-    (int)const_8c03a0c4, 0x00000000, 0x45DAF800, 0x3F000000,
-    0x45C28800, (int)const_8c039f80, 0x00000002, 0xC0400000,
-    0x3F333333, 0x41000000, (int)const_8c039f80, 0x00000000,
-    0x45E0B000, 0x40CCCCCD, 0x45C80400, (int)const_8c039f80,
-    0x00000000, 0x45E0B000, 0x40CCCCCD, 0x45C80400,
-    (int)const_8c03a0d0, 0x00000002, 0xC0400000, 0x3F333333,
-    0xC1200000, (int)const_8c039f80, 0x00000001, 0xC0400000,
-    0x3F333333, 0xC1200000, (int)const_8c039f80, 0x00000000,
-    0x45E2F000, 0x3F000000, 0x45C0C800, (int)const_8c039f80,
-    0x00000002, 0xC0400000, 0x3FC00000, 0x40400000,
-    (int)const_8c039f80, 0x00000002, 0x40A00000, 0x3FC00000,
-    0xC1200000, (int)const_8c039f80, 0x00000001, 0x40A00000,
-    0x3FC00000, 0xC1200000, (int)const_8c039f80, 0x00000002,
-    0x00000000, 0x40400000, 0x41200000, (int)const_8c039f80,
-    0x00000000, 0x45D63000, 0x40000000, 0x45B60000,
-    (int)const_8c039f80, 0x00000000, 0x45D74800, 0x41900000,
-    0x45B34000, (int)const_8c039f80, 0x00000000, 0x45293000,
-    0xBF800000, 0x44B68000, (int)const_8c039f80, 0x00000002,
-    0xC0800000, 0x3F800000, 0xC1900000, (int)const_8c039f80,
-    0x00000001, 0xC0800000, 0x3F800000, 0xC1900000,
-    (int)const_8c039f80, 0x00000002, 0x40400000, 0x3F000000,
-    0xC0400000, (int)const_8c039f80, 0x00000000, 0x450EB000,
-    0x40800000, 0x44A0C000, (int)const_8c039f80, 0x00000000,
-    0x450B1000, 0x420C0000, 0x44922000, (int)const_8c039f80,
-    0x00000000, 0x45057000, 0x41000000, 0x448A6000,
-    (int)const_8c039f80, 0x00000002, 0x00000000, 0x40800000,
-    0x41200000, (int)const_8c039f80, 0x00000000, 0x44F90000,
-    0x41400000, 0x44474000, (int)const_8c039f80,
+STATIC StopRecord init_stopsOme_8c045ee4[] = {
+    {0, {6992.0f, 0.699999988079071f, 6210.2001953125f}, (char *)const_stopNameHigashiOmeEkiMae_8c03a0c4},
+    {0, {7007.0f, 0.5f, 6225.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 0.699999988079071f, 8.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {7190.0f, 6.400000095367432f, 6400.5f}, (char *)const_stopNameNone_8c039f80},
+    {0, {7190.0f, 6.400000095367432f, 6400.5f}, (char *)const_stopNameOmeShiyakushoMae_8c03a0d0},
+    {2, {-3.0f, 0.699999988079071f, -10.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-3.0f, 0.699999988079071f, -10.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {7262.0f, 0.5f, 6169.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-3.0f, 1.5f, 3.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {5.0f, 1.5f, -10.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {5.0f, 1.5f, -10.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {0.0f, 3.0f, 10.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {6854.0f, 2.0f, 5824.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {6889.0f, 18.0f, 5736.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2707.0f, -1.0f, 1460.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {-4.0f, 1.0f, -18.0f}, (char *)const_stopNameNone_8c039f80},
+    {1, {-4.0f, 1.0f, -18.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {3.0f, 0.5f, -3.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2283.0f, 4.0f, 1286.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2225.0f, 35.0f, 1169.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {2135.0f, 8.0f, 1107.0f}, (char *)const_stopNameNone_8c039f80},
+    {2, {0.0f, 4.0f, 10.0f}, (char *)const_stopNameNone_8c039f80},
+    {0, {1992.0f, 12.0f, 797.0f}, (char *)const_stopNameNone_8c039f80},
 };
 
 /* Public: referenced by 012f44_game.c/012f44_game.src. */
@@ -509,7 +472,8 @@ STATIC void stopTextboxTask_8c0259e8(Task *task, void *stateArg)
 
 /* Opens the "next stop" textbox and arms stopTextboxTask_8c0259e8. Picks
  * the current route's stop table (var_8c227e0c) among the three
- * per-route init_8c045674/init_8c045b60/init_8c045ee4 tables. */
+ * per-route init_stopsShinjuku_8c045674/init_stopsWangan_8c045b60/
+ * init_stopsOme_8c045ee4 tables. */
 void FUN_8c025af4(void)
 {
     Task *task;
@@ -517,13 +481,13 @@ void FUN_8c025af4(void)
 
     switch (var_route_8c18ad1c) {
     case ROUTE_SHINJUKU:
-        var_8c227e0c = init_8c045674;
+        var_8c227e0c = (int *)init_stopsShinjuku_8c045674;
         break;
     case ROUTE_WANGAN:
-        var_8c227e0c = init_8c045b60;
+        var_8c227e0c = (int *)init_stopsWangan_8c045b60;
         break;
     case ROUTE_OME:
-        var_8c227e0c = init_8c045ee4;
+        var_8c227e0c = (int *)init_stopsOme_8c045ee4;
         break;
     }
 

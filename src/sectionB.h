@@ -705,8 +705,8 @@ extern Sint32 var_8c227dfc;
  * var_8c227d9c==7 mode; also used directly (untransformed, y relative to
  * ground) for mode 5 and transformed for mode 6 by FUN_8c0258ba (025870). */
 extern NJS_POINT3 var_8c227e00;
-/* Selected route's stop-announcement table (one of init_8c045674/
- * init_8c045b60/init_8c045ee4, picked by var_route_8c18ad1c), each 20-byte
+/* Selected route's stop-announcement table (one of init_stopsShinjuku_8c045674/
+ * init_stopsWangan_8c045b60/init_stopsOme_8c045ee4, picked by var_route_8c18ad1c), each 20-byte
  * record: {kind, x, y, z, name}. Set by FUN_8c025af4 (025870). */
 extern int *var_8c227e0c;
 extern int var_8c227e10; /* set to 1 by FUN_8c025af4 once the stop textbox task is armed (025870) */

@@ -9,7 +9,8 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
  * _FUN_8c025af4(void): opens the "next stop" textbox and arms
  * stopTextboxTask_8c0259e8 via TaskPush_8c014ae8, after picking the
  * current route's stop table (var_8c227e0c) among the three per-route
- * init_8c045674/init_8c045b60/init_8c045ee4 tables.
+ * init_stopsShinjuku_8c045674/init_stopsWangan_8c045b60/
+ * init_stopsOme_8c045ee4 tables.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -81,16 +82,16 @@ return new class extends TestCase {
 
     public function test_shinjuku_route(): void
     {
-        $this->runForRoute(0, '_init_8c045674');
+        $this->runForRoute(0, '_init_stopsShinjuku_8c045674');
     }
 
     public function test_wangan_route(): void
     {
-        $this->runForRoute(1, '_init_8c045b60');
+        $this->runForRoute(1, '_init_stopsWangan_8c045b60');
     }
 
     public function test_ome_route(): void
     {
-        $this->runForRoute(2, '_init_8c045ee4');
+        $this->runForRoute(2, '_init_stopsOme_8c045ee4');
     }
 };
