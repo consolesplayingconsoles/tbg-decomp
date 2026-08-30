@@ -945,7 +945,7 @@ return [
         ],
         [
             "tests" => [
-                "tests/020214/8c020214_FUN.php",
+                "tests/020214/8c020214_DriveCueTask.php",
             ],
             "objects" => [
                 "build/output_test/020214_src.obj",

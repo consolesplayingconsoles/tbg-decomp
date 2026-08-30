@@ -21,9 +21,9 @@
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _var_8c1ba293
           .IMPORT     _VibStop_8c010fae
-          .EXPORT     _FUN_8c020214
+          .EXPORT     _DriveCueTask_8c020214
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c020214:
+_DriveCueTask_8c020214:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

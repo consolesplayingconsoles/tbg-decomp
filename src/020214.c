@@ -1,3 +1,4 @@
+/* @unit DriveCue */
 #include <shinobi.h>
 
 #include "sectionB.h"
@@ -14,7 +15,7 @@
  */
 
 /* See 020214.h. */
-void FUN_8c020214(Task *task, void *state)
+void DriveCueTask_8c020214(Task *task, void *state)
 {
     /* Mirrors R4 as the asm's field_0x08 dispatch and the final "near stop
      * marker" check actually use it: seeded from field_0x0c right before

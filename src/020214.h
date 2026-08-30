@@ -4,7 +4,7 @@
 #include "014a9c_tasks.h"
 
 /* Ambient driving cue task (installed by FUN_8c020528 with var_8c2264b8 as
- * its state, ignored via the state param -- FUN_8c020214 addresses
+ * its state, ignored via the state param -- DriveCueTask_8c020214 addresses
  * var_8c2264b8 directly). Frees itself via TaskFree_8c014b66 once the drive
  * has reached its ending phase (var_8c2285c4[0] >= 3). While active: plays a
  * periodic idle chime/vibration once the bus is moving fast enough
@@ -15,6 +15,6 @@
  * gated by var_8c227d9c's mirror-view level and a route/segment match,
  * latched by field_0x14, and finally stops any active controller vibration
  * when the VIBRATION setting is off. */
-void FUN_8c020214(Task *task, void *state);
+void DriveCueTask_8c020214(Task *task, void *state);
 
 #endif // _020214_H
