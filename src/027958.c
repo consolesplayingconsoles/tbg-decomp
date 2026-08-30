@@ -13,13 +13,6 @@
 #include "027958.h"
 
 /* ====================
- * Type Declarations
- * ====================
- */
-
-typedef void (*GroundProbeFn_027c3c)(float x, float y, float z, GroundQueryResult *out);
-
-/* ====================
  * Forward Declarations
  * ====================
  */
@@ -203,7 +196,7 @@ void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float heading)
     /* An entity whose ground-probe callback is the plain polygon tracker
      * (as opposed to some other, presumably cheaper probe) always
      * re-aligns below and starts each frame un-aligned. */
-    if ((GroundProbeFn_027c3c)entity->field_0x2c8 == GroundProbeTrackPolygonAtHeight_8c021290) {
+    if (entity->probeFn_0x2c8 == GroundProbeTrackPolygonAtHeight_8c021290) {
         registered = 1;
         entity->field_0x494 = 0;
     }
@@ -260,7 +253,7 @@ void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float heading)
         entity->field_0x078 = delta;
 
         if (entity->field_0x494 == 0 || entity->speed_0x27c != 0.0f) {
-            GroundProbeFn_027c3c probe = (GroundProbeFn_027c3c)entity->field_0x2c8;
+            GroundProbeFn probe = entity->probeFn_0x2c8;
             GroundQueryResult *probeA = &entity->groundProbe_0x190[0];
             GroundQueryResult *probeB = &entity->groundProbe_0x190[1];
             GroundQueryResult *probeC = &entity->groundProbe_0x190[2];

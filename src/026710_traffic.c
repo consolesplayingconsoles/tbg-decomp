@@ -679,7 +679,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
             e->field_0x474 = 1;
             e->field_0x478 = cur[1];
             e->field_0x47c = cur[2];
-            e->field_0x484 = (Sint32)var_cpuPathBlocks_8c227e1c[cur[3]];
+            e->junctionPath_0x484 = var_cpuPathBlocks_8c227e1c[cur[3]];
             e->field_0x480 = e->field_0x300;
             ip = cur + 4;
             continue;
@@ -787,11 +787,11 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
     e->field_0x48c = (typeCode & 0x8000) ? 4 : 3;
 
     if (typeCode & 0x4000) {
-        e->field_0x2c8 = (void *)GroundProbeTrackPolygonAtHeight_8c021290;
-        e->field_0x2cc = (void *)FUN_8c02eab4;
+        e->probeFn_0x2c8 = GroundProbeTrackPolygonAtHeight_8c021290;
+        e->junctionQueryFn_0x2cc = FUN_8c02eab4;
     } else {
-        e->field_0x2c8 = (void *)GroundProbeTrackPolygon_8c020b6c;
-        e->field_0x2cc = (void *)FUN_8c02e51c;
+        e->probeFn_0x2c8 = GroundProbeTrackPolygon_8c020b6c;
+        e->junctionQueryFn_0x2cc = FUN_8c02e51c;
     }
 
     typeCode &= 0xfff;

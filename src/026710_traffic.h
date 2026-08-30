@@ -6,6 +6,17 @@
 
 #include "020914_ground_query.h" /* GroundQueryResult */
 
+/* Ground-probe callback stored in TrafficEntry.probeFn_0x2c8: same shape as
+ * BusState's field_0x2c8 (023938_bus_drive.c), one of
+ * GroundProbeTrackPolygon_8c020b6c/GroundProbeTrackPolygonAtHeight_8c021290. */
+typedef void (*GroundProbeFn)(float x, float y, float z, GroundQueryResult *out);
+
+/* Junction/collision query callback stored in TrafficEntry.junctionQueryFn_0x2cc:
+ * same shape as BusState's field_0x2cc/0x2d0 (022bdc_bus.c), one of
+ * FUN_8c02e51c/FUN_8c02eab4. Distinct signature from GroundProbeFn above --
+ * this one returns a hit pointer instead of writing through out. */
+typedef void *(*JunctionQueryFn)(float x, float y, float z, void *out);
+
 /* One record of a path block: a run of these terminated by length == 0.
  * TrafficAdvanceOnPath_8c026ca2 walks them to find the record containing the
  * entry's distance-along-path, then projects the world position from the
@@ -101,7 +112,7 @@ typedef struct {
      * vertexIds_0x08/count_0x0c (leaving attr_0x00/polyIdSlot_0x04
      * untouched -- real asm behavior). Only the first 3 (0x190/0x1a0/0x1b0)
      * are confirmed consumers: per 027958.h/BusDrawPlaceEntity_8c027c3c, which fills them
-     * through field_0x2c8's probe callback and interpolates posY_0xf8/
+     * through probeFn_0x2c8's probe callback and interpolates posY_0xf8/
      * field_0x11c/field_0x128 from them; their .attr_0x00 words are read as
      * a "probe already valid" gate by TrafficDriveDecoration_8c02656a,
      * which clears their .count_0x0c to force a re-probe. The 4th
@@ -158,8 +169,8 @@ typedef struct {
     float pathDistance_0x2bc;
     float pathDistanceCopy_0x2c0;
     float projectDistance_0x2c4;
-    void *field_0x2c8;
-    void *field_0x2cc;
+    GroundProbeFn probeFn_0x2c8;
+    JunctionQueryFn junctionQueryFn_0x2cc;
     Uint32 field_0x2d0;
     Uint32 field_0x2d4;
     Uint32 field_0x2d8;
@@ -207,7 +218,7 @@ typedef struct {
     Uint32 field_0x478;
     Sint32 field_0x47c;
     Uint32 field_0x480;
-    Sint32 field_0x484;
+    PathRecord *junctionPath_0x484;
     Uint32 field_0x488;
     Sint32 field_0x48c;
     float field_0x490;

@@ -16,15 +16,6 @@
 #include "sectionB.h"           /* var_activeTrafficPreset_8c227e14, var_8c1bbac4/acc, ... */
 
 /* ====================
- * Type Declarations
- * ====================
- */
-
-/* Shape shared by FUN_8c02e51c/eab4/e69c/ec50 (02e51c.h) -- entry->field_0x2cc
- * is one of the first two, picked by spawnEntry_8c0272b8 per entry type. */
-typedef void *(*JunctionQueryFn_8c02e51c)(float x, float y, float z, void *out);
-
-/* ====================
  * Functions
  * ====================
  */
@@ -129,7 +120,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  *          0-3).
  *
  * Normal driving (0/2) first resolves a junction under the entity's own
- * position (entry->field_0x2cc, one of FUN_8c02e51c/eab4) to get a signal
+ * position (entry->junctionQueryFn_0x2cc, one of FUN_8c02e51c/eab4) to get a signal
  * id (field_0x410) and refreshes an obstacle-braking distance (fVar8) by
  * scanning ahead with TrafficLookaheadScan_8c02dfca over a lookahead of
  * speed_0x27c*36.0 + field_0x41c (+5.0 once already braking, to stop the
@@ -181,7 +172,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         float brakeDist = 9999.0f;
 
         if (speed != 0.0f) {
-            void *hit = ((JunctionQueryFn_8c02e51c)e->field_0x2cc)(
+            void *hit = e->junctionQueryFn_0x2cc(
                 e->posX_0xf4, e->posY_0xf8, e->posZ_0xfc, &e->field_0x404);
             if (hit == (void *)0) {
                 signalId = -1;
@@ -343,13 +334,13 @@ signal3:
                 } else if (waitState == 3) {
                     if (e->field_0x480 == e->field_0x300) {
                         float halfWindow = e->width_0x23c + 8.0f;
-                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, (PathRecord *)e->field_0x484,
+                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, e->junctionPath_0x484,
                                                      e->field_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
                         if (hitBox == (void *)0) {
                             e->field_0x474 = 4;
-                            TrafficSeekPathRecord_8c026fcc(e, (PathRecord *)e->field_0x484);
+                            TrafficSeekPathRecord_8c026fcc(e, e->junctionPath_0x484);
                             e->pathDistance_0x2bc += waitAdvance;
                             e->pathDistanceCopy_0x2c0 += waitAdvance;
                             var_groundQueryPoint_8c1bc460.x =
@@ -384,7 +375,7 @@ signal3:
                 } else if (waitState == 4) {
                     if (e->projectDistance_0x2c4 != 2.0f) {
                         float halfWindow = e->width_0x23c + 8.0f;
-                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, (PathRecord *)e->field_0x484,
+                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, e->junctionPath_0x484,
                                                      e->field_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);

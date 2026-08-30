@@ -52,7 +52,7 @@ void BusDrawSignalAttachment_8c028206(int objArg, int matrixArg);
  *    placement) and, unless skipped (field_0x494 already 1 and speed
  *    speed_0x27c is 0 -- i.e. stationary and already aligned), re-probes 3
  *    ground points (field_0x118/0x124/0x100, each an (x,y,z) triple) through
- *    entity->field_0x2c8 (a per-entity ground-probe function pointer) into
+ *    entity->probeFn_0x2c8 (a per-entity ground-probe function pointer) into
  *    3 scratch GroundQueryResult buffers at entity+0x190/0x1a0/0x1b0,
  *    interpolates height at 2 of them into posY_0xf8, and re-aligns the
  *    entity's world matrix (worldMatrix_0x84) to the ground via
