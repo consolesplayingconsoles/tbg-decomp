@@ -3,9 +3,30 @@
 declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 
 return new class extends TestCase {
+    // saveExecFile_8c01bd30's own stack locals (findbuf[16], SYS_RTC_DATE
+    // rtc). This is the only frame on the simulator's stack (test entry is
+    // a single call()), so their addresses are the deterministic offsets
+    // from the simulator's fixed initial SP (0xFFFFFC), verified against
+    // each object's own prologue -- and they differ per object because the
+    // C compiler's register-save set/frame size differs from the archived
+    // asm's.
+    private function findBufAddr(): int
+    {
+        return $this->isAsmObject() ? 0xFFFFD4 : 0xFFFFCC;
+    }
+
+    private function rtcAddr(): int
+    {
+        return $this->isAsmObject() ? 0xFFFFE4 : 0xFFFFC0;
+    }
+
+    protected function isAsmObject(): bool
+    {
+        return str_ends_with($this->objectFile, '_src.obj');
+    }
+
     public function test_no_existing_file()
     {
         $this->resolveSymbols();
@@ -17,7 +38,7 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0);
         $this->shouldReturn(0xb);
     }
@@ -33,7 +54,7 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xffffff03); // -0xfd
         $this->shouldReturn(0xd);
     }
@@ -49,7 +70,7 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xffffffff); // -1
         $this->shouldReturn(0xe);
     }
@@ -65,7 +86,7 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xffffff01); // -0xff
         $this->shouldReturn(0xf);
     }
@@ -81,7 +102,7 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xfffffffb); // -5, unhandled
         $this->shouldReturn(10);
     }
@@ -97,15 +118,15 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xffffff05); // -0xfb (no such file, room to write)
         $this->shouldCall('_buGetDiskFree')
             ->with($drive, 1)
             ->andReturn($nblock); // enough free blocks
         $this->shouldCall('_syRtcGetDate')
-            ->with(new WildcardArgument());
+            ->with($this->rtcAddr());
         $this->shouldCall('_buSaveExecFile')
-            ->with($drive, $fname, $buf, $nblock, new WildcardArgument(), 0x800000ff)
+            ->with($drive, $fname, $buf, $nblock, $this->rtcAddr(), 0x800000ff)
             ->andReturn(0);
         $this->shouldReturn(0);
     }
@@ -121,15 +142,15 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xffffff05); // -0xfb
         $this->shouldCall('_buGetDiskFree')
             ->with($drive, 1)
             ->andReturn($nblock);
         $this->shouldCall('_syRtcGetDate')
-            ->with(new WildcardArgument());
+            ->with($this->rtcAddr());
         $this->shouldCall('_buSaveExecFile')
-            ->with($drive, $fname, $buf, $nblock, new WildcardArgument(), 0x800000ff)
+            ->with($drive, $fname, $buf, $nblock, $this->rtcAddr(), 0x800000ff)
             ->andReturn(0xffffffff);
         $this->shouldReturn(0xc);
     }
@@ -146,7 +167,7 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xffffff05); // -0xfb
         $this->shouldCall('_buGetDiskFree')
             ->with($drive, 1)
@@ -169,7 +190,7 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xffffff05); // -0xfb
         $this->shouldCall('_buGetDiskFree')
             ->with($drive, 1)
@@ -192,7 +213,7 @@ return new class extends TestCase {
         $this->call('_saveExecFile_8c01bd30')->with($buf, $fname, $nblock, $drive);
         $this->shouldWriteLong($this->addressOf('_var_bupPhase_8c2260d0'), 0);
         $this->shouldCall('_buFindExecFile')
-            ->with($drive, new WildcardArgument())
+            ->with($drive, $this->findBufAddr())
             ->andReturn(0xffffff05); // -0xfb
         $this->shouldCall('_buGetDiskFree')
             ->with($drive, 1)

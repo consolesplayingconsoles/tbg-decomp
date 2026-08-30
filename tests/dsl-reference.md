@@ -30,15 +30,14 @@ $this->call('_FuncName_8c012718');
 $this->call('_FuncName_8c012718')->with($arg1, $arg2);
 ```
 
-Every arg gets a real value. `WildcardArgument` exists in the DSL but the
-project owner does not accept it in tests -- assert the real value; if it is
-genuinely unpredictable (e.g. an address only known at runtime), capture it
-with `->do()` (see "Asserting Calls" below) and assert against the captured
-value. `LocalArgument`, the DSL's declared type for "real but unpredictable"
+Every arg gets a real value. `WildcardArgument` exists in the DSL but is
+banned in this project's tests. A stack local's address is knowable ahead of
+time (branch on `isAsmObject()` when the `.src` and `.c` objects place it
+differently); a value another function produces can be mocked with
+`->andReturn()` or captured with `->do()` (see "Asserting Calls" below).
+`LocalArgument`, the DSL's declared type for "real but unpredictable"
 arguments, is UNIMPLEMENTED -- `ArgumentVerifier::verify()` has no case for
-it and throws `Unexpected argument type` -- so it is not a usable
-alternative today. (~60 existing test files still use `WildcardArgument`;
-that is a known backlog, not license to add more.)
+it and throws `Unexpected argument type`.
 
 ## Asserting Calls
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 
 // TrafficInit_8c02769e is the traffic subsystem's setup/init entry point:
 // caches two per-course table pointers, picks a per-route table, optionally
@@ -54,13 +53,15 @@ return new class extends TestCase {
         }
     }
 
+    // &task and &state are TrafficInit_8c02769e's own stack locals; both
+    // objects place them at the same slots.
     private function mockTaskPush(int $task, int $state): void {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_trafficUpdateTask_8c0275d4'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                0xffffd0,
+                0xffffd4,
                 0,
             )
             ->do(function () use ($task, $state) {

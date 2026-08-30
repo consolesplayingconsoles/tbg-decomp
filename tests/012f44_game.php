@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 if (!function_exists('fdec')) {
@@ -82,7 +81,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
-            new WildcardArgument,
+            $this->addressOf('_task_8c012f9c'),
             0xffffe4,
             0xFFFFE8,
             0
@@ -157,7 +156,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
-            new WildcardArgument,
+            $this->addressOf('_task_8c012f9c'),
             0xffffe4,
             0xFFFFE8,
             0
@@ -253,7 +252,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
-                new WildcardArgument,
+                $this->addressOf('_task_8c012f9c'),
                 0xffffe4,
                 0xFFFFE8,
                 0
@@ -466,7 +465,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            new WildcardArgument, // TODO: Export for testing
+            $this->addressOf('_task_8c013388'),
             $createdTaskLocal,
             $createdStateLocal,
             0
@@ -501,7 +500,7 @@ return new class extends TestCase {
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
-        $this->shouldCall('_gdFsEntryErrFuncAll')->with(new WildcardArgument, 0);
+        $this->shouldCall('_gdFsEntryErrFuncAll')->with($this->addressOf('_usrGdErrFunc_8c0134d6'), 0);
 
         $this->singleCall('_GameInit_8c0134ec')->run();
     }
@@ -620,7 +619,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            new WildcardArgument, // TODO: Export for testing
+            $this->addressOf('_task_8c013388'),
             $createdTaskLocal,
             $createdStateLocal,
             0
@@ -655,7 +654,7 @@ return new class extends TestCase {
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
-        $this->shouldCall('_gdFsEntryErrFuncAll')->with(new WildcardArgument, 0);
+        $this->shouldCall('_gdFsEntryErrFuncAll')->with($this->addressOf('_usrGdErrFunc_8c0134d6'), 0);
 
         $this->singleCall('_GameInit_8c0134ec')->run();
     }
@@ -774,7 +773,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            new WildcardArgument, // TODO: Export for testing
+            $this->addressOf('_task_8c013388'),
             $createdTaskLocal,
             $createdStateLocal,
             0
@@ -809,7 +808,7 @@ return new class extends TestCase {
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
-        $this->shouldCall('_gdFsEntryErrFuncAll')->with(new WildcardArgument, 0);
+        $this->shouldCall('_gdFsEntryErrFuncAll')->with($this->addressOf('_usrGdErrFunc_8c0134d6'), 0);
 
         $this->singleCall('_GameInit_8c0134ec')->run();
     }
@@ -928,7 +927,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            new WildcardArgument, // TODO: Export for testing
+            $this->addressOf('_task_8c013388'),
             $createdTaskLocal,
             $createdStateLocal,
             0
@@ -963,7 +962,7 @@ return new class extends TestCase {
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
-        $this->shouldCall('_gdFsEntryErrFuncAll')->with(new WildcardArgument, 0);
+        $this->shouldCall('_gdFsEntryErrFuncAll')->with($this->addressOf('_usrGdErrFunc_8c0134d6'), 0);
 
         $this->singleCall('_GameInit_8c0134ec')->run();
     }

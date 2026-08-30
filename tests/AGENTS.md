@@ -63,13 +63,15 @@ return new class extends TestCase {
 - If entrypoint takes non-void params, allocate and seed them.
 - Always-executed epilogue code must be asserted in every test that reaches it.
 - Use `forceStop()` when stopping before epilogue; mirror C conditions when epilogue is conditional.
-- Do not use `WildcardArgument` (project owner does not accept it): assert the real
-  value instead; for a genuinely unpredictable one, capture it at runtime with
-  `->do()` and assert against the captured value. `LocalArgument` -- the DSL's
-  declared type for "real but unpredictable" -- is UNIMPLEMENTED:
-  `ArgumentVerifier::verify()` has no case for it and throws `Unexpected argument
-  type`, so it is not a usable alternative. Note: ~60 existing test files still
-  use `WildcardArgument`; that is a known backlog for the project owner to clear,
-  not something to "fix" ad hoc while touching a test for other reasons.
+- `WildcardArgument` is banned. Assert the real value:
+  - Stack locals have knowable addresses; when they differ between the `.src` and
+    `.c` objects, branch on `isAsmObject()` to pick each object's address.
+  - A value another function produces: mock it with `->andReturn()`, or capture it
+    at runtime with `->do()` and assert against the captured value.
+  - A function pointer to a private function of the unit under test: gate its
+    `.EXPORT` under `.AIFDEF UNIT_TESTING` so `addressOf()` resolves it.
+  `LocalArgument` -- the DSL's declared type for "real but unpredictable" -- is
+  UNIMPLEMENTED: `ArgumentVerifier::verify()` has no case for it and throws
+  `Unexpected argument type`.
 - Use `shouldWriteFloat()` for float assertions, not raw binary values.
 - Extract helpers for patterns repeated 3+ times.

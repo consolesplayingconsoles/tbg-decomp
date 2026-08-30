@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 
 if (!function_exists('fdec')) {
     function fdec(float $value) {
@@ -20,6 +19,10 @@ if (!function_exists('fdec')) {
 
 return new class extends TestCase {
     private int $entry;
+
+    private function isAsmObject(): bool {
+        return str_ends_with($this->objectFile, '_src.obj');
+    }
 
     private function allocEntry(): void {
         $this->entry = $this->alloc(0x510);
@@ -282,12 +285,11 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->entry + 0xfc, 20.0); // 200 / 10.0
         $this->shouldWriteLong($this->entry + 0x250, 0x4000);
         $this->shouldWriteLong($this->entry + 0x254, 0x4000 + 0x8000);
-        // initEntryState_8c026748 receives the address of the
-        // interpreter's own cursor local (by reference), not its value --
-        // that address is a stack slot that differs per object, so it can't
-        // be asserted with a literal; check it via the raw register instead.
+        // initEntryState_8c026748 receives the address of the interpreter's
+        // own cursor local (by reference), not its value -- that's a stack
+        // slot, so it differs per object.
         $this->shouldCall('_initEntryState_8c026748')
-            ->with($this->entry, new WildcardArgument())
+            ->with($this->entry, $this->isAsmObject() ? 0xffffdc : 0xffffe0)
             ->do(function () use ($script) {
                 $ip = $this->memory->readUInt32($this->registers[5]->value)->value;
                 if ($ip !== $script + 6) {

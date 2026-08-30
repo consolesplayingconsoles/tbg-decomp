@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 return new class extends TestCase {
@@ -16,17 +15,23 @@ return new class extends TestCase {
         $this->call('_FUN_8c02c738');
 
         $this->shouldCall('_FUN_8c01614c');
+        // FUN_8c02c738 has an empty stack frame of its own beyond the two
+        // TaskPush out-params (created_task, created_state), pushed right
+        // after the STS.L PR/ADD #-8,R15 prologue -- so their addresses are
+        // the initial test stack pointer (16MiB-4, see sh4objtest's Run)
+        // minus 12 and 8 respectively. Same layout in both objects.
+        $sp0 = 1024 * 1024 * 16 - 4;
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                new WildcardArgument(), // FUN_8c02c69a's address
-                new WildcardArgument(), // &created_task (local var, address not predictable here)
-                new WildcardArgument(), // &created_state
+                $this->addressOf('_FUN_8c02c69a'),
+                $sp0 - 12, // &created_task
+                $sp0 - 8, // &created_state
                 0
             )
             ->do(function () use ($task) {
-                // R6 is TaskPush's 3rd arg (created_task), a stack local
-                // in FUN_8c02c738 whose address isn't known ahead of time.
+                // TaskPush itself allocates the real Task and writes it
+                // through R6 (created_task's address, $sp0-12 above).
                 $this->writeUInt32($this->getRegister(6)->value, 0, U32::of($task));
             })
             ->andReturn(1);

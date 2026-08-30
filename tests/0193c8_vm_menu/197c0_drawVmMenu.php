@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 if (!function_exists('fdec')) {

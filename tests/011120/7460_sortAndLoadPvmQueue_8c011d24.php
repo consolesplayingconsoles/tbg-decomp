@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 
 return new class extends TestCase {
     public function test_sortQueuedPvms()
@@ -81,7 +80,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                new WildcardArgument(), // TODO: Make addressOf handle exports
+                $this->addressOf('_taskLoadQueuedPvms_8c011b00'),
                 0xffffd4,
                 0xffffd8,
                 0
@@ -127,7 +126,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                new WildcardArgument(), // TODO: Make addressOf handle exports
+                $this->addressOf('_taskLoadQueuedPvms_8c011b00'),
                 0xffffd4,
                 0xffffd8,
                 0
@@ -196,7 +195,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                new WildcardArgument(), // TODO: Make addressOf handle exports
+                $this->addressOf('_taskLoadQueuedPvms_8c011b00'),
                 0xffffd4,
                 0xffffd8,
                 0

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 
 return new class extends TestCase {
     // Task offsets.
@@ -22,6 +21,16 @@ return new class extends TestCase {
     const SLOT_TEXLIST = 0x08;
     const SLOT_NJ = 0x0c;
     const SLOTS = 0x20;
+
+    /**
+     * rowFlyByTask_8c029e94's stack slots for TaskPush's created_task /
+     * create_state out-params. Unlike most functions in this unit, the two
+     * objects happen to lay these out identically.
+     */
+    private function outParams(): array
+    {
+        return [0xffffe8, 0xffffdc];
+    }
 
     public function test_countdown_not_lapsed_just_decrements(): void
     {
@@ -60,13 +69,15 @@ return new class extends TestCase {
 
         $this->call('_rowFlyByTask_8c029e94')->with($task, $state);
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0xffffffff);
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_flyByModelTask_8c029e68'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($newTask, $newState) {
@@ -110,13 +121,15 @@ return new class extends TestCase {
 
         $this->call('_rowFlyByTask_8c029e94')->with($task, $state);
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0xffffffff);
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_flyByModelTask_8c029e68'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($newTask, $newState) {
@@ -143,13 +156,15 @@ return new class extends TestCase {
 
         $this->call('_rowFlyByTask_8c029e94')->with($task, $state);
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0xffffffff);
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_flyByModelTask_8c029e68'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->andReturn(0);

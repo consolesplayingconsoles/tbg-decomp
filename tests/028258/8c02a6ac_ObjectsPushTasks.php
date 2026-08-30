@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 
 return new class extends TestCase {
     // var_assetRequestSlots_8c228288 row layout (0x18 bytes per row).
@@ -36,6 +35,17 @@ return new class extends TestCase {
     protected function isAsmObject(): bool
     {
         return str_ends_with($this->objectFile, '_src.obj');
+    }
+
+    /**
+     * ObjectsPushTasks_8c02a6ac's stack slots for TaskPush's created_task /
+     * create_state out-params (a single pair of locals reused across every
+     * row and the closing TaskPush call). The two objects lay the frame out
+     * differently.
+     */
+    private function outParams(): array
+    {
+        return $this->isAsmObject() ? [0xffffd0, 0xffffcc] : [0xffffc8, 0xffffc4];
     }
 
     /** Allocates a fake asset handle with a frame count at offset +4. */
@@ -113,12 +123,14 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowSimpleModelTask_8c02a1f0'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($task1, $state1) {
@@ -148,12 +160,14 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowFlyByTask_8c029e94'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($task, $state) {
@@ -169,8 +183,8 @@ return new class extends TestCase {
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execRowTaskGroupTask_8c02a60e'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0,
             )
             ->do(function () use ($closeTask, $closeState) {
@@ -198,12 +212,14 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowDatTask_8c029fcc'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($task, $state) {
@@ -236,12 +252,14 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowModelTask_8c02a08a'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($task, $state) {
@@ -281,12 +299,14 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowMotionModelTask_8c02a120'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($task, $state) {
@@ -324,12 +344,14 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowSimpleModelTask_8c02a1f0'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($task, $state) {
@@ -364,12 +386,14 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowMaterialModelTask_8c02a27c'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0x7c,
             )
             ->do(function () use ($task, $state) {
@@ -434,6 +458,8 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         // Row 0 (type 4): establishes `state` = state0 for real.
         $this->shouldCall('_TaskPush_8c014ae8')
             ->do(function () use ($task0, $state0) {
@@ -452,7 +478,7 @@ return new class extends TestCase {
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_fumiCrossingTask_8c02a4f8'),
-                new WildcardArgument(),
+                $taskLocal,
                 $state0,
                 0x7c,
             )
@@ -525,14 +551,16 @@ return new class extends TestCase {
     /** Expects the final "table drained" TaskPush and lets it succeed harmlessly. */
     private function mockCloseTaskPush(): void
     {
+        [$taskLocal, $stateLocal] = $this->outParams();
+
         $closeTask = $this->alloc(0x20);
         $closeState = $this->alloc(4);
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execRowTaskGroupTask_8c02a60e'),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $taskLocal,
+                $stateLocal,
                 0,
             )
             ->do(function () use ($closeTask, $closeState) {

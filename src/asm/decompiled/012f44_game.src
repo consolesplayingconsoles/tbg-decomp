@@ -186,6 +186,7 @@
           .EXPORT     _var_onRetire_8c18ad10 ; 0129cc_pause.src
 
           .AIFDEF UNIT_TESTING
+          .EXPORT     _task_8c012f9c
           .EXPORT     _task_8c013388
           .EXPORT     _usrGdErrFunc_8c0134d6
           .EXPORT     _init_8c03bfa8

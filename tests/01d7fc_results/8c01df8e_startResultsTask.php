@@ -11,18 +11,21 @@ return new class extends TestCase {
 
         $this->shouldCall('_InputPushTask_8c0128cc')->with(0);
 
+        // &created_task and &created_state are startResultsTask_8c01df8e's
+        // own stack locals; both TaskPush calls share the same slots, and
+        // both objects place them the same.
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_GameTask_8c012f44'),
-            new \Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument(),
-            new \Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument(),
+            0xfffff0,
+            0xfffff4,
             0,
         );
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_resultsTask_8c01d8e0'),
-            new \Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument(),
-            new \Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument(),
+            0xfffff0,
+            0xfffff4,
             0,
         );
 

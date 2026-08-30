@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 return new class extends TestCase {
@@ -93,7 +92,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                new WildcardArgument(), // TODO: Make addressOf handle exports
+                $this->addressOf('_taskLoadQueuedNjs_8c0114cc'),
                 0xffffd4,
                 0xffffd8,
                 0
@@ -162,7 +161,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                new WildcardArgument(), // TODO: Make addressOf handle exports
+                $this->addressOf('_taskLoadQueuedNjs_8c0114cc'),
                 0xffffd4,
                 0xffffd8,
                 0

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 
 if (!function_exists('fdec')) {
     function fdec(float $value) {
@@ -23,6 +22,11 @@ if (!defined('PDD_KU')) {
 
 // VM-GAME task state machine (menuState.state_0x18).
 return new class extends TestCase {
+    // var_midiHandles_8c0fcd28[0]'s value doesn't matter to any assertion here
+    // -- sdMidiPlay just gets it verbatim -- so seed it to a fixed constant in
+    // setup() rather than leaving it to the harness's per-test random fill.
+    const MIDI_HANDLE_0 = 0x11223344;
+
     private int $ms;
     private int $task;
 
@@ -55,6 +59,7 @@ return new class extends TestCase {
         $this->setSize('_var_vmGameBuf_8c1bc454', 4);
         $this->setSize('_var_lcdAnimDanger_8c2260b8', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
+        $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), self::MIDI_HANDLE_0);
         $this->setSize('_var_texbuf_8c277ca0', 0x1000);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
 
@@ -63,6 +68,23 @@ return new class extends TestCase {
         $this->initUint32($this->task + 8, 0); // task->field_0x08 (download sub-phase)
         $this->initUint32($this->ms + 0x18, $state);
         $this->initUint32($this->ms + 0x38, 0); // selected_0x38
+    }
+
+    protected function isAsmObject(): bool
+    {
+        return str_ends_with($this->objectFile, '_src.obj');
+    }
+
+    // vmGameTask_8c01bfec's own `slot` stack local (seeded from
+    // m->selected_0x38 before the switch). This is the only frame on the
+    // simulator's stack (test entry is a single call()), so its address is
+    // the deterministic offset from the simulator's fixed initial SP
+    // (0xFFFFFC), verified against each object's own prologue -- and it
+    // differs per object because the C compiler's register-save set/frame
+    // size differs from the archived asm's.
+    private function slotAddr(): int
+    {
+        return $this->isAsmObject() ? 0xFFFFB8 : 0xFFFFEC;
     }
 
     // Preamble runs on every entry; call it right after ->call().
@@ -174,7 +196,7 @@ return new class extends TestCase {
 
     private function midi(int $data): void
     {
-        $this->shouldCall('_sdMidiPlay')->with(new WildcardArgument(), 1, $data, 0);
+        $this->shouldCall('_sdMidiPlay')->with(self::MIDI_HANDLE_0, 1, $data, 0);
     }
 
     private function expectMenuDraw(int $index): void
@@ -194,7 +216,7 @@ return new class extends TestCase {
 
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
-        $this->shouldCall('_PromptHandleMultiple_8c016c58')->with(new WildcardArgument(), 3)->andReturn(0);
+        $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->slotAddr(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 3);   // MENU_FADE_OUT
         $this->shouldWriteLong($this->ms + 0x1c, 0);   // mode = download
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
@@ -210,7 +232,7 @@ return new class extends TestCase {
 
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
-        $this->shouldCall('_PromptHandleMultiple_8c016c58')->with(new WildcardArgument(), 3)->andReturn(0);
+        $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->slotAddr(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 3);
         $this->shouldWriteLong($this->ms + 0x1c, 1);   // mode = exp load
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
@@ -226,7 +248,7 @@ return new class extends TestCase {
 
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
-        $this->shouldCall('_PromptHandleMultiple_8c016c58')->with(new WildcardArgument(), 3)->andReturn(0);
+        $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->slotAddr(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 0xd);  // EXIT
         $this->shouldCall('_VmMenuUnmountVms_8c0194de');
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
@@ -242,7 +264,7 @@ return new class extends TestCase {
 
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
-        $this->shouldCall('_PromptHandleMultiple_8c016c58')->with(new WildcardArgument(), 3)->andReturn(0);
+        $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->slotAddr(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 0xd);  // EXIT
         $this->midi(1);
         $this->shouldCall('_VmMenuUnmountVms_8c0194de');

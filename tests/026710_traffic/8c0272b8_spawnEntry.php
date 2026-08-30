@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
-use Lhsazevedo\Sh4ObjTest\Simulator\Arguments\WildcardArgument;
 
 // spawnEntry_8c0272b8 spawns one traffic entry for a script's
 // opcode-0 header word (typeCode), script pointer, and route progress. See
@@ -48,13 +47,19 @@ return new class extends TestCase {
         return $table;
     }
 
-    private function mockTaskPush(int $task, int $entry): void {
+    private function isAsmObject(): bool {
+        return str_ends_with($this->objectFile, '_src.obj');
+    }
+
+    // &task and &entryVoid are spawnEntry_8c0272b8's own stack locals; both
+    // objects happen to place &task at the same slot, but &entryVoid differs.
+    private function mockTaskPush(int $action, int $task, int $entry): void {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bac28'),
-                new WildcardArgument(),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $action,
+                0xffffcc,
+                $this->isAsmObject() ? 0xffffc8 : 0xffffd0,
                 0x514,
             )
             ->do(function () use ($task, $entry) {
@@ -108,7 +113,7 @@ return new class extends TestCase {
 
         $this->call('_spawnEntry_8c0272b8')->with(0x1c, 1.5, $script);
 
-        $this->mockTaskPush($task, $entry);
+        $this->mockTaskPush($this->addressOf('_TrafficDriveDecoration_8c02656a'), $task, $entry);
         $this->shouldWriteLong($entry + 0x2e4, 1);
         $this->shouldWriteLong($entry + 0x48c, 3); // 0x8000 clear
         $this->shouldWriteLong($entry + 0x2c8, $this->addressOf('_GroundProbeTrackPolygon_8c020b6c'));
@@ -155,7 +160,7 @@ return new class extends TestCase {
 
         $this->call('_spawnEntry_8c0272b8')->with(0x14, 2.5, $script);
 
-        $this->mockTaskPush($task, $entry);
+        $this->mockTaskPush($this->addressOf('_TrafficDriveVehicle_8c025b98'), $task, $entry);
         $this->shouldWriteLong($entry + 0x2e4, 0);
         $this->shouldWriteLong($entry + 0x48c, 3);
         $this->shouldWriteLong($entry + 0x2c8, $this->addressOf('_GroundProbeTrackPolygon_8c020b6c'));
@@ -207,9 +212,9 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bac28'),
-                new WildcardArgument(),
-                new WildcardArgument(),
-                new WildcardArgument(),
+                $this->addressOf('_TrafficDriveVehicle_8c025b98'),
+                0xffffcc,
+                $this->isAsmObject() ? 0xffffc8 : 0xffffd0,
                 0x514,
             )
             ->andReturn(0);
@@ -232,7 +237,7 @@ return new class extends TestCase {
 
         $this->call('_spawnEntry_8c0272b8')->with(0x02, 1.0, $script);
 
-        $this->mockTaskPush($task, $entry);
+        $this->mockTaskPush($this->addressOf('_TrafficDriveVehicle_8c025b98'), $task, $entry);
         $this->shouldWriteLong($entry + 0x2e4, 0);
         $this->shouldWriteLong($entry + 0x48c, 3);
         $this->shouldWriteLong($entry + 0x2c8, $this->addressOf('_GroundProbeTrackPolygon_8c020b6c'));
@@ -261,7 +266,7 @@ return new class extends TestCase {
 
         $this->call('_spawnEntry_8c0272b8')->with(0x02, 1.0, $script);
 
-        $this->mockTaskPush($task, $entry);
+        $this->mockTaskPush($this->addressOf('_TrafficDriveVehicle_8c025b98'), $task, $entry);
         $this->shouldWriteLong($entry + 0x2e4, 0);
         $this->shouldWriteLong($entry + 0x48c, 3);
         $this->shouldWriteLong($entry + 0x2c8, $this->addressOf('_GroundProbeTrackPolygon_8c020b6c'));
