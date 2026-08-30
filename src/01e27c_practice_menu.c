@@ -754,7 +754,7 @@ void PracticeMenuLessonStart_8c01f114(Task *task)
     var_menuState_8c1bc7a8.field_0x44 = 0;
     scrollTowardSelection_8c01ebc8();
     var_8c22642c = 0;
-    *(Sint8 *)&var_award_8c1bb8f8 = 0;
+    var_award_8c1bb8f8 = 0;
     buildDialogQueue_8c01e992();
     task->field_0x08 = 0;
     var_menuState_8c1bc7a8.instructorSprite_0x60 =
@@ -788,7 +788,7 @@ void PracticeMenuLessonRetry_8c01f21c(void)
 
     var_menuState_8c1bc7a8.field_0x44 = 0;
     scrollTowardSelection_8c01ebc8();
-    *(Sint8 *)&var_award_8c1bb8f8 = 0;
+    var_award_8c1bb8f8 = 0;
 
     if (var_8c1bb8bc == 0) {
         var_8c226414[0] = 0x18;
@@ -796,7 +796,7 @@ void PracticeMenuLessonRetry_8c01f21c(void)
     } else {
         if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.field_0x98[var_8c22640c] < var_8c2285c4[3]) {
             var_progress_8c1ba1cc.field_0x98[var_8c22640c] = var_8c2285c4[3];
-            *(Sint8 *)&var_award_8c1bb8f8 = 1;
+            var_award_8c1bb8f8 = 1;
         }
 
         var_8c22642c++;

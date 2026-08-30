@@ -387,15 +387,15 @@ void ResultShowPassedRun_8c01e0b4(void)
     if (var_driverPoints_8c2285d0 < 0x5a) {
         if (var_driverPoints_8c2285d0 < 0x50) {
             if (var_driverPoints_8c2285d0 < 0x46) {
-                *(signed char *) &var_award_8c1bb8f8 = 0;
+                var_award_8c1bb8f8 = 0;
             } else {
-                *(signed char *) &var_award_8c1bb8f8 = 1;
+                var_award_8c1bb8f8 = 1;
             }
         } else {
-            *(signed char *) &var_award_8c1bb8f8 = 2;
+            var_award_8c1bb8f8 = 2;
         }
     } else {
-        *(signed char *) &var_award_8c1bb8f8 = 3;
+        var_award_8c1bb8f8 = 3;
     }
     if (var_progress_8c1ba1cc.courses_0x44[courseIndex].storySpriteNo_0x03 < var_award_8c1bb8f8) {
         if (var_award_8c1bb8f8 == 3) {
@@ -410,7 +410,7 @@ void ResultShowPassedRun_8c01e0b4(void)
             var_progress_8c1ba1cc.courses_0x44[courseIndex].freeRunSpriteNo_0x04 = var_award_8c1bb8f8;
         }
     } else {
-        *(signed char *) &var_award_8c1bb8f8 = 0;
+        var_award_8c1bb8f8 = 0;
         var_scoreBadgeBonus_8c2263f8 = 0;
     }
     var_scorePassengerBonus_8c2263fc = var_passengerCount_8c1bb8e4 * 5;
