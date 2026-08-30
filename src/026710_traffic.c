@@ -85,17 +85,17 @@ STATIC Uint8 init_8c04622c[] = {
  */
 void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script)
 {
-    Sint32 *out;
+    PathRecord **out;
     Uint16 *ip;
 
-    out = (Sint32 *)entry->resolvedArgs_0x304;
+    out = entry->resolvedArgs_0x304;
     for (ip = (Uint16 *)((Uint8 *)script + 2); *ip != 9; ip += init_8c0460bc[*ip]) {
         if (*ip == 1) {
-            *out = var_8c227e1c[ip[1]];
+            *out = var_cpuPathBlocks_8c227e1c[ip[1]];
             out++;
         }
     }
-    *out = -1;
+    *out = (PathRecord *)-1;
 }
 
 /* Runs one "spawn" or "place decoration" instruction of the entry's script
@@ -600,7 +600,7 @@ void TrafficSeekPathRecord_8c026fcc(TrafficEntry *entry, PathRecord *seg)
  *       tagging each with the entry's current block index (0x300), then
  *       continue.
  *   8 - configure the 0x474/0x478/0x47c/0x480 family, resolving its id
- *       argument through var_8c227e1c the same way TrafficReadScriptArgs_8c026710
+ *       argument through var_cpuPathBlocks_8c227e1c the same way TrafficReadScriptArgs_8c026710
  *       does, then continue.
  *   9 - end of script: if the entry never spawned this run, report failure
  *       (0); otherwise halt (cursor stays put -- op 9 does not advance).
@@ -679,7 +679,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
             e->field_0x474 = 1;
             e->field_0x478 = cur[1];
             e->field_0x47c = cur[2];
-            e->field_0x484 = var_8c227e1c[cur[3]];
+            e->field_0x484 = (Sint32)var_cpuPathBlocks_8c227e1c[cur[3]];
             e->field_0x480 = e->field_0x300;
             ip = cur + 4;
             continue;
@@ -964,11 +964,10 @@ STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
     TaskExecGroup_8c014b42(var_tasks_8c1bac28);
 }
 
-/* Reading this needs var_8c227e1c/var_trafficPresetTable_8c227e18 typed as the
- * already-known CurrentCourse.lineCpu_0x1c/macCpu1_0x24 field values instead
- * of the invented PTR_PTR_8c1bb884/PTR_PTR_8c1bb88c globals -- their
- * addresses are var_currentCourse_8c1bb868 + 0x1c/0x24 -- and var_8c228b40 as
- * Sint32*.
+/* Reading this needs var_trafficPresetTable_8c227e18 typed as the
+ * already-known CurrentCourse.macCpu1_0x24 field value instead of the
+ * invented PTR_PTR_8c1bb88c global -- its address is
+ * var_currentCourse_8c1bb868 + 0x24 -- and var_8c228b40 as Sint32*.
  *
  * Pushes the entry point for trafficUpdateTask_8c0275d4 into var_tasks_8c1ba5e8,
  * caching two per-course table pointers (route path array, per-preset script
@@ -982,7 +981,7 @@ void TrafficInit_8c02769e(void)
     Task *task;
     void *state;
 
-    var_8c227e1c = (Sint32 *)var_currentCourse_8c1bb868.lineCpu_0x1c;
+    var_cpuPathBlocks_8c227e1c = var_currentCourse_8c1bb868.lineCpu_0x1c;
     var_trafficPresetTable_8c227e18 = (Sint32 *)var_currentCourse_8c1bb868.macCpu1_0x24;
 
     if (var_route_8c18ad1c == ROUTE_WANGAN) {

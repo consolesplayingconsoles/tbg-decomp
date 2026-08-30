@@ -11,6 +11,7 @@
 #include "022464_fade.h" /* FadePhase, FadeRequest, FadeMirrorSelect */
 #include "028258_objects.h" /* TrafficSignal, TrafficSignalDef */
 #include "020914_ground_query.h" /* GroundQueryResult */
+#include "026710_traffic.h" /* PathRecord */
 
 /* =================
  * Type Declarations
@@ -1099,8 +1100,9 @@ extern int var_activeTrafficPreset_8c227e14;
  * bits 8-15, yielding that preset's record run in the course's *_MAC_CPU1.DAT;
  * read by trafficUpdateTask_8c0275d4 (026710). */
 extern Sint32 *var_trafficPresetTable_8c227e18;
-/* Base of a per-entry table; 026710_traffic indexes it by a script argument. */
-extern Sint32 *var_8c227e1c;
+/* Course CPU path-block table (== CurrentCourse.lineCpu_0x1c); 026710_traffic
+ * indexes it by a script argument to resolve a traffic entry's path. */
+extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
 extern int var_dialogQueue_8c225fbc[4]; // TODO: Confirm length
 extern int var_instructorDialogActive_8c225fb4;

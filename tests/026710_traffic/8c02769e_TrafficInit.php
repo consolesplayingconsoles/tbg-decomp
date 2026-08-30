@@ -19,7 +19,7 @@ return new class extends TestCase {
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
         $this->setSize('_var_trafficPresetTable_8c227e18', 4);
-        $this->setSize('_var_8c227e1c', 4);
+        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_8c228b40', 4);
@@ -95,7 +95,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficInit_8c02769e')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227e1c'), 0x11110000);
+        $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0x11110000);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
         $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04c980'));
@@ -129,7 +129,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficInit_8c02769e')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227e1c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
         $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04caec'));
@@ -170,7 +170,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficInit_8c02769e')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227e1c'), 0x33330000);
+        $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0x33330000);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
         $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04cd38'));

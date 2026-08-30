@@ -695,7 +695,7 @@
                                                    ; 026710
                                                    ; 02c884
           .EXPORT     _var_trafficPresetTable_8c227e18 ; 026710
-          .EXPORT     _var_8c227e1c ; 026710
+          .EXPORT     _var_cpuPathBlocks_8c227e1c ; 026710
           .EXPORT     _var_trafficSignalTasks_8c227e20 ; 012f44_game
                                     ; 028258
           .EXPORT     _var_trafficSignalFrames_8c227e24 ; 012f44_game
@@ -1430,7 +1430,7 @@ _var_activeTrafficPreset_8c227e14:
           .RES.B      4
 _var_trafficPresetTable_8c227e18:
           .RES.B      4
-_var_8c227e1c:
+_var_cpuPathBlocks_8c227e1c:
           .RES.B      4
 _var_trafficSignalTasks_8c227e20:
           .RES.B      4

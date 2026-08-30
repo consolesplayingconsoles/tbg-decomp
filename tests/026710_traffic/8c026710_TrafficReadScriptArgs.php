@@ -8,13 +8,13 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // words) starting 2 bytes in, decoding one instruction at a time. Each
 // instruction's word count comes from init_8c0460bc, indexed by the
 // instruction's own opcode word. Opcode 1 additionally resolves its operand
-// (the instruction's second word) through the var_8c227e1c pointer table and
+// (the instruction's second word) through the var_cpuPathBlocks_8c227e1c pointer table and
 // appends the resolved value to entry+0x304. Opcode 9 terminates the scan and
 // the output array is closed off with a -1 sentinel.
 
 return new class extends TestCase {
     public function test_emptyScriptWritesOnlyTerminator(): void {
-        $this->setSize('_var_8c227e1c', 4);
+        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $entry = $this->alloc(0x310);
         $script = $this->alloc(4);
 
@@ -28,7 +28,7 @@ return new class extends TestCase {
     }
 
     public function test_skipsNonPushOpcodeThenResolvesPush(): void {
-        $this->setSize('_var_8c227e1c', 4);
+        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $entry = $this->alloc(0x310);
         $script = $this->alloc(12);
 
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->initUint32($table + 1 * 4, 0x22222222);
         $this->initUint32($table + 2 * 4, 0x33333333);
         $this->initUint32($table + 3 * 4, 0x44444444);
-        $this->initUint32($this->addressOf('_var_8c227e1c'), $table);
+        $this->initUint32($this->addressOf('_var_cpuPathBlocks_8c227e1c'), $table);
 
         // Header word (never read).
         $this->initUint16($script + 0, 0);
