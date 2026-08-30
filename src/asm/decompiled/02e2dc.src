@@ -10,7 +10,9 @@
           .AIFDEF UNIT_TESTING
           .EXPORT     _unused_8c02e35a
           .AENDI
+          .AIFDEF UNIT_TESTING
           .EXPORT     _init_8c04c820 ; 02e2dc.src
+          .AENDI
           .EXPORT     _init_8c04c940 ; 02e2dc.src, 02e400.src
           .SECTION     P, CODE, ALIGN=4
 _BusCollideFindHit_8c02e2dc:

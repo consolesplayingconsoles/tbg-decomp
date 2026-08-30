@@ -60,8 +60,8 @@
           .EXPORT     _SndMidiResetFxAndPlay_8c010846
           .EXPORT     _FUN_8c010ca6
           .EXPORT     _SndProc_8c010cd6
-          .EXPORT     _FUN_8c0102d8
           .AIFDEF UNIT_TESTING
+          .EXPORT     _FUN_8c0102d8
           .EXPORT     _initUknVol_8c0100bc
           .EXPORT     _midiSetVol_8c010128
           .EXPORT     _midiSetPitch_8c01023c
