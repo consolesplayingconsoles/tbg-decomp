@@ -103,7 +103,7 @@ return new class extends TestCase {
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
         $this->setSize('_var_8c228798', 20 * 16);
         $this->setSize('_var_passengerCount_8c1bb8e4', 4);
-        $this->setSize('_init_8c04c3e4', 8 * 31);
+        $this->setSize('_init_seatPositions_8c04c3e4', 8 * 31);
         $this->setSize('_var_currentSegment_8c228708', 4);
         $this->setSize('_BusRiderSeatedTask_8c02d5ca', 4);
         $this->setSize('_BusRiderBoardTask_8c02d21c', 4);
@@ -395,7 +395,7 @@ return new class extends TestCase {
         $this->setSize('_rand', 4);
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
         $this->setSize('__quick_evn_mvn', 4);
-        $this->setSize('_init_8c04c3e4', 8 * 31);
+        $this->setSize('_init_seatPositions_8c04c3e4', 8 * 31);
         $this->setSize('_var_currentSegment_8c228708', 4);
     }
 
@@ -430,7 +430,7 @@ return new class extends TestCase {
 
         $this->initFloat($this->addressOf('_var_8c228934') + 4, 1.25); // .y
 
-        $init3e4Base = $this->addressOf('_init_8c04c3e4');
+        $init3e4Base = $this->addressOf('_init_seatPositions_8c04c3e4');
         $this->initUint32($init3e4Base + 5 * 8 + 0, 0x1234abcd); // field_0x00 (int, raw-copied)
         $this->initFloat($init3e4Base + 5 * 8 + 4, 0.5);          // field_0x04
 
@@ -554,7 +554,7 @@ return new class extends TestCase {
 
         $this->initFloat($this->addressOf('_var_8c228934') + 4, 1.25); // .y
 
-        $init3e4Base = $this->addressOf('_init_8c04c3e4');
+        $init3e4Base = $this->addressOf('_init_seatPositions_8c04c3e4');
         // Indexed by SPAWN POSITION (0, 1), not the original schedule
         // index (2, 7) -- verified against the asm, not a Ghidra artifact.
         $this->initUint32($init3e4Base + 0 * 8 + 0, 0x1111);

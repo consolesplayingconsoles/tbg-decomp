@@ -57,7 +57,7 @@
           .EXPORT     _BusRiderSeatedTask_8c02d5ca
           .EXPORT     _BusRiderStopSceneTask_8c02d644
           .EXPORT     _BusRiderSkipStopTask_8c02d8f0
-          .EXPORT     _init_8c04c3e4 ; 02d19c.src, 02d968.src
+          .EXPORT     _init_seatPositions_8c04c3e4 ; 02d19c.src, 02d968.src
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawRiderSprite_8c02d19c
           .EXPORT     _drawInterior_8c02d1f4
@@ -393,7 +393,7 @@ LP_GEN_53841:
           .DATA.L _var_8c22891c ; H'8C02D418
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02D41C
           .DATA.L _var_8c228718 ; H'8C02D420
-          .DATA.L _init_8c04c3e4 ; H'8C02D424
+          .DATA.L _init_seatPositions_8c04c3e4 ; H'8C02D424
           .DATA.L H'3E3851EC ; H'8C02D428
 LAB_8c02d42c:
           MOV.L       LP_GEN_80933+2,R3
@@ -1068,7 +1068,7 @@ LP_GEN_72278:
           .DATA.L _var_8c227da4 ; H'8C02D960
           .DATA.L _FUN_8c024f32 ; H'8C02D964
           .SECTION    D, DATA, ALIGN=4
-_init_8c04c3e4:        ; from defines
+_init_seatPositions_8c04c3e4:        ; from defines
           .DATA.B      H'3D, H'0A, H'57, H'3F
           .DATA.B      H'C3, H'F5, H'A8, H'BE, H'F6, H'28, H'5C, H'3F, H'CD, H'CC, H'7C, H'40, H'3D, H'0A, H'57, H'3F
           .DATA.B      H'C3, H'F5, H'98, H'40, H'F6, H'28, H'5C, H'3F, H'33, H'33, H'B3, H'40, H'00, H'00, H'00, H'3F

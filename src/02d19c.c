@@ -30,38 +30,38 @@ STATIC void setCountUpStep_8c02d5d8(void);
  * ====================
  */
 
-InitEntry_8c04c3e4 init_8c04c3e4[31] = {
-    { 0x3F570A3D, -0.33000001311302185f },
-    { 0x3F5C28F6, 3.950000047683716f },
-    { 0x3F570A3D, 4.78000020980835f },
-    { 0x3F5C28F6, 5.599999904632568f },
-    { 0x3F000000, 6.400000095367432f },
-    { 0x3F570A3D, 6.400000095367432f },
-    { 0x3F5C28F6, 7.25f },
-    { 0x3F0A3D71, 7.25f },
-    { 0xBF570A3D, -0.33000001311302185f },
-    { 0xBF5C28F6, 0.550000011920929f },
-    { 0xBF570A3D, 1.5f },
-    { 0xBF5C28F6, 2.380000114440918f },
-    { 0xBF570A3D, 3.200000047683716f },
-    { 0xBF5C28F6, 3.950000047683716f },
-    { 0xBF570A3D, 4.78000020980835f },
-    { 0xBF5C28F6, 5.599999904632568f },
-    { 0xBF000000, 6.400000095367432f },
-    { 0xBF570A3D, 6.400000095367432f },
-    { 0xBF5C28F6, 7.25f },
-    { 0xBF0A3D71, 7.25f },
-    { 0x3EB33333, 0.14499999582767487f },
-    { 0x3E570A3D, 0.6399999856948853f },
-    { 0x3E75C28F, 1.600000023841858f },
-    { 0x3E6147AE, 3.4000000953674316f },
-    { 0x3E8F5C29, 4.25f },
-    { 0xBCA3D70A, 4.599999904632568f },
-    { 0xBE4CCCCD, 0.27000001072883606f },
-    { 0xBE800000, 0.800000011920929f },
-    { 0xBE947AE1, 1.899999976158142f },
-    { 0xBE4CCCCD, 2.8399999141693115f },
-    { 0xBE83126F, 4.0f },
+SeatPos init_seatPositions_8c04c3e4[31] = {
+    { 0.8399999737739563f, -0.33000001311302185f },
+    { 0.8600000143051147f, 3.950000047683716f },
+    { 0.8399999737739563f, 4.78000020980835f },
+    { 0.8600000143051147f, 5.599999904632568f },
+    { 0.5f, 6.400000095367432f },
+    { 0.8399999737739563f, 6.400000095367432f },
+    { 0.8600000143051147f, 7.25f },
+    { 0.5400000214576721f, 7.25f },
+    { -0.8399999737739563f, -0.33000001311302185f },
+    { -0.8600000143051147f, 0.550000011920929f },
+    { -0.8399999737739563f, 1.5f },
+    { -0.8600000143051147f, 2.380000114440918f },
+    { -0.8399999737739563f, 3.200000047683716f },
+    { -0.8600000143051147f, 3.950000047683716f },
+    { -0.8399999737739563f, 4.78000020980835f },
+    { -0.8600000143051147f, 5.599999904632568f },
+    { -0.5f, 6.400000095367432f },
+    { -0.8399999737739563f, 6.400000095367432f },
+    { -0.8600000143051147f, 7.25f },
+    { -0.5400000214576721f, 7.25f },
+    { 0.3499999940395355f, 0.14499999582767487f },
+    { 0.20999999344348907f, 0.6399999856948853f },
+    { 0.23999999463558197f, 1.600000023841858f },
+    { 0.2199999988079071f, 3.4000000953674316f },
+    { 0.2800000011920929f, 4.25f },
+    { -0.019999999552965164f, 4.599999904632568f },
+    { -0.20000000298023224f, 0.27000001072883606f },
+    { -0.25f, 0.800000011920929f },
+    { -0.28999999165534973f, 1.899999976158142f },
+    { -0.20000000298023224f, 2.8399999141693115f },
+    { -0.25600001215934753f, 4.0f },
 };
 
 /* ====================
@@ -73,12 +73,12 @@ InitEntry_8c04c3e4 init_8c04c3e4[31] = {
  * BusRiderSeatedTask_8c02d5ca and by the per-passenger task actions below); draws one
  * waiting-passenger/scripted-stop rider's sprite. arg0 is really a
  * StopScheduleState* threaded through the int parameter (the same idiom as
- * StopDrawLightBegin_8c02d0fc/d146 in 02d06c). A stop index (the byte at *ref_0x00) out of
+ * StopDrawLightBegin_8c02d0fc/d146 in 02d06c). A stop index (the byte at *entry_0x00) out of
  * range, or whose asset slot has no texlist loaded yet, is skipped. */
 STATIC void drawRiderSprite_8c02d19c(int arg0)
 {
     StopScheduleState *state = (StopScheduleState *)arg0;
-    Sint8 stopIndex = *(Sint8 *)state->ref_0x00;
+    Sint8 stopIndex = *(Sint8 *)state->entry_0x00;
 
     if (stopIndex >= 0x41) {
         return;
@@ -88,8 +88,8 @@ STATIC void drawRiderSprite_8c02d19c(int arg0)
     }
 
     var_8c2288d8.tlist = var_pedestrianAssets_8c1bbfdc[stopIndex].texlist_0x08;
-    var_8c2288d8.p = *(NJS_POINT3 *)&state->field_0x08;
-    njDrawSprite3D(&var_8c2288d8, state->field_0x14, state->field_0x28 == 0 ? 0x32 : 0x30);
+    var_8c2288d8.p = state->pos_0x08;
+    njDrawSprite3D(&var_8c2288d8, state->spriteNo_0x14, state->isSeated_0x28 == 0 ? 0x32 : 0x30);
 }
 
 /* Installed as a FadeCallback1 (via literal-pool pointer in BusRiderStopSceneTask_8c02d644);
@@ -126,7 +126,7 @@ STATIC void setCountUpStep_8c02d5d8(void)
     }
 }
 
-/* Task action for an already-picked waiting passenger (state->field_0x04 ==
+/* Task action for an already-picked waiting passenger (state->state_0x04 ==
  * 1 always, from 02d968); a small state machine walking it through the
  * boarding animation: countdown-then-position at each of the three door
  * anchor points (var_8c228928/91c... no -- 8c228928, then 8c228910,
@@ -138,21 +138,21 @@ STATIC void setCountUpStep_8c02d5d8(void)
 void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
 {
     StopScheduleState *state = (StopScheduleState *)state_;
-    int mode = state->field_0x04;
+    int mode = state->state_0x04;
 
     switch (mode) {
     case 1:
         if (var_8c22895c != 0) {
-            Sint32 n = (Sint32)state->field_0x20 - 1;
-            state->field_0x20 = n;
+            Sint32 n = state->delay_0x20 - 1;
+            state->delay_0x20 = n;
             if (n < 0) {
-                *(float *)&state->field_0x08 = var_8c228928.x + *(float *)&state->field_0x18;
-                *(float *)&state->field_0x0c = var_8c228928.y;
-                *(float *)&state->field_0x10 = var_8c228928.z + *(float *)&state->field_0x1c;
-                state->field_0x14 = 0x10;
-                state->field_0x04 = 2;
+                state->pos_0x08.x = var_8c228928.x + state->jitterX_0x18;
+                state->pos_0x08.y = var_8c228928.y;
+                state->pos_0x08.z = var_8c228928.z + state->jitterZ_0x1c;
+                state->spriteNo_0x14 = 0x10;
+                state->state_0x04 = 2;
                 if (var_route_8c18ad1c != ROUTE_OME) {
-                    sdMidiPlay(var_midiHandles_8c0fcd28[state->field_0x2c], 1, state->field_0x30, 0);
+                    sdMidiPlay(var_midiHandles_8c0fcd28[state->voice_0x2c], 1, state->soundIdA_0x30, 0);
                 }
             }
         }
@@ -160,9 +160,9 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
 
     case 2:
         if (var_8c22895c != 0) {
-            *(NJS_POINT3 *)&state->field_0x08 = var_8c228910;
-            state->field_0x14 = (var_route_8c18ad1c == ROUTE_OME) ? 0x18 : 8;
-            state->field_0x04 = 3;
+            state->pos_0x08 = var_8c228910;
+            state->spriteNo_0x14 = (var_route_8c18ad1c == ROUTE_OME) ? 0x18 : 8;
+            state->state_0x04 = 3;
             if (var_route_8c18ad1c != ROUTE_OME) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, AsqGetRandomInRangeA_8c012178(3) + 0x1f, 0);
             }
@@ -171,12 +171,12 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
 
     case 3:
         if (var_8c22895c != 0) {
-            *(float *)&state->field_0x08 = var_8c22891c.x + *(float *)&state->field_0x18;
-            *(float *)&state->field_0x0c = var_8c22891c.y;
-            *(float *)&state->field_0x10 = var_8c22891c.z + *(float *)&state->field_0x1c;
-            state->field_0x04 = 4;
+            state->pos_0x08.x = var_8c22891c.x + state->jitterX_0x18;
+            state->pos_0x08.y = var_8c22891c.y;
+            state->pos_0x08.z = var_8c22891c.z + state->jitterZ_0x1c;
+            state->state_0x04 = 4;
             if (var_route_8c18ad1c != ROUTE_OME) {
-                sdMidiPlay(var_midiHandles_8c0fcd28[state->field_0x2c], 1, state->field_0x34, 0);
+                sdMidiPlay(var_midiHandles_8c0fcd28[state->voice_0x2c], 1, state->soundIdB_0x34, 0);
             }
         }
         goto registerLayer2;
@@ -191,25 +191,25 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
                     slot = 0;
                 }
             }
-            var_8c228718[slot] = (int)state->ref_0x00;
-            *(float *)&state->field_0x08 = *(float *)&init_8c04c3e4[slot].field_0x00;
-            *(float *)&state->field_0x10 = init_8c04c3e4[slot].field_0x04;
+            var_8c228718[slot] = (int)state->entry_0x00;
+            state->pos_0x08.x = init_seatPositions_8c04c3e4[slot].x;
+            state->pos_0x08.z = init_seatPositions_8c04c3e4[slot].z;
             if (slot < 0x14) {
-                state->field_0x14 = 0x20;
-                *(float *)&state->field_0x0c -= 0.18000000715255737f;
+                state->spriteNo_0x14 = 0x20;
+                state->pos_0x08.y -= 0.18000000715255737f;
             } else if (slot < 0x1a) {
-                state->field_0x14 = 0x22;
+                state->spriteNo_0x14 = 0x22;
             } else {
-                state->field_0x14 = 0x23;
+                state->spriteNo_0x14 = 0x23;
             }
-            state->field_0x04 = 5;
+            state->state_0x04 = 5;
         }
         goto registerLayer2;
 
     case 5:
         if (!(1.0f > var_8c228960[0])) {
-            state->field_0x04 = 0;
-            state->field_0x28 = 1;
+            state->state_0x04 = 0;
+            state->isSeated_0x28 = 1;
         }
         goto registerLayer2;
 
@@ -241,39 +241,39 @@ done:
 void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
 {
     StopScheduleState *state = (StopScheduleState *)state_;
-    int mode = state->field_0x04;
+    int mode = state->state_0x04;
 
     switch (mode) {
     case 0:
         if (var_8c22895c != 0) {
-            Sint32 n = (Sint32)state->field_0x20 - 1;
-            state->field_0x20 = n;
+            Sint32 n = state->delay_0x20 - 1;
+            state->delay_0x20 = n;
             if (n < 0) {
-                state->field_0x04 = 6;
+                state->state_0x04 = 6;
             }
         }
         goto registerLayer2;
 
     case 6:
         if (!(1.0f > var_8c228960[0])) {
-            state->field_0x28 = 0;
+            state->isSeated_0x28 = 0;
         }
         if (var_8c22895c != 0) {
-            var_8c228718[state->field_0x24] = -1;
-            *(float *)&state->field_0x08 = var_8c228934.x + *(float *)&state->field_0x18;
-            *(float *)&state->field_0x10 = var_8c228934.z + *(float *)&state->field_0x1c;
-            state->field_0x14 = (var_route_8c18ad1c == ROUTE_OME) ? 0x20 : 0x10;
-            state->field_0x04 = 7;
+            var_8c228718[state->slotIndex_0x24] = -1;
+            state->pos_0x08.x = var_8c228934.x + state->jitterX_0x18;
+            state->pos_0x08.z = var_8c228934.z + state->jitterZ_0x1c;
+            state->spriteNo_0x14 = (var_route_8c18ad1c == ROUTE_OME) ? 0x20 : 0x10;
+            state->state_0x04 = 7;
             if (var_route_8c18ad1c == ROUTE_OME) {
-                sdMidiPlay(var_midiHandles_8c0fcd28[state->field_0x2c], 1, state->field_0x30, 0);
+                sdMidiPlay(var_midiHandles_8c0fcd28[state->voice_0x2c], 1, state->soundIdA_0x30, 0);
             }
         }
         goto registerLayer2;
 
     case 7:
         if (var_8c22895c != 0) {
-            *(NJS_POINT3 *)&state->field_0x08 = var_8c228940;
-            state->field_0x04 = 8;
+            state->pos_0x08 = var_8c228940;
+            state->state_0x04 = 8;
             if (var_route_8c18ad1c == ROUTE_OME) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, AsqGetRandomInRangeB_8c0121be(3) + 0x1f, 0);
             }
@@ -282,13 +282,13 @@ void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
 
     case 8:
         if (var_8c22895c != 0) {
-            *(float *)&state->field_0x08 = var_8c22894c.x + *(float *)&state->field_0x18;
-            *(float *)&state->field_0x0c = var_8c22894c.y;
-            *(float *)&state->field_0x10 = var_8c22894c.z + *(float *)&state->field_0x1c;
-            state->field_0x14 = 0x18;
-            state->field_0x04 = 9;
+            state->pos_0x08.x = var_8c22894c.x + state->jitterX_0x18;
+            state->pos_0x08.y = var_8c22894c.y;
+            state->pos_0x08.z = var_8c22894c.z + state->jitterZ_0x1c;
+            state->spriteNo_0x14 = 0x18;
+            state->state_0x04 = 9;
             if (var_route_8c18ad1c == ROUTE_OME) {
-                sdMidiPlay(var_midiHandles_8c0fcd28[state->field_0x2c], 1, state->field_0x34, 0);
+                sdMidiPlay(var_midiHandles_8c0fcd28[state->voice_0x2c], 1, state->soundIdB_0x34, 0);
             }
         }
         goto registerLayer2;

@@ -128,9 +128,9 @@ return new class extends TestCase {
             $this->initUint32($slots + $i * 4, $i === 3 ? -1 : 0xbeef);
         }
 
-        // init_8c04c3e4 is defined by this object itself; overwrite the slot
+        // init_seatPositions_8c04c3e4 is defined by this object itself; overwrite the slot
         // this test exercises with known values rather than setSize+init.
-        $init = $this->addressOf('_init_8c04c3e4');
+        $init = $this->addressOf('_init_seatPositions_8c04c3e4');
         $this->initUint32($init + 3 * 8 + 0, $this->f(0.5));
         $this->initUint32($init + 3 * 8 + 4, $this->f(1.5));
 

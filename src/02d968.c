@@ -159,17 +159,17 @@ skip_anchor_points:
     for (i = 0; i < var_8c228794; i++) {
         TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &BusRiderBoardTask_8c02d21c, &task,
                            (void **)&state, sizeof(StopScheduleState));
-        state->ref_0x00 = var_8c228798[i].spot_0x00;
-        state->field_0x04 = 1;
-        *(NJS_POINT3 *)&state->field_0x08 = var_8c228798[i].pos_0x04;
-        *(float *)&state->field_0x18 = ((float)rand() / 32768.0f) * 0.2f;
-        *(float *)&state->field_0x1c = ((float)rand() / 32768.0f) * 0.2f;
-        state->field_0x20 = i;
-        state->field_0x28 = 0;
+        state->entry_0x00 = var_8c228798[i].spot_0x00;
+        state->state_0x04 = 1;
+        state->pos_0x08 = var_8c228798[i].pos_0x04;
+        state->jitterX_0x18 = ((float)rand() / 32768.0f) * 0.2f;
+        state->jitterZ_0x1c = ((float)rand() / 32768.0f) * 0.2f;
+        state->delay_0x20 = i;
+        state->isSeated_0x28 = 0;
         quadrant = i % 4;
-        state->field_0x2c = quadrant;
-        state->field_0x30 = init_8c04c4dc[*(char *)state->ref_0x00] + 0x32;
-        state->field_0x34 = state->field_0x30 + 4;
+        state->voice_0x2c = quadrant;
+        state->soundIdA_0x30 = init_8c04c4dc[*(char *)state->entry_0x00] + 0x32;
+        state->soundIdB_0x34 = state->soundIdA_0x30 + 4;
         var_passengerCount_8c1bb8e4++;
     }
 
@@ -192,19 +192,19 @@ skip_anchor_points:
         } else {
             TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &BusRiderSeatedTask_8c02d5ca, &task,
                                (void **)&state, sizeof(StopScheduleState));
-            state->ref_0x00 = scriptEntry;
-            state->field_0x08 = (Uint32)init_8c04c3e4[i].field_0x00;
-            *(float *)&state->field_0x0c = var_8c228934.y;
-            *(float *)&state->field_0x10 = init_8c04c3e4[i].field_0x04;
+            state->entry_0x00 = scriptEntry;
+            state->pos_0x08.x = init_seatPositions_8c04c3e4[i].x;
+            state->pos_0x08.y = var_8c228934.y;
+            state->pos_0x08.z = init_seatPositions_8c04c3e4[i].z;
             if (i < 0x14) {
-                state->field_0x14 = 0x20;
-                *(float *)&state->field_0x0c -= 0.18f;
+                state->spriteNo_0x14 = 0x20;
+                state->pos_0x08.y -= 0.18f;
             } else if (i < 0x1a) {
-                state->field_0x14 = 0x22;
+                state->spriteNo_0x14 = 0x22;
             } else {
-                state->field_0x14 = 0x23;
+                state->spriteNo_0x14 = 0x23;
             }
-            state->field_0x28 = 1;
+            state->isSeated_0x28 = 1;
         }
     }
 
@@ -220,28 +220,28 @@ skip_anchor_points:
     for (i = 0; i < count; i++) {
         TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &BusRiderAlightTask_8c02d46c, &task,
                            (void **)&state, sizeof(StopScheduleState));
-        state->ref_0x00 = matched[i].entry_0x00;
-        state->field_0x04 = 0;
-        state->field_0x08 = (Uint32)init_8c04c3e4[i].field_0x00;
-        *(float *)&state->field_0x0c = var_8c228934.y;
-        *(float *)&state->field_0x10 = init_8c04c3e4[i].field_0x04;
+        state->entry_0x00 = matched[i].entry_0x00;
+        state->state_0x04 = 0;
+        state->pos_0x08.x = init_seatPositions_8c04c3e4[i].x;
+        state->pos_0x08.y = var_8c228934.y;
+        state->pos_0x08.z = init_seatPositions_8c04c3e4[i].z;
         if (i < 0x14) {
-            state->field_0x14 = 0x20;
-            *(float *)&state->field_0x0c -= 0.18f;
+            state->spriteNo_0x14 = 0x20;
+            state->pos_0x08.y -= 0.18f;
         } else if (i < 0x1a) {
-            state->field_0x14 = 0x22;
+            state->spriteNo_0x14 = 0x22;
         } else {
-            state->field_0x14 = 0x23;
+            state->spriteNo_0x14 = 0x23;
         }
-        *(float *)&state->field_0x18 = ((float)rand() / 32768.0f) * 0.2f;
-        *(float *)&state->field_0x1c = ((float)rand() / 32768.0f) * 0.2f;
-        state->field_0x20 = i;
-        state->field_0x24 = matched[i].index_0x04;
-        state->field_0x28 = 1;
+        state->jitterX_0x18 = ((float)rand() / 32768.0f) * 0.2f;
+        state->jitterZ_0x1c = ((float)rand() / 32768.0f) * 0.2f;
+        state->delay_0x20 = i;
+        state->slotIndex_0x24 = matched[i].index_0x04;
+        state->isSeated_0x28 = 1;
         quadrant = i % 4;
-        state->field_0x2c = quadrant;
-        state->field_0x30 = init_8c04c4dc[*(char *)state->ref_0x00] + 0x36;
-        state->field_0x34 = state->field_0x30 - 8;
+        state->voice_0x2c = quadrant;
+        state->soundIdA_0x30 = init_8c04c4dc[*(char *)state->entry_0x00] + 0x36;
+        state->soundIdB_0x34 = state->soundIdA_0x30 - 8;
     }
 
     syFree(matchedBuf);
