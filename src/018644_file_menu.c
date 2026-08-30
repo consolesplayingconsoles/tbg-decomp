@@ -55,6 +55,21 @@ enum FILE_MENU_STATE {
     FILE_MENU_STATE_UNMOUNTING = 8,
 };
 
+/* Task private state for loadFileTask_8c018644: phase_0x08 0 = requesting the
+ * next file, 1 = waiting on the drive; counter_0x0c a per-file index
+ * round-tripped through Task's void* field_0x0c; queuedItem_0x18 the cursor
+ * into the null-terminated save-name list. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    int phase_0x08;
+    int counter_0x0c;
+    int field_0x10;
+    int field_0x14;
+    char **queuedItem_0x18;
+    int field_0x1c;
+} LoadFileTask;
+
 /* ====================
  * Functions
  * ====================
@@ -67,40 +82,40 @@ enum FILE_MENU_STATE {
  * header to the growing buffer. var_8c226010 reports the outcome: 1 = all loaded,
  * 2 = error.
  */
-STATIC void loadFileTask_8c018644(Task *task)
+STATIC void loadFileTask_8c018644(LoadFileTask *task)
 {
     char **names;
 
     LOG_TRACE(("[FILE_MENU] loadFileTask_8c018644\n"));
 
-    if (task->field_0x08 == 0) {
-        for (names = (char **)task->queuedItem_0x18; **names != '\0'; names++) {
+    if (task->phase_0x08 == 0) {
+        for (names = task->queuedItem_0x18; **names != '\0'; names++) {
             int err = buIsExistFile(var_selectedVm_8c1ba34c, *names);
             if (err == 0) {
                 LOG_DEBUG(("[FILE_MENU] loadFileTask_8c018644: requesting load for \"%s\"\n", *names));
                 BupLoad_8c014bc6(var_selectedVm_8c1ba34c, *names, var_8c225fe0);
-                var_8c225fe4[var_8c22600c] = (int)task->field_0x0c;
+                var_8c225fe4[var_8c22600c] = task->counter_0x0c;
                 var_8c22600c++;
                 task->queuedItem_0x18 = names + 1;
-                task->field_0x08 = 1;
-                task->field_0x0c = (void *)((int)task->field_0x0c + 1);
+                task->phase_0x08 = 1;
+                task->counter_0x0c++;
                 return;
             }
             if (err != -0xfb) {
                 LOG_WARN(("[FILE_MENU] loadFileTask_8c018644: enumeration failed for \"%s\" (err=%d)\n", *names, err));
-                TaskFree_8c014b66(task);
+                TaskFree_8c014b66((Task *)task);
                 var_8c226010 = 2;
                 return;
             }
-            task->field_0x0c = (void *)((int)task->field_0x0c + 1);
+            task->counter_0x0c++;
         }
         LOG_DEBUG(("[FILE_MENU] loadFileTask_8c018644: all files loaded (%d)\n", var_8c22600c));
-        TaskFree_8c014b66(task);
+        TaskFree_8c014b66((Task *)task);
         var_8c226010 = 1;
-    } else if (task->field_0x08 == 1 && buStat(var_selectedVm_8c1ba34c) == 0) {
+    } else if (task->phase_0x08 == 1 && buStat(var_selectedVm_8c1ba34c) == 0) {
         if (buGetLastError(var_selectedVm_8c1ba34c) != 0) {
             LOG_WARN(("[FILE_MENU] loadFileTask_8c018644: load failed\n"));
-            TaskFree_8c014b66(task);
+            TaskFree_8c014b66((Task *)task);
             var_8c226010 = 2;
             return;
         }
@@ -111,7 +126,7 @@ STATIC void loadFileTask_8c018644(Task *task)
         syFree(var_backupFileImageBuf_8c1ba348);
         var_backupFileImageBuf_8c1ba348 = (void *)-1;
         var_8c225fe0 = (char *)var_8c225fe0 + 0x600;
-        task->field_0x08 = 0;
+        task->phase_0x08 = 0;
     }
 }
 
@@ -121,15 +136,15 @@ STATIC void loadFileTask_8c018644(Task *task)
  */
 STATIC void startVmLoad_8c018784(void)
 {
-    Task *task;
+    LoadFileTask *task;
     void *state;
 
     LOG_DEBUG(("[FILE_MENU] startVmLoad_8c018784: starting VMU load\n"));
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *)loadFileTask_8c018644, &task, &state, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *)loadFileTask_8c018644, (Task **)&task, &state, 0);
     var_vmBusy_8c157a7c = 1;
-    task->field_0x08 = 0;
-    task->field_0x0c = 0;
+    task->phase_0x08 = 0;
+    task->counter_0x0c = 0;
     task->queuedItem_0x18 = init_saveNames_8c044d50;
     var_8c1ba2e0 = syMalloc(0x3c00);
     var_8c225fe0 = var_8c1ba2e0;
