@@ -11,11 +11,10 @@
  * ====================
  */
 
-void *TrafficPathScanBuild_8c02f0c8(Task *self, void *entry, Sint32 firstScriptArg, Sint32 flag,
-                    float startProgress, float window)
+void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord *firstRecord,
+                    Sint32 argIndex, float startProgress, float window)
 {
-    PathRecord *seg = (PathRecord *)firstScriptArg;
-    TrafficEntry *e = (TrafficEntry *)entry;
+    PathRecord *seg = firstRecord;
     float remaining = startProgress;
     float traveled;
     float *cursor;
@@ -28,8 +27,8 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, void *entry, Sint32 firstScriptA
         remaining -= seg->length_0x00;
         seg++;
         if (seg->length_0x00 == 0.0f) {
-            flag++;
-            seg = e->resolvedArgs_0x304[flag];
+            argIndex++;
+            seg = entry->resolvedArgs_0x304[argIndex];
         }
     }
 
@@ -39,8 +38,8 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, void *entry, Sint32 firstScriptA
             remaining -= seg->length_0x00;
             seg++;
             if (seg->length_0x00 == 0.0f) {
-                flag++;
-                seg = e->resolvedArgs_0x304[flag];
+                argIndex++;
+                seg = entry->resolvedArgs_0x304[argIndex];
                 if (seg == (PathRecord *)-1) {
                     goto scan;
                 }

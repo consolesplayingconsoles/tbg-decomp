@@ -343,7 +343,7 @@ signal3:
                 } else if (waitState == 3) {
                     if (e->field_0x480 == e->field_0x300) {
                         float halfWindow = e->width_0x23c + 8.0f;
-                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, e->field_0x484,
+                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, (PathRecord *)e->field_0x484,
                                                      e->field_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
@@ -384,7 +384,7 @@ signal3:
                 } else if (waitState == 4) {
                     if (e->projectDistance_0x2c4 != 2.0f) {
                         float halfWindow = e->width_0x23c + 8.0f;
-                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, e->field_0x484,
+                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, (PathRecord *)e->field_0x484,
                                                      e->field_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
@@ -560,7 +560,7 @@ haveLimit:
         }
     } else if (e->driveState_0x2b4 == 3) {
         /* ---- waiting for the reloaded script's own spawn box to clear ---- */
-        if (TrafficPathScanBuild_8c02f0c8(task, e, (Sint32)e->resolvedArgs_0x304[0], 0, 0.0f, 8.0f) != 0) {
+        if (TrafficPathScanBuild_8c02f0c8(task, e, e->resolvedArgs_0x304[0], 0, 0.0f, 8.0f) != 0) {
             return;
         }
         TrafficRunEntryScript_8c027012(e);
