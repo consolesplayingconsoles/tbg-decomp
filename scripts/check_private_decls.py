@@ -16,6 +16,15 @@ object (sections[].exports[]) and every cross-object reference
 (sections[].externalRelocations[]). A symbol is private iff no object other
 than its definer references it.
 
+The plain build's call graph is necessarily incomplete mid-project: a symbol
+whose only C-side caller lives in a not-yet-decompiled function looks private
+there even though the shipped game calls it cross-unit. So a symbol is also
+considered referenced if some OTHER unit's archived original `.src`
+(build/output_matching/src/asm/decompiled/*.obj -- same source check_naming.py
+trusts for original symbol names) still holds a live `.IMPORT` of it; that
+`.IMPORT` is ground truth that the real game links it across units, whether or
+not our decompilation has reached the call site yet.
+
 A private symbol owned by a unit's `.c` is flagged only when its name is also
 declared in some `src/*.h` -- that header declaration is the thing to remove.
 Types/enums/macros/typedefs are never linker symbols, so they are inherently
@@ -112,6 +121,21 @@ def main():
                 owner.setdefault(e["name"].lstrip("_"), (obj_id, okind, skind))
             for r in sec.get("externalRelocations", []):
                 importers.setdefault(r["name"].lstrip("_"), set()).add(obj_id)
+
+    # A symbol's only C-side caller may live in a not-yet-decompiled function,
+    # making it look private even though the shipped game links it cross-unit.
+    # The archived original `.src` of every already-decompiled unit (same
+    # source check_naming.py trusts) still holds the real `.IMPORT`s, so treat
+    # a live one there as evidence the symbol is public. `.IMPORT` syntax can
+    # only name a symbol the importing unit does NOT itself define, so these
+    # entries are inherently cross-unit -- no self-reference to guard against.
+    archived_root = repo_root / "build" / "output_matching" / "src" / "asm" / "decompiled"
+    for obj in sorted(archived_root.glob("*.obj")) if archived_root.is_dir() else []:
+        importer_id = f"archived:{obj.stem}"
+        doc = inspect(str(obj))
+        for sec in doc.get("sections", []):
+            for r in sec.get("externalRelocations", []):
+                importers.setdefault(r["name"].lstrip("_"), set()).add(importer_id)
 
     headers = {p: p.read_text(encoding="shift_jis") for p in sorted((repo_root / "src").glob("*.h"))}
 
