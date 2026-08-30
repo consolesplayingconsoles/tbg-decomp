@@ -28,9 +28,8 @@
  * ====================
  */
 
-STATIC unsigned char init_courseClearScoreTable_8c0451a0[] = {
-    0xf0, 0x00, 0x40, 0x01, 0x54, 0x01, 0xc8, 0x00, 0x18, 0x01, 0x2c, 0x01, 0xc8, 0x00, 0xdc, 0x00,
-    0x04, 0x01, 0x00, 0x00,
+STATIC Uint16 init_courseClearScoreTable_8c0451a0[10] = {
+    240, 320, 340, 200, 280, 300, 200, 220, 260, 0,
 };
 
 /* ====================
@@ -364,8 +363,8 @@ void ResultShowPassedRun_8c01e0b4(void)
     if (var_runSucceeded_8c1bb8dc == 0) {
         var_scoreCourseClearBonus_8c2263ec = 0;
     } else {
-        var_scoreCourseClearBonus_8c2263ec = (unsigned int) *(unsigned short *)
-            (init_courseClearScoreTable_8c0451a0 + (var_route_8c18ad1c * 3 + var_timeOfDay_8c18ad20) * 2);
+        var_scoreCourseClearBonus_8c2263ec =
+            init_courseClearScoreTable_8c0451a0[var_route_8c18ad1c * 3 + var_timeOfDay_8c18ad20];
     }
     if (var_firstClearOfCourse_8c1bb8e0 == 0) {
         var_scoreFirstClearBonus_8c2263f0 = 0;
