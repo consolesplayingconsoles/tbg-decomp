@@ -290,36 +290,35 @@ STATIC void hudUpdateTask_8c01ff48() {
     }
 
     gear = var_busState_8c1bb9d0.field_0x3b0 & 0xc0000;
-    if (var_gearLatch_8c226470 == 0) {
-        if (gear != 0) {
-            if (gear == 0x40000) {
-                showMark_8c01fa78(0x1c, 0xb4);
-            } else if (gear == 0x80000) {
-                showMark_8c01fa78(0x1d, 0xb4);
+    if (var_gearLatch_8c226470 == 0 && gear != 0) {
+        /* A fresh gear change hides the headlight and lane-change marks
+         * for this frame; they only show once the latch clears again. */
+        if (gear == 0x40000) {
+            showMark_8c01fa78(0x1c, 0xb4);
+        } else if (gear == 0x80000) {
+            showMark_8c01fa78(0x1d, 0xb4);
+        }
+        var_gearLatch_8c226470 = 1;
+    } else {
+        if (var_gearLatch_8c226470 != 0 && gear == 0) {
+            var_gearLatch_8c226470 = 0;
+        }
+
+        if ((var_busState_8c1bb9d0.field_0x3b0 & 0x100) != 0) {
+            showMark_8c01fa78(0x1b, 0xb4);
+        }
+
+        lane = var_busState_8c1bb9d0.field_0x3b8 & 0xff0000;
+        if (var_laneLatch_8c226474 == 0) {
+            if (lane != 0) {
+                showMark_8c01fa78((short)(lane >> 0x10) + 0x1e, 0x78);
+                var_laneLatch_8c226474 = 1;
+                var_8c2264a8.field_0x0c = 0;
             }
-            var_gearLatch_8c226470 = 1;
-            goto afterGear;
+        } else if (lane == 0) {
+            var_laneLatch_8c226474 = 0;
         }
-    } else if (gear == 0) {
-        var_gearLatch_8c226470 = 0;
     }
-
-    if ((var_busState_8c1bb9d0.field_0x3b0 & 0x100) != 0) {
-        showMark_8c01fa78(0x1b, 0xb4);
-    }
-
-    lane = var_busState_8c1bb9d0.field_0x3b8 & 0xff0000;
-    if (var_laneLatch_8c226474 == 0) {
-        if (lane != 0) {
-            showMark_8c01fa78((short)(lane >> 0x10) + 0x1e, 0x78);
-            var_laneLatch_8c226474 = 1;
-            var_8c2264a8.field_0x0c = 0;
-        }
-    } else if (lane == 0) {
-        var_laneLatch_8c226474 = 0;
-    }
-
-afterGear:
 
     if (var_8c2264a8.field_0x00 < 0x1e || 0x50 < var_8c2264a8.field_0x00 || var_8c2264a8.field_0x08 == 0) {
         var_8c2264a8.field_0x04 = 0;
