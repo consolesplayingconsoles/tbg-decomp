@@ -143,6 +143,34 @@ typedef struct {
     float flLength_0x08;
 } PedPathInfo;
 
+/* Task private state for pedGroupTask_8c029078, set up by pedestriansTask_8c0293f6
+ * when it spins a group up. radius_0x10 overlays Task's int field_0x10 with the
+ * float bits directly -- no reinterpret cast needed at the read site. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    int pageListIndex_0x08;
+    void *field_0x0c;
+    float radius_0x10;
+    int field_0x14;
+    Task *subTasks_0x18;
+    PedGroupSpawnSpec *spec_0x1c;
+} PedGroupTask;
+
+/* Task private state for pedestriansTask_8c0293f6: lastPreset_0x08 the
+ * currently-synced var_activePedPreset_8c22822c snapshot, debounce_0x0c a
+ * single pending-preset-change flag held across the frame it reads 0. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    int lastPreset_0x08;
+    int debounce_0x0c;
+    int field_0x10;
+    int field_0x14;
+    void *queuedItem_0x18;
+    int field_0x1c;
+} PedestriansTask;
+
 /* Trailing 8 bytes of a type-5 row's source struct (see
  * ObjectsStartAssetRequests_8c029ad4), copied verbatim into the dest slot;
  * compiles to a call to the SHC struct-copy helper __quick_evn_mvn. Read by
@@ -5134,13 +5162,13 @@ STATIC void pedStaticObjectTask_8c02903e() {}
 
 /* Per-frame driver for one pedestrian-group slot's spawn list, installed via
  * TaskPush_8c014ae8 by pedestriansTask_8c0293f6. Each call consumes one
- * PedGroupSpawnSpec entry from the group's spec list (task->field_0x1c),
+ * PedGroupSpawnSpec entry from the group's spec list (task->spec_0x1c),
  * spawning either a walking pedestrian (pedestrianTask_8c028e00) or a static
  * sprite object (pedStaticObjectTask_8c02903e) into the group's own subtask
- * array (task->queuedItem_0x18), then runs that subtask array for the frame.
- * If var_pedGroups_8c228230[task->field_0x08] is no longer wanted this frame,
- * tears the whole group down instead. */
-STATIC void pedGroupTask_8c029078(Task *task)
+ * array (task->subTasks_0x18), then runs that subtask array for the frame.
+ * If var_pedGroups_8c228230[task->pageListIndex_0x08] is no longer wanted this
+ * frame, tears the whole group down instead. */
+STATIC void pedGroupTask_8c029078(PedGroupTask *task)
 {
     PedGroupEntry *group;
     PedGroupSpawnSpec *spec;
@@ -5153,18 +5181,18 @@ STATIC void pedGroupTask_8c029078(Task *task)
     int pageListIndex;
     int pushFailed;
 
-    pageListIndex = task->field_0x08;
+    pageListIndex = task->pageListIndex_0x08;
     group = &((PedGroupEntry *)var_pedGroups_8c228230)[pageListIndex];
 
     if (group->wanted_0x04 == 0) {
         group->active_0x00 = 0;
-        TaskFreeGroup_8c014ab4((Task *)task->queuedItem_0x18);
-        syFree(task->queuedItem_0x18);
-        TaskFree_8c014b66(task);
+        TaskFreeGroup_8c014ab4(task->subTasks_0x18);
+        syFree(task->subTasks_0x18);
+        TaskFree_8c014b66((Task *)task);
         return;
     }
 
-    spec = (PedGroupSpawnSpec *)task->field_0x1c;
+    spec = task->spec_0x1c;
     if (spec->nKindId_0x00 != 0xffff) {
         path = &((PedPathInfo *)var_pedPaths_8c228238)[pageListIndex];
 
@@ -5174,9 +5202,9 @@ STATIC void pedGroupTask_8c029078(Task *task)
              * failed TaskPush skips it. */
             pushFailed = 0;
             if (spec->nKind_0x02 == 0 || spec->nKind_0x02 == 1) {
-                if (TaskPush_8c014ae8((Task *)task->queuedItem_0x18, pedestrianTask_8c028e00,
+                if (TaskPush_8c014ae8(task->subTasks_0x18, pedestrianTask_8c028e00,
                         &subTask, (void **)&state, sizeof(PedestrianState))) {
-                    radius = *(float *)&task->field_0x10;
+                    radius = task->radius_0x10;
                     state->flBaseX_0x20 = ((float)rand() / 32768.0f) * radius * 2.0f - radius;
                     state->flBaseZ_0x24 = ((float)rand() / 32768.0f) * radius * 2.0f - radius;
                     /* Only the seed's low 16 bits: 0.04 to 0.06 units per frame. */
@@ -5239,7 +5267,7 @@ STATIC void pedGroupTask_8c029078(Task *task)
                     pushFailed = 1;
                 }
             } else if (spec->nKind_0x02 == 2) {
-                if (TaskPush_8c014ae8((Task *)task->queuedItem_0x18, pedStaticObjectTask_8c02903e,
+                if (TaskPush_8c014ae8(task->subTasks_0x18, pedStaticObjectTask_8c02903e,
                         &subTask, (void **)&state, sizeof(PedestrianState))) {
                     state->flBaseX_0x20 = 0.0f;
                     state->flBaseZ_0x24 = 0.0f;
@@ -5271,28 +5299,28 @@ STATIC void pedGroupTask_8c029078(Task *task)
             }
         }
 
-        task->field_0x1c = (int)(spec + 1);
+        task->spec_0x1c = spec + 1;
     }
 
-    TaskExecGroup_8c014b42((Task *)task->queuedItem_0x18);
+    TaskExecGroup_8c014b42(task->subTasks_0x18);
 }
 
 /* Per-frame driver for every pedestrian group. Keeps var_pedGroups_8c228230's
  * wanted/active state in sync with the pedestrian preset currently encoded in
- * var_scenePresetIds_8c1bbd8c (task->field_0x0c debounces a single
+ * var_scenePresetIds_8c1bbd8c (task->debounce_0x0c debounces a single
  * pending-change flag across frames where that field reads 0), spinning up
  * pedGroupTask_8c029078 for each newly-wanted group; rebuilds this frame's
  * crosswalk stop-line intersection scratch (var_crosswalkTableEnd_8c228244/var_crosswalkTable_8c228248) from
  * every active group's path; runs every group's Task; then registers this
  * frame's pedestrian draw callback(s) -- the mirror-view layer (drawPedestriansMirror_8c028a38)
  * only outside demo mode. */
-STATIC void pedestriansTask_8c0293f6(Task *task)
+STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
 {
     PedGroupEntry *groups;
     PedGroupEntry *group;
     PedGroupDef *groupDef;
     PedPathInfo *paths;
-    Task *subTask;
+    PedGroupTask *subTask;
     void *state;
     Task *subtasks;
     int *list;
@@ -5312,19 +5340,19 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
     var_activeGroundGrid_8c2264d4 = var_groundGridPrimary_8c1bb890;
 
     presetField = var_scenePresetIds_8c1bbd8c & 0xff0000;
-    if ((int)task->field_0x0c == 0) {
+    if (task->debounce_0x0c == 0) {
         if (presetField == 0) {
-            task->field_0x0c = (void *)1;
+            task->debounce_0x0c = 1;
         }
     } else if (presetField != 0) {
         var_activePedPreset_8c22822c = (int)(short)(presetField >> 16);
-        task->field_0x0c = 0;
+        task->debounce_0x0c = 0;
     }
 
     groups = (PedGroupEntry *)var_pedGroups_8c228230;
 
-    if (task->field_0x08 != var_activePedPreset_8c22822c) {
-        task->field_0x08 = var_activePedPreset_8c22822c;
+    if (task->lastPreset_0x08 != var_activePedPreset_8c22822c) {
+        task->lastPreset_0x08 = var_activePedPreset_8c22822c;
 
         for (i = 0; i < var_pedGroupCount_8c228234; i++) {
             groups[i].wanted_0x04 = 0;
@@ -5346,7 +5374,7 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
                 TaskClear_8c014a9c(subtasks, PED_GROUP_SLOTS);
 
                 if (!TaskPush_8c014ae8(var_tasks_8c1ba808, pedGroupTask_8c029078,
-                        &subTask, &state, 0)) {
+                        (Task **)&subTask, &state, 0)) {
                     syFree(subtasks);
                     break;
                 }
@@ -5355,10 +5383,10 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
                         groupDef->id_0x00 != pageListIndex; groupDef++) {
                 }
 
-                subTask->queuedItem_0x18 = subtasks;
-                subTask->field_0x1c = (int)groupDef->specs_0x08;
-                subTask->field_0x08 = pageListIndex;
-                *(float *)&subTask->field_0x10 = groupDef->radius_0x04;
+                subTask->subTasks_0x18 = subtasks;
+                subTask->spec_0x1c = groupDef->specs_0x08;
+                subTask->pageListIndex_0x08 = pageListIndex;
+                subTask->radius_0x10 = groupDef->radius_0x04;
                 group->active_0x00 = 1;
             }
 
@@ -5430,7 +5458,7 @@ void ObjectsInitPedestrianGroups_8c0296d6(void)
     PedGroupEntry *groups;
     int **lists;
     int i, j;
-    Task *task;
+    PedestriansTask *task;
     void *state;
 
     var_pedPaths_8c228238 = var_currentCourse_8c1bb868.lineHum_0x2c;
@@ -5459,9 +5487,9 @@ void ObjectsInitPedestrianGroups_8c0296d6(void)
         groups[i].active_0x00 = 0;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, pedestriansTask_8c0293f6, &task, &state, 0);
-    task->field_0x08 = -1;
-    task->field_0x0c = (void *)1;
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, pedestriansTask_8c0293f6, (Task **)&task, &state, 0);
+    task->lastPreset_0x08 = -1;
+    task->debounce_0x0c = 1;
 }
 
 /* Teardown counterpart to ObjectsInitPedestrianGroups_8c0296d6: frees every
@@ -5491,6 +5519,22 @@ void ObjectsFreePedestrianGroups_8c0297da(void)
     var_pedGroupCount_8c228234 = -1;
 }
 
+/* Task private state for routeBlinkerTask_8c029904, set up by
+ * ObjectsInitBlinkers_8c029920: count_0x08 the number of NJS_MATRIX entries
+ * in the state block TaskPush_8c014ae8 allocated (task->state, typed
+ * NJS_MATRIX* on the callback), blinkCounter_0x0c a per-frame counter
+ * round-tripped through Task's void* field_0x0c. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    int count_0x08;
+    int blinkCounter_0x0c;
+    int field_0x10;
+    int field_0x14;
+    void *queuedItem_0x18;
+    int field_0x1c;
+} RouteBlinkerTask;
+
 STATIC void resolveObjectChildren_8c029868(NJS_OBJECT **nodes)
 {
     NJS_OBJECT *child = nodes[0]->child;
@@ -5504,10 +5548,10 @@ STATIC void resolveObjectChildren_8c029868(NJS_OBJECT **nodes)
  * cycling var_routeBlinkerNodes_8c228278's child nodes' eval flags through a 3-phase blink. */
 STATIC void drawBlinkers_8c029878(int taskArg, int matricesArg)
 {
-    Task *task = (Task *)taskArg;
+    RouteBlinkerTask *task = (RouteBlinkerTask *)taskArg;
     NJS_MATRIX *matrix = (NJS_MATRIX *)matricesArg;
-    int count = task->field_0x08;
-    int phase = ((int)task->field_0x0c >> 2) % 3;
+    int count = task->count_0x08;
+    int phase = (task->blinkCounter_0x0c >> 2) % 3;
     int i;
 
     switch (phase) {
@@ -5540,9 +5584,9 @@ STATIC void drawBlinkers_8c029878(int taskArg, int matricesArg)
 
 /* Per-frame TaskAction for the blinker group: advances the blink counter and
  * queues this frame's draw through the fade command pipeline. */
-STATIC void routeBlinkerTask_8c029904(Task *task, void *state)
+STATIC void routeBlinkerTask_8c029904(RouteBlinkerTask *task, NJS_MATRIX *state)
 {
-    task->field_0x0c = (void *)((int)task->field_0x0c + 1);
+    task->blinkCounter_0x0c++;
     FadeCmdPushCall2_8c022420(0, drawBlinkers_8c029878, (int)task, (int)state);
 }
 
@@ -5562,7 +5606,7 @@ void ObjectsInitBlinkers_8c029920(void)
 {
     const RouteMarkerPoint *p, *points;
     int count;
-    Task *task;
+    RouteBlinkerTask *task;
     NJS_MATRIX *matrices;
 
     var_routeBlinkerNodes_8c228278[0] = (NJS_OBJECT *)((int *)var_routeModels_8c1bc3ec)[9];
@@ -5589,10 +5633,10 @@ void ObjectsInitBlinkers_8c029920(void)
         return;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &routeBlinkerTask_8c029904, &task,
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &routeBlinkerTask_8c029904, (Task **)&task,
                        (void **)&matrices, count * sizeof(NJS_MATRIX));
-    task->field_0x08 = count;
-    task->field_0x0c = 0;
+    task->count_0x08 = count;
+    task->blinkCounter_0x0c = 0;
 
     for (p = points; p->x_0x00 != 0.0f; p++) {
         GroundQueryResult result;
