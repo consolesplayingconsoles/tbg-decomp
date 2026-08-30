@@ -98,6 +98,8 @@ void *FUN_8c02f212(void)
         for (t = var_tasks_8c1bac28; t->action != NULL; t++) {
             advance = 0;
 
+            /* var_8c228b98 is never written anywhere in src/, so this
+             * exclusion never fires -- it stays NULL, a value t can't hold. */
             if (t->action != (TaskAction)-1 && (void *)t != var_8c228b98) {
                 candidateEntry = t->state;
                 advance = 1;
