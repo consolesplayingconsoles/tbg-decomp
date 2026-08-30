@@ -373,11 +373,14 @@ void ResultShowPassedRun_8c01e0b4(void)
         var_scoreFirstClearBonus_8c2263f0 = 100;
     }
     var_scoreDriverPointsBonus_8c2263f4 = var_driverPoints_8c2285d0 * 10;
-    if (var_route_8c18ad1c == 0) {
+    if (var_route_8c18ad1c == ROUTE_SHINJUKU) {
         courseGroup = 1;
-    } else if (var_route_8c18ad1c == 1) {
+    } else if (var_route_8c18ad1c == ROUTE_WANGAN) {
         courseGroup = 0;
-    } else if (var_route_8c18ad1c == 2) {
+    } else {
+        /* var_route_8c18ad1c only ever holds the three ROUTE_* values, so
+         * this covers ROUTE_OME -- the original leaves the register unset
+         * for any other value. */
         courseGroup = 2;
     }
     courseIndex = courseGroup * 3 + var_timeOfDay_8c18ad20;

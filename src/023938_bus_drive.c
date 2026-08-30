@@ -286,7 +286,10 @@ void FUN_8c023e7e(void)
 
     if (var_busState_8c1bb9d0.field_0x338 == 0) {
         idx = nodes[var_busState_8c1bb9d0.field_0x33c].fwdNext_0x00;
-    } else if (var_busState_8c1bb9d0.field_0x338 == 1) {
+    } else {
+        /* field_0x338 only ever holds 0, 1 or 2 (024280.c) and 2 already
+         * returned above, so this covers 1 -- the original leaves the
+         * register unset for any other value. */
         idx = nodes[var_busState_8c1bb9d0.field_0x33c].backNext_0x02;
     }
 

@@ -175,7 +175,10 @@ void BusInitStart_8c023610(void)
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_DAY || var_timeOfDay_8c18ad20 == TIME_OF_DAY_EVENING) {
         selected = &var_busState_8c1bb9d0.field_0x04c;
-    } else if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT) {
+    } else {
+        /* var_timeOfDay_8c18ad20 only ever holds the three TIME_OF_DAY_*
+         * values, so this covers TIME_OF_DAY_NIGHT -- the original leaves
+         * the register unset for any other value. */
         selected = &var_busState_8c1bb9d0.field_0x058;
     }
     *(int *)selected[var_route_8c18ad1c] = 0x37;
