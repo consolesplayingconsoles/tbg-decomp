@@ -82,7 +82,39 @@ STATIC void resultsTask_8c01d8e0(void)
         }
         var_isFading_8c226568 = 0;
         var_menuState_8c1bc7a8.selected_0x38 = 0;
-        goto case_4;
+        /* fallthrough -- state 0 re-enters the VMU-save entry state directly */
+    case 4: {
+        int vmuStatus;
+        int soundId;
+
+        VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_8c1ba350], 3);
+        vmuStatus = var_vmuStatus_8c226048[var_selectedVm_8c1ba34c];
+        if (var_isFading_8c226568 != 0) {
+            goto tail;
+        }
+        var_menuState_8c1bc7a8.selectedVmuSlot_0x6c = vmuStatus;
+        if (vmuStatus == 4 || vmuStatus == 5 || vmuStatus == 6) {
+            ObjectsSwapMessageBoxFor_8c02aefc(vmuStatus == 4 ? MSG_CONFIRM_CREATE_FILE : MSG_CONFIRM_OVERWRITE);
+            var_menuState_8c1bc7a8.state_0x18 = 8;
+            soundId = 0;
+        } else {
+            if (vmuStatus == 2) {
+                ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVE_NEED_3_BLOCKS);
+            } else if (vmuStatus == 1) {
+                ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_CANT_SAVE);
+            } else if (vmuStatus != 0) {
+                FadePushIn_8c022a9c(10);
+                return;
+            } else {
+                ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_NOT_CONN_SAVE);
+            }
+            soundId = 2;
+            var_menuState_8c1bc7a8.state_0x18 = 5;
+        }
+        sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, soundId, 0);
+        FadePushIn_8c022a9c(10);
+        return;
+    }
 
     case 1:
         if (!var_isFading_8c226568) {
@@ -90,7 +122,8 @@ STATIC void resultsTask_8c01d8e0(void)
             var_menuState_8c1bc7a8.startTimer_0x64 = 0;
             var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
         }
-        goto case3_tail;
+        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
+        goto tail;
 
     case 2:
         var_menuState_8c1bc7a8.logo_timer_0x68++;
@@ -134,7 +167,8 @@ STATIC void resultsTask_8c01d8e0(void)
             drawScoreDigits_8c01d7fc(var_scoreCourseClearBonus_8c2263ec, 96.0f);
             break;
         }
-        goto case3_tail;
+        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
+        goto tail;
 
     case 3:
         if (pressedA) {
@@ -156,44 +190,9 @@ STATIC void resultsTask_8c01d8e0(void)
         if (var_award_8c1bb8f8 != 0) {
             TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1f - var_award_8c1bb8f8, 0.0f, 0.0f, -4.0f);
         }
-        /* fallthrough */
-    case3_tail:
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
         goto tail;
 
-    case_4:
-    case 4: {
-        int vmuStatus;
-        int soundId;
-
-        VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_8c1ba350], 3);
-        vmuStatus = var_vmuStatus_8c226048[var_selectedVm_8c1ba34c];
-        if (var_isFading_8c226568 != 0) {
-            goto tail;
-        }
-        var_menuState_8c1bc7a8.selectedVmuSlot_0x6c = vmuStatus;
-        if (vmuStatus == 4 || vmuStatus == 5 || vmuStatus == 6) {
-            ObjectsSwapMessageBoxFor_8c02aefc(vmuStatus == 4 ? MSG_CONFIRM_CREATE_FILE : MSG_CONFIRM_OVERWRITE);
-            var_menuState_8c1bc7a8.state_0x18 = 8;
-            soundId = 0;
-        } else {
-            if (vmuStatus == 2) {
-                ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVE_NEED_3_BLOCKS);
-            } else if (vmuStatus == 1) {
-                ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_CANT_SAVE);
-            } else if (vmuStatus != 0) {
-                FadePushIn_8c022a9c(10);
-                return;
-            } else {
-                ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_NOT_CONN_SAVE);
-            }
-            soundId = 2;
-            var_menuState_8c1bc7a8.state_0x18 = 5;
-        }
-        sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, soundId, 0);
-        FadePushIn_8c022a9c(10);
-        return;
-    }
     case 5: {
         int textboxActive;
 
