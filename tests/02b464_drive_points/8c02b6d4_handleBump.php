@@ -8,7 +8,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_CollideQueueTest_8c02e4ac', 4);
-        $this->setSize('_FUN_8c02e2dc', 4);
+        $this->setSize('_BusCollideFindHit_8c02e2dc', 4);
         $this->setSize('_BusDriveStop_8c023bce', 4);
         $this->setSize('_VibStart_8c010f7a', 4);
         $this->setSize('_sdMidiPlay', 4);
@@ -74,7 +74,7 @@ return new class extends TestCase {
         $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
-        $this->shouldCall('_FUN_8c02e2dc')->andReturn(0);
+        $this->shouldCall('_BusCollideFindHit_8c02e2dc')->andReturn(0);
         $this->shouldWriteLongTo('_var_8c228664', 0);
     }
 
@@ -101,7 +101,7 @@ return new class extends TestCase {
         $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
-        $this->shouldCall('_FUN_8c02e2dc')->andReturn($other);
+        $this->shouldCall('_BusCollideFindHit_8c02e2dc')->andReturn($other);
         $this->shouldWriteLongTo('_var_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
         $this->shouldWriteLongTo('_var_8c228668', $other);
@@ -148,7 +148,7 @@ return new class extends TestCase {
         $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
-        $this->shouldCall('_FUN_8c02e2dc')->andReturn($other);
+        $this->shouldCall('_BusCollideFindHit_8c02e2dc')->andReturn($other);
         $this->shouldWriteLongTo('_var_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
         $this->shouldWriteLongTo('_var_8c228668', $other);
@@ -192,7 +192,7 @@ return new class extends TestCase {
         $this->call('_handleBump_8c02b6d4');
 
         $this->shouldCall('_CollideQueueTest_8c02e4ac')->andReturn(0);
-        $this->shouldCall('_FUN_8c02e2dc')->andReturn($other);
+        $this->shouldCall('_BusCollideFindHit_8c02e2dc')->andReturn($other);
         $this->shouldWriteLongTo('_var_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
         $this->shouldWriteLongTo('_var_8c228668', $other);

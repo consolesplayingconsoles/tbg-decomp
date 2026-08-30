@@ -13,6 +13,6 @@ extern NJS_POINT3 *init_8c04c940[16];
 /* Finds the vehicle/pedestrian the player's bus is currently bumping into
  * (called by handleBump_8c02b6d4, 02b464); returns its BusState,
  * or NULL if none. */
-BusState *FUN_8c02e2dc(void);
+BusState *BusCollideFindHit_8c02e2dc(void);
 
 #endif // _02E2DC_H

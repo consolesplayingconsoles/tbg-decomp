@@ -23,7 +23,7 @@
           .IMPORT     _var_8c22866c
           .IMPORT     _CollideQueueTest_8c02e4ac
           .IMPORT     _var_8c228664
-          .IMPORT     _FUN_8c02e2dc
+          .IMPORT     _BusCollideFindHit_8c02e2dc
           .IMPORT     _njSqrt
           .IMPORT     _var_8c228660
           .IMPORT     _var_8c228680
@@ -610,7 +610,7 @@ LP_GEN_48273:
           .DATA.W H'019C ; H'8C02B822
           .DATA.L _var_8c1bbd9c ; H'8C02B824
           .DATA.L _var_8c228664 ; H'8C02B828
-          .DATA.L _FUN_8c02e2dc ; H'8C02B82C
+          .DATA.L _BusCollideFindHit_8c02e2dc ; H'8C02B82C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02B830
           .DATA.L _sdMidiPlay ; H'8C02B834
           .DATA.L _var_8c228668 ; H'8C02B838

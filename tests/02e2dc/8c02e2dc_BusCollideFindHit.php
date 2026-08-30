@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c02e2dc: finds the vehicle/pedestrian the player's bus is currently
+// BusCollideFindHit_8c02e2dc: finds the vehicle/pedestrian the player's bus is currently
 // bumping into. Transforms the bus's own fixed local box (init_8c04c820)
 // into world space via the bus's world matrix, then scans
 // var_tasks_8c1bac28 from the start (skipping the -1 sentinel), gating each
@@ -65,7 +65,7 @@ return new class extends TestCase {
         $tasksBase = $this->addressOf('_var_tasks_8c1bac28');
         $this->makeTask(0, 0, 0); // terminator
 
-        $this->call('_FUN_8c02e2dc');
+        $this->call('_BusCollideFindHit_8c02e2dc');
 
         $this->shouldCalcSelfBox();
         $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->makeTask(0, -1, 0xdeadbeef); // sentinel
         $this->makeTask(1, 0, 0); // terminator
 
-        $this->call('_FUN_8c02e2dc');
+        $this->call('_BusCollideFindHit_8c02e2dc');
 
         $this->shouldCalcSelfBox();
         $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
@@ -104,7 +104,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0); // terminator
 
-        $this->call('_FUN_8c02e2dc');
+        $this->call('_BusCollideFindHit_8c02e2dc');
 
         $this->shouldCalcSelfBox();
         $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
@@ -125,7 +125,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0); // terminator
 
-        $this->call('_FUN_8c02e2dc');
+        $this->call('_BusCollideFindHit_8c02e2dc');
 
         $this->shouldCalcSelfBox();
         $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
@@ -147,7 +147,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0); // terminator
 
-        $this->call('_FUN_8c02e2dc');
+        $this->call('_BusCollideFindHit_8c02e2dc');
 
         $this->shouldCalcSelfBox();
         $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
@@ -179,7 +179,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0); // terminator; must never be reached
 
-        $this->call('_FUN_8c02e2dc');
+        $this->call('_BusCollideFindHit_8c02e2dc');
 
         $this->shouldCalcSelfBox();
         $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);

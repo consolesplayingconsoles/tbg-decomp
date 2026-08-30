@@ -291,7 +291,7 @@ STATIC void armCooldowns_8c02b578(int type) {
 /* Reacts to the player bus bumping a pedestrian/vehicle: if the collision
  * queue (CollideQueueTest_8c02e4ac) already flagged a serious hit this
  * frame, applies a flat penalty and locks out further handling here. Else,
- * looks up the vehicle/pedestrian actually being bumped (FUN_8c02e2dc);
+ * looks up the vehicle/pedestrian actually being bumped (BusCollideFindHit_8c02e2dc);
  * if the player's bus isn't in the "driving" state (bus_state_0x2b4 == 1)
  * or nothing is found, does nothing.
  *
@@ -315,7 +315,7 @@ STATIC void handleBump_8c02b6d4(void) {
         return;
     }
 
-    other = FUN_8c02e2dc();
+    other = BusCollideFindHit_8c02e2dc();
     var_8c228664 = other;
     if (other == NULL) {
         return;

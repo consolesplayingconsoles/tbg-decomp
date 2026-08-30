@@ -1,3 +1,5 @@
+/* @unit BusCollide */
+
 #include <shinobi.h>
 #include "014a9c_tasks.h"
 #include "02081c.h"
@@ -107,7 +109,7 @@ STATIC NJS_POINT3 init_8c04c7c0[8] = {
 };
 
 /* The player bus's own box -- fed to njCalcPoints against the bus's world
- * matrix at the top of FUN_8c02e2dc. */
+ * matrix at the top of BusCollideFindHit_8c02e2dc. */
 STATIC NJS_POINT3 init_8c04c820[8] = {
     {-1.1649999618530273f, 1.5f, 8.0f},
     {-1.1649999618530273f, 1.5f, -2.5999999046325684f},
@@ -164,7 +166,7 @@ NJS_POINT3 *init_8c04c940[16] = {
  * 12 world units, transforms that variant's local-space box to world space
  * and box-tests it against the bus's own box (set up once, up front).
  * Returns the first hit's state, or NULL if none. */
-BusState *FUN_8c02e2dc(void)
+BusState *BusCollideFindHit_8c02e2dc(void)
 {
     Task *cursor;
     Uint8 *state;
@@ -201,7 +203,7 @@ BusState *FUN_8c02e2dc(void)
 /* Never called -- confirmed dead code kept for object parity with the
  * original binary (see docs/next_units.md's dead-functions section: real,
  * separate, compiled code, zero references anywhere in src/). A near-copy
- * of FUN_8c02e2dc's scan loop, but it does not (re)initialize
+ * of BusCollideFindHit_8c02e2dc's scan loop, but it does not (re)initialize
  * var_collideScanCursor_8c228974 or recompute the bus's own box -- it
  * resumes the scan from wherever the cursor is already sitting, advancing
  * past the entry there first. */

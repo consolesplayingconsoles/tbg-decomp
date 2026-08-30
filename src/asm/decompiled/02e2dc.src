@@ -6,14 +6,14 @@
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _GeomQuadOverlap_8c020842
           .IMPORT     _var_collideCandidateBox_8c2289d8
-          .EXPORT     _FUN_8c02e2dc
+          .EXPORT     _BusCollideFindHit_8c02e2dc
           .AIFDEF UNIT_TESTING
           .EXPORT     _unused_8c02e35a
           .AENDI
           .EXPORT     _init_8c04c820 ; 02e2dc.src
           .EXPORT     _init_8c04c940 ; 02e2dc.src, 02e400.src
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02e2dc:
+_BusCollideFindHit_8c02e2dc:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

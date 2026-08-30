@@ -792,7 +792,7 @@ return [
         ],
         [
             "tests" => [
-                "tests/02e2dc/8c02e2dc_FUN.php",
+                "tests/02e2dc/8c02e2dc_BusCollideFindHit.php",
                 "tests/02e2dc/8c02e35a_unused.php",
             ],
             "objects" => [
