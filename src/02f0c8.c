@@ -34,16 +34,16 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
 
     cursor = var_8c228b48;
     for (traveled = startProgress; traveled < startProgress + window; traveled += 5.0f) {
-        while (seg->length_0x00 <= remaining) {
+        while (seg != (PathRecord *)-1 && seg->length_0x00 <= remaining) {
             remaining -= seg->length_0x00;
             seg++;
             if (seg->length_0x00 == 0.0f) {
                 argIndex++;
                 seg = entry->resolvedArgs_0x304[argIndex];
-                if (seg == (PathRecord *)-1) {
-                    goto scan;
-                }
             }
+        }
+        if (seg == (PathRecord *)-1) {
+            break;
         }
 
         cursor[0] = remaining * seg->dirX_0x0c + seg->x_0x04;
@@ -52,7 +52,6 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
         remaining += 5.0f;
     }
 
-scan:
     if (cursor != var_8c228b48) {
         var_8c228ba0 = cursor;
         for (p = var_8c228b48; p < cursor; p += 2) {

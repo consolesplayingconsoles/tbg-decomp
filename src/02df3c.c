@@ -90,20 +90,17 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
         dist = entry->field_0x4fc;
 
         for (; cacheDist < 20.0f; cacheDist += 5.0f) {
-            for (;;) {
-                if (cursor == (PathRecord *)-1) {
-                    cacheDist += 5.0f;
-                    goto refillDone;
-                }
-                if (dist < cursor->length_0x00) {
-                    break;
-                }
+            while (cursor != (PathRecord *)-1 && dist >= cursor->length_0x00) {
                 dist -= cursor->length_0x00;
                 cursor++;
                 if (cursor->length_0x00 == 0.0f) {
                     entry->field_0x4f8++;
                     cursor = entry->resolvedArgs_0x304[entry->field_0x4f8];
                 }
+            }
+            if (cursor == (PathRecord *)-1) {
+                cacheDist += 5.0f;
+                break;
             }
 
             out[0] = dist * cursor->dirX_0x0c + cursor->x_0x04;
@@ -112,7 +109,6 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
             dist += 5.0f;
         }
 
-    refillDone:
         if (out == (float *)entry->lookaheadPoints_0x49c) {
             return NULL;
         }
