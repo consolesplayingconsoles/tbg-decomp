@@ -8,7 +8,7 @@
 #include "020594.h"               /* VehicleModelPlace_8c020594 */
 #include "023938_bus_drive.h"               /* FUN_8c023938/023cba/023e7e */
 #include "024280.h"               /* FUN_8c0246b2/024280 */
-#include "02412c.h"               /* FUN_8c02412c */
+#include "02412c.h"               /* BusLineAdvance_8c02412c */
 #include "02081c.h"               /* GeomDistanceXZ_8c02081c */
 #include "024b4c_bus_render.h"               /* BusRenderUpdateCamera_8c025078, BusRenderUpdateMirrorCamera_8c025604 */
 #include "025870.h"               /* DemoUpdateCamera_8c025906 */
@@ -145,7 +145,7 @@ void BusTask_8c022bdc(Task *task, void *state)
                 var_busState_8c1bb9d0.field_0x2c0 += var_busState_8c1bb9d0.speed_0x27c;
             }
 
-            FUN_8c02412c();
+            BusLineAdvance_8c02412c();
         }
 
         if (var_busState_8c1bb9d0.mirror_0x268 != 0) {

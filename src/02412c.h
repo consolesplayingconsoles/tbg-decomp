@@ -8,6 +8,6 @@
  * to field_0x0ec/field_0x0f0, offsets the bus's actual position from it by
  * the lane offset field_0x2c4, and recomputes the heading angle field_0x254.
  * Always returns 1; the caller ignores it. */
-int FUN_8c02412c(void);
+int BusLineAdvance_8c02412c(void);
 
 #endif // _02412C_H

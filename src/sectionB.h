@@ -428,7 +428,7 @@ extern int var_8c1bb8f0;
 extern int var_8c1bb8f4;
 extern int var_award_8c1bb8f8;
 /* Reserved 12 bytes; only the leading int is read so far, compared against 2
- * by FUN_8c02412c (02412c) to pick a mapped-route node's alternate next
+ * by BusLineAdvance_8c02412c (02412c) to pick a mapped-route node's alternate next
  * segment. */
 extern int var_8c1bbc2c;
 

@@ -936,7 +936,7 @@ return [
         ],
         [
             "tests" => [
-                "tests/02412c/8c02412c_FUN.php",
+                "tests/02412c/8c02412c_BusLineAdvance.php",
             ],
             "objects" => [
                 "build/output_test/02412c_src.obj",

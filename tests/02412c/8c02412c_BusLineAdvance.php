@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _FUN_8c02412c(void): advances the bus along its mapped route line by the
+ * _BusLineAdvance_8c02412c(void): advances the bus along its mapped route line by the
  * distance accumulated in busState.field_0x2bc/field_0x2c0, switching route
  * segments via the var_8c227d88 node table (indexed by field_0x33c) when the
  * current segment's point list (var_8c227d84[idx].points_0x00, LinePoint[])
@@ -93,7 +93,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x0fc, $this->fdec(27.0)); // posZ_0x0fc
         $this->initUint32($base + 0x2c4, $this->fdec(4.0)); // field_0x2c4: lane offset
 
-        $this->call('_FUN_8c02412c')->with();
+        $this->call('_BusLineAdvance_8c02412c')->with();
 
         // point->len_0x00 (100) > remaining (20): found immediately, no
         // segment switch -- field_0x2b8 keeps pointing at the same record.
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x0fc, $this->fdec(27.0)); // posZ_0x0fc
         $this->initUint32($base + 0x2c4, $this->fdec(4.0));
 
-        $this->call('_FUN_8c02412c')->with();
+        $this->call('_BusLineAdvance_8c02412c')->with();
 
         $this->shouldWriteLong($base + 0x2b8, $point);
         $this->shouldWriteFloat($base + 0x2bc, 20.0);
@@ -185,7 +185,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x0fc, $this->fdec(11.0)); // posZ_0x0fc
         $this->initUint32($base + 0x2c4, $this->fdec(0.0)); // no lane offset
 
-        $this->call('_FUN_8c02412c')->with();
+        $this->call('_BusLineAdvance_8c02412c')->with();
 
         // remaining after consuming p0: 20.0 - 5.0 = 15.0, carried as
         // field_0x2c0 at the moment of the switch.
@@ -240,7 +240,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x0fc, $this->fdec(11.0));
         $this->initUint32($base + 0x2c4, $this->fdec(0.0));
 
-        $this->call('_FUN_8c02412c')->with();
+        $this->call('_BusLineAdvance_8c02412c')->with();
 
         $this->shouldWriteLong($base + 0x33c, 5);
         $this->shouldWriteFloat($base + 0x2c0, 15.0);
@@ -291,7 +291,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x0fc, $this->fdec(11.0));
         $this->initUint32($base + 0x2c4, $this->fdec(0.0));
 
-        $this->call('_FUN_8c02412c')->with();
+        $this->call('_BusLineAdvance_8c02412c')->with();
 
         $this->shouldWriteLong($base + 0x33c, 2);
         $this->shouldWriteFloat($base + 0x2c0, 15.0);

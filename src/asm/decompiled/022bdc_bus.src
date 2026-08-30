@@ -13,7 +13,7 @@
           .IMPORT     _var_8c2264b8
           .IMPORT     _var_inputMapSel_8c1bb8c8
           .IMPORT     _FUN_8c023e7e
-          .IMPORT     _FUN_8c02412c
+          .IMPORT     _BusLineAdvance_8c02412c
           .IMPORT     _njSin
           .IMPORT     _njCos
           .IMPORT     _FUN_8c024280
@@ -317,7 +317,7 @@ LP_GEN_73202:
           .DATA.L _var_8c2264b8 ; H'8C022DFC
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C022E00
           .DATA.L _FUN_8c023e7e ; H'8C022E04
-          .DATA.L _FUN_8c02412c ; H'8C022E08
+          .DATA.L _BusLineAdvance_8c02412c ; H'8C022E08
 LAB_8c022e0c:
           MOV.W       LP_GEN_93321,R0
           MOV.L       @R15,R3

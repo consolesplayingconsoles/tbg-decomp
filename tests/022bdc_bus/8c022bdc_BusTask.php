@@ -45,7 +45,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c2264b8', 0x1c);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
         $this->setSize('_FUN_8c023e7e', 4);
-        $this->setSize('_FUN_8c02412c', 4);
+        $this->setSize('_BusLineAdvance_8c02412c', 4);
         $this->setSize('_njSin', 4);
         $this->setSize('_njCos', 4);
         $this->setSize('_FUN_8c024280', 4);

@@ -1,3 +1,4 @@
+/* @unit BusLine */
 #include <shinobi.h>
 #include <math.h> /* acosf */
 
@@ -44,7 +45,7 @@ typedef struct {
  */
 
 /* See 02412c.h. */
-int FUN_8c02412c(void)
+int BusLineAdvance_8c02412c(void)
 {
     LinePoint *point = (LinePoint *)var_busState_8c1bb9d0.field_0x2b8;
     float remaining = var_busState_8c1bb9d0.field_0x2bc;
