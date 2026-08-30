@@ -137,11 +137,8 @@ void BusInitStart_8c023610(void)
 {
     Task *created_task;
     void *created_state;
-    int raw;
-    float f;
     int i;
-    int *ptrs;
-    int *selected;
+    NJS_OBJECT **selected;
     CourseSegment *segment;
     void *result;
 
@@ -150,13 +147,7 @@ void BusInitStart_8c023610(void)
     var_8c227d84 = var_currentCourse_8c1bb868.lineBus_0x08;
     var_8c227d88 = var_currentCourse_8c1bb868.ukn_0x0c;
 
-    /* Unsigned 32-bit-to-float conversion of *(var_8c1bc410+4), minus 1.0. */
-    raw = *(int *)((char *)var_8c1bc410 + 4);
-    f = (float)raw;
-    if (raw < 0) {
-        f += 4294967296.0f;
-    }
-    var_8c227db4 = f - 1.0f;
+    var_8c227db4 = (float)var_8c1bc410->nbFrame - 1.0f;
 
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &BusTask_8c022bdc, &created_task, &created_state, 0);
 
@@ -166,22 +157,21 @@ void BusInitStart_8c023610(void)
     var_busState_8c1bb9d0.field_0x014 = *(int *)((char *)var_trafficModels_8c1bc3f4 + 0x44);
     VehPartsBind_8c02786c(&var_busState_8c1bb9d0, 0x1a);
 
-    /* field_0x04c/050/054/058/05c/060 each hold a pointer; default them
-     * all to 0x3f, then override the one for this run's time-of-day/route. */
-    ptrs = &var_busState_8c1bb9d0.field_0x04c;
+    /* bodyModels_0x04c[0..5] default to 0x3f, then the one for this run's
+     * time-of-day/route is overridden to 0x37. */
     for (i = 0; i < 6; i++) {
-        *(int *)ptrs[i] = 0x3f;
+        var_busState_8c1bb9d0.bodyModels_0x04c[i]->evalflags = 0x3f;
     }
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_DAY || var_timeOfDay_8c18ad20 == TIME_OF_DAY_EVENING) {
-        selected = &var_busState_8c1bb9d0.field_0x04c;
+        selected = &var_busState_8c1bb9d0.bodyModels_0x04c[0];
     } else {
         /* var_timeOfDay_8c18ad20 only ever holds the three TIME_OF_DAY_*
          * values, so this covers TIME_OF_DAY_NIGHT -- the original leaves
          * the register unset for any other value. */
-        selected = &var_busState_8c1bb9d0.field_0x058;
+        selected = &var_busState_8c1bb9d0.bodyModels_0x04c[3];
     }
-    *(int *)selected[var_route_8c18ad1c] = 0x37;
+    selected[var_route_8c18ad1c]->evalflags = 0x37;
 
     if (var_route_8c18ad1c == ROUTE_WANGAN && var_currentSegment_8c228708 == 10) {
         var_busState_8c1bb9d0.field_0x2c8 = (int)GroundProbeFindPolygonAtHeight_8c020fe4;

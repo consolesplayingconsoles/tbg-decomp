@@ -76,25 +76,20 @@ typedef struct {
     int field_0x00c;
     int field_0x010;
     int field_0x014;
-    int field_0x018;
-    int field_0x01c;
-    int field_0x020;
-    int field_0x024;
-    int field_0x028;
-    int field_0x02c;
-    int field_0x030;
-    int field_0x034;
-    int field_0x038;
-    int field_0x03c;
-    int field_0x040;
-    int field_0x044;
-    int field_0x048;
-    int field_0x04c;
-    int field_0x050;
-    int field_0x054;
-    int field_0x058;
-    int field_0x05c;
-    int field_0x060;
+    NJS_OBJECT *field_0x018;
+    NJS_OBJECT *field_0x01c;
+    NJS_OBJECT *field_0x020;
+    NJS_OBJECT *field_0x024;
+    NJS_OBJECT *field_0x028;
+    NJS_OBJECT *field_0x02c;
+    NJS_OBJECT *field_0x030;
+    NJS_OBJECT *field_0x034;
+    NJS_OBJECT *field_0x038;
+    NJS_OBJECT *field_0x03c;
+    NJS_OBJECT *field_0x040;
+    NJS_OBJECT *field_0x044;
+    NJS_OBJECT *field_0x048;
+    NJS_OBJECT *bodyModels_0x04c[6];
     int field_0x064;
     int field_0x068;
     int field_0x06c;
@@ -453,7 +448,7 @@ extern float var_busCameraFocusZ_8c1bbce0;
 extern void* var_messageTextBoxA_8c1bc404;
 extern void* var_messageTextBoxB_8c1bc408; /* second half of the double-buffered message textbox pair */
 extern int var_messageTextBoxIndex_8c1bc40c;   /* active index (0/1) into (&var_messageTextBoxA_8c1bc404)[idx] */
-extern void* var_8c1bc410;
+extern NJS_MOTION* var_8c1bc410;
 extern void* var_8c1bc414;
 extern void* var_8c1bc440;
 extern void* var_8c1bc444;
@@ -684,8 +679,8 @@ extern int var_8c227dac; /* zeroed alongside var_8c227d9c by busInitPlaceBus_8c0
  * while boarding (bus_substate_0x3c0==1), capped at var_8c227db4, then counts
  * back down by 0.5/frame once departing (bus_substate_0x3c0==3) until it hits 0. */
 extern float var_8c227db0;
-/* Unsigned-int-to-float conversion of *(var_8c1bc410+4), minus 1.0; set by
- * FUN_8c023610, read by BusTask_8c022bdc (022bdc). */
+/* var_8c1bc410->nbFrame - 1.0, set by FUN_8c023610, read by BusTask_8c022bdc
+ * (022bdc). */
 extern float var_8c227db4;
 extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by BusRenderUpdateCamera_8c025078
 extern float var_8c227dc4[3];

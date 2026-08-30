@@ -33,19 +33,19 @@ STATIC void busDrawSimpleCb_8c027bac(int entityArg, int lod);
  * one more model (field_0x040/044/048) for the phases that use one. */
 void BusDrawUpdateModels_8c027958(BusState *bus)
 {
-    *(int *)(bus->field_0x018 + 0x14) = bus->acc_0x078;
-    *(int *)(bus->field_0x018 + 0x1c) = bus->ang_0x07c;
-    *(int *)(bus->field_0x01c + 0x14) = bus->distance_traveled_0x070;
-    *(int *)(bus->field_0x01c + 0x18) = bus->ang_0x074;
-    *(int *)(bus->field_0x020 + 0x14) = bus->distance_traveled_0x070;
-    *(int *)(bus->field_0x020 + 0x18) = bus->ang_0x074;
-    *(int *)(bus->field_0x024 + 0x14) = bus->distance_traveled_0x070;
+    bus->field_0x018->ang[0] = bus->acc_0x078;
+    bus->field_0x018->ang[2] = bus->ang_0x07c;
+    bus->field_0x01c->ang[0] = bus->distance_traveled_0x070;
+    bus->field_0x01c->ang[1] = bus->ang_0x074;
+    bus->field_0x020->ang[0] = bus->distance_traveled_0x070;
+    bus->field_0x020->ang[1] = bus->ang_0x074;
+    bus->field_0x024->ang[0] = bus->distance_traveled_0x070;
 
-    *(int *)bus->field_0x02c = (bus->blinker_0x080 & 0x1) ? 0x37 : 0x3f;
-    *(int *)bus->field_0x030 = (bus->blinker_0x080 & 0x2) ? 0x37 : 0x3f;
-    *(int *)bus->field_0x034 = (bus->blinker_0x080 & 0x4) ? 0x37 : 0x3f;
-    *(int *)bus->field_0x038 = (bus->blinker_0x080 & 0x8) ? 0x37 : 0x3f;
-    *(int *)bus->field_0x03c = (bus->blinker_0x080 & 0x10) ? 0x37 : 0x3f;
+    bus->field_0x02c->evalflags = (bus->blinker_0x080 & 0x1) ? 0x37 : 0x3f;
+    bus->field_0x030->evalflags = (bus->blinker_0x080 & 0x2) ? 0x37 : 0x3f;
+    bus->field_0x034->evalflags = (bus->blinker_0x080 & 0x4) ? 0x37 : 0x3f;
+    bus->field_0x038->evalflags = (bus->blinker_0x080 & 0x8) ? 0x37 : 0x3f;
+    bus->field_0x03c->evalflags = (bus->blinker_0x080 & 0x10) ? 0x37 : 0x3f;
 
     switch (bus->field_0x000) {
     case 0x0:
@@ -58,33 +58,33 @@ void BusDrawUpdateModels_8c027958(BusState *bus)
 
     case 0x14:
     case 0x16:
-        *(int *)(bus->field_0x028 + 0x14) = bus->distance_traveled_0x070;
+        bus->field_0x028->ang[0] = bus->distance_traveled_0x070;
         if ((bus->blinker_0x080 & 0x40) == 0) {
-            *(int *)bus->field_0x044 = 0x3f;
+            bus->field_0x044->evalflags = 0x3f;
         } else {
-            *(int *)bus->field_0x044 = 0x37;
+            bus->field_0x044->evalflags = 0x37;
         }
         break;
 
     case 0xe:
     case 0x10:
-        *(int *)(bus->field_0x028 + 0x14) = bus->distance_traveled_0x070;
+        bus->field_0x028->ang[0] = bus->distance_traveled_0x070;
         break;
 
     case 0x1c:
     case 0x1e:
         if ((bus->blinker_0x080 & 0x20) == 0) {
-            *(int *)bus->field_0x040 = 0x3f;
+            bus->field_0x040->evalflags = 0x3f;
         } else {
-            *(int *)bus->field_0x040 = 0x37;
+            bus->field_0x040->evalflags = 0x37;
         }
         break;
 
     case 0x1a:
         if ((bus->blinker_0x080 & 0x40) != 0) {
-            *(int *)bus->field_0x048 = 0x37;
+            bus->field_0x048->evalflags = 0x37;
         } else {
-            *(int *)bus->field_0x048 = 0x3f;
+            bus->field_0x048->evalflags = 0x3f;
         }
         break;
 
