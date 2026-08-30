@@ -157,7 +157,7 @@ typedef struct {
 
     int ang_0x258;
 
-    int mirrorButtonState_0x25c;
+    int signalSide_0x25c;
     int turnSignalBlinkCounter_0x260;
     int field_0x264;
 
@@ -238,8 +238,14 @@ typedef struct {
     int field_0x328;
     float mirrorDirZ_0x32c;
     float mirrorDist_0x330;
-    int crossingSearchDone_0x334;
-    int crossingSearchSide_0x338;
+    /* Drive FUN_8c023e7e's search for a lane-change target point (0/1 =
+     * search forward/backward from currentLineNodeIdx_0x33c, 2 = idle/done);
+     * armed by the same two buttons that toggle signalSide_0x25c, in
+     * mapped-route steering mode (024280.c). Despite the name, unrelated to
+     * the O_FUMI_* railway level crossing (028258_objects.c) -- "crossing"
+     * here means a route-line intersection, not the railway. */
+    int laneTargetSearchDone_0x334;
+    int laneTargetSearchSide_0x338;
     int currentLineNodeIdx_0x33c;
     int junctionASlot_0x340;
     int field_0x344;
@@ -667,13 +673,13 @@ extern LineBusSegment *var_8c227d84;
 extern LineBusNode *var_8c227d88;
 extern int var_8c227d8c; // 024280
 /* Fixed camera-interest point for BusRenderUpdateCamera_8c025078's
- * var_8c227d9c==4 mode. */
+ * var_cameraMode_8c227d9c==4 mode. */
 extern float var_8c227d90[3];
-extern int var_8c227d9c;
+extern int var_cameraMode_8c227d9c;
 extern Uint32 var_8c227da0;
-extern int var_8c227da4; /* 02d19c/024b4c: shifted into var_8c227da8 each frame alongside var_8c227d9c->var_8c227da0 */
+extern int var_8c227da4; /* 02d19c/024b4c: shifted into var_8c227da8 each frame alongside var_cameraMode_8c227d9c->var_8c227da0 */
 extern int var_8c227da8;
-extern int var_8c227dac; /* zeroed alongside var_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
+extern int var_8c227dac; /* zeroed alongside var_cameraMode_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
 /* Door-timer counter driven by BusTask_8c022bdc (022bdc): counts up by 0.5/frame
  * while boarding (bus_substate_0x3c0==1), capped at var_8c227db4, then counts
  * back down by 0.5/frame once departing (bus_substate_0x3c0==3) until it hits 0. */
@@ -700,7 +706,7 @@ extern Sint32 var_8c227df8;
 extern Sint32 var_8c227dfc;
 /* Local-space offset transformed by the bus's world matrix into
  * posX_0x2fc/posY_0x300/posZ_0x304 for DemoUpdateCamera_8c025906's
- * var_8c227d9c==7 mode; also used directly (untransformed, y relative to
+ * var_cameraMode_8c227d9c==7 mode; also used directly (untransformed, y relative to
  * ground) for mode 5 and transformed for mode 6 by FUN_8c0258ba (025870). */
 extern NJS_POINT3 var_8c227e00;
 /* Selected route's stop-announcement table (one of init_stopsShinjuku_8c045674/

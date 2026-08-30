@@ -179,8 +179,13 @@ STATIC int init_8c04c330[] = {
     26, 17, 21,
 };
 
-/* Indexed by course/scenario id; each entry points to a variable-length
- * {count, id...} list (see init_8c04bef0 etc above). */
+/* Indexed by the local penalty-type id passed as adjust_8c02b464's msgSet
+ * (0-33, e.g. the 0 in adjust_8c02b464(0, -200) below); each entry points to
+ * a variable-length {count, id...} list (see init_8c04bef0 etc above) of
+ * HUD banner glyph ids (drawMsgGlyphRow_8c02b2f0, 02b2f0.c) -- NOT
+ * InstructorLine/INSTR_* ids, a different id space. The practice-mode
+ * results screen separately maps this same msgSet id to an actual INSTR_*
+ * dialog id via init_penaltyMsgSetInstr_8c045208 (01e27c_practice_menu.c). */
 STATIC int *init_8c04c35c[] = {
     init_8c04bef0, init_8c04bf0c, init_8c04bf34, init_8c04bf5c,
     init_8c04bf7c, init_8c04bf9c, init_8c04bfb0, init_8c04bfd4,
@@ -307,7 +312,7 @@ STATIC void handleBump_8c02b6d4(void) {
     float dx, dz, dist;
 
     if (CollideQueueTest_8c02e4ac() != NULL) {
-        adjust_8c02b464(0x1f, -200);
+        adjust_8c02b464(0x1f, -200); /* -> INSTR_NEAR_MISS_PEDESTRIAN */
         var_8c228690 = 0x7fff;
         return;
     }
@@ -366,11 +371,11 @@ STATIC void handleBump_8c02b6d4(void) {
     }
 
     if (var_8c22866c < 0.1388889f) {
-        adjust_8c02b464(1, -30);
+        adjust_8c02b464(1, -30); /* -> INSTR_COLLISION_CAR_MEDIUM */
     } else if (var_8c22866c < 0.2777778f) {
-        adjust_8c02b464(2, -60);
+        adjust_8c02b464(2, -60); /* -> INSTR_COLLISION_CAR_FATAL */
     } else {
-        adjust_8c02b464(0, -200);
+        adjust_8c02b464(0, -200); /* -> INSTR_COLLISION_CAR_MINOR */
     }
 
     armCooldowns_8c02b578(1);
@@ -388,11 +393,11 @@ STATIC void handleFlags_8c02b7ea(void) {
     }
 
     if (flags == 2) {
-        adjust_8c02b464(3, -30);
+        adjust_8c02b464(3, -30); /* -> INSTR_COLLISION_WALL_MINOR */
     } else if (flags == 4) {
-        adjust_8c02b464(4, -60);
+        adjust_8c02b464(4, -60); /* -> INSTR_COLLISION_WALL_MEDIUM */
     } else if (flags == 6) {
-        adjust_8c02b464(5, -200);
+        adjust_8c02b464(5, -200); /* -> INSTR_COLLISION_WALL_SEVERE */
     }
 
     armCooldowns_8c02b578(1);
@@ -402,7 +407,7 @@ STATIC void handleFlags_8c02b7ea(void) {
  * offense code. */
 STATIC void FUN_8c02b864(void) {
     if (var_8c228680 == 0x30000) {
-        adjust_8c02b464(8, -200);
+        adjust_8c02b464(8, -200); /* -> INSTR_OFF_COURSE_MEDIUM */
         armCooldowns_8c02b578(2);
         var_8c228690 = 0x7fff;
     }
@@ -414,9 +419,9 @@ STATIC void FUN_8c02b864(void) {
 STATIC void FUN_8c02b886(void) {
     if (var_8c228680 != 0 && var_8c22868c != 2) {
         if (var_8c228680 == 0x20000) {
-            adjust_8c02b464(7, -40);
+            adjust_8c02b464(7, -40); /* -> INSTR_OFF_COURSE_MEDIUM */
         } else {
-            adjust_8c02b464(6, -15);
+            adjust_8c02b464(6, -15); /* -> INSTR_OFF_COURSE_MINOR */
         }
         armCooldowns_8c02b578(2);
     }
@@ -435,14 +440,14 @@ STATIC void FUN_8c02b8b8(void) {
     int *graded = &var_8c2285c4[13];
 
     if (var_inputMapSel_8c1bb8c8 == 0 && var_8c228680 == 0 && var_8c22868c == 2) {
-        adjust_8c02b464(0x16, -50);
+        adjust_8c02b464(0x16, -50); /* -> INSTR_WRONG_WAY */
         armCooldowns_8c02b578(3);
     }
 
     if ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xfff) == 0) {
         if (var_8c2285fc[0] != 0 && (var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000) == 0) {
             if (ObjectsGetTrafficSignalFrame_8c028900(var_8c2285fc[0] & 0xffff) == 0) {
-                adjust_8c02b464(0x10, -70);
+                adjust_8c02b464(0x10, -70); /* -> INSTR_SIGNAL_VIOLATION */
             }
             armCooldowns_8c02b578(3);
         }
@@ -454,7 +459,7 @@ STATIC void FUN_8c02b8b8(void) {
         var_8c2285fc[1] = signalId;
         if (*graded == 0 && var_8c22866c == 0.0f
             && ObjectsGetTrafficSignalFrame_8c028900(var_8c2285fc[0]) == 0) {
-            adjust_8c02b464(0x11, -5);
+            adjust_8c02b464(0x11, -5); /* -> INSTR_BAD_STOP_LINE */
             *graded = 1;
         }
     }
@@ -479,9 +484,9 @@ STATIC void FUN_8c02b986(void) {
         *repeatCount = 0;
     } else {
         if (*repeatCount == 0) {
-            adjust_8c02b464(0xb, -10);
+            adjust_8c02b464(0xb, -10); /* -> INSTR_WRONG_LANE */
         } else {
-            adjust_8c02b464(0xc, -50);
+            adjust_8c02b464(0xc, -50); /* -> INSTR_WRONG_LANE */
         }
         *repeatCount = *repeatCount + 1;
         armCooldowns_8c02b578(4);
@@ -516,16 +521,16 @@ STATIC void FUN_8c02b986(void) {
                 if (threshold < var_8c2285c4[17]) {
                     var_8c2285c4[17] = 0;
                     if (var_8c2285c4[18] == 0) {
-                        adjust_8c02b464(0xd, -10);
+                        adjust_8c02b464(0xd, -10); /* -> INSTR_LANE_STRADDLE */
                     } else {
-                        adjust_8c02b464(0xe, -20);
+                        adjust_8c02b464(0xe, -20); /* -> INSTR_LANE_STRADDLE */
                     }
                     var_8c2285c4[18] = var_8c2285c4[18] + 1;
                 }
             }
         }
     } else {
-        adjust_8c02b464(0x12, -10);
+        adjust_8c02b464(0x12, -10); /* -> INSTR_ILLEGAL_LANE_CHANGE */
         armCooldowns_8c02b578(4);
     }
 
@@ -540,7 +545,7 @@ STATIC void FUN_8c02b986(void) {
  * limit derived from busState junctionARoadFlags_0x34c, tracked via var_8c2285c4[12]
  * (0x2285f4, no export of its own); and a lane-change without the turn
  * signal armed (var_8c2285c4[27] i.e. var_8c22861c[5] vs var_8c228684,
- * var_8c1bbd9c->mirrorButtonState_0x25c, var_8c228688/var_8c228634[0]). The tail
+ * var_8c1bbd9c->signalSide_0x25c, var_8c228688/var_8c228634[0]). The tail
  * tracks whether the bus is stopped at a signal (var_8c2285c4[20], i.e.
  * var_8c2285fc[6]) and, once it moves off with the wrong turn signal for
  * the lane taken, grades a fourth. */
@@ -552,7 +557,7 @@ STATIC void FUN_8c02bb1c(void) {
         && (var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff000000) != 0
         && ObjectsGetTrafficSignalFrame_8c028900(var_8c2285c4[15] & 0xffff) == 0
         && var_8c22866c == 0.0f) {
-        adjust_8c02b464(0x13, -80);
+        adjust_8c02b464(0x13, -80); /* -> INSTR_BLOCK_INTERSECTION */
         armCooldowns_8c02b578(5);
     }
 
@@ -565,19 +570,19 @@ STATIC void FUN_8c02bb1c(void) {
         if (var_8c2285c4[12] < 0) {
             var_8c2285c4[12] = 0x78;
             if (speedLimit + 0.18518518f <= var_8c22866c) {
-                adjust_8c02b464(10, -30);
+                adjust_8c02b464(10, -30); /* -> INSTR_SPEEDING_MAJOR */
             } else {
-                adjust_8c02b464(9, -10);
+                adjust_8c02b464(9, -10); /* -> INSTR_SPEEDING_MINOR */
             }
         }
     }
 
     if (var_inputMapSel_8c1bb8c8 == 0) {
         laneDelta = (var_8c2285c4[27] & ~1) - (var_8c228684 & ~1);
-        if ((laneDelta < 0 && var_8c1bbd9c->mirrorButtonState_0x25c != 1)
-            || (laneDelta >= 1 && var_8c1bbd9c->mirrorButtonState_0x25c != 2)) {
+        if ((laneDelta < 0 && var_8c1bbd9c->signalSide_0x25c != 1)
+            || (laneDelta >= 1 && var_8c1bbd9c->signalSide_0x25c != 2)) {
             if ((var_8c228688 & 0xf000000) != 0 && (var_8c228634[0] & 0xf000000) != 0) {
-                adjust_8c02b464(0xf, -8);
+                adjust_8c02b464(0xf, -8); /* -> INSTR_NO_SIGNAL */
             }
         }
     }
@@ -596,7 +601,7 @@ STATIC void FUN_8c02bb1c(void) {
     }
 
     if ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xc0000000) == 0x40000000) {
-        if (var_busState_8c1bb9d0.mirrorButtonState_0x25c == 1) {
+        if (var_busState_8c1bb9d0.signalSide_0x25c == 1) {
             var_8c2285c4[20] = 0;
             return;
         }
@@ -605,13 +610,13 @@ STATIC void FUN_8c02bb1c(void) {
             var_8c2285c4[20] = 0;
             return;
         }
-        if (var_busState_8c1bb9d0.mirrorButtonState_0x25c == 2) {
+        if (var_busState_8c1bb9d0.signalSide_0x25c == 2) {
             var_8c2285c4[20] = 0;
             return;
         }
     }
 
-    adjust_8c02b464(0xf, -8);
+    adjust_8c02b464(0xf, -8); /* -> INSTR_NO_SIGNAL */
     var_8c2285c4[20] = 0;
 }
 
@@ -633,9 +638,9 @@ STATIC void FUN_8c02bcd8(void) {
     int skipHoldTimer = 0;
 
     laneDelta = (var_8c22861c[5] & ~1) - (var_8c228684 & ~1);
-    if ((laneDelta < 0 && var_8c1bbd9c->mirrorButtonState_0x25c == 1)
-        || (laneDelta > 0 && var_8c1bbd9c->mirrorButtonState_0x25c == 2)) {
-        var_8c1bbd9c->mirrorButtonState_0x25c = 0;
+    if ((laneDelta < 0 && var_8c1bbd9c->signalSide_0x25c == 1)
+        || (laneDelta > 0 && var_8c1bbd9c->signalSide_0x25c == 2)) {
+        var_8c1bbd9c->signalSide_0x25c = 0;
         var_8c1bbd9c->mirror_0x268 = 0;
     }
 
@@ -644,7 +649,7 @@ STATIC void FUN_8c02bcd8(void) {
             var_8c2285fc[5] = 1;
         }
     } else if ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xc0000000) == 0) {
-        var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
+        var_busState_8c1bb9d0.signalSide_0x25c = 0;
         var_busState_8c1bb9d0.mirror_0x268 = 0;
         var_8c2285fc[5] = 0;
     }
@@ -658,7 +663,7 @@ STATIC void FUN_8c02bcd8(void) {
 
     if (sigState == 2) {
         if (turnBits != 0x10000000) {
-            adjust_8c02b464(0x14, -30);
+            adjust_8c02b464(0x14, -30); /* -> INSTR_UKN_49 */
             var_8c22861c[3] = 1;
         } else if (var_8c22866c == 0.0f) {
             var_8c22861c[3] = 5;
@@ -680,7 +685,7 @@ STATIC void FUN_8c02bcd8(void) {
             var_8c22861c[4] = var_8c22861c[4] - 1;
             if (var_8c22861c[4] < 0) {
                 var_8c22861c[4] = 0x78;
-                adjust_8c02b464(0x15, -50);
+                adjust_8c02b464(0x15, -50); /* -> INSTR_UKN_49 */
             }
         } else {
             var_8c22861c[4] = 0;
@@ -707,7 +712,7 @@ STATIC void FUN_8c02bcd8(void) {
             var_8c2285c4[35] = var_8c2285c4[35] + 1;
             if (var_8c2285c4[35] > 0xe) {
                 var_8c2285c4[33] = 0;
-                adjust_8c02b464(0x17, -5);
+                adjust_8c02b464(0x17, -5); /* -> INSTR_RAPID_ACCEL */
             }
         }
     }
@@ -720,7 +725,7 @@ STATIC void FUN_8c02bcd8(void) {
     {
         float *timer654 = (float *)&var_8c2285c4[36];
         if (*timer654 > 0.01f && var_8c2285c4[37] == 0) {
-            adjust_8c02b464(0x18, -5);
+            adjust_8c02b464(0x18, -5); /* -> INSTR_HARD_BRAKE */
             *timer654 = 0.0f;
             var_8c2285c4[37] = 0x3c;
             VibStart_8c010f7a(3);
@@ -733,7 +738,7 @@ STATIC void FUN_8c02bcd8(void) {
             /* var_8c2285c4[38] (0x22865c, no export of its own) */
             var_8c2285c4[38] = var_8c2285c4[38] - 1;
             if (var_8c2285c4[38] < 0) {
-                adjust_8c02b464(0x19, -5);
+                adjust_8c02b464(0x19, -5); /* -> INSTR_SWERVING */
                 var_8c2285c4[38] = 0x3c;
             }
         } else {
@@ -741,10 +746,10 @@ STATIC void FUN_8c02bcd8(void) {
         }
     }
 
-    if (var_8c2285fc[7] == var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
+    if (var_8c2285fc[7] == var_busState_8c1bb9d0.signalSide_0x25c) {
         var_8c22861c[0] = var_8c22861c[0] + 1;
     } else {
-        var_8c2285fc[7] = var_busState_8c1bb9d0.mirrorButtonState_0x25c;
+        var_8c2285fc[7] = var_busState_8c1bb9d0.signalSide_0x25c;
         var_8c22861c[0] = 0;
     }
 
@@ -752,7 +757,7 @@ STATIC void FUN_8c02bcd8(void) {
         if (var_8c22866c == 0.0f) {
             var_8c22861c[2] = var_8c22861c[2] + 1;
             if (var_8c22861c[2] > 0x708) {
-                adjust_8c02b464(0x13, -80);
+                adjust_8c02b464(0x13, -80); /* -> INSTR_BLOCK_INTERSECTION */
                 var_8c22861c[2] = 0;
             }
         } else {
@@ -766,16 +771,16 @@ STATIC void FUN_8c02bcd8(void) {
         || var_stopPhase_8c2285e4 == 0
         || var_8c2264c4 != 0) {
         if (var_8c2285c4[31] != 0) {
-            adjust_8c02b464(0x1e, 20);
+            adjust_8c02b464(0x1e, 20); /* -> INSTR_UKN_49 */
             var_8c2285c4[31] = 0;
         }
     } else {
-        adjust_8c02b464(0x20, -5);
+        adjust_8c02b464(0x20, -5); /* -> INSTR_ANNOUNCEMENT */
         var_8c2264c4 = 1;
     }
 
     if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 2 && var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
-        adjust_8c02b464(0x21, -15);
+        adjust_8c02b464(0x21, -15); /* -> INSTR_DOOR_OPERATION */
         var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 1;
     }
 
@@ -783,7 +788,7 @@ STATIC void FUN_8c02bcd8(void) {
         var_8c2285dc = var_8c2285dc - 1;
         if (var_8c2285dc < 0) {
             var_8c2285dc = 0;
-            adjust_8c02b464(0x1d, -200);
+            adjust_8c02b464(0x1d, -200); /* -> INSTR_TIME_MANAGEMENT */
             return;
         }
     } else {
@@ -1089,16 +1094,16 @@ STATIC void taskCallback_8c02c072() {
                 if (var_inputMapSel_8c1bb8c8 == 0) {
                     int diff = var_8c228714 - var_busState_8c1bb9d0.ang_0x250;
                     if ((diff < -0x71c && diff > -0xf8e3) || (diff > 0x71c && diff < 0xf8e3)) {
-                        adjust_8c02b464(0x1b, -3);
+                        adjust_8c02b464(0x1b, -3); /* -> INSTR_BAD_STOP_POSITION_1 */
                     }
                 }
-                if (var_busState_8c1bb9d0.mirrorButtonState_0x25c != 1 || var_8c22861c[0] < 0x3c) {
-                    adjust_8c02b464(0xf, -8);
+                if (var_busState_8c1bb9d0.signalSide_0x25c != 1 || var_8c22861c[0] < 0x3c) {
+                    adjust_8c02b464(0xf, -8); /* -> INSTR_NO_SIGNAL */
                 }
             } else if (var_8c2285c4[9] == 1) {
-                adjust_8c02b464(0x1c, -10);
+                adjust_8c02b464(0x1c, -10); /* -> INSTR_BAD_STOP_POSITION_1 */
             } else if (var_8c2285c4[9] == 2) {
-                adjust_8c02b464(0x1a, -20);
+                adjust_8c02b464(0x1a, -20); /* -> INSTR_MISSED_STOP */
             }
 
             var_8c2285c4[0] = 4;

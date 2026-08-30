@@ -41,7 +41,7 @@
           .IMPORT     _RouteLoadIsPvmReady_8c01432a
           .IMPORT     _BusStopFreeTaskGroup_8c02ca96
           .IMPORT     _njReleaseTexture
-          .IMPORT     _var_8c227d9c
+          .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_8c227da4
           .IMPORT     _FUN_8c024f32
           .IMPORT     _FUN_8c024b86
@@ -923,7 +923,7 @@ LP_GEN_70221:
           .DATA.L _BusStopFreeTaskGroup_8c02ca96 ; H'8C02D834
           .DATA.L _var_interiorTexlist_8c1bc438 ; H'8C02D838
           .DATA.L _njReleaseTexture ; H'8C02D83C
-          .DATA.L _var_8c227d9c ; H'8C02D840
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C02D840
           .DATA.L _var_8c227da4 ; H'8C02D844
           .DATA.L _FUN_8c024f32 ; H'8C02D848
 LAB_8c02d84c:
@@ -1064,7 +1064,7 @@ LP_GEN_72278:
           .DATA.L _StopDrawLightEnd_8c02d146 ; H'8C02D950
           .DATA.L _var_isFading_8c226568 ; H'8C02D954
           .DATA.L _var_8c1bbc84 ; H'8C02D958
-          .DATA.L _var_8c227d9c ; H'8C02D95C
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C02D95C
           .DATA.L _var_8c227da4 ; H'8C02D960
           .DATA.L _FUN_8c024f32 ; H'8C02D964
           .SECTION    D, DATA, ALIGN=4

@@ -154,7 +154,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x254, -(int)((1.0 * 65536.0) / 6.283184051513672));
     }
 
-    public function test_segment_exhausted_switches_via_mirrorButtonState_0x25c(): void
+    public function test_segment_exhausted_switches_via_signalSide_0x25c(): void
     {
         $this->resolveSymbols();
 
@@ -169,7 +169,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x2b8, $p0);
         $this->initUint32($base + 0x2bc, $this->fdec(20.0));
         $this->initUint32($base + 0x33c, 7);  // currentLineNodeIdx_0x33c: current node index
-        $this->initUint32($base + 0x25c, 1);  // mirrorButtonState_0x25c selects nodes[idx].alt[1]
+        $this->initUint32($base + 0x25c, 1);  // signalSide_0x25c selects nodes[idx].alt[1]
 
         $nodes = $this->allocNodes(8);
         $this->setNodeAlt($nodes, 7, 1, 3);      // alt[1] -> segment 3

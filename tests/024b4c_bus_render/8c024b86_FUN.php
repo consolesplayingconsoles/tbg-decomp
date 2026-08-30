@@ -18,14 +18,14 @@ if (!function_exists('fdec')) {
  * _FUN_8c024f32 is defined in this same unit. The asm object still traps
  * the BSR and requires an explicit shouldCall(); the C object's direct call
  * to a locally-defined function is not interceptable, so it genuinely runs
- * -- var_8c227da0 is seeded with 1 so that after the shift var_8c227d9c ==
+ * -- var_8c227da0 is seeded with 1 so that after the shift var_cameraMode_8c227d9c ==
  * 1, _FUN_8c024f32's no-op state (its own behavior is covered by
  * 8c024f32_FUN.php).
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_8c227da0', 4);
         $this->setSize('_var_8c227da4', 4);
         $this->setSize('_var_8c227da8', 4);
@@ -51,7 +51,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 0);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->initUint32($this->addressOf('_var_8c227da0'), 1);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_8c227da8'), 7);
@@ -68,7 +68,7 @@ return new class extends TestCase {
 
         $this->call('_FUN_8c024b86')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227d9c'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_cameraMode_8c227d9c'), 1);
         $this->shouldWriteLong($this->addressOf('_var_8c227da4'), 7);
         $this->shouldWriteFloat($this->addressOf('_var_8c227dd8'), 1.5);
         $this->shouldWriteFloat($this->addressOf('_var_8c227de0'), 2.5);

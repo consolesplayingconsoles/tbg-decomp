@@ -18,8 +18,8 @@ if (!function_exists('fdec')) {
  * quarter-sine ramp over var_8c227df8, driven by a state machine on
  * var_8c227da4 (0..3) gated by a scripted cue nibble in
  * busState.markAudioCue_0x3b8's bits 24-27. The Y button cycles the camera mode
- * var_8c227d9c (0..3) when allowed. Then positions/aims the camera per
- * var_8c227d9c (0=fixed follow, 1=bump/sway follow, 2/3=smooth chase via
+ * var_cameraMode_8c227d9c (0..3) when allowed. Then positions/aims the camera per
+ * var_cameraMode_8c227d9c (0=fixed follow, 1=bump/sway follow, 2/3=smooth chase via
  * positionCamera_8c024d6c, 4=fixed on var_8c227d90; modes 0/1 also
  * roll by recent Y history), activates the camera, recomputes the simple
  * light direction, and queues the bus draw callback for modes 0/2/3.
@@ -31,7 +31,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_8c227da0', 4);
         $this->setSize('_var_8c227da4', 4);
         $this->setSize('_var_8c227da8', 4);
@@ -145,7 +145,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 99); // sentinel: no valid positioning mode
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99); // sentinel: no valid positioning mode
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
@@ -160,7 +160,7 @@ return new class extends TestCase {
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
         $this->setCue($base, 0x05000000); // nibble 5
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 3);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 3);
         $this->initFloat($this->addressOf('_var_8c227df0'), 12.0);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
@@ -188,7 +188,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c227df8'), 0x1000);
         $this->initFloat($this->addressOf('_var_8c227dd8'), 10.0);
         $this->initFloat($this->addressOf('_var_8c227de8'), 4.0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 99);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
@@ -208,7 +208,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c227da4'), 1);
         $this->initUint32($this->addressOf('_var_8c227df8'), 0x3f00);
         $this->initFloat($this->addressOf('_var_8c227de0'), 20.0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 99);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
@@ -228,7 +228,7 @@ return new class extends TestCase {
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 2);
         $this->setCue($base, 0); // not exactly 0x09000000
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 99);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
@@ -243,7 +243,7 @@ return new class extends TestCase {
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 2);
         $this->setCue($base, 0x09000000);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->initFloat($this->addressOf('_var_8c227df0'), 3.0); // < 5.0
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
@@ -271,7 +271,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c227df8'), 0x2000);
         $this->initFloat($this->addressOf('_var_8c227dd8'), 6.0);
         $this->initFloat($this->addressOf('_var_8c227de8'), 2.0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 99);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
@@ -291,7 +291,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c227da4'), 3);
         $this->initUint32($this->addressOf('_var_8c227df8'), 0x3f00);
         $this->initFloat($this->addressOf('_var_8c227de0'), 8.0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 99);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
@@ -313,11 +313,11 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
         $this->initUint32($this->addressOf('_var_8c1bbc84'), 1);
         $this->initUint32($this->addressOf('_var_8c227dac'), 0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 1);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 1);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227d9c'), 2);
+        $this->shouldWriteLong($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->shouldCall('_FUN_8c024f32');
 
         $this->expectAlwaysAndTail();
@@ -337,7 +337,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
         $this->initUint32($this->addressOf('_var_8c1bbc84'), 1);
         $this->initUint32($this->addressOf('_var_8c227dac'), 0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 3);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 3);
 
         $this->initFloat($base + 0x0f4, 5.0);
         $this->initFloat($base + 0x0f8, 6.0);
@@ -349,8 +349,8 @@ return new class extends TestCase {
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227d9c'), 4);
-        $this->shouldWriteLong($this->addressOf('_var_8c227d9c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cameraMode_8c227d9c'), 4);
+        $this->shouldWriteLong($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->shouldCall('_FUN_8c024f32');
 
         $this->expectAlwaysAndTail();
@@ -398,7 +398,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
         $this->initUint32($this->addressOf('_var_8c1bbc84'), 1);
         $this->initUint32($this->addressOf('_var_8c227dac'), 1); // ramping
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2); // >= 2
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2); // >= 2
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
@@ -416,7 +416,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 0);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->initUint32($base + 0x078, 0); // acc_0x078
         $this->initUint32($base + 0x07c, 321); // ang_0x07c
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc7 + 1, 0); // progress flag clear
@@ -475,7 +475,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 0);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->initUint32($base + 0x078, 0); // acc_0x078
         $this->initUint32($base + 0x07c, 999); // ang_0x07c (overridden to 0)
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc7 + 1, 1); // progress flag set
@@ -536,7 +536,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 1);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 1);
         $this->initUint32($base + 0x078, 0);
         $this->initUint32($base + 0x07c, 42);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc7 + 1, 0);
@@ -582,7 +582,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 4);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 4);
 
         $this->initFloat($base + 0x2fc, 50.0);
         $this->initFloat($base + 0x300, 60.0);

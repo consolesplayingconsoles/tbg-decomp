@@ -5987,7 +5987,7 @@ STATIC void drawRowMaterialModel_8c02a206(int state)
  * the row's material to invisible beyond a distance of 20 from the bus
  * (averaging var_busState_8c1bb9d0's two position pairs against the row's
  * own position, per ObjectAssetType5Extra), ramping from opaque at 10 down
- * to hidden at 20 within that band, gated by var_8c227d9c (some quality/LOD
+ * to hidden at 20 within that band, gated by var_cameraMode_8c227d9c (some quality/LOD
  * level) being at least 2; then pushes two draw calls (opaque and
  * translucent fade layers) of the row's model via
  * drawRowMaterialModel_8c02a206. task is unused. */
@@ -5995,7 +5995,7 @@ STATIC void rowMaterialModelTask_8c02a27c(void *task, RowTaskState *state)
 {
     ObjectAssetType5Extra *pos = &state->pos_0x4c;
 
-    if (var_8c227d9c < 2) {
+    if (var_cameraMode_8c227d9c < 2) {
         state->material_0x68.a = 0.0f;
     } else {
         float dx = (var_busState_8c1bb9d0.posX_0x0f4 + var_busState_8c1bb9d0.posX_0x2fc) / 2.0f

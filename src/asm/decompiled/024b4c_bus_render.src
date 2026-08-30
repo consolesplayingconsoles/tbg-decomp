@@ -1,5 +1,5 @@
 ; 8c024b4c
-          .IMPORT     _var_8c227d9c
+          .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_8c227da0
           .IMPORT     _var_8c227da4
           .IMPORT     _var_8c227da8
@@ -199,7 +199,7 @@ LP_GEN_17430:
           .DATA.W H'0084 ; H'8C024C36
           .DATA.W H'03C0 ; H'8C024C38
           .RES.W 1 ; H'8C024C3A
-          .DATA.L _var_8c227d9c ; H'8C024C3C
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C024C3C
           .DATA.L _var_8c227da0 ; H'8C024C40
           .DATA.L _var_8c227da4 ; H'8C024C44
           .DATA.L _var_8c227da8 ; H'8C024C48
@@ -601,7 +601,7 @@ LP_GEN_17475:
           .DATA.L H'41900000 ; H'8C024FAC
           .DATA.L _var_8c227df0 ; H'8C024FB0
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024FB4
-          .DATA.L _var_8c227d9c ; H'8C024FB8
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C024FB8
 LAB_8c024fbc:
           MOV.W       LP_GEN_98635,R0
           MOV.L       @R6,R3
@@ -704,7 +704,7 @@ LP_GEN_98635:
           .DATA.W H'00FC ; H'8C02506C
           .DATA.W H'0304 ; H'8C02506E
           .DATA.L _var_8c227de0 ; H'8C025070
-          .DATA.L _var_8c227d9c ; H'8C025074
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C025074
 _BusRenderUpdateCamera_8c025078:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
@@ -840,7 +840,7 @@ LP_GEN_61715:
           .DATA.W H'0222 ; H'8C025168
           .RES.W 1 ; H'8C02516A
           .DATA.L _var_8c227dac ; H'8C02516C
-          .DATA.L _var_8c227d9c ; H'8C025170
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C025170
           .DATA.L _var_8c227df0 ; H'8C025174
           .DATA.L _var_busState_8c1bb9d0 ; H'8C025178
           .DATA.L H'40A00000 ; H'8C02517C
@@ -1030,7 +1030,7 @@ LP_GEN_48962:
           .RES.W 1 ; H'8C0252DE
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C0252E0
           .DATA.L _var_8c1bbc84 ; H'8C0252E4
-          .DATA.L _var_8c227d9c ; H'8C0252E8
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C0252E8
           .DATA.L _var_8c1bb904 ; H'8C0252EC
           .DATA.L _njInitCamera ; H'8C0252F0
           .DATA.L _njSetCameraAngle ; H'8C0252F4

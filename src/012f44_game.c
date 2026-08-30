@@ -132,7 +132,7 @@ STATIC void task_8c012f9c(Task *task, void* state) {
     } else {
         var_fadeArrivalVariant_8c22655c = 0;
         if (r7 == FALSE) {
-            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
+            var_busState_8c1bb9d0.signalSide_0x25c = 0;
         }
 
         var_busState_8c1bb9d0.mirror_0x268 = 0;

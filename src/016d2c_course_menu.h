@@ -52,38 +52,50 @@ enum {
     // INSTR_LESSON_FAIL_MAJOR     = 31,
 
     // --- Driving Mistakes / Penalties ---
-    // INSTR_COLLISION_CAR_MINOR   = 32,
-    // INSTR_COLLISION_CAR_MEDIUM  = 33,
-    // INSTR_COLLISION_CAR_SEVERE  = 34,
-    // INSTR_COLLISION_CAR_FATAL   = 35,
-    // INSTR_COLLISION_WALL_MINOR  = 36,
-    // INSTR_COLLISION_WALL_MEDIUM = 37,
-    // INSTR_COLLISION_WALL_SEVERE = 38,
-    // INSTR_NEAR_MISS_PEDESTRIAN  = 39,
-    // INSTR_OFF_COURSE_MINOR      = 40,
-    // INSTR_OFF_COURSE_MEDIUM     = 41,
-    // INSTR_OFF_COURSE_MAJOR      = 42,
-    // INSTR_SPEEDING_MINOR        = 43,
-    // INSTR_SPEEDING_MAJOR        = 44,
-    // INSTR_WRONG_LANE            = 45,
-    // INSTR_LANE_STRADDLE         = 46,
-    // INSTR_NO_SIGNAL             = 47,
-    // INSTR_NO_SIGNAL_TURN        = 48,
-    // INSTR_UKN_49                 = 49,
-    // INSTR_SIGNAL_VIOLATION      = 50,
-    // INSTR_BAD_STOP_LINE         = 51,
-    // INSTR_ILLEGAL_LANE_CHANGE   = 52,
-    // INSTR_BLOCK_INTERSECTION    = 53,
-    // INSTR_WRONG_WAY             = 54,
-    // INSTR_RAPID_ACCEL           = 55,
-    // INSTR_HARD_BRAKE            = 56,
-    // INSTR_SWERVING              = 57,
-    // INSTR_MISSED_STOP           = 58,
-    // INSTR_BAD_STOP_POSITION_1   = 59,
-    // INSTR_BAD_STOP_POSITION_2   = 60,
-    // INSTR_TIME_MANAGEMENT       = 61,
-    // INSTR_ANNOUNCEMENT          = 62,
-    // INSTR_DOOR_OPERATION        = 63,
+    // Raised only in practice mode: 02b464_drive_points.c grades penalties
+    // through adjust_8c02b464(msgSet, delta), where msgSet is a LOCAL id
+    // (see PENALTY_MSG_* in 02b464_drive_points.c), not one of these. The
+    // practice results screen (01e27c_practice_menu.c) converts the run's
+    // single worst msgSet to one of these INSTR_* ids via
+    // init_penaltyMsgSetInstr_8c045208[] and shows it as the lesson's
+    // closing comment. Story/free-run results (01d7fc_results.c) never
+    // consult that table -- only practice mode surfaces a per-offense
+    // instructor line; story/free-run show just the pass/fail badge.
+    // COLLISION_CAR_SEVERE, OFF_COURSE_MAJOR, NO_SIGNAL_TURN and
+    // BAD_STOP_POSITION_2 never appear as a value in that table, so as far
+    // as traced they are defined but never actually shown.
+    INSTR_COLLISION_CAR_MINOR   = 32,
+    INSTR_COLLISION_CAR_MEDIUM  = 33,
+    INSTR_COLLISION_CAR_SEVERE  = 34, // never raised (see above)
+    INSTR_COLLISION_CAR_FATAL   = 35,
+    INSTR_COLLISION_WALL_MINOR  = 36,
+    INSTR_COLLISION_WALL_MEDIUM = 37,
+    INSTR_COLLISION_WALL_SEVERE = 38,
+    INSTR_NEAR_MISS_PEDESTRIAN  = 39,
+    INSTR_OFF_COURSE_MINOR      = 40,
+    INSTR_OFF_COURSE_MEDIUM     = 41,
+    INSTR_OFF_COURSE_MAJOR      = 42, // never raised (see above)
+    INSTR_SPEEDING_MINOR        = 43,
+    INSTR_SPEEDING_MAJOR        = 44,
+    INSTR_WRONG_LANE            = 45,
+    INSTR_LANE_STRADDLE         = 46,
+    INSTR_NO_SIGNAL             = 47,
+    INSTR_NO_SIGNAL_TURN        = 48, // never raised (see above)
+    INSTR_UKN_49                = 49,
+    INSTR_SIGNAL_VIOLATION      = 50,
+    INSTR_BAD_STOP_LINE         = 51,
+    INSTR_ILLEGAL_LANE_CHANGE   = 52,
+    INSTR_BLOCK_INTERSECTION    = 53,
+    INSTR_WRONG_WAY             = 54,
+    INSTR_RAPID_ACCEL           = 55,
+    INSTR_HARD_BRAKE            = 56,
+    INSTR_SWERVING              = 57,
+    INSTR_MISSED_STOP           = 58,
+    INSTR_BAD_STOP_POSITION_1   = 59,
+    INSTR_BAD_STOP_POSITION_2   = 60, // never raised (see above)
+    INSTR_TIME_MANAGEMENT       = 61,
+    INSTR_ANNOUNCEMENT          = 62,
+    INSTR_DOOR_OPERATION        = 63,
 
     // --- Free Run Mode ---
     INSTR_FREE_RUN_INTRO_2       = 64,

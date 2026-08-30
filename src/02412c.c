@@ -35,7 +35,7 @@ int BusLineAdvance_8c02412c(void)
             LineBusNode *node = &nodes[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c];
             int nextIdx;
 
-            if (node->altNext_0x04[1] != 0xffff && var_busState_8c1bb9d0.mirrorButtonState_0x25c == 1) {
+            if (node->altNext_0x04[1] != 0xffff && var_busState_8c1bb9d0.signalSide_0x25c == 1) {
                 nextIdx = node->altNext_0x04[1];
             } else if (node->altNext_0x04[2] != 0xffff && var_8c1bbc2c == 2) {
                 nextIdx = node->altNext_0x04[2];

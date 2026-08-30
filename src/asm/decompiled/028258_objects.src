@@ -98,7 +98,7 @@
           .IMPORT     _njFogEnable
           .IMPORT     _njSetConstantAttr
           .IMPORT     _njSetConstantMaterial
-          .IMPORT     _var_8c227d9c
+          .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_fadeLightDir0_8c2264d8
           .IMPORT     _var_fadeLightDir1_8c2264e4
           .IMPORT     _var_8c2264f4
@@ -4667,7 +4667,7 @@ LP_GEN_33964:
           .DATA.W H'02FC ; H'8C02A3C6
           .DATA.W H'00FC ; H'8C02A3C8
           .DATA.W H'0304 ; H'8C02A3CA
-          .DATA.L _var_8c227d9c ; H'8C02A3CC
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C02A3CC
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02A3D0
           .DATA.L _njSqrt ; H'8C02A3D4
           .DATA.L H'41A00000 ; H'8C02A3D8

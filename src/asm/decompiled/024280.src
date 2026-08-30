@@ -9,7 +9,7 @@
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_8c1bbcb4
           .IMPORT     _njSin
-          .IMPORT     _var_8c227d9c
+          .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_8c22864c
           .IMPORT     _asinf
           .IMPORT     _var_8c1ba376
@@ -278,7 +278,7 @@ LP_GEN_79582:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024458
           .DATA.L _var_8c1bbcb4 ; H'8C02445C
           .DATA.L _njSin ; H'8C024460
-          .DATA.L _var_8c227d9c ; H'8C024464
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C024464
           .DATA.L _var_8c22864c ; H'8C024468
           .DATA.L H'3F25ED09 ; H'8C02446C
 LAB_8c024470:
@@ -375,7 +375,7 @@ LP_GEN_22782:
           .DATA.W H'02F4 ; H'8C024518
           .DATA.W H'02E4 ; H'8C02451A
           .DATA.L H'3983126F ; H'8C02451C
-          .DATA.L _var_8c227d9c ; H'8C024520
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C024520
           .DATA.L _asinf ; H'8C024524
           .DATA.L H'47800000 ; H'8C024528
           .DATA.L H'40C90FD8 ; H'8C02452C

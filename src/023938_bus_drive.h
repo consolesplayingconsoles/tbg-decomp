@@ -19,7 +19,7 @@ typedef struct {
 } LineBusSegment;
 
 /* var_8c227d88 entry, 0xc bytes/6 ushorts; altNext_0x04[1] is the next
- * segment when mirrorButtonState_0x25c == 1, altNext_0x04[2] is the next segment when
+ * segment when signalSide_0x25c == 1, altNext_0x04[2] is the next segment when
  * var_8c1bbc2c == 2, altNext_0x04[0] is the default (used by 02412c);
  * fwdNext_0x00/backNext_0x02 are read by FUN_8c023e7e. */
 typedef struct {

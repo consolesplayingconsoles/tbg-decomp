@@ -350,13 +350,13 @@ void FUN_8c025870(void)
 }
 
 /* Positions the bus's draw position (posX_0x2fc/posY_0x300/posZ_0x304) for
- * DemoUpdateCamera_8c025906's var_8c227d9c==5/6 modes: state 5 pins it to
+ * DemoUpdateCamera_8c025906's var_cameraMode_8c227d9c==5/6 modes: state 5 pins it to
  * var_8c227e00 directly (y relative to ground); state 6 transforms
  * var_8c227e00 by the bus's world matrix instead. No-op for any other
  * state. Called by DemoUpdateCamera_8c025906's LAB_8c0259e8 helper task. */
 STATIC void FUN_8c0258ba(void)
 {
-    switch (var_8c227d9c) {
+    switch (var_cameraMode_8c227d9c) {
     case 5:
         var_busState_8c1bb9d0.posX_0x2fc = var_8c227e00.x;
         var_busState_8c1bb9d0.posY_0x300 = var_busState_8c1bb9d0.posY_0x0f8 + var_8c227e00.y;
@@ -381,13 +381,13 @@ void DemoUpdateCamera_8c025906(void)
     njSetCameraAngle(&var_8c1bb904, 10194);
     njSetCameraDepth(&var_8c1bb904, -1.0f, -300.0f);
 
-    if (var_8c227d9c == 7) {
+    if (var_cameraMode_8c227d9c == 7) {
         njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084,
                     &var_8c227e00,
                     (NJS_POINT3 *)&var_busState_8c1bb9d0.posX_0x2fc);
     }
 
-    if (var_8c227d9c == 5 || var_8c227d9c == 6 || var_8c227d9c == 7) {
+    if (var_cameraMode_8c227d9c == 5 || var_cameraMode_8c227d9c == 6 || var_cameraMode_8c227d9c == 7) {
         njTranslateCameraPosition(&var_8c1bb904,
                                    var_busState_8c1bb9d0.posX_0x2fc,
                                    var_busState_8c1bb9d0.posY_0x300,
@@ -411,7 +411,7 @@ void DemoUpdateCamera_8c025906(void)
  *
  * Phase 0 watches for that id to change (or var_8c227e10 to re-arm it):
  * looks up the matching StopRecord in var_8c227e0c, switches the demo
- * camera into that record's state (var_8c227d9c = kind+5), copies its
+ * camera into that record's state (var_cameraMode_8c227d9c = kind+5), copies its
  * position into var_8c227e00, opens (or clears) the message box for its
  * name, repositions the bus draw point via FUN_8c0258ba, and moves to phase
  * 1. Phase 1 just waits for the id to drop back to 0 to return to phase 0.
@@ -439,7 +439,7 @@ STATIC void stopTextboxTask_8c0259e8(Task *task, void *stateArg)
                 StopRecord *rec = (StopRecord *)var_8c227e0c + stopId;
 
                 var_8c227dd4 = stopId;
-                var_8c227d9c = rec->kind_0x00 + 5;
+                var_cameraMode_8c227d9c = rec->kind_0x00 + 5;
                 var_8c227e00 = rec->pos_0x04;
 
                 if (rec->name_0x10[0] != 0) {

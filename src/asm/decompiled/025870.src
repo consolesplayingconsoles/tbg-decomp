@@ -6,7 +6,7 @@
           .IMPORT     _njTranslateCameraPosition
           .IMPORT     _njPointCameraInterest
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _var_8c227d9c
+          .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_8c227e00
           .IMPORT     _njCalcPoint
           .IMPORT     _var_8c1bb904
@@ -167,7 +167,7 @@ LP_GEN_52398:
           .DATA.L H'40400000 ; H'8C025974
           .DATA.L _njPointCameraInterest ; H'8C025978
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02597C
-          .DATA.L _var_8c227d9c ; H'8C025980
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C025980
           .DATA.L _var_8c227e00 ; H'8C025984
           .DATA.L _njCalcPoint ; H'8C025988
           .DATA.L _var_8c1bb904 ; H'8C02598C
@@ -320,7 +320,7 @@ LP_GEN_71160:
           .DATA.L _var_8c227e10 ; H'8C025AB0
           .DATA.L _var_8c227dd4 ; H'8C025AB4
           .DATA.L _var_8c227e0c ; H'8C025AB8
-          .DATA.L _var_8c227d9c ; H'8C025ABC
+          .DATA.L _var_cameraMode_8c227d9c ; H'8C025ABC
           .DATA.L __quick_odd_mvn ; H'8C025AC0
           .DATA.L _ObjectsSwapMessageBoxFor_8c02aefc ; H'8C025AC4
 LAB_8c025ac8:

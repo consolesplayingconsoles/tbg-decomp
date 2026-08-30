@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c1ba374', 2);
         $this->setSize('_var_8c1ba29c', 1);
         $this->setSize('_var_8c1bbcb4', 4);
-        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_8c22864c', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4 * 8);
         $this->setSize('_sdMidiPlay', 4);
@@ -52,7 +52,7 @@ return new class extends TestCase {
         $this->initUint16($this->addressOf('_var_8c1ba374'), $trigger);
         $this->initUint8($this->addressOf('_var_8c1ba29c'), $deadzone);
         $this->initUint32($this->addressOf('_var_8c1bbcb4'), $minStep);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), $mirrorLevel);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), $mirrorLevel);
         $this->initUint32($this->addressOf('_var_8c22864c'), 0xdeadbeef);
 
         $bus = $this->addressOf('_var_busState_8c1bb9d0');

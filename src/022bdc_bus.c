@@ -137,7 +137,7 @@ void BusTask_8c022bdc(Task *task, void *state)
 
             FUN_8c023e7e();
 
-            if (var_busState_8c1bb9d0.crossingSearchDone_0x334 == 0) {
+            if (var_busState_8c1bb9d0.laneTargetSearchDone_0x334 == 0) {
                 var_busState_8c1bb9d0.lineSegmentRemaining_0x2bc += var_busState_8c1bb9d0.speed_0x27c;
                 var_busState_8c1bb9d0.lineSegmentProgress_0x2c0 += var_busState_8c1bb9d0.speed_0x27c;
             }
@@ -323,7 +323,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         if (wasSet != 0) {
             var_busState_8c1bb9d0.blinker_0x080 |= 6;
         }
-    } else if (var_busState_8c1bb9d0.mirrorButtonState_0x25c == 0) {
+    } else if (var_busState_8c1bb9d0.signalSide_0x25c == 0) {
         var_busState_8c1bb9d0.turnSignalBlinkCounter_0x260 = 0;
         sdMidiStop(var_midiHandles_8c0fcd28[1]);
     } else {
@@ -337,7 +337,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         wasSet = var_busState_8c1bb9d0.turnSignalBlinkCounter_0x260 & 0x10;
         var_busState_8c1bb9d0.turnSignalBlinkCounter_0x260 += 1;
         if (wasSet == 0) {
-            if (var_busState_8c1bb9d0.mirrorButtonState_0x25c == 1) {
+            if (var_busState_8c1bb9d0.signalSide_0x25c == 1) {
                 var_busState_8c1bb9d0.blinker_0x080 |= 2;
             } else {
                 var_busState_8c1bb9d0.blinker_0x080 |= 4;

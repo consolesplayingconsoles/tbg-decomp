@@ -36,7 +36,7 @@ return new class extends TestCase {
         $this->setSize('_var_fadeArrivalVariant_8c22655c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 8 * 4);
-        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_8c227da4', 4);
     }
 
@@ -299,7 +299,7 @@ return new class extends TestCase {
         $this->expectFrameCallbacks();
         $this->shouldCall('_BusStopFreeTaskGroup_8c02ca96');
         $this->shouldCall('_njReleaseTexture')->with($tlist);
-        $this->shouldWriteLongTo('_var_8c227d9c', 2);
+        $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', 2);
         $this->shouldWriteLongTo('_var_8c227da4', 0);
         $this->shouldCall('_FUN_8c024f32');
         $busState = $this->addressOf('_var_busState_8c1bb9d0');

@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($busPtr + 0x25c, 0);
         $this->shouldWriteLong($busPtr + 0x268, 0);
         $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4], hold-timer no-op reset
-        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], mirrorButtonState_0x25c-unchanged counter
+        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], signalSide_0x25c-unchanged counter
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
@@ -138,7 +138,7 @@ return new class extends TestCase {
         $this->call('_FUN_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4], hold-timer no-op reset
-        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], mirrorButtonState_0x25c-unchanged counter
+        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], signalSide_0x25c-unchanged counter
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 

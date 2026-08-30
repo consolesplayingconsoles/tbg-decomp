@@ -12,13 +12,13 @@ if (!function_exists('fdec')) {
 
 /*
  * _FUN_8c024b4c(void): shifts 7 prev/current value pairs one frame forward
- * -- var_8c227d9c->da0 and var_8c227da4->da8 (int copies), and 5 float pairs
+ * -- var_cameraMode_8c227d9c->da0 and var_8c227da4->da8 (int copies), and 5 float pairs
  * dd8->ddc, de0->de4, de8->dec, df0->df4, df8->dfc.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_8c227da0', 4);
         $this->setSize('_var_8c227da4', 4);
         $this->setSize('_var_8c227da8', 4);
@@ -38,7 +38,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 5);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 5);
         $this->initUint32($this->addressOf('_var_8c227da0'), 0);
         $this->initUint32($this->addressOf('_var_8c227da4'), 7);
         $this->initUint32($this->addressOf('_var_8c227da8'), 0);

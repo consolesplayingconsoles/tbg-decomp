@@ -15,7 +15,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_8c227e00', 0xc);
         $this->setSize('_njCalcPoint', 4);

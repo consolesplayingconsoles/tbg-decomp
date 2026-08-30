@@ -125,9 +125,17 @@ STATIC void drawHud_8c01fbac(int arg0) {
         TxtDrawSprite_8c014f54(&var_markTexlist_8c1bc418, arg0, 0.0f, 0.0f, -1.21f);
     }
 
-    /* var_8c226450/var_8c226454 (next-stop icon + its blink timer) are owned by
-     * BusStopUpdateArrival_8c02ce48 (02c884); blink once armed for >1s or
-     * every few frames (bits 1/2 of the timer). */
+    /* One shared HUD slot, blinking per var_8c226454's timer (armed for >1s
+     * or every few frames, bits 1/2), whose meaning switches with
+     * var_stopPhase_8c2285e4: phase 0/4 (cruising) shows var_8c226450 --
+     * NOT a stop icon despite the name resemblance, but the driver's own
+     * turn-signal icon id (hudUpdateTask_8c01ff48 sets it to blinker+0x1f
+     * below, -1 when off); phase 1 (just departed) shows a fixed signal-
+     * reminder icon (0x1e), still gated on the signal being on; phase 2
+     * (approaching the next active stop) shows a fixed next-stop icon
+     * (0x1f) unconditionally -- the actual upcoming-stop HUD indicator.
+     * var_8c226454 is also read/advanced by BusStopUpdateArrival_8c02ce48
+     * (02c884). */
     if (var_stopPhase_8c2285e4 == 0 || var_stopPhase_8c2285e4 == 4) {
         if (var_8c226450 != -1 && (60 < (Sint32)var_8c226454 || (var_8c226454 & 6) != 0)) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, var_8c226450, 0.0f, 0.0f, -1.2f);

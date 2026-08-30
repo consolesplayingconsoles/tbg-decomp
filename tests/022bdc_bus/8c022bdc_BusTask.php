@@ -26,7 +26,7 @@ if (!function_exists('fdec')) {
  * ground-query block), var_inputMapSel_8c1bb8c8==0 (skips the steering-
  * smoothing block -- state 0 never reads steering itself), timeOfDay
  * neither DAY nor NIGHT (skips the blinker branch), gear!=5
- * and mirrorButtonState_0x25c==0 (sdMidiStop, not sdMidiPlay), and playMode != DEMO
+ * and signalSide_0x25c==0 (sdMidiStop, not sdMidiPlay), and playMode != DEMO
  * (BusRenderUpdateCamera_8c025078 instead of demoUpdateCamera).
  */
 return new class extends TestCase {
@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->rellocate('_var_busWorldMatrix_8c1bba54', $base + 0x84);
 
         // bus_state_0x2b4/bus_substate_0x3c0/mirrorPendingToggle_0x3c4/speed_0x27c/
-        // gear_0x2f4/mirrorButtonState_0x25c/ang_0x258/posX_0x0f4/posHistory_0x100[0].x
+        // gear_0x2f4/signalSide_0x25c/ang_0x258/posX_0x0f4/posHistory_0x100[0].x
         // are all already 0 from the zero-fill above.
 
         $acosArg = 0.6;
@@ -137,7 +137,7 @@ return new class extends TestCase {
         // var_timeOfDay_8c18ad20 == 0: neither the DAY blinker bit nor
         // BusDrawFadeLights_8c028022 runs.
 
-        // gear_0x2f4 != 5, mirrorButtonState_0x25c == 0: turnSignalBlinkCounter_0x260 = 0, sdMidiStop.
+        // gear_0x2f4 != 5, signalSide_0x25c == 0: turnSignalBlinkCounter_0x260 = 0, sdMidiStop.
         $this->shouldWriteLong($base + 0x260, 0);
         $this->shouldCall('_sdMidiStop')->with($midiHandle1);
 

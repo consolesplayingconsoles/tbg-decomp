@@ -1254,7 +1254,7 @@ LP_GEN_88702:
           .DATA.L _var_8c1bb8bc ; H'8C01EB8C
           .DATA.L _var_progress_8c1ba1cc ; H'8C01EB90
           .DATA.L _var_8c1bb8f4 ; H'8C01EB94
-          .DATA.L _init_8c045208 ; H'8C01EB98
+          .DATA.L _init_penaltyMsgSetInstr_8c045208 ; H'8C01EB98
           .DATA.L _var_8c1bb8ec ; H'8C01EB9C
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01EBA0
           .DATA.L _var_award_8c1bb8f8 ; H'8C01EBA4
@@ -2273,7 +2273,7 @@ _init_8c0451ec:        ; from defines
           .DATA.B      H'10, H'0A, H'14, H'11, H'12, H'14, H'15, H'13, H'13, H'1B, H'09, H'00
 _init_8c0451f8:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'40, H'00, H'00, H'C0, H'40, H'00, H'00, H'30, H'41, H'00, H'00, H'E0, H'40
-_init_8c045208:        ; from defines
+_init_penaltyMsgSetInstr_8c045208:        ; from defines
           ;.SDATA      " !#$%&())+,--../2345116789:;;=1'>?"
           ;.DATA.B     H'00
           ;.RES.B      1

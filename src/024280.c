@@ -191,7 +191,7 @@ STATIC void applyThrottle_8c024320(void)
             return;
         }
 
-        sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, (var_8c227d9c >= 2) ? 0x25 : 0x26, 0);
+        sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, (var_cameraMode_8c227d9c >= 2) ? 0x25 : 0x26, 0);
 
         if (gear == 0) {
             var_8c22864c = 1;
@@ -205,7 +205,7 @@ STATIC void applyThrottle_8c024320(void)
 
         gear = var_busState_8c1bb9d0.gear_0x2f4;
         if (gear != 0 && init_8c045638[gear - 1].field_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
-            sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, (var_8c227d9c >= 2) ? 0x25 : 0x26, 0);
+            sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, (var_cameraMode_8c227d9c >= 2) ? 0x25 : 0x26, 0);
             gear -= 1;
             var_busState_8c1bb9d0.gear_0x2f4 = gear;
         }
@@ -273,19 +273,22 @@ STATIC void applyBrakingSfx_8c024606(void)
  *     reaches 30, drops back to mode 1 (again kicking VibStart_8c010f7a(0));
  *     otherwise resets idleFrameCounter_0x2ec to 0.
  *
- * After the mode dispatch, handles the two rear/side-mirror-view buttons
- * (PDS_PERIPHERAL.press bits 0x400 and 0x2) via BusState.mirrorButtonState_0x25c (a
- * small per-button press/hold/release state) toggling mirror_0x268 between
- * its 0/1/2 modes, gated by a var_8c2285c4[27] check against a sentinel
- * (0x10000000) or against var_8c228634[0]. In mapped-route steering mode
- * (var_inputMapSel_8c1bb8c8 != 0) this is everything -- crossingSearchSide_0x338 is
- * force-set to 2 first, bailing out entirely if crossingSearchDone_0x334 is set; the
- * first button's held (case 1) state clears crossingSearchSide_0x338 back to 0 instead
- * of touching mirror_0x268.
+ * After the mode dispatch, handles the two turn-signal buttons (PDS_PERIPHERAL.press
+ * bits 0x400 and 0x2) via BusState.signalSide_0x25c -- the driver's latched
+ * left/right signal intent (0 off, 1 left, 2 right), one control that
+ * doubles as the mirror-view selector: toggling it also sets mirror_0x268
+ * between its 0/1/2 modes, gated by a var_8c2285c4[27] check against a
+ * sentinel (0x10000000) or against var_8c228634[0]. In mapped-route steering
+ * mode (var_inputMapSel_8c1bb8c8 != 0) this is everything --
+ * laneTargetSearchSide_0x338 is force-set to 2 (no search) first, bailing
+ * out entirely if laneTargetSearchDone_0x334 is set; pressing a button whose
+ * side is already latched (case 1/2) instead re-arms the lane-target search
+ * on that side (laneTargetSearchSide_0x338 = 0 or 1) instead of touching
+ * mirror_0x268.
  *
  * In direct steering mode (var_inputMapSel_8c1bb8c8 == 0), the same two
- * buttons instead only clear mirror_0x268/mirrorButtonState_0x25c on release (never
- * setting crossingSearchSide_0x338), and execution always continues into a steering-
+ * buttons instead only clear mirror_0x268/signalSide_0x25c on release (never
+ * touching laneTargetSearchSide_0x338), and execution always continues into a steering-
  * wheel force-feedback ramp: PDS_PERIPHERAL.x1 (the analog steering axis,
  * dead-zoned by 8 either side) is converted to a target angle (BAM units,
  * via a 60-degree max deflection) for BusState.ang_0x258, then eased toward
@@ -434,43 +437,43 @@ void BusInputUpdate_8c0246b2(void)
     press = pad->press;
 
     if (var_inputMapSel_8c1bb8c8 != 0) {
-        var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
-        if (var_busState_8c1bb9d0.crossingSearchDone_0x334 != 0) {
+        var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
+        if (var_busState_8c1bb9d0.laneTargetSearchDone_0x334 != 0) {
             return;
         }
 
         if ((press & 0x400) != 0) {
-            switch (var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
+            switch (var_busState_8c1bb9d0.signalSide_0x25c) {
             case 0:
-                var_busState_8c1bb9d0.mirrorButtonState_0x25c = 1;
+                var_busState_8c1bb9d0.signalSide_0x25c = 1;
                 if (var_8c2285c4[27] != 0x10000000) {
                     var_busState_8c1bb9d0.mirror_0x268 = 1;
                 }
                 break;
             case 1:
-                var_busState_8c1bb9d0.crossingSearchSide_0x338 = 0;
+                var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 0;
                 break;
             case 2:
-                var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
+                var_busState_8c1bb9d0.signalSide_0x25c = 0;
                 var_busState_8c1bb9d0.mirror_0x268 = 0;
                 break;
             default:
                 break;
             }
         } else if ((press & 2) != 0) {
-            switch (var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
+            switch (var_busState_8c1bb9d0.signalSide_0x25c) {
             case 0:
-                var_busState_8c1bb9d0.mirrorButtonState_0x25c = 2;
+                var_busState_8c1bb9d0.signalSide_0x25c = 2;
                 if ((var_8c2285c4[27] & ~1) != (var_8c228634[0] << 4)) {
                     var_busState_8c1bb9d0.mirror_0x268 = 2;
                 }
                 break;
             case 1:
-                var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
+                var_busState_8c1bb9d0.signalSide_0x25c = 0;
                 var_busState_8c1bb9d0.mirror_0x268 = 0;
                 break;
             case 2:
-                var_busState_8c1bb9d0.crossingSearchSide_0x338 = 1;
+                var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 1;
                 break;
             default:
                 break;
@@ -480,35 +483,35 @@ void BusInputUpdate_8c0246b2(void)
     }
 
     /* Direct steering mode: same two mirror buttons, but case 1 (held) just
-     * clears back to 0 on either button, and crossingSearchSide_0x338 is never touched
+     * clears back to 0 on either button, and laneTargetSearchSide_0x338 is never touched
      * here -- then the steering force-feedback ramp always runs below. */
     if ((press & 0x400) != 0) {
-        switch (var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
+        switch (var_busState_8c1bb9d0.signalSide_0x25c) {
         case 0:
-            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 1;
+            var_busState_8c1bb9d0.signalSide_0x25c = 1;
             if (var_8c2285c4[27] != 0x10000000) {
                 var_busState_8c1bb9d0.mirror_0x268 = 1;
             }
             break;
         case 1:
         case 2:
-            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
+            var_busState_8c1bb9d0.signalSide_0x25c = 0;
             var_busState_8c1bb9d0.mirror_0x268 = 0;
             break;
         default:
             break;
         }
     } else if ((press & 2) != 0) {
-        switch (var_busState_8c1bb9d0.mirrorButtonState_0x25c) {
+        switch (var_busState_8c1bb9d0.signalSide_0x25c) {
         case 0:
-            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 2;
+            var_busState_8c1bb9d0.signalSide_0x25c = 2;
             if ((var_8c2285c4[27] & ~1) != (var_8c228634[0] << 4)) {
                 var_busState_8c1bb9d0.mirror_0x268 = 2;
             }
             break;
         case 1:
         case 2:
-            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
+            var_busState_8c1bb9d0.signalSide_0x25c = 0;
             var_busState_8c1bb9d0.mirror_0x268 = 0;
             break;
         default:

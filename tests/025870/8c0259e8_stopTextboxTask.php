@@ -51,7 +51,7 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_8c227e00', 0xc);
         $this->setSize('_njCalcPoint', 4);
@@ -145,7 +145,7 @@ return new class extends TestCase {
         $this->call('_stopTextboxTask_8c0259e8')->with($task, $state);
 
         $this->shouldWriteLongTo('_var_8c227dd4', 1);
-        $this->shouldWriteLongTo('_var_8c227d9c', 5); // kind(0) + 5
+        $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', 5); // kind(0) + 5
         $this->shouldCall('__quick_odd_mvn')->do($this->oddMvn());
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')
             ->with('Ichinoseki')
@@ -153,7 +153,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + self::ST_HANDLE, 42);
         $this->shouldWriteLong($state + self::ST_REVEAL, 0);
         // FUN_8c0258ba positions the bus draw point for the new camera
-        // state; its own behavior (per var_8c227d9c) is covered by
+        // state; its own behavior (per var_cameraMode_8c227d9c) is covered by
         // 8c0258ba_FUN.php.
         $this->shouldCall('_FUN_8c0258ba');
         $this->shouldWriteLong($state + self::ST_PHASE, 1);
@@ -181,7 +181,7 @@ return new class extends TestCase {
         $this->call('_stopTextboxTask_8c0259e8')->with($task, $state);
 
         $this->shouldWriteLongTo('_var_8c227dd4', 1);
-        $this->shouldWriteLongTo('_var_8c227d9c', 7); // kind(2) + 5; state7 is a no-op in FUN_8c0258ba
+        $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', 7); // kind(2) + 5; state7 is a no-op in FUN_8c0258ba
         $this->shouldCall('__quick_odd_mvn')->do($this->oddMvn());
         $this->shouldWriteLong($state + self::ST_HANDLE, 0);
         $this->shouldCall('_FUN_8c0258ba');
@@ -232,7 +232,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c227dd4', -1);
         $this->shouldWriteLongTo('_var_8c227e10', 0);
         $this->shouldWriteLongTo('_var_8c227dd4', 5);
-        $this->shouldWriteLongTo('_var_8c227d9c', 6); // kind(1) + 5
+        $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', 6); // kind(1) + 5
         $this->shouldCall('__quick_odd_mvn')->do($this->oddMvn());
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')
             ->with('Nishi-Nippori')

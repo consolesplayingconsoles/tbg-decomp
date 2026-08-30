@@ -39,25 +39,52 @@ bus along a predefined route with predefined passenger stop requests.
 ## Camera
 
 - Cycled in-drive with the **Y button** (`BusRenderUpdateCamera_8c025078`,
-  `024b4c_bus_render.c`). The active mode lives in `var_8c227d9c`.
-- Five modes, 0-4: 0 = fixed follow behind the bus, rotated by an eased yaw
-  (`busState.cameraYawEase_0x3c8`); 1 = a second fixed view; 2/3 = smooth chase
-  via `positionCamera_8c024d6c`; 4 = fixed on `var_8c227d90`.
+  `024b4c_bus_render.c`). The active mode lives in `var_cameraMode_8c227d9c`
+  (`BUS_CAMERA_*` in `024b4c_bus_render.h`).
+- The Y button only ever cycles `BUS_CAMERA_COCKPIT` (0) through
+  `BUS_CAMERA_THIRD_PERSON_FAR` (3) -- confirmed player-facing:
+  - **`BUS_CAMERA_COCKPIT` (0)**: camera sits exactly at the bus's own
+    position; draws the front dashboard model (`drawFrontBusModel_8c024cc8`);
+    yaws with an eased copy of the steering angle
+    (`busState.cameraYawEase_0x3c8`) -- the sway felt when turning.
+  - **`BUS_CAMERA_FIRST_PERSON` (1)**: camera offset a small fixed distance
+    ahead of the bus along its heading; no bus model drawn at all (no
+    dashboard); a gentler pitch-based bob than mode 0.
+  - **`BUS_CAMERA_THIRD_PERSON_NEAR` (2)** / **`BUS_CAMERA_THIRD_PERSON_FAR`
+    (3)**: chase camera via `positionCamera_8c024d6c`, follow distance 18 and
+    30 respectively; draws the third-person bus model (`FUN_8c024bb8`).
+  - **`BUS_CAMERA_FIXED_TARGET` (4)**: fixed on `var_8c227d90`, aimed via
+    `njPointCameraInterest`. Traced as unreachable: the Y-button cycle wraps
+    at 3 back to 0 and no other decompiled code path ever assigns 4 to
+    `var_cameraMode_8c227d9c` -- dead in the shipped game as far as traced,
+    not merely hard to reach.
+  - Modes 5-7 (`BUS_CAMERA_DEMO_*`) are demo-playback only
+    (`DemoUpdateCamera_8c025906`, `025870.c`), picked from a `StopRecord`'s
+    kind by `stopTextboxTask_8c0259e8`; the player never sees them.
+- This confirms the four player-facing views the mode reads as, in cycle
+  order: cockpit (bobs on the wheel with steering), first-person (no
+  dashboard, gentle bob), third-person near, third-person far.
 - Modes 0 and 1 additionally roll the camera by the road's pitch, taken from
-  recent Y waypoint history -- this is the bob felt when turning.
-- Player-facing, the modes read as third-person near, third-person far,
-  first-person and cockpit. Which code mode is which, and whether mode 4 is
-  reachable by the player at all (it may be demo/cinematic-only), is not yet
-  confirmed.
+  recent Y waypoint history -- this is the extra bob felt when turning on
+  top of mode 0's yaw sway.
 - The mirrors run a separate camera (`BusRenderUpdateMirrorCamera_8c025604`,
   `var_8c1bb944`), selected by `busState.mirror_0x268`.
 
 ## Turn signals
 
 - Signalling is manual and player-driven; the game never signals for you.
-  The state is 0 = off, 1 = left, 2 = right, and it clears itself once a lane
-  change completes (`02b464_drive_points.c`) or on a gear change
+  The state (`BusState.signalSide_0x25c`, formerly documented here as a
+  "mirror button" -- see the Penalties section's naming note) is 0 = off,
+  1 = left, 2 = right, set by the same two buttons that also switch the
+  mirror view (`mirror_0x268`, `024280.c:441-511`); it clears itself once a
+  lane change completes (`02b464_drive_points.c`) or on a gear change
   (`023938_bus_drive.c`).
+- One control genuinely does three jobs: it is the driver's turn signal, the
+  mirror-view selector, and the input the lane-change penalty check reads
+  (`02b464_drive_points.c:577`). Naming it after any single one of those
+  (e.g. a "mirror button" or a "turn signal") would misdescribe the other
+  two, so the field is named for the shared thing it actually holds -- the
+  driver's latched left/right side intent.
 - At a stop the blinker seen while the doors are open is the player's own
   signal for pulling back into traffic -- there is no door-driven blinker.
   Failing to signal there is the `NO_SIGNAL` penalty.
@@ -65,6 +92,12 @@ bus along a predefined route with predefined passenger stop requests.
   the signal against the direction actually taken.
 - The lamps are five arrow models driven by bits of `blinker_0x080`
   (`027958.c`); the tick SFX plays on the first frame of each signal.
+- `HudSignalCueState.turnSignalLatched_0x10` (`01fa78.c`) is a different,
+  unrelated latch: a one-shot "already popped the driver-comment mark for
+  this blinker-on period" flag derived from the *lamp* bits
+  (`markDriveFlags_0x3b0`), not from the driver's `signalSide_0x25c`. Its
+  name stays as is; it was checked for consistency and found to already
+  describe a distinct concept.
 
 ## Reverse
 
@@ -85,6 +118,32 @@ The messages are rows of `init_instructorDialogs_8c044c08`
 `016d2c_course_menu.h`; the string ids are the `MSG_SEQ_*` block in
 `strings_en_us.h`. Several have graded severities and multiple message
 variants.
+
+**Where penalties actually fire, and where they're shown.** In-drive,
+`02b464_drive_points.c` grades every penalty through
+`adjust_8c02b464(msgSet, delta)`, where `msgSet` is a bare numeric literal in
+a *local* id space (0-33, documented at `init_8c04c35c` in that file) --
+**not** an `INSTR_*` id. `msgSet` selects which HUD glyph banner is drawn
+in-drive (`init_8c04c35c[msgSet]`, glyph ids for `drawMsgGlyphRow_8c02b2f0`
+in `02b2f0.c`), which is a third, unrelated id space again (glyph ids run
+past 63). The `INSTR_*` dialog is shown only once, after the run: in
+practice mode's results screen (`01e27c_practice_menu.c`), the run's single
+worst `msgSet` (`var_8c1bb8ec`) is converted to an `INSTR_*` id via
+`init_penaltyMsgSetInstr_8c045208[]` and pushed as the lesson's closing
+instructor comment. **Story and free-run results
+(`01d7fc_results.c`) never consult that table** -- those modes show only the
+pass/fail badge, no per-offense commentary. So every `INSTR_*` penalty
+message that fires at all is practice-mode-only; each `adjust_8c02b464` call
+site in `02b464_drive_points.c` now carries a `/* -> INSTR_* */` comment
+naming which one it ends up showing there.
+
+Four of the 32 defined penalties never appear as a value in
+`init_penaltyMsgSetInstr_8c045208[]`, so as far as traced they are defined
+but never actually raised: `INSTR_COLLISION_CAR_SEVERE`,
+`INSTR_OFF_COURSE_MAJOR`, `INSTR_NO_SIGNAL_TURN`, and
+`INSTR_BAD_STOP_POSITION_2` (several other `msgSet` ids collapse onto a
+lower-severity `INSTR_*` than their delta would suggest, e.g. the worst
+off-course case shows the same message as the medium one).
 
 **Traffic offenses**
 
@@ -109,9 +168,29 @@ variants.
 - Running late (`TIME_MANAGEMENT`). The schedule is part of the job, so
   falling behind costs points like any other error.
 
-Railway crossings are modelled (`var_fumiGateModel_8c22840c` and its
-open/close motions and lamp, from *fumikiri*), but which penalty fires for
-failing to stop at one is not yet traced.
+**Railway crossings.** Fully modelled visually
+(`var_fumiGateModel_8c22840c`/`var_fumiLampNodes_8c228434`, from *fumikiri*,
+`028258_objects.c`), but traced as purely decorative: `fumiCrossingTask_8c02a4f8`
+is a scripted "row" scenery task like the other roadside props (fly-bys, dat
+blobs, static models) -- its gate-closed/train-passing/gate-open phases are
+gated only on the top byte of `var_scenePresetIds_8c1bbd8c` (a scene-script
+trigger), never on the bus's position, speed, or state. No collision check
+against the closed gate and no penalty tied to it were found anywhere in the
+codebase. **The remembered "stop at the crossing" penalty was not found; it
+may not exist, or may live in code not yet decompiled.**
+
+This also resolves a naming trap flagged during this investigation:
+`BusState.crossingSearchDone_0x334`/`crossingSearchSide_0x338` looked like a
+promising lead (their names, and the "second press of an already-latched
+side" input pattern at `024280.c:441-511`, suggested a "look both ways"
+mechanic), but they are unrelated to the railway crossing. They drive
+`FUN_8c023e7e` (`023938_bus_drive.c`) -- the search for a lane-change
+target point via route-line-segment intersection (`IntersectSegments_8c0206f0`)
+in the mapped-route steering control scheme (`var_inputMapSel_8c1bb8c8 != 0`).
+"Crossing" there means a *route-line* crossing (two line segments
+intersecting), not the railway *level* crossing -- a coincidental name
+collision. Renamed to `laneTargetSearchDone_0x334`/`laneTargetSearchSide_0x338`
+to remove the trap.
 
 The score bar itself is `var_driverPoints_8c2285d0`, driven by
 `02b464_drive_points.c`; it also feeds the end-of-run badge tier (see
@@ -126,6 +205,77 @@ The score bar itself is `var_driverPoints_8c2285d0`, driven by
   billboards.
 - During the interior scene, passengers move in a low-fps stop-motion manner;
   no texture animation.
+
+**Which stops need servicing.** Confirmed: NOT every stop needs a stop, and
+the decision is a per-segment *active-stop* flag (`var_8c2286a4[segment]`),
+decided once at course load by `BusStopSetup_8c02caba` (`02c884_bus_stop.c`)
+before driving starts, not by a live "passenger requests a stop" event:
+`CourseSegment.type_0x00 == 2` forces a stop there; a segment carrying a
+matched story event (`EventScanCandidates_8c02b03c`) is also forced; the
+remainder are filled randomly up to the course's
+`[randomStopCountMin_0x14, randomStopCountMax_0x18)` total, skipping any
+`type_0x00 == 3` segment (permanently excluded from random picking). A
+segment's waiting passengers are spawned only when it is flagged active
+(`pickWaitingPassengers_8c02c8ae`, gated on `var_8c2286a4`), so from the
+player's side "someone is waiting" and "the stop is due" are the same
+thing, even though the true cause is this precomputed flag, not a live
+request. `StopAreaRecord.ukn_0x00` (a per-route physical stop-location
+record, `var_stopAreaTable_8c1bb870`, `02c884_bus_stop.h`) was checked as a
+candidate for a live per-stop request flag; no reader or writer exists in
+decompiled code, and unlike `var_8c2286a4` (a per-run scratch array reset
+every course) it belongs to a table that reads as static per-route load
+data, so it does not fit the request role. Its purpose is still unconfirmed.
+- **World-space marker.** `drawStopMarker_8c02cd92`
+  (`02c884_bus_stop.c`) draws a `fuu.njd`/`fuu.pvm` model (its own animation
+  loop) at the upcoming active stop's position/heading, but only while
+  `BusStopUpdateArrival_8c02ce48`'s state machine is in its approach phase
+  (`var_stopPhase_8c2285e4 == 2`) -- i.e. only for a stop that was flagged
+  active. This is very likely the world-space marker the player remembers;
+  its actual on-screen color is not confirmed from code (no texture data
+  decompiled here).
+- **HUD indicator.** `drawHud_8c01fbac` (`01fa78.c:131-143`) draws a sprite
+  from `var_busStopTexlist_8c1bc424` at a fixed screen slot, blinking per
+  `var_8c226454`'s timer, whose meaning depends on
+  `var_stopPhase_8c2285e4`: icon `0x1f` during phase 2 (approaching the next
+  active stop) is shown unconditionally while blinking -- this is the HUD
+  upcoming-stop indicator. Phase 1 (just departed) instead shows icon
+  `0x1e`, but only while `var_8c226450 != -1`; phase 0/4 (cruising) draws
+  `var_8c226450` itself. `var_8c226450` is not a stop icon at all despite an
+  earlier comment here calling it one -- `hudUpdateTask_8c01ff48`
+  (`01fa78.c:274`) is its only real write site, setting it to the driver's
+  own turn-signal icon id (`blinker + 0x1f`, -1 when off); the HUD is
+  reusing the same screen slot for the turn-signal indicator (phase 0/4),
+  a signal reminder (phase 1, gated on the signal still being on), and the
+  next-stop indicator (phase 2) as the bus moves through the stop cycle.
+- **The chime.** Two independent chime systems live in `DriveCueTask_8c020214`
+  (`020214.c`), operating on `DriveCueState var_8c2264b8` (`sectionB.h`):
+  - `stopAnnounceState_0x08`/`stopAnnounceTimer_0x10` is the **driver's own
+    stop announcement** -- confirmed player-initiated: armed by
+    `nearStopLatch_0x0c`, documented (`sectionB.h:635`) as set by
+    `BusTask_8c022bdc` "when the A button is first pressed while driving".
+    Its state machine plays a route-specific door-chime cue, then (after 60
+    frames) an actual spoken stop-name announcement via `SndProc_8c010cd6`.
+    This is the mechanic the `ANNOUNCEMENT` penalty grades ("failing to
+    announce the next stop") -- names already accurate, no change made.
+  - `idleChimeState_0x00`/`idleChimeTimer_0x04` is an unrelated ambient
+    chime played periodically while driving (gated on `var_8c1bbc4c`, a
+    steering-related threshold, with a random ~2-5s repeat), not tied to
+    stops at all.
+  - `nearStopChimeLatch_0x14` plays a short chime (case default in the
+    function's tail block) but, despite its name, is gated on a *fixed*,
+    hand-authored list of specific segment indices per route (e.g. Shinjuku:
+    4, 5, 10, 21, 22, 23) -- not on `var_8c2286a4`, the actual per-run active-
+    stop selection, and only while the camera is in a third-person mode
+    (`var_cameraMode_8c227d9c >= 2`). Since the fixed list and the
+    randomized active-stop set are unrelated, this chime cannot be a general
+    "your requested stop is near" signal; it fires at the same handful of
+    route locations every run regardless of which stops that run actually
+    needs. What those specific locations are (landmarks? scripted
+    narration cues?) is not yet traced -- flagging the name as
+    possibly misleading rather than renaming it without more evidence.
+  - No chime tied specifically to a stop being newly flagged
+    active/requested (as opposed to the driver's own announcement, or the
+    location-fixed cue above) was found in the decompiled code.
 
 ## Story event selection (`02af78_event`)
 

@@ -648,7 +648,7 @@
           .EXPORT     _var_8c227d8c ; 023310
                                     ; 024280
           .EXPORT     _var_8c227d90 ; 024b4c
-          .EXPORT     _var_8c227d9c ; 020214
+          .EXPORT     _var_cameraMode_8c227d9c ; 020214
                                     ; 023310
                                     ; 024280
                                     ; 024b4c
@@ -1378,7 +1378,7 @@ _var_8c227d8c:
           .RES.B      4
 _var_8c227d90:
           .RES.B      12
-_var_8c227d9c:
+_var_cameraMode_8c227d9c:
           .RES.B      4
 _var_8c227da0:
           .RES.B      4

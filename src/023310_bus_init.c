@@ -57,10 +57,10 @@ STATIC void busInitPlaceBus_8c023310(void)
     var_busState_8c1bb9d0.ang_0x258 = 0;
 
     if (var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 8) != 8) {
-        var_busState_8c1bb9d0.mirrorButtonState_0x25c = 2;
+        var_busState_8c1bb9d0.signalSide_0x25c = 2;
         var_busState_8c1bb9d0.mirror_0x268 = 2;
     } else {
-        var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
+        var_busState_8c1bb9d0.signalSide_0x25c = 0;
         var_busState_8c1bb9d0.mirror_0x268 = 3;
     }
 
@@ -119,9 +119,9 @@ STATIC void busInitPlaceBus_8c023310(void)
     var_busState_8c1bb9d0.targetHeadingAngle_0x254 = ang;
 
     if (var_playMode_8c1bb8d0 == 2) {
-        var_8c227d9c = 5;
+        var_cameraMode_8c227d9c = 5;
     } else {
-        var_8c227d9c = 0;
+        var_cameraMode_8c227d9c = 0;
         var_8c227dac = 0;
     }
 }
@@ -185,7 +185,7 @@ void BusInitStart_8c023610(void)
     var_busState_8c1bb9d0.needleRampMode_0x2e0 = 0;
     var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
     var_busState_8c1bb9d0.gear_0x2f4 = 0;
-    var_busState_8c1bb9d0.crossingSearchDone_0x334 = 0;
+    var_busState_8c1bb9d0.laneTargetSearchDone_0x334 = 0;
 
     segment = BusStopGetSegment_8c02cd6a(var_currentSegment_8c228708);
     var_busState_8c1bb9d0.currentLineNodeIdx_0x33c = segment->stopAreaId_0x02;

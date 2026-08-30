@@ -178,7 +178,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
      * level gates the check at all, and route/segment match is the only
      * way nearFlag becomes 1. */
     nearFlag = 0;
-    if (var_8c227d9c >= 2) {
+    if (var_cameraMode_8c227d9c >= 2) {
         int prevSeg = var_prevStopSegment_8c22870c;
 
         switch (var_route_8c18ad1c) {

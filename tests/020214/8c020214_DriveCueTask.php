@@ -23,7 +23,7 @@ return new class extends TestCase {
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_vibport_8c1ba354', 4);
         $this->setSize('_var_8c1ba293', 1);
-        $this->setSize('_var_8c227d9c', 4);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_prevStopSegment_8c22870c', 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
@@ -65,7 +65,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xffffffff);
         $this->initUint8($this->addressOf('_var_8c1ba293'), 0);
         // Mirror-view marker chime off by default.
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 0);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 0);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 0);
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 0); // ROUTE_SHINJUKU
@@ -123,7 +123,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
 
-        // var_8c227d9c stays 0 (< 2): nearStopChimeLatch_0x14 gets reset to 0.
+        // var_cameraMode_8c227d9c stays 0 (< 2): nearStopChimeLatch_0x14 gets reset to 0.
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
 
@@ -240,7 +240,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         // nearStopChimeLatch_0x14 was just reset to 0 above by this very case, and stays
-        // 0 (var_8c227d9c still 0 by default).
+        // 0 (var_cameraMode_8c227d9c still 0 by default).
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
 
@@ -258,7 +258,7 @@ return new class extends TestCase {
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
-        // nearFlag took on nearStopLatch_0x0c's value (0) here, and var_8c227d9c<2
+        // nearFlag took on nearStopLatch_0x0c's value (0) here, and var_cameraMode_8c227d9c<2
         // resets it to 0 too either way.
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
@@ -278,7 +278,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->struct() + 0x08, 1);
         $this->shouldWriteLong($this->struct() + 0x10, 0);
 
-        // nearFlag = midiHandles[2] (0, the zeroed alloc) -- var_8c227d9c<2
+        // nearFlag = midiHandles[2] (0, the zeroed alloc) -- var_cameraMode_8c227d9c<2
         // resets it to 0 either way, so this doesn't distinguish the two,
         // but confirms the nearStopChimeLatch_0x14 write still happens.
         $this->shouldWriteLong($this->struct() + 0x14, 0);
@@ -314,7 +314,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         // No sdMidiPlay/stopAnnounceState_0x08 write -- inner block skipped. nearFlag
-        // stays nearStopLatch_0x0c's value (1), so var_8c227d9c<2 still forces the
+        // stays nearStopLatch_0x0c's value (1), so var_cameraMode_8c227d9c<2 still forces the
         // final flag to 0 for this test.
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
@@ -511,7 +511,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         // stopAnnounceState_0x08 stays 3 (no write). Marker chime gate forced to 0
-        // (var_8c227d9c < 2).
+        // (var_cameraMode_8c227d9c < 2).
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
 
@@ -530,14 +530,14 @@ return new class extends TestCase {
     }
 
     // ------------------------------------------------------------------
-    // Final block: near-stop-marker chime, gated by var_8c227d9c.
+    // Final block: near-stop-marker chime, gated by var_cameraMode_8c227d9c.
     // ------------------------------------------------------------------
 
     public function test_marker_chime_fires_when_mirror_active_and_unlatched(): void
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         // ROUTE_SHINJUKU (default) + a matching prevStopSegment.
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initStruct(4, 0, 4, 1, 0, 0, 0);
@@ -555,7 +555,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5); // matches
         $this->initStruct(4, 0, 4, 1, 0, 1 /* already latched */, 0);
 
@@ -571,7 +571,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1); // ROUTE_WANGAN
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 11); // matches
         $this->initStruct(4, 0, 4, 1, 0, 0, 0);
@@ -589,7 +589,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         // ROUTE_SHINJUKU, prevStopSegment not in the matching list.
         $this->initStruct(4, 0, 4, 1, 0, 1 /* previously latched */, 0);
 

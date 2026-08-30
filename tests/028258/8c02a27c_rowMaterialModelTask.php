@@ -26,8 +26,8 @@ return new class extends TestCase {
 
     public function test_low_quality_zeroes_alpha(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 1);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 1);
 
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x7c);
@@ -43,8 +43,8 @@ return new class extends TestCase {
 
     public function test_far_distance_zeroes_alpha(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x2fc + 8);
         $busBase = $this->addressOf('_var_busState_8c1bb9d0');
@@ -71,8 +71,8 @@ return new class extends TestCase {
 
     public function test_mid_distance_ramps_alpha(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x2fc + 8);
         $busBase = $this->addressOf('_var_busState_8c1bb9d0');
@@ -99,8 +99,8 @@ return new class extends TestCase {
 
     public function test_averaging_and_both_axes_contribute(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x2fc + 8);
         $busBase = $this->addressOf('_var_busState_8c1bb9d0');
@@ -130,8 +130,8 @@ return new class extends TestCase {
 
     public function test_both_dx_and_dz_contribute_to_distance(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x2fc + 8);
         $busBase = $this->addressOf('_var_busState_8c1bb9d0');
@@ -161,8 +161,8 @@ return new class extends TestCase {
 
     public function test_near_distance_clamps_alpha(): void
     {
-        $this->setSize('_var_8c227d9c', 4);
-        $this->initUint32($this->addressOf('_var_8c227d9c'), 2);
+        $this->setSize('_var_cameraMode_8c227d9c', 4);
+        $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x2fc + 8);
         $busBase = $this->addressOf('_var_busState_8c1bb9d0');

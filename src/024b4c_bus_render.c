@@ -23,7 +23,7 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
 
 void FUN_8c024b4c(void)
 {
-    var_8c227da0 = var_8c227d9c;
+    var_8c227da0 = var_cameraMode_8c227d9c;
     var_8c227da8 = var_8c227da4;
     var_8c227ddc = var_8c227dd8;
     var_8c227de4 = var_8c227de0;
@@ -36,7 +36,7 @@ void FUN_8c024b4c(void)
  * (var_8c227df8/dfc is not touched here), then tail-calls FUN_8c024f32. */
 void FUN_8c024b86(void)
 {
-    var_8c227d9c = var_8c227da0;
+    var_cameraMode_8c227d9c = var_8c227da0;
     var_8c227da4 = var_8c227da8;
     var_8c227dd8 = var_8c227ddc;
     var_8c227de0 = var_8c227de4;
@@ -48,7 +48,7 @@ void FUN_8c024b86(void)
 
 /* Re-seats busState's camera draw position (posX_0x2fc/posZ_0x304), offsetting
  * it ahead of the bus along its heading (headingDirX_0x274/headingDirZ_0x278) by a
- * turn-rate factor picked by var_8c227d9c: 0 just resets cameraYawEase_0x3c8 and
+ * turn-rate factor picked by var_cameraMode_8c227d9c: 0 just resets cameraYawEase_0x3c8 and
  * leaves the position untouched; 1 and 4 are no-ops; 2 and 3 offset it by
  * 18.0/30.0 (or var_8c227de0, once var_8c227da4 is set) and update
  * var_8c227df0 to match. */
@@ -57,19 +57,19 @@ void FUN_8c024f32(void)
     float dx = 0.0f;
     float dz = 0.0f;
 
-    switch (var_8c227d9c) {
-    case 0:
+    switch (var_cameraMode_8c227d9c) {
+    case BUS_CAMERA_COCKPIT:
         var_busState_8c1bb9d0.cameraYawEase_0x3c8 = 0;
         return;
-    case 1:
-    case 4:
+    case BUS_CAMERA_FIRST_PERSON:
+    case BUS_CAMERA_FIXED_TARGET:
         return;
-    case 2:
+    case BUS_CAMERA_THIRD_PERSON_NEAR:
         dx = var_busState_8c1bb9d0.headingDirX_0x274 * 18.0f;
         dz = var_busState_8c1bb9d0.headingDirZ_0x278 * 18.0f;
         var_8c227df0 = (var_8c227da4 != 0) ? var_8c227de0 : 5.0f;
         break;
-    case 3:
+    case BUS_CAMERA_THIRD_PERSON_FAR:
         dx = var_busState_8c1bb9d0.headingDirX_0x274 * 30.0f;
         dz = var_busState_8c1bb9d0.headingDirZ_0x278 * 30.0f;
         var_8c227df0 = (var_8c227da4 != 0) ? var_8c227de0 : 18.0f;
@@ -134,11 +134,11 @@ STATIC void drawFrontBusModel_8c024cc8(void)
  * driven by a state machine on var_8c227da4 (0..3) gated by a scripted cue
  * nibble in busState.markAudioCue_0x3b8's bits 24-27: nonzero-and-not-9 starts the
  * ramp toward a target angle encoded in that nibble (or a fixed 5.0/18.0
- * depending on var_8c227d9c), an exact 9 starts it back toward
- * var_8c227d9c's own 5.0/18.0 default. Y button cycles the camera mode
- * var_8c227d9c (0..3) when allowed.
+ * depending on var_cameraMode_8c227d9c), an exact 9 starts it back toward
+ * var_cameraMode_8c227d9c's own 5.0/18.0 default. Y button cycles the camera mode
+ * var_cameraMode_8c227d9c (0..3) when allowed.
  *
- * Then positions/aims the camera per var_8c227d9c: 0 = fixed follow behind
+ * Then positions/aims the camera per var_cameraMode_8c227d9c: 0 = fixed follow behind
  * the bus (rotated by an eased yaw in busState.cameraYawEase_0x3c8), 1 = a
  * bump/sway follow using busState.headingDirX_0x274/0x278 and 0x26c/0x270,
  * 2/3 = smooth chase via positionCamera_8c024d6c, 4 = fixed on
@@ -156,9 +156,9 @@ void BusRenderUpdateCamera_8c025078(void)
     if (var_8c227da4 == 0) {
         if (cue != 0 && cue != 0x09000000) {
             var_8c227de0 = (float)(Sint8)(cue >> 24);
-            if (var_8c227d9c == 0 || var_8c227d9c == 1) {
+            if (var_cameraMode_8c227d9c == BUS_CAMERA_COCKPIT || var_cameraMode_8c227d9c == BUS_CAMERA_FIRST_PERSON) {
                 var_8c227da4 = 2;
-            } else if (var_8c227d9c != 2 || var_8c227de0 < 5.0f) {
+            } else if (var_cameraMode_8c227d9c != 2 || var_8c227de0 < 5.0f) {
                 var_8c227dd8 = var_8c227df0;
                 var_8c227de8 = var_8c227df0 - var_8c227de0;
                 var_8c227df8 = 0;
@@ -179,12 +179,12 @@ void BusRenderUpdateCamera_8c025078(void)
         }
     } else if (var_8c227da4 == 2) {
         if (cue == 0x09000000) {
-            if (var_8c227d9c == 0 || var_8c227d9c == 1) {
+            if (var_cameraMode_8c227d9c == BUS_CAMERA_COCKPIT || var_cameraMode_8c227d9c == BUS_CAMERA_FIRST_PERSON) {
                 var_8c227da4 = 0;
-            } else if (var_8c227d9c == 2 && var_8c227df0 >= 5.0f) {
+            } else if (var_cameraMode_8c227d9c == BUS_CAMERA_THIRD_PERSON_NEAR && var_8c227df0 >= 5.0f) {
                 var_8c227da4 = 0;
             } else {
-                var_8c227de0 = (var_8c227d9c == 2) ? 5.0f : 18.0f;
+                var_8c227de0 = (var_cameraMode_8c227d9c == BUS_CAMERA_THIRD_PERSON_NEAR) ? 5.0f : 18.0f;
                 var_8c227dd8 = var_8c227df0;
                 var_8c227de8 = var_8c227de0 - var_8c227df0;
                 var_8c227df8 = 0;
@@ -205,10 +205,10 @@ void BusRenderUpdateCamera_8c025078(void)
 
     if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TY)
         && var_8c1bbc84 == 1
-        && (var_8c227dac == 0 || var_8c227d9c < 2)) {
-        var_8c227d9c++;
-        if (var_8c227d9c > 3) {
-            var_8c227d9c = 0;
+        && (var_8c227dac == 0 || var_cameraMode_8c227d9c < 2)) {
+        var_cameraMode_8c227d9c++;
+        if (var_cameraMode_8c227d9c > BUS_CAMERA_THIRD_PERSON_FAR) {
+            var_cameraMode_8c227d9c = BUS_CAMERA_COCKPIT;
         }
         FUN_8c024f32();
     }
@@ -220,8 +220,8 @@ void BusRenderUpdateCamera_8c025078(void)
     turnFactor = (float)var_busState_8c1bb9d0.acc_0x078 * 360.0f / 65536.0f / -8.0f;
     ang = var_busState_8c1bb9d0.ang_0x07c;
 
-    switch (var_8c227d9c) {
-    case 0: {
+    switch (var_cameraMode_8c227d9c) {
+    case BUS_CAMERA_COCKPIT: {
         Sint32 target;
 
         if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] != 0) {
@@ -276,7 +276,7 @@ void BusRenderUpdateCamera_8c025078(void)
                                var_groundQueryPoint_8c1bc460.z);
         break;
     }
-    case 1:
+    case BUS_CAMERA_FIRST_PERSON:
         if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] != 0) {
             ang = 0;
             turnFactor = 0.0f;
@@ -303,13 +303,13 @@ void BusRenderUpdateCamera_8c025078(void)
                                var_busState_8c1bb9d0.posY_0x0f8 + 2.0f,
                                var_busState_8c1bb9d0.posZ_0x0fc);
         break;
-    case 2:
+    case BUS_CAMERA_THIRD_PERSON_NEAR:
         positionCamera_8c024d6c(18.0f, var_8c227df0, 0.5f);
         break;
-    case 3:
+    case BUS_CAMERA_THIRD_PERSON_FAR:
         positionCamera_8c024d6c(30.0f, var_8c227df0, 2.0f);
         break;
-    case 4:
+    case BUS_CAMERA_FIXED_TARGET:
         var_busState_8c1bb9d0.moveDeltaX_0x308 =
             var_busState_8c1bb9d0.posX_0x2fc - var_8c227d90[0];
         var_busState_8c1bb9d0.moveDeltaZ_0x310 =
@@ -326,7 +326,7 @@ void BusRenderUpdateCamera_8c025078(void)
     }
 
     /* Modes 0/1 additionally roll the camera by the road's pitch. */
-    if (var_8c227d9c == 0 || var_8c227d9c == 1) {
+    if (var_cameraMode_8c227d9c == BUS_CAMERA_COCKPIT || var_cameraMode_8c227d9c == BUS_CAMERA_FIRST_PERSON) {
         float roll = atan2f(var_busState_8c1bb9d0.posHistory_0x100[2].y
                              - var_busState_8c1bb9d0.posHistory_0x100[3].y,
                              2.33f);
@@ -341,9 +341,9 @@ void BusRenderUpdateCamera_8c025078(void)
     njCalcVector(NULL, (NJS_VECTOR *)var_busSimpleLightDir_8c227db8,
                  (NJS_VECTOR *)var_busSimpleLightDir_8c227db8);
 
-    if (var_8c227d9c == 0) {
+    if (var_cameraMode_8c227d9c == BUS_CAMERA_COCKPIT) {
         FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)drawFrontBusModel_8c024cc8, 0);
-    } else if (var_8c227d9c == 2 || var_8c227d9c == 3) {
+    } else if (var_cameraMode_8c227d9c == BUS_CAMERA_THIRD_PERSON_NEAR || var_cameraMode_8c227d9c == BUS_CAMERA_THIRD_PERSON_FAR) {
         FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)FUN_8c024bb8, 0);
     }
 }

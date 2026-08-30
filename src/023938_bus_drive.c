@@ -246,23 +246,23 @@ void FUN_8c023e7e(void)
     float side;
     int found;
 
-    if (var_busState_8c1bb9d0.crossingSearchDone_0x334 != 0) {
+    if (var_busState_8c1bb9d0.laneTargetSearchDone_0x334 != 0) {
         if (var_busState_8c1bb9d0.laneOffset_0x2c4 == 2.0f) {
-            var_busState_8c1bb9d0.mirrorButtonState_0x25c = 0;
+            var_busState_8c1bb9d0.signalSide_0x25c = 0;
             var_busState_8c1bb9d0.mirror_0x268 = 0;
-            var_busState_8c1bb9d0.crossingSearchDone_0x334 = 0;
+            var_busState_8c1bb9d0.laneTargetSearchDone_0x334 = 0;
         }
         return;
     }
 
-    if (var_busState_8c1bb9d0.crossingSearchSide_0x338 == 2) {
+    if (var_busState_8c1bb9d0.laneTargetSearchSide_0x338 == 2) {
         return;
     }
 
-    if (var_busState_8c1bb9d0.crossingSearchSide_0x338 == 0) {
+    if (var_busState_8c1bb9d0.laneTargetSearchSide_0x338 == 0) {
         idx = nodes[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c].fwdNext_0x00;
     } else {
-        /* crossingSearchSide_0x338 only ever holds 0, 1 or 2 (024280.c) and 2 already
+        /* laneTargetSearchSide_0x338 only ever holds 0, 1 or 2 (024280.c) and 2 already
          * returned above, so this covers 1 -- the original leaves the
          * register unset for any other value. */
         idx = nodes[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c].backNext_0x02;
@@ -282,7 +282,7 @@ void FUN_8c023e7e(void)
             if (segEnd->len_0x00 == 0.0f) {
                 idx = nodes[idx].fallbackNext_0x0a;
                 if (idx == 0xffff) {
-                    var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
+                    var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
                     return;
                 }
                 segEnd = segs[idx].points_0x00;
@@ -297,13 +297,13 @@ void FUN_8c023e7e(void)
                              (Struct8c0207d4 *)&var_busState_8c1bb9d0.laneTargetX_0x0ec,
                              (Struct8c0207d4 *)cand);
 
-        if (var_busState_8c1bb9d0.crossingSearchSide_0x338 == 0) {
+        if (var_busState_8c1bb9d0.laneTargetSearchSide_0x338 == 0) {
             if (side > 0.0f) {
-                var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
+                var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
                 return;
             }
-        } else if (var_busState_8c1bb9d0.crossingSearchSide_0x338 == 1 && side < 0.0f) {
-            var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
+        } else if (var_busState_8c1bb9d0.laneTargetSearchSide_0x338 == 1 && side < 0.0f) {
+            var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
             return;
         }
 
@@ -314,7 +314,7 @@ void FUN_8c023e7e(void)
                 var_busState_8c1bb9d0.laneTargetZ_0x0f0 = cand[1];
                 var_busState_8c1bb9d0.laneOffset_0x2c4 =
                     GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, cand);
-                var_busState_8c1bb9d0.crossingSearchDone_0x334 = 1;
+                var_busState_8c1bb9d0.laneTargetSearchDone_0x334 = 1;
                 var_busState_8c1bb9d0.currentLineNodeIdx_0x33c = idx;
                 var_busState_8c1bb9d0.lineSegmentRemaining_0x2bc = remaining;
                 var_busState_8c1bb9d0.lineSegmentProgress_0x2c0 = traveled;
@@ -345,5 +345,5 @@ void FUN_8c023e7e(void)
         sdMidiPlay((SDMIDI)(int)&var_midiHandles_8c0fcd28[0], 1, 2, 0);
     }
 
-    var_busState_8c1bb9d0.crossingSearchSide_0x338 = 2;
+    var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
 }

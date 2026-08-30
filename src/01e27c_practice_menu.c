@@ -78,7 +78,23 @@ STATIC char init_8c0451b4[] = {
 STATIC Uint32 init_8c0451c0[] = { 0, 0, 0, 0, 0, 0, 0, 6, 0xf, 0xf, 0xf };
 STATIC char init_8c0451ec[] = { 0x10, 0x0a, 0x14, 0x11, 0x12, 0x14, 0x15, 0x13, 0x13, 0x1b, 0x09, 0x00 };
 STATIC char init_8c0451f8[] = { 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0xc0, 0x40, 0x00, 0x00, 0x30, 0x41, 0x00, 0x00, 0xe0, 0x40 };
-STATIC char init_8c045208[] = { 0x20, 0x21, 0x23, 0x24, 0x25, 0x26, 0x28, 0x29, 0x29, 0x2b, 0x2c, 0x2d, 0x2d, 0x2e, 0x2e, 0x2f, 0x32, 0x33, 0x34, 0x35, 0x31, 0x31, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3b, 0x3d, 0x31, 0x27, 0x3e, 0x3f, 0x00, 0x00 };
+/* Indexed by the drive-side penalty id in var_8c1bb8ec (a PENALTY_MSG_* from
+ * 02b464_drive_points.c -- the worst penalty of the run just finished);
+ * gives the INSTR_* dialog id (016d2c_course_menu.h) shown for it below.
+ * Several PENALTY_MSG_* ids collapse onto the same INSTR_* (e.g. both
+ * PENALTY_MSG_OFF_COURSE_MEDIUM and _MAJOR show INSTR_OFF_COURSE_MEDIUM) --
+ * see the INSTR_* enum comment for which ids that leaves never shown. */
+STATIC char init_penaltyMsgSetInstr_8c045208[] = {
+    INSTR_COLLISION_CAR_MINOR, INSTR_COLLISION_CAR_MEDIUM, INSTR_COLLISION_CAR_FATAL, INSTR_COLLISION_WALL_MINOR,
+    INSTR_COLLISION_WALL_MEDIUM, INSTR_COLLISION_WALL_SEVERE, INSTR_OFF_COURSE_MINOR, INSTR_OFF_COURSE_MEDIUM,
+    INSTR_OFF_COURSE_MEDIUM, INSTR_SPEEDING_MINOR, INSTR_SPEEDING_MAJOR, INSTR_WRONG_LANE,
+    INSTR_WRONG_LANE, INSTR_LANE_STRADDLE, INSTR_LANE_STRADDLE, INSTR_NO_SIGNAL,
+    INSTR_SIGNAL_VIOLATION, INSTR_BAD_STOP_LINE, INSTR_ILLEGAL_LANE_CHANGE, INSTR_BLOCK_INTERSECTION,
+    INSTR_UKN_49, INSTR_UKN_49, INSTR_WRONG_WAY, INSTR_RAPID_ACCEL,
+    INSTR_HARD_BRAKE, INSTR_SWERVING, INSTR_MISSED_STOP, INSTR_BAD_STOP_POSITION_1,
+    INSTR_BAD_STOP_POSITION_1, INSTR_TIME_MANAGEMENT, INSTR_UKN_49, INSTR_NEAR_MISS_PEDESTRIAN,
+    INSTR_ANNOUNCEMENT, INSTR_DOOR_OPERATION, 0, 0,
+};
 
 /* ====================
  * Forward Declarations
@@ -487,7 +503,7 @@ STATIC void buildDialogQueue_8c01e992(void)
     if (var_8c1bb8f4 == 0) {
         var_8c226414[i++] = 0x1b;
     } else {
-        var_8c226414[i++] = (unsigned char)init_8c045208[var_8c1bb8ec];
+        var_8c226414[i++] = (unsigned char)init_penaltyMsgSetInstr_8c045208[var_8c1bb8ec];
 
         if (var_runSucceeded_8c1bb8dc == 0)
             var_8c226414[i++] = (var_8c1bb8f4 == 1) ? 0x1e : 0x1f;
