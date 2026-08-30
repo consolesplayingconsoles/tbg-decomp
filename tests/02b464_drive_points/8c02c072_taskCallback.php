@@ -12,10 +12,13 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_8c2285c4');
         $this->rellocate('_var_8c22861c', $base + 0x58);
         $this->rellocate('_var_8c228634', $base + 0x70);
+        // var_driverPoints_8c2285d0 is var_8c2285c4[3] (see the .c comment on
+        // adjust_8c02b464); taskCallback's asm reads it via the R14+0xc
+        // offset, not the aliased name, so it must land on that same slot.
+        $this->rellocate('_var_driverPoints_8c2285d0', $base + 0x0c);
 
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
-        $this->setSize('_var_driverPoints_8c2285d0', 4);
         $this->setSize('_var_messageBoxActive_8c22847c', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
@@ -117,6 +120,49 @@ return new class extends TestCase {
         // var_driverPoints_8c2285d0 stays > 0 here, so the phase-4 handoff
         // (and its SndStartAdxFadeOut pair) does NOT fire -- goes straight
         // to the tail's message-queue tick and fade-command push.
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, new WildcardArgument(), 0);
+    }
+
+    public function test_phase_3_end_of_stop_grades_arrival_and_starts_fadeout(): void
+    {
+        $base = $this->resolveSymbols();
+        $this->baselineMsgQueue();
+        $this->initUint32($base + 0x00, 3); // phase 3
+        $this->initUint32($base + 0x24, 0); // var_8c2285c4[9] -- arrival quality grade
+
+        $this->setSize('_var_nextStopSegment_8c228710', 4);
+        $this->setSize('_var_8c228714', 4);
+        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+
+        // var_8c228714 is the upcoming stop's heading angle, not the segment
+        // index var_nextStopSegment_8c228710 -- set them apart so a test
+        // reading the wrong symbol fails.
+        $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 0);
+        $this->initUint32($this->addressOf('_var_8c228714'), 0x1000);
+
+        $busState = $this->addressOf('_var_busState_8c1bb9d0');
+        $this->initUint32($busState + 0x250, 0); // ang_0x250
+        $this->initUint32($busState + 0x25c, 1); // skip the -8 stop-precision adjust
+        $this->initUint32($base + 0x58, 0x3c); // var_8c22861c[0]
+
+        $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
+        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0); // skip FUN_8c02c586 gate
+
+        $this->call('_taskCallback_8c02c072');
+
+        // diff = var_8c228714(0x1000) - ang_0x250(0) = 0x1000, inside
+        // (0x71c, 0xf8e3) -> heading-mismatch penalty fires.
+        $this->shouldCall('_adjust_8c02b464')->with(0x1b, 0xfffffffd); // -3
+
+        $this->shouldWriteLong($base + 0x00, 4);
+        $this->shouldWriteLong($base + 0x08, 0x1e);
+        $this->shouldWriteLong($this->addressOf('_var_messageBoxActive_8c22847c'), 1);
+        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_FUN_8c02c784'));
+
+        $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
+        $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
+
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, new WildcardArgument(), 0);
     }
 };

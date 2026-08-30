@@ -832,17 +832,12 @@ int FUN_8c02c586(void) {
  * post-drive screen appropriate for the current mode. Uses task->field_0x08
  * as its own little state machine (0 = waiting, 1 = counting to the fade,
  * 2 = fading out) and field_0x0c as the counter for state 1. Always ends by
- * drawing a mark sprite; Ghidra shows its priority argument as an incoming
- * float register (in_fr7) with no real assignment we can find -- the task
- * scheduler apparently passes it out-of-band for this class of task.
+ * drawing a mark sprite.
  * Untested against src.obj beyond the state transitions themselves. */
 STATIC void FUN_8c02c69a(Task *task, void *state) {
     int *phase = (int *)&task->field_0x08;
     int *counter = (int *)&task->field_0x0c;
-    /* See comment above -- best-effort value (matches the only Z-priority
-     * constants used for this same mark texlist elsewhere, 0129cc.c's
-     * MARK_Z_ARROW/MARK_Z_BASE), not verified against asm. */
-    float priority = -1.09f;
+    float priority = -3.0f;
 
     if (*phase == 0) {
         if (var_isFading_8c226568 == 0) {
@@ -1093,7 +1088,7 @@ STATIC void taskCallback_8c02c072() {
     } else if (var_8c2285c4[0] == 3) {
         if (var_8c2285c4[9] == 0) {
             if (var_inputMapSel_8c1bb8c8 == 0) {
-                int diff = var_nextStopSegment_8c228710 - var_busState_8c1bb9d0.ang_0x250;
+                int diff = var_8c228714 - var_busState_8c1bb9d0.ang_0x250;
                 if ((diff < -0x71c && diff > -0xf8e3) || (diff > 0x71c && diff < 0xf8e3)) {
                     adjust_8c02b464(0x1b, -3);
                 }

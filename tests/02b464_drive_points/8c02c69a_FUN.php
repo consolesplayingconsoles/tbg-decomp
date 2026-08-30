@@ -15,12 +15,6 @@ return new class extends TestCase {
         $this->setSize('_var_markTexlist_8c1bc418', 4);
     }
 
-    // NOTE: this task's priority/z argument to TxtDrawSprite_8c014f54 comes
-    // from an incoming float register Ghidra can't attribute to a real
-    // parameter (see 02b464_drive_points.c's comment on FUN_8c02c69a); it
-    // isn't asserted below -- only the state-machine and control-flow
-    // effects are.
-
     public function test_phase_0_arms_once_not_fading(): void
     {
         $this->resolveSymbols();
@@ -34,7 +28,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 8, 1);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
-            ->with($this->addressOf('_var_markTexlist_8c1bc418'), 0x79, 0.0, 0.0);
+            ->with($this->addressOf('_var_markTexlist_8c1bc418'), 0x79, 0.0, 0.0, -3.0);
     }
 
     public function test_phase_1_counts_up_to_fade_out(): void
@@ -52,7 +46,7 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
-            ->with($this->addressOf('_var_markTexlist_8c1bc418'), 0x79, 0.0, 0.0);
+            ->with($this->addressOf('_var_markTexlist_8c1bc418'), 0x79, 0.0, 0.0, -3.0);
     }
 
     public function test_phase_2_not_fading_free_run_shows_results(): void
