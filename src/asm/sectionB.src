@@ -546,7 +546,10 @@
                                     ; 02c884
           .EXPORT     _var_8c226454 ; 02c884
           .EXPORT     _var_8c226458 ; 01fa78
-          .EXPORT     _var_uknVol_8c226468 ; 0100bc_sound
+          .EXPORT     _var_engineRpm_8c226468 ; 0100bc_sound
+          .EXPORT     _var_8c22646c ; 01fa78
+          .EXPORT     _var_gearLatch_8c226470 ; 01fa78
+          .EXPORT     _var_laneLatch_8c226474 ; 01fa78
           .EXPORT     _var_8c226478 ; 01fa78
           .EXPORT     _var_8c2264a8 ; 01fa78
           .EXPORT     _var_8c2264b8 ; 020214
@@ -1293,8 +1296,14 @@ _var_8c226454:
           .RES.B      4
 _var_8c226458:
           .RES.B      16
-_var_uknVol_8c226468:
-          .RES.B      16
+_var_engineRpm_8c226468:
+          .RES.B      4
+_var_8c22646c:
+          .RES.B      4
+_var_gearLatch_8c226470:
+          .RES.B      4
+_var_laneLatch_8c226474:
+          .RES.B      4
 _var_8c226478:
           .RES.B      48
 _var_8c2264a8:

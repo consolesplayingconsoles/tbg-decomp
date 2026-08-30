@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->rellocate('_var_8c226450', $base + 0x14);
         $this->rellocate('_var_8c226454', $base + 0x18);
         $this->rellocate('_var_8c226458', $base + 0x1c);
-        $this->rellocate('_var_uknVol_8c226468', $base + 0x2c);
+        $this->rellocate('_var_engineRpm_8c226468', $base + 0x2c);
         $this->rellocate('_var_8c226478', $base + 0x3c);
 
         $this->setSize('_var_8c2285c4', 0x80);
@@ -188,7 +188,7 @@ return new class extends TestCase {
 
         // Needle: mode 0 (relax toward 0), starts above 0.
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0, 0);
-        $this->initUint32($base + 0x2c, unpack('L', pack('f', 300.0))[1]); // var_uknVol_8c226468
+        $this->initUint32($base + 0x2c, unpack('L', pack('f', 300.0))[1]); // var_engineRpm_8c226468
 
         // Speed readout: 5.0 * 108000.0 / 1000.0 = 540.0 -> 540.
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x27c, unpack('L', pack('f', 5.0))[1]);
@@ -285,7 +285,7 @@ return new class extends TestCase {
 
         $this->initUint32($dp + 0x10, 100); // var_8c2285d4
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0, 1); // needle mode 1
-        $this->initUint32($base + 0x2c, unpack('L', pack('f', 100.0))[1]); // var_uknVol_8c226468 < 500
+        $this->initUint32($base + 0x2c, unpack('L', pack('f', 100.0))[1]); // var_engineRpm_8c226468 < 500
 
         $this->call('_drawHud_8c01fbac')->with(0);
 

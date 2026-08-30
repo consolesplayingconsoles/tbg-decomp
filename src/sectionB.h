@@ -217,7 +217,7 @@ typedef struct {
     int field_0x2d4;
     int field_0x2d8;
     int field_0x2dc;
-    /* Needle-ramp mode for drawHud_8c01fbac's var_uknVol_8c226468 (01fa78):
+    /* Needle-ramp mode for drawHud_8c01fbac's var_engineRpm_8c226468 (01fa78):
      * 0 = relax toward 0, 1 = settle to 500, 2 = ramp toward target_0x2e8. */
     int field_0x2e0;
     int field_0x2e4;
@@ -1118,7 +1118,13 @@ extern char *var_8c226074; /* SETTING screen: ptr to the 5 gameplay-setting byte
 extern int var_8c226078[2]; /* MUSIC TEST */
 extern int var_8c226080[2]; /* SFX TEST */
 extern int var_8c226088[4]; /* VOICE TEST */
-extern float var_uknVol_8c226468; // real type is 0100bc_sound.c's local UnknownVolStructB {float}
+extern float var_engineRpm_8c226468; // real type is 0100bc_sound.c's local UnknownVolStructB {float}
+extern int var_8c22646c; // written (zeroed) by HudReset_8c02018c (01fa78), never read
+/* Gear-message / lane-change-message latch for hudUpdateTask_8c01ff48
+ * (01fa78): set once the corresponding driver-comment popup has been staged,
+ * cleared when the bus-state bit returns to 0. */
+extern int var_gearLatch_8c226470;
+extern int var_laneLatch_8c226474;
 extern int var_vmuStatus_8c226048[9];
 /* RESULTS screen score category totals, drawn digit-by-digit by
  * drawScoreDigits_8c01d7fc (01d7fc). */

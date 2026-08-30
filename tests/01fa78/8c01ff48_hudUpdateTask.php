@@ -11,7 +11,10 @@ return new class extends TestCase {
         $this->rellocate('_var_8c226450', $base + 0x14);
         $this->rellocate('_var_8c226454', $base + 0x18);
         $this->rellocate('_var_8c226458', $base + 0x1c);
-        $this->rellocate('_var_uknVol_8c226468', $base + 0x2c);
+        $this->rellocate('_var_engineRpm_8c226468', $base + 0x2c);
+        $this->rellocate('_var_8c22646c', $base + 0x30);
+        $this->rellocate('_var_gearLatch_8c226470', $base + 0x34);
+        $this->rellocate('_var_laneLatch_8c226474', $base + 0x38);
         $this->rellocate('_var_8c226478', $base + 0x3c);
 
         $this->setSize('_var_8c2264a8', 0x10);

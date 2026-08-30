@@ -55,7 +55,7 @@ STATIC Uint8 init_8c0453b4[] = {
     0x9D, 0x73, 0x4E, 0x3F, 0x00, 0x00, 0x00, 0x80,
 };
 
-/* 3 NJS_POINT3 local-space corners of the rotating needle triangle
+/* 3 NJS_POINT3 local-space corners of the rotating tachometer needle triangle
  * (drawHud_8c01fbac), njCalcPoint'd through var_8c1bc46c into var_8c226478. */
 STATIC Uint8 init_8c045414[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0,
@@ -100,8 +100,8 @@ STATIC void drawTimeDigits_8c01fa80(int frames, float y, int spriteBase) {
 /* Per-frame in-drive HUD renderer: driver-comment popup icons (var_8c2264a8,
  * plus arg0 -- the message code hudUpdateTask_8c01ff48 stages through the fade-command
  * queue), the next-stop icon (blinking once armed), the driver-points meter
- * bar, both turn-signal icons, a rotating needle driven by the steering/lane
- * state machine (var_uknVol_8c226468's 500-unit ramp), and the speed
+ * bar, both turn-signal icons, a rotating tachometer needle driven by the
+ * steering/lane state machine (var_engineRpm_8c226468's 500-unit ramp), and the speed
  * readout + two timers drawn by the drawSpeedAndTimers_8c01fe84 tail. Installed as a
  * FadeCallback1 and as a TaskPush_8c014ae8 action, so it must keep this
  * exact signature. */
@@ -163,46 +163,46 @@ STATIC void drawHud_8c01fbac(int arg0) {
         TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x26, 0.0f, 0.0f, -1.21f);
     }
 
-    /* Rotating needle position: field_0x2e0 selects a mode (0 = relax
+    /* Rotating tachometer needle position: field_0x2e0 selects a mode (0 = relax
      * toward 0, 1 = settle to 500, 2 = ramp toward target_0x2e8),
-     * each stepping var_uknVol_8c226468 by 200.0f/frame and clamping on
+     * each stepping var_engineRpm_8c226468 by 200.0f/frame and clamping on
      * overshoot. */
     switch (var_busState_8c1bb9d0.field_0x2e0) {
     case 0:
-        if (var_uknVol_8c226468 > 0.0f) {
-            var_uknVol_8c226468 -= 200.0f;
-            if (var_uknVol_8c226468 < 0.0f) {
-                var_uknVol_8c226468 = 0.0f;
+        if (var_engineRpm_8c226468 > 0.0f) {
+            var_engineRpm_8c226468 -= 200.0f;
+            if (var_engineRpm_8c226468 < 0.0f) {
+                var_engineRpm_8c226468 = 0.0f;
             }
         }
         break;
 
     case 1:
-        if (var_uknVol_8c226468 > 500.0f) {
-            var_uknVol_8c226468 -= 200.0f;
-            if (var_uknVol_8c226468 >= 500.0f) break;
-            var_uknVol_8c226468 = 500.0f;
+        if (var_engineRpm_8c226468 > 500.0f) {
+            var_engineRpm_8c226468 -= 200.0f;
+            if (var_engineRpm_8c226468 >= 500.0f) break;
+            var_engineRpm_8c226468 = 500.0f;
         } else {
-            var_uknVol_8c226468 += 200.0f;
-            if (var_uknVol_8c226468 <= 500.0f) break;
-            var_uknVol_8c226468 = 500.0f;
+            var_engineRpm_8c226468 += 200.0f;
+            if (var_engineRpm_8c226468 <= 500.0f) break;
+            var_engineRpm_8c226468 = 500.0f;
         }
         break;
 
     case 2: {
         float target = var_busState_8c1bb9d0.target_0x2e8;
         if (target > 500.0f) {
-            if (target < var_uknVol_8c226468) {
-                var_uknVol_8c226468 -= 200.0f;
-                if (target <= var_uknVol_8c226468) break;
+            if (target < var_engineRpm_8c226468) {
+                var_engineRpm_8c226468 -= 200.0f;
+                if (target <= var_engineRpm_8c226468) break;
             } else {
-                var_uknVol_8c226468 += 200.0f;
-                if (var_uknVol_8c226468 <= target) break;
+                var_engineRpm_8c226468 += 200.0f;
+                if (var_engineRpm_8c226468 <= target) break;
             }
-            var_uknVol_8c226468 = target;
+            var_engineRpm_8c226468 = target;
             break;
         }
-        var_uknVol_8c226468 = 500.0f;
+        var_engineRpm_8c226468 = 500.0f;
         break;
     }
 
@@ -212,7 +212,7 @@ STATIC void drawHud_8c01fbac(int arg0) {
 
     njUnitMatrix(&var_8c1bc46c);
     njTranslate(&var_8c1bc46c, 320.0f, 436.0f, 0.0f);
-    angle = ((Sint32)var_uknVol_8c226468 * 32768) / 6000;
+    angle = ((Sint32)var_engineRpm_8c226468 * 32768) / 6000;
     njRotateZ(&var_8c1bc46c, angle);
     njCalcPoint(&var_8c1bc46c, (NJS_POINT3 *)&init_8c045414[0], (NJS_POINT3 *)&var_8c226478[0]);
     njCalcPoint(&var_8c1bc46c, (NJS_POINT3 *)&init_8c045414[12], (NJS_POINT3 *)&var_8c226478[1]);
@@ -267,10 +267,6 @@ STATIC void hudUpdateTask_8c01ff48() {
     unsigned int gear;
     unsigned int lane;
     int messageArg = 0;
-    /* Shares var_uknVol_8c226468's 16-byte scratch block: bytes 0-3 are that
-     * symbol's own float (owned by 0100bc_sound.c); bytes 8-11/12-15 are
-     * plain ints used only here. */
-    int *uknVolScratch = (int *)&var_uknVol_8c226468;
 
     if (var_8c22643c.field_0x10 == 0) {
         if (blinker != 0) {
@@ -294,18 +290,18 @@ STATIC void hudUpdateTask_8c01ff48() {
     }
 
     gear = var_busState_8c1bb9d0.field_0x3b0 & 0xc0000;
-    if (uknVolScratch[2] == 0) {
+    if (var_gearLatch_8c226470 == 0) {
         if (gear != 0) {
             if (gear == 0x40000) {
                 showMark_8c01fa78(0x1c, 0xb4);
             } else if (gear == 0x80000) {
                 showMark_8c01fa78(0x1d, 0xb4);
             }
-            uknVolScratch[2] = 1;
+            var_gearLatch_8c226470 = 1;
             goto afterGear;
         }
     } else if (gear == 0) {
-        uknVolScratch[2] = 0;
+        var_gearLatch_8c226470 = 0;
     }
 
     if ((var_busState_8c1bb9d0.field_0x3b0 & 0x100) != 0) {
@@ -313,14 +309,14 @@ STATIC void hudUpdateTask_8c01ff48() {
     }
 
     lane = var_busState_8c1bb9d0.field_0x3b8 & 0xff0000;
-    if (uknVolScratch[3] == 0) {
+    if (var_laneLatch_8c226474 == 0) {
         if (lane != 0) {
             showMark_8c01fa78((short)(lane >> 0x10) + 0x1e, 0x78);
-            uknVolScratch[3] = 1;
+            var_laneLatch_8c226474 = 1;
             var_8c2264a8.field_0x0c = 0;
         }
     } else if (lane == 0) {
-        uknVolScratch[3] = 0;
+        var_laneLatch_8c226474 = 0;
     }
 
 afterGear:
@@ -404,13 +400,10 @@ void HudReset_8c02018c(void) {
     var_8c226458.field_0x00 = (float)var_driverPoints_8c2285d0;
     var_8c226458.field_0x0c = 1.0f;
 
-    var_uknVol_8c226468 = 0.0f;
-    {
-        int *uknVolScratch = (int *)&var_uknVol_8c226468;
-        uknVolScratch[1] = 0;
-        uknVolScratch[2] = 0;
-        uknVolScratch[3] = 0;
-    }
+    var_engineRpm_8c226468 = 0.0f;
+    var_8c22646c = 0;
+    var_gearLatch_8c226470 = 0;
+    var_laneLatch_8c226474 = 0;
 
     var_8c226478[0].color = 0xffff0000;
     var_8c226478[1].color = 0xffff0000;
