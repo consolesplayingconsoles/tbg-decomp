@@ -442,9 +442,11 @@ extern Uint32 var_8c1bbcb0;
 extern int var_8c1bbcb4;
 extern int var_8c1bbcc4;
 /* Bus-to-camera-focus vector (x, _, z); written by
- * BusRenderUpdateCamera_8c025078, read by FUN_8c028b74 via njArcTan2.
- * Immediately follows var_busState_8c1bb9d0 in memory but exported as its
- * own symbols, not struct fields -- coincidentally adjacent, not part of it. */
+ * BusRenderUpdateCamera_8c025078, read by drawPedestrians_8c028b74 via
+ * njArcTan2. Alias var_busState_8c1bb9d0.field_0x308 / .field_0x310
+ * (base+0x308/+0x310), exported as their own symbols instead of struct
+ * fields; 028258_objects.c reads through these what 024b4c_bus_render.c
+ * writes through the struct. */
 extern float var_busCameraFocusX_8c1bbcd8;
 extern float var_busCameraFocusZ_8c1bbce0;
 extern void* var_messageTextBoxA_8c1bc404;
@@ -500,8 +502,7 @@ extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
  * the top byte's exact trigger semantics when that lands.
  * Also sits at var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not
  * that struct's field_0x3bc -- coincidentally adjacent, not part of it. */
-/* Used by DemoUpdateCamera_8c025906's LAB_8c0259e8 helper task, not yet
- * decompiled (025870). */
+/* Used by stopTextboxTask_8c0259e8 (025870). */
 extern NJS_POINT3 var_8c1bbd80;
 extern int var_scenePresetIds_8c1bbd8c;
 // 026710: cached copies of two CourseSceneParams.rec0_0x0c rows, and their
@@ -863,8 +864,10 @@ extern float var_8c22866c;
  * (02b464) overwrites it as part of the knockback response. */
 extern float var_8c228670;
 
-/* Bump-grading scratch (02b464): [674]/[67c]/[678] a timestamp/threshold
- * trio compared in FUN_8c02b986; [680] the offense-type code driving
+/* Bump-grading scratch (02b464): [674]/[678]/[67c] are
+ * var_busState_8c1bb9d0.field_0x358/0x374/0x390 masked with 0xf0000001 --
+ * the bus's three road-probe results, snapshotted for the lane-change check
+ * in FUN_8c02b986; [680] the offense-type code driving
  * FUN_8c02b864/886/8b8/986's penalty picks; [684] a timestamp compared
  * against var_8c22861c[5]; [688] a bitflag word tested against 0xf000000;
  * [68c] a small state code (0/1/2) gating several of the above. */
