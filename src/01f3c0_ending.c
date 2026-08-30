@@ -112,8 +112,8 @@ STATIC void creditsTask_8c01f658(void);
  * ====================
  */
 
-/* Tallies each of the 9 courses' story completion state (0-3, 3 = perfect)
- * and picks the ending's dialog tier accordingly. */
+/* Tallies each of the 9 courses' badge tier and picks the ending's dialog
+ * tier accordingly. */
 STATIC void selectEndingDialog_8c01f3c0(void)
 {
     int i;
@@ -124,26 +124,26 @@ STATIC void selectEndingDialog_8c01f3c0(void)
     perfectCount = 0;
     attemptedCount = 0;
     for (i = 0; i < 9; i++) {
-        state = var_progress_8c1ba1cc.courses_0x44[i].storySpriteNo_0x03;
-        if (state == 3) {
+        state = var_progress_8c1ba1cc.courses_0x44[i].storyAward_0x03;
+        if (state == AWARD_TIER_GOLD) {
             perfectCount++;
             attemptedCount++;
-        } else if (state == 2 || state == 1) {
+        } else if (state == AWARD_TIER_SILVER || state == AWARD_TIER_BRONZE) {
             attemptedCount++;
         }
     }
 
     if (perfectCount >= 9) {
-        var_dialogQueue_8c225fbc[0] = 1;
+        var_dialogQueue_8c225fbc[0] = INSTR_SUCCESS_PERFECT;
         var_endingVoiceList_8c226430 = init_endingVoicesPerfect_8c04522c;
     } else if (attemptedCount >= 9) {
-        var_dialogQueue_8c225fbc[0] = 2;
+        var_dialogQueue_8c225fbc[0] = INSTR_SUCCESS_HIGH;
         var_endingVoiceList_8c226430 = init_endingVoicesHigh_8c045244;
     } else if (attemptedCount >= 5) {
-        var_dialogQueue_8c225fbc[0] = 3;
+        var_dialogQueue_8c225fbc[0] = INSTR_SUCCESS_NORMAL;
         var_endingVoiceList_8c226430 = init_endingVoicesNormal_8c04525c;
     } else {
-        var_dialogQueue_8c225fbc[0] = 4;
+        var_dialogQueue_8c225fbc[0] = INSTR_FAILURE_FINAL;
         var_endingVoiceList_8c226430 = init_endingVoicesFailure_8c045278;
     }
 }
