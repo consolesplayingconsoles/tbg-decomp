@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 /*
- * FUN_8c021b9c(int width, int height): draws the visible window of the
+ * drawTileGrid_8c021b9c(int width, int height): draws the visible window of the
  * width*height tile grid (var_tileLayerSlots_8c226520) around the bus's
  * current position for fade-command layer 0. Layers 0/2/3 draw with the
  * Chunk "Easy" light model, layer 1 with "Simple".
@@ -124,7 +124,7 @@ return new class extends TestCase {
         $this->initUint32($slots + 2 * 4, $slot2);
         $this->initUint32($slots + 3 * 4, $slot3);
 
-        $this->call('_FUN_8c021b9c')->with(1, 1);
+        $this->call('_drawTileGrid_8c021b9c')->with(1, 1);
 
         $this->shouldCall('__divls');
         $this->shouldCall('__divls');
@@ -158,7 +158,7 @@ return new class extends TestCase {
         $this->initUint32($slots + 2 * 4, $slot2);
         $this->initUint32($slots + 3 * 4, $slot3);
 
-        $this->call('_FUN_8c021b9c')->with(1, 1);
+        $this->call('_drawTileGrid_8c021b9c')->with(1, 1);
 
         $this->shouldCall('__divls');
         $this->shouldCall('__divls');
@@ -201,7 +201,7 @@ return new class extends TestCase {
         $this->initUint32($slots + 2 * 4, $emptyLayer);
         $this->initUint32($slots + 3 * 4, $emptyLayer);
 
-        $this->call('_FUN_8c021b9c')->with($width, $height);
+        $this->call('_drawTileGrid_8c021b9c')->with($width, $height);
 
         $this->shouldCall('__divls');
         $this->shouldCall('__divls');

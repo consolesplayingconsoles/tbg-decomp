@@ -5,13 +5,13 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * FUN_8c0221d0(Task *task, void *state): the TaskAction pushed by
+ * TileDrawEnqueueTask_8c0221d0(Task *task, void *state): the TaskAction pushed by
  * FUN_8c0222dc (0222dc_fadecmd). Computes the two fade light directions by
  * broadcasting one scalar CourseSceneParams component into a 3-vector and
  * transforming it with njCalcVector under whichever camera is current (as
  * coded -- reads dir1_0x48[0]/dir2_0x68[0] three times each rather than
  * [0]/[1]/[2], not obviously intentional but preserved), then queues
- * FUN_8c021b9c/FUN_8c021ec4 as this frame's tile-grid draws for fade layers
+ * drawTileGrid_8c021b9c/drawTileGridMirror_8c021ec4 as this frame's tile-grid draws for fade layers
  * 0/1, and TileStreamDrawTile_8c021b34 (the current tile, `state`) for both
  * layers.
  */
@@ -56,7 +56,7 @@ return new class extends TestCase {
         $task = $this->alloc(4);
         $state = $this->alloc(8);
 
-        $this->call('_FUN_8c0221d0')->with($task, $state);
+        $this->call('_TileDrawEnqueueTask_8c0221d0')->with($task, $state);
 
         $camera0 = $this->addressOf('_var_8c1bb904');
         $camera1 = $this->addressOf('_var_8c1bb944');
@@ -83,8 +83,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($dir2 + 8, 42.0);
         $this->shouldCall('_njCalcVector')->with(0, $dir2, $dir2);
 
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_FUN_8c021b9c'), 7, 5);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_FUN_8c021ec4'), 7, 5);
+        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_drawTileGrid_8c021b9c'), 7, 5);
+        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_drawTileGridMirror_8c021ec4'), 7, 5);
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
     }

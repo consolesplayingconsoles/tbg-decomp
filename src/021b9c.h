@@ -9,6 +9,6 @@
  * =========
  */
 
-void FUN_8c0221d0(Task *task, void *state);
+void TileDrawEnqueueTask_8c0221d0(Task *task, void *state);
 
 #endif // _021B9C_H

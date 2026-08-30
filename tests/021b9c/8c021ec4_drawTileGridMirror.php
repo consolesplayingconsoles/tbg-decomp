@@ -6,9 +6,9 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 /*
- * FUN_8c021ec4(int width, int height): the mirror-render twin of
- * FUN_8c021b9c -- reachable only via the function-pointer literal
- * FUN_8c0221d0 pushes to FadeCmdPushCall2_8c022420(1, ...), never called
+ * drawTileGridMirror_8c021ec4(int width, int height): the mirror-render twin of
+ * drawTileGrid_8c021b9c -- reachable only via the function-pointer literal
+ * TileDrawEnqueueTask_8c0221d0 pushes to FadeCmdPushCall2_8c022420(1, ...), never called
  * directly, so it stays private (exported under UNIT_TESTING only). Same
  * visible-window/Easy-Simple-Easy-Easy structure; its Simple-light block
  * reads var_fadeLightDir1_8c2264e4[0] plus the separately-exported aliases
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->initUint32($slots + 2 * 4, $slot2);
         $this->initUint32($slots + 3 * 4, $slot3);
 
-        $this->call('_FUN_8c021ec4')->with(1, 1);
+        $this->call('_drawTileGridMirror_8c021ec4')->with(1, 1);
 
         $this->shouldCall('__divls');
         $this->shouldCall('__divls');
@@ -169,7 +169,7 @@ return new class extends TestCase {
         $this->initUint32($slots + 2 * 4, $slot2);
         $this->initUint32($slots + 3 * 4, $slot3);
 
-        $this->call('_FUN_8c021ec4')->with(1, 1);
+        $this->call('_drawTileGridMirror_8c021ec4')->with(1, 1);
 
         $this->shouldCall('__divls');
         $this->shouldCall('__divls');

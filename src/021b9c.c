@@ -1,3 +1,4 @@
+/* @unit TileDraw */
 #include <shinobi.h>
 
 #include "serial_debug.h"
@@ -14,8 +15,8 @@
  * Forward Declarations
  * ====================
  */
-STATIC void FUN_8c021b9c(int width, int height);
-STATIC void FUN_8c021ec4(int width, int height);
+STATIC void drawTileGrid_8c021b9c(int width, int height);
+STATIC void drawTileGridMirror_8c021ec4(int width, int height);
 
 /* ====================
  * Functions
@@ -26,11 +27,10 @@ STATIC void FUN_8c021ec4(int width, int height);
  * width x height tiles) around the bus's position for fade-command layer 0
  * (the primary render). Layers 0, 2 and 3 of the tile grid draw with the
  * Chunk "Easy" light model, layer 1 with "Simple" -- as coded, not a
- * mistake to normalize away. Exported unconditionally in the original
- * asm but never called by name from another unit -- reachable only via
- * the function-pointer literal FUN_8c0221d0 pushes to
- * FadeCmdPushCall2_8c022420 -- so it stays private here. */
-STATIC void FUN_8c021b9c(int width, int height)
+ * mistake to normalize away. Never called by name from another unit --
+ * reachable only via the function-pointer literal TileDrawEnqueueTask_8c0221d0
+ * pushes to FadeCmdPushCall2_8c022420 -- so it stays private here. */
+STATIC void drawTileGrid_8c021b9c(int width, int height)
 {
     int colStart, colEnd, rowStart, rowEnd;
     int row, col, flatIndex, rowBase;
@@ -107,13 +107,13 @@ STATIC void FUN_8c021b9c(int width, int height)
     njControl3D(0x100);
 }
 
-/* Same as FUN_8c021b9c, but for fade-command layer 1 (the mirror render):
+/* Same as drawTileGrid_8c021b9c, but for fade-command layer 1 (the mirror render):
  * light direction/setup differs (var_fadeLightDir1_8c2264e4 and camera
- * var_8c1bb944, set up by FUN_8c0221d0), everything else -- including the
+ * var_8c1bb944, set up by TileDrawEnqueueTask_8c0221d0), everything else -- including the
  * per-layer Easy/Simple split -- is identical. Reachable only via the
- * function-pointer literal FUN_8c0221d0 pushes to FadeCmdPushCall2_8c022420,
+ * function-pointer literal TileDrawEnqueueTask_8c0221d0 pushes to FadeCmdPushCall2_8c022420,
  * never called directly, so it stays private. */
-STATIC void FUN_8c021ec4(int width, int height)
+STATIC void drawTileGridMirror_8c021ec4(int width, int height)
 {
     int colStart, colEnd, rowStart, rowEnd;
     int row, col, flatIndex, rowBase;
@@ -194,10 +194,10 @@ STATIC void FUN_8c021ec4(int width, int height)
  * two fade light directions (broadcasting one scalar CourseSceneParams
  * component into a vector, then transforming it by whichever camera is
  * current -- as coded, not obviously intentional but preserved), then
- * queues FUN_8c021b9c/FUN_8c021ec4 as this frame's tile-grid draw calls for
+ * queues drawTileGrid_8c021b9c/drawTileGridMirror_8c021ec4 as this frame's tile-grid draw calls for
  * fade layers 0/1, and TileStreamDrawTile_8c021b34 (the current tile,
  * `state`) for both layers. */
-void FUN_8c0221d0(Task *task, void *state)
+void TileDrawEnqueueTask_8c0221d0(Task *task, void *state)
 {
     njSetCamera(&var_8c1bb904);
 
@@ -218,8 +218,8 @@ void FUN_8c0221d0(Task *task, void *state)
     var_fadeLightDir1_8c2264e4[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
     njCalcVector(NULL, (NJS_VECTOR *)var_fadeLightDir1_8c2264e4, (NJS_VECTOR *)var_fadeLightDir1_8c2264e4);
 
-    FadeCmdPushCall2_8c022420(0, FUN_8c021b9c, var_8c22650c[0]->width, var_8c22650c[0]->height);
-    FadeCmdPushCall2_8c022420(1, FUN_8c021ec4, var_8c22650c[0]->width, var_8c22650c[0]->height);
+    FadeCmdPushCall2_8c022420(0, drawTileGrid_8c021b9c, var_8c22650c[0]->width, var_8c22650c[0]->height);
+    FadeCmdPushCall2_8c022420(1, drawTileGridMirror_8c021ec4, var_8c22650c[0]->width, var_8c22650c[0]->height);
     FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)TileStreamDrawTile_8c021b34, (int)state);
     FadeCmdPushCall1_8c0223ea(1, (FadeCallback1)TileStreamDrawTile_8c021b34, (int)state);
 }

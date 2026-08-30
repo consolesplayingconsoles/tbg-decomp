@@ -18,7 +18,7 @@ void FUN_8c0222dc(void)
     Task *task;
     LoadedModel *state;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, FUN_8c0221d0, &task, (void **)&state, 8);
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, TileDrawEnqueueTask_8c0221d0, &task, (void **)&state, 8);
     state->texlist = var_segmentModels_8c1bc3f0->texlist;
     state->njDest = var_segmentModels_8c1bc3f0->njDest;
 
