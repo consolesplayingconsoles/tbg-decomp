@@ -595,9 +595,9 @@
           .EXPORT     _var_currentTileRegionList_8c226534 ; 013ae8_route_load
                                                           ; 02171c
           .EXPORT     _var_8c226538 ; 021b9c
-          .EXPORT     _var_8c226544 ; 021b9c
+          .EXPORT     _var_fadeEasyLightIntensity_8c226544 ; 021b9c
                                     ; 0222dc
-          .EXPORT     _var_8c22654c ; 021b9c
+          .EXPORT     _var_fadeEasyLightColor_8c22654c ; 021b9c
                                     ; 0222dc
           .EXPORT     _var_fadeCamera_8c226558 ; 021b9c
                                     ; 022464
@@ -1346,9 +1346,9 @@ _var_currentTileRegionList_8c226534:
           .RES.B      4
 _var_8c226538:
           .RES.B      12
-_var_8c226544:
+_var_fadeEasyLightIntensity_8c226544:
           .RES.B      8
-_var_8c22654c:
+_var_fadeEasyLightColor_8c22654c:
           .RES.B      12
 _var_fadeCamera_8c226558:
           .RES.B      4

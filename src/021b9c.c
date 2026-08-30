@@ -65,8 +65,8 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
             if (slot->texlist != NULL) {
                 njSetCamera(var_fadeCamera_8c226558);
                 njCnkSetEasyLight(var_8c226538[0], var_8c226538[1], var_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_8c226544[0], var_8c226544[1]);
-                njCnkSetEasyLightColor(var_8c22654c[0], var_8c22654c[1], var_8c22654c[2]);
+                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
@@ -85,8 +85,8 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
             if (slot->texlist != NULL) {
                 njSetCamera(var_fadeCamera_8c226558);
                 njCnkSetEasyLight(var_8c226538[0], var_8c226538[1], var_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_8c226544[0], var_8c226544[1]);
-                njCnkSetEasyLightColor(var_8c22654c[0], var_8c22654c[1], var_8c22654c[2]);
+                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
@@ -95,8 +95,8 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
             if (slot->texlist != NULL) {
                 njSetCamera(var_fadeCamera_8c226558);
                 njCnkSetEasyLight(var_8c226538[0], var_8c226538[1], var_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_8c226544[0], var_8c226544[1]);
-                njCnkSetEasyLightColor(var_8c22654c[0], var_8c22654c[1], var_8c22654c[2]);
+                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
@@ -148,8 +148,8 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
             if (slot->texlist != NULL) {
                 njSetCamera(var_fadeCamera_8c226558);
                 njCnkSetEasyLight(var_8c226538[0], var_8c226538[1], var_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_8c226544[0], var_8c226544[1]);
-                njCnkSetEasyLightColor(var_8c22654c[0], var_8c22654c[1], var_8c22654c[2]);
+                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
@@ -168,8 +168,8 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
             if (slot->texlist != NULL) {
                 njSetCamera(var_fadeCamera_8c226558);
                 njCnkSetEasyLight(var_8c226538[0], var_8c226538[1], var_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_8c226544[0], var_8c226544[1]);
-                njCnkSetEasyLightColor(var_8c22654c[0], var_8c22654c[1], var_8c22654c[2]);
+                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
@@ -178,8 +178,8 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
             if (slot->texlist != NULL) {
                 njSetCamera(var_fadeCamera_8c226558);
                 njCnkSetEasyLight(var_8c226538[0], var_8c226538[1], var_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_8c226544[0], var_8c226544[1]);
-                njCnkSetEasyLightColor(var_8c22654c[0], var_8c22654c[1], var_8c22654c[2]);
+                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }

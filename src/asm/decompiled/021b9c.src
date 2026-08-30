@@ -5,8 +5,8 @@
           .IMPORT     _var_fogParam_8c226504
           .IMPORT     _njControl3D
           .IMPORT     _var_tileLayerSlots_8c226520
-          .IMPORT     _var_8c226544
-          .IMPORT     _var_8c22654c
+          .IMPORT     _var_fadeEasyLightIntensity_8c226544
+          .IMPORT     _var_fadeEasyLightColor_8c22654c
           .IMPORT     _var_fadeLightIntensity_8c2264f0
           .IMPORT     _var_fadeLightColor_8c2264f8
           .IMPORT     _njCnkSetEasyLight
@@ -184,8 +184,8 @@ LP_GEN_32922:
           .DATA.L _var_fogParam_8c226504 ; H'8C021CB0
           .DATA.L _njControl3D ; H'8C021CB4
           .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021CB8
-          .DATA.L _var_8c226544 ; H'8C021CBC
-          .DATA.L _var_8c22654c ; H'8C021CC0
+          .DATA.L _var_fadeEasyLightIntensity_8c226544 ; H'8C021CBC
+          .DATA.L _var_fadeEasyLightColor_8c22654c ; H'8C021CC0
           .DATA.L _var_fadeLightIntensity_8c2264f0 ; H'8C021CC4
           .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C021CC8
           .DATA.L _njCnkSetEasyLight ; H'8C021CCC
@@ -572,8 +572,8 @@ LP_GEN_10089:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C021FC0
           .DATA.L __divls ; H'8C021FC4
           .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021FC8
-          .DATA.L _var_8c226544 ; H'8C021FCC
-          .DATA.L _var_8c22654c ; H'8C021FD0
+          .DATA.L _var_fadeEasyLightIntensity_8c226544 ; H'8C021FCC
+          .DATA.L _var_fadeEasyLightColor_8c22654c ; H'8C021FD0
           .DATA.L _var_fadeLightIntensity_8c2264f0 ; H'8C021FD4
           .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C021FD8
           .DATA.L _njCnkSetEasyLightIntensity ; H'8C021FDC

@@ -22,8 +22,8 @@ return new class extends TestCase {
         $this->setSize('_var_fogParam_8c226504', 4);
         $this->setSize('_njControl3D', 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 4 * 5);
-        $this->setSize('_var_8c226544', 4 * 2);
-        $this->setSize('_var_8c22654c', 4 * 3);
+        $this->setSize('_var_fadeEasyLightIntensity_8c226544', 4 * 2);
+        $this->setSize('_var_fadeEasyLightColor_8c22654c', 4 * 3);
         $this->setSize('_njCnkSetEasyLight', 4);
         $this->setSize('_var_fadeLightDir1_8c2264e4', 4 * 3);
         $this->setSize('_var_8c2264e8', 4);
@@ -67,9 +67,9 @@ return new class extends TestCase {
     private function seedLightGlobals(): void
     {
         $this->seedVector('_var_8c226538', 1.0, 2.0, 3.0);
-        $this->initUint32($this->addressOf('_var_8c226544') + 0, $this->f(4.0));
-        $this->initUint32($this->addressOf('_var_8c226544') + 4, $this->f(5.0));
-        $this->seedVector('_var_8c22654c', 6.0, 7.0, 8.0);
+        $this->initUint32($this->addressOf('_var_fadeEasyLightIntensity_8c226544') + 0, $this->f(4.0));
+        $this->initUint32($this->addressOf('_var_fadeEasyLightIntensity_8c226544') + 4, $this->f(5.0));
+        $this->seedVector('_var_fadeEasyLightColor_8c22654c', 6.0, 7.0, 8.0);
         $this->seedVector('_var_fadeLightDir1_8c2264e4', 9.0, 10.0, 11.0);
         $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 0, $this->f(12.0));
         $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 4, $this->f(13.0));

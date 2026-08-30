@@ -655,8 +655,8 @@ extern float var_8c2264ec; // alias of var_fadeLightDir1_8c2264e4[2]
 extern float var_fadeLightIntensity_8c2264f0[2]; // [0..1]
 extern float var_fadeLightColor_8c2264f8[3]; // [2..4]
 /* 0222dc: same deal, for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
-extern float var_8c226544[2]; // [0..1]
-extern float var_8c22654c[3]; // [2..4]
+extern float var_fadeEasyLightIntensity_8c226544[2]; // [0..1]
+extern float var_fadeEasyLightColor_8c22654c[3]; // [2..4]
 extern NJS_CAMERA* var_fadeCamera_8c226558; // 022464: camera passed to njSetCamera by draw_8c022464
 extern int var_fadeArrivalVariant_8c22655c; // 022464: bus-stop-arrival overlay layout (0-2) drawn by FadeUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in FadeUpdate_8c022560 handles 0-2)
 extern int var_fadeArrivalGate_8c226560; // 022464: gates FadeUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
