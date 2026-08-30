@@ -22,6 +22,28 @@
 #include "serial_debug.h"
 
 /* ====================
+ * Type Declarations
+ * ====================
+ */
+
+/* Task private state for trafficUpdateTask_8c0275d4, set up by TrafficInit_8c02769e:
+ * counter_0x08 the current script record's threshold-comparison counter,
+ * presetState_0x0c a tri-state flag (0 = no preset armed, 1 = initial-arm
+ * suppresses spawnEntry_8c0272b8, 2 = latched) round-tripped through Task's
+ * void* field_0x0c, queuedItem_0x18 the cursor into the active preset's
+ * script record array. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    int counter_0x08;
+    int presetState_0x0c;
+    int field_0x10;
+    int field_0x14;
+    TrafficPlacement *queuedItem_0x18;
+    int field_0x1c;
+} TrafficUpdateTask;
+
+/* ====================
  * Initialized Globals
  * ====================
  */
@@ -844,9 +866,9 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
 }
 
 /* Per-frame TaskAction driving the traffic subsystem: pushed once (with no
- * extra state -- its own Task struct doubles as the state, see field_0x08/
- * 0x0c/queuedItem_0x18 below) into var_tasks_8c1ba5e8. No-ops entirely
- * while traffic is disabled (var_8c2285c4[0] == 0).
+ * extra state -- its own TrafficUpdateTask struct doubles as the state, see
+ * counter_0x08/presetState_0x0c/queuedItem_0x18 below) into var_tasks_8c1ba5e8.
+ * No-ops entirely while traffic is disabled (var_8c2285c4[0] == 0).
  *
  * Selects the CPU-vehicle collision/attribute meshes as the active
  * ground-query grid for the GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e queries run while
@@ -857,23 +879,23 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  *
  * Tracks a traffic-preset switch via var_scenePresetIds_8c1bbd8c's
  * bits 8-15 (a different byte lane than pedestriansTask_8c0293f6's own use
- * of the same packed word): the first time through with field_0x0c == 0 and
- * no preset selected, arms field_0x0c = 2; once a *different* preset id appears,
- * it's latched into var_activeTrafficPreset_8c227e14 and the task's script
- * cursor (queuedItem_0x18) is refreshed from var_trafficPresetTable_8c227e18[presetId], with
- * field_0x0c reset to 0.
+ * of the same packed word): the first time through with presetState_0x0c == 0
+ * and no preset selected, arms presetState_0x0c = 2; once a *different*
+ * preset id appears, it's latched into var_activeTrafficPreset_8c227e14 and
+ * the task's script cursor (queuedItem_0x18) is refreshed from
+ * var_trafficPresetTable_8c227e18[presetId], with presetState_0x0c reset to 0.
  *
  * Then processes the current script record pointed to by queuedItem_0x18
  * (an inline array of 0xc-byte {typeCode, threshold, script, progress}
  * records): while the record has a script (its dword at +4 != 0), a
- * counter (field_0x08) advances every call (compared against the
+ * counter (counter_0x08) advances every call (compared against the
  * record's threshold, its Uint16 at +2, *before* the increment); once the
  * threshold is exceeded, the record is "consumed" -- unless
- * field_0x0c is not 1 and the record's own progress float is itself
+ * presetState_0x0c is not 1 and the record's own progress float is itself
  * nonzero, this spawns the entry via
  * spawnEntry_8c0272b8(typeCode, progress, script). Real asm quirk:
- * when the (field_0x0c != 1 && progress != 0.0f) branch is taken instead,
- * spawnEntry_8c0272b8 is never called at all, but the record is
+ * when the (presetState_0x0c != 1 && progress != 0.0f) branch is taken
+ * instead, spawnEntry_8c0272b8 is never called at all, but the record is
  * still advanced as if it had succeeded. Either way "succeeding" advances
  * the cursor to the next record (+0xc) and resets the counter.
  *
@@ -881,7 +903,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * one FadeCmdPushCall1 per fade layer) and runs every vehicle task pushed
  * above to completion (TaskExecGroup_8c014b42 on var_tasks_8c1bac28).
  */
-STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
+STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
 {
     TrafficPlacement *rec;
     Uint32 presetMask;
@@ -900,29 +922,29 @@ STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
     var_8c228b44 = (Sint32 *)-1;
 
     presetMask = var_scenePresetIds_8c1bbd8c & 0xff00;
-    if (task->field_0x0c == (void *)0) {
+    if (task->presetState_0x0c == 0) {
         if (presetMask == 0) {
-            task->field_0x0c = (void *)2;
+            task->presetState_0x0c = 2;
         }
     } else if (presetMask != 0) {
         presetId = (Sint32)presetMask >> 8;
         if (var_activeTrafficPreset_8c227e14 != presetId) {
             var_activeTrafficPreset_8c227e14 = presetId;
-            task->queuedItem_0x18 = (void *)var_trafficPresetTable_8c227e18[presetId];
-            task->field_0x0c = (void *)0;
+            task->queuedItem_0x18 = (TrafficPlacement *)var_trafficPresetTable_8c227e18[presetId];
+            task->presetState_0x0c = 0;
         }
     }
 
-    rec = (TrafficPlacement *)task->queuedItem_0x18;
+    rec = task->queuedItem_0x18;
     if (rec->script_0x04 != NULL) {
-        counter = task->field_0x08;
-        task->field_0x08 = counter + 1;
+        counter = task->counter_0x08;
+        task->counter_0x08 = counter + 1;
         if ((Sint32)rec->threshold_0x02 < counter) {
-            if ((task->field_0x0c != (void *)1 && rec->progress_0x08 != 0.0f) ||
+            if ((task->presetState_0x0c != 1 && rec->progress_0x08 != 0.0f) ||
                 spawnEntry_8c0272b8(rec->typeCode_0x00, rec->progress_0x08,
                                     rec->script_0x04) != 0) {
-                task->queuedItem_0x18 = (void *)(rec + 1);
-                task->field_0x08 = 0;
+                task->queuedItem_0x18 = rec + 1;
+                task->counter_0x08 = 0;
             }
         }
     }
@@ -946,7 +968,7 @@ STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
  */
 void TrafficInit_8c02769e(void)
 {
-    Task *task;
+    TrafficUpdateTask *task;
     void *state;
 
     var_cpuPathBlocks_8c227e1c = var_currentCourse_8c1bb868.lineCpu_0x1c;
@@ -979,10 +1001,10 @@ void TrafficInit_8c02769e(void)
         var_8c1bbdb8[2] = (var_8c1bbdd0[2] - var_8c1bbdc4[2]) / 20.0f;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, trafficUpdateTask_8c0275d4, &task, &state, 0);
-    task->queuedItem_0x18 = (void *)var_trafficPresetTable_8c227e18[var_activeTrafficPreset_8c227e14];
-    task->field_0x08 = 0;
-    task->field_0x0c = (void *)1;
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, trafficUpdateTask_8c0275d4, (Task **)&task, &state, 0);
+    task->queuedItem_0x18 = (TrafficPlacement *)var_trafficPresetTable_8c227e18[var_activeTrafficPreset_8c227e14];
+    task->counter_0x08 = 0;
+    task->presetState_0x0c = 1;
 
     ObjectsFUN_8c028958();
 }
