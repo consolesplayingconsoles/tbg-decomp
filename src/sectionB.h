@@ -296,12 +296,22 @@ typedef struct {
     int field_0x3c8;
 } BusState;
 
+/* Per-course badge tier, ratcheted from var_award_8c1bb8f8 (driver points)
+ * by ResultShowPassedRun_8c01e0b4. Doubles as a sprite index at one draw
+ * site only, where the badge icons happen to sit at 0x18 - tier. */
+enum {
+    AWARD_TIER_NONE   = 0,
+    AWARD_TIER_BRONZE = 1,
+    AWARD_TIER_SILVER = 2,
+    AWARD_TIER_GOLD   = 3
+};
+
 typedef struct {
     Uint8 unlocked_0x00;
     Uint8 new_0x01;
     Uint8 field_0x02;
-    Uint8 storySpriteNo_0x03;
-    Uint8 freeRunSpriteNo_0x04;
+    Uint8 storyAward_0x03;
+    Uint8 freeRunAward_0x04;
     Uint8 field_0x05[3]; // Padding?
 } CourseProgress;
 

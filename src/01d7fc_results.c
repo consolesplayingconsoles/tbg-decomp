@@ -134,11 +134,11 @@ STATIC void resultsTask_8c01d8e0(void)
             sdMidiPlay(var_midiHandles_8c0fcd28[4], 1, 6, 0);
         }
         if (var_menuState_8c1bc7a8.startTimer_0x64 == 7) {
-            if (var_award_8c1bb8f8 == 3) {
+            if (var_award_8c1bb8f8 == AWARD_TIER_GOLD) {
                 SndMidiResetFxAndPlay_8c010846(5, 2);
-            } else if (var_award_8c1bb8f8 == 2) {
+            } else if (var_award_8c1bb8f8 == AWARD_TIER_SILVER) {
                 SndMidiResetFxAndPlay_8c010846(5, 3);
-            } else if (var_award_8c1bb8f8 == 1) {
+            } else if (var_award_8c1bb8f8 == AWARD_TIER_BRONZE) {
                 SndMidiResetFxAndPlay_8c010846(5, 4);
             }
             var_menuState_8c1bc7a8.state_0x18 = 3;
@@ -386,17 +386,17 @@ void ResultShowPassedRun_8c01e0b4(void)
     if (var_driverPoints_8c2285d0 < 0x5a) {
         if (var_driverPoints_8c2285d0 < 0x50) {
             if (var_driverPoints_8c2285d0 < 0x46) {
-                var_award_8c1bb8f8 = 0;
+                var_award_8c1bb8f8 = AWARD_TIER_NONE;
             } else {
-                var_award_8c1bb8f8 = 1;
+                var_award_8c1bb8f8 = AWARD_TIER_BRONZE;
             }
         } else {
-            var_award_8c1bb8f8 = 2;
+            var_award_8c1bb8f8 = AWARD_TIER_SILVER;
         }
     } else {
-        var_award_8c1bb8f8 = 3;
+        var_award_8c1bb8f8 = AWARD_TIER_GOLD;
     }
-    if (var_progress_8c1ba1cc.courses_0x44[courseIndex].storySpriteNo_0x03 < var_award_8c1bb8f8) {
+    if (var_progress_8c1ba1cc.courses_0x44[courseIndex].storyAward_0x03 < var_award_8c1bb8f8) {
         if (var_award_8c1bb8f8 == 3) {
             var_scoreBadgeBonus_8c2263f8 = 200;
         } else if (var_award_8c1bb8f8 == 2) {
@@ -404,12 +404,12 @@ void ResultShowPassedRun_8c01e0b4(void)
         } else if (var_award_8c1bb8f8 == 1) {
             var_scoreBadgeBonus_8c2263f8 = 0x32;
         }
-        var_progress_8c1ba1cc.courses_0x44[courseIndex].storySpriteNo_0x03 = var_award_8c1bb8f8;
-        if (var_progress_8c1ba1cc.courses_0x44[courseIndex].freeRunSpriteNo_0x04 < var_award_8c1bb8f8) {
-            var_progress_8c1ba1cc.courses_0x44[courseIndex].freeRunSpriteNo_0x04 = var_award_8c1bb8f8;
+        var_progress_8c1ba1cc.courses_0x44[courseIndex].storyAward_0x03 = var_award_8c1bb8f8;
+        if (var_progress_8c1ba1cc.courses_0x44[courseIndex].freeRunAward_0x04 < var_award_8c1bb8f8) {
+            var_progress_8c1ba1cc.courses_0x44[courseIndex].freeRunAward_0x04 = var_award_8c1bb8f8;
         }
     } else {
-        var_award_8c1bb8f8 = 0;
+        var_award_8c1bb8f8 = AWARD_TIER_NONE;
         var_scoreBadgeBonus_8c2263f8 = 0;
     }
     var_scorePassengerBonus_8c2263fc = var_passengerCount_8c1bb8e4 * 5;

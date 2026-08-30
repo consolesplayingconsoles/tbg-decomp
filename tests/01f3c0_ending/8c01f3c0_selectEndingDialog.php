@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _selectEndingDialog_8c01f3c0(void): tallies each of the 9 courses'
- * storySpriteNo_0x03 state (0-3, 3 = perfect) in var_progress_8c1ba1cc and
+ * storyAward_0x03 state (0-3, 3 = perfect) in var_progress_8c1ba1cc and
  * picks the ending's dialog tier from the result: all 9 perfect -> tier 1
  * (init_endingVoicesPerfect_8c04522c), all 9 attempted (state 1-3) -> tier 2
  * (init_endingVoicesHigh_8c045244), >=5 attempted -> tier 3

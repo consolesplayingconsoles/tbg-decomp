@@ -240,7 +240,7 @@ void FileMenuResetProgress_8c01890a(void)
     for (i = 0; i < 9; i++) {
         var_progress_8c1ba1cc.courses_0x44[i].unlocked_0x00 = 0;
         var_progress_8c1ba1cc.courses_0x44[i].field_0x02 = 0;
-        var_progress_8c1ba1cc.courses_0x44[i].storySpriteNo_0x03 = 0;
+        var_progress_8c1ba1cc.courses_0x44[i].storyAward_0x03 = 0;
     }
     var_progress_8c1ba1cc.courses_0x44[0].unlocked_0x00 = 1;
     var_progress_8c1ba1cc.courses_0x44[6].unlocked_0x00 = 1;
@@ -269,7 +269,7 @@ void FileMenuResetNewGame_8c01895e(void)
     }
     for (i = 0; i < 9; i++) {
         var_progress_8c1ba1cc.courses_0x44[i].new_0x01 = 0;
-        var_progress_8c1ba1cc.courses_0x44[i].freeRunSpriteNo_0x04 = 0;
+        var_progress_8c1ba1cc.courses_0x44[i].freeRunAward_0x04 = 0;
     }
     var_progress_8c1ba1cc.courses_0x44[0].new_0x01 = 1;
     var_progress_8c1ba1cc.courses_0x44[6].new_0x01 = 1;
@@ -387,10 +387,10 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
         if (save->courses_0x44[i].unlocked_0x00 != 0) {
             TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x26 + i, x, 0.0, -4.0);
         }
-        switch (save->courses_0x44[i].storySpriteNo_0x03) {
-        case 3: cnt3++; break;
-        case 2: cnt2++; break;
-        case 1: cnt1++; break;
+        switch (save->courses_0x44[i].storyAward_0x03) {
+        case AWARD_TIER_GOLD:   cnt3++; break;
+        case AWARD_TIER_SILVER: cnt2++; break;
+        case AWARD_TIER_BRONZE: cnt1++; break;
         }
     }
 

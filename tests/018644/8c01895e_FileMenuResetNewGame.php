@@ -23,7 +23,7 @@ return new class extends TestCase {
         for ($off = 0x2c; $off < 0x44; $off += 4) {
             $this->shouldWriteLong($base + $off, 0);
         }
-        // courses_0x44[9]: clear new_0x01, freeRunSpriteNo_0x04
+        // courses_0x44[9]: clear new_0x01, freeRunAward_0x04
         for ($i = 0; $i < 9; $i++) {
             $c = $base + 0x44 + $i * 8;
             $this->shouldWriteByte($c + 1, 0);

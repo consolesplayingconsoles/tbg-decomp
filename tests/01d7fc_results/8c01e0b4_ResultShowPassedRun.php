@@ -29,7 +29,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
-        $this->initUint8($progress + self::COURSE3 + 3, 0); // storySpriteNo_0x03
+        $this->initUint8($progress + self::COURSE3 + 3, 0); // storyAward_0x03
         $this->initUint32($progress + 0x90, 100); // exp_0x90
 
         $this->call('_ResultShowPassedRun_8c01e0b4');
@@ -67,8 +67,8 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
-        $this->initUint8($progress + $course1 + 3, 0); // storySpriteNo_0x03
-        $this->initUint8($progress + $course1 + 4, 0); // freeRunSpriteNo_0x04
+        $this->initUint8($progress + $course1 + 3, 0); // storyAward_0x03
+        $this->initUint8($progress + $course1 + 4, 0); // freeRunAward_0x04
         $this->initUint32($progress + 0x90, 1000); // exp_0x90
 
         $this->call('_ResultShowPassedRun_8c01e0b4');
@@ -79,8 +79,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_scoreDriverPointsBonus_8c2263f4'), 900);
         $this->shouldWriteByte($this->addressOf('_var_award_8c1bb8f8'), 3);
         $this->shouldWriteLong($this->addressOf('_var_scoreBadgeBonus_8c2263f8'), 200);
-        $this->shouldWriteByte($progress + $course1 + 3, 3); // storySpriteNo_0x03
-        $this->shouldWriteByte($progress + $course1 + 4, 3); // freeRunSpriteNo_0x04
+        $this->shouldWriteByte($progress + $course1 + 3, 3); // storyAward_0x03
+        $this->shouldWriteByte($progress + $course1 + 4, 3); // freeRunAward_0x04
         $this->shouldWriteLong($this->addressOf('_var_scorePassengerBonus_8c2263fc'), 10);
         $this->shouldWriteLong($this->addressOf('_var_scoreEventBonus_8c226400'), 150);
         $this->shouldWriteLong($this->addressOf('_var_scoreTotal_8c226404'), 1640);
@@ -108,8 +108,8 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
-        $this->initUint8($progress + $course8 + 3, 0); // storySpriteNo_0x03
-        $this->initUint8($progress + $course8 + 4, 0); // freeRunSpriteNo_0x04
+        $this->initUint8($progress + $course8 + 3, 0); // storyAward_0x03
+        $this->initUint8($progress + $course8 + 4, 0); // freeRunAward_0x04
         $this->initUint32($progress + 0x90, 0); // exp_0x90
 
         $this->call('_ResultShowPassedRun_8c01e0b4');
@@ -119,8 +119,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_scoreDriverPointsBonus_8c2263f4'), 700);
         $this->shouldWriteByte($this->addressOf('_var_award_8c1bb8f8'), 1);
         $this->shouldWriteLong($this->addressOf('_var_scoreBadgeBonus_8c2263f8'), 0x32);
-        $this->shouldWriteByte($progress + $course8 + 3, 1); // storySpriteNo_0x03
-        $this->shouldWriteByte($progress + $course8 + 4, 1); // freeRunSpriteNo_0x04
+        $this->shouldWriteByte($progress + $course8 + 3, 1); // storyAward_0x03
+        $this->shouldWriteByte($progress + $course8 + 4, 1); // freeRunAward_0x04
         $this->shouldWriteLong($this->addressOf('_var_scorePassengerBonus_8c2263fc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_scoreEventBonus_8c226400'), 0);
         $this->shouldWriteLong($this->addressOf('_var_scoreTotal_8c226404'), 750);
@@ -145,8 +145,8 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
-        $this->initUint8($progress + self::COURSE3 + 3, 0); // storySpriteNo_0x03
-        $this->initUint8($progress + self::COURSE3 + 4, 5); // freeRunSpriteNo_0x04, already above the award
+        $this->initUint8($progress + self::COURSE3 + 3, 0); // storyAward_0x03
+        $this->initUint8($progress + self::COURSE3 + 4, 5); // freeRunAward_0x04, already above the award
         $this->initUint32($progress + 0x90, 99500); // exp_0x90, close to the cap
 
         $this->call('_ResultShowPassedRun_8c01e0b4');
@@ -156,8 +156,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_scoreDriverPointsBonus_8c2263f4'), 800);
         $this->shouldWriteByte($this->addressOf('_var_award_8c1bb8f8'), 2);
         $this->shouldWriteLong($this->addressOf('_var_scoreBadgeBonus_8c2263f8'), 100);
-        $this->shouldWriteByte($progress + self::COURSE3 + 3, 2); // storySpriteNo_0x03
-        // freeRunSpriteNo_0x04 already >= award, not updated
+        $this->shouldWriteByte($progress + self::COURSE3 + 3, 2); // storyAward_0x03
+        // freeRunAward_0x04 already >= award, not updated
         $this->shouldWriteLong($this->addressOf('_var_scorePassengerBonus_8c2263fc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_scoreEventBonus_8c226400'), 0);
         $this->shouldWriteLong($this->addressOf('_var_scoreTotal_8c226404'), 900);
