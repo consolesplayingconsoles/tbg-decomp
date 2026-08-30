@@ -30,7 +30,7 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
         $this->setSize('_var_8c22640c', 4);
-        $this->setSize('_var_mirrorViewLevel_8c2285e4', 4);
+        $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_8c1bbc4c', 4);
 
         $struct = $this->alloc(0x1c);
@@ -72,7 +72,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // PLAY_MODE_NORMAL
         $this->initUint32($this->addressOf('_var_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_8c22640c'), 0);
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
         $this->initUint32($this->addressOf('_var_8c1bbc4c'), 0);
 
         $midi = $this->addressOf('_var_midiHandles_8c0fcd28');
@@ -364,7 +364,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1); // ROUTE_WANGAN
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 5); // same: reached
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0); // -> field_0x10=30
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // -> field_0x10=30
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
@@ -385,7 +385,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1); // ROUTE_WANGAN
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 5); // reached
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 1); // -> random hold
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1); // -> random hold
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);

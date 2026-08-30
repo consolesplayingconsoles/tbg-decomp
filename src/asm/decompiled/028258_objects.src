@@ -59,7 +59,7 @@
           .IMPORT     _var_busWorldMatrix_8c1bba54
           .IMPORT     _njCalcPoint
           .IMPORT     _var_playMode_8c1bb8d0
-          .IMPORT     _var_mirrorViewLevel_8c2285e4
+          .IMPORT     _var_stopPhase_8c2285e4
           .IMPORT     _StopDrawWaitingPassengers_8c02d06c
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_routeBlinkerNodes_8c228278
@@ -3053,7 +3053,7 @@ LP_GEN_59898:
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C029728
           .DATA.L _drawPedestrians_8c028b74 ; H'8C02972C
           .DATA.L _drawPedestriansMirror_8c028a38 ; H'8C029730
-          .DATA.L _var_mirrorViewLevel_8c2285e4 ; H'8C029734
+          .DATA.L _var_stopPhase_8c2285e4 ; H'8C029734
           .DATA.L _StopDrawWaitingPassengers_8c02d06c ; H'8C029738
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C02973C
           .DATA.L _var_pedPaths_8c228238 ; H'8C029740

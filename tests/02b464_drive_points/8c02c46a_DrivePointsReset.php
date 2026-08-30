@@ -10,7 +10,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_8c2285c4', 0xa0);
         $base = $this->addressOf('_var_8c2285c4');
-        $this->rellocate('_var_mirrorViewLevel_8c2285e4', $base + 0x20);
+        $this->rellocate('_var_stopPhase_8c2285e4', $base + 0x20);
         $this->rellocate('_var_8c2285fc', $base + 0x38);
         $this->rellocate('_var_8c22861c', $base + 0x58);
         $this->rellocate('_var_8c228634', $base + 0x70);
@@ -49,7 +49,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x00, 0); // var_8c2285c4[0] phase
         $this->shouldWriteLong($base + 0x04, 0); // var_8c2285c4[1]
-        $this->shouldWriteLong($base + 0x20, 1); // var_mirrorViewLevel_8c2285e4 (playMode != 1 -> 1)
+        $this->shouldWriteLong($base + 0x20, 1); // var_stopPhase_8c2285e4 (playMode != 1 -> 1)
 
         $this->shouldWriteLong($base + 0x2c, 0); // var_8c2285c4[11]
         $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12]

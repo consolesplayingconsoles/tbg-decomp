@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c1ba374', 2);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
-        $this->setSize('_var_mirrorViewLevel_8c2285e4', 4);
+        $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_8c2264c4', 4);
         $this->setSize('_var_8c226450', 4);
         $this->setSize('_BusStopUpdateArrival_8c02ce48', 4);
@@ -93,7 +93,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
         $this->initUint32($this->addressOf('_var_8c226410'), 0);
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 1);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
         $this->initUint32($this->addressOf('_var_8c2264c4'), 0);
 
         $this->initUint32($base + 0x18, 0); // var_8c2285dc
@@ -415,7 +415,7 @@ return new class extends TestCase {
         $busPtr = $this->baseline($base);
 
         $this->initUint32($base + 0x7c, 1); // var_8c2285c4[31] i.e. var_8c228640
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0); // route into the if-branch
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // route into the if-branch
 
         $this->call('_FUN_8c02bcd8');
 
@@ -435,7 +435,7 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0); // route messagebox branch away
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // route messagebox branch away
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3c0, 2); // bus_substate
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0x27c, 1.0); // moving
 

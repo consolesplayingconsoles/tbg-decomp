@@ -139,7 +139,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
         if (var_prevStopSegment_8c22870c == var_nextStopSegment_8c228710) {
             var_8c2264b8.field_0x08 = 2;
-            if (var_mirrorViewLevel_8c2285e4 != 0) {
+            if (var_stopPhase_8c2285e4 != 0) {
                 var_8c2264b8.field_0x10 = AsqGetRandomInRangeB_8c0121be(60) + 120;
             } else {
                 var_8c2264b8.field_0x10 = 30;

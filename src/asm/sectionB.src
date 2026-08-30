@@ -776,7 +776,7 @@
           .EXPORT     _var_8c2285dc ; 02af78_event
                                     ; 02b464
                                     ; 02c884
-          .EXPORT     _var_mirrorViewLevel_8c2285e4 ; 020214
+          .EXPORT     _var_stopPhase_8c2285e4 ; 020214
                                     ; 028258
                                     ; 02b464
                                     ; 02c884
@@ -1524,7 +1524,7 @@ _var_8c2285d8:
           .RES.B      4
 _var_8c2285dc:
           .RES.B      8
-_var_mirrorViewLevel_8c2285e4:
+_var_stopPhase_8c2285e4:
           .RES.B      4
 _var_8c2285e8:
           .RES.B      4

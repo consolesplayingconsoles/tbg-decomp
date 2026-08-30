@@ -43,7 +43,7 @@
           .IMPORT     _var_8c1ba374
           .IMPORT     _BusStopUpdateArrival_8c02ce48
           .IMPORT     _var_8c226410
-          .IMPORT     _var_mirrorViewLevel_8c2285e4
+          .IMPORT     _var_stopPhase_8c2285e4
           .IMPORT     _var_8c2264c4
           .IMPORT     _var_8c226450
           .IMPORT     _var_8c2285d8
@@ -1590,7 +1590,7 @@ LP_GEN_59291:
           .DATA.L _BusStopUpdateArrival_8c02ce48 ; H'8C02BFB8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02BFBC
           .DATA.L _var_8c226410 ; H'8C02BFC0
-          .DATA.L _var_mirrorViewLevel_8c2285e4 ; H'8C02BFC4
+          .DATA.L _var_stopPhase_8c2285e4 ; H'8C02BFC4
           .DATA.L _var_8c2264c4 ; H'8C02BFC8
 LAB_8c02bfcc:
           MOV         #H'7c,R0

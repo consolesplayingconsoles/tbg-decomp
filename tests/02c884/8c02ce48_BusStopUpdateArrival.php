@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _BusStopUpdateArrival_8c02ce48(): per-frame bus-stop arrival state machine
- * (var_mirrorViewLevel_8c2285e4, states 0-4); takes no meaningful argument.
+ * (var_stopPhase_8c2285e4, states 0-4); takes no meaningful argument.
  * See 02c884_bus_stop.c's doc comment for the full state breakdown.
  */
 return new class extends TestCase {
@@ -60,7 +60,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c2285d4', 4);
         $this->setSize('_var_8c2285d8', 4);
         $this->setSize('_var_8c2285dc', 8); // covers 8c2285dc and the unnamed 8c2285e0
-        $this->setSize('_var_mirrorViewLevel_8c2285e4', 4);
+        $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_8c2285e8', 4);
         $this->setSize('_var_stopMinDistance_8c2285ec', 4);
         $this->alloc(0x44); // gap: 8c2285f0..8c228633 (unused by this function)
@@ -111,7 +111,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
         $this->initBusState(0, 0, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
@@ -123,14 +123,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 6);
         $this->initBusState(0, 7 << 8, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 2);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 2);
         $this->shouldWriteFloat($this->addressOf('_var_stopMinDistance_8c2285ec'), 9999.0);
         $this->shouldWriteLongTo('_var_8c226454', 0);
         $this->shouldCall('_pickWaitingPassengers_8c02c8ae')->with();
@@ -143,14 +143,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 6);
         $this->initBusState(0, 6 << 8, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 1);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 1);
         $this->shouldWriteLongTo('_var_8c226454', 0);
     }
 
@@ -159,7 +159,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 6);
         $this->initBusState(0, 9 << 8, 0.0);
@@ -172,7 +172,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 1);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
         $this->initBusState(0, 0, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
@@ -183,13 +183,13 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 1);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
         $this->initUint32($this->addressOf('_var_8c226450'), 3);
         $this->initBusState(0, 1, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 0);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 0);
         $this->shouldWriteLongTo('_var_8c228640', 1);
         $this->shouldWriteLongTo('_var_8c2264c4', 0);
         $this->shouldCall('_advanceStopSegment_8c02ccae')->with();
@@ -200,13 +200,13 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 1);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
         $this->initUint32($this->addressOf('_var_8c226450'), -1);
         $this->initBusState(0, 1, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 0);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 0);
         $this->shouldWriteLongTo('_var_8c2264c4', 0);
         $this->shouldCall('_advanceStopSegment_8c02ccae')->with();
     }
@@ -217,7 +217,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 2);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 2.0))[1]);
         $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
@@ -239,7 +239,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 2);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 9.0))[1]);
         $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
@@ -262,7 +262,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 2);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 0.0))[1]);
         $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
@@ -277,7 +277,7 @@ return new class extends TestCase {
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_stopMinDistance_8c2285ec'), 2.0);
         $this->shouldWriteLong($busBase + 0x2b4, 3); // bus_state_0x2b4
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 3);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
         $this->shouldWriteLongTo('_var_8c2285c4', 3);
         $this->shouldWriteLongTo('_var_8c2285e8', 0);
     }
@@ -288,7 +288,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 2);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 0.0))[1]);
         $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
@@ -303,7 +303,7 @@ return new class extends TestCase {
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         // 10.0 is not < running minimum 2.0, so no minimum update.
         $this->shouldWriteLong($busBase + 0x2b4, 3);
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 3);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
         $this->shouldWriteLongTo('_var_8c2285c4', 3);
         $this->shouldWriteLongTo('_var_8c2285e8', 0);
     }
@@ -314,7 +314,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 2);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 0.0))[1]);
         $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
@@ -329,7 +329,7 @@ return new class extends TestCase {
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_stopMinDistance_8c2285ec'), 20.0);
         $this->shouldWriteLong($busBase + 0x2b4, 4); // bus_state_0x2b4
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 3);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
         $this->shouldWriteLongTo('_var_8c2285c4', 3);
         $this->shouldWriteLongTo('_var_8c2285e8', 2);
     }
@@ -339,7 +339,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 3);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 3);
         $this->initBusState(0xff000000, 0xff, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
@@ -350,7 +350,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 4);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 4);
         $this->initBusState(0, 0, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
@@ -362,14 +362,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 4);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 4);
         $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0);
         $busBase = $this->initBusState(0xff000000, 0, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($busBase + 0x2b4, 4); // bus_state_0x2b4
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 3);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
         $this->shouldWriteLongTo('_var_8c2285e8', 0);
         $this->shouldWriteLongTo('_var_8c2285c4', 4);
         $this->shouldWriteLongTo('_var_8c2285cc', 0x1e);
@@ -384,14 +384,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 4);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 4);
         $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 1);
         $busBase = $this->initBusState(0xff000000, 0, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($busBase + 0x2b4, 4);
-        $this->shouldWriteLongTo('_var_mirrorViewLevel_8c2285e4', 3);
+        $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
         $this->shouldWriteLongTo('_var_8c2285e8', 0);
         $this->shouldWriteLongTo('_var_8c2285c4', 4);
         $this->shouldWriteLongTo('_var_8c2285cc', 0x1e);

@@ -189,7 +189,7 @@ return new class extends TestCase {
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
 
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
     }
 
     // NOTE: the "commit a newly-signalled demo entry" branch
@@ -208,7 +208,7 @@ return new class extends TestCase {
         $task = $this->makeTask(0, 1);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // PLAY_MODE_NORMAL
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -230,7 +230,7 @@ return new class extends TestCase {
         $task = $this->makeTask(0, 1);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 2);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -263,7 +263,7 @@ return new class extends TestCase {
         $state = $this->alloc(4);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -303,7 +303,7 @@ return new class extends TestCase {
         $this->makeEmptyPaths(1);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -327,7 +327,7 @@ return new class extends TestCase {
         $this->makeGroupList(0, 0);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -352,7 +352,7 @@ return new class extends TestCase {
         $subtasks = 0x30000000;
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -393,7 +393,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_pedPaths_8c228238'), $paths);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -435,7 +435,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_pedPaths_8c228238'), $paths);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -493,7 +493,7 @@ return new class extends TestCase {
         $state1 = $this->alloc(4);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_mirrorViewLevel_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 

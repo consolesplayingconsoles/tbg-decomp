@@ -127,15 +127,15 @@ STATIC void drawHud_8c01fbac(int arg0) {
     /* var_8c226450/var_8c226454 (next-stop icon + its blink timer) are owned by
      * BusStopUpdateArrival_8c02ce48 (02c884); blink once armed for >1s or
      * every few frames (bits 1/2 of the timer). */
-    if (var_mirrorViewLevel_8c2285e4 == 0 || var_mirrorViewLevel_8c2285e4 == 4) {
+    if (var_stopPhase_8c2285e4 == 0 || var_stopPhase_8c2285e4 == 4) {
         if (var_8c226450 != -1 && (60 < (Sint32)var_8c226454 || (var_8c226454 & 6) != 0)) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, var_8c226450, 0.0f, 0.0f, -1.2f);
         }
-    } else if (var_mirrorViewLevel_8c2285e4 == 1) {
+    } else if (var_stopPhase_8c2285e4 == 1) {
         if (var_8c226450 != -1 && (60 < (Sint32)var_8c226454 || (var_8c226454 & 6) != 0)) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x1e, 0.0f, 0.0f, -1.2f);
         }
-    } else if (var_mirrorViewLevel_8c2285e4 == 2) {
+    } else if (var_stopPhase_8c2285e4 == 2) {
         if (60 < (Sint32)var_8c226454 || (var_8c226454 & 6) != 0) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x1f, 0.0f, 0.0f, -1.2f);
         }

@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->rellocate('_var_8c2285d4', $dp + 0x10);
         $this->rellocate('_var_8c2285d8', $dp + 0x14);
         $this->rellocate('_var_8c2285dc', $dp + 0x18);
-        $this->rellocate('_var_mirrorViewLevel_8c2285e4', $dp + 0x20);
+        $this->rellocate('_var_stopPhase_8c2285e4', $dp + 0x20);
 
         $this->setSize('_var_8c2264a8', 0x10);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
@@ -236,7 +236,7 @@ return new class extends TestCase {
     {
         [$base, $dp] = $this->setup();
 
-        $this->initUint32($dp + 0x20, 1); // var_mirrorViewLevel_8c2285e4
+        $this->initUint32($dp + 0x20, 1); // var_stopPhase_8c2285e4
         $this->initUint32($base + 0x14, 5);  // var_8c226450 (armed)
         $this->initUint32($base + 0x18, 61); // var_8c226454 (> 60)
         $this->initUint32($dp + 0x10, 100);  // var_8c2285d4 (avoid div-by-zero)
@@ -253,7 +253,7 @@ return new class extends TestCase {
     {
         [$base, $dp] = $this->setup();
 
-        $this->initUint32($dp + 0x20, 2); // var_mirrorViewLevel_8c2285e4
+        $this->initUint32($dp + 0x20, 2); // var_stopPhase_8c2285e4
         $this->initUint32($base + 0x18, 61); // var_8c226454 (> 60) -- level 2 ignores var_8c226450
         $this->initUint32($dp + 0x10, 100);  // var_8c2285d4
 
@@ -269,7 +269,7 @@ return new class extends TestCase {
     {
         [$base, $dp] = $this->setup();
 
-        $this->initUint32($dp + 0x20, 0); // var_mirrorViewLevel_8c2285e4
+        $this->initUint32($dp + 0x20, 0); // var_stopPhase_8c2285e4
         $this->initUint32($base + 0x14, 5);  // var_8c226450 (armed)
         $this->initUint32($base + 0x18, 0);  // var_8c226454 (blink window closed, bits 1/2 clear)
         $this->initUint32($dp + 0x10, 100);  // var_8c2285d4

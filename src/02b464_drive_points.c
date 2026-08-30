@@ -762,7 +762,7 @@ STATIC void FUN_8c02bcd8(void) {
     BusStopUpdateArrival_8c02ce48();
 
     if ((var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 1) != 1)
-        || var_mirrorViewLevel_8c2285e4 == 0
+        || var_stopPhase_8c2285e4 == 0
         || var_8c2264c4 != 0) {
         if (var_8c2285c4[31] != 0) {
             adjust_8c02b464(0x1e, 20);
@@ -1167,9 +1167,9 @@ void DrivePointsReset_8c02c46a(void) {
     var_8c2285c4[1] = 0;
 
     if (var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 4) != 4) {
-        var_mirrorViewLevel_8c2285e4 = 4;
+        var_stopPhase_8c2285e4 = 4;
     } else {
-        var_mirrorViewLevel_8c2285e4 = 1;
+        var_stopPhase_8c2285e4 = 1;
     }
 
     var_8c2285c4[11] = 0;

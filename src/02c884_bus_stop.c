@@ -321,30 +321,30 @@ void BusStopUpdateArrival_8c02ce48(void)
     float distance;
     float dx, dz;
 
-    if (var_mirrorViewLevel_8c2285e4 == 0) {
+    if (var_stopPhase_8c2285e4 == 0) {
         if ((var_busState_8c1bb9d0.field_0x3b4 & 0xff00) != 0) {
             crossedSegment = (var_busState_8c1bb9d0.field_0x3b4 & 0xff00) >> 8;
             if (crossedSegment == var_nextStopSegment_8c228710) {
-                var_mirrorViewLevel_8c2285e4 = 2;
+                var_stopPhase_8c2285e4 = 2;
                 var_stopMinDistance_8c2285ec = 9999.0f;
                 var_8c226454 = 0;
                 pickWaitingPassengers_8c02c8ae();
                 var_8c1bc44c = 0.0f;
             } else if (crossedSegment == var_prevStopSegment_8c22870c) {
-                var_mirrorViewLevel_8c2285e4 = 1;
+                var_stopPhase_8c2285e4 = 1;
                 var_8c226454 = 0;
             }
         }
-    } else if (var_mirrorViewLevel_8c2285e4 == 1) {
+    } else if (var_stopPhase_8c2285e4 == 1) {
         if ((var_busState_8c1bb9d0.field_0x3b4 & 0xff) != 0) {
-            var_mirrorViewLevel_8c2285e4 = 0;
+            var_stopPhase_8c2285e4 = 0;
             if (var_8c226450 != -1) {
                 var_8c228640 = 1;
             }
             var_8c2264c4 = 0;
             advanceStopSegment_8c02ccae();
         }
-    } else if (var_mirrorViewLevel_8c2285e4 == 2) {
+    } else if (var_stopPhase_8c2285e4 == 2) {
         dx = var_8c228900.x - var_busState_8c1bb9d0.posX_0x0f4;
         dz = var_8c228908 - var_busState_8c1bb9d0.posZ_0x0fc;
         distance = njSqrt(dx * dx + dz * dz);
@@ -359,19 +359,19 @@ void BusStopUpdateArrival_8c02ce48(void)
         if ((distance < 3.0f && var_8c1bbc4c == 0.0f) ||
             (var_stopMinDistance_8c2285ec < 3.0f && var_8c1bbc4c == 0.0f)) {
             var_busState_8c1bb9d0.bus_state_0x2b4 = 3;
-            var_mirrorViewLevel_8c2285e4 = 3;
+            var_stopPhase_8c2285e4 = 3;
             var_8c2285c4[0] = 3;
             var_8c2285e8 = 0;
         } else if ((var_busState_8c1bb9d0.field_0x3b4 & 0xff) == var_nextStopSegment_8c228710) {
             var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
-            var_mirrorViewLevel_8c2285e4 = 3;
+            var_stopPhase_8c2285e4 = 3;
             var_8c2285c4[0] = 3;
             var_8c2285e8 = 2;
         }
-    } else if (var_mirrorViewLevel_8c2285e4 == 4) {
+    } else if (var_stopPhase_8c2285e4 == 4) {
         if ((var_busState_8c1bb9d0.field_0x3b0 & 0xff000000) != 0) {
             var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
-            var_mirrorViewLevel_8c2285e4 = 3;
+            var_stopPhase_8c2285e4 = 3;
             var_8c2285e8 = 0;
             var_8c2285c4[0] = 4;
             var_8c2285cc = 0x1e;

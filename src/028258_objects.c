@@ -5280,7 +5280,7 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
     layer = !isDemo;
     FadeCmdPushCall1_8c0223ea(layer, fn, layer);
 
-    if (var_mirrorViewLevel_8c2285e4 == 2) {
+    if (var_stopPhase_8c2285e4 == 2) {
         FadeCmdPushCall1_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
         FadeCmdPushCall1_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
     }

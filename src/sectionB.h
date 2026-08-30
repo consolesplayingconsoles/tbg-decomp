@@ -989,7 +989,7 @@ extern int var_8c2285dc;
  * (02c884): 0 = cruising, 1 = departed-previous-stop wait, 2 = approaching
  * (mirror-view draw enabled -- gates pedestriansTask_8c0293f6's
  * StopDrawWaitingPassengers_8c02d06c registration), 3 = stopped/waiting, 4 = finishing. */
-extern int var_mirrorViewLevel_8c2285e4;
+extern int var_stopPhase_8c2285e4;
 /* Set to 0 or 2 by BusStopUpdateArrival_8c02ce48 depending on how the
  * approach (state 2) ended; role elsewhere unclear. */
 extern int var_8c2285e8;
