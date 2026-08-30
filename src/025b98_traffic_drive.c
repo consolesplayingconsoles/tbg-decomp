@@ -278,16 +278,15 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 }
             }
 
+            if (e->field_0x458 == 2 && e->field_0x464 != e->field_0x300) {
+                e->field_0x458 = 3;
+            }
+
             if (e->field_0x458 == 2) {
-                if (e->field_0x464 != e->field_0x300) {
-                    e->field_0x458 = 3;
-                    goto signal3;
-                }
                 if (ObjectsFUN_8c028998(e->field_0x45c) != 0) {
                     stopFlag = 1;
                 }
             } else if (e->field_0x458 == 3) {
-signal3:
                 if (signalId == (Sint32)e->field_0x460) {
                     e->field_0x458 = 0;
                 } else {
@@ -395,6 +394,7 @@ signal3:
                 float laneLimit;
                 float obstacleLimit = 9999.0f;
                 float curveLimit = 9999.0f;
+                Sint32 coastDown = 0;
 
                 if (stopFlag == 0) {
                     e->field_0x428 = 0;
@@ -429,32 +429,27 @@ signal3:
                 }
 
                 if (obstacleLimit == 9999.0f && curveLimit == 9999.0f) {
-                    if (laneLimit < speed) {
-                        laneLimit = speed - 0.003f;
-                        if (laneLimit < 0.0f) {
-                            laneLimit = 0.0f;
-                        }
-                    }
+                    coastDown = 1;
                 } else if (curveLimit <= obstacleLimit) {
                     if (curveLimit < laneLimit) {
                         laneLimit = curveLimit;
                         e->field_0x428 = 1;
-                        goto haveLimit;
+                    } else {
+                        coastDown = 1;
                     }
                 } else if (laneLimit <= obstacleLimit) {
                     /* fall through to the shared clamp below */
+                    coastDown = 1;
                 } else {
                     laneLimit = obstacleLimit;
                     e->field_0x424 = 1;
-                    goto haveLimit;
                 }
-                if (laneLimit < speed) {
+                if (coastDown != 0 && laneLimit < speed) {
                     laneLimit = speed - 0.003f;
                     if (laneLimit < 0.0f) {
                         laneLimit = 0.0f;
                     }
                 }
-haveLimit:
 
                 /* ---- integrate speed towards laneLimit ---- */
                 if (e->field_0x424 != 0 || e->field_0x428 != 0 || laneLimit < speed) {
