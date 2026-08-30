@@ -302,7 +302,7 @@ STATIC void armCooldowns_8c02b578(int type) {
  * counted past 0 to negative; see armCooldowns_8c02b578) --
  * grades a driver-points penalty by the player's speed and re-arms it. */
 STATIC void handleBump_8c02b6d4(void) {
-    BusState *other;
+    TrafficEntry *other;
     float dx, dz, dist;
 
     if (CollideQueueTest_8c02e4ac() != NULL) {
@@ -316,41 +316,41 @@ STATIC void handleBump_8c02b6d4(void) {
     }
 
     other = BusCollideFindHit_8c02e2dc();
-    var_8c228664 = other;
+    var_8c228664 = (BusState *)other;
     if (other == NULL) {
         return;
     }
 
     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x13, 0);
 
-    var_8c228668 = other;
+    var_8c228668 = (BusState *)other;
     var_8c228670 = other->speed_0x27c;
-    dx = other->posX_0x0f4 - var_8c1bbd9c->posX_0x0f4;
-    dz = other->posZ_0x0fc - var_8c1bbd9c->posZ_0x0fc;
+    dx = other->posX_0xf4 - var_8c1bbd9c->posX_0x0f4;
+    dz = other->posZ_0xfc - var_8c1bbd9c->posZ_0x0fc;
     dist = njSqrt(dx * dx + dz * dz);
 
     if (other->field_0x2e4 == 0) {
-        other->bus_state_0x2b4 = 1;
+        other->driveState_0x2b4 = 1;
         other->speed_0x27c = var_8c22866c + 0.3f;
-        other->dir_x_0x29c = dx / dist;
-        other->dir_z_0x2a0 = dz / dist;
-        other->groundSamples_0x190[0].count_0x0c = 0;
-        other->groundSamples_0x190[1].count_0x0c = 0;
-        other->groundSamples_0x190[2].count_0x0c = 0;
+        other->dirX_0x29c = dx / dist;
+        other->dirZ_0x2a0 = dz / dist;
+        other->groundProbe_0x190[0].count_0x0c = 0;
+        other->groundProbe_0x190[1].count_0x0c = 0;
+        other->groundProbe_0x190[2].count_0x0c = 0;
     } else {
-        other->bus_state_0x2b4 = 1;
+        other->driveState_0x2b4 = 1;
         other->speed_0x27c = var_8c22866c + 0.3f;
-        other->dir_x_0x29c = dx / dist;
-        other->dir_z_0x2a0 = dz / dist;
+        other->dirX_0x29c = dx / dist;
+        other->dirZ_0x2a0 = dz / dist;
     }
 
     BusDriveStop_8c023bce();
 
     var_8c1bbd9c->speed_0x27c = var_8c228670 + 0.3f;
-    var_8c1bbd9c->dir_x_0x29c = -other->dir_x_0x29c;
-    var_8c1bbd9c->dir_z_0x2a0 = -other->dir_z_0x2a0;
-    var_8c1bbd9c->dir_x2_0x2ac = -other->dir_x_0x29c;
-    var_8c1bbd9c->dir_z2_0x2b0 = -other->dir_z_0x2a0;
+    var_8c1bbd9c->dir_x_0x29c = -other->dirX_0x29c;
+    var_8c1bbd9c->dir_z_0x2a0 = -other->dirZ_0x2a0;
+    var_8c1bbd9c->dir_x2_0x2ac = -other->dirX_0x29c;
+    var_8c1bbd9c->dir_z2_0x2b0 = -other->dirZ_0x2a0;
 
     if (var_8c22866c < 0.1388889f) {
         VibStart_8c010f7a(4);

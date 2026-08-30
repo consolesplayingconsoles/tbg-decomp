@@ -3,6 +3,7 @@
 #include <shinobi.h>
 #include "014a9c_tasks.h"
 #include "02081c.h"
+#include "026710_traffic.h" /* TrafficEntry */
 #include "02e2dc.h"
 #include "sectionB.h"
 #include "serial_debug.h" /* STATIC */
@@ -166,10 +167,10 @@ NJS_POINT3 *init_8c04c940[16] = {
  * 12 world units, transforms that variant's local-space box to world space
  * and box-tests it against the bus's own box (set up once, up front).
  * Returns the first hit's state, or NULL if none. */
-BusState *BusCollideFindHit_8c02e2dc(void)
+TrafficEntry *BusCollideFindHit_8c02e2dc(void)
 {
     Task *cursor;
-    Uint8 *state;
+    TrafficEntry *entry;
 
     njCalcPoints(&var_busWorldMatrix_8c1bba54, init_8c04c820,
                  var_collideSelfBox_8c228978.v, 8);
@@ -180,15 +181,15 @@ BusState *BusCollideFindHit_8c02e2dc(void)
         cursor = var_collideScanCursor_8c228974;
 
         if (cursor->action != (TaskAction)-1) {
-            state = (Uint8 *)cursor->state;
+            entry = (TrafficEntry *)cursor->state;
 
-            if (12.0f > *(float *)(state + 0x490)) {
-                njCalcPoints((NJS_MATRIX *)(state + 0x84),
-                             init_8c04c940[*(Sint32 *)(state + 0x2e0)],
+            if (12.0f > entry->field_0x490) {
+                njCalcPoints(&entry->worldMatrix_0x84,
+                             init_8c04c940[entry->variantIndex_0x2e0],
                              var_collideCandidateBox_8c2289d8.v, 8);
 
                 if (GeomQuadOverlap_8c020842(var_collideSelfBox_8c228978.v, var_collideCandidateBox_8c2289d8.v)) {
-                    return (BusState *)state;
+                    return entry;
                 }
             }
         }
