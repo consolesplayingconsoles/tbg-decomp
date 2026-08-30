@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Mechanically dump a .src file's data sections (C and/or D) as C code.
 
-Parses `.DATA.B` / `.DATA.L` / `.RES.B` records under `.SECTION C` and
-`.SECTION D` into ordered (label -> bytes/pointers) blocks, then emits one C
-global per block:
+Parses `.DATA.B` / `.DATA.L` / `.RES.B` / (live, i.e. not commented-out)
+`.SDATA "..."` records under `.SECTION C` and `.SECTION D` into ordered
+(label -> bytes/pointers) blocks, then emits one C global per block:
 
   * A block with no `.DATA.L` (pure bytes, `.RES.B` zero-filled) becomes
     `STATIC Uint8 name[] = { 0x.., ... };`.
@@ -13,6 +13,8 @@ global per block:
     raw bytes between pointers into little-endian 32-bit words. This only
     works when every such run's length is a multiple of 4; the script
     aborts otherwise rather than guess a layout.
+  * Every symbol is `STATIC` by default; pass `--public NAME,NAME,...` to
+    emit specific ones without it, for symbols that need external linkage.
 
 Labels are emitted in file order, which is also dependency order: every
 `.DATA.L` target in these units is defined earlier in the same file (checked
@@ -25,6 +27,7 @@ afterward where it's worth the readability (see docs / move-data skill).
 Usage:
   scripts/dump_src_data.py <unit.src> [--exclude NAME,NAME,...] > out.c
   scripts/dump_src_data.py <unit.src> --only NAME,NAME,...
+  scripts/dump_src_data.py <unit.src> --public NAME,NAME,...
   scripts/dump_src_data.py <unit.src> --check-forward-refs
 """
 import argparse
@@ -37,7 +40,8 @@ OTHER_SECTION_RE = re.compile(r"^\s*\.SECTION\b")
 DATA_B_RE = re.compile(r"^\s*\.DATA\.B\s+(.*)$")
 DATA_L_RE = re.compile(r"^\s*\.DATA\.L\s+_(\w+)")
 RES_B_RE = re.compile(r"^\s*\.RES\.B\s+(\S+)")
-SDATA_RE = re.compile(r'^\s*;\.SDATA\s+"(.*)"\s*$')
+SDATA_COMMENT_RE = re.compile(r'^\s*;\.SDATA\s+"(.*)"\s*$')
+SDATA_LIVE_RE = re.compile(r'^\s*\.SDATA\s+"(.*)"\s*(?:;.*)?$')
 END_RE = re.compile(r"^\s*\.END\b")
 
 
@@ -77,9 +81,22 @@ def parse_blocks(path, sections=("C", "D")):
         if cur is None:
             continue
 
-        m = SDATA_RE.match(line)
+        m = SDATA_COMMENT_RE.match(line)
         if m and not cur.items:
+            # Documentation only: the real bytes are the .DATA.B hex that
+            # follows (used where the string isn't plain ASCII, e.g. Shift-JIS
+            # text the assembler can't take as a string literal).
             cur.sdata = m.group(1)
+            continue
+
+        m = SDATA_LIVE_RE.match(line)
+        if m:
+            # A live .SDATA emits exactly the string's ASCII bytes with no
+            # implicit terminator -- callers follow it with their own
+            # .DATA.B H'00 / .RES.B for termination and alignment padding.
+            if not cur.items:
+                cur.sdata = m.group(1)
+            cur.items.append(("B", list(m.group(1).encode("ascii"))))
             continue
 
         m = DATA_B_RE.match(line)
@@ -113,9 +130,10 @@ def check_forward_refs(blocks):
     return bad
 
 
-def emit_byte_array(name, byte_vals, const):
+def emit_byte_array(name, byte_vals, const, public):
     qual = "const " if const else ""
-    lines = [f"STATIC {qual}Uint8 {name}[] = {{"]
+    storage = "" if public else "STATIC "
+    lines = [f"{storage}{qual}Uint8 {name}[] = {{"]
     for i in range(0, len(byte_vals), 8):
         row = ", ".join(f"0x{v:02X}" for v in byte_vals[i:i + 8])
         lines.append(f"    {row},")
@@ -123,8 +141,9 @@ def emit_byte_array(name, byte_vals, const):
     return "\n".join(lines)
 
 
-def emit_int_array(name, block, const):
+def emit_int_array(name, block, const, public):
     qual = "const " if const else ""
+    storage = "" if public else "STATIC "
     # Merge into a flat token stream, then pack consecutive byte runs into
     # little-endian 32-bit words.
     words = []
@@ -151,29 +170,44 @@ def emit_int_array(name, block, const):
             words.append(f"(int){val}")
     flush_pending()
 
-    lines = [f"STATIC {qual}int {name}[] = {{"]
+    lines = [f"{storage}{qual}int {name}[] = {{"]
     for i in range(0, len(words), 4):
         lines.append("    " + ", ".join(words[i:i + 4]) + ",")
     lines.append("};")
     return "\n".join(lines)
 
 
-def emit_block(block):
+def ascii_safe_comment(text):
+    """Render a (possibly Shift-JIS) string for a C comment using only ASCII,
+    per the src/ ASCII-only rule -- non-ASCII bytes become \\xHH escapes of
+    their original Shift-JIS encoding rather than raw UTF-8."""
+    out = []
+    for ch in text:
+        if ord(ch) < 0x80:
+            out.append(ch)
+        else:
+            for b in ch.encode("shift_jis", errors="replace"):
+                out.append(f"\\x{b:02x}")
+    return "".join(out)
+
+
+def emit_block(block, public_names):
     # The compiler places `const`-qualified globals in its own object's C
     # (rodata) section and everything else in D, regardless of which section
     # the label came from in the .src -- so reproducing the original C/D
     # split means: section-C labels (always plain `const_*` byte data here)
     # must be marked const, section-D labels (`init_*`) must not be.
     const = block.section == "C"
+    public = block.name in public_names
     out = []
     if block.sdata is not None:
-        out.append(f"/* \"{block.sdata}\" */")
+        out.append(f"/* \"{ascii_safe_comment(block.sdata)}\" */")
     has_ptr = any(k == "L" for k, _ in block.items)
     if has_ptr:
-        out.append(emit_int_array(block.name, block, const))
+        out.append(emit_int_array(block.name, block, const, public))
     else:
         byte_vals = [v for k, vals in block.items for v in vals]
-        out.append(emit_byte_array(block.name, byte_vals, const))
+        out.append(emit_byte_array(block.name, byte_vals, const, public))
     return "\n".join(out)
 
 
@@ -184,6 +218,7 @@ def main():
     ap.add_argument("--sections", default="C,D", help="comma-separated section letters (default C,D)")
     ap.add_argument("--exclude", default="", help="comma-separated label names to skip (already moved)")
     ap.add_argument("--only", default="", help="comma-separated label names to emit (skip everything else)")
+    ap.add_argument("--public", default="", help="comma-separated label names to emit without STATIC (external linkage)")
     ap.add_argument("--check-forward-refs", action="store_true",
                      help="only report .DATA.L targets defined later in the file, then exit")
     args = ap.parse_args()
@@ -206,13 +241,14 @@ def main():
 
     exclude = set(n for n in args.exclude.split(",") if n)
     only = set(n for n in args.only.split(",") if n)
+    public = set(n for n in args.public.split(",") if n)
 
     for block in blocks:
         if block.name in exclude:
             continue
         if only and block.name not in only:
             continue
-        print(emit_block(block))
+        print(emit_block(block, public))
         print()
 
 
