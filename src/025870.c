@@ -352,8 +352,7 @@ void FUN_8c025870(void)
  * DemoUpdateCamera_8c025906's var_8c227d9c==5/6 modes: state 5 pins it to
  * var_8c227e00 directly (y relative to ground); state 6 transforms
  * var_8c227e00 by the bus's world matrix instead. No-op for any other
- * state. Called by DemoUpdateCamera_8c025906's LAB_8c0259e8 helper task
- * (025870, undecompiled). */
+ * state. Called by DemoUpdateCamera_8c025906's LAB_8c0259e8 helper task. */
 STATIC void FUN_8c0258ba(void)
 {
     switch (var_8c227d9c) {

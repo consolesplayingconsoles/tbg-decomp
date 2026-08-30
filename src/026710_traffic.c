@@ -882,7 +882,8 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * ground-query grid for the GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e queries run while
  * spawning/updating entries below (var_activeGroundGrid_8c2264d4 <-
  * .atariCpu_0x18, var_8c228b3c <- .attrCpu_0x20), and resets var_8c228b44
- * (role for its other, still-undecompiled consumer unclear).
+ * (its other consumer, TrafficPathScanTypeInGroup_8c02f28a in 02f0c8, treats
+ * -1 as "not cached yet").
  *
  * Tracks a traffic-preset switch via var_scenePresetIds_8c1bbd8c's
  * bits 8-15 (a different byte lane than pedestriansTask_8c0293f6's own use
@@ -970,8 +971,8 @@ STATIC void trafficUpdateTask_8c0275d4(Task *task, void *state)
  * caching two per-course table pointers (route path array, per-preset script
  * table) and, on the night route/day table, a copy of two adjacent
  * CourseSceneParams.rec0_0x0c rows plus their per-20-frame deltas -- consumed
- * by initEntryState_8c026748's junction-light path and (rows only,
- * still undecompiled) 027958.
+ * by initEntryState_8c026748's junction-light path and (rows only) by
+ * BusDrawFadeLights_8c028022 in 027958.
  */
 void TrafficInit_8c02769e(void)
 {

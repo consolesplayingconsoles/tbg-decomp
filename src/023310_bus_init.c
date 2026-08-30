@@ -21,7 +21,7 @@
  */
 
 /* Positions the player's bus at the current segment's stop and resets its
- * driving-physics state. Called once by FUN_8c023610 at the start of a run. */
+ * driving-physics state. Called once by BusInitStart_8c023610 at the start of a run. */
 STATIC void busInitPlaceBus_8c023310(void)
 {
     StopAreaRecord *stopArea = BusStopGetStopArea_8c02cd7a(var_currentSegment_8c228708);

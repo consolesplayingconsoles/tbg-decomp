@@ -67,7 +67,7 @@ STATIC void busDriveDecelerate_8c023bea(void)
  * ground-probe results FUN_8c023938 filled into groundSamples_0x190, then
  * averages two pairs of those probes' interpolated heights into
  * posY_0x0f8/posHistory_0x100[0].y and fans those out to the lane-offset
- * posHistory entries used for steering lookahead. Called by FUN_8c023610
+ * posHistory entries used for steering lookahead. Called by BusInitStart_8c023610
  * (023310_bus_init) and BusTask_8c022bdc (022bdc) once per frame while
  * driving. */
 void FUN_8c023cba(void)
@@ -144,7 +144,7 @@ void FUN_8c023cba(void)
  * 8c020914 or a GroundProbe* variant, all sharing the same (x,y,z,out)
  * signature), filling groundSamples_0x190. Also seeds posHistory_0x100[0]/[1]
  * (no probe for those two) and the heading unit vector field_0x274/0x278.
- * Called by busInitPlaceBus_8c023310/FUN_8c023610 (023310_bus_init) and
+ * Called by busInitPlaceBus_8c023310/BusInitStart_8c023610 (023310_bus_init) and
  * BusTask_8c022bdc (022bdc). */
 void FUN_8c023938(void)
 {

@@ -127,14 +127,13 @@ STATIC void setCountUpStep_8c02d5d8(void)
 }
 
 /* Task action for an already-picked waiting passenger (state->state_0x04 ==
- * 1 always, from 02d968); a small state machine walking it through the
- * boarding animation: countdown-then-position at each of the three door
- * anchor points (var_8c228928/91c... no -- 8c228928, then 8c228910,
- * 8c22891c in turn), claiming an empty scripted-stop slot once done so it
- * continues as an ordinary scripted rider, then just keeps re-registering
- * the draw callback in its terminal state (0). var_8c22895c gates whether
- * each phase's positioning work runs this frame (set up per-frame
- * elsewhere in the bus-stop subsystem; not owned by this unit). */
+ * 1 always, from 02d968); walks it through the boarding animation via the
+ * three door anchor points var_8c228928, var_8c228910 and var_8c22891c in
+ * turn, claiming an empty scripted-stop slot once done so it continues as
+ * an ordinary scripted rider, then just keeps re-registering the draw
+ * callback in its terminal state (0). var_8c22895c gates whether each
+ * phase's positioning work runs this frame (set up per-frame elsewhere in
+ * the bus-stop subsystem; not owned by this unit). */
 void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
 {
     StopScheduleState *state = (StopScheduleState *)state_;

@@ -17,8 +17,7 @@ void FUN_8c024f32(void);
 
 /* Lights, textures and draws the third-person bus model (with door/etc
  * shape motion, always busState.field_0x00c); altLight only selects the
- * light direction (non-NULL -> var_8c227dc4). Called by 025870
- * (undecompiled). */
+ * light direction (non-NULL -> var_8c227dc4). Called by 025870. */
 void FUN_8c024bb8(void *altLight);
 
 /* Called by BusTask_8c022bdc (022bdc) with no arguments each frame outside

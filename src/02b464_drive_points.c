@@ -375,9 +375,9 @@ STATIC void handleBump_8c02b6d4(void) {
     armCooldowns_8c02b578(1);
 }
 
-/* Grades a driver-points penalty from var_8c228660's bits 0x2/0x4 (set
- * elsewhere, still-undecompiled 022bdc): neither set is a no-op, either
- * alone is a mild penalty, both together the worst. Arms the type-1
+/* Grades a driver-points penalty from var_8c228660's bits 0x2/0x4 (set by
+ * busDriveDecelerate_8c023bea in 023938_bus_drive): neither set is a no-op,
+ * either alone is a mild penalty, both together the worst. Arms the type-1
  * cooldown whenever a penalty was applied. */
 STATIC void handleFlags_8c02b7ea(void) {
     unsigned int flags = var_8c228660 & 6;

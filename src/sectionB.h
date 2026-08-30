@@ -290,7 +290,7 @@ typedef struct {
 
     int field_0x3c4;
 
-    /* Zeroed by FUN_8c023610. Overlaps var_scenePresetIds_8c1bbd8c+0xc
+    /* Zeroed by BusInitStart_8c023610. Overlaps var_scenePresetIds_8c1bbd8c+0xc
      * (that symbol's reserved span runs 4 bytes past this struct's end) --
      * coincidentally adjacent, not that symbol's field. */
     int field_0x3c8;
@@ -538,7 +538,7 @@ extern ResourceGroup var_loadingResourceGroup_8c1bc3f8;
 extern void* var_markDat_8c1bc420;
 extern void* var_markPartsDat_8c1bc41c;
 extern NJS_TEXLIST *var_markTexlist_8c1bc418;
-/* Read by FUN_8c023610 at +8/+0xc for the bus's field_0x004/field_0x00c
+/* Read by BusInitStart_8c023610 at +8/+0xc for the bus's field_0x004/field_0x00c
  * (VehPartsBind_8c02786c inputs); role of the rest unclear. */
 extern void *var_8c1bbf7c[24];
 extern ModelSlot var_pedestrianAssets_8c1bbfdc[0x41];
@@ -662,7 +662,7 @@ extern int var_fadeDrawCommandCount_8c226570[3]; // 022464: per-layer draw-comma
 extern FadeDrawCommand var_fadeDrawCommands_8c22657c[3][128]; // 022464: per-layer draw-command queue
 extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
 extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
-/* Mirrors var_currentCourse_8c1bb868.lineBus_0x08, reset by FUN_8c023610
+/* Mirrors var_currentCourse_8c1bb868.lineBus_0x08, reset by BusInitStart_8c023610
  * alongside var_activeGroundGrid_8c2264d4/var_8c228b3c/var_8c227d88. */
 extern LineBusSegment *var_8c227d84;
 /* Mirrors var_currentCourse_8c1bb868.ukn_0x0c. */
@@ -680,7 +680,7 @@ extern int var_8c227dac; /* zeroed alongside var_8c227d9c by busInitPlaceBus_8c0
  * while boarding (bus_substate_0x3c0==1), capped at var_8c227db4, then counts
  * back down by 0.5/frame once departing (bus_substate_0x3c0==3) until it hits 0. */
 extern float var_8c227db0;
-/* var_8c1bc410->nbFrame - 1.0, set by FUN_8c023610, read by BusTask_8c022bdc
+/* var_8c1bc410->nbFrame - 1.0, set by BusInitStart_8c023610, read by BusTask_8c022bdc
  * (022bdc). */
 extern float var_8c227db4;
 extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by BusRenderUpdateCamera_8c025078
@@ -844,9 +844,10 @@ extern int var_8c2285fc[8];
  * through this symbol. Other slots unclear. */
 extern int var_8c22861c[6];
 
-/* Bitflags set elsewhere (022bdc, still undecompiled); bits 0x2/0x4 are
- * read by handleFlags_8c02b7ea (02b464) to grade a driver-points
- * penalty -- both set is worse than either alone. Other bits unclear. */
+/* Bitflags set by busDriveDecelerate_8c023bea (023938_bus_drive); bits
+ * 0x2/0x4 are read by handleFlags_8c02b7ea (02b464) to grade a
+ * driver-points penalty -- both set is worse than either alone. Other bits
+ * unclear. */
 extern int var_8c228660;
 
 /* The vehicle/pedestrian the player's bus is currently bumping into, set by
@@ -877,8 +878,8 @@ extern int var_8c228688;
 extern int var_8c22868c;
 
 /* Per-offense-type cooldowns armed by armCooldowns_8c02b578
- * (02b464) to a large frame count (0x96/0xd2), presumably counted down by
- * a still-undecompiled function; handleBump_8c02b6d4 treats
+ * (02b464) to a large frame count (0x96/0xd2), counted down each frame by
+ * taskCallback_8c02c072; handleBump_8c02b6d4 treats
  * slot 0 as expired/ready once it goes negative. Role of each slot beyond
  * that unclear. */
 extern int var_8c228690;
@@ -916,7 +917,7 @@ extern int var_8c22864c;
  * attribute grid FUN_8c02e51c (02e51c) searches. TrafficDriveVehicle_8c025b98
  * (025b98) swaps it to var_8c1bb878 for its own junction-under-entity query,
  * then restores var_8c1bb888 -- role for other consumers (023310, 022bdc,
- * 02f0c8, still undecompiled) unclear. */
+ * 02f0c8) unclear. */
 extern void *var_8c228b3c;
 extern void *var_8c1bb878;
 extern void *var_8c1bb888;
@@ -924,8 +925,9 @@ extern void *var_8c1bb888;
  * hit; never read there. Role/other consumers unclear. */
 extern Sint32 var_8c2264d0;
 /* One of init_8c04c980/init_8c04caec/init_8c04cd38 (sectionD), picked by
- * route in TrafficInit_8c02769e (026710); role for 02f0c8 (still
- * undecompiled) unclear. */
+ * route in TrafficInit_8c02769e (026710); a list of -1-terminated
+ * type-id groups, walked by TrafficPathScanTypeInGroup_8c02f28a (02f0c8) to
+ * find which group a marker's type belongs to. */
 extern Sint32 *var_8c228b40;
 /* Cached pointer into a var_8c228b40 id-group (TrafficPathScanTypeInGroup_8c02f28a, 02f0c8) --
  * -1 means "not cached yet"; reset to -1 by trafficUpdateTask_8c0275d4

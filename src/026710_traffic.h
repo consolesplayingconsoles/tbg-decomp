@@ -43,8 +43,9 @@ typedef struct {
 /* The 0x514-byte task state spawnEntry_8c0272b8 allocates for every CPU
  * vehicle and fixed decoration. Fields are named only where this unit,
  * 02786c_vehicle_parts and 02e400_collision establish a meaning; the rest stay
- * field_/padding_ until the per-frame drivers TrafficDriveVehicle_8c025b98 (moving vehicle)
- * and TrafficDriveDecoration_8c02656a (decoration) are decompiled -- they own most of it. */
+ * field_/padding_ -- the per-frame drivers TrafficDriveVehicle_8c025b98
+ * (moving vehicle) and TrafficDriveDecoration_8c02656a (decoration) own
+ * most of it. */
 typedef struct {
     Uint32 field_0x000;
     NJS_TEXLIST *texlistLarge_0x04;

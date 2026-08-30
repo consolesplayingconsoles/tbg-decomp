@@ -36,7 +36,7 @@ void StopDrawWaitingPassengers_8c02d06c(int arg0)
     }
 }
 
-/* Installed as a FadeCallback1 (via literal-pool pointer in still-asm
+/* Installed as a FadeCallback1 (via literal-pool pointer in
  * 02d19c); ignores its arg. Sibling of setSimpleLightCallback_8c02a5d0
  * (028258_objects) but always uses the layer-0 light direction and adds the
  * njControl3D/constant-attr/constant-material setup for the bus-stop
@@ -51,7 +51,7 @@ void StopDrawLightBegin_8c02d0fc(int arg0)
     njSetConstantMaterial((NJS_ARGB *)var_8c228960);
 }
 
-/* Installed as a FadeCallback1 (via literal-pool pointer in still-asm
+/* Installed as a FadeCallback1 (via literal-pool pointer in
  * 02d19c); ignores its arg. Restores njControl3D's default flags after
  * StopDrawLightBegin_8c02d0fc's draw. */
 void StopDrawLightEnd_8c02d146(int arg0)

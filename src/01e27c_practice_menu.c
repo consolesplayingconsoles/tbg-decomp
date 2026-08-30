@@ -531,9 +531,9 @@ STATIC void scrollTowardSelection_8c01ebc8(void)
     }
 }
 
-/* Main in-lesson gameplay task action, not yet decompiled; only ever
- * referenced by address (as a TaskSetAction_8c014b3e/TaskPush_8c014ae8
- * target), never exported by the archived asm. */
+/* Main in-lesson gameplay task action; only ever referenced by address (as a
+ * TaskSetAction_8c014b3e/TaskPush_8c014ae8 target), never exported by the
+ * archived asm. */
 STATIC void FUN_8c01ebf2(Task *task, void *state)
 {
     int row, i, spriteId, modeIcon;

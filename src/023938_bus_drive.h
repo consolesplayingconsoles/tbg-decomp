@@ -37,7 +37,7 @@ void BusDriveStop_8c023bce(void);
  * queries each through the ground-query callback in field_0x2c8, filling
  * groundSamples_0x190; also reseeds posHistory_0x100[0]/[1] and the heading
  * unit vector field_0x274/0x278. Called by busInitPlaceBus_8c023310/
- * FUN_8c023610 (023310_bus_init) and BusTask_8c022bdc (022bdc). */
+ * BusInitStart_8c023610 (023310_bus_init) and BusTask_8c022bdc (022bdc). */
 void FUN_8c023938(void);
 
 /* Walks the current route line segment forward by the bus's per-frame move
@@ -49,7 +49,7 @@ void FUN_8c023e7e(void);
 /* Rebuilds the bus's steering-correction direction from the corner
  * ground-probe results FUN_8c023938 fills into groundSamples_0x190, then
  * averages two pairs of those probes' interpolated heights into
- * posY_0x0f8/posHistory_0x100[0].y. Called by FUN_8c023610 (023310_bus_init)
+ * posY_0x0f8/posHistory_0x100[0].y. Called by BusInitStart_8c023610 (023310_bus_init)
  * and BusTask_8c022bdc (022bdc) once per frame while driving. */
 void FUN_8c023cba(void);
 

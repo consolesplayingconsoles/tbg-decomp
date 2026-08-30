@@ -1,4 +1,4 @@
-/* 8c01614c: undecompiled */
+/* 8c01614c */
 #ifndef _01614C_H
 #define _01614C_H
 
