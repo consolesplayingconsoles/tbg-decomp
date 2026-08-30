@@ -80,7 +80,7 @@ return new class extends TestCase {
         $tlist = 0xdeadbeef;
         $this->initTexlist($assets, 5, $tlist);
 
-        $this->call('_FUN_8c02d06c')->with(0);
+        $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(0);
 
         $sprite = $this->addressOf('_var_8c2288d8');
         $this->shouldWriteLong($sprite + 0x18, $tlist); // tlist
@@ -103,7 +103,7 @@ return new class extends TestCase {
         $tlist = 0xdeadbeef;
         $this->initTexlist($assets, 5, $tlist);
 
-        $this->call('_FUN_8c02d06c')->with(1);
+        $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(1);
 
         $sprite = $this->addressOf('_var_8c2288d8');
         $this->shouldWriteLong($sprite + 0x18, $tlist);
@@ -123,7 +123,7 @@ return new class extends TestCase {
         // 0x41 (65) is out of range (< 0x41 required)
         $this->initSlot($slots, 0, 0x41, 1.0, 2.0, 3.0);
 
-        $this->call('_FUN_8c02d06c')->with(0);
+        $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(0);
     }
 
     public function test_unloaded_texlist_is_skipped(): void
@@ -138,7 +138,7 @@ return new class extends TestCase {
         $assets = $this->addressOf('_var_pedestrianAssets_8c1bbfdc');
         $this->initTexlist($assets, 3, 0xffffffff); // -1 = unloaded
 
-        $this->call('_FUN_8c02d06c')->with(0);
+        $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(0);
     }
 
     public function test_zero_count_draws_nothing(): void
@@ -147,7 +147,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_8c228794'), 0);
 
-        $this->call('_FUN_8c02d06c')->with(0);
+        $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(0);
     }
 
     public function test_multiple_passengers_draw_in_order(): void
@@ -164,7 +164,7 @@ return new class extends TestCase {
         $this->initTexlist($assets, 1, 0x1111);
         $this->initTexlist($assets, 2, 0x2222);
 
-        $this->call('_FUN_8c02d06c')->with(0);
+        $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(0);
 
         $sprite = $this->addressOf('_var_8c2288d8');
 

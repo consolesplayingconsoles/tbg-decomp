@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $this->setSize('_njControl3D', 4);
 
-        $this->call('_FUN_8c02d146')->with(0);
+        $this->call('_StopDrawLightEnd_8c02d146')->with(0);
 
         $this->shouldCall('_njControl3D')->with(0x100);
     }
@@ -18,7 +18,7 @@ return new class extends TestCase {
     {
         $this->setSize('_njControl3D', 4);
 
-        $this->call('_FUN_8c02d146')->with(1);
+        $this->call('_StopDrawLightEnd_8c02d146')->with(1);
 
         $this->shouldCall('_njControl3D')->with(0x100);
     }

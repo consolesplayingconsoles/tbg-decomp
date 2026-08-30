@@ -12,7 +12,7 @@
 #include "0222dc_fadecmd.h" /* FadeCmdPushCall2_8c022420 */
 #include "022464_fade.h" /* FadeRequest, var_fadeRequest_8c226564, var_fadeArrivalGate_8c226560 */
 #include "027958.h" /* BusDrawSignal_8c0281ac */
-#include "02d06c.h" /* FUN_8c02d06c */
+#include "02d06c.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02af78_event.h" /* EventApplyFlags_8c02b292 */
 #include "02e400_collision.h" /* CollideQueueReset_8c02e486, CollideQueueAdd_8c02e48e */
 #include "02fb50_sh4nlfzn.h" /* rand */
@@ -5281,8 +5281,8 @@ STATIC void pedestriansTask_8c0293f6(Task *task)
     FadeCmdPushCall1_8c0223ea(layer, fn, layer);
 
     if (var_mirrorViewLevel_8c2285e4 == 2) {
-        FadeCmdPushCall1_8c0223ea(0, FUN_8c02d06c, 0);
-        FadeCmdPushCall1_8c0223ea(1, FUN_8c02d06c, 1);
+        FadeCmdPushCall1_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
+        FadeCmdPushCall1_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
     }
 }
 

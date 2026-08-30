@@ -16,11 +16,11 @@
           .IMPORT     _njSetConstantAttr
           .IMPORT     _var_8c228960
           .IMPORT     _njSetConstantMaterial
-          .EXPORT     _FUN_8c02d06c
-          .EXPORT     _FUN_8c02d0fc
-          .EXPORT     _FUN_8c02d146
+          .EXPORT     _StopDrawWaitingPassengers_8c02d06c
+          .EXPORT     _StopDrawLightBegin_8c02d0fc
+          .EXPORT     _StopDrawLightEnd_8c02d146
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02d06c:
+_StopDrawWaitingPassengers_8c02d06c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -98,7 +98,7 @@ LAB_8c02d0e0:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02d0fc:
+_StopDrawLightBegin_8c02d0fc:
           MOV.L       R14,@-R15
           MOV         #H'8,R0
           MOV.L       LP_GEN_15605+30,R14
@@ -136,7 +136,7 @@ _FUN_8c02d0fc:
           MOV.L       LP_GEN_15605+70,R4
           JMP         @R2
           MOV.L       @R15+,R14
-_FUN_8c02d146:
+_StopDrawLightEnd_8c02d146:
           MOV.L       LP_GEN_15605+58,R3
           MOV.W       LP_GEN_15605+2,R4
           JMP         @R3

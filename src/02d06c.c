@@ -1,3 +1,5 @@
+/* @unit StopDraw */
+
 #include <shinobi.h>
 #include "sectionB.h"
 
@@ -13,7 +15,7 @@
  * pedestriansTask_8c0293f6's mirror-view state). A passenger whose stop
  * index (the byte at *spot_0x00) is out of range or whose asset slot has no
  * texlist loaded yet is skipped. */
-void FUN_8c02d06c(int arg0)
+void StopDrawWaitingPassengers_8c02d06c(int arg0)
 {
     int i;
     Sint8 val;
@@ -39,7 +41,7 @@ void FUN_8c02d06c(int arg0)
  * (028258_objects) but always uses the layer-0 light direction and adds the
  * njControl3D/constant-attr/constant-material setup for the bus-stop
  * anchor-point draws that follow. */
-void FUN_8c02d0fc(int arg0)
+void StopDrawLightBegin_8c02d0fc(int arg0)
 {
     njCnkSetSimpleLight(var_fadeLightDir0_8c2264d8[0], var_fadeLightDir0_8c2264d8[1], var_fadeLightDir0_8c2264d8[2]);
     njCnkSetSimpleLightIntensity(var_fadeLightIntensity_8c2264f0[0], var_fadeLightIntensity_8c2264f0[1]);
@@ -51,8 +53,8 @@ void FUN_8c02d0fc(int arg0)
 
 /* Installed as a FadeCallback1 (via literal-pool pointer in still-asm
  * 02d19c); ignores its arg. Restores njControl3D's default flags after
- * FUN_8c02d0fc's draw. */
-void FUN_8c02d146(int arg0)
+ * StopDrawLightBegin_8c02d0fc's draw. */
+void StopDrawLightEnd_8c02d146(int arg0)
 {
     njControl3D(0x100);
 }

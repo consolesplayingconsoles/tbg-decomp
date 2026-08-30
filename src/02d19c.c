@@ -71,7 +71,7 @@ InitEntry_8c04c3e4 init_8c04c3e4[31] = {
  * FUN_8c02d5ca and by the per-passenger task actions below); draws one
  * waiting-passenger/scripted-stop rider's sprite. arg0 is really a
  * StopScheduleState* threaded through the int parameter (the same idiom as
- * FUN_8c02d0fc/d146 in 02d06c). A stop index (the byte at *ref_0x00) out of
+ * StopDrawLightBegin_8c02d0fc/d146 in 02d06c). A stop index (the byte at *ref_0x00) out of
  * range, or whose asset slot has no texlist loaded yet, is skipped. */
 STATIC void FUN_8c02d19c(int arg0)
 {
@@ -92,7 +92,7 @@ STATIC void FUN_8c02d19c(int arg0)
 
 /* Installed as a FadeCallback1 (via literal-pool pointer in FUN_8c02d644);
  * ignores its arg. Draws the bus interior model under the layer-0 (bus)
- * simple light, sibling of FUN_8c02d0fc (02d06c) which does the same for
+ * simple light, sibling of StopDrawLightBegin_8c02d0fc (02d06c) which does the same for
  * the bus-stop anchor points. */
 STATIC void FUN_8c02d1f4(int arg0)
 {
@@ -321,7 +321,7 @@ done:
  * with a private 2-int state (field_0x00 the phase, field_0x04 a sub-phase
  * used only by phase 1); NOT the 0x38-byte StopScheduleState the other
  * task actions in this unit use. Every call re-registers this frame's
- * interior-draw (FUN_8c02d1f4) and light (FUN_8c02d0fc) FadeCallback1s
+ * interior-draw (FUN_8c02d1f4) and light (StopDrawLightBegin_8c02d0fc) FadeCallback1s
  * regardless of phase. */
 void FUN_8c02d644(Task *task, void *state_)
 {
@@ -329,8 +329,8 @@ void FUN_8c02d644(Task *task, void *state_)
     int phase = state[0];
 
     FadeCmdPushCall1_8c0223ea(2, FUN_8c02d1f4, 0);
-    FadeCmdPushCall1_8c0223ea(1, FUN_8c02d0fc, 0);
-    FadeCmdPushCall1_8c0223ea(2, FUN_8c02d0fc, 0);
+    FadeCmdPushCall1_8c0223ea(1, StopDrawLightBegin_8c02d0fc, 0);
+    FadeCmdPushCall1_8c0223ea(2, StopDrawLightBegin_8c02d0fc, 0);
 
     switch (phase) {
     case 0:
@@ -489,8 +489,8 @@ teardown:
     return;
 
 tail_d8cc:
-    FadeCmdPushCall1_8c0223ea(1, FUN_8c02d146, 0);
-    FadeCmdPushCall1_8c0223ea(2, FUN_8c02d146, 0);
+    FadeCmdPushCall1_8c0223ea(1, StopDrawLightEnd_8c02d146, 0);
+    FadeCmdPushCall1_8c0223ea(2, StopDrawLightEnd_8c02d146, 0);
 }
 
 /* Task action spawned instead of the normal per-passenger tasks when

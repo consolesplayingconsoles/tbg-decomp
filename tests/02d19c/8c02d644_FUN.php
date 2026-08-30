@@ -57,8 +57,8 @@ return new class extends TestCase {
     private function expectFrameCallbacks(): void
     {
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_FUN_8c02d1f4'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_FUN_8c02d0fc'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_FUN_8c02d0fc'), 0);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
     }
 
     private function expectTaskExecGroup(int $group): void
@@ -68,8 +68,8 @@ return new class extends TestCase {
 
     private function expectRegisterFadeOverlay(): void
     {
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_FUN_8c02d146'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_FUN_8c02d146'), 0);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
     }
 
     public function test_case0_still_fading_advances_counter_only(): void

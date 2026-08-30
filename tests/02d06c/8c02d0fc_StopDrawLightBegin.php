@@ -45,7 +45,7 @@ return new class extends TestCase {
         $this->initUint32($mat + 0xc, $this->f(9.0));
         $this->initUint32($mat + 0x10, $this->f(9.0));
 
-        $this->call('_FUN_8c02d0fc')->with(0);
+        $this->call('_StopDrawLightBegin_8c02d0fc')->with(0);
 
         $this->shouldCall('_njCnkSetSimpleLight')->with(1.0, 2.0, 3.0);
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(0.5, 0.25);
@@ -81,7 +81,7 @@ return new class extends TestCase {
         $this->initUint32($mat + 0xc, 0);
         $this->initUint32($mat + 0x10, 0);
 
-        $this->call('_FUN_8c02d0fc')->with(42);
+        $this->call('_StopDrawLightBegin_8c02d0fc')->with(42);
 
         $this->shouldCall('_njCnkSetSimpleLight')->with(1.0, 1.0, 1.0);
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.0, 1.0);

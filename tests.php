@@ -925,9 +925,9 @@ return [
         ],
         [
             "tests" => [
-                "tests/02d06c/8c02d06c_FUN.php",
-                "tests/02d06c/8c02d0fc_FUN.php",
-                "tests/02d06c/8c02d146_FUN.php",
+                "tests/02d06c/8c02d06c_StopDrawWaitingPassengers.php",
+                "tests/02d06c/8c02d0fc_StopDrawLightBegin.php",
+                "tests/02d06c/8c02d146_StopDrawLightEnd.php",
             ],
             "objects" => [
                 "build/output_test/02d06c_src.obj",

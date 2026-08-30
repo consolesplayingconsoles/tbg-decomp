@@ -243,9 +243,9 @@ return new class extends TestCase {
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
-            ->with(0, $this->addressOf('_FUN_8c02d06c'), 0);
+            ->with(0, $this->addressOf('_StopDrawWaitingPassengers_8c02d06c'), 0);
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
-            ->with(1, $this->addressOf('_FUN_8c02d06c'), 1);
+            ->with(1, $this->addressOf('_StopDrawWaitingPassengers_8c02d06c'), 1);
     }
 
     public function test_new_group_is_spun_up_and_marked_wanted()
