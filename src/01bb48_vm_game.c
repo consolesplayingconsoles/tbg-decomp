@@ -67,6 +67,21 @@ enum VmGameSaveResult {
     SAVE_ERR_FULL     = 17
 };
 
+/* Task private state for vmGameTask_8c01bfec: phase_0x08 is a prompt phase,
+ * switched against DOWNLOAD_PHASE_* while State.state_0x18 == STATE_DOWNLOAD
+ * or EXP_PHASE_* while STATE_EXP_LOAD; the two enums share the field since
+ * only one applies at a time. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    int phase_0x08;
+    void *field_0x0c;
+    int field_0x10;
+    int field_0x14;
+    void *queuedItem_0x18;
+    int field_0x1c;
+} VmGameTask;
+
 /* ===================
  * Initialized Globals
  * ===================
@@ -380,7 +395,7 @@ STATIC void selectSlot_8c01bf2a(int slot)
     }
 }
 
-STATIC void vmGameTask_8c01bfec(Task *task)
+STATIC void vmGameTask_8c01bfec(VmGameTask *task)
 {
     MenuState *m = &var_menuState_8c1bc7a8;
     int slot;
@@ -588,7 +603,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                     }
                     m->selectedVmuSlot_0x6c = m->selected_0x38;
                     m->field_0x3c = 0;
-                    task->field_0x08 = 0; /* prompt phase, shared by DOWNLOAD and EXP_LOAD */
+                    task->phase_0x08 = 0; /* prompt phase, shared by DOWNLOAD and EXP_LOAD */
                 } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
                     m->state_0x18 = STATE_RETURN_FADE_OUT;
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
@@ -614,7 +629,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
         break;
 
     case STATE_DOWNLOAD: {
-        switch (task->field_0x08) {
+        switch (task->phase_0x08) {
             case DOWNLOAD_PHASE_PROMPT: {
                 switch (PromptHandleBinary_8c016caa(&m->field_0x3c)) {
                     case 1: {
@@ -628,7 +643,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                         switch (save) {
                             case SAVE_STARTED: {
                                 VmGameSetLcdSlot_8c01c8fc(1);
-                                task->field_0x08 = DOWNLOAD_PHASE_SAVING;
+                                task->phase_0x08 = DOWNLOAD_PHASE_SAVING;
                                 ObjectsSwapMessageBoxFor_8c02aefc(
                                     MSG_DOWNLOADING_NO_REMOVE
                                 );
@@ -658,7 +673,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                                     break;
                                 }
 
-                                task->field_0x08 = DOWNLOAD_PHASE_DEFRAG_SAVING;
+                                task->phase_0x08 = DOWNLOAD_PHASE_DEFRAG_SAVING;
                                 ObjectsSwapMessageBoxFor_8c02aefc(
                                     MSG_DOWNLOADING_NO_REMOVE
                                 );
@@ -726,7 +741,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             45,
                             m->selectedVmuSlot_0x6c
                         );
-                        task->field_0x08 = DOWNLOAD_PHASE_SAVING;
+                        task->phase_0x08 = DOWNLOAD_PHASE_SAVING;
                         break;
                     case VMGAME_BUP_ERROR:
                         m->state_0x18 = STATE_SELECT;
@@ -742,7 +757,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
     }
 
     case STATE_EXP_LOAD: {
-        switch (task->field_0x08) {
+        switch (task->phase_0x08) {
             case EXP_PHASE_PROMPT: {
                 switch (PromptHandleBinary_8c016caa(&m->field_0x3c)) {
                     case 1: {
@@ -756,7 +771,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             break;
                         }
 
-                        task->field_0x08 = EXP_PHASE_LOADING;
+                        task->phase_0x08 = EXP_PHASE_LOADING;
                         ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_NO_REMOVE);
                         VmGameSetLcdSlot_8c01c8fc(1);
                         var_vmBusy_8c157a7c = 1;
@@ -808,7 +823,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
                             break;
                         }
 
-                        task->field_0x08 = EXP_PHASE_REWRITING;
+                        task->phase_0x08 = EXP_PHASE_REWRITING;
                         break;
                     }
 

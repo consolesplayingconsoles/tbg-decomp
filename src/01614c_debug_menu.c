@@ -34,6 +34,34 @@ typedef struct {
     DebugMenuCourseSel courseSel_0x08;
 } DebugMenuEntry;
 
+/* Task private state for replaySaveTask_8c0167ca: active_0x08 gates whether
+ * there's a save in flight at all (set 0 by startReplaySave_8c016924 to skip
+ * straight to freeing the task), phase_0x0c the BupSave stage (0-3) round-tripped
+ * through Task's void* field_0x0c. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    int active_0x08;
+    int phase_0x0c;
+    int field_0x10;
+    int field_0x14;
+    void *queuedItem_0x18;
+    int field_0x1c;
+} ReplaySaveTask;
+
+/* Task private state for replayLoadTask_8c0169bc: phase_0x08 IS the BupLoad
+ * stage (0-3); field_0x0c is unused. */
+typedef struct {
+    TaskAction action;
+    void *state;
+    int phase_0x08;
+    void *field_0x0c;
+    int field_0x10;
+    int field_0x14;
+    void *queuedItem_0x18;
+    int field_0x1c;
+} ReplayLoadTask;
+
 /* ====================
  * Initialized Globals
  * ====================
@@ -376,45 +404,43 @@ STATIC void FUN_8c0167c0(void)
 
 /* replay-save task installed by startReplaySave_8c016924; state machine driving the BupSave of the
  * recorded demo buffer for the selected VMU. */
-STATIC void replaySaveTask_8c0167ca(Task *task, void *state)
+STATIC void replaySaveTask_8c0167ca(ReplaySaveTask *task, void *state)
 {
     const BACKUPINFO *info;
-    int taskState;
 
-    if (task->field_0x08 == 0) {
-        TaskFree_8c014b66(task);
+    if (task->active_0x08 == 0) {
+        TaskFree_8c014b66((Task *)task);
         CourseMenuReturn_8c017ef2();
         return;
     }
 
-    taskState = (int)task->field_0x0c;
-    switch (taskState) {
+    switch (task->phase_0x0c) {
     case 0:
         info = BupGetInfo_8c014bba(var_selectedVm_8c1ba34c);
         if (info->Connect == 0) {
-            task->field_0x08 = 0;
+            task->active_0x08 = 0;
             return;
         }
         if (info->Work == 0) {
             BupMount_8c014c00(var_selectedVm_8c1ba34c);
-            task->field_0x0c = (void *)1;
+            task->phase_0x0c = 1;
             return;
         }
-        task->field_0x0c = (void *)2;
+        task->phase_0x0c = 2;
         return;
     case 1:
         info = BupGetInfo_8c014bba(var_selectedVm_8c1ba34c);
         if (info->Ready == 0) {
             return;
         }
-        task->field_0x0c = (void *)2;
+        task->phase_0x0c = 2;
         return;
     case 2: {
         Uint32 nblock;
 
         nblock = ((var_8c228ba4 + 0x10) >> 9) + 1;
         BupSave_8c014bcc(var_selectedVm_8c1ba34c, "BUS_REPLAY", var_demoBuf_8c1ba3c4, nblock);
-        task->field_0x0c = (void *)3;
+        task->phase_0x0c = 3;
         /* fallthrough */
     }
     case 3: {
@@ -429,7 +455,7 @@ STATIC void replaySaveTask_8c0167ca(Task *task, void *state)
         syFree(var_demoBuf_8c1ba3c4);
         var_demoBuf_8c1ba3c4 = (int *)-1;
         BupUnmount_8c014c46(var_selectedVm_8c1ba34c);
-        TaskFree_8c014b66(task);
+        TaskFree_8c014b66((Task *)task);
         CourseMenuReturn_8c017ef2();
         return;
     }
@@ -442,18 +468,18 @@ STATIC void replaySaveTask_8c0167ca(Task *task, void *state)
  * freshly malloc'd blob for BupSave, or skips saving if there's nothing to save. */
 STATIC void startReplaySave_8c016924(void)
 {
-    Task *task;
+    ReplaySaveTask *task;
     void *state;
     Uint32 recordedBytes;
     Uint32 size;
     int *buf;
     void *dest;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, replaySaveTask_8c0167ca, &task, &state, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba3c8, replaySaveTask_8c0167ca, (Task **)&task, &state, 0);
 
     if (var_selectedVm_8c1ba34c == -1 ||
         var_demoCursor_8c225fa8 >= &var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY]) {
-        task->field_0x08 = 0;
+        task->active_0x08 = 0;
         return;
     }
 
@@ -472,25 +498,23 @@ STATIC void startReplaySave_8c016924(void)
     buf[2] = var_inputMapSel_8c1bb8c8;
     buf[3] = var_seed_8c157a64;
 
-    task->field_0x08 = 1;
-    task->field_0x0c = 0;
+    task->active_0x08 = 1;
+    task->phase_0x0c = 0;
 }
 
 /* replay-load task installed by startReplayLoad_8c016b4c; state machine driving the BupLoad of a
  * recorded demo buffer from the selected VMU, then unpacking it for playback. */
-STATIC void replayLoadTask_8c0169bc(Task *task, void *state)
+STATIC void replayLoadTask_8c0169bc(ReplayLoadTask *task, void *state)
 {
     const BACKUPINFO *info;
-    int taskState;
 
     if (var_selectedVm_8c1ba34c == -1) {
-        TaskFree_8c014b66(task);
+        TaskFree_8c014b66((Task *)task);
         FUN_8c01328c();
         return;
     }
 
-    taskState = task->field_0x08;
-    switch (taskState) {
+    switch (task->phase_0x08) {
     case 0:
         info = BupGetInfo_8c014bba(var_selectedVm_8c1ba34c);
         if (info->Connect == 0) {
@@ -499,18 +523,18 @@ STATIC void replayLoadTask_8c0169bc(Task *task, void *state)
             return;
         }
         if (info->Work != 0) {
-            task->field_0x08 = 2;
+            task->phase_0x08 = 2;
             return;
         }
         BupMount_8c014c00(var_selectedVm_8c1ba34c);
-        task->field_0x08 = 1;
+        task->phase_0x08 = 1;
         return;
     case 1:
         info = BupGetInfo_8c014bba(var_selectedVm_8c1ba34c);
         if (info->Ready == 0) {
             return;
         }
-        task->field_0x08 = 2;
+        task->phase_0x08 = 2;
         return;
     case 2: {
         int *buf;
@@ -518,7 +542,7 @@ STATIC void replayLoadTask_8c0169bc(Task *task, void *state)
         buf = syMalloc(0x4000);
         var_demoBuf_8c1ba3c4 = buf;
         BupLoad_8c014bc6(var_selectedVm_8c1ba34c, "BUS_REPLAY", buf);
-        task->field_0x08 = 3;
+        task->phase_0x08 = 3;
         /* fallthrough */
     }
     case 3: {
@@ -540,7 +564,7 @@ STATIC void replayLoadTask_8c0169bc(Task *task, void *state)
         syFree(var_demoBuf_8c1ba3c4);
         var_demoBuf_8c1ba3c4 = (int *)-1;
         BupUnmount_8c014c46(var_selectedVm_8c1ba34c);
-        TaskFree_8c014b66(task);
+        TaskFree_8c014b66((Task *)task);
         FUN_8c01328c();
         return;
     }
@@ -552,7 +576,7 @@ STATIC void replayLoadTask_8c0169bc(Task *task, void *state)
 /* installs replayLoadTask_8c0169bc to load and start replaying a demo recorded on the selected VMU. */
 STATIC void startReplayLoad_8c016b4c(void)
 {
-    Task *task;
+    ReplayLoadTask *task;
     void *state;
 
     if (var_selectedVm_8c1ba34c == -1) {
@@ -563,6 +587,6 @@ STATIC void startReplayLoad_8c016b4c(void)
     var_playMode_8c1bb8d0 = PLAY_MODE_DEMO;
     var_8c1bb8d4 = 0;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, replayLoadTask_8c0169bc, &task, &state, 0);
-    task->field_0x08 = 0;
+    TaskPush_8c014ae8(var_tasks_8c1ba3c8, replayLoadTask_8c0169bc, (Task **)&task, &state, 0);
+    task->phase_0x08 = 0;
 }
