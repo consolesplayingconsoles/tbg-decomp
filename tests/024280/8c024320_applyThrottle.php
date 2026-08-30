@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c024320: STATIC, called from FUN_8c0246b2 each frame while driving.
+// applyThrottle_8c024320: STATIC, called from BusInputUpdate_8c0246b2 each frame while driving.
 // While the .r trigger (var_8c1ba374) clears its saved deadzone
 // (var_8c1ba29c) by at least var_8c1bbcb4's minimum scaled step, ramps
 // BusState.field_0x2e4 toward that step by init_8c045638[gear].field_0x00,
@@ -70,7 +70,7 @@ return new class extends TestCase {
     public function test_coasting_noDownshift(): void {
         $bus = $this->setup(0, 0, 0, 1, 0.2, 999);
 
-        $this->call('_FUN_8c024320');
+        $this->call('_applyThrottle_8c024320');
 
         $this->shouldWriteFloat($bus + 0x27c, 0.19975000619888306);
         $this->shouldWriteFloat($bus + 0x2e8, 4622.7861328125);
@@ -83,7 +83,7 @@ return new class extends TestCase {
     public function test_belowMinStep_treatedAsCoasting(): void {
         $bus = $this->setup(200, 50, 99999, 1, 0.2, 999);
 
-        $this->call('_FUN_8c024320');
+        $this->call('_applyThrottle_8c024320');
 
         $this->shouldWriteFloat($bus + 0x27c, 0.19975000619888306);
         $this->shouldWriteFloat($bus + 0x2e8, 4622.7861328125);
@@ -97,7 +97,7 @@ return new class extends TestCase {
     public function test_coasting_downshifts(): void {
         $bus = $this->setup(0, 0, 0, 2, 0.05, 999, 0);
 
-        $this->call('_FUN_8c024320');
+        $this->call('_applyThrottle_8c024320');
 
         $this->shouldWriteFloat($bus + 0x27c, 0.04975000023841858);
         $this->shouldCall('_sdMidiPlay')->with(0xcafe0900, 1, 0x26, 0);
@@ -111,7 +111,7 @@ return new class extends TestCase {
     public function test_coasting_downshift_altNoteWhenMirrorLevelHigh(): void {
         $bus = $this->setup(0, 0, 0, 2, 0.05, 999, 2);
 
-        $this->call('_FUN_8c024320');
+        $this->call('_applyThrottle_8c024320');
 
         $this->shouldWriteFloat($bus + 0x27c, 0.04975000023841858);
         $this->shouldCall('_sdMidiPlay')->with(0xcafe0900, 1, 0x25, 0);
@@ -126,7 +126,7 @@ return new class extends TestCase {
     public function test_accelerating_noUpshift(): void {
         $bus = $this->setup(200, 50, 0, 1, 0.0, 100);
 
-        $this->call('_FUN_8c024320');
+        $this->call('_applyThrottle_8c024320');
 
         $this->shouldWriteLong($bus + 0x2e4, 236);
         $this->shouldCall('_njSin')->with(236)->andReturn(0.5);
@@ -140,7 +140,7 @@ return new class extends TestCase {
     public function test_accelerating_upshifts(): void {
         $bus = $this->setup(200, 50, 0, 1, 0.0, 100);
 
-        $this->call('_FUN_8c024320');
+        $this->call('_applyThrottle_8c024320');
 
         $this->shouldWriteLong($bus + 0x2e4, 236);
         $this->shouldCall('_njSin')->with(236)->andReturn(0.9);
@@ -158,7 +158,7 @@ return new class extends TestCase {
     public function test_accelerating_upshiftFromGearZero_setsFirstShiftFlag(): void {
         $bus = $this->setup(200, 50, 0, 0, 0.0, 0);
 
-        $this->call('_FUN_8c024320');
+        $this->call('_applyThrottle_8c024320');
 
         $this->shouldWriteLong($bus + 0x2e4, 546);
         $this->shouldCall('_njSin')->with(546)->andReturn(0.9);
@@ -178,7 +178,7 @@ return new class extends TestCase {
     public function test_accelerating_topGear_clampsSpeed(): void {
         $bus = $this->setup(255, 0, 0, 4, 0.0, 5000);
 
-        $this->call('_FUN_8c024320');
+        $this->call('_applyThrottle_8c024320');
 
         $this->shouldWriteLong($bus + 0x2e4, 5034);
         $this->shouldCall('_njSin')->with(5034)->andReturn(1.05);

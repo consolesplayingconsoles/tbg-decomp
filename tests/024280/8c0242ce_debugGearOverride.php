@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// debugGearOverride_8c0242ce: STATIC, called from FUN_8c0246b2 each frame.
+// debugGearOverride_8c0242ce: STATIC, called from BusInputUpdate_8c0246b2 each frame.
 // Only acts in direct (non-mapped) steering mode (var_inputMapSel_8c1bb8c8
 // == 0): the first peripheral's D-pad up (PDD_DGT_KU, 0x10) forces
 // BusState.gear_0x2f4 to 0, D-pad down (PDD_DGT_KD, 0x20) forces it to 5

@@ -330,7 +330,7 @@ typedef struct {
     char field_0xc7[9];
 
     /* 0xd0/0xd1 look like saved input deadzone
-     * thresholds (see FUN_8c024320/FUN_8c024606) */
+     * thresholds (see applyThrottle_8c024320/FUN_8c024606) */
     char field_0xd0;
     char field_0xd1;
     char field_0xd2;
@@ -437,7 +437,7 @@ extern int var_8c1bbc2c;
 extern float var_8c1bbc4c;
 extern int var_8c1bbc84;
 extern Uint32 var_8c1bbcb0;
-/* Minimum scaled throttle step (see FUN_8c024320's `step`) for a trigger
+/* Minimum scaled throttle step (see applyThrottle_8c024320's `step`) for a trigger
  * push to count as accelerating rather than coasting. */
 extern int var_8c1bbcb4;
 extern int var_8c1bbcc4;
@@ -908,7 +908,7 @@ extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
 extern int var_8c2285c4[];
 
-/* var_8c2285c4[34] (0x22864c), addressed directly by FUN_8c024320: set to 1
+/* var_8c2285c4[34] (0x22864c), addressed directly by applyThrottle_8c024320: set to 1
  * on the very first upshift out of gear 0. */
 extern int var_8c22864c;
 

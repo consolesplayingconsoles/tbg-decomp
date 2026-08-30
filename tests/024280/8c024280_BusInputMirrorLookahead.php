@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c024280: called once per frame from BusTask_8c022bdc when
+// BusInputMirrorLookahead_8c024280: called once per frame from BusTask_8c022bdc when
 // BusState.mirror_0x268 is set. Computes lookahead = max(busSpeed -
 // 0.18518517911434174, 0), then scans var_tasks_8c1bac28 (skipping the -1
 // sentinel, stopping at the zero-action terminator) and, for each traffic
@@ -44,7 +44,7 @@ return new class extends TestCase {
         $this->setBusSpeedAndHeading(1.0, 0);
         $this->makeTask(0, 0, 0); // terminator
 
-        $this->call('_FUN_8c024280');
+        $this->call('_BusInputMirrorLookahead_8c024280');
     }
 
     public function test_negativeOneSentinel_isSkipped(): void {
@@ -53,7 +53,7 @@ return new class extends TestCase {
         $this->makeTask(0, -1, 0xdeadbeef);
         $this->makeTask(1, 0, 0);
 
-        $this->call('_FUN_8c024280');
+        $this->call('_BusInputMirrorLookahead_8c024280');
     }
 
     public function test_entryWithFlagClear_isSkipped(): void {
@@ -64,7 +64,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0);
 
-        $this->call('_FUN_8c024280');
+        $this->call('_BusInputMirrorLookahead_8c024280');
     }
 
     // Heading exactly 0x4000 away is not "within" the cone (strict <).
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0);
 
-        $this->call('_FUN_8c024280');
+        $this->call('_BusInputMirrorLookahead_8c024280');
     }
 
     public function test_entryWithinCone_getsLookahead(): void {
@@ -87,7 +87,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0);
 
-        $this->call('_FUN_8c024280');
+        $this->call('_BusInputMirrorLookahead_8c024280');
 
         $this->shouldWriteFloat($entry + 0x418, 1.0 - 0.18518517911434174);
     }
@@ -101,7 +101,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0);
 
-        $this->call('_FUN_8c024280');
+        $this->call('_BusInputMirrorLookahead_8c024280');
 
         $this->shouldWriteFloat($entry + 0x418, 1.0 - 0.18518517911434174);
     }
@@ -115,7 +115,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0);
 
-        $this->call('_FUN_8c024280');
+        $this->call('_BusInputMirrorLookahead_8c024280');
 
         $this->shouldWriteFloat($entry + 0x418, 0.0);
     }

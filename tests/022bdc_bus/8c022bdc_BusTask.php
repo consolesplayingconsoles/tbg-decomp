@@ -41,14 +41,14 @@ return new class extends TestCase {
         $this->setSize('_var_8c227db0', 4);
         $this->setSize('_var_8c227db4', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x28);
-        $this->setSize('_FUN_8c0246b2', 4);
+        $this->setSize('_BusInputUpdate_8c0246b2', 4);
         $this->setSize('_var_8c2264b8', 0x1c);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
         $this->setSize('_FUN_8c023e7e', 4);
         $this->setSize('_BusLineAdvance_8c02412c', 4);
         $this->setSize('_njSin', 4);
         $this->setSize('_njCos', 4);
-        $this->setSize('_FUN_8c024280', 4);
+        $this->setSize('_BusInputMirrorLookahead_8c024280', 4);
         $this->setSize('_GeomDistanceXZ_8c02081c', 4);
         $this->setSize('_FUN_8c010c6e', 4);
         $this->setSize('_FUN_8c023938', 4);

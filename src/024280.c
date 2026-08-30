@@ -1,3 +1,4 @@
+/* @unit BusInput */
 #include <shinobi.h>
 #include <math.h>                 /* asinf */
 
@@ -17,7 +18,7 @@
  */
 
 /* Per-gear table indexed by BusState.gear_0x2f4, shared by the throttle
- * (FUN_8c024320) and brake (FUN_8c024530/FUN_8c024606) handlers.
+ * (applyThrottle_8c024320) and brake (FUN_8c024530/FUN_8c024606) handlers.
  * field_0x08 is field_0x04 * 6000.0f -- the top speed for the gear, in the
  * units field_0x04 converts speed into before feeding asinf. field_0x00's
  * role is not yet confirmed from the functions decompiled so far. */
@@ -49,7 +50,7 @@ STATIC GearTableEntry init_8c045638[5] = {
  * traffic entry roughly ahead of the bus (within ~90 degrees of its own
  * heading) that has field_0x268 set a lookahead distance derived from the
  * bus's own speed, for use by the mirror view. */
-void FUN_8c024280(void)
+void BusInputMirrorLookahead_8c024280(void)
 {
     Task *task;
     float lookahead;
@@ -155,7 +156,7 @@ STATIC void applyBraking_8c024530(void)
  * accelerate that didn't yet clear the next gear -- recomputes
  * target_0x2e8/field_0x2e4 directly from the (possibly new) gear via
  * asinf, the same needle formula as applyBraking_8c024530. */
-STATIC void FUN_8c024320(void)
+STATIC void applyThrottle_8c024320(void)
 {
     Uint16 trigger;
     Uint8 deadzone;
@@ -264,7 +265,7 @@ STATIC void applyBrakingSfx_8c024606(void)
  *   2 (ramp): in reverse (gear_0x2f4 == 5), brake/throttle/neither directly
  *     drive speed_0x27c toward 0 / a throttle-scaled negative target / 0
  *     respectively; otherwise braking calls applyBraking_8c024530 (setting
- *     blinker_0x080's bit 0) and not braking calls FUN_8c024320 (which also
+ *     blinker_0x080's bit 0) and not braking calls applyThrottle_8c024320 (which also
  *     decays applyBraking_8c024530's smoothed brake-average slot,
  *     var_8c2285c4[36], to 0.0 since nothing is braking), either way
  *     tracking a forward-gear idle-frame counter in var_8c2285c4[32] (reset
@@ -294,7 +295,7 @@ STATIC void applyBrakingSfx_8c024606(void)
  * from a positive angle, a flat int step of 182/364 otherwise (364 when the
  * target or the current angle is exactly 0, for a faster return to center),
  * clamped on overshoot either way. */
-void FUN_8c0246b2(void)
+void BusInputUpdate_8c0246b2(void)
 {
     const PDS_PERIPHERAL *pad = &var_peripherals_8c1ba35c[0];
     Uint16 brakeTrigger, throttleTrigger;
@@ -356,7 +357,7 @@ void FUN_8c0246b2(void)
     case 2: /* ramp */
         if (var_busState_8c1bb9d0.gear_0x2f4 == 5) {
             /* Reverse: drive speed_0x27c directly instead of going through
-             * FUN_8c024320/applyBraking_8c024530's forward-gear tables. */
+             * applyThrottle_8c024320/applyBraking_8c024530's forward-gear tables. */
             if (brakeTrigger > brakeDeadzone) {
                 float ratio = (float)(brakeTrigger - brakeDeadzone) /
                     (255.0f - brakeDeadzone);
@@ -404,7 +405,7 @@ void FUN_8c0246b2(void)
                 applyBraking_8c024530();
                 var_busState_8c1bb9d0.blinker_0x080 |= 1;
             } else {
-                FUN_8c024320();
+                applyThrottle_8c024320();
                 /* Not braking: also decays applyBraking_8c024530's smoothed
                  * brake-average slot straight to 0. */
                 *(float *)&var_8c2285c4[36] = 0.0f;

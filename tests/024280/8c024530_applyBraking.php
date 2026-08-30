@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// applyBraking_8c024530: STATIC, called from FUN_8c0246b2 each frame while
+// applyBraking_8c024530: STATIC, called from BusInputUpdate_8c0246b2 each frame while
 // driving. Decelerates BusState.speed_0x27c by 0.002 plus a term that grows
 // with speed and with how far the .l trigger (var_8c1ba376) has moved past
 // its saved deadzone (var_8c1ba29d), clamped to 0. If the resulting speed

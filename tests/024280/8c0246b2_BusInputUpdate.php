@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
-// FUN_8c0246b2: PUBLIC, called by BusTask_8c022bdc (022bdc) once per frame
+// BusInputUpdate_8c0246b2: PUBLIC, called by BusTask_8c022bdc (022bdc) once per frame
 // while driving. See 024280.c for the full breakdown of the three-state
 // field_0x2e0 dispatch (relax/settle/ramp) and the mirror-button +
 // steering-wheel-ramp tail that follows it.
@@ -29,7 +29,7 @@ return new class extends TestCase {
         });
 
         // Alias the deadzone bytes onto var_progress_8c1ba1cc + 0xd0/0xd1:
-        // FUN_8c0246b2 reads them through the progress struct directly
+        // BusInputUpdate_8c0246b2 reads them through the progress struct directly
         // rather than through the var_8c1ba29c/29d symbols.
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
         $this->rellocate('_var_8c1ba29c', $progress + 0xd0);
@@ -85,7 +85,7 @@ return new class extends TestCase {
     public function test_relax_brakePressed_setsBlinker(): void {
         ['bus' => $bus] = $this->setup(0, brakeTrigger: 100, throttleTrigger: 0, brakeDeadzone: 10);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
         $this->shouldWriteLong($bus + 0x080, 1);
@@ -97,7 +97,7 @@ return new class extends TestCase {
     public function test_relax_throttlePastHalfDeadzone_switchesToSettle(): void {
         ['bus' => $bus] = $this->setup(0, brakeTrigger: 0, throttleTrigger: 100, throttleDeadzone: 10);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
         $this->shouldWriteLong($bus + 0x2ec, 0);
@@ -111,7 +111,7 @@ return new class extends TestCase {
     public function test_relax_throttleAtHalfDeadzone_staysRelaxed(): void {
         $this->setup(0, brakeTrigger: 0, throttleTrigger: 5, throttleDeadzone: 10);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
         $this->shouldCall('_debugGearOverride_8c0242ce');
@@ -125,7 +125,7 @@ return new class extends TestCase {
         ['bus' => $bus] = $this->setup(1, brakeTrigger: 100, throttleTrigger: 0, brakeDeadzone: 10);
         $this->initUint32($bus + 0x2ec, 5);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
         $this->shouldWriteLong($bus + 0x080, 1);
@@ -139,7 +139,7 @@ return new class extends TestCase {
         ['bus' => $bus] = $this->setup(1, brakeTrigger: 0, throttleTrigger: 0);
         $this->initUint32($bus + 0x2ec, 10);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -154,7 +154,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2ec, 31);
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 5);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -173,7 +173,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2ec, 31);
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xffffffff);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -193,7 +193,7 @@ return new class extends TestCase {
         ['bus' => $bus] = $this->setup(1, brakeTrigger: 0, throttleTrigger: 100, throttleDeadzone: 10);
         $this->initUint32($bus + 0x2ec, 31);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -213,7 +213,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2ec, 31);
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xffffffff);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -231,7 +231,7 @@ return new class extends TestCase {
         ['bus' => $bus] = $this->setup(2, brakeTrigger: 100, throttleTrigger: 0, brakeDeadzone: 10);
         $this->initUint32($bus + 0x2f4, 2); // forward gear
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -248,12 +248,12 @@ return new class extends TestCase {
         ['bus' => $bus] = $this->setup(2, brakeTrigger: 0, throttleTrigger: 0);
         $this->initUint32($bus + 0x2f4, 2);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
         $this->shouldWriteLong($this->addressOf('_var_8c2285c4') + 0x80, 1);
-        $this->shouldCall('_FUN_8c024320');
+        $this->shouldCall('_applyThrottle_8c024320');
         $this->shouldWriteFloat($this->addressOf('_var_8c2285c4') + 0x90, 0.0);
         $this->shouldWriteLong($bus + 0x2ec, 0);
 
@@ -266,12 +266,12 @@ return new class extends TestCase {
         $this->initFloat($bus + 0x27c, 0.0);
         $this->initUint32($bus + 0x2ec, 10);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
         $this->shouldWriteLong($this->addressOf('_var_8c2285c4') + 0x80, 0);
-        $this->shouldCall('_FUN_8c024320');
+        $this->shouldCall('_applyThrottle_8c024320');
         $this->shouldWriteFloat($this->addressOf('_var_8c2285c4') + 0x90, 0.0);
         // speed_0x27c == 0.0 (the mocked call doesn't touch it): the mode-2
         // tail runs debugGearOverride and, since field_0x2ec (10) < 30, just
@@ -288,12 +288,12 @@ return new class extends TestCase {
         $this->initFloat($bus + 0x27c, 0.0);
         $this->initUint32($bus + 0x2ec, 30);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
         $this->shouldWriteLong($this->addressOf('_var_8c2285c4') + 0x80, 0);
-        $this->shouldCall('_FUN_8c024320');
+        $this->shouldCall('_applyThrottle_8c024320');
         $this->shouldWriteFloat($this->addressOf('_var_8c2285c4') + 0x90, 0.0);
         $this->shouldCall('_debugGearOverride_8c0242ce');
         $this->shouldWriteLong($bus + 0x2e0, 1);
@@ -310,7 +310,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2f4, 5);
         $this->initFloat($bus + 0x27c, -0.3);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -326,7 +326,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2f4, 5);
         $this->initFloat($bus + 0x27c, 0.0);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -341,7 +341,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2f4, 5);
         $this->initFloat($bus + 0x27c, -0.09083423763513565);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -357,7 +357,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2f4, 5);
         $this->initFloat($bus + 0x27c, -0.299);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -372,7 +372,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2f4, 5);
         $this->initFloat($bus + 0x27c, -0.0005);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -390,7 +390,7 @@ return new class extends TestCase {
     public function test_invalidMode_skipsDispatch_stillRunsTail(): void {
         ['bus' => $bus] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
         // No debugGearOverride, no gear/needle handler calls -- straight to
@@ -408,7 +408,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x25c, 0);
         $this->initUint32($this->addressOf('_var_8c2285c4') + 0x6c, 0); // != sentinel
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -424,7 +424,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x25c, 0);
         $this->initUint32($this->addressOf('_var_8c2285c4') + 0x6c, 0x10000000);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -438,7 +438,7 @@ return new class extends TestCase {
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x25c, 1);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -455,7 +455,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c2285c4') + 0x6c, 4); // != var_8c228634[0]<<4
         $this->initUint32($this->addressOf('_var_8c228634'), 0);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -470,7 +470,7 @@ return new class extends TestCase {
         $this->initUint32($pad + 0x10, 0x2);
         $this->initUint32($bus + 0x25c, 2);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -487,7 +487,7 @@ return new class extends TestCase {
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x334, 1);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -502,7 +502,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x25c, 0);
         $this->initUint32($this->addressOf('_var_8c2285c4') + 0x6c, 0);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -518,7 +518,7 @@ return new class extends TestCase {
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x25c, 1);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -533,7 +533,7 @@ return new class extends TestCase {
         $this->initUint32($pad + 0x10, 0x2);
         $this->initUint32($bus + 0x25c, 1);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -549,7 +549,7 @@ return new class extends TestCase {
         $this->initUint32($pad + 0x10, 0x2);
         $this->initUint32($bus + 0x25c, 2);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -562,7 +562,7 @@ return new class extends TestCase {
     public function test_mappedMode_noMirrorButton_onlySetsField338(): void {
         ['bus' => $bus] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, inputMapSel: 1);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -578,7 +578,7 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, -50 & 0xffff); // x1
         $this->initUint32($bus + 0x258, 1000); // ang_0x258
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -600,7 +600,7 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, -50 & 0xffff); // x1, target 3458
         $this->initUint32($bus + 0x258, 4000);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -621,7 +621,7 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, 200); // x1
         $this->initUint32($bus + 0x258, 0);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -638,7 +638,7 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, 3); // within the +-8 deadzone -> target 0
         $this->initUint32($bus + 0x258, 1000);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -655,7 +655,7 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, 200); // x1, target -0x2aaa (-10922)
         $this->initUint32($bus + 0x258, -3000 & 0xffffffff);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -671,7 +671,7 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, 3); // target 0
         $this->initUint32($bus + 0x258, -3000 & 0xffffffff);
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
@@ -686,7 +686,7 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, -50 & 0xffff); // target 3458
         $this->initUint32($bus + 0x258, 3400); // close enough to overshoot by one step
 
-        $this->call('_FUN_8c0246b2');
+        $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 

@@ -7,7 +7,7 @@
 #include "014a9c_tasks.h"         /* Task */
 #include "020594.h"               /* VehicleModelPlace_8c020594 */
 #include "023938_bus_drive.h"               /* FUN_8c023938/023cba/023e7e */
-#include "024280.h"               /* FUN_8c0246b2/024280 */
+#include "024280.h"               /* BusInputUpdate_8c0246b2/024280 */
 #include "02412c.h"               /* BusLineAdvance_8c02412c */
 #include "02081c.h"               /* GeomDistanceXZ_8c02081c */
 #include "024b4c_bus_render.h"               /* BusRenderUpdateCamera_8c025078, BusRenderUpdateMirrorCamera_8c025604 */
@@ -101,7 +101,7 @@ void BusTask_8c022bdc(Task *task, void *state)
             }
         }
 
-        FUN_8c0246b2();
+        BusInputUpdate_8c0246b2();
 
         /* One-shot A-button latch, seen through var_8c2264b8's struct base
          * (coincidentally aliases the separately-imported var_8c2264c4 used
@@ -149,7 +149,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         }
 
         if (var_busState_8c1bb9d0.mirror_0x268 != 0) {
-            FUN_8c024280();
+            BusInputMirrorLookahead_8c024280();
         }
     } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 2) {
         /* Knockback/reverse: slide along the collision-knockback direction

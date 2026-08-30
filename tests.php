@@ -965,12 +965,12 @@ return [
         ],
         [
             "tests" => [
-                "tests/024280/8c024280_FUN.php",
+                "tests/024280/8c024280_BusInputMirrorLookahead.php",
                 "tests/024280/8c0242ce_debugGearOverride.php",
-                "tests/024280/8c024320_FUN.php",
+                "tests/024280/8c024320_applyThrottle.php",
                 "tests/024280/8c024530_applyBraking.php",
                 "tests/024280/8c024606_applyBrakingSfx.php",
-                "tests/024280/8c0246b2_FUN.php",
+                "tests/024280/8c0246b2_BusInputUpdate.php",
             ],
             "objects" => [
                 "build/output_test/024280_src.obj",

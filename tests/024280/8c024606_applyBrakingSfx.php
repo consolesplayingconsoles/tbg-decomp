@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// applyBrakingSfx_8c024606: STATIC, called from FUN_8c0246b2 each frame.
+// applyBrakingSfx_8c024606: STATIC, called from BusInputUpdate_8c0246b2 each frame.
 // While the .l trigger (var_8c1ba376) sits further past its saved deadzone
 // (var_8c1ba29d) than var_8c227d8c's current value maps to, ratchets
 // var_8c227d8c up to delta*255/(255-deadzone) (never down). Once the
