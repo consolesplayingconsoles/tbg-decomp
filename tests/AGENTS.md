@@ -18,7 +18,7 @@ You are the **test author** specifying the contract of a function/frame. Assert 
 
 ## Before Writing: Interview Checklist
 
-1. **Entry & params** — Which symbol is the entrypoint? Exact param types (int/float)? Struct pointer → `alloc()` + seed + pass explicitly. Any "don't care" args → `WildcardArgument`.
+1. **Entry & params** — Which symbol is the entrypoint? Exact param types (int/float)? Struct pointer → `alloc()` + seed + pass explicitly. Every arg gets a real, asserted value; if it is genuinely unpredictable (e.g. a stack/heap address chosen at runtime), capture it with `->do()` and assert against the captured value instead of leaving it unchecked.
 2. **State preconditions** — Which globals/struct fields must be initialized? Need strings? → `allocString()`. Specific addresses? → `rellocate()`.
 3. **Observable effects** — Which subroutines are called, with what args and returns? Which addresses are written/read? Float writes? Complex side effects (memcpy) → `shouldCall()->do(callback)`.
 4. **Memory randomization** — Default: uninitialized memory is random (catches uninit reads). Disable with `doNotRandomizeMemory()` only when needed for performance or clarity.
@@ -63,6 +63,13 @@ return new class extends TestCase {
 - If entrypoint takes non-void params, allocate and seed them.
 - Always-executed epilogue code must be asserted in every test that reaches it.
 - Use `forceStop()` when stopping before epilogue; mirror C conditions when epilogue is conditional.
-- Use `WildcardArgument` for "don't care" parameters.
+- Do not use `WildcardArgument` (project owner does not accept it): assert the real
+  value instead; for a genuinely unpredictable one, capture it at runtime with
+  `->do()` and assert against the captured value. `LocalArgument` -- the DSL's
+  declared type for "real but unpredictable" -- is UNIMPLEMENTED:
+  `ArgumentVerifier::verify()` has no case for it and throws `Unexpected argument
+  type`, so it is not a usable alternative. Note: ~60 existing test files still
+  use `WildcardArgument`; that is a known backlog for the project owner to clear,
+  not something to "fix" ad hoc while touching a test for other reasons.
 - Use `shouldWriteFloat()` for float assertions, not raw binary values.
 - Extract helpers for patterns repeated 3+ times.

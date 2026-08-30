@@ -28,8 +28,17 @@ $this->doNotRandomizeMemory();               // Disable random fill (use sparing
 ```php
 $this->call('_FuncName_8c012718');
 $this->call('_FuncName_8c012718')->with($arg1, $arg2);
-$this->call('_FuncName_8c012718')->with(new WildcardArgument(), $arg2);
 ```
+
+Every arg gets a real value. `WildcardArgument` exists in the DSL but the
+project owner does not accept it in tests -- assert the real value; if it is
+genuinely unpredictable (e.g. an address only known at runtime), capture it
+with `->do()` (see "Asserting Calls" below) and assert against the captured
+value. `LocalArgument`, the DSL's declared type for "real but unpredictable"
+arguments, is UNIMPLEMENTED -- `ArgumentVerifier::verify()` has no case for
+it and throws `Unexpected argument type` -- so it is not a usable
+alternative today. (~60 existing test files still use `WildcardArgument`;
+that is a known backlog, not license to add more.)
 
 ## Asserting Calls
 
