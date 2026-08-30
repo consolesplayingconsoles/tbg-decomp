@@ -16,12 +16,12 @@
 void FUN_8c02d06c(int arg0)
 {
     int i;
-    char val;
+    Sint8 val;
     NJS_TEXLIST *tlist;
     int spriteIndex;
 
     for (i = 0; i < var_8c228794; i++) {
-        val = *(char *)var_8c228798[i].spot_0x00;
+        val = *(Sint8 *)var_8c228798[i].spot_0x00;
         if (val < 0x41) {
             tlist = var_pedestrianAssets_8c1bbfdc[(int)val].texlist_0x08;
             if (tlist != (NJS_TEXLIST *)-1) {

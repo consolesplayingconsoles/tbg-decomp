@@ -76,7 +76,7 @@ InitEntry_8c04c3e4 init_8c04c3e4[31] = {
 STATIC void FUN_8c02d19c(int arg0)
 {
     StopScheduleState *state = (StopScheduleState *)arg0;
-    Uint8 stopIndex = *(Uint8 *)state->ref_0x00;
+    Sint8 stopIndex = *(Sint8 *)state->ref_0x00;
 
     if (stopIndex >= 0x41) {
         return;
