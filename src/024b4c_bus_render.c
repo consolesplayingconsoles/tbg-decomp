@@ -181,17 +181,10 @@ void BusRenderUpdateCamera_8c025078(void)
         if (cue == 0x09000000) {
             if (var_8c227d9c == 0 || var_8c227d9c == 1) {
                 var_8c227da4 = 0;
+            } else if (var_8c227d9c == 2 && var_8c227df0 >= 5.0f) {
+                var_8c227da4 = 0;
             } else {
-                if (var_8c227d9c == 2) {
-                    if (var_8c227df0 < 5.0f) {
-                        var_8c227de0 = 5.0f;
-                    } else {
-                        var_8c227da4 = 0;
-                        goto afterRamp;
-                    }
-                } else {
-                    var_8c227de0 = 18.0f;
-                }
+                var_8c227de0 = (var_8c227d9c == 2) ? 5.0f : 18.0f;
                 var_8c227dd8 = var_8c227df0;
                 var_8c227de8 = var_8c227de0 - var_8c227df0;
                 var_8c227df8 = 0;
@@ -209,7 +202,6 @@ void BusRenderUpdateCamera_8c025078(void)
             var_8c227da4 = 0;
         }
     }
-afterRamp:
 
     if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TY)
         && var_8c1bbc84 == 1
@@ -228,7 +220,8 @@ afterRamp:
     turnFactor = (float)var_busState_8c1bb9d0.acc_0x078 * 360.0f / 65536.0f / -8.0f;
     ang = var_busState_8c1bb9d0.ang_0x07c;
 
-    if (var_8c227d9c == 0) {
+    switch (var_8c227d9c) {
+    case 0: {
         Sint32 target;
 
         if (var_progress_8c1ba1cc.field_0xc7[1] != 0) {
@@ -281,9 +274,9 @@ afterRamp:
                                var_groundQueryPoint_8c1bc460.x,
                                var_groundQueryPoint_8c1bc460.y,
                                var_groundQueryPoint_8c1bc460.z);
-    } else if (var_8c227d9c == 1) {
-        float roll;
-
+        break;
+    }
+    case 1:
         if (var_progress_8c1ba1cc.field_0xc7[1] != 0) {
             ang = 0;
             turnFactor = 0.0f;
@@ -309,19 +302,14 @@ afterRamp:
                                var_busState_8c1bb9d0.posX_0x0f4,
                                var_busState_8c1bb9d0.posY_0x0f8 + 2.0f,
                                var_busState_8c1bb9d0.posZ_0x0fc);
-
-        roll = atan2f(var_busState_8c1bb9d0.posHistory_0x100[2].y
-                       - var_busState_8c1bb9d0.posHistory_0x100[3].y,
-                       2.33f);
-        njRollCameraInterest(&var_8c1bb904, (Sint32)(roll * 65536.0f / TWO_PI) + ang);
-        goto cameraTail;
-    } else if (var_8c227d9c == 2) {
+        break;
+    case 2:
         positionCamera_8c024d6c(18.0f, var_8c227df0, 0.5f);
-        goto cameraTail;
-    } else if (var_8c227d9c == 3) {
+        break;
+    case 3:
         positionCamera_8c024d6c(30.0f, var_8c227df0, 2.0f);
-        goto cameraTail;
-    } else if (var_8c227d9c == 4) {
+        break;
+    case 4:
         var_busState_8c1bb9d0.field_0x308 =
             var_busState_8c1bb9d0.posX_0x2fc - var_8c227d90[0];
         var_busState_8c1bb9d0.field_0x310 =
@@ -332,19 +320,19 @@ afterRamp:
                                    var_busState_8c1bb9d0.posY_0x300,
                                    var_busState_8c1bb9d0.posZ_0x304);
         njPointCameraInterest(&var_8c1bb904, var_8c227d90[0], var_8c227d90[1], var_8c227d90[2]);
-        goto cameraTail;
-    } else {
-        goto cameraTail;
+        break;
+    default:
+        break;
     }
 
-    {
+    /* Modes 0/1 additionally roll the camera by the road's pitch. */
+    if (var_8c227d9c == 0 || var_8c227d9c == 1) {
         float roll = atan2f(var_busState_8c1bb9d0.posHistory_0x100[2].y
                              - var_busState_8c1bb9d0.posHistory_0x100[3].y,
                              2.33f);
         njRollCameraInterest(&var_8c1bb904, (Sint32)(roll * 65536.0f / TWO_PI) + ang);
     }
 
-cameraTail:
     njSetCamera(&var_8c1bb904);
 
     var_busSimpleLightDir_8c227db8[0] = var_sceneParams_8c18ad24->dir0_0x00[0];
