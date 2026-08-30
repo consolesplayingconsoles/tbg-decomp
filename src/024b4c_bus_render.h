@@ -11,8 +11,8 @@ void FUN_8c024b4c(void);
 /* Reverse-direction mirror of FUN_8c024b4c; tail-calls FUN_8c024f32. */
 void FUN_8c024b86(void);
 
-/* Turn-blink state machine driven by var_8c227d9c; called by FUN_8c024b86
- * with no arguments. */
+/* Re-seats busState's camera draw position (posX_0x2fc/posZ_0x304) by a
+ * turn-rate offset picked from var_8c227d9c. */
 void FUN_8c024f32(void);
 
 /* Lights, textures and draws the third-person bus model (with door/etc
@@ -20,13 +20,11 @@ void FUN_8c024f32(void);
  * light direction (non-NULL -> var_8c227dc4). Called by 025870. */
 void FUN_8c024bb8(void *altLight);
 
-/* Called by BusTask_8c022bdc (022bdc) with no arguments each frame outside
- * demo playback (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO); updates the
- * gameplay camera to follow the player's bus. */
+/* Updates the gameplay camera to follow the player's bus, outside demo
+ * playback (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO). */
 void BusRenderUpdateCamera_8c025078(void);
 
-/* Called last by BusTask_8c022bdc (022bdc) with no arguments, once per
- * frame. No-op unless busState.mirror_0x268 is nonzero. Otherwise picks a
+/* No-op unless busState.mirror_0x268 is nonzero. Otherwise picks a
  * local mirror-camera offset/interest by mirror_0x268 (1/2/3, else stale),
  * rotates the offset into world space by the bus's world matrix
  * (field_0x084), positions the separate mirror camera (var_8c1bb944)

@@ -28,9 +28,8 @@ CourseSegment *BusStopGetSegment_8c02cd6a(int segmentIndex);
  * entry selected by the segment record's stopAreaId_0x02). */
 StopAreaRecord *BusStopGetStopArea_8c02cd7a(int segmentIndex);
 
-/* Per-frame bus-stop arrival state machine; see 02c884_bus_stop.c for
- * details. Installed as a raw callback in a dispatch table in the driving
- * task (02b464); takes no meaningful argument. */
+/* Per-frame bus-stop arrival state machine, called once per frame by
+ * 02b464_drive_points; see 02c884_bus_stop.c for details. */
 void BusStopUpdateArrival_8c02ce48(void);
 
 #endif // _02C884_H

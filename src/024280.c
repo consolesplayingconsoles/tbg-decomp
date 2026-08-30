@@ -81,8 +81,8 @@ void BusInputMirrorLookahead_8c024280(void)
     }
 }
 
-/* Debug gear override: in direct (non-mapped) steering mode, the second
- * controller's D-pad up/down forces the bus into gear 0 or reverse (5). */
+/* Debug gear override: in direct (non-mapped) steering mode, controller 0's
+ * D-pad up/down forces the bus into gear 0 or reverse (5). */
 STATIC void debugGearOverride_8c0242ce(void)
 {
     if (var_inputMapSel_8c1bb8c8 != 0) {
@@ -288,11 +288,14 @@ STATIC void applyBrakingSfx_8c024606(void)
  * setting field_0x338), and execution always continues into a steering-
  * wheel force-feedback ramp: PDS_PERIPHERAL.x1 (the analog steering axis,
  * dead-zoned by 8 either side) is converted to a target angle (BAM units,
- * via a 60-degree max deflection) for BusState.ang_0x258, which is then
- * eased toward that target -- a per-frame float step of ~80.89 when rising
- * from a positive angle, a flat int step of 182/364 otherwise (364 when the
- * target or the current angle is exactly 0, for a faster return to center),
- * clamped on overshoot either way. */
+ * via a 60-degree max deflection) for BusState.ang_0x258, then eased toward
+ * it one of four ways depending on the current angle's sign and which side
+ * of the target it sits on: moving further from center steps by a
+ * per-frame float ~80.89 (from a positive angle) or a plain int 80 (from a
+ * non-positive one) -- an asymmetry in the original code; moving back
+ * toward or past center steps by a flat int 182 (target keeps the same
+ * sign as the current angle) or 364 (target is zero or the opposite sign,
+ * for a faster return to center), clamped on overshoot either way. */
 void BusInputUpdate_8c0246b2(void)
 {
     const PDS_PERIPHERAL *pad = &var_peripherals_8c1ba35c[0];

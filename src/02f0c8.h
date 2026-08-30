@@ -12,13 +12,7 @@
  * up. */
 void *TrafficPathScanNext_8c02f212(void);
 
-/* Called by spawnEntry_8c0272b8 (026710_traffic.h) right after task
- * allocation, with the new Task (self, excluded from the scan), its entry,
- * the entry's first resolved path record (entry->resolvedArgs_0x304[0]),
- * a starting index of 0 into that array, and both real call sites' literal
- * 8.0f/8.0f for startProgress/window.
- *
- * Walks `startProgress` units along the path records starting at
+/* Walks `startProgress` units along the path records starting at
  * firstRecord (advancing through entry->resolvedArgs_0x304 on each
  * record run's end), then samples (x, z) positions every 5.0 units across
  * the next `window` units into the shared scratch buffer var_8c228b48
@@ -33,7 +27,7 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
 
 /* Caches (var_8c228b44) the id-group of var_8c228b40 containing the first
  * live task's entry->field_0x450 marker, then reports whether typeCode is a
- * member of that same group. No caller decompiled yet. */
+ * member of that same group. */
 Sint32 TrafficPathScanTypeInGroup_8c02f28a(Sint32 typeCode);
 
 #endif // _02F0C8_H

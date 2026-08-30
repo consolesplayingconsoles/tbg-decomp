@@ -296,11 +296,8 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
     njCnkSimpleDrawMotion(var_8c1bc444, var_loadedFooNjm_8c1bc448, frame);
 }
 
-/* Per-frame bus-stop arrival state machine, installed as a raw callback in
- * a dispatch table in the driving task (02b464_drive_points); its argument (if any) is
- * unused -- Ghidra's decompile invented a used "distanceSq" float parameter
- * from register content that state 2 actually recomputes itself (see
- * below). States:
+/* Per-frame bus-stop arrival state machine, called once per frame by
+ * 02b464_drive_points. States:
  * 0 = cruising -- watches var_busState_8c1bb9d0.field_0x3b4 for a
  *     just-crossed segment (its high byte) matching the next or previous
  *     stop segment, arming state 2 (approach) or 1 (post-departure wait);

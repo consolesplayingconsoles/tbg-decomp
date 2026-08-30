@@ -46,10 +46,12 @@ void FUN_8c024b86(void)
     FUN_8c024f32();
 }
 
-/* Turn-blink state machine (var_8c227d9c: 0=off/reset, 1 & 4=idle,
- * 2/3=turn-rate cases scaled 18.0/30.0) -- the asm computes this twice via
- * two duplicated switch statements with identical results each time;
- * collapsed here into one pass. Called with no arguments. */
+/* Re-seats busState's camera draw position (posX_0x2fc/posZ_0x304), offsetting
+ * it ahead of the bus along its heading (field_0x274/field_0x278) by a
+ * turn-rate factor picked by var_8c227d9c: 0 just resets field_0x3c8 and
+ * leaves the position untouched; 1 and 4 are no-ops; 2 and 3 offset it by
+ * 18.0/30.0 (or var_8c227de0, once var_8c227da4 is set) and update
+ * var_8c227df0 to match. */
 void FUN_8c024f32(void)
 {
     float dx = 0.0f;
@@ -109,7 +111,7 @@ void FUN_8c024bb8(void *altLight)
 /* Lights, textures and draws the front (dashboard-view) bus model --
  * unconditionally with the default light direction and frame-less
  * (njCnkSimpleDrawObject, no shape motion). Reachable only via a function
- * pointer in BusRenderUpdateMirrorCamera_8c025604's literal pool, not by any BSR/JSR in this unit. */
+ * pointer in BusRenderUpdateCamera_8c025078's literal pool, not by any BSR/JSR in this unit. */
 STATIC void drawFrontBusModel_8c024cc8(void)
 {
     njCnkSetSimpleLight(var_busSimpleLightDir_8c227db8[0],
@@ -125,8 +127,7 @@ STATIC void drawFrontBusModel_8c024cc8(void)
     njCnkSimpleDrawObject((NJS_CNK_OBJECT *)var_frontNj_8c1bc434);
 }
 
-/* Called by BusTask_8c022bdc (022bdc) with no arguments each frame outside
- * demo playback; drives the gameplay camera.
+/* Drives the gameplay camera, outside demo playback.
  *
  * First eases var_8c227df0 (a per-mode "turn rate"/zoom parameter) between
  * var_8c227dd8 and a target via a quarter-sine ramp over var_8c227df8,
@@ -365,8 +366,7 @@ cameraTail:
  * bus's stored heading (field_0x230/field_0x238) exceeds ~5 degrees, clamps
  * the turn rate and rotates the move by the clamped amount instead. Then
  * points the camera at the new position, with its interest aimed at the
- * unmoved position offset by interestDyOffset in Y. Called by
- * BusRenderUpdateCamera_8c025078. */
+ * unmoved position offset by interestDyOffset in Y. */
 STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDyOffset)
 {
     NJS_POINT3 *groundPt = &var_groundQueryPoint_8c1bc460;
@@ -441,8 +441,7 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
                            posZ0);
 }
 
-/* Called last by BusTask_8c022bdc (022bdc) with no arguments, once per
- * frame. No-op unless busState.mirror_0x268 is nonzero. Otherwise picks a
+/* No-op unless busState.mirror_0x268 is nonzero. Otherwise picks a
  * local mirror-camera offset/interest by mirror_0x268 (1/2/3, else stale),
  * rotates the offset into world space by the bus's world matrix
  * (field_0x084), positions the separate mirror camera (var_8c1bb944)

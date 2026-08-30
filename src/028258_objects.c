@@ -6537,10 +6537,10 @@ void ObjectsFreeMessageAssets_8c02adee(void)
 /* (Re)opens the message textbox: tears down any existing pair via
  * ObjectsFreeTextboxes_8c02af32, re-inits the text module, and creates a fresh
  * double-buffered pair -- (&var_messageTextBoxA_8c1bc404)[0] and [1] -- with identical
- * geometry, toggled between by ObjectsSwapMessageBoxFor_8c02aefc. Every caller
- * passes the same fixed geometry (a full-width box near the screen
- * bottom). The original returns &var_menuTextboxCharLimit_8c225fb8 (just
- * reset to 0 here), but no caller uses the return value. */
+ * geometry, toggled between by ObjectsSwapMessageBoxFor_8c02aefc. Geometry
+ * args mirror TxtCreateTextBox_8c0152fc. The original returns
+ * &var_menuTextboxCharLimit_8c225fb8 (just reset to 0 here), but no caller
+ * uses the return value. */
 void ObjectsOpenTextbox_8c02ae3e(int x, int y, float priority, int width, int height, int x2, int y2, int enable_offset)
 {
     if (var_messageTextBoxA_8c1bc404 != (void *) -1) {

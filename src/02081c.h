@@ -5,8 +5,7 @@
 #include <shinobi.h>
 
 /* Distance between world point a (a full x/y/z point, only x/z used) and
- * 2D point b (an x/z pair) via njSqrt(dx*dx+dz*dz). Called by
- * BusTask_8c022bdc (022bdc) with &BusState.posX_0x0f4 and &BusState.field_0xec. */
+ * 2D point b (an x/z pair) via njSqrt(dx*dx+dz*dz). */
 float GeomDistanceXZ_8c02081c(void *a, void *b);
 
 /* Separating-axis overlap test between two convex quads (4 NJS_POINT3s
