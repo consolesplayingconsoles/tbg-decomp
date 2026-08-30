@@ -52,17 +52,19 @@
           .IMPORT     _SndProc_8c010cd6
           .IMPORT     _StopDrawLightEnd_8c02d146
           .IMPORT     _var_8c1bbc84
-          .EXPORT     _FUN_8c02d19c
-          .EXPORT     _FUN_8c02d1f4
-          .EXPORT     _FUN_8c02d21c
-          .EXPORT     _FUN_8c02d46c
-          .EXPORT     _FUN_8c02d5ca
-          .EXPORT     _FUN_8c02d5d8
-          .EXPORT     _FUN_8c02d644
-          .EXPORT     _FUN_8c02d8f0
+          .EXPORT     _BusRiderBoardTask_8c02d21c
+          .EXPORT     _BusRiderAlightTask_8c02d46c
+          .EXPORT     _BusRiderSeatedTask_8c02d5ca
+          .EXPORT     _BusRiderStopSceneTask_8c02d644
+          .EXPORT     _BusRiderSkipStopTask_8c02d8f0
           .EXPORT     _init_8c04c3e4 ; 02d19c.src, 02d968.src
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _drawRiderSprite_8c02d19c
+          .EXPORT     _drawInterior_8c02d1f4
+          .EXPORT     _setCountUpStep_8c02d5d8
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02d19c:
+_drawRiderSprite_8c02d19c:
           MOV.L       R14,@-R15
           MOV         R4,R14
           STS.L       PR,@-R15
@@ -110,7 +112,7 @@ LAB_8c02d1ee:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02d1f4:
+_drawInterior_8c02d1f4:
           MOV.L       R14,@-R15
           MOV         #H'8,R0
           MOV.L       LP_GEN_53841+16,R14
@@ -131,7 +133,7 @@ _FUN_8c02d1f4:
           MOV.L       @R1,R4
           JMP         @R3
           MOV.L       @R15+,R14
-_FUN_8c02d21c:
+_BusRiderBoardTask_8c02d21c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -387,7 +389,7 @@ LP_GEN_53841:
           .DATA.L _var_8c228928 ; H'8C02D408
           .DATA.L _var_8c228910 ; H'8C02D40C
           .DATA.L _AsqGetRandomInRangeB_8c0121be ; H'8C02D410
-          .DATA.L _FUN_8c02d19c ; H'8C02D414
+          .DATA.L _drawRiderSprite_8c02d19c ; H'8C02D414
           .DATA.L _var_8c22891c ; H'8C02D418
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02D41C
           .DATA.L _var_8c228718 ; H'8C02D420
@@ -431,7 +433,7 @@ LAB_8c02d45c:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02d46c:
+_BusRiderAlightTask_8c02d46c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -620,7 +622,7 @@ LAB_8c02d5b8:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02d5ca:
+_BusRiderSeatedTask_8c02d5ca:
           MOV         R5,R6
           MOV.L       R5,@-R15
           MOV.L       LP_GEN_80933+58,R3
@@ -628,7 +630,7 @@ _FUN_8c02d5ca:
           MOV.L       LP_GEN_80933+6,R5
           JMP         @R3
           ADD         #H'4,R15
-_FUN_8c02d5d8:
+_setCountUpStep_8c02d5d8:
           MOV.L       LP_GEN_80933+62,R4
           MOV         #H'32,R2
           STS.L       PR,@-R15
@@ -653,7 +655,7 @@ LAB_8c02d5f8:
 LP_GEN_80933:
           .RES.W 1 ; H'8C02D5FE
           .DATA.L _var_8c228960 ; H'8C02D600
-          .DATA.L _FUN_8c02d19c ; H'8C02D604
+          .DATA.L _drawRiderSprite_8c02d19c ; H'8C02D604
           .DATA.L _var_8c228958 ; H'8C02D608
           .DATA.L _var_8c22895c ; H'8C02D60C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02D610
@@ -669,7 +671,7 @@ LP_GEN_80933:
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02D638
           .DATA.L _var_8c2285c4 ; H'8C02D63C
           .DATA.L __divls ; H'8C02D640
-_FUN_8c02d644:
+_BusRiderStopSceneTask_8c02d644:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -782,7 +784,7 @@ LAB_8c02d6ec:
 LAB_8c02d710:
           MOV         #H'5,R3
           MOV.L       R13,@R14
-          BSR         _FUN_8c02d5d8
+          BSR         _setCountUpStep_8c02d5d8
           MOV.L       R3,@R12
           BRA         LAB_8c02d722
           NOP
@@ -841,7 +843,7 @@ LAB_8c02d766:
           BF          LAB_8c02d7b4
           MOV         #H'5,R2
           MOV.L       R13,@R14
-          BSR         _FUN_8c02d5d8
+          BSR         _setCountUpStep_8c02d5d8
           MOV.L       R2,@R12
           BRA         LAB_8c02d7b4
           NOP
@@ -901,7 +903,7 @@ LP_GEN_70221:
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02D7E4
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02D7E8
           .DATA.L _var_8c2285c4 ; H'8C02D7EC
-          .DATA.L _FUN_8c02d1f4 ; H'8C02D7F0
+          .DATA.L _drawInterior_8c02d1f4 ; H'8C02D7F0
           .DATA.L _StopDrawLightBegin_8c02d0fc ; H'8C02D7F4
           .DATA.L _var_isFading_8c226568 ; H'8C02D7F8
           .DATA.L _var_8c22895c ; H'8C02D7FC
@@ -1016,7 +1018,7 @@ LAB_8c02d8cc:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02d8f0:
+_BusRiderSkipStopTask_8c02d8f0:
           STS.L       PR,@-R15
           ADD         #-H'4,R15
           MOV.L       LP_GEN_72278+42,R2

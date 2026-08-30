@@ -12,7 +12,7 @@
 
 /* local_44's element type: one entry per var_8c228718 slot sharing the
  * bus's current segment, built up before being Fisher-Yates shuffled and
- * spawned via FUN_8c02d46c. */
+ * spawned via BusRiderAlightTask_8c02d46c. */
 typedef struct {
     void *entry_0x00;
     int index_0x04;
@@ -60,12 +60,12 @@ void FUN_8c02d968(void)
     SegMatchEntry tmp;
 
     if (var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 8) != 8) {
-        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &FUN_8c02d8f0, &task, (void **)&state, 0);
+        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &BusRiderSkipStopTask_8c02d8f0, &task, (void **)&state, 0);
         var_8c2285c4[0] = 2;
         return;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &FUN_8c02d644, &task, (void **)&rawState, 8);
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &BusRiderStopSceneTask_8c02d644, &task, (void **)&rawState, 8);
     rawState[0] = 0;
     rawState[1] = 0;
 
@@ -155,7 +155,7 @@ skip_anchor_points:
 
     /* Spawn a task for every already-picked waiting passenger. */
     for (i = 0; i < var_8c228794; i++) {
-        TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &FUN_8c02d21c, &task,
+        TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &BusRiderBoardTask_8c02d21c, &task,
                            (void **)&state, sizeof(StopScheduleState));
         state->ref_0x00 = var_8c228798[i].spot_0x00;
         state->field_0x04 = 1;
@@ -172,9 +172,9 @@ skip_anchor_points:
     }
 
     /* Walk the scripted schedule table. A slot whose stop segment differs
-     * from the bus's current segment is spawned immediately (FUN_8c02d5ca);
+     * from the bus's current segment is spawned immediately (BusRiderSeatedTask_8c02d5ca);
      * a slot that matches is collected into matchedBuf to be shuffled and
-     * spawned below (FUN_8c02d46c) instead. */
+     * spawned below (BusRiderAlightTask_8c02d46c) instead. */
     matchedBuf = (void *)syMalloc(0xf8);
     matched = (SegMatchEntry *)matchedBuf;
     count = 0;
@@ -188,7 +188,7 @@ skip_anchor_points:
             matched[count].index_0x04 = i;
             count++;
         } else {
-            TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &FUN_8c02d5ca, &task,
+            TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &BusRiderSeatedTask_8c02d5ca, &task,
                                (void **)&state, sizeof(StopScheduleState));
             state->ref_0x00 = scriptEntry;
             state->field_0x08 = (Uint32)init_8c04c3e4[i].field_0x00;
@@ -216,7 +216,7 @@ skip_anchor_points:
 
     /* Spawn the shuffled matched-segment slots. */
     for (i = 0; i < count; i++) {
-        TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &FUN_8c02d46c, &task,
+        TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &BusRiderAlightTask_8c02d46c, &task,
                            (void **)&state, sizeof(StopScheduleState));
         state->ref_0x00 = matched[i].entry_0x00;
         state->field_0x04 = 0;

@@ -900,14 +900,14 @@ return [
         ],
         [
             "tests" => [
-                "tests/02d19c/8c02d19c_FUN.php",
-                "tests/02d19c/8c02d1f4_FUN.php",
-                "tests/02d19c/8c02d5ca_FUN.php",
-                "tests/02d19c/8c02d5d8_FUN.php",
-                "tests/02d19c/8c02d21c_FUN.php",
-                "tests/02d19c/8c02d46c_FUN.php",
-                "tests/02d19c/8c02d644_FUN.php",
-                "tests/02d19c/8c02d8f0_FUN.php",
+                "tests/02d19c/8c02d19c_drawRiderSprite.php",
+                "tests/02d19c/8c02d1f4_drawInterior.php",
+                "tests/02d19c/8c02d5ca_BusRiderSeatedTask.php",
+                "tests/02d19c/8c02d5d8_setCountUpStep.php",
+                "tests/02d19c/8c02d21c_BusRiderBoardTask.php",
+                "tests/02d19c/8c02d46c_BusRiderAlightTask.php",
+                "tests/02d19c/8c02d644_BusRiderStopSceneTask.php",
+                "tests/02d19c/8c02d8f0_BusRiderSkipStopTask.php",
             ],
             "objects" => [
                 "build/output_test/02d19c_src.obj",

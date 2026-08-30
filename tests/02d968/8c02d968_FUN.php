@@ -8,15 +8,15 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 // FUN_8c02d968: course-start setup for the bus-stop passenger subsystem.
 // See the function's header comment in src/02d968.c for the full
 // branch/field breakdown. Covers the demo-mode early return, route
-// dispatch, waiting-passenger spawning (FUN_8c02d21c), the scripted
-// schedule's unmatched-segment spawn (FUN_8c02d5ca), the Fisher-Yates
+// dispatch, waiting-passenger spawning (BusRiderBoardTask_8c02d21c), the scripted
+// schedule's unmatched-segment spawn (BusRiderSeatedTask_8c02d5ca), the Fisher-Yates
 // shuffle (_quick_evn_mvn), and the shuffled matched-segment spawn
-// (FUN_8c02d46c).
+// (BusRiderAlightTask_8c02d46c).
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_TaskPush_8c014ae8', 4);
-        $this->setSize('_FUN_8c02d8f0', 4);
+        $this->setSize('_BusRiderSkipStopTask_8c02d8f0', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
@@ -43,7 +43,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
-                $this->addressOf('_FUN_8c02d8f0'),
+                $this->addressOf('_BusRiderSkipStopTask_8c02d8f0'),
             )
             ->do(function () use ($task, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task));
@@ -74,7 +74,7 @@ return new class extends TestCase {
     // value with no dispatch arm) skips the whole anchor-point block.
     private function runEmptyScheduleRoute(int $route, ?array $pts): void {
         $this->setSize('_TaskPush_8c014ae8', 4);
-        $this->setSize('_FUN_8c02d644', 4);
+        $this->setSize('_BusRiderStopSceneTask_8c02d644', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
@@ -105,9 +105,9 @@ return new class extends TestCase {
         $this->setSize('_var_passengerCount_8c1bb8e4', 4);
         $this->setSize('_init_8c04c3e4', 8 * 31);
         $this->setSize('_var_currentSegment_8c228708', 4);
-        $this->setSize('_FUN_8c02d5ca', 4);
-        $this->setSize('_FUN_8c02d21c', 4);
-        $this->setSize('_FUN_8c02d46c', 4);
+        $this->setSize('_BusRiderSeatedTask_8c02d5ca', 4);
+        $this->setSize('_BusRiderBoardTask_8c02d21c', 4);
+        $this->setSize('_BusRiderAlightTask_8c02d46c', 4);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // not demo mode
         $this->initUint32($this->addressOf('_var_8c226410'), 0);
@@ -130,7 +130,7 @@ return new class extends TestCase {
 
         $mainTask = $this->alloc(0x20);
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_FUN_8c02d644'))
+            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_BusRiderStopSceneTask_8c02d644'))
             ->do(function () use ($mainTask, $mainState) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($mainState));
@@ -227,12 +227,12 @@ return new class extends TestCase {
     }
 
     // One already-picked waiting passenger (var_8c228794 == 1), no scripted
-    // schedule slots: exercises the FUN_8c02d21c spawn loop's per-iteration
+    // schedule slots: exercises the BusRiderBoardTask_8c02d21c spawn loop's per-iteration
     // field writes and rand()-derived random offsets.
     public function test_oneWaitingPassenger(): void {
         $this->setSize('_TaskPush_8c014ae8', 4);
-        $this->setSize('_FUN_8c02d644', 4);
-        $this->setSize('_FUN_8c02d21c', 4);
+        $this->setSize('_BusRiderStopSceneTask_8c02d644', 4);
+        $this->setSize('_BusRiderBoardTask_8c02d21c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
@@ -295,7 +295,7 @@ return new class extends TestCase {
         $this->call('_FUN_8c02d968');
 
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_FUN_8c02d644'))
+            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_BusRiderStopSceneTask_8c02d644'))
             ->do(function () use ($mainTask, $mainState) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($mainState));
@@ -326,7 +326,7 @@ return new class extends TestCase {
         $expectRandZ = $this->f32(((float)$rand2 / 32768.0) * 0.2);
 
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($group, $this->addressOf('_FUN_8c02d21c'))
+            ->with($group, $this->addressOf('_BusRiderBoardTask_8c02d21c'))
             ->do(function () use ($task, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state));
@@ -362,10 +362,10 @@ return new class extends TestCase {
 
     private function commonSpawnLoopSymbols(): void {
         $this->setSize('_TaskPush_8c014ae8', 4);
-        $this->setSize('_FUN_8c02d644', 4);
-        $this->setSize('_FUN_8c02d5ca', 4);
-        $this->setSize('_FUN_8c02d21c', 4);
-        $this->setSize('_FUN_8c02d46c', 4);
+        $this->setSize('_BusRiderStopSceneTask_8c02d644', 4);
+        $this->setSize('_BusRiderSeatedTask_8c02d5ca', 4);
+        $this->setSize('_BusRiderBoardTask_8c02d21c', 4);
+        $this->setSize('_BusRiderAlightTask_8c02d46c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
@@ -400,7 +400,7 @@ return new class extends TestCase {
     }
 
     // A scripted-schedule slot whose stop segment does NOT match the bus's
-    // current segment is spawned immediately via FUN_8c02d5ca (never
+    // current segment is spawned immediately via BusRiderSeatedTask_8c02d5ca (never
     // collected into the shuffle buffer). Exercises the previously
     // UNVERIFIED "no match" branch: field write order is ref_0x00,
     // field_0x08, field_0x0c (= var_8c228934.y), field_0x10, field_0x14
@@ -447,7 +447,7 @@ return new class extends TestCase {
         $this->call('_FUN_8c02d968');
 
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_FUN_8c02d644'))
+            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_BusRiderStopSceneTask_8c02d644'))
             ->do(function () use ($mainTask, $mainState) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($mainState));
@@ -475,7 +475,7 @@ return new class extends TestCase {
         $this->shouldCall('_syMalloc')->with(0xf8)->andReturn($matchedBuf);
 
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($group, $this->addressOf('_FUN_8c02d5ca'))
+            ->with($group, $this->addressOf('_BusRiderSeatedTask_8c02d5ca'))
             ->do(function () use ($task, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state));
@@ -490,14 +490,14 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x28, 1);
 
         // Shuffle/spawn loops are both empty (count == 0): no
-        // AsqGetRandomInRangeA/_quick_evn_mvn/FUN_8c02d46c calls.
+        // AsqGetRandomInRangeA/_quick_evn_mvn/BusRiderAlightTask_8c02d46c calls.
         $this->shouldCall('_syFree')->with($matchedBuf);
     }
 
     // Simulates the __quick_evn_mvn 3-word-struct-copy runtime helper
     // (dest R1, src R2, byte count R0 -- see docs/lessons_learned.md), so
     // the Fisher-Yates shuffle below actually reorders the matched buffer
-    // and the final FUN_8c02d46c pushes can be asserted against the real
+    // and the final BusRiderAlightTask_8c02d46c pushes can be asserted against the real
     // post-shuffle contents.
     private function simulateQuickEvnMvn(): void {
         $this->shouldCall('__quick_evn_mvn')->do(function () {
@@ -515,7 +515,7 @@ return new class extends TestCase {
     // being spawned directly, Fisher-Yates shuffled (AsqGetRandomInRangeA
     // + three _quick_evn_mvn struct copies per iteration: tmp = matched[i];
     // matched[i] = matched[randIdx]; matched[randIdx] = tmp), then spawned
-    // via FUN_8c02d46c in the shuffled order. randIdx is forced to 0 both
+    // via BusRiderAlightTask_8c02d46c in the shuffled order. randIdx is forced to 0 both
     // iterations, which reverses the two-element buffer -- so the spawn
     // loop's position-0 push must carry the ORIGINALLY-second slot and
     // vice versa, proving the shuffle (not just the field writes) is
@@ -577,7 +577,7 @@ return new class extends TestCase {
         $this->call('_FUN_8c02d968');
 
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_FUN_8c02d644'))
+            ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_BusRiderStopSceneTask_8c02d644'))
             ->do(function () use ($mainTask, $mainState) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($mainState));
@@ -630,7 +630,7 @@ return new class extends TestCase {
         $rand0x = 100;
         $rand0z = 200;
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($group, $this->addressOf('_FUN_8c02d46c'))
+            ->with($group, $this->addressOf('_BusRiderAlightTask_8c02d46c'))
             ->do(function () use ($task0, $state0) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task0));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state0));
@@ -657,7 +657,7 @@ return new class extends TestCase {
         $rand1x = 300;
         $rand1z = 400;
         $this->shouldCall('_TaskPush_8c014ae8')
-            ->with($group, $this->addressOf('_FUN_8c02d46c'))
+            ->with($group, $this->addressOf('_BusRiderAlightTask_8c02d46c'))
             ->do(function () use ($task1, $state1) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task1));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state1));

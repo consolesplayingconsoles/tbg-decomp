@@ -6,10 +6,10 @@
 #include "014a9c_tasks.h"
 
 /* TaskPush_8c014ae8 state, exactly the 0x38 bytes all three spawn paths
- * (FUN_8c02d21c, FUN_8c02d5ca, FUN_8c02d46c) ask for. The three callbacks
+ * (BusRiderBoardTask_8c02d21c, BusRiderSeatedTask_8c02d5ca, BusRiderAlightTask_8c02d46c) ask for. The three callbacks
  * disagree on what several of the fields mean (e.g. field_0x08/0x0c/0x10 is
- * an NJS_POINT3 for FUN_8c02d21c/FUN_8c02d46c but an {int, float, float}
- * triple for FUN_8c02d5ca), so this is kept as raw words rather than one
+ * an NJS_POINT3 for BusRiderBoardTask_8c02d21c/BusRiderAlightTask_8c02d46c but an {int, float, float}
+ * triple for BusRiderSeatedTask_8c02d5ca), so this is kept as raw words rather than one
  * semantically-typed struct. */
 typedef struct {
     void *ref_0x00;
@@ -40,25 +40,25 @@ extern InitEntry_8c04c3e4 init_8c04c3e4[31];
 
 /* Task action for a scripted-stop slot whose segment differs from the bus's
  * current one -- spawned immediately (no shuffle) by FUN_8c02d968. */
-void FUN_8c02d5ca(Task *task, void *state);
+void BusRiderSeatedTask_8c02d5ca(Task *task, void *state);
 
 /* Task action for an already-picked waiting passenger (state->field_0x04 == 1
  * always, from 02d968); handles positioning, the stop-bell sound and
  * despawn. */
-void FUN_8c02d21c(Task *task, void *state);
+void BusRiderBoardTask_8c02d21c(Task *task, void *state);
 
 /* Task action for a scripted-stop slot that matches the bus's current
  * segment (spawned after the Fisher-Yates shuffle). */
-void FUN_8c02d46c(Task *task, void *state);
+void BusRiderAlightTask_8c02d46c(Task *task, void *state);
 
 /* Per-frame countdown/animation task action shared by every waiting-
  * passenger spawn path once positioned; drives the wave/board animation and
  * frees itself when done. */
-void FUN_8c02d644(Task *task, void *state);
+void BusRiderStopSceneTask_8c02d644(Task *task, void *state);
 
 /* Task action spawned instead of the normal per-passenger tasks when
  * var_playMode_8c1bb8d0 == 1 (VM/replay mode) and course-restart flag
  * var_8c226410 bit 3 is clear -- just resets state on first run. */
-void FUN_8c02d8f0(Task *task, void *state);
+void BusRiderSkipStopTask_8c02d8f0(Task *task, void *state);
 
 #endif /* _02D19C_H_ */

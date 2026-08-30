@@ -25,7 +25,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(4);
 
-        $this->call('_FUN_8c02d8f0')->with($task, $state);
+        $this->call('_BusRiderSkipStopTask_8c02d8f0')->with($task, $state);
 
         $this->shouldWriteLongTo('_var_8c1bbc84', 1);
         $this->shouldWriteLongTo('_var_fadeArrivalVariant_8c22655c', 0);
@@ -44,6 +44,6 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(4);
 
-        $this->call('_FUN_8c02d8f0')->with($task, $state);
+        $this->call('_BusRiderSkipStopTask_8c02d8f0')->with($task, $state);
     }
 };

@@ -22,7 +22,7 @@ return new class extends TestCase {
         $this->initUint32($base + 5 * 4, 100); // idx5
         $this->initUint32($base + 6 * 4, 0);   // idx6, remaining = 100
 
-        $this->call('_FUN_8c02d5d8');
+        $this->call('_setCountUpStep_8c02d5d8');
 
         $this->shouldCall('__divls');
         $this->shouldWriteLong($base + 7 * 4, 20);
@@ -36,7 +36,7 @@ return new class extends TestCase {
         $this->initUint32($base + 5 * 4, 30); // idx5
         $this->initUint32($base + 6 * 4, 5);  // idx6, remaining = 25
 
-        $this->call('_FUN_8c02d5d8');
+        $this->call('_setCountUpStep_8c02d5d8');
 
         $this->shouldWriteLong($base + 7 * 4, 0xa);
     }
@@ -52,7 +52,7 @@ return new class extends TestCase {
         $this->initUint32($base + 5 * 4, 50); // idx5
         $this->initUint32($base + 6 * 4, 0);  // idx6, remaining = 50
 
-        $this->call('_FUN_8c02d5d8');
+        $this->call('_setCountUpStep_8c02d5d8');
 
         $this->shouldCall('__divls');
         $this->shouldWriteLong($base + 7 * 4, 10);

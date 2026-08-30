@@ -35,7 +35,7 @@ return new class extends TestCase {
         $nj = 0xdeadbeef;
         $this->initUint32($this->addressOf('_var_interiorNj_8c1bc43c'), $nj);
 
-        $this->call('_FUN_8c02d1f4')->with(0);
+        $this->call('_drawInterior_8c02d1f4')->with(0);
 
         $this->shouldCall('_njCnkSetSimpleLight')->with(0.1, 0.2, 0.3);
         $this->shouldCall('_njSetTexture')->with($tlist);

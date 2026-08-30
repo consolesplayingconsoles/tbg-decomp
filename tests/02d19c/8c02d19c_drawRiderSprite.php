@@ -67,7 +67,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x0c, $this->f(2.0));
         $this->initUint32($state + 0x10, $this->f(3.0));
 
-        $this->call('_FUN_8c02d19c')->with($state);
+        $this->call('_drawRiderSprite_8c02d19c')->with($state);
 
         $sprite = $this->addressOf('_var_8c2288d8');
         $this->shouldWriteLong($sprite + 0x18, $tlist);
@@ -88,7 +88,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x0c, $this->f(5.0));
         $this->initUint32($state + 0x10, $this->f(6.0));
 
-        $this->call('_FUN_8c02d19c')->with($state);
+        $this->call('_drawRiderSprite_8c02d19c')->with($state);
 
         $sprite = $this->addressOf('_var_8c2288d8');
         $this->shouldWriteLong($sprite + 0x18, $tlist);
@@ -102,7 +102,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(0x41, 0x20, 0);
 
-        $this->call('_FUN_8c02d19c')->with($state);
+        $this->call('_drawRiderSprite_8c02d19c')->with($state);
     }
 
     public function test_unloaded_texlist_is_skipped(): void
@@ -114,6 +114,6 @@ return new class extends TestCase {
 
         $state = $this->makeState(2, 0x20, 0);
 
-        $this->call('_FUN_8c02d19c')->with($state);
+        $this->call('_drawRiderSprite_8c02d19c')->with($state);
     }
 };

@@ -49,7 +49,7 @@ return new class extends TestCase {
         $state = $this->makeState(1);
         $this->initUint32($state + 0x20, 3); // countdown, decrements to 2
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldWriteLong($state + 0x20, 2);
         $this->shouldWriteLongTo('_var_8c228958', 1);
@@ -64,7 +64,7 @@ return new class extends TestCase {
         $state = $this->makeState(1);
         $this->initUint32($state + 0x20, 0);
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldWriteLongTo('_var_8c228958', 1);
     }
@@ -91,7 +91,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x2c, 2); // quadrant
         $this->initUint32($state + 0x30, 42); // sound id
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldWriteLong($state + 0x20, 0xffffffff);
         $this->shouldWriteFloat($state + 0x08, 1.1);
@@ -111,9 +111,9 @@ return new class extends TestCase {
 
         $state = $this->makeState(2);
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_FUN_8c02d19c'), $state);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_8c228958', 1);
     }
 
@@ -138,7 +138,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x0c, $this->f(9.0));
         $ref = $this->lastRef; // state->ref_0x00
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(31)->andReturn(3);
         $this->shouldWriteLong($slots + 3 * 4, $ref);
@@ -147,7 +147,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x14, 0x20);
         $this->shouldWriteFloat($state + 0x0c, 9.0 - 0.18000000715255737);
         $this->shouldWriteLong($state + 0x04, 5);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_FUN_8c02d19c'), $state);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_8c228958', 1);
     }
 
@@ -160,9 +160,9 @@ return new class extends TestCase {
 
         $state = $this->makeState(5);
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_FUN_8c02d19c'), $state);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_8c228958', 1);
     }
 
@@ -175,11 +175,11 @@ return new class extends TestCase {
 
         $state = $this->makeState(5);
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldWriteLong($state + 0x04, 0);
         $this->shouldWriteLong($state + 0x28, 1);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_FUN_8c02d19c'), $state);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_8c228958', 1);
     }
 
@@ -189,9 +189,9 @@ return new class extends TestCase {
 
         $state = $this->makeState(0);
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_FUN_8c02d19c'), $state);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
     }
 
     public function test_default_does_nothing_but_set_flag(): void
@@ -200,7 +200,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(99);
 
-        $this->call('_FUN_8c02d21c')->with(0, $state);
+        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldWriteLongTo('_var_8c228958', 1);
     }

@@ -3,9 +3,9 @@
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_8c226410
-          .IMPORT     _FUN_8c02d644
+          .IMPORT     _BusRiderStopSceneTask_8c02d644
           .IMPORT     _TaskPush_8c014ae8
-          .IMPORT     _FUN_8c02d8f0
+          .IMPORT     _BusRiderSkipStopTask_8c02d8f0
           .IMPORT     _var_8c2285c4
           .IMPORT     _var_interiorTexlist_8c1bc438
           .IMPORT     _njSetTexture
@@ -28,15 +28,15 @@
           .IMPORT     _TaskClear_8c014a9c
           .IMPORT     _var_passengerCount_8c1bb8e4
           .IMPORT     _rand
-          .IMPORT     _FUN_8c02d21c
+          .IMPORT     _BusRiderBoardTask_8c02d21c
           .IMPORT     _var_8c228798
           .IMPORT     __quick_odd_mvn
           .IMPORT     _var_currentSegment_8c228708
-          .IMPORT     _FUN_8c02d5ca
+          .IMPORT     _BusRiderSeatedTask_8c02d5ca
           .IMPORT     _init_8c04c3e4
           .IMPORT     _AsqGetRandomInRangeA_8c012178
           .IMPORT     __quick_evn_mvn
-          .IMPORT     _FUN_8c02d46c
+          .IMPORT     _BusRiderAlightTask_8c02d46c
           .IMPORT     _syFree
           .EXPORT     _FUN_8c02d968
           .EXPORT     _init_8c04c4dc ; 02d968.src
@@ -304,9 +304,9 @@ LP_GEN_52173:
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02DB5C
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02DB60
           .DATA.L _var_8c226410 ; H'8C02DB64
-          .DATA.L _FUN_8c02d644 ; H'8C02DB68
+          .DATA.L _BusRiderStopSceneTask_8c02d644 ; H'8C02DB68
           .DATA.L _TaskPush_8c014ae8 ; H'8C02DB6C
-          .DATA.L _FUN_8c02d8f0 ; H'8C02DB70
+          .DATA.L _BusRiderSkipStopTask_8c02d8f0 ; H'8C02DB70
           .DATA.L _var_8c2285c4 ; H'8C02DB74
           .DATA.L _var_interiorTexlist_8c1bc438 ; H'8C02DB78
           .DATA.L _njSetTexture ; H'8C02DB7C
@@ -477,7 +477,7 @@ LAB_8c02dcce:
 LP_GEN_81852:
           .DATA.W H'00F8 ; H'8C02DD00
           .RES.W 1 ; H'8C02DD02
-          .DATA.L _FUN_8c02d21c ; H'8C02DD04
+          .DATA.L _BusRiderBoardTask_8c02d21c ; H'8C02DD04
           .DATA.L _var_stopTaskGroup_8c2288f8 ; H'8C02DD08
           .DATA.L _TaskPush_8c014ae8 ; H'8C02DD0C
           .DATA.L _var_8c228798 ; H'8C02DD10
@@ -750,13 +750,13 @@ LAB_8c02defa:
           MOV.L       @R15+,R14
 LP_GEN_19590:
           .RES.W 1 ; H'8C02DF16
-          .DATA.L _FUN_8c02d5ca ; H'8C02DF18
+          .DATA.L _BusRiderSeatedTask_8c02d5ca ; H'8C02DF18
           .DATA.L _var_stopTaskGroup_8c2288f8 ; H'8C02DF1C
           .DATA.L _TaskPush_8c014ae8 ; H'8C02DF20
           .DATA.L _init_8c04c3e4 ; H'8C02DF24
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02DF28
           .DATA.L __quick_evn_mvn ; H'8C02DF2C
-          .DATA.L _FUN_8c02d46c ; H'8C02DF30
+          .DATA.L _BusRiderAlightTask_8c02d46c ; H'8C02DF30
           .DATA.L _init_8c04c4dc ; H'8C02DF34
           .DATA.L _syFree ; H'8C02DF38
           .SECTION    D, DATA, ALIGN=4

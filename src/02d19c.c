@@ -1,3 +1,5 @@
+/* @unit BusRider */
+
 #include <shinobi.h>
 #include <sg_sd.h>
 #include "serial_debug.h"
@@ -19,9 +21,9 @@
  * ====================
  */
 
-STATIC void FUN_8c02d19c(int arg0);
-STATIC void FUN_8c02d1f4(int arg0);
-STATIC void FUN_8c02d5d8(void);
+STATIC void drawRiderSprite_8c02d19c(int arg0);
+STATIC void drawInterior_8c02d1f4(int arg0);
+STATIC void setCountUpStep_8c02d5d8(void);
 
 /* ====================
  * Initialized Globals
@@ -68,12 +70,12 @@ InitEntry_8c04c3e4 init_8c04c3e4[31] = {
  */
 
 /* Installed as a FadeCallback1 (via literal-pool pointer, both by
- * FUN_8c02d5ca and by the per-passenger task actions below); draws one
+ * BusRiderSeatedTask_8c02d5ca and by the per-passenger task actions below); draws one
  * waiting-passenger/scripted-stop rider's sprite. arg0 is really a
  * StopScheduleState* threaded through the int parameter (the same idiom as
  * StopDrawLightBegin_8c02d0fc/d146 in 02d06c). A stop index (the byte at *ref_0x00) out of
  * range, or whose asset slot has no texlist loaded yet, is skipped. */
-STATIC void FUN_8c02d19c(int arg0)
+STATIC void drawRiderSprite_8c02d19c(int arg0)
 {
     StopScheduleState *state = (StopScheduleState *)arg0;
     Sint8 stopIndex = *(Sint8 *)state->ref_0x00;
@@ -90,11 +92,11 @@ STATIC void FUN_8c02d19c(int arg0)
     njDrawSprite3D(&var_8c2288d8, state->field_0x14, state->field_0x28 == 0 ? 0x32 : 0x30);
 }
 
-/* Installed as a FadeCallback1 (via literal-pool pointer in FUN_8c02d644);
+/* Installed as a FadeCallback1 (via literal-pool pointer in BusRiderStopSceneTask_8c02d644);
  * ignores its arg. Draws the bus interior model under the layer-0 (bus)
  * simple light, sibling of StopDrawLightBegin_8c02d0fc (02d06c) which does the same for
  * the bus-stop anchor points. */
-STATIC void FUN_8c02d1f4(int arg0)
+STATIC void drawInterior_8c02d1f4(int arg0)
 {
     njCnkSetSimpleLight(var_busSimpleLightDir_8c227db8[0], var_busSimpleLightDir_8c227db8[1], var_busSimpleLightDir_8c227db8[2]);
     njSetTexture(var_interiorTexlist_8c1bc438);
@@ -104,16 +106,16 @@ STATIC void FUN_8c02d1f4(int arg0)
 /* Task action for a scripted-stop slot whose segment differs from the bus's
  * current one -- spawned immediately by FUN_8c02d968 (no shuffle, no
  * countdown). Just registers the draw callback every frame; ignores task. */
-void FUN_8c02d5ca(Task *task, void *state)
+void BusRiderSeatedTask_8c02d5ca(Task *task, void *state)
 {
-    FadeCmdPushCall1_8c0223ea(2, FUN_8c02d19c, (int)state);
+    FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
 }
 
-/* var_8c2285c4[7], the per-frame step FUN_8c02d644's case 5 adds to
+/* var_8c2285c4[7], the per-frame step BusRiderStopSceneTask_8c02d644's case 5 adds to
  * var_8c2285c4[6] while counting it up to var_8c2285c4[5]: 1/5th of the
  * remaining distance (idx5 - idx6) once that's at least 50, else a flat
  * step of 10 to close the last stretch. */
-STATIC void FUN_8c02d5d8(void)
+STATIC void setCountUpStep_8c02d5d8(void)
 {
     int remaining = var_8c2285c4[5] - var_8c2285c4[6];
 
@@ -133,7 +135,7 @@ STATIC void FUN_8c02d5d8(void)
  * the draw callback in its terminal state (0). var_8c22895c gates whether
  * each phase's positioning work runs this frame (set up per-frame
  * elsewhere in the bus-stop subsystem; not owned by this unit). */
-void FUN_8c02d21c(Task *task, void *state_)
+void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
 {
     StopScheduleState *state = (StopScheduleState *)state_;
     int mode = state->field_0x04;
@@ -212,7 +214,7 @@ void FUN_8c02d21c(Task *task, void *state_)
         goto registerLayer2;
 
     case 0:
-        FadeCmdPushCall1_8c0223ea(2, FUN_8c02d19c, (int)state);
+        FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
         return;
 
     default:
@@ -220,11 +222,11 @@ void FUN_8c02d21c(Task *task, void *state_)
     }
 
 registerLayer1:
-    FadeCmdPushCall1_8c0223ea(1, FUN_8c02d19c, (int)state);
+    FadeCmdPushCall1_8c0223ea(1, drawRiderSprite_8c02d19c, (int)state);
     goto done;
 
 registerLayer2:
-    FadeCmdPushCall1_8c0223ea(2, FUN_8c02d19c, (int)state);
+    FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
 
 done:
     var_8c228958 = 1;
@@ -232,11 +234,11 @@ done:
 
 /* Task action for a scripted-stop slot that matched the bus's current
  * segment (spawned after the Fisher-Yates shuffle by FUN_8c02d968).
- * Sibling of FUN_8c02d21c: same shape (countdown, then walk three door
+ * Sibling of BusRiderBoardTask_8c02d21c: same shape (countdown, then walk three door
  * anchor points), but the anchor points, sound-gating route and terminal
  * behavior all differ -- this one frees itself once var_8c22895c fires in
  * its terminal state, rather than looping forever. */
-void FUN_8c02d46c(Task *task, void *state_)
+void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
 {
     StopScheduleState *state = (StopScheduleState *)state_;
     int mode = state->field_0x04;
@@ -303,11 +305,11 @@ void FUN_8c02d46c(Task *task, void *state_)
     }
 
 registerLayer1:
-    FadeCmdPushCall1_8c0223ea(1, FUN_8c02d19c, (int)state);
+    FadeCmdPushCall1_8c0223ea(1, drawRiderSprite_8c02d19c, (int)state);
     goto done;
 
 registerLayer2:
-    FadeCmdPushCall1_8c0223ea(2, FUN_8c02d19c, (int)state);
+    FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
 
 done:
     var_8c228958 = 1;
@@ -321,14 +323,14 @@ done:
  * with a private 2-int state (field_0x00 the phase, field_0x04 a sub-phase
  * used only by phase 1); NOT the 0x38-byte StopScheduleState the other
  * task actions in this unit use. Every call re-registers this frame's
- * interior-draw (FUN_8c02d1f4) and light (StopDrawLightBegin_8c02d0fc) FadeCallback1s
+ * interior-draw (drawInterior_8c02d1f4) and light (StopDrawLightBegin_8c02d0fc) FadeCallback1s
  * regardless of phase. */
-void FUN_8c02d644(Task *task, void *state_)
+void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
 {
     Uint32 *state = (Uint32 *)state_;
     int phase = state[0];
 
-    FadeCmdPushCall1_8c0223ea(2, FUN_8c02d1f4, 0);
+    FadeCmdPushCall1_8c0223ea(2, drawInterior_8c02d1f4, 0);
     FadeCmdPushCall1_8c0223ea(1, StopDrawLightBegin_8c02d0fc, 0);
     FadeCmdPushCall1_8c0223ea(2, StopDrawLightBegin_8c02d0fc, 0);
 
@@ -387,7 +389,7 @@ void FUN_8c02d644(Task *task, void *state_)
             if (var_cutsceneActive_8c1bb900 == 0 || var_playMode_8c1bb8d0 != PLAY_MODE_NORMAL) {
                 var_8c2285c4[0] = 2;
                 state[0] = 5;
-                FUN_8c02d5d8();
+                setCountUpStep_8c02d5d8();
             } else {
                 state[0] = 2;
                 var_fadeRequest_8c226564 = FADE_REQUEST_IN;
@@ -416,7 +418,7 @@ void FUN_8c02d644(Task *task, void *state_)
         if (RouteLoadIsPvmReady_8c01432a() != 0 && var_isFading_8c226568 == 0) {
             var_8c2285c4[0] = 2;
             state[0] = 5;
-            FUN_8c02d5d8();
+            setCountUpStep_8c02d5d8();
         }
         goto tail_d7b4;
 
@@ -497,7 +499,7 @@ tail_d8cc:
  * var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE and the course-restart flag
  * var_8c226410 bit 3 is clear -- resets the fade-arrival bookkeeping once
  * (guarded by var_isFading_8c226568) and frees itself. */
-void FUN_8c02d8f0(Task *task, void *state)
+void BusRiderSkipStopTask_8c02d8f0(Task *task, void *state)
 {
     if (var_isFading_8c226568 == 0) {
         var_8c1bbc84 = 1;
