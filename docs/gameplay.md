@@ -36,6 +36,87 @@ bus along a predefined route with predefined passenger stop requests.
   select.
 - The VMU LCD shows art during gameplay (see `01bb48` `vmsLcd_*`).
 
+## Camera
+
+- Cycled in-drive with the **Y button** (`BusRenderUpdateCamera_8c025078`,
+  `024b4c_bus_render.c`). The active mode lives in `var_8c227d9c`.
+- Five modes, 0-4: 0 = fixed follow behind the bus, rotated by an eased yaw
+  (`busState.cameraYawEase_0x3c8`); 1 = a second fixed view; 2/3 = smooth chase
+  via `positionCamera_8c024d6c`; 4 = fixed on `var_8c227d90`.
+- Modes 0 and 1 additionally roll the camera by the road's pitch, taken from
+  recent Y waypoint history -- this is the bob felt when turning.
+- Player-facing, the modes read as third-person near, third-person far,
+  first-person and cockpit. Which code mode is which, and whether mode 4 is
+  reachable by the player at all (it may be demo/cinematic-only), is not yet
+  confirmed.
+- The mirrors run a separate camera (`BusRenderUpdateMirrorCamera_8c025604`,
+  `var_8c1bb944`), selected by `busState.mirror_0x268`.
+
+## Turn signals
+
+- Signalling is manual and player-driven; the game never signals for you.
+  The state is 0 = off, 1 = left, 2 = right, and it clears itself once a lane
+  change completes (`02b464_drive_points.c`) or on a gear change
+  (`023938_bus_drive.c`).
+- At a stop the blinker seen while the doors are open is the player's own
+  signal for pulling back into traffic -- there is no door-driven blinker.
+  Failing to signal there is the `NO_SIGNAL` penalty.
+- Signalling the wrong way is also penalised: the lane-change check compares
+  the signal against the direction actually taken.
+- The lamps are five arrow models driven by bits of `blinker_0x080`
+  (`027958.c`); the tick SFX plays on the first frame of each signal.
+
+## Reverse
+
+- Engage by stopping and shifting into reverse; `busState.gear_0x2f4` holds 5
+  for reverse (`023938_bus_drive.c`).
+- Both blinkers flash together while in reverse -- a hazard-style double
+  blinker toggled every 16 frames from bit 4 of
+  `busState.hazardBlinkCounter_0x2f8` (`022bdc_bus.c:318`).
+
+## Penalties
+
+Penalties drain the score bar and show an instructor message. Not all are
+traffic offenses -- roughly half are service errors, things a bus driver is
+marked down for that have nothing to do with the road.
+
+The messages are rows of `init_instructorDialogs_8c044c08`
+(`016d2c_course_menu.c`), indices 32-63 of the `INSTR_*` enum in
+`016d2c_course_menu.h`; the string ids are the `MSG_SEQ_*` block in
+`strings_en_us.h`. Several have graded severities and multiple message
+variants.
+
+**Traffic offenses**
+
+- **Collisions** -- with cars (minor/medium/severe/fatal) and with walls
+  (minor/medium/severe). Also a near-miss-pedestrian warning.
+- **Signals** -- pulling away without signalling, turning without signalling,
+  changing lanes without signalling (`ILLEGAL_LANE_CHANGE`).
+- **Traffic lights** -- running a red (`SIGNAL_VIOLATION`), and stopping past
+  the line (`BAD_STOP_LINE`).
+- **Speed and handling** -- speeding (minor/major), harsh acceleration
+  (`RAPID_ACCEL`), hard braking, swerving.
+- **Lane discipline** -- wrong lane, straddling lanes, wrong way, blocking an
+  intersection.
+- **Off course** -- leaving the route.
+
+**Service errors**
+
+- Pulling away with the doors open (`DOOR_OPERATION`).
+- Failing to announce the next stop (`ANNOUNCEMENT`).
+- Missing a stop entirely (`MISSED_STOP`), or stopping badly at one
+  (`BAD_STOP_POSITION`) -- too far from the kerb or short of the mark.
+- Running late (`TIME_MANAGEMENT`). The schedule is part of the job, so
+  falling behind costs points like any other error.
+
+Railway crossings are modelled (`var_fumiGateModel_8c22840c` and its
+open/close motions and lamp, from *fumikiri*), but which penalty fires for
+failing to stop at one is not yet traced.
+
+The score bar itself is `var_driverPoints_8c2285d0`, driven by
+`02b464_drive_points.c`; it also feeds the end-of-run badge tier (see
+`AWARD_TIER_*`).
+
 ## Stops and segments
 
 - **A passenger stop = a CourseSegment boundary.** The loading screen at a
