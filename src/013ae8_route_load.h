@@ -25,12 +25,12 @@ enum TIME_OF_DAY {
 };
 
 typedef struct {
-    int field_0x00;
-    float field_0x04;
-    Uint8 field_0x08;
-    Uint8 field_0x09;
-    Uint8 field_0x0a;
-    Uint8 field_0x0b;
+    int tileWindowSpan_0x00;
+    float farClipDepth_0x04;
+    Uint8 fogBlue_0x08;
+    Uint8 fogGreen_0x09;
+    Uint8 fogRed_0x0a;
+    Uint8 fogAlpha_0x0b;
     float fogN_0x0c;
     float fogF_0x10;
 } FogParams;

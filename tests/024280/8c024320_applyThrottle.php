@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // applyThrottle_8c024320: STATIC, called from BusInputUpdate_8c0246b2 each frame while driving.
 // While the .r trigger (var_8c1ba374) clears its saved deadzone
 // (var_8c1ba29c) by at least var_8c1bbcb4's minimum scaled step, ramps
-// BusState.needleCurrentValue_0x2e4 toward that step by init_8c045638[gear].field_0x00,
+// BusState.needleCurrentValue_0x2e4 toward that step by init_8c045638[gear].throttleRampRate_0x00,
 // feeds it through njSin to derive target_0x2e8/speed_0x27c, and upshifts
 // (with a shift-cue MIDI note) once speed clears the next gear's top speed
 // -- or, at the top gear, just clamps speed to its max. Otherwise coasts:

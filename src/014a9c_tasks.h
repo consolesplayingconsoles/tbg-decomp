@@ -8,7 +8,7 @@ struct QueuedDat {
     char *basedir;
     char *filename;
     void **dest;
-    int field_0x0c;
+    int loaded_0x0c;
 }
 typedef QueuedDat;
 

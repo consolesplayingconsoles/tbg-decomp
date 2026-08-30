@@ -145,7 +145,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_menuTextboxCharLimit_8c225fb8', 4);
     }
 
-    public function test_state_1_skips_when_field_0x10_less_than_3()
+    public function test_state_1_skips_when_charRevealTimer_0x10_less_than_3()
     {
         $this->resolveSymbols();
 
@@ -164,7 +164,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_menuTextboxCharLimit_8c225fb8', 3);
     }
 
-    public function test_state_1_skips_when_field_0x0c_less_than_field_0x08()
+    public function test_state_1_skips_when_revealedCharCount_0x0c_less_than_charCount_0x08()
     {
         $this->resolveSymbols();
 
@@ -210,7 +210,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_menuTextboxCharLimit_8c225fb8', 4);
     }
 
-    public function test_state_1_responds_to_a_press_when_field_0x0c_less_than_field_0x08()
+    public function test_state_1_responds_to_a_press_when_revealedCharCount_0x0c_less_than_charCount_0x08()
     {
         $this->resolveSymbols();
 

@@ -906,7 +906,7 @@ typedef struct {
     int *ids;
     float duration;
     int glyphCount_0x0c;
-    int field_0x10;
+    int revealCounter_0x10;
     int holdFrames;
 } DriveMsgSlot;
 extern DriveMsgSlot var_driveMsgQueue_8c228564[4];

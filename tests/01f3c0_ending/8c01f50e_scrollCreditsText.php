@@ -174,7 +174,7 @@ return new class extends TestCase {
         $this->shouldCall('_TxtDrawTextbox_8c0155e0')->with($box1, 1)->andReturn(0);
     }
 
-    public function test_wrap_with_no_more_credits_latches_field_0x1c(): void
+    public function test_wrap_with_no_more_credits_latches_subState_0x1c(): void
     {
         $this->resolveSymbols();
         $base = $this->seedState(0, 0, 37, 0, 0);

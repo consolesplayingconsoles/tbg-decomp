@@ -75,8 +75,8 @@ typedef struct {
 
 typedef struct {
     const char *filename;
-    int field_0x04;
-    int field_0x08;
+    int trafficPresetId_0x04;
+    int pedPresetId_0x08;
 } DemoEntry;
 
 #ifdef GAME_LANG_EN
@@ -951,9 +951,9 @@ void FUN_8c0159ac()
         &var_demoBuf_8c1ba3c4
     );
     var_activeTrafficPreset_8c227e14 =
-        init_demos_8c044154[var_demoIndex_8c1bb8d8].field_0x04;
+        init_demos_8c044154[var_demoIndex_8c1bb8d8].trafficPresetId_0x04;
     var_activePedPreset_8c22822c =
-        init_demos_8c044154[var_demoIndex_8c1bb8d8].field_0x08;
+        init_demos_8c044154[var_demoIndex_8c1bb8d8].pedPresetId_0x08;
     RouteLoadResetPvmReady_8c014322();
     AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadSetPvmReady_8c014330);
     return;

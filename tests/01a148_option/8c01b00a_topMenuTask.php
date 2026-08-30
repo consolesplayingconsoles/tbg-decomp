@@ -8,8 +8,8 @@ return new class extends TestCase {
     const PRESS = 0x10;      // var_peripherals_8c1ba35c[0].press offset
     const STATE = 0x18;      // var_menuState_8c1bc7a8.state_0x18 offset
     const SELECTED = 0x38;   // .selected_0x38
-    const FIELD70 = 0x70;    // .field_0x70 (pending task ptr)
-    const FIELD74 = 0x74;    // .field_0x74 (pending task arg)
+    const FIELD70 = 0x70;    // .returnAction_0x70 (pending task ptr)
+    const FIELD74 = 0x74;    // .returnActionArg_0x74 (pending task arg)
     const TA = 1 << 2;       // confirm
     const TB = 1 << 1;       // cancel
     const KU = 1 << 4;       // prev row
@@ -151,7 +151,7 @@ return new class extends TestCase {
 
     public function test_phase2_hands_off_when_fade_done()
     {
-        // field_0x70 holds the pending task (here MainMenu); called with (task, arg=2).
+        // returnAction_0x70 holds the pending task (here MainMenu); called with (task, arg=2).
         $this->arrange(press: 0, state: 2, selected: 3, isFading: 0,
                        field70: $this->addressOf('_MainMenuSwitchFromTask_8c01a09a'), field74: 2);
         $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with($this->task, 2);

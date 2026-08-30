@@ -255,7 +255,7 @@ STATIC void adjust_8c02b464(int msgSet, int delta) {
             var_driveMsgQueue_8c228564[0].ids = &init_8c04c35c[msgSet][1];
             var_driveMsgQueue_8c228564[0].duration = (float)((t + (t < 0)) >> 1);
             var_driveMsgQueue_8c228564[0].glyphCount_0x0c = 0;
-            var_driveMsgQueue_8c228564[0].field_0x10 = 0;
+            var_driveMsgQueue_8c228564[0].revealCounter_0x10 = 0;
             var_driveMsgQueue_8c228564[0].holdFrames = 0x3c;
         }
     }
@@ -1145,8 +1145,8 @@ STATIC void taskCallback_8c02c072() {
         DriveMsgSlot *slot = &var_driveMsgQueue_8c228564[i];
         if (slot->holdFrames != 0) {
             if (slot->glyphCount_0x0c < slot->count) {
-                slot->field_0x10 = slot->field_0x10 + 1;
-                slot->glyphCount_0x0c = slot->field_0x10 >> 1;
+                slot->revealCounter_0x10 = slot->revealCounter_0x10 + 1;
+                slot->glyphCount_0x0c = slot->revealCounter_0x10 >> 1;
             } else {
                 slot->holdFrames = slot->holdFrames - 1;
             }

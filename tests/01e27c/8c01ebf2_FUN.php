@@ -266,7 +266,7 @@ return new class extends TestCase {
         $this->shouldCall('_scrollTowardSelection_8c01ebc8');
 
         // scrollTowardSelection_8c01ebc8 is mocked above (same-object call), so its
-        // real body never runs -- field_0x44 stays at the value setUpDrawingTail set.
+        // real body never runs -- scrollTopRow_0x44 stays at the value setUpDrawingTail set.
         $this->expectDrawingTail(4, 11, 0);
     }
 
@@ -396,7 +396,7 @@ return new class extends TestCase {
     public function test_drawing_tail_scrolled_practice_mode_with_textbox(): void
     {
         // Covers the shared tail's remaining branches: scroll indicator
-        // (field_0x44 > 0), the textbox-has-text draw, and the practice-mode
+        // (scrollTopRow_0x44 > 0), the textbox-has-text draw, and the practice-mode
         // (gameMode != 0) icon -- exercised together via a passthrough state.
         $this->resolveSymbols();
         $this->setUpDrawingTail(selected: 4, scroll: 2, gameMode: 1);
@@ -580,13 +580,13 @@ return new class extends TestCase {
      * Neutral state for the shared drawing tail: no scroll, first row
      * selected, exp/story mode, single-digit scores so drawDigits_8c01ead8
      * (a real call, not mocked) makes exactly one sprite draw per row.
-     * $selected/$scroll let callers override selected_0x38/field_0x44 for
+     * $selected/$scroll let callers override selected_0x38/scrollTopRow_0x44 for
      * state-3 input tests.
      */
     private function setUpDrawingTail(int $selected = 0, int $scroll = 0, int $gameMode = 0): void
     {
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), $gameMode);
-        $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x44, $scroll); // field_0x44 (scroll)
+        $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x44, $scroll); // scrollTopRow_0x44 (scroll)
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, $selected); // selected_0x38
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x60, 5); // instructorSprite_0x60
         $this->initUint32($this->addressOf('_var_menuTextboxCharLimit_8c225fb8'), 0xff);

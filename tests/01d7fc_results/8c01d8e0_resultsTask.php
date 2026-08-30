@@ -126,13 +126,13 @@ return new class extends TestCase {
     public function test_state_8_advances_to_9_once_fade_clears(): void
     {
         $this->setup(8);
-        $this->initUint32($this->ms + 0x1c, 5); // field_0x1c: garbage, must be reset
+        $this->initUint32($this->ms + 0x1c, 5); // subState_0x1c: garbage, must be reset
         $this->initUint32($this->ms + 0x38, 5); // selected_0x38: garbage, must be reset
 
         $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 9);   // state_0x18 = 9
-        $this->shouldWriteLong($this->ms + 0x1c, 0);   // field_0x1c = 0
+        $this->shouldWriteLong($this->ms + 0x1c, 0);   // subState_0x1c = 0
         $this->shouldWriteLong($this->ms + 0x38, 0);   // selected_0x38 = 0
 
         $this->shouldCall('_drawTextboxSprite_8c01d864');
@@ -183,7 +183,7 @@ return new class extends TestCase {
     public function test_state_9_field0_confirm_resets_progress_and_writes_vmu(): void
     {
         $this->setup(9);
-        $this->initUint32($this->ms + 0x1c, 0); // field_0x1c
+        $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
@@ -202,7 +202,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_SystemMenuWriteToVmu_8c01b26c');
 
-        $this->shouldWriteLong($this->ms + 0x1c, 1); // field_0x1c = 1
+        $this->shouldWriteLong($this->ms + 0x1c, 1); // subState_0x1c = 1
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブ実行中です<E>電源を切らないで下さい");
 
@@ -216,7 +216,7 @@ return new class extends TestCase {
     public function test_state_9_field0_cancel_fades_out(): void
     {
         $this->setup(9);
-        $this->initUint32($this->ms + 0x1c, 0); // field_0x1c
+        $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
@@ -241,7 +241,7 @@ return new class extends TestCase {
     public function test_state_9_field0_no_prompt_answer_and_vmu_free_returns_to_state_4(): void
     {
         $this->setup(9);
-        $this->initUint32($this->ms + 0x1c, 0); // field_0x1c
+        $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
@@ -271,7 +271,7 @@ return new class extends TestCase {
     public function test_state_9_field0_no_prompt_answer_and_vmu_busy_stays_put(): void
     {
         $this->setup(9);
-        $this->initUint32($this->ms + 0x1c, 0); // field_0x1c
+        $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
@@ -293,7 +293,7 @@ return new class extends TestCase {
     public function test_state_9_field1_write_ok_shows_done_message(): void
     {
         $this->setup(9);
-        $this->initUint32($this->ms + 0x1c, 1); // field_0x1c
+        $this->initUint32($this->ms + 0x1c, 1); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), 1); // must be reset to 0
         $this->initUint32($this->addressOf('_var_backupFileImageBuf_8c1ba348'), 0x11223344); // must be freed
@@ -324,7 +324,7 @@ return new class extends TestCase {
     public function test_state_9_field1_write_failed_shows_error_and_confirms_retry(): void
     {
         $this->setup(9);
-        $this->initUint32($this->ms + 0x1c, 1); // field_0x1c
+        $this->initUint32($this->ms + 0x1c, 1); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), 1);
         $this->initUint32($this->addressOf('_var_backupFileImageBuf_8c1ba348'), 0x11223344);
@@ -355,7 +355,7 @@ return new class extends TestCase {
     public function test_state_9_field1_still_writing_stays_put(): void
     {
         $this->setup(9);
-        $this->initUint32($this->ms + 0x1c, 1); // field_0x1c
+        $this->initUint32($this->ms + 0x1c, 1); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
 
         $this->call('_resultsTask_8c01d8e0');

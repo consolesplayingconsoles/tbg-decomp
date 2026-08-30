@@ -47,7 +47,7 @@ struct MenuState {
     ResourceGroup resourceGroupA_0x00;
     ResourceGroup resourceGroupB_0x0c;
     TITLE_STATE state_0x18;
-    int field_0x1c;
+    int subState_0x1c;
     union {
         struct {
             float busX_0x20;
@@ -66,8 +66,8 @@ struct MenuState {
     int selected_0x38;
     int field_0x3c;
     int field_0x40;
-    int field_0x44;
-    int field_0x48;
+    int scrollTopRow_0x44;
+    int cursorVisible_0x48;
     int field_0x4c;
     int courseId_0x50;
     int field_0x54;
@@ -77,8 +77,8 @@ struct MenuState {
     int startTimer_0x64;
     int logo_timer_0x68;
     int selectedVmuSlot_0x6c;
-    int field_0x70;
-    int field_0x74;
+    int returnAction_0x70;
+    int returnActionArg_0x74;
     BACKUPINFO* bupInfo_0x78;
 }
 typedef MenuState;

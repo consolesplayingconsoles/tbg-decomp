@@ -403,7 +403,7 @@ return new Class extends TestCase {
 
         // timer++
         $this->shouldWriteLong($base + 0x68, 9);
-        // shared epilogue: field_0x48 = (logo_timer & 1) -> 9 & 1 = 1
+        // shared epilogue: cursorVisible_0x48 = (logo_timer & 1) -> 9 & 1 = 1
         $this->shouldWriteLong($base + 0x48, 1);
 
         $this->shouldRenderFrame(42, 21, 1);

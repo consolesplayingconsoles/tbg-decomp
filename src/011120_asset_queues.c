@@ -27,14 +27,14 @@ typedef struct {
     char *filename;
     void **dest_0x08;
     void **dest_0x0c;
-    int field_0x10;
+    int loaded_0x10;
 } QueuedNj;
 
 /* TODO: Same struct as Task, but with QueuedNj. */
 typedef struct {
     TaskAction action;
     void *state;
-    int field_0x08;
+    int phase_0x08;
     GDFS gdfs_0x0c;
     int field_0x10;
     int field_0x14;
@@ -49,13 +49,13 @@ typedef struct {
     void **texlist_0x08;
     int count_0x0c;
     int attr_0x10;
-    int field_0x14;
+    int loaded_0x14;
 } QueuedPvm;
 
 typedef struct {
     TaskAction action;
     void *state;
-    int field_0x08;
+    int phase_0x08;
     GDFS gdfs_0x0c;
     int field_0x10;
     int field_0x14;
@@ -80,7 +80,7 @@ typedef struct {
 typedef struct {
     TaskAction action;
     void *state;
-    int field_0x08;
+    int phase_0x08;
     GDFS gdfs_0x0c;
     int field_0x10;
     int field_0x14;
@@ -223,7 +223,7 @@ int AsqRequestDat_8c011182(char* basedir, char* filename, void* dest) {
     var_datQueueRear_8c157a90->basedir = basedir;
     var_datQueueRear_8c157a90->filename = filename;
     var_datQueueRear_8c157a90->dest = dest;
-    var_datQueueRear_8c157a90->field_0x0c = 0;
+    var_datQueueRear_8c157a90->loaded_0x0c = 0;
 
     var_datQueueRear_8c157a90++;
     return 1;
@@ -234,7 +234,7 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
     QueuedDat* item = task->queuedDat_0x18;
     Sint32 size;
 
-    switch (task->field_0x08) {
+    switch (task->phase_0x08) {
         /* 8c0111cc */
         case 0: {
             /* 8c0111da */
@@ -244,7 +244,7 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                     break;
                 }
 
-                if (item->field_0x0c == 0) {
+                if (item->loaded_0x0c == 0) {
                     /* TODO: Test this update */
                     if (*item->basedir != 0 && /* 8c0111ee */
                         strcmp(var_queueBaseDir_8c157a80, item->basedir) != 0 /* 8c0111f6 */
@@ -261,7 +261,7 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                         /* TODO: Write test for this */
                         var_8c157a88 = 1;
                         task->queuedDat_0x18++;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return;
                     }
 
@@ -271,7 +271,7 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                         /* TODO: Write test for this */
                         var_8c157a88 = 1;
                         task->queuedDat_0x18++;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return;
                     }
 
@@ -284,15 +284,15 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                         /* TODO: Write test for this */
                         var_8c157a88 = 1;
                         task->queuedDat_0x18++;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return;
                     }
 
                     /* 8c011282 (shared) */
                     gdFsClose(task->gdfs_0x0c);
-                    item->field_0x0c = 1;
+                    item->loaded_0x0c = 1;
                     task->queuedDat_0x18 = ++item;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
                     return;
                 }
 
@@ -322,9 +322,9 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                 case GDD_STAT_COMPLETE: {
                     /* 8c011282 (shared) */
                     gdFsClose(task->gdfs_0x0c);
-                    item->field_0x0c = 1;
+                    item->loaded_0x0c = 1;
                     task->queuedDat_0x18++;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
                     return;
                 } 
                 case GDD_STAT_READ: { /* 8c01127a */
@@ -341,7 +341,7 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                     /* 8c0112f4 (shared) */
                     var_8c157a88 = 1;
                     task->queuedDat_0x18++;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
                     break;
                 }
             }
@@ -457,7 +457,7 @@ int AsqRequestNj_8c011492(char* basedir, char* filename, void* dest, void* dest2
     var_njQueueRear_8c157aa0->filename = filename;
     var_njQueueRear_8c157aa0->dest_0x08 = dest;
     var_njQueueRear_8c157aa0->dest_0x0c = dest2;
-    var_njQueueRear_8c157aa0->field_0x10 = 0;
+    var_njQueueRear_8c157aa0->loaded_0x10 = 0;
 
     var_njQueueRear_8c157aa0++;
     return 1;
@@ -469,7 +469,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
     Sint32 size;
     Uint32 fpos = 0, rtype;
 
-    switch (task->field_0x08)
+    switch (task->phase_0x08)
     {
         case 0:
             while (1)
@@ -478,7 +478,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                     break;
                 }
 
-                if (qnj->field_0x10 == 0) {
+                if (qnj->loaded_0x10 == 0) {
                     if (
                         *qnj->basedir != 0 &&
                         strcmp(var_queueBaseDir_8c157a80, qnj->basedir) != 0
@@ -496,7 +496,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                         }
                         var_8c157a88 = 1;
                         task->queuedNj_0x18++;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return;
                     }
 
@@ -507,7 +507,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                         }
                         var_8c157a88 = 1;
                         task->queuedNj_0x18++;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return;
                     }
 
@@ -524,12 +524,12 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                         }
                         var_8c157a88 = 1;
                         task->queuedNj_0x18++;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return; 
                     }
 
                     gdFsClose(task->gdfs_0x0c);
-                    qnj->field_0x10 = 1;
+                    qnj->loaded_0x10 = 1;
 
                     if (qnj->dest_0x08 != 0) {
                         *qnj->dest_0x08 = njReadBinary(var_queueBuffer_8c157a84, &fpos, &rtype);
@@ -543,7 +543,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                         syFree(var_queueBuffer_8c157a84);
                     }
                     task->queuedNj_0x18 = ++qnj;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
                     return;
                 }
 
@@ -566,7 +566,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                 /* 8c011614 */
                 case GDD_STAT_COMPLETE: {
                     gdFsClose(task->gdfs_0x0c);
-                    qnj->field_0x10 = 1;
+                    qnj->loaded_0x10 = 1;
 
                     if (qnj->dest_0x08) {
                         *qnj->dest_0x08 = njReadBinary(var_queueBuffer_8c157a84, &fpos, &rtype);
@@ -581,7 +581,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                     }
 
                     task->queuedNj_0x18 = ++qnj;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
 
                     break;
                 }
@@ -607,7 +607,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                     var_8c157a88 = 1;
                     /* TODO: Test this with other item indexes */
                     task->queuedNj_0x18 = ++qnj;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
                     break;
                 }
             }
@@ -875,7 +875,7 @@ int AsqRequestPvm_8c011ac0(char *basedir, char *filename, void *texlist, int cou
     var_pvmQueueRear_8c157ac0->texlist_0x08 = texlist;
     var_pvmQueueRear_8c157ac0->count_0x0c = count;
     var_pvmQueueRear_8c157ac0->attr_0x10 = attr;
-    var_pvmQueueRear_8c157ac0->field_0x14 = 0;
+    var_pvmQueueRear_8c157ac0->loaded_0x14 = 0;
 
     var_pvmQueueRear_8c157ac0++;
 
@@ -887,11 +887,11 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
     QueuedPvm *pvm = (QueuedPvm*) task->queuedPvm_0x18;
     Sint32 size;
 
-    switch (task->field_0x08) {
+    switch (task->phase_0x08) {
         case 0: {
             for (; pvm < var_pvmQueueRear_8c157ac0; pvm++)
             {
-                if (pvm->field_0x14 == 0) {
+                if (pvm->loaded_0x14 == 0) {
                     int i;
                     int *temp;
                     char *filename;
@@ -907,14 +907,14 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                     if (!task->gdfs_0x0c) {
                         var_8c157a88 = 1;
                         task->queuedPvm_0x18 = ++pvm;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return;
                     }
 
                     if (!gdFsGetFileSctSize(task->gdfs_0x0c, &size)) {
                         var_8c157a88 = 1;
                         task->queuedPvm_0x18 = ++pvm;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return;
                     }
 
@@ -928,12 +928,12 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                     if (gdFsRead(task->gdfs_0x0c, size, var_queueBuffer_8c157a84)) {
                         var_8c157a88 = 1;
                         task->queuedPvm_0x18 = ++pvm;
-                        task->field_0x08 = 0;
+                        task->phase_0x08 = 0;
                         return;
                     }
 
                     gdFsClose(task->gdfs_0x0c);
-                    pvm->field_0x14 = 1;
+                    pvm->loaded_0x14 = 1;
 
                     *pvm->texlist_0x08 = texlist = syMalloc(sizeof(NJS_TEXLIST));
 
@@ -953,7 +953,7 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                     }
 
                     task->queuedPvm_0x18 = ++pvm;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
                     return;
                 }
             }
@@ -979,7 +979,7 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                     char *filename;
 
                     gdFsClose(task->gdfs_0x0c);
-                    pvm->field_0x14 = 1;
+                    pvm->loaded_0x14 = 1;
 
                     *pvm->texlist_0x08 = texlist = syMalloc(sizeof(NJS_TEXLIST));
 
@@ -1000,7 +1000,7 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                     }
 
                     task->queuedPvm_0x18 = ++pvm;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
                     return;
                 }
 
@@ -1022,7 +1022,7 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
 
                     var_8c157a88 = 1;
                     task->queuedPvm_0x18 = ++pvm;
-                    task->field_0x08 = 0;
+                    task->phase_0x08 = 0;
                     return;
                 }
             }

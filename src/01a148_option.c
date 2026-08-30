@@ -732,7 +732,7 @@ STATIC void switchToAudio_8c01afd8(Task *task)
  * wrapping 0-3). Phases: 0 = wait for fade-in, 1 = navigate, 2 = fade-out then
  * hand off to the pending task. Confirm (A) or RETURN picks init_8c044e28[row];
  * cancel (B) returns to the main menu. The pending task and its arg (always 2)
- * are stashed in field_0x70/field_0x74 and tail-called once the fade-out ends.
+ * are stashed in returnAction_0x70/returnActionArg_0x74 and tail-called once the fade-out ends.
  */
 STATIC void topMenuTask_8c01b00a(Task *task)
 {
@@ -750,14 +750,14 @@ STATIC void topMenuTask_8c01b00a(Task *task)
         case OPTION_STATE_NAVIGATE: {
             if (press & PDD_DGT_TA) {
                 CHANGE_STATE(OPTION_STATE_EDIT);
-                m->field_0x70 = (int)init_8c044e28[m->selected_0x38];
-                m->field_0x74 = 2;
+                m->returnAction_0x70 = (int)init_8c044e28[m->selected_0x38];
+                m->returnActionArg_0x74 = 2;
                 FadePushOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
                 CHANGE_STATE(OPTION_STATE_EDIT);
-                m->field_0x70 = (int)MainMenuSwitchFromTask_8c01a09a;
-                m->field_0x74 = 2;
+                m->returnAction_0x70 = (int)MainMenuSwitchFromTask_8c01a09a;
+                m->returnActionArg_0x74 = 2;
                 FadePushOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             } else if (press & PDD_DGT_KU) {
@@ -778,7 +778,7 @@ STATIC void topMenuTask_8c01b00a(Task *task)
 
         case OPTION_STATE_EDIT: {   /* fade-out, then hand off to the pending task */
             if (var_isFading_8c226568 == 0) {
-                ((TaskAction)m->field_0x70)(task, (void *)m->field_0x74);
+                ((TaskAction)m->returnAction_0x70)(task, (void *)m->returnActionArg_0x74);
                 return;
             }
             break;

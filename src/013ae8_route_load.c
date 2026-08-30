@@ -327,9 +327,9 @@ STATIC void syncSegmentModels_8c013f78(void)
 
     if (entry->fog_0x24 != 0) {
         var_fogParams_8c18ad28 = entry->fog_0x24;
-        var_fogParam_8c226504 = var_fogParams_8c18ad28->field_0x00 - 1;
+        var_fogParam_8c226504 = var_fogParams_8c18ad28->tileWindowSpan_0x00 - 1;
         var_fogParam_8c226508 = var_fogParam_8c226504 / 2;
-        var_fogParam_8c227dd0 = var_fogParams_8c18ad28->field_0x04;
+        var_fogParam_8c227dd0 = var_fogParams_8c18ad28->farClipDepth_0x04;
     }
 
     if (entry->modelFiles_0x28 != 0) {

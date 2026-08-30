@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 /*
  * updateEndingOverlay_8c01f42c(void): per-frame easing of the credits header
  * sprite, drawn from MenuState.pos.title (busX_0x20/flagY_0x24) with
- * cursorVelocity_0x30 as its velocity. field_0x1c (0/1) drives a
+ * cursorVelocity_0x30 as its velocity. subState_0x1c (0/1) drives a
  * grow-then-shrink vertical bounce; the x position bounces between 0 and 90
  * by negating cursorVelocity_0x30.x at the limits. Also redraws the
  * instructor portrait and resets the background color every frame.
@@ -147,7 +147,7 @@ return new class extends TestCase {
     public function test_x_above_limit_negates_velocity(): void
     {
         $this->resolveSymbols();
-        // No phase-0/1 vertical work: field_0x1c holds a value outside 0/1.
+        // No phase-0/1 vertical work: subState_0x1c holds a value outside 0/1.
         $base = $this->seed(2, 89.5, 150.0, 1.0, 0.0, 0);
 
         $this->call('_updateEndingOverlay_8c01f42c');

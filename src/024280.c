@@ -17,13 +17,13 @@
 
 /* Per-gear table indexed by BusState.gear_0x2f4, shared by the throttle
  * (applyThrottle_8c024320) and brake (FUN_8c024530/FUN_8c024606) handlers.
- * field_0x08 is field_0x04 * 6000.0f -- the top speed for the gear, in the
- * units field_0x04 converts speed into before feeding asinf. field_0x00's
+ * topSpeed_0x08 is speedToAngleFactor_0x04 * 6000.0f -- the top speed for the gear, in the
+ * units speedToAngleFactor_0x04 converts speed into before feeding asinf. throttleRampRate_0x00's
  * role is not yet confirmed from the functions decompiled so far. */
 typedef struct {
-    int field_0x00;
-    float field_0x04;
-    float field_0x08;
+    int throttleRampRate_0x00;
+    float speedToAngleFactor_0x04;
+    float topSpeed_0x08;
 } GearTableEntry;
 
 /* =====================
@@ -125,12 +125,12 @@ STATIC void applyBraking_8c024530(void)
     }
 
     gear = var_busState_8c1bb9d0.gear_0x2f4;
-    if (gear != 0 && init_8c045638[gear - 1].field_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
+    if (gear != 0 && init_8c045638[gear - 1].topSpeed_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
         gear -= 1;
         var_busState_8c1bb9d0.gear_0x2f4 = gear;
     }
 
-    ratio = var_busState_8c1bb9d0.speed_0x27c / init_8c045638[gear].field_0x04;
+    ratio = var_busState_8c1bb9d0.speed_0x27c / init_8c045638[gear].speedToAngleFactor_0x04;
     var_busState_8c1bb9d0.target_0x2e8 = ratio;
 
     angle = (int)((asinf(ratio / 6000.0f) * 65536.0f) / TWO_PI);
@@ -144,7 +144,7 @@ STATIC void applyBraking_8c024530(void)
 /* Throttle handler: while the .r trigger clears its saved deadzone
  * (var_8c1ba29c) by at least var_8c1bbcb4's minimum scaled step, ramps
  * BusState.needleCurrentValue_0x2e4 (an engine-RPM needle) toward that step at a
- * per-gear rate (init_8c045638[gear].field_0x00), feeds it through njSin to
+ * per-gear rate (init_8c045638[gear].throttleRampRate_0x00), feeds it through njSin to
  * derive target_0x2e8/speed_0x27c, and upshifts (playing a shift-cue MIDI
  * note) once speed clears the next gear's top speed -- or, already at the
  * top gear, just clamps speed to its max. Otherwise coasts: decays
@@ -170,7 +170,7 @@ STATIC void applyThrottle_8c024320(void)
     if (trigger > deadzone && step >= var_8c1bbcb4) {
         gear = var_busState_8c1bb9d0.gear_0x2f4;
 
-        var_busState_8c1bb9d0.needleCurrentValue_0x2e4 += init_8c045638[gear].field_0x00;
+        var_busState_8c1bb9d0.needleCurrentValue_0x2e4 += init_8c045638[gear].throttleRampRate_0x00;
         if (var_busState_8c1bb9d0.needleCurrentValue_0x2e4 > step) {
             var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = step;
         }
@@ -178,7 +178,7 @@ STATIC void applyThrottle_8c024320(void)
         var_busState_8c1bb9d0.target_0x2e8 =
             njSin(var_busState_8c1bb9d0.needleCurrentValue_0x2e4) * 6000.0f;
         var_busState_8c1bb9d0.speed_0x27c =
-            var_busState_8c1bb9d0.target_0x2e8 * init_8c045638[gear].field_0x04;
+            var_busState_8c1bb9d0.target_0x2e8 * init_8c045638[gear].speedToAngleFactor_0x04;
 
         if (gear >= 4) {
             if (var_busState_8c1bb9d0.speed_0x27c > 0.6481481194496155f) {
@@ -187,7 +187,7 @@ STATIC void applyThrottle_8c024320(void)
             return;
         }
 
-        if (var_busState_8c1bb9d0.speed_0x27c <= init_8c045638[gear].field_0x08) {
+        if (var_busState_8c1bb9d0.speed_0x27c <= init_8c045638[gear].topSpeed_0x08) {
             return;
         }
 
@@ -204,7 +204,7 @@ STATIC void applyThrottle_8c024320(void)
         }
 
         gear = var_busState_8c1bb9d0.gear_0x2f4;
-        if (gear != 0 && init_8c045638[gear - 1].field_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
+        if (gear != 0 && init_8c045638[gear - 1].topSpeed_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, (var_cameraMode_8c227d9c >= 2) ? 0x25 : 0x26, 0);
             gear -= 1;
             var_busState_8c1bb9d0.gear_0x2f4 = gear;
@@ -213,7 +213,7 @@ STATIC void applyThrottle_8c024320(void)
 
     gear = var_busState_8c1bb9d0.gear_0x2f4;
     var_busState_8c1bb9d0.target_0x2e8 =
-        var_busState_8c1bb9d0.speed_0x27c / init_8c045638[gear].field_0x04;
+        var_busState_8c1bb9d0.speed_0x27c / init_8c045638[gear].speedToAngleFactor_0x04;
     var_busState_8c1bb9d0.needleCurrentValue_0x2e4 =
         (int)((asinf(var_busState_8c1bb9d0.target_0x2e8 / 6000.0f) * 65536.0f) / TWO_PI);
 }

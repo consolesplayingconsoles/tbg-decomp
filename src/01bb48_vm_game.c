@@ -362,7 +362,7 @@ STATIC void selectSlot_8c01bf2a(int slot)
     m->cursorVelocity_0x30.y =
     (cursorTarget->y - m->pos.vmSelect.cursor_0x20.y) / 6.0f;
 
-    if (m->field_0x1c != MENU_DOWNLOAD) {
+    if (m->subState_0x1c != MENU_DOWNLOAD) {
         switch (var_vmuStatus_8c226048[slot]) {
             case VMU_STATUS_NOT_AVAILABLE:
             case VMU_STATUS_NOT_ENOUGH_SPACE:
@@ -414,12 +414,12 @@ STATIC void vmGameTask_8c01bfec(Task *task)
             switch (slot) {
                 case MENU_DOWNLOAD:
                     m->state_0x18 = STATE_MENU_FADE_OUT;
-                    m->field_0x1c = MENU_DOWNLOAD;
+                    m->subState_0x1c = MENU_DOWNLOAD;
                     FadePushOut_8c022b60(10);
                     break;
                 case MENU_EXP_LOAD:
                     m->state_0x18 = STATE_MENU_FADE_OUT;
-                    m->field_0x1c = MENU_EXP_LOAD;
+                    m->subState_0x1c = MENU_EXP_LOAD;
                     FadePushOut_8c022b60(10);
                     break;
                 case MENU_EXIT:
@@ -571,7 +571,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
 
             if (slot == m->selected_0x38) {
                 if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-                    if (m->field_0x1c == MENU_DOWNLOAD) {
+                    if (m->subState_0x1c == MENU_DOWNLOAD) {
                         m->state_0x18 = STATE_DOWNLOAD;
                         ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_DL_QUIZ);
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -886,7 +886,7 @@ STATIC void vmGameTask_8c01bfec(Task *task)
             break;
 
         m->state_0x18 = STATE_MENU_FADE_IN;
-        m->selected_0x38 = m->field_0x1c;
+        m->selected_0x38 = m->subState_0x1c;
         ObjectsSwapMessageBoxFor_8c02aefc("");
         FadePushIn_8c022a9c(10);
         return;

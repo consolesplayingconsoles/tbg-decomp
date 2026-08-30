@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, $pvm1Dest); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 2); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe0005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 0); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 0); // int loaded_0x14;
 
         $currentQueuedPvm += $sizeOfQueuedPvm;
         $this->initUint32($currentQueuedPvm + 0x00, 0xcafe1001); // char* basedir;
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe1003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe1004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe1005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 0); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 0); // int loaded_0x14;
 
         $currentQueuedPvm += $sizeOfQueuedPvm;
         $this->initUint32($currentQueuedPvm + 0x00, 0xcafe2001); // char* basedir;
@@ -43,7 +43,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe2003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe2004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe2005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 0); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 0); // int loaded_0x14;
 
         $this->initUint32(
             $this->addressOf('_var_pvmQueueRear_8c157ac0'),
@@ -51,7 +51,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedPvm_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $pvmQueue);
@@ -145,7 +145,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe0003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe0004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe0005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 1); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 1); // int loaded_0x14;
         
         $pvm1Dest = $this->alloc(4);
         $currentQueuedPvm += $sizeOfQueuedPvm;
@@ -154,7 +154,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, $pvm1Dest); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 2); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe1005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 0); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 0); // int loaded_0x14;
 
         $currentQueuedPvm += $sizeOfQueuedPvm;
         $this->initUint32($currentQueuedPvm + 0x00, 0xcafe2001); // char* basedir;
@@ -162,7 +162,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe2003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe2004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe2005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 0); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 0); // int loaded_0x14;
 
         $this->initUint32(
             $this->addressOf('_var_pvmQueueRear_8c157ac0'),
@@ -170,7 +170,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedPvm_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $pvmQueue);
@@ -260,7 +260,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe0003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe0004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe0005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 1); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 1); // int loaded_0x14;
         
         $pvm1Dest = $this->alloc(4);
         $currentQueuedPvm += $sizeOfQueuedPvm;
@@ -269,7 +269,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe1003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe1004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe1005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 1); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 1); // int loaded_0x14;
 
         $currentQueuedPvm += $sizeOfQueuedPvm;
         $this->initUint32($currentQueuedPvm + 0x00, 0xcafe2001); // char* basedir;
@@ -277,7 +277,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe2003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe2004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe2005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 1); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 1); // int loaded_0x14;
 
         $this->initUint32(
             $this->addressOf('_var_pvmQueueRear_8c157ac0'),
@@ -289,7 +289,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c157a88'), 1);
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedPvm_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $pvmQueue);
@@ -325,7 +325,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe0003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe0004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe0005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 1); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 1); // int loaded_0x14;
         
         $pvm1Dest = $this->alloc(4);
         $currentQueuedPvm += $sizeOfQueuedPvm;
@@ -334,7 +334,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe1003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe1004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe1005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 1); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 1); // int loaded_0x14;
 
         $currentQueuedPvm += $sizeOfQueuedPvm;
         $this->initUint32($currentQueuedPvm + 0x00, 0xcafe2001); // char* basedir;
@@ -342,7 +342,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, 0xcafe2003); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 0xcafe2004); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe2005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 1); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 1); // int loaded_0x14;
 
         $this->initUint32(
             $this->addressOf('_var_pvmQueueRear_8c157ac0'),
@@ -354,7 +354,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c157a88'), 0);
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedPvm_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $pvmQueue);
@@ -392,10 +392,10 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x08, $texlistPtr); // void** field_0x08;
         $this->initUint32($currentQueuedPvm + 0x0c, 3); // int count_0x0c;
         $this->initUint32($currentQueuedPvm + 0x10, 0xcafe0005); // int attr_0x10;
-        $this->initUint32($currentQueuedPvm + 0x14, 1); // int field_0x14;
+        $this->initUint32($currentQueuedPvm + 0x14, 1); // int loaded_0x14;
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -454,7 +454,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), $this->addressOf('_var_texbuf_8c277ca0'));
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -491,7 +491,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), $this->addressOf('_var_texbuf_8c277ca0'));
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -534,7 +534,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedPvm + 0x0c, 0); // int count_0x0c;
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -566,7 +566,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_pvmQueue_8c157a8c'), $pvmQueue);
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 2);
 
         $this->singleCall('_taskLoadQueuedPvms_8c011b00')

@@ -25,19 +25,19 @@
  */
 
 typedef struct {
-    int field_0x00;
+    int activeFlags_0x00;
     int field_0x04;
-    int field_0x08;
-    int field_0x0c;
+    int midRpmVolBase_0x08;
+    int highRpmVolBase_0x0c;
     int field_0x10;
-    int field_0x14;
-    float field_0x18;
-    float field_0x1c;
-    float field_0x20;
-} UnknownVolStructA;
+    int idleVol_0x14;
+    float midRpmSlope_0x18;
+    float highRpmSlope_0x1c;
+    float postShiftSlope_0x20;
+} EngineSoundState;
 
 typedef struct {
-    float field_0x00;
+    float rpm_0x00;
 } UnknownVolStructB;
 
 typedef struct {
@@ -78,7 +78,7 @@ ADXT var_adxtHandles_8c0fcd20[2];
 SDMIDI var_midiHandles_8c0fcd28[8];
 void* var_memblkSource_8c0fcd48;
 void* var_memblkSource_8c0fcd4c;
-UnknownVolStructA var_uknVol_8c0fcd50;
+EngineSoundState var_uknVol_8c0fcd50;
 
 char var_work_8c0fcd74[WKSIZE * 2];
 char var_adxfWork_8c156efc[ADXF_CALC_PTINFO_SIZE(MAX_NFILES)];
@@ -111,25 +111,25 @@ int SndProc_8c010cd6(int p1, int p2);
 
 /* Tested */
 STATIC void initUknVol_8c0100bc() {
-    var_uknVol_8c0fcd50.field_0x18 = (float) init_vol_8c03bd90 / 2600;
-    var_uknVol_8c0fcd50.field_0x1c = var_uknVol_8c0fcd50.field_0x18 * 2600 / 3000;
-    var_uknVol_8c0fcd50.field_0x14 = init_vol_8c03bd90 * 30 / 100;
-    var_uknVol_8c0fcd50.field_0x08 = init_vol_8c03bd90 * 40 / 100;
-    var_uknVol_8c0fcd50.field_0x0c = var_uknVol_8c0fcd50.field_0x18 * 3000;
-    var_uknVol_8c0fcd50.field_0x20 = (float) init_vol_8c03bd90 / 3900;
+    var_uknVol_8c0fcd50.midRpmSlope_0x18 = (float) init_vol_8c03bd90 / 2600;
+    var_uknVol_8c0fcd50.highRpmSlope_0x1c = var_uknVol_8c0fcd50.midRpmSlope_0x18 * 2600 / 3000;
+    var_uknVol_8c0fcd50.idleVol_0x14 = init_vol_8c03bd90 * 30 / 100;
+    var_uknVol_8c0fcd50.midRpmVolBase_0x08 = init_vol_8c03bd90 * 40 / 100;
+    var_uknVol_8c0fcd50.highRpmVolBase_0x0c = var_uknVol_8c0fcd50.midRpmSlope_0x18 * 3000;
+    var_uknVol_8c0fcd50.postShiftSlope_0x20 = (float) init_vol_8c03bd90 / 3900;
 }
 
 /* Tested */
 STATIC void midiSetVol_8c010128() {
     int r13var_engineRpm_8c226468_as_int = var_engineRpm_8c226468;
 
-    if ((var_uknVol_8c0fcd50.field_0x00 & 2) == 2) {
+    if ((var_uknVol_8c0fcd50.activeFlags_0x00 & 2) == 2) {
         /* A */
         if (r13var_engineRpm_8c226468_as_int >= 10.f && r13var_engineRpm_8c226468_as_int < 3000.f) {
             /* B */
             sdMidiSetVol(
                 var_midiHandles_8c0fcd28[7],
-                var_uknVol_8c0fcd50.field_0x08 + (r13var_engineRpm_8c226468_as_int - 10.f) * var_uknVol_8c0fcd50.field_0x18 - 127,
+                var_uknVol_8c0fcd50.midRpmVolBase_0x08 + (r13var_engineRpm_8c226468_as_int - 10.f) * var_uknVol_8c0fcd50.midRpmSlope_0x18 - 127,
                 0
             );
         /* 8c010192 */
@@ -138,23 +138,23 @@ STATIC void midiSetVol_8c010128() {
             /* 8c01019a */
             sdMidiSetVol(
                 var_midiHandles_8c0fcd28[7],
-                var_uknVol_8c0fcd50.field_0x0c - (r13var_engineRpm_8c226468_as_int - 3000) * var_uknVol_8c0fcd50.field_0x1c - 127,
+                var_uknVol_8c0fcd50.highRpmVolBase_0x0c - (r13var_engineRpm_8c226468_as_int - 3000) * var_uknVol_8c0fcd50.highRpmSlope_0x1c - 127,
                 0
             );
         }
     }
-    if ((var_uknVol_8c0fcd50.field_0x00 & 4) == 4) {
+    if ((var_uknVol_8c0fcd50.activeFlags_0x00 & 4) == 4) {
         /* D */
         sdMidiSetVol(
             var_midiHandles_8c0fcd28[6],
-            (r13var_engineRpm_8c226468_as_int - 1000.f) * var_uknVol_8c0fcd50.field_0x20 - 127,
+            (r13var_engineRpm_8c226468_as_int - 1000.f) * var_uknVol_8c0fcd50.postShiftSlope_0x20 - 127,
             0
         );
 
         if (r13var_engineRpm_8c226468_as_int < 2100) {
             /* E */
             /* 8c0101e2 */
-            var_uknVol_8c0fcd50.field_0x00 &= ~4;
+            var_uknVol_8c0fcd50.activeFlags_0x00 &= ~4;
 
             sdMidiSetVol(
                 var_midiHandles_8c0fcd28[6],
@@ -201,46 +201,46 @@ STATIC void FUN_8c0102d8()
     int bcb0 = var_8c1bbcb0;
     int var_engineRpm_8c226468_as_int = var_engineRpm_8c226468;
 
-    if ((var_uknVol_8c0fcd50.field_0x00 & 1) != 1 && bcb0 == 1) {
+    if ((var_uknVol_8c0fcd50.activeFlags_0x00 & 1) != 1 && bcb0 == 1) {
         /* A */
         /* 8c010312 */
         sdMidiSetPitch(var_midiHandles_8c0fcd28[6], -200, 0);
-        sdMidiSetVol(var_midiHandles_8c0fcd28[6], var_uknVol_8c0fcd50.field_0x14 - 127, 0);
+        sdMidiSetVol(var_midiHandles_8c0fcd28[6], var_uknVol_8c0fcd50.idleVol_0x14 - 127, 0);
         sdMidiPlay(var_midiHandles_8c0fcd28[6], 1, 43, 0);
 
-        // var_uknVol_8c0fcd50.field_0x00 = 0;
-        var_uknVol_8c0fcd50.field_0x00 = 0 | 1;
+        // var_uknVol_8c0fcd50.activeFlags_0x00 = 0;
+        var_uknVol_8c0fcd50.activeFlags_0x00 = 0 | 1;
         // }
-    } else if ((var_uknVol_8c0fcd50.field_0x00 & 1) == 1 && bcb0 != 1) {
+    } else if ((var_uknVol_8c0fcd50.activeFlags_0x00 & 1) == 1 && bcb0 != 1) {
         /* C */
         /* 8c010378 */
         sdMidiSetVol(var_midiHandles_8c0fcd28[6], -127, 2000);
-        var_uknVol_8c0fcd50.field_0x00 &= (char) 0xfe;
+        var_uknVol_8c0fcd50.activeFlags_0x00 &= (char) 0xfe;
     }
 
-    // var_uknVol_8c0fcd50_field_0x00_temp = var_uknVol_8c0fcd50.field_0x00 & 2;
+    // var_uknVol_8c0fcd50_field_0x00_temp = var_uknVol_8c0fcd50.activeFlags_0x00 & 2;
     /* 8c010388 */
-    if ((var_uknVol_8c0fcd50.field_0x00 & 2) != 2 && var_engineRpm_8c226468_as_int >= 400.f) {
+    if ((var_uknVol_8c0fcd50.activeFlags_0x00 & 2) != 2 && var_engineRpm_8c226468_as_int >= 400.f) {
         /* D */
         sdMidiSetPitch(var_midiHandles_8c0fcd28[7], 0, 0);
         sdMidiSetVol(var_midiHandles_8c0fcd28[7], -127, 0);
         sdMidiPlay(var_midiHandles_8c0fcd28[7], 1, 44, 0);
 
-        var_uknVol_8c0fcd50.field_0x00 |= 2;
-    } else if ((var_uknVol_8c0fcd50.field_0x00 & 2) == 2 && var_engineRpm_8c226468_as_int < 400.f) {
+        var_uknVol_8c0fcd50.activeFlags_0x00 |= 2;
+    } else if ((var_uknVol_8c0fcd50.activeFlags_0x00 & 2) == 2 && var_engineRpm_8c226468_as_int < 400.f) {
         /* F */
-        var_uknVol_8c0fcd50.field_0x00 &= (char) 0xfd;
+        var_uknVol_8c0fcd50.activeFlags_0x00 &= (char) 0xfd;
     }
 
-    // var_uknVol_8c0fcd50_field_0x00_temp = var_uknVol_8c0fcd50.field_0x00 & 4;
+    // var_uknVol_8c0fcd50_field_0x00_temp = var_uknVol_8c0fcd50.activeFlags_0x00 & 4;
     /* 8c0103de */
-    if ((var_uknVol_8c0fcd50.field_0x00 & 4) != 4 && var_engineRpm_8c226468_as_int >= 2100.f) {
+    if ((var_uknVol_8c0fcd50.activeFlags_0x00 & 4) != 4 && var_engineRpm_8c226468_as_int >= 2100.f) {
         /* G */
         sdMidiSetPitch(var_midiHandles_8c0fcd28[6], 0, 0);
         sdMidiSetVol(var_midiHandles_8c0fcd28[6], -127, 0);
         sdMidiPlay(var_midiHandles_8c0fcd28[6], 1, 45, 0);
 
-        var_uknVol_8c0fcd50.field_0x00 |= 4;
+        var_uknVol_8c0fcd50.activeFlags_0x00 |= 4;
     }
 }
 

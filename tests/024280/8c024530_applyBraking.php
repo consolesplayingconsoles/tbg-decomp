@@ -9,7 +9,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // with speed and with how far the .l trigger (var_8c1ba376) has moved past
 // its saved deadzone (var_8c1ba29d), clamped to 0. If the resulting speed
 // drops under the next-lower gear's top speed (init_8c045638[gear-1].
-// field_0x08), downshifts one gear. Then derives target_0x2e8/needleCurrentValue_0x2e4
+// topSpeed_0x08), downshifts one gear. Then derives target_0x2e8/needleCurrentValue_0x2e4
 // from the (possibly new) gear's table entry via asinf, and updates
 // var_8c2285c4[36]'s running average with the brake amount.
 //
@@ -58,7 +58,7 @@ return new class extends TestCase {
     }
 
     // Gear 2 with baseline braking: new speed (0.048) drops below gear 1's
-    // top speed (init_8c045638[1].field_0x08 ~= 0.185), so it downshifts to
+    // top speed (init_8c045638[1].topSpeed_0x08 ~= 0.185), so it downshifts to
     // gear 1, and the needle values are derived from gear 1's row.
     public function test_downshift_whenBelowLowerGearTop(): void {
         $bus = $this->setup(0.05, 2, 0, 0, 0.0);

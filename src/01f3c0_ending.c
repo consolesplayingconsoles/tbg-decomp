@@ -150,7 +150,7 @@ STATIC void selectEndingDialog_8c01f3c0(void)
 
 /* Per-frame easing for the credits header sprite and its draw. Reuses
  * MenuState.pos.title (busX/flagY) as the header's x/y and
- * cursorVelocity_0x30 as its x/y velocity: field_0x1c drives a simple
+ * cursorVelocity_0x30 as its x/y velocity: subState_0x1c drives a simple
  * grow-then-shrink vertical bounce (0 = growing, 1 = shrinking), while the
  * x position bounces between 0 and 90 by negating its velocity at the
  * limits. Also redraws the instructor portrait and resets the background
@@ -159,17 +159,17 @@ STATIC void updateEndingOverlay_8c01f42c(void)
 {
     const float step = 0.1f;
 
-    if (var_menuState_8c1bc7a8.field_0x1c == 0) {
+    if (var_menuState_8c1bc7a8.subState_0x1c == 0) {
         var_menuState_8c1bc7a8.cursorVelocity_0x30.y += step;
         var_menuState_8c1bc7a8.pos.title.flagY_0x24 += var_menuState_8c1bc7a8.cursorVelocity_0x30.y;
         if (var_menuState_8c1bc7a8.pos.title.flagY_0x24 > 300.0f) {
-            var_menuState_8c1bc7a8.field_0x1c = 1;
+            var_menuState_8c1bc7a8.subState_0x1c = 1;
         }
-    } else if (var_menuState_8c1bc7a8.field_0x1c == 1) {
+    } else if (var_menuState_8c1bc7a8.subState_0x1c == 1) {
         var_menuState_8c1bc7a8.pos.title.flagY_0x24 -= var_menuState_8c1bc7a8.cursorVelocity_0x30.y;
         var_menuState_8c1bc7a8.cursorVelocity_0x30.y -= step;
         if (0.0f > var_menuState_8c1bc7a8.cursorVelocity_0x30.y) {
-            var_menuState_8c1bc7a8.field_0x1c = 0;
+            var_menuState_8c1bc7a8.subState_0x1c = 0;
         }
     }
 
@@ -197,14 +197,14 @@ STATIC void updateEndingOverlay_8c01f42c(void)
  * scrolls fully off-screen (y < -480) it wraps back to the bottom (y += 960)
  * and loads the next credit line (startTimer_0x64 indexes across the combined
  * init_8c04528c/init_8c045290 table). When TxtPrepareTextBoxLayout_8c01543a
- * fails (the "" terminator), field_0x1c is latched to signal "no more
+ * fails (the "" terminator), subState_0x1c is latched to signal "no more
  * credits" to creditsTask_8c01f658. field_0x54/field_0x58 are per-box
  * frame counters, clamped to 0xff, fed into TxtDrawTextbox_8c0155e0. */
 STATIC int scrollCreditsText_8c01f50e(void)
 {
     TextBox *box;
 
-    if (var_menuState_8c1bc7a8.field_0x1c == 0) {
+    if (var_menuState_8c1bc7a8.subState_0x1c == 0) {
         int idx = var_menuState_8c1bc7a8.field_0x5c;
         int other = idx ^ 1;
 
@@ -224,7 +224,7 @@ STATIC int scrollCreditsText_8c01f50e(void)
                 var_menuState_8c1bc7a8.field_0x5c = idx ^ 1;
                 var_menuState_8c1bc7a8.startTimer_0x64++;
             } else {
-                var_menuState_8c1bc7a8.field_0x1c = 1;
+                var_menuState_8c1bc7a8.subState_0x1c = 1;
             }
         }
     }
@@ -254,7 +254,7 @@ STATIC void creditsTask_8c01f658(void)
         }
         AsqFreeQueues_8c011f7e();
         var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_FADE_IN;
-        var_menuState_8c1bc7a8.field_0x1c = 0;
+        var_menuState_8c1bc7a8.subState_0x1c = 0;
         var_menuState_8c1bc7a8.pos.title.busX_0x20 = 45.0f;
         var_menuState_8c1bc7a8.pos.title.flagY_0x24 = 100.0f;
         var_menuState_8c1bc7a8.cursorVelocity_0x30.x = 1.0f;
@@ -298,7 +298,7 @@ STATIC void creditsTask_8c01f658(void)
         var_messageTextBoxB_8c1bc408 = TxtCreateTextBox_8c0152fc(0, 960, -5.0f, 640, 480, 0, 0, -1);
         TxtPrepareTextBoxLayout_8c01543a((TextBox *) var_messageTextBoxA_8c1bc404, init_8c04528c[0]);
         TxtPrepareTextBoxLayout_8c01543a((TextBox *) var_messageTextBoxB_8c1bc408, init_8c045290[0]);
-        var_menuState_8c1bc7a8.field_0x1c = 0;
+        var_menuState_8c1bc7a8.subState_0x1c = 0;
         var_menuState_8c1bc7a8.field_0x5c = 0;
         var_menuState_8c1bc7a8.startTimer_0x64 = 2;
         var_menuState_8c1bc7a8.field_0x54 = 0;
@@ -322,7 +322,7 @@ STATIC void creditsTask_8c01f658(void)
             SndProc_8c010cd6(0, 11);
             var_menuState_8c1bc7a8.logo_timer_0x68 = 2700;
         }
-        if (var_menuState_8c1bc7a8.field_0x1c != 0) {
+        if (var_menuState_8c1bc7a8.subState_0x1c != 0) {
             var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_CREDITS_HOLD;
             var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
         }

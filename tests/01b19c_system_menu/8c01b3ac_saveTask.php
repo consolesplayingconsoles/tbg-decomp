@@ -78,7 +78,7 @@ return new class extends TestCase {
         $this->expectDrawTail($menuState, $selected, $textboxResult);
     }
 
-    /* Enter a confirm state (3/5/6): state, sub-state field_0x1c, prompt cursor
+    /* Enter a confirm state (3/5/6): state, sub-state subState_0x1c, prompt cursor
      * field_0x3c, selected, and the entry-hoisted globals. */
     private function stateEnter(int $menuState, int $state, int $field1c, int $field3c, int $selected): void
     {
@@ -413,7 +413,7 @@ return new class extends TestCase {
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
     }
 
-    /* ---- State 3: LOAD confirm (field_0x1c == 0) ---- */
+    /* ---- State 3: LOAD confirm (subState_0x1c == 0) ---- */
 
     public function test_state3_confirm_load(): void
     {
@@ -476,7 +476,7 @@ return new class extends TestCase {
         $this->expectPromptTail($menuState, 2, 0, 0);
     }
 
-    /* ---- State 3: LOAD in progress (field_0x1c == 1) ---- */
+    /* ---- State 3: LOAD in progress (subState_0x1c == 1) ---- */
 
     public function test_state3_load_busy(): void
     {
@@ -556,7 +556,7 @@ return new class extends TestCase {
         $this->expectPromptTail($menuState, 0, 0, 0);
     }
 
-    /* ---- State 5: SAVE confirm (field_0x1c == 0), non-write branches ---- */
+    /* ---- State 5: SAVE confirm (subState_0x1c == 0), non-write branches ---- */
 
     public function test_state5_cancel(): void
     {
@@ -614,7 +614,7 @@ return new class extends TestCase {
         $this->expectVmStatusTop(0);
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($menuState + 0x3c)->andReturn(1);
         $this->shouldCall('_SystemMenuWriteToVmu_8c01b26c');
-        // field_0x1c=1 is written in the swap JSR delay slot, before swap runs.
+        // subState_0x1c=1 is written in the swap JSR delay slot, before swap runs.
         $this->shouldWriteLong($menuState + 0x1c, 1);
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc');
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(1);
@@ -623,7 +623,7 @@ return new class extends TestCase {
         $this->expectPromptTail($menuState, 0, 1, 0);
     }
 
-    /* ---- State 5: SAVE in progress (field_0x1c == 1) ---- */
+    /* ---- State 5: SAVE in progress (subState_0x1c == 1) ---- */
 
     public function test_state5_save_busy(): void
     {

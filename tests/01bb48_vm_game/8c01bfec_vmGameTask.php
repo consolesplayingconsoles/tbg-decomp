@@ -394,7 +394,7 @@ return new class extends TestCase {
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
         $this->shouldWriteLong($this->ms + 0x18, 1);   // MENU_FADE_IN
-        $this->shouldWriteLong($this->ms + 0x38, 1);   // selected = field_0x1c
+        $this->shouldWriteLong($this->ms + 0x38, 1);   // selected = subState_0x1c
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }

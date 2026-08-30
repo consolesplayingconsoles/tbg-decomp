@@ -82,10 +82,10 @@ typedef struct {
 typedef struct {
     int state_0x00;
     InstructorLine *dialog_0x04;
-    int field_0x08;
-    int field_0x0c;
-    int field_0x10;
-    int field_0x14;
+    int charCount_0x08;
+    int revealedCharCount_0x0c;
+    int charRevealTimer_0x10;
+    int bobAngle_0x14;
     int *field_0x18;
 } InstructorDialogState;
 
@@ -96,7 +96,7 @@ typedef struct {
     void* field_0x0c;
     int field_0x10;
     int field_0x14;
-    int *field_0x18;
+    int *voiceCuePtr_0x18;
     int field_0x1c;
 } InstructorDialogTask;
 
@@ -287,32 +287,32 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
                 return;
             }
 
-            if (task->field_0x18 && *task->field_0x18) {
-                SndProc_8c010cd6(2, *task->field_0x18);
-                task->field_0x18++;
+            if (task->voiceCuePtr_0x18 && *task->voiceCuePtr_0x18) {
+                SndProc_8c010cd6(2, *task->voiceCuePtr_0x18);
+                task->voiceCuePtr_0x18++;
             }
 
-            state->field_0x08 = ObjectsSwapMessageBoxFor_8c02aefc(state->dialog_0x04->text_0x00);
+            state->charCount_0x08 = ObjectsSwapMessageBoxFor_8c02aefc(state->dialog_0x04->text_0x00);
             var_menuState_8c1bc7a8.instructorSprite_0x60 = state->dialog_0x04->spriteNo_0x04;
-            state->field_0x0c = 1;
-            state->field_0x10 = 0;
+            state->revealedCharCount_0x0c = 1;
+            state->charRevealTimer_0x10 = 0;
             state->state_0x00 = 1;
             break;
         }
 
         case 1: {
             if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-                state->field_0x10 = 99;
+                state->charRevealTimer_0x10 = 99;
                 state->state_0x00 = 2;
                 FUN_8c010ca6(1);
             }
 
-            if (++state->field_0x10 < 3) {
+            if (++state->charRevealTimer_0x10 < 3) {
                 break;
             }
 
-            if (++state->field_0x0c < state->field_0x08) {
-                state->field_0x10 = 0;
+            if (++state->revealedCharCount_0x0c < state->charCount_0x08) {
+                state->charRevealTimer_0x10 = 0;
             } else {
                 state->state_0x00 = 3;
             }
@@ -326,7 +326,7 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
                 break;
             }
 
-            if ((state->field_0x0c += 2) < state->field_0x08) {
+            if ((state->revealedCharCount_0x0c += 2) < state->charCount_0x08) {
                 break;
             }
 
@@ -340,12 +340,12 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
                 state->state_0x00 = 0;
             }
 
-            state->field_0x14 += 0x1111;
+            state->bobAngle_0x14 += 0x1111;
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 44,
                 32.0,
-                -16.0 + 8 * njCos(state->field_0x14),
+                -16.0 + 8 * njCos(state->bobAngle_0x14),
                 -3.0
             );
 
@@ -353,7 +353,7 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
         }
     }
 
-    var_menuTextboxCharLimit_8c225fb8 = state->field_0x0c;
+    var_menuTextboxCharLimit_8c225fb8 = state->revealedCharCount_0x0c;
 }
 
 void CourseMenuPushDialogTask_8c0170c6(int dialog_index, int *p2)
@@ -369,7 +369,7 @@ void CourseMenuPushDialogTask_8c0170c6(int dialog_index, int *p2)
         0x18
     );
 
-    task->field_0x18 = p2;
+    task->voiceCuePtr_0x18 = p2;
     state->state_0x00 = 0;
     state->dialog_0x04 = init_instructorDialogs_8c044c08[dialog_index];
     var_instructorDialogActive_8c225fb4 = 1;
@@ -613,7 +613,7 @@ STATIC void drawCourseButtons_8c017590()
 {
     int i;
 
-    if (var_menuState_8c1bc7a8.field_0x48) {
+    if (var_menuState_8c1bc7a8.cursorVisible_0x48) {
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x18,
@@ -736,7 +736,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 CHANGE_STATE(COURSE_MENU_STATE_FADE_OUT);
                 FadePushOut_8c022b60(10);
             }
-            var_menuState_8c1bc7a8.field_0x48 = var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
+            var_menuState_8c1bc7a8.cursorVisible_0x48 = var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
             break;
         }
 
@@ -744,7 +744,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
             int buttonIndex;
 
             if (var_isFading_8c226568) {
-                var_menuState_8c1bc7a8.field_0x48 = ++var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
+                var_menuState_8c1bc7a8.cursorVisible_0x48 = ++var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
                 break;
             }
 
@@ -777,7 +777,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 return;
 
             var_8c1bb8b8 = 0;
-            MainMenuSwitchFromTask_8c01a09a(task, var_menuState_8c1bc7a8.field_0x1c);
+            MainMenuSwitchFromTask_8c01a09a(task, var_menuState_8c1bc7a8.subState_0x1c);
             return;
         }
     }
@@ -889,7 +889,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
                 CHANGE_STATE(COURSE_MENU_STATE_FADE_OUT);
                 FadePushOut_8c022b60(10);
             }
-            var_menuState_8c1bc7a8.field_0x48 = var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
+            var_menuState_8c1bc7a8.cursorVisible_0x48 = var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
             break;
         }
 
@@ -897,7 +897,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
             int buttonIndex;
 
             if (var_isFading_8c226568) {
-                var_menuState_8c1bc7a8.field_0x48 = ++var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
+                var_menuState_8c1bc7a8.cursorVisible_0x48 = ++var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
                 break;
             }
 
@@ -985,7 +985,7 @@ STATIC void FUN_8c017d54(void)
     int game_mode = var_gameMode_8c1bb8fc;
 
     // Enable cursor
-    var_menuState_8c1bc7a8.field_0x48 = 1;
+    var_menuState_8c1bc7a8.cursorVisible_0x48 = 1;
 
     // Update cursor target/velocity if off-target
     cursorOffTarget_8c016dc6();

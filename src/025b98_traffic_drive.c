@@ -9,7 +9,7 @@
 #include "02e51c.h"             /* FUN_8c02e51c, FUN_8c02f08a */
 #include "02df3c.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
 #include "02f0c8.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanTypeInGroup_8c02f28a */
-#include "0207d4.h"             /* FUN_8c0207d4, Struct8c0207d4 */
+#include "0207d4.h"             /* FUN_8c0207d4, Point3f */
 #include "02081c.h"             /* GeomDistanceXZ_8c02081c */
 #include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
 #include "013ae8_route_load.h"  /* var_timeOfDay_8c18ad20 */
@@ -475,9 +475,9 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             e->lookaheadCacheLen_0x4ec -= speed;
 
             if (e->driveState_0x2b4 == 2) {
-                float lateral = FUN_8c0207d4((Struct8c0207d4 *)&e->posX_0xf4,
-                                              (Struct8c0207d4 *)&e->frontPointX_0x100,
-                                              (Struct8c0207d4 *)&e->pathPointX_0x0ec);
+                float lateral = FUN_8c0207d4((Point3f *)&e->posX_0xf4,
+                                              (Point3f *)&e->frontPointX_0x100,
+                                              (Point3f *)&e->pathPointX_0x0ec);
                 if (lateral < 0.0f) {
                     if (e->projectDistance_0x2c4 <= 2.0f) {
                         e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(&e->posX_0xf4, &e->pathPointX_0x0ec);

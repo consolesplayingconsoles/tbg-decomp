@@ -535,16 +535,16 @@ STATIC void drawDigits_8c01ead8(int value, float y)
     } while (value != 0);
 }
 
-/* Eases field_0x44 (scroll position) toward selected_0x38, clamped so it
+/* Eases scrollTopRow_0x44 (scroll position) toward selected_0x38, clamped so it
  * never scrolls more than 6 rows ahead of the selection. */
 STATIC void scrollTowardSelection_8c01ebc8(void)
 {
-    if (var_menuState_8c1bc7a8.field_0x44 < var_menuState_8c1bc7a8.selected_0x38 - 4) {
-        var_menuState_8c1bc7a8.field_0x44 = var_menuState_8c1bc7a8.selected_0x38 - 4;
-        if (var_menuState_8c1bc7a8.field_0x44 > 6)
-            var_menuState_8c1bc7a8.field_0x44 = 6;
-    } else if (var_menuState_8c1bc7a8.selected_0x38 < var_menuState_8c1bc7a8.field_0x44) {
-        var_menuState_8c1bc7a8.field_0x44 = var_menuState_8c1bc7a8.selected_0x38;
+    if (var_menuState_8c1bc7a8.scrollTopRow_0x44 < var_menuState_8c1bc7a8.selected_0x38 - 4) {
+        var_menuState_8c1bc7a8.scrollTopRow_0x44 = var_menuState_8c1bc7a8.selected_0x38 - 4;
+        if (var_menuState_8c1bc7a8.scrollTopRow_0x44 > 6)
+            var_menuState_8c1bc7a8.scrollTopRow_0x44 = 6;
+    } else if (var_menuState_8c1bc7a8.selected_0x38 < var_menuState_8c1bc7a8.scrollTopRow_0x44) {
+        var_menuState_8c1bc7a8.scrollTopRow_0x44 = var_menuState_8c1bc7a8.selected_0x38;
     }
 }
 
@@ -593,7 +593,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
                 FadePushOut_8c022b60(10);
             }
             else if ((var_peripherals_8c1ba35c[0].press & 2) != 0) {
-                var_menuState_8c1bc7a8.field_0x1c = var_menuState_8c1bc7a8.state_0x18;
+                var_menuState_8c1bc7a8.subState_0x1c = var_menuState_8c1bc7a8.state_0x18;
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_QUIT_PROMPT;
                 var_menuState_8c1bc7a8.field_0x3c = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
@@ -619,7 +619,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
 
         case LESSON_STATE_MENU_LOCKED:
             if ((var_peripherals_8c1ba35c[0].press & 4) != 0) {
-                var_menuState_8c1bc7a8.field_0x1c = var_menuState_8c1bc7a8.state_0x18;
+                var_menuState_8c1bc7a8.subState_0x1c = var_menuState_8c1bc7a8.state_0x18;
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_QUIT_PROMPT;
                 var_menuState_8c1bc7a8.field_0x3c = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -642,7 +642,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
                 FadePushOut_8c022b60(10);
             }
             else if (result == 2) {
-                var_menuState_8c1bc7a8.state_0x18 = var_menuState_8c1bc7a8.field_0x1c;
+                var_menuState_8c1bc7a8.state_0x18 = var_menuState_8c1bc7a8.subState_0x1c;
                 ObjectsSwapMessageBoxFor_8c02aefc(const_8c038984);
                 var_menuTextboxCharLimit_8c225fb8 = 0;
             }
@@ -686,7 +686,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
 
                 var_menuState_8c1bc7a8.field_0x3c = 0;
                 var_menuState_8c1bc7a8.field_0x40 = 0;
-                /* Offset 0x24, not field_0x44 -- Ghidra conflated the two
+                /* Offset 0x24, not scrollTopRow_0x44 -- Ghidra conflated the two
                  * like the earlier x/y mixups; this union slot is otherwise
                  * unused by this screen. */
                 var_menuState_8c1bc7a8.pos.title.flagY_0x24 = 0.0f;
@@ -721,7 +721,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
     }
 
     y = 108.0f;
-    row = var_menuState_8c1bc7a8.field_0x44;
+    row = var_menuState_8c1bc7a8.scrollTopRow_0x44;
     for (i = 0; i < 5; i++) {
         if (row == var_menuState_8c1bc7a8.selected_0x38 && var_menuState_8c1bc7a8.state_0x18 != 4) {
             spriteId = row + 0x34;
@@ -737,10 +737,10 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
     if (var_menuState_8c1bc7a8.selected_0x38 > 10) {
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x1b, 0.0f, 0.0f, -2.0f);
     }
-    if (var_menuState_8c1bc7a8.field_0x44 > 0) {
+    if (var_menuState_8c1bc7a8.scrollTopRow_0x44 > 0) {
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x1a, 0.0f, 0.0f, -2.0f);
     }
-    if (var_menuState_8c1bc7a8.field_0x44 < 6) {
+    if (var_menuState_8c1bc7a8.scrollTopRow_0x44 < 6) {
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x19, 0.0f, 0.0f, -2.0f);
     }
 
@@ -768,7 +768,7 @@ void PracticeMenuLessonStart_8c01f114(Task *task)
 {
     var_playMode_8c1bb8d0 = PLAY_MODE_PRACTICE;
     TaskSetAction_8c014b3e(task, FUN_8c01ebf2);
-    var_menuState_8c1bc7a8.field_0x44 = 0;
+    var_menuState_8c1bc7a8.scrollTopRow_0x44 = 0;
     scrollTowardSelection_8c01ebc8();
     var_8c22642c = 0;
     var_award_8c1bb8f8 = 0;
@@ -803,7 +803,7 @@ void PracticeMenuLessonRetry_8c01f21c(void)
     Task *created_task;
     void *created_state;
 
-    var_menuState_8c1bc7a8.field_0x44 = 0;
+    var_menuState_8c1bc7a8.scrollTopRow_0x44 = 0;
     scrollTowardSelection_8c01ebc8();
     var_award_8c1bb8f8 = 0;
 

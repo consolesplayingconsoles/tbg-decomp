@@ -25,19 +25,19 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, 0xcafe0001); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, 0xcafe0001); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $this->initUint32(
             $this->addressOf('_var_datQueueRear_8c157a90'),
@@ -45,7 +45,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $datQueue);
@@ -121,20 +121,20 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, 0xcafe0001); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 1); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 1); // int loaded_0x0c;
 
         // This will be read
         $currentQueuedDat += $sizeOfQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, 0xcafe0001); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $this->initUint32(
             $this->addressOf('_var_datQueueRear_8c157a90'),
@@ -144,7 +144,7 @@ return new class extends TestCase {
         $testQueuedDat = $datQueue + $sizeOfQueuedDat;
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $datQueue);
@@ -220,19 +220,19 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, 0xcafe0001); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 1); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 1); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, 0xcafe0001); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 1); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 1); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 1); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 1); // int loaded_0x0c;
 
         $this->initUint32($this->addressOf('_var_8c157a88'), 1);
 
@@ -242,7 +242,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $datQueue);
@@ -283,19 +283,19 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, 0xcafe0001); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 1); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 1); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, 0xcafe0001); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 1); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 1); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 1); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 1); // int loaded_0x0c;
 
         $this->initUint32(
             $this->addressOf('_var_datQueueRear_8c157a90'),
@@ -303,7 +303,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $datQueue);
@@ -335,7 +335,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_queueBaseDir_8c157a80'), $dataEmptyStrAddress);
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -376,10 +376,10 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void** dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -420,10 +420,10 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void** dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -464,10 +464,10 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void** dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -506,10 +506,10 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, 0xcafe0002); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void** dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 1);
         // task->gdfs_0x0c
         $this->initUint32($taskPtr + 0x0c, 0xbebacafe);
@@ -542,7 +542,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_datQueue_8c157a8c'), $datQueue);
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 2);
 
         $this->singleCall('_taskLoadQueuedDats_8c0111b4')

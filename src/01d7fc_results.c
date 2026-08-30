@@ -238,7 +238,7 @@ STATIC void resultsTask_8c01d8e0(void)
     case 8:
         if (!var_isFading_8c226568) {
             var_menuState_8c1bc7a8.state_0x18 = 9;
-            var_menuState_8c1bc7a8.field_0x1c = 0;
+            var_menuState_8c1bc7a8.subState_0x1c = 0;
             var_menuState_8c1bc7a8.selected_0x38 = 0;
         }
         break;
@@ -246,7 +246,7 @@ STATIC void resultsTask_8c01d8e0(void)
         int promptResult;
         int vmuStatus;
 
-        if (var_menuState_8c1bc7a8.field_0x1c == 0) {
+        if (var_menuState_8c1bc7a8.subState_0x1c == 0) {
             VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_8c1ba350], 3);
             vmuStatus = var_vmuStatus_8c226048[var_selectedVm_8c1ba34c];
             promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.selected_0x38);
@@ -255,7 +255,7 @@ STATIC void resultsTask_8c01d8e0(void)
                     FileMenuResetProgress_8c01890a();
                 }
                 SystemMenuWriteToVmu_8c01b26c();
-                var_menuState_8c1bc7a8.field_0x1c = 1;
+                var_menuState_8c1bc7a8.subState_0x1c = 1;
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVING_NO_POWER_OFF);
                 VmGameSetLcdSlot_8c01c8fc(1);
             } else if (promptResult == 2) {
@@ -266,7 +266,7 @@ STATIC void resultsTask_8c01d8e0(void)
                 var_isFading_8c226568 = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
             }
-        } else if (var_menuState_8c1bc7a8.field_0x1c == 1) {
+        } else if (var_menuState_8c1bc7a8.subState_0x1c == 1) {
             BupGetInfo_8c014bba(var_selectedVm_8c1ba34c);
             if (buStat(var_selectedVm_8c1ba34c) == 0) {
                 if (buGetLastError(var_selectedVm_8c1ba34c) == 0) {

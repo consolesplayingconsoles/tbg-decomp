@@ -22,7 +22,7 @@ return new class extends TestCase {
     {
         [$entry] = $this->setup(1, 0);
 
-        // field_0x00 = 0 -> var_fogParam_8c226504 = -1, var_fogParam_8c226508 = -1/2 = 0 (toward zero).
+        // tileWindowSpan_0x00 = 0 -> var_fogParam_8c226504 = -1, var_fogParam_8c226508 = -1/2 = 0 (toward zero).
         $fog = $this->alloc(0x14);
         $this->initUint32($fog + 0x00, 0);
         $this->initUint32($fog + 0x04, 0x12345678);

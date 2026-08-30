@@ -10,7 +10,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $menuState = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($menuState + 0x38, 20); // selected_0x38
-        $this->initUint32($menuState + 0x44, 0);  // field_0x44
+        $this->initUint32($menuState + 0x44, 0);  // scrollTopRow_0x44
 
         $this->call('_scrollTowardSelection_8c01ebc8');
 
@@ -23,7 +23,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $menuState = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($menuState + 0x38, 5); // selected_0x38
-        $this->initUint32($menuState + 0x44, 0); // field_0x44
+        $this->initUint32($menuState + 0x44, 0); // scrollTopRow_0x44
 
         $this->call('_scrollTowardSelection_8c01ebc8');
 
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $menuState = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($menuState + 0x38, 2); // selected_0x38
-        $this->initUint32($menuState + 0x44, 6); // field_0x44
+        $this->initUint32($menuState + 0x44, 6); // scrollTopRow_0x44
 
         $this->call('_scrollTowardSelection_8c01ebc8');
 
@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $menuState = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($menuState + 0x38, 4); // selected_0x38
-        $this->initUint32($menuState + 0x44, 3); // field_0x44
+        $this->initUint32($menuState + 0x44, 3); // scrollTopRow_0x44
 
         $this->call('_scrollTowardSelection_8c01ebc8');
     }

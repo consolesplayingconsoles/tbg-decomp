@@ -3,12 +3,12 @@
 #define _0207D4_H
 
 typedef struct {
-    float field_0x00;
-    float field_0x04;
-    float field_0x08;
-} Struct8c0207d4;
+    float x_0x00;
+    float y_0x04;
+    float z_0x08;
+} Point3f;
 
-float FUN_8c0207d4(Struct8c0207d4 *param1, Struct8c0207d4 *param2, Struct8c0207d4 *param3);
-float FUN_8c0207fa(Struct8c0207d4 *param1, Struct8c0207d4 *param2, Struct8c0207d4 *param3);
+float FUN_8c0207d4(Point3f *param1, Point3f *param2, Point3f *param3);
+float FUN_8c0207fa(Point3f *param1, Point3f *param2, Point3f *param3);
 
 #endif // _0207D4_H

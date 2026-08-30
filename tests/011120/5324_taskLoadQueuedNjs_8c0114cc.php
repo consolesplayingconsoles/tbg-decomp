@@ -59,7 +59,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -183,7 +183,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -308,7 +308,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -376,7 +376,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -426,7 +426,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -510,7 +510,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -601,7 +601,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -717,7 +717,7 @@ return new class extends TestCase {
         );
 
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -814,7 +814,7 @@ return new class extends TestCase {
         );
         
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -878,7 +878,7 @@ return new class extends TestCase {
         );
         
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -947,7 +947,7 @@ return new class extends TestCase {
         );
         
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -1018,7 +1018,7 @@ return new class extends TestCase {
         );
         
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -1093,7 +1093,7 @@ return new class extends TestCase {
         );
         
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -1170,7 +1170,7 @@ return new class extends TestCase {
         );
         
         $taskPtr = $this->alloc(0x20);
-        // task->field_0x08
+        // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
@@ -1795,6 +1795,6 @@ return new class extends TestCase {
         $this->initUint32($address + 0x04, $filename); // char* filename;
         $this->initUint32($address + 0x08, $dest); // void* dest;
         $this->initUint32($address + 0x0c, $dest2); // void* dest;
-        $this->initUint32($address + 0x10, $flag); // int field_0x10;
+        $this->initUint32($address + 0x10, $flag); // int loaded_0x10;
     }
 };

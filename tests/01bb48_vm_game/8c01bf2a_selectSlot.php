@@ -11,7 +11,7 @@ if (!function_exists('fdec')) {
 }
 
 // Retargets the VM SELECT cursor to slot's cell (lerp over 6 frames) and, when
-// field_0x1c is set, pops a warning box keyed on the slot's VMU status.
+// subState_0x1c is set, pops a warning box keyed on the slot's VMU status.
 return new class extends TestCase {
     private const SLOT = 2;
 

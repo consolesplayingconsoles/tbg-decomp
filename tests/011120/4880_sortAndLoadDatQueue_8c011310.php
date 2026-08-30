@@ -23,21 +23,21 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, $fileAStrAddr); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $queuedDatB = $currentQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, $fileCStrAddr); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $currentQueuedDat += $sizeOfQueuedDat;
         $queuedDatC = $currentQueuedDat;
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, $fileBStrAddr); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, 0xcafe0003); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $this->initUint32($this->addressOf('_var_datQueue_8c157a8c'), $datQueue);
         $this->initUint32(
@@ -145,7 +145,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x00, $dirStrAddress); // char* basedir;
         $this->initUint32($currentQueuedDat + 0x04, $fileAStrAddr); // char* filename;
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void* dest;
-        $this->initUint32($currentQueuedDat + 0x0c, 0); // int field_0x0c;
+        $this->initUint32($currentQueuedDat + 0x0c, 0); // int loaded_0x0c;
 
         $this->initUint32($this->addressOf('_var_datQueue_8c157a8c'), $datQueue);
         $this->initUint32(

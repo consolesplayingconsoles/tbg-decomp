@@ -47,7 +47,7 @@ typedef enum SaveMenuItem {
     SAVE_MENU_QUIT = 3  /* quit to title, with confirm (-> QUIT_CONFIRM) */
 } SaveMenuItem;
 
-/* Load/save sub-phase, held in menuState.field_0x1c. */
+/* Load/save sub-phase, held in menuState.subState_0x1c. */
 typedef enum SavePhase {
     SAVE_PHASE_CONFIRM     = 0, /* yes/no prompt is on screen */
     SAVE_PHASE_IN_PROGRESS = 1  /* VMU read/write is underway */
@@ -199,7 +199,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         }
         /* A = confirm */
         var_menuState_8c1bc7a8.field_0x3c = 0;
-        var_menuState_8c1bc7a8.field_0x1c = SAVE_PHASE_CONFIRM;
+        var_menuState_8c1bc7a8.subState_0x1c = SAVE_PHASE_CONFIRM;
         switch (var_menuState_8c1bc7a8.selected_0x38) {
         case SAVE_MENU_LOAD:
             switch (vmStatus) {
@@ -285,8 +285,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         }
         break;
 
-    case SAVE_STATE_LOAD: /* LOAD confirm/progress, sub-state in field_0x1c */
-        switch (var_menuState_8c1bc7a8.field_0x1c) {
+    case SAVE_STATE_LOAD: /* LOAD confirm/progress, sub-state in subState_0x1c */
+        switch (var_menuState_8c1bc7a8.subState_0x1c) {
         case SAVE_PHASE_CONFIRM:
             result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
             if (result == 1) {
@@ -294,7 +294,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 BupLoad_8c014bc6(var_selectedVm_8c1ba34c,
                                  init_saveNames_8c044d50[var_8c1ba350], var_8c1ba2e0);
                 var_vmBusy_8c157a7c = 1;
-                var_menuState_8c1bc7a8.field_0x1c = SAVE_PHASE_IN_PROGRESS;
+                var_menuState_8c1bc7a8.subState_0x1c = SAVE_PHASE_IN_PROGRESS;
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOADING_NO_POWER_OFF);
                 VmGameSetLcdSlot_8c01c8fc(1);
             } else if (result == 2) {
@@ -352,14 +352,14 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         }
         return;
 
-    case SAVE_STATE_SAVE: /* SAVE confirm/progress, sub-state in field_0x1c */
-        switch (var_menuState_8c1bc7a8.field_0x1c) {
+    case SAVE_STATE_SAVE: /* SAVE confirm/progress, sub-state in subState_0x1c */
+        switch (var_menuState_8c1bc7a8.subState_0x1c) {
         case SAVE_PHASE_CONFIRM:
             result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
             if (result == 1) {
                 /* confirmed -- write and wait */
                 SystemMenuWriteToVmu_8c01b26c();
-                var_menuState_8c1bc7a8.field_0x1c = SAVE_PHASE_IN_PROGRESS;
+                var_menuState_8c1bc7a8.subState_0x1c = SAVE_PHASE_IN_PROGRESS;
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVING_NO_POWER_OFF);
                 VmGameSetLcdSlot_8c01c8fc(1);
                 TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00,
