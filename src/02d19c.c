@@ -138,6 +138,7 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
 {
     StopScheduleState *state = (StopScheduleState *)state_;
     int mode = state->state_0x04;
+    int layer = 0;
 
     switch (mode) {
     case 1:
@@ -155,7 +156,7 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
                 }
             }
         }
-        goto done;
+        break;
 
     case 2:
         if (var_8c22895c != 0) {
@@ -166,7 +167,8 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, AsqGetRandomInRangeA_8c012178(3) + 0x1f, 0);
             }
         }
-        goto registerLayer1;
+        layer = 1;
+        break;
 
     case 3:
         if (var_8c22895c != 0) {
@@ -178,7 +180,8 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
                 sdMidiPlay(var_midiHandles_8c0fcd28[state->voice_0x2c], 1, state->soundIdB_0x34, 0);
             }
         }
-        goto registerLayer2;
+        layer = 2;
+        break;
 
     case 4:
         if (var_8c22895c != 0) {
@@ -203,31 +206,28 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
             }
             state->state_0x04 = 5;
         }
-        goto registerLayer2;
+        layer = 2;
+        break;
 
     case 5:
         if (!(1.0f > var_8c228960[0])) {
             state->state_0x04 = 0;
             state->isSeated_0x28 = 1;
         }
-        goto registerLayer2;
+        layer = 2;
+        break;
 
     case 0:
         FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
         return;
 
     default:
-        goto done;
+        break;
     }
 
-registerLayer1:
-    FadeCmdPushCall1_8c0223ea(1, drawRiderSprite_8c02d19c, (int)state);
-    goto done;
-
-registerLayer2:
-    FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
-
-done:
+    if (layer != 0) {
+        FadeCmdPushCall1_8c0223ea(layer, drawRiderSprite_8c02d19c, (int)state);
+    }
     var_8c228958 = 1;
 }
 
@@ -241,6 +241,7 @@ void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
 {
     StopScheduleState *state = (StopScheduleState *)state_;
     int mode = state->state_0x04;
+    int layer = 0;
 
     switch (mode) {
     case 0:
@@ -251,7 +252,8 @@ void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
                 state->state_0x04 = 6;
             }
         }
-        goto registerLayer2;
+        layer = 2;
+        break;
 
     case 6:
         if (!(1.0f > var_8c228960[0])) {
@@ -267,7 +269,8 @@ void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
                 sdMidiPlay(var_midiHandles_8c0fcd28[state->voice_0x2c], 1, state->soundIdA_0x30, 0);
             }
         }
-        goto registerLayer2;
+        layer = 2;
+        break;
 
     case 7:
         if (var_8c22895c != 0) {
@@ -277,7 +280,8 @@ void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, AsqGetRandomInRangeB_8c0121be(3) + 0x1f, 0);
             }
         }
-        goto registerLayer2;
+        layer = 2;
+        break;
 
     case 8:
         if (var_8c22895c != 0) {
@@ -290,27 +294,24 @@ void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
                 sdMidiPlay(var_midiHandles_8c0fcd28[state->voice_0x2c], 1, state->soundIdB_0x34, 0);
             }
         }
-        goto registerLayer2;
+        layer = 2;
+        break;
 
     case 9:
         if (var_8c22895c != 0) {
             TaskFree_8c014b66(task);
             return;
         }
-        goto registerLayer1;
+        layer = 1;
+        break;
 
     default:
-        goto done;
+        break;
     }
 
-registerLayer1:
-    FadeCmdPushCall1_8c0223ea(1, drawRiderSprite_8c02d19c, (int)state);
-    goto done;
-
-registerLayer2:
-    FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
-
-done:
+    if (layer != 0) {
+        FadeCmdPushCall1_8c0223ea(layer, drawRiderSprite_8c02d19c, (int)state);
+    }
     var_8c228958 = 1;
 }
 
@@ -328,6 +329,7 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
 {
     Uint32 *state = (Uint32 *)state_;
     int phase = state[0];
+    Bool execGroup = FALSE;
 
     FadeCmdPushCall1_8c0223ea(2, drawInterior_8c02d1f4, 0);
     FadeCmdPushCall1_8c0223ea(1, StopDrawLightBegin_8c02d0fc, 0);
@@ -339,7 +341,8 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
             state[0] = 1;
         }
         var_8c2285c4[6]++;
-        goto tail_d7b4;
+        execGroup = TRUE;
+        break;
 
     case 1: {
         /* The original re-enters this sub-state-machine in place (a plain
@@ -382,7 +385,7 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
                 if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
                     continue;
                 }
-                goto tail_d8cc;
+                break;
             }
 
             if (var_cutsceneActive_8c1bb900 == 0 || var_playMode_8c1bb8d0 != PLAY_MODE_NORMAL) {
@@ -394,8 +397,9 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
                 var_fadeRequest_8c226564 = FADE_REQUEST_IN;
             }
             var_8c2285c4[6]++;
-            goto tail_d8cc;
+            break;
         }
+        break;
     }
 
     case 2:
@@ -405,13 +409,14 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
             var_fadeArrivalGate_8c226560 = 0;
             ObjectsStartMessageBox_8c02ad8c();
         }
-        goto tail_d7b4;
+        execGroup = TRUE;
+        break;
 
     case 3:
         if (var_messageBoxActive_8c22847c == 0) {
             state[0] = 4;
         }
-        goto tail_d8cc;
+        break;
 
     case 4:
         if (RouteLoadIsPvmReady_8c01432a() != 0 && var_isFading_8c226568 == 0) {
@@ -419,11 +424,57 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
             state[0] = 5;
             setCountUpStep_8c02d5d8();
         }
-        goto tail_d7b4;
+        execGroup = TRUE;
+        break;
 
     case 5:
         if (var_8c2285c4[6] >= var_8c2285c4[5]) {
-            goto teardown;
+            /* Tears the subsystem down and frees the task; never joins the
+             * shared TaskExecGroup_8c014b42/FadeCmdPushCall1 tail below. */
+            BusStopFreeTaskGroup_8c02ca96();
+            njReleaseTexture(var_interiorTexlist_8c1bc438);
+            if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
+                var_8c227d9c = 2;
+                var_8c227da4 = 0;
+                FUN_8c024f32();
+            } else {
+                if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
+                    FUN_8c024b86();
+                }
+            }
+
+            var_busState_8c1bb9d0.bus_state_0x2b4 = 1;
+            var_busState_8c1bb9d0.field_0x25c =
+                (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE && var_route_8c18ad1c == ROUTE_OME &&
+                 var_currentSegment_8c228708 == 0) ? 1 : 2;
+
+            var_fadeArrivalVariant_8c22655c = 2;
+
+            if (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
+                int soundOffset;
+
+                switch (var_route_8c18ad1c) {
+                case ROUTE_SHINJUKU:
+                    soundOffset = 2;
+                    break;
+                case ROUTE_WANGAN:
+                    soundOffset = 8;
+                    break;
+                case ROUTE_OME:
+                    soundOffset = 5;
+                    break;
+                default:
+                    /* unreachable: var_route_8c18ad1c only ever holds the three
+                     * ROUTE_* values above -- the original leaves the register
+                     * that becomes this arg uninitialized in this case. */
+                    soundOffset = 0;
+                    break;
+                }
+                SndProc_8c010cd6(0, var_timeOfDay_8c18ad20 + soundOffset);
+            }
+
+            TaskFree_8c014b66(task);
+            return;
         }
 
         var_8c2285c4[6] += var_8c2285c4[7];
@@ -433,63 +484,16 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
         if (var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 6, 0);
         }
-        goto tail_d7b4;
+        execGroup = TRUE;
+        break;
 
     default:
-        goto tail_d8cc;
+        break;
     }
 
-tail_d7b4:
-    TaskExecGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
-    goto tail_d8cc;
-
-teardown:
-    BusStopFreeTaskGroup_8c02ca96();
-    njReleaseTexture(var_interiorTexlist_8c1bc438);
-    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
-        var_8c227d9c = 2;
-        var_8c227da4 = 0;
-        FUN_8c024f32();
-    } else {
-        if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
-            FUN_8c024b86();
-        }
+    if (execGroup) {
+        TaskExecGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
     }
-
-    var_busState_8c1bb9d0.bus_state_0x2b4 = 1;
-    var_busState_8c1bb9d0.field_0x25c =
-        (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE && var_route_8c18ad1c == ROUTE_OME &&
-         var_currentSegment_8c228708 == 0) ? 1 : 2;
-
-    var_fadeArrivalVariant_8c22655c = 2;
-
-    if (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
-        int soundOffset;
-
-        switch (var_route_8c18ad1c) {
-        case ROUTE_SHINJUKU:
-            soundOffset = 2;
-            break;
-        case ROUTE_WANGAN:
-            soundOffset = 8;
-            break;
-        case ROUTE_OME:
-            soundOffset = 5;
-            break;
-        default:
-            /* unreachable: var_route_8c18ad1c only ever holds the three
-             * ROUTE_* values above -- the original leaves the register
-             * that becomes this arg uninitialized in this case. */
-            soundOffset = 0;
-            break;
-        }
-        SndProc_8c010cd6(0, var_timeOfDay_8c18ad20 + soundOffset);
-    }
-
-    TaskFree_8c014b66(task);
-    return;
-
-tail_d8cc:
     FadeCmdPushCall1_8c0223ea(1, StopDrawLightEnd_8c02d146, 0);
     FadeCmdPushCall1_8c0223ea(2, StopDrawLightEnd_8c02d146, 0);
 }
