@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bc45c', 4);
         $this->setSize('_IntersectSegments_8c0206f0', 4);
         $this->setSize('_FUN_8c0207fa', 4);
-        $this->setSize('_FUN_8c02081c', 4);
+        $this->setSize('_GeomDistanceXZ_8c02081c', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
     }
@@ -185,15 +185,15 @@ return new class extends TestCase {
         $this->shouldCallFun0207fa($base, 60.0, 20.0, -5.0); // side <= 0, not killed in forward mode
         $this->shouldWriteFloat($base + 0xec, 60.0); // field_0x0ec = cand.x
         $this->shouldWriteFloat($base + 0xf0, 20.0); // field_0x0f0 = cand.z
-        $this->shouldCall('_FUN_8c02081c')->do(function () use ($base) {
+        $this->shouldCall('_GeomDistanceXZ_8c02081c')->do(function () use ($base) {
             if ($this->registers[4]->value !== $base + 0xf4) {
-                throw new RuntimeException('FUN_8c02081c param1: unexpected address');
+                throw new RuntimeException('GeomDistanceXZ_8c02081c param1: unexpected address');
             }
             $candAddr = $this->registers[5]->value;
             $x = unpack('f', pack('L', $this->memory->readUInt32($candAddr)->value))[1];
             $z = unpack('f', pack('L', $this->memory->readUInt32($candAddr + 4)->value))[1];
             if ($x !== 60.0 || $z !== 20.0) {
-                throw new RuntimeException('FUN_8c02081c param2: unexpected candidate point');
+                throw new RuntimeException('GeomDistanceXZ_8c02081c param2: unexpected candidate point');
             }
             $this->setFloatRegister(0, 99.0);
         });

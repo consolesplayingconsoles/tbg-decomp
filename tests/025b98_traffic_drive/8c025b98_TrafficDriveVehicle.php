@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_TrafficUpdateHeading_8c026bc4', 4);
         $this->setSize('_CollideFindTaskHit_8c02e400', 4);
         $this->setSize('_FUN_8c027c3c', 4);
-        $this->setSize('_FUN_8c02081c', 4);
+        $this->setSize('_GeomDistanceXZ_8c02081c', 4);
         $this->setSize('_TrafficLookaheadScan_8c02dfca', 4);
         $this->setSize('_FUN_8c02f0c8', 4);
         $this->setSize('_FUN_8c028022', 4);
@@ -125,7 +125,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x080, 0); // cleared unconditionally at top
 
         $this->shouldWriteLong($entry + 0x2b4, 2);
-        $this->shouldCall('_FUN_8c02081c')->with($entry + 0xf4, $entry + 0xec)->andReturn(3.5);
+        $this->shouldCall('_GeomDistanceXZ_8c02081c')->with($entry + 0xf4, $entry + 0xec)->andReturn(3.5);
         $this->shouldWriteFloat($entry + 0x2c4, 3.5);
         $this->shouldWriteLong($entry + 0x19c, 0);
         $this->shouldWriteLong($entry + 0x1ac, 0);

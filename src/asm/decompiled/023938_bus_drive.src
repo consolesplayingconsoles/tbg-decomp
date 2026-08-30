@@ -16,7 +16,7 @@
           .IMPORT     _var_crossingIntersectPoint_8c1bc458
           .IMPORT     _var_8c1bc45c
           .IMPORT     _IntersectSegments_8c0206f0
-          .IMPORT     _FUN_8c02081c
+          .IMPORT     _GeomDistanceXZ_8c02081c
           .EXPORT     _FUN_8c023938
           .EXPORT     _BusDriveStop_8c023bce
           .EXPORT     _FUN_8c023cba
@@ -1049,5 +1049,5 @@ LP_GEN_73891:
           .DATA.L _var_8c1bc45c ; H'8C02411C
           .DATA.L _IntersectSegments_8c0206f0 ; H'8C024120
           .DATA.L _sdMidiPlay ; H'8C024124
-          .DATA.L _FUN_8c02081c ; H'8C024128
+          .DATA.L _GeomDistanceXZ_8c02081c ; H'8C024128
           .END

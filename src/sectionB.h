@@ -128,7 +128,7 @@ typedef struct {
     int field_0x0e0;
     int field_0x0e4;
     int field_0x0e8;
-    /* Last confirmed lane-crossing point (x,z), read by FUN_8c02081c
+    /* Last confirmed lane-crossing point (x,z), read by GeomDistanceXZ_8c02081c
      * (022bdc) and written by FUN_8c023e7e (023938) -- real float fields
      * (FMOV.S stores), not int. */
     float field_0x0ec;

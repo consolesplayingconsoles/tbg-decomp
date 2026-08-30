@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->initFloat($b + 0, 2.0); // b.x
         $this->initFloat($b + 4, 4.0); // b.z
 
-        $this->call('_FUN_8c02081c')->with($a, $b);
+        $this->call('_GeomDistanceXZ_8c02081c')->with($a, $b);
 
         // dx = 5-2=3; dz = 9-4=5; njSqrt(3^2+5^2) = njSqrt(34)
         $this->shouldCall('_njSqrt')->with(34.0)->andReturn(5.830951895);

@@ -1,5 +1,5 @@
 ; 8c025b98
-          .IMPORT     _FUN_8c02081c
+          .IMPORT     _GeomDistanceXZ_8c02081c
           .IMPORT     _TrafficLookaheadScan_8c02dfca
           .IMPORT     _var_8c1bbd9c
           .IMPORT     _var_8c1bb878
@@ -148,7 +148,7 @@ LP_GEN_90361:
           .DATA.W H'050C ; H'8C025C66
           .DATA.W H'041C ; H'8C025C68
           .RES.W 1 ; H'8C025C6A
-          .DATA.L _FUN_8c02081c ; H'8C025C6C
+          .DATA.L _GeomDistanceXZ_8c02081c ; H'8C025C6C
           .DATA.L H'461C3C00 ; H'8C025C70
           .DATA.L H'47D2F000 ; H'8C025C74
           .DATA.L H'447A0000 ; H'8C025C78

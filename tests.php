@@ -108,8 +108,8 @@ return [
         ],
         [
             'tests' => [
-                "tests/02081c/8c02081c_FUN.php",
-                "tests/02081c/8c020842_FUN.php",
+                "tests/02081c/8c02081c_GeomDistanceXZ.php",
+                "tests/02081c/8c020842_GeomQuadOverlap.php",
             ],
             'objects' => [
                 "build/output_test/02081c_src.obj",

@@ -1,8 +1,9 @@
+/* @unit Geom */
 #include <shinobi.h>
 
 #include "02081c.h"
 
-float FUN_8c02081c(void *a, void *b)
+float GeomDistanceXZ_8c02081c(void *a, void *b)
 {
     Float *pa = (Float *)a;
     Float *pb = (Float *)b;
@@ -16,7 +17,7 @@ float FUN_8c02081c(void *a, void *b)
  * each, x/z only -- y is unused). Gated by a coarse Y-difference check
  * between the quads' second point (index 1) before testing either
  * direction (a's vertices against b's edges, then b's against a's). */
-Bool FUN_8c020842(NJS_POINT3 *a, NJS_POINT3 *b)
+Bool GeomQuadOverlap_8c020842(NJS_POINT3 *a, NJS_POINT3 *b)
 {
     Sint32 i, j;
 

@@ -10,7 +10,7 @@
 #include "02df3c.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
 #include "02f0c8.h"             /* FUN_8c02f0c8, FUN_8c02f28a */
 #include "0207d4.h"             /* FUN_8c0207d4, Struct8c0207d4 */
-#include "02081c.h"             /* FUN_8c02081c */
+#include "02081c.h"             /* GeomDistanceXZ_8c02081c */
 #include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
 #include "013ae8_route_load.h"  /* var_timeOfDay_8c18ad20 */
 #include "sectionB.h"           /* var_activeTrafficPreset_8c227e14, var_8c1bbac4/acc, ... */
@@ -213,9 +213,9 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 e->field_0x424 = 0;
                 e->field_0x2d4 = 0;
             } else {
-                brakeDist = FUN_8c02081c((Uint8 *)ahead + 0x10c, &e->field_0x0ec);
+                brakeDist = GeomDistanceXZ_8c02081c((Uint8 *)ahead + 0x10c, &e->field_0x0ec);
                 if (ahead == (void *)var_8c1bbd9c) {
-                    float busDist = FUN_8c02081c((Uint8 *)ahead + 0xf4, &e->field_0x0ec);
+                    float busDist = GeomDistanceXZ_8c02081c((Uint8 *)ahead + 0xf4, &e->field_0x0ec);
                     if (busDist < brakeDist) {
                         brakeDist = busDist;
                     }
@@ -358,7 +358,7 @@ signal3:
                             var_groundQueryPoint_8c1bc460.z =
                                 e->pathRecord_0x2b8->dirZ_0x10 * e->pathDistance_0x2bc +
                                 e->pathRecord_0x2b8->z_0x08;
-                            e->projectDistance_0x2c4 = FUN_8c02081c(
+                            e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(
                                 &var_groundQueryPoint_8c1bc460, &e->field_0x0ec);
                         } else {
                             brakeDist = TrafficComputeBlockedSpeed_8c026eaa(e, (TrafficEntry *)hitBox);
@@ -377,7 +377,7 @@ signal3:
                         var_groundQueryPoint_8c1bc460.z =
                             e->pathRecord_0x2b8->dirZ_0x10 * e->pathDistance_0x2bc +
                             e->pathRecord_0x2b8->z_0x08;
-                        e->projectDistance_0x2c4 = FUN_8c02081c(
+                        e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(
                             &var_groundQueryPoint_8c1bc460, &e->field_0x0ec);
                     }
                     TrafficUpdateFrameFlags_8c026f7e(e);
@@ -494,7 +494,7 @@ haveLimit:
                                               (Struct8c0207d4 *)&e->field_0x0ec);
                 if (lateral < 0.0f) {
                     if (e->projectDistance_0x2c4 <= 2.0f) {
-                        e->projectDistance_0x2c4 = FUN_8c02081c(&e->posX_0xf4, &e->field_0x0ec);
+                        e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(&e->posX_0xf4, &e->field_0x0ec);
                         if (e->projectDistance_0x2c4 >= 2.0f) {
                             e->projectDistance_0x2c4 = 2.0f;
                             e->driveState_0x2b4 = 0;
@@ -552,7 +552,7 @@ haveLimit:
 
         if (speed <= 0.0f) {
             e->driveState_0x2b4 = 2;
-            e->projectDistance_0x2c4 = FUN_8c02081c(&e->posX_0xf4, &e->field_0x0ec);
+            e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(&e->posX_0xf4, &e->field_0x0ec);
             speed = 0.0f;
             e->groundProbe_0x190[0].count_0x0c = 0;
             e->groundProbe_0x190[1].count_0x0c = 0;

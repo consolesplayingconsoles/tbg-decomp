@@ -8,7 +8,7 @@
 #include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
 #include "020b6c_ground_probe.h" /* GroundProbeInterpolateHeight_8c020f7e */
 #include "0207d4.h" /* FUN_8c0207fa, Struct8c0207d4 */
-#include "02081c.h" /* FUN_8c02081c */
+#include "02081c.h" /* GeomDistanceXZ_8c02081c */
 #include "023938_bus_drive.h"
 
 /* ====================
@@ -338,7 +338,7 @@ void FUN_8c023e7e(void)
                 var_busState_8c1bb9d0.field_0x0ec = cand[0];
                 var_busState_8c1bb9d0.field_0x0f0 = cand[1];
                 var_busState_8c1bb9d0.field_0x2c4 =
-                    FUN_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, cand);
+                    GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, cand);
                 var_busState_8c1bb9d0.field_0x334 = 1;
                 var_busState_8c1bb9d0.field_0x33c = idx;
                 var_busState_8c1bb9d0.field_0x2bc = remaining;

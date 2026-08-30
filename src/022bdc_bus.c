@@ -9,7 +9,7 @@
 #include "023938_bus_drive.h"               /* FUN_8c023938/023cba/023e7e */
 #include "024280.h"               /* FUN_8c0246b2/024280 */
 #include "02412c.h"               /* FUN_8c02412c */
-#include "02081c.h"               /* FUN_8c02081c */
+#include "02081c.h"               /* GeomDistanceXZ_8c02081c */
 #include "024b4c_bus_render.h"               /* BusRenderUpdateCamera_8c025078, BusRenderUpdateMirrorCamera_8c025604 */
 #include "025870.h"               /* DemoUpdateCamera_8c025906 */
 #include "027958.h"               /* FUN_8c028022 */
@@ -163,7 +163,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         if (var_busState_8c1bb9d0.speed_0x27c <= 0.0f) {
             if (var_inputMapSel_8c1bb8c8 != 0) {
                 var_busState_8c1bb9d0.field_0x2c4 =
-                    FUN_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.field_0x0ec);
+                    GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.field_0x0ec);
             }
             var_busState_8c1bb9d0.bus_state_0x2b4 = (var_8c2285c4[0] < 3) ? 1 : 3;
             var_busState_8c1bb9d0.speed_0x27c = 0.0f;

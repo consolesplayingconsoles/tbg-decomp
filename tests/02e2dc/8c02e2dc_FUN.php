@@ -16,7 +16,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_njCalcPoints', 4);
-        $this->setSize('_FUN_8c020842', 4);
+        $this->setSize('_GeomQuadOverlap_8c020842', 4);
         $this->setSize('_var_busWorldMatrix_8c1bba54', 0x40);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
         $this->setSize('_var_collideScanCursor_8c228974', 4);
@@ -134,7 +134,7 @@ return new class extends TestCase {
     }
 
     // A near candidate (under the threshold) is checked and found NOT
-    // colliding: its box is transformed and FUN_8c020842 returns FALSE, so
+    // colliding: its box is transformed and GeomQuadOverlap_8c020842 returns FALSE, so
     // the scan continues to the terminator.
     public function test_nearNonCollidingCandidate_isRejected(): void {
         $this->resolveSymbols();
@@ -157,7 +157,7 @@ return new class extends TestCase {
             $this->addressOf('_var_collideCandidateBox_8c2289d8'),
             8
         );
-        $this->shouldCall('_FUN_8c020842')->with(
+        $this->shouldCall('_GeomQuadOverlap_8c020842')->with(
             $this->addressOf('_var_collideSelfBox_8c228978'),
             $this->addressOf('_var_collideCandidateBox_8c2289d8')
         )->andReturn(0);
@@ -165,7 +165,7 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    // A near candidate collides: FUN_8c020842 returns TRUE and the function
+    // A near candidate collides: GeomQuadOverlap_8c020842 returns TRUE and the function
     // returns that task's state pointer (the entry) immediately, without
     // advancing further or checking any later task.
     public function test_nearCollidingCandidate_returnsItsState(): void {
@@ -189,7 +189,7 @@ return new class extends TestCase {
             $this->addressOf('_var_collideCandidateBox_8c2289d8'),
             8
         );
-        $this->shouldCall('_FUN_8c020842')->with(
+        $this->shouldCall('_GeomQuadOverlap_8c020842')->with(
             $this->addressOf('_var_collideSelfBox_8c228978'),
             $this->addressOf('_var_collideCandidateBox_8c2289d8')
         )->andReturn(1);

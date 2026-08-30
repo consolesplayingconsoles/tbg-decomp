@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->initQuad($a, [[-1, -1], [1, -1], [1, 1], [-1, 1]], 110.0);
         $this->initQuad($b, [[-1, -1], [1, -1], [1, 1], [-1, 1]], 0.0);
 
-        $this->call('_FUN_8c020842')->with($a, $b);
+        $this->call('_GeomQuadOverlap_8c020842')->with($a, $b);
 
         $this->shouldReturn(0);
     }
@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->initQuad($a, [[-1, -1], [1, -1], [1, 1], [-1, 1]], 0.0);
         $this->initQuad($b, [[-1, -1], [1, -1], [1, 1], [-1, 1]], 0.0);
 
-        $this->call('_FUN_8c020842')->with($a, $b);
+        $this->call('_GeomQuadOverlap_8c020842')->with($a, $b);
 
         $this->shouldReturn(1);
     }
@@ -60,7 +60,7 @@ return new class extends TestCase {
         $this->initQuad($a, [[-1, -1], [1, -1], [1, 1], [-1, 1]], 0.0);
         $this->initQuad($b, [[100, 100], [102, 100], [102, 102], [100, 102]], 0.0);
 
-        $this->call('_FUN_8c020842')->with($a, $b);
+        $this->call('_GeomQuadOverlap_8c020842')->with($a, $b);
 
         $this->shouldReturn(0);
     }

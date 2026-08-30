@@ -185,7 +185,7 @@ BusState *FUN_8c02e2dc(void)
                              init_8c04c940[*(Sint32 *)(state + 0x2e0)],
                              var_collideCandidateBox_8c2289d8.v, 8);
 
-                if (FUN_8c020842(var_collideSelfBox_8c228978.v, var_collideCandidateBox_8c2289d8.v)) {
+                if (GeomQuadOverlap_8c020842(var_collideSelfBox_8c228978.v, var_collideCandidateBox_8c2289d8.v)) {
                     return (BusState *)state;
                 }
             }
@@ -224,7 +224,7 @@ STATIC BusState *unused_8c02e35a(void)
                              init_8c04c940[*(Sint32 *)(state + 0x2e0)],
                              var_collideCandidateBox_8c2289d8.v, 8);
 
-                if (FUN_8c020842(var_collideSelfBox_8c228978.v, var_collideCandidateBox_8c2289d8.v)) {
+                if (GeomQuadOverlap_8c020842(var_collideSelfBox_8c228978.v, var_collideCandidateBox_8c2289d8.v)) {
                     return (BusState *)state;
                 }
             }
