@@ -39,7 +39,7 @@ return new class extends TestCase {
         [$obj, $frame0, $tlist, $model] = $this->makeObj(0, 0x37); // bit 3 clear
         $matrix = $this->alloc(0x40);
 
-        $this->call('_FUN_8c028206')->with($obj, $matrix);
+        $this->call('_BusDrawSignalAttachment_8c028206')->with($obj, $matrix);
 
         $this->shouldWriteLong($frame0, 0x3f); // 0x37 | 8
         $this->assertDraw($matrix, $tlist, $model);
@@ -50,7 +50,7 @@ return new class extends TestCase {
         [$obj, $frame0, $tlist, $model] = $this->makeObj(1, 0x3f); // bit 3 set
         $matrix = $this->alloc(0x40);
 
-        $this->call('_FUN_8c028206')->with($obj, $matrix);
+        $this->call('_BusDrawSignalAttachment_8c028206')->with($obj, $matrix);
 
         $this->shouldWriteLong($frame0, 0x37); // 0x3f & ~8
         $this->assertDraw($matrix, $tlist, $model);

@@ -79,7 +79,7 @@ return new class extends TestCase {
         $this->setupCachedRows();
         $bus = $this->makeBus(0, 0, 0.0);
 
-        $this->call('_FUN_8c028022')->with($bus);
+        $this->call('_BusDrawFadeLights_8c028022')->with($bus);
 
         $this->shouldWriteLong($bus + 0x80, 0x18);
     }
@@ -89,7 +89,7 @@ return new class extends TestCase {
         $this->setupCachedRows();
         $bus = $this->makeBus(0, 1, 0.0);
 
-        $this->call('_FUN_8c028022')->with($bus);
+        $this->call('_BusDrawFadeLights_8c028022')->with($bus);
 
         $this->shouldWriteLong($bus + 0x80, 0x18);
         $this->shouldWriteLong($bus + 0x2d8, 1);
@@ -100,7 +100,7 @@ return new class extends TestCase {
         $this->setupCachedRows();
         $bus = $this->makeBus(1, 1, 0.0);
 
-        $this->call('_FUN_8c028022')->with($bus);
+        $this->call('_BusDrawFadeLights_8c028022')->with($bus);
 
         $this->shouldWriteLong($bus + 0x80, 0x18);
         $this->shouldWriteLong($bus + 0xc4, fdec(1.0));
@@ -115,7 +115,7 @@ return new class extends TestCase {
         $this->setupCachedRows();
         $bus = $this->makeBus(1, 1, 19.5); // one step (+1.0) overshoots 20.0
 
-        $this->call('_FUN_8c028022')->with($bus);
+        $this->call('_BusDrawFadeLights_8c028022')->with($bus);
 
         $this->shouldWriteLong($bus + 0x80, 0x18);
         // The unclamped sum is written first, then overwritten by the snap.
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->setupCachedRows();
         $bus = $this->makeBus(2, 1, 20.0);
 
-        $this->call('_FUN_8c028022')->with($bus);
+        $this->call('_BusDrawFadeLights_8c028022')->with($bus);
 
         $this->shouldWriteLong($bus + 0x80, 0x18);
     }
@@ -143,7 +143,7 @@ return new class extends TestCase {
         $this->setupCachedRows();
         $bus = $this->makeBus(2, 0, 20.0);
 
-        $this->call('_FUN_8c028022')->with($bus);
+        $this->call('_BusDrawFadeLights_8c028022')->with($bus);
 
         $this->shouldWriteLong($bus + 0x80, 0x18);
         $this->shouldWriteLong($bus + 0x2d8, 3);
@@ -154,7 +154,7 @@ return new class extends TestCase {
         $this->setupCachedRows();
         $bus = $this->makeBus(3, 0, 20.0);
 
-        $this->call('_FUN_8c028022')->with($bus);
+        $this->call('_BusDrawFadeLights_8c028022')->with($bus);
 
         $this->shouldWriteLong($bus + 0x80, 0x18);
         $this->shouldWriteLong($bus + 0xc4, fdec(19.0));
@@ -169,7 +169,7 @@ return new class extends TestCase {
         $this->setupCachedRows();
         $bus = $this->makeBus(3, 0, 0.5); // one step (-1.0) undershoots 0.0
 
-        $this->call('_FUN_8c028022')->with($bus);
+        $this->call('_BusDrawFadeLights_8c028022')->with($bus);
 
         $this->shouldWriteLong($bus + 0x80, 0x18);
         // The unclamped difference is written first, then overwritten by the

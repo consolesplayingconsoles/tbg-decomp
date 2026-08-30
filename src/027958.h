@@ -1,7 +1,3 @@
-/* @unit: not stamped -- this TU bundles three unrelated jobs: bus blinker-
- * light state (FUN_8c027958, FUN_8c028022), traffic-signal draw
- * callbacks for 028258_objects (FUN_8c0281ac, FUN_8c028206), and a ground-
- * alignment matrix helper for 025b98 (FUN_8c027c3c). */
 #ifndef _027958_H
 #define _027958_H
 
@@ -11,28 +7,27 @@
 /* Called by FUN_8c024bb8 (024b4c) with the player's BusState each frame.
  * Sets the visibility flag on the bus's blinker-arrow light models from
  * blinker_0x080, and on a turn-maneuver-phase light from field_0x000. */
-void FUN_8c027958(BusState *bus);
+void BusDrawUpdateModels_8c027958(BusState *bus);
 
 /* Called by BusTask_8c022bdc (022bdc) with the player's BusState
  * (var_8c1bbd9c) each frame at night (var_timeOfDay_8c18ad20 == 2). Forces
  * blinker_0x080 bits 0x08/0x10 on, and crossfades field_0x0c4[0..4] (the
  * bus's directional-light coefficient row) between its cached day/night
- * values over 20 frames, gated by field_0x2dc. Despite the name, this isn't
- * itself the probability roll -- see the .c file. */
-void FUN_8c028022(BusState *bus);
+ * values over 20 frames, gated by field_0x2dc. */
+void BusDrawFadeLights_8c028022(BusState *bus);
 
 /* FadeCmdPushCall2_8c022420 callback (FadeCallback2, hence the (int, int)
  * signature): draws a TrafficSignal's lamp model (frames_0x10) via
  * tlist_0xb4/model_0xb8 at matrixArg (an NJS_MATRIX*, multiplied onto
  * identity), showing the frame for obj->frame_0x0c (0/1/2) and hiding the
  * other two. objArg is the TrafficSignal*. */
-void FUN_8c0281ac(int objArg, int matrixArg);
+void BusDrawSignal_8c0281ac(int objArg, int matrixArg);
 
 /* FadeCmdPushCall2_8c022420 callback used for a type 2/3/4 TrafficSignal's
- * attachment: same draw as FUN_8c0281ac but toggles frames_0x10[0]'s
+ * attachment: same draw as BusDrawSignal_8c0281ac but toggles frames_0x10[0]'s
  * NJD_EVAL_HIDE bit from obj->drawA_0xc8 rather than switching on
  * frame_0x0c. */
-void FUN_8c028206(int objArg, int matrixArg);
+void BusDrawSignalAttachment_8c028206(int objArg, int matrixArg);
 
 /* Called by TrafficDriveVehicle_8c025b98 (025b98_traffic_drive) once per frame for each
  * moving traffic entity, passing the entity itself and its current heading
@@ -53,7 +48,7 @@ void FUN_8c028206(int objArg, int matrixArg);
  *
  * 2. Advances this entity's suspension-lean state (field_0x070/074/078/07c,
  *    mirroring BusState's distance_traveled_0x070/ang_0x074/acc_0x078/
- *    ang_0x07c -- the same fields FUN_8c027958 reads for blinker-light
+ *    ang_0x07c -- the same fields BusDrawUpdateModels_8c027958 reads for blinker-light
  *    placement) and, unless skipped (field_0x494 already 1 and speed
  *    speed_0x27c is 0 -- i.e. stationary and already aligned), re-probes 3
  *    ground points (field_0x118/0x124/0x100, each an (x,y,z) triple) through
@@ -63,6 +58,6 @@ void FUN_8c028206(int objArg, int matrixArg);
  *    entity's world matrix (worldMatrix_0x84) to the ground via
  *    VehicleModelPlace_8c020594. driveState_0x2b4 == 1 temporarily swaps the active
  *    ground grid to the fallback grid for these probes. */
-void FUN_8c027c3c(TrafficEntry *entity, float heading);
+void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float heading);
 
 #endif // _027958_H

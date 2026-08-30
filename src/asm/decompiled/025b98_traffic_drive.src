@@ -26,12 +26,12 @@
           .IMPORT     _CollideFindTaskHit_8c02e400
           .IMPORT     _TrafficUpdateHeading_8c026bc4
           .IMPORT     _var_timeOfDay_8c18ad20
-          .IMPORT     _FUN_8c028022
+          .IMPORT     _BusDrawFadeLights_8c028022
           .IMPORT     _var_8c1bbac4
           .IMPORT     _var_8c1bbacc
           .IMPORT     _njSqrt
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _FUN_8c027c3c
+          .IMPORT     _BusDrawPlaceEntity_8c027c3c
           .EXPORT     _TrafficDriveVehicle_8c025b98
           .EXPORT     _TrafficDriveDecoration_8c02656a
           .SECTION     P, CODE, ALIGN=4
@@ -1417,14 +1417,14 @@ LP_GEN_51630:
           .DATA.W H'01B0 ; H'8C0265FA
           .DATA.W H'029C ; H'8C0265FC
           .RES.W 1 ; H'8C0265FE
-          .DATA.L _FUN_8c028022 ; H'8C026600
+          .DATA.L _BusDrawFadeLights_8c028022 ; H'8C026600
           .DATA.L _var_8c1bbac4 ; H'8C026604
           .DATA.L _var_8c1bbacc ; H'8C026608
           .DATA.L _njSqrt ; H'8C02660C
           .DATA.L H'43480000 ; H'8C026610
           .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C026614
           .DATA.L _TaskFree_8c014b66 ; H'8C026618
-          .DATA.L _FUN_8c027c3c ; H'8C02661C
+          .DATA.L _BusDrawPlaceEntity_8c027c3c ; H'8C02661C
           .DATA.L H'3DCCCCCD ; H'8C026620
           .DATA.L _CollideFindTaskHit_8c02e400 ; H'8C026624
 LAB_8c026628:
@@ -1540,5 +1540,5 @@ LP_GEN_53982:
           .DATA.L H'43480000 ; H'8C026700
           .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C026704
           .DATA.L _TaskFree_8c014b66 ; H'8C026708
-          .DATA.L _FUN_8c027c3c ; H'8C02670C
+          .DATA.L _BusDrawPlaceEntity_8c027c3c ; H'8C02670C
           .END

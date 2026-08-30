@@ -19,7 +19,7 @@
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _njCnkSetSimpleLightIntensity
           .IMPORT     _njCnkSetSimpleLightColor
-          .IMPORT     _FUN_8c027958
+          .IMPORT     _BusDrawUpdateModels_8c027958
           .IMPORT     _njMultiMatrix
           .IMPORT     _njSetTexture
           .IMPORT     _var_8c1bc414
@@ -219,7 +219,7 @@ LP_GEN_17430:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024C80
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C024C84
           .DATA.L _njCnkSetSimpleLightColor ; H'8C024C88
-          .DATA.L _FUN_8c027958 ; H'8C024C8C
+          .DATA.L _BusDrawUpdateModels_8c027958 ; H'8C024C8C
           .DATA.L _njMultiMatrix ; H'8C024C90
           .DATA.L _njSetTexture ; H'8C024C94
           .DATA.L _var_8c1bc414 ; H'8C024C98

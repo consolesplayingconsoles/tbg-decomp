@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bc410', 4);
         $this->setSize('_var_8c1bc414', 4);
         $this->setSize('_var_8c227db0', 4);
-        $this->setSize('_FUN_8c027958', 4);
+        $this->setSize('_BusDrawUpdateModels_8c027958', 4);
         $this->setSize('_njCnkSetSimpleLight', 4);
         $this->setSize('_njCnkSetSimpleLightIntensity', 4);
         $this->setSize('_njCnkSetSimpleLightColor', 4);
@@ -74,7 +74,7 @@ return new class extends TestCase {
         $this->shouldCall('_njCnkSetSimpleLight')->with($this->f32(0.1), $this->f32(0.2), $this->f32(0.3));
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.5, 2.5);
         $this->shouldCall('_njCnkSetSimpleLightColor')->with(3.5, 4.5, 5.5);
-        $this->shouldCall('_FUN_8c027958')->with($base);
+        $this->shouldCall('_BusDrawUpdateModels_8c027958')->with($base);
         $this->shouldCall('_njMultiMatrix')->with(0, $base + 0x84);
         $this->shouldCall('_njSetTexture')->with(0x11223344);
         $this->shouldCall('_njCnkSimpleDrawShapeMotion')->with(0x77665544, 0x22334455, 0x33445566, 0.0);
@@ -102,7 +102,7 @@ return new class extends TestCase {
         $this->shouldCall('_njCnkSetSimpleLight')->with($this->f32(0.4), $this->f32(0.5), $this->f32(0.6));
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.5, 2.5);
         $this->shouldCall('_njCnkSetSimpleLightColor')->with(3.5, 4.5, 5.5);
-        $this->shouldCall('_FUN_8c027958')->with($base);
+        $this->shouldCall('_BusDrawUpdateModels_8c027958')->with($base);
         $this->shouldCall('_njMultiMatrix')->with(0, $base + 0x84);
         $this->shouldCall('_njSetTexture')->with(0x11223344);
         $this->shouldCall('_njCnkSimpleDrawShapeMotion')->with(0x77665544, 0x22334455, 0x33445566, 12.5);

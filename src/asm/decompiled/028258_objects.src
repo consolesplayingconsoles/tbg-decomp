@@ -136,8 +136,8 @@
           .IMPORT     _TxtDestroyTextBox_8c015410
           .IMPORT     _var_messageTextBoxB_8c1bc408
           .IMPORT     _TxtDestroy_8c01529c
-          .IMPORT     _FUN_8c0281ac
-          .IMPORT     _FUN_8c028206
+          .IMPORT     _BusDrawSignal_8c0281ac
+          .IMPORT     _BusDrawSignalAttachment_8c028206
           .AIFDEF UNIT_TESTING
           .EXPORT     _trafficSignalTask_8c028258
           .AENDI
@@ -448,7 +448,7 @@ LP_GEN_42300:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C028374
           .DATA.L _njSqrt ; H'8C028378
           .DATA.L H'43480000 ; H'8C02837C
-          .DATA.L _FUN_8c0281ac ; H'8C028380
+          .DATA.L _BusDrawSignal_8c0281ac ; H'8C028380
           .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C028384
 LAB_8c028388:
           MOV.L       R4,@(H'c,R14)
@@ -587,7 +587,7 @@ LP_GEN_65253:
           .DATA.W H'00CC ; H'8C02847C
           .RES.W 1 ; H'8C02847E
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C028480
-          .DATA.L _FUN_8c028206 ; H'8C028484
+          .DATA.L _BusDrawSignalAttachment_8c028206 ; H'8C028484
           .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C028488
           .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C02848C
           .DATA.L _njCnkSetSimpleLight ; H'8C028490

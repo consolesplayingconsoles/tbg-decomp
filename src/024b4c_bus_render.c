@@ -101,7 +101,7 @@ void FUN_8c024bb8(void *altLight)
     njCnkSetSimpleLightColor(var_busState_8c1bb9d0.field_0x0c4[2],
                               var_busState_8c1bb9d0.field_0x0c4[3],
                               var_busState_8c1bb9d0.field_0x0c4[4]);
-    FUN_8c027958(&var_busState_8c1bb9d0);
+    BusDrawUpdateModels_8c027958(&var_busState_8c1bb9d0);
     njMultiMatrix(NULL, (NJS_MATRIX *)&var_busState_8c1bb9d0.field_0x084);
     njSetTexture((NJS_TEXLIST *)var_busState_8c1bb9d0.field_0x004);
     njCnkSimpleDrawShapeMotion((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.field_0x00c,

@@ -13,10 +13,10 @@ if (!function_exists('fdec')) {
 
 /*
  * busDrawSimpleCb_8c027bac(TrafficEntry *entity, int lod): FadeCmdPushCall2
- * far (rear-view mirror) draw callback registered by FUN_8c027c3c. Same
+ * far (rear-view mirror) draw callback registered by BusDrawPlaceEntity_8c027c3c. Same
  * shape as busDrawSimpleCb_8c027a88 but with no near/detailed variant and no
  * night/day split: lod == 0 always draws the simple-light near model (and
- * refreshes blinkers via FUN_8c027958), lod != 0 always draws the easy-light
+ * refreshes blinkers via BusDrawUpdateModels_8c027958), lod != 0 always draws the easy-light
  * far model.
  */
 return new class extends TestCase {
@@ -59,7 +59,7 @@ return new class extends TestCase {
         $this->shouldCall('_njMultiMatrix')->with(0, $entity + 0x84);
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.0, 2.0);
         $this->shouldCall('_njCnkSetSimpleLightColor')->with(3.0, 4.0, 5.0);
-        $this->shouldCall('_FUN_8c027958')->with($entity);
+        $this->shouldCall('_BusDrawUpdateModels_8c027958')->with($entity);
         $this->shouldCall('_njSetTexture')->with($texlistLarge);
         $this->shouldCall('_njCnkSimpleDrawObject')->with($modelLarge);
     }

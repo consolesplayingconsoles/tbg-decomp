@@ -14,7 +14,7 @@
  *
  * The 027958 draw callbacks light exactly one entry of `frames_0x10` per frame --
  * NJD_EVAL_HIDE cleared on it, set on the other two -- then draw `model_0xb8`
- * with `tlist_0xb4`. For a type 2/3/4 object FUN_8c028206 reads drawA_0xc8 as
+ * with `tlist_0xb4`. For a type 2/3/4 object BusDrawSignalAttachment_8c028206 reads drawA_0xc8 as
  * plain visibility rather than as a per-placement draw flag. */
 typedef struct TrafficSignal {
     int id_0x00; /* indexes var_trafficSignalFrames_8c227e24 / var_trafficSignalStates_8c227e28 */

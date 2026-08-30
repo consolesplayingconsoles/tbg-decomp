@@ -387,7 +387,7 @@ extern void* var_groundGridFallback_8c1bb86c;
  * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
 extern void *var_stopAreaTable_8c1bb870;
 
-/* Restored into var_activeGroundGrid_8c2264d4 by FUN_8c027c3c (027958) after
+/* Restored into var_activeGroundGrid_8c2264d4 by BusDrawPlaceEntity_8c027c3c (027958) after
  * a traffic entity's fallback-grid ground probe. */
 extern void* var_8c1bb880;
 

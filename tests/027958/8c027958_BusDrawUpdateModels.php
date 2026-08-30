@@ -69,7 +69,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x07c, $ang07c);
         $this->initUint32($bus + 0x080, $blinker);
 
-        $this->call('_FUN_8c027958')->with($bus);
+        $this->call('_BusDrawUpdateModels_8c027958')->with($bus);
 
         $this->assertBaseline($t, $distance, $ang074, $acc078, $ang07c, $blinker);
 

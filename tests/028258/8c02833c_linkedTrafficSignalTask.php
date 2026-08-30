@@ -85,9 +85,9 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0xc8, 0);
         $this->shouldWriteLong($slots + 0, 1);
         $this->shouldCall('_FadeCmdPushCall2_8c022420')
-            ->with(0, $this->addressOf('_FUN_8c028206'), $state, $linked + 0x34);
+            ->with(0, $this->addressOf('_BusDrawSignalAttachment_8c028206'), $state, $linked + 0x34);
         $this->shouldCall('_FadeCmdPushCall2_8c022420')
-            ->with(0, $this->addressOf('_FUN_8c028206'), $state, $linked + 0x74);
+            ->with(0, $this->addressOf('_BusDrawSignalAttachment_8c028206'), $state, $linked + 0x74);
     }
 
     public function test_draws_only_the_second_matrix()
@@ -102,6 +102,6 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0xc8, 0);
         $this->shouldWriteLong($slots + 0, 1);
         $this->shouldCall('_FadeCmdPushCall2_8c022420')
-            ->with(0, $this->addressOf('_FUN_8c028206'), $state, $linked + 0x74);
+            ->with(0, $this->addressOf('_BusDrawSignalAttachment_8c028206'), $state, $linked + 0x74);
     }
 };

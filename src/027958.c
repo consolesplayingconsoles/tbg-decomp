@@ -1,8 +1,4 @@
-/* @unit: not stamped -- this TU bundles three unrelated jobs: bus blinker-light
- * state (FUN_8c027958, FUN_8c028022), traffic-signal draw callbacks
- * for 028258_objects (FUN_8c0281ac, FUN_8c028206), and a ground-alignment
- * matrix helper for 025b98 (FUN_8c027c3c, plus its two literal-pool-only
- * callback helpers). See 027958.h for the per-function detail. */
+/* @unit BusDraw */
 
 #include <shinobi.h>
 
@@ -42,7 +38,7 @@ STATIC void busDrawSimpleCb_8c027bac(int entityArg, int lod);
  * on field_0x000 (a turn-maneuver phase), copies distance_traveled_0x070 into
  * a sixth light model (field_0x028's target, offset +0x14) and toggles up to
  * one more model (field_0x040/044/048) for the phases that use one. */
-void FUN_8c027958(BusState *bus)
+void BusDrawUpdateModels_8c027958(BusState *bus)
 {
     *(int *)(bus->field_0x018 + 0x14) = bus->acc_0x078;
     *(int *)(bus->field_0x018 + 0x1c) = bus->ang_0x07c;
@@ -104,11 +100,11 @@ void FUN_8c027958(BusState *bus)
     }
 }
 
-/* FadeCmdPushCall2_8c022420 callback registered by FUN_8c027c3c's near test
+/* FadeCmdPushCall2_8c022420 callback registered by BusDrawPlaceEntity_8c027c3c's near test
  * (lod = 1 once the entity is past 55m). lod == 0 draws the near/detailed
  * variant -- simple-light model_0x0c plus bodyModel_0x14 (an interior/window
  * layer bracketed by njControl3D 0x2500/0x100) and also updates the entity's
- * blinker lights via FUN_8c027958 -- lod != 0 draws model_0x10 only, using
+ * blinker lights via BusDrawUpdateModels_8c027958 -- lod != 0 draws model_0x10 only, using
  * simple light at night (var_timeOfDay_8c18ad20 == 2) or easy light by day. */
 STATIC void busDrawSimpleCb_8c027a88(int entityArg, int lod)
 {
@@ -119,7 +115,7 @@ STATIC void busDrawSimpleCb_8c027a88(int entityArg, int lod)
     if (lod == 0) {
         njCnkSetSimpleLightIntensity(entity->field_0x0c4, entity->field_0x0c8);
         njCnkSetSimpleLightColor(entity->field_0x0cc, entity->field_0x0d0, entity->field_0x0d4);
-        FUN_8c027958((BusState *)entity);
+        BusDrawUpdateModels_8c027958((BusState *)entity);
         njSetTexture(entity->texlistLarge_0x04);
         njCnkSimpleDrawObject((NJS_CNK_OBJECT *)entity->modelLarge_0x0c);
         njControl3D(0x2500);
@@ -138,11 +134,11 @@ STATIC void busDrawSimpleCb_8c027a88(int entityArg, int lod)
     }
 }
 
-/* FadeCmdPushCall2_8c022420 callback registered by FUN_8c027c3c's far
+/* FadeCmdPushCall2_8c022420 callback registered by BusDrawPlaceEntity_8c027c3c's far
  * (rear-view mirror) test (lod = 1 once the entity is past 28m). Same shape
  * as busDrawSimpleCb_8c027a88's two draw variants, but with no near/detailed
  * variant and no night/day split for the far draw -- lod == 0 always uses
- * simple light plus FUN_8c027958, lod != 0 always uses easy light. */
+ * simple light plus BusDrawUpdateModels_8c027958, lod != 0 always uses easy light. */
 STATIC void busDrawSimpleCb_8c027bac(int entityArg, int lod)
 {
     TrafficEntry *entity = (TrafficEntry *)entityArg;
@@ -152,7 +148,7 @@ STATIC void busDrawSimpleCb_8c027bac(int entityArg, int lod)
     if (lod == 0) {
         njCnkSetSimpleLightIntensity(entity->field_0x0c4, entity->field_0x0c8);
         njCnkSetSimpleLightColor(entity->field_0x0cc, entity->field_0x0d0, entity->field_0x0d4);
-        FUN_8c027958((BusState *)entity);
+        BusDrawUpdateModels_8c027958((BusState *)entity);
         njSetTexture(entity->texlistLarge_0x04);
         njCnkSimpleDrawObject((NJS_CNK_OBJECT *)entity->modelLarge_0x0c);
     } else {
@@ -164,7 +160,7 @@ STATIC void busDrawSimpleCb_8c027bac(int entityArg, int lod)
 }
 
 /* See 027958.h for the full description. */
-void FUN_8c027c3c(TrafficEntry *entity, float heading)
+void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float heading)
 {
     int registered = 0;
     float dx, dz, dist;
@@ -298,7 +294,7 @@ void FUN_8c027c3c(TrafficEntry *entity, float heading)
 /* FadeCmdPushCall2_8c022420 callback for a type-1 TrafficSignal: draws
  * model_0xb8 through tlist_0xb4, showing frame frame_0x0c and hiding the
  * other two of frames_0x10 at the given matrix (multiplied onto identity). */
-void FUN_8c0281ac(int objArg, int matrixArg)
+void BusDrawSignal_8c0281ac(int objArg, int matrixArg)
 {
     TrafficSignal *obj = (TrafficSignal *)objArg;
     NJS_MATRIX *matrix = (NJS_MATRIX *)matrixArg;
@@ -329,17 +325,14 @@ draw:
 }
 
 /* Called each frame; forces bits 0x08/0x10 on in blinker_0x080 (see
- * FUN_8c027958), then runs field_0x0c4[0..4] -- the bus's copy of the
+ * BusDrawUpdateModels_8c027958), then runs field_0x0c4[0..4] -- the bus's copy of the
  * directional-light coefficient row -- through a 20-frame crossfade state
  * machine between the cached "off" row (var_8c1bbda8/var_8c1bbdc4) and "on"
  * row (var_8c1bbdb0/var_8c1bbdd0), gated by field_0x2dc (set elsewhere):
  * 0 = idle (fades in once field_0x2dc goes nonzero), 1 = fading in,
  * 2 = holding at "on" (fades out once field_0x2dc goes zero), 3 = fading
- * out.
- * Known by usage as the blinker crossfade; kept FUN_ because the naming rules
- * want a <ShortUnit> prefix on a named public function and this TU has no
- * single honest identity to take one from. */
-void FUN_8c028022(BusState *bus)
+ * out. */
+void BusDrawFadeLights_8c028022(BusState *bus)
 {
     bus->blinker_0x080 |= 0x18;
 
@@ -394,8 +387,8 @@ void FUN_8c028022(BusState *bus)
 
 /* FadeCmdPushCall2_8c022420 callback for a type 2/3/4 TrafficSignal
  * attachment: toggles NJD_EVAL_HIDE (bit 3) on frames_0x10[0] from
- * obj->drawA_0xc8, then draws like FUN_8c0281ac. */
-void FUN_8c028206(int objArg, int matrixArg)
+ * obj->drawA_0xc8, then draws like BusDrawSignal_8c0281ac. */
+void BusDrawSignalAttachment_8c028206(int objArg, int matrixArg)
 {
     TrafficSignal *obj = (TrafficSignal *)objArg;
     NJS_MATRIX *matrix = (NJS_MATRIX *)matrixArg;

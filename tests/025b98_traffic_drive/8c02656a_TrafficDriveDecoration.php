@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_TrafficUpdateHeading_8c026bc4', 4);
         $this->setSize('_CollideFindTaskHit_8c02e400', 4);
-        $this->setSize('_FUN_8c027c3c', 4);
+        $this->setSize('_BusDrawPlaceEntity_8c027c3c', 4);
         $this->setSize('_var_8c1bbac4', 4);
         $this->setSize('_var_8c1bbacc', 4);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
@@ -83,7 +83,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with(f32(1000.0 * 1000.0))->andReturn(1000.0);
         $this->shouldWriteFloat($entry + 0x490, 1000.0);
-        $this->shouldCall('_FUN_8c027c3c')->with($entry, 0.0);
+        $this->shouldCall('_BusDrawPlaceEntity_8c027c3c')->with($entry, 0.0);
     }
 
     // knockbackActive == 0, close (< 200): always draws, regardless of
@@ -98,7 +98,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with(f32(10.0 * 10.0))->andReturn(10.0);
         $this->shouldWriteFloat($entry + 0x490, 10.0);
-        $this->shouldCall('_FUN_8c027c3c')->with($entry, 0.0);
+        $this->shouldCall('_BusDrawPlaceEntity_8c027c3c')->with($entry, 0.0);
     }
 
     // knockbackActive == 1, all 3 ground probes open and no collision:
@@ -127,7 +127,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with(f32(12.0 * 12.0 + 1.0 * 1.0))->andReturn(12.04);
         $this->shouldWriteFloat($entry + 0x490, f32(12.04));
-        $this->shouldCall('_FUN_8c027c3c')->with($entry, 0.0);
+        $this->shouldCall('_BusDrawPlaceEntity_8c027c3c')->with($entry, 0.0);
     }
 
     // knockbackActive == 1, a ground probe is closed (attr_0x00 == 0):
@@ -166,7 +166,7 @@ return new class extends TestCase {
         $newPosZ = f32(0.0 - $dz);
         $this->shouldCall('_njSqrt')->with(f32($newPosX * $newPosX + $newPosZ * $newPosZ))->andReturn(9.5);
         $this->shouldWriteFloat($entry + 0x490, 9.5);
-        $this->shouldCall('_FUN_8c027c3c')->with($entry, 0.0);
+        $this->shouldCall('_BusDrawPlaceEntity_8c027c3c')->with($entry, 0.0);
     }
 
     // knockbackActive == 1, a live collision hit (all probes open but
@@ -202,7 +202,7 @@ return new class extends TestCase {
         $newPosZ = f32(0.0 - $dz);
         $this->shouldCall('_njSqrt')->with(f32($newPosX * $newPosX + $newPosZ * $newPosZ))->andReturn(9.5);
         $this->shouldWriteFloat($entry + 0x490, 9.5);
-        $this->shouldCall('_FUN_8c027c3c')->with($entry, 0.0);
+        $this->shouldCall('_BusDrawPlaceEntity_8c027c3c')->with($entry, 0.0);
     }
 
     // Clear-path push whose ramp-down brings speed to exactly 0 also ends
@@ -237,6 +237,6 @@ return new class extends TestCase {
         $newPosZ = f32(0.0 + $dz);
         $this->shouldCall('_njSqrt')->with(f32($newPosX * $newPosX + $newPosZ * $newPosZ))->andReturn(10.05);
         $this->shouldWriteFloat($entry + 0x490, 10.05);
-        $this->shouldCall('_FUN_8c027c3c')->with($entry, 0.0);
+        $this->shouldCall('_BusDrawPlaceEntity_8c027c3c')->with($entry, 0.0);
     }
 };

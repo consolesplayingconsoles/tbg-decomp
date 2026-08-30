@@ -13,10 +13,10 @@ if (!function_exists('fdec')) {
 
 /*
  * busDrawSimpleCb_8c027a88(TrafficEntry *entity, int lod): FadeCmdPushCall2
- * near-draw callback registered by FUN_8c027c3c. lod == 0 draws the
+ * near-draw callback registered by BusDrawPlaceEntity_8c027c3c. lod == 0 draws the
  * detailed near model (texlistLarge_0x04/modelLarge_0x0c plus bodyModel_0x14
  * bracketed by njControl3D) and also refreshes blinker lights via
- * FUN_8c027958; lod != 0 draws texlistSmall_0x08/modelSmall_0x10 only, with
+ * BusDrawUpdateModels_8c027958; lod != 0 draws texlistSmall_0x08/modelSmall_0x10 only, with
  * simple light at night (var_timeOfDay_8c18ad20 == 2) or easy light by day.
  */
 return new class extends TestCase {
@@ -63,7 +63,7 @@ return new class extends TestCase {
         $this->shouldCall('_njMultiMatrix')->with(0, $entity + 0x84);
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.0, 2.0);
         $this->shouldCall('_njCnkSetSimpleLightColor')->with(3.0, 4.0, 5.0);
-        $this->shouldCall('_FUN_8c027958')->with($entity);
+        $this->shouldCall('_BusDrawUpdateModels_8c027958')->with($entity);
         $this->shouldCall('_njSetTexture')->with($texlistLarge);
         $this->shouldCall('_njCnkSimpleDrawObject')->with($modelLarge);
         $this->shouldCall('_njControl3D')->with(0x2500);

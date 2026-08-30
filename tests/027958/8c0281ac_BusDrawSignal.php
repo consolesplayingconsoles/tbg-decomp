@@ -42,7 +42,7 @@ return new class extends TestCase {
         [$obj, $frames, $tlist, $model] = $this->makeObj(1);
         $matrix = $this->alloc(0x40);
 
-        $this->call('_FUN_8c0281ac')->with($obj, $matrix);
+        $this->call('_BusDrawSignal_8c0281ac')->with($obj, $matrix);
 
         $this->shouldWriteLong($frames[0], 0x37);
         $this->shouldWriteLong($frames[1], 0x3f);
@@ -55,7 +55,7 @@ return new class extends TestCase {
         [$obj, $frames, $tlist, $model] = $this->makeObj(2);
         $matrix = $this->alloc(0x40);
 
-        $this->call('_FUN_8c0281ac')->with($obj, $matrix);
+        $this->call('_BusDrawSignal_8c0281ac')->with($obj, $matrix);
 
         $this->shouldWriteLong($frames[0], 0x3f);
         $this->shouldWriteLong($frames[1], 0x37);
@@ -68,7 +68,7 @@ return new class extends TestCase {
         [$obj, $frames, $tlist, $model] = $this->makeObj(0);
         $matrix = $this->alloc(0x40);
 
-        $this->call('_FUN_8c0281ac')->with($obj, $matrix);
+        $this->call('_BusDrawSignal_8c0281ac')->with($obj, $matrix);
 
         $this->shouldWriteLong($frames[0], 0x3f);
         $this->shouldWriteLong($frames[1], 0x3f);
@@ -81,7 +81,7 @@ return new class extends TestCase {
         [$obj, $frames, $tlist, $model] = $this->makeObj(5);
         $matrix = $this->alloc(0x40);
 
-        $this->call('_FUN_8c0281ac')->with($obj, $matrix);
+        $this->call('_BusDrawSignal_8c0281ac')->with($obj, $matrix);
 
         $this->assertDraw($matrix, $tlist, $model);
     }

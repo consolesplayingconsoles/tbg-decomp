@@ -27,17 +27,17 @@
           .IMPORT     _var_8c1bbdac
           .IMPORT     _var_8c1bbdc4
           .IMPORT     _GroundProbeTrackPolygonAtHeight_8c021290
-          .EXPORT     _FUN_8c027958
-          .EXPORT     _FUN_8c028022
-          .EXPORT     _FUN_8c027c3c
-          .EXPORT     _FUN_8c0281ac
-          .EXPORT     _FUN_8c028206
+          .EXPORT     _BusDrawUpdateModels_8c027958
+          .EXPORT     _BusDrawFadeLights_8c028022
+          .EXPORT     _BusDrawPlaceEntity_8c027c3c
+          .EXPORT     _BusDrawSignal_8c0281ac
+          .EXPORT     _BusDrawSignalAttachment_8c028206
           .AIFDEF UNIT_TESTING
           .EXPORT     _busDrawSimpleCb_8c027a88
           .EXPORT     _busDrawSimpleCb_8c027bac
           .AENDI
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c027958:
+_BusDrawUpdateModels_8c027958:
           MOV         #H'78,R0
           MOV         R4,R5
           MOV.L       @(R0,R4),R2
@@ -245,7 +245,7 @@ _busDrawSimpleCb_8c027a88:
           FMOV.S      @(R0,R12),FR5
           JSR         @R3
           FMOV.S      @R12,FR4
-          BSR         _FUN_8c027958
+          BSR         _BusDrawUpdateModels_8c027958
           MOV         R14,R4
           JSR         @R13
           MOV.L       @(H'4,R14),R4
@@ -382,7 +382,7 @@ _busDrawSimpleCb_8c027bac:
           FMOV.S      @(R0,R13),FR5
           JSR         @R3
           FMOV.S      @R13,FR4
-          BSR         _FUN_8c027958
+          BSR         _BusDrawUpdateModels_8c027958
           MOV         R14,R4
           MOV.L       LP_GEN_94732+34,R3
           JSR         @R3
@@ -423,7 +423,7 @@ LAB_8c027c04:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_FUN_8c027c3c:
+_BusDrawPlaceEntity_8c027c3c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -921,7 +921,7 @@ LAB_8c02800a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c028022:
+_BusDrawFadeLights_8c028022:
           MOV.W       LP_GEN_83484+28,R0
           MOV         #H'18,R3
           MOV.L       LP_GEN_83484+50,R6
@@ -1118,7 +1118,7 @@ LP_GEN_22864:
           .DATA.L _var_8c1bbda8 ; H'8C0281A0
           .DATA.L _var_8c1bbdac ; H'8C0281A4
           .DATA.L _var_8c1bbdc4 ; H'8C0281A8
-_FUN_8c0281ac:
+_BusDrawSignal_8c0281ac:
           MOV.L       R14,@-R15
           MOV         R4,R14
           STS.L       PR,@-R15
@@ -1169,7 +1169,7 @@ LAB_8c0281ec:
           MOV.L       @(R0,R14),R4
           JMP         @R3
           MOV.L       @R15+,R14
-_FUN_8c028206:
+_BusDrawSignalAttachment_8c028206:
           MOV.W       LP_GEN_89825+4,R0
           MOV.L       R14,@-R15
           MOV         R4,R14

@@ -12,7 +12,7 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * FUN_8c027c3c(TrafficEntry *entity, float heading): called once per frame
+ * BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float heading): called once per frame
  * per traffic entity by TrafficDriveVehicle_8c025b98 (025b98, still raw asm). See 027958.h
  * for the full description; this test covers the near/far draw-registration
  * cone tests, the ground-probe-pointer realign trigger, the suspension-lean
@@ -83,7 +83,7 @@ return new class extends TestCase {
         $entity = $this->makeIdleEntity();
         $this->initUint32($entity + 0xf4, fdec(-10.0)); // dist 10, dot 1.0
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
         $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_busDrawSimpleCb_8c027a88'), $entity, 0);
@@ -96,7 +96,7 @@ return new class extends TestCase {
         $entity = $this->makeIdleEntity();
         $this->initUint32($entity + 0xf4, fdec(-250.0)); // dist 250 >= 200
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(62500.0))->andReturn(250.0);
         $this->shouldCall('_njSqrt')->with($this->f32(62500.0))->andReturn(250.0);
@@ -110,7 +110,7 @@ return new class extends TestCase {
         $this->initUint32($entity + 0xf4, fdec(10.0)); // dot -1.0, dist 10
         $this->initUint32($bus + 0x318, fdec(10010.0)); // keep the far test out of range too (dist 10000)
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
         $this->shouldCall('_njSqrt')->with($this->f32(100000000.0))->andReturn(10000.0);
@@ -124,7 +124,7 @@ return new class extends TestCase {
         // Near stays out of range (dist 1000); far: dist 30, dot 1.0.
         $this->initUint32($bus + 0x318, fdec(970.0));
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(900.0))->andReturn(30.0);
@@ -138,7 +138,7 @@ return new class extends TestCase {
         $entity = $this->makeIdleEntity();
         $this->initUint32($bus + 0x318, fdec(980.0)); // far dist 20
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(400.0))->andReturn(20.0);
@@ -153,7 +153,7 @@ return new class extends TestCase {
         $entity = $this->makeIdleEntity();
         $this->initUint32($bus + 0x318, fdec(990.0)); // far dist 10
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
@@ -168,7 +168,7 @@ return new class extends TestCase {
         $this->initUint32($entity + 0x2c8, $this->addressOf('_GroundProbeTrackPolygonAtHeight_8c021290'));
         $this->initUint32($entity + 0x494, 5); // nonzero, proves the write below is real
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
@@ -183,7 +183,7 @@ return new class extends TestCase {
         // Near/far both out of range; field_0x2c8 doesn't match; field_0x490
         // already below the 85.333336 threshold -> outer condition false.
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
@@ -203,7 +203,7 @@ return new class extends TestCase {
         $this->initUint32($entity + 0x07c, 0);
         $this->initUint32($entity + 0x078, 0);
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
         $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_busDrawSimpleCb_8c027a88'), $entity, 0);
@@ -245,7 +245,7 @@ return new class extends TestCase {
         $this->initUint32($entity + 0x104, fdec(8.0));
         $this->initUint32($entity + 0x108, fdec(9.0));
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.01);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.01);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
         $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_busDrawSimpleCb_8c027a88'), $entity, 0);
@@ -313,7 +313,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_groundGridFallback_8c1bb86c'), $fallback);
         $this->initUint32($this->addressOf('_var_8c1bb880'), $primary);
 
-        $this->call('_FUN_8c027c3c')->with($entity, 0.0);
+        $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);

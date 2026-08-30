@@ -12,7 +12,7 @@
 #include "02081c.h"               /* GeomDistanceXZ_8c02081c */
 #include "024b4c_bus_render.h"               /* BusRenderUpdateCamera_8c025078, BusRenderUpdateMirrorCamera_8c025604 */
 #include "025870.h"               /* DemoUpdateCamera_8c025906 */
-#include "027958.h"               /* FUN_8c028022 */
+#include "027958.h"               /* BusDrawFadeLights_8c028022 */
 #include "022bdc_bus.h"           /* BusTask_8c022bdc */
 
 /* Same imprecise 2*pi literal as GroundQueryFindPolygon_8c020914's TWO_PI
@@ -314,7 +314,7 @@ void BusTask_8c022bdc(Task *task, void *state)
     if (var_timeOfDay_8c18ad20 == 1) {
         var_busState_8c1bb9d0.blinker_0x080 |= 0x10;
     } else if (var_timeOfDay_8c18ad20 == 2) {
-        FUN_8c028022(var_8c1bbd9c);
+        BusDrawFadeLights_8c028022(var_8c1bbd9c);
     }
 
     if (var_busState_8c1bb9d0.gear_0x2f4 == 5) {

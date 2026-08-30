@@ -4,7 +4,7 @@
 #include "025b98_traffic_drive.h"
 #include "014a9c_tasks.h"       /* Task, TaskFree_8c014b66 */
 #include "026710_traffic.h"     /* TrafficEntry, TrafficUpdateHeading_8c026bc4 */
-#include "027958.h"             /* FUN_8c027c3c, FUN_8c028022 */
+#include "027958.h"             /* BusDrawPlaceEntity_8c027c3c, BusDrawFadeLights_8c028022 */
 #include "02e400_collision.h"   /* CollideFindTaskHit_8c02e400 */
 #include "02e51c.h"             /* FUN_8c02e51c, FUN_8c02f08a */
 #include "02df3c.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
@@ -51,7 +51,7 @@ typedef void *(*JunctionQueryFn_8c02e51c)(float x, float y, float z, void *out);
  * Finally refreshes field_0x490 (distance to the fixed camera/reference
  * point var_8c1bbac4/var_8c1bbacc); if that distance is over 200 and the
  * entity's preset no longer matches var_activeTrafficPreset_8c227e14, frees
- * the task, else tail-calls FUN_8c027c3c to register/draw it for this
+ * the task, else tail-calls BusDrawPlaceEntity_8c027c3c to register/draw it for this
  * frame. */
 void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
 {
@@ -106,7 +106,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
         return;
     }
 
-    FUN_8c027c3c(e, 0.0f);
+    BusDrawPlaceEntity_8c027c3c(e, 0.0f);
 }
 
 /* TaskAction for a moving CPU vehicle, dispatched on driveState_0x2b4:
@@ -161,7 +161,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  * speed deltas down by one slot (dropping the oldest), sums the 3 dropped
  * samples plus this frame's own speed delta into a "heading" value, sets
  * a couple of headlight/blinker flag bits, stores the new speed_0x27c, and
- * finally either tail-calls FUN_8c027c3c to register/draw the entity this
+ * finally either tail-calls BusDrawPlaceEntity_8c027c3c to register/draw the entity this
  * frame (within 200 units of the player, or its preset still matches
  * var_activeTrafficPreset_8c227e14) or frees the task. */
 void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
@@ -596,7 +596,7 @@ haveLimit:
         if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_EVENING) {
             e->field_0x080 |= 0x10;
         } else if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT) {
-            FUN_8c028022((BusState *)e);
+            BusDrawFadeLights_8c028022((BusState *)e);
         }
 
         e->speed_0x27c = speed;
@@ -609,7 +609,7 @@ haveLimit:
 
         if (e->field_0x490 <= 200.0f || e->field_0x2f4 == var_activeTrafficPreset_8c227e14) {
             e->field_0x268 = 0;
-            FUN_8c027c3c(e, sum);
+            BusDrawPlaceEntity_8c027c3c(e, sum);
             return;
         }
         TaskFree_8c014b66(task);
