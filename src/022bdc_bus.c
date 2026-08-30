@@ -1,5 +1,6 @@
 /* @unit Bus */
 #include <shinobi.h>
+#include "includes.h" /* TWO_PI */
 
 #include "sectionB.h"
 #include "013ae8_route_load.h"    /* CurrentCourse */
@@ -14,10 +15,6 @@
 #include "025870.h"               /* DemoUpdateCamera_8c025906 */
 #include "027958.h"               /* BusDrawFadeLights_8c028022 */
 #include "022bdc_bus.h"           /* BusTask_8c022bdc */
-
-/* Same imprecise 2*pi literal as GroundQueryFindPolygon_8c020914's TWO_PI
- * (0x40C90FD8, 3 ULP short of the true value). */
-#define TWO_PI 6.283184f
 
 /* =====================
  * Type Declarations

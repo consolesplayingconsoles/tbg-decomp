@@ -1,6 +1,7 @@
 /* @unit BusInput */
 #include <shinobi.h>
 #include <math.h>                 /* asinf */
+#include "includes.h" /* TWO_PI */
 
 #include "serial_debug.h"        /* STATIC */
 #include "sectionB.h"
@@ -8,9 +9,6 @@
 #include "026710_traffic.h"       /* TrafficEntry */
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28 */
 #include "024280.h"
-
-/* Same imprecise 2*pi literal as GroundQueryFindPolygon_8c020914's TWO_PI. */
-#define TWO_PI 6.283184f
 
 /* =====================
  * Type Declarations

@@ -1,11 +1,10 @@
 /* @unit VehicleModel */
 #include <shinobi.h>
+#include "includes.h" /* TWO_PI */
 #include "serial_debug.h" /* STATIC */
 
 #include "sectionB.h"
 #include "020594.h"
-
-#define TWO_PI 6.283184f
 
 /* ====================
  * Forward Declarations

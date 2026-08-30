@@ -1,19 +1,13 @@
 /* @unit BusRender */
 
 #include <shinobi.h>
+#include "includes.h" /* TWO_PI */
 
 #include "serial_debug.h"
 #include "sectionB.h"
 #include "027958.h"
 #include "0222dc_fadecmd.h"
 #include "024b4c_bus_render.h"
-
-/* ====================
- * Compiler Definitions
- * ====================
- */
-
-#define TWO_PI 6.283184f
 
 /* ====================
  * Forward Declarations

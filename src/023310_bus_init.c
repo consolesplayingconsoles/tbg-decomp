@@ -1,5 +1,6 @@
 /* @unit BusInit */
 #include <shinobi.h>
+#include "includes.h" /* TWO_PI */
 #include "serial_debug.h" /* STATIC */
 
 #include "sectionB.h"
@@ -13,10 +14,6 @@
 #include "02e51c.h"               /* FUN_8c02e51c, FUN_8c02eab4, FUN_8c02e69c, FUN_8c02ec50 */
 #include "020594.h"               /* VehicleModelPlace_8c020594 */
 #include "022bdc_bus.h"               /* BusTask_8c022bdc */
-
-/* Same imprecise 2*pi literal as GroundQueryFindPolygon_8c020914's TWO_PI
- * (0x40C90FD8, 3 ULP short of the true value). */
-#define TWO_PI 6.283184f
 
 /* =====================
  * Functions

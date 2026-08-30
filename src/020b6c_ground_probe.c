@@ -1,6 +1,7 @@
 /* @unit GroundProbe */
 
 #include <shinobi.h>
+#include "includes.h" /* TWO_PI */
 #include "020b6c_ground_probe.h"
 #include "020914_ground_query.h"
 #include "sectionB.h"
@@ -11,9 +12,6 @@
  */
 
 #define CELL_SIZE 150.0f
-
-/* 2*pi as the original spelled it -- 3 ULP short of the real value. */
-#define TWO_PI 6.283184f
 
 /* ====================
  * Functions

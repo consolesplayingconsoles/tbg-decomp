@@ -1,6 +1,7 @@
 /* @unit: not stamped -- this TU groups two unrelated jobs (see 02e51c.h). */
 
 #include <shinobi.h>
+#include "includes.h" /* TWO_PI */
 
 #include "02e51c.h"             /* FUN_8c02e51c etc, FUN_8c02f08a */
 #include "026710_traffic.h"     /* TrafficEntry */
@@ -68,10 +69,6 @@ typedef struct {
  * query point's y and still be considered a match -- the *AtHeight variants'
  * filter, same tolerance as GroundProbeFindPolygonAtHeight_8c020fe4's. */
 #define HEIGHT_TOLERANCE 20.0f
-
-/* 2*pi as the original spelled it -- 3 ULP short of the real value. Matches
- * 020914_ground_query.c's TWO_PI (private copy, not shared). */
-#define TWO_PI 6.283184f
 
 /* ====================
  * Functions
