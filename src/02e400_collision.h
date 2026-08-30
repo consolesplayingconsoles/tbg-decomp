@@ -2,12 +2,13 @@
 #define _02E400_COLLISION_H
 
 #include "014a9c_tasks.h"
+#include "026710_traffic.h" /* TrafficEntry */
 
 /* Scans var_tasks_8c1bac28 for a task (other than self) whose traffic entry
  * collides with self's oriented bounding box, using the entry's variant
- * index (entry+0x2e0) and world matrix (entry+0x84). Returns the colliding
- * task's state pointer, or NULL if the scan runs off the end. */
-void *CollideFindTaskHit_8c02e400(Task *self, void *entry);
+ * index and world matrix. Returns the colliding task's state pointer, or
+ * NULL if the scan runs off the end. */
+TrafficEntry *CollideFindTaskHit_8c02e400(Task *self, TrafficEntry *entry);
 
 /* Clears the queue's write cursor (var_collideQueueCount_8c228b38). */
 void CollideQueueReset_8c02e486(void);

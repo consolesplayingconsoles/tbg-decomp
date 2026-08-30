@@ -2,6 +2,7 @@
 
 #include <shinobi.h>
 #include "014a9c_tasks.h"
+#include "026710_traffic.h" /* TrafficEntry */
 #include "02e2dc.h"
 #include "02e400_collision.h"
 #include "sectionB.h"
@@ -21,15 +22,12 @@
  * address of the table slot -- while a candidate's comes from
  * `init_8c04c940[idx]`, the box it points at. Self is therefore built from the
  * pointer table's own bytes reinterpreted as floats. */
-void *CollideFindTaskHit_8c02e400(Task *self, void *entry)
+TrafficEntry *CollideFindTaskHit_8c02e400(Task *self, TrafficEntry *entry)
 {
-    Uint8 *e;
-    Uint8 *candidateEntry;
+    TrafficEntry *candidateEntry;
 
-    e = (Uint8 *)entry;
-
-    njCalcPoints((NJS_MATRIX *)(e + 0x84),
-                 (NJS_POINT3 *)&init_8c04c940[*(Sint32 *)(e + 0x2e0)],
+    njCalcPoints(&entry->worldMatrix_0x84,
+                 (NJS_POINT3 *)&init_8c04c940[entry->variantIndex_0x2e0],
                  var_collideSelfBox_8c228978.v, 8);
 
     var_collideScanCursor_8c228974 = var_tasks_8c1bac28;
@@ -40,9 +38,9 @@ void *CollideFindTaskHit_8c02e400(Task *self, void *entry)
 
         if (var_collideScanCursor_8c228974 != self
             && var_collideScanCursor_8c228974->action != (TaskAction)-1) {
-            candidateEntry = (Uint8 *)var_collideScanCursor_8c228974->state;
-            njCalcPoints((NJS_MATRIX *)(candidateEntry + 0x84),
-                         init_8c04c940[*(Sint32 *)(candidateEntry + 0x2e0)],
+            candidateEntry = (TrafficEntry *)var_collideScanCursor_8c228974->state;
+            njCalcPoints(&candidateEntry->worldMatrix_0x84,
+                         init_8c04c940[candidateEntry->variantIndex_0x2e0],
                          var_collideCandidateBox_8c2289d8.v, 8);
             if (njCollisionCheckBB(&var_collideSelfBox_8c228978,
                                    &var_collideCandidateBox_8c2289d8)) {
