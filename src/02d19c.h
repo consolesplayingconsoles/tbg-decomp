@@ -31,6 +31,14 @@ typedef struct {
 } SeatPos;
 extern SeatPos init_seatPositions_8c04c3e4[31];
 
+/* TaskPush_8c014ae8 state for BusRiderStopSceneTask_8c02d644, exactly the
+ * 8 bytes StopSpawnInit_8c02d968 asks for -- a private 2-int layout distinct
+ * from StopScheduleState above. */
+typedef struct {
+    int phase_0x00;
+    int subPhase_0x04;
+} BusRiderStopSceneState;
+
 /* Task action for a scripted-stop slot whose segment differs from the bus's
  * current one -- spawned immediately (no shuffle) by StopSpawnInit_8c02d968. */
 void BusRiderSeatedTask_8c02d5ca(Task *task, void *state);
@@ -47,7 +55,7 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state);
 /* Per-frame countdown/animation task action shared by every waiting-
  * passenger spawn path once positioned; drives the wave/board animation and
  * frees itself when done. */
-void BusRiderStopSceneTask_8c02d644(Task *task, void *state);
+void BusRiderStopSceneTask_8c02d644(Task *task, BusRiderStopSceneState *state);
 
 /* Task action spawned instead of the normal per-passenger tasks when
  * var_playMode_8c1bb8d0 == 1 (VM/replay mode) and course-restart flag

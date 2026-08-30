@@ -324,10 +324,9 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
  * task actions in this unit use. Every call re-registers this frame's
  * interior-draw (drawInterior_8c02d1f4) and light (StopDrawLightBegin_8c02d0fc) FadeCallback1s
  * regardless of phase. */
-void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
+void BusRiderStopSceneTask_8c02d644(Task *task, BusRiderStopSceneState *state)
 {
-    Uint32 *state = (Uint32 *)state_;
-    int phase = state[0];
+    int phase = state->phase_0x00;
     Bool execGroup = FALSE;
 
     FadeCmdPushCall1_8c0223ea(2, drawInterior_8c02d1f4, 0);
@@ -337,7 +336,7 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
     switch (phase) {
     case 0:
         if (var_isFading_8c226568 == 0) {
-            state[0] = 1;
+            state->phase_0x00 = 1;
         }
         var_8c2285c4[6]++;
         execGroup = TRUE;
@@ -350,14 +349,14 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
          * it does not re-run the three FadeCmdPushCall1 registrations
          * above or re-read phase. */
         for (;;) {
-            switch (state[1]) {
+            switch (state->subPhase_0x04) {
             case 0: {
                 float v = var_8c228960[0] - 0.06666667014360428f;
                 var_8c228960[0] = v;
                 if (!(v > 0.0f)) {
                     var_8c228960[0] = 0.0f;
                     var_8c22895c = 1;
-                    state[1] = 1;
+                    state->subPhase_0x04 = 1;
                 } else {
                     var_8c22895c = 0;
                 }
@@ -368,7 +367,7 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
                 var_8c228960[0] = v;
                 if (!(1.0f > v)) {
                     var_8c228960[0] = 1.0f;
-                    state[1] = 0;
+                    state->subPhase_0x04 = 0;
                 }
                 var_8c22895c = 0;
                 break;
@@ -389,10 +388,10 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
 
             if (var_cutsceneActive_8c1bb900 == 0 || var_playMode_8c1bb8d0 != PLAY_MODE_NORMAL) {
                 var_8c2285c4[0] = 2;
-                state[0] = 5;
+                state->phase_0x00 = 5;
                 setCountUpStep_8c02d5d8();
             } else {
-                state[0] = 2;
+                state->phase_0x00 = 2;
                 var_fadeRequest_8c226564 = FADE_REQUEST_IN;
             }
             var_8c2285c4[6]++;
@@ -403,7 +402,7 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
 
     case 2:
         if (var_isFading_8c226568 == 0) {
-            state[0] = 3;
+            state->phase_0x00 = 3;
             var_fadeRequest_8c226564 = FADE_REQUEST_OUT;
             var_fadeArrivalGate_8c226560 = 0;
             ObjectsStartMessageBox_8c02ad8c();
@@ -413,14 +412,14 @@ void BusRiderStopSceneTask_8c02d644(Task *task, void *state_)
 
     case 3:
         if (var_messageBoxActive_8c22847c == 0) {
-            state[0] = 4;
+            state->phase_0x00 = 4;
         }
         break;
 
     case 4:
         if (RouteLoadIsPvmReady_8c01432a() != 0 && var_isFading_8c226568 == 0) {
             var_8c2285c4[0] = 2;
-            state[0] = 5;
+            state->phase_0x00 = 5;
             setCountUpStep_8c02d5d8();
         }
         execGroup = TRUE;

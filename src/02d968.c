@@ -55,7 +55,7 @@ void StopSpawnInit_8c02d968(void)
 {
     Task *task;
     StopScheduleState *state;
-    Uint32 *rawState;
+    BusRiderStopSceneState *rawState;
     int i, n, count, quadrant, randIdx;
     void *scriptEntry;
     void *matchedBuf;
@@ -69,8 +69,8 @@ void StopSpawnInit_8c02d968(void)
     }
 
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &BusRiderStopSceneTask_8c02d644, &task, (void **)&rawState, 8);
-    rawState[0] = 0;
-    rawState[1] = 0;
+    rawState->phase_0x00 = 0;
+    rawState->subPhase_0x04 = 0;
 
     njSetTexture(var_interiorTexlist_8c1bc438);
     njLoadCacheTexture(var_interiorTexlist_8c1bc438);
