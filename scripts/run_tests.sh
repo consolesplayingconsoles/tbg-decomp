@@ -1,10 +1,21 @@
 set -e
 
+# --no-build: skip assembling/compiling and run against whatever objects
+# already exist under build/output_test. Only sound when no src/ file changed
+# since the last full run; lets several test runs share one object dir instead
+# of each wiping it.
+no_build=0
+if [ "${1:-}" = "--no-build" ]; then
+  no_build=1
+  shift
+fi
+
 sh4objtest=sh4objtest
 
 ASMSH_FLAGS="-define=UNIT_TESTING=1 -debug -cpu=sh4 -endian=little -sjis"
 
 assemble() {
+  if [ "$no_build" -eq 1 ]; then return 0; fi
   local src_file="$1"
   local base_name=$(basename "$src_file" .src)
   local obj_file="build\\output_test\\${base_name}_src.obj"
@@ -13,6 +24,7 @@ assemble() {
 }
 
 compile() {
+  if [ "$no_build" -eq 1 ]; then return 0; fi
   local src_file="$1"
   local base_name=$(basename "$src_file" .c)
   local obj_file="build\\output_test\\${base_name}_c.obj"
@@ -24,8 +36,10 @@ compile() {
   wibo "$SHC_BIN/shc.exe" $(echo "$src_file" | tr / '\\') -code=asm -object="$asm_file" -sub=build/shc_testing.sub 
 }
 
-rm -rf build/output_test build/tmp
-mkdir build/output_test build/tmp
+if [ "$no_build" -eq 0 ]; then
+  rm -rf build/output_test build/tmp
+  mkdir build/output_test build/tmp
+fi
 
 # 012324
 assemble  src/asm/decompiled/012324_peripheral_support.src
