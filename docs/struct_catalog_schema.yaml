@@ -1,0 +1,58 @@
+# Schema for struct catalog fragments. One fragment file per agent; merged
+# into docs/struct_catalog.yaml.
+structs:
+  - name: BusState            # struct/typedef name as it appears in source
+    file: src/sectionB.h      # where it is declared
+    line: 123
+    size: 0x3cc               # total size if determinable, else null
+    purpose: >                # one or two sentences, grounded in use sites
+      ...
+    used_by:                  # units that read/write it
+      - src/022bdc_bus.c
+    members:
+      - offset: 0x30
+        type: float
+        name: field_0x30      # current name in source
+        status: nameable      # named | nameable | blocked | opaque
+        proposed_name: speed_0x30   # omit when status is named/blocked/opaque
+        confidence: high      # high | medium | low  (omit when status: named)
+        evidence: "src/022bdc_bus.c:88 multiplied by dt and added to pos"
+        blocked_on: null      # only when status: blocked -- what must be known first
+    summary:
+      total: 159
+      named: 29
+      nameable: 60
+      blocked: 40
+      opaque: 30
+
+# Members with status blocked/opaque additionally carry a `check` block saying
+# how the open question could be settled empirically. Custom builds are cheap
+# here: LOG_* compiles to nothing under UNIT_TESTING, so instrumentation cannot
+# disturb the test suite, and the full build runs in an emulator.
+#
+#   check:
+#     method: <see below>
+#     experiment: >
+#       What to change or log, and -- the part that matters -- which observed
+#       outcome would distinguish the competing hypotheses. An experiment whose
+#       outcomes all look the same is not an experiment.
+#     cost: low | medium | high
+#
+# Methods:
+#   runtime_log   -- add LOG_* and read the serial console. Good for: what
+#                    values a field actually takes, in what order two writers
+#                    fire, whether a branch is ever entered.
+#   perturb       -- change a value in a custom build and observe the game.
+#                    Good for: what a magic constant geometrically controls,
+#                    and which on-screen part a model node is (null it out and
+#                    see what disappears).
+#   poison        -- write a sentinel instead of the normal value and log/observe
+#                    whether anything reacts. Confirms a field is truly dead.
+#   struct_retype -- not an experiment: the answer is already known and the fix
+#                    is a declaration change (e.g. a run of ints that is one
+#                    NJS_MATRIX).
+#   by_design     -- not answerable and should not be: the field genuinely has
+#                    no single meaning (per-callback scratch overlaid by each
+#                    task type). Naming it would be wrong.
+#   asset_inspect -- needs looking at game assets/models, not code or runtime.
+#   none          -- no experiment would settle it; say why.

@@ -783,3 +783,22 @@ The helper divides unsigned, so a mock built on it is silently wrong for
 negative dividends -- it passes every non-negative case and fails only at a
 clamp boundary. Do the signed division manually (`intdiv` on `signedValue()`).
 Hit in `021b9c`'s clamp-boundary test.
+
+## `field_0xNN` names are not unique across structs; blind sed clobbers them
+
+Offset-suffixed member names collide. `field_0x2dc` exists on both `BusState`
+and `TrafficEntry` and means different things; `MenuState.field_0x1c` and
+`InstructorDialogTask.field_0x1c` sit in the same file; every task-state struct
+overlays the generic `Task`'s `field_0x08`/`0x0c`/`0x10`/`0x14`/`0x1c`.
+
+A repo-wide `sed s/field_0xNN/newName/` therefore renames unrelated fields on
+other types, and it compiles cleanly -- the offsets are valid on both structs.
+Three separate rename agents hit this; two caught it only on a full-file
+cross-check afterwards, and the `BusState`/`TrafficEntry` case additionally
+disproved the assumption that the collisions stopped at the end of the shared
+prefix (`needleCurrentValue_0x2e4` collided past it).
+
+Scope every substitution by the accessing variable's type, then re-read the
+whole file. The tests do not reliably catch it: a wrongly renamed field of the
+same type and offset still passes.
+
