@@ -1,6 +1,7 @@
 /* @unit BusStop */
 
 #include <shinobi.h>
+#include "includes.h" /* STATIC */
 
 #include "sectionB.h"
 #include "028258_objects.h"

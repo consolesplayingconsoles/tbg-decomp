@@ -1,7 +1,7 @@
 /* @unit VehicleModel */
 #include <shinobi.h>
-#include "includes.h" /* TWO_PI */
-#include "serial_debug.h" /* STATIC */
+#include "includes.h" /* TWO_PI, STATIC */
+#include "serial_debug.h"
 
 #include "sectionB.h"
 #include "020594.h"

@@ -18,6 +18,7 @@
 #include "02f0c8.h"
 #include "sectionB.h"
 #include "sectionD.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 
 /* ====================

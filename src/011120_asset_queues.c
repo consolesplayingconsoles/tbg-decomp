@@ -5,6 +5,7 @@
 #include <string.h>
 #include "011120_asset_queues.h"
 #include "01bb48_vm_game.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "014a9c_tasks.h"
 #include "sectionB.h"

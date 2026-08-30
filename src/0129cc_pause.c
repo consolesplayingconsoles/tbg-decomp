@@ -12,6 +12,7 @@
 #include "01e27c_practice_menu.h"
 #include "022464_fade.h"
 #include "0222dc_fadecmd.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 
 /* ====================

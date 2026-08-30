@@ -20,6 +20,7 @@
 #include "01f3c0_ending.h"
 #include "028258_objects.h"
 #include "sectionB.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "strings.h"
 

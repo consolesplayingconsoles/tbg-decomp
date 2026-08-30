@@ -13,6 +13,7 @@
 #include "01b19c_system_menu.h"
 #include "022464_fade.h"
 #include "sectionB.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "strings.h"
 

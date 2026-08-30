@@ -1,9 +1,9 @@
 /* @unit BusInput */
 #include <shinobi.h>
 #include <math.h>                 /* asinf */
-#include "includes.h" /* TWO_PI */
+#include "includes.h" /* TWO_PI, STATIC */
 
-#include "serial_debug.h"        /* STATIC */
+#include "serial_debug.h"
 #include "sectionB.h"
 #include "014a9c_tasks.h"         /* Task */
 #include "026710_traffic.h"       /* TrafficEntry */

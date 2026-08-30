@@ -6,6 +6,7 @@
 
 #include <shinobi.h>
 #include <sg_syhw.h>
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "0149b0_sbinit.h"
 

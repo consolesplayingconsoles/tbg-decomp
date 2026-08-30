@@ -6,7 +6,8 @@
 #include "026710_traffic.h" /* TrafficEntry */
 #include "02e2dc.h"
 #include "sectionB.h"
-#include "serial_debug.h" /* STATIC */
+#include "includes.h" /* STATIC */
+#include "serial_debug.h"
 
 /* ====================
  * Initialized Globals

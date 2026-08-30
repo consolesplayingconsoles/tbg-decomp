@@ -1,5 +1,6 @@
 /* @unit Fade */
 #include <shinobi.h>
+#include "includes.h" /* STATIC */
 #include <njdef.h>
 #include "sectionB.h"
 #include "012f44_game.h"

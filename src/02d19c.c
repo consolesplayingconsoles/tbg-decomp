@@ -2,6 +2,7 @@
 
 #include <shinobi.h>
 #include <sg_sd.h>
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "sectionB.h"
 #include "014a9c_tasks.h"

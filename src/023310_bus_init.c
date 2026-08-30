@@ -1,7 +1,7 @@
 /* @unit BusInit */
 #include <shinobi.h>
-#include "includes.h" /* TWO_PI */
-#include "serial_debug.h" /* STATIC */
+#include "includes.h" /* TWO_PI, STATIC */
+#include "serial_debug.h"
 
 #include "sectionB.h"
 #include "013ae8_route_load.h" /* CourseSceneParams, CourseSegment */

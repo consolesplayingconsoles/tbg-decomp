@@ -1,6 +1,7 @@
 /* @unit DriveMsg */
 
 #include <shinobi.h>
+#include "includes.h" /* STATIC */
 
 #include "02b2f0.h"
 #include "014f54_text.h"        /* TxtDrawSprite_8c014f54 */

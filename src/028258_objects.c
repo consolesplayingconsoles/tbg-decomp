@@ -21,7 +21,8 @@
                         * var_pedestrianAssets_8c1bbfdc, AsqGetRandomA_8c012166,
                         * var_eventSlides_8c228480, MessageAssetEntry, var_messageAssets_8c228484,
                         * var_selectedEventEntry_8c228478 */
-#include "serial_debug.h" /* STATIC */
+#include "includes.h" /* STATIC */
+#include "serial_debug.h"
 
 /* ====================
  * Type Declarations

@@ -2,7 +2,8 @@
 
 #include <shinobi.h>
 
-#include "serial_debug.h"       /* STATIC */
+#include "includes.h" /* STATIC */
+#include "serial_debug.h"
 #include "sectionB.h"
 #include "026710_traffic.h"     /* TrafficEntry */
 #include "020914_ground_query.h" /* GroundQueryResult */

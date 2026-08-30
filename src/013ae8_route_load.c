@@ -13,6 +13,7 @@
 #include "02c884_bus_stop.h"
 #include "sectionD.h"
 #include "sectionB.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 
 /* ====================

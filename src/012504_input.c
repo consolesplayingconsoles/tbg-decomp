@@ -7,6 +7,7 @@
 #include "012504_input.h"
 #include "01bb48_vm_game.h"
 #include "sectionB.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 
 /* BT_CONTROLLER / BT_RACING controller-type masks live in 012504_input.h. */

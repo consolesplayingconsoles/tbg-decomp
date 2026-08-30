@@ -34,7 +34,8 @@ src/
   <addr>_name.h              # Public interface for that unit
   asm/<addr>.src             # Original assembly (not yet decompiled)
   asm/decompiled/<addr>.src  # Original assembly, decompiled (used for archival and unit tests)
-  includes.h                 # Shared macros (STATIC, logging levels)
+  includes.h                 # Shared macros (STATIC, NM_STATIC, TWO_PI)
+  serial_debug.h             # LOG_* serial debug logging macros
 tests/
   <unit>/<addr>_name.php     # One PHP test file per function
   AGENTS.md                  # ← DSL reference and test-writing guide

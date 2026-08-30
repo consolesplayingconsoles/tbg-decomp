@@ -6,6 +6,7 @@
 #include "sectionB.h"
 #include <cri_adxf.h>
 #include <string.h>
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 
 /* ====================

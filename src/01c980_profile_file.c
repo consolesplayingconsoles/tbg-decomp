@@ -4,6 +4,7 @@
 #include "015ab8_title.h"
 #include "sectionB.h"
 #include "02af78_event.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "016d2c_course_menu.h"
 #include "011120_asset_queues.h"

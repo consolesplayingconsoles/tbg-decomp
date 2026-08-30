@@ -11,6 +11,7 @@
 #include "014a9c_tasks.h"
 #include "014f54_text.h"
 #include "015ab8_title.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "0100bc_sound.h"
 #include "0193c8_vm_menu.h"

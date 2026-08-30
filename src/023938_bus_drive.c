@@ -1,6 +1,7 @@
 /* @unit BusDrive */
 #include <shinobi.h>
-#include "serial_debug.h" /* STATIC */
+#include "includes.h" /* STATIC */
+#include "serial_debug.h"
 
 #include <sg_sd.h>
 #include "sectionB.h"

@@ -17,6 +17,7 @@
 #include "015ab8_title.h"
 #include "01614c_debug_menu.h"
 #include "0100bc_sound.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "strings.h"
 

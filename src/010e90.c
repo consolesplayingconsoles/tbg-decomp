@@ -2,6 +2,7 @@
 /* 8c010e90 */
 #include <shinobi.h>
 #include "010e90.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 
 /* === Workarounds === */

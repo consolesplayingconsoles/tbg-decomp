@@ -1,5 +1,6 @@
 /* @unit VmGame */
 #include <shinobi.h>
+#include "includes.h" /* STATIC */
 #include "01bb48_vm_game.h"
 #include "011120_asset_queues.h"
 #include "013ae8_route_load.h"

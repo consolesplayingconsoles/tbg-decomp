@@ -13,6 +13,7 @@
 #include "028258_objects.h"
 #include "0100bc_sound.h"
 #include "sectionB.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "strings.h"
 

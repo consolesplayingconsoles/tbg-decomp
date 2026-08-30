@@ -2,6 +2,7 @@
 
 #include <shinobi.h>
 
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "sectionB.h"
 #include "013ae8_route_load.h"

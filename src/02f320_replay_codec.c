@@ -1,5 +1,6 @@
 /* @unit ReplayCodec */
 #include <shinobi.h>
+#include "includes.h" /* STATIC */
 #include "sectionB.h"
 
 /* ====================

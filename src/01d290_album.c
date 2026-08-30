@@ -9,6 +9,7 @@
 #include "016d2c_course_menu.h"
 #include "011120_asset_queues.h"
 #include "0100bc_sound.h"
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "01614c_debug_menu.h"
 #include "022464_fade.h"

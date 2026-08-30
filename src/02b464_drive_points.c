@@ -1,6 +1,7 @@
 /* @unit DrivePoints */
 
 #include <shinobi.h>
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "02b464_drive_points.h"
 #include "0100bc_sound.h"

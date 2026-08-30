@@ -1,6 +1,7 @@
 /* @unit StopSpawn */
 
 #include <shinobi.h>
+#include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "sectionB.h"
 #include "014a9c_tasks.h"
