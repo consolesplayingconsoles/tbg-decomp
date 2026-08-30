@@ -417,9 +417,8 @@ void DemoUpdateCamera_8c025906(void)
  * 1. Phase 1 just waits for the id to drop back to 0 to return to phase 0.
  * Every call then advances the textbox's reveal counter and reschedules
  * itself for the next fade-layer-0 callback. */
-STATIC void stopTextboxTask_8c0259e8(Task *task, void *stateArg)
+STATIC void stopTextboxTask_8c0259e8(Task *task, StopTextboxState *state)
 {
-    StopTextboxState *state = (StopTextboxState *)stateArg;
     Uint32 marker;
 
     marker = *(Uint32 *)&var_8c1bbd80 & 0xFF000000;

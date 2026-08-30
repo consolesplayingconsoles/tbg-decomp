@@ -38,11 +38,11 @@ void BusRiderSeatedTask_8c02d5ca(Task *task, void *state);
 /* Task action for an already-picked waiting passenger (state->state_0x04 == 1
  * always, from 02d968); handles positioning, the stop-bell sound and
  * despawn. */
-void BusRiderBoardTask_8c02d21c(Task *task, void *state);
+void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state);
 
 /* Task action for a scripted-stop slot that matches the bus's current
  * segment (spawned after the Fisher-Yates shuffle). */
-void BusRiderAlightTask_8c02d46c(Task *task, void *state);
+void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state);
 
 /* Per-frame countdown/animation task action shared by every waiting-
  * passenger spawn path once positioned; drives the wave/board animation and

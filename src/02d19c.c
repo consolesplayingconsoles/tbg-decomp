@@ -135,9 +135,8 @@ STATIC void setCountUpStep_8c02d5d8(void)
  * callback in its terminal state (0). var_8c22895c gates whether each
  * phase's positioning work runs this frame (set up per-frame elsewhere in
  * the bus-stop subsystem; not owned by this unit). */
-void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
+void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
 {
-    StopScheduleState *state = (StopScheduleState *)state_;
     int mode = state->state_0x04;
     int layer = 0;
 
@@ -238,9 +237,8 @@ void BusRiderBoardTask_8c02d21c(Task *task, void *state_)
  * anchor points), but the anchor points, sound-gating route and terminal
  * behavior all differ -- this one frees itself once var_8c22895c fires in
  * its terminal state, rather than looping forever. */
-void BusRiderAlightTask_8c02d46c(Task *task, void *state_)
+void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
 {
-    StopScheduleState *state = (StopScheduleState *)state_;
     int mode = state->state_0x04;
     int layer = 0;
 
