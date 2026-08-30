@@ -16,6 +16,17 @@
 #   - BusState 0x084-0x0c0 is one NJS_MATRIX, not 16 ints.
 #   - MenuState's tail slots mean different things per screen; they need union
 #     typing, not a rename.
+#
+# blocked/opaque members carry a `check:` block: how the open question could be
+# settled empirically. Custom builds are cheap -- LOG_* compiles to nothing
+# under UNIT_TESTING, and the full build runs in an emulator, so the game can be
+# modified and played to see what a field actually controls. See
+# tasks/struct-catalog/SCHEMA.yaml for the method vocabulary.
+#
+# Most open members need no experiment: `by_design` (per-callback scratch with
+# no single meaning) and `none` (full decompilation already settles it) together
+# account for the large majority. The short `perturb`/`runtime_log` list is the
+# real experimental queue.
 generated: '2026-08-30'
 totals:
   total: 910
@@ -251,18 +262,32 @@ structs:
     evidence: Only ever zeroed (src/026710_traffic.c:153, spawnEntry's initEntryState_8c026748); no reader
       found in src/. BusState's field_0x064 at the same offset is likewise only zeroed (023310_bus_init.c:33),
       never read.
+    check:
+      method: none
+      experiment: Only ever zeroed (src/026710_traffic.c:153), never read; BusState's identical offset
+        shows the same pattern. Confirmed dead by full decompilation on both sides -- not worth a poison
+        run.
+      cost: low
   - offset: '0x068'
     type: Uint32
     name: field_0x068
     status: opaque
     evidence: Only ever zeroed (src/026710_traffic.c:154); no reader found. Same pattern as BusState.field_0x068
       (023310_bus_init.c:34).
+    check:
+      method: none
+      experiment: Same as field_0x064 -- only ever zeroed, BusState agrees, confirmed dead.
+      cost: low
   - offset: '0x06c'
     type: Uint32
     name: field_0x06c
     status: opaque
     evidence: Only ever zeroed (src/026710_traffic.c:155); no reader found. Same pattern as BusState.field_0x06c
       (023310_bus_init.c:35).
+    check:
+      method: none
+      experiment: Same as field_0x064/0x068 -- only ever zeroed, BusState agrees, confirmed dead.
+      cost: low
   - offset: '0x070'
     type: Uint32
     name: field_0x070
@@ -455,6 +480,16 @@ structs:
       which (unlike the front point at field_0x100/104/108) is never given a height component. Likely
       alignment padding left over from a symmetrical (x,y,z) layout that the rear point never actually
       uses.
+    check:
+      method: none
+      experiment: 'No use site, sitting between rearPointX_0x10c and rearPointZ_0x114 -- an x/z pair with
+        no y component, unlike the front point at field_0x100/104/108 which does have one. Same shape
+        as BusState.field_0x234 (between headingX/headingZ) and BusState.field_0x328 (between mirrorDirX/mirrorDirZ)
+        -- three independent occurrences of the identical pattern converge on "alignment padding", not
+        three unrelated dead fields. No runtime check would distinguish this from any other hypothesis.
+
+        '
+      cost: low
   - offset: '0x114'
     type: float
     name: field_0x114
@@ -569,6 +604,19 @@ structs:
     evidence: No TrafficEntry use site found in src/ -- every hit for field_0x25c is on var_busState_8c1bb9d0
       (a lane-change-arrow state), not on a TrafficEntry/entry/e-> pointer, so this offset's role for
       CPU traffic (if any) is unestablished.
+    check:
+      method: none
+      experiment: 'Cross-struct finding, not a gap: every hit for this offset in src/ is on var_busState_8c1bb9d0
+        (BusState''s own field_0x25c, mirrorButtonState_0x25c -- already nameable, not one of the 58),
+        never on a TrafficEntry/entry/e-> pointer. CPU traffic entries structurally never touch this slot;
+        it is purely a BusState-specific field that happens to sit inside the two structs'' shared byte-identical
+        prefix. A cheap confirmation is possible (LOG_TRACE this offset for every active TrafficEntry
+        once per second and confirm it never leaves its spawn-time zero across a full drive with heavy
+        traffic), but the source trace above already settles it -- the log would only be a sanity check,
+        not new evidence.
+
+        '
+      cost: low
   - offset: '0x260'
     type: Uint32
     name: field_0x260
@@ -583,6 +631,11 @@ structs:
     name: field_0x264
     status: opaque
     evidence: No use site found anywhere in src/.
+    check:
+      method: none
+      experiment: No use site found anywhere; BusState's identical offset is likewise unused (see BusState.field_0x264's
+        entry). Confirmed dead on both sides.
+      cost: low
   - offset: '0x268'
     type: Uint32
     name: field_0x268
@@ -683,6 +736,19 @@ structs:
     evidence: No TrafficEntry use site found in src/ -- BusState.field_0x2d0 at the same offset is a second
       ground/junction-query function pointer (022bdc_bus.c, 023310_bus_init.c), but nothing in the traffic
       code reads or writes this offset on a TrafficEntry.
+    check:
+      method: none
+      experiment: 'Cross-struct finding: BusState''s identical offset (junctionQueryFnRoute_0x2d0) is
+        a live second junction-query function pointer, called three times per frame for the bus''s own
+        lookahead-point attribute grid (src/022bdc_bus.c:198-227). CPU traffic entries only ever get ONE
+        junction-query callback (junctionQueryFn_0x2cc); nothing in TrafficDriveVehicle_8c025b98/TrafficDriveDecoration_8c02656a
+        sets up a second one, because CPU traffic doesn''t run the bus-specific three-lookahead-point
+        route-attribute scan this second callback exists for. This is a genuine "the bus needs more per-frame
+        queries than CPU traffic does" asymmetry, not a decompilation gap -- no experiment on a TrafficEntry
+        would produce a signal since nothing calls through this slot for one.
+
+        '
+      cost: low
   - offset: '0x2d4'
     type: Uint32
     name: field_0x2d4
@@ -829,6 +895,28 @@ structs:
     blocked_on: How the two writers (mirror-lookahead cap vs. TrafficComputeBlockedSpeed's cross-entry
       write) are meant to interact before being read back as a lane-speed floor -- the existing code comment
       for the second writer already flags this as unresolved.
+    check:
+      method: runtime_log
+      experiment: 'Textbook two-writer case. Writer 1: src/024280.c:75 (BusInputMirrorLookahead_8c024280),
+        a mirror-visibility speed floor set by the PLAYER''s own bus reading which CPU entries are visible
+        in its mirror. Writer 2: src/026710_traffic.c:440-441 (TrafficComputeBlockedSpeed_8c026eaa), which
+        writes into *another* entry''s field_0x418 as part of blocked-speed propagation, and is already
+        commented in-source as having unclear intent. Both feed src/025b98_traffic_drive.c:411,470''s
+        `laneLimit = min(field_0x418, field_0x414)` read-and-reset each frame. Add a LOG_DEBUG at both
+        writer sites logging the entry''s own pointer/index, the current frame counter (or a running tick
+        from var_...), and the value being written, plus one more LOG_DEBUG right before the min() read
+        logging what survived. Reach state: drive with active CPU traffic and use the rear-view mirror
+        toggle so BusInputMirrorLookahead actually runs against visible entries. Distinguishing outcome:
+        if, on frames where BOTH writers fire for the same entry, the read-back value always matches whichever
+        writer ran LAST that frame, the interaction is "last write wins" (order-dependent, likely accidental);
+        if the read-back value is always the smaller (or always the larger) of the two writes regardless
+        of order, the interaction is a deliberate min/max clamp despite the reset-each-frame read looking
+        like it should only ever see one live value. Either outcome resolves the "how are they meant to
+        interact" question the existing code comment flags as open. Cost: low (LOG_* only, no logic change,
+        ordinary drive with traffic + mirror use).
+
+        '
+      cost: low
   - offset: '0x41c'
     type: float
     name: field_0x41c
@@ -843,6 +931,11 @@ structs:
     name: field_0x420
     status: opaque
     evidence: No use site found anywhere in src/.
+    check:
+      method: none
+      experiment: No use site found anywhere in src/. Confirmed dead by full decompilation; no experiment
+        would add information.
+      cost: low
   - offset: '0x424'
     type: Uint32
     name: field_0x424
@@ -917,6 +1010,16 @@ structs:
       in the field_0x448 family (which init_8c0460bc gives only 1 word of script args, unlike the 2-word
       field_0x458/0x468 families) -- likely alignment padding matching those families' width rather than
       a real field.
+    check:
+      method: none
+      experiment: 'Never referenced anywhere. Sits at the position a second script-argument word would
+        occupy in the field_0x448 family, but init_8c0460bc only gives that family 1 word of args (unlike
+        the 2-word field_0x458/0x468 families right after it) -- this reads as alignment padding matching
+        those families'' width. No competing hypothesis would produce a different observable signal; not
+        worth a poison run.
+
+        '
+      cost: low
   - offset: '0x450'
     type: Uint32
     name: field_0x450
@@ -1089,6 +1192,14 @@ structs:
     status: opaque
     evidence: Never referenced anywhere in src/ -- sits between lookaheadCacheLen_0x4ec and the lookahead
       path cursor fields (field_0x4f4/0x4f8/0x4fc); likely alignment padding.
+    check:
+      method: none
+      experiment: 'Never referenced. Sits between lookaheadCacheLen_0x4ec and the lookahead cursor fields
+        (field_0x4f4/0x4f8/0x4fc) -- likely alignment padding for the PathRecord* cursor that follows.
+        No experiment would distinguish this from any alternative; confirmed dead by full decompilation.
+
+        '
+      cost: low
   - offset: '0x4f4'
     type: PathRecord *
     name: field_0x4f4
@@ -1225,6 +1336,19 @@ structs:
     evidence: 'src/02786c_vehicle_parts.c:27; src/027958.c:51-94.
 
       '
+    check:
+      method: none
+      experiment: 'Already resolved by static trace, no runtime check needed. VehPartsBind_8c02786c has
+        exactly one call site for BusState (src/023310_bus_init.c:155, typeCode fixed at 0x1a) and is
+        the only writer of this field for BusState -- it never changes for the life of the bus. BusDrawUpdateModels_8c027958''s
+        switch on field_0x000 uses case values 0/2/4/6/8/0xe/0x10/0x12/0x14/0x16/0x1a/0x1c/0x1e, which
+        are exactly VehPartsBind''s own typeCode literals, not a separate phase space. So field_0x000
+        IS the vehicle typeCode, always 0x1a for the bus; the "turn-maneuver phase" reading in the existing
+        comment is a misnomer for what is really "which vehicle model this switch is posing this frame".
+        This also determines liveness for field_0x028/0x040/0x044/0x048 below -- see their entries.
+
+        '
+      cost: low
   - offset: 4
     type: int
     name: field_0x004
@@ -1247,6 +1371,17 @@ structs:
       far/simple LOD texture list.
 
       '
+    check:
+      method: none
+      experiment: 'Structurally confirmed dead, not just unconfirmed. It shares the TrafficEntry offset
+        for texlistSmall_0x08 (the far/simple-LOD texture list), but the bus''s own draw path (024b4c_bus_render.c)
+        only ever touches field_0x00c/field_0x014, never this offset -- because that near-camera path
+        is code entirely separate from busDrawSimpleCb_8c027a88/8c027bac (the shared TrafficEntry-cast
+        code that actually reads texlistSmall_0x08), and the bus is never routed through that far-LOD
+        callback for its own rendering. A poison write would sit in memory nothing reads; not worth doing.
+
+        '
+      cost: low
   - offset: 12
     type: int
     name: field_0x00c
@@ -1268,6 +1403,14 @@ structs:
       it, consistent with field_0x008/texlistSmall_0x08 also being unused for the bus.
 
       '
+    check:
+      method: none
+      experiment: 'Same situation as field_0x008 (see that entry) -- shares TrafficEntry''s modelSmall_0x10
+        offset, but the bus''s own draw path never reads it. Confirmed dead by the same reasoning; no
+        experiment adds information.
+
+        '
+      cost: low
   - offset: 20
     type: int
     name: field_0x014
@@ -1295,6 +1438,24 @@ structs:
       pointers walked out of modelLarge_0x00c''s NJS_OBJECT tree; src/027958.c:37-38.
 
       '
+    check:
+      method: perturb
+      experiment: 'This is the best perturb candidate on the whole bus model. field_0x018 is live every
+        frame (BusDrawUpdateModels_8c027958 sets its ang[0]=acc_0x078, a small clamped steering-accumulation
+        angle, and ang[2]=ang_0x07c, a speed*turn-rate lean angle) and it is the FIRST child of modelLarge_0x00c,
+        ahead of the four wheel nodes (field_0x01c/0x020/0x024 confirmed wheels; field_0x028 is dead for
+        the bus, see its own entry). Build with a debug key/counter that forces bus->field_0x018->evalflags
+        to hide the node (or sets its ang to 0 every frame, overriding the normal write), then drive and
+        take a hard turn at speed. Reach state: any in-game drive segment, hold the wheel hard over for
+        1-2 seconds so ang_0x07c approaches its clamp. Distinguishing outcomes: if a visible front assembly
+        (steering wheel, driver figure, or front subframe) stops tilting/leaning into the turn while everything
+        else (body, wheels) still animates normally, that confirms this is the steering/lean node and
+        identifies which part it is by what stops moving; if nothing visibly changes, the node is either
+        not rendered separately from its parent or the hypothesis is wrong. Cost: medium (needs a custom
+        build and a moving-vehicle play session with visible steering input).
+
+        '
+      cost: medium
   - offset: 28
     type: NJS_OBJECT*
     name: field_0x01c
@@ -1346,6 +1507,21 @@ structs:
       pointers walked out of modelLarge_0x00c''s NJS_OBJECT tree; src/027958.c:60-73.
 
       '
+    check:
+      method: none
+      experiment: 'Thinking through the perturb experiment changed the read on this field: it is structurally
+        DEAD for the bus, not merely blocked. VehPartsBind_8c02786c only assigns field_0x028 when typeCode
+        is 0x0e/0x10/0x14/0x16 (src/02786c_vehicle_parts.c:47-51); BusState''s typeCode is fixed at 0x1a
+        (see field_0x000''s entry), so the bus never gets this node bound at all -- it stays whatever
+        the static BusState instance''s BSS zero-init leaves it (a null pointer). BusDrawUpdateModels_8c027958''s
+        switch also never dereferences field_0x028 for case 0x1a. Both the writer and the reader are gated
+        on typeCode values the bus never has. A perturb here (nulling or forcing visibility) would act
+        on a pointer nothing in the live game ever sets or reads -- not an experiment, just noise. TrafficEntry''s
+        own field_0x028 (wheelNode4_0x028) IS live for CPU trucks/vans of those typeCodes; that entry
+        already has a nameable proposal.
+
+        '
+      cost: low
   - offset: 44
     type: NJS_OBJECT*
     name: field_0x02c
@@ -1406,6 +1582,15 @@ structs:
       pointers walked out of modelLarge_0x00c''s NJS_OBJECT tree; src/027958.c:75-82.
 
       '
+    check:
+      method: none
+      experiment: 'Same structural-deadness finding as field_0x028 (see that entry, and field_0x000).
+        VehPartsBind_8c02786c only binds field_0x040 for typeCode 0x1c/0x1e, and BusDrawUpdateModels_8c027958''s
+        switch only touches it for the same case -- the bus''s fixed typeCode 0x1a never reaches either.
+        Confirmed dead by trace, not experiment.
+
+        '
+      cost: low
   - offset: 68
     type: NJS_OBJECT*
     name: field_0x044
@@ -1419,6 +1604,15 @@ structs:
       pointers walked out of modelLarge_0x00c''s NJS_OBJECT tree; src/027958.c:60-67.
 
       '
+    check:
+      method: none
+      experiment: 'Same structural-deadness finding as field_0x028/0x040 -- VehPartsBind_8c02786c only
+        binds field_0x044 for typeCode 0x14/0x16, and the switch in BusDrawUpdateModels_8c027958 only
+        touches it there too. The bus''s fixed typeCode 0x1a never reaches this branch. Confirmed dead
+        by trace.
+
+        '
+      cost: low
   - offset: 72
     type: NJS_OBJECT*
     name: field_0x048
@@ -1432,6 +1626,23 @@ structs:
       pointers walked out of modelLarge_0x00c''s NJS_OBJECT tree; src/027958.c:84-90.
 
       '
+    check:
+      method: perturb
+      experiment: 'Unlike its 0x028/0x040/0x044 siblings, this one IS live for the bus: VehPartsBind_8c02786c
+        binds it specifically for typeCode 0x1a (src/02786c_vehicle_parts.c:87-89), and BusDrawUpdateModels_8c027958''s
+        case 0x1a toggles its evalflags every frame from blinker_0x080 bit 0x40 (a bit the player can
+        set directly -- see turnSignalBlinkCounter_0x260/hazardBlinkCounter_0x2f8 for how bit 0x40 gets
+        set, e.g. reverse gear). Build with the node forced permanently visible (evalflags = 0x37 unconditionally)
+        and drive around the model in-game (e.g. from a paused/free-look angle if available, or just watch
+        the exterior while idling in reverse to force the bit). Distinguishing outcome: whatever light
+        or panel appears that is NOT one of the five already-identified blinker-arrow lights (field_0x02c/030/034/038/03c)
+        is this node -- most likely a reverse/hazard lamp given it correlates with bit 0x40. Reach state:
+        sit in reverse gear (or trigger the hazard condition) so blinker_0x080 bit 0x40 is naturally set,
+        no override needed to see it in its normal on state -- cost is low because the normal toggle condition
+        is reachable from a parked/idling bus.
+
+        '
+      cost: low
   - offset: 76
     type: NJS_OBJECT*[6]
     name: bodyModels_0x04c
@@ -1444,6 +1655,15 @@ structs:
       (also only zeroed, src/026710_traffic.c:153).
 
       '
+    check:
+      method: none
+      experiment: 'Only ever zeroed (src/023310_bus_init.c:33), never read, and the identical offset in
+        TrafficEntry (also fully decompiled) shows the same only-zeroed pattern. With game logic fully
+        decompiled and both parallel copies agreeing, this is as settled as static analysis gets; a poison
+        write would land somewhere nothing reads, so it cannot add information. Not worth running.
+
+        '
+      cost: low
   - offset: 104
     type: int
     name: field_0x068
@@ -1452,6 +1672,11 @@ structs:
       (src/026710_traffic.c:154).
 
       '
+    check:
+      method: none
+      experiment: Same reasoning as field_0x064 -- only ever zeroed, TrafficEntry's parallel field agrees,
+        confirmed dead by full decompilation. Not worth a poison run.
+      cost: low
   - offset: 108
     type: int
     name: field_0x06c
@@ -1460,6 +1685,11 @@ structs:
       (src/026710_traffic.c:155).
 
       '
+    check:
+      method: none
+      experiment: Same reasoning as field_0x064/0x068 -- only ever zeroed, TrafficEntry's parallel field
+        agrees, confirmed dead. Not worth a poison run.
+      cost: low
   - offset: 112
     type: int
     name: distance_traveled_0x070
@@ -1505,6 +1735,11 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of the NJS_MATRIX at worldMatrix_0x084 (0x084-0xc4) -- retype the 16-int run as
+        one NJS_MATRIX field, don't name individually.
+      cost: low
   - offset: 140
     type: int
     name: field_0x08c
@@ -1518,6 +1753,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 144
     type: int
     name: field_0x090
@@ -1531,6 +1770,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 148
     type: int
     name: field_0x094
@@ -1544,6 +1787,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 152
     type: int
     name: field_0x098
@@ -1557,6 +1804,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 156
     type: int
     name: field_0x09c
@@ -1570,6 +1821,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 160
     type: int
     name: field_0x0a0
@@ -1583,6 +1838,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 164
     type: int
     name: field_0x0a4
@@ -1596,6 +1855,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 168
     type: int
     name: field_0x0a8
@@ -1609,6 +1872,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 172
     type: int
     name: field_0x0ac
@@ -1622,6 +1889,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 176
     type: int
     name: field_0x0b0
@@ -1635,6 +1906,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 180
     type: int
     name: field_0x0b4
@@ -1648,6 +1923,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 184
     type: int
     name: field_0x0b8
@@ -1661,6 +1940,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 188
     type: int
     name: field_0x0bc
@@ -1674,6 +1957,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX -- see field_0x088.
+      cost: low
   - offset: 192
     type: int
     name: field_0x0c0
@@ -1687,6 +1974,10 @@ structs:
       should be merged into worldMatrix_0x084 as one NJS_MATRIX field rather than named individually.
 
       '
+    check:
+      method: struct_retype
+      experiment: Part of worldMatrix_0x084's NJS_MATRIX (last element) -- see field_0x088.
+      cost: low
   - offset: 196
     type: float[5]
     name: field_0x0c4
@@ -1809,6 +2100,18 @@ structs:
       describes as an (x,z) pair with no y) -- likely unused padding rather than a real y component.
 
       '
+    check:
+      method: none
+      experiment: 'No use site, sitting between headingX_0x230 and headingZ_0x238 (a documented x/z pair
+        with no y component). The same shape recurs at field_0x328 (between mirrorDirX_0x324/mirrorDirZ_0x32c)
+        and at TrafficEntry.field_0x110 (between rearPointX_0x10c/rearPointZ_0x114) -- three independent
+        x/z pairs in these two structs all carry an unused hole in the y slot, which is strong convergent
+        evidence for alignment padding rather than three unrelated dead fields. No runtime check would
+        distinguish "padding" from any other hypothesis since there is no competing hypothesis with a
+        different observable signature.
+
+        '
+      cost: low
   - offset: 568
     type: float
     name: field_0x238
@@ -1832,6 +2135,21 @@ structs:
     evidence: 'src/023310_bus_init.c:53 (= 4.9f); src/020594.c:26-27.
 
       '
+    check:
+      method: perturb
+      experiment: 'Consumed by VehicleModelPlace_8c020594:26-27 as `dist = sqrt(dy*dy + field_0x23c^2);
+        cosT = field_0x23c/dist`, feeding the body''s pitch/rotateZ angle from ground-height difference
+        dy. Build with field_0x23c set to 10x its normal value (49.0) and, separately, another build with
+        it set near zero (0.1). Reach state: drive over any slope or bump so dy != 0 (a hill road segment,
+        or a curb/ramp). Distinguishing outcome: since cosT = field_0x23c/dist shrinks toward 0 as field_0x23c
+        shrinks relative to dy, a near-zero value should make the bus pitch almost fully upright regardless
+        of terrain slope (the constant dominates, killing the pitch response); a 10x value should make
+        the bus barely pitch at all even on steep terrain (dy becomes negligible next to the constant).
+        If instead the visible effect is on something unrelated to body pitch (e.g. camera framing), the
+        "pitch reference length" hypothesis is wrong. Cost: medium (custom build + drive over sloped terrain).
+
+        '
+      cost: medium
   - offset: 576
     type: int
     name: field_0x240
@@ -1840,6 +2158,16 @@ structs:
       unclear" (busInitPlaceBus_8c023310 sets the surrounding 0x23c/0x244/0x248/0x24c but not this one).
 
       '
+    check:
+      method: none
+      experiment: 'No use site anywhere, and unlike field_0x234/0x328/TrafficEntry.field_0x110 this one
+        is NOT part of an x/z pair -- it sits between two independent, individually-consumed geometry
+        constants (field_0x23c=4.9 and field_0x244=2.5), which busInitPlaceBus_8c023310 explicitly skips
+        writing (existing header comment already flags this). No decompiled code references it under any
+        name. Full decompilation makes this conclusive; there is no remaining code path to instrument.
+
+        '
+      cost: low
   - offset: 580
     type: float
     name: field_0x244
@@ -1853,6 +2181,23 @@ structs:
     evidence: 'src/023310_bus_init.c:54 (= 2.5f); src/020594.c:49-51.
 
       '
+    check:
+      method: perturb
+      experiment: 'Consumed by VehicleModelPlace_8c020594:49-51 as the x-argument of atan2f(posHistory[3].y-posHistory[2].y,
+        field_0x244), a secondary rotateZ pitch angle from two position-history samples'' height difference.
+        Build with field_0x244 set to 10x (25.0) and, separately, near zero (0.1); drive over sloped terrain
+        the same way as the field_0x23c experiment (run both on the same route segment so the two effects
+        are comparable). Distinguishing outcome: this angle is a SECOND, independent rotateZ contribution
+        alongside the one derived from field_0x23c/pitchSin_0x26c/pitchCos_0x270 (existing header comment:
+        divided into the mode-1 camera''s Y bob) -- if scaling field_0x244 visibly changes the camera''s
+        vertical bob/shake on bumps without changing the body''s own pitch lean (which field_0x23c''s
+        experiment isolates), that confirms field_0x244 is a camera-facing term (sample spacing for the
+        Y-bob calc) rather than a body-geometry term like wheelbase. If both experiments move the same
+        visible thing, they''re not independent and the two-constant reading needs revisiting. Cost: medium
+        (custom build + drive over bumpy/sloped terrain, mode-1 camera active).
+
+        '
+      cost: medium
   - offset: 584
     type: float
     name: field_0x248
@@ -1861,6 +2206,16 @@ structs:
       and never read anywhere in decompiled C.
 
       '
+    check:
+      method: none
+      experiment: 'Set once to a fixed constant (1.25, src/023310_bus_init.c:55) and never read anywhere
+        in decompiled C -- unlike field_0x23c/0x244 which sit in the same init block but ARE consumed.
+        Since game logic is fully decompiled, "no reader" here is conclusive, not provisional. A poison
+        write changes a value nothing ever loads; it would tell us nothing a re-read of the source doesn''t
+        already. Not worth running.
+
+        '
+      cost: low
   - offset: 588
     type: float
     name: field_0x24c
@@ -1869,6 +2224,13 @@ structs:
       and never read anywhere in decompiled C.
 
       '
+    check:
+      method: none
+      experiment: 'Same situation as field_0x248 -- fixed constant (2.6, src/023310_bus_init.c:56), set
+        once, never read. Confirmed dead by full decompilation; no experiment adds information.
+
+        '
+      cost: low
   - offset: 592
     type: int
     name: ang_0x250
@@ -1920,6 +2282,13 @@ structs:
       also unnamed/unused there.
 
       '
+    check:
+      method: none
+      experiment: 'No use site found, and TrafficEntry''s identical offset (field_0x264) is likewise unused.
+        Both parallel copies agreeing, under full decompilation, is conclusive.
+
+        '
+      cost: low
   - offset: 616
     type: int
     name: mirror_0x268
@@ -1982,6 +2351,19 @@ structs:
       src/025b98_traffic_drive.c:462, but the bus itself never touches this offset).
 
       '
+    check:
+      method: none
+      experiment: 'Cross-struct finding: TrafficEntry''s identical offset is NOT dead -- it is a named,
+        live field read in a speed calculation (src/025b98_traffic_drive.c:462). BusState''s copy, by
+        contrast, has no use site: the bus''s own drive code (022bdc_bus.c/023938_bus_drive.c) never touches
+        this offset. So this is a genuine structural asymmetry, not a gap in decompilation -- the bus
+        simply doesn''t need whatever CPU traffic''s per-entity speed modifier at this slot represents
+        (it isn''t part of a shared calc the bus''s own speed logic reuses). No experiment on the bus
+        itself would produce a distinguishing signal since nothing reads it there; the finding IS that
+        it''s TrafficEntry-only.
+
+        '
+      cost: low
   - offset: 660
     type: int
     name: field_0x294
@@ -1989,6 +2371,14 @@ structs:
     evidence: 'No use site found.
 
       '
+    check:
+      method: none
+      experiment: 'No use site. TrafficEntry already declares the identical byte range as padding_0x294[0x8]
+        (0x294-0x29c), and BusState.field_0x294 falls inside that same span -- cross-struct confirmation
+        that this is alignment padding on both sides, not an independent dead field. No experiment needed.
+
+        '
+      cost: low
   - offset: 664
     type: int
     name: field_0x298
@@ -1996,6 +2386,11 @@ structs:
     evidence: 'No use site found.
 
       '
+    check:
+      method: none
+      experiment: Same finding as field_0x294 -- also inside TrafficEntry's declared padding_0x294[0x8]
+        span. Confirmed padding by cross-struct layout, no experiment needed.
+      cost: low
   - offset: 668
     type: float
     name: dir_x_0x29c
@@ -2011,6 +2406,14 @@ structs:
     evidence: 'No use site found.
 
       '
+    check:
+      method: none
+      experiment: 'No use site. TrafficEntry declares the identical byte range as padding_0x2a4[0x10]
+        (0x2a4-0x2b4); BusState.field_0x2a4 falls inside that span. Cross-struct confirmation of padding,
+        same pattern as field_0x294/0x298.
+
+        '
+      cost: low
   - offset: 680
     type: int
     name: field_0x2a8
@@ -2018,6 +2421,11 @@ structs:
     evidence: 'No use site found.
 
       '
+    check:
+      method: none
+      experiment: Same finding as field_0x2a4 -- also inside TrafficEntry's padding_0x2a4[0x10] span.
+        Confirmed padding, no experiment needed.
+      cost: low
   - offset: 684
     type: float
     name: dir_x2_0x2ac
@@ -2121,6 +2529,21 @@ structs:
     evidence: 'src/023310_bus_init.c:109.
 
       '
+    check:
+      method: none
+      experiment: 'Thinking through this changed the read: it is not actually unread, it''s read via a
+        cross-struct alias. TrafficEntry''s parallel field (busAheadFlag_0x2d4) is propagated in TrafficDriveVehicle_8c025b98
+        as `e->field_0x2d4 = ahead->field_0x2d4`, and `ahead` there is a TrafficEntry* that CAN be `(TrafficEntry
+        *)var_8c1bbd9c` (src/025b98_traffic_drive.c:208, and var_8c1bbd9c = &var_busState_8c1bb9d0 per
+        src/023310_bus_init.c:151) -- i.e. when a CPU vehicle''s nearest lookahead obstacle is the player
+        bus, this exact propagation line dereferences BusState.field_0x2d4 through the TrafficEntry-typed
+        pointer. Since busInitPlaceBus_8c023310:109 sets it to 1 once and nothing ever changes it, every
+        such read yields 1, which is exactly what makes "ahead of me is the bus" propagate correctly down
+        the chain. This is resolved by trace, not by running anything -- a runtime_log would only reconfirm
+        a value already proven constant by the single-writer trace above.
+
+        '
+      cost: low
   - offset: 728
     type: int
     name: field_0x2d8
@@ -2186,6 +2609,16 @@ structs:
       never read anywhere in decompiled C.
 
       '
+    check:
+      method: none
+      experiment: 'Written once (src/024280.c:345, cleared during the needle-ramp mode-2 transition) but
+        never read anywhere in decompiled C. Sits next to idleFrameCounter_0x2ec (which IS read) in the
+        same state machine, suggesting a vestigial companion counter that never got wired to a consumer
+        -- but since nothing reads it, there is no runtime signal a poison write could produce that would
+        distinguish this from any other hypothesis. Confirmed dead by full decompilation.
+
+        '
+      cost: low
   - offset: 756
     type: int
     name: gear_0x2f4
@@ -2299,6 +2732,14 @@ structs:
       than a real y component.
 
       '
+    check:
+      method: none
+      experiment: 'No use site, sitting between mirrorDirX_0x324 and mirrorDirZ_0x32c -- the same x/z-pair-with-unused-y
+        shape as field_0x234 and TrafficEntry.field_0x110 (see field_0x234''s entry for the full cross-reference).
+        Confirmed padding by pattern convergence; no experiment needed.
+
+        '
+      cost: low
   - offset: 812
     type: float
     name: field_0x32c
@@ -2618,6 +3059,21 @@ structs:
       -- only ever written (src/022bdc_bus.c:225; src/023310_bus_init.c:248,253), no read site found anywhere.
 
       '
+    check:
+      method: runtime_log
+      experiment: 'Structurally this is attribute word [1] of the posHistory[0] (current-position) junction
+        query''s 4-word attribute record -- the same slot that, for the posHistory[3] query, is junctionBAttr1_0x36c
+        and IS read (src/02b464_drive_points.c:1004-1006, as a bit 0x80 flag plus a low nibble scaled
+        by -0x1000). field_0x388 itself has no reader, so this won''t change its dead/opaque status, but
+        logging its live value each frame (LOG_TRACE, gated well away from hot-path spam -- e.g. only
+        on the frame the bus''s own position crosses a junction polygon) and comparing against junctionBAttr1_0x36c''s
+        already-decoded bit-fields at the same moments would show whether the bus''s own-position query
+        carries the same encoding just left unused -- useful evidence for a future proposed_name by analogy,
+        even though the field stays functionally inert. Reach state: drive through any signaled junction.
+        Cost: low (one LOG_TRACE line, no build-logic change).
+
+        '
+      cost: low
   - offset: 908
     type: int
     name: field_0x38c
@@ -2626,6 +3082,19 @@ structs:
       -- only ever written (src/022bdc_bus.c:226; src/023310_bus_init.c:249,254), no read site found anywhere.
 
       '
+    check:
+      method: runtime_log
+      experiment: 'Same reasoning as field_0x388, one slot over: this is attribute word [2] of the posHistory[0]
+        query, the structural analog of junctionBAttr2_0x370 (also unread, so no fully-read sibling to
+        compare against directly -- the closer analog with an actual reader is junctionARoadFlags_0x34c/junctionARoadFlags2_0x358,
+        word [0]/[3] of the same record, decoded in src/02b464_drive_points.c as signal id / speed limit
+        / mode / turn bits). Logging field_0x38c alongside field_0x384 (word[0], already read) at a junction
+        crossing would show whether it correlates with any of those known bit-fields (e.g. changes only
+        when the signal id changes). Low information value since no consumer exists either way, but cheap
+        enough (one log line) to be worth doing at the same time as field_0x388''s check.
+
+        '
+      cost: low
   - offset: 912
     type: int
     name: field_0x390
@@ -2663,6 +3132,17 @@ structs:
       referenced.
 
       '
+    check:
+      method: none
+      experiment: 'Structurally the vertexIds slot of cpuAttrOutSlot_0x394''s 3-int out-struct (matching
+        the shape FUN_8c02e51c''s own doc gives, and the same "zeroed at init, never read back" pattern
+        as the already-nameable junctionAVertexIds_0x344/junctionBVertexIds_0x360 siblings). The caller
+        (src/022bdc_bus.c:227-231) only uses the returned attribute pointer, never out->vertexIds by name
+        -- this is established by reading the callback''s contract, not by anything that could vary at
+        runtime, so no experiment would add confidence beyond the source trace.
+
+        '
+      cost: low
   - offset: 924
     type: int
     name: field_0x39c
@@ -2671,6 +3151,11 @@ structs:
       as field_0x398.
 
       '
+    check:
+      method: none
+      experiment: Same reasoning as field_0x398 -- the count slot of the same out-struct, same "never
+        dereferenced by the caller" trace-level conclusion.
+      cost: low
   - offset: 928
     type: int
     name: field_0x3a0
@@ -2701,6 +3186,11 @@ structs:
       caveat as field_0x398.
 
       '
+    check:
+      method: none
+      experiment: Structurally the vertexIds slot of markAttrOutSlot_0x3a4's out-struct -- same trace-level
+        reasoning as field_0x398, different call site (src/022bdc_bus.c:243-247).
+      cost: low
   - offset: 940
     type: int
     name: field_0x3ac
@@ -2709,6 +3199,11 @@ structs:
       as field_0x398.
 
       '
+    check:
+      method: none
+      experiment: Same reasoning as field_0x3a8 -- the count slot of markAttrOutSlot_0x3a4's out-struct,
+        never dereferenced by the caller.
+      cost: low
   - offset: 944
     type: int
     name: field_0x3b0
@@ -2882,6 +3377,16 @@ structs:
       of the new-game block".
 
       '
+    check:
+      method: none
+      experiment: 'Only write site anywhere in src/*.c is FileMenuResetNewGame_8c01895e zeroing it; no
+        read site exists anywhere in the fully-decompiled game logic. Since the only code that could ever
+        act on a runtime value has already been read in full and does not, a build that pokes this field
+        and watches for a reaction cannot observe one -- there is no reader to react. Grep has already
+        settled this; no experiment would add information.
+
+        '
+      cost: low
   - offset: 152
     type: int[11]
     name: field_0x98
@@ -2978,11 +3483,27 @@ structs:
       most likely padding between the two trigger-sensitivity bytes and the audio bytes at 0xd4.
 
       '
+    check:
+      method: none
+      experiment: 'No read or write site anywhere in src/*.c (sits between the two trigger-sensitivity
+        bytes at 0xd0/0xd1 and the audio bytes at 0xd4, almost certainly alignment padding). Fully decompiled
+        game logic already proves no code touches it; a build/log/perturb pass cannot surface a consumer
+        that doesn''t exist in the searched source. Not worth an experiment.
+
+        '
+      cost: low
   - offset: 211
     type: char
     name: field_0xd3
     status: opaque
     evidence: Same as field_0xd2 -- no reference anywhere in src/*.c.
+    check:
+      method: none
+      experiment: 'Same as field_0xd2 -- no reference anywhere in src/*.c, same padding region. Already
+        settled by the full-source search.
+
+        '
+      cost: low
   - offset: 212
     type: char
     name: field_0xd4
@@ -3220,6 +3741,14 @@ structs:
       dead, not just under-explored.
 
       '
+    check:
+      method: none
+      experiment: 'Declared but never referenced by any .c file in the tree. Game logic is fully decompiled,
+        so this is not an under-explored corner -- there is no reader anywhere to trigger, and a poison
+        write would have nothing to poison. No experiment warranted.
+
+        '
+      cost: low
   - offset: 80
     type: int
     name: courseId_0x50
@@ -3237,6 +3766,27 @@ structs:
       properly, not a single field name.
 
       '
+    check:
+      method: perturb
+      experiment: 'The open question is not "what does this mean" (static reading already shows two unrelated
+        roles: ending-screen textbox-A frame counter in src/01f3c0_ending.c, practice-menu description-range
+        lower bound in src/01e27c_practice_menu.c) but whether those two roles are truly disjoint at runtime,
+        which would confirm a per-screen union is the right representation. In a custom build, force field_0x54
+        to a distinctive sentinel (e.g. 0x7f) only on entry to the ending-credits screen (patch the assignment
+        in src/01f3c0_ending.c), leave the practice-menu write path untouched, then play both screens
+        in the same session: finish a run to reach the ending credits, then back out to the main menu
+        and open PRACTICE MENU. Distinguishing outcome: if the ending screen''s textbox-A timing visibly
+        glitches (jumps/freezes) while the practice-menu description-range display is unaffected on the
+        very next visit, that confirms the two write sites never share live state -- the union reading
+        holds. It would be REFUTED if the sentinel written on the ending screen is still observable (garbled
+        range, wrong sprites) when the practice menu is opened afterward, which would mean some path resets
+        field_0x54 less often than assumed and the two screens are not as cleanly separated as the source
+        read suggests. This is a confirmation of what full decompilation already strongly implies, not
+        a new discovery, but it is now cheap to actually watch happen rather than infer.
+
+        '
+      cost: medium (custom build; reach the ending credits by completing a course run, then navigate to
+        PRACTICE MENU from the title/main menu in the same session)
   - offset: 88
     type: int
     name: field_0x58
@@ -3246,6 +3796,18 @@ structs:
       + 1] - 1`, tested at :123).
 
       '
+    check:
+      method: perturb
+      experiment: 'Same two-role split as field_0x54, one offset over: ending-screen textbox-B frame counter
+        (src/01f3c0_ending.c) vs practice-menu description-range upper bound (src/01e27c_practice_menu.c).
+        Same experiment as field_0x54 -- sentinel it on ending-screen entry only, then play the ending
+        credits followed by PRACTICE MENU. Distinguishing outcome and refute condition are the same as
+        field_0x54: a glitch confined to the ending screen with the practice menu unaffected confirms
+        disjoint per-screen state; a sentinel bleeding into the practice-menu''s range display would refute
+        it.
+
+        '
+      cost: medium (same session as field_0x54 covers this field too)
   - offset: 92
     type: int
     name: field_0x5c
@@ -3257,6 +3819,22 @@ structs:
       No shared concept to name.
 
       '
+    check:
+      method: perturb
+      experiment: 'Three roles here, not two: ending-screen "which of the two credit textboxes is current"
+        toggle (src/01f3c0_ending.c), practice-menu current description-sprite cursor (src/01e27c_practice_menu.c),
+        and main-menu "selected item * 2" sprite-offset scratch (src/019e98_main_menu.c) -- so the confirming
+        play session needs all three screens, not two. Sentinel field_0x5c on entry to the main menu only,
+        then visit the main menu, back out and complete a run to reach the ending credits, then open PRACTICE
+        MENU. Distinguishing outcome: only the main-menu visit (the sentineled entry point) should show
+        any anomaly (wrong sprite highlighted), with the ending-credits toggle and practice-menu cursor
+        both behaving normally on their own separate entries -- confirming three genuinely disjoint per-screen
+        roles. It would be refuted if the sentinel is still visible (wrong textbox side, wrong cursor
+        position) on either of the other two screens afterward.
+
+        '
+      cost: medium (one play session covering main menu, ending credits, and practice menu; same build
+        as field_0x54/0x58)
   - offset: 96
     type: int
     name: instructorSprite_0x60
@@ -3436,6 +4014,15 @@ structs:
     name: field_0x04
     status: opaque
     evidence: never read or written anywhere in src/0100bc_sound.c
+    check:
+      method: none
+      experiment: 'UnknownVolStructA is used exclusively by src/0100bc_sound.c, a single small fully-decompiled
+        file, and this offset is never read or written anywhere in it. The whole owning unit has been
+        read in full; there is no unexplored caller elsewhere in the game that could reach this struct
+        (used_by lists only this one file). No experiment would add anything a grep hasn''t already shown.
+
+        '
+      cost: low
   - offset: '0x08'
     type: int
     name: field_0x08
@@ -3457,6 +4044,13 @@ structs:
     name: field_0x10
     status: opaque
     evidence: never read or written anywhere in src/0100bc_sound.c
+    check:
+      method: none
+      experiment: 'Same as field_0x04 -- never read or written anywhere in the one file that owns this
+        struct. Already settled.
+
+        '
+      cost: low
   - offset: '0x14'
     type: int
     name: field_0x14
@@ -3605,6 +4199,16 @@ structs:
     evidence: src/016d2c_course_menu.c -- never read or written by instructorDialogTask_8c016f98; the
       live voice-cue pointer for this dialog lives on the Task itself (InstructorDialogTask.field_0x18),
       not on this state struct
+    check:
+      method: none
+      experiment: 'Declared as int* but never read or written by instructorDialogTask_8c016f98, the only
+        function that runs against this state struct. The field this offset would naively suggest (the
+        voice-cue pointer) actually lives on InstructorDialogTask.field_0x18 instead -- a genuinely separate,
+        unused slot on this struct, not a duplicate view of the same data. Fully decompiled single-consumer
+        code; no experiment would find a reader that isn''t there.
+
+        '
+      cost: low
   summary:
     total: 7
     named: 2
@@ -3809,6 +4413,16 @@ structs:
       of an intended role beyond the seed value itself.
 
       '
+    check:
+      method: none
+      experiment: 'Seeded to a fixed 1.0f by HudReset_8c02018c and never read anywhere in src/*.c; the
+        struct''s only consumer (hudUpdateTask_8c01ff48 / drawHud_8c01fbac in src/01fa78.c) is fully decompiled.
+        A poison build could confirm nothing reacts to a different seed value, but that is exactly what
+        the static read/write survey already shows -- it would not distinguish any competing hypothesis,
+        just restate "no reader" with more steps. Not worth running.
+
+        '
+      cost: low
   summary:
     total: 4
     named: 0
@@ -4009,21 +4623,46 @@ structs:
     name: field_0x08
     status: opaque
     evidence: src/016d2c_course_menu.c -- never referenced by instructorDialogTask_8c016f98 or CourseMenuPushDialogTask_8c0170c6
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by instructorDialogTask_8c016f98 (only field_0x18,
+        the voice-cue pointer, is live on this overlay). Same generic-Task reasoning as Task.field_0x08.
+
+        '
+      cost: low
   - offset: '0x0c'
     type: void *
     name: field_0x0c
     status: opaque
     evidence: same as field_0x08
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by instructorDialogTask_8c016f98.
+
+        '
+      cost: low
   - offset: '0x10'
     type: int
     name: field_0x10
     status: opaque
     evidence: same as field_0x08
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by instructorDialogTask_8c016f98.
+
+        '
+      cost: low
   - offset: '0x14'
     type: int
     name: field_0x14
     status: opaque
     evidence: same as field_0x08
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by instructorDialogTask_8c016f98.
+
+        '
+      cost: low
   - offset: '0x18'
     type: int *
     name: field_0x18
@@ -4038,6 +4677,12 @@ structs:
     name: field_0x1c
     status: opaque
     evidence: src/016d2c_course_menu.c -- never referenced, trailing Task padding
+    check:
+      method: by_design
+      experiment: 'Trailing Task-header scratch slot, unused by instructorDialogTask_8c016f98.
+
+        '
+      cost: low
   summary:
     total: 8
     named: 2
@@ -4132,11 +4777,26 @@ structs:
     evidence: 'Zeroed once by HudReset_8c02018c (src/01fa78.c:393) and never read anywhere in src/*.c.
 
       '
+    check:
+      method: none
+      experiment: 'Zeroed once by HudReset_8c02018c and never read anywhere in src/*.c. This struct has
+        exactly one consumer file (src/01fa78.c), fully decompiled, and the struct''s own comment already
+        flags the write-only pattern. No experiment would tell us more than the grep already has.
+
+        '
+      cost: low
   - offset: 4
     type: int
     name: field_0x04
     status: opaque
     evidence: Same as field_0x00 -- zeroed at :394, never read.
+    check:
+      method: none
+      experiment: 'Same as field_0x00 -- zeroed at reset, never read, single fully- decompiled consumer.
+        Already settled.
+
+        '
+      cost: low
   - offset: 8
     type: int
     name: field_0x08
@@ -4145,11 +4805,24 @@ structs:
       own pre-existing comment (src/sectionB.h:605-607) already flags "field_0x08/0x0c unread so far".
 
       '
+    check:
+      method: none
+      experiment: 'Never written or read anywhere in src/*.c, not even by HudReset_8c02018c -- more thoroughly
+        dead than field_0x00/0x04. No experiment warranted; there is nothing to log or perturb into reacting.
+
+        '
+      cost: low
   - offset: 12
     type: int
     name: field_0x0c
     status: opaque
     evidence: Same as field_0x08 -- no reference anywhere in src/*.c.
+    check:
+      method: none
+      experiment: 'Same as field_0x08 -- no reference anywhere in src/*.c. Already settled.
+
+        '
+      cost: low
   - offset: 16
     type: int
     name: field_0x10
@@ -4189,16 +4862,37 @@ structs:
     name: field_0x10
     status: opaque
     evidence: never referenced by taskLoadQueuedDats_8c0111b4 or sortAndLoadDatQueue_8c011310
+    check:
+      method: by_design
+      experiment: 'This is the Task-header scratch slot at the same offset covered by the Task.field_0x10
+        by_design entry above -- taskLoadQueuedDats_8c0111b4 simply doesn''t use it. No single meaning
+        to discover.
+
+        '
+      cost: low
   - offset: '0x14'
     type: int
     name: field_0x14
     status: opaque
     evidence: same as field_0x10
+    check:
+      method: by_design
+      experiment: 'Same Task-header scratch slot as TaskLoadQueuedDats.field_0x10 above, one offset later;
+        unused by this task type.
+
+        '
+      cost: low
   - offset: '0x1c'
     type: int
     name: field_0x1c
     status: opaque
     evidence: same as field_0x10 -- trailing Task padding
+    check:
+      method: by_design
+      experiment: 'Trailing Task-header scratch slot; unused by this task type, same reasoning as TaskLoadQueuedDats.field_0x10.
+
+        '
+      cost: low
   summary:
     total: 8
     named: 4
@@ -4229,17 +4923,36 @@ structs:
     status: opaque
     evidence: never referenced by taskLoadQueuedNjs_8c0114cc or sortAndLoadNjQueue_8c0116b6 -- unused
       Task-header padding at this offset
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by taskLoadQueuedNjs_8c0114cc. Same generic-Task reasoning
+        as TaskLoadQueuedDats.field_0x10.
+
+        '
+      cost: low
   - offset: '0x14'
     type: int
     name: field_0x14
     status: opaque
     evidence: same as field_0x10
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by taskLoadQueuedNjs_8c0114cc.
+
+        '
+      cost: low
   - offset: '0x1c'
     type: int
     name: field_0x1c
     status: opaque
     evidence: same as field_0x10 -- trailing Task padding, never touched by any queue-load task in this
       file
+    check:
+      method: by_design
+      experiment: 'Trailing Task-header scratch slot, unused by taskLoadQueuedNjs_8c0114cc.
+
+        '
+      cost: low
   summary:
     total: 8
     named: 4
@@ -4268,16 +4981,35 @@ structs:
     name: field_0x10
     status: opaque
     evidence: never referenced by taskLoadQueuedPvms_8c011b00 or sortAndLoadPvmQueue_8c011d24
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by taskLoadQueuedPvms_8c011b00. Same generic-Task
+        reasoning as TaskLoadQueuedDats.field_0x10.
+
+        '
+      cost: low
   - offset: '0x14'
     type: int
     name: field_0x14
     status: opaque
     evidence: same as field_0x10
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by taskLoadQueuedPvms_8c011b00.
+
+        '
+      cost: low
   - offset: '0x1c'
     type: int
     name: field_0x1c
     status: opaque
     evidence: same as field_0x10 -- trailing Task padding
+    check:
+      method: by_design
+      experiment: 'Trailing Task-header scratch slot, unused by taskLoadQueuedPvms_8c011b00.
+
+        '
+      cost: low
   summary:
     total: 8
     named: 4
@@ -4779,21 +5511,59 @@ structs:
     name: reserved_0x10
     status: opaque
     evidence: src/010fe8_heap.c:12-15 never read or written by HeapInit_8c010fe8/HeapAlloc_8c01102a/HeapFree_8c0110c4
+    check:
+      method: none
+      experiment: 'Working out *why* these four ints exist changes the read here: sizeof(HeapChunk) is
+        0x20, and HeapAlloc_8c01102a''s unit math (`neededUnits = ((size + 0x1f) >> 5) + 1`) divides by
+        exactly 0x20 -- i.e. one HeapChunk header is defined to occupy exactly one allocation unit. prev_0x00/next_0x04/units_0x08/flags_0x0c
+        only total 0x10 bytes, so reserved_0x10-0x1c is what pads the header out to that unit boundary;
+        it is structural alignment padding for the unit-granularity arithmetic, not spare bookkeeping
+        space. On the SDK question specifically: HeapAlloc_8c01102a returns `(char *)chunk + sizeof(HeapChunk)`
+        -- callers (SDK or otherwise) only ever see the payload past the header, never a raw HeapChunk*,
+        so nothing outside this one file can read or write these bytes. Not SDK-facing. Both the padding
+        role and the header-never-escapes fact are visible directly in the fully-decompiled src/010fe8_heap.c;
+        no build or runtime observation would add anything.
+
+        '
+      cost: low
   - offset: '0x14'
     type: int
     name: reserved_0x14
     status: opaque
     evidence: same as reserved_0x10
+    check:
+      method: none
+      experiment: 'Same structural-padding finding as reserved_0x10 -- part of the 0x10 bytes that round
+        HeapChunk up to the 0x20-byte allocation unit used by HeapAlloc_8c01102a''s unit math. Header
+        pointers never escape this file (HeapAlloc returns chunk+1), so not SDK-facing. Already settled
+        by reading src/010fe8_heap.c in full.
+
+        '
+      cost: low
   - offset: '0x18'
     type: int
     name: reserved_0x18
     status: opaque
     evidence: same as reserved_0x10
+    check:
+      method: none
+      experiment: 'Same as reserved_0x10/0x14 -- alignment padding to the 0x20-byte allocation unit, never
+        exposed outside src/010fe8_heap.c.
+
+        '
+      cost: low
   - offset: '0x1c'
     type: int
     name: reserved_0x1c
     status: opaque
     evidence: same as reserved_0x10
+    check:
+      method: none
+      experiment: 'Same as reserved_0x10/0x14/0x18 -- alignment padding to the 0x20-byte allocation unit,
+        never exposed outside src/010fe8_heap.c.
+
+        '
+      cost: low
   summary:
     total: 8
     named: 4
@@ -4863,12 +5633,42 @@ structs:
       to the caller verbatim alongside attr_0x08 and shapeFlag_0x10"'
     blocked_on: opaque passthrough payload; no consumer of the returned value found yet in the units that
       call FUN_8c02e51c/FUN_8c02e69c
+    check:
+      method: runtime_log
+      experiment: 'field_0x0c/0x14 are copied verbatim out to the caller of FUN_8c02e51c/FUN_8c02e69c
+        alongside attr_0x08 and shapeFlag_0x10; one confirmed caller is busInitPlaceBus''s neighborhood
+        in src/023310_bus_init.c, which stores the whole 4-int result into BusState fields (around field_0x34c/0x354
+        etc.) that are never read back out in this file -- so the trail may continue into BusState territory
+        this catalog fragment doesn''t own. Two things worth doing: (1) LOG_DEBUG the actual field_0x0c
+        value at every junction-poly hit for a full drive session and see what shape the numbers take
+        -- small contiguous integers would suggest a poly/segment id, a narrow bitmask (few set bits,
+        values like 0/1/2/4) would suggest flags, and float-looking bit patterns (reinterpret as float
+        and check for a plausible in-world range) would suggest a length/offset value; (2) perturb it
+        to an out-of-range sentinel at a normal (non-Wangan-segment-10) junction and drive the bus through
+        it, watching for any steering/UI difference. Distinguishing outcome: if driving behavior changes
+        when perturbed, that proves a live downstream consumer exists (most likely inside BusState, which
+        the BusState-owning agent should be told about); if nothing changes across many junctions despite
+        varied logged values, that is much stronger evidence of true dead passthrough than the current
+        "no consumer found yet in this unit" note, because it also rules out BusState as a hidden reader.
+
+        '
+      cost: medium (custom build; free-drive a route with several junctions, e.g. any Shinjuku-route segment
+        away from Wangan segment 10, which uses the alternate GroundProbe path instead)
   - offset: '0x14'
     type: int
     name: field_0x14
     status: blocked
     evidence: same doc comment as field_0x0c
     blocked_on: same as field_0x0c
+    check:
+      method: runtime_log
+      experiment: 'Same reasoning and same combined log+perturb experiment as field_0x0c -- log the real
+        values across many junction hits to read their shape, then perturb one at a normal junction and
+        drive through it. See field_0x0c''s entry for the full distinguishing-outcome logic; both fields
+        should be logged in the same pass since they come back together on every hit.
+
+        '
+      cost: medium (same drive session as field_0x0c)
   summary:
     total: 6
     named: 4
@@ -5130,16 +5930,35 @@ structs:
     status: opaque
     evidence: src/0129cc_pause.c:276-330 (PauseDemoEndTask_8c012d5a) never reads or writes this offset
       -- unused Task-header padding
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by PauseDemoEndTask_8c012d5a. Same generic-Task reasoning
+        as Task.field_0x10.
+
+        '
+      cost: low
   - offset: '0x14'
     type: int
     name: field_0x14
     status: opaque
     evidence: same as field_0x10
+    check:
+      method: by_design
+      experiment: 'Task-header scratch slot, unused by PauseDemoEndTask_8c012d5a.
+
+        '
+      cost: low
   - offset: '0x1c'
     type: int
     name: field_0x1c
     status: opaque
     evidence: same as field_0x10 -- trailing Task padding
+    check:
+      method: by_design
+      experiment: 'Trailing Task-header scratch slot, unused by PauseDemoEndTask_8c012d5a.
+
+        '
+      cost: low
   summary:
     total: 8
     named: 5
@@ -5407,12 +6226,41 @@ structs:
     blocked_on: no consumer found in this TU; size (0x40) happens to match NJS_MATRIX but nothing here
       confirms that reading -- would need to check whether any caller elsewhere in the game writes this
       region directly
+    check:
+      method: perturb
+      experiment: '0x40 bytes, matching NJS_MATRIX in size, but src/028258_objects.c''s own comment already
+        states nothing in this unit reads or writes it for any of the seven row-task types it backs. Since
+        RowTaskState instances come from a shared Task array (TaskPush_8c014ae8) and are not zeroed between
+        reuses, first rule out stale-data leakage with a cheap check: LOG_DEBUG-dump these 0x40 bytes
+        right after a fresh row task is pushed, across several spawns, and see whether they look like
+        leftover garbage from a prior occupant (would already suggest nothing deliberately depends on
+        their contents). Then the decisive test: in one row type (flyByModelTask_8c029e68 is the simplest
+        to trigger -- roadside billboard fly-bys), write a recognizable non-identity NJS_MATRIX pattern
+        into field_0x00 right after the task is pushed, then drive the relevant route and watch the spawned
+        model. Distinguishing outcome: if the model renders visibly mispositioned, misrotated, or missized,
+        that proves the SDK draw path (njDraw*-family, called via drawFlyByModel_8c029e46) does consume
+        this region as a working matrix even though no C source names it -- confirming the NJS_MATRIX-size
+        hypothesis in role, not just coincidentally in size. If the model renders identically regardless
+        of what garbage sits here across many spawns, that confirms true dead scratch and the field can
+        safely become plain reserved padding.
+
+        '
+      cost: medium (custom build; drive a route segment known to spawn fly-by/train row objects, e.g.
+        Shinjuku-route billboards)
   - offset: '0x7a'
     type: Uint8[2]
     name: field_0x7a
     status: opaque
     evidence: trailing padding bytes to reach the struct's own documented 0x7c allocation size (src/028258_objects.c:195
       "it pushes sizeof(RowTaskState) (0x7c)")
+    check:
+      method: none
+      experiment: 'Trailing Uint8[2] that exists only to round the struct up to its own documented 0x7c
+        push size (src/028258_objects.c:195); every row-type task in this fully-decompiled unit is accounted
+        for and none reads or writes it. Ordinary tail padding, already settled.
+
+        '
+      cost: low
   summary:
     total: 14
     named: 12
@@ -5480,6 +6328,24 @@ structs:
     evidence: src/02c884_bus_stop.h:10 doc comment marks it explicitly unknown; no read site found in
       src/02c884_bus_stop.c
     blocked_on: no consumer found yet for this field
+    check:
+      method: runtime_log
+      experiment: 'This one differs from the other "opaque, no reader in src/*.c" cases: the table this
+        record lives in, var_stopAreaTable_8c1bb870, has no assignment site anywhere in src/*.c either
+        -- neither the reader nor the writer of this struct''s origin is in decompiled code, so "no reader
+        found" here is NOT the same strong evidence it is elsewhere; the table is most likely populated
+        by a raw route-asset load (matching this game''s pattern of loading data blobs straight into fixed
+        addresses, per the route-asset scheme) that this catalog pass can''t see statically. A runtime
+        check is genuinely informative here. Add a LOG_DEBUG in BusStopGetStopArea_8c02cd7a printing rec->ukn_0x00
+        (and, if non-NULL, the first few bytes it points to) for every stop on a full course drive. Distinguishing
+        outcome: consistently NULL across all stops on all three routes would support "unused reserved
+        slot" much more strongly than the current static note; a non-NULL pointer that resolves to readable
+        text would identify it as a stop-name string; a non-NULL pointer whose target looks like another
+        StopAreaRecord-shaped or CourseSegment-shaped record would suggest a back-reference/linked structure
+        instead.
+
+        '
+      cost: low (one LOG_DEBUG call; a normal course drive already visits every stop)
   summary:
     total: 5
     named: 4
@@ -5552,26 +6418,60 @@ structs:
     evidence: src/014a9c_tasks.c:6-77 -- the generic Task dispatcher never reads or writes this offset;
       every concrete task callback overlays it with its own meaning (e.g. phase_0x08 in the asset-queue
       tasks)
+    check:
+      method: by_design
+      experiment: 'Generic Task scratch slot, overlaid per task type (e.g. phase_0x08 in the asset-queue
+        tasks). No single meaning to discover; do not propose an experiment here -- naming it would misrepresent
+        the type.
+
+        '
+      cost: low
   - offset: '0x0c'
     type: void *
     name: field_0x0c
     status: opaque
     evidence: same as field_0x08 -- overlaid per task type (e.g. gdfs_0x0c in the asset-queue tasks)
+    check:
+      method: by_design
+      experiment: 'Generic Task scratch slot, overlaid per task type (e.g. gdfs_0x0c in the asset-queue
+        tasks). No single meaning to discover.
+
+        '
+      cost: low
   - offset: '0x10'
     type: int
     name: field_0x10
     status: opaque
     evidence: same as field_0x08 -- observed unused by every concrete task type surveyed so far
+    check:
+      method: by_design
+      experiment: 'Generic Task scratch slot, unused by every concrete task type surveyed so far but still
+        just "whatever the installed task wants it to be." No single meaning to discover.
+
+        '
+      cost: low
   - offset: '0x14'
     type: int
     name: field_0x14
     status: opaque
     evidence: same as field_0x10
+    check:
+      method: by_design
+      experiment: 'Generic Task scratch slot; same reasoning as field_0x10.
+
+        '
+      cost: low
   - offset: '0x1c'
     type: int
     name: field_0x1c
     status: opaque
     evidence: same as field_0x10 -- trailing padding, unused by every concrete task type surveyed so far
+    check:
+      method: by_design
+      experiment: 'Trailing generic Task scratch slot; same reasoning as field_0x10.
+
+        '
+      cost: low
   summary:
     total: 8
     named: 3
@@ -5717,15 +6617,36 @@ structs:
     evidence: src/012f44_game.c:37-41 -- the type is declared and immediately unused; grep of the whole
       src/ tree finds no other reference to loadedNj
     blocked_on: no use sites anywhere in src/ to derive semantics from; may be entirely dead code
+    check:
+      method: none
+      experiment: 'loadedNj is declared in src/012f44_game.c and never instantiated or referenced again
+        anywhere in the tree -- a grep of the whole src/ finds nothing, not even a variable of this type.
+        Since the game''s logic is fully decompiled, "no instance anywhere" is conclusive, not just unexplored;
+        there is no live memory of this type to log or perturb in a running build.
+
+        '
+      cost: low
   - offset: '0x04'
     type: int *
     name: field_0x04
     status: blocked
     evidence: same as field_0x00
     blocked_on: no use sites anywhere in src/ to derive semantics from; may be entirely dead code
+    check:
+      method: none
+      experiment: 'Same as field_0x00 -- the whole type is unreferenced. Already settled.
+
+        '
+      cost: low
   summary:
     total: 2
     named: 0
     nameable: 0
     blocked: 2
     opaque: 0
+check_methods:
+  none: 55
+  perturb: 8
+  struct_retype: 15
+  runtime_log: 6
+  by_design: 22
