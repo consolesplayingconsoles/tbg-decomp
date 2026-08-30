@@ -507,8 +507,8 @@ haveLimit:
                 if (TrafficRunEntryScript_8c027012(e) == 0) {
                     if (e->field_0x2f4 == var_activeTrafficPreset_8c227e14 &&
                         e->field_0x48c == 3) {
-                        e->scriptCursor_0x2f8 = e->scriptBase_0x2fc;
-                        TrafficReadScriptArgs_8c026710(e, e->scriptCursor_0x2f8);
+                        e->scriptBase_0x2f8 = e->scriptCursor_0x2fc;
+                        TrafficReadScriptArgs_8c026710(e, e->scriptBase_0x2f8);
                         e->driveState_0x2b4 = 3;
                         return;
                     }

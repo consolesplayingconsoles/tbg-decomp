@@ -181,8 +181,8 @@ typedef struct {
     float originJitterX_0x2ec;
     float originJitterZ_0x2f0;
     Sint32 field_0x2f4;
-    Uint16 *scriptCursor_0x2f8;
-    Uint16 *scriptBase_0x2fc;
+    Uint16 *scriptBase_0x2f8;
+    Uint16 *scriptCursor_0x2fc;
     Sint32 field_0x300;
     /* inline array of per-path-block record pointers, indexed by
      * field_0x300; TrafficReadScriptArgs_8c026710 fills it from the

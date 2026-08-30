@@ -114,7 +114,7 @@ void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script)
 STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
 {
     TrafficEntry *e = entry;
-    Uint16 type = *e->scriptCursor_0x2f8;
+    Uint16 type = *e->scriptBase_0x2f8;
     PathRecord *seg = (PathRecord *)0;
     int scriptCursor = 0;
     float dist = 0.0f;
@@ -614,7 +614,7 @@ void TrafficSeekPathRecord_8c026fcc(TrafficEntry *entry, PathRecord *seg)
 Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
 {
     TrafficEntry *e = entry;
-    Uint16 *ip = e->scriptBase_0x2fc;
+    Uint16 *ip = e->scriptCursor_0x2fc;
     Uint16 *cur;
     Uint16 op;
     Sint32 spawned = 0;
@@ -706,7 +706,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
     }
 
 done:
-    e->scriptBase_0x2fc = ip;
+    e->scriptCursor_0x2fc = ip;
     return 1;
 }
 
@@ -825,8 +825,8 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         }
 
         e->field_0x2f4 = var_activeTrafficPreset_8c227e14;
-        e->scriptCursor_0x2f8 = script;
-        e->scriptBase_0x2fc = script;
+        e->scriptBase_0x2f8 = script;
+        e->scriptCursor_0x2fc = script;
 
         e->texlistLarge_0x04 = var_routeModelSlots_8c1bbddc[typeCode].texlist_0x08;
         e->modelLarge_0x0c = var_routeModelSlots_8c1bbddc[typeCode].nj_0x0c;
