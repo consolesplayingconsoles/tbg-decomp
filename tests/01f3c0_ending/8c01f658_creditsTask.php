@@ -26,7 +26,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', self::MENU_STATE_SIZE);
         $this->setSize('_var_dialogQueue_8c225fbc', 0x10);
-        $this->setSize('_var_8c226430', 4);
+        $this->setSize('_var_endingVoiceList_8c226430', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_instructorDialogActive_8c225fb4', 4);
         $this->setSize('_init_8c03bd80', 4);
@@ -129,7 +129,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 2);
         $dialogList = $this->alloc(4);
-        $this->initUint32($this->addressOf('_var_8c226430'), $dialogList);
+        $this->initUint32($this->addressOf('_var_endingVoiceList_8c226430'), $dialogList);
 
         $this->call('_creditsTask_8c01f658');
 

@@ -537,7 +537,7 @@
                                     ; 02d968
           .EXPORT     _var_8c226414 ; 01e27c
           .EXPORT     _var_8c22642c ; 01e27c
-          .EXPORT     _var_8c226430 ; 01f3c0
+          .EXPORT     _var_endingVoiceList_8c226430 ; 01f3c0
           .EXPORT     _var_8c226434 ; 012f44_game
           .EXPORT     _var_8c226438 ; 012f44_game
           .EXPORT     _var_8c22643c ; 01fa78
@@ -1282,7 +1282,7 @@ _var_8c226414:
           .RES.B      24
 _var_8c22642c:
           .RES.B      4
-_var_8c226430:
+_var_endingVoiceList_8c226430:
           .RES.B      4
 _var_8c226434:
           .RES.B      4

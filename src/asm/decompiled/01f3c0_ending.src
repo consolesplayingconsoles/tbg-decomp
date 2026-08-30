@@ -1,6 +1,6 @@
 ; 8c01f3c0
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _var_8c226430
+          .IMPORT     _var_endingVoiceList_8c226430
           .IMPORT     _var_dialogQueue_8c225fbc
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _TxtDrawSprite_8c014f54
@@ -52,13 +52,13 @@
           .EXPORT     _creditsTask_8c01f658
           .EXPORT     _init_8c04528c
           .EXPORT     _init_8c045290
-          .EXPORT     _init_8c045324
+          .EXPORT     _init_endingResourceGroup_8c045324
           .AENDI
           .EXPORT     _EndingStart_8c01f954
-          .EXPORT     _init_8c04522c
-          .EXPORT     _init_8c045244
-          .EXPORT     _init_8c04525c
-          .EXPORT     _init_8c045278
+          .EXPORT     _init_endingVoicesPerfect_8c04522c
+          .EXPORT     _init_endingVoicesHigh_8c045244
+          .EXPORT     _init_endingVoicesNormal_8c04525c
+          .EXPORT     _init_endingVoicesFailure_8c045278
           .SECTION     P, CODE, ALIGN=4
 _selectEndingDialog_8c01f3c0:
           MOV.L       R14,@-R15
@@ -339,12 +339,12 @@ LAB_8c01f5a6:
 LP_GEN_39506:
           .RES.W 1 ; H'8C01F5BA
           .DATA.L _var_progress_8c1ba1cc ; H'8C01F5BC
-          .DATA.L _var_8c226430 ; H'8C01F5C0
+          .DATA.L _var_endingVoiceList_8c226430 ; H'8C01F5C0
           .DATA.L _var_dialogQueue_8c225fbc ; H'8C01F5C4
-          .DATA.L _init_8c04522c ; H'8C01F5C8
-          .DATA.L _init_8c045244 ; H'8C01F5CC
-          .DATA.L _init_8c04525c ; H'8C01F5D0
-          .DATA.L _init_8c045278 ; H'8C01F5D4
+          .DATA.L _init_endingVoicesPerfect_8c04522c ; H'8C01F5C8
+          .DATA.L _init_endingVoicesHigh_8c045244 ; H'8C01F5CC
+          .DATA.L _init_endingVoicesNormal_8c04525c ; H'8C01F5D0
+          .DATA.L _init_endingVoicesFailure_8c045278 ; H'8C01F5D4
           .DATA.L H'3DCCCCCD ; H'8C01F5D8
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01F5DC
           .DATA.L H'43960000 ; H'8C01F5E0
@@ -515,7 +515,7 @@ LP_GEN_79838:
           .DATA.L H'42340000 ; H'8C01F73C
           .DATA.L H'42C80000 ; H'8C01F740
           .DATA.L _FadePushIn_8c022a9c ; H'8C01F744
-          .DATA.L _var_8c226430 ; H'8C01F748
+          .DATA.L _var_endingVoiceList_8c226430 ; H'8C01F748
           .DATA.L _var_dialogQueue_8c225fbc ; H'8C01F74C
           .DATA.L _CourseMenuPushDialogTask_8c0170c6 ; H'8C01F750
 LAB_8c01f754:
@@ -889,7 +889,7 @@ LP_GEN_38893:
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C01FA50
           .DATA.L _AsqInitQueues_8c011f36 ; H'8C01FA54
           .DATA.L _AsqResetQueues_8c011f6c ; H'8C01FA58
-          .DATA.L _init_8c045324 ; H'8C01FA5C
+          .DATA.L _init_endingResourceGroup_8c045324 ; H'8C01FA5C
           .DATA.L _CourseMenuRequestSysResgrp_8c018568 ; H'8C01FA60
           .DATA.L _CourseMenuRequestCommonResources_8c01852c ; H'8C01FA64
           .DATA.L _RouteLoadSetPvmReady_8c014330 ; H'8C01FA68
@@ -1412,33 +1412,33 @@ _const_8c039ebc:        ; aggressive search
           .DATA.B      H'64, H'81, H'40, H'82, H'50, H'82, H'58, H'82, H'58, H'82, H'58, H'00
 _const_8c039f48:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00
-_const_8c039f4c:        ; from ghidra
+_const_endingPartsName_8c039f4c:        ; from ghidra
           ;.SDATA      "ending_parts.dat"
           ;.DATA.B     H'00
           ;.RES.B      3
           .DATA.B      H'65, H'6E, H'64, H'69, H'6E, H'67, H'5F, H'70, H'61, H'72, H'74, H'73, H'2E, H'64, H'61, H'74
           .DATA.B      H'00, H'00, H'00, H'00
-_const_8c039f60:        ; aggressive search
+_const_endingDatName_8c039f60:        ; aggressive search
           ;.SDATA      "ending.dat"
           ;.DATA.B     H'00
           ;.RES.B      1
           .DATA.B      H'65, H'6E, H'64, H'69, H'6E, H'67, H'2E, H'64, H'61, H'74, H'00, H'00
-_const_8c039f6c:        ; aggressive search
+_const_endingPvmName_8c039f6c:        ; aggressive search
           ;.SDATA      "ending.pvm"
           ;.DATA.B     H'00
           ;.RES.B      1
           .DATA.B      H'65, H'6E, H'64, H'69, H'6E, H'67, H'2E, H'70, H'76, H'6D, H'00, H'00
           .SECTION    D, DATA, ALIGN=4
-_init_8c04522c:        ; from defines
+_init_endingVoicesPerfect_8c04522c:        ; from defines
           .DATA.B      H'1A, H'05, H'00, H'00, H'1B, H'05, H'00, H'00, H'1C, H'05, H'00, H'00, H'1D, H'05, H'00, H'00
           .DATA.B      H'1E, H'05, H'00, H'00, H'00, H'00, H'00, H'00
-_init_8c045244:        ; from defines
+_init_endingVoicesHigh_8c045244:        ; from defines
           .DATA.B      H'1F, H'05, H'00, H'00, H'20, H'05, H'00, H'00, H'21, H'05, H'00, H'00, H'22, H'05, H'00, H'00
           .DATA.B      H'23, H'05, H'00, H'00, H'00, H'00, H'00, H'00
-_init_8c04525c:        ; from defines
+_init_endingVoicesNormal_8c04525c:        ; from defines
           .DATA.B      H'24, H'05, H'00, H'00, H'25, H'05, H'00, H'00, H'26, H'05, H'00, H'00, H'27, H'05, H'00, H'00
           .DATA.B      H'28, H'05, H'00, H'00, H'29, H'05, H'00, H'00, H'00, H'00, H'00, H'00
-_init_8c045278:        ; from defines
+_init_endingVoicesFailure_8c045278:        ; from defines
           .DATA.B      H'2A, H'05, H'00, H'00, H'2B, H'05, H'00, H'00, H'2C, H'05, H'00, H'00, H'2D, H'05, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'00
 _init_8c04528c:        ; from defines
@@ -1481,9 +1481,9 @@ _init_8c045290:        ; from defines
           .DATA.L      _const_8c039ea0 ; ukn
           .DATA.L      _const_8c039ebc ; ukn
           .DATA.L      _const_8c039f48 ; ukn
-_init_8c045324:        ; from defines
-          .DATA.L      _const_8c039f4c ; ukn
-          .DATA.L      _const_8c039f60 ; ukn
-          .DATA.L      _const_8c039f6c ; ukn
+_init_endingResourceGroup_8c045324:        ; from defines
+          .DATA.L      _const_endingPartsName_8c039f4c ; ukn
+          .DATA.L      _const_endingDatName_8c039f60 ; ukn
+          .DATA.L      _const_endingPvmName_8c039f6c ; ukn
           .DATA.B      H'04, H'00, H'00, H'00
           .END

@@ -42,45 +42,29 @@ enum ENDING_TASK_STATE {
  * ====================
  */
 
-STATIC const Uint8 const_8c039f4c[] = {
-    0x65, 0x6E, 0x64, 0x69, 0x6E, 0x67, 0x5F, 0x70,
-    0x61, 0x72, 0x74, 0x73, 0x2E, 0x64, 0x61, 0x74,
-    0x00, 0x00, 0x00, 0x00,
+STATIC const char const_endingPartsName_8c039f4c[20] = "ending_parts.dat";
+STATIC const char const_endingDatName_8c039f60[12] = "ending.dat";
+STATIC const char const_endingPvmName_8c039f6c[12] = "ending.pvm";
+
+/* Voice ids for CourseMenuPushDialogTask_8c0170c6's dialog_0x04->text_0x00
+ * SndProc_8c010cd6(2, id) walk (016d2c_course_menu.c:368); tiers named after
+ * the matching entries of init_instructorDialogs_8c044c08 (index 1-4), which
+ * selectEndingDialog_8c01f3c0 picks with the same var_dialogQueue_8c225fbc[0]
+ * value. */
+STATIC int init_endingVoicesPerfect_8c04522c[] = {
+    0x51a, 0x51b, 0x51c, 0x51d, 0x51e, 0,
 };
 
-STATIC const Uint8 const_8c039f60[] = {
-    0x65, 0x6E, 0x64, 0x69, 0x6E, 0x67, 0x2E, 0x64,
-    0x61, 0x74, 0x00, 0x00,
+STATIC int init_endingVoicesHigh_8c045244[] = {
+    0x51f, 0x520, 0x521, 0x522, 0x523, 0,
 };
 
-STATIC const Uint8 const_8c039f6c[] = {
-    0x65, 0x6E, 0x64, 0x69, 0x6E, 0x67, 0x2E, 0x70,
-    0x76, 0x6D, 0x00, 0x00,
+STATIC int init_endingVoicesNormal_8c04525c[] = {
+    0x524, 0x525, 0x526, 0x527, 0x528, 0x529, 0,
 };
 
-STATIC Uint8 init_8c04522c[] = {
-    0x1A, 0x05, 0x00, 0x00, 0x1B, 0x05, 0x00, 0x00,
-    0x1C, 0x05, 0x00, 0x00, 0x1D, 0x05, 0x00, 0x00,
-    0x1E, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-STATIC Uint8 init_8c045244[] = {
-    0x1F, 0x05, 0x00, 0x00, 0x20, 0x05, 0x00, 0x00,
-    0x21, 0x05, 0x00, 0x00, 0x22, 0x05, 0x00, 0x00,
-    0x23, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-STATIC Uint8 init_8c04525c[] = {
-    0x24, 0x05, 0x00, 0x00, 0x25, 0x05, 0x00, 0x00,
-    0x26, 0x05, 0x00, 0x00, 0x27, 0x05, 0x00, 0x00,
-    0x28, 0x05, 0x00, 0x00, 0x29, 0x05, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-};
-
-STATIC Uint8 init_8c045278[] = {
-    0x2A, 0x05, 0x00, 0x00, 0x2B, 0x05, 0x00, 0x00,
-    0x2C, 0x05, 0x00, 0x00, 0x2D, 0x05, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
+STATIC int init_endingVoicesFailure_8c045278[] = {
+    0x52a, 0x52b, 0x52c, 0x52d, 0,
 };
 
 /* init_8c04528c and init_8c045290 are laid out back to back in the original
@@ -105,8 +89,11 @@ STATIC const char *const init_8c045290[] = {
     "",
 };
 
-STATIC int init_8c045324[] = {
-    (int)const_8c039f4c, (int)const_8c039f60, (int)const_8c039f6c, 0x00000004,
+STATIC ResourceGroupInfo init_endingResourceGroup_8c045324 = {
+    (char *)const_endingPartsName_8c039f4c,
+    (char *)const_endingDatName_8c039f60,
+    (char *)const_endingPvmName_8c039f6c,
+    4,
 };
 
 /* ====================
@@ -147,16 +134,16 @@ STATIC void selectEndingDialog_8c01f3c0(void)
 
     if (perfectCount >= 9) {
         var_dialogQueue_8c225fbc[0] = 1;
-        var_8c226430 = init_8c04522c;
+        var_endingVoiceList_8c226430 = init_endingVoicesPerfect_8c04522c;
     } else if (attemptedCount >= 9) {
         var_dialogQueue_8c225fbc[0] = 2;
-        var_8c226430 = init_8c045244;
+        var_endingVoiceList_8c226430 = init_endingVoicesHigh_8c045244;
     } else if (attemptedCount >= 5) {
         var_dialogQueue_8c225fbc[0] = 3;
-        var_8c226430 = init_8c04525c;
+        var_endingVoiceList_8c226430 = init_endingVoicesNormal_8c04525c;
     } else {
         var_dialogQueue_8c225fbc[0] = 4;
-        var_8c226430 = init_8c045278;
+        var_endingVoiceList_8c226430 = init_endingVoicesFailure_8c045278;
     }
 }
 
@@ -277,7 +264,7 @@ STATIC void creditsTask_8c01f658(void)
 
     case ENDING_TASK_STATE_FADE_IN:
         if (var_isFading_8c226568 == 0) {
-            CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[0], var_8c226430);
+            CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[0], var_endingVoiceList_8c226430);
             var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_INSTRUCTOR_DIALOG;
         }
         updateEndingOverlay_8c01f42c();
@@ -404,7 +391,7 @@ void EndingStart_8c01f954(void)
     AsqResetQueues_8c011f6c();
 
     CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-        (ResourceGroupInfo *) init_8c045324);
+        &init_endingResourceGroup_8c045324);
     CourseMenuRequestCommonResources_8c01852c();
 
     RouteLoadSetPvmReady_8c014330();

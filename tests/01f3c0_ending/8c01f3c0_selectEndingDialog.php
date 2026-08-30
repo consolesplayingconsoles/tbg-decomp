@@ -8,10 +8,12 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * _selectEndingDialog_8c01f3c0(void): tallies each of the 9 courses'
  * storySpriteNo_0x03 state (0-3, 3 = perfect) in var_progress_8c1ba1cc and
  * picks the ending's dialog tier from the result: all 9 perfect -> tier 1
- * (init_8c04522c), all 9 attempted (state 1-3) -> tier 2 (init_8c045244),
- * >=5 attempted -> tier 3 (init_8c04525c), otherwise tier 4 (init_8c045278).
- * The tier is written to var_dialogQueue_8c225fbc[0]; the matching dialog id
- * list pointer is written to var_8c226430.
+ * (init_endingVoicesPerfect_8c04522c), all 9 attempted (state 1-3) -> tier 2
+ * (init_endingVoicesHigh_8c045244), >=5 attempted -> tier 3
+ * (init_endingVoicesNormal_8c04525c), otherwise tier 4
+ * (init_endingVoicesFailure_8c045278).
+ * The tier is written to var_dialogQueue_8c225fbc[0]; the matching voice id
+ * list pointer is written to var_endingVoiceList_8c226430.
  */
 return new class extends TestCase {
     const PLAYER_PROGRESS_SIZE = 0xe8;
@@ -23,7 +25,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_progress_8c1ba1cc', self::PLAYER_PROGRESS_SIZE);
         $this->setSize('_var_dialogQueue_8c225fbc', 0x10);
-        $this->setSize('_var_8c226430', 4);
+        $this->setSize('_var_endingVoiceList_8c226430', 4);
     }
 
     private function setCourseState(int $index, int $state): void
@@ -48,7 +50,7 @@ return new class extends TestCase {
         $this->call('_selectEndingDialog_8c01f3c0');
 
         $this->shouldWriteLongTo('_var_dialogQueue_8c225fbc', 1);
-        $this->shouldWriteLongTo('_var_8c226430', $this->addressOf('_init_8c04522c'));
+        $this->shouldWriteLongTo('_var_endingVoiceList_8c226430', $this->addressOf('_init_endingVoicesPerfect_8c04522c'));
     }
 
     public function test_nine_attempted_but_not_all_perfect_selects_tier_2(): void
@@ -60,7 +62,7 @@ return new class extends TestCase {
         $this->call('_selectEndingDialog_8c01f3c0');
 
         $this->shouldWriteLongTo('_var_dialogQueue_8c225fbc', 2);
-        $this->shouldWriteLongTo('_var_8c226430', $this->addressOf('_init_8c045244'));
+        $this->shouldWriteLongTo('_var_endingVoiceList_8c226430', $this->addressOf('_init_endingVoicesHigh_8c045244'));
     }
 
     public function test_five_attempted_selects_tier_3(): void
@@ -72,7 +74,7 @@ return new class extends TestCase {
         $this->call('_selectEndingDialog_8c01f3c0');
 
         $this->shouldWriteLongTo('_var_dialogQueue_8c225fbc', 3);
-        $this->shouldWriteLongTo('_var_8c226430', $this->addressOf('_init_8c04525c'));
+        $this->shouldWriteLongTo('_var_endingVoiceList_8c226430', $this->addressOf('_init_endingVoicesNormal_8c04525c'));
     }
 
     public function test_fewer_than_five_attempted_selects_tier_4(): void
@@ -83,6 +85,6 @@ return new class extends TestCase {
         $this->call('_selectEndingDialog_8c01f3c0');
 
         $this->shouldWriteLongTo('_var_dialogQueue_8c225fbc', 4);
-        $this->shouldWriteLongTo('_var_8c226430', $this->addressOf('_init_8c045278'));
+        $this->shouldWriteLongTo('_var_endingVoiceList_8c226430', $this->addressOf('_init_endingVoicesFailure_8c045278'));
     }
 };

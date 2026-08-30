@@ -19,7 +19,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_dialogQueue_8c225fbc', 0x10);
-        $this->setSize('_var_8c226430', 4);
+        $this->setSize('_var_endingVoiceList_8c226430', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_init_instructorDialogs_8c044c08', 66 * 4);
         $this->setSize('_var_tasks_8c1ba3c8', 4);
@@ -121,7 +121,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqResetQueues_8c011f6c');
 
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')
-            ->with($menuState + self::RESOURCE_GROUP_B_0X0C, $this->addressOf('_init_8c045324'));
+            ->with($menuState + self::RESOURCE_GROUP_B_0X0C, $this->addressOf('_init_endingResourceGroup_8c045324'));
         $this->shouldCall('_CourseMenuRequestCommonResources_8c01852c');
 
         $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
