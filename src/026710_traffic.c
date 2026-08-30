@@ -625,38 +625,36 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
             continue;
         }
 
-        switch (op) {
-        case 2:
-        case 3:
+        if (op == 2 || op == 3) {
             e->field_0x42c = 1;
             e->field_0x430 = (op == 3) ? 1 : 0;
             e->field_0x434 = cur[1];
             e->field_0x438 = cur[2];
             ip = cur + 3;
             continue;
-        case 4:
+        } else if (op == 4) {
             ip = cur + 3;
             continue;
-        case 5:
+        } else if (op == 5) {
             e->field_0x448 = 2;
             e->field_0x450 = cur[1];
             e->field_0x454 = e->field_0x300;
             ip = cur + 2;
             continue;
-        case 6:
+        } else if (op == 6) {
             e->field_0x458 = 2;
             e->field_0x45c = cur[1];
             e->field_0x460 = cur[2];
             e->field_0x464 = e->field_0x300;
             ip = cur + 3;
             continue;
-        case 7:
+        } else if (op == 7) {
             e->field_0x468 = 2;
             e->field_0x46c = cur[1];
             e->field_0x470 = e->field_0x300;
             ip = cur + 2;
             continue;
-        case 8:
+        } else if (op == 8) {
             e->field_0x474 = 1;
             e->field_0x478 = cur[1];
             e->field_0x47c = cur[2];
@@ -664,20 +662,20 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
             e->field_0x480 = e->field_0x300;
             ip = cur + 4;
             continue;
-        case 9:
+        } else if (op == 9) {
             if (!spawned) {
                 return 0;
             }
-            goto done;
-        case 10:
+            break;
+        } else if (op == 10) {
             e->posX_0xf4 = (float)cur[1] / 10.0f;
             e->posZ_0xfc = (float)cur[2] / 10.0f;
             e->heading_0x250 = cur[3];
             e->headingAlt_0x254 = e->heading_0x250 + 0x8000;
             ip = cur + 3;
             initEntryState_8c026748(entry, (int *)&ip);
-            goto done;
-        default:
+            break;
+        } else {
             /* Unreachable with well-formed scripts: init_8c0460bc only
              * defines lengths for opcodes 0-10. Preserved as real asm
              * behavior -- an unrecognized opcode leaves the cursor
@@ -686,7 +684,6 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
         }
     }
 
-done:
     e->scriptCursor_0x2fc = ip;
     return 1;
 }
