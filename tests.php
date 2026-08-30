@@ -711,9 +711,9 @@ return [
         ],
         [
             "tests" => [
-                "tests/02f0c8/8c02f0c8_FUN.php",
-                "tests/02f0c8/8c02f212_FUN.php",
-                "tests/02f0c8/8c02f28a_FUN.php",
+                "tests/02f0c8/8c02f0c8_TrafficPathScanBuild.php",
+                "tests/02f0c8/8c02f212_TrafficPathScanNext.php",
+                "tests/02f0c8/8c02f28a_TrafficPathScanTypeInGroup.php",
             ],
             "objects" => [
                 "build/output_test/02f0c8_src.obj",

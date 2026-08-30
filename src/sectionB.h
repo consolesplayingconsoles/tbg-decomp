@@ -409,11 +409,11 @@ extern float var_groundHeightFallback_8c1bbac8; // fallback ground height when b
 extern float var_8c1bbac4;
 /* Sits at var_busState_8c1bb9d0's base+0xfc -- same address as its
  * posZ_0x0fc field -- but exported as its own symbol and referenced that
- * way by FUN_8c02f0c8 (02f0c8), not through the struct. Coincidentally
+ * way by TrafficPathScanBuild_8c02f0c8 (02f0c8), not through the struct. Coincidentally
  * adjacent, not part of it (same pattern as var_busCameraFocusX_8c1bbcd8). */
 extern float var_8c1bbacc;
 /* Sits at var_busState_8c1bb9d0's base+0x108 (its field_0x108); exported as
- * its own symbol and referenced that way by FUN_8c02f0c8 (02f0c8). */
+ * its own symbol and referenced that way by TrafficPathScanBuild_8c02f0c8 (02f0c8). */
 extern float var_8c1bbad8;
 extern int var_8c1bb8bc;
 extern int var_8c1bb8c4;
@@ -927,18 +927,18 @@ extern Sint32 var_8c2264d0;
  * route in TrafficInit_8c02769e (026710); role for 02f0c8 (still
  * undecompiled) unclear. */
 extern Sint32 *var_8c228b40;
-/* Cached pointer into a var_8c228b40 id-group (FUN_8c02f28a, 02f0c8) --
+/* Cached pointer into a var_8c228b40 id-group (TrafficPathScanTypeInGroup_8c02f28a, 02f0c8) --
  * -1 means "not cached yet"; reset to -1 by trafficUpdateTask_8c0275d4
  * (026710). */
 extern Sint32 *var_8c228b44;
-/* Sample-point scratch buffer written by FUN_8c02f0c8 (02f0c8): up to 10
+/* Sample-point scratch buffer written by TrafficPathScanBuild_8c02f0c8 (02f0c8): up to 10
  * (x, z) pairs projected along a traffic entry's upcoming path, walked by
- * FUN_8c02f212 to find nearby occupants. */
+ * TrafficPathScanNext_8c02f212 to find nearby occupants. */
 extern float var_8c228b48[20];
-/* Task-slot pointer to exclude from FUN_8c02f212's scan (02f0c8); never
+/* Task-slot pointer to exclude from TrafficPathScanNext_8c02f212's scan (02f0c8); never
  * written within 02f0c8 itself -- setter still unclear. */
 extern void *var_8c228b98;
-/* Read/write cursor into var_8c228b48, consumed by FUN_8c02f212 (02f0c8). */
+/* Read/write cursor into var_8c228b48, consumed by TrafficPathScanNext_8c02f212 (02f0c8). */
 extern float *var_8c228b9c;
 /* One-past-the-end of the valid range in var_8c228b48 (02f0c8). */
 extern float *var_8c228ba0;

@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_AsqGetRandomA_8c012166', 4);
         $this->setSize('_VehPartsBind_8c02786c', 4);
-        $this->setSize('_FUN_8c02f0c8', 4);
+        $this->setSize('_TrafficPathScanBuild_8c02f0c8', 4);
         $this->setSize('_GroundProbeTrackPolygon_8c020b6c', 4);
         $this->setSize('_FUN_8c02e51c', 4);
         $this->setSize('_GroundProbeTrackPolygonAtHeight_8c021290', 4);
@@ -87,7 +87,7 @@ return new class extends TestCase {
     // -- the day gate passes and the entry is spawned as a fixed decoration
     // (script header word == 10): TrafficDriveDecoration_8c02656a's task action, entry+0x2e4=1,
     // and the moving-vehicle-only block (TrafficReadScriptArgs_8c026710,
-    // FUN_8c02f0c8, entry+0x2e8/0x2ec/0x2f0, TrafficAdvanceOnPath_8c026ca2)
+    // TrafficPathScanBuild_8c02f0c8, entry+0x2e8/0x2ec/0x2f0, TrafficAdvanceOnPath_8c026ca2)
     // is skipped entirely.
     public function test_dayGateAllowsSpawn_fixedDecoration(): void {
         $this->resolveSymbols();
@@ -167,7 +167,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x510, 0x40);
 
         $this->shouldCall('_TrafficReadScriptArgs_8c026710')->with($entry, $script);
-        $this->shouldCall('_FUN_8c02f0c8')->with($task, $entry, 0x12345678, 0)->andReturn(0);
+        $this->shouldCall('_TrafficPathScanBuild_8c02f0c8')->with($task, $entry, 0x12345678, 0)->andReturn(0);
 
         $this->shouldWriteFloat($entry + 0x2e8, 2.5);
         $this->shouldCall('_AsqGetRandomA_8c012166')->andReturn(0);
@@ -244,7 +244,7 @@ return new class extends TestCase {
         $this->shouldReturn(1);
     }
 
-    // FUN_8c02f0c8 rejecting the entry (moving vehicle only) also frees the
+    // TrafficPathScanBuild_8c02f0c8 rejecting the entry (moving vehicle only) also frees the
     // task and returns 0, without ever reaching the field writes that follow
     // it.
     public function test_scriptRejectedByPlacementFreesTaskAndReturnsZero(): void {
@@ -270,7 +270,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x510, 0);
 
         $this->shouldCall('_TrafficReadScriptArgs_8c026710')->with($entry, $script);
-        $this->shouldCall('_FUN_8c02f0c8')->with($task, $entry, 0xdeadbeef, 0)->andReturn(1);
+        $this->shouldCall('_TrafficPathScanBuild_8c02f0c8')->with($task, $entry, 0xdeadbeef, 0)->andReturn(1);
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
 
         $this->shouldReturn(0);

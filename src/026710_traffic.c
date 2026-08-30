@@ -408,7 +408,7 @@ void TrafficRelocatePlacementTable_8c026da4(void *handle)
  * interpretations share the same all-zero bit pattern). */
 
 /* Scans the global list of traffic entries starting at "other" (advanced via
- * FUN_8c02f212, an accessor with no arguments -- the list cursor is
+ * TrafficPathScanNext_8c02f212, an accessor with no arguments -- the list cursor is
  * maintained elsewhere) looking for one whose path projection is ahead of
  * "entry" (own current entry), to derive a speed limit "entry" must obey to
  * avoid it. var_8c1bbd9c is a sentinel pointer value standing in for the
@@ -429,7 +429,7 @@ float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *oth
     float dot;
     float candidate;
 
-    for (; o != NULL; o = (TrafficEntry *)FUN_8c02f212()) {
+    for (; o != NULL; o = (TrafficEntry *)TrafficPathScanNext_8c02f212()) {
         if (o == (TrafficEntry *)var_8c1bbd9c) {
             dot = (o->field_0x100 - var_busState_8c1bb9d0.posX_0x0f4) *
                       (o->field_0x100 - o->posX_0xf4) +
@@ -734,7 +734,7 @@ done:
  * -- but real asm behavior: it still returns 1, same as a completed spawn.
  *
  * For a moving vehicle (*script != 10), the script's block-relative args are
- * resolved (TrafficReadScriptArgs_8c026710), then FUN_8c02f0c8 gets a chance
+ * resolved (TrafficReadScriptArgs_8c026710), then TrafficPathScanBuild_8c02f0c8 gets a chance
  * to reject the entry outright (TaskFree, return 0 -- this is the only path
  * that actually reports failure after allocation); on acceptance, the
  * entry's start progress and a small random per-entry path-origin jitter
@@ -745,7 +745,7 @@ done:
  * (TrafficRunEntryScript_8c027012) before its path/heading are derived for
  * the first frame. Returns 1 on every completed spawn (day-mask skip and
  * unloaded model slot included), 0 only when TaskPush itself fails or
- * FUN_8c02f0c8 rejects the entry.
+ * TrafficPathScanBuild_8c02f0c8 rejects the entry.
  */
 STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *script)
 {
@@ -812,7 +812,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         if (*script != 10) {
             TrafficReadScriptArgs_8c026710(e, script);
 
-            if (FUN_8c02f0c8(task, e, (Sint32)e->resolvedArgs_0x304[0], 0, 8.0f, 8.0f) != 0) {
+            if (TrafficPathScanBuild_8c02f0c8(task, e, (Sint32)e->resolvedArgs_0x304[0], 0, 8.0f, 8.0f) != 0) {
                 TaskFree_8c014b66(task);
                 return 0;
             }

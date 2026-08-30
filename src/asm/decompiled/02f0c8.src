@@ -10,11 +10,11 @@
           .IMPORT     _var_8c228b98
           .IMPORT     _var_8c228b44
           .IMPORT     _var_8c228b40
-          .EXPORT     _FUN_8c02f0c8
-          .EXPORT     _FUN_8c02f212
-          .EXPORT     _FUN_8c02f28a
+          .EXPORT     _TrafficPathScanBuild_8c02f0c8
+          .EXPORT     _TrafficPathScanNext_8c02f212
+          .EXPORT     _TrafficPathScanTypeInGroup_8c02f28a
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02f0c8:
+_TrafficPathScanBuild_8c02f0c8:
           FMOV        FR4,FR6
           MOV.L       R14,@-R15
 LAB_8c02f0cc:
@@ -186,7 +186,7 @@ LAB_8c02f20c:
           MOV         #H'0,R0
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02f212:
+_TrafficPathScanNext_8c02f212:
           MOV.L       R14,@-R15
           ADD         #-H'4,R15
           MOV.L       LP_GEN_98541+12,R6
@@ -252,7 +252,7 @@ LAB_8c02f27c:
           ADD         #H'4,R15
           RTS
           MOV.L       @R15+,R14
-_FUN_8c02f28a:
+_TrafficPathScanTypeInGroup_8c02f28a:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_98541+28,R14
           MOV.L       @R14,R0

@@ -1,3 +1,5 @@
+/* @unit TrafficPathScan */
+
 #include <shinobi.h>
 #include "014a9c_tasks.h"
 #include "026710_traffic.h"
@@ -9,7 +11,7 @@
  * ====================
  */
 
-void *FUN_8c02f0c8(Task *self, void *entry, Sint32 firstScriptArg, Sint32 flag,
+void *TrafficPathScanBuild_8c02f0c8(Task *self, void *entry, Sint32 firstScriptArg, Sint32 flag,
                     float startProgress, float window)
 {
     PathRecord *seg = (PathRecord *)firstScriptArg;
@@ -82,7 +84,7 @@ scan:
     return NULL;
 }
 
-void *FUN_8c02f212(void)
+void *TrafficPathScanNext_8c02f212(void)
 {
     float *p;
     Task *t;
@@ -117,7 +119,7 @@ void *FUN_8c02f212(void)
     }
 }
 
-Sint32 FUN_8c02f28a(Sint32 typeCode)
+Sint32 TrafficPathScanTypeInGroup_8c02f28a(Sint32 typeCode)
 {
     Sint32 *group;
     Sint32 *scan;

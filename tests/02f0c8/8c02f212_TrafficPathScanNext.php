@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c02f212(): continues the sample scan FUN_8c02f0c8 started. Walks the
+// TrafficPathScanNext_8c02f212(): continues the sample scan TrafficPathScanBuild_8c02f0c8 started. Walks the
 // (x, z) pairs in var_8c228b48 from cursor var_8c228b9c up to bound
 // var_8c228ba0, looking for the state of a live, non-excluded
 // (var_8c228b98) task whose entry sits within 2.5 of a sample -- returning
@@ -54,7 +54,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c228b9c'), $base);
         $this->initUint32($this->addressOf('_var_8c228ba0'), $base);
 
-        $this->call('_FUN_8c02f212');
+        $this->call('_TrafficPathScanNext_8c02f212');
 
         $this->shouldReturn(0);
     }
@@ -75,7 +75,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $candidate);
         $this->makeTask(1, 0, 0);
 
-        $this->call('_FUN_8c02f212');
+        $this->call('_TrafficPathScanNext_8c02f212');
 
         $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x08);
         $this->shouldReturn($candidate);
@@ -100,7 +100,7 @@ return new class extends TestCase {
         $this->makeTask(1, 1, $candidate);
         $this->makeTask(2, 0, 0);
 
-        $this->call('_FUN_8c02f212');
+        $this->call('_TrafficPathScanNext_8c02f212');
 
         $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x08);
         $this->shouldReturn($candidate);
@@ -123,7 +123,7 @@ return new class extends TestCase {
         $this->makeTask(1, 1, $candidate);
         $this->makeTask(2, 0, 0);
 
-        $this->call('_FUN_8c02f212');
+        $this->call('_TrafficPathScanNext_8c02f212');
 
         $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x08);
         $this->shouldReturn($candidate);
@@ -153,7 +153,7 @@ return new class extends TestCase {
         $this->makeTask(1, 1, $shifted);
         $this->makeTask(2, 0, 0);
 
-        $this->call('_FUN_8c02f212');
+        $this->call('_TrafficPathScanNext_8c02f212');
 
         // p started at base, task0 fails x -> p += 1 (base+0x04); task1's
         // x check reads p[0] = sample[1] = 20.0 (matches), z check reads
@@ -183,7 +183,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $mismatched);
         $this->makeTask(1, 0, 0);
 
-        $this->call('_FUN_8c02f212');
+        $this->call('_TrafficPathScanNext_8c02f212');
 
         // Pass 1: p=base, x check fails -> p = base+1 (== bound) ->
         // outer loop re-checks bound -> NULL.

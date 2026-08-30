@@ -8,7 +8,7 @@
 #include "02e400_collision.h"   /* CollideFindTaskHit_8c02e400 */
 #include "02e51c.h"             /* FUN_8c02e51c, FUN_8c02f08a */
 #include "02df3c.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
-#include "02f0c8.h"             /* FUN_8c02f0c8, FUN_8c02f28a */
+#include "02f0c8.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanTypeInGroup_8c02f28a */
 #include "0207d4.h"             /* FUN_8c0207d4, Struct8c0207d4 */
 #include "02081c.h"             /* GeomDistanceXZ_8c02081c */
 #include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
@@ -279,7 +279,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             if (e->field_0x448 == 2) {
                 if (e->field_0x454 == e->field_0x300) {
                     Sint32 frame = ObjectsGetTrafficSignalFrame_8c028900(e->field_0x450);
-                    if (frame != 1 || FUN_8c02f28a(e->field_0x450) != 0) {
+                    if (frame != 1 || TrafficPathScanTypeInGroup_8c02f28a(e->field_0x450) != 0) {
                         stopFlag = 1;
                     }
                 } else {
@@ -343,7 +343,7 @@ signal3:
                 } else if (waitState == 3) {
                     if (e->field_0x480 == e->field_0x300) {
                         float halfWindow = e->width_0x23c + 8.0f;
-                        void *hitBox = FUN_8c02f0c8(task, e, e->field_0x484,
+                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, e->field_0x484,
                                                      e->field_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
@@ -384,7 +384,7 @@ signal3:
                 } else if (waitState == 4) {
                     if (e->projectDistance_0x2c4 != 2.0f) {
                         float halfWindow = e->width_0x23c + 8.0f;
-                        void *hitBox = FUN_8c02f0c8(task, e, e->field_0x484,
+                        void *hitBox = TrafficPathScanBuild_8c02f0c8(task, e, e->field_0x484,
                                                      e->field_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
@@ -560,7 +560,7 @@ haveLimit:
         }
     } else if (e->driveState_0x2b4 == 3) {
         /* ---- waiting for the reloaded script's own spawn box to clear ---- */
-        if (FUN_8c02f0c8(task, e, (Sint32)e->resolvedArgs_0x304[0], 0, 0.0f, 8.0f) != 0) {
+        if (TrafficPathScanBuild_8c02f0c8(task, e, (Sint32)e->resolvedArgs_0x304[0], 0, 0.0f, 8.0f) != 0) {
             return;
         }
         TrafficRunEntryScript_8c027012(e);

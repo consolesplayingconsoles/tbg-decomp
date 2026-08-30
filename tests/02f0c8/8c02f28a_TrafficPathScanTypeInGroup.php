@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c02f28a(typeCode): if var_8c228b44 isn't cached (-1), scans
+// TrafficPathScanTypeInGroup_8c02f28a(typeCode): if var_8c228b44 isn't cached (-1), scans
 // var_tasks_8c1bac28 for the first live task whose entry has field_0x50c
 // != 0, then walks the -1-separated id groups of var_8c228b40 to find the
 // group containing that entry's field_0x450 marker, caching its start in
@@ -58,7 +58,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c228b44'), $group);
         $this->initUint32($this->addressOf('_var_8c228b40'), 0xdeadbeef); // must not be read
 
-        $this->call('_FUN_8c02f28a')->with(7);
+        $this->call('_TrafficPathScanTypeInGroup_8c02f28a')->with(7);
 
         $this->shouldReturn(1);
     }
@@ -69,7 +69,7 @@ return new class extends TestCase {
         $group = $this->setTable([5, 7, 9, -1]);
         $this->initUint32($this->addressOf('_var_8c228b44'), $group);
 
-        $this->call('_FUN_8c02f28a')->with(6);
+        $this->call('_TrafficPathScanTypeInGroup_8c02f28a')->with(6);
 
         $this->shouldReturn(0);
     }
@@ -83,7 +83,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c228b44'), -1);
         $this->makeTask(0, 0, 0); // terminator
 
-        $this->call('_FUN_8c02f28a')->with(7);
+        $this->call('_TrafficPathScanTypeInGroup_8c02f28a')->with(7);
 
         $this->shouldReturn(0);
     }
@@ -105,7 +105,7 @@ return new class extends TestCase {
         $table = $this->setTable([1, 2, -1, 42, 43, -1]);
         $this->initUint32($this->addressOf('_var_8c228b40'), $table);
 
-        $this->call('_FUN_8c02f28a')->with(43);
+        $this->call('_TrafficPathScanTypeInGroup_8c02f28a')->with(43);
 
         $this->shouldWriteLongTo('_var_8c228b44', $table + 3 * 4); // group 1's start
         $this->shouldReturn(1);
@@ -123,7 +123,7 @@ return new class extends TestCase {
         $table = $this->setTable([1, 2, -1, 42, 43, -1]);
         $this->initUint32($this->addressOf('_var_8c228b40'), $table);
 
-        $this->call('_FUN_8c02f28a')->with(99);
+        $this->call('_TrafficPathScanTypeInGroup_8c02f28a')->with(99);
 
         $this->shouldWriteLongTo('_var_8c228b44', $table + 3 * 4); // group 1's start
         $this->shouldReturn(0);
@@ -145,7 +145,7 @@ return new class extends TestCase {
         $table = $this->setTable([5, -1]);
         $this->initUint32($this->addressOf('_var_8c228b40'), $table);
 
-        $this->call('_FUN_8c02f28a')->with(5);
+        $this->call('_TrafficPathScanTypeInGroup_8c02f28a')->with(5);
 
         $this->shouldWriteLongTo('_var_8c228b44', $table); // group 0's start
         $this->shouldReturn(1);

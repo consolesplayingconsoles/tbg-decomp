@@ -11,12 +11,12 @@ if (!function_exists('fdec')) {
 }
 
 // TrafficComputeBlockedSpeed_8c026eaa scans the global list of traffic
-// entries starting at "other" (advanced via FUN_8c02f212, a no-argument
+// entries starting at "other" (advanced via TrafficPathScanNext_8c02f212, a no-argument
 // accessor for some external iteration cursor), looking for one that
 // constrains "entry"'s speed. var_8c1bbd9c is a global pointer variable
 // whose stored value is a sentinel standing in for the player's bus in this
 // list; when "other" equals that stored value, the scan always ends there
-// (no further FUN_8c02f212() call), reading the bus's own fields directly
+// (no further TrafficPathScanNext_8c02f212() call), reading the bus's own fields directly
 // instead of a normal entry struct's. Otherwise, an "other" entry at or
 // behind "entry" on the path (own 0x2c0 <= entry's 0x2c0) only refreshes its
 // own 0x418 field -- computed raw, then clamped to 0.0 with a second store
@@ -27,7 +27,7 @@ if (!function_exists('fdec')) {
 // 9999.0 (no limit).
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_FUN_8c02f212', 4);
+        $this->setSize('_TrafficPathScanNext_8c02f212', 4);
         // Pin the bus sentinel variable to its own address so a test's
         // allocated "other" entry can never coincidentally match its
         // (uninitialized, randomized) stored value.
@@ -74,7 +74,7 @@ return new class extends TestCase {
         // other->0x418 = entry->0x27c (2.0) + margin(-0.18518518) = 1.81481482, not negative.
         $this->shouldWriteFloat($other + 0x418, 1.81481482);
 
-        $this->shouldCall('_FUN_8c02f212')->andReturn(0);
+        $this->shouldCall('_TrafficPathScanNext_8c02f212')->andReturn(0);
 
         $this->shouldReturn(9999.0);
     }
@@ -92,7 +92,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($other + 0x418, 0.1 - 0.18518518);
         $this->shouldWriteFloat($other + 0x418, 0.0);
 
-        $this->shouldCall('_FUN_8c02f212')->andReturn(0);
+        $this->shouldCall('_TrafficPathScanNext_8c02f212')->andReturn(0);
 
         $this->shouldReturn(9999.0);
     }
@@ -107,7 +107,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficComputeBlockedSpeed_8c026eaa')->with($entry, $other);
 
-        $this->shouldCall('_FUN_8c02f212')->andReturn(0);
+        $this->shouldCall('_TrafficPathScanNext_8c02f212')->andReturn(0);
 
         // candidate = 1.0 + margin = 0.81481482, not negative.
         $this->shouldReturn(0.81481482);
@@ -122,14 +122,14 @@ return new class extends TestCase {
 
         $this->call('_TrafficComputeBlockedSpeed_8c026eaa')->with($entry, $other);
 
-        $this->shouldCall('_FUN_8c02f212')->andReturn(0);
+        $this->shouldCall('_TrafficPathScanNext_8c02f212')->andReturn(0);
 
         $this->shouldReturn(0.0);
     }
 
     // Two entries in the chain: the first is at/behind (field-only effect),
     // the second is strictly ahead and sets the final returned speed. Proves
-    // the scan actually advances past the first entry via FUN_8c02f212().
+    // the scan actually advances past the first entry via TrafficPathScanNext_8c02f212().
     public function test_scanContinuesPastBehindEntryToAheadEntry(): void {
         $this->resolveSymbols();
         $entry = $this->allocEntry(10.0, 2.0);
@@ -140,8 +140,8 @@ return new class extends TestCase {
 
         $this->shouldWriteFloat($first + 0x418, 1.81481482); // entry->0x27c (2.0) + margin
 
-        $this->shouldCall('_FUN_8c02f212')->andReturn($second);
-        $this->shouldCall('_FUN_8c02f212')->andReturn(0);
+        $this->shouldCall('_TrafficPathScanNext_8c02f212')->andReturn($second);
+        $this->shouldCall('_TrafficPathScanNext_8c02f212')->andReturn(0);
 
         // second->0x27c (0.5) + margin = 0.31481482
         $this->shouldReturn(0.31481482);
@@ -161,7 +161,7 @@ return new class extends TestCase {
     }
 
     // Hitting the bus sentinel always ends the scan immediately (no further
-    // FUN_8c02f212() call). When the computed dot product is >= 0.0, the
+    // TrafficPathScanNext_8c02f212() call). When the computed dot product is >= 0.0, the
     // default speed limit is kept untouched.
     public function test_busSentinelDotNonNegativeKeepsDefault(): void {
         $this->resolveSymbols();
