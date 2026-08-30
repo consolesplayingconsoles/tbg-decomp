@@ -105,6 +105,7 @@ void StopSpawnInit_8c02d968(void)
         var_8c22894c.x = -1.39f;
         var_8c22894c.y = 0.0f;
         var_8c22894c.z = 2.63f;
+        njCalcPoint(&var_busWorldMatrix_8c1bba54, &var_8c22894c, &var_8c22894c);
     } else if (var_route_8c18ad1c == ROUTE_OME) {
         var_8c228928.x = -1.39f;
         var_8c228928.y = 0.0f;
@@ -130,13 +131,9 @@ void StopSpawnInit_8c02d968(void)
         var_8c22894c.x = -1.6f;
         var_8c22894c.y = 0.0f;
         var_8c22894c.z = 0.9f;
-    } else {
-        goto skip_anchor_points;
+        njCalcPoint(&var_busWorldMatrix_8c1bba54, &var_8c22894c, &var_8c22894c);
     }
 
-    njCalcPoint(&var_busWorldMatrix_8c1bba54, &var_8c22894c, &var_8c22894c);
-
-skip_anchor_points:
     var_8c22895c = 0;
     var_8c228960[0] = 0.0f;
     var_8c228960[1] = 1.0f;
