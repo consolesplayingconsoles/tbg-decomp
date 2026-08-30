@@ -296,22 +296,22 @@ void BusDrawSignal_8c0281ac(int objArg, int matrixArg)
     case 1:
         obj->frames_0x10[0]->evalflags = 0x37;
         obj->frames_0x10[1]->evalflags = 0x3f;
+        obj->frames_0x10[2]->evalflags = 0x3f;
         break;
     case 2:
         obj->frames_0x10[0]->evalflags = 0x3f;
         obj->frames_0x10[1]->evalflags = 0x37;
+        obj->frames_0x10[2]->evalflags = 0x3f;
         break;
     case 0:
         obj->frames_0x10[0]->evalflags = 0x3f;
         obj->frames_0x10[1]->evalflags = 0x3f;
         obj->frames_0x10[2]->evalflags = 0x37;
-        goto draw;
+        break;
     default:
-        goto draw;
+        break;
     }
-    obj->frames_0x10[2]->evalflags = 0x3f;
 
-draw:
     njMultiMatrix(0, matrix);
     njSetTexture(obj->tlist_0xb4);
     njCnkSimpleDrawObject((NJS_CNK_OBJECT *)obj->model_0xb8);
