@@ -3,41 +3,8 @@
 #include <math.h> /* acosf */
 
 #include "sectionB.h"
+#include "023938_bus_drive.h" /* LinePoint, LineBusSegment, LineBusNode */
 #include "02412c.h"
-
-/* ====================
- * Type Declarations
- * ====================
- */
-
-/* One point on a route line segment (var_8c227d84 entries point into an
- * array of these). Mirrors 023938_bus_drive.c's file-local LinePoint --
- * declared again here since that typedef isn't shared through a header. */
-typedef struct {
-    float len_0x00;
-    float x_0x04;
-    float z_0x08;
-    float dx_0x0c;
-    float dz_0x10;
-} LinePoint;
-
-/* var_8c227d84 entry: a route line's point list plus its total length.
- * Mirrors 023938_bus_drive.c's file-local LineBusSegment. */
-typedef struct {
-    LinePoint *points_0x00;
-    float length_0x04;
-} LineBusSegment;
-
-/* var_8c227d88 entry, 0xc bytes/6 ushorts. Mirrors 023938_bus_drive.c's
- * file-local LineBusNode, but names altNext_0x04[3] (that unit leaves it
- * as unexplored padding): [1] is the next segment when field_0x25c == 1,
- * [2] is the next segment when var_8c1bbc2c == 2, [0] is the default. */
-typedef struct {
-    Uint16 fwdNext_0x00;
-    Uint16 backNext_0x02;
-    Uint16 altNext_0x04[3];
-    Uint16 fallbackNext_0x0a;
-} LineBusNode;
 
 /* ====================
  * Functions
@@ -63,8 +30,8 @@ int BusLineAdvance_8c02412c(void)
 
         if (point->len_0x00 == 0.0f) {
             /* Segment exhausted -- move to the next one via the node table. */
-            LineBusNode *nodes = (LineBusNode *)var_8c227d88;
-            LineBusSegment *segs = (LineBusSegment *)var_8c227d84;
+            LineBusNode *nodes = var_8c227d88;
+            LineBusSegment *segs = var_8c227d84;
             LineBusNode *node = &nodes[var_busState_8c1bb9d0.field_0x33c];
             int nextIdx;
 

@@ -21,32 +21,6 @@
  * (020b6c_ground_probe.h), all sharing this shape. */
 typedef void (*GroundQueryFn)(float x, float y, float z, GroundQueryResult *out);
 
-/* One point on a route line segment (var_8c227d84 entries point into an
- * array of these): remaining distance to the NEXT point, that point's
- * world x/z, and the unit direction (dx,dz) of the segment leading to it. */
-typedef struct {
-    float len_0x00;
-    float x_0x04;
-    float z_0x08;
-    float dx_0x0c;
-    float dz_0x10;
-} LinePoint;
-
-/* var_8c227d84 entry: a route line's point list plus its total length. */
-typedef struct {
-    LinePoint *points_0x00;
-    float length_0x04;
-} LineBusSegment;
-
-/* var_8c227d88 entry, 0xc bytes/6 ushorts; only the 3 read by
- * FUN_8c023e7e are named -- the rest are unused so far. */
-typedef struct {
-    Uint16 fwdNext_0x00;
-    Uint16 backNext_0x02;
-    Uint16 pad_0x04[3];
-    Uint16 fallbackNext_0x0a;
-} LineBusNode;
-
 /* ====================
  * Functions
  * ====================
@@ -260,8 +234,8 @@ void FUN_8c023938(void)
  * by BusTask_8c022bdc (022bdc). */
 void FUN_8c023e7e(void)
 {
-    LineBusSegment *segs = (LineBusSegment *)var_8c227d84;
-    LineBusNode *nodes = (LineBusNode *)var_8c227d88;
+    LineBusSegment *segs = var_8c227d84;
+    LineBusNode *nodes = var_8c227d88;
     Uint16 idx;
     LinePoint *seg;
     LinePoint *segEnd;

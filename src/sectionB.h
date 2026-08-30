@@ -11,6 +11,7 @@
 #include "022464_fade.h" /* FadePhase, FadeRequest, FadeMirrorSelect */
 #include "028258_objects.h" /* TrafficSignal, TrafficSignalDef */
 #include "020914_ground_query.h" /* GroundQueryResult */
+#include "023938_bus_drive.h" /* LineBusSegment, LineBusNode */
 #include "026710_traffic.h" /* PathRecord */
 
 /* =================
@@ -663,9 +664,9 @@ extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
 extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
 /* Mirrors var_currentCourse_8c1bb868.lineBus_0x08, reset by FUN_8c023610
  * alongside var_activeGroundGrid_8c2264d4/var_8c228b3c/var_8c227d88. */
-extern void *var_8c227d84;
+extern LineBusSegment *var_8c227d84;
 /* Mirrors var_currentCourse_8c1bb868.ukn_0x0c. */
-extern void *var_8c227d88;
+extern LineBusNode *var_8c227d88;
 extern int var_8c227d8c; // 024280
 /* Fixed camera-interest point for BusRenderUpdateCamera_8c025078's
  * var_8c227d9c==4 mode. */
