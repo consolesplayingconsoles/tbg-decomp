@@ -661,7 +661,7 @@ extern int var_fadeArrivalGate_8c226560; // 022464: gates FadeUpdate_8c022560's 
 extern FadeRequest var_fadeRequest_8c226564; // 022464: requested fade transition, consumed by FadeUpdate_8c022560
 extern void (*var_fadeCompleteCallback_8c22656c)(void); // 022464: fade-complete callback; sentinel -1 (0xffffffff) means unset
 extern int var_fadeDrawCommandCount_8c226570[3]; // 022464: per-layer draw-command count for var_fadeDrawCommands_8c22657c
-extern char var_fadeDrawCommands_8c22657c[3][0x800]; // 022464: per-layer draw-command queue, 16-byte entries {type, arg1, arg2, arg3}
+extern FadeDrawCommand var_fadeDrawCommands_8c22657c[3][128]; // 022464: per-layer draw-command queue
 extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
 extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
 /* Mirrors var_currentCourse_8c1bb868.lineBus_0x08, reset by FUN_8c023610

@@ -150,7 +150,7 @@ STATIC void fadeDraw_8c022464(int layer)
   FadeDrawCommand *cmd;
 
   count = var_fadeDrawCommandCount_8c226570[layer];
-  cmd = (FadeDrawCommand *)var_fadeDrawCommands_8c22657c[layer];
+  cmd = var_fadeDrawCommands_8c22657c[layer];
   for (i = 0; i < count; i++, cmd++) {
     njSetCamera(var_fadeCamera_8c226558);
     type = cmd->type;

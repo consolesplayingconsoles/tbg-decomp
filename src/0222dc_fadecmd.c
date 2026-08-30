@@ -51,7 +51,7 @@ void FadeCmdPushCall1_8c0223ea(int layer, FadeCallback1 fn, int arg0)
     FadeDrawCommand *cmd;
 
     if (var_fadeDrawCommandCount_8c226570[layer] < 0x80) {
-        cmd = (FadeDrawCommand *)var_fadeDrawCommands_8c22657c[layer]
+        cmd = var_fadeDrawCommands_8c22657c[layer]
             + var_fadeDrawCommandCount_8c226570[layer];
         cmd->type = FADE_CMD_5_CALL1;
         cmd->u.call1.fn = fn;
@@ -66,7 +66,7 @@ void FadeCmdPushCall2_8c022420(int layer, FadeCallback2 fn, int arg0, int arg1)
     FadeDrawCommand *cmd;
 
     if (var_fadeDrawCommandCount_8c226570[layer] < 0x80) {
-        cmd = (FadeDrawCommand *)var_fadeDrawCommands_8c22657c[layer]
+        cmd = var_fadeDrawCommands_8c22657c[layer]
             + var_fadeDrawCommandCount_8c226570[layer];
         cmd->type = FADE_CMD_6_CALL2;
         cmd->u.call2.fn = fn;
