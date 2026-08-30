@@ -1025,7 +1025,7 @@ extern WaitingPassengerSlot var_8c228798[16];
 
 /* fixed 31-slot table of scripted/special waiting-passenger schedule entries,
  * one per fixed stop position along the route; -1 = unused. Read by
- * FUN_8c02d968 to spawn each slot's passenger task. */
+ * StopSpawnInit_8c02d968 to spawn each slot's passenger task. */
 extern int var_8c228718[31];
 
 /* shared NJS_SPRITE used to draw a waiting passenger; only sx/sy/ang/tanim
@@ -1051,7 +1051,7 @@ extern float var_8c228908;
 extern char *var_8c22890c;
 
 /* Six consecutive NJS_POINT3 anchor points (0x228910-0x22894c, 12 bytes
- * apart), set up by FUN_8c02d968 in bus-local space at course start and
+ * apart), set up by StopSpawnInit_8c02d968 in bus-local space at course start and
  * read by 02d19c. var_8c228928 and var_8c22894c are each transformed to
  * world space in place (njCalcPoint against var_busWorldMatrix_8c1bba54);
  * the other four stay in local space. */
@@ -1062,15 +1062,15 @@ extern NJS_POINT3 var_8c228934;
 extern NJS_POINT3 var_8c228940;
 extern NJS_POINT3 var_8c22894c;
 
-extern int var_8c228958; // immediately follows var_8c22894c; not read or written by FUN_8c02d968; written 1 as a "done" flag by 02d19c's task actions (int, not float -- despite the name matching the anchor-point float run, it's never read as a float anywhere)
-extern int var_8c22895c;   // set to 0 by FUN_8c02d968; meaning otherwise unclear
+extern int var_8c228958; // immediately follows var_8c22894c; not read or written by StopSpawnInit_8c02d968; written 1 as a "done" flag by 02d19c's task actions (int, not float -- despite the name matching the anchor-point float run, it's never read as a float anywhere)
+extern int var_8c22895c;   // set to 0 by StopSpawnInit_8c02d968; meaning otherwise unclear
 
 /* 20-byte record following the six anchor points; word0 mirrors the
  * transformed var_8c22894c.y, the rest (words 1-4) are float 1.0 constants. */
 extern float var_8c228960[5];
 
 /* Task group for the bus-stop subsystem's waiting-passenger/departure tasks
- * (see FUN_8c02d968); -1 means not currently allocated. */
+ * (see StopSpawnInit_8c02d968); -1 means not currently allocated. */
 extern void* var_stopTaskGroup_8c2288f8;
 extern Sint8 var_coursesToUnlock_8c225fd4[];
 extern int var_currentSegment_8c228708;

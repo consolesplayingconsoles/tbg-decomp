@@ -916,7 +916,7 @@ return [
         ],
         [
             "tests" => [
-                "tests/02d968/8c02d968_FUN.php",
+                "tests/02d968/8c02d968_StopSpawnInit.php",
             ],
             "objects" => [
                 "build/output_test/02d968_src.obj",

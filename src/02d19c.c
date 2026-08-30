@@ -104,7 +104,7 @@ STATIC void drawInterior_8c02d1f4(int arg0)
 }
 
 /* Task action for a scripted-stop slot whose segment differs from the bus's
- * current one -- spawned immediately by FUN_8c02d968 (no shuffle, no
+ * current one -- spawned immediately by StopSpawnInit_8c02d968 (no shuffle, no
  * countdown). Just registers the draw callback every frame; ignores task. */
 void BusRiderSeatedTask_8c02d5ca(Task *task, void *state)
 {
@@ -233,7 +233,7 @@ done:
 }
 
 /* Task action for a scripted-stop slot that matched the bus's current
- * segment (spawned after the Fisher-Yates shuffle by FUN_8c02d968).
+ * segment (spawned after the Fisher-Yates shuffle by StopSpawnInit_8c02d968).
  * Sibling of BusRiderBoardTask_8c02d21c: same shape (countdown, then walk three door
  * anchor points), but the anchor points, sound-gating route and terminal
  * behavior all differ -- this one frees itself once var_8c22895c fires in
@@ -319,7 +319,7 @@ done:
  * var_stopTaskGroup_8c2288f8's tasks, fades var_8c228960[0] (the bus
  * interior's own light level, separate from the anchor-point one in
  * 02d06c) in and out around the fade-arrival overlay, and eventually tears
- * the whole subsystem down and frees itself. Spawned once by FUN_8c02d968
+ * the whole subsystem down and frees itself. Spawned once by StopSpawnInit_8c02d968
  * with a private 2-int state (field_0x00 the phase, field_0x04 a sub-phase
  * used only by phase 1); NOT the 0x38-byte StopScheduleState the other
  * task actions in this unit use. Every call re-registers this frame's

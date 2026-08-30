@@ -77,7 +77,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');
-        $this->shouldCall('_FUN_8c02d968');
+        $this->shouldCall('_StopSpawnInit_8c02d968');
         $this->shouldCall('_FUN_8c020528');
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
@@ -152,7 +152,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');
-        $this->shouldCall('_FUN_8c02d968');
+        $this->shouldCall('_StopSpawnInit_8c02d968');
         $this->shouldCall('_FUN_8c020528');
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
@@ -247,7 +247,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');
-        $this->shouldCall('_FUN_8c02d968');
+        $this->shouldCall('_StopSpawnInit_8c02d968');
         $this->shouldCall('_FUN_8c020528');
 
         $this->shouldCall('_TaskPush_8c014ae8')

@@ -39,7 +39,7 @@ typedef struct {
 extern InitEntry_8c04c3e4 init_8c04c3e4[31];
 
 /* Task action for a scripted-stop slot whose segment differs from the bus's
- * current one -- spawned immediately (no shuffle) by FUN_8c02d968. */
+ * current one -- spawned immediately (no shuffle) by StopSpawnInit_8c02d968. */
 void BusRiderSeatedTask_8c02d5ca(Task *task, void *state);
 
 /* Task action for an already-picked waiting passenger (state->field_0x04 == 1

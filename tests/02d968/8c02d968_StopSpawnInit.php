@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
-// FUN_8c02d968: course-start setup for the bus-stop passenger subsystem.
+// StopSpawnInit_8c02d968: course-start setup for the bus-stop passenger subsystem.
 // See the function's header comment in src/02d968.c for the full
 // branch/field breakdown. Covers the demo-mode early return, route
 // dispatch, waiting-passenger spawning (BusRiderBoardTask_8c02d21c), the scripted
@@ -38,7 +38,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x20);
 
-        $this->call('_FUN_8c02d968');
+        $this->call('_StopSpawnInit_8c02d968');
 
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
@@ -126,7 +126,7 @@ return new class extends TestCase {
         $matchedBuf = $this->alloc(0xf8);
         $group = $this->alloc(0x20);
 
-        $this->call('_FUN_8c02d968');
+        $this->call('_StopSpawnInit_8c02d968');
 
         $mainTask = $this->alloc(0x20);
         $this->shouldCall('_TaskPush_8c014ae8')
@@ -292,7 +292,7 @@ return new class extends TestCase {
         $state = $this->alloc(0x38);
         $task = $this->alloc(0x20);
 
-        $this->call('_FUN_8c02d968');
+        $this->call('_StopSpawnInit_8c02d968');
 
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_BusRiderStopSceneTask_8c02d644'))
@@ -444,7 +444,7 @@ return new class extends TestCase {
         $state = $this->alloc(0x38);
         $task = $this->alloc(0x20);
 
-        $this->call('_FUN_8c02d968');
+        $this->call('_StopSpawnInit_8c02d968');
 
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_BusRiderStopSceneTask_8c02d644'))
@@ -574,7 +574,7 @@ return new class extends TestCase {
         $state1 = $this->alloc(0x38);
         $task1 = $this->alloc(0x20);
 
-        $this->call('_FUN_8c02d968');
+        $this->call('_StopSpawnInit_8c02d968');
 
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_BusRiderStopSceneTask_8c02d644'))

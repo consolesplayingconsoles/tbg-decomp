@@ -206,7 +206,7 @@ void FUN_8c01306e(void)
     ObjectsPushTasks_8c02a6ac();
     DrivePointsReset_8c02c46a();
     HudReset_8c02018c();
-    FUN_8c02d968();
+    StopSpawnInit_8c02d968();
     FUN_8c020528();
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &task_8c012f9c, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;

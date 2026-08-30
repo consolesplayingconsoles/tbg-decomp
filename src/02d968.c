@@ -1,3 +1,5 @@
+/* @unit StopSpawn */
+
 #include <shinobi.h>
 #include "serial_debug.h"
 #include "sectionB.h"
@@ -24,7 +26,7 @@ typedef struct {
  */
 
 /* Per-stop-type animation-variant lookup, indexed by a scripted schedule
- * entry's type byte; consumed by FUN_8c02d968 to offset into a passenger
+ * entry's type byte; consumed by StopSpawnInit_8c02d968 to offset into a passenger
  * sprite/anim table (added to 0x32 or 0x36 depending on spawn path). */
 STATIC Uint8 init_8c04c4dc[] = {
     0x03, 0x03, 0x02, 0x01, 0x00, 0x00, 0x02, 0x01,
@@ -48,7 +50,7 @@ STATIC Uint8 init_8c04c4dc[] = {
  * spawns one task per scripted stop-schedule slot (var_8c228718) and one
  * per already-picked waiting passenger (var_8c228798). Called once by
  * FUN_8c012f44 (012f44_game) at course start. */
-void FUN_8c02d968(void)
+void StopSpawnInit_8c02d968(void)
 {
     Task *task;
     StopScheduleState *state;

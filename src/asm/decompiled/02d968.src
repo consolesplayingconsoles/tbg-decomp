@@ -38,10 +38,10 @@
           .IMPORT     __quick_evn_mvn
           .IMPORT     _BusRiderAlightTask_8c02d46c
           .IMPORT     _syFree
-          .EXPORT     _FUN_8c02d968
+          .EXPORT     _StopSpawnInit_8c02d968
           .EXPORT     _init_8c04c4dc ; 02d968.src
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c02d968:
+_StopSpawnInit_8c02d968:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
