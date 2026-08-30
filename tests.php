@@ -471,8 +471,8 @@ return [
                 "tests/01e27c/8c01e63c_showLesson.php",
                 "tests/01e27c/8c01ebc8_scrollTowardSelection.php",
                 "tests/01e27c/8c01ebf2_FUN.php",
-                "tests/01e27c/8c01f114_practiceLessonStart.php",
-                "tests/01e27c/8c01f21c_practiceLessonRetry.php",
+                "tests/01e27c/8c01f114_PracticeMenuLessonStart.php",
+                "tests/01e27c/8c01f21c_PracticeMenuLessonRetry.php",
             ],
             "objects" => [
                 "build/output_test/01e27c_practice_menu_src.obj",
