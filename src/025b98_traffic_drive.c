@@ -204,18 +204,18 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
              * obstacle, so the candidate doesn't flap in and out of range
              * every frame. */
             float lookahead = speed * 36.0f + e->field_0x41c;
-            void *ahead;
+            TrafficEntry *ahead;
             if (e->field_0x424 != 0) {
                 lookahead += 5.0f;
             }
             ahead = TrafficLookaheadScan_8c02dfca(task, e, lookahead);
-            if (ahead == (void *)0) {
+            if (ahead == NULL) {
                 e->field_0x424 = 0;
                 e->field_0x2d4 = 0;
             } else {
-                brakeDist = GeomDistanceXZ_8c02081c((Uint8 *)ahead + 0x10c, &e->field_0x0ec);
-                if (ahead == (void *)var_8c1bbd9c) {
-                    float busDist = GeomDistanceXZ_8c02081c((Uint8 *)ahead + 0xf4, &e->field_0x0ec);
+                brakeDist = GeomDistanceXZ_8c02081c(&ahead->field_0x10c, &e->field_0x0ec);
+                if (ahead == (TrafficEntry *)var_8c1bbd9c) {
+                    float busDist = GeomDistanceXZ_8c02081c(&ahead->posX_0xf4, &e->field_0x0ec);
                     if (busDist < brakeDist) {
                         brakeDist = busDist;
                     }
@@ -225,7 +225,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 if (brakeDist < 0.0f) {
                     brakeDist = 0.0f;
                 }
-                e->field_0x2d4 = *(Sint32 *)((Uint8 *)ahead + 0x2d4);
+                e->field_0x2d4 = ahead->field_0x2d4;
                 if (e->field_0x2d4 != 0) {
                     /* Junction/collision query at the candidate's own
                      * position, on the fallback attribute grid -- role of
@@ -234,9 +234,9 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                     var_8c228b3c = var_8c1bb878;
                     {
                         void *junction = FUN_8c02e51c(
-                            *(float *)((Uint8 *)ahead + 0xf4),
-                            *(float *)((Uint8 *)ahead + 0xf8),
-                            *(float *)((Uint8 *)ahead + 0xfc),
+                            ahead->posX_0xf4,
+                            ahead->posY_0xf8,
+                            ahead->posZ_0xfc,
                             &e->field_0x500);
                         if (junction != (void *)0 &&
                             (*(Uint32 *)((Uint8 *)junction + 0xc) & 0xf000000) == 0) {
