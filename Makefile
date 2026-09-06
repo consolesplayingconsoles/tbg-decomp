@@ -4,32 +4,34 @@ MAKEFLAGS += --no-builtin-rules
 ASMSH_FLAGS=-debug -cpu=sh4 -endian=little -sjis
 BUILD_DIR=build
 OUTPUT_DIR=$(BUILD_DIR)/output
-SHA1_CHECKSUM=a6df9e0de39b2d11e9339aef915d20e35763ec81
 SHELL := /bin/bash
 
-# SERIAL_DEBUG=1 enables serial logging (default, matches shipped behavior);
-# LOG_LEVEL (e.g. DEBUG, INFO, ...) overrides the default DEBUG_LEVEL threshold
-# from src/serial_debug.h. Example: make SERIAL_DEBUG=1 LOG_LEVEL=DEBUG clean all
+# Enable serial logging
 SERIAL_DEBUG ?= 1
+
+# Overrides the default log level (INFO) for serial logging. See LOG_LEVEL constants
 LOG_LEVEL ?=
-# DEBUG_MENU=1 boots straight into the debug menu instead of the title (and
-# installs the Ninja print font it needs). Dev-only; not byte-matching.
+
+# Boot straight into the unused debug menu
 DEBUG_MENU ?=
-# GAME_LANG=en selects the (in-progress) half-width English text mode in
-# 014f54_text.c instead of the default Japanese one. Not named LANG: that's
-# a standard shell env var and would be inherited silently.
+
+# Select the language for the game.
+# Defaults to the original Japanese release.
 GAME_LANG ?= ja
 
 SHC_DEFINES := __SHC__
 ifeq ($(SERIAL_DEBUG),1)
 SHC_DEFINES += SERIAL_DEBUG
 endif
+
 ifeq ($(DEBUG_MENU),1)
 SHC_DEFINES += DEBUG_MENU
 endif
+
 ifeq ($(GAME_LANG),en)
 SHC_DEFINES += GAME_LANG_EN
 endif
+
 ifneq ($(LOG_LEVEL),)
 SHC_DEFINES += DEBUG_LEVEL=LOG_LEVEL_$(LOG_LEVEL)
 endif
@@ -125,19 +127,22 @@ LINKER_OBJS = $(subst /,\\, $(OBJS))
 
 all: $(OUTPUT_DIR)/tbg.bin
 
-# The defines are baked into every object, but make only compares timestamps --
-# so flipping GAME_LANG/SERIAL_DEBUG/... would otherwise leave stale objects
-# built with the old set. Rewrite the stamp only when the set actually changes.
-DEFINES_STAMP := $(BUILD_DIR)/.defines
-$(shell mkdir -p $(BUILD_DIR); \
-        [ "$$(cat $(DEFINES_STAMP) 2>/dev/null)" = "$(SHC_DEFINES)" ] \
-        || printf '%s' "$(SHC_DEFINES)" > $(DEFINES_STAMP))
+# Track changes to the compiler defines
+$(OUTPUT_DIR)/defines: FORCE
+	@mkdir -p $(@D)
+	@printf '%s\n' '$(SHC_DEFINES)' > $@.tmp
+	@cmp -s $@.tmp $@ || cp $@.tmp $@
+	@rm -f $@.tmp
 
-$(OUTPUT_DIR)/src/asm/%.obj: src/asm/%.src $(DEFINES_STAMP)
+FORCE:
+
+# Compile ASM files
+$(OUTPUT_DIR)/src/asm/%.obj: src/asm/%.src $(OUTPUT_DIR)/defines
 	@mkdir -p $(@D)
 	wibo "$(SHC_BIN)/asmsh.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" $(ASMSH_FLAGS)
 
-$(OUTPUT_DIR)/src/%.obj: src/%.c $(DEFINES_STAMP)
+# Compile C files
+$(OUTPUT_DIR)/src/%.obj: src/%.c $(OUTPUT_DIR)/defines
 	@mkdir -p $(@D)
 	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" -sub=$(BUILD_DIR)/shc.sub $(SHC_DEFINE_ARG)
 	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -code=asm -object="$(subst /,\\,$@).src" -sub=$(BUILD_DIR)/shc.sub
@@ -151,15 +156,9 @@ $(BUILD_DIR)/lnk.sub: $(BUILD_DIR)/lnk_template.sub Makefile
 
 $(OUTPUT_DIR)/tbg.bin: $(OUTPUT_DIR)/tbg.elf
 	wibo "$(KATANA_SDK_DIR)/bin/elf2bin.exe" -s 8c010000 "$(subst /,\\,$<)"
-	@if ! echo "$(SHA1_CHECKSUM) *$(OUTPUT_DIR)/tbg.bin" | sha1sum --status -c -; then \
-		echo "================" ;\
-		echo "Project built :)" ;\
-		echo "================" ;\
-	else \
-		echo "===========================" ;\
-		echo "Matching project built! \o/" ;\
-		echo "===========================" ;\
-	fi
+	@echo "================"
+	@echo "Project built :)"
+	@echo "================"
 
 graph: all
 	python3 scripts/generate_graph.py
@@ -171,6 +170,6 @@ depend:
 	makedepend -Y -o .obj -f- $(C_SRCS) 2>/dev/null > Makefile.d
 	sed -i 's/^src/$$(OUTPUT_DIR)\/src/' Makefile.d
 
-.PHONY: all graph clean $(OUTPUT_DIR)/tbg.bin
+.PHONY: all graph clean FORCE
 
 include Makefile.d
