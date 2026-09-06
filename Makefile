@@ -113,7 +113,7 @@ SRCS = \
 	src/scif.c \
 	src/serial_debug.c \
 	src/asm/sectionD.src \
-	src/asm/04ce10_slots.c \
+	src/asm/04ce10_slots.src \
 	src/asm/sectionB.src \
 	src/02fb50_sh4nlfzn_post_data.c \
 
@@ -169,7 +169,7 @@ clean:
 
 depend:
 	makedepend -Y -o .obj -f- $(C_SRCS) 2>/dev/null > Makefile.d
-	sed -i 's/^src/$$(OUTPUT_DIR)/' Makefile.d
+	sed -i 's/^src/$$(OUTPUT_DIR)\/src/' Makefile.d
 
 .PHONY: all graph clean $(OUTPUT_DIR)/tbg.bin
 
