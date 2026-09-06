@@ -1,0 +1,42 @@
+MAKEFLAGS += --no-builtin-rules -j$(shell nproc)
+.SUFFIXES:
+
+ASMSH_FLAGS=-define=UNIT_TESTING=1 -debug -cpu=sh4 -endian=little -sjis
+BUILD_DIR=build
+OUTPUT_DIR=$(BUILD_DIR)/output_test
+
+# Makefile.d is written in terms of these
+C_OBJ_DIR=$(OUTPUT_DIR)
+C_OBJ_SUFFIX=_c.obj
+
+SHELL := /bin/bash
+
+UNITS = $(basename $(notdir $(wildcard src/asm/decompiled/*.src)))
+
+ASM_SRCS = $(addprefix src/asm/decompiled/, $(addsuffix .src, $(UNITS)))
+C_SRCS = $(addprefix src/, $(addsuffix .c, $(UNITS)))
+
+C_OBJS = $(patsubst src/%.c,$(OUTPUT_DIR)/%_c.obj,$(C_SRCS))
+ASM_OBJS = $(patsubst src/asm/decompiled/%.src,$(OUTPUT_DIR)/%_src.obj,$(ASM_SRCS))
+
+all: $(ASM_OBJS) $(C_OBJS)
+
+# Compile ASM files
+$(OUTPUT_DIR)/%_src.obj: src/asm/decompiled/%.src Makefile.test
+	@mkdir -p $(@D)
+	wibo "$(SHC_BIN)/asmsh.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" $(ASMSH_FLAGS)
+
+# Compile C files
+$(OUTPUT_DIR)/%_c.obj: src/%.c $(BUILD_DIR)/shc_testing.sub Makefile.test
+	@mkdir -p $(@D)
+	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" -sub=$(BUILD_DIR)/shc_testing.sub
+	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -code=asm -object="$(subst /,\\,$(OUTPUT_DIR)/$*_c.src)" -sub=$(BUILD_DIR)/shc_testing.sub
+
+clean:
+	rm -rf $(OUTPUT_DIR)
+
+rebuild: clean .WAIT all
+
+.PHONY: all clean rebuild FORCE
+
+include Makefile.d

@@ -1,9 +1,14 @@
-MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS += --no-builtin-rules -j$(shell nproc)
 .SUFFIXES:
 
 ASMSH_FLAGS=-debug -cpu=sh4 -endian=little -sjis
 BUILD_DIR=build
 OUTPUT_DIR=$(BUILD_DIR)/output
+
+# Makefile.d is written in terms of these
+C_OBJ_DIR=$(OUTPUT_DIR)/src
+C_OBJ_SUFFIX=.obj
+
 SHELL := /bin/bash
 
 # Enable serial logging
@@ -166,10 +171,12 @@ graph: all
 clean:
 	rm -rf $(OUTPUT_DIR) $(BUILD_DIR)/lnk.sub
 
+rebuild: clean .WAIT all
+
 depend:
 	makedepend -Y -o .obj -f- $(C_SRCS) 2>/dev/null > Makefile.d
-	sed -i 's/^src/$$(OUTPUT_DIR)\/src/' Makefile.d
+	sed -i 's|^src/\(.*\)\.obj:|$$(C_OBJ_DIR)/\1$$(C_OBJ_SUFFIX):|' Makefile.d
 
-.PHONY: all graph clean FORCE
+.PHONY: all graph clean rebuild FORCE
 
 include Makefile.d
