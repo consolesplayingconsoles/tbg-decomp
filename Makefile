@@ -123,10 +123,7 @@ OBJS = $(patsubst src/%.c,$(OUTPUT_DIR)/src/%.obj,$(SRCS))
 OBJS := $(patsubst src/asm/%.src,$(OUTPUT_DIR)/src/asm/%.obj,$(OBJS))
 LINKER_OBJS = $(subst /,\\, $(OBJS))
 
-all: create_dirs $(OUTPUT_DIR)/tbg.bin
-
-create_dirs:
-	@mkdir -p $(OUTPUT_DIR)/src/asm
+all: $(OUTPUT_DIR)/tbg.bin
 
 # The defines are baked into every object, but make only compares timestamps --
 # so flipping GAME_LANG/SERIAL_DEBUG/... would otherwise leave stale objects
@@ -137,9 +134,11 @@ $(shell mkdir -p $(BUILD_DIR); \
         || printf '%s' "$(SHC_DEFINES)" > $(DEFINES_STAMP))
 
 $(OUTPUT_DIR)/src/asm/%.obj: src/asm/%.src $(DEFINES_STAMP)
+	@mkdir -p $(@D)
 	wibo "$(SHC_BIN)/asmsh.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" $(ASMSH_FLAGS)
 
 $(OUTPUT_DIR)/src/%.obj: src/%.c $(DEFINES_STAMP)
+	@mkdir -p $(@D)
 	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" -sub=$(BUILD_DIR)/shc.sub $(SHC_DEFINE_ARG)
 	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -code=asm -object="$(subst /,\\,$@).src" -sub=$(BUILD_DIR)/shc.sub
 
@@ -172,6 +171,6 @@ depend:
 	makedepend -Y -o .obj -f- $(C_SRCS) 2>/dev/null > Makefile.d
 	sed -i 's/^src/$$(OUTPUT_DIR)/' Makefile.d
 
-.PHONY: all graph clean create_dirs $(OUTPUT_DIR)/tbg.bin
+.PHONY: all graph clean $(OUTPUT_DIR)/tbg.bin
 
 include Makefile.d

@@ -92,22 +92,21 @@ OBJS := $(patsubst src/asm/%.src,$(OUTPUT_DIR)/src/asm/%.obj,$(OBJS))
 OBJS := $(patsubst src/asm/decompiled/%.src,$(OUTPUT_DIR)/src/asm/decompiled/%.obj,$(OBJS))
 LINKER_OBJS = $(subst /,\\, $(OBJS))
 
-all: create_dirs $(OUTPUT_DIR)/tbg.bin
-
-# Create subdirectories under OUTPUT_DIR
-create_dirs:
-	@mkdir -p $(OUTPUT_DIR)/src/asm/decompiled
+all: $(OUTPUT_DIR)/tbg.bin
 
 # Compile ASM files
 $(OUTPUT_DIR)/src/asm/%.obj: src/asm/%.src
+	@mkdir -p $(@D)
 	wibo "$(SHC_BIN)/asmsh.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" $(ASMSH_FLAGS)
 
 # Compile decompiled ASM files
 $(OUTPUT_DIR)/src/asm/decompiled/%.obj: src/asm/decompiled/%.src
+	@mkdir -p $(@D)
 	wibo "$(SHC_BIN)/asmsh.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" $(ASMSH_FLAGS)
 
 # Compile C files
 $(OUTPUT_DIR)/src/%.obj: src/%.c
+	@mkdir -p $(@D)
 	wibo "$(SHC_BIN)/shc.exe" "$(subst /,\\,$<)" -object="$(subst /,\\,$@)" -sub=$(BUILD_DIR)/shc_matching.sub
 
 $(OUTPUT_DIR)/tbg.elf: $(OBJS) $(BUILD_DIR)/lnk_matching.sub
@@ -135,6 +134,6 @@ depend:
 	makedepend -Y -o .obj -f- $(C_SRCS) 2>/dev/null > Makefile.d
 	sed -i 's/^src/$$(OUTPUT_DIR)\/src/' Makefile.d
 
-.PHONY: all clean create_dirs $(OUTPUT_DIR)/tbg.bin
+.PHONY: all clean $(OUTPUT_DIR)/tbg.bin
 
 include Makefile.d

@@ -12,7 +12,7 @@ All build/test commands run inside Docker:
 
 ```bash
 # Build
-make
+make -j8
 
 # Test (full suite; --parallel speeds this up, sh4objtest v0.1.28+)
 ./scripts/run_tests.sh --parallel
