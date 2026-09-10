@@ -11,7 +11,7 @@ return new class extends TestCase {
     // same slots reused across every layer/col/row iteration of one call.
     // The two objects order the three slots differently.
     private function isAsm(): bool {
-        return str_ends_with($this->objectFile, '_src.obj');
+        return str_contains($this->objectFile, '/asm/');
     }
 
     private function tileDataLocal(): int {

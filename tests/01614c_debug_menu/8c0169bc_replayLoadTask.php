@@ -219,7 +219,7 @@ return new class extends TestCase {
 
     private function destOffset(): int
     {
-        return str_contains($this->objectFile, '_src.obj') ? 0xffffd8 : 0xffffe4;
+        return str_contains($this->objectFile, '/asm/') ? 0xffffd8 : 0xffffe4;
     }
 
     private function setupExterns(): void

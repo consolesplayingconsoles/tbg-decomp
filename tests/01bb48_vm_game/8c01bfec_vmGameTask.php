@@ -72,7 +72,7 @@ return new class extends TestCase {
 
     protected function isAsmObject(): bool
     {
-        return str_ends_with($this->objectFile, '_src.obj');
+        return str_contains($this->objectFile, '/asm/');
     }
 
     // vmGameTask_8c01bfec's own `slot` stack local (seeded from

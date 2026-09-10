@@ -13,17 +13,6 @@
 # where a diff is only logged. Drop a unit from this list once its data matches.
 set -e
 
-# --no-build: skip the clean builds and diff whatever objects already exist
-# under build/output and build/output_matching. Mid-unit, a full build fails
-# BY DESIGN (undefined symbols for not-yet-decompiled functions), so this is
-# the only way to run this check before a unit is finished. Default behavior
-# (full clean build first) is unchanged.
-no_build=0
-if [ "${1:-}" = "--no-build" ]; then
-  no_build=1
-  shift
-fi
-
 NOT_MATCHING="
 011120_asset_queues
 0129cc_pause
@@ -34,11 +23,8 @@ NOT_MATCHING="
 01f3c0_ending
 "
 
-if [ "$no_build" -eq 0 ]; then
-  make -f Makefile.matching clean all
-  make clean
-  make SERIAL_DEBUG=0 all
-fi
+make -f Makefile.matching rebuild
+make rebuild SERIAL_DEBUG=0
 
 fail=0
 

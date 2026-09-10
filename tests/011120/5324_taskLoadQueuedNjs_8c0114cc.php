@@ -1786,7 +1786,7 @@ return new class extends TestCase {
 
     protected function isAsmObject(): bool
     {
-        return str_ends_with($this->objectFile, '_src.obj');
+        return str_contains($this->objectFile, '/asm/');
     }
 
     protected function initQueuedNj(int $address, int $basedir, int $filename, int $dest, int $dest2, int $flag): void

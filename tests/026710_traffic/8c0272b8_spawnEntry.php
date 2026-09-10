@@ -48,7 +48,7 @@ return new class extends TestCase {
     }
 
     private function isAsmObject(): bool {
-        return str_ends_with($this->objectFile, '_src.obj');
+        return str_contains($this->objectFile, '/asm/');
     }
 
     // &task and &entryVoid are spawnEntry_8c0272b8's own stack locals; both

@@ -1,6 +1,6 @@
 ---
 name: setup-unit
-description: Scaffold a new translation unit before decompiling any of its functions -- move the raw asm under decompiled/, create the empty C file and test dir, and wire it into both Makefiles, run_tests.sh, and tests.php. Use when starting on a fresh src/asm/<addr>.src, before the decompile-function skill.
+description: Scaffold a new translation unit before decompiling any of its functions -- move the raw asm under decompiled/, create the empty C file and test dir, and wire it into both Makefiles and tests.php. Use when starting on a fresh src/asm/<addr>.src, before the decompile-function skill.
 ---
 
 # Set Up a New Unit
@@ -33,39 +33,31 @@ Given `<addr>` (e.g. `018644`):
    mkdir tests/<addr>
    ```
 
-4. **run_tests.sh** -- add an assemble/compile stanza next to the others (before the
-   final `$sh4objtest suite` line):
-   ```sh
-   # <addr>
-   assemble  src/asm/decompiled/<addr>.src
-   compile  src/<addr>.c
-   ```
-
-5. **Makefile** (non-matching) -- swap the `SRCS` entry from asm to C:
+4. **Makefile** (non-matching) -- swap the `SRCS` entry from asm to C:
    ```
    src/asm/<addr>.src \   ->   src/<addr>.c \
    ```
 
-6. **Makefile.matching** -- swap the `SRCS` entry to the archived asm path:
+5. **Makefile.matching** -- swap the `SRCS` entry to the archived asm path:
    ```
    src/asm/<addr>.src \   ->   src/asm/decompiled/<addr>.src \
    ```
 
-7. **tests.php** -- add a group at the end of `groups`. Objects are named
-   `<addr>_src.obj` / `<addr>_c.obj` (basename of the asm/C files). The `tests` array
-   starts empty; the first `.php` file lands here once you decompile a function:
+6. **tests.php** -- add a group at the end of `groups`. Test objects mirror the
+   source tree under `build/output_test/`. The `tests` array starts empty; the
+   first `.php` file lands here once you decompile a function:
    ```php
    [
        "tests" => [
        ],
        "objects" => [
-           "build/output_test/<addr>_src.obj",
-           "build/output_test/<addr>_c.obj",
+           "build/output_test/src/asm/decompiled/<addr>.obj",
+           "build/output_test/src/<addr>.obj",
        ]
    ],
    ```
 
-8. **Port the unit's data** (sections C and D) from the asm into the C file, before
+7. **Port the unit's data** (sections C and D) from the asm into the C file, before
    decompiling any function. Tests need the real initializers and constant tables to
    assert against, and doing it up front avoids porting them piecemeal later.
    `scripts/dump_src_data.py` does this mechanically -- never hand-retype the tables:
@@ -79,8 +71,8 @@ Given `<addr>` (e.g. `018644`):
    `--check-forward-refs` confirms every `.DATA.L` target is defined earlier in the
    file.
 
-   Both objects defining the same symbol is fine -- `<addr>_src.obj` and
-   `<addr>_c.obj` are never linked together.
+   Both objects defining the same symbol is fine -- the asm and C objects are
+   never linked together.
 
 ## Verify
 

@@ -5,10 +5,6 @@ ASMSH_FLAGS=-debug -cpu=sh4 -endian=little -sjis
 BUILD_DIR=build
 OUTPUT_DIR=$(BUILD_DIR)/output
 
-# Makefile.d is written in terms of these
-C_OBJ_DIR=$(OUTPUT_DIR)/src
-C_OBJ_SUFFIX=.obj
-
 SHELL := /bin/bash
 
 # Enable serial logging
@@ -130,6 +126,10 @@ OBJS = $(patsubst src/%.c,$(OUTPUT_DIR)/src/%.obj,$(SRCS))
 OBJS := $(patsubst src/asm/%.src,$(OUTPUT_DIR)/src/asm/%.obj,$(OBJS))
 LINKER_OBJS = $(subst /,\\, $(OBJS))
 
+# A full build is a few seconds; make a stale-object mistake impossible by
+# default. `make all` opts into the incremental build.
+.DEFAULT_GOAL := rebuild
+
 all: $(OUTPUT_DIR)/tbg.bin
 
 # Track changes to the compiler defines
@@ -175,7 +175,7 @@ rebuild: clean .WAIT all
 
 depend:
 	makedepend -Y -o .obj -f- $(C_SRCS) 2>/dev/null > Makefile.d
-	sed -i 's|^src/\(.*\)\.obj:|$$(C_OBJ_DIR)/\1$$(C_OBJ_SUFFIX):|' Makefile.d
+	sed -i 's|^src/|$$(OUTPUT_DIR)/src/|' Makefile.d
 
 .PHONY: all graph clean rebuild FORCE
 

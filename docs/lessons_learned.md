@@ -273,7 +273,7 @@ Ghidra sometimes invents a standalone global (`var_exp_8c1ba25c`) for what the
 asm actually computes as arithmetic on a different symbol's address
 (`var_progress_8c1ba1cc + 0x90`, i.e. a struct field) rather than a direct
 relocation. A dual-object test using `setSize()`/`addressOf()` on the invented
-name gets its own independent fake address, so the `_src.obj` write lands at a
+name gets its own independent fake address, so the asm object write lands at a
 totally different (and seemingly nonsensical) address than expected --
 `Unexpected write address 0x... Expecting ... to _invented_name(0x...)`. When
 that happens, read the relevant asm block directly: if the base register comes
@@ -299,13 +299,13 @@ all inside one struct's extent, are the tell -- they are just
 A `STATIC const` array already sitting in the C file (message box text, etc.)
 compiles and links fine even when the matching label in
 `src/asm/decompiled/<addr>.src` isn't `.EXPORT`ed -- nothing needs it *until*
-a test's `addressOf('_const_...')` tries to resolve it against the `_src.obj`.
+a test's `addressOf('_const_...')` tries to resolve it against the asm object.
 Without the export, `addressOf()` can't find the real symbol there and falls
 back to an auto-allocated placeholder address, which happens to coincide
 across unrelated tests (each fresh test VM allocates in the same order), so
 every affected test fails identically with something like
 `Unexpected argument for _swapMessageBoxFor_8c02aefc ... Expected 0x80034c,
-got 0x...` -- the C object passes throughout, only `_src.obj` mismatches, and
+got 0x...` -- the C object passes throughout, only the asm object mismatches, and
 every failing call reports the *same* "Expected" address regardless of which
 constant it actually is. Fix: add the label under the unit's existing
 `.AIFDEF UNIT_TESTING` / `.AENDI` `.EXPORT` block in the `.src` file (mechanical
@@ -328,7 +328,7 @@ as a standalone global `var_8c1bb8a4`. The address `0x8c1bb8a4` is actually
 the instruction loads a plain absolute address from the literal pool, so it
 just names that address like any other global. A dual-object test caught it:
 `setSize`-ing a fake `var_8c1bb8a4` gave the C object a plausible mock address
-that happened not to match the `_src.obj`'s real relocation target, so only
+that happened not to match the asm object's real relocation target, so only
 the `.src` side failed with an unrelated-looking garbage value. Fixed by
 indexing into the real struct (`var_currentCourse_8c1bb868.slots_0x04[14 +
 i]`) instead of declaring a new global. Worth checking whenever a Ghidra
@@ -430,7 +430,7 @@ the failure's object file before concluding the two agree.
 
 ## `lint.sh` is not a per-function gate mid-unit
 
-`scripts/lint.sh` starts with `make clean all`, and per AGENTS.md the
+`scripts/lint.sh` starts with `make rebuild`, and per AGENTS.md the
 non-matching full build is *expected* to fail from the moment a unit is
 scaffolded until its last function is ported: other units import symbols the
 half-written `.c` does not define yet, so the link dies on `UNDEFINED EXTERNAL
@@ -675,7 +675,7 @@ resolve, split out block-by-block with `scripts/move_data.py` per
 `.claude/skills/move-data/SKILL.md`. Until that happens the file stays
 unwired, with a comment at its head pointing here.
 
-## `02f320_replay_codec`: EXTS.W blocks testing most of this unit against `_src.obj`
+## `02f320_replay_codec`: EXTS.W blocks testing most of this unit against the asm object
 
 **Found in:** `02f320_replay_codec` (2026-08-28)
 
@@ -687,7 +687,7 @@ register on real SH4) -- e.g. `FUN_8c02f3a0` (`GetBit`-shaped): decrement a
 `Sint16` counter, store it back, then `EXTS.W`+`CMP/PZ` to branch on its
 sign. `sh4objtest` does not implement `EXTS.W` (documented limitation), so
 any test that calls a function whose asm executes one crashes with `Unknown
-instruction 633f` -- and this happens on the **archived original** `_src.obj`,
+instruction 633f` -- and this happens on the **archived original** asm object,
 which cannot be changed, not on anything the C side does. There is no way to
 route around it by picking different test inputs; the instruction executes
 unconditionally on every call.
@@ -698,7 +698,7 @@ and branches on it in the same idiom, so this likely blocks dual-object
 testing for most of the unit until `sh4objtest` gains `EXTS.W` support.
 
 **Resolved:** `sh4objtest` v0.1.45 added `EXTS.W`. The rest of the unit
-decompiled normally against `_src.obj` afterward -- see the entry below for
+decompiled normally against the asm object afterward -- see the entry below for
 the one other instruction-coverage gap hit along the way.
 
 ## `02f320_replay_codec`: confirms the lzhuf/LZW hypothesis; `sh4objtest` gap on `MOV.W @Rm+,Rn`
@@ -723,9 +723,8 @@ srcWordArray[i];`, reading a `Sint16` scratch buffer and truncating to a
 byte) made SHC emit `MOV.W @Rm+,Rn` (word load, post-increment) --
 `sh4objtest` doesn't implement that addressing form and throws `Unknown
 instruction NNNN` (varies with the register-number bits in the opcode).
-Confirmed by dumping the compiled listing with `shc -code=asm` (`compile()`
-in `scripts/run_tests.sh` already does this into
-`build/output_test/<unit>_c.src`) and reading the disassembly around the
+Confirmed by dumping the compiled listing with `shc -code=asm` (`Makefile.test`
+already does this into `build/output_test/src/<unit>.obj.src`) and reading the disassembly around the
 crash address printed by `-v --disasm`. The *original* archived asm never
 uses this addressing mode anywhere in the unit -- circumstantial evidence
 it's cold/rare in real SHC-era output, not just untested in `sh4objtest`.
@@ -750,7 +749,7 @@ In `busDriveDecelerate_8c023bea` (023938_bus_drive) Ghidra emitted the
 `var_8c228660 |=` before the `speed_0x27c` write in each branch; the asm does
 `sdMidiPlay` -> speed write -> `var_8c228660` write. Nothing about the output
 looks suspicious, so this only surfaced as an unexpected-write-order failure
-against `_src.obj`. Whenever two writes are both observable, check their order
+against the asm object. Whenever two writes are both observable, check their order
 against the asm rather than reading it off the decompile, and assert the order
 in the test.
 

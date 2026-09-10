@@ -41,7 +41,7 @@ The normal loop is:
 
 ## Why testing is enough
 
-Each TU group in `tests.php` contains both `<unit>_src.obj` and `<unit>_c.obj`. Every test runs against both objects.
+Each TU group in `tests.php` contains both the unit's asm object (`build/output_test/src/asm/decompiled/<unit>.obj`) and its C object (`build/output_test/src/<unit>.obj`). Every test runs against both objects.
 
 If the same test passes against both, the original asm and your C behave the same for that test. Use failed tests to learn the behavior instead of trying to understand everything before writing code.
 
@@ -115,7 +115,7 @@ Create its test in:
 
 Use one `call()` per test and assert side effects in their exact execution order.
 
-Register new test files in the TU's group in `tests.php`. When adding the first function for a unit, create the group and include both `_src.obj` and `_c.obj`.
+Register new test files in the TU's group in `tests.php`. When adding the first function for a unit, create the group and include both the asm and C objects.
 
 Run the individual test file:
 

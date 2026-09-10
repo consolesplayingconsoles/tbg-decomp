@@ -12,8 +12,8 @@ return [
                 "tests/010fe8_heap/8c0110c4_heapFree.php",
             ],
             'objects' => [
-                "build/output_test/010fe8_heap_src.obj",
-                "build/output_test/010fe8_heap_c.obj",
+                "build/output_test/src/asm/decompiled/010fe8_heap.obj",
+                "build/output_test/src/010fe8_heap.obj",
             ],
         ],
         [
@@ -21,8 +21,8 @@ return [
                 "tests/012324/12324_task.php",
             ],
             'objects' => [
-                "build/output_test/012324_peripheral_support_src.obj",
-                "build/output_test/012324_peripheral_support_c.obj",
+                "build/output_test/src/asm/decompiled/012324_peripheral_support.obj",
+                "build/output_test/src/012324_peripheral_support.obj",
             ],
         ],
         [
@@ -39,8 +39,8 @@ return [
                 "tests/014f54_text/159ac_FUN_demo.php",
             ],
             'objects' => [
-                "build/output_test/014f54_text_src.obj",
-                "build/output_test/014f54_text_c.obj",
+                "build/output_test/src/asm/decompiled/014f54_text.obj",
+                "build/output_test/src/014f54_text.obj",
             ],
         ],
         [
@@ -55,15 +55,15 @@ return [
                 "tests/0100bc_sound/010cd6_snd.php",
             ],
             'objects' => [
-                "build/output_test/0100bc_sound_src.obj",
-                "build/output_test/0100bc_sound_c.obj",
+                "build/output_test/src/asm/decompiled/0100bc_sound.obj",
+                "build/output_test/src/0100bc_sound.obj",
             ],
         ],
         [
             'tests' => ["tests/015ab8_title.php"],
             'objects' => [
-                "build/output_test/015ab8_title_src.obj",
-                "build/output_test/015ab8_title_c.obj",
+                "build/output_test/src/asm/decompiled/015ab8_title.obj",
+                "build/output_test/src/015ab8_title.obj",
             ],
         ],
         [
@@ -83,8 +83,8 @@ return [
                 "tests/0193c8_vm_menu/197c0_drawVmMenu.php",
             ],
             'objects' => [
-                "build/output_test/0193c8_vm_menu_src.obj",
-                "build/output_test/0193c8_vm_menu_c.obj",
+                "build/output_test/src/asm/decompiled/0193c8_vm_menu.obj",
+                "build/output_test/src/0193c8_vm_menu.obj",
             ],
         ],
         [
@@ -92,8 +92,8 @@ return [
                 "tests/0207d4.php",
             ],
             'objects' => [
-                "build/output_test/0207d4_src.obj",
-                "build/output_test/0207d4_c.obj",
+                "build/output_test/src/asm/decompiled/0207d4.obj",
+                "build/output_test/src/0207d4.obj",
             ],
         ],
         [
@@ -102,8 +102,8 @@ return [
                 "tests/020594/8c020676_unused.php",
             ],
             'objects' => [
-                "build/output_test/020594_src.obj",
-                "build/output_test/020594_c.obj",
+                "build/output_test/src/asm/decompiled/020594.obj",
+                "build/output_test/src/020594.obj",
             ],
         ],
         [
@@ -112,8 +112,8 @@ return [
                 "tests/02081c/8c020842_GeomQuadOverlap.php",
             ],
             'objects' => [
-                "build/output_test/02081c_src.obj",
-                "build/output_test/02081c_c.obj",
+                "build/output_test/src/asm/decompiled/02081c.obj",
+                "build/output_test/src/02081c.obj",
             ],
         ],
         [
@@ -121,8 +121,8 @@ return [
                 "tests/016c58.php"
             ],
             'objects' => [
-                "build/output_test/016c58_prompt_src.obj",
-                "build/output_test/016c58_prompt_c.obj",
+                "build/output_test/src/asm/decompiled/016c58_prompt.obj",
+                "build/output_test/src/016c58_prompt.obj",
             ],
         ],
         [
@@ -130,8 +130,8 @@ return [
                 "tests/012f44_game.php",
             ],
             'objects' => [
-                "build/output_test/012f44_game_src.obj",
-                "build/output_test/012f44_game_c.obj",
+                "build/output_test/src/asm/decompiled/012f44_game.obj",
+                "build/output_test/src/012f44_game.obj",
             ],
         ],
         [
@@ -175,8 +175,8 @@ return [
                 "tests/011120/8680_AsqApplyButtonConfig_121e8.php",
             ],
             'objects' => [
-                "build/output_test/011120_asset_queues_src.obj",
-                "build/output_test/011120_asset_queues_c.obj",
+                "build/output_test/src/asm/decompiled/011120_asset_queues.obj",
+                "build/output_test/src/011120_asset_queues.obj",
             ],
         ],
         [
@@ -185,8 +185,8 @@ return [
                 "tests/019e98_main_menu/1a09a_switchToMainMenuTask.php",
             ],
             "objects" => [
-                "build/output_test/019e98_main_menu_src.obj",
-                "build/output_test/019e98_main_menu_c.obj",
+                "build/output_test/src/asm/decompiled/019e98_main_menu.obj",
+                "build/output_test/src/019e98_main_menu.obj",
             ]
         ],
         [
@@ -219,8 +219,8 @@ return [
                 "tests/016d2c_course_menu/8c0185c4_freeResourceGroup.php",
             ],
             "objects" => [
-                "build/output_test/016d2c_course_menu_src.obj",
-                "build/output_test/016d2c_course_menu_c.obj",
+                "build/output_test/src/asm/decompiled/016d2c_course_menu.obj",
+                "build/output_test/src/016d2c_course_menu.obj",
             ]
             ],
         [
@@ -232,8 +232,8 @@ return [
                 "tests/012504_input/8c012984_InputSetName.php",
             ],
             "objects" => [
-                "build/output_test/012504_input_src.obj",
-                "build/output_test/012504_input_c.obj",
+                "build/output_test/src/asm/decompiled/012504_input.obj",
+                "build/output_test/src/012504_input.obj",
             ]
         ],
         [
@@ -241,8 +241,8 @@ return [
                 "tests/016bf4_demo_input/8c016bf4_DemoInputTask.php"
             ],
             "objects" => [
-                "build/output_test/016bf4_demo_input_src.obj",
-                "build/output_test/016bf4_demo_input_c.obj",
+                "build/output_test/src/asm/decompiled/016bf4_demo_input.obj",
+                "build/output_test/src/016bf4_demo_input.obj",
             ]
         ],
         [
@@ -252,8 +252,8 @@ return [
                 "tests/01d290_album/1d6e2_AlbumSwitchFromTask.php",
             ],
             "objects" => [
-                "build/output_test/01d290_album_src.obj",
-                "build/output_test/01d290_album_c.obj",
+                "build/output_test/src/asm/decompiled/01d290_album.obj",
+                "build/output_test/src/01d290_album.obj",
             ]
         ],
         [
@@ -266,8 +266,8 @@ return [
                 "tests/01d7fc_results/8c01d8e0_resultsTask.php",
             ],
             "objects" => [
-                "build/output_test/01d7fc_results_src.obj",
-                "build/output_test/01d7fc_results_c.obj",
+                "build/output_test/src/asm/decompiled/01d7fc_results.obj",
+                "build/output_test/src/01d7fc_results.obj",
             ]
         ],
         [
@@ -282,8 +282,8 @@ return [
                 "tests/02af78_event/8c02b292_EventApplyFlags.php",
             ],
             "objects" => [
-                "build/output_test/02af78_event_src.obj",
-                "build/output_test/02af78_event_c.obj",
+                "build/output_test/src/asm/decompiled/02af78_event.obj",
+                "build/output_test/src/02af78_event.obj",
             ]
         ],
         [
@@ -300,8 +300,8 @@ return [
                 "tests/02c884/8c02ce48_BusStopUpdateArrival.php",
             ],
             "objects" => [
-                "build/output_test/02c884_bus_stop_src.obj",
-                "build/output_test/02c884_bus_stop_c.obj",
+                "build/output_test/src/asm/decompiled/02c884_bus_stop.obj",
+                "build/output_test/src/02c884_bus_stop.obj",
             ]
         ],
         [
@@ -328,8 +328,8 @@ return [
                 "tests/013ae8_route_load/14784_RouteLoadUnusedTask.php",
             ],
             "objects" => [
-                "build/output_test/013ae8_route_load_src.obj",
-                "build/output_test/013ae8_route_load_c.obj",
+                "build/output_test/src/asm/decompiled/013ae8_route_load.obj",
+                "build/output_test/src/013ae8_route_load.obj",
             ]
         ],
         [
@@ -340,8 +340,8 @@ return [
                 "tests/0129cc_pause/8c012d5a_PauseDemoEndTask.php",
             ],
             "objects" => [
-                "build/output_test/0129cc_pause_src.obj",
-                "build/output_test/0129cc_pause_c.obj",
+                "build/output_test/src/asm/decompiled/0129cc_pause.obj",
+                "build/output_test/src/0129cc_pause.obj",
             ]
         ],
         [
@@ -360,8 +360,8 @@ return [
                 "tests/01614c_debug_menu/8c0169bc_replayLoadTask.php",
             ],
             "objects" => [
-                "build/output_test/01614c_debug_menu_src.obj",
-                "build/output_test/01614c_debug_menu_c.obj",
+                "build/output_test/src/asm/decompiled/01614c_debug_menu.obj",
+                "build/output_test/src/01614c_debug_menu.obj",
             ]
         ],
         [
@@ -385,8 +385,8 @@ return [
                 "tests/018644/8c019334_FileMenuSwitchFromTask.php",
             ],
             "objects" => [
-                "build/output_test/018644_file_menu_src.obj",
-                "build/output_test/018644_file_menu_c.obj",
+                "build/output_test/src/asm/decompiled/018644_file_menu.obj",
+                "build/output_test/src/018644_file_menu.obj",
             ]
         ],
         [
@@ -408,8 +408,8 @@ return [
                 "tests/01a148_option/8c01b122_OptionSwitchToTopMenu.php",
             ],
             "objects" => [
-                "build/output_test/01a148_option_src.obj",
-                "build/output_test/01a148_option_c.obj",
+                "build/output_test/src/asm/decompiled/01a148_option.obj",
+                "build/output_test/src/01a148_option.obj",
             ]
         ],
         [
@@ -422,8 +422,8 @@ return [
                 "tests/01b19c_system_menu/8c01ba64_SystemMenuSwitchFromTask.php",
             ],
             "objects" => [
-                "build/output_test/01b19c_system_menu_src.obj",
-                "build/output_test/01b19c_system_menu_c.obj",
+                "build/output_test/src/asm/decompiled/01b19c_system_menu.obj",
+                "build/output_test/src/01b19c_system_menu.obj",
             ]
         ],
         [
@@ -443,8 +443,8 @@ return [
                 "tests/01bb48_vm_game/8c01c910_VmGameUpdateLcd.php",
             ],
             "objects" => [
-                "build/output_test/01bb48_vm_game_src.obj",
-                "build/output_test/01bb48_vm_game_c.obj",
+                "build/output_test/src/asm/decompiled/01bb48_vm_game.obj",
+                "build/output_test/src/01bb48_vm_game.obj",
             ]
         ],
         [
@@ -457,8 +457,8 @@ return [
                 "tests/01c980_profile_file/8c01d1c4_ProfileFilePushTask.php",
             ],
             "objects" => [
-                "build/output_test/01c980_profile_file_src.obj",
-                "build/output_test/01c980_profile_file_c.obj",
+                "build/output_test/src/asm/decompiled/01c980_profile_file.obj",
+                "build/output_test/src/01c980_profile_file.obj",
             ]
         ],
         [
@@ -475,8 +475,8 @@ return [
                 "tests/01e27c/8c01f21c_PracticeMenuLessonRetry.php",
             ],
             "objects" => [
-                "build/output_test/01e27c_practice_menu_src.obj",
-                "build/output_test/01e27c_practice_menu_c.obj",
+                "build/output_test/src/asm/decompiled/01e27c_practice_menu.obj",
+                "build/output_test/src/01e27c_practice_menu.obj",
             ]
         ],
         [
@@ -488,8 +488,8 @@ return [
                 "tests/01f3c0_ending/8c01f954_EndingStart.php",
             ],
             "objects" => [
-                "build/output_test/01f3c0_ending_src.obj",
-                "build/output_test/01f3c0_ending_c.obj",
+                "build/output_test/src/asm/decompiled/01f3c0_ending.obj",
+                "build/output_test/src/01f3c0_ending.obj",
             ]
         ],
         [
@@ -501,8 +501,8 @@ return [
                 "tests/01fa78/8c02018c_HudReset.php",
             ],
             "objects" => [
-                "build/output_test/01fa78_src.obj",
-                "build/output_test/01fa78_c.obj",
+                "build/output_test/src/asm/decompiled/01fa78.obj",
+                "build/output_test/src/01fa78.obj",
             ]
         ],
         [
@@ -517,8 +517,8 @@ return [
                 "tests/02171c/8c021b34_TileStreamDrawTile.php",
             ],
             "objects" => [
-                "build/output_test/02171c_tile_stream_src.obj",
-                "build/output_test/02171c_tile_stream_c.obj",
+                "build/output_test/src/asm/decompiled/02171c_tile_stream.obj",
+                "build/output_test/src/02171c_tile_stream.obj",
             ]
         ],
         [
@@ -529,8 +529,8 @@ return [
                 "tests/0222dc_fadecmd/8c022420_FadeCmdPushCall2.php",
             ],
             "objects" => [
-                "build/output_test/0222dc_fadecmd_src.obj",
-                "build/output_test/0222dc_fadecmd_c.obj",
+                "build/output_test/src/asm/decompiled/0222dc_fadecmd.obj",
+                "build/output_test/src/0222dc_fadecmd.obj",
             ]
         ],
         [
@@ -558,8 +558,8 @@ return [
                 "tests/022464/8c022b60_FadePushOut.php",
             ],
             "objects" => [
-                "build/output_test/022464_fade_src.obj",
-                "build/output_test/022464_fade_c.obj",
+                "build/output_test/src/asm/decompiled/022464_fade.obj",
+                "build/output_test/src/022464_fade.obj",
             ]
         ],
         [
@@ -631,8 +631,8 @@ return [
                 "tests/028258/8c02af32_ObjectsFreeTextboxes.php",
             ],
             "objects" => [
-                "build/output_test/028258_objects_src.obj",
-                "build/output_test/028258_objects_c.obj",
+                "build/output_test/src/asm/decompiled/028258_objects.obj",
+                "build/output_test/src/028258_objects.obj",
             ]
         ],
         [
@@ -654,8 +654,8 @@ return [
                 "tests/026710_traffic/8c02769e_TrafficInit.php",
             ],
             "objects" => [
-                "build/output_test/026710_traffic_src.obj",
-                "build/output_test/026710_traffic_c.obj",
+                "build/output_test/src/asm/decompiled/026710_traffic.obj",
+                "build/output_test/src/026710_traffic.obj",
             ]
         ],
         [
@@ -663,8 +663,8 @@ return [
                 "tests/020914/8c020914_GroundQueryFindPolygon.php",
             ],
             "objects" => [
-                "build/output_test/020914_ground_query_src.obj",
-                "build/output_test/020914_ground_query_c.obj",
+                "build/output_test/src/asm/decompiled/020914_ground_query.obj",
+                "build/output_test/src/020914_ground_query.obj",
             ]
         ],
         [
@@ -675,8 +675,8 @@ return [
                 "tests/020b6c/8c021290_GroundProbeTrackPolygonAtHeight.php",
             ],
             "objects" => [
-                "build/output_test/020b6c_ground_probe_src.obj",
-                "build/output_test/020b6c_ground_probe_c.obj",
+                "build/output_test/src/asm/decompiled/020b6c_ground_probe.obj",
+                "build/output_test/src/020b6c_ground_probe.obj",
             ]
         ],
         [
@@ -684,8 +684,8 @@ return [
                 "tests/0206f0_intersect/8c0206f0_IntersectSegments.php",
             ],
             "objects" => [
-                "build/output_test/0206f0_intersect_src.obj",
-                "build/output_test/0206f0_intersect_c.obj",
+                "build/output_test/src/asm/decompiled/0206f0_intersect.obj",
+                "build/output_test/src/0206f0_intersect.obj",
             ]
         ],
         [
@@ -693,8 +693,8 @@ return [
                 "tests/02786c_vehicle_parts/8c02786c_VehPartsBind.php",
             ],
             "objects" => [
-                "build/output_test/02786c_vehicle_parts_src.obj",
-                "build/output_test/02786c_vehicle_parts_c.obj",
+                "build/output_test/src/asm/decompiled/02786c_vehicle_parts.obj",
+                "build/output_test/src/02786c_vehicle_parts.obj",
             ]
         ],
         [
@@ -705,8 +705,8 @@ return [
                 "tests/02e400_collision/8c02e4ac_CollideQueueTest.php",
             ],
             "objects" => [
-                "build/output_test/02e400_collision_src.obj",
-                "build/output_test/02e400_collision_c.obj",
+                "build/output_test/src/asm/decompiled/02e400_collision.obj",
+                "build/output_test/src/02e400_collision.obj",
             ]
         ],
         [
@@ -716,8 +716,8 @@ return [
                 "tests/02f0c8/8c02f28a_TrafficPathScanTypeInGroup.php",
             ],
             "objects" => [
-                "build/output_test/02f0c8_src.obj",
-                "build/output_test/02f0c8_c.obj",
+                "build/output_test/src/asm/decompiled/02f0c8.obj",
+                "build/output_test/src/02f0c8.obj",
             ]
         ],
         [
@@ -726,8 +726,8 @@ return [
                 "tests/02b2f0/8c02b388_DriveMsgDraw.php",
             ],
             "objects" => [
-                "build/output_test/02b2f0_src.obj",
-                "build/output_test/02b2f0_c.obj",
+                "build/output_test/src/asm/decompiled/02b2f0.obj",
+                "build/output_test/src/02b2f0.obj",
             ]
         ],
         [
@@ -752,8 +752,8 @@ return [
                 "tests/02b464_drive_points/8c02c784_FUN.php",
             ],
             "objects" => [
-                "build/output_test/02b464_drive_points_src.obj",
-                "build/output_test/02b464_drive_points_c.obj",
+                "build/output_test/src/asm/decompiled/02b464_drive_points.obj",
+                "build/output_test/src/02b464_drive_points.obj",
             ]
         ],
         [
@@ -762,8 +762,8 @@ return [
                 "tests/02df3c/8c02dfca_TrafficLookaheadScan.php",
             ],
             "objects" => [
-                "build/output_test/02df3c_src.obj",
-                "build/output_test/02df3c_c.obj",
+                "build/output_test/src/asm/decompiled/02df3c.obj",
+                "build/output_test/src/02df3c.obj",
             ]
         ],
         [
@@ -786,8 +786,8 @@ return [
                 "tests/02f320_replay_codec/8c02fa14_ReplayCodecUnpack.php",
             ],
             "objects" => [
-                "build/output_test/02f320_replay_codec_src.obj",
-                "build/output_test/02f320_replay_codec_c.obj",
+                "build/output_test/src/asm/decompiled/02f320_replay_codec.obj",
+                "build/output_test/src/02f320_replay_codec.obj",
             ]
         ],
         [
@@ -796,8 +796,8 @@ return [
                 "tests/02e2dc/8c02e35a_unused.php",
             ],
             "objects" => [
-                "build/output_test/02e2dc_src.obj",
-                "build/output_test/02e2dc_c.obj",
+                "build/output_test/src/asm/decompiled/02e2dc.obj",
+                "build/output_test/src/02e2dc.obj",
             ]
         ],
         [
@@ -806,8 +806,8 @@ return [
                 "tests/023310_bus_init/8c023610_BusInitStart.php",
             ],
             "objects" => [
-                "build/output_test/023310_bus_init_src.obj",
-                "build/output_test/023310_bus_init_c.obj",
+                "build/output_test/src/asm/decompiled/023310_bus_init.obj",
+                "build/output_test/src/023310_bus_init.obj",
             ]
         ],
         [
@@ -815,8 +815,8 @@ return [
                 "tests/022bdc_bus/8c022bdc_BusTask.php",
             ],
             "objects" => [
-                "build/output_test/022bdc_bus_src.obj",
-                "build/output_test/022bdc_bus_c.obj",
+                "build/output_test/src/asm/decompiled/022bdc_bus.obj",
+                "build/output_test/src/022bdc_bus.obj",
             ]
         ],
         [
@@ -830,8 +830,8 @@ return [
                 "tests/024b4c_bus_render/8c025604_BusRenderUpdateMirrorCamera.php",
             ],
             "objects" => [
-                "build/output_test/024b4c_bus_render_src.obj",
-                "build/output_test/024b4c_bus_render_c.obj",
+                "build/output_test/src/asm/decompiled/024b4c_bus_render.obj",
+                "build/output_test/src/024b4c_bus_render.obj",
             ]
         ],
         [
@@ -843,8 +843,8 @@ return [
                 "tests/023938_bus_drive/8c023e7e_FUN.php",
             ],
             "objects" => [
-                "build/output_test/023938_bus_drive_src.obj",
-                "build/output_test/023938_bus_drive_c.obj",
+                "build/output_test/src/asm/decompiled/023938_bus_drive.obj",
+                "build/output_test/src/023938_bus_drive.obj",
             ]
         ],
         [
@@ -856,8 +856,8 @@ return [
                 "tests/025870/8c025af4_FUN.php",
             ],
             "objects" => [
-                "build/output_test/025870_src.obj",
-                "build/output_test/025870_c.obj",
+                "build/output_test/src/asm/decompiled/025870.obj",
+                "build/output_test/src/025870.obj",
             ]
         ],
         [
@@ -869,8 +869,8 @@ return [
                 "tests/02e51c/8c02f08a_FUN.php",
             ],
             "objects" => [
-                "build/output_test/02e51c_src.obj",
-                "build/output_test/02e51c_c.obj",
+                "build/output_test/src/asm/decompiled/02e51c.obj",
+                "build/output_test/src/02e51c.obj",
             ]
         ],
         [
@@ -884,8 +884,8 @@ return [
                 "tests/027958/8c027c3c_BusDrawPlaceEntity.php",
             ],
             "objects" => [
-                "build/output_test/027958_src.obj",
-                "build/output_test/027958_c.obj",
+                "build/output_test/src/asm/decompiled/027958.obj",
+                "build/output_test/src/027958.obj",
             ]
         ],
         [
@@ -894,8 +894,8 @@ return [
                 "tests/025b98_traffic_drive/8c025b98_TrafficDriveVehicle.php",
             ],
             "objects" => [
-                "build/output_test/025b98_traffic_drive_src.obj",
-                "build/output_test/025b98_traffic_drive_c.obj",
+                "build/output_test/src/asm/decompiled/025b98_traffic_drive.obj",
+                "build/output_test/src/025b98_traffic_drive.obj",
             ]
         ],
         [
@@ -910,8 +910,8 @@ return [
                 "tests/02d19c/8c02d8f0_BusRiderSkipStopTask.php",
             ],
             "objects" => [
-                "build/output_test/02d19c_src.obj",
-                "build/output_test/02d19c_c.obj",
+                "build/output_test/src/asm/decompiled/02d19c.obj",
+                "build/output_test/src/02d19c.obj",
             ]
         ],
         [
@@ -919,8 +919,8 @@ return [
                 "tests/02d968/8c02d968_StopSpawnInit.php",
             ],
             "objects" => [
-                "build/output_test/02d968_src.obj",
-                "build/output_test/02d968_c.obj",
+                "build/output_test/src/asm/decompiled/02d968.obj",
+                "build/output_test/src/02d968.obj",
             ]
         ],
         [
@@ -930,8 +930,8 @@ return [
                 "tests/02d06c/8c02d146_StopDrawLightEnd.php",
             ],
             "objects" => [
-                "build/output_test/02d06c_src.obj",
-                "build/output_test/02d06c_c.obj",
+                "build/output_test/src/asm/decompiled/02d06c.obj",
+                "build/output_test/src/02d06c.obj",
             ]
         ],
         [
@@ -939,8 +939,8 @@ return [
                 "tests/02412c/8c02412c_BusLineAdvance.php",
             ],
             "objects" => [
-                "build/output_test/02412c_src.obj",
-                "build/output_test/02412c_c.obj",
+                "build/output_test/src/asm/decompiled/02412c.obj",
+                "build/output_test/src/02412c.obj",
             ]
         ],
         [
@@ -948,8 +948,8 @@ return [
                 "tests/020214/8c020214_DriveCueTask.php",
             ],
             "objects" => [
-                "build/output_test/020214_src.obj",
-                "build/output_test/020214_c.obj",
+                "build/output_test/src/asm/decompiled/020214.obj",
+                "build/output_test/src/020214.obj",
             ]
         ],
         [
@@ -959,8 +959,8 @@ return [
                 "tests/021b9c/8c0221d0_TileDrawEnqueueTask.php",
             ],
             "objects" => [
-                "build/output_test/021b9c_src.obj",
-                "build/output_test/021b9c_c.obj",
+                "build/output_test/src/asm/decompiled/021b9c.obj",
+                "build/output_test/src/021b9c.obj",
             ]
         ],
         [
@@ -973,8 +973,8 @@ return [
                 "tests/024280/8c0246b2_BusInputUpdate.php",
             ],
             "objects" => [
-                "build/output_test/024280_src.obj",
-                "build/output_test/024280_c.obj",
+                "build/output_test/src/asm/decompiled/024280.obj",
+                "build/output_test/src/024280.obj",
             ]
         ],
     ],

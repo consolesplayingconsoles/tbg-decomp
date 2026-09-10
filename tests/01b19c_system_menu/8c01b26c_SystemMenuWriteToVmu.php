@@ -8,7 +8,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RoriCallingConvention;
 return new class extends TestCase {
     protected function isAsmObject(): bool
     {
-        return str_ends_with($this->objectFile, '_src.obj');
+        return str_contains($this->objectFile, '/asm/');
     }
 
     /* SHC lowers strcpy to __slow_strcpy (dst/src in R0/R1, Rori). */

@@ -175,7 +175,7 @@ return new Class extends TestCase {
 
     protected function isAsmObject(): bool
     {
-        return str_ends_with($this->objectFile, '_src.obj');
+        return str_contains($this->objectFile, '/asm/');
     }
 
     private function shouldDrawSprite(int $spriteNo, float $x, float $y, float $priority) {

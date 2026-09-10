@@ -107,17 +107,17 @@ return new class extends TestCase {
 
     private function createdTaskOffset(): int
     {
-        return str_contains($this->objectFile, '_src.obj') ? 0xffffe0 : 0xffffe4;
+        return str_contains($this->objectFile, '/asm/') ? 0xffffe0 : 0xffffe4;
     }
 
     private function createStateOffset(): int
     {
-        return str_contains($this->objectFile, '_src.obj') ? 0xffffe8 : 0xffffec;
+        return str_contains($this->objectFile, '/asm/') ? 0xffffe8 : 0xffffec;
     }
 
     private function destOffset(): int
     {
-        return str_contains($this->objectFile, '_src.obj') ? 0xffffe4 : 0xffffe8;
+        return str_contains($this->objectFile, '/asm/') ? 0xffffe4 : 0xffffe8;
     }
 
     private function resolveSymbols(): void

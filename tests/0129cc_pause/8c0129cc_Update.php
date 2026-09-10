@@ -429,7 +429,7 @@ return new class extends TestCase {
     // symbol; only that unit's own object was renamed.
     private function practiceLessonRetrySymbol(): string
     {
-        return str_ends_with($this->objectFile, '_src.obj')
+        return str_contains($this->objectFile, '/asm/')
             ? '_PracticeMenuLessonRetry_8c01f21c'
             : '_PracticeMenuLessonRetry_8c01f21c';
     }

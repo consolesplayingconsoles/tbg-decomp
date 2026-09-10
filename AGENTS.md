@@ -11,8 +11,8 @@ All build/test commands run inside Docker:
 ## Key Commands
 
 ```bash
-# Build
-make -j8
+# Build (clean rebuild; `make all` builds incrementally)
+make
 
 # Test (full suite; --parallel speeds this up, sh4objtest v0.1.28+)
 ./scripts/run_tests.sh --parallel
@@ -40,8 +40,9 @@ tests/
   <unit>/<addr>_name.php     # One PHP test file per function
   AGENTS.md                  # ← DSL reference and test-writing guide
 tests.php                    # Test suite registry — add new groups here
-scripts/run_tests.sh         # Compile + run all tests
+scripts/run_tests.sh         # Build test objects + run all tests
 Makefile                     # Full build; SRCS list drives compilation order
+Makefile.test                # Test-object build; units auto-discovered
 .claude/skills/setup-unit/   # Skill: scaffold a new translation unit
 .claude/skills/decompile-function/  # Skill: port one function to C with tests
 .claude/skills/move-data/    # Skill: migrate data ownership between files
@@ -120,7 +121,8 @@ Sections in order, each with a banner like the one below; omit empty sections:
 
 - `STATIC` macro (from `includes.h`): expands to `static` in production, empty in unit tests so test harness can access the symbol.
 - Private globals in asm: export only under `.AIFDEF UNIT_TESTING` / `.AENDI`.
-- Each unit has two object files: `<addr>_src.obj` (asm) and `<addr>_c.obj` (C).
+- Each unit has two object files, built into a tree mirroring `src/`:
+  `<out>/src/asm/decompiled/<addr>.obj` (asm) and `<out>/src/<addr>.obj` (C).
 - **ASCII only** in `src/` and `tests/` files — they are Shift-JIS encoded; non-ASCII characters (including Unicode arrows `→`, smart quotes, etc.) will corrupt the file. Use plain ASCII alternatives (e.g. `->` instead of `→`). Plain `grep` treats these files as binary and skips them; use `grep -a` to search them.
 - **No local `extern` declarations in `.c` files.** Every external symbol must come
   from an `#include`d header: the owning unit's header if it already has one, or a
@@ -148,16 +150,14 @@ the tests dir can be plain `mkdir` since it starts empty):
 3. `mkdir tests/<addr>` (empty for now; first test file gets added, along
    with the test group in `tests.php`, once you decompile the first
    function).
-4. In `scripts/run_tests.sh`, add an `assemble`/`compile` stanza pointing at
-   the two files from steps 1-2.
-5. In `Makefile` (non-matching), swap the `SRCS` entry from
+4. In `Makefile` (non-matching), swap the `SRCS` entry from
    `src/asm/<addr>.src` to `src/<addr>.c`.
-6. In `Makefile.matching`, swap the `SRCS` entry from `src/asm/<addr>.src` to
+5. In `Makefile.matching`, swap the `SRCS` entry from `src/asm/<addr>.src` to
    `src/asm/decompiled/<addr>.src` (same content, just the new path —
    matching build keeps using the archived original asm until the unit's C
    is proven byte-matching).
 
-Steps 5-6 intentionally break `make` (full non-matching build) until every
+Steps 4-5 intentionally break `make` (full non-matching build) until every
 function in the unit is decompiled — other units still import the
 not-yet-defined symbols. That's expected; use `./scripts/run_tests.sh` to
 verify in the meantime instead of a full `make`.

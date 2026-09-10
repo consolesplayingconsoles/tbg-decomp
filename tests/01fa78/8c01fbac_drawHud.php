@@ -75,7 +75,7 @@ return new class extends TestCase {
 
     protected function isAsmObject(): bool
     {
-        return str_ends_with($this->objectFile, '_src.obj');
+        return str_contains($this->objectFile, '/asm/');
     }
 
     // drawHud_8c01fbac falls through into drawSpeedAndTimers_8c01fe84's code in the original

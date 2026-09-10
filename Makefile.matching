@@ -1,4 +1,4 @@
-MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS += --no-builtin-rules -j$(shell nproc)
 .SUFFIXES:
 
 ASMSH_FLAGS=-define=MATCHING=1 -debug -cpu=sh4 -endian=little -sjis
@@ -92,6 +92,10 @@ OBJS := $(patsubst src/asm/%.src,$(OUTPUT_DIR)/src/asm/%.obj,$(OBJS))
 OBJS := $(patsubst src/asm/decompiled/%.src,$(OUTPUT_DIR)/src/asm/decompiled/%.obj,$(OBJS))
 LINKER_OBJS = $(subst /,\\, $(OBJS))
 
+# A full build is a few seconds; make a stale-object mistake impossible by
+# default. `make all` opts into the incremental build.
+.DEFAULT_GOAL := rebuild
+
 all: $(OUTPUT_DIR)/tbg.bin
 
 # Compile ASM files
@@ -130,10 +134,8 @@ $(OUTPUT_DIR)/tbg.bin: $(OUTPUT_DIR)/tbg.elf
 clean:
 	rm -rf $(OUTPUT_DIR) $(BUILD_DIR)/lnk_matching.sub
 
-depend:
-	makedepend -Y -o .obj -f- $(C_SRCS) 2>/dev/null > Makefile.d
-	sed -i 's/^src/$$(OUTPUT_DIR)\/src/' Makefile.d
+rebuild: clean .WAIT all
 
-.PHONY: all clean $(OUTPUT_DIR)/tbg.bin
+.PHONY: all clean rebuild $(OUTPUT_DIR)/tbg.bin
 
 include Makefile.d
