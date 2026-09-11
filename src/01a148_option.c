@@ -445,11 +445,11 @@ STATIC void audioEditValue_8c01a8b6(char *value, char count)
  */
 STATIC int soundTestFieldRead_8c01a904(int *digits, int count)
 {
-    int *p;
     int value = 0;
+    int i;
 
-    for (p = digits + count - 1; digits <= p; p--) {
-        value = value * 10 + *p;
+    for (i = count - 1; i >= 0; i--) {
+        value = value * 10 + digits[i];
     }
     return value;
 }
@@ -478,15 +478,13 @@ STATIC void soundTestFieldAdjust_8c01a926(int *digits, int count, int max)
     }
 
     if (press & PDD_DGT_KU) {
-        int *p = &digits[var_menuState_8c1bc7a8.field_0x3c];
         for (i = var_menuState_8c1bc7a8.field_0x3c; i < count; i++) {
-            int v = *p + 1;
-            *p = v;
+            int v = digits[i] + 1;
+            digits[i] = v;
             if (v <= 9) {
                 break;
             }
-            *p = 0;
-            p++;
+            digits[i] = 0;
         }
         if (soundTestFieldRead_8c01a904(digits, count) > max) {
             for (i = 0; i < count; i++) {
