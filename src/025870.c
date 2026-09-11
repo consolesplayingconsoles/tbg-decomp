@@ -353,7 +353,7 @@ void FUN_8c025870(void)
  * DemoUpdateCamera_8c025906's var_cameraMode_8c227d9c==5/6 modes: state 5 pins it to
  * var_8c227e00 directly (y relative to ground); state 6 transforms
  * var_8c227e00 by the bus's world matrix instead. No-op for any other
- * state. Called by DemoUpdateCamera_8c025906's LAB_8c0259e8 helper task. */
+ * state. Called by stopTextboxTask_8c0259e8. */
 STATIC void FUN_8c0258ba(void)
 {
     switch (var_cameraMode_8c227d9c) {
@@ -414,7 +414,7 @@ void DemoUpdateCamera_8c025906(void)
  * camera into that record's state (var_cameraMode_8c227d9c = kind+5), copies its
  * position into var_8c227e00, opens (or clears) the message box for its
  * name, repositions the bus draw point via FUN_8c0258ba, and moves to phase
- * 1. Phase 1 just waits for the id to drop back to 0 to return to phase 0.
+ * 1. Phase 1 waits for the id to drop back to 0 to return to phase 0.
  * Every call then advances the textbox's reveal counter and reschedules
  * itself for the next fade-layer-0 callback. */
 STATIC void stopTextboxTask_8c0259e8(Task *task, StopTextboxState *state)

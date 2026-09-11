@@ -49,7 +49,7 @@ void BusDrawSignalAttachment_8c028206(int objArg, int matrixArg);
  * 2. Advances this entity's suspension-lean state (distanceTraveled_0x070/ang_0x074/acc_0x078/ang_0x07c,
  *    mirroring BusState's distance_traveled_0x070/ang_0x074/acc_0x078/
  *    ang_0x07c -- the same fields BusDrawUpdateModels_8c027958 reads for blinker-light
- *    placement) and, unless skipped (groundAligned_0x494 already 1 and speed
+ *    placement) and, unless skipped (groundAligned_0x494 already 1 and
  *    speed_0x27c is 0 -- i.e. stationary and already aligned), re-probes 3
  *    ground points (probeSideAX_0x118/probeSideBX_0x124/frontPointX_0x100, each an (x,y,z) triple) through
  *    entity->probeFn_0x2c8 (a per-entity ground-probe function pointer) into

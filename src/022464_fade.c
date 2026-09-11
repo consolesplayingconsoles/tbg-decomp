@@ -140,7 +140,6 @@ STATIC NJS_SCREEN init_screenLayer2_8c045624 = {
  * ====================
  */
 
-/* Draws the queued command list for layer (0-2). */
 STATIC void fadeDraw_8c022464(int layer)
 {
   int count;
@@ -197,13 +196,10 @@ STATIC void fadeDraw_8c022464(int layer)
 
 /* Per-frame bus-stop-arrival overlay (var_fadeArrivalGate_8c226560 gate) plus the generic
  * screen fade state machine (var_fadePhase_8c227d7c: 0 idle, 1 fading out, 2 fading in,
- * 3 held-fade-in-complete). var_fadeRequest_8c226564 requests a transition (1 = fade to
- * color, 2 = fade from color); var_fadeCompleteCallback_8c22656c, if set, is called once when a
- * transition completes and then cleared to its -1 sentinel.
+ * 3 held-fade-in-complete).
  *
  * Every TxtDrawSprite priority arg below is a fixed -1.17 literal, not a
- * parameter -- raw disassembly confirms FR4 is never read, so the function
- * takes no argument. */
+ * parameter -- raw disassembly shows FR4 is never read. */
 void FadeUpdate_8c022560(void)
 {
   if (var_fadeArrivalGate_8c226560 != 0) {
@@ -361,9 +357,9 @@ void FadeStartRunTransition_8c0228a2(void)
 }
 
 /* Same idle/fading-out/fading-in/held state machine as FadeUpdate_8c022560, minus
- * its bus-stop-arrival overlay: var_fadeArrivalGate_8c226560 just triggers the plain
- * fade-out draw. Also guards both fade-out completion checks with
- * var_isFading_8c226568, letting an external reset of that flag short-cut
+ * the bus-stop-arrival overlay: var_fadeArrivalGate_8c226560 just triggers the plain
+ * fade-out draw. Both fade-out completion checks are also guarded by
+ * var_isFading_8c226568, so an external reset of that flag can short-cut
  * the transition. */
 void FadeUpdatePlain_8c022910(void)
 {
@@ -439,9 +435,7 @@ void FadeUpdatePlain_8c022910(void)
 }
 
 /* Task pushed by FadePushIn_8c022a9c(frames): task->frames_0x08 holds that
- * frame count. Steps var_fadeProgress_8c227d80 down from 0xff000000 by (0xff000000 /
- * frames) each tick until it drops to the 0x1000000 floor, then frees
- * itself. Sibling of fadeOutTask_8c022ad0, which counts the opposite way. */
+ * frame count. Sibling of fadeOutTask_8c022ad0, which counts the opposite way. */
 STATIC void fadeInTask_8c022a54(FadeInTask *task, void *state)
 {
   Uint32 level;
@@ -462,7 +456,6 @@ STATIC void fadeInTask_8c022a54(FadeInTask *task, void *state)
   TaskFree_8c014b66((Task *)task);
 }
 
-/* Starts a fade in over the given frame count. */
 void FadePushIn_8c022a9c(int frames)
 {
   FadeInTask *task;
@@ -474,11 +467,6 @@ void FadePushIn_8c022a9c(int frames)
   var_isFading_8c226568 = 1;
 }
 
-/* Task pushed by FadePushOut_8c022b60(frames): task->frames_0x08 holds the
- * frame count while task->phase_0x0c is 0 (ramping var_fadeProgress_8c227d80
- * up by (0xff0000 / frames) each tick). Once it exceeds 0xffffff the screen
- * holds solid black (njSetBackColor) for two more ticks -- phase_0x0c becomes
- * 1 and frames_0x08 is reused as that hold counter -- before freeing itself. */
 STATIC void fadeOutTask_8c022ad0(FadeOutTask *task, void *state)
 {
   FadeOutPhase phase;
@@ -492,7 +480,7 @@ STATIC void fadeOutTask_8c022ad0(FadeOutTask *task, void *state)
       if (var_fadeProgress_8c227d80 > 0xffffff) {
         var_fadeProgress_8c227d80 = 0xff0000;
         njSetBackColor(0, 0, 0);
-        task->frames_0x08 = 0;
+        task->frames_0x08 = 0; /* reused as the hold counter */
         task->phase_0x0c = FADE_OUT_PHASE_HOLD;
       }
       break;
@@ -516,7 +504,6 @@ STATIC void fadeOutTask_8c022ad0(FadeOutTask *task, void *state)
   njDrawPolygon(init_fadeQuad_8c0455a8, 4, 1);
 }
 
-/* Starts a fade out over the given frame count. */
 void FadePushOut_8c022b60(int frames)
 {
   FadeOutTask *task;

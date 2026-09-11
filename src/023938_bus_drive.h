@@ -2,13 +2,12 @@
 #define _023938_BUS_DRIVE_H
 
 /* One point on a route line segment (var_8c227d84 entries point into an
- * array of these): remaining distance to the NEXT point, that point's
- * world x/z, and the unit direction (dx,dz) of the segment leading to it. */
+ * array of these). */
 typedef struct {
-    float len_0x00;
-    float x_0x04;
+    float len_0x00;  /* remaining distance to the next point */
+    float x_0x04;    /* next point's world x/z */
     float z_0x08;
-    float dx_0x0c;
+    float dx_0x0c;   /* unit direction of the segment leading to it */
     float dz_0x10;
 } LinePoint;
 
@@ -18,13 +17,12 @@ typedef struct {
     float length_0x04;
 } LineBusSegment;
 
-/* var_8c227d88 entry, 0xc bytes/6 ushorts; altNext_0x04[1] is the next
- * segment when signalSide_0x25c == 1, altNext_0x04[2] is the next segment when
- * var_8c1bbc2c == 2, altNext_0x04[0] is the default (used by 02412c);
- * fwdNext_0x00/backNext_0x02 are read by FUN_8c023e7e. */
+/* var_8c227d88 entry, 0xc bytes/6 ushorts. */
 typedef struct {
-    Uint16 fwdNext_0x00;
-    Uint16 backNext_0x02;
+    Uint16 fwdNext_0x00;    /* read by FUN_8c023e7e */
+    Uint16 backNext_0x02;   /* read by FUN_8c023e7e */
+    /* [0] is the default (used by 02412c), [1] is the next segment when
+     * signalSide_0x25c == 1, [2] is the next segment when var_8c1bbc2c == 2 */
     Uint16 altNext_0x04[3];
     Uint16 fallbackNext_0x0a;
 } LineBusNode;

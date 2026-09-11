@@ -11,10 +11,9 @@
  */
 
 /* Caches the vehicle model's articulated sub-objects into fixed slots of the
- * traffic entry, so per-frame code can pose them without re-walking the tree.
- * The first-level children also get NJD_EVAL_UNIT_ANG cleared, i.e. their
- * rotation starts being honoured. Which of the deeper slots get filled depends
- * on the entry's type code.
+ * traffic entry. The first-level children also get NJD_EVAL_UNIT_ANG cleared,
+ * so their rotation is honored. Which deeper slots get filled depends on the
+ * entry's type code.
  *
  * `entry` is TrafficEntry* for a CPU vehicle, but 023310_bus_init.c also
  * calls this with the player's BusState*, which shares the same 0x00-0x60

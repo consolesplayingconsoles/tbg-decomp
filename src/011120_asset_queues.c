@@ -727,7 +727,7 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
 
     while (TRUE) {
         int i;
-        /* Assume that the current texlist is already loaded */
+        /* Assumes the current texlist is already loaded. */
         Bool alreadyLoaded = TRUE;
 
         texlist = item->texlist_0x04;
@@ -751,8 +751,8 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
                 comparedTextureCount = comparedItem->texlist_0x04->nbTexture;
                 comparedTextures = comparedItem->texlist_0x04->textures;
 
-                /* comparedIndex must be 0 when there is nothing to compare
-                 * against: the "not found" test below reads it either way. */
+                /* comparedIndex is 0 when there's nothing to compare against;
+                 * the "not found" check below still works either way. */
                 for (comparedIndex = 0; comparedIndex < comparedTextureCount; comparedIndex++)
                 {
                     if (!strcmp(currentTexture->filename, comparedTextures[comparedIndex].filename)) {
@@ -761,17 +761,17 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
                     }
                 }
 
-                /* If we the current texture is already loaded,
-                   we can sdvance to next one in the current texlist.
-                   Note that breaking prevents the loop counter increment. */
+                /* If the current texture is already loaded, advance to the
+                 * next one in the current texlist; breaking skips the loop
+                 * counter increment. */
                 if (comparedIndex != comparedTextureCount) break;
 
                 /* Refactor: */
                 /* if (currentTexture->texaddr) break */
             }
 
-            /* If the current texture was not found in any of
-               the compared texlists, then it should be loaded. */
+            /* If the current texture wasn't found in any compared texlist,
+             * it needs to be loaded. */
             if (queueIdx == var_texlistQueueCount_8c157a68) {
                 alreadyLoaded = FALSE;
             }

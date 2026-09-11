@@ -55,10 +55,6 @@ enum FILE_MENU_STATE {
     FILE_MENU_STATE_UNMOUNTING = 8,
 };
 
-/* Task private state for loadFileTask_8c018644: phase_0x08 0 = requesting the
- * next file, 1 = waiting on the drive; counter_0x0c a per-file index
- * round-tripped through Task's void* field_0x0c; queuedItem_0x18 the cursor
- * into the null-terminated save-name list. */
 typedef struct {
     TaskAction action;
     void *state;
@@ -75,13 +71,7 @@ typedef struct {
  * ====================
  */
 
-/*
- * Multi-frame task that loads a null-terminated list of save files (task->0x18)
- * from the selected VMU. State 0 requests the next missing file via BupLoad and
- * yields; state 1 waits for the drive, analyzes the loaded image, and appends its
- * header to the growing buffer. var_8c226010 reports the outcome: 1 = all loaded,
- * 2 = error.
- */
+/* Loads the save files from the selected VMU, one file at a time across frames. */
 STATIC void loadFileTask_8c018644(LoadFileTask *task)
 {
     char **names;
@@ -130,10 +120,6 @@ STATIC void loadFileTask_8c018644(LoadFileTask *task)
     }
 }
 
-/*
- * Kicks off a VMU load: queues FileMenuTask over the full save-file list and
- * allocates the 0x3c00 staging buffer the task streams images into.
- */
 STATIC void startVmLoad_8c018784(void)
 {
     LoadFileTask *task;
@@ -151,11 +137,11 @@ STATIC void startVmLoad_8c018784(void)
     var_8c226010 = 0;
 }
 
-/* Releases the VM-load staging buffers; -1 marks a slot as already freed. */
 void FileMenuFreeBuffers_8c0187d0(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuFreeBuffers_8c0187d0: freeing buffers\n"));
 
+    // -1 marks a buffer as already freed.
     if (var_8c1ba2e0 != (void *)-1) {
         syFree(var_8c1ba2e0);
         var_8c1ba2e0 = (void *)-1;
@@ -166,11 +152,7 @@ void FileMenuFreeBuffers_8c0187d0(void)
     }
 }
 
-/*
- * Sanity-checks a loaded save image: day 1..30, the 9 course records (0x44,
- * stride 8) with three <=1 flags and two <=3 ranks each, and EXP capped at
- * 99999. Returns 1 if plausible, 0 otherwise.
- */
+/* Returns 1 if a freshly loaded save looks sane. */
 int FileMenuIsSaveValid_8c018804(int *save)
 {
     unsigned char *rec;
@@ -190,10 +172,6 @@ int FileMenuIsSaveValid_8c018804(int *save)
     return 0;
 }
 
-/*
- * Restores the progress control-option defaults: 0xc4 (gated <2 in route load),
- * 0xc5 (input-map selection), 0xc6, and the first two 0xc7 bytes.
- */
 void FileMenuResetControlDefaults_8c018862(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuResetControlDefaults_8c018862\n"));
@@ -205,10 +183,6 @@ void FileMenuResetControlDefaults_8c018862(void)
     var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] = 0;
 }
 
-/*
- * Restores the progress view/input defaults: the 0xcc-0xcf asset-selection
- * flags (read in 011120) and the 0xd0/0xd1 input deadzone thresholds (0x10).
- */
 void FileMenuResetViewDefaults_8c0188bc(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuResetViewDefaults_8c0188bc\n"));
@@ -221,10 +195,6 @@ void FileMenuResetViewDefaults_8c0188bc(void)
     var_progress_8c1ba1cc.brakeSensitivity_0xd1 = 0x10;
 }
 
-/*
- * Restores the sound defaults: caches the console's sound mode (clamped to
- * non-negative) and resets the 0xd4-0xd6 progress audio bytes to 9/5/9.
- */
 void FileMenuResetSoundDefaults_8c0188dc(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuResetSoundDefaults_8c0188dc\n"));
@@ -238,10 +208,6 @@ void FileMenuResetSoundDefaults_8c0188dc(void)
     var_progress_8c1ba1cc.voiceVolume_0xd6 = 9;
 }
 
-/*
- * Resets player progress to the new-game base state: day 1, cleared unlock
- * bitsets and per-course flags, courses 0 and 6 unlocked, EXP 0.
- */
 void FileMenuResetProgress_8c01890a(void)
 {
     int i;
@@ -264,11 +230,7 @@ void FileMenuResetProgress_8c01890a(void)
     var_8c1bb8bc = 0;
 }
 
-/*
- * Full new-game reset: base progress (FileMenuResetProgress) plus the second
- * unlock bitset, letters, per-course new/free-run-sprite flags (courses 0 and
- * 6 marked new), and the 0x8c-0xc0 scratch fields.
- */
+/* FileMenuResetProgress_8c01890a, plus the fields only a new game clears. */
 void FileMenuResetNewGame_8c01895e(void)
 {
     int i;
@@ -295,7 +257,6 @@ void FileMenuResetNewGame_8c01895e(void)
     }
 }
 
-/* Restores all option defaults: control, view, and sound. */
 void FileMenuResetOptionDefaults_8c0189d2(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuResetOptionDefaults_8c0189d2\n"));
@@ -305,7 +266,6 @@ void FileMenuResetOptionDefaults_8c0189d2(void)
     FileMenuResetSoundDefaults_8c0188dc();
 }
 
-/* Pushes the saved 0xd4-0xd6 audio settings to the sound engine. */
 void FileMenuApplySoundSettings_8c0189fc(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuApplySoundSettings_8c0189fc\n"));
@@ -315,12 +275,6 @@ void FileMenuApplySoundSettings_8c0189fc(void)
     SndSetAdxVol_8c010972(var_progress_8c1ba1cc.voiceVolume_0xd6, 1);
 }
 
-/*
- * Builds the FILE SELECT card list: prepends a NEW FILE card (0xa) when the
- * selected VMU can take one (status 4, or status 6 with room), appends the
- * var_8c22600c loaded saves, and pads the remaining 12 slots with 0xb (empty).
- * var_8c226014 ends as the total visible card count.
- */
 STATIC void buildFileList_8c018a22(void)
 {
     int dst;
@@ -331,7 +285,7 @@ STATIC void buildFileList_8c018a22(void)
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVING_POSSIBLE ||
         (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS_NO_SPACE &&
          var_8c22600c < 10)) {
-        var_8c226018[0] = 10;
+        var_8c226018[0] = 10; // NEW FILE card
         var_8c226014 = 1;
     }
     dst = var_8c226014;
@@ -340,23 +294,20 @@ STATIC void buildFileList_8c018a22(void)
         dst++;
     }
     for (p = &var_8c226018[dst]; p < &var_8c226018[12]; p++) {
-        *p = 0xb;
+        *p = 0xb; // empty slot
     }
     var_8c226014 += var_8c22600c;
 
     LOG_DEBUG(("[FILE_MENU] buildFileList_8c018a22: built file list (%d cards)\n", var_8c226014));
 }
 
-/*
- * Draws a non-negative integer as digit sprites (glyph 15 + digit), right to
- * left from (x, y), stepping 10px left per digit. Priority -4.0.
- */
+/* Draws value right to left from (x, y). */
 STATIC void drawNumber_8c018aa2(int value, float x, float y)
 {
     do {
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00,
-            15 + value % 10,
+            15 + value % 10, // digit glyphs start at 15
             x,
             y,
             -4.0
@@ -365,13 +316,7 @@ STATIC void drawNumber_8c018aa2(int value, float x, float y)
     } while (value /= 10);
 }
 
-/*
- * Renders one FILE SELECT card at column x. Kind 0xa draws the NEW FILE card;
- * otherwise the loaded save at var_8c225fe0 is drawn: date (day digits + weekday
- * icon), the 3x3 course-icon grid, event/EXP counts, then rank markers -- rows of
- * up to five, consuming the rank-3, then rank-2, then rank-1 course tallies. The
- * card advances var_8c225fe0 by one 0x600 save image.
- */
+/* Draws the save at var_8c225fe0, then advances it to the next image. */
 STATIC void drawFileCard_8c018b4c(int kind, float x)
 {
     PlayerProgress *save;
@@ -440,14 +385,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
     var_8c225fe0 = (char *)var_8c225fe0 + 0x600;
 }
 
-/*
- * Draws the FILE SELECT screen: positions var_8c225fe0 at the first visible save
- * image (page var_8c226018[0]==0xa NEW-FILE column shifts the save index by one),
- * lays out up to a page of cards left to right (182px apart, x 55..419) via
- * drawFileCard, then the selection cursor (0x2f at the highlighted column), the
- * BACK/NEXT arrows (enabled sprites when a previous/next page exists), and the
- * static frame sprites.
- */
+/* A page shows three cards; field_0x3c is the index of the leftmost one. */
 STATIC void drawFileSelect_8c018d46(void)
 {
     int i;
@@ -491,12 +429,6 @@ STATIC void drawFileSelect_8c018d46(void)
     TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
 }
 
-/*
- * FILE SELECT screen task: the state machine driving card selection, the
- * new-file / load confirmation prompts, and the transition back to VM SELECT or
- * the main menu. Dispatches on menuState.state_0x18; most states redraw via
- * drawFileSelect on exit.
- */
 STATIC void fileSelectTask_8c018e7e(Task *task)
 {
     unsigned int press = var_peripherals_8c1ba35c[0].press;
@@ -675,16 +607,11 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
     }
 }
 
-/*
- * Enters the FILE SELECT screen: installs fileSelectTask on the caller's task.
- * When the selected VMU is mid-operation (status 5/6) it shows the "load in
- * progress" box, lights the VMS LCD, and kicks off the load; otherwise it builds
- * the file list. Fades in either way.
- */
 void FileMenuSwitchFromTask_8c019334(Task *task)
 {
     TaskSetAction_8c014b3e(task, fileSelectTask_8c018e7e);
     var_8c22600c = 0;
+    // VMU status 5/6 means there are saves to load before the list can be shown.
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 5 ||
         var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 6) {
         CHANGE_STATE(FILE_MENU_STATE_LOADING);

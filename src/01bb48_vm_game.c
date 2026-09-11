@@ -67,13 +67,12 @@ enum VmGameSaveResult {
     SAVE_ERR_FULL     = 17
 };
 
-/* Task private state for vmGameTask_8c01bfec: phase_0x08 is a prompt phase,
- * switched against DOWNLOAD_PHASE_* while State.state_0x18 == STATE_DOWNLOAD
- * or EXP_PHASE_* while STATE_EXP_LOAD; the two enums share the field since
- * only one applies at a time. */
 typedef struct {
     TaskAction action;
     void *state;
+    /* Prompt phase, switched against DOWNLOAD_PHASE_* while State.state_0x18
+     * == STATE_DOWNLOAD, or EXP_PHASE_* while STATE_EXP_LOAD. The two enums
+     * share this field since only one applies at a time. */
     int phase_0x08;
     void *field_0x0c;
     int field_0x10;
@@ -94,7 +93,6 @@ LcdAnim *init_lcdAnimTable_8c044e38[] = {
     NULL
 };
 
-/* Save-file names probed on each VMU. */
 char *init_vmuProbeNames_8c044e48[] = {
     "TOKYOBUS._VM",
     ""
@@ -126,9 +124,6 @@ ResourceGroupInfo init_vmGameResgrp_8c044e90 = {
  * ====================
  */
 
-/*
- * Advances the VMU LCD animation. Pass NULL to clear the LCD.
- */
 STATIC void advanceLcdAnim_8c01bb48(LcdAnim *anim, int slot)
 {
     unsigned char frameCount;
@@ -148,6 +143,7 @@ STATIC void advanceLcdAnim_8c01bb48(LcdAnim *anim, int slot)
     if (!pdVmsLcdIsReady(slot))
         return;
 
+    /* Pass NULL to clear the LCD. */
     if (anim == NULL) {
         memset(var_lcdClearBuf_8c2260d4, 0, 0xc0);
         pdVmsLcdWrite1(slot, var_lcdClearBuf_8c2260d4);
@@ -173,14 +169,11 @@ STATIC void advanceLcdAnim_8c01bb48(LcdAnim *anim, int slot)
     }
 }
 
-/*
- * Polls the backup operation and maps it to a phase code. anim is not used.
- */
+/* anim is not used. */
 STATIC int pollBupOp_8c01bc44(LcdAnim *anim, int drive)
 {
     int stat;
 
-    // Wait for the operation to finish
     while (1) {
         int op;
         const BACKUPINFO *info = BupGetInfo_8c014bba(drive);
@@ -361,8 +354,7 @@ STATIC void drawSelectScreen_8c01be90(void)
 }
 
 /**
- * Initializes lerp towards the given slot and warns if a save operation is
- * pending.
+ * Starts a lerp toward the given slot; warns if a save is pending.
  */
 STATIC void selectSlot_8c01bf2a(int slot)
 {
@@ -496,13 +488,11 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
 
         VmGameSetLcdSlot_8c01c8fc(0);
 
-        // Try to select the first connected VM slot.
         i = 0;
         while (var_vmuStatus_8c226048[i] == VMU_STATUS_NOT_CONNECTED) {
             i++;
         }
 
-        // If we reached the no-save slot, no VM is connected.
         if (var_vmuStatus_8c226048[i] == VMU_STATUS_PROCEED_WITHOUT_SAVING) {
             m->state_0x18 = STATE_SELECT_INCOMPATIBLE;
             ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_SET_PLEASE);
@@ -513,7 +503,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
         if (var_vmuStatus_8c226048[slot] == VMU_STATUS_NOT_CONNECTED) {
             // Previously-selected slot got unplugged. Re-anchor on the first
             // connected slot and treat it like a cursor move, skipping the
-            // directional-input handling below entirely.
+            // directional-input handling below.
             slot = 0;
             while (var_vmuStatus_8c226048[slot] == VMU_STATUS_NOT_CONNECTED) {
                 slot++;
@@ -963,12 +953,10 @@ void VmGameResetLcdAnims_8c01c8dc(void)
     var_lcdAnimActive_8c2260a8 = 0;
 }
 
-/**
- * Pass -1 to clear the LCD slot.
- */
 void VmGameSetLcdSlot_8c01c8fc(int slot)
 {
     var_lcdSlot_8c2263a0 = slot;
+    /* Pass -1 to clear the LCD slot. */
     if (slot == -1) {
         advanceLcdAnim_8c01bb48(0, 0);
     }

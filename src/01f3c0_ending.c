@@ -112,8 +112,6 @@ STATIC void creditsTask_8c01f658(void);
  * ====================
  */
 
-/* Tallies each of the 9 courses' badge tier and picks the ending's dialog
- * tier accordingly. */
 STATIC void selectEndingDialog_8c01f3c0(void)
 {
     int i;
@@ -150,7 +148,7 @@ STATIC void selectEndingDialog_8c01f3c0(void)
 
 /* Per-frame easing for the credits header sprite and its draw. Reuses
  * MenuState.pos.title (busX/flagY) as the header's x/y and
- * cursorVelocity_0x30 as its x/y velocity: subState_0x1c drives a simple
+ * cursorVelocity_0x30 as its x/y velocity: subState_0x1c drives a
  * grow-then-shrink vertical bounce (0 = growing, 1 = shrinking), while the
  * x position bounces between 0 and 90 by negating its velocity at the
  * limits. Also redraws the instructor portrait and resets the background
@@ -240,11 +238,6 @@ STATIC int scrollCreditsText_8c01f50e(void)
     return TxtDrawTextbox_8c0155e0((TextBox *) var_messageTextBoxB_8c1bc408, var_menuState_8c1bc7a8.field_0x58);
 }
 
-/* Per-frame ending state machine, pushed as a Task by EndingStart_8c01f954.
- * Drives: waiting for route assets, fading in, the pass/fail instructor
- * dialog, fading out, opening the credits textboxes, scrolling the
- * credits, holding on the last line, then fading out to either the title
- * screen or the failed-run results (depending on var_selectedVm_8c1ba34c). */
 STATIC void creditsTask_8c01f658(void)
 {
     switch (var_menuState_8c1bc7a8.state_0x18) {
@@ -360,9 +353,9 @@ STATIC void creditsTask_8c01f658(void)
 
 /* Entry point, called once the player finishes their final course (see the
  * var_progress_8c1ba1cc.days_0x00 > 30 checks at both call sites). Picks the
- * ending dialog tier, seeds the instructor sprite from it, kicks the
+ * ending dialog tier, seeds the instructor sprite from it, starts the
  * "did you pass?" input handling, and pushes GameTask_8c012f44 (the
- * underlying gameplay task, kept running for the driving-scene backdrop)
+ * gameplay task, kept running for the driving-scene backdrop)
  * and creditsTask_8c01f658 (the ending state machine) as Tasks. */
 void EndingStart_8c01f954(void)
 {

@@ -304,7 +304,7 @@ STATIC void extendDict_8c02f740(Sint16 *symbols, Sint16 count, Sint16 parentCode
 /* Writes one code to the bitstream: a literal byte (control bit 0 + 8 bits)
  * if code < 0x100, otherwise (control bit 1 + an escalating-width value,
  * code - 0x100) after growing var_8c235c7c to match the current dictionary
- * size threshold -- the write-side mirror of ReplayCodecReadCode. */
+ * size threshold -- the write-side mirror of readCode_8c02f892. */
 STATIC void writeCode_8c02f824(Sint32 code, Uint8 **dest)
 {
     Uint8 *destPtr;
@@ -366,7 +366,7 @@ STATIC Sint32 readCode_8c02f892(Uint8 **src, Uint32 limit, Uint32 *countPtr)
 
 /* LZW-encodes `size` bytes from `src` into **dest (advancing it): a 4-byte
  * size header, then one code per longest-matching dictionary run, extending
- * the dictionary (ReplayCodecExtendDict) after each run and promoting
+ * the dictionary (extendDict_8c02f740) after each run and promoting
  * reused multi-byte codes to the front of the recency list as they're
  * matched. Finishes with a 7-bit pad flush. */
 void ReplayCodecPack_8c02f934(void *src, void **dest, Uint32 size)
@@ -436,7 +436,7 @@ void ReplayCodecPack_8c02f934(void *src, void **dest, Uint32 size)
  * by walking its dictionary parent chain (var_8c229bae) back to a literal
  * byte, writing the run into the tail of the var_8c235bb4 scratch buffer,
  * then copied forward to the output; the dictionary is extended
- * (ReplayCodecExtendDict) after each run, mirroring ReplayCodecPack. */
+ * (extendDict_8c02f740) after each run, mirroring ReplayCodecPack. */
 void ReplayCodecUnpack_8c02fa14(void *src, void **dest, Uint32 size)
 {
     Uint8 *destPtr;

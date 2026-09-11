@@ -272,7 +272,6 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 LOG_DEBUG(("[TITLE] State changed: 0X0B_BUS_SLIDE\n"));
                 var_menuState_8c1bc7a8.pos.title.busX_0x20 = 640;
 
-                /* Related to music */
                 SndProc_8c010cd6(0, 0);
             }
 
@@ -413,7 +412,6 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                     /* 8c015eb2 */
                     var_8c1bb8c4 = FALSE;
 
-                    /* Push menu task */
                     VmMenuSwitchFromTask_8c019e44(task);
                 }
 

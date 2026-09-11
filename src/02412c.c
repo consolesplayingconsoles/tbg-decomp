@@ -64,8 +64,8 @@ int BusLineAdvance_8c02412c(void)
     var_busState_8c1bb9d0.posX_0x0f4 = var_busState_8c1bb9d0.laneTargetX_0x0ec + dxN * var_busState_8c1bb9d0.laneOffset_0x2c4;
     var_busState_8c1bb9d0.posZ_0x0fc = var_busState_8c1bb9d0.laneTargetZ_0x0f0 + dzN * var_busState_8c1bb9d0.laneOffset_0x2c4;
 
-    /* acosf(dzN) as a 0..65536 angle unit, signed by dxN's sign (a signed
-     * atan2-style angle built from acos, matching the asm's FTRC + NEG). */
+    /* acosf(dzN) scaled to a 0..65536 angle unit, negated when dxN <= 0 --
+     * an atan2-style angle built from acos, matching the asm's FTRC + NEG. */
     angle = acosf(dzN);
     angleUnits = angle * 65536.0f / 6.283184051513672f;
     angleUnitsInt = (int)angleUnits;

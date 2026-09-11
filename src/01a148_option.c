@@ -32,9 +32,9 @@
  * these four; per-row edit screens (AUDIO) extend the EDIT range with sub-states.
  */
 enum OPTION_STATE {
-    OPTION_STATE_FADE_IN  = 0,   /* wait for the fade-in to finish */
-    OPTION_STATE_NAVIGATE = 1,   /* row navigation */
-    OPTION_STATE_EDIT     = 2,   /* editing the selected row */
+    OPTION_STATE_FADE_IN  = 0,
+    OPTION_STATE_NAVIGATE = 1,
+    OPTION_STATE_EDIT     = 2,
     OPTION_STATE_FADE_OUT = 3,   /* fade-out, then hand back to the top menu */
 };
 
@@ -43,15 +43,15 @@ enum OPTION_STATE {
  * ====================
  */
 
+/* SETTING per-row option counts: DIFFICULTY, DRIVE MODE, DEFAULT VIEW, VIBRATION,
+ * SCREEN ROLL. Each toggle wraps within its count. */
+STATIC char init_8c044de0[5] = { 3, 2, 4, 2, 2 };
+
 /*
  * KEY CONFIGURE sensitivity fill-bar (ACCEL/BRAKE) -- a yellow->red gradient quad.
  * drawSensitivityBar_8c01a42a moves the left edge x and sets the top/bottom y each
  * frame; the right edge (576.0), depth, and vertex colors are fixed here.
  */
-/* SETTING per-row option counts: DIFFICULTY, DRIVE MODE, DEFAULT VIEW, VIBRATION,
- * SCREEN ROLL. Each toggle wraps within its count. */
-STATIC char init_8c044de0[5] = { 3, 2, 4, 2, 2 };
-
 STATIC NJS_POLYGON_VTX init_8c044de8[4] = {
     {   0.0f, 0.0f, 0.8264462351799011f, ARGB(0xc4, 0xf4, 0xf4, 0x00) },
     {   0.0f, 0.0f, 0.8264462351799011f, ARGB(0xc4, 0xf4, 0xf4, 0x00) },
@@ -227,7 +227,7 @@ STATIC void cycleValue_8c01a3da(char *value, char count)
 /*
  * Draw the KEY CONFIGURE sensitivity fill-bar for `value` (0-0x80) at height `y`:
  * a gradient quad spanning [x, 576] x [y, y+20], where x grows with the value.
- * Returns x, the bar's left edge, so the caller can place the numeric readout.
+ * Returns x, the bar's left edge, used to place the numeric readout.
  */
 STATIC float drawSensitivityBar_8c01a42a(float y, unsigned char value)
 {
@@ -792,9 +792,9 @@ STATIC void topMenuTask_8c01b00a(Task *task)
 
 /*
  * Reinstall the current task as the OPTION top-menu task, cursor on `row`
- * (SETTING=0, KEY CONFIGURE=1, AUDIO=2). var_8c226074 is reset to point at
- * the SETTING toggles even though the top menu itself doesn't use it -- it's
- * SETTING's own setup (switchToSetting_8c01a3c0) that relies on it already being valid.
+ * (SETTING=0, KEY CONFIGURE=1, AUDIO=2). Resets var_8c226074 to point at the
+ * SETTING toggles; the top menu doesn't use it itself, but switchToSetting_8c01a3c0
+ * assumes it's already valid.
  */
 void OptionSwitchToTopMenu_8c01b122(Task *task, int row)
 {

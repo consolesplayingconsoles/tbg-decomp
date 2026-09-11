@@ -72,7 +72,7 @@ SeatPos init_seatPositions_8c04c3e4[31] = {
 
 /* Installed as a FadeCallback1 (via literal-pool pointer, both by
  * BusRiderSeatedTask_8c02d5ca and by the per-passenger task actions below); draws one
- * waiting-passenger/scripted-stop rider's sprite. arg0 is really a
+ * waiting-passenger/scripted-stop rider's sprite. arg0 is a
  * StopScheduleState* threaded through the int parameter (the same idiom as
  * StopDrawLightBegin_8c02d0fc/d146 in 02d06c). A stop index (the byte at *entry_0x00) out of
  * range, or whose asset slot has no texlist loaded yet, is skipped. */
@@ -106,7 +106,7 @@ STATIC void drawInterior_8c02d1f4(int arg0)
 
 /* Task action for a scripted-stop slot whose segment differs from the bus's
  * current one -- spawned immediately by StopSpawnInit_8c02d968 (no shuffle, no
- * countdown). Just registers the draw callback every frame; ignores task. */
+ * countdown). Registers the draw callback every frame; ignores task. */
 void BusRiderSeatedTask_8c02d5ca(Task *task, void *state)
 {
     FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
@@ -131,7 +131,7 @@ STATIC void setCountUpStep_8c02d5d8(void)
  * 1 always, from 02d968); walks it through the boarding animation via the
  * three door anchor points var_8c228928, var_8c228910 and var_8c22891c in
  * turn, claiming an empty scripted-stop slot once done so it continues as
- * an ordinary scripted rider, then just keeps re-registering the draw
+ * an ordinary scripted rider, then keeps re-registering the draw
  * callback in its terminal state (0). var_8c22895c gates whether each
  * phase's positioning work runs this frame (set up per-frame elsewhere in
  * the bus-stop subsystem; not owned by this unit). */
@@ -236,7 +236,7 @@ void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
  * Sibling of BusRiderBoardTask_8c02d21c: same shape (countdown, then walk three door
  * anchor points), but the anchor points, sound-gating route and terminal
  * behavior all differ -- this one frees itself once var_8c22895c fires in
- * its terminal state, rather than looping forever. */
+ * its terminal state, instead of looping forever. */
 void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
 {
     int mode = state->state_0x04;
@@ -314,11 +314,11 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
     var_8c228958 = 1;
 }
 
-/* Per-frame driver for the whole bus-stop passenger subsystem: pumps
+/* Per-frame driver for the bus-stop passenger subsystem: pumps
  * var_stopTaskGroup_8c2288f8's tasks, fades var_8c228960[0] (the bus
  * interior's own light level, separate from the anchor-point one in
- * 02d06c) in and out around the fade-arrival overlay, and eventually tears
- * the whole subsystem down and frees itself. Spawned once by StopSpawnInit_8c02d968
+ * 02d06c) in and out around the fade-arrival overlay, and tears the
+ * subsystem down and frees itself when done. Spawned once by StopSpawnInit_8c02d968
  * with a private 2-int state (field_0x00 the phase, field_0x04 a sub-phase
  * used only by phase 1); NOT the 0x38-byte StopScheduleState the other
  * task actions in this unit use. Every call re-registers this frame's
@@ -427,8 +427,6 @@ void BusRiderStopSceneTask_8c02d644(Task *task, BusRiderStopSceneState *state)
 
     case 5:
         if (var_8c2285c4[6] >= var_8c2285c4[5]) {
-            /* Tears the subsystem down and frees the task; never joins the
-             * shared TaskExecGroup_8c014b42/FadeCmdPushCall1 tail below. */
             BusStopFreeTaskGroup_8c02ca96();
             njReleaseTexture(var_interiorTexlist_8c1bc438);
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {

@@ -133,9 +133,8 @@ STATIC void drawHud_8c01fbac(int arg0) {
      * below, -1 when off); phase 1 (just departed) shows a fixed signal-
      * reminder icon (0x1e), still gated on the signal being on; phase 2
      * (approaching the next active stop) shows a fixed next-stop icon
-     * (0x1f) unconditionally -- the actual upcoming-stop HUD indicator.
-     * var_8c226454 is also read/advanced by BusStopUpdateArrival_8c02ce48
-     * (02c884). */
+     * (0x1f) unconditionally. var_8c226454 is also read/advanced by
+     * BusStopUpdateArrival_8c02ce48 (02c884). */
     if (var_stopPhase_8c2285e4 == 0 || var_stopPhase_8c2285e4 == 4) {
         if (var_8c226450 != -1 && (60 < (Sint32)var_8c226454 || (var_8c226454 & 6) != 0)) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, var_8c226450, 0.0f, 0.0f, -1.2f);
@@ -228,9 +227,6 @@ STATIC void drawHud_8c01fbac(int arg0) {
     njCalcPoint(&var_8c1bc46c, (NJS_POINT3 *)&init_8c045414[24], (NJS_POINT3 *)&var_8c226478[2]);
     njDrawPolygon((NJS_POLYGON_VTX *)var_8c226478, 3, 0);
 
-    /* Speed readout (var_busState_8c1bb9d0.speed_0x27c converted to a
-     * display unit) plus the two elapsed/remaining timers, split out to
-     * drawSpeedAndTimers_8c01fe84 -- see that function for the digit layout. */
     speed = (Sint32)((var_busState_8c1bb9d0.speed_0x27c * 108000.0f) / 1000.0f);
     drawSpeedAndTimers_8c01fe84(speed);
 }
@@ -240,12 +236,12 @@ STATIC void drawHud_8c01fbac(int arg0) {
  * to it anywhere in the tree (see drawHud_8c01fbac). Draws the 2-digit speed
  * value (its sign discarded) and the two elapsed-time readouts.
  *
- * No standalone test file: the asm label has no real prologue of its own
+ * No standalone test file: the asm label has no prologue of its own
  * (it inherits drawHud_8c01fbac's), so a direct call in the .src object reads
  * its argument from a stale R9 instead of R4 and its epilogue restores an
  * unestablished stack frame -- there is no way to invoke it in isolation
  * against that object. drawHud_8c01fbac's own tests exercise this function's
- * real behavior in both objects: as a genuine call in the C object, and
+ * behavior in both objects: as a genuine call in the C object, and
  * (since the .src object can't have it mocked away either) via inline
  * assertions in that same file's assertSpeedTail() for the .src object. */
 STATIC void drawSpeedAndTimers_8c01fe84(Sint32 speed) {

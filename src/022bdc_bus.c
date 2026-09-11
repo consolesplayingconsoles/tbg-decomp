@@ -151,7 +151,7 @@ void BusTask_8c022bdc(Task *task, void *state)
     } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 2) {
         /* Knockback/reverse: slide along the collision-knockback direction
          * (dir_x/dir_z), decelerating to a stop, then resume driving (or
-         * braking, if the run is basically over). */
+         * braking, if the run is over). */
         var_busState_8c1bb9d0.posX_0x0f4 += prevSpeed * var_busState_8c1bb9d0.dir_x_0x29c;
         var_busState_8c1bb9d0.posZ_0x0fc += prevSpeed * var_busState_8c1bb9d0.dir_z_0x2a0;
         var_busState_8c1bb9d0.posHistory_0x100[0].x += prevSpeed * var_busState_8c1bb9d0.dir_x2_0x2ac;
@@ -281,8 +281,6 @@ void BusTask_8c022bdc(Task *task, void *state)
     var_busState_8c1bb9d0.distance_traveled_0x070 -= (int)(var_busState_8c1bb9d0.speed_0x27c * 65536.0f);
     var_busState_8c1bb9d0.ang_0x074 = var_busState_8c1bb9d0.ang_0x258;
 
-    /* Shift the 4-entry acceleration history left by one, summing the three
-     * carried-over samples, then append the new sample and scale to acc_0x078. */
     {
         float sum = 0.0f;
 

@@ -17,11 +17,11 @@
 /* See 020214.h. */
 void DriveCueTask_8c020214(Task *task, void *state)
 {
-    /* Mirrors R4 as the asm's stopAnnounceState_0x08 dispatch and the final "near stop
-     * marker" check actually use it: seeded from nearStopLatch_0x0c right before
-     * the switch below (a delay-slot load that runs no matter which case is
-     * taken), then only ever updated again by case 0/2's own sdMidiPlay
-     * calls or by the final block's own route/segment match. */
+    /* Mirrors R4, which the asm's stopAnnounceState_0x08 dispatch and the final
+     * "near stop marker" check both read: seeded from nearStopLatch_0x0c right
+     * before the switch below (a delay-slot load, so it runs no matter which
+     * case is taken), then updated only by case 0/2's own sdMidiPlay calls or
+     * by the final block's own route/segment match. */
     int nearFlag;
 
     (void)state;
@@ -71,11 +71,10 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
     var_8c2264b8.firstChimeArmed_0x18 = 0;
 
-    /* SH4 quirk: the asm's dispatch on stopAnnounceState_0x08 loads nearStopLatch_0x0c into R4
-     * in the delay slot of its very first branch test, which -- being a
-     * delay slot -- executes UNCONDITIONALLY, regardless of which case is
-     * actually taken. So nearFlag always becomes nearStopLatch_0x0c's value here,
-     * before the switch even runs. */
+    /* SH4 quirk: the asm's dispatch on stopAnnounceState_0x08 loads nearStopLatch_0x0c
+     * into R4 in the delay slot of its first branch test, so it runs regardless
+     * of which case is taken -- nearFlag always becomes nearStopLatch_0x0c's
+     * value here, before the switch even runs. */
     nearFlag = var_8c2264b8.nearStopLatch_0x0c;
 
     switch (var_8c2264b8.stopAnnounceState_0x08) {
@@ -173,10 +172,10 @@ void DriveCueTask_8c020214(Task *task, void *state)
         break;
     }
 
-    /* Unconditional reset (a delay slot that runs either way): whatever
-     * switch2 left nearFlag as is fully discarded here. Below, mirror-view
-     * level gates the check at all, and route/segment match is the only
-     * way nearFlag becomes 1. */
+    /* Unconditional reset (a delay slot that runs either way): discards
+     * whatever the switch above left in nearFlag. The camera's mirror-view
+     * level below gates whether the check runs at all; a route/segment
+     * match is the only way nearFlag becomes 1. */
     nearFlag = 0;
     if (var_cameraMode_8c227d9c >= 2) {
         int prevSeg = var_prevStopSegment_8c22870c;

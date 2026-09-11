@@ -112,7 +112,7 @@ typedef struct {
     /* 4 scratch ground-probe results. spawnEntry_8c0272b8 clears each one's
      * vertexIds_0x08/count_0x0c (leaving attr_0x00/polyIdSlot_0x04
      * untouched -- real asm behavior). Only the first 3 (0x190/0x1a0/0x1b0)
-     * are confirmed consumers: per 027958.h/BusDrawPlaceEntity_8c027c3c, which fills them
+     * have confirmed consumers: per 027958.h/BusDrawPlaceEntity_8c027c3c, which fills them
      * through probeFn_0x2c8's probe callback and interpolates posY_0xf8/
      * probeSideAY_0x11c/probeSideBY_0x128 from them; their .attr_0x00 words are read as
      * a "probe already valid" gate by TrafficDriveDecoration_8c02656a,
@@ -144,8 +144,8 @@ typedef struct {
      * 0x288->0x284, 0x28c->0x288, 0x28c unchanged) every frame by
      * TrafficDriveVehicle_8c025b98's shared tail, which sums the 3 shifted-
      * out slots plus this frame's speed delta into the heading value passed
-     * to BusDrawPlaceEntity_8c027c3c. Was 2 Uint32 + 8 bytes of padding; all 4 slots are
-     * float (was Uint32/Uint32/padding, wrong -- see that function). */
+     * to BusDrawPlaceEntity_8c027c3c. All 4 slots are float; previously typed
+     * as 2 Uint32 fields plus 8 bytes of padding -- see that function. */
     float field_0x280[4];
     float field_0x290;
     Uint8 padding_0x294[0x8];

@@ -14,13 +14,14 @@ float GeomDistanceXZ_8c02081c(void *a, void *b)
 }
 
 /* Separating-axis overlap test between two convex quads (4 NJS_POINT3s
- * each, x/z only -- y is unused). Gated by a coarse Y-difference check
- * between the quads' second point (index 1) before testing either
- * direction (a's vertices against b's edges, then b's against a's). */
+ * each, x/z only -- y is unused). */
 Bool GeomQuadOverlap_8c020842(NJS_POINT3 *a, NJS_POINT3 *b)
 {
     Sint32 i, j;
 
+    /* Coarse Y check on the quads' second point (index 1) before the real
+     * test in both directions (a's vertices against b's edges, then b's
+     * against a's). */
     if (a[1].y - b[1].y > 5.0f) {
         return FALSE;
     }

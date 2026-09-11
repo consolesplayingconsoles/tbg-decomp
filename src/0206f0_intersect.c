@@ -40,10 +40,10 @@ int IntersectSegments_8c0206f0(float *a0, float *a1, float *b0, float *b1, float
             bb = b0[1] - mb * b0[0];
             x = (ba - bb) / denom;
 
-            /* Original bug, preserved: the compiler evaluates y from
-             * whatever float already sits at out[0] -- normally stale
-             * data from a previous call, since every caller reuses one
-             * scratch point -- instead of the x just computed above. */
+            /* Original bug, preserved: y is computed from whatever float
+             * already sits at out[0] -- stale data from a previous call,
+             * since every caller reuses one scratch point -- rather than
+             * the x just computed above. */
             y = out[0] * ma + ba;
         }
     }

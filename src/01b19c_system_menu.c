@@ -29,7 +29,7 @@
 /* Outer state machine, held in menuState.state_0x18. */
 typedef enum SaveState {
     SAVE_STATE_WAIT_PVM       = 0, /* wait for route PVM, then free asset queues */
-    SAVE_STATE_FADE_IN        = 1, /* wait for the fade-in to finish */
+    SAVE_STATE_FADE_IN        = 1,
     SAVE_STATE_TOP_MENU       = 2, /* load / save / back / quit selection */
     SAVE_STATE_LOAD           = 3, /* load: confirm, then read the VMU */
     SAVE_STATE_LOAD_FAILED    = 4, /* corrupt/incompatible save notice */
@@ -66,7 +66,6 @@ STATIC void updateVmuIconText_8c01b206(void);
  * ====================
  */
 
-/* Restore the runtime session values from a just-loaded save. */
 void SystemMenuApplyLoadedProgress_8c01b19c(void)
 {
     var_8c1bb8b8 = var_progress_8c1ba1cc.introDialogQueued_0xd8;
@@ -112,8 +111,6 @@ STATIC void updateVmuIconText_8c01b206(void)
     writeDecimalDigits_8c01b1c0(&var_8c226098[9], var_exp_8c1ba25c);
 }
 
-/* Stage the session values into the progress struct, build the VMU backup
- * file image around it, and write it to the selected VMU. */
 void SystemMenuWriteToVmu_8c01b26c(void)
 {
     int size;
@@ -186,7 +183,6 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             ObjectsSwapMessageBoxFor_8c02aefc("");
         }
         if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) == 0) {
-            /* A not pressed */
             if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) == 0) {
                 break;
             }

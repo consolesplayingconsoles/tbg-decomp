@@ -180,12 +180,12 @@ STATIC int init_8c04c330[] = {
 };
 
 /* Indexed by the local penalty-type id passed as adjust_8c02b464's msgSet
- * (0-33, e.g. the 0 in adjust_8c02b464(0, -200) below); each entry points to
- * a variable-length {count, id...} list (see init_8c04bef0 etc above) of
- * HUD banner glyph ids (drawMsgGlyphRow_8c02b2f0, 02b2f0.c) -- NOT
+ * (0-33, e.g. the 0 in adjust_8c02b464(0, -200) below). Each entry points to
+ * a variable-length {count, id...} list (see init_8c04bef0 etc above) of HUD
+ * banner glyph ids (drawMsgGlyphRow_8c02b2f0, 02b2f0.c) -- not
  * InstructorLine/INSTR_* ids, a different id space. The practice-mode
- * results screen separately maps this same msgSet id to an actual INSTR_*
- * dialog id via init_penaltyMsgSetInstr_8c045208 (01e27c_practice_menu.c). */
+ * results screen maps this same msgSet id to an INSTR_* dialog id via
+ * init_penaltyMsgSetInstr_8c045208 (01e27c_practice_menu.c). */
 STATIC int *init_8c04c35c[] = {
     init_8c04bef0, init_8c04bf0c, init_8c04bf34, init_8c04bf5c,
     init_8c04bf7c, init_8c04bf9c, init_8c04bfb0, init_8c04bfd4,
@@ -203,20 +203,13 @@ STATIC int *init_8c04c35c[] = {
  * ====================
  */
 
-/* Adjusts the run's driver points (clamped to [0, var_8c2285d4]) and, unless
- * msgSet is -1, queues a driver-comment banner: picks the {count, ids...}
- * list at init_8c04c35c[msgSet], plays a praise/scold jingle depending on
- * sign, and pushes it to the front of var_driveMsgQueue_8c228564, shifting
- * the other 3 pending slots back (the oldest one is dropped).
- *
- * Also tracks the single worst penalty of the run (var_8c1bb8ec/var_8c1bb8f0)
- * and how many penalty events occurred (var_8c1bb8f4), for the results
- * screen. */
 STATIC void adjust_8c02b464(int msgSet, int delta) {
     if (var_playMode_8c1bb8d0 == 2) {
         return;
     }
 
+    /* var_8c1bb8ec/var_8c1bb8f0 track the run's single worst penalty and
+     * var_8c1bb8f4 its penalty count, for the results screen. */
     if (delta < 0) {
         var_8c1bb8f4 = var_8c1bb8f4 + 1;
     } else if (var_8c1ba290[0] == 2 && var_playMode_8c1bb8d0 != 1) {
@@ -261,9 +254,6 @@ STATIC void adjust_8c02b464(int msgSet, int delta) {
     }
 }
 
-/* Arms one offense type's cooldown (var_8c228690/694/698/69c/6a0), resetting
- * all 5 to ready (1) first. Types 1-3 additionally clear var_8c2285fc; types
- * 4-5 (and any other value) return without touching it. */
 STATIC void armCooldowns_8c02b578(int type) {
     var_8c228690 = 1;
     var_8c228694 = 1;
@@ -294,19 +284,6 @@ STATIC void armCooldowns_8c02b578(int type) {
     var_8c2285fc[0] = 0;
 }
 
-/* Reacts to the player bus bumping a pedestrian/vehicle: if the collision
- * queue (CollideQueueTest_8c02e4ac) already flagged a serious hit this
- * frame, applies a flat penalty and locks out further handling here. Else,
- * looks up the vehicle/pedestrian actually being bumped (BusCollideFindHit_8c02e2dc);
- * if the player's bus isn't in the "driving" state (bus_state_0x2b4 == 1)
- * or nothing is found, does nothing.
- *
- * Otherwise, knocks both vehicles apart along the line between them (scaled
- * by the OTHER's speed_0x27c, forced to at least var_8c22866c + 0.3 -- see
- * BusDriveStop_8c023bce), vibrates the pad harder the faster the player was going,
- * and -- only once the type-1 cooldown has actually expired (var_8c228690
- * counted past 0 to negative; see armCooldowns_8c02b578) --
- * grades a driver-points penalty by the player's speed and re-arms it. */
 STATIC void handleBump_8c02b6d4(void) {
     TrafficEntry *other;
     float dx, dz, dist;
@@ -335,6 +312,7 @@ STATIC void handleBump_8c02b6d4(void) {
     dz = other->posZ_0xfc - var_8c1bbd9c->posZ_0x0fc;
     dist = njSqrt(dx * dx + dz * dz);
 
+    /* Speed floor of var_8c22866c + 0.3 -- see BusDriveStop_8c023bce. */
     if (other->isDecoration_0x2e4 == 0) {
         other->driveState_0x2b4 = 1;
         other->speed_0x27c = var_8c22866c + 0.3f;
@@ -366,6 +344,8 @@ STATIC void handleBump_8c02b6d4(void) {
         VibStart_8c010f7a(6);
     }
 
+    /* var_8c228690 counts past 0 to negative once the type-1 cooldown has
+     * expired; see armCooldowns_8c02b578. */
     if (var_8c228690 >= 0) {
         return;
     }
@@ -381,11 +361,8 @@ STATIC void handleBump_8c02b6d4(void) {
     armCooldowns_8c02b578(1);
 }
 
-/* Grades a driver-points penalty from var_8c228660's bits 0x2/0x4 (set by
- * busDriveDecelerate_8c023bea in 023938_bus_drive): neither set is a no-op,
- * either alone is a mild penalty, both together the worst. Arms the type-1
- * cooldown whenever a penalty was applied. */
 STATIC void handleFlags_8c02b7ea(void) {
+    /* Bits 0x2/0x4 are set by busDriveDecelerate_8c023bea (023938_bus_drive). */
     unsigned int flags = var_8c228660 & 6;
 
     if (flags == 0) {
@@ -403,8 +380,6 @@ STATIC void handleFlags_8c02b7ea(void) {
     armCooldowns_8c02b578(1);
 }
 
-/* Grades a driver-points penalty when var_8c228680 signals a specific
- * offense code. */
 STATIC void FUN_8c02b864(void) {
     if (var_8c228680 == 0x30000) {
         adjust_8c02b464(8, -200); /* -> INSTR_OFF_COURSE_MEDIUM */
@@ -413,9 +388,6 @@ STATIC void FUN_8c02b864(void) {
     }
 }
 
-/* Grades a driver-points penalty when var_8c228680 is nonzero and
- * var_8c22868c != 2, splitting the penalty by offense code 0x20000 vs any
- * other nonzero value. */
 STATIC void FUN_8c02b886(void) {
     if (var_8c228680 != 0 && var_8c22868c != 2) {
         if (var_8c228680 == 0x20000) {
@@ -474,8 +446,8 @@ STATIC void FUN_8c02b8b8(void) {
  * threshold picked from var_8c1bbd1c's turn-direction bits. */
 STATIC void FUN_8c02b986(void) {
     /* 1 if the checked side is >= var_8c22867c, 2 if it's less -- mirrors
-     * which of the two comparisons below actually ran (the other is
-     * short-circuited whenever the first is an exact match). */
+     * which of the two comparisons below ran (the other is short-circuited
+     * whenever the first is an exact match). */
     int cmpDir;
     int threshold;
     int *repeatCount = &var_8c2285c4[11]; /* 0x2285f0, no export of its own */
@@ -628,7 +600,7 @@ STATIC void FUN_8c02bb1c(void) {
  * steering angle out of range); tracks idle time at a stop; polls
  * BusStopUpdateArrival_8c02ce48; grades/awards points around the driver
  * message box and mirror view; grades a wrong-substate-while-moving
- * penalty; and finally advances the run's pass/fail progress counter
+ * penalty; and advances the run's pass/fail progress counter
  * (var_8c2285dc), applying a further silent penalty periodically once it
  * runs long past var_8c2285d8. */
 STATIC void FUN_8c02bcd8(void) {
@@ -806,11 +778,11 @@ STATIC void FUN_8c02bcd8(void) {
  * practice-lesson id when practicing, else by route) and reports whether
  * var_nextStopSegment_8c228710 has reached it yet. */
 int FUN_8c02c586(void) {
-    /* Ghidra shows an incoming parameter used as the threshold default, but
-     * no real caller passes one (every call site here and in 02c884 calls
-     * with zero args) -- every reachable combination of playMode/route/
-     * lesson id below overwrites it before use, so the "incoming" value is
-     * dead. */
+    /* Ghidra decompiles an incoming parameter as the threshold default, but
+     * no real caller passes one -- every call site here and in 02c884
+     * calls with zero args, and every reachable combination of
+     * playMode/route/lesson id below overwrites it before use. The
+     * "incoming" value is dead code. */
     int threshold = 0;
 
     if (var_playMode_8c1bb8d0 == 1) {
@@ -836,9 +808,9 @@ int FUN_8c02c586(void) {
 /* TaskAction installed by FUN_8c02c738: waits a beat, fades the screen out,
  * then (once the fade finishes) frees session assets and routes to the
  * post-drive screen appropriate for the current mode. Uses task->field_0x08
- * as its own little state machine (0 = waiting, 1 = counting to the fade,
- * 2 = fading out) and field_0x0c as the counter for state 1. Always ends by
- * drawing a mark sprite.
+ * as a state machine (0 = waiting, 1 = counting to the fade, 2 = fading
+ * out) and field_0x0c as the counter for state 1. Always ends by drawing a
+ * mark sprite.
  * Untested against src.obj beyond the state transitions themselves. */
 STATIC void FUN_8c02c69a(Task *task, void *state) {
     int *phase = (int *)&task->field_0x08;
@@ -902,9 +874,9 @@ STATIC void FUN_8c02c76a(void) {
 /* Installed as var_fadeCompleteCallback_8c22656c for a drive that ended
  * with the run's points still not enough to pass a required next stop
  * (FUN_8c02c586 == 0): either re-plays the stop-arrival sequence, or (once
- * that check finally passes) tears down the drive's tasks and reloads the
- * route segment; when it does pass, routes to the results/course-return
- * flow like FUN_8c02c69a's state 2. */
+ * that check passes) tears down the drive's tasks and reloads the route
+ * segment; when it does pass, routes to the results/course-return flow
+ * like FUN_8c02c69a's state 2. */
 STATIC void FUN_8c02c624(void) {
     if (FUN_8c02c586() == 0) {
         ObjectsFreePedestrianGroups_8c0297da();
@@ -980,13 +952,13 @@ void FUN_8c02c784(void) {
  * happens next (a course drive vs. a free-run/practice one).
  *
  * Phase 3: grades a couple of drive-ending-specific checks (var_8c2285c4[9],
- * no export of its own, a 0/1/2 quality grade set elsewhere) then also
- * moves to phase 4, picking one of three fade-complete callbacks depending
- * on mode and whether the run still needs another stop (FUN_8c02c586).
+ * no export of its own, a 0/1/2 quality grade set elsewhere), then moves to
+ * phase 4, picking one of three fade-complete callbacks depending on mode
+ * and whether the run still needs another stop (FUN_8c02c586).
  *
  * Phase 4: counts down a fixed hold (var_8c2285c4[2], no export of its
  * own); once elapsed and the music has finished fading, stops all sound/
- * vibration, moves to phase 5, and requests the actual fade-in transition.
+ * vibration, moves to phase 5, and requests the fade-in transition.
  *
  * Phases 2 and 3 end by requesting an ADX volume fade-out; every phase
  * except 0 ticks the driver-comment message queue's reveal/hold timers and

@@ -28,17 +28,14 @@ typedef struct {
 
 /* 24-byte stride, same as GroundPoly, but attr/flag fields sit at different
  * offsets and there is no plane normal -- this grid is only ever used for
- * flat (x, z) containment tests, never height interpolation. field_0x0c and
- * field_0x14 are never read by any of this unit's functions; they are
- * copied out to the caller (through the pointer FUN_8c02e51c/FUN_8c02e69c
- * and friends return) verbatim alongside attr_0x08 and shapeFlag_0x10. */
+ * flat (x, z) containment tests, never height interpolation. */
 typedef struct {
     int vertexCount_0x00;
     int *vertexIds_0x04;
     int attr_0x08;          /* returned to the caller as &attr_0x08 on a hit */
-    int field_0x0c;
+    int field_0x0c;         /* never read; copied out to the caller verbatim */
     int shapeFlag_0x10;     /* 0 = convex (cross-product test), else concave (angle-sum test) */
-    int field_0x14;
+    int field_0x14;         /* never read; copied out to the caller verbatim */
 } JunctionPoly;
 
 typedef struct {
@@ -54,7 +51,7 @@ typedef struct {
 /* The result struct written by all four query functions below. Unlike
  * GroundQueryResult (020914_ground_query.h), there is no leading attr field
  * here -- the matched polygon's attr lives at &polys[*slot].attr_0x08
- * instead, which is what these functions return. count is the hit/miss
+ * instead, and that's what these functions return. count is the hit/miss
  * flag (0 = miss) and, on a hit, gates the track-vs-full-search branch on
  * the next call. */
 typedef struct {
@@ -66,7 +63,7 @@ typedef struct {
 #define CELL_SIZE 150.0f
 
 /* How far apart a candidate polygon's first-vertex height may be from the
- * query point's y and still be considered a match -- the *AtHeight variants'
+ * query point's y and still count as a match -- the *AtHeight variants'
  * filter, same tolerance as GroundProbeFindPolygonAtHeight_8c020fe4's. */
 #define HEIGHT_TOLERANCE 20.0f
 
@@ -79,8 +76,8 @@ typedef struct {
  * the grid selected by var_8c228b3c, writing the match into *out and
  * returning &polys[slot].attr_0x08 on a hit, NULL on a miss.
  *
- * *out already holding a previous match (out->count != 0) re-tests that
- * polygon first and only falls back to a full cell search on a miss --
+ * If *out already holds a previous match (out->count != 0), that polygon is
+ * re-tested first, falling back to a full cell search only on a miss --
  * same track-then-search shape as GroundProbeTrackPolygon_8c020b6c
  * (020b6c_ground_probe.c), except this polygon set is only ever tested the
  * convex way (cross-product walk); there is no concave/angle-sum path here. */
@@ -194,10 +191,10 @@ void *FUN_8c02e51c(float x, float y, float z, void *outParam)
 /* Height-filtered counterpart of FUN_8c02e51c: same (x, z) convex-only
  * containment test and the same track-then-search shape, but the full cell
  * search additionally rejects a candidate whose first vertex's y is more
- * than HEIGHT_TOLERANCE from the query point's y -- how an elevated road is
- * told apart from the surface street beneath it, same idea as
- * GroundProbeFindPolygonAtHeight_8c020fe4. The track (re-test) path does
- * not height-check -- same asymmetry as GroundProbeTrackPolygonAtHeight_8c021290. */
+ * than HEIGHT_TOLERANCE from the query point's y, so an elevated road can be
+ * told apart from the surface street beneath it -- same idea as
+ * GroundProbeFindPolygonAtHeight_8c020fe4. The track (re-test) path skips
+ * the height check -- same asymmetry as GroundProbeTrackPolygonAtHeight_8c021290. */
 void *FUN_8c02eab4(float x, float y, float z, void *outParam)
 {
     JunctionQueryResult *out = (JunctionQueryResult *)outParam;
@@ -306,7 +303,7 @@ void *FUN_8c02eab4(float x, float y, float z, void *outParam)
     return 0;
 }
 
-/* Same track-then-search shape as FUN_8c02e51c, but each candidate is now
+/* Same track-then-search shape as FUN_8c02e51c, but each candidate is
  * tested one of two ways, chosen by shapeFlag_0x10 (0 = convex, else
  * concave), just like GroundQueryFindPolygon_8c020914's attr-sign split. */
 void *FUN_8c02e69c(float x, float y, float z, void *outParam)

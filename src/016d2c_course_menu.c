@@ -164,12 +164,10 @@ int CourseMenuInterpolateCursor_8c016d2c()
             (var_menuState_8c1bc7a8.cursorVelocity_0x30.x >= 0)
             || (var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x > var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.x)
         ) {
-            // if (!(var_menuState_8c1bc7a8.cursorVelocity_0x30.x > 0)) {
             if (var_menuState_8c1bc7a8.cursorVelocity_0x30.x <= 0) {
                 return 0;
             }
 
-            // if (!(var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x > var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.x)) {
             if (var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x <= var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.x) {
                 return 0;
             }
@@ -181,7 +179,6 @@ int CourseMenuInterpolateCursor_8c016d2c()
             (var_menuState_8c1bc7a8.cursorVelocity_0x30.y >= 0)
             || (var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y > var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.y)
         ) {
-            // if (!(var_menuState_8c1bc7a8.cursorVelocity_0x30.y > 0)) {
             if (var_menuState_8c1bc7a8.cursorVelocity_0x30.y <= 0) {
                 return 0;
             }
@@ -246,7 +243,6 @@ void CourseMenuDrawDateAndExp_8c016ee6()
     float x;
     int days, sprite_id;
 
-    // Draw date
     days = var_progress_8c1ba1cc.days_0x00;
     if (days < 10) {
         x = 84.0;
@@ -682,7 +678,6 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
         }
 
         case COURSE_MENU_STATE_DIALOG: {
-            // Dialog still running
             if (var_instructorDialogActive_8c225fb4) break;
 
             if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
@@ -691,8 +686,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 for (row = 0; row < 3; row++) {
                     int col;
                     for (col = 0; col < 3; col++) {
-                        // We offset by 2 because the first two entries
-                        // of each row are not courses buttons.
+                        // Skip 2: the first two entries of each row are not course buttons.
                         init_courseMenuButtons_8c04442c[2 + row * 5 + col].unlocked_0x04 =
                             var_progress_8c1ba1cc.courses_0x44[row * 3 + col].unlocked_0x00;
                     }
@@ -708,7 +702,6 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 CHANGE_STATE(COURSE_MENU_STATE_IDLE);
                 ObjectsSwapMessageBoxFor_8c02aefc("");
             }
-            // Otherwise, start the next dialog
             else {
                 CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
                 if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
@@ -796,7 +789,6 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
         );
     }
 
-    // Draw instructor
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.instructorSprite_0x60,
@@ -835,7 +827,6 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
         }
 
         case COURSE_MENU_STATE_DIALOG: {
-            // Dialog still running
             if (var_instructorDialogActive_8c225fb4) break;
 
             if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
@@ -844,8 +835,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
                 for (row = 0; row < 3; row++) {
                     int col;
                     for (col = 0; col < 3; col++) {
-                        // We offset by 2 because the first two entries
-                        // of each row are not courses buttons.
+                        // Skip 2: the first two entries of each row are not course buttons.
                         init_courseMenuButtons_8c04442c[2 + row * 5 + col].unlocked_0x04 =
                             var_progress_8c1ba1cc.courses_0x44[row * 3 + col].unlocked_0x00;
                     }
@@ -861,7 +851,6 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
                 CHANGE_STATE(COURSE_MENU_STATE_IDLE);
                 ObjectsSwapMessageBoxFor_8c02aefc("");
             }
-            // Otherwise, start the next dialog
             else {
                 CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
                 if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
@@ -949,7 +938,6 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
         );
     }
 
-    // Draw instructor
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.instructorSprite_0x60,
@@ -984,10 +972,8 @@ STATIC void FUN_8c017d54(void)
     int row;
     int game_mode = var_gameMode_8c1bb8fc;
 
-    // Enable cursor
     var_menuState_8c1bc7a8.cursorVisible_0x48 = 1;
 
-    // Update cursor target/velocity if off-target
     cursorOffTarget_8c016dc6();
 
     // Snap current cursor position to its target
@@ -1024,7 +1010,6 @@ void CourseMenuSwitchFromTask_8c017e18(Task *task)
         buildFreeRunMenuDialogFlow_8c017a20();
     }
 
-    // Get instructor sprite from the first dialog entry
     var_menuState_8c1bc7a8.instructorSprite_0x60 =
         init_instructorDialogs_8c044c08[
             var_dialogQueue_8c225fbc[0]
@@ -1246,36 +1231,30 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                     // init is busy, just return early
                     return;
                 }
-                // Step 1: Initialize game systems
                 DebugMenuFreeSessionAssets_8c016182();
 
-                // Step 2: Get course index and check if unlocked
                 if (var_progress_8c1ba1cc.courses_0x44[courseIndex].everPlayed_0x02 == 0) {
-                    // Course not unlocked, mark it
                     var_firstClearOfCourse_8c1bb8e0 = 1;
                     var_progress_8c1ba1cc.courses_0x44[courseIndex].everPlayed_0x02 = 1;
                 } else {
                     var_firstClearOfCourse_8c1bb8e0 = 0;
                 }
 
-                // Step 3: Initialize various game state variables
                 var_eventCount_8c1bb8e8 = 0;
                 var_passengerCount_8c1bb8e4 = 0;
                 var_8c1bb8f0 = 0;
                 var_8c1bb8ec = 0x1d;
                 var_8c1bb8f4 = 0;
 
-                // Step 4: Copy progress data to two arrays (5 uint32 values each)
+                // Copy progress data to two arrays (5 uint32 values each)
                 for (i = 0; i < 5; i++) {
                     var_8c1ba2b8[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i];
                     var_8c1ba2cc[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i + 5];
                 }
 
-                // Step 5: Update courseId_0x50 by adding day-based lookup value
                 var_menuState_8c1bc7a8.courseId_0x50 += 
                     init_courseVariants_8c044d10[var_progress_8c1ba1cc.days_0x00 - 1];
 
-                // Step 6: Initialize game and push loading task
                 GamePushLoadingTask_8c013310(var_menuState_8c1bc7a8.courseId_0x50);
                 return;
             }
@@ -1309,7 +1288,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
         -4.0
     );
 
-    // 2) Draw confirm/cancel prompt (sprite id = field_0x38 + 2)
+    // Confirm/cancel prompt (sprite id = field_0x38 + 2)
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         var_menuState_8c1bc7a8.selected_0x38 + 2,
@@ -1318,7 +1297,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
         -4.0
     );
 
-    // 3) Foreground overlay
+    // Foreground overlay
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         0,
@@ -2017,7 +1996,6 @@ Uint8 init_courseVariants_8c044d10[30] = {
 
 // 3 courses -> 3 shifts -> hh, mm
 Uint8 init_routeInfoTime_8c044d2e[3 * 3 * 2] = {
-    // hh, mm
     12, 28,
     16, 52,
     20, 36,

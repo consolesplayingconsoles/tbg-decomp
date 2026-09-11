@@ -40,7 +40,6 @@ STATIC void resetStopState_8c02c884(void)
     var_8c2288d8.tanim = init_pedestrianTexAnims_8c04623c;
 }
 
-/* Returns the segment record for segmentIndex. */
 CourseSegment *BusStopGetSegment_8c02cd6a(int segmentIndex)
 {
     return &var_currentCourseConfig_8c18ad18->segments_0x08[segmentIndex];
@@ -55,7 +54,6 @@ STATIC void advanceStopSegment_8c02ccae(void)
     var_8c2285d8 = ((int *)var_currentCourseConfig_8c18ad18->ukn_0x0c)[var_prevStopSegment_8c22870c];
 }
 
-/* Returns the stop-area record for segmentIndex's segment. */
 StopAreaRecord *BusStopGetStopArea_8c02cd7a(int segmentIndex)
 {
     CourseSegment *seg = BusStopGetSegment_8c02cd6a(segmentIndex);

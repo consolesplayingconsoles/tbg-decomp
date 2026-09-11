@@ -59,7 +59,7 @@ void BusRiderStopSceneTask_8c02d644(Task *task, BusRiderStopSceneState *state);
 
 /* Task action spawned instead of the normal per-passenger tasks when
  * var_playMode_8c1bb8d0 == 1 (VM/replay mode) and course-restart flag
- * var_8c226410 bit 3 is clear -- just resets state on first run. */
+ * var_8c226410 bit 3 is clear -- resets state on first run. */
 void BusRiderSkipStopTask_8c02d8f0(Task *task, void *state);
 
 #endif /* _02D19C_H_ */

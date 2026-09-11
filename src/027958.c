@@ -286,8 +286,7 @@ void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float heading)
 }
 
 /* FadeCmdPushCall2_8c022420 callback for a type-1 TrafficSignal: draws
- * model_0xb8 through tlist_0xb4, showing frame frame_0x0c and hiding the
- * other two of frames_0x10 at the given matrix (multiplied onto identity). */
+ * model_0xb8/tlist_0xb4 at the given matrix (multiplied onto identity). */
 void BusDrawSignal_8c0281ac(int objArg, int matrixArg)
 {
     TrafficSignal *obj = (TrafficSignal *)objArg;
@@ -322,22 +321,19 @@ void BusDrawSignal_8c0281ac(int objArg, int matrixArg)
  * BusDrawUpdateModels_8c027958), then runs lightCoeffRow_0x0c4[0..4] -- the bus's copy of the
  * directional-light coefficient row -- through a 20-frame crossfade state
  * machine between the cached "off" row (var_8c1bbda8/var_8c1bbdc4) and "on"
- * row (var_8c1bbdb0/var_8c1bbdd0), gated by lightFadeGate_0x2dc (set elsewhere):
- * 0 = idle (fades in once lightFadeGate_0x2dc goes nonzero), 1 = fading in,
- * 2 = holding at "on" (fades out once lightFadeGate_0x2dc goes zero), 3 = fading
- * out. */
+ * row (var_8c1bbdb0/var_8c1bbdd0), gated by lightFadeGate_0x2dc (set elsewhere). */
 void BusDrawFadeLights_8c028022(BusState *bus)
 {
     bus->blinker_0x080 |= 0x18;
 
     switch (bus->lightFadeState_0x2d8) {
-    case 0:
+    case 0: /* idle: fades in once lightFadeGate_0x2dc goes nonzero */
         if (bus->lightFadeGate_0x2dc != 0) {
             bus->lightFadeState_0x2d8 = 1;
         }
         break;
 
-    case 1:
+    case 1: /* fading in */
         bus->lightCoeffRow_0x0c4[0] += var_8c1bbda0[0];
         if (bus->lightCoeffRow_0x0c4[0] >= var_8c1bbdb0[0]) {
             bus->lightCoeffRow_0x0c4[0] = var_8c1bbdb0[0];
@@ -354,13 +350,13 @@ void BusDrawFadeLights_8c028022(BusState *bus)
         }
         break;
 
-    case 2:
+    case 2: /* holding at "on": fades out once lightFadeGate_0x2dc goes zero */
         if (bus->lightFadeGate_0x2dc == 0) {
             bus->lightFadeState_0x2d8 = 3;
         }
         break;
 
-    case 3:
+    case 3: /* fading out */
         bus->lightCoeffRow_0x0c4[0] -= var_8c1bbda0[0];
         if (bus->lightCoeffRow_0x0c4[0] <= var_8c1bbda8[0]) {
             bus->lightCoeffRow_0x0c4[0] = var_8c1bbda8[0];

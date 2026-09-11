@@ -26,20 +26,18 @@
  * ====================
  */
 
-/* Task private state for trafficUpdateTask_8c0275d4, set up by TrafficInit_8c02769e:
- * counter_0x08 the current script record's threshold-comparison counter,
- * presetState_0x0c a tri-state flag (0 = no preset armed, 1 = initial-arm
- * suppresses spawnEntry_8c0272b8, 2 = latched) round-tripped through Task's
- * void* field_0x0c, queuedItem_0x18 the cursor into the active preset's
- * script record array. */
+/* Task private state for trafficUpdateTask_8c0275d4, set up by TrafficInit_8c02769e. */
 typedef struct {
     TaskAction action;
     void *state;
-    int counter_0x08;
+    int counter_0x08; /* the current script record's threshold-comparison counter */
+    /* a tri-state flag (0 = no preset armed, 1 = initial-arm suppresses
+     * spawnEntry_8c0272b8, 2 = latched) round-tripped through Task's void*
+     * field_0x0c */
     int presetState_0x0c;
     int field_0x10;
     int field_0x14;
-    TrafficPlacement *queuedItem_0x18;
+    TrafficPlacement *queuedItem_0x18; /* the cursor into the active preset's script record array */
     int field_0x1c;
 } TrafficUpdateTask;
 
@@ -59,8 +57,8 @@ STATIC Uint8 init_8c0460bc[] = {
  * field directly, and the .src still carries those labels -- but only
  * init_8c0460c8 is a real symbol ("from defines"; the others are marked "from
  * ghidra"), and the table is one contiguous 0x100 block ending exactly where
- * init_8c0461c8 begins. Grouped by record here, which is why the rows differ
- * from the .src's layout. Paired variants share dimensions. */
+ * init_8c0461c8 begins. Grouped by record here, unlike the .src's layout.
+ * Paired variants share dimensions. */
 STATIC float init_8c0460c8[16][4] = {
     { 2.42f, 1.67f, 0.65f, 3.0500002f }, /* 2do0 */
     { 2.42f, 1.67f, 0.65f, 3.0500002f }, /* 2do1 */
@@ -102,8 +100,6 @@ STATIC Uint8 init_8c04622c[] = {
  * ====================
  */
 
-/* Decodes a stage script into the entry's resolved-args array (offset 0x304),
- */
 void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script)
 {
     PathRecord **out;
@@ -120,10 +116,11 @@ void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script)
 }
 
 /* Runs one "spawn" or "place decoration" instruction of the entry's script
- * (opcodes 0 and 10 in the caller, FUN_8c027012): walks the path to the
- * entry's starting distance, resolves its position and heading, fills in
- * the vehicle's dimension/animation state from its variant table, and pushes
- * its driving task. entry+0x2f8 holds the script's own base pointer, so
+ * (opcodes 0 and 10 in the caller, TrafficRunEntryScript_8c027012): walks
+ * the path to the entry's starting distance, resolves its position and
+ * heading, fills in the vehicle's dimension/animation state from its
+ * variant table, and pushes its driving task. entry+0x2f8 holds the
+ * script's own base pointer, so
  * *entry->0x2f8 is the script's header word: 10 marks a fixed-angle static
  * decoration (traffic light, sign, ...) rather than a path-following
  * vehicle. entry+0x304 onward is itself an inline array of per-block path
@@ -289,15 +286,14 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
 /* Re-derives heading and the vehicle's 4 body-corner points after the entry
  * reaches a new waypoint (e+0x100/0x108): direction is (target - current)
  * normalized by its own length (njHypot, not the incoming float argument --
- * confirmed via dual-object test that the first parameter goes completely
- * unused by this function), matching the sin/dx=e+0x274, cos/dy=e+0x278
- * convention from initEntryState_8c026748. e+0x23c/0x240 place the
- * front/rear reference points along the new heading; e+0x248 (half-width)
+ * test confirms the first parameter is unused), matching the sin/dx=e+0x274,
+ * cos/dy=e+0x278 convention from initEntryState_8c026748. e+0x23c/0x240 place
+ * the front/rear reference points along the new heading; e+0x248 (half-width)
  * offsets those into the 4 corners at e+0x118/0x120/0x124/0x12c. The heading
  * angle (e+0x250) is njArcCos(dy) with its sign flipped when dx < 0 --
- * confirmed via test that acosf's argument is the original normalized dy,
- * not the half-width-scaled value that overwrites the same Ghidra SSA
- * variable just before the call.
+ * confirmed via test that acosf's argument is the original normalized dy, not
+ * the half-width-scaled value that overwrites the same Ghidra SSA variable
+ * just before the call.
  */
 void TrafficUpdateHeading_8c026bc4(float unused, TrafficEntry *entry)
 {
@@ -346,8 +342,7 @@ void TrafficUpdateHeading_8c026bc4(float unused, TrafficEntry *entry)
  * heading angle at entry+0x254 (acosf(dy), sign-flipped when the normalized
  * dx <= 0). Returns 1 when a containing record was found; 0 when the
  * segment run is exhausted (len==0 sentinel), in which case only the
- * segment pointer/distance fields are updated for the caller to supply the
- * next path block.
+ * segment pointer/distance fields are updated.
  */
 Sint32 TrafficAdvanceOnPath_8c026ca2(float unused, TrafficEntry *entry)
 {
@@ -421,17 +416,17 @@ void TrafficRelocatePlacementTable_8c026da4(void *handle)
 }
 
 /* Scans the global list of traffic entries starting at "other" (advanced via
- * TrafficPathScanNext_8c02f212, an accessor with no arguments -- the list cursor is
- * maintained elsewhere) looking for one whose path projection is ahead of
- * "entry" (own current entry), to derive a speed limit "entry" must obey to
- * avoid it. var_8c1bbd9c is a sentinel pointer value standing in for the
- * player's bus in this list; when "other" equals it, the check instead reads
- * the bus's own waypoint fields directly (bus has no ordinary entry struct)
- * and the scan always stops there. Returns 9999.0f (no constraint) unless a
- * blocking entry lowers it. As a side effect, an entry found already ahead of
- * "entry" (0x2c0 <= entry's own 0x2c0) has its own 0x418 field refreshed with
- * "entry"'s current speed margin (own use unclear here; initEntryState_8c026748
- * initializes the same field to 9999.0f).
+ * TrafficPathScanNext_8c02f212, an accessor with no arguments -- the list
+ * cursor is maintained elsewhere), looking for one whose path projection is
+ * ahead of "entry", to derive the speed limit "entry" must obey to avoid it.
+ * var_8c1bbd9c is a sentinel pointer standing in for the player's bus in this
+ * list; when "other" equals it, the check reads the bus's own waypoint fields
+ * directly instead (bus has no ordinary entry struct), and the scan always
+ * stops there. Returns 9999.0f (no constraint) unless a blocking entry lowers
+ * it. As a side effect, an entry already ahead of "entry" (0x2c0 <= entry's
+ * own 0x2c0) gets its 0x418 field refreshed with "entry"'s current speed
+ * margin -- use unclear; initEntryState_8c026748 initializes the same field
+ * to 9999.0f.
  */
 float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *other)
 {
@@ -477,8 +472,8 @@ float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *oth
 
 /* Rebuilds the "traffic signal frame in use" table (var_trafficSignalFrames_8c227e24,
  * 0..maxId) ahead of loading a new segment's decoration scripts, so a
- * newly-spawned signal's FUN_8c026748 init path can pick an id nothing else
- * already owns. When the segment has no scene-object-type list at all
+ * newly-spawned signal's initEntryState_8c026748 init path can pick an id
+ * nothing else already owns. When the segment has no scene-object-type list at all
  * (sceneObjectTypeIds_0x14 == NULL), every id up to maxId is conservatively
  * marked in-use. Otherwise every id starts free, then every already-placed
  * decoration script (opcode 5 = fixed id, same opcode table as
@@ -540,9 +535,8 @@ void TrafficUpdateFrameFlags_8c026f7e(TrafficEntry *entry)
 /* Sums the {len,...} record lengths from the entry's current path record
  * (entry+0x2b8) to the end of the current path block (len==0 terminator),
  * minus the distance already consumed into the current record
- * (entry+0x2bc) -- i.e. the remaining distance to the end of this path
- * block. Read-only: unlike TrafficAdvanceOnPath_8c026ca2, it does not update
- * the entry's segment pointer or distance fields.
+ * (entry+0x2bc). Read-only: unlike TrafficAdvanceOnPath_8c026ca2, it does
+ * not update the entry's segment pointer or distance fields.
  */
 float TrafficRemainingPathDistance_8c026fb0(TrafficEntry *entry)
 {
@@ -586,31 +580,7 @@ void TrafficSeekPathRecord_8c026fcc(TrafficEntry *entry, PathRecord *seg)
  * consumed transparently in a loop of its own -- initEntryState_8c026748
  * is called for every run of opcode-0 words, and the cursor it leaves behind
  * (via its scriptIp out-param) is re-read for the next opcode immediately,
- * without yielding. Every other opcode advances the cursor by its own fixed
- * word length (init_8c0460bc) and is handled in one pass:
- *
- *   1 - the first time this run: marks the entry spawned (same flag opcode 0
- *       sets), advances to the next resolved path block (entry+0x300 index
- *       into the entry+0x304 pointer array), and refreshes entry+0x414
- *       (lane-offset ratio, same field initEntryState_8c026748
- *       seeds). Once already spawned (whether by an earlier opcode 0 or by
- *       this very opcode on a previous call), it instead acts as a yield
- *       point: it halts the interpreter *without* consuming itself, so the
- *       same instruction is reprocessed on the next call.
- *   2/3 - configure entries at 0x42c/0x430/0x434/0x438 (0x430 distinguishes
- *       the two opcodes), then continue.
- *   4 - skip (3 words), no state change.
- *   5/6/7 - configure decoration-ish slots (0x448/0x458/0x468 families),
- *       tagging each with the entry's current block index (0x300), then
- *       continue.
- *   8 - configure the 0x474/0x478/0x47c/0x480 family, resolving its id
- *       argument through var_cpuPathBlocks_8c227e1c the same way TrafficReadScriptArgs_8c026710
- *       does, then continue.
- *   9 - end of script: if the entry never spawned this run, report failure
- *       (0); otherwise halt (cursor stays put -- op 9 does not advance).
- *   10 - place a fixed-position/fixed-heading decoration (entry+0xf4/0xfc/
- *       0x250/0x254), call initEntryState_8c026748 to finish spawning
- *       it, then halt.
+ * without yielding.
  *
  * Returns 1 for every halt except an opcode-9 with no prior spawn, which
  * returns 0.
@@ -637,6 +607,10 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
 
         if (op == 1) {
             if (spawned) {
+                /* Once already spawned (whether by an earlier opcode 0 or by
+                 * this same opcode on a previous call), this halts the
+                 * interpreter *without* consuming itself, so the same
+                 * instruction is reprocessed on the next call. */
                 break;
             }
             spawned = 1;
@@ -681,6 +655,8 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
             e->junctionWaitState_0x474 = 1;
             e->junctionWaitSignalId_0x478 = cur[1];
             e->junctionWaitTurnDir_0x47c = cur[2];
+            /* resolves its id argument through var_cpuPathBlocks_8c227e1c the
+             * same way TrafficReadScriptArgs_8c026710 does */
             e->junctionPath_0x484 = var_cpuPathBlocks_8c227e1c[cur[3]];
             e->junctionWaitArmedBlock_0x480 = e->blockIndex_0x300;
             ip = cur + 4;
@@ -732,7 +708,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
  * resolve the variant's body-type animation data (init_8c04622c ->
  * var_trafficModels_8c1bc3f4, entry+0x14). An unloaded model slot
  * (texlist_0x08 == -1) frees the task and skips the rest of the setup below
- * -- but real asm behavior: it still returns 1, same as a completed spawn.
+ * -- real asm behavior: it still returns 1, same as a completed spawn.
  *
  * For a moving vehicle (*script != 10), the script's block-relative args are
  * resolved (TrafficReadScriptArgs_8c026710), then TrafficPathScanBuild_8c02f0c8 gets a chance
@@ -891,11 +867,11 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * counter (counter_0x08) advances every call (compared against the
  * record's threshold, its Uint16 at +2, *before* the increment); once the
  * threshold is exceeded, the record is "consumed" -- unless
- * presetState_0x0c is not 1 and the record's own progress float is itself
+ * presetState_0x0c is not 1 and the record's own progress float is
  * nonzero, this spawns the entry via
  * spawnEntry_8c0272b8(typeCode, progress, script). Real asm quirk:
  * when the (presetState_0x0c != 1 && progress != 0.0f) branch is taken
- * instead, spawnEntry_8c0272b8 is never called at all, but the record is
+ * instead, spawnEntry_8c0272b8 is never called, but the record is
  * still advanced as if it had succeeded. Either way "succeeding" advances
  * the cursor to the next record (+0xc) and resets the counter.
  *
@@ -961,7 +937,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
  *
  * Pushes the entry point for trafficUpdateTask_8c0275d4 into var_tasks_8c1ba5e8,
  * caching two per-course table pointers (route path array, per-preset script
- * table) and, on the night route/day table, a copy of two adjacent
+ * table) and, when time of day is night, a copy of two adjacent
  * CourseSceneParams.rec0_0x0c rows plus their per-20-frame deltas -- consumed
  * by initEntryState_8c026748's junction-light path and (rows only) by
  * BusDrawFadeLights_8c028022 in 027958.

@@ -33,10 +33,10 @@ typedef enum {
     FADE_MIRROR_RIGHT = 2
 } FadeMirrorSelect;
 
-/* Task private state for FadeInTask_8c022a54/FadePushIn_8c022a9c. Leading
- * fields match Task (see 014a9c_tasks.h) up through the one this task
- * actually uses; the real slot is still a full Task (var_tasks_8c1ba3c8 is
- * an array of those), the rest is just untouched by this callback. */
+/* Task private state for FadeInTask_8c022a54/FadePushIn_8c022a9c. Its fields
+ * match Task (see 014a9c_tasks.h) up through the one this task uses -- the
+ * real slot is a full Task (var_tasks_8c1ba3c8 is an array of those), and
+ * the rest is unused by this callback. */
 typedef struct {
     TaskAction action;
     void *state;
@@ -52,7 +52,7 @@ typedef enum {
 } FadeOutPhase;
 
 /* Task private state for FadeOutTask_8c022ad0/FadePushOut_8c022b60. Same
- * deal as FadeInTask above, but field_0x0c is reused as phase_0x0c
+ * layout as FadeInTask above, but field_0x0c is reused as phase_0x0c
  * instead of a pointer. */
 typedef struct {
     TaskAction action;
@@ -61,9 +61,9 @@ typedef struct {
     FadeOutPhase phase_0x0c;
 } FadeOutTask;
 
-/* Opaque per-entry callbacks for FadeDrawCommand types 5/6 (see below) --
- * queued by the push helpers in 0222dc_fadecmd.c, which pass whatever
- * function pointer their own caller supplies, so there is no fixed SDK
+/* Opaque per-entry callbacks for FadeDrawCommand types 5/6 (see below),
+ * queued by the push helpers in 0222dc_fadecmd.c. They pass whatever
+ * function pointer their caller supplies, so there is no fixed SDK
  * signature to name these after. */
 typedef void (*FadeCallback1)(int);
 typedef void (*FadeCallback2)(int, int);

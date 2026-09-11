@@ -21,18 +21,12 @@ typedef struct {
     LcdFrame data[1]; // Placeholder for variable-length data
 } LcdFrames;
 
-/*
- * VMU LCD icon animation.
- */
 typedef struct {
     LcdFrames *frames;
     int delay;
     int frameIdx;
 } LcdAnim;
 
-/**
- * Async backup operation phase
- */
 enum VmGameBupPhase {
     VMGAME_BUP_ERROR        = -1,
     VMGAME_BUP_IDLE         = 0,

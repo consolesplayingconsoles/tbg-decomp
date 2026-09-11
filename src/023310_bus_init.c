@@ -82,7 +82,6 @@ STATIC void busInitPlaceBus_8c023310(void)
         var_busState_8c1bb9d0.posZ_0x0fc - var_busState_8c1bb9d0.headingDirZ_0x278 * 8.0f;
     var_busState_8c1bb9d0.posHistory_0x100[1].y = var_busState_8c1bb9d0.posY_0x0f8;
 
-    /* rec[2..11]'s x/z are left stale; only y is seeded here. */
     for (i = 2; i < 12; i++) {
         var_busState_8c1bb9d0.posHistory_0x100[i].y = var_busState_8c1bb9d0.posY_0x0f8;
     }
@@ -96,7 +95,6 @@ STATIC void busInitPlaceBus_8c023310(void)
     }
 
     var_busState_8c1bb9d0.speed_0x27c = 0.0f;
-    /* acc_hist_0x280[0] is left untouched -- only the 3 history slots are reset. */
     var_busState_8c1bb9d0.acc_hist_0x280[1] = 0.0f;
     var_busState_8c1bb9d0.acc_hist_0x280[2] = 0.0f;
     var_busState_8c1bb9d0.acc_hist_0x280[3] = 0.0f;

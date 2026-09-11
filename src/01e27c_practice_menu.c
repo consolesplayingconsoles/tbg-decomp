@@ -287,8 +287,6 @@ STATIC void FUN_8c01e27c(Task *task)
     }
 }
 
-/* One-time setup for the description-text reveal (FUN_8c01e27c): installs it
- * as the task action and kicks off the course's sys resource group load. */
 STATIC void initDescriptionReveal_8c01e576(Task *task)
 {
     TaskSetAction_8c014b3e(task, FUN_8c01e27c);
@@ -517,8 +515,6 @@ STATIC void buildDialogQueue_8c01e992(void)
     var_8c226414[i] = -1;
 }
 
-/* Draws value's decimal digits right-to-left as sprite widgets 0xc-0x15
- * (digit 0-9), starting at x=362 and stepping left by 18 per digit. */
 STATIC void drawDigits_8c01ead8(int value, float y)
 {
     float x = 362.0f;

@@ -20,8 +20,6 @@ void BusStopFreeTaskGroup_8c02ca96(void);
 void BusStopSetup_8c02caba(void);
 void BusStopUpdateStopHeadings_8c02ccc6(void);
 
-/* Returns the segment record for segmentIndex (see
- * pickWaitingPassengers_8c02c8ae, 02c884). */
 CourseSegment *BusStopGetSegment_8c02cd6a(int segmentIndex);
 
 /* Returns the stop-area record for segmentIndex's segment (var_stopAreaTable_8c1bb870

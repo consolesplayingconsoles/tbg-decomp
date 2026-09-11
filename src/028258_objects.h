@@ -36,9 +36,8 @@ typedef struct TrafficSignal {
 
 /* One entry of the var_trafficSignalDefs_8c1bb8a0 table, terminated by a zero
  * type_0x00. A type-1 entry is a signal head in its own right, running its own
- * lamp cycle, and reads linkedId_0x08 as that cycle's starting counter instead;
- * types 2/3/4 are attachments naming the type-1 entry they hang off. Each rot/pos pair is only
- * applied when its position is non-zero. */
+ * lamp cycle; types 2/3/4 are attachments naming the type-1 entry they hang off.
+ * Each rot/pos pair is only applied when its position is non-zero. */
 typedef struct {
     int type_0x00;
     int id_0x04;                 /* indexes var_trafficSignalFrames_8c227e24 / ...States_8c227e28 */

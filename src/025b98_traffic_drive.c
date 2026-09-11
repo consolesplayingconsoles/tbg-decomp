@@ -185,8 +185,8 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         /* speed == 0.0: signalId is genuinely left uninitialized here in
          * the original asm (Ghidra flags it "unaff_r8") -- whatever
          * garbage was last in that register gets stored to signalId_0x410
-         * below. A real original-game quirk, not something to paper over;
-         * not bit-reproducible in C, so left as an uninitialized read. */
+         * below. A real original-game quirk, not bit-reproducible in C,
+         * so left as an uninitialized read. */
         e->signalId_0x410 = signalId;
         e->atGroundJunction_0x50c = 0;
 
@@ -510,8 +510,8 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                     /* the script has nothing left to do this frame outside
                      * that reload case -- real asm behavior: this
                      * unconditionally despawns the entity, skipping the
-                     * ring-buffer/blinker/render bookkeeping below
-                     * entirely, regardless of distance to the player. */
+                     * ring-buffer/blinker/render bookkeeping below,
+                     * regardless of distance to the player. */
                     TaskFree_8c014b66(task);
                     return;
                 }

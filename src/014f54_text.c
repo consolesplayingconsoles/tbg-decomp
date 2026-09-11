@@ -27,15 +27,15 @@
     ((a & 0x1) << 15) | ((r & 0x1F) << 10) | ((g & 0x1F) << 5) | (b & 0x1F) \
 )
 
-/* String encoding and on-screen layout, per language. Japanese values must
- * stay exactly what the code used before this split existed.
+/* String encoding and layout differ per language; the Japanese values are
+ * unchanged from before this file split.
  *
- * Japanese is a fixed GLYPH_WIDTH grid. English advances per glyph from the
- * ink metrics measured off BUS_FONT.FFF (init_glyphInkEn below): the font's
- * alphanumerics are drawn proportionally inside the fixed cell, spanning 4px
- * ('I') to 20px ('m'), so a fixed pitch either collides or gapes.
+ * Japanese uses a fixed GLYPH_WIDTH grid. English advances per glyph using
+ * the ink metrics measured off BUS_FONT.FFF (init_glyphMetricsEn below): the
+ * font draws alphanumerics proportionally within the fixed cell, from 4px
+ * ('I') to 20px ('m').
  *
- * GLYPH_ADVANCE_MIN is the narrowest advance any glyph can take. It bounds
+ * GLYPH_ADVANCE_MIN is the narrowest advance any glyph can take; it bounds
  * the token buffer, which must hold the most characters a line can ever fit. */
 #define TEXT_TAG_BYTES 3
 #ifdef GAME_LANG_EN
@@ -46,11 +46,11 @@
 #define TEXT_GLYPH_GAP     2
 #define TEXT_GLYPH_INK_MIN  3 /* narrowest ink in the table below */
 #define GLYPH_ADVANCE_MIN  (TEXT_GLYPH_INK_MIN + TEXT_GLYPH_GAP)
-/* The panel art is inset from the text area the callers pass in, so wrapping
- * at the full width runs the line over the artwork's edge. Japanese never
- * shows it: 24 fixed columns land inside, and its strings are authored to
- * fit. Wrap short by this much per side; centring still uses the full width,
- * which puts the slack back as an even margin. */
+/* The panel art is inset from the text area callers pass in; wrapping at the
+ * full width would run text over the artwork's edge. Japanese never hits
+ * this: its 24 fixed columns land inside the inset, and its strings are
+ * authored to fit. English wraps short by this much per side; centring
+ * still uses the full width, so the slack becomes an even margin. */
 #define TEXT_BOX_MARGIN    24
 #define TEXT_WRAP_WIDTH(box) ((box)->width_0x0c - 2 * TEXT_BOX_MARGIN)
 #define TEXT_GLYPH(c)         (init_glyphMetricsEn[(Uint8)(c) - TEXT_ASCII_FIRST])
@@ -94,9 +94,10 @@ typedef struct {
 
 #ifdef GAME_LANG_EN
 /* Indexed by ASCII - TEXT_ASCII_FIRST. Measured off
- * tests/014f54_text/data/BUS_FONT.FFF with the same glyph lookup and 2bpp
- * unpack the engine uses, so the numbers follow whatever the font draws; the
- * ink width is left summed with TEXT_GLYPH_GAP so a row stays hand-tunable. */
+ * tests/014f54_text/data/BUS_FONT.FFF using the same glyph lookup and 2bpp
+ * unpack the engine uses, so the numbers match what the font actually draws.
+ * The ink width is left summed with TEXT_GLYPH_GAP so each row stays
+ * hand-tunable. */
 STATIC const GlyphMetric init_glyphMetricsEn[TEXT_ASCII_COUNT] = {
     { 0x8140,  6 + TEXT_GLYPH_GAP,  0 }, /* sp */
     { 0x8149,  6 + TEXT_GLYPH_GAP, 10 }, /* '!' */
@@ -247,17 +248,6 @@ STATIC DemoEntry init_demos_8c044154[20] = {
  * =========
  */
 
-/**
- * Draws a sprite or series of sprites from a resource group.
- *
- * @note Address: 0x8c014f54
- * 
- * @param res        Pointer to the ResourceGroup containing sprite data
- * @param texture_id ID of the texture to draw (2000 for BUS_FONT.FFF)
- * @param x          X-coordinate for the sprite's position
- * @param y          Y-coordinate for the sprite's position
- * @param priority   Initial draw priority for the sprite
- */
 void TxtDrawSprite_8c014f54(
     ResourceGroup *resource_group,
     int texture_id,
@@ -282,7 +272,6 @@ void TxtDrawSprite_8c014f54(
             &((int *) resource_group->contents_0x08)[texture_offset];
     }
 
-    // Initialize NJS_SPRITE
     sprite.tlist = resource_group->tlist_0x00;
     sprite.tanim = resource_group->tanim_0x04;
     sprite.ang = 0;
@@ -301,22 +290,7 @@ void TxtDrawSprite_8c014f54(
     }
 }
 
-/**
- * Draws a sprite with linear interpolation between two points.
- *
- * @note Address: 0x8c014ff6
- * @note This function is not used.
- *
- * @param start_x    The starting X-coordinate for the interpolation
- * @param start_y    The starting Y-coordinate for the interpolation
- * @param priority   The draw priority for the sprite
- * @param end_x      The ending X-coordinate for the interpolation
- * @param end_y      The ending Y-coordinate for the interpolation
- * @param steps_x    The number of steps in the X direction for interpolation
- * @param steps_y    The number of steps in the Y direction for interpolation
- * @param res_group  Pointer to the ResourceGroup containing sprite data
- * @param texture_id ID of the texture to draw
- */
+/* This function is not used. */
 STATIC void drawSpriteLerp_8c014ff6(
     float start_x,
     float start_y,
@@ -340,12 +314,8 @@ STATIC void drawSpriteLerp_8c014ff6(
     TxtDrawSprite_8c014f54(res_group, texture_id, lerp_x, lerp_y, priority);
 }
 
-/**
- * Retrieves the index for a given glyph based on the character code.
- */
 STATIC Uint16 getGlyphIndex_8c015034(Uint16 character_code)
 {
-    // Font file offset table
     static const Uint16 font_section_offsets[40] = {
         0x0000, /* Special characters */
         0x005E, /* Special characters */
@@ -354,7 +324,7 @@ STATIC Uint16 getGlyphIndex_8c015034(Uint16 character_code)
         0x00FD, /* Katakana */
         0x0153, /* Greek */
         0x0183, /* Cyrillic */
-        /* Kanji (32 sets with 94 kanji each)*/
+        /* Kanji (32 sets with 94 kanji each) */
         0x01C5, 0x0223, 0x0281, 0x02DF, 0x033D, 0x039B, 0x03F9, 0x0457,
         0x04B5, 0x0513, 0x0571, 0x05CF, 0x062D, 0x068B, 0x06E9, 0x0747,
         0x07A5, 0x0803, 0x0861, 0x08BF, 0x091D, 0x097B, 0x09D9, 0x0A37,
@@ -367,9 +337,8 @@ STATIC Uint16 getGlyphIndex_8c015034(Uint16 character_code)
         Uint8 low_byte;
         Uint8 offset_index;
 
-        // Check if high_byte is within valid range
         if (high_byte >= 0x6f || (high_byte >= 0x1f && high_byte < 0x3f)) {
-            character_code = 0x81A6;  // Default character code
+            character_code = 0x81A6;
             continue;
         }
 
@@ -378,9 +347,8 @@ STATIC Uint16 getGlyphIndex_8c015034(Uint16 character_code)
         character_code += 0xc0;
         low_byte = (Uint8) character_code;
 
-        // Check low_byte validity
         if (low_byte >= 0xbd || low_byte == 0x3f) {
-            character_code = 0x81A6;  // Default character code
+            character_code = 0x81A6;
             continue;
         }
 
@@ -412,7 +380,7 @@ STATIC Uint16 getGlyphIndex_8c015034(Uint16 character_code)
                 if (offset_index >= 0x28) {
                     if (offset_index >= 0x30) {
                         if (offset_index >= 0x50) {
-                            character_code = 0x81A6;  // Default character code
+                            character_code = 0x81A6;
                             continue;
                         }
                         offset_index -= 0x8;
@@ -430,36 +398,19 @@ STATIC Uint16 getGlyphIndex_8c015034(Uint16 character_code)
     }
 }
 
-/**
- * Unpacks and processes a glyph's texture data from the compressed font.
- *
- * This function takes a character code and unpacks its associated font data
- * into a texture buffer. The unpacked data is processed and translated into
- * color values using a provided color array. The final texture twiddled for
- * rendering.
- *
- * @param char_code The character code corresponding to the glyph to unpack.
- * @param palette An array of four 16-bit color values used to translate the
- * unpacked font data.
- * @param font The compressed font data.
- * @param dest The destination buffer for the twiddled texture data.
- */
 STATIC unpackGlyph_8c015110(
     Uint16 char_code,
     Uint16 palette[GLYPH_PALETTE_SIZE],
     Uint8 *font,
     Sint16 *dest
 ) {
-    /* Buffer for the unpacked font data */
     Uint8 unpacked[UNPACKED_GLYPH_SIZE] = {0};
-    /* Buffer for the mapped texture */
     Sint16 mapped[GLYPH_TEXTURE_SIZE] = {0};
 
     size_t offset = getGlyphIndex_8c015034(char_code) * PACKED_GLYPH_SIZE;
     size_t i;
     size_t j;
 
-    // Unpack font data
     for (i = 0; i < PACKED_GLYPH_SIZE; i++) {
         Uint8 byte = font[offset + i];
 
@@ -469,9 +420,8 @@ STATIC unpackGlyph_8c015110(
         unpacked[(i * 4) + 3] = byte & 0x3;
     };
 
-    // Create color mapped texture
-    // Note: This loop was refactored, but I would
-    // like to preserve the original code.
+    // This loop differs from the original asm's structure but keeps its
+    // behavior.
     for (i = j = 0; i < GLYPH_TEXTURE_SIZE; i++) {
         Uint8 color_index;
 
@@ -485,7 +435,6 @@ STATIC unpackGlyph_8c015110(
         }
     }
 
-    // Apply twiddle transformation
     njTwiddledTexture(dest, mapped, GLYPH_TEXTURE_WIDTH);
 }
 
@@ -514,11 +463,11 @@ void TxtDestroy_8c01529c()
     LOG_INFO(("[TXT] Destroying text module\n"));
 
     for (i = 0; i < GLYPH_COUNT; i++) {
-        /* Unsigned, as the asm's EXTU.W before the compare has it: releases
-         * the slots holding a glyph index and skips the 0xffff free marker.
-         * Signed, every slot looks free and the textures leak, so a later
-         * njLoadTexture at the same global index silently keeps the old
-         * glyph. */
+        /* Unsigned comparison, matching the asm's EXTU.W before the compare:
+         * releases the slots holding a glyph index while skipping the 0xffff
+         * free marker. Signed, every slot looks free, the textures leak, and
+         * a later njLoadTexture at the same global index silently keeps the
+         * old glyph. */
         if ((Uint16) var_8c1bc7a0[i] < 0xffed) {
             njReleaseTexture(&var_glyphTexlists_8c1bc790[i]);
         }
@@ -529,11 +478,6 @@ void TxtDestroy_8c01529c()
     syFree(var_8c1bc7a0);
 }
 
-/**
- * Creates a TextBox with the specified parameters.
- *
- * @return A pointer to the created TextBox.
- */
 TextBox* TxtCreateTextBox_8c0152fc(
     int x,
     int y,
@@ -582,10 +526,7 @@ TextBox* TxtCreateTextBox_8c0152fc(
 }
 
 /**
- * Frees the memory allocated for a TextBox.
- *
  * @todo Write a test for this function.
- * @param box The TextBox to be freed.
  */
 void TxtDestroyTextBox_8c015410(TextBox *box)
 {
@@ -611,7 +552,6 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
         int i;
         int available_characters;
 
-        // Release textures for existing characters
         for (i = 0; i < box->character_count_0x20 + box->tag_count_0x22; i++) {
             if (box->tokens_0x2c[i] < 0xffed) {
                 njReleaseTexture(
@@ -621,7 +561,6 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
             }
         }
 
-        // Reset character codes
         available_characters =
             0x28 + characters_per_line * (box->height_0x10 / GLYPH_HEIGHT);
         for (i = 0; i < available_characters; i++) {
@@ -629,13 +568,11 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
         }
     }
 
-    // If the input text is empty, set the box text and return
     if (*text == '\0') {
         box->text_0x38 = text;
         return 0;
     }
 
-    // Count the number of tags in the text
     box->tag_count_0x22 = 0;
     for (i = 0; text[i] != '\0'; i++) {
         if (text[i] == '<') {
@@ -643,7 +580,6 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
         }
     }
 
-    // Calculate the number of characters (excluding tags)
     // In Shift JIS, characters can be 1 or 2 bytes.
     // This assumes 2 bytes per character (1 for GAME_LANG_EN's ASCII).
     character_count =
@@ -654,16 +590,13 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
     box->processed_tag_count_0x1e = 0;
     box->character_count_0x20 = character_count;
 
-    // Initialize line offsets
     line_count = box->height_0x10 / 0x20;
     for (i = 0; i < line_count; i++) {
         box->line_offsets_0x34[i] = 0.0f;
     }
 
-    // Process the text, handling tags and line wrapping
     current_line = 0;
     while (*text) {
-        // Handle tags
         if (*text == '<') {
             // Line break tag
             if (*++text == 'E') {
@@ -686,7 +619,6 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
 
         box->line_offsets_0x34[current_line] += TEXT_GLYPH_ADVANCE(*text);
 #else
-        // Wrap text if the current line is full
         if (box->line_offsets_0x34[current_line] / 2 >= characters_per_line) {
             if (current_line >= line_count)
                 break;
@@ -724,7 +656,8 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
     int row = 0;
     int col = 0;
 #ifdef GAME_LANG_EN
-    /* col is a pixel pen in English, so the source char drives each step. */
+    /* col is a pixel pen in English, advanced by walking the source text
+     * one character at a time. */
     char *penChar = box->text_0x38;
 #endif
 
@@ -745,7 +678,7 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
             token_idx
         ) {
             char *currentChar;
-            unsigned nextChar; // Move down the scope?
+            unsigned nextChar;
 
             currentChar = box->text_0x38
                 + box->processed_tag_count_0x1e * TEXT_TAG_BYTES
@@ -780,7 +713,6 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
             } else {
                 int glyphIndex = 0;
 
-                // Load glyph
                 while (glyphIndex < GLYPH_COUNT) {
                     if (var_8c1bc7a0[glyphIndex] == -1) {
                         NJS_TEXINFO texInfo;
@@ -832,11 +764,9 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
             }
         }
 
-        // Draw glyph
         if (box->tokens_0x2c[token_idx] < 0xffed) {
             var_fontResourceGroup_8c1bc794.tlist_0x00 =
                 &var_glyphTexlists_8c1bc790[box->tokens_0x2c[token_idx]];
-            // Wrap line
 #ifdef GAME_LANG_EN
             if (col + TEXT_GLYPH_ADVANCE(*penChar) > TEXT_WRAP_WIDTH(box)) {
                 col = 0;
@@ -852,8 +782,8 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
             if ((row + 1) * GLYPH_HEIGHT <= box->height_0x10) {
                 if (box->enable_offset_0x30 == -1) {
 #ifdef GAME_LANG_EN
-                    /* col is a pixel pen; back off by the bearing so the ink,
-                     * not the cell, lands on it. */
+                    /* col is a pixel pen; subtract the glyph's bearing so its
+                     * ink, not the cell, lands here. */
                     int x = col - TEXT_GLYPH_BEARING(*penChar)
                         + box->x_0x00 + box->x2_0x14;
                     int y = row * GLYPH_HEIGHT + box->y_0x04 + box->y2_0x18;
@@ -900,7 +830,7 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
         }
 
 #ifdef GAME_LANG_EN
-        /* Tokens are emitted one per source element, so walking the text in
+        /* Tokens are emitted one per source element; walking the text in
          * step with them recovers the character behind each glyph token. */
         penChar += (box->tokens_0x2c[token_idx] < 0xffed)
             ? TEXT_CHAR_BYTES : TEXT_TAG_BYTES;

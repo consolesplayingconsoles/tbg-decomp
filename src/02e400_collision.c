@@ -53,16 +53,14 @@ TrafficEntry *CollideFindTaskHit_8c02e400(Task *self, TrafficEntry *entry)
     }
 }
 
-/* Clears the queue's write cursor. */
 void CollideQueueReset_8c02e486(void)
 {
     var_collideQueueCount_8c228b38 = 0;
 }
 
-/* Appends obj to the queue, silently dropped once full. */
 void CollideQueueAdd_8c02e48e(void *obj)
 {
-    if (var_collideQueueCount_8c228b38 < 0x40) {
+    if (var_collideQueueCount_8c228b38 < 0x40) { // 64-slot queue; obj silently dropped once full
         var_collideQueueCount_8c228b38 = var_collideQueueCount_8c228b38 + 1;
         var_collideQueue_8c228a38[var_collideQueueCount_8c228b38 - 1] = obj;
     }

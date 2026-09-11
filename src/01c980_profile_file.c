@@ -39,29 +39,29 @@
  */
 
 enum STATE {
-    STATE_INIT,               /* 0 */
-    STATE_GRID_FADE_IN,       /* 1 */
-    STATE_GRID_IDLE,          /* 2 */
-    STATE_GRID_ANIMATING,     /* 3 */
-    STATE_CONFIRM_FADE_OUT,   /* 4 */
-    STATE_PAGE_LOAD,          /* 5 */
-    STATE_PAGE_FADE_IN,       /* 6 */
-    STATE_PAGE_VIEW,          /* 7 */
-    STATE_PAGE_EXIT_FADE_OUT, /* 8 */
-    STATE_PAGE_ADVANCE_DELAY, /* 9 */
-    STATE_GRID_FADE_OUT,      /* 10 */
-    STATE_EXIT_TO_COURSE_MENU /* 11 */
+    STATE_INIT,
+    STATE_GRID_FADE_IN,
+    STATE_GRID_IDLE,
+    STATE_GRID_ANIMATING,
+    STATE_CONFIRM_FADE_OUT,
+    STATE_PAGE_LOAD,
+    STATE_PAGE_FADE_IN,
+    STATE_PAGE_VIEW,
+    STATE_PAGE_EXIT_FADE_OUT,
+    STATE_PAGE_ADVANCE_DELAY,
+    STATE_GRID_FADE_OUT,
+    STATE_EXIT_TO_COURSE_MENU
 };
 
 /* selected_0x38: the episode-checklist page's 5-option prompt (drawn as
  * sprites 5-8 plus the back arrow, sprite 11). PAGE_OPTION_JUMP_PREV/NEXT
  * jump to the previous/next unlocked slot; PREV/NEXT just step one slot. */
 enum PAGE_OPTION {
-    PAGE_OPTION_JUMP_PREV, /* 0 */
-    PAGE_OPTION_PREV,      /* 1 */
-    PAGE_OPTION_NEXT,      /* 2 */
-    PAGE_OPTION_JUMP_NEXT, /* 3 */
-    PAGE_OPTION_EXIT       /* 4 */
+    PAGE_OPTION_JUMP_PREV,
+    PAGE_OPTION_PREV,
+    PAGE_OPTION_NEXT,
+    PAGE_OPTION_JUMP_NEXT,
+    PAGE_OPTION_EXIT
 };
 
 /* ====================
@@ -354,11 +354,9 @@ void ProfileFileUpdateUnlocks_8c01c980(void)
             var_profileUnlocked_8c2263b4[i] = 1;
             var_profileUnlockedCount_8c2263a4++;
 
-            // Break once we see a progress flag set for this character
             break;
         }
 
-        // If we reached the end of the list, no progress flag was set
         if (*flags == 0xff) {
             var_profileUnlocked_8c2263b4[i] = 0;
         }
@@ -379,7 +377,6 @@ STATIC void drawUnlockGrid_8c01c9f2(void)
             int row = i / ROW_LENGTH;
             int col = i % ROW_LENGTH;
 
-            // Cover locked slot
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 2,
@@ -390,7 +387,6 @@ STATIC void drawUnlockGrid_8c01c9f2(void)
         }
     }
 
-    // Draw cursor
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         3,
@@ -399,7 +395,6 @@ STATIC void drawUnlockGrid_8c01c9f2(void)
         -2.0f
     );
 
-    // Draw background
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         1,

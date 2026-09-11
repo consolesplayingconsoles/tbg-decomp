@@ -46,12 +46,8 @@ void FUN_8c024b86(void)
     FUN_8c024f32();
 }
 
-/* Re-seats busState's camera draw position (posX_0x2fc/posZ_0x304), offsetting
- * it ahead of the bus along its heading (headingDirX_0x274/headingDirZ_0x278) by a
- * turn-rate factor picked by var_cameraMode_8c227d9c: 0 just resets cameraYawEase_0x3c8 and
- * leaves the position untouched; 1 and 4 are no-ops; 2 and 3 offset it by
- * 18.0/30.0 (or var_8c227de0, once var_8c227da4 is set) and update
- * var_8c227df0 to match. */
+/* Re-seats busState's camera draw position (posX_0x2fc/posZ_0x304) by a
+ * turn-rate offset picked from var_cameraMode_8c227d9c. */
 void FUN_8c024f32(void)
 {
     float dx = 0.0f;
@@ -138,15 +134,10 @@ STATIC void drawFrontBusModel_8c024cc8(void)
  * var_cameraMode_8c227d9c's own 5.0/18.0 default. Y button cycles the camera mode
  * var_cameraMode_8c227d9c (0..3) when allowed.
  *
- * Then positions/aims the camera per var_cameraMode_8c227d9c: 0 = fixed follow behind
- * the bus (rotated by an eased yaw in busState.cameraYawEase_0x3c8), 1 = a
- * bump/sway follow using busState.headingDirX_0x274/0x278 and 0x26c/0x270,
- * 2/3 = smooth chase via positionCamera_8c024d6c, 4 = fixed on
- * var_8c227d90. Modes 0/1 additionally roll the camera by the road's pitch
- * (from recent Y waypoint history). Finally activates the camera, recomputes
- * the simple light direction from the course's primary light, and queues
- * the appropriate bus draw (front dashboard model for mode 0, third-person
- * model for modes 2/3, none otherwise). */
+ * Then positions/aims the camera per var_cameraMode_8c227d9c, activates it,
+ * recomputes the simple light direction from the course's primary light,
+ * and queues the appropriate bus draw (front dashboard model for mode 0,
+ * third-person model for modes 2/3, none otherwise). */
 void BusRenderUpdateCamera_8c025078(void)
 {
     Sint32 cue = var_busState_8c1bb9d0.markAudioCue_0x3b8 & 0x0F000000;

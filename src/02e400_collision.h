@@ -10,7 +10,6 @@
  * NULL if the scan runs off the end. */
 TrafficEntry *CollideFindTaskHit_8c02e400(Task *self, TrafficEntry *entry);
 
-/* Clears the queue's write cursor (var_collideQueueCount_8c228b38). */
 void CollideQueueReset_8c02e486(void);
 
 /* Appends obj to a fixed 64-slot queue (var_collideQueue_8c228a38/var_collideQueueCount_8c228b38), silently
