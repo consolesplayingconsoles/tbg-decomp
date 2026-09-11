@@ -155,10 +155,14 @@ void FileMenuFreeBuffers_8c0187d0(void)
 /* Returns 1 if a freshly loaded save looks sane. */
 int FileMenuIsSaveValid_8c018804(int *save)
 {
+    unsigned char *base;
     unsigned char *rec;
+    int i;
 
     if (0 < save[0] && save[0] < 0x1f) {
-        for (rec = (unsigned char *)(save + 0x11); rec < (unsigned char *)(save + 0x23); rec += 8) {
+        base = (unsigned char *)(save + 0x11);
+        for (i = 0; i < 9; i++) {
+            rec = base + i * 8;
             if (rec[0] > 1) return 0;
             if (rec[1] > 1) return 0;
             if (rec[2] > 1) return 0;
@@ -279,7 +283,6 @@ STATIC void buildFileList_8c018a22(void)
 {
     int dst;
     int i;
-    int *p;
 
     var_8c226014 = 0;
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVING_POSSIBLE ||
@@ -293,8 +296,8 @@ STATIC void buildFileList_8c018a22(void)
         var_8c226018[dst] = var_8c225fe4[i];
         dst++;
     }
-    for (p = &var_8c226018[dst]; p < &var_8c226018[12]; p++) {
-        *p = 0xb; // empty slot
+    for (i = dst; i < 12; i++) {
+        var_8c226018[i] = 0xb; // empty slot
     }
     var_8c226014 += var_8c22600c;
 
