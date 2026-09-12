@@ -174,7 +174,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         if (speed != 0.0f) {
             void *hit = e->junctionQueryFn_0x2cc(
                 e->posX_0xf4, e->posY_0xf8, e->posZ_0xfc, &e->junctionSlot_0x404);
-            if (hit == (void *)0) {
+            if (hit == NULL) {
                 signalId = -1;
                 e->lightFadeTrigger_0x2dc = 0;
             } else {
@@ -229,7 +229,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                             ahead->posY_0xf8,
                             ahead->posZ_0xfc,
                             &e->junctionSlot2_0x500);
-                        if (junction != (void *)0 &&
+                        if (junction != NULL &&
                             (*(Uint32 *)((Uint8 *)junction + 0xc) & 0xf000000) == 0) {
                             e->atGroundJunction_0x50c = 1;
                             if (speed == 0.0f && e->mergeWaitState_0x468 != 2) {
@@ -337,7 +337,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                                                      e->blockIndex_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
-                        if (hitBox == (void *)0) {
+                        if (hitBox == NULL) {
                             e->junctionWaitState_0x474 = 4;
                             TrafficSeekPathRecord_8c026fcc(e, e->junctionPath_0x484);
                             e->pathDistance_0x2bc += waitAdvance;
@@ -378,7 +378,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                                                      e->blockIndex_0x300,
                                                      e->pathDistanceCopy_0x2c0 - halfWindow,
                                                      halfWindow + waitAdvance);
-                        if (hitBox != (void *)0) {
+                        if (hitBox != NULL) {
                             brakeDist = TrafficComputeBlockedSpeed_8c026eaa(e, (TrafficEntry *)hitBox);
                         }
                         TrafficUpdateFrameFlags_8c026f7e(e);
