@@ -5627,7 +5627,7 @@ void ObjectsStartAssetRequests_8c029ad4(int *table)
     int rowIndex;
     int *data;
 
-    if (table == (int *)0x0) {
+    if (table == NULL) {
         ObjectsFreeAssetRequests_8c029cfe();
         return;
     }
