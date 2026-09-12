@@ -5610,7 +5610,7 @@ void ObjectsInitBlinkers_8c029920(void)
         njUnitMatrix(matrices);
         njTranslate(matrices, var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z);
         njRotateY(matrices, (int)((float)p->angleDeg_0x08 * 65536.0f / 360.0f));
-        matrices = (NJS_MATRIX *)((char *)matrices + sizeof(NJS_MATRIX));
+        matrices++;
     }
 }
 void ObjectsClearAssetRequestTable_8c029acc(void)
