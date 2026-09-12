@@ -133,7 +133,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
 {
     TrafficEntry *e = entry;
     Uint16 type = *e->scriptBase_0x2f8;
-    PathRecord *seg = (PathRecord *)0;
+    PathRecord *seg = NULL;
     int scriptCursor = 0;
     float dist = 0.0f;
     Sint32 segIdx;
@@ -143,7 +143,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     /* 4 bytes larger than GroundQueryResult; the extra word keeps the frame
      * layout the original build had. */
     Uint8 groundBuf[20];
-    float *zeroPtr;
+    Sint32 i;
     Uint16 speedRandom;
 
     if (type != 10) {
@@ -180,7 +180,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT && type == 10 &&
         (junction = FUN_8c02e51c(e->posX_0xf4, e->posY_0xf8,
-                                  e->posZ_0xfc, &e->junctionSlot_0x404)) != (void *)0 &&
+                                  e->posZ_0xfc, &e->junctionSlot_0x404)) != NULL &&
         *(Sint32 *)((Uint8 *)junction + 4) != 0) {
         e->simpleLightIntensity0_0x0c4 = var_8c1bbdb0[0];
         e->simpleLightIntensity1_0x0c8 = var_8c1bbdb0[1];
@@ -253,13 +253,11 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     if (type == 10) {
         e->speed_0x27c = 0;
     } else {
-        zeroPtr = &e->field_0x280[1];
         e->laneOffsetRatio_0x414 = (float)*(Uint16 *)(scriptCursor + 4) / 65536.0f;
         e->speed_0x27c = e->laneOffsetRatio_0x414 / 2.0f;
-        do {
-            *zeroPtr = 0;
-            zeroPtr++;
-        } while (zeroPtr < &e->field_0x290);
+        for (i = 1; i < 4; i++) {
+            e->field_0x280[i] = 0;
+        }
         e->field_0x290 = init_8c0461c8[variantIdx];
         e->field_0x418 = 9999.0f;
         e->obstacleLimitActive_0x424 = 0;
@@ -494,7 +492,7 @@ void TrafficMarkSignalIdsInUse_8c026dcc(int maxId)
     seg = BusStopGetSegment_8c02cd6a(var_currentSegment_8c228708);
     typeIds = seg->sceneObjectTypeIds_0x14;
 
-    if (typeIds == (Uint8 *)0) {
+    if (typeIds == NULL) {
         for (i = 0; i <= maxId; i++) {
             var_trafficSignalFrames_8c227e24[i] = 1;
         }
