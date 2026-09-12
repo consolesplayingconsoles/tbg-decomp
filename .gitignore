@@ -11,6 +11,7 @@
 
 scripts/set_kt.sh
 build/.defines
+build/.test.lock
 build/lnk.sub
 build/lnk_matching.sub
 
