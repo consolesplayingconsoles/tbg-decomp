@@ -185,7 +185,7 @@ void *FUN_8c02e51c(float x, float y, float z, void *outParam)
 
     out->vertexIds = 0;
     out->count = 0;
-    return 0;
+    return NULL;
 }
 
 /* Height-filtered counterpart of FUN_8c02e51c: same (x, z) convex-only
@@ -300,7 +300,7 @@ void *FUN_8c02eab4(float x, float y, float z, void *outParam)
 
     out->vertexIds = 0;
     out->count = 0;
-    return 0;
+    return NULL;
 }
 
 /* Same track-then-search shape as FUN_8c02e51c, but each candidate is
@@ -482,7 +482,7 @@ void *FUN_8c02e69c(float x, float y, float z, void *outParam)
 
     out->vertexIds = 0;
     out->count = 0;
-    return 0;
+    return NULL;
 }
 
 /* AtHeight counterpart of FUN_8c02e69c: same convex/concave split by
@@ -666,7 +666,7 @@ void *FUN_8c02ec50(float x, float y, float z, void *outParam)
 
     out->vertexIds = 0;
     out->count = 0;
-    return 0;
+    return NULL;
 }
 
 /* Scans var_tasks_8c1bac28 for a traffic entry (task state, other than
