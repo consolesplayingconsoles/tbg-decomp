@@ -21,7 +21,7 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
     float *p;
     float x, z;
     Task *t;
-    void *candidateEntry;
+    TrafficEntry *candidateEntry;
 
     while (seg->length_0x00 <= remaining) {
         remaining -= seg->length_0x00;
@@ -69,8 +69,8 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
             for (t = var_tasks_8c1bac28; t->action != NULL; t++) {
                 if (t->action != (TaskAction)-1 && t != self) {
                     candidateEntry = t->state;
-                    if (fabsf(((TrafficEntry *)candidateEntry)->posX_0xf4 - x) < 2.5f &&
-                        fabsf(((TrafficEntry *)candidateEntry)->posZ_0xfc - z) < 2.5f) {
+                    if (fabsf(candidateEntry->posX_0xf4 - x) < 2.5f &&
+                        fabsf(candidateEntry->posZ_0xfc - z) < 2.5f) {
                         var_8c228b9c = p + 2;
                         return candidateEntry;
                     }
@@ -86,7 +86,7 @@ void *TrafficPathScanNext_8c02f212(void)
 {
     float *p;
     Task *t;
-    void *candidateEntry;
+    TrafficEntry *candidateEntry;
     int advance;
 
     p = var_8c228b9c;
@@ -103,9 +103,9 @@ void *TrafficPathScanNext_8c02f212(void)
             if (t->action != (TaskAction)-1 && (void *)t != var_8c228b98) {
                 candidateEntry = t->state;
                 advance = 1;
-                if (fabsf(((TrafficEntry *)candidateEntry)->posX_0xf4 - p[0]) < 2.5f) {
+                if (fabsf(candidateEntry->posX_0xf4 - p[0]) < 2.5f) {
                     advance = 2;
-                    if (fabsf(((TrafficEntry *)candidateEntry)->posZ_0xfc - p[1]) < 2.5f) {
+                    if (fabsf(candidateEntry->posZ_0xfc - p[1]) < 2.5f) {
                         var_8c228b9c = p + 2;
                         return candidateEntry;
                     }

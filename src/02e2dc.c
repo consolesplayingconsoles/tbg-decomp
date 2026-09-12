@@ -195,8 +195,7 @@ TrafficEntry *BusCollideFindHit_8c02e2dc(void)
             }
         }
 
-        var_collideScanCursor_8c228974 =
-            (Task *)((Uint8 *)var_collideScanCursor_8c228974 + 0x20);
+        var_collideScanCursor_8c228974++;
     }
 
     return NULL;
@@ -212,30 +211,28 @@ TrafficEntry *BusCollideFindHit_8c02e2dc(void)
 STATIC BusState *unused_8c02e35a(void)
 {
     Task *cursor;
-    Uint8 *state;
+    TrafficEntry *entry;
 
-    var_collideScanCursor_8c228974 =
-        (Task *)((Uint8 *)var_collideScanCursor_8c228974 + 0x20);
+    var_collideScanCursor_8c228974++;
 
     while (var_collideScanCursor_8c228974->action != NULL) {
         cursor = var_collideScanCursor_8c228974;
 
         if (cursor->action != (TaskAction)-1) {
-            state = (Uint8 *)cursor->state;
+            entry = (TrafficEntry *)cursor->state;
 
-            if (12.0f > *(float *)(state + 0x490)) {
-                njCalcPoints((NJS_MATRIX *)(state + 0x84),
-                             init_8c04c940[*(Sint32 *)(state + 0x2e0)],
+            if (12.0f > entry->field_0x490) {
+                njCalcPoints(&entry->worldMatrix_0x84,
+                             init_8c04c940[entry->variantIndex_0x2e0],
                              var_collideCandidateBox_8c2289d8.v, 8);
 
                 if (GeomQuadOverlap_8c020842(var_collideSelfBox_8c228978.v, var_collideCandidateBox_8c2289d8.v)) {
-                    return (BusState *)state;
+                    return (BusState *)entry;
                 }
             }
         }
 
-        var_collideScanCursor_8c228974 =
-            (Task *)((Uint8 *)var_collideScanCursor_8c228974 + 0x20);
+        var_collideScanCursor_8c228974++;
     }
 
     return NULL;

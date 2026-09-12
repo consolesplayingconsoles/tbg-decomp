@@ -190,8 +190,7 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
                     return candidate;
                 }
             }
-            var_collideScanCursor_8c228974 =
-                (Task *)((Uint8 *)var_collideScanCursor_8c228974 + 0x20);
+            var_collideScanCursor_8c228974++;
         }
     }
 

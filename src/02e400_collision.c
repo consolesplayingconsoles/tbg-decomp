@@ -48,8 +48,7 @@ TrafficEntry *CollideFindTaskHit_8c02e400(Task *self, TrafficEntry *entry)
             }
         }
 
-        var_collideScanCursor_8c228974 =
-            (Task *)((Uint8 *)var_collideScanCursor_8c228974 + 0x20);
+        var_collideScanCursor_8c228974++;
     }
 }
 
@@ -78,5 +77,5 @@ void *CollideQueueTest_8c02e4ac(void)
         }
     }
 
-    return 0;
+    return NULL;
 }
