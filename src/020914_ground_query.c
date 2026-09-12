@@ -114,9 +114,9 @@ void GroundQueryFindPolygon_8c020914(float x, float y, float z, GroundQueryResul
         }
 
         if (hit) {
-            out->attr_0x00 = grid->polys_0x14[*slot].attr_0x14 & 0x7fffffff;
+            out->attr_0x00 = poly->attr_0x14 & 0x7fffffff;
             out->polyIdSlot_0x04 = slot;
-            out->vertexIds_0x08 = grid->polys_0x14[*slot].vertexIds_0x04;
+            out->vertexIds_0x08 = poly->vertexIds_0x04;
             out->count_0x0c = n;
             return;
         }
