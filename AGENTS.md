@@ -17,11 +17,12 @@ make
 # Test (full suite; --parallel speeds this up, sh4objtest v0.1.28+)
 ./scripts/run_tests.sh --parallel
 
-# Test (single file)
-./scripts/run_tests.sh -c /app/tests/path/to/test.php
+# Test (one file, or a whole unit's directory -- the path must be absolute
+# inside the container; a relative one silently matches nothing and exits 0)
+./scripts/run_tests.sh -p /app/tests/path/to/test.php
 
 # Test (single file + debug trace)
-./scripts/run_tests.sh -c /app/tests/path/to/test.php -d
+./scripts/run_tests.sh /app/tests/path/to/test.php -d
 ```
 
 A matching build prints `Matching project built! \o/`; a non-matching build prints `Project built :)`.
