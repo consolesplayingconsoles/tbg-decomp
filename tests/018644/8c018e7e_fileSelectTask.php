@@ -9,7 +9,7 @@ return new class extends TestCase {
 
     private int $ms;
 
-    /* ---- state 0: waiting on the background loader (var_8c226010) ---- */
+    /* ---- state 0: waiting on the background loader (var_saveLoadResult_8c226010) ---- */
 
     /* Load still running (0): just refresh the "please wait" textbox + frame. */
     public function test_state0_loading(): void
@@ -26,17 +26,17 @@ return new class extends TestCase {
     public function test_state0_all_valid(): void
     {
         $this->setup(0, 1);
-        $this->initUint32($this->addressOf('_var_8c22600c'), 2);
+        $this->initUint32($this->addressOf('_var_loadedSaveCount_8c22600c'), 2);
 
         $this->call('_fileSelectTask_8c018e7e');
 
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
-        $this->shouldWriteLong($this->addressOf('_var_8c225fe0'), self::BASE);
+        $this->shouldWriteLong($this->addressOf('_var_saveBufCursor_8c225fe0'), self::BASE);
         $this->shouldCall('_FileMenuIsSaveValid_8c018804')->with(self::BASE)->andReturn(1);
-        $this->shouldWriteLong($this->addressOf('_var_8c225fe0'), self::BASE + 0x600);
+        $this->shouldWriteLong($this->addressOf('_var_saveBufCursor_8c225fe0'), self::BASE + 0x600);
         $this->shouldCall('_FileMenuIsSaveValid_8c018804')->with(self::BASE + 0x600)->andReturn(1);
-        $this->shouldWriteLong($this->addressOf('_var_8c225fe0'), self::BASE + 0xc00);
+        $this->shouldWriteLong($this->addressOf('_var_saveBufCursor_8c225fe0'), self::BASE + 0xc00);
         $this->shouldCall('_buildFileList_8c018a22');
         $this->shouldWriteLong($this->ms + 0x18, 3);
         $this->expectFrame();
@@ -46,13 +46,13 @@ return new class extends TestCase {
     public function test_state0_invalid_save(): void
     {
         $this->setup(0, 1);
-        $this->initUint32($this->addressOf('_var_8c22600c'), 2);
+        $this->initUint32($this->addressOf('_var_loadedSaveCount_8c22600c'), 2);
 
         $this->call('_fileSelectTask_8c018e7e');
 
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 0);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(0);
-        $this->shouldWriteLong($this->addressOf('_var_8c225fe0'), self::BASE);
+        $this->shouldWriteLong($this->addressOf('_var_saveBufCursor_8c225fe0'), self::BASE);
         $this->shouldCall('_FileMenuIsSaveValid_8c018804')->with(self::BASE)->andReturn(0);
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('ƒ[ƒh‚ÉŽ¸”s‚µ‚Ü‚µ‚½');
@@ -520,14 +520,14 @@ return new class extends TestCase {
         $this->setSize('_var_8c226018', 0x30);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
-        $this->setSize('_var_8c226010', 4);
+        $this->setSize('_var_saveLoadResult_8c226010', 4);
         $this->setSize('_var_8c226014', 4);
         $this->setSize('_var_vmBusy_8c157a7c', 4);
-        $this->setSize('_var_8c225fe0', 4);
+        $this->setSize('_var_saveBufCursor_8c225fe0', 4);
         $this->setSize('_var_8c225fe4', 0x28);
         $this->setSize('_var_8c1ba2e0', 4);
         $this->setSize('_var_8c1ba350', 4);
-        $this->setSize('_var_8c22600c', 4);
+        $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_vmMountBusy_8c22606c', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_init_8c03bd80', 4);
@@ -535,7 +535,7 @@ return new class extends TestCase {
 
         $this->ms = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($this->ms + 0x18, $state);
-        $this->initUint32($this->addressOf('_var_8c226010'), $loadResult);
+        $this->initUint32($this->addressOf('_var_saveLoadResult_8c226010'), $loadResult);
         $this->initUint32($this->addressOf('_var_8c1ba2e0'), self::BASE);
     }
 

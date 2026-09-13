@@ -18,7 +18,7 @@ return new class extends TestCase {
 
         $this->call('_drawFileSelect_8c018d46');
 
-        $this->shouldWriteLongTo('_var_8c225fe0', self::BASE);
+        $this->shouldWriteLongTo('_var_saveBufCursor_8c225fe0', self::BASE);
         $this->expectCard(0xa, 55.0);
         $this->expectCard(1, 237.0);
         $this->expectCard(2, 419.0);
@@ -34,7 +34,7 @@ return new class extends TestCase {
 
         $this->call('_drawFileSelect_8c018d46');
 
-        $this->shouldWriteLongTo('_var_8c225fe0', self::BASE + 0x600);
+        $this->shouldWriteLongTo('_var_saveBufCursor_8c225fe0', self::BASE + 0x600);
         $this->expectCard(2, 55.0);
         $this->expectCard(3, 237.0);
         $this->expectCard(4, 419.0);
@@ -50,7 +50,7 @@ return new class extends TestCase {
 
         $this->call('_drawFileSelect_8c018d46');
 
-        $this->shouldWriteLongTo('_var_8c225fe0', self::BASE + 0x600);
+        $this->shouldWriteLongTo('_var_saveBufCursor_8c225fe0', self::BASE + 0x600);
         $this->expectCard(2, 55.0);
         $this->expectCard(3, 237.0);
         $this->expectCard(4, 419.0);
@@ -64,7 +64,7 @@ return new class extends TestCase {
 
         $this->call('_drawFileSelect_8c018d46');
 
-        $this->shouldWriteLongTo('_var_8c225fe0', self::BASE);
+        $this->shouldWriteLongTo('_var_saveBufCursor_8c225fe0', self::BASE);
         $this->expectChrome(0, 0, 0xb);
     }
 

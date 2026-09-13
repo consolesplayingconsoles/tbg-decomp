@@ -39,9 +39,8 @@
           .EXPORT     _var_8c1ba2e0 ; 012f44_game
                                     ; 018644_file_menu
                                     ; 01b19c
-          .EXPORT     _var_8c1ba2e4 ; 018644
+          .EXPORT     _var_backupFileHeader_8c1ba2e4 ; 018644
                                     ; 01b19c
-          .EXPORT     _var_8c1ba33c ; 018644
                                     ; 01b19c
           .EXPORT     _var_vmuIconFileBuf_8c1ba344 ; 012f44_game
                                     ; 018644_file_menu
@@ -468,13 +467,13 @@
           .EXPORT     _var_dialogQueue_8c225fbc ; 016d2c_course_menu
                                                 ; 01f3c0
           .EXPORT     _var_coursesToUnlock_8c225fd4 ; 016d2c_course_menu
-          .EXPORT     _var_8c225fe0 ; 018644
+          .EXPORT     _var_saveBufCursor_8c225fe0 ; 018644
                                     ; 018644_file_menu
           .EXPORT     _var_8c225fe4 ; 018644
                                     ; 018644_file_menu
-          .EXPORT     _var_8c22600c ; 018644
+          .EXPORT     _var_loadedSaveCount_8c22600c ; 018644
                                     ; 018644_file_menu
-          .EXPORT     _var_8c226010 ; 018644
+          .EXPORT     _var_saveLoadResult_8c226010 ; 018644
                                     ; 018644_file_menu
           .EXPORT     _var_8c226014 ; 018644_file_menu
           .EXPORT     _var_8c226018 ; 018644_file_menu
@@ -940,10 +939,8 @@ _var_8c1ba2cc:
           .RES.B      20
 _var_8c1ba2e0:
           .RES.B      4
-_var_8c1ba2e4:
-          .RES.B      88
-_var_8c1ba33c:
-          .RES.B      8
+_var_backupFileHeader_8c1ba2e4:
+          .RES.B      96
 _var_vmuIconFileBuf_8c1ba344:
           .RES.B      4
 _var_backupFileImageBuf_8c1ba348:
@@ -1204,13 +1201,13 @@ _var_dialogQueue_8c225fbc:
           .RES.B      24
 _var_coursesToUnlock_8c225fd4:
           .RES.B      12
-_var_8c225fe0:
+_var_saveBufCursor_8c225fe0:
           .RES.B      4
 _var_8c225fe4:
           .RES.B      40
-_var_8c22600c:
+_var_loadedSaveCount_8c22600c:
           .RES.B      4
-_var_8c226010:
+_var_saveLoadResult_8c226010:
           .RES.B      4
 _var_8c226014:
           .RES.B      4

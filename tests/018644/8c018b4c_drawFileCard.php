@@ -83,7 +83,7 @@ return new class extends TestCase {
     {
         $this->doNotRandomizeMemory();
         $this->buf = $this->alloc(0x100);
-        $this->initUint32($this->addressOf('_var_8c225fe0'), $this->buf);
+        $this->initUint32($this->addressOf('_var_saveBufCursor_8c225fe0'), $this->buf);
         $this->initUint32($this->buf + 0x00, $days);
         $this->initUint32($this->buf + 0x8c, $f8c);
         $this->initUint32($this->buf + 0x90, $exp);
@@ -148,6 +148,6 @@ return new class extends TestCase {
     private function expectFinal(float $x): void
     {
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms + 0xc, 0x12, $x, 0.0, -4.5);
-        $this->shouldWriteLongTo('_var_8c225fe0', $this->buf + 0x600);
+        $this->shouldWriteLongTo('_var_saveBufCursor_8c225fe0', $this->buf + 0x600);
     }
 };

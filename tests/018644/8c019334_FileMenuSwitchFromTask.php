@@ -20,7 +20,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskSetAction_8c014b3e')
             ->with($task, $this->addressOf('_fileSelectTask_8c018e7e'));
-        $this->shouldWriteLong($this->addressOf('_var_8c22600c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_loadedSaveCount_8c22600c'), 0);
         $this->shouldWriteLong($this->ms + 0x18, 0);
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('ロード実行中です<E>電源を切らないで下さい');
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(1);
@@ -39,7 +39,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskSetAction_8c014b3e')
             ->with($task, $this->addressOf('_fileSelectTask_8c018e7e'));
-        $this->shouldWriteLong($this->addressOf('_var_8c22600c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_loadedSaveCount_8c22600c'), 0);
         $this->shouldWriteLong($this->ms + 0x18, 0);
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('ロード実行中です<E>電源を切らないで下さい');
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(1);
@@ -58,7 +58,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskSetAction_8c014b3e')
             ->with($task, $this->addressOf('_fileSelectTask_8c018e7e'));
-        $this->shouldWriteLong($this->addressOf('_var_8c22600c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_loadedSaveCount_8c22600c'), 0);
         $this->shouldCall('_buildFileList_8c018a22');
         $this->shouldWriteLong($this->ms + 0x18, 3);
         $this->tail();
@@ -82,7 +82,7 @@ return new class extends TestCase {
         }
 
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
-        $this->setSize('_var_8c22600c', 4);
+        $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->setSize('_var_vmuStatus_8c226048', 0x24);
         $this->setSize('_var_vmBusy_8c157a7c', 4);

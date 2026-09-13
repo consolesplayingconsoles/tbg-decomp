@@ -11,7 +11,7 @@
           .IMPORT     _var_exp_8c1ba25c
           .IMPORT     _ProfileFileUpdateUnlocks_8c01c980
           .IMPORT     _var_profileUnlockedCount_8c2263a4
-          .IMPORT     _var_8c1ba2e4
+          .IMPORT     _var_backupFileHeader_8c1ba2e4
           .IMPORT     _memset
           .IMPORT     _njMemCopy
           .IMPORT     _init_8c04410c
@@ -47,7 +47,6 @@
           .IMPORT     _buStat
           .IMPORT     _buGetLastError
           .IMPORT     _buAnalyzeBackupFileImage
-          .IMPORT     _var_8c1ba33c
           .IMPORT     _FileMenuIsSaveValid_8c018804
           .IMPORT     _FileMenuApplySoundSettings_8c0189fc
           .IMPORT     _DebugMenuFreeSessionAssets_8c016182
@@ -325,7 +324,7 @@ LP_GEN_27906:
           .DATA.L _var_award_8c1bb8f8 ; H'8C01B35C
           .DATA.L _ProfileFileUpdateUnlocks_8c01c980 ; H'8C01B360
           .DATA.L _var_profileUnlockedCount_8c2263a4 ; H'8C01B364
-          .DATA.L _var_8c1ba2e4 ; H'8C01B368
+          .DATA.L _var_backupFileHeader_8c1ba2e4 ; H'8C01B368
           .DATA.L _memset ; H'8C01B36C
           .DATA.L _var_8c226098 ; H'8C01B370
           .DATA.L _njMemCopy ; H'8C01B374
@@ -918,9 +917,9 @@ LP_GEN_43539:
           .DATA.L _buStat ; H'8C01B808
           .DATA.L _buGetLastError ; H'8C01B80C
           .DATA.L _var_8c1ba2e0 ; H'8C01B810
-          .DATA.L _var_8c1ba2e4 ; H'8C01B814
+          .DATA.L _var_backupFileHeader_8c1ba2e4 ; H'8C01B814
           .DATA.L _buAnalyzeBackupFileImage ; H'8C01B818
-          .DATA.L _var_8c1ba33c ; H'8C01B81C
+          .DATA.L _var_backupFileHeader_8c1ba2e4 + 88 ; H'8C01B81C
           .DATA.L _var_progress_8c1ba1cc ; H'8C01B820
           .DATA.L _njMemCopy ; H'8C01B824
           .DATA.L _FileMenuIsSaveValid_8c018804 ; H'8C01B828

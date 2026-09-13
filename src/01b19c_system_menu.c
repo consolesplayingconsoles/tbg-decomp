@@ -123,22 +123,22 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     var_progress_8c1ba1cc.profileUnlockedCount_0x8c = var_profileUnlockedCount_8c2263a4;
     updateVmuIconText_8c01b206();
 
-    memset(&var_8c1ba2e4, 0, 0x60);
-    njMemCopy(&var_8c1ba2e4, var_8c226098, 0x10);
+    memset(&var_backupFileHeader_8c1ba2e4, 0, 0x60);
+    njMemCopy(&var_backupFileHeader_8c1ba2e4, var_8c226098, 0x10);
     /* VMU file comment: "Tokyo Bus Guide data" */
-    strcpy(var_8c1ba2e4.btr_comment, STR_TITLE_DATA);
-    njMemCopy(var_8c1ba2e4.game_name, init_8c04410c, 0x10);
-    var_8c1ba2e4.icon_palette = var_vmuIconFileBuf_8c1ba344;
-    var_8c1ba2e4.icon_data = (char *)var_vmuIconFileBuf_8c1ba344 + 0x20;
-    var_8c1ba2e4.icon_num = 1;
-    var_8c1ba2e4.icon_speed = 1;
-    var_8c1ba2e4.save_data = &var_progress_8c1ba1cc;
-    var_8c1ba2e4.save_size = 0xe8;
+    strcpy(var_backupFileHeader_8c1ba2e4.btr_comment, STR_TITLE_DATA);
+    njMemCopy(var_backupFileHeader_8c1ba2e4.game_name, init_8c04410c, 0x10);
+    var_backupFileHeader_8c1ba2e4.icon_palette = var_vmuIconFileBuf_8c1ba344;
+    var_backupFileHeader_8c1ba2e4.icon_data = (char *)var_vmuIconFileBuf_8c1ba344 + 0x20;
+    var_backupFileHeader_8c1ba2e4.icon_num = 1;
+    var_backupFileHeader_8c1ba2e4.icon_speed = 1;
+    var_backupFileHeader_8c1ba2e4.save_data = &var_progress_8c1ba1cc;
+    var_backupFileHeader_8c1ba2e4.save_size = 0xe8;
 
-    size = buCalcBackupFileSize(var_8c1ba2e4.icon_num, var_8c1ba2e4.visual_type,
-                                var_8c1ba2e4.save_size);
+    size = buCalcBackupFileSize(var_backupFileHeader_8c1ba2e4.icon_num, var_backupFileHeader_8c1ba2e4.visual_type,
+                                var_backupFileHeader_8c1ba2e4.save_size);
     var_backupFileImageBuf_8c1ba348 = syMalloc(size << 9);
-    buMakeBackupFileImage(var_backupFileImageBuf_8c1ba348, &var_8c1ba2e4);
+    buMakeBackupFileImage(var_backupFileImageBuf_8c1ba348, &var_backupFileHeader_8c1ba2e4);
     BupSave_8c014bcc(var_selectedVm_8c1ba34c,
                      init_saveNames_8c044d50[var_8c1ba350], var_backupFileImageBuf_8c1ba348, 3);
     var_vmBusy_8c157a7c = 1;
@@ -308,8 +308,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 break;
             }
             if (buGetLastError(var_selectedVm_8c1ba34c) == 0) {
-                buAnalyzeBackupFileImage(&var_8c1ba2e4, var_8c1ba2e0);
-                njMemCopy(&var_progress_8c1ba1cc, var_8c1ba33c, 0xe8);
+                buAnalyzeBackupFileImage(&var_backupFileHeader_8c1ba2e4, var_8c1ba2e0);
+                njMemCopy(&var_progress_8c1ba1cc, var_backupFileHeader_8c1ba2e4.save_data, 0xe8);
                 if (FileMenuIsSaveValid_8c018804((int *)&var_progress_8c1ba1cc) != 0) {
                     SystemMenuApplyLoadedProgress_8c01b19c();
                     FileMenuApplySoundSettings_8c0189fc();

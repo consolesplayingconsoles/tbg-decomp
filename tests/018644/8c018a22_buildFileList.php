@@ -14,7 +14,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c226018', 0x30);
         $this->setSize('_var_vmuStatus_8c226048', 0x24);
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
-        $this->setSize('_var_8c22600c', 4);
+        $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_8c225fe4', 0x28);
 
         $this->b14 = $this->addressOf('_var_8c226014');
@@ -22,7 +22,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), $selectedVm);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048') + $selectedVm * 4, $status);
-        $this->initUint32($this->addressOf('_var_8c22600c'), $count);
+        $this->initUint32($this->addressOf('_var_loadedSaveCount_8c22600c'), $count);
         foreach ($saves as $i => $v) {
             $this->initUint32($this->addressOf('_var_8c225fe4') + $i * 4, $v);
         }

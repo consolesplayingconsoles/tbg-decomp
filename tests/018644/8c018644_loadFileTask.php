@@ -11,8 +11,8 @@ return new class extends TestCase {
         $this->setupExterns();
 
         $buf = $this->alloc(0x1000);
-        $this->initUint32($this->addressOf('_var_8c225fe0'), $buf);
-        $this->initUint32($this->addressOf('_var_8c22600c'), 0);
+        $this->initUint32($this->addressOf('_var_saveBufCursor_8c225fe0'), $buf);
+        $this->initUint32($this->addressOf('_var_loadedSaveCount_8c22600c'), 0);
 
         $name0 = $this->allocString("SAVE1");
         $names = $this->alloc(0x8);
@@ -29,7 +29,7 @@ return new class extends TestCase {
         $this->shouldCall('_buIsExistFile')->with(0, $name0)->andReturn(0);
         $this->shouldCall('_BupLoad_8c014bc6')->with(0, $name0, $buf);
         $this->shouldWriteLongTo('_var_8c225fe4', 5);
-        $this->shouldWriteLongTo('_var_8c22600c', 1);
+        $this->shouldWriteLongTo('_var_loadedSaveCount_8c22600c', 1);
         $this->shouldWriteLong($task + 0x18, $names + 4);
         $this->shouldWriteLong($task + 0x08, 1);
         $this->shouldWriteLong($task + 0x0c, 6);
@@ -41,8 +41,8 @@ return new class extends TestCase {
         $this->setupExterns();
 
         $buf = $this->alloc(0x1000);
-        $this->initUint32($this->addressOf('_var_8c225fe0'), $buf);
-        $this->initUint32($this->addressOf('_var_8c22600c'), 0);
+        $this->initUint32($this->addressOf('_var_saveBufCursor_8c225fe0'), $buf);
+        $this->initUint32($this->addressOf('_var_loadedSaveCount_8c22600c'), 0);
 
         $name0 = $this->allocString("SAVE1");
         $name1 = $this->allocString("SAVE2");
@@ -63,7 +63,7 @@ return new class extends TestCase {
         $this->shouldCall('_buIsExistFile')->with(0, $name1)->andReturn(0);
         $this->shouldCall('_BupLoad_8c014bc6')->with(0, $name1, $buf);
         $this->shouldWriteLongTo('_var_8c225fe4', 6);
-        $this->shouldWriteLongTo('_var_8c22600c', 1);
+        $this->shouldWriteLongTo('_var_loadedSaveCount_8c22600c', 1);
         $this->shouldWriteLong($task + 0x18, $names + 8);
         $this->shouldWriteLong($task + 0x08, 1);
         $this->shouldWriteLong($task + 0x0c, 7);
@@ -74,7 +74,7 @@ return new class extends TestCase {
     {
         $this->setupExterns();
 
-        $this->initUint32($this->addressOf('_var_8c22600c'), 0);
+        $this->initUint32($this->addressOf('_var_loadedSaveCount_8c22600c'), 0);
 
         $name0 = $this->allocString("SAVE1");
         $names = $this->alloc(0x8);
@@ -89,7 +89,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_buIsExistFile')->with(0, $name0)->andReturn(5);
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldWriteLongTo('_var_8c226010', 2);
+        $this->shouldWriteLongTo('_var_saveLoadResult_8c226010', 2);
     }
 
     /* State 0: empty list terminator -> all files present, report success (1). */
@@ -107,7 +107,7 @@ return new class extends TestCase {
         $this->call('_loadFileTask_8c018644')->with($task);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldWriteLongTo('_var_8c226010', 1);
+        $this->shouldWriteLongTo('_var_saveLoadResult_8c226010', 1);
     }
 
     /* Unknown state -> dispatch falls through with no side effects. */
@@ -147,7 +147,7 @@ return new class extends TestCase {
         $this->shouldCall('_buStat')->with(0)->andReturn(0);
         $this->shouldCall('_buGetLastError')->with(0)->andReturn(5);
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldWriteLongTo('_var_8c226010', 2);
+        $this->shouldWriteLongTo('_var_saveLoadResult_8c226010', 2);
     }
 
     /* State 1: load complete -> analyze image, copy header, advance buffer, back to state 0. */
@@ -156,10 +156,10 @@ return new class extends TestCase {
         $this->setupExterns();
 
         $buf = $this->alloc(0x1000);
-        $this->initUint32($this->addressOf('_var_8c225fe0'), $buf);
+        $this->initUint32($this->addressOf('_var_saveBufCursor_8c225fe0'), $buf);
 
         $src = $this->alloc(0x100);
-        $this->initUint32($this->addressOf('_var_8c1ba33c'), $src);
+        $this->initUint32($this->addressOf('_var_backupFileHeader_8c1ba2e4') + 0x58, $src);
 
         $mem = $this->alloc(0x100);
 
@@ -172,12 +172,12 @@ return new class extends TestCase {
         $this->shouldCall('_buGetLastError')->with(0)->andReturn(0);
         $this->shouldCall('_syMalloc')->with(0xe8)->andReturn($mem);
         $this->shouldWriteLongTo('_var_backupFileImageBuf_8c1ba348', $mem);
-        $this->shouldCall('_buAnalyzeBackupFileImage')->with($this->addressOf('_var_8c1ba2e4'), $buf);
+        $this->shouldCall('_buAnalyzeBackupFileImage')->with($this->addressOf('_var_backupFileHeader_8c1ba2e4'), $buf);
         $this->shouldCall('_njMemCopy')->with($mem, $src, 0xe8);
         $this->shouldCall('_njMemCopy')->with($buf, $mem, 0xe8);
         $this->shouldCall('_syFree')->with($mem);
         $this->shouldWriteLongTo('_var_backupFileImageBuf_8c1ba348', 0xffffffff);
-        $this->shouldWriteLongTo('_var_8c225fe0', $buf + 0x600);
+        $this->shouldWriteLongTo('_var_saveBufCursor_8c225fe0', $buf + 0x600);
         $this->shouldWriteLong($task + 0x08, 0);
     }
 
@@ -185,13 +185,12 @@ return new class extends TestCase {
     {
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->setSize('_var_8c225fe0', 4);
+        $this->setSize('_var_saveBufCursor_8c225fe0', 4);
         $this->setSize('_var_8c225fe4', 0x28);
-        $this->setSize('_var_8c22600c', 4);
-        $this->setSize('_var_8c226010', 4);
+        $this->setSize('_var_loadedSaveCount_8c22600c', 4);
+        $this->setSize('_var_saveLoadResult_8c226010', 4);
         $this->setSize('_var_backupFileImageBuf_8c1ba348', 4);
-        $this->setSize('_var_8c1ba2e4', 0x58);
-        $this->setSize('_var_8c1ba33c', 8);
+        $this->setSize('_var_backupFileHeader_8c1ba2e4', 0x60);
         $this->setSize('_buIsExistFile', 4);
         $this->setSize('_buStat', 4);
         $this->setSize('_buGetLastError', 4);

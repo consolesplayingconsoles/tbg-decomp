@@ -62,7 +62,7 @@ typedef struct {
     int counter_0x0c;
     int field_0x10;
     int field_0x14;
-    char **queuedItem_0x18;
+    char **names_0x18;
     int field_0x1c;
 } LoadFileTask;
 
@@ -71,52 +71,72 @@ typedef struct {
  * ====================
  */
 
-/* Loads the save files from the selected VMU, one file at a time across frames. */
+/**
+ * Loads the save files from the selected VMU, one file at a time across frames.
+ */
 STATIC void loadFileTask_8c018644(LoadFileTask *task)
 {
-    char **names;
+    switch (task->phase_0x08) {
+        case 0: {
+            char **name;
 
-    LOG_TRACE(("[FILE_MENU] loadFileTask_8c018644\n"));
+            for (name = task->names_0x18; **name != '\0'; name++) {
+                int err = buIsExistFile(var_selectedVm_8c1ba34c, *name);
 
-    if (task->phase_0x08 == 0) {
-        for (names = task->queuedItem_0x18; **names != '\0'; names++) {
-            int err = buIsExistFile(var_selectedVm_8c1ba34c, *names);
-            if (err == 0) {
-                LOG_DEBUG(("[FILE_MENU] loadFileTask_8c018644: requesting load for \"%s\"\n", *names));
-                BupLoad_8c014bc6(var_selectedVm_8c1ba34c, *names, var_8c225fe0);
-                var_8c225fe4[var_8c22600c] = task->counter_0x0c;
-                var_8c22600c++;
-                task->queuedItem_0x18 = names + 1;
+                if (err != BUD_ERR_OK) {
+                    if (err == BUD_ERR_FILE_NOT_FOUND) {
+                        task->counter_0x0c++;
+                        continue;
+                    }
+
+                    LOG_WARN(("[FILE_MENU] enumeration failed for \"%s\" (err=%d)\n", *name, err));
+                    TaskFree_8c014b66((Task *)task);
+                    var_saveLoadResult_8c226010 = 2;
+                    return;
+                }
+
+                LOG_DEBUG(("[FILE_MENU] requesting load for \"%s\"\n", *name));
+                BupLoad_8c014bc6(var_selectedVm_8c1ba34c, *name, var_saveBufCursor_8c225fe0);
+                var_8c225fe4[var_loadedSaveCount_8c22600c] = task->counter_0x0c;
+                var_loadedSaveCount_8c22600c++;
+                task->names_0x18 = ++name;
                 task->phase_0x08 = 1;
                 task->counter_0x0c++;
                 return;
             }
-            if (err != -0xfb) {
-                LOG_WARN(("[FILE_MENU] loadFileTask_8c018644: enumeration failed for \"%s\" (err=%d)\n", *names, err));
-                TaskFree_8c014b66((Task *)task);
-                var_8c226010 = 2;
-                return;
-            }
-            task->counter_0x0c++;
-        }
-        LOG_DEBUG(("[FILE_MENU] loadFileTask_8c018644: all files loaded (%d)\n", var_8c22600c));
-        TaskFree_8c014b66((Task *)task);
-        var_8c226010 = 1;
-    } else if (task->phase_0x08 == 1 && buStat(var_selectedVm_8c1ba34c) == 0) {
-        if (buGetLastError(var_selectedVm_8c1ba34c) != 0) {
-            LOG_WARN(("[FILE_MENU] loadFileTask_8c018644: load failed\n"));
+
+            LOG_DEBUG(("[FILE_MENU] all files loaded (%d)\n", var_loadedSaveCount_8c22600c));
             TaskFree_8c014b66((Task *)task);
-            var_8c226010 = 2;
+            var_saveLoadResult_8c226010 = 1;
+
             return;
         }
-        var_backupFileImageBuf_8c1ba348 = syMalloc(0xe8);
-        buAnalyzeBackupFileImage(&var_8c1ba2e4, var_8c225fe0);
-        njMemCopy(var_backupFileImageBuf_8c1ba348, var_8c1ba33c, 0xe8);
-        njMemCopy(var_8c225fe0, var_backupFileImageBuf_8c1ba348, 0xe8);
-        syFree(var_backupFileImageBuf_8c1ba348);
-        var_backupFileImageBuf_8c1ba348 = (void *)-1;
-        var_8c225fe0 = (char *)var_8c225fe0 + 0x600;
-        task->phase_0x08 = 0;
+
+        case 1: {
+            if (buStat(var_selectedVm_8c1ba34c) != BUD_STAT_READY) {
+                return;
+            }
+
+            if (buGetLastError(var_selectedVm_8c1ba34c) != BUD_ERR_OK) {
+                LOG_WARN(("[FILE_MENU] load failed\n"));
+                TaskFree_8c014b66((Task *)task);
+                var_saveLoadResult_8c226010 = 2;
+                return;
+            }
+
+            // Extract PlayerProgress from the backup file image in-place
+            var_backupFileImageBuf_8c1ba348 = syMalloc(sizeof(PlayerProgress));
+            buAnalyzeBackupFileImage(&var_backupFileHeader_8c1ba2e4, var_saveBufCursor_8c225fe0);
+            njMemCopy(var_backupFileImageBuf_8c1ba348, var_backupFileHeader_8c1ba2e4.save_data, sizeof(PlayerProgress));
+            njMemCopy(var_saveBufCursor_8c225fe0, var_backupFileImageBuf_8c1ba348, sizeof(PlayerProgress));
+            syFree(var_backupFileImageBuf_8c1ba348);
+            var_backupFileImageBuf_8c1ba348 = (void *) -1;
+
+            var_saveBufCursor_8c225fe0 = (char *)var_saveBufCursor_8c225fe0 + 0x600;
+            task->phase_0x08 = 0;
+
+            return;
+        }
     }
 }
 
@@ -131,10 +151,10 @@ STATIC void startVmLoad_8c018784(void)
     var_vmBusy_8c157a7c = 1;
     task->phase_0x08 = 0;
     task->counter_0x0c = 0;
-    task->queuedItem_0x18 = init_saveNames_8c044d50;
+    task->names_0x18 = init_saveNames_8c044d50;
     var_8c1ba2e0 = syMalloc(0x3c00);
-    var_8c225fe0 = var_8c1ba2e0;
-    var_8c226010 = 0;
+    var_saveBufCursor_8c225fe0 = var_8c1ba2e0;
+    var_saveLoadResult_8c226010 = 0;
 }
 
 void FileMenuFreeBuffers_8c0187d0(void)
@@ -287,19 +307,19 @@ STATIC void buildFileList_8c018a22(void)
     var_8c226014 = 0;
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVING_POSSIBLE ||
         (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS_NO_SPACE &&
-         var_8c22600c < 10)) {
+         var_loadedSaveCount_8c22600c < 10)) {
         var_8c226018[0] = 10; // NEW FILE card
         var_8c226014 = 1;
     }
     dst = var_8c226014;
-    for (i = 0; i < var_8c22600c; i++) {
+    for (i = 0; i < var_loadedSaveCount_8c22600c; i++) {
         var_8c226018[dst] = var_8c225fe4[i];
         dst++;
     }
     for (i = dst; i < 12; i++) {
         var_8c226018[i] = 0xb; // empty slot
     }
-    var_8c226014 += var_8c22600c;
+    var_8c226014 += var_loadedSaveCount_8c22600c;
 
     LOG_DEBUG(("[FILE_MENU] buildFileList_8c018a22: built file list (%d cards)\n", var_8c226014));
 }
@@ -319,7 +339,7 @@ STATIC void drawNumber_8c018aa2(int value, float x, float y)
     } while (value /= 10);
 }
 
-/* Draws the save at var_8c225fe0, then advances it to the next image. */
+/* Draws the save at var_saveBufCursor_8c225fe0, then advances it to the next image. */
 STATIC void drawFileCard_8c018b4c(int kind, float x)
 {
     PlayerProgress *save;
@@ -335,7 +355,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
         return;
     }
 
-    save = var_8c225fe0;
+    save = var_saveBufCursor_8c225fe0;
 
     drawNumber_8c018aa2(save->days_0x00, x + (save->days_0x00 >= 10 ? 63.0 : 52.0), 122.0);
     TxtDrawSprite_8c014f54(
@@ -385,7 +405,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
     }
 
     TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x12, x, 0.0, -4.5);
-    var_8c225fe0 = (char *)var_8c225fe0 + 0x600;
+    var_saveBufCursor_8c225fe0 = (char *)var_saveBufCursor_8c225fe0 + 0x600;
 }
 
 /* A page shows three cards; field_0x3c is the index of the leftmost one. */
@@ -403,7 +423,7 @@ STATIC void drawFileSelect_8c018d46(void)
     } else {
         dst = (char *)var_8c1ba2e0 + var_menuState_8c1bc7a8.field_0x3c * 0x600;
     }
-    var_8c225fe0 = dst;
+    var_saveBufCursor_8c225fe0 = dst;
 
     x = 55.0;
     for (i = var_menuState_8c1bc7a8.field_0x3c;
@@ -439,27 +459,27 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
     case FILE_MENU_STATE_LOADING:
-        if (var_8c226010 == 0) {
+        if (var_saveLoadResult_8c226010 == 0) {
             ObjectsMenuTextboxText_8c02af1c(0xff);
-        } else if (var_8c226010 == 1) {
+        } else if (var_saveLoadResult_8c226010 == 1) {
             var_vmBusy_8c157a7c = 0;
             VmGameSetLcdSlot_8c01c8fc(0);
-            var_8c225fe0 = var_8c1ba2e0;
-            for (i = 0; i < var_8c22600c; i++) {
-                if (!FileMenuIsSaveValid_8c018804((int *)var_8c225fe0)) {
+            var_saveBufCursor_8c225fe0 = var_8c1ba2e0;
+            for (i = 0; i < var_loadedSaveCount_8c22600c; i++) {
+                if (!FileMenuIsSaveValid_8c018804((int *)var_saveBufCursor_8c225fe0)) {
                     LOG_WARN(("[FILE_MENU] fileSelectTask_8c018e7e: save %d failed validation\n", i));
                     FileMenuFreeBuffers_8c0187d0();
                     ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOAD_FAIL);
                     CHANGE_STATE(FILE_MENU_STATE_LOAD_ERROR);
                     break;
                 }
-                var_8c225fe0 = (char *)var_8c225fe0 + 0x600;
+                var_saveBufCursor_8c225fe0 = (char *)var_saveBufCursor_8c225fe0 + 0x600;
             }
-            if (i >= var_8c22600c) {
+            if (i >= var_loadedSaveCount_8c22600c) {
                 buildFileList_8c018a22();
                 CHANGE_STATE(FILE_MENU_STATE_READY);
             }
-        } else if (var_8c226010 == 2) {
+        } else if (var_saveLoadResult_8c226010 == 2) {
             LOG_WARN(("[FILE_MENU] fileSelectTask_8c018e7e: file load failed\n"));
             var_vmBusy_8c157a7c = 0;
             FileMenuFreeBuffers_8c0187d0();
@@ -556,7 +576,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
                 while (var_8c225fe4[idx] != cardValue) {
                     idx++;
                 }
-                njMemCopy(&var_progress_8c1ba1cc, (char *)var_8c1ba2e0 + idx * 0x600, 0xe8);
+                njMemCopy(&var_progress_8c1ba1cc, (char *)var_8c1ba2e0 + idx * 0x600, sizeof(PlayerProgress));
                 SystemMenuApplyLoadedProgress_8c01b19c();
                 var_8c1ba350 = cardValue;
                 FileMenuApplySoundSettings_8c0189fc();
@@ -613,7 +633,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
 void FileMenuSwitchFromTask_8c019334(Task *task)
 {
     TaskSetAction_8c014b3e(task, fileSelectTask_8c018e7e);
-    var_8c22600c = 0;
+    var_loadedSaveCount_8c22600c = 0;
     // VMU status 5/6 means there are saves to load before the list can be shown.
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 5 ||
         var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 6) {

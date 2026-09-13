@@ -25,11 +25,11 @@ return new class extends TestCase {
     public function test_builds_and_saves_backup_image(): void
     {
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
-        $this->setSize('_var_8c1ba2e4', 0x60);       // BUS_BACKUPFILEHEADER
+        $this->setSize('_var_backupFileHeader_8c1ba2e4', 0x60);       // BUS_BACKUPFILEHEADER
         $this->setSize('_init_saveNames_8c044d50', 0x2c); // char*[11]
 
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
-        $header = $this->addressOf('_var_8c1ba2e4');
+        $header = $this->addressOf('_var_backupFileHeader_8c1ba2e4');
         $saveNames = $this->addressOf('_init_saveNames_8c044d50');
         $icon = $this->addressOf('_var_vmuIconFileBuf_8c1ba344');
 

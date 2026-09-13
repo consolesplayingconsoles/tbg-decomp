@@ -375,8 +375,7 @@ extern int var_runEventFlags_8c1ba2b4;
 extern int var_8c1ba2b8[5]; // Maybe progress backup
 extern int var_8c1ba2cc[5]; // Maybe progress backup
 extern void* var_8c1ba2e0;
-extern BUS_BACKUPFILEHEADER var_8c1ba2e4; // 018644: analyzed backup file header
-extern void* var_8c1ba33c;
+extern BUS_BACKUPFILEHEADER var_backupFileHeader_8c1ba2e4; // 018644: analyzed backup file header
 extern void* var_vmuIconFileBuf_8c1ba344;
 extern void* var_backupFileImageBuf_8c1ba348;
 extern int var_8c1ba350;        // 018644: selected save slot / new-file index
@@ -575,10 +574,10 @@ extern DebugMenuCourseSel *var_debugMenuCourseSel_8c1bc824;
 extern ReplayInput var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY];
 extern ReplayInput *var_demoCursor_8c225fa8;
 extern Uint32 var_demoPrevOn_8c225fac;
-extern void* var_8c225fe0;      // 018644: BupLoad dest buffer, advances 0x600 per file
+extern void* var_saveBufCursor_8c225fe0;      // 018644: BupLoad dest buffer, advances 0x600 per file
 extern int var_8c225fe4[10];    // 018644
-extern int var_8c22600c;        // 018644: index into var_8c225fe4
-extern int var_8c226010;        // 018644: load result (1 = done, 2 = error)
+extern int var_loadedSaveCount_8c22600c;        // 018644
+extern int var_saveLoadResult_8c226010;        // 018644: load result (1 = done, 2 = error)
 extern int var_8c226014;        // 018644: FILE SELECT leading NEW-FILE card count (0 or 1)
 extern int var_8c226018[12];    // 018644: FILE SELECT card list (0xa=NEW FILE, 0xb=empty)
 
