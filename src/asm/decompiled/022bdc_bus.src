@@ -16,7 +16,7 @@
           .IMPORT     _BusLineAdvance_8c02412c
           .IMPORT     _njSin
           .IMPORT     _njCos
-          .IMPORT     _BusInputMirrorLookahead_8c024280
+          .IMPORT     _BusInputCapMirrorTraffic_8c024280
           .IMPORT     _GeomDistanceXZ_8c02081c
           .IMPORT     _var_8c2285c4
           .IMPORT     _FUN_8c010c6e
@@ -461,7 +461,7 @@ LP_GEN_93321:
           .RES.W 1 ; H'8C022F12
           .DATA.L _njSin ; H'8C022F14
           .DATA.L _njCos ; H'8C022F18
-          .DATA.L _BusInputMirrorLookahead_8c024280 ; H'8C022F1C
+          .DATA.L _BusInputCapMirrorTraffic_8c024280 ; H'8C022F1C
           .DATA.L H'3DCCCCCD ; H'8C022F20
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C022F24
           .DATA.L _GeomDistanceXZ_8c02081c ; H'8C022F28

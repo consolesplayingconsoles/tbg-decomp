@@ -5,30 +5,30 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // applyThrottle_8c024320: STATIC, called from BusInputUpdate_8c0246b2 each frame while driving.
-// While the .r trigger (var_8c1ba374) clears its saved deadzone
-// (var_8c1ba29c) by at least var_8c1bbcb4's minimum scaled step, ramps
-// BusState.needleCurrentValue_0x2e4 toward that step by init_gears_8c045638[gear].accelRate_0x00,
-// feeds it through njSin to derive target_0x2e8/speed_0x27c, and upshifts
+// While the .r trigger (var_padTriggerR_8c1ba374) clears its saved deadzone
+// (var_accelSensitivity_8c1ba29c) by at least var_throttleMinStep_8c1bbcb4's minimum scaled step, ramps
+// BusState.rpmRampAngle_0x2e4 toward that step by init_gears_8c045638[gear].accelRate_0x00,
+// feeds it through njSin to derive targetRpm_0x2e8/speed_0x27c, and upshifts
 // (with a shift-cue MIDI note) once speed clears the next gear's top speed
 // -- or, at the top gear, just clamps speed to its max. Otherwise coasts:
 // decays speed_0x27c by 0.00025 (clamped to 0), downshifting (same cue) if
 // speed drops under the current gear's own top speed, then -- for every
-// coast and every upshift -- recomputes target_0x2e8/needleCurrentValue_0x2e4 from the
+// coast and every upshift -- recomputes targetRpm_0x2e8/rpmRampAngle_0x2e4 from the
 // (possibly new) gear via asinf, same formula as applyBraking_8c024530.
 //
 // asinf's return is mocked to 0.0 throughout: sh4objtest has no FPU
-// register accessor, so the real argument (target_0x2e8/6000) is asserted
+// register accessor, so the real argument (targetRpm_0x2e8/6000) is asserted
 // via with(), but the angle it produces cannot be chained from a live libm
 // call -- only from the mocked return.
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
-        $this->setSize('_var_8c1ba374', 2);
-        $this->setSize('_var_8c1ba29c', 1);
-        $this->setSize('_var_8c1bbcb4', 4);
+        $this->setSize('_var_padTriggerR_8c1ba374', 2);
+        $this->setSize('_var_accelSensitivity_8c1ba29c', 1);
+        $this->setSize('_var_throttleMinStep_8c1bbcb4', 4);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
-        $this->setSize('_var_8c22864c', 4);
+        $this->setSize('_var_firstUpshift_8c22864c', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4 * 8);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_njSin', 4);
@@ -49,11 +49,11 @@ return new class extends TestCase {
         int $mirrorLevel = 0
     ): int {
         $this->resolveSymbols();
-        $this->initUint16($this->addressOf('_var_8c1ba374'), $trigger);
-        $this->initUint8($this->addressOf('_var_8c1ba29c'), $deadzone);
-        $this->initUint32($this->addressOf('_var_8c1bbcb4'), $minStep);
+        $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), $trigger);
+        $this->initUint8($this->addressOf('_var_accelSensitivity_8c1ba29c'), $deadzone);
+        $this->initUint32($this->addressOf('_var_throttleMinStep_8c1bbcb4'), $minStep);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), $mirrorLevel);
-        $this->initUint32($this->addressOf('_var_8c22864c'), 0xdeadbeef);
+        $this->initUint32($this->addressOf('_var_firstUpshift_8c22864c'), 0xdeadbeef);
 
         $bus = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($bus + 0x2f4, $gear);
@@ -78,7 +78,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2e4, 0);
     }
 
-    // Trigger past deadzone but below var_8c1bbcb4's minimum step: treated
+    // Trigger past deadzone but below var_throttleMinStep_8c1bbcb4's minimum step: treated
     // as coasting even though the trigger is technically pressed.
     public function test_belowMinStep_treatedAsCoasting(): void {
         $bus = $this->setup(200, 50, 99999, 1, 0.2, 999);
@@ -153,7 +153,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2e4, 0);
     }
 
-    // Accelerating out of gear 0 specifically: var_8c22864c is set to 1 on
+    // Accelerating out of gear 0 specifically: var_firstUpshift_8c22864c is set to 1 on
     // the first upshift out of gear 0.
     public function test_accelerating_upshiftFromGearZero_setsFirstShiftFlag(): void {
         $bus = $this->setup(200, 50, 0, 0, 0.0, 0);
@@ -165,7 +165,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($bus + 0x2e8, 5400.0);
         $this->shouldWriteFloat($bus + 0x27c, 0.11666665971279144);
         $this->shouldCall('_sdMidiPlay')->with(0xcafe0900, 1, 0x26, 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c22864c'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_firstUpshift_8c22864c'), 1);
         $this->shouldWriteLong($bus + 0x2f4, 1);
         $this->shouldWriteFloat($bus + 0x2e8, 2700.0);
         $this->shouldCall('_asinf')->with(2700.0 / 6000.0)->andReturn(0.0);

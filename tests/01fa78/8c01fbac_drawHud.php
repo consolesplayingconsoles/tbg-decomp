@@ -302,7 +302,7 @@ return new class extends TestCase {
 
         $this->initUint32($dp + 0x10, 100); // var_8c2285d4
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0, 2); // needle mode 2
-        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e8, unpack('L', pack('f', 650.0))[1]); // target_0x2e8 > 500
+        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e8, unpack('L', pack('f', 650.0))[1]); // targetRpm_0x2e8 > 500
         $this->initUint32($base + 0x2c, unpack('L', pack('f', 600.0))[1]); // above target -> ramp up, overshoots
 
         $this->call('_drawHud_8c01fbac')->with(0);

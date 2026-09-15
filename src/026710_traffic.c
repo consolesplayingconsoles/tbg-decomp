@@ -259,7 +259,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
             e->field_0x280[i] = 0;
         }
         e->field_0x290 = init_8c0461c8[variantIdx];
-        e->field_0x418 = 9999.0f;
+        e->followSpeedCap_0x418 = 9999.0f;
         e->obstacleLimitActive_0x424 = 0;
         e->curveLimitActive_0x428 = 0;
         speedRandom = AsqGetRandomA_8c012166();
@@ -452,9 +452,9 @@ float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *oth
         }
 
         if (o->pathDistanceCopy_0x2c0 <= e->pathDistanceCopy_0x2c0) {
-            o->field_0x418 = e->speed_0x27c + margin;
-            if (o->field_0x418 < 0.0f) {
-                o->field_0x418 = 0.0f;
+            o->followSpeedCap_0x418 = e->speed_0x27c + margin;
+            if (o->followSpeedCap_0x418 < 0.0f) {
+                o->followSpeedCap_0x418 = 0.0f;
             }
         } else {
             candidate = o->speed_0x27c + margin;

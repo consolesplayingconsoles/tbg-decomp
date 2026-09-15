@@ -3,26 +3,26 @@
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_inputMapSel_8c1bb8c8
           .IMPORT     _var_peripherals_8c1ba35c
-          .IMPORT     _var_8c1ba374
-          .IMPORT     _var_8c1ba29c
+          .IMPORT     _var_padTriggerR_8c1ba374
+          .IMPORT     _var_accelSensitivity_8c1ba29c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
-          .IMPORT     _var_8c1bbcb4
+          .IMPORT     _var_throttleMinStep_8c1bbcb4
           .IMPORT     _njSin
           .IMPORT     _var_cameraMode_8c227d9c
-          .IMPORT     _var_8c22864c
+          .IMPORT     _var_firstUpshift_8c22864c
           .IMPORT     _asinf
-          .IMPORT     _var_8c1ba376
-          .IMPORT     _var_8c1ba29d
+          .IMPORT     _var_padTriggerL_8c1ba376
+          .IMPORT     _var_brakeSensitivity_8c1ba29d
           .IMPORT     _var_8c2285c4
-          .IMPORT     _var_8c227d8c
+          .IMPORT     _var_brakePressPeak_8c227d8c
           .IMPORT     __divls
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _VibStart_8c010f7a
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
-          .EXPORT     _BusInputMirrorLookahead_8c024280
+          .EXPORT     _BusInputCapMirrorTraffic_8c024280
           .EXPORT     _BusInputUpdate_8c0246b2
           .AIFDEF UNIT_TESTING
           .EXPORT     _applyThrottle_8c024320
@@ -31,7 +31,7 @@
           .EXPORT     _applyBrakingSfx_8c024606
           .AENDI
           .SECTION     P, CODE, ALIGN=4
-_BusInputMirrorLookahead_8c024280:
+_BusInputCapMirrorTraffic_8c024280:
           MOVA        LP_GEN_37903+18,R0
           MOV.L       LP_GEN_37903+14,R1
           FMOV.S      @R0,FR3
@@ -116,7 +116,7 @@ LP_GEN_37903:
           .DATA.L _var_tasks_8c1bac28 ; H'8C024314
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C024318
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C02431C
-; var_8c1ba29c looks like a saved input deadzone threshold (throttle axis, .r)
+; var_accelSensitivity_8c1ba29c looks like a saved input deadzone threshold (throttle axis, .r)
 _applyThrottle_8c024320:
           MOV.L       LP_GEN_79582+8,R3
           MOVA        LP_GEN_79582+16,R0
@@ -267,8 +267,8 @@ LP_GEN_79582:
           .DATA.W H'02E8 ; H'8C024432
           .DATA.W H'02F4 ; H'8C024434
           .DATA.W H'027C ; H'8C024436
-          .DATA.L _var_8c1ba374 ; H'8C024438
-          .DATA.L _var_8c1ba29c ; H'8C02443C
+          .DATA.L _var_padTriggerR_8c1ba374 ; H'8C024438
+          .DATA.L _var_accelSensitivity_8c1ba29c ; H'8C02443C
           .DATA.L H'437F0000 ; H'8C024440
           .DATA.L H'46800000 ; H'8C024444
           .DATA.L H'45BB8000 ; H'8C024448
@@ -276,10 +276,10 @@ LP_GEN_79582:
           .DATA.L _sdMidiPlay ; H'8C024450
           .DATA.L _init_gears_8c045638 ; H'8C024454
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024458
-          .DATA.L _var_8c1bbcb4 ; H'8C02445C
+          .DATA.L _var_throttleMinStep_8c1bbcb4 ; H'8C02445C
           .DATA.L _njSin ; H'8C024460
           .DATA.L _var_cameraMode_8c227d9c ; H'8C024464
-          .DATA.L _var_8c22864c ; H'8C024468
+          .DATA.L _var_firstUpshift_8c22864c ; H'8C024468
           .DATA.L H'3F25ED09 ; H'8C02446C
 LAB_8c024470:
           MOV.L       LP_GEN_22782+6,R1
@@ -489,7 +489,7 @@ LAB_8c0245ac:
           FMOV.S      @R15+,FR15
           RTS
           MOV.L       @R15+,R14
-; var_8c1ba29d looks like a saved input deadzone threshold (other input axis, .l)
+; var_brakeSensitivity_8c1ba29d looks like a saved input deadzone threshold (other input axis, .l)
 _applyBrakingSfx_8c024606:
           MOV.L       LP_GEN_12192+16,R2
           MOV.L       LP_GEN_12192+12,R3
@@ -531,8 +531,8 @@ LP_GEN_12192:
           .DATA.W H'02E4 ; H'8C02464A
           .DATA.W H'0090 ; H'8C02464C
           .DATA.W H'0080 ; H'8C02464E
-          .DATA.L _var_8c1ba376 ; H'8C024650
-          .DATA.L _var_8c1ba29d ; H'8C024654
+          .DATA.L _var_padTriggerL_8c1ba376 ; H'8C024650
+          .DATA.L _var_brakeSensitivity_8c1ba29d ; H'8C024654
           .DATA.L H'437F0000 ; H'8C024658
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02465C
           .DATA.L H'42400000 ; H'8C024660
@@ -543,7 +543,7 @@ LP_GEN_12192:
           .DATA.L H'47800000 ; H'8C024674
           .DATA.L H'40C90FD8 ; H'8C024678
           .DATA.L _var_8c2285c4 ; H'8C02467C
-          .DATA.L _var_8c227d8c ; H'8C024680
+          .DATA.L _var_brakePressPeak_8c227d8c ; H'8C024680
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C024684
           .DATA.L _sdMidiPlay ; H'8C024688
 LAB_8c02468c:

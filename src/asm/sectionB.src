@@ -29,8 +29,8 @@
           .EXPORT     _var_8c1ba291
           .EXPORT     _var_8c1ba292
           .EXPORT     _var_8c1ba293 ; 020214
-          .EXPORT     _var_8c1ba29c ; 024280
-          .EXPORT     _var_8c1ba29d ; 024280
+          .EXPORT     _var_accelSensitivity_8c1ba29c ; 024280
+          .EXPORT     _var_brakeSensitivity_8c1ba29d ; 024280
           .EXPORT     _var_runEventFlags_8c1ba2b4 ; 02af78_event
           .EXPORT     _var_8c1ba2b8 ; 0129cc_pause
                                     ; 016d2c_course_menu
@@ -94,9 +94,9 @@
                                                 ; 022bdc
                                                 ; 024280
                                                 ; 024b4c
-          .EXPORT     _var_8c1ba374 ; 024280
+          .EXPORT     _var_padTriggerR_8c1ba374 ; 024280
                                     ; 02b464
-          .EXPORT     _var_8c1ba376 ; 024280
+          .EXPORT     _var_padTriggerL_8c1ba376 ; 024280
           .EXPORT     _var_demoBuf_8c1ba3c4 ; 012f44_game
                                             ; 014f54_text
                                             ; 01614c_debug_menu
@@ -303,7 +303,7 @@
                                     ; 024b4c
                                     ; 02d19c
           .EXPORT     _var_8c1bbcb0 ; 0100bc_sound
-          .EXPORT     _var_8c1bbcb4 ; 024280
+          .EXPORT     _var_throttleMinStep_8c1bbcb4 ; 024280
           .EXPORT     _var_8c1bbcc4 ; 012504_input
           .EXPORT     _var_busCameraFocusX_8c1bbcd8 ; 028258
           .EXPORT     _var_busCameraFocusZ_8c1bbce0 ; 028258
@@ -644,7 +644,7 @@
           .EXPORT     _var_8c227d88 ; 023310
                                     ; 023938
                                     ; 02412c
-          .EXPORT     _var_8c227d8c ; 023310
+          .EXPORT     _var_brakePressPeak_8c227d8c ; 023310
                                     ; 024280
           .EXPORT     _var_fixedCameraTarget_8c227d90 ; 024b4c
           .EXPORT     _var_cameraMode_8c227d9c ; 020214
@@ -786,7 +786,7 @@
           .EXPORT     _var_8c228634 ; 02b464
                                     ; 02c884
           .EXPORT     _var_8c228640 ; 02c884
-          .EXPORT     _var_8c22864c ; 024280
+          .EXPORT     _var_firstUpshift_8c22864c ; 024280
           .EXPORT     _var_wallHitBits_8c228660 ; 022bdc
                                     ; 023938
                                     ; 02b464
@@ -894,9 +894,9 @@ _var_8c1ba292:
           .RES.B      1
 _var_8c1ba293:
           .RES.B      9
-_var_8c1ba29c:
+_var_accelSensitivity_8c1ba29c:
           .RES.B      1
-_var_8c1ba29d:
+_var_brakeSensitivity_8c1ba29d:
           .RES.B      23
 _var_runEventFlags_8c1ba2b4:
           .RES.B      4
@@ -922,9 +922,9 @@ _var_peripheral_8c1ba358:
           .RES.B      4
 _var_peripherals_8c1ba35c:
           .RES.B      24
-_var_8c1ba374:
+_var_padTriggerR_8c1ba374:
           .RES.B      2
-_var_8c1ba376:
+_var_padTriggerL_8c1ba376:
           .RES.B      78
 _var_demoBuf_8c1ba3c4:
           .RES.B      4
@@ -1032,7 +1032,7 @@ _var_replayArmed_8c1bbc84:
           .RES.B      44
 _var_8c1bbcb0:
           .RES.B      4
-_var_8c1bbcb4:
+_var_throttleMinStep_8c1bbcb4:
           .RES.B      16
 _var_8c1bbcc4:
           .RES.B      20
@@ -1338,7 +1338,7 @@ _var_8c227d84:
           .RES.B      4
 _var_8c227d88:
           .RES.B      4
-_var_8c227d8c:
+_var_brakePressPeak_8c227d8c:
           .RES.B      4
 _var_fixedCameraTarget_8c227d90:
           .RES.B      12
@@ -1505,7 +1505,7 @@ _var_8c228634:
 _var_8c228640:
           .RES.B      4
           .RES.B      8
-_var_8c22864c:
+_var_firstUpshift_8c22864c:
           .RES.B      20
 _var_wallHitBits_8c228660:
           .RES.B      4

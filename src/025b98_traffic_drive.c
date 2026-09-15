@@ -409,7 +409,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                     }
                 }
 
-                laneLimit = e->field_0x418 <= e->laneOffsetRatio_0x414 ? e->field_0x418 : e->laneOffsetRatio_0x414;
+                laneLimit = e->followSpeedCap_0x418 <= e->laneOffsetRatio_0x414 ? e->followSpeedCap_0x418 : e->laneOffsetRatio_0x414;
 
                 if (brakeDist != 9999.0f) {
                     obstacleLimit = brakeDist * 3000.0f / 108000.0f;
@@ -468,7 +468,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             }
         }
 
-        e->field_0x418 = 9999.0f;
+        e->followSpeedCap_0x418 = 9999.0f;
 
         if (speed != 0.0f) {
             e->pathDistance_0x2bc += speed;

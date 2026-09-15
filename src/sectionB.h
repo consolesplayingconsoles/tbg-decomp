@@ -218,16 +218,21 @@ typedef struct {
     int field_0x2d4;
     int lightFadeState_0x2d8;
     int lightFadeGate_0x2dc;
-    /* Needle-ramp mode for drawHud_8c01fbac's var_engineRpm_8c226468 (01fa78):
-     * 0 = relax toward 0, 1 = settle to 500, 2 = ramp toward target_0x2e8. */
-    int needleRampMode_0x2e0;
-    int needleCurrentValue_0x2e4;
-    /* Target value for needleRampMode_0x2e0 == 2; a real float field -- the asm
-     * loads it with FMOV.S directly, no int-to-float conversion (Ghidra's
-     * decompile shows a spurious int cast here). */
-    float target_0x2e8;
+    /* 0 = off, 1 = starting (30-frame crank, idles at 500 rpm), 2 = running.
+     * Driven by BusInputUpdate_8c0246b2 (024280); drawHud_8c01fbac (01fa78)
+     * eases var_engineRpm_8c226468 toward 0 / 500 / targetRpm_0x2e8
+     * accordingly. */
+    int engineState_0x2e0;
+    /* Throttle ramp phase in BAM; njSin of it times 6000 gives
+     * targetRpm_0x2e8. Wound up at the current gear's accelRate_0x00 and
+     * clamped to the scaled trigger travel. */
+    int rpmRampAngle_0x2e4;
+    /* A real float field -- the asm loads it with FMOV.S directly, no
+     * int-to-float conversion (Ghidra's decompile shows a spurious int cast
+     * here). */
+    float targetRpm_0x2e8;
     int idleFrameCounter_0x2ec;
-    /* Cleared by the needle-ramp mode-2 transition (024280) and read
+    /* Cleared on the transition into engineState_0x2e0 == 2 (024280) and read
      * nowhere. */
     int field_0x2f0;
 
@@ -467,9 +472,10 @@ extern float var_8c1bbc4c;
  * PassengerSkipStopTask_8c02d8f0, on the practice-mode stop skip. */
 extern int var_replayArmed_8c1bbc84;
 extern Uint32 var_8c1bbcb0;
-/* Minimum scaled throttle step (see applyThrottle_8c024320's `step`) for a trigger
- * push to count as accelerating rather than coasting. */
-extern int var_8c1bbcb4;
+/* Minimum scaled throttle step (see applyThrottle_8c024320's `step`) for a
+ * trigger push to count as accelerating rather than coasting. Nothing writes
+ * it. */
+extern int var_throttleMinStep_8c1bbcb4;
 extern int var_8c1bbcc4;
 /* Bus-to-camera-focus vector (x, _, z); written by
  * BusRenderUpdateCamera_8c025078, read by drawPedestrians_8c028b74 via
@@ -730,7 +736,10 @@ extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for i
 extern LineBusSegment *var_8c227d84;
 /* Mirrors var_currentCourse_8c1bb868.ukn_0x0c. */
 extern LineBusNode *var_8c227d88;
-extern int var_8c227d8c; // 024280
+/* Peak brake-pedal travel of the current press, scaled to 0..255 and never
+ * walked back down; applyBrakingSfx_8c024606 (024280) picks the release note
+ * from it. */
+extern int var_brakePressPeak_8c227d8c;
 /* Fixed camera-interest point for BusRenderUpdateCamera_8c025078's
  * var_cameraMode_8c227d9c==4 mode. */
 extern float var_fixedCameraTarget_8c227d90[3];
@@ -885,20 +894,22 @@ extern int var_8c228634[3];
  * reaches it through this symbol. */
 extern int var_8c228640;
 
-/* PDS_PERIPHERAL.r (see 010e90.h) of var_peripherals_8c1ba35c[0], addressed
- * directly by this symbol rather than through the array/field form. */
-extern unsigned short var_8c1ba374;
+/* PDS_PERIPHERAL.r (see 010e90.h) of var_peripherals_8c1ba35c[0] -- the
+ * throttle trigger -- addressed directly by this symbol rather than through
+ * the array/field form. */
+extern unsigned short var_padTriggerR_8c1ba374;
 
-/* PDS_PERIPHERAL.l of var_peripherals_8c1ba35c[0], addressed directly (see
- * var_8c1ba374 above for .r). */
-extern unsigned short var_8c1ba376;
+/* PDS_PERIPHERAL.l of var_peripherals_8c1ba35c[0] -- the brake trigger --
+ * addressed directly (see var_padTriggerR_8c1ba374 above for .r). */
+extern unsigned short var_padTriggerL_8c1ba376;
 
-/* Saved input deadzone thresholds (progress struct accelSensitivity_0xd0/brakeSensitivity_0xd1),
- * addressed directly rather than through var_progress_8c1ba1cc -- .r's and
- * .l's respectively (see var_8c1ba374/var_8c1ba376 above). Always consumed
+/* The progress struct's accelSensitivity_0xd0/brakeSensitivity_0xd1,
+ * addressed directly rather than through var_progress_8c1ba1cc. Used as the
+ * deadzone thresholds for .r and .l respectively (see
+ * var_padTriggerR_8c1ba374/var_padTriggerL_8c1ba376 above). Always consumed
  * as an unsigned byte (every read is followed by EXTU.B in the asm). */
-extern unsigned char var_8c1ba29c;
-extern unsigned char var_8c1ba29d;
+extern unsigned char var_accelSensitivity_8c1ba29c;
+extern unsigned char var_brakeSensitivity_8c1ba29d;
 
 /* [0]/[1] a duplicated traffic-signal id (gradeSignals_8c02b8b8, 02b464), addressed
  * both directly and via var_8c2285c4[14]/[15]; [3]/[4] a threshold/counter
@@ -984,9 +995,10 @@ extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
 extern int var_8c2285c4[];
 
-/* var_8c2285c4[34] (0x22864c), addressed directly by applyThrottle_8c024320: set to 1
- * on the very first upshift out of gear 0. */
-extern int var_8c22864c;
+/* var_8c2285c4[34] (0x22864c), addressed directly by applyThrottle_8c024320:
+ * set to 1 on the upshift out of gear 0, arming gradeFrame_8c02bcd8's
+ * rapid-acceleration penalty (02b464), which clears it. */
+extern int var_firstUpshift_8c22864c;
 
 extern void *var_8c1bb878;
 extern void *var_8c1bb888;

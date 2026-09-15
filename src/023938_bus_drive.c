@@ -28,12 +28,12 @@ typedef void (*GroundQueryFn)(float x, float y, float z, GroundQueryResult *out)
  */
 
 /* Resets the bus's drivetrain to idle: clears the collision-reset latch
- * (needleCurrentValue_0x2e4), zeroes gear_0x2f4 unless it's already in reverse (5), and
+ * (rpmRampAngle_0x2e4), zeroes gear_0x2f4 unless it's already in reverse (5), and
  * marks bus_state_0x2b4 == 2. Called both by handleBump_8c02b6d4 (02b464)
  * after a collision knockback and internally after a braking-sound update. */
 void BusDriveStop_8c023bce(void)
 {
-    var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = 0;
+    var_busState_8c1bb9d0.rpmRampAngle_0x2e4 = 0;
     if (var_busState_8c1bb9d0.gear_0x2f4 != 5) {
         var_busState_8c1bb9d0.gear_0x2f4 = 0;
     }

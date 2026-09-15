@@ -655,10 +655,10 @@ This file is a Ghidra extraction of the section D data spanning roughly
 section B var) already has a real owner elsewhere in the tree, but that owner
 doesn't yet make the symbol visible to this file:
 
-- For a still-undecompiled owner (`01f3c0.src`, `01fa78.src`, `024280.src`,
-  `025870_demo.src`, and even the already-decompiled `028258_objects.src`), the
-  label exists but is never `.EXPORT`ed -- nothing outside that file has
-  needed it yet.
+- For an owner whose archived `.src` still holds the data (`01f3c0.src`,
+  `01fa78.src`, `024280_bus_input.src`, `025870_demo.src`,
+  `028258_objects.src`), the label exists but is never `.EXPORT`ed -- nothing
+  outside that file has needed it yet.
 - For the C-based `Makefile`, an owner that *is* decompiled (e.g.
   `01bb48_vm_game`) only ports data its decompiled C functions actually
   reference; a lot of this span's consts aren't referenced by any decompiled
@@ -795,7 +795,7 @@ other types, and it compiles cleanly -- the offsets are valid on both structs.
 Three separate rename agents hit this; two caught it only on a full-file
 cross-check afterwards, and the `BusState`/`TrafficEntry` case additionally
 disproved the assumption that the collisions stopped at the end of the shared
-prefix (`needleCurrentValue_0x2e4` collided past it).
+prefix (`rpmRampAngle_0x2e4` collided past it).
 
 Scope every substitution by the accessing variable's type, then re-read the
 whole file. The tests do not reliably catch it: a wrongly renamed field of the

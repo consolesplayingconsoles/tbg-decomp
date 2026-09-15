@@ -32,7 +32,7 @@ not just size order.
 | 3 | 1 | 6 K | `020594` | `022bdc_bus`, `023310_bus_init`, `027958_bus_draw` |
 | 3 | 2 | 4 K | `02081c` | `022bdc_bus`, `023938_bus_drive`, `025b98_traffic_drive` |
 | 2 | 2 | 15 K | `02df3c` | `025b98_traffic_drive`, `026710_traffic` |
-| 1 | 6 | 38 K | `024280` | `022bdc_bus` |
+| 1 | 6 | 38 K | `024280_bus_input` | `022bdc_bus` |
 | 1 | 2 | 31 K | `021b9c` | `0222dc_fadecmd` |
 | 1 | 2 | 25 K | `02d968` | `012f44_game` |
 | 1 | 4 | 17 K | `02e2dc` | `02b464_drive_points` |
@@ -91,12 +91,12 @@ currently invisible (fan-in 0, nothing decompiled calls it directly) --
 finishing `02d968` immediately makes `02d19c` a ranked target, and `02d19c`
 itself calls into `02d06c` (already in the table above, called by
 `028258_objects`), so it also bumps `02d06c`'s fan-in from 1 to 2. No other
-remaining unit hides a cluster this way -- the rest of the graph (`024280`,
+remaining unit hides a cluster this way -- the rest of the graph (`024280_bus_input`,
 `021b9c`, `02e2dc`, `020214`, `02b2f0`, `02412c`, `02d06c`) is flat: one
 caller each, no further asm-to-asm fan-out (`02e2dc` -> `02081c` is the only
 other asm-to-asm code edge left, and `02081c` is already covered above).
 
-Lower priority, smaller and more isolated once the above land: `024280`
+Lower priority, smaller and more isolated once the above land: `024280_bus_input`
 (38 K, `022bdc_bus`'s other callee), `021b9c` (`0222dc_fadecmd`'s one
 remaining callee), `020214` (`020528`'s callee), `02b2f0`/`02412c`/`02d06c`
 (the small single-caller leftovers).
@@ -109,7 +109,7 @@ named; everything else the catalog tracked either lives in the headers now or
 was already there. Field-by-field negative results ("written here, read
 nowhere") went into the owning header next to the field.
 
-**`BusState.field_0x25c`** -- `024280.c:277-280`: the two rear/side-mirror
+**`BusState.field_0x25c`** -- `024280_bus_input.c:277-280`: the two rear/side-mirror
 buttons (`PDS_PERIPHERAL.press` bits 0x400/0x2) drive a small per-button
 press/hold/release state here, which toggles `mirror_0x268` between its 0/1/2
 modes. Nameable as-is.
@@ -123,7 +123,7 @@ Nameable as-is.
 **`BusState.field_0x338`** -- `023938_bus_drive.c:258-306`: 0/1 select
 forward/backward search direction through the node table's
 `fwdNext_0x00`/`backNext_0x02`, 2 marks the search blocked. Also driven by the
-mirror-view input handler (`024280.c:281-289`) in mapped-route steering mode.
+mirror-view input handler (`024280_bus_input.c:281-289`) in mapped-route steering mode.
 Nameable as-is.
 
 **`TrafficEntry.field_0x04c`..`0x060`** -- `02786c_vehicle_parts.c:71-100`

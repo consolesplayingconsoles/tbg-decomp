@@ -180,7 +180,7 @@ void BusInitStart_8c023610(void)
 
     busInitPlaceBus_8c023310();
 
-    var_busState_8c1bb9d0.needleRampMode_0x2e0 = 0;
+    var_busState_8c1bb9d0.engineState_0x2e0 = 0;
     var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
     var_busState_8c1bb9d0.gear_0x2f4 = 0;
     var_busState_8c1bb9d0.laneTargetSearchDone_0x334 = 0;
@@ -266,8 +266,8 @@ void BusInitStart_8c023610(void)
         var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 1;
     }
 
-    var_8c227d8c = 0;
-    var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = 0;
-    var_busState_8c1bb9d0.target_0x2e8 = 0.0f;
+    var_brakePressPeak_8c227d8c = 0;
+    var_busState_8c1bb9d0.rpmRampAngle_0x2e4 = 0;
+    var_busState_8c1bb9d0.targetRpm_0x2e8 = 0.0f;
     var_busState_8c1bb9d0.cameraYawEase_0x3c8 = 0;
 }

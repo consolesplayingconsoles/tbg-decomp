@@ -8,7 +8,7 @@
 #include "014a9c_tasks.h"         /* Task */
 #include "026710_traffic.h"       /* TrafficEntry */
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28 */
-#include "024280.h"
+#include "024280_bus_input.h"
 
 /* ====================
  * Compiler Definitions
@@ -86,18 +86,18 @@ STATIC Gear init_gears_8c045638[5] = {
  * =====================
  */
 
-/* Called by BusTask_8c022bdc when BusState.mirror_0x268 is set: gives every
- * traffic entry roughly ahead of the bus (within ~90 degrees of its own
- * heading) that has mirrorVisible_0x268 set a lookahead distance derived from the
- * bus's own speed, for use by the mirror view. */
-void BusInputMirrorLookahead_8c024280(void)
+/* Called by BusTask_8c022bdc while the mirror view is up: holds every traffic
+ * entry drawn in the mirror (mirrorVisible_0x268) that is heading roughly the
+ * same way as the bus (within ~90 degrees) to 20 km/h below the bus's own
+ * speed, so nothing closes on the mirror while the player is looking at it. */
+void BusInputCapMirrorTraffic_8c024280(void)
 {
     Task *task;
-    float lookahead;
+    float speedCap;
 
-    lookahead = var_busState_8c1bb9d0.speed_0x27c - 0.18518517911434174f;
-    if (lookahead < 0.0f) {
-        lookahead = 0.0f;
+    speedCap = var_busState_8c1bb9d0.speed_0x27c - KMH_TO_SPEED(20.0f);
+    if (speedCap < 0.0f) {
+        speedCap = 0.0f;
     }
 
     for (task = var_tasks_8c1bac28; task->action != NULL; task++) {
@@ -118,7 +118,7 @@ void BusInputMirrorLookahead_8c024280(void)
             diff = -diff;
         }
         if (diff < 0x4000) {
-            entry->field_0x418 = lookahead;
+            entry->followSpeedCap_0x418 = speedCap;
         }
     }
 }
@@ -145,12 +145,12 @@ STATIC void applyBraking_8c024530(void)
     float delta;
     float brakeAmount;
     int gear;
-    float ratio;
+    float rpm;
     int angle;
     float *smoothedBrake;
 
-    prevDeadzone = var_8c1ba29d;
-    delta = (float)((int)var_8c1ba376 - (int)prevDeadzone);
+    prevDeadzone = var_brakeSensitivity_8c1ba29d;
+    delta = (float)((int)var_padTriggerL_8c1ba376 - (int)prevDeadzone);
 
     brakeAmount = 0.002f + (var_busState_8c1bb9d0.speed_0x27c / 48.0f) *
         (delta / (255.0f - prevDeadzone)) * (delta / (255.0f - prevDeadzone));
@@ -166,22 +166,23 @@ STATIC void applyBraking_8c024530(void)
         var_busState_8c1bb9d0.gear_0x2f4 = gear;
     }
 
-    ratio = var_busState_8c1bb9d0.speed_0x27c / init_gears_8c045638[gear].speedRatio_0x04;
-    var_busState_8c1bb9d0.target_0x2e8 = ratio;
+    rpm = var_busState_8c1bb9d0.speed_0x27c / init_gears_8c045638[gear].speedRatio_0x04;
+    var_busState_8c1bb9d0.targetRpm_0x2e8 = rpm;
 
-    angle = (int)((asinf(ratio / 6000.0f) * 65536.0f) / TWO_PI);
-    var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = angle;
+    angle = (int)((asinf(rpm / MAX_RPM) * 65536.0f) / TWO_PI);
+    var_busState_8c1bb9d0.rpmRampAngle_0x2e4 = angle;
 
-    /* Running average of brakeAmount -- a smoothed brake-intensity value. */
+    /* Running average of brakeAmount; gradeFrame_8c02bcd8 (02b464) docks
+     * INSTR_HARD_BRAKE once it passes 0.01. */
     smoothedBrake = (float *)&var_8c2285c4[36];
     *smoothedBrake += brakeAmount;
     *smoothedBrake /= 2.0f;
 }
 
-/* Throttle handler: while the .r trigger clears its saved deadzone
- * (var_8c1ba29c) by at least var_8c1bbcb4's minimum scaled step, ramps the
- * needle and upshifts through the gear table; otherwise coasts and
- * downshifts. */
+/* Throttle handler: while the .r trigger clears its saved deadzone by at
+ * least var_throttleMinStep_8c1bbcb4, winds rpmRampAngle_0x2e4 up at the
+ * current gear's accelRate_0x00 and upshifts through the gear table;
+ * otherwise coasts and downshifts. */
 STATIC void applyThrottle_8c024320(void)
 {
     Uint16 trigger;
@@ -190,28 +191,28 @@ STATIC void applyThrottle_8c024320(void)
     int step;
     int gear;
 
-    trigger = var_8c1ba374;
-    deadzone = var_8c1ba29c;
+    trigger = var_padTriggerR_8c1ba374;
+    deadzone = var_accelSensitivity_8c1ba29c;
     delta = (float)((int)trigger - (int)deadzone);
     step = (int)((delta / (255.0f - deadzone)) * 16384.0f);
 
-    if (trigger > deadzone && step >= var_8c1bbcb4) {
+    if (trigger > deadzone && step >= var_throttleMinStep_8c1bbcb4) {
         gear = var_busState_8c1bb9d0.gear_0x2f4;
 
-        var_busState_8c1bb9d0.needleCurrentValue_0x2e4 += init_gears_8c045638[gear].accelRate_0x00;
-        if (var_busState_8c1bb9d0.needleCurrentValue_0x2e4 > step) {
-            var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = step;
+        var_busState_8c1bb9d0.rpmRampAngle_0x2e4 += init_gears_8c045638[gear].accelRate_0x00;
+        if (var_busState_8c1bb9d0.rpmRampAngle_0x2e4 > step) {
+            var_busState_8c1bb9d0.rpmRampAngle_0x2e4 = step;
         }
 
-        var_busState_8c1bb9d0.target_0x2e8 =
-            njSin(var_busState_8c1bb9d0.needleCurrentValue_0x2e4) * 6000.0f;
+        var_busState_8c1bb9d0.targetRpm_0x2e8 =
+            njSin(var_busState_8c1bb9d0.rpmRampAngle_0x2e4) * MAX_RPM;
         var_busState_8c1bb9d0.speed_0x27c =
-            var_busState_8c1bb9d0.target_0x2e8 * init_gears_8c045638[gear].speedRatio_0x04;
+            var_busState_8c1bb9d0.targetRpm_0x2e8 * init_gears_8c045638[gear].speedRatio_0x04;
 
         if (gear >= 4) {
-            /* Top gear: no upshift left, just clamp to init_gears_8c045638[4].upshiftSpeed_0x08. */
-            if (var_busState_8c1bb9d0.speed_0x27c > 0.6481481194496155f) {
-                var_busState_8c1bb9d0.speed_0x27c = 0.6481481194496155f;
+            /* Top gear: no upshift left, just clamp. */
+            if (var_busState_8c1bb9d0.speed_0x27c > KMH_TO_SPEED(70.0f)) {
+                var_busState_8c1bb9d0.speed_0x27c = KMH_TO_SPEED(70.0f);
             }
             return;
         }
@@ -224,7 +225,8 @@ STATIC void applyThrottle_8c024320(void)
         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, (var_cameraMode_8c227d9c >= 2) ? 0x25 : 0x26, 0);
 
         if (gear == 0) {
-            var_8c22864c = 1;
+            /* Arms gradeFrame_8c02bcd8's rapid-acceleration check (02b464). */
+            var_firstUpshift_8c22864c = 1;
         }
         var_busState_8c1bb9d0.gear_0x2f4 = gear + 1;
     } else {
@@ -243,43 +245,43 @@ STATIC void applyThrottle_8c024320(void)
     }
 
     gear = var_busState_8c1bb9d0.gear_0x2f4;
-    var_busState_8c1bb9d0.target_0x2e8 =
+    var_busState_8c1bb9d0.targetRpm_0x2e8 =
         var_busState_8c1bb9d0.speed_0x27c / init_gears_8c045638[gear].speedRatio_0x04;
-    var_busState_8c1bb9d0.needleCurrentValue_0x2e4 =
-        (int)((asinf(var_busState_8c1bb9d0.target_0x2e8 / 6000.0f) * 65536.0f) / TWO_PI);
+    var_busState_8c1bb9d0.rpmRampAngle_0x2e4 =
+        (int)((asinf(var_busState_8c1bb9d0.targetRpm_0x2e8 / MAX_RPM) * 65536.0f) / TWO_PI);
 }
 
 /* Plays the brake pedal's SFX and tracks its press intensity in
- * var_8c227d8c, ratcheting it up to (never down from) the scaled travel
- * distance while the .l trigger keeps moving further from var_8c1ba29d's
+ * var_brakePressPeak_8c227d8c, ratcheting it up to (never down from) the scaled travel
+ * distance while the .l trigger keeps moving further from var_brakeSensitivity_8c1ba29d's
  * saved deadzone. */
 STATIC void applyBrakingSfx_8c024606(void)
 {
     Uint16 trigger;
     Uint8 prevDeadzone;
 
-    trigger = var_8c1ba376;
-    prevDeadzone = var_8c1ba29d;
+    trigger = var_padTriggerL_8c1ba376;
+    prevDeadzone = var_brakeSensitivity_8c1ba29d;
 
     if (trigger > prevDeadzone) {
         int delta = trigger - prevDeadzone;
         int target = (delta * 255) / (255 - prevDeadzone);
 
-        if (var_8c227d8c < target) {
-            var_8c227d8c = target;
+        if (var_brakePressPeak_8c227d8c < target) {
+            var_brakePressPeak_8c227d8c = target;
         }
-    } else if (var_8c227d8c != 0) {
+    } else if (var_brakePressPeak_8c227d8c != 0) {
         /* Released: play the low note (0x27) if the peak press was past
          * the halfway point (0x80), else the high note (0x28). */
-        int note = (var_8c227d8c >= 0x80) ? 0x27 : 0x28;
+        int note = (var_brakePressPeak_8c227d8c >= 0x80) ? 0x27 : 0x28;
         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, note, 0);
-        var_8c227d8c = 0;
+        var_brakePressPeak_8c227d8c = 0;
     }
 }
 
 /* Per-frame driving dispatcher, called by BusTask_8c022bdc while driving.
- * Plays the brake SFX, drives BusState.needleRampMode_0x2e0 through its
- * relax/settle/ramp states, handles the two turn-signal buttons (which
+ * Plays the brake SFX, drives BusState.engineState_0x2e0 through its
+ * off/starting/running states, handles the two turn-signal buttons (which
  * double as the mirror-view selector, and in mapped-route steering mode
  * also arm the lane-target search), and, in direct steering mode, runs the
  * steering-wheel force-feedback ramp. */
@@ -294,24 +296,24 @@ void BusInputUpdate_8c0246b2(void)
     applyBrakingSfx_8c024606();
 
     brakeTrigger = pad->l;
-    brakeDeadzone = var_8c1ba29d;
+    brakeDeadzone = var_brakeSensitivity_8c1ba29d;
     throttleTrigger = pad->r;
-    throttleDeadzone = var_8c1ba29c;
+    throttleDeadzone = var_accelSensitivity_8c1ba29c;
 
-    mode = var_busState_8c1bb9d0.needleRampMode_0x2e0;
+    mode = var_busState_8c1bb9d0.engineState_0x2e0;
     switch (mode) {
-    case 0: /* relax */
+    case 0: /* engine off */
         if (brakeTrigger > brakeDeadzone) {
             var_busState_8c1bb9d0.blinker_0x080 |= 1;
         } else if (throttleTrigger > (Uint16)(throttleDeadzone / 2)) {
             var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
-            var_busState_8c1bb9d0.needleRampMode_0x2e0 = 1;
+            var_busState_8c1bb9d0.engineState_0x2e0 = 1;
             VibStart_8c010f7a(0);
         }
         debugGearOverride_8c0242ce();
         break;
 
-    case 1: { /* settle */
+    case 1: { /* starting -- the 30-frame crank before the engine runs */
         int counter;
 
         if (brakeTrigger > brakeDeadzone) {
@@ -322,17 +324,17 @@ void BusInputUpdate_8c0246b2(void)
         var_busState_8c1bb9d0.idleFrameCounter_0x2ec = counter + 1;
 
         if (counter > 30) {
-            /* Advance to the ramp only if the throttle is STILL held (the
+            /* Advance to running only if the throttle is STILL held (the
              * press that got here in the first place) and the brake isn't;
              * anything else -- throttle let go, or the brake now pressed --
-             * aborts back to relax. */
+             * aborts back to off. */
             if (throttleTrigger > throttleDeadzone && !(brakeTrigger > brakeDeadzone)) {
-                var_busState_8c1bb9d0.needleRampMode_0x2e0 = 2;
+                var_busState_8c1bb9d0.engineState_0x2e0 = 2;
                 var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
                 var_busState_8c1bb9d0.field_0x2f0 = 0;
             } else {
                 var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
-                var_busState_8c1bb9d0.needleRampMode_0x2e0 = 0;
+                var_busState_8c1bb9d0.engineState_0x2e0 = 0;
                 if (var_vibport_8c1ba354 != (Uint32)-1) {
                     pdVibMxStop(var_vibport_8c1ba354);
                 }
@@ -342,14 +344,14 @@ void BusInputUpdate_8c0246b2(void)
         break;
     }
 
-    case 2: /* ramp */
+    case 2: /* running */
         if (var_busState_8c1bb9d0.gear_0x2f4 == 5) {
             /* Reverse: drive speed_0x27c directly instead of going through
              * applyThrottle_8c024320/applyBraking_8c024530's forward-gear tables. */
             if (brakeTrigger > brakeDeadzone) {
                 float ratio = (float)(brakeTrigger - brakeDeadzone) /
                     (255.0f - brakeDeadzone);
-                var_busState_8c1bb9d0.speed_0x27c += ratio * 0.009999999776482582f;
+                var_busState_8c1bb9d0.speed_0x27c += ratio * 0.01f;
                 if (var_busState_8c1bb9d0.speed_0x27c > 0.0f) {
                     var_busState_8c1bb9d0.speed_0x27c = 0.0f;
                 }
@@ -357,7 +359,7 @@ void BusInputUpdate_8c0246b2(void)
             } else if (throttleTrigger > throttleDeadzone) {
                 float ratio = (float)(throttleTrigger - throttleDeadzone) /
                     (255.0f - throttleDeadzone);
-                float target = -(ratio * 0.18518517911434174f);
+                float target = -(ratio * KMH_TO_SPEED(20.0f));
 
                 if (var_busState_8c1bb9d0.speed_0x27c > target) {
                     var_busState_8c1bb9d0.speed_0x27c += -0.0015432097716256976f;
@@ -371,18 +373,19 @@ void BusInputUpdate_8c0246b2(void)
                     }
                 }
             } else {
-                var_busState_8c1bb9d0.speed_0x27c += 0.0010000000474974513f;
+                var_busState_8c1bb9d0.speed_0x27c += 0.001f;
                 if (var_busState_8c1bb9d0.speed_0x27c > 0.0f) {
                     var_busState_8c1bb9d0.speed_0x27c = 0.0f;
                 }
             }
 
-            var_busState_8c1bb9d0.target_0x2e8 =
+            var_busState_8c1bb9d0.targetRpm_0x2e8 =
                 -(var_busState_8c1bb9d0.speed_0x27c * 16384.0f);
         } else {
             /* Forward gears: var_8c2285c4[32] (0x228644, no export of its
-             * own) is a plain idle-at-rest frame counter, unrelated to
-             * applyBraking_8c024530's smoothed-average slot at [36]. */
+             * own) is a plain idle-at-rest frame counter that nothing in
+             * src/ reads back, unrelated to applyBraking_8c024530's
+             * smoothed-average slot at [36]. */
             if (var_busState_8c1bb9d0.speed_0x27c == 0.0f) {
                 var_8c2285c4[32] = 0;
             } else {
@@ -403,7 +406,7 @@ void BusInputUpdate_8c0246b2(void)
         if (var_busState_8c1bb9d0.speed_0x27c == 0.0f) {
             debugGearOverride_8c0242ce();
             if (var_busState_8c1bb9d0.idleFrameCounter_0x2ec >= 30) {
-                var_busState_8c1bb9d0.needleRampMode_0x2e0 = 1;
+                var_busState_8c1bb9d0.engineState_0x2e0 = 1;
                 var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
                 VibStart_8c010f7a(0);
             } else {

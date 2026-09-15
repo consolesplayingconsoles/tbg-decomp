@@ -171,11 +171,11 @@ STATIC void drawHud_8c01fbac(int arg0) {
         TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x26, 0.0f, 0.0f, -1.21f);
     }
 
-    /* Rotating tachometer needle position: needleRampMode_0x2e0 selects a mode (0 = relax
-     * toward 0, 1 = settle to 500, 2 = ramp toward target_0x2e8),
-     * each stepping var_engineRpm_8c226468 by 200.0f/frame and clamping on
+    /* Rotating tachometer needle position: engineState_0x2e0 picks what the
+     * needle eases toward (off = 0, starting = 500, running = targetRpm_0x2e8),
+     * stepping var_engineRpm_8c226468 by 200.0f/frame and clamping on
      * overshoot. */
-    switch (var_busState_8c1bb9d0.needleRampMode_0x2e0) {
+    switch (var_busState_8c1bb9d0.engineState_0x2e0) {
     case 0:
         if (var_engineRpm_8c226468 > 0.0f) {
             var_engineRpm_8c226468 -= 200.0f;
@@ -198,7 +198,7 @@ STATIC void drawHud_8c01fbac(int arg0) {
         break;
 
     case 2: {
-        float target = var_busState_8c1bb9d0.target_0x2e8;
+        float target = var_busState_8c1bb9d0.targetRpm_0x2e8;
         if (target > 500.0f) {
             if (target < var_engineRpm_8c226468) {
                 var_engineRpm_8c226468 -= 200.0f;

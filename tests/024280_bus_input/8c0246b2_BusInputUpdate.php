@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 // BusInputUpdate_8c0246b2: PUBLIC, called by BusTask_8c022bdc (022bdc) once per frame
 // while driving. See 024280.c for the full breakdown of the three-state
-// needleRampMode_0x2e0 dispatch (relax/settle/ramp) and the mirror-button +
+// engineState_0x2e0 dispatch (relax/settle/ramp) and the mirror-button +
 // steering-wheel-ramp tail that follows it.
 
 return new class extends TestCase {
@@ -30,10 +30,10 @@ return new class extends TestCase {
 
         // Alias the deadzone bytes onto var_progress_8c1ba1cc + 0xd0/0xd1:
         // BusInputUpdate_8c0246b2 reads them through the progress struct directly
-        // rather than through the var_8c1ba29c/29d symbols.
+        // rather than through the var_accelSensitivity_8c1ba29c/29d symbols.
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
-        $this->rellocate('_var_8c1ba29c', $progress + 0xd0);
-        $this->rellocate('_var_8c1ba29d', $progress + 0xd1);
+        $this->rellocate('_var_accelSensitivity_8c1ba29c', $progress + 0xd0);
+        $this->rellocate('_var_brakeSensitivity_8c1ba29d', $progress + 0xd1);
     }
 
     private function initFloat(int $addr, float $value): void {
@@ -59,8 +59,8 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, 0); // .x1, centered
         $this->initUint32($pad + 0x10, 0); // .press, nothing held
 
-        $this->initUint8($this->addressOf('_var_8c1ba29c'), $throttleDeadzone);
-        $this->initUint8($this->addressOf('_var_8c1ba29d'), $brakeDeadzone);
+        $this->initUint8($this->addressOf('_var_accelSensitivity_8c1ba29c'), $throttleDeadzone);
+        $this->initUint8($this->addressOf('_var_brakeSensitivity_8c1ba29d'), $brakeDeadzone);
 
         $bus = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($bus + 0x2e0, $mode);
@@ -378,7 +378,7 @@ return new class extends TestCase {
 
         $this->shouldWriteFloat($bus + 0x27c, 0.0005000000237487257);
         $this->shouldWriteFloat($bus + 0x27c, 0.0);
-        // target_0x2e8 = -(0.0 * 16384.0) = -0.0 (distinct bit pattern from
+        // targetRpm_0x2e8 = -(0.0 * 16384.0) = -0.0 (distinct bit pattern from
         // 0.0, and this asserts the exact bits).
         $this->shouldWriteFloat($bus + 0x2e8, -0.0);
 

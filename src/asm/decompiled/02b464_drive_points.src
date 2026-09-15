@@ -40,7 +40,7 @@
           .IMPORT     _var_prevLaneFlags_8c228688
           .IMPORT     _var_8c228634
           .IMPORT     _var_8c1bbd54
-          .IMPORT     _var_8c1ba374
+          .IMPORT     _var_padTriggerR_8c1ba374
           .IMPORT     _BusStopUpdateArrival_8c02ce48
           .IMPORT     _var_8c226410
           .IMPORT     _var_stopPhase_8c2285e4
@@ -1505,7 +1505,7 @@ LP_GEN_20612:
           .DATA.W H'0258 ; H'8C02BF12
           .DATA.W H'0098 ; H'8C02BF14
           .RES.W 1 ; H'8C02BF16
-          .DATA.L _var_8c1ba374 ; H'8C02BF18
+          .DATA.L _var_padTriggerR_8c1ba374 ; H'8C02BF18
           .DATA.L H'3C23D70A ; H'8C02BF1C
           .DATA.L _VibStart_8c010f7a ; H'8C02BF20
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C02BF24

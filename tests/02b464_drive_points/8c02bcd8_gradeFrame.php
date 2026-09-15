@@ -30,7 +30,7 @@ return new class extends TestCase {
         $this->setSize('_var_frameSpeed_8c22866c', 4);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
         $this->setSize('_var_8c1bbd9c', 4); // BusState*, allocated via alloc()
-        $this->setSize('_var_8c1ba374', 2);
+        $this->setSize('_var_padTriggerR_8c1ba374', 2);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
         $this->setSize('_var_stopPhase_8c2285e4', 4);
@@ -79,14 +79,14 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busPtr);
 
         $this->initUint32($base + 0x84, 0); // var_8c2285c4[33]
-        $this->initUint32($base + 0x88, 0); // var_8c2285c4[34] i.e. var_8c22864c, "armed" flag
+        $this->initUint32($base + 0x88, 0); // var_8c2285c4[34] i.e. var_firstUpshift_8c22864c, "armed" flag
         $this->initUint32($base + 0x8c, 0); // var_8c2285c4[35]
         $this->initUint32($base + 0x94, 0); // var_8c2285c4[37]
         $this->initFloat($base + 0x90, 0.0); // var_8c2285c4[36]
         $this->initUint32($base + 0x98, 0); // var_8c2285c4[38]
         $this->initUint32($base + 0x7c, 0); // var_8c2285c4[31] i.e. var_8c228640
 
-        $this->initUint16($this->addressOf('_var_8c1ba374'), 0);
+        $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0);
 
         $this->initUint32($base + 0x54, 0); // var_8c2285fc[7]
         $this->initUint32($base + 0x4c, 0); // var_8c2285fc[5]
@@ -267,7 +267,7 @@ return new class extends TestCase {
 
         $this->initUint32($base + 0x84, 1); // var_8c2285c4[33] latch already armed
         $this->initUint32($base + 0x8c, 0xe); // var_8c2285c4[35] repeat counter, one away from tripping
-        $this->initUint16($this->addressOf('_var_8c1ba374'), 0xff); // held at max
+        $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0xff); // held at max
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -284,15 +284,15 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Right-trigger newly armed (var_8c22864c set elsewhere) and already
+    // Right-trigger newly armed (var_firstUpshift_8c22864c set elsewhere) and already
     // held past the threshold: arms the latch immediately.
     public function test_right_trigger_newly_armed_and_already_held(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x88, 1); // var_8c2285c4[34] i.e. var_8c22864c, armed
-        $this->initUint16($this->addressOf('_var_8c1ba374'), 0xff); // held at max
+        $this->initUint32($base + 0x88, 1); // var_8c2285c4[34] i.e. var_firstUpshift_8c22864c, armed
+        $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0xff); // held at max
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -300,7 +300,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x84, 1); // var_8c2285c4[33] latch armed
         $this->shouldWriteLong($base + 0x8c, 0); // var_8c2285c4[35] repeat counter reset
-        $this->shouldWriteLong($base + 0x88, 0); // var_8c22864c cleared
+        $this->shouldWriteLong($base + 0x88, 0); // var_firstUpshift_8c22864c cleared
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');

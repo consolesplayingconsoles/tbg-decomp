@@ -92,7 +92,7 @@ return new class extends TestCase {
         $this->initFloat($other + 0xf4, 3.0); // posX
         $this->initFloat($other + 0xfc, 4.0); // posZ
         $this->initFloat($other + 0x27c, 2.5); // speed, saved before overwrite
-        $this->initUint32($other + 0x2e4, 0); // needleCurrentValue_0x2e4 == 0 branch
+        $this->initUint32($other + 0x2e4, 0); // rpmRampAngle_0x2e4 == 0 branch
 
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.05); // player speed: lowest tier
         $this->initUint32($this->addressOf('_var_cooldownCollision_8c228690'), 0xfffffffb); // -5: cooldown expired
@@ -139,7 +139,7 @@ return new class extends TestCase {
         $this->initFloat($other + 0xf4, 3.0);
         $this->initFloat($other + 0xfc, 4.0);
         $this->initFloat($other + 0x27c, 2.5);
-        $this->initUint32($other + 0x2e4, 1); // needleCurrentValue_0x2e4 != 0 branch
+        $this->initUint32($other + 0x2e4, 1); // rpmRampAngle_0x2e4 != 0 branch
 
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.5); // highest tier
         $this->initUint32($this->addressOf('_var_cooldownCollision_8c228690'), 0); // cooldown still active

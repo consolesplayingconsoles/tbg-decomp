@@ -37,10 +37,10 @@ void DemoInputTask_8c016bf4()
             // var_8c1ba378 = (short)*(char *)(_var_demoCursor_8c225fa8 + 1);
             var_peripherals_8c1ba35c[0].x2 = var_demoCursor_8c225fa8->field_0x04;
 
-            // var_8c1ba374 = (ushort)*(byte *)((int)_var_demoCursor_8c225fa8 + 5);
+            // var_padTriggerR_8c1ba374 = (ushort)*(byte *)((int)_var_demoCursor_8c225fa8 + 5);
             var_peripherals_8c1ba35c[0].x1 = var_demoCursor_8c225fa8->field_0x05;
 
-            // var_8c1ba376 = (ushort)*(byte *)((int)_var_demoCursor_8c225fa8 + 6);
+            // var_padTriggerL_8c1ba376 = (ushort)*(byte *)((int)_var_demoCursor_8c225fa8 + 6);
             var_peripherals_8c1ba35c[0].y1 = var_demoCursor_8c225fa8->field_0x06;
 
             // _var_demoCursor_8c225fa8 = _var_demoCursor_8c225fa8 + 2;

@@ -34,7 +34,7 @@
           .IMPORT     _BusStopGetSegment_8c02cd6a
           .IMPORT     _FUN_8c023cba
           .IMPORT     _VehicleModelPlace_8c020594
-          .IMPORT     _var_8c227d8c
+          .IMPORT     _var_brakePressPeak_8c227d8c
           .IMPORT     _GroundProbeFindPolygonAtHeight_8c020fe4
           .EXPORT     _BusInitStart_8c023610
           .AIFDEF UNIT_TESTING
@@ -807,5 +807,5 @@ LP_GEN_98696:
           .RES.W 1 ; H'8C02392A
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02392C
           .DATA.L _var_8c226410 ; H'8C023930
-          .DATA.L _var_8c227d8c ; H'8C023934
+          .DATA.L _var_brakePressPeak_8c227d8c ; H'8C023934
           .END

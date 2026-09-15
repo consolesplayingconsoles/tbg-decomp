@@ -666,21 +666,21 @@ STATIC void gradeFrame_8c02bcd8(void) {
         }
     }
 
-    /* var_8c2285c4[34] is var_8c22864c (see sectionB.h -- exported for
-     * 024280, but read here only via this index, not that name): an "armed"
-     * flag set elsewhere, consumed and cleared here. [33]/[35] (0x228648/
+    /* var_8c2285c4[34] is var_firstUpshift_8c22864c (see sectionB.h -- exported
+     * for 024280, but read here only via this index, not that name): set on the
+     * upshift out of gear 0, consumed and cleared here. [33]/[35] (0x228648/
      * 0x228650) have no export of their own: a right-trigger-held-too-long
      * latch and its repeat counter. */
     if (var_8c2285c4[33] == 0) {
         if (var_8c2285c4[34] != 0) {
-            if (var_8c1ba374 > 0xfe) {
+            if (var_padTriggerR_8c1ba374 > 0xfe) {
                 var_8c2285c4[33] = 1;
                 var_8c2285c4[35] = 0;
             }
             var_8c2285c4[34] = 0;
         }
     } else if (var_8c2285c4[33] == 1) {
-        if (var_8c1ba374 < 0xff) {
+        if (var_padTriggerR_8c1ba374 < 0xff) {
             var_8c2285c4[33] = 0;
         } else {
             var_8c2285c4[35] = var_8c2285c4[35] + 1;
@@ -692,7 +692,8 @@ STATIC void gradeFrame_8c02bcd8(void) {
     }
 
     /* var_8c2285c4[36]/[37] (0x228654/0x228658, no export of their own) --
-     * a float timer and its countdown, set elsewhere. */
+     * applyBraking_8c024530's running brake average (024280) and a cooldown
+     * so one long stab is only docked every 60 frames. */
     if (var_8c2285c4[37] != 0) {
         var_8c2285c4[37] = var_8c2285c4[37] - 1;
     }
@@ -1158,7 +1159,7 @@ void DrivePointsReset_8c02c46a(void) {
     var_8c228634[1] = var_busState_8c1bb9d0.junctionARoadFlags_0x34c;
     var_8c228634[2] = var_busState_8c1bb9d0.junctionBRoadFlags_0x368;
     var_8c2285c4[31] = 0; /* var_8c228640, see taskCallback_8c02c072 */
-    var_8c2285c4[34] = 0; /* var_8c22864c */
+    var_8c2285c4[34] = 0; /* var_firstUpshift_8c22864c */
     *(float *)&var_8c2285c4[36] = 0.0f; /* DAT_8c228654 */
     var_8c2285c4[37] = 0;
     var_8c2285c4[38] = 0;

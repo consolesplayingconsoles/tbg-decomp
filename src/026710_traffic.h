@@ -204,11 +204,13 @@ typedef struct {
     Uint32 junctionHitCount_0x40c;
     Uint32 signalId_0x410;
     float laneOffsetRatio_0x414;
-    /* One input to the per-frame speed-limit min() (025b98). Two writers
-     * with unclear intent: BusInputMirrorLookahead_8c024280 as a mirror
-     * visibility floor, and TrafficComputeBlockedSpeed_8c026eaa writing
-     * *another* entry's copy. */
-    float field_0x418;
+    /* Speed this entry must not exceed because of whatever is in front of
+     * it: the vehicle ahead's speed plus a margin, clamped at 0. Written by
+     * TrafficComputeBlockedSpeed_8c026eaa (into the *other* entry's copy) and
+     * by BusInputCapMirrorTraffic_8c024280 (024280) for the bus; reset to
+     * 9999.0f each frame, then fed to the per-frame speed-limit min()
+     * (025b98). */
+    float followSpeedCap_0x418;
     float lookaheadMargin_0x41c;
     Uint32 field_0x420;  /* no use site anywhere in src/ */
     Uint32 obstacleLimitActive_0x424;

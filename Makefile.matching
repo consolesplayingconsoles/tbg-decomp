@@ -58,7 +58,7 @@ SRCS = \
 	src/asm/decompiled/023310_bus_init.src \
 	src/asm/decompiled/023938_bus_drive.src \
 	src/asm/decompiled/02412c.src \
-	src/asm/decompiled/024280.src \
+	src/asm/decompiled/024280_bus_input.src \
 	src/asm/decompiled/024b4c_bus_render.src \
 	src/asm/decompiled/025870_demo.src \
 	src/asm/decompiled/025b98_traffic_drive.src \

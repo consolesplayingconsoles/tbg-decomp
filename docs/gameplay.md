@@ -77,7 +77,7 @@ bus along a predefined route with predefined passenger stop requests.
   The state (`BusState.signalSide_0x25c`, formerly documented here as a
   "mirror button" -- see the Penalties section's naming note) is 0 = off,
   1 = left, 2 = right, set by the same two buttons that also switch the
-  mirror view (`mirror_0x268`, `024280.c:441-511`); it clears itself once a
+  mirror view (`mirror_0x268`, `024280_bus_input.c:441-511`); it clears itself once a
   lane change completes (`02b464_drive_points.c`) or on a gear change
   (`023938_bus_drive.c`).
 - One control genuinely does three jobs: it is the driver's turn signal, the
@@ -186,7 +186,7 @@ may not exist, or may live in code not yet decompiled.**
 This also resolves a naming trap flagged during this investigation:
 `BusState.crossingSearchDone_0x334`/`crossingSearchSide_0x338` looked like a
 promising lead (their names, and the "second press of an already-latched
-side" input pattern at `024280.c:441-511`, suggested a "look both ways"
+side" input pattern at `024280_bus_input.c:441-511`, suggested a "look both ways"
 mechanic), but they are unrelated to the railway crossing. They drive
 `FUN_8c023e7e` (`023938_bus_drive.c`) -- the search for a lane-change
 target point via route-line-segment intersection (`IntersectSegments_8c0206f0`)

@@ -56,7 +56,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bbd9c', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
-        $this->setSize('_var_8c227d8c', 4);
+        $this->setSize('_var_brakePressPeak_8c227d8c', 4);
     }
 
     /**
@@ -241,7 +241,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x3c4, $expectField3c4);
 
-        $this->shouldWriteLongTo('_var_8c227d8c', 0);
+        $this->shouldWriteLongTo('_var_brakePressPeak_8c227d8c', 0);
         $this->shouldWriteLong($base + 0x2e4, 0);
         $this->shouldWriteFloat($base + 0x2e8, 0.0);
         $this->shouldWriteLong($base + 0x3c8, 0);
