@@ -315,9 +315,9 @@ where the pointer's value (`ptr`) was meant.
   dereferences the same variable. See the caveat below: the same `&ptr` cast
   is also used, consistently, at many other call sites for "mark"/"bus stop"
   sprites -- worth a second look before treating this one as clear-cut.
-- **`CollideFindTaskHit_8c02e400`** (`02e400_collision.c`) builds the "self"
-  bounding box from `&init_8c04c940[idx]` (the table slot's address) while a
-  candidate's box comes from `init_8c04c940[idx]` (the box it points at), so
+- **`CollisionFindTaskHit_8c02e400`** (`02e400_collision.c`) builds the "self"
+  bounding box from `&init_variantBoxes_8c04c940[idx]` (the table slot's address) while a
+  candidate's box comes from `init_variantBoxes_8c04c940[idx]` (the box it points at), so
   self is built from the pointer table's own bytes reinterpreted as floats.
 
 **Caveat on the `DriveMsgDraw` case:** `var_markTexlist_8c1bc418` is

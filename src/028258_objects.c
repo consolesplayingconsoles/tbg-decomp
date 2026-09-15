@@ -14,7 +14,7 @@
 #include "027958.h" /* BusDrawSignal_8c0281ac */
 #include "02d06c.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02af78_event.h" /* EventApplyFlags_8c02b292 */
-#include "02e400_collision.h" /* CollideQueueReset_8c02e486, CollideQueueAdd_8c02e48e */
+#include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
 #include "02fb50_sh4nlfzn.h" /* rand */
 #include "sectionB.h" /* var_trafficSignalFrames_8c227e24, var_busState_8c1bb9d0, ground query globals,
                         * var_pedGroups_8c228230, var_pedPaths_8c228238,
@@ -5078,7 +5078,7 @@ STATIC void pedestrianTask_8c028e00(Task *task, PedestrianState *ped)
                 }
             }
             markPedCrossing_8c02897a(ped->nSignalIdB_0x6c);
-            CollideQueueAdd_8c02e48e(ped);
+            CollisionQueueAdd_8c02e48e(ped);
             crossingStarted = TRUE;
         }
     } else if (state == 2) {
@@ -5354,7 +5354,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
         }
     }
 
-    CollideQueueReset_8c02e486();
+    CollisionQueueReset_8c02e486();
     clearPedCrossingFlags_8c02890c();
 
     njCalcPoint(&var_busWorldMatrix_8c1bba54, &init_stopLineLocalA_8c04650c, &var_groundQueryPoint_8c1bc460);
@@ -5434,7 +5434,7 @@ void ObjectsInitPedestrianGroups_8c0296d6(void)
     }
 
     if (var_pedGroupCount_8c228234 < 0) {
-        CollideQueueReset_8c02e486();
+        CollisionQueueReset_8c02e486();
         return;
     }
 

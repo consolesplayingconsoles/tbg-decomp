@@ -12,7 +12,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // player bus's own recent-history/current position (var_busState_8c1bb9d0),
 // or another live traffic entry's front-reference (rearPointX_0x10c/rearPointZ_0x114) or
 // current (posX_0xf4/posZ_0xfc) position, via the shared
-// var_collideScanCursor_8c228974/var_tasks_8c1bac28 scan (self excluded).
+// var_collisionScanCursor_8c228974/var_tasks_8c1bac28 scan (self excluded).
 // Returns var_8c1bbd9c (player), the matched entry, or NULL.
 
 return new class extends TestCase {
@@ -20,7 +20,7 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_var_8c1bbd9c', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
-        $this->setSize('_var_collideScanCursor_8c228974', 4);
+        $this->setSize('_var_collisionScanCursor_8c228974', 4);
 
         // The asm reads these separately-exported globals instead of
         // var_busState_8c1bb9d0's fields directly, but they're the same
@@ -166,9 +166,9 @@ return new class extends TestCase {
             $self, $entry, 10.0
         );
 
-        $this->shouldWriteLong($this->addressOf('_var_collideScanCursor_8c228974'), $tasksBase);
-        $this->shouldWriteLong($this->addressOf('_var_collideScanCursor_8c228974'), $tasksBase + 0x20);
-        $this->shouldWriteLong($this->addressOf('_var_collideScanCursor_8c228974'), $tasksBase + 0x40);
+        $this->shouldWriteLong($this->addressOf('_var_collisionScanCursor_8c228974'), $tasksBase);
+        $this->shouldWriteLong($this->addressOf('_var_collisionScanCursor_8c228974'), $tasksBase + 0x20);
+        $this->shouldWriteLong($this->addressOf('_var_collisionScanCursor_8c228974'), $tasksBase + 0x40);
         $this->shouldReturn($candidateEntry);
     }
 
@@ -247,9 +247,9 @@ return new class extends TestCase {
         $this->shouldWriteFloat($entry + 0x4ec, 20.0);
 
         // scan: slot 0 (2.0, 2.0) -- no player match, empty task list
-        $this->shouldWriteLong($this->addressOf('_var_collideScanCursor_8c228974'), $tasksBase);
+        $this->shouldWriteLong($this->addressOf('_var_collisionScanCursor_8c228974'), $tasksBase);
         // scan: slot 1 (3.0, 3.0) -- no player match, empty task list
-        $this->shouldWriteLong($this->addressOf('_var_collideScanCursor_8c228974'), $tasksBase);
+        $this->shouldWriteLong($this->addressOf('_var_collisionScanCursor_8c228974'), $tasksBase);
 
         $this->shouldReturn(0);
     }

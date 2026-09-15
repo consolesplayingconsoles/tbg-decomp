@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// CollideQueueTest_8c02e4ac scans the queue at var_collideQueue_8c228a38,
-// from index 0 up to (exclusive) var_collideQueueCount_8c228b38, calling
-// njCollisionCheckBS(&var_collideSelfBox_8c228978, queue[i]) on each entry.
+// CollisionQueueTest_8c02e4ac scans the queue at var_collisionQueue_8c228a38,
+// from index 0 up to (exclusive) var_collisionQueueCount_8c228b38, calling
+// njCollisionCheckBS(&var_collisionSelfBox_8c228978, queue[i]) on each entry.
 // It returns the first entry for which that call is nonzero, or NULL once
 // the scan runs out without a hit.
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_njCollisionCheckBS', 4);
-        $this->setSize('_var_collideSelfBox_8c228978', 96);
-        $this->setSize('_var_collideQueueCount_8c228b38', 4);
-        $this->setSize('_var_collideQueue_8c228a38', 256);
+        $this->setSize('_var_collisionSelfBox_8c228978', 96);
+        $this->setSize('_var_collisionQueueCount_8c228b38', 4);
+        $this->setSize('_var_collisionQueue_8c228a38', 256);
     }
 
     private function setQueue(array $entries): void {
-        $this->initUint32($this->addressOf('_var_collideQueueCount_8c228b38'), count($entries));
+        $this->initUint32($this->addressOf('_var_collisionQueueCount_8c228b38'), count($entries));
         foreach ($entries as $i => $entry) {
-            $this->initUint32($this->addressOf('_var_collideQueue_8c228a38') + $i * 4, $entry);
+            $this->initUint32($this->addressOf('_var_collisionQueue_8c228a38') + $i * 4, $entry);
         }
     }
 
@@ -31,7 +31,7 @@ return new class extends TestCase {
 
         $this->setQueue([]);
 
-        $this->call('_CollideQueueTest_8c02e4ac');
+        $this->call('_CollisionQueueTest_8c02e4ac');
 
         $this->shouldReturn(0);
     }
@@ -43,10 +43,10 @@ return new class extends TestCase {
         $entry0 = $this->alloc(4);
         $this->setQueue([$entry0]);
 
-        $this->call('_CollideQueueTest_8c02e4ac');
+        $this->call('_CollisionQueueTest_8c02e4ac');
 
         $this->shouldCall('_njCollisionCheckBS')
-            ->with($this->addressOf('_var_collideSelfBox_8c228978'), $entry0)
+            ->with($this->addressOf('_var_collisionSelfBox_8c228978'), $entry0)
             ->andReturn(1);
         $this->shouldReturn($entry0);
     }
@@ -61,16 +61,16 @@ return new class extends TestCase {
         $entry2 = $this->alloc(4);
         $this->setQueue([$entry0, $entry1, $entry2]);
 
-        $this->call('_CollideQueueTest_8c02e4ac');
+        $this->call('_CollisionQueueTest_8c02e4ac');
 
         $this->shouldCall('_njCollisionCheckBS')
-            ->with($this->addressOf('_var_collideSelfBox_8c228978'), $entry0)
+            ->with($this->addressOf('_var_collisionSelfBox_8c228978'), $entry0)
             ->andReturn(0);
         $this->shouldCall('_njCollisionCheckBS')
-            ->with($this->addressOf('_var_collideSelfBox_8c228978'), $entry1)
+            ->with($this->addressOf('_var_collisionSelfBox_8c228978'), $entry1)
             ->andReturn(0);
         $this->shouldCall('_njCollisionCheckBS')
-            ->with($this->addressOf('_var_collideSelfBox_8c228978'), $entry2)
+            ->with($this->addressOf('_var_collisionSelfBox_8c228978'), $entry2)
             ->andReturn(0);
         $this->shouldReturn(0);
     }
@@ -85,16 +85,16 @@ return new class extends TestCase {
         $entry2 = $this->alloc(4);
         $this->setQueue([$entry0, $entry1, $entry2]);
 
-        $this->call('_CollideQueueTest_8c02e4ac');
+        $this->call('_CollisionQueueTest_8c02e4ac');
 
         $this->shouldCall('_njCollisionCheckBS')
-            ->with($this->addressOf('_var_collideSelfBox_8c228978'), $entry0)
+            ->with($this->addressOf('_var_collisionSelfBox_8c228978'), $entry0)
             ->andReturn(0);
         $this->shouldCall('_njCollisionCheckBS')
-            ->with($this->addressOf('_var_collideSelfBox_8c228978'), $entry1)
+            ->with($this->addressOf('_var_collisionSelfBox_8c228978'), $entry1)
             ->andReturn(0);
         $this->shouldCall('_njCollisionCheckBS')
-            ->with($this->addressOf('_var_collideSelfBox_8c228978'), $entry2)
+            ->with($this->addressOf('_var_collisionSelfBox_8c228978'), $entry2)
             ->andReturn(1);
         $this->shouldReturn($entry2);
     }

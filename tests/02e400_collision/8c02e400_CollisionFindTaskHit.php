@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// CollideFindTaskHit_8c02e400 transforms self's oriented bounding box into
+// CollisionFindTaskHit_8c02e400 transforms self's oriented bounding box into
 // world space, then scans var_tasks_8c1bac28 for another task (skipping
 // self and any -1-sentinel task) whose own box collides with it, returning
 // that task's state pointer -- or NULL once the scan hits a zero-action
 // terminator.
 //
 // Real game bug, preserved (not "fixed"): the first njCalcPoints call
-// transforms &init_8c04c940[selfIdx] itself -- the table SLOT holding the
-// box pointer -- not *init_8c04c940[selfIdx], the box it points to, like the
+// transforms &init_variantBoxes_8c04c940[selfIdx] itself -- the table SLOT holding the
+// box pointer -- not *init_variantBoxes_8c04c940[selfIdx], the box it points to, like the
 // candidate path correctly does.
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_njCalcPoints', 4);
         $this->setSize('_njCollisionCheckBB', 4);
-        $this->setSize('_init_8c04c940', 16 * 4);
+        $this->setSize('_init_variantBoxes_8c04c940', 16 * 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
-        $this->setSize('_var_collideScanCursor_8c228974', 4);
-        $this->setSize('_var_collideSelfBox_8c228978', 96);
-        $this->setSize('_var_collideCandidateBox_8c2289d8', 96);
+        $this->setSize('_var_collisionScanCursor_8c228974', 4);
+        $this->setSize('_var_collisionSelfBox_8c228978', 96);
+        $this->setSize('_var_collisionCandidateBox_8c2289d8', 96);
     }
 
     // entry = {..., matrix @ 0x84 (NJS_MATRIX, 0x40 bytes), ..., variantIdx @ 0x2e0}
@@ -34,7 +34,7 @@ return new class extends TestCase {
     }
 
     private function setVariantBox(int $idx, int $boxPtr): void {
-        $this->initUint32($this->addressOf('_init_8c04c940') + $idx * 4, $boxPtr);
+        $this->initUint32($this->addressOf('_init_variantBoxes_8c04c940') + $idx * 4, $boxPtr);
     }
 
     private function makeTask(int $index, int $action, int $state): int {
@@ -57,15 +57,15 @@ return new class extends TestCase {
         $tasksBase = $this->addressOf('_var_tasks_8c1bac28');
         $this->makeTask(0, 0, 0); // terminator
 
-        $this->call('_CollideFindTaskHit_8c02e400')->with($self, $entry);
+        $this->call('_CollisionFindTaskHit_8c02e400')->with($self, $entry);
 
         $this->shouldCall('_njCalcPoints')->with(
             $entry + 0x84,
-            $this->addressOf('_init_8c04c940') + 0, // &init_8c04c940[0] itself -- the bug
-            $this->addressOf('_var_collideSelfBox_8c228978'),
+            $this->addressOf('_init_variantBoxes_8c04c940') + 0, // &init_variantBoxes_8c04c940[0] itself -- the bug
+            $this->addressOf('_var_collisionSelfBox_8c228978'),
             8
         );
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase);
         $this->shouldReturn(0);
     }
 
@@ -82,16 +82,16 @@ return new class extends TestCase {
         $self = $this->makeTask(0, 1, 0xdeadbeef); // valid, nonzero, non -1 action
         $this->makeTask(1, 0, 0); // terminator
 
-        $this->call('_CollideFindTaskHit_8c02e400')->with($self, $entry);
+        $this->call('_CollisionFindTaskHit_8c02e400')->with($self, $entry);
 
         $this->shouldCall('_njCalcPoints')->with(
             $entry + 0x84,
-            $this->addressOf('_init_8c04c940') + 0,
-            $this->addressOf('_var_collideSelfBox_8c228978'),
+            $this->addressOf('_init_variantBoxes_8c04c940') + 0,
+            $this->addressOf('_var_collisionSelfBox_8c228978'),
             8
         );
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase + 0x20);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase + 0x20);
         $this->shouldReturn(0);
     }
 
@@ -108,21 +108,21 @@ return new class extends TestCase {
         $this->makeTask(0, -1, 0xdeadbeef); // sentinel
         $this->makeTask(1, 0, 0); // terminator
 
-        $this->call('_CollideFindTaskHit_8c02e400')->with($self, $entry);
+        $this->call('_CollisionFindTaskHit_8c02e400')->with($self, $entry);
 
         $this->shouldCall('_njCalcPoints')->with(
             $entry + 0x84,
-            $this->addressOf('_init_8c04c940') + 0,
-            $this->addressOf('_var_collideSelfBox_8c228978'),
+            $this->addressOf('_init_variantBoxes_8c04c940') + 0,
+            $this->addressOf('_var_collisionSelfBox_8c228978'),
             8
         );
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase + 0x20);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase + 0x20);
         $this->shouldReturn(0);
     }
 
     // A real candidate is checked and found NOT colliding: its box is
-    // computed via a real *load* of init_8c04c940[idx] (no addressing bug
+    // computed via a real *load* of init_variantBoxes_8c04c940[idx] (no addressing bug
     // here, unlike the self path), njCollisionCheckBB returns 0, and the
     // scan continues to the terminator.
     public function test_nonCollidingCandidate_isRejected(): void {
@@ -140,26 +140,26 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $candidateEntry);
         $this->makeTask(1, 0, 0); // terminator
 
-        $this->call('_CollideFindTaskHit_8c02e400')->with($self, $entry);
+        $this->call('_CollisionFindTaskHit_8c02e400')->with($self, $entry);
 
         $this->shouldCall('_njCalcPoints')->with(
             $entry + 0x84,
-            $this->addressOf('_init_8c04c940') + 0,
-            $this->addressOf('_var_collideSelfBox_8c228978'),
+            $this->addressOf('_init_variantBoxes_8c04c940') + 0,
+            $this->addressOf('_var_collisionSelfBox_8c228978'),
             8
         );
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase);
         $this->shouldCall('_njCalcPoints')->with(
             $candidateEntry + 0x84,
             $candidateBoxPtr, // real load this time -- the bug is one-sided
-            $this->addressOf('_var_collideCandidateBox_8c2289d8'),
+            $this->addressOf('_var_collisionCandidateBox_8c2289d8'),
             8
         );
         $this->shouldCall('_njCollisionCheckBB')->with(
-            $this->addressOf('_var_collideSelfBox_8c228978'),
-            $this->addressOf('_var_collideCandidateBox_8c2289d8')
+            $this->addressOf('_var_collisionSelfBox_8c228978'),
+            $this->addressOf('_var_collisionCandidateBox_8c2289d8')
         )->andReturn(0);
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase + 0x20);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase + 0x20);
         $this->shouldReturn(0);
     }
 
@@ -181,24 +181,24 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $candidateEntry);
         $this->makeTask(1, 0, 0); // terminator; must never be reached
 
-        $this->call('_CollideFindTaskHit_8c02e400')->with($self, $entry);
+        $this->call('_CollisionFindTaskHit_8c02e400')->with($self, $entry);
 
         $this->shouldCall('_njCalcPoints')->with(
             $entry + 0x84,
-            $this->addressOf('_init_8c04c940') + 0,
-            $this->addressOf('_var_collideSelfBox_8c228978'),
+            $this->addressOf('_init_variantBoxes_8c04c940') + 0,
+            $this->addressOf('_var_collisionSelfBox_8c228978'),
             8
         );
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase);
         $this->shouldCall('_njCalcPoints')->with(
             $candidateEntry + 0x84,
             $candidateBoxPtr,
-            $this->addressOf('_var_collideCandidateBox_8c2289d8'),
+            $this->addressOf('_var_collisionCandidateBox_8c2289d8'),
             8
         );
         $this->shouldCall('_njCollisionCheckBB')->with(
-            $this->addressOf('_var_collideSelfBox_8c228978'),
-            $this->addressOf('_var_collideCandidateBox_8c2289d8')
+            $this->addressOf('_var_collisionSelfBox_8c228978'),
+            $this->addressOf('_var_collisionCandidateBox_8c2289d8')
         )->andReturn(1);
         $this->shouldReturn($candidateEntry);
     }

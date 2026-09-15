@@ -5,7 +5,7 @@
 #include "014a9c_tasks.h"       /* Task, TaskFree_8c014b66 */
 #include "026710_traffic.h"     /* TrafficEntry, TrafficUpdateHeading_8c026bc4 */
 #include "027958.h"             /* BusDrawPlaceEntity_8c027c3c, BusDrawFadeLights_8c028022 */
-#include "02e400_collision.h"   /* CollideFindTaskHit_8c02e400 */
+#include "02e400_collision.h"   /* CollisionFindTaskHit_8c02e400 */
 #include "02e51c_attr_query.h"             /* AttrQueryFindConvexPolygon_8c02e51c, AttrQueryRegionOccupied_8c02f08a */
 #include "02df3c.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
 #include "02f0c8_traffic_path_scan.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanJunctionOccupied_8c02f28a */
@@ -56,7 +56,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
         if (e->groundProbe_0x190[0].attr_0x00 != 0 &&
             e->groundProbe_0x190[1].attr_0x00 != 0 &&
             e->groundProbe_0x190[2].attr_0x00 != 0 &&
-            CollideFindTaskHit_8c02e400(task, e) == 0) {
+            CollisionFindTaskHit_8c02e400(task, e) == 0) {
             dx = e->dirX_0x29c * speed;
             dz = e->dirZ_0x2a0 * speed;
             leftover = dx;
@@ -109,7 +109,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  *         reached 2.0.
  *   1   - being pushed by a collision (speed_0x27c/dirX_0x29c/dirZ_0x2a0),
  *         same shape as TrafficDriveDecoration_8c02656a's push, gated on
- *         the same 3 ground probes plus CollideFindTaskHit_8c02e400. Ends
+ *         the same 3 ground probes plus CollisionFindTaskHit_8c02e400. Ends
  *         by ground-snapping field_0x2c4 and reverting to driveState 0.
  *   3   - waiting for the entity's own spawn box (resolvedArgs_0x304[0], a
  *         fixed 0..8 window) to clear after a script reload before running
@@ -523,7 +523,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         if (e->groundProbe_0x190[0].attr_0x00 == 0 ||
             e->groundProbe_0x190[1].attr_0x00 == 0 ||
             e->groundProbe_0x190[2].attr_0x00 == 0 ||
-            CollideFindTaskHit_8c02e400(task, e) != 0) {
+            CollisionFindTaskHit_8c02e400(task, e) != 0) {
             speed = 0.0f;
         } else {
             float dx = speed * e->dirX_0x29c;

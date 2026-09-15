@@ -23,7 +23,7 @@
           .IMPORT     _TrafficRunEntryScript_8c027012
           .IMPORT     _var_activeTrafficPreset_8c227e14
           .IMPORT     _TrafficReadScriptArgs_8c026710
-          .IMPORT     _CollideFindTaskHit_8c02e400
+          .IMPORT     _CollisionFindTaskHit_8c02e400
           .IMPORT     _TrafficUpdateHeading_8c026bc4
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _BusDrawFadeLights_8c028022
@@ -1138,7 +1138,7 @@ LP_GEN_44316:
           .DATA.L _TrafficRunEntryScript_8c027012 ; H'8C0263DC
           .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C0263E0
           .DATA.L _TrafficReadScriptArgs_8c026710 ; H'8C0263E4
-          .DATA.L _CollideFindTaskHit_8c02e400 ; H'8C0263E8
+          .DATA.L _CollisionFindTaskHit_8c02e400 ; H'8C0263E8
           .DATA.L H'3DCCCCCD ; H'8C0263EC
 LAB_8c0263f0:
           MOVA        LP_GEN_81398+10,R0
@@ -1426,7 +1426,7 @@ LP_GEN_51630:
           .DATA.L _TaskFree_8c014b66 ; H'8C026618
           .DATA.L _BusDrawPlaceEntity_8c027c3c ; H'8C02661C
           .DATA.L H'3DCCCCCD ; H'8C026620
-          .DATA.L _CollideFindTaskHit_8c02e400 ; H'8C026624
+          .DATA.L _CollisionFindTaskHit_8c02e400 ; H'8C026624
 LAB_8c026628:
           MOV.W       LP_GEN_53982,R0
           FMOV        FR15,FR4

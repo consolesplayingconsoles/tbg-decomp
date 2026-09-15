@@ -108,7 +108,7 @@ SRCS = \
 	src/02d19c.c \
 	src/02d968.c \
 	src/02df3c.c \
-	src/02e2dc.c \
+	src/02e2dc_bus_collision.c \
 	src/02e400_collision.c \
 	src/asm/sectionB.src \
 	src/02e51c_attr_query.c \

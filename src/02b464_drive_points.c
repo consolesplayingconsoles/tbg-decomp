@@ -8,7 +8,7 @@
 #include "sectionB.h"
 #include "010e90.h"
 #include "02e400_collision.h"
-#include "02e2dc.h"
+#include "02e2dc_bus_collision.h"
 #include "023938_bus_drive.h"
 #include "028258_objects.h"
 #include "02c884_bus_stop.h"
@@ -288,7 +288,7 @@ STATIC void handleBump_8c02b6d4(void) {
     TrafficEntry *other;
     float dx, dz, dist;
 
-    if (CollideQueueTest_8c02e4ac() != NULL) {
+    if (CollisionQueueTest_8c02e4ac() != NULL) {
         adjust_8c02b464(0x1f, -200); /* -> INSTR_NEAR_MISS_PEDESTRIAN */
         var_8c228690 = 0x7fff;
         return;
@@ -298,7 +298,7 @@ STATIC void handleBump_8c02b6d4(void) {
         return;
     }
 
-    other = BusCollideFindHit_8c02e2dc();
+    other = BusCollisionFindHit_8c02e2dc();
     var_8c228664 = (BusState *)other;
     if (other == NULL) {
         return;

@@ -44,7 +44,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_pedGroupLists_8c228240', $lists);
         $this->shouldWriteLongTo('_var_pedGroupDefs_8c22823c', $groupDefs);
         $this->shouldWriteLong($this->addressOf('_var_pedGroupCount_8c228234'), -1);
-        $this->shouldCall('_CollideQueueReset_8c02e486');
+        $this->shouldCall('_CollisionQueueReset_8c02e486');
     }
 
     public function testAllocatesGroupsFromHighestGroupId(): void

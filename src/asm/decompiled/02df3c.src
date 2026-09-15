@@ -6,7 +6,7 @@
           .IMPORT     _var_8c1bbacc
           .IMPORT     _var_8c1bbad8
           .IMPORT     _var_tasks_8c1bac28
-          .IMPORT     _var_collideScanCursor_8c228974
+          .IMPORT     _var_collisionScanCursor_8c228974
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_8c1bbd9c
           .EXPORT     _TrafficLookaheadInit_8c02df3c
@@ -327,7 +327,7 @@ LP_GEN_80684:
           .DATA.L _var_8c1bbacc ; H'8C02E188
           .DATA.L _var_8c1bbad8 ; H'8C02E18C
           .DATA.L _var_tasks_8c1bac28 ; H'8C02E190
-          .DATA.L _var_collideScanCursor_8c228974 ; H'8C02E194
+          .DATA.L _var_collisionScanCursor_8c228974 ; H'8C02E194
 LAB_8c02e198:
           MOV.L       @R5,R0
           CMP/EQ      #-H'1,R0

@@ -175,14 +175,14 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
             return var_8c1bbd9c;
         }
 
-        var_collideScanCursor_8c228974 = var_tasks_8c1bac28;
+        var_collisionScanCursor_8c228974 = var_tasks_8c1bac28;
         for (;;) {
-            if (var_collideScanCursor_8c228974->action == NULL) {
+            if (var_collisionScanCursor_8c228974->action == NULL) {
                 break;
             }
-            if (var_collideScanCursor_8c228974 != self
-                && var_collideScanCursor_8c228974->action != (TaskAction)-1) {
-                TrafficEntry *candidate = (TrafficEntry *)var_collideScanCursor_8c228974->state;
+            if (var_collisionScanCursor_8c228974 != self
+                && var_collisionScanCursor_8c228974->action != (TaskAction)-1) {
+                TrafficEntry *candidate = (TrafficEntry *)var_collisionScanCursor_8c228974->state;
                 if ((fabsf(candidate->rearPointX_0x10c - px) < 2.5f &&
                      fabsf(candidate->rearPointZ_0x114 - pz) < 2.5f) ||
                     (fabsf(candidate->posX_0xf4 - px) < 2.5f &&
@@ -190,7 +190,7 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
                     return candidate;
                 }
             }
-            var_collideScanCursor_8c228974++;
+            var_collisionScanCursor_8c228974++;
         }
     }
 

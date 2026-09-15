@@ -122,7 +122,7 @@ remaining callee), `020214` (`020528`'s callee), `02b2f0`/`02412c`/`02d06c`
   pointer-only caller). It is real, complete, compiled code that the
   shipped binary never calls: confirmed dead code, not a Ghidra artifact.
   Float-heavy (`FMOV`, `FR12`-`FR15` pressure, trig-shaped). When `02e2dc`
-  is decompiled, keep it for object parity as `unused_8c02e35a` (`STATIC`,
+  is decompiled, keep it for object parity as `findNextHit_8c02e35a` (`STATIC`,
   `.EXPORT` gated under `.AIFDEF UNIT_TESTING`), per the `unused_8c0104bc`/
   `unused_8c020676` precedent.
 
@@ -310,41 +310,62 @@ meter, turn signals, rotating needle, speedometer, and two timers. See the
 traffic-signal/points-ramp branches are UNTESTED. Worth a follow-up pass with
 targeted tests before the unit is considered fully verified.
 
-### `02f0c8_traffic_path_scan` -- done, left hex-only
+### `02f0c8_traffic_path_scan` (ShortUnit `TrafficPathScan`) -- done, 3/3 functions
 
-Spawn-clearance path scanner + continuation, plus an unrelated marker-group
-lookup.
+Answers "who occupies this stretch of path" by sampling a route every 5 units
+and testing the player bus and every traffic task against each sample. Junction
+yield is its main consumer, but not its only one: `025b98`'s respawn gate and
+`026710`'s `spawnEntry_8c0272b8` use the same scan to decide whether there is
+room to place a vehicle.
 
-### `02e400_collision` (ShortUnit `Collide`) -- done, 4/4 functions
+### `02e400_collision` (ShortUnit `Collision`) -- done, 4/4 functions
 
-Two independent collision services sharing one file. No section C/D data.
+Everything here tests against one shared box, `var_collisionSelfBox_8c228978`.
+No section C/D data of its own.
 
-- `CollideFindTaskHit_8c02e400(self, entry)` -- box-vs-box between traffic
-  entries. Transforms `entry`'s per-variant oriented box into world space with
-  `njCalcPoints` (matrix at `entry+0x84`, variant index at `entry+0x2e0`), then
-  scans the whole task array `var_tasks_8c1bac28` through the module-global
-  cursor `var_collideScanCursor_8c228974`, skipping `self` and any `action ==
-  -1` slot, and returns the first candidate entry whose box overlaps per
-  `njCollisionCheckBB`. Callers are in `025b98_traffic_drive`'s
-  `TrafficDriveVehicle_8c025b98` (moving-vehicle task).
-- `CollideQueueReset_8c02e486` / `CollideQueueAdd_8c02e48e(obj)` /
-  `CollideQueueTest_8c02e4ac()` -- a 64-slot pointer queue
-  (`var_collideQueue_8c228a38`, count `var_collideQueueCount_8c228b38`).
+- `CollisionFindTaskHit_8c02e400(self, entry)` -- transforms `entry`'s
+  per-variant box into world space, leaves it in the shared box, and returns
+  the first other traffic entry whose own box overlaps it
+  (`njCollisionCheckBB`). Called by `TrafficDriveVehicle_8c025b98`.
+- `CollisionQueueReset_8c02e486` / `CollisionQueueAdd_8c02e48e(obj)` /
+  `CollisionQueueTest_8c02e4ac()` -- a 64-slot pointer queue
+  (`var_collisionQueue_8c228a38`, count `var_collisionQueueCount_8c228b38`).
   `028258_objects` resets it each frame and enqueues every pedestrian; `02b464`
-  then asks `CollideQueueTest` for the first queued entry whose sphere hits
-  `var_collideSelfBox_8c228978` (`njCollisionCheckBS`) -- i.e. the box that
-  `CollideFindTaskHit_8c02e400` last filled in.
+  tests it against the shared box (`njCollisionCheckBS`).
 
-`init_8c04c940` (in the still-asm `02e2dc`, now declared by the new minimal
-`src/02e2dc.h`) is 16 pointers to 8-point local-space boxes, one per traffic
-variant -- the same 16 variants as `026710_traffic`'s `init_8c04622c` /
-`init_8c0460c8`.
+The queue test never fills that box, so what it answers depends on who wrote it
+last -- and its only caller, `handleBump_8c02b6d4` (`02b464`), calls it *before*
+`BusCollisionFindHit_8c02e2dc`. The box at that moment is whatever the last
+traffic entity's `CollisionFindTaskHit_8c02e400` left behind, so the pedestrian
+near-miss may be scored against an AI car's box rather than the bus's. Whether
+that is a bug or relies on frame ordering is unresolved -- it needs the task
+order traced, not more reading of these two units.
 
 **Original-game bug preserved and commented:** the self box is built from
-`&init_8c04c940[idx]` -- the address of the table slot -- while a candidate's
-uses `init_8c04c940[idx]`, the box it points at. Self's "box" is therefore the
-pointer table's own bytes reinterpreted as floats. Confirmed against the `.src`
-object, not corrected.
+`&init_variantBoxes_8c04c940[idx]` -- the address of the table slot -- while a
+candidate's uses `init_variantBoxes_8c04c940[idx]`, the box it points at.
+Self's "box" is therefore the pointer table's own bytes reinterpreted as
+floats. Confirmed against the `.src` object, not corrected.
+
+### `02e2dc_bus_collision` (ShortUnit `BusCollision`) -- done, 2/2 functions
+
+The player bus's half of the collision pair above, and the owner of the box
+data both units use: eleven local-space 8-corner boxes plus
+`init_variantBoxes_8c04c940`, 16 pointers into them indexed by a traffic
+entry's variant index (`entry+0x2e0`) -- the same 16 variants as
+`026710_traffic`'s `init_8c04622c` / `init_8c0460c8`. Slot 13 is the bus's own
+box, also reached by name as `init_busBox_8c04c820`.
+
+`BusCollisionFindHit_8c02e2dc` prefilters on `field_0x490 < 12.0` (distance to
+the bus, refreshed per frame by the drive tasks) before box-testing. It uses
+`GeomQuadOverlap_8c020842` where the otherwise identical traffic-vs-traffic
+scan next door uses `njCollisionCheckBB` -- an asymmetry that is invisible
+unless you read both, and easy to mistake for a decompilation error later.
+
+`findNextHit_8c02e35a` is dead code, kept for object parity (see the
+dead-functions section above). It resumes the scan from wherever
+`var_collisionScanCursor_8c228974` is sitting and reuses the box already there,
+so it would yield the bump after the one just reported.
 
 ### `02786c_vehicle_parts` (ShortUnit `VehParts`) -- done, 1/1 function
 

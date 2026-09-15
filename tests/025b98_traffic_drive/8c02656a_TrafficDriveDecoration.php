@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->setSize('_njSqrt', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_TrafficUpdateHeading_8c026bc4', 4);
-        $this->setSize('_CollideFindTaskHit_8c02e400', 4);
+        $this->setSize('_CollisionFindTaskHit_8c02e400', 4);
         $this->setSize('_BusDrawPlaceEntity_8c027c3c', 4);
         $this->setSize('_var_8c1bbac4', 4);
         $this->setSize('_var_8c1bbacc', 4);
@@ -113,7 +113,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficDriveDecoration_8c02656a')->with($task, $entry);
 
-        $this->shouldCall('_CollideFindTaskHit_8c02e400')->with($task, $entry)->andReturn(0);
+        $this->shouldCall('_CollisionFindTaskHit_8c02e400')->with($task, $entry)->andReturn(0);
 
         // dx = 1.0*2.0 = 2.0, dz = 0.5*2.0 = 1.0
         $this->shouldWriteFloat($entry + 0xf4, 12.0);   // posX += dx
@@ -133,7 +133,7 @@ return new class extends TestCase {
     // knockbackActive == 1, a ground probe is closed (attr_0x00 == 0):
     // undoes one step using speed+0.1, then unconditionally ends the push
     // (speed pinned to 0, knockbackActive and all 3 probe counts cleared).
-    // CollideFindTaskHit is never called since the probe gate already
+    // CollisionFindTaskHit is never called since the probe gate already
     // failed.
     public function test_activeBlockedProbeCancelsPush(): void {
         $this->resolveSymbols();
@@ -170,7 +170,7 @@ return new class extends TestCase {
     }
 
     // knockbackActive == 1, a live collision hit (all probes open but
-    // CollideFindTaskHit returns non-null): also takes the cancel-push
+    // CollisionFindTaskHit returns non-null): also takes the cancel-push
     // branch, same as a closed probe.
     public function test_activeCollisionCancelsPush(): void {
         $this->resolveSymbols();
@@ -181,7 +181,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficDriveDecoration_8c02656a')->with($task, $entry);
 
-        $this->shouldCall('_CollideFindTaskHit_8c02e400')->with($task, $entry)->andReturn(0x12345);
+        $this->shouldCall('_CollisionFindTaskHit_8c02e400')->with($task, $entry)->andReturn(0x12345);
 
         $dx = f32(1.0 * f32(2.1));
         $dz = f32(0.5 * f32(2.1));
@@ -216,7 +216,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficDriveDecoration_8c02656a')->with($task, $entry);
 
-        $this->shouldCall('_CollideFindTaskHit_8c02e400')->with($task, $entry)->andReturn(0);
+        $this->shouldCall('_CollisionFindTaskHit_8c02e400')->with($task, $entry)->andReturn(0);
 
         $dx = f32(1.0 * 0.1);
         $dz = f32(0.5 * 0.1);

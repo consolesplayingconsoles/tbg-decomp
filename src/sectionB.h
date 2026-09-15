@@ -854,7 +854,7 @@ extern int var_8c22861c[6];
 extern int var_8c228660;
 
 /* The vehicle/pedestrian the player's bus is currently bumping into, set by
- * handleBump_8c02b6d4 (02b464) from BusCollideFindHit_8c02e2dc's result;
+ * handleBump_8c02b6d4 (02b464) from BusCollisionFindHit_8c02e2dc's result;
  * var_8c228668 is a redundant copy of the same pointer. */
 extern BusState *var_8c228664;
 extern BusState *var_8c228668;
@@ -1094,20 +1094,20 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-/* CollideFindTaskHit_8c02e400 (02e400) and BusCollideFindHit_8c02e2dc (02e2dc): cursor
+/* CollisionFindTaskHit_8c02e400 (02e400) and BusCollisionFindHit_8c02e2dc (02e2dc): cursor
  * into var_tasks_8c1bac28 during its scan, left pointing at the terminating
  * (action == 0) slot on exit. */
-extern Task *var_collideScanCursor_8c228974;
-/* CollideFindTaskHit_8c02e400/BusCollideFindHit_8c02e2dc scratch: world-space oriented
+extern Task *var_collisionScanCursor_8c228974;
+/* CollisionFindTaskHit_8c02e400/BusCollisionFindHit_8c02e2dc scratch: world-space oriented
  * bounding box, njCalcPoints'd from the entry/bus passed in (self) and from
  * the current candidate task respectively. */
-extern NJS_BOX var_collideSelfBox_8c228978;
-extern NJS_BOX var_collideCandidateBox_8c2289d8;
-/* CollideQueueAdd_8c02e48e/CollideQueueTest_8c02e4ac: fixed 64-slot queue of
+extern NJS_BOX var_collisionSelfBox_8c228978;
+extern NJS_BOX var_collisionCandidateBox_8c2289d8;
+/* CollisionQueueAdd_8c02e48e/CollisionQueueTest_8c02e4ac: fixed 64-slot queue of
  * pending collision candidates, written and scanned once per frame. */
-extern void *var_collideQueue_8c228a38[64];
-/* CollideQueueReset_8c02e486/CollideQueueAdd_8c02e48e/CollideQueueTest_8c02e4ac:
- * element count of the fixed 64-slot queue at var_collideQueue_8c228a38. */
-extern Sint32 var_collideQueueCount_8c228b38;
+extern void *var_collisionQueue_8c228a38[64];
+/* CollisionQueueReset_8c02e486/CollisionQueueAdd_8c02e48e/CollisionQueueTest_8c02e4ac:
+ * element count of the fixed 64-slot queue at var_collisionQueue_8c228a38. */
+extern Sint32 var_collisionQueueCount_8c228b38;
 
 #endif // _0FCD20_SECTIONB_H

@@ -700,10 +700,10 @@ return [
         ],
         [
             "tests" => [
-                "tests/02e400_collision/8c02e400_CollideFindTaskHit.php",
-                "tests/02e400_collision/8c02e486_CollideQueueReset.php",
-                "tests/02e400_collision/8c02e48e_CollideQueueAdd.php",
-                "tests/02e400_collision/8c02e4ac_CollideQueueTest.php",
+                "tests/02e400_collision/8c02e400_CollisionFindTaskHit.php",
+                "tests/02e400_collision/8c02e486_CollisionQueueReset.php",
+                "tests/02e400_collision/8c02e48e_CollisionQueueAdd.php",
+                "tests/02e400_collision/8c02e4ac_CollisionQueueTest.php",
             ],
             "objects" => [
                 "build/output_test/src/asm/decompiled/02e400_collision.obj",
@@ -793,12 +793,12 @@ return [
         ],
         [
             "tests" => [
-                "tests/02e2dc/8c02e2dc_BusCollideFindHit.php",
-                "tests/02e2dc/8c02e35a_unused.php",
+                "tests/02e2dc_bus_collision/8c02e2dc_BusCollisionFindHit.php",
+                "tests/02e2dc_bus_collision/8c02e35a_findNextHit.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02e2dc.obj",
-                "build/output_test/src/02e2dc.obj",
+                "build/output_test/src/asm/decompiled/02e2dc_bus_collision.obj",
+                "build/output_test/src/02e2dc_bus_collision.obj",
             ]
         ],
         [

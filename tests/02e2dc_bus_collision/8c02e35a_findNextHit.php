@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // Dead code -- no caller anywhere in the tree (see docs/next_units.md's
 // dead-functions section), kept only for object parity with the original
 // binary. A near-copy of FUN_8c02e2dc's scan loop, but it neither
-// (re)initializes var_collideScanCursor_8c228974 nor recomputes the bus's
+// (re)initializes var_collisionScanCursor_8c228974 nor recomputes the bus's
 // own box: it resumes wherever the cursor is already sitting, advancing
 // past that entry first (unconditionally, before the terminator check).
 
@@ -16,9 +16,9 @@ return new class extends TestCase {
         $this->setSize('_njCalcPoints', 4);
         $this->setSize('_GeomQuadOverlap_8c020842', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
-        $this->setSize('_var_collideScanCursor_8c228974', 4);
-        $this->setSize('_var_collideSelfBox_8c228978', 96);
-        $this->setSize('_var_collideCandidateBox_8c2289d8', 96);
+        $this->setSize('_var_collisionScanCursor_8c228974', 4);
+        $this->setSize('_var_collisionSelfBox_8c228978', 96);
+        $this->setSize('_var_collisionCandidateBox_8c2289d8', 96);
     }
 
     private function initFloat(int $addr, float $value): void {
@@ -33,7 +33,7 @@ return new class extends TestCase {
     }
 
     private function setVariantBox(int $idx, int $boxPtr): void {
-        $this->initUint32($this->addressOf('_init_8c04c940') + $idx * 4, $boxPtr);
+        $this->initUint32($this->addressOf('_init_variantBoxes_8c04c940') + $idx * 4, $boxPtr);
     }
 
     private function makeTask(int $index, int $action, int $state): int {
@@ -54,11 +54,11 @@ return new class extends TestCase {
         $this->makeTask(0, 1, 0xdeadbeef); // whatever the cursor is already on
         $this->makeTask(1, 0, 0); // terminator
 
-        $this->initUint32($this->addressOf('_var_collideScanCursor_8c228974'), $tasksBase);
+        $this->initUint32($this->addressOf('_var_collisionScanCursor_8c228974'), $tasksBase);
 
-        $this->call('_unused_8c02e35a');
+        $this->call('_findNextHit_8c02e35a');
 
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase + 0x20);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase + 0x20);
         $this->shouldReturn(0);
     }
 
@@ -76,20 +76,20 @@ return new class extends TestCase {
         $this->makeTask(1, 1, $entry);
         $this->makeTask(2, 0, 0); // terminator; must never be reached
 
-        $this->initUint32($this->addressOf('_var_collideScanCursor_8c228974'), $tasksBase);
+        $this->initUint32($this->addressOf('_var_collisionScanCursor_8c228974'), $tasksBase);
 
-        $this->call('_unused_8c02e35a');
+        $this->call('_findNextHit_8c02e35a');
 
-        $this->shouldWriteLongTo('_var_collideScanCursor_8c228974', $tasksBase + 0x20);
+        $this->shouldWriteLongTo('_var_collisionScanCursor_8c228974', $tasksBase + 0x20);
         $this->shouldCall('_njCalcPoints')->with(
             $entry + 0x84,
             $boxPtr,
-            $this->addressOf('_var_collideCandidateBox_8c2289d8'),
+            $this->addressOf('_var_collisionCandidateBox_8c2289d8'),
             8
         );
         $this->shouldCall('_GeomQuadOverlap_8c020842')->with(
-            $this->addressOf('_var_collideSelfBox_8c228978'),
-            $this->addressOf('_var_collideCandidateBox_8c2289d8')
+            $this->addressOf('_var_collisionSelfBox_8c228978'),
+            $this->addressOf('_var_collisionCandidateBox_8c2289d8')
         )->andReturn(1);
         $this->shouldReturn($entry);
     }

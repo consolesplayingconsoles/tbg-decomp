@@ -243,7 +243,7 @@ return new class extends TestCase {
             ->do($this->assertCrossingArgs($other + 4))
             ->andReturn(1);
         $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
-        $this->shouldCall('_CollideQueueAdd_8c02e48e')->with($ped);
+        $this->shouldCall('_CollisionQueueAdd_8c02e48e')->with($ped);
         // shouldMove was cleared: no flPathPos/nAnimPhase write, no advancePedPathPos call.
     }
 
@@ -281,7 +281,7 @@ return new class extends TestCase {
             ->do($this->assertCrossingArgs($node + 4))
             ->andReturn(0);
         $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
-        $this->shouldCall('_CollideQueueAdd_8c02e48e')->with($ped);
+        $this->shouldCall('_CollisionQueueAdd_8c02e48e')->with($ped);
         $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(1);
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 6.0); // -speed*2
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 1);
@@ -333,7 +333,7 @@ return new class extends TestCase {
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
         $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
-        $this->shouldCall('_CollideQueueAdd_8c02e48e')->with($ped);
+        $this->shouldCall('_CollisionQueueAdd_8c02e48e')->with($ped);
         $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(1);
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 14.0); // +speed*2
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 1);
@@ -357,7 +357,7 @@ return new class extends TestCase {
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
         $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
-        $this->shouldCall('_CollideQueueAdd_8c02e48e')->with($ped);
+        $this->shouldCall('_CollisionQueueAdd_8c02e48e')->with($ped);
         $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(0);
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 16.0); // +speed*3
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 1); // extra bump for the slow case

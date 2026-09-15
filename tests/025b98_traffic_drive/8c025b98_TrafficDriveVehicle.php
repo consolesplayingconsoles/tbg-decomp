@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->setSize('_njSqrt', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_TrafficUpdateHeading_8c026bc4', 4);
-        $this->setSize('_CollideFindTaskHit_8c02e400', 4);
+        $this->setSize('_CollisionFindTaskHit_8c02e400', 4);
         $this->setSize('_BusDrawPlaceEntity_8c027c3c', 4);
         $this->setSize('_GeomDistanceXZ_8c02081c', 4);
         $this->setSize('_TrafficLookaheadScan_8c02dfca', 4);
@@ -82,7 +82,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($entry + 0x080, 0); // cleared unconditionally at top
 
-        $this->shouldCall('_CollideFindTaskHit_8c02e400')->with($task, $entry)->andReturn(0);
+        $this->shouldCall('_CollisionFindTaskHit_8c02e400')->with($task, $entry)->andReturn(0);
 
         // dx = 2.0*1.0 = 2.0, dz = 2.0*0.5 = 1.0
         $this->shouldWriteFloat($entry + 0xf4, 12.0);

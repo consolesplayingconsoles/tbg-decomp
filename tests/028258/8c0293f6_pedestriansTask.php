@@ -135,7 +135,7 @@ return new class extends TestCase {
     /** Mocks the two njCalcPoint calls and asserts their scratch-point writes. */
     private function expectGroundScratch(): void
     {
-        $this->shouldCall('_CollideQueueReset_8c02e486');
+        $this->shouldCall('_CollisionQueueReset_8c02e486');
         $this->shouldCall('_clearPedCrossingFlags_8c02890c');
 
         $this->shouldCall('_njCalcPoint')

@@ -1,21 +1,21 @@
 ; 8c02e2dc
           .IMPORT     _njCalcPoints
-          .IMPORT     _var_collideSelfBox_8c228978
+          .IMPORT     _var_collisionSelfBox_8c228978
           .IMPORT     _var_busWorldMatrix_8c1bba54
-          .IMPORT     _var_collideScanCursor_8c228974
+          .IMPORT     _var_collisionScanCursor_8c228974
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _GeomQuadOverlap_8c020842
-          .IMPORT     _var_collideCandidateBox_8c2289d8
-          .EXPORT     _BusCollideFindHit_8c02e2dc
+          .IMPORT     _var_collisionCandidateBox_8c2289d8
+          .EXPORT     _BusCollisionFindHit_8c02e2dc
           .AIFDEF UNIT_TESTING
-          .EXPORT     _unused_8c02e35a
+          .EXPORT     _findNextHit_8c02e35a
           .AENDI
           .AIFDEF UNIT_TESTING
-          .EXPORT     _init_8c04c820 ; 02e2dc.src
+          .EXPORT     _init_busBox_8c04c820 ; 02e2dc.src
           .AENDI
-          .EXPORT     _init_8c04c940 ; 02e2dc.src, 02e400.src
+          .EXPORT     _init_variantBoxes_8c04c940 ; 02e2dc.src, 02e400.src
           .SECTION     P, CODE, ALIGN=4
-_BusCollideFindHit_8c02e2dc:
+_BusCollisionFindHit_8c02e2dc:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -83,7 +83,7 @@ LAB_8c02e34a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_unused_8c02e35a:                ; function: unused_8c02e35a
+_findNextHit_8c02e35a:                ; function: findNextHit_8c02e35a
           MOV.L       R14,@-R15
           MOVA        LP_GEN_24334+40,R0
           MOV.L       R13,@-R15
@@ -153,17 +153,17 @@ LP_GEN_24334:
           .DATA.W H'0084 ; H'8C02E3D4
           .RES.W 1 ; H'8C02E3D6
           .DATA.L _njCalcPoints ; H'8C02E3D8
-          .DATA.L _var_collideSelfBox_8c228978 ; H'8C02E3DC
-          .DATA.L _init_8c04c820 ; H'8C02E3E0
+          .DATA.L _var_collisionSelfBox_8c228978 ; H'8C02E3DC
+          .DATA.L _init_busBox_8c04c820 ; H'8C02E3E0
           .DATA.L _var_busWorldMatrix_8c1bba54 ; H'8C02E3E4
-          .DATA.L _var_collideScanCursor_8c228974 ; H'8C02E3E8
+          .DATA.L _var_collisionScanCursor_8c228974 ; H'8C02E3E8
           .DATA.L _var_tasks_8c1bac28 ; H'8C02E3EC
           .DATA.L _GeomQuadOverlap_8c020842 ; H'8C02E3F0
-          .DATA.L _init_8c04c940 ; H'8C02E3F4
+          .DATA.L _init_variantBoxes_8c04c940 ; H'8C02E3F4
           .DATA.L H'41400000 ; H'8C02E3F8
-          .DATA.L _var_collideCandidateBox_8c2289d8 ; H'8C02E3FC
+          .DATA.L _var_collisionCandidateBox_8c2289d8 ; H'8C02E3FC
           .SECTION    D, DATA, ALIGN=4
-_init_8c04c520:        ; from ghidra
+_init_variantBox_8c04c520:        ; from ghidra
           ;.SDATA      "è¬Uø"
           ;.DATA.B     H'00
           ;.RES.B      1
@@ -194,7 +194,7 @@ _init_8c04c520:        ; from ghidra
           .DATA.B      H'8F, H'C2, H'55, H'BF, H'00, H'00, H'00, H'00, H'34, H'33, H'43, H'40, H'8F, H'C2, H'55, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'66, H'66, H'26, H'BF, H'8F, H'C2, H'55, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'66, H'66, H'26, H'BF, H'8F, H'C2, H'55, H'3F, H'00, H'00, H'00, H'00, H'34, H'33, H'43, H'40
-_init_8c04c580:        ; aggressive search
+_init_variantBox_8c04c580:        ; aggressive search
           ;.SDATA      "§p]ø"
           ;.DATA.B     H'00
           ;.RES.B      1
@@ -225,7 +225,7 @@ _init_8c04c580:        ; aggressive search
           .DATA.B      H'A4, H'70, H'5D, H'BF, H'00, H'00, H'00, H'00, H'5C, H'8F, H'42, H'40, H'A4, H'70, H'5D, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'5C, H'8F, H'42, H'BF, H'A4, H'70, H'5D, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'5C, H'8F, H'42, H'BF, H'A4, H'70, H'5D, H'3F, H'00, H'00, H'00, H'00, H'5C, H'8F, H'42, H'40
-_init_8c04c5e0:        ; aggressive search
+_init_variantBox_8c04c5e0:        ; aggressive search
           ;.SDATA      "fffø"
           ;.DATA.B     H'00
           ;.RES.B      1
@@ -256,7 +256,7 @@ _init_8c04c5e0:        ; aggressive search
           .DATA.B      H'66, H'66, H'66, H'BF, H'00, H'00, H'00, H'00, H'33, H'33, H'73, H'40, H'66, H'66, H'66, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'66, H'66, H'66, H'BF, H'66, H'66, H'66, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'66, H'66, H'66, H'BF, H'66, H'66, H'66, H'3F, H'00, H'00, H'00, H'00, H'33, H'33, H'73, H'40
-_init_8c04c640:        ; aggressive search
+_init_variantBox_8c04c640:        ; aggressive search
           ;.SDATA      "öôYø"
           ;.DATA.B     H'00
           ;.RES.B      1
@@ -287,70 +287,70 @@ _init_8c04c640:        ; aggressive search
           .DATA.B      H'9A, H'99, H'59, H'BF, H'00, H'00, H'00, H'00, H'9A, H'99, H'79, H'40, H'9A, H'99, H'59, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'33, H'33, H'33, H'BF, H'9A, H'99, H'59, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'33, H'33, H'33, H'BF, H'9A, H'99, H'59, H'3F, H'00, H'00, H'00, H'00, H'9A, H'99, H'79, H'40
-_init_8c04c6a0:        ; aggressive search
+_init_variantBox_8c04c6a0:        ; aggressive search
           .DATA.B      H'85, H'EB, H'81, H'BF, H'00, H'00, H'C0, H'3F, H'66, H'66, H'0E, H'41, H'85, H'EB, H'81, H'BF
           .DATA.B      H'00, H'00, H'C0, H'3F, H'00, H'00, H'C0, H'BF, H'85, H'EB, H'81, H'3F, H'00, H'00, H'C0, H'3F
           .DATA.B      H'00, H'00, H'C0, H'BF, H'85, H'EB, H'81, H'3F, H'00, H'00, H'C0, H'3F, H'66, H'66, H'0E, H'41
           .DATA.B      H'85, H'EB, H'81, H'BF, H'00, H'00, H'00, H'00, H'66, H'66, H'0E, H'41, H'85, H'EB, H'81, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'C0, H'BF, H'85, H'EB, H'81, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'C0, H'BF, H'85, H'EB, H'81, H'3F, H'00, H'00, H'00, H'00, H'66, H'66, H'0E, H'41
-_init_8c04c700:        ; aggressive search
+_init_variantBox_8c04c700:        ; aggressive search
           .DATA.B      H'66, H'66, H'66, H'BF, H'00, H'00, H'C0, H'3F, H'00, H'00, H'80, H'40, H'66, H'66, H'66, H'BF
           .DATA.B      H'00, H'00, H'C0, H'3F, H'00, H'00, H'80, H'BF, H'66, H'66, H'66, H'3F, H'00, H'00, H'C0, H'3F
           .DATA.B      H'00, H'00, H'80, H'BF, H'66, H'66, H'66, H'3F, H'00, H'00, H'C0, H'3F, H'00, H'00, H'80, H'40
           .DATA.B      H'66, H'66, H'66, H'BF, H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'40, H'66, H'66, H'66, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'BF, H'66, H'66, H'66, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'80, H'BF, H'66, H'66, H'66, H'3F, H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'40
-_init_8c04c760:        ; aggressive search
+_init_variantBox_8c04c760:        ; aggressive search
           .DATA.B      H'E1, H'7A, H'84, H'BF, H'00, H'00, H'C0, H'3F, H'9A, H'99, H'A9, H'40, H'E1, H'7A, H'84, H'BF
           .DATA.B      H'00, H'00, H'C0, H'3F, H'00, H'00, H'00, H'C0, H'E1, H'7A, H'84, H'3F, H'00, H'00, H'C0, H'3F
           .DATA.B      H'00, H'00, H'00, H'C0, H'E1, H'7A, H'84, H'3F, H'00, H'00, H'C0, H'3F, H'9A, H'99, H'A9, H'40
           .DATA.B      H'E1, H'7A, H'84, H'BF, H'00, H'00, H'00, H'00, H'9A, H'99, H'A9, H'40, H'E1, H'7A, H'84, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'C0, H'E1, H'7A, H'84, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'C0, H'E1, H'7A, H'84, H'3F, H'00, H'00, H'00, H'00, H'9A, H'99, H'A9, H'40
-_init_8c04c7c0:        ; aggressive search
+_init_variantBox_8c04c7c0:        ; aggressive search
           .DATA.B      H'0A, H'D7, H'43, H'BF, H'00, H'00, H'C0, H'3F, H'00, H'00, H'60, H'40, H'0A, H'D7, H'43, H'BF
           .DATA.B      H'00, H'00, H'C0, H'3F, H'66, H'66, H'66, H'BF, H'0A, H'D7, H'43, H'3F, H'00, H'00, H'C0, H'3F
           .DATA.B      H'66, H'66, H'66, H'BF, H'0A, H'D7, H'43, H'3F, H'00, H'00, H'C0, H'3F, H'00, H'00, H'60, H'40
           .DATA.B      H'0A, H'D7, H'43, H'BF, H'00, H'00, H'00, H'00, H'00, H'00, H'60, H'40, H'0A, H'D7, H'43, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'66, H'66, H'66, H'BF, H'0A, H'D7, H'43, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'66, H'66, H'66, H'BF, H'0A, H'D7, H'43, H'3F, H'00, H'00, H'00, H'00, H'00, H'00, H'60, H'40
-_init_8c04c820:        ; from defines
+_init_busBox_8c04c820:        ; from defines
           .DATA.B      H'B8, H'1E, H'95, H'BF, H'00, H'00, H'C0, H'3F, H'00, H'00, H'00, H'41, H'B8, H'1E, H'95, H'BF
           .DATA.B      H'00, H'00, H'C0, H'3F, H'66, H'66, H'26, H'C0, H'B8, H'1E, H'95, H'3F, H'00, H'00, H'C0, H'3F
           .DATA.B      H'66, H'66, H'26, H'C0, H'B8, H'1E, H'95, H'3F, H'00, H'00, H'C0, H'3F, H'00, H'00, H'00, H'41
           .DATA.B      H'B8, H'1E, H'95, H'BF, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'41, H'B8, H'1E, H'95, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'66, H'66, H'26, H'C0, H'B8, H'1E, H'95, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'66, H'66, H'26, H'C0, H'B8, H'1E, H'95, H'3F, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'41
-_init_8c04c880:        ; aggressive search
+_init_variantBox_8c04c880:        ; aggressive search
           .DATA.B      H'EC, H'51, H'58, H'BF, H'00, H'00, H'C0, H'3F, H'A4, H'70, H'7D, H'40, H'EC, H'51, H'58, H'BF
           .DATA.B      H'00, H'00, H'C0, H'3F, H'A4, H'70, H'3D, H'BF, H'EC, H'51, H'58, H'3F, H'00, H'00, H'C0, H'3F
           .DATA.B      H'A4, H'70, H'3D, H'BF, H'EC, H'51, H'58, H'3F, H'00, H'00, H'C0, H'3F, H'A4, H'70, H'7D, H'40
           .DATA.B      H'EC, H'51, H'58, H'BF, H'00, H'00, H'00, H'00, H'A4, H'70, H'7D, H'40, H'EC, H'51, H'58, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'A4, H'70, H'3D, H'BF, H'EC, H'51, H'58, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'A4, H'70, H'3D, H'BF, H'EC, H'51, H'58, H'3F, H'00, H'00, H'00, H'00, H'A4, H'70, H'7D, H'40
-_init_8c04c8e0:        ; aggressive search
+_init_variantBox_8c04c8e0:        ; aggressive search
           .DATA.B      H'3D, H'0A, H'57, H'BF, H'00, H'00, H'C0, H'3F, H'99, H'99, H'79, H'40, H'3D, H'0A, H'57, H'BF
           .DATA.B      H'00, H'00, H'C0, H'3F, H'00, H'00, H'80, H'BF, H'3D, H'0A, H'57, H'3F, H'00, H'00, H'C0, H'3F
           .DATA.B      H'00, H'00, H'80, H'BF, H'3D, H'0A, H'57, H'3F, H'00, H'00, H'C0, H'3F, H'99, H'99, H'79, H'40
           .DATA.B      H'3D, H'0A, H'57, H'BF, H'00, H'00, H'00, H'00, H'99, H'99, H'79, H'40, H'3D, H'0A, H'57, H'BF
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'BF, H'3D, H'0A, H'57, H'3F, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'80, H'BF, H'3D, H'0A, H'57, H'3F, H'00, H'00, H'00, H'00, H'99, H'99, H'79, H'40
-_init_8c04c940:        ; from defines
-          .DATA.L      _init_8c04c520
-          .DATA.L      _init_8c04c520
-          .DATA.L      _init_8c04c580
-          .DATA.L      _init_8c04c5e0
-          .DATA.L      _init_8c04c5e0
-          .DATA.L      _init_8c04c5e0
-          .DATA.L      _init_8c04c640
-          .DATA.L      _init_8c04c6a0
-          .DATA.L      _init_8c04c6a0
-          .DATA.L      _init_8c04c700
-          .DATA.L      _init_8c04c760
-          .DATA.L      _init_8c04c760
-          .DATA.L      _init_8c04c7c0
-          .DATA.L      _init_8c04c820
-          .DATA.L      _init_8c04c880
-          .DATA.L      _init_8c04c8e0
+_init_variantBoxes_8c04c940:        ; from defines
+          .DATA.L      _init_variantBox_8c04c520
+          .DATA.L      _init_variantBox_8c04c520
+          .DATA.L      _init_variantBox_8c04c580
+          .DATA.L      _init_variantBox_8c04c5e0
+          .DATA.L      _init_variantBox_8c04c5e0
+          .DATA.L      _init_variantBox_8c04c5e0
+          .DATA.L      _init_variantBox_8c04c640
+          .DATA.L      _init_variantBox_8c04c6a0
+          .DATA.L      _init_variantBox_8c04c6a0
+          .DATA.L      _init_variantBox_8c04c700
+          .DATA.L      _init_variantBox_8c04c760
+          .DATA.L      _init_variantBox_8c04c760
+          .DATA.L      _init_variantBox_8c04c7c0
+          .DATA.L      _init_busBox_8c04c820
+          .DATA.L      _init_variantBox_8c04c880
+          .DATA.L      _init_variantBox_8c04c8e0
           .END
