@@ -968,9 +968,9 @@ extern int var_nextStopSegment_8c228710; // segment index of the upcoming stop
  * BusStopUpdateStopHeadings_8c02ccc6 */
 extern int var_8c228714;
 
-/* number of slots filled in var_8c228798 by pickWaitingPassengers_8c02c8ae
+/* number of slots filled in var_waitingPassengers_8c228798 by pickWaitingPassengers_8c02c8ae
  * (0-16); read by 02d06c/02d968 to spawn that many passenger tasks. */
-extern int var_8c228794;
+extern int var_waitingPassengerCount_8c228794;
 
 /* one waiting passenger picked for the upcoming stop by
  * pickWaitingPassengers_8c02c8ae */
@@ -979,12 +979,12 @@ typedef struct {
     NJS_POINT3 pos_0x04; // world position; y filled in by the ground snap
     float index_0x10; // 0, 1, 2, ... in pick order
 } WaitingPassengerSlot;
-extern WaitingPassengerSlot var_8c228798[16];
+extern WaitingPassengerSlot var_waitingPassengers_8c228798[16];
 
 /* fixed 31-slot table of scripted/special waiting-passenger schedule entries,
  * one per fixed stop position along the route; -1 = unused. Read by
  * StopSpawnInit_8c02d968 to spawn each slot's passenger task. */
-extern int var_8c228718[31];
+extern int var_stopSchedule_8c228718[31];
 
 /* shared NJS_SPRITE used to draw a waiting passenger; only sx/sy/ang/tanim
  * are reset up front, p and tlist are set per-draw. */
@@ -1008,24 +1008,57 @@ extern float var_8c228908;
  * area's (x, z) origin, +0xc/+0x10 its (dx, dz) extent */
 extern char *var_8c22890c;
 
-/* Six consecutive NJS_POINT3 anchor points (0x228910-0x22894c, 12 bytes
- * apart), set up by StopSpawnInit_8c02d968 in bus-local space at course start and
- * read by 02d19c. var_8c228928 and var_8c22894c are each transformed to
- * world space in place (njCalcPoint against var_busWorldMatrix_8c1bba54);
- * the other four stay in local space. */
-extern NJS_POINT3 var_8c228910;
-extern NJS_POINT3 var_8c22891c;
-extern NJS_POINT3 var_8c228928;
-extern NJS_POINT3 var_8c228934;
-extern NJS_POINT3 var_8c228940;
-extern NJS_POINT3 var_8c22894c;
+/* Six consecutive NJS_POINT3 waypoints (0x228910-0x22894c, 12 bytes apart),
+ * filled by StopSpawnInit_8c02d968 at course start and stepped through by
+ * 02d19c's passenger tasks, three per sequence in the numbered order. Passengers do
+ * not walk between them: each step happens on the one frame
+ * var_passengersFadedOut_8c22895c is set, so the sprite vanishes at one spot and
+ * reappears at the next.
+ *
+ * Named by position in the sequence rather than by what is there, because
+ * what is there moves: StopSpawnInit_8c02d968 fills the six slots from the
+ * same six coordinates in REVERSED order on Ome, swapping which door each
+ * sequence uses. (0.15, 0.68, 0.27) is hard against the driver -- the fare
+ * box -- and lands in boardSpot2 on flat-fare Shinjuku/Wangan but in
+ * exitSpot2 on distance-fare Ome, which is also why 02d19c gates the
+ * boarding voice lines on non-Ome and the exiting ones on Ome: the
+ * greeting plays wherever the passenger passes the driver.
+ *
+ * Geometry, against init_seatPositions_8c04c3e4: the +x wall has no seat
+ * slot between z = -0.33 and 3.95, and every waypoint falls in that gap, in
+ * two z clusters (~0.3-0.9 and ~2.6-3.0) -- two doors. (1.0, 0.35, 2.8) is
+ * the only point at half floor height and sits alone in the gap: the
+ * doorwell step.
+ *
+ * Open: the two y=0 points, (-1.6, 0, 0.9) and (-1.39, 0, 2.63), are on -x,
+ * the side with the unbroken seat row, though their z matches the doors.
+ * They are also the only two rewritten in place by njCalcPoint against
+ * var_busWorldMatrix_8c1bba54, and StopSpawnInit_8c02d968 runs once at
+ * course start -- so that transform, not the coordinate, is the thing to
+ * check. */
+extern NJS_POINT3 var_boardSpot2_8c228910;
+extern NJS_POINT3 var_boardSpot3_8c22891c;
+extern NJS_POINT3 var_boardSpot1_8c228928;
+extern NJS_POINT3 var_exitSpot1_8c228934;
+extern NJS_POINT3 var_exitSpot2_8c228940;
+extern NJS_POINT3 var_exitSpot3_8c22894c;
 
-extern int var_8c228958; // immediately follows var_8c22894c; not read or written by StopSpawnInit_8c02d968; written 1 as a "done" flag by 02d19c's task actions (int, not float -- despite the name matching the anchor-point float run, it's never read as a float anywhere)
-extern int var_8c22895c;   // set to 0 by StopSpawnInit_8c02d968; meaning otherwise unclear
+/* Set by any 02d19c passenger task that advanced this frame; cleared by the
+ * scene task before it pumps the group, then read back to decide whether
+ * the stop is still in progress. Int, not float, despite sitting in the
+ * middle of the anchor-point float run. */
+extern int var_passengerActed_8c228958;
 
-/* 20-byte record following the six anchor points; word0 mirrors the
- * transformed var_8c22894c.y, the rest (words 1-4) are float 1.0 constants. */
-extern float var_8c228960[5];
+/* Nonzero for the single frame the passenger fade reaches full black.
+ * Passenger tasks only advance a step while it is set, so they move unseen. */
+extern int var_passengersFadedOut_8c22895c;
+
+/* Constant material for the pass the passenger sprites draw in, passed to
+ * njSetConstantMaterial by StopDrawLightBegin_8c02d0fc (02d06c). [0] is the
+ * alpha 02d19c's scene task fades in and out at 1/15 per frame, [1..3] the
+ * rgb, held at 1.0. [4] is past the NJS_ARGB and is not part of the color.
+ * The interior model itself sets no constant material. */
+extern float var_passengerFadeColor_8c228960[5];
 
 /* Task group for the bus-stop subsystem's waiting-passenger/departure tasks
  * (see StopSpawnInit_8c02d968); -1 means not currently allocated. */

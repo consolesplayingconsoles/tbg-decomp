@@ -71,8 +71,8 @@ structs:
   - src/028258_objects.c
   - src/02b464_drive_points.c
   - src/02c884_bus_stop.c
-  - src/02d19c.c
-  - src/02df3c.c
+  - src/02d19c_passenger.c
+  - src/02df3c_traffic_lookahead.c
   - src/02e2dc.c
   - src/02e51c_attr_query.c
   - src/02f0c8_traffic_path_scan.c
@@ -1917,7 +1917,7 @@ structs:
   - src/026710_traffic.c
   - src/025b98_traffic_drive.c
   - src/02786c_vehicle_parts.c
-  - src/02df3c.c
+  - src/02df3c_traffic_lookahead.c
   - src/02f0c8_traffic_path_scan.c
   - src/02e51c_attr_query.c
   - src/02e400_collision.c
@@ -2289,7 +2289,7 @@ structs:
     type: float
     name: rearPointZ_0x114
     status: named
-    evidence: src/026710_traffic.c:298; src/02df3c.c:187 also read as a rear reference point in the lookahead
+    evidence: src/026710_traffic.c:298; src/02df3c_traffic_lookahead.c:187 also read as a rear reference point in the lookahead
       scan's candidate match. See field_0x10c.
   - offset: '0x118'
     type: float
@@ -2878,7 +2878,7 @@ structs:
     type: float
     name: lookaheadCacheLen_0x4ec
     status: named
-    evidence: src/02df3c.c:28,37,57,73,92,118 (documented in the header as 'float, not Sint32 -- decrements
+    evidence: src/02df3c_traffic_lookahead.c:28,37,57,73,92,118 (documented in the header as 'float, not Sint32 -- decrements
       it by the frame's speed like an odometer') -- tracks how many units of lookaheadPoints_0x49c are
       currently valid/cached.
   - offset: '0x4f0'
@@ -2899,20 +2899,20 @@ structs:
     type: PathRecord *
     name: lookaheadCursor_0x4f4
     status: named
-    evidence: src/02df3c.c:24,89 (TrafficLookaheadInit_8c02df3c/TrafficLookaheadScan_8c02dfca) walk it
+    evidence: src/02df3c_traffic_lookahead.c:24,89 (TrafficLookaheadInit_8c02df3c/TrafficLookaheadScan_8c02dfca) walk it
       as the PathRecord* cursor for building lookaheadPoints_0x49c, explicitly commented elsewhere as
       the cache's 'path-walk cursor'.
   - offset: '0x4f8'
     type: Uint32
     name: lookaheadCursorBlock_0x4f8
     status: named
-    evidence: src/02df3c.c:49-50,97-98 incremented and used to index resolvedArgs_0x304 whenever the lookahead
+    evidence: src/02df3c_traffic_lookahead.c:49-50,97-98 incremented and used to index resolvedArgs_0x304 whenever the lookahead
       walk crosses a path-block boundary, alongside field_0x4f4.
   - offset: '0x4fc'
     type: float
     name: lookaheadCursorDist_0x4fc
     status: named
-    evidence: src/02df3c.c:25,90 the distance-into-current-record companion to field_0x4f4/0x4f8, advanced
+    evidence: src/02df3c_traffic_lookahead.c:25,90 the distance-into-current-record companion to field_0x4f4/0x4f8, advanced
       by 5.0 per lookahead sample.
   - offset: '0x500'
     type: Uint32
@@ -5148,12 +5148,12 @@ structs:
     blocked: 0
     opaque: 0
 - name: SeatPos
-  file: src/02d19c.h
+  file: src/02d19c_passenger.h
   line: 28
   size: '0x08'
   purpose: One (x,z) seated-passenger position of the 31-entry scripted-stop seat table (init_seatPositions_8c04c3e4).
   used_by:
-  - src/02d19c.c
+  - src/02d19c_passenger.c
   members: []
   summary:
     total: 2
@@ -5162,13 +5162,13 @@ structs:
     blocked: 0
     opaque: 0
 - name: SegMatchEntry
-  file: src/02d968.c
+  file: src/02d968_stop_spawn.c
   line: 19
   size: '0x08'
   purpose: 'StopSpawnInit_8c02d968''s scratch element type: one scripted-stop slot sharing the bus''s
     current segment, built up before a Fisher-Yates shuffle and spawn.'
   used_by:
-  - src/02d968.c
+  - src/02d968_stop_spawn.c
   members: []
   summary:
     total: 2
@@ -5232,14 +5232,14 @@ structs:
     blocked: 0
     opaque: 0
 - name: StopScheduleState
-  file: src/02d19c.h
+  file: src/02d19c_passenger.h
   line: 11
   size: '0x38'
-  purpose: 'TaskPush_8c014ae8 state shared by the three waiting-passenger spawn paths (board/seated/alight):
+  purpose: 'TaskPush_8c014ae8 state shared by the three waiting-passenger spawn paths (board/seated/exit):
     entry pointer, state, world position, sprite, jitter offsets, and per-passenger sound ids.'
   used_by:
-  - src/02d19c.c
-  - src/02d968.c
+  - src/02d19c_passenger.c
+  - src/02d968_stop_spawn.c
   members: []
   summary:
     total: 12

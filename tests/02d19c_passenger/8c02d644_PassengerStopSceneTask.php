@@ -19,9 +19,9 @@ return new class extends TestCase {
         $this->setSize('_SndProc_8c010cd6', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_8c22895c', 4);
-        $this->setSize('_var_8c228958', 4);
-        $this->setSize('_var_8c228960', 5 * 4);
+        $this->setSize('_var_passengersFadedOut_8c22895c', 4);
+        $this->setSize('_var_passengerActed_8c228958', 4);
+        $this->setSize('_var_passengerFadeColor_8c228960', 5 * 4);
         $this->setSize('_var_stopTaskGroup_8c2288f8', 4);
         $this->setSize('_var_cutsceneActive_8c1bb900', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
@@ -84,7 +84,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(0, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($base + 6 * 4, 6);
@@ -104,7 +104,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(0, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($state + 0, 1);
@@ -119,7 +119,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // NORMAL
         $this->initUint32($this->addressOf('_var_cutsceneActive_8c1bb900'), 1); // cutscene active
-        $mat = $this->addressOf('_var_8c228960');
+        $mat = $this->addressOf('_var_passengerFadeColor_8c228960');
         $this->initUint32($mat, $this->f(1.0)); // fading out from 1.0
 
         $group = $this->alloc(0x20);
@@ -129,14 +129,14 @@ return new class extends TestCase {
 
         $state = $this->makeState(1, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldWriteFloat($mat, 1.0 - 0.06666667014360428);
-        $this->shouldWriteLongTo('_var_8c22895c', 0);
-        $this->shouldWriteLongTo('_var_8c228958', 0);
+        $this->shouldWriteLongTo('_var_passengersFadedOut_8c22895c', 0);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 0);
         $this->expectTaskExecGroup($group);
-        // var_8c228958 not touched by the mocked TaskExecGroup -> stays 0 -> "nothing happened" path
+        // var_passengerActed_8c228958 not touched by the mocked TaskExecGroup -> stays 0 -> "nothing happened" path
         $this->shouldWriteLong($state + 0, 2);
         $this->shouldWriteLongTo('_var_fadeRequest_8c226564', 2); // FADE_REQUEST_IN
         $this->shouldWriteLong($base + 6 * 4, 1);
@@ -149,7 +149,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // NORMAL
         $this->initUint32($this->addressOf('_var_cutsceneActive_8c1bb900'), 0);
-        $mat = $this->addressOf('_var_8c228960');
+        $mat = $this->addressOf('_var_passengerFadeColor_8c228960');
         $this->initUint32($mat, $this->f(0.05)); // fading out, about to clamp to 0
 
         $group = $this->alloc(0x20);
@@ -159,14 +159,14 @@ return new class extends TestCase {
 
         $state = $this->makeState(1, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldWriteFloat($mat, 0.05 - 0.06666667014360428); // unconditional store, before the clamp
         $this->shouldWriteFloat($mat, 0.0);
-        $this->shouldWriteLongTo('_var_8c22895c', 1);
+        $this->shouldWriteLongTo('_var_passengersFadedOut_8c22895c', 1);
         $this->shouldWriteLong($state + 4, 1); // sub-phase advances
-        $this->shouldWriteLongTo('_var_8c228958', 0);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 0);
         $this->expectTaskExecGroup($group);
         $this->shouldWriteLong($base + 0, 2);
         $this->shouldWriteLong($state + 0, 5);
@@ -185,7 +185,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(2, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($state + 0, 3);
@@ -204,7 +204,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(3, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($state + 0, 4);
@@ -220,7 +220,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(4, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
@@ -240,7 +240,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(4, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
@@ -269,7 +269,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(5, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($base + 6 * 4, 15);
@@ -294,7 +294,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->makeState(5, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with($task, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with($task, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldCall('_BusStopFreeTaskGroup_8c02ca96');
@@ -328,7 +328,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->makeState(5, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with($task, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with($task, $state);
 
         $this->expectFrameCallbacks();
         $this->shouldCall('_BusStopFreeTaskGroup_8c02ca96');
@@ -348,7 +348,7 @@ return new class extends TestCase {
 
         $state = $this->makeState(42, 0);
 
-        $this->call('_BusRiderStopSceneTask_8c02d644')->with(0, $state);
+        $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
         $this->expectRegisterFadeOverlay();

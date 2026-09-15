@@ -10,15 +10,15 @@ return new class extends TestCase {
         $this->setSize('_FadeCmdPushCall1_8c0223ea', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
-        $this->setSize('_var_8c22895c', 4);
-        $this->setSize('_var_8c228958', 4);
+        $this->setSize('_var_passengersFadedOut_8c22895c', 4);
+        $this->setSize('_var_passengerActed_8c228958', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 8 * 4);
-        $this->setSize('_var_8c228928', 0xc);
-        $this->setSize('_var_8c228910', 0xc);
-        $this->setSize('_var_8c22891c', 0xc);
-        $this->setSize('_var_8c228718', 31 * 4);
-        $this->setSize('_var_8c228960', 5 * 4);
+        $this->setSize('_var_boardSpot1_8c228928', 0xc);
+        $this->setSize('_var_boardSpot2_8c228910', 0xc);
+        $this->setSize('_var_boardSpot3_8c22891c', 0xc);
+        $this->setSize('_var_stopSchedule_8c228718', 31 * 4);
+        $this->setSize('_var_passengerFadeColor_8c228960', 5 * 4);
     }
 
     private function f(float $v): int
@@ -44,39 +44,39 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c22895c'), 1);
+        $this->initUint32($this->addressOf('_var_passengersFadedOut_8c22895c'), 1);
 
         $state = $this->makeState(1);
         $this->initUint32($state + 0x20, 3); // countdown, decrements to 2
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldWriteLong($state + 0x20, 2);
-        $this->shouldWriteLongTo('_var_8c228958', 1);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
     public function test_case1_flag_clear_does_nothing(): void
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c22895c'), 0);
+        $this->initUint32($this->addressOf('_var_passengersFadedOut_8c22895c'), 0);
 
         $state = $this->makeState(1);
         $this->initUint32($state + 0x20, 0);
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldWriteLongTo('_var_8c228958', 1);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
     public function test_case1_countdown_elapsed_positions_and_plays_sound_non_ome(): void
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c22895c'), 1);
+        $this->initUint32($this->addressOf('_var_passengersFadedOut_8c22895c'), 1);
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 0); // SHINJUKU
 
-        $anchor = $this->addressOf('_var_8c228928');
+        $anchor = $this->addressOf('_var_boardSpot1_8c228928');
         $this->initUint32($anchor + 0x0, $this->f(1.0));
         $this->initUint32($anchor + 0x4, $this->f(2.0));
         $this->initUint32($anchor + 0x8, $this->f(3.0));
@@ -91,7 +91,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x2c, 2); // quadrant
         $this->initUint32($state + 0x30, 42); // sound id
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldWriteLong($state + 0x20, 0xffffffff);
         $this->shouldWriteFloat($state + 0x08, 1.1);
@@ -100,30 +100,30 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x14, 0x10);
         $this->shouldWriteLong($state + 0x04, 2);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 42, 0);
-        $this->shouldWriteLongTo('_var_8c228958', 1);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
     public function test_case2_flag_clear_registers_layer1(): void
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c22895c'), 0);
+        $this->initUint32($this->addressOf('_var_passengersFadedOut_8c22895c'), 0);
 
         $state = $this->makeState(2);
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
-        $this->shouldWriteLongTo('_var_8c228958', 1);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
     public function test_case4_claims_empty_slot_below_20(): void
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c22895c'), 1);
+        $this->initUint32($this->addressOf('_var_passengersFadedOut_8c22895c'), 1);
 
-        $slots = $this->addressOf('_var_8c228718');
+        $slots = $this->addressOf('_var_stopSchedule_8c228718');
         for ($i = 0; $i < 31; $i++) {
             $this->initUint32($slots + $i * 4, $i === 3 ? -1 : 0xbeef);
         }
@@ -138,7 +138,7 @@ return new class extends TestCase {
         $this->initUint32($state + 0x0c, $this->f(9.0));
         $ref = $this->lastRef; // state->ref_0x00
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(31)->andReturn(3);
         $this->shouldWriteLong($slots + 3 * 4, $ref);
@@ -147,40 +147,40 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x14, 0x20);
         $this->shouldWriteFloat($state + 0x0c, 9.0 - 0.18000000715255737);
         $this->shouldWriteLong($state + 0x04, 5);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
-        $this->shouldWriteLongTo('_var_8c228958', 1);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
     public function test_case5_still_fading_registers_layer2(): void
     {
         $this->resolveSymbols();
 
-        $mat = $this->addressOf('_var_8c228960');
+        $mat = $this->addressOf('_var_passengerFadeColor_8c228960');
         $this->initUint32($mat, $this->f(0.5));
 
         $state = $this->makeState(5);
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
-        $this->shouldWriteLongTo('_var_8c228958', 1);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
     public function test_case5_fully_faded_resets_to_scripted_stop(): void
     {
         $this->resolveSymbols();
 
-        $mat = $this->addressOf('_var_8c228960');
+        $mat = $this->addressOf('_var_passengerFadeColor_8c228960');
         $this->initUint32($mat, $this->f(1.0));
 
         $state = $this->makeState(5);
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
         $this->shouldWriteLong($state + 0x04, 0);
         $this->shouldWriteLong($state + 0x28, 1);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
-        $this->shouldWriteLongTo('_var_8c228958', 1);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
     public function test_case0_registers_layer2_and_returns_without_flag(): void
@@ -189,9 +189,9 @@ return new class extends TestCase {
 
         $state = $this->makeState(0);
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
     }
 
     public function test_default_does_nothing_but_set_flag(): void
@@ -200,8 +200,8 @@ return new class extends TestCase {
 
         $state = $this->makeState(99);
 
-        $this->call('_BusRiderBoardTask_8c02d21c')->with(0, $state);
+        $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldWriteLongTo('_var_8c228958', 1);
+        $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 };

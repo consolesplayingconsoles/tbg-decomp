@@ -824,13 +824,13 @@
                                     ; 02c884
           .EXPORT     _var_8c228714 ; 02b464
                                     ; 02c884
-          .EXPORT     _var_8c228718 ; 02c884
+          .EXPORT     _var_stopSchedule_8c228718 ; 02c884
                                     ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c228794 ; 02c884
+          .EXPORT     _var_waitingPassengerCount_8c228794 ; 02c884
                                     ; 02d06c
                                     ; 02d968
-          .EXPORT     _var_8c228798 ; 02c884
+          .EXPORT     _var_waitingPassengers_8c228798 ; 02c884
                                     ; 02d06c
                                     ; 02d968
           .EXPORT     _var_8c2288d8 ; 02c884
@@ -844,22 +844,22 @@
           .EXPORT     _var_8c228900 ; 02c884
           .EXPORT     _var_8c228908 ; 02c884
           .EXPORT     _var_8c22890c ; 02c884
-          .EXPORT     _var_8c228910 ; 02d19c
+          .EXPORT     _var_boardSpot2_8c228910 ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c22891c ; 02d19c
+          .EXPORT     _var_boardSpot3_8c22891c ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c228928 ; 02d19c
+          .EXPORT     _var_boardSpot1_8c228928 ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c228934 ; 02d19c
+          .EXPORT     _var_exitSpot1_8c228934 ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c228940 ; 02d19c
+          .EXPORT     _var_exitSpot2_8c228940 ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c22894c ; 02d19c
+          .EXPORT     _var_exitSpot3_8c22894c ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c228958 ; 02d19c
-          .EXPORT     _var_8c22895c ; 02d19c
+          .EXPORT     _var_passengerActed_8c228958 ; 02d19c
+          .EXPORT     _var_passengersFadedOut_8c22895c ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c228960 ; 02d06c
+          .EXPORT     _var_passengerFadeColor_8c228960 ; 02d06c
                                     ; 02d19c
                                     ; 02d968
           .EXPORT     _var_collisionScanCursor_8c228974 ; 02df3c
@@ -1553,11 +1553,11 @@ _var_nextStopSegment_8c228710:
           .RES.B      4
 _var_8c228714:
           .RES.B      4
-_var_8c228718:
+_var_stopSchedule_8c228718:
           .RES.B      124
-_var_8c228794:
+_var_waitingPassengerCount_8c228794:
           .RES.B      4
-_var_8c228798:
+_var_waitingPassengers_8c228798:
           .RES.B      320
 _var_8c2288d8:
           .RES.B      32
@@ -1571,23 +1571,23 @@ _var_8c228908:
           .RES.B      4
 _var_8c22890c:
           .RES.B      4
-_var_8c228910:
+_var_boardSpot2_8c228910:
           .RES.B      12
-_var_8c22891c:
+_var_boardSpot3_8c22891c:
           .RES.B      12
-_var_8c228928:
+_var_boardSpot1_8c228928:
           .RES.B      12
-_var_8c228934:
+_var_exitSpot1_8c228934:
           .RES.B      12
-_var_8c228940:
+_var_exitSpot2_8c228940:
           .RES.B      12
-_var_8c22894c:
+_var_exitSpot3_8c22894c:
           .RES.B      12
-_var_8c228958:
+_var_passengerActed_8c228958:
           .RES.B      4
-_var_8c22895c:
+_var_passengersFadedOut_8c22895c:
           .RES.B      4
-_var_8c228960:
+_var_passengerFadeColor_8c228960:
           .RES.B      20
 _var_collisionScanCursor_8c228974:
           .RES.B      4

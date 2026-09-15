@@ -71,9 +71,9 @@ SRCS = \
 	src/asm/decompiled/02b464_drive_points.src \
 	src/asm/decompiled/02c884_bus_stop.src \
 	src/asm/decompiled/02d06c.src \
-	src/asm/decompiled/02d19c.src \
-	src/asm/decompiled/02d968.src \
-	src/asm/decompiled/02df3c.src \
+	src/asm/decompiled/02d19c_passenger.src \
+	src/asm/decompiled/02d968_stop_spawn.src \
+	src/asm/decompiled/02df3c_traffic_lookahead.src \
 	src/asm/decompiled/02e2dc_bus_collision.src \
 	src/asm/decompiled/02e400_collision.src \
 	src/asm/sectionB.src \

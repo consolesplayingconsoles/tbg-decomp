@@ -9,7 +9,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * upcoming stop (var_nextStopSegment_8c228710). Snaps var_8c228900 to ground,
  * collects the segment's candidate stop spots (segment record's list at +8)
  * whose var_8c2286a4 active-stop flag is set into a scratch list, then
- * randomly picks 1-16 of them without replacement into var_8c228798,
+ * randomly picks 1-16 of them without replacement into var_waitingPassengers_8c228798,
  * positioned along the picked stop's spawn-area strip (var_8c1bb894 entry
  * selected by the segment record's field_0x06) with per-passenger jitter --
  * except on ROUTE_OME, which skips the jitter.
@@ -17,7 +17,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c228794', 4);
+        $this->setSize('_var_waitingPassengerCount_8c228794', 4);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_groundGridFallback_8c1bb86c', 4);
         $this->setSize('_var_8c228900', 0xc);
@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c2286a4', 96);
         $this->setSize('_var_8c1bb894', 4);
         $this->setSize('_var_8c22890c', 4);
-        $this->setSize('_var_8c228798', 0x140);
+        $this->setSize('_var_waitingPassengers_8c228798', 0x140);
 
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
@@ -91,7 +91,7 @@ return new class extends TestCase {
 
         $this->call('_pickWaitingPassengers_8c02c8ae')->with();
 
-        $this->shouldWriteLongTo('_var_8c228794', 0);
+        $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 0);
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x22222222);
 
         $groundPtr = null;
@@ -168,7 +168,7 @@ return new class extends TestCase {
 
         $this->call('_pickWaitingPassengers_8c02c8ae')->with();
 
-        $this->shouldWriteLongTo('_var_8c228794', 0);
+        $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 0);
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x22222222);
 
         $groundPtr1 = null;
@@ -192,14 +192,14 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_8c22890c', $area);
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
-        $this->shouldWriteLongTo('_var_8c228794', 1);
+        $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 1);
 
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
 
-        $slot = $this->addressOf('_var_8c228798');
-        $this->shouldWriteSymbolOffset('_var_8c228798', 0x00, $list + 2);
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x04, 10.0); // x = 0*dx + x0
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x0c, 20.0); // z = 0*dz + z0
+        $slot = $this->addressOf('_var_waitingPassengers_8c228798');
+        $this->shouldWriteSymbolOffset('_var_waitingPassengers_8c228798', 0x00, $list + 2);
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x04, 10.0); // x = 0*dx + x0
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x0c, 20.0); // z = 0*dz + z0
 
         $groundPtr2 = null;
         $this->shouldCall('_GroundQueryFindPolygon_8c020914')
@@ -214,7 +214,7 @@ return new class extends TestCase {
                 }
             });
 
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x10, 0.0); // index = 0
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x10, 0.0); // index = 0
         $this->shouldWriteLong($candidates + 0, -1);
 
         $this->shouldCall('_syFree')->with($candidates);
@@ -265,7 +265,7 @@ return new class extends TestCase {
 
         $this->call('_pickWaitingPassengers_8c02c8ae')->with();
 
-        $this->shouldWriteLongTo('_var_8c228794', 0);
+        $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 0);
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x22222222);
 
         $groundPtr1 = null;
@@ -288,19 +288,19 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_8c22890c', $area);
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
-        $this->shouldWriteLongTo('_var_8c228794', 1);
+        $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 1);
 
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
 
-        $slot = $this->addressOf('_var_8c228798');
-        $this->shouldWriteSymbolOffset('_var_8c228798', 0x00, $list);
+        $slot = $this->addressOf('_var_waitingPassengers_8c228798');
+        $this->shouldWriteSymbolOffset('_var_waitingPassengers_8c228798', 0x00, $list);
 
         // rand()/32768.0 - 0.5 == 0.0 for rand() == 16384, so x/z land back
         // on the strip's origin, same as the ROUTE_OME test above.
         $this->shouldCall('_rand')->andReturn(16384);
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x04, 10.0); // x = 0*dx + x0 + 0
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x04, 10.0); // x = 0*dx + x0 + 0
         $this->shouldCall('_rand')->andReturn(16384);
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x0c, 20.0); // z = 0*dz + z0 + 0
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x0c, 20.0); // z = 0*dz + z0 + 0
 
         $groundPtr2 = null;
         $this->shouldCall('_GroundQueryFindPolygon_8c020914')
@@ -315,7 +315,7 @@ return new class extends TestCase {
                 }
             });
 
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x10, 0.0); // index = 0
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x10, 0.0); // index = 0
         $this->shouldWriteLong($candidates + 0, -1);
 
         $this->shouldCall('_syFree')->with($candidates);
@@ -323,7 +323,7 @@ return new class extends TestCase {
 
     /*
      * AsqGetRandomInRangeA_8c012178(candidateCount) always returns
-     * 0..candidateCount-1, so var_8c228794 (its result + 1, clamped to 16)
+     * 0..candidateCount-1, so var_waitingPassengerCount_8c228794 (its result + 1, clamped to 16)
      * can never exceed candidateCount -- the do-while reroll always
      * terminates, and the > 0x10 clamp only matters for a segment with more
      * than 16 real candidates (not exercised here).
@@ -374,7 +374,7 @@ return new class extends TestCase {
 
         $this->call('_pickWaitingPassengers_8c02c8ae')->with();
 
-        $this->shouldWriteLongTo('_var_8c228794', 0);
+        $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 0);
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', 0x22222222);
 
         $groundPtr1 = null;
@@ -400,15 +400,15 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c22890c', $area);
         // AsqGetRandomInRangeA_8c012178(2) returns 1 -> count = 2.
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(1);
-        $this->shouldWriteLongTo('_var_8c228794', 2);
+        $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 2);
 
-        $slot = $this->addressOf('_var_8c228798');
+        $slot = $this->addressOf('_var_waitingPassengers_8c228798');
 
         // i = 0: first roll picks slot 0 (candidates[0] == $list, not used).
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(0);
-        $this->shouldWriteSymbolOffset('_var_8c228798', 0x00, $list);
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x04, 10.0);
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x0c, 20.0);
+        $this->shouldWriteSymbolOffset('_var_waitingPassengers_8c228798', 0x00, $list);
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x04, 10.0);
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x0c, 20.0);
         $ground1 = null;
         $this->shouldCall('_GroundQueryFindPolygon_8c020914')->with(10.0, 0.0, 20.0)->do(function () use (&$ground1) {
             $ground1 = $this->registers[4]->value;
@@ -418,15 +418,15 @@ return new class extends TestCase {
                 throw new RuntimeException('unexpected _GroundProbeInterpolateHeight_8c020f7e args (i=0)');
             }
         });
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x10, 0.0);
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x10, 0.0);
         $this->shouldWriteLong($candidates + 0, -1);
 
         // i = 1: first roll re-picks the now-used slot 0, rerolls to slot 1.
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(0);
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(1);
-        $this->shouldWriteSymbolOffset('_var_8c228798', 0x14, $list + 2);
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x18, 11.0); // x = 1*dx + x0
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x20, 22.0); // z = 1*dz + z0
+        $this->shouldWriteSymbolOffset('_var_waitingPassengers_8c228798', 0x14, $list + 2);
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x18, 11.0); // x = 1*dx + x0
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x20, 22.0); // z = 1*dz + z0
         $ground2 = null;
         $this->shouldCall('_GroundQueryFindPolygon_8c020914')->with(11.0, 0.0, 22.0)->do(function () use (&$ground2) {
             $ground2 = $this->registers[4]->value;
@@ -436,7 +436,7 @@ return new class extends TestCase {
                 throw new RuntimeException('unexpected _GroundProbeInterpolateHeight_8c020f7e args (i=1)');
             }
         });
-        $this->shouldWriteFloatSymbolOffset('_var_8c228798', 0x24, 1.0);
+        $this->shouldWriteFloatSymbolOffset('_var_waitingPassengers_8c228798', 0x24, 1.0);
         $this->shouldWriteLong($candidates + 4, -1);
 
         $this->shouldCall('_syFree')->with($candidates);

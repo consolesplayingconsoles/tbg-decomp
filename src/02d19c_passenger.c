@@ -1,4 +1,4 @@
-/* @unit BusRider */
+/* @unit Passenger */
 
 #include <shinobi.h>
 #include <sg_sd.h>
@@ -15,14 +15,14 @@
 #include "028258_objects.h"
 #include "02c884_bus_stop.h"
 #include "02d06c.h"
-#include "02d19c.h"
+#include "02d19c_passenger.h"
 
 /* ====================
  * Forward Declarations
  * ====================
  */
 
-STATIC void drawRiderSprite_8c02d19c(int arg0);
+STATIC void drawPassengerSprite_8c02d19c(int arg0);
 STATIC void drawInterior_8c02d1f4(int arg0);
 STATIC void setCountUpStep_8c02d5d8(void);
 
@@ -71,12 +71,12 @@ SeatPos init_seatPositions_8c04c3e4[31] = {
  */
 
 /* Installed as a FadeCallback1 (via literal-pool pointer, both by
- * BusRiderSeatedTask_8c02d5ca and by the per-passenger task actions below); draws one
- * waiting-passenger/scripted-stop rider's sprite. arg0 is a
+ * PassengerSeatedTask_8c02d5ca and by the per-passenger task actions below);
+ * draws one passenger's sprite, waiting or scripted. arg0 is a
  * StopScheduleState* threaded through the int parameter (the same idiom as
  * StopDrawLightBegin_8c02d0fc/d146 in 02d06c). A stop index (the byte at *entry_0x00) out of
  * range, or whose asset slot has no texlist loaded yet, is skipped. */
-STATIC void drawRiderSprite_8c02d19c(int arg0)
+STATIC void drawPassengerSprite_8c02d19c(int arg0)
 {
     StopScheduleState *state = (StopScheduleState *)arg0;
     Sint8 stopIndex = *(Sint8 *)state->entry_0x00;
@@ -93,7 +93,7 @@ STATIC void drawRiderSprite_8c02d19c(int arg0)
     njDrawSprite3D(&var_8c2288d8, state->spriteNo_0x14, state->isSeated_0x28 == 0 ? 0x32 : 0x30);
 }
 
-/* Installed as a FadeCallback1 (via literal-pool pointer in BusRiderStopSceneTask_8c02d644);
+/* Installed as a FadeCallback1 (via literal-pool pointer in PassengerStopSceneTask_8c02d644);
  * ignores its arg. Draws the bus interior model under the layer-0 (bus)
  * simple light, sibling of StopDrawLightBegin_8c02d0fc (02d06c) which does the same for
  * the bus-stop anchor points. */
@@ -107,12 +107,12 @@ STATIC void drawInterior_8c02d1f4(int arg0)
 /* Task action for a scripted-stop slot whose segment differs from the bus's
  * current one -- spawned immediately by StopSpawnInit_8c02d968 (no shuffle, no
  * countdown). Registers the draw callback every frame; ignores task. */
-void BusRiderSeatedTask_8c02d5ca(Task *task, void *state)
+void PassengerSeatedTask_8c02d5ca(Task *task, void *state)
 {
-    FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
+    FadeCmdPushCall1_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
 }
 
-/* var_8c2285c4[7], the per-frame step BusRiderStopSceneTask_8c02d644's case 5 adds to
+/* var_8c2285c4[7], the per-frame step PassengerStopSceneTask_8c02d644's case 5 adds to
  * var_8c2285c4[6] while counting it up to var_8c2285c4[5]: 1/5th of the
  * remaining distance (idx5 - idx6) once that's at least 50, else a flat
  * step of 10 to close the last stretch. */
@@ -129,26 +129,26 @@ STATIC void setCountUpStep_8c02d5d8(void)
 
 /* Task action for an already-picked waiting passenger (state->state_0x04 ==
  * 1 always, from 02d968); walks it through the boarding animation via the
- * three door anchor points var_8c228928, var_8c228910 and var_8c22891c in
- * turn, claiming an empty scripted-stop slot once done so it continues as
- * an ordinary scripted rider, then keeps re-registering the draw
- * callback in its terminal state (0). var_8c22895c gates whether each
- * phase's positioning work runs this frame (set up per-frame elsewhere in
- * the bus-stop subsystem; not owned by this unit). */
-void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
+ * three waypoints var_boardSpot1_8c228928, var_boardSpot2_8c228910 and
+ * var_boardSpot3_8c22891c in turn, claiming an empty scripted-stop slot once
+ * done so it continues as an ordinary scripted passenger, then re-registers the draw
+ * callback in its terminal state (0). Each phase only advances on a frame
+ * where var_passengersFadedOut_8c22895c is set, so the passenger never visibly
+ * jumps between waypoints. */
+void PassengerBoardTask_8c02d21c(Task *task, StopScheduleState *state)
 {
     int mode = state->state_0x04;
     int layer = 0;
 
     switch (mode) {
     case 1:
-        if (var_8c22895c != 0) {
+        if (var_passengersFadedOut_8c22895c != 0) {
             Sint32 n = state->delay_0x20 - 1;
             state->delay_0x20 = n;
             if (n < 0) {
-                state->pos_0x08.x = var_8c228928.x + state->jitterX_0x18;
-                state->pos_0x08.y = var_8c228928.y;
-                state->pos_0x08.z = var_8c228928.z + state->jitterZ_0x1c;
+                state->pos_0x08.x = var_boardSpot1_8c228928.x + state->jitterX_0x18;
+                state->pos_0x08.y = var_boardSpot1_8c228928.y;
+                state->pos_0x08.z = var_boardSpot1_8c228928.z + state->jitterZ_0x1c;
                 state->spriteNo_0x14 = 0x10;
                 state->state_0x04 = 2;
                 if (var_route_8c18ad1c != ROUTE_OME) {
@@ -159,8 +159,8 @@ void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
         break;
 
     case 2:
-        if (var_8c22895c != 0) {
-            state->pos_0x08 = var_8c228910;
+        if (var_passengersFadedOut_8c22895c != 0) {
+            state->pos_0x08 = var_boardSpot2_8c228910;
             state->spriteNo_0x14 = (var_route_8c18ad1c == ROUTE_OME) ? 0x18 : 8;
             state->state_0x04 = 3;
             if (var_route_8c18ad1c != ROUTE_OME) {
@@ -171,10 +171,10 @@ void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
         break;
 
     case 3:
-        if (var_8c22895c != 0) {
-            state->pos_0x08.x = var_8c22891c.x + state->jitterX_0x18;
-            state->pos_0x08.y = var_8c22891c.y;
-            state->pos_0x08.z = var_8c22891c.z + state->jitterZ_0x1c;
+        if (var_passengersFadedOut_8c22895c != 0) {
+            state->pos_0x08.x = var_boardSpot3_8c22891c.x + state->jitterX_0x18;
+            state->pos_0x08.y = var_boardSpot3_8c22891c.y;
+            state->pos_0x08.z = var_boardSpot3_8c22891c.z + state->jitterZ_0x1c;
             state->state_0x04 = 4;
             if (var_route_8c18ad1c != ROUTE_OME) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[state->voice_0x2c], 1, state->soundIdB_0x34, 0);
@@ -184,16 +184,16 @@ void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
         break;
 
     case 4:
-        if (var_8c22895c != 0) {
+        if (var_passengersFadedOut_8c22895c != 0) {
             int slot = AsqGetRandomInRangeA_8c012178(31);
 
-            while (var_8c228718[slot] != -1) {
+            while (var_stopSchedule_8c228718[slot] != -1) {
                 slot++;
                 if (slot >= 31) {
                     slot = 0;
                 }
             }
-            var_8c228718[slot] = (int)state->entry_0x00;
+            var_stopSchedule_8c228718[slot] = (int)state->entry_0x00;
             state->pos_0x08.x = init_seatPositions_8c04c3e4[slot].x;
             state->pos_0x08.z = init_seatPositions_8c04c3e4[slot].z;
             if (slot < 0x14) {
@@ -210,7 +210,7 @@ void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
         break;
 
     case 5:
-        if (!(1.0f > var_8c228960[0])) {
+        if (!(1.0f > var_passengerFadeColor_8c228960[0])) {
             state->state_0x04 = 0;
             state->isSeated_0x28 = 1;
         }
@@ -218,7 +218,7 @@ void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
         break;
 
     case 0:
-        FadeCmdPushCall1_8c0223ea(2, drawRiderSprite_8c02d19c, (int)state);
+        FadeCmdPushCall1_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
         return;
 
     default:
@@ -226,25 +226,25 @@ void BusRiderBoardTask_8c02d21c(Task *task, StopScheduleState *state)
     }
 
     if (layer != 0) {
-        FadeCmdPushCall1_8c0223ea(layer, drawRiderSprite_8c02d19c, (int)state);
+        FadeCmdPushCall1_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
     }
-    var_8c228958 = 1;
+    var_passengerActed_8c228958 = 1;
 }
 
 /* Task action for a scripted-stop slot that matched the bus's current
  * segment (spawned after the Fisher-Yates shuffle by StopSpawnInit_8c02d968).
- * Sibling of BusRiderBoardTask_8c02d21c: same shape (countdown, then walk three door
+ * Sibling of PassengerBoardTask_8c02d21c: same shape (countdown, then walk three door
  * anchor points), but the anchor points, sound-gating route and terminal
- * behavior all differ -- this one frees itself once var_8c22895c fires in
+ * behavior all differ -- this one frees itself once var_passengersFadedOut_8c22895c fires in
  * its terminal state, instead of looping forever. */
-void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
+void PassengerExitTask_8c02d46c(Task *task, StopScheduleState *state)
 {
     int mode = state->state_0x04;
     int layer = 0;
 
     switch (mode) {
     case 0:
-        if (var_8c22895c != 0) {
+        if (var_passengersFadedOut_8c22895c != 0) {
             Sint32 n = state->delay_0x20 - 1;
             state->delay_0x20 = n;
             if (n < 0) {
@@ -255,13 +255,13 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
         break;
 
     case 6:
-        if (!(1.0f > var_8c228960[0])) {
+        if (!(1.0f > var_passengerFadeColor_8c228960[0])) {
             state->isSeated_0x28 = 0;
         }
-        if (var_8c22895c != 0) {
-            var_8c228718[state->slotIndex_0x24] = -1;
-            state->pos_0x08.x = var_8c228934.x + state->jitterX_0x18;
-            state->pos_0x08.z = var_8c228934.z + state->jitterZ_0x1c;
+        if (var_passengersFadedOut_8c22895c != 0) {
+            var_stopSchedule_8c228718[state->slotIndex_0x24] = -1;
+            state->pos_0x08.x = var_exitSpot1_8c228934.x + state->jitterX_0x18;
+            state->pos_0x08.z = var_exitSpot1_8c228934.z + state->jitterZ_0x1c;
             state->spriteNo_0x14 = (var_route_8c18ad1c == ROUTE_OME) ? 0x20 : 0x10;
             state->state_0x04 = 7;
             if (var_route_8c18ad1c == ROUTE_OME) {
@@ -272,8 +272,8 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
         break;
 
     case 7:
-        if (var_8c22895c != 0) {
-            state->pos_0x08 = var_8c228940;
+        if (var_passengersFadedOut_8c22895c != 0) {
+            state->pos_0x08 = var_exitSpot2_8c228940;
             state->state_0x04 = 8;
             if (var_route_8c18ad1c == ROUTE_OME) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, AsqGetRandomInRangeB_8c0121be(3) + 0x1f, 0);
@@ -283,10 +283,10 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
         break;
 
     case 8:
-        if (var_8c22895c != 0) {
-            state->pos_0x08.x = var_8c22894c.x + state->jitterX_0x18;
-            state->pos_0x08.y = var_8c22894c.y;
-            state->pos_0x08.z = var_8c22894c.z + state->jitterZ_0x1c;
+        if (var_passengersFadedOut_8c22895c != 0) {
+            state->pos_0x08.x = var_exitSpot3_8c22894c.x + state->jitterX_0x18;
+            state->pos_0x08.y = var_exitSpot3_8c22894c.y;
+            state->pos_0x08.z = var_exitSpot3_8c22894c.z + state->jitterZ_0x1c;
             state->spriteNo_0x14 = 0x18;
             state->state_0x04 = 9;
             if (var_route_8c18ad1c == ROUTE_OME) {
@@ -297,7 +297,7 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
         break;
 
     case 9:
-        if (var_8c22895c != 0) {
+        if (var_passengersFadedOut_8c22895c != 0) {
             TaskFree_8c014b66(task);
             return;
         }
@@ -309,13 +309,13 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
     }
 
     if (layer != 0) {
-        FadeCmdPushCall1_8c0223ea(layer, drawRiderSprite_8c02d19c, (int)state);
+        FadeCmdPushCall1_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
     }
-    var_8c228958 = 1;
+    var_passengerActed_8c228958 = 1;
 }
 
 /* Per-frame driver for the bus-stop passenger subsystem: pumps
- * var_stopTaskGroup_8c2288f8's tasks, fades var_8c228960[0] (the bus
+ * var_stopTaskGroup_8c2288f8's tasks, fades var_passengerFadeColor_8c228960[0] (the bus
  * interior's own light level, separate from the anchor-point one in
  * 02d06c) in and out around the fade-arrival overlay, and tears the
  * subsystem down and frees itself when done. Spawned once by StopSpawnInit_8c02d968
@@ -324,7 +324,7 @@ void BusRiderAlightTask_8c02d46c(Task *task, StopScheduleState *state)
  * task actions in this unit use. Every call re-registers this frame's
  * interior-draw (drawInterior_8c02d1f4) and light (StopDrawLightBegin_8c02d0fc) FadeCallback1s
  * regardless of phase. */
-void BusRiderStopSceneTask_8c02d644(Task *task, BusRiderStopSceneState *state)
+void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
 {
     int phase = state->phase_0x00;
     Bool execGroup = FALSE;
@@ -351,34 +351,34 @@ void BusRiderStopSceneTask_8c02d644(Task *task, BusRiderStopSceneState *state)
         for (;;) {
             switch (state->subPhase_0x04) {
             case 0: {
-                float v = var_8c228960[0] - 0.06666667014360428f;
-                var_8c228960[0] = v;
+                float v = var_passengerFadeColor_8c228960[0] - 0.06666667014360428f;
+                var_passengerFadeColor_8c228960[0] = v;
                 if (!(v > 0.0f)) {
-                    var_8c228960[0] = 0.0f;
-                    var_8c22895c = 1;
+                    var_passengerFadeColor_8c228960[0] = 0.0f;
+                    var_passengersFadedOut_8c22895c = 1;
                     state->subPhase_0x04 = 1;
                 } else {
-                    var_8c22895c = 0;
+                    var_passengersFadedOut_8c22895c = 0;
                 }
                 break;
             }
             case 1: {
-                float v = var_8c228960[0] + 0.06666667014360428f;
-                var_8c228960[0] = v;
+                float v = var_passengerFadeColor_8c228960[0] + 0.06666667014360428f;
+                var_passengerFadeColor_8c228960[0] = v;
                 if (!(1.0f > v)) {
-                    var_8c228960[0] = 1.0f;
+                    var_passengerFadeColor_8c228960[0] = 1.0f;
                     state->subPhase_0x04 = 0;
                 }
-                var_8c22895c = 0;
+                var_passengersFadedOut_8c22895c = 0;
                 break;
             }
             default:
                 break;
             }
 
-            var_8c228958 = 0;
+            var_passengerActed_8c228958 = 0;
             TaskExecGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
-            if (var_8c228958 != 0) {
+            if (var_passengerActed_8c228958 != 0) {
                 var_8c2285c4[6]++;
                 if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
                     continue;
@@ -498,7 +498,7 @@ void BusRiderStopSceneTask_8c02d644(Task *task, BusRiderStopSceneState *state)
  * var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE and the course-restart flag
  * var_8c226410 bit 3 is clear -- resets the fade-arrival bookkeeping once
  * (guarded by var_isFading_8c226568) and frees itself. */
-void BusRiderSkipStopTask_8c02d8f0(Task *task, void *state)
+void PassengerSkipStopTask_8c02d8f0(Task *task, void *state)
 {
     if (var_isFading_8c226568 == 0) {
         var_8c1bbc84 = 1;

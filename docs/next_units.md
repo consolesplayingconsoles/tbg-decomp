@@ -367,6 +367,39 @@ dead-functions section above). It resumes the scan from wherever
 `var_collisionScanCursor_8c228974` is sitting and reuses the box already there,
 so it would yield the bump after the one just reported.
 
+### `02df3c_traffic_lookahead` (ShortUnit `TrafficLookahead`) -- done, 2/2 functions
+
+Keeps each traffic entry's path-ahead cache (`lookaheadPoints_0x49c`): world
+(x, z) sampled every 5 units, `9999.0` terminated.
+`TrafficLookaheadInit_8c02df3c` seeds it to 25 units at spawn;
+`TrafficLookaheadScan_8c02dfca` tops it back up to 20 (the cache is an
+odometer -- driving shrinks it) and reports what is standing on it.
+
+The player's bus is tested against six points -- its current position and the
+newest history sample within 2.5 units, four older samples within 2.0 -- and
+that predicate appeared **twice**, once as a `||` chain and once as six
+separate `if`s, differing only in that one arm `break`s where the other
+`return`s to the same value. Now one `BUS_BLOCKS` macro. A macro rather than a
+helper function because a new `STATIC` function would have no address for the
+`_8c<addr>` suffix that `check_naming.py` requires.
+
+### `02d968_stop_spawn` (ShortUnit `StopSpawn`) -- done, 1/1 function
+
+`StopSpawnInit_8c02d968`, course-start setup for the bus-stop passenger
+subsystem: the six bus-interior anchor points, then one `02d19c_passenger` (`Passenger`)
+task per already-picked waiting passenger and per scripted schedule slot. Slots
+whose stop segment matches the bus's current segment are collected, Fisher-Yates
+shuffled, and spawned as `PassengerExitTask_8c02d46c`; the rest spawn directly
+as `PassengerSeatedTask_8c02d5ca`.
+
+Seat position in the shuffled loop follows the *shuffled* order
+(`init_seatPositions_8c04c3e4[i]`) while `slotIndex_0x24` keeps the original
+schedule slot -- commented in place, since it reads like an indexing mistake.
+
+`init_passengerVoiceVariant_8c04c4dc` (was `init_8c04c4dc`) was `STATIC` in the C
+but `.EXPORT`ed unconditionally by the `.src`; now gated under
+`.AIFDEF UNIT_TESTING` like every other private symbol.
+
 ### `02786c_vehicle_parts` (ShortUnit `VehParts`) -- done, 1/1 function
 
 `VehPartsBind_8c02786c(entry, typeCode)` caches a spawned traffic vehicle's
@@ -554,7 +587,7 @@ What `026710` needs from it:
 
 `BusStopSetup_8c02caba` allocates nothing; it is pure state init. The unit's
 only allocation is `pickWaitingPassengers_8c02c8ae`'s `syMalloc(0x40)` scratch
-list, freed before return. Waiting passengers land in `var_8c228798[16]` of
+list, freed before return. Waiting passengers land in `var_waitingPassengers_8c228798[16]` of
 `WaitingPassengerSlot` (0x14 bytes: spot pointer, `NJS_POINT3` pos, pick-order
 float), laid along the stop strip as `pos = origin + n*dir` plus `rand()` jitter
 -- except on `ROUTE_OME`, which gets no jitter.

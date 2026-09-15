@@ -1,8 +1,8 @@
 ; 8c02c884
-          .IMPORT     _var_8c228718
+          .IMPORT     _var_stopSchedule_8c228718
           .IMPORT     _var_8c2288d8
           .IMPORT     _init_pedestrianTexAnims_8c04623c
-          .IMPORT     _var_8c228794
+          .IMPORT     _var_waitingPassengerCount_8c228794
           .IMPORT     _var_groundGridFallback_8c1bb86c
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_8c228900
@@ -14,7 +14,7 @@
           .IMPORT     _var_8c22890c
           .IMPORT     _var_8c1bb894
           .IMPORT     _AsqGetRandomInRangeA_8c012178
-          .IMPORT     _var_8c228798
+          .IMPORT     _var_waitingPassengers_8c228798
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _rand
           .IMPORT     _syFree
@@ -428,11 +428,11 @@ LAB_8c02cb06:
           MOV         R12,R10
 LP_GEN_58192:
           .RES.W 1 ; H'8C02CB16
-          .DATA.L _var_8c228718 ; H'8C02CB18
+          .DATA.L _var_stopSchedule_8c228718 ; H'8C02CB18
           .DATA.L H'3C656042 ; H'8C02CB1C
           .DATA.L _var_8c2288d8 ; H'8C02CB20
           .DATA.L _init_pedestrianTexAnims_8c04623c ; H'8C02CB24
-          .DATA.L _var_8c228794 ; H'8C02CB28
+          .DATA.L _var_waitingPassengerCount_8c228794 ; H'8C02CB28
           .DATA.L _var_groundGridFallback_8c1bb86c ; H'8C02CB2C
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C02CB30
           .DATA.L _var_8c228900 ; H'8C02CB34
@@ -446,7 +446,7 @@ LP_GEN_58192:
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02CB54
           .DATA.L H'47000000 ; H'8C02CB58
           .DATA.L H'BF000000 ; H'8C02CB5C
-          .DATA.L _var_8c228798 ; H'8C02CB60
+          .DATA.L _var_waitingPassengers_8c228798 ; H'8C02CB60
           .DATA.L _var_route_8c18ad1c ; H'8C02CB64
           .DATA.L _rand ; H'8C02CB68
           .DATA.L _syFree ; H'8C02CB6C

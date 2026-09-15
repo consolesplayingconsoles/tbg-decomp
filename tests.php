@@ -759,12 +759,12 @@ return [
         ],
         [
             "tests" => [
-                "tests/02df3c/8c02df3c_TrafficLookaheadInit.php",
-                "tests/02df3c/8c02dfca_TrafficLookaheadScan.php",
+                "tests/02df3c_traffic_lookahead/8c02df3c_TrafficLookaheadInit.php",
+                "tests/02df3c_traffic_lookahead/8c02dfca_TrafficLookaheadScan.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02df3c.obj",
-                "build/output_test/src/02df3c.obj",
+                "build/output_test/src/asm/decompiled/02df3c_traffic_lookahead.obj",
+                "build/output_test/src/02df3c_traffic_lookahead.obj",
             ]
         ],
         [
@@ -901,27 +901,27 @@ return [
         ],
         [
             "tests" => [
-                "tests/02d19c/8c02d19c_drawRiderSprite.php",
-                "tests/02d19c/8c02d1f4_drawInterior.php",
-                "tests/02d19c/8c02d5ca_BusRiderSeatedTask.php",
-                "tests/02d19c/8c02d5d8_setCountUpStep.php",
-                "tests/02d19c/8c02d21c_BusRiderBoardTask.php",
-                "tests/02d19c/8c02d46c_BusRiderAlightTask.php",
-                "tests/02d19c/8c02d644_BusRiderStopSceneTask.php",
-                "tests/02d19c/8c02d8f0_BusRiderSkipStopTask.php",
+                "tests/02d19c_passenger/8c02d19c_drawPassengerSprite.php",
+                "tests/02d19c_passenger/8c02d1f4_drawInterior.php",
+                "tests/02d19c_passenger/8c02d5ca_PassengerSeatedTask.php",
+                "tests/02d19c_passenger/8c02d5d8_setCountUpStep.php",
+                "tests/02d19c_passenger/8c02d21c_PassengerBoardTask.php",
+                "tests/02d19c_passenger/8c02d46c_PassengerExitTask.php",
+                "tests/02d19c_passenger/8c02d644_PassengerStopSceneTask.php",
+                "tests/02d19c_passenger/8c02d8f0_PassengerSkipStopTask.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02d19c.obj",
-                "build/output_test/src/02d19c.obj",
+                "build/output_test/src/asm/decompiled/02d19c_passenger.obj",
+                "build/output_test/src/02d19c_passenger.obj",
             ]
         ],
         [
             "tests" => [
-                "tests/02d968/8c02d968_StopSpawnInit.php",
+                "tests/02d968_stop_spawn/8c02d968_StopSpawnInit.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02d968.obj",
-                "build/output_test/src/02d968.obj",
+                "build/output_test/src/asm/decompiled/02d968_stop_spawn.obj",
+                "build/output_test/src/02d968_stop_spawn.obj",
             ]
         ],
         [

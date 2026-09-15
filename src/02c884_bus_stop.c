@@ -31,7 +31,7 @@ STATIC void resetStopState_8c02c884(void)
     int i;
 
     for (i = 0; i < 31; i++) {
-        var_8c228718[i] = -1;
+        var_stopSchedule_8c228718[i] = -1;
     }
 
     var_8c2288d8.sx = 0.014f;
@@ -107,7 +107,7 @@ void BusStopFreeTaskGroup_8c02ca96(void)
 /* Picks the waiting passengers for the upcoming stop (var_nextStopSegment_8c228710):
  * snaps its ground position, collects the segment's candidate stop spots that
  * have an active-stop flag (var_8c2286a4) into a scratch list, then randomly
- * picks 1-16 of them without replacement into var_8c228798, positioned along
+ * picks 1-16 of them without replacement into var_waitingPassengers_8c228798, positioned along
  * the stop's spawn-area strip (var_8c1bb894) with per-passenger jitter --
  * except on ROUTE_OME, which skips the jitter. */
 STATIC void pickWaitingPassengers_8c02c8ae(void)
@@ -123,7 +123,7 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
     float x0, z0, dx, dz;
     float counter;
 
-    var_8c228794 = 0;
+    var_waitingPassengerCount_8c228794 = 0;
     var_activeGroundGrid_8c2264d4 = var_groundGridFallback_8c1bb86c;
 
     GroundQueryFindPolygon_8c020914(var_8c228900.x, var_8c228900.y, var_8c228900.z, &ground);
@@ -144,9 +144,9 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
         if (candidateCount != 0) {
             var_8c22890c = *(char **)((char *)var_8c1bb894 + seg->ukn_0x06 * 0xc);
 
-            var_8c228794 = AsqGetRandomInRangeA_8c012178(candidateCount) + 1;
-            if (var_8c228794 > 0x10) {
-                var_8c228794 = 0x10;
+            var_waitingPassengerCount_8c228794 = AsqGetRandomInRangeA_8c012178(candidateCount) + 1;
+            if (var_waitingPassengerCount_8c228794 > 0x10) {
+                var_waitingPassengerCount_8c228794 = 0x10;
             }
 
             x0 = *(float *)(var_8c22890c + 4);
@@ -155,26 +155,30 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
             dz = *(float *)(var_8c22890c + 0x10);
 
             counter = 0.0f;
-            for (i = 0; i < var_8c228794; i++) {
+            for (i = 0; i < var_waitingPassengerCount_8c228794; i++) {
                 do {
                     pick = AsqGetRandomInRangeA_8c012178(candidateCount);
                     slot = &candidates[pick];
                 } while (*slot == (void *)-1);
 
-                var_8c228798[i].spot_0x00 = *slot;
+                var_waitingPassengers_8c228798[i].spot_0x00 = *slot;
 
                 if (var_route_8c18ad1c == ROUTE_OME) {
-                    var_8c228798[i].pos_0x04.x = counter * dx + x0;
-                    var_8c228798[i].pos_0x04.z = counter * dz + z0;
+                    var_waitingPassengers_8c228798[i].pos_0x04.x = counter * dx + x0;
+                    var_waitingPassengers_8c228798[i].pos_0x04.z = counter * dz + z0;
                 } else {
-                    var_8c228798[i].pos_0x04.x = counter * dx + x0 + (float)rand() / 32768.0f - 0.5f;
-                    var_8c228798[i].pos_0x04.z = counter * dz + z0 + (float)rand() / 32768.0f - 0.5f;
+                    var_waitingPassengers_8c228798[i].pos_0x04.x =
+                        counter * dx + x0 + (float)rand() / 32768.0f - 0.5f;
+                    var_waitingPassengers_8c228798[i].pos_0x04.z =
+                        counter * dz + z0 + (float)rand() / 32768.0f - 0.5f;
                 }
 
-                GroundQueryFindPolygon_8c020914(var_8c228798[i].pos_0x04.x, 0.0f, var_8c228798[i].pos_0x04.z, &ground);
-                GroundProbeInterpolateHeight_8c020f7e(&ground, (float *)&var_8c228798[i].pos_0x04);
+                GroundQueryFindPolygon_8c020914(var_waitingPassengers_8c228798[i].pos_0x04.x, 0.0f,
+                                                var_waitingPassengers_8c228798[i].pos_0x04.z, &ground);
+                GroundProbeInterpolateHeight_8c020f7e(
+                    &ground, (float *)&var_waitingPassengers_8c228798[i].pos_0x04);
 
-                var_8c228798[i].index_0x10 = counter;
+                var_waitingPassengers_8c228798[i].index_0x10 = counter;
                 counter += 1.0f;
 
                 *slot = (void *)-1;

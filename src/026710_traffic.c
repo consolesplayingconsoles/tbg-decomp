@@ -13,7 +13,7 @@
 #include "028258_objects.h"
 #include "02786c_vehicle_parts.h"
 #include "02c884_bus_stop.h"
-#include "02df3c.h"
+#include "02df3c_traffic_lookahead.h"
 #include "02e51c_attr_query.h"
 #include "02f0c8_traffic_path_scan.h"
 #include "sectionB.h"

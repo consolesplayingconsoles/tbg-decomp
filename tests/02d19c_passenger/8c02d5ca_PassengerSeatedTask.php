@@ -17,8 +17,8 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x38);
 
-        $this->call('_BusRiderSeatedTask_8c02d5ca')->with($task, $state);
+        $this->call('_PassengerSeatedTask_8c02d5ca')->with($task, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawRiderSprite_8c02d19c'), $state);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
     }
 };

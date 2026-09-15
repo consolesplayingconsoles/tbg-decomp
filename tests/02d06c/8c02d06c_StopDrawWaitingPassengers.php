@@ -9,8 +9,8 @@ return new class extends TestCase {
     {
         $this->setSize('_njDrawSprite3D', 4);
         $this->setSize('__quick_odd_mvn', 4);
-        $this->setSize('_var_8c228794', 4);
-        $this->setSize('_var_8c228798', 16 * 0x14); // WaitingPassengerSlot[16]
+        $this->setSize('_var_waitingPassengerCount_8c228794', 4);
+        $this->setSize('_var_waitingPassengers_8c228798', 16 * 0x14); // WaitingPassengerSlot[16]
         $this->setSize('_var_8c2288d8', 0x20); // NJS_SPRITE
         $this->setSize('_var_pedestrianAssets_8c1bbfdc', 0x41 * 0x10); // ModelSlot[65]
 
@@ -49,7 +49,7 @@ return new class extends TestCase {
         });
     }
 
-    /** Sets up one WaitingPassengerSlot at var_8c228798[i]. */
+    /** Sets up one WaitingPassengerSlot at var_waitingPassengers_8c228798[i]. */
     private function initSlot(int $base, int $i, int $stopIndex, float $x, float $y, float $z): void
     {
         $slot = $base + $i * 0x14;
@@ -71,9 +71,9 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c228794'), 1);
+        $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 1);
 
-        $slots = $this->addressOf('_var_8c228798');
+        $slots = $this->addressOf('_var_waitingPassengers_8c228798');
         $this->initSlot($slots, 0, 5, 1.0, 2.0, 3.0);
 
         $assets = $this->addressOf('_var_pedestrianAssets_8c1bbfdc');
@@ -94,9 +94,9 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c228794'), 1);
+        $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 1);
 
-        $slots = $this->addressOf('_var_8c228798');
+        $slots = $this->addressOf('_var_waitingPassengers_8c228798');
         $this->initSlot($slots, 0, 5, 1.0, 2.0, 3.0);
 
         $assets = $this->addressOf('_var_pedestrianAssets_8c1bbfdc');
@@ -117,9 +117,9 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c228794'), 1);
+        $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 1);
 
-        $slots = $this->addressOf('_var_8c228798');
+        $slots = $this->addressOf('_var_waitingPassengers_8c228798');
         // 0x41 (65) is out of range (< 0x41 required)
         $this->initSlot($slots, 0, 0x41, 1.0, 2.0, 3.0);
 
@@ -130,9 +130,9 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c228794'), 1);
+        $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 1);
 
-        $slots = $this->addressOf('_var_8c228798');
+        $slots = $this->addressOf('_var_waitingPassengers_8c228798');
         $this->initSlot($slots, 0, 3, 1.0, 2.0, 3.0);
 
         $assets = $this->addressOf('_var_pedestrianAssets_8c1bbfdc');
@@ -145,7 +145,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c228794'), 0);
+        $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 0);
 
         $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(0);
     }
@@ -154,9 +154,9 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c228794'), 2);
+        $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 2);
 
-        $slots = $this->addressOf('_var_8c228798');
+        $slots = $this->addressOf('_var_waitingPassengers_8c228798');
         $this->initSlot($slots, 0, 1, 10.0, 20.0, 30.0);
         $this->initSlot($slots, 1, 2, 40.0, 50.0, 60.0);
 

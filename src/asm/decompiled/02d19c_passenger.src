@@ -9,22 +9,22 @@
           .IMPORT     _njSetTexture
           .IMPORT     _var_interiorNj_8c1bc43c
           .IMPORT     _njCnkSimpleDrawObject
-          .IMPORT     _var_8c22895c
+          .IMPORT     _var_passengersFadedOut_8c22895c
           .IMPORT     _sdMidiPlay
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_route_8c18ad1c
-          .IMPORT     _var_8c228928
-          .IMPORT     _var_8c228910
+          .IMPORT     _var_boardSpot1_8c228928
+          .IMPORT     _var_boardSpot2_8c228910
           .IMPORT     _AsqGetRandomInRangeB_8c0121be
-          .IMPORT     _var_8c22891c
+          .IMPORT     _var_boardSpot3_8c22891c
           .IMPORT     _AsqGetRandomInRangeA_8c012178
-          .IMPORT     _var_8c228718
-          .IMPORT     _var_8c228960
-          .IMPORT     _var_8c228958
-          .IMPORT     _var_8c228934
-          .IMPORT     _var_8c228940
-          .IMPORT     _var_8c22894c
+          .IMPORT     _var_stopSchedule_8c228718
+          .IMPORT     _var_passengerFadeColor_8c228960
+          .IMPORT     _var_passengerActed_8c228958
+          .IMPORT     _var_exitSpot1_8c228934
+          .IMPORT     _var_exitSpot2_8c228940
+          .IMPORT     _var_exitSpot3_8c22894c
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _var_8c2285c4
           .IMPORT     __divls
@@ -52,19 +52,19 @@
           .IMPORT     _SndProc_8c010cd6
           .IMPORT     _StopDrawLightEnd_8c02d146
           .IMPORT     _var_8c1bbc84
-          .EXPORT     _BusRiderBoardTask_8c02d21c
-          .EXPORT     _BusRiderAlightTask_8c02d46c
-          .EXPORT     _BusRiderSeatedTask_8c02d5ca
-          .EXPORT     _BusRiderStopSceneTask_8c02d644
-          .EXPORT     _BusRiderSkipStopTask_8c02d8f0
+          .EXPORT     _PassengerBoardTask_8c02d21c
+          .EXPORT     _PassengerExitTask_8c02d46c
+          .EXPORT     _PassengerSeatedTask_8c02d5ca
+          .EXPORT     _PassengerStopSceneTask_8c02d644
+          .EXPORT     _PassengerSkipStopTask_8c02d8f0
           .EXPORT     _init_seatPositions_8c04c3e4 ; 02d19c.src, 02d968.src
           .AIFDEF UNIT_TESTING
-          .EXPORT     _drawRiderSprite_8c02d19c
+          .EXPORT     _drawPassengerSprite_8c02d19c
           .EXPORT     _drawInterior_8c02d1f4
           .EXPORT     _setCountUpStep_8c02d5d8
           .AENDI
           .SECTION     P, CODE, ALIGN=4
-_drawRiderSprite_8c02d19c:
+_drawPassengerSprite_8c02d19c:
           MOV.L       R14,@-R15
           MOV         R4,R14
           STS.L       PR,@-R15
@@ -133,7 +133,7 @@ _drawInterior_8c02d1f4:
           MOV.L       @R1,R4
           JMP         @R3
           MOV.L       @R15+,R14
-_BusRiderBoardTask_8c02d21c:
+_PassengerBoardTask_8c02d21c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -381,18 +381,18 @@ LP_GEN_53841:
           .DATA.L _njSetTexture ; H'8C02D3E8
           .DATA.L _var_interiorNj_8c1bc43c ; H'8C02D3EC
           .DATA.L _njCnkSimpleDrawObject ; H'8C02D3F0
-          .DATA.L _var_8c22895c ; H'8C02D3F4
+          .DATA.L _var_passengersFadedOut_8c22895c ; H'8C02D3F4
           .DATA.L _sdMidiPlay ; H'8C02D3F8
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02D3FC
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02D400
           .DATA.L _var_route_8c18ad1c ; H'8C02D404
-          .DATA.L _var_8c228928 ; H'8C02D408
-          .DATA.L _var_8c228910 ; H'8C02D40C
+          .DATA.L _var_boardSpot1_8c228928 ; H'8C02D408
+          .DATA.L _var_boardSpot2_8c228910 ; H'8C02D40C
           .DATA.L _AsqGetRandomInRangeB_8c0121be ; H'8C02D410
-          .DATA.L _drawRiderSprite_8c02d19c ; H'8C02D414
-          .DATA.L _var_8c22891c ; H'8C02D418
+          .DATA.L _drawPassengerSprite_8c02d19c ; H'8C02D414
+          .DATA.L _var_boardSpot3_8c22891c ; H'8C02D418
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02D41C
-          .DATA.L _var_8c228718 ; H'8C02D420
+          .DATA.L _var_stopSchedule_8c228718 ; H'8C02D420
           .DATA.L _init_seatPositions_8c04c3e4 ; H'8C02D424
           .DATA.L H'3E3851EC ; H'8C02D428
 LAB_8c02d42c:
@@ -433,7 +433,7 @@ LAB_8c02d45c:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_BusRiderAlightTask_8c02d46c:
+_PassengerExitTask_8c02d46c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -622,7 +622,7 @@ LAB_8c02d5b8:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_BusRiderSeatedTask_8c02d5ca:
+_PassengerSeatedTask_8c02d5ca:
           MOV         R5,R6
           MOV.L       R5,@-R15
           MOV.L       LP_GEN_80933+58,R3
@@ -654,24 +654,24 @@ LAB_8c02d5f8:
           NOP
 LP_GEN_80933:
           .RES.W 1 ; H'8C02D5FE
-          .DATA.L _var_8c228960 ; H'8C02D600
-          .DATA.L _drawRiderSprite_8c02d19c ; H'8C02D604
-          .DATA.L _var_8c228958 ; H'8C02D608
-          .DATA.L _var_8c22895c ; H'8C02D60C
+          .DATA.L _var_passengerFadeColor_8c228960 ; H'8C02D600
+          .DATA.L _drawPassengerSprite_8c02d19c ; H'8C02D604
+          .DATA.L _var_passengerActed_8c228958 ; H'8C02D608
+          .DATA.L _var_passengersFadedOut_8c22895c ; H'8C02D60C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02D610
           .DATA.L _sdMidiPlay ; H'8C02D614
           .DATA.L _var_route_8c18ad1c ; H'8C02D618
-          .DATA.L _var_8c228718 ; H'8C02D61C
-          .DATA.L _var_8c228934 ; H'8C02D620
-          .DATA.L _var_8c228940 ; H'8C02D624
+          .DATA.L _var_stopSchedule_8c228718 ; H'8C02D61C
+          .DATA.L _var_exitSpot1_8c228934 ; H'8C02D620
+          .DATA.L _var_exitSpot2_8c228940 ; H'8C02D624
           .DATA.L __quick_odd_mvn ; H'8C02D628
           .DATA.L _AsqGetRandomInRangeB_8c0121be ; H'8C02D62C
-          .DATA.L _var_8c22894c ; H'8C02D630
+          .DATA.L _var_exitSpot3_8c22894c ; H'8C02D630
           .DATA.L _TaskFree_8c014b66 ; H'8C02D634
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02D638
           .DATA.L _var_8c2285c4 ; H'8C02D63C
           .DATA.L __divls ; H'8C02D640
-_BusRiderStopSceneTask_8c02d644:
+_PassengerStopSceneTask_8c02d644:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -906,10 +906,10 @@ LP_GEN_70221:
           .DATA.L _drawInterior_8c02d1f4 ; H'8C02D7F0
           .DATA.L _StopDrawLightBegin_8c02d0fc ; H'8C02D7F4
           .DATA.L _var_isFading_8c226568 ; H'8C02D7F8
-          .DATA.L _var_8c22895c ; H'8C02D7FC
+          .DATA.L _var_passengersFadedOut_8c22895c ; H'8C02D7FC
           .DATA.L H'3D888889 ; H'8C02D800
-          .DATA.L _var_8c228960 ; H'8C02D804
-          .DATA.L _var_8c228958 ; H'8C02D808
+          .DATA.L _var_passengerFadeColor_8c228960 ; H'8C02D804
+          .DATA.L _var_passengerActed_8c228958 ; H'8C02D808
           .DATA.L _var_stopTaskGroup_8c2288f8 ; H'8C02D80C
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C02D810
           .DATA.L _var_cutsceneActive_8c1bb900 ; H'8C02D814
@@ -1018,7 +1018,7 @@ LAB_8c02d8cc:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_BusRiderSkipStopTask_8c02d8f0:
+_PassengerSkipStopTask_8c02d8f0:
           STS.L       PR,@-R15
           ADD         #-H'4,R15
           MOV.L       LP_GEN_72278+42,R2

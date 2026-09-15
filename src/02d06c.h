@@ -1,8 +1,8 @@
 #ifndef _02D06C_H
 #define _02D06C_H
 
-/* Draws every already-picked waiting passenger's sprite (var_8c228798,
- * count var_8c228794); arg0 selects which of two facing sprites to use. */
+/* Draws every already-picked waiting passenger's sprite (var_waitingPassengers_8c228798,
+ * count var_waitingPassengerCount_8c228794); arg0 selects which of two facing sprites to use. */
 void StopDrawWaitingPassengers_8c02d06c(int arg0);
 
 /* FadeCallback1 pair bracketing StopDrawWaitingPassengers_8c02d06c's draw: sets up njCnk's simple

@@ -16,7 +16,7 @@ return new class extends TestCase {
         $this->setSize('_var_fadeLightDir0_8c2264d8', 0xc);
         $this->setSize('_var_fadeLightIntensity_8c2264f0', 8);
         $this->setSize('_var_fadeLightColor_8c2264f8', 0xc);
-        $this->setSize('_var_8c228960', 0x14);
+        $this->setSize('_var_passengerFadeColor_8c228960', 0x14);
     }
 
     public function test_sets_up_light_and_material(): void
@@ -38,7 +38,7 @@ return new class extends TestCase {
         $this->initUint32($col + 0x4, $this->f(0.2));
         $this->initUint32($col + 0x8, $this->f(0.3));
 
-        $mat = $this->addressOf('_var_8c228960');
+        $mat = $this->addressOf('_var_passengerFadeColor_8c228960');
         $this->initUint32($mat + 0x0, $this->f(9.0)); // not read by this fn
         $this->initUint32($mat + 0x4, $this->f(9.0));
         $this->initUint32($mat + 0x8, $this->f(9.0));
@@ -74,7 +74,7 @@ return new class extends TestCase {
         $this->initUint32($col + 0x4, $this->f(1.0));
         $this->initUint32($col + 0x8, $this->f(1.0));
 
-        $mat = $this->addressOf('_var_8c228960');
+        $mat = $this->addressOf('_var_passengerFadeColor_8c228960');
         $this->initUint32($mat + 0x0, 0);
         $this->initUint32($mat + 0x4, 0);
         $this->initUint32($mat + 0x8, 0);

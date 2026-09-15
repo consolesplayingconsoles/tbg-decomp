@@ -27,7 +27,7 @@
 #include "02171c_tile_stream.h"
 #include "023310_bus_init.h"
 #include "025870.h"
-#include "02d968.h"
+#include "02d968_stop_spawn.h"
 
 // #define CACHE_BUFSIZE   0x20000
 // #define SHAPE_BUFSIZE   512
