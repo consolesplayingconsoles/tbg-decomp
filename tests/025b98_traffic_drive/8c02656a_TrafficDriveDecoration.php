@@ -26,12 +26,11 @@ return new class extends TestCase {
         $this->setSize('_TrafficUpdateHeading_8c026bc4', 4);
         $this->setSize('_CollisionFindTaskHit_8c02e400', 4);
         $this->setSize('_BusDrawPlaceEntity_8c027c3c', 4);
-        $this->setSize('_var_8c1bbac4', 4);
-        $this->setSize('_var_8c1bbacc', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
 
-        $this->initUint32($this->addressOf('_var_8c1bbac4'), fdec(0.0));
-        $this->initUint32($this->addressOf('_var_8c1bbacc'), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x0f4), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x0fc), fdec(0.0));
         $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 5);
     }
 

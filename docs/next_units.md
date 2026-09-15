@@ -340,7 +340,7 @@ each with a place name captioned over it.
 
 `DemoStartTour_8c025af4` selects the route's `DemoShot[]` and pushes
 `demoShotTask_8c0259e8`; that task watches a **camera cue** -- the top byte of
-`var_markDriveFlags_8c1bbd80`, which `BusTask_8c022bdc` refills every frame
+`var_busState_8c1bb9d0.markDriveFlags_0x3b0`, which `BusTask_8c022bdc` refills every frame
 from the mark-attribute polygon under the bus -- and on a change cuts to that
 id's shot and types its caption. `applyShotPosition_8c0258ba` resolves the
 shot's position once, `DemoUpdateCamera_8c025906` places the camera from it
@@ -354,7 +354,7 @@ route against a 31-slot stop schedule, and only 21/4/2 of them are named --
 most are unnamed bus-relative framings, several in a row at one spot to cut
 between angles. What the shared polygon does buy is
 `BusStopUpdateArrival_8c02ce48`'s phase 4, which tests the cue byte as a plain
-flag to decide a stop is over. `var_markDriveFlags_8c1bbd80` in `sectionB.h`
+flag to decide a stop is over. `var_busState_8c1bb9d0.markDriveFlags_0x3b0` in `sectionB.h`
 now carries the full bit map.
 
 Two things worth keeping:

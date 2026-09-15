@@ -112,6 +112,7 @@ return new class extends TestCase {
         // unmodified data; this test asserts against that real data below.
         $this->addressOf('_init_shinjukuBlinkerPoints_8c046524');
 
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $point = $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
         $this->initUint32($point + 0x4, fdec8c029920(0.0)); // y, read by the first iteration's query
 
@@ -152,7 +153,7 @@ return new class extends TestCase {
         $this->initUint32($primaryGrid, 0x11111111);
         $this->initUint32($fallbackGrid, 0x22222222);
         $fallbackHeight = 99.0;
-        $this->initUint32($this->addressOf('_var_groundHeightFallback_8c1bbac8'), fdec8c029920($fallbackHeight));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x0f8), fdec8c029920($fallbackHeight));
 
         // var_groundQueryPoint_8c1bc460.y persists across iterations, so track what it holds
         // whenever a case leaves it untouched (primary grid hit).

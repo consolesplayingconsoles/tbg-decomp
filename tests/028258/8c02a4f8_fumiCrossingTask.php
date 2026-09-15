@@ -27,8 +27,8 @@ return new class extends TestCase {
 
     public function test_phase0_no_signal_is_noop(): void
     {
-        $this->setSize('_var_scenePresetIds_8c1bbd8c', 4);
-        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0x00ffffff);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 0x00ffffff);
 
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x7c);
@@ -39,8 +39,8 @@ return new class extends TestCase {
 
     public function test_phase0_signal_advances_and_clears_slot_zero(): void
     {
-        $this->setSize('_var_scenePresetIds_8c1bbd8c', 4);
-        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0xff000000);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 0xff000000);
         $slots = $this->slots();
 
         $task = $this->alloc(0x20);

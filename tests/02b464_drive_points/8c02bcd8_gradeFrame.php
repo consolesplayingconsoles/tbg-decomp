@@ -24,8 +24,6 @@ return new class extends TestCase {
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
-        $this->rellocate('_var_8c1bbd1c', $busState + 0x34c); // junctionARoadFlags_0x34c alias
-        $this->rellocate('_var_8c1bbd54', $busState + 0x384); // field_0x384 alias
         $this->setSize('_var_prevLane_8c228684', 4);
         $this->setSize('_var_frameSpeed_8c22866c', 4);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);

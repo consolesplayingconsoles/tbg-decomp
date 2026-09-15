@@ -55,9 +55,8 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_demoShotPos_8c227e00', 0xc);
         $this->setSize('_njCalcPoint', 4);
-        $this->setSize('_var_8c1bb984', 0x40);
+        $this->setSize('_var_cabinCamera_8c1bb984', 0x40);
         $this->setSize('_var_camera_8c1bb904', 0x40);
-        $this->setSize('_var_markDriveFlags_8c1bbd80', 0xc);
         $this->setSize('_var_demoShots_8c227e0c', 4);
         $this->setSize('_var_demoShotRearm_8c227e10', 4);
         $this->setSize('_var_demoShotId_8c227dd4', 4);
@@ -105,7 +104,7 @@ return new class extends TestCase {
 
     private function setMarker(int $stopId): void
     {
-        $this->initUint32($this->addressOf('_var_markDriveFlags_8c1bbd80'), $stopId << 24);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3b0), $stopId << 24);
     }
 
     public function test_phase0_nothing_pending_is_noop(): void

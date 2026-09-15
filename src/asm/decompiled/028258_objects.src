@@ -34,8 +34,6 @@
           .IMPORT     _var_pedGroups_8c228230
           .IMPORT     _njDrawSprite3D
           .IMPORT     _var_pedGroupCount_8c228234
-          .IMPORT     _var_busCameraFocusZ_8c1bbce0
-          .IMPORT     _var_busCameraFocusX_8c1bbcd8
           .IMPORT     _atan2f
           .IMPORT     _var_crosswalkTable_8c228248
           .IMPORT     _IntersectSegments_8c0206f0
@@ -50,13 +48,11 @@
           .IMPORT     _AsqGetRandomA_8c012166
           .IMPORT     _var_pedestrianAssets_8c1bbfdc
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _var_scenePresetIds_8c1bbd8c
           .IMPORT     _var_activePedPreset_8c22822c
           .IMPORT     _var_pedGroupDefs_8c22823c
           .IMPORT     _var_pedGroupLists_8c228240
           .IMPORT     _var_tasks_8c1ba808
           .IMPORT     _CollisionQueueReset_8c02e486
-          .IMPORT     _var_busWorldMatrix_8c1bba54
           .IMPORT     _njCalcPoint
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_stopPhase_8c2285e4
@@ -69,7 +65,6 @@
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _var_route_8c18ad1c
-          .IMPORT     _var_groundHeightFallback_8c1bbac8
           .IMPORT     _var_assetRequestTable_8c228408
           .IMPORT     _AsqRequestPvm_8c011ac0
           .IMPORT     _AsqRequestNj_8c011492
@@ -1644,8 +1639,8 @@ LP_GEN_70892:
           .DATA.L _syMalloc ; H'8C028C60
           .DATA.L H'40C90FD8 ; H'8C028C64
           .DATA.L H'47800000 ; H'8C028C68
-          .DATA.L _var_busCameraFocusZ_8c1bbce0 ; H'8C028C6C
-          .DATA.L _var_busCameraFocusX_8c1bbcd8 ; H'8C028C70
+          .DATA.L _var_busState_8c1bb9d0+H'310 ; H'8C028C6C (moveDeltaZ_0x310)
+          .DATA.L _var_busState_8c1bb9d0+H'308 ; H'8C028C70 (moveDeltaX_0x308)
           .DATA.L _atan2f ; H'8C028C74
           .DATA.L _var_pedGroups_8c228230 ; H'8C028C78
           .DATA.L H'0000E000 ; H'8C028C7C
@@ -2750,7 +2745,7 @@ LP_GEN_26341:
           .DATA.L _var_groundGridPrimary_8c1bb890 ; H'8C0294AC
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0294B0
           .DATA.L H'00FF0000 ; H'8C0294B4
-          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C0294B8
+          .DATA.L _var_busState_8c1bb9d0+H'3BC ; H'8C0294B8 (scenePresetIds_0x3bc)
           .DATA.L _var_activePedPreset_8c22822c ; H'8C0294BC
           .DATA.L _var_pedGroups_8c228230 ; H'8C0294C0
           .DATA.L _var_pedGroupCount_8c228234 ; H'8C0294C4
@@ -2917,7 +2912,7 @@ LP_GEN_46486:
           .DATA.L _clearPedCrossingFlags_8c02890c ; H'8C029608
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C02960C
           .DATA.L _init_stopLineLocalA_8c04650c ; H'8C029610
-          .DATA.L _var_busWorldMatrix_8c1bba54 ; H'8C029614
+          .DATA.L _var_busState_8c1bb9d0+H'084 ; H'8C029614 (worldMatrix_0x084)
           .DATA.L _njCalcPoint ; H'8C029618
           .DATA.L _var_stopLinePointA_8c228268 ; H'8C02961C
           .DATA.L _init_stopLineLocalB_8c046518 ; H'8C029620
@@ -3505,7 +3500,7 @@ LP_GEN_39842:
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C029AB4
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C029AB8
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C029ABC
-          .DATA.L _var_groundHeightFallback_8c1bbac8 ; H'8C029AC0
+          .DATA.L _var_busState_8c1bb9d0+H'0F8 ; H'8C029AC0 (posY_0x0f8)
           .DATA.L _njUnitMatrix ; H'8C029AC4
           .DATA.L _njTranslate ; H'8C029AC8
 _ObjectsClearAssetRequestTable_8c029acc:
@@ -4349,7 +4344,7 @@ LP_GEN_26634:
           .DATA.L _njCnkSimpleDrawObject ; H'8C02A144
           .DATA.L _njFogEnable ; H'8C02A148
           .DATA.L H'FF000000 ; H'8C02A14C
-          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C02A150
+          .DATA.L _var_busState_8c1bb9d0+H'3BC ; H'8C02A150 (scenePresetIds_0x3bc)
           .DATA.L _drawRowModel_8c02a048 ; H'8C02A154
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A158
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02A15C
@@ -4478,7 +4473,7 @@ LP_GEN_26723:
           .DATA.W H'0920 ; H'8C02A240
           .DATA.W H'0800 ; H'8C02A242
           .DATA.L H'FF000000 ; H'8C02A244
-          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C02A248
+          .DATA.L _var_busState_8c1bb9d0+H'3BC ; H'8C02A248 (scenePresetIds_0x3bc)
           .DATA.L _drawRowMotionModel_8c02a0d6 ; H'8C02A24C
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A250
           .DATA.L _TaskFree_8c014b66 ; H'8C02A254
@@ -5005,7 +5000,7 @@ LP_GEN_23851:
           .DATA.L _njCnkSimpleDrawObject ; H'8C02A65C
           .DATA.L _var_fumiTrainTexlist_8c228428 ; H'8C02A660
           .DATA.L H'FF000000 ; H'8C02A664
-          .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C02A668
+          .DATA.L _var_busState_8c1bb9d0+H'3BC ; H'8C02A668 (scenePresetIds_0x3bc)
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C02A66C
           .DATA.L H'4F800000 ; H'8C02A670
           .DATA.L _drawFumiCrossing_8c02a47c ; H'8C02A674

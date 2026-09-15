@@ -19,8 +19,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
-        $this->setSize('_var_8c1bbacc', 4);
-        $this->setSize('_var_8c1bbad8', 4);
         $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
     }
@@ -61,8 +59,8 @@ return new class extends TestCase {
     private function farBusState(): void {
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0xf4, -9999.0);
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0x100, -9999.0);
-        $this->initFloat($this->addressOf('_var_8c1bbacc'), -9999.0);
-        $this->initFloat($this->addressOf('_var_8c1bbad8'), -9999.0);
+        $this->initFloat(($this->addressOf('_var_busState_8c1bb9d0') + 0x0fc), -9999.0);
+        $this->initFloat(($this->addressOf('_var_busState_8c1bb9d0') + 0x108), -9999.0);
     }
 
     // No task in the way and the bus is far off: both samples are written
@@ -102,9 +100,9 @@ return new class extends TestCase {
         $this->makeTask(0, 0, 0);
 
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0xf4, 8.0);
-        $this->initFloat($this->addressOf('_var_8c1bbacc'), 0.0);
+        $this->initFloat(($this->addressOf('_var_busState_8c1bb9d0') + 0x0fc), 0.0);
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0x100, -9999.0);
-        $this->initFloat($this->addressOf('_var_8c1bbad8'), -9999.0);
+        $this->initFloat(($this->addressOf('_var_busState_8c1bb9d0') + 0x108), -9999.0);
 
         $bus = $this->alloc(4);
         $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $bus);
@@ -134,9 +132,9 @@ return new class extends TestCase {
         $this->makeTask(0, 0, 0);
 
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0xf4, -9999.0);
-        $this->initFloat($this->addressOf('_var_8c1bbacc'), -9999.0);
+        $this->initFloat(($this->addressOf('_var_busState_8c1bb9d0') + 0x0fc), -9999.0);
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0x100, 13.0);
-        $this->initFloat($this->addressOf('_var_8c1bbad8'), 0.0);
+        $this->initFloat(($this->addressOf('_var_busState_8c1bb9d0') + 0x108), 0.0);
 
         $bus = $this->alloc(4);
         $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $bus);

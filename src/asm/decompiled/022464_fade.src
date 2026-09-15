@@ -17,12 +17,12 @@
           .IMPORT     _njSetScreen
           .IMPORT     _var_fadeArrivalVariant_8c22655c
           .IMPORT     _njControl3D
-          .IMPORT     _var_mirrorSelect_8c1bbc38
+          .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_mirrorCamera_8c1bb944
-          .IMPORT     _init_texlist_8c03bf44
+          .IMPORT     _init_renderTexlist_8c03bf44
           .IMPORT     _njRenderTextureNumG
           .IMPORT     _var_busStopTexlist_8c1bc424
-          .IMPORT     _var_8c1bb984
+          .IMPORT     _var_cabinCamera_8c1bb984
           .IMPORT     _var_camera_8c1bb904
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _var_fadePhase_8c227d7c
@@ -345,10 +345,10 @@ LP_GEN_55916:
           .DATA.L _var_fadeArrivalVariant_8c22655c ; H'8C022678
           .DATA.L _njControl3D ; H'8C02267C
           .DATA.L _init_clipMirrorView_8c045578 ; H'8C022680
-          .DATA.L _var_mirrorSelect_8c1bbc38 ; H'8C022684
+          .DATA.L _var_busState_8c1bb9d0+H'268 ; H'8C022684 (mirror_0x268)
           .DATA.L _init_screenMirror_8c0455fc ; H'8C022688
           .DATA.L _var_mirrorCamera_8c1bb944 ; H'8C02268C
-          .DATA.L _init_texlist_8c03bf44 ; H'8C022690
+          .DATA.L _init_renderTexlist_8c03bf44 ; H'8C022690
           .DATA.L _njSetTexture ; H'8C022694
           .DATA.L _njRenderTextureNumG ; H'8C022698
           .DATA.L _init_clipMirrorLeft_8c045558 ; H'8C02269C
@@ -486,11 +486,11 @@ LP_GEN_42584:
           .DATA.L _init_clipMirrorViewTall_8c045588 ; H'8C0227A8
           .DATA.L _init_screenMirrorTall_8c045610 ; H'8C0227AC
           .DATA.L _var_mirrorCamera_8c1bb944 ; H'8C0227B0
-          .DATA.L _init_texlist_8c03bf44 ; H'8C0227B4
+          .DATA.L _init_renderTexlist_8c03bf44 ; H'8C0227B4
           .DATA.L _njSetTexture ; H'8C0227B8
           .DATA.L _njRenderTextureNumG ; H'8C0227BC
           .DATA.L _init_screenLayer2_8c045624 ; H'8C0227C0
-          .DATA.L _var_8c1bb984 ; H'8C0227C4
+          .DATA.L _var_cabinCamera_8c1bb984 ; H'8C0227C4
           .DATA.L _init_screenFull_8c0455e8 ; H'8C0227C8
           .DATA.L _init_mirrorQuadTall_8c0454f8 ; H'8C0227CC
           .DATA.L _var_camera_8c1bb904 ; H'8C0227D0

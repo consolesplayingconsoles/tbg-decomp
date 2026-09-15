@@ -10,7 +10,7 @@ return new class extends TestCase {
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_BusRenderApplyCameraMode_8c024f32', 4);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_busDriveState_8c1bbc84', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_cameraCueState_8c227da4', 4);
         $this->setSize('_var_fadeArrivalVariant_8c22655c', 4);
@@ -27,7 +27,7 @@ return new class extends TestCase {
 
         $this->call('_PassengerSkipStopTask_8c02d8f0')->with($task, $state);
 
-        $this->shouldWriteLongTo('_var_busDriveState_8c1bbc84', 1);
+        $this->shouldWriteLong($this->addressOf('_var_busState_8c1bb9d0') + 0x2b4, 1);
         $this->shouldWriteLongTo('_var_fadeArrivalVariant_8c22655c', 0);
         $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', 2);
         $this->shouldWriteLongTo('_var_cameraCueState_8c227da4', 0);

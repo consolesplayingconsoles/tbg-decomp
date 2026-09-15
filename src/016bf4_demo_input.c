@@ -8,7 +8,7 @@ void DemoInputTask_8c016bf4()
 {
     Uint32 on;
 
-    if ((var_busDriveState_8c1bbc84 > 0) && (var_demoCursor_8c225fa8 < &var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY])) {
+    if ((var_busState_8c1bb9d0.driveState_0x2b4 > 0) && (var_demoCursor_8c225fa8 < &var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY])) {
         on = var_demoCursor_8c225fa8->on;
         var_peripherals_8c1ba35c[0].on = on;
         var_peripherals_8c1ba35c[0].press = on & (var_demoPrevOn_8c225fac ^ on);

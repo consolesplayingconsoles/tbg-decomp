@@ -18,7 +18,7 @@
  */
 
 /* The camera cue authored onto the road, sharing its word with the HUD's
- * driving instructions -- see var_markDriveFlags_8c1bbd80 (sectionB.h). */
+ * driving instructions -- see var_busState_8c1bb9d0.markDriveFlags_0x3b0 (sectionB.h). */
 #define DEMO_CUE_MASK  0xff000000
 #define DEMO_CUE_SHIFT 24
 
@@ -218,11 +218,11 @@ char init_demoFirstShot_8c0460b0[] = {
 /* See 025870_demo.h. */
 void DemoBoardingCamera_8c025870(void)
 {
-    njInitCamera(&var_8c1bb984);
-    njSetCameraAngle(&var_8c1bb984, 12743);
-    njSetCameraDepth(&var_8c1bb984, -1.0f, -15.0f);
-    njTranslateCameraPosition(&var_8c1bb984, -0.2f, 1.8f, -1.6f);
-    njPointCameraInterest(&var_8c1bb984, 0.0f, 1.8f, 3.0f);
+    njInitCamera(&var_cabinCamera_8c1bb984);
+    njSetCameraAngle(&var_cabinCamera_8c1bb984, 12743);
+    njSetCameraDepth(&var_cabinCamera_8c1bb984, -1.0f, -15.0f);
+    njTranslateCameraPosition(&var_cabinCamera_8c1bb984, -0.2f, 1.8f, -1.6f);
+    njPointCameraInterest(&var_cabinCamera_8c1bb984, 0.0f, 1.8f, 3.0f);
 }
 
 /* Resolves the current shot's position into the bus's draw point
@@ -281,7 +281,7 @@ void DemoUpdateCamera_8c025906(void)
 }
 
 /* The tour itself, armed by DemoStartTour_8c025af4. Which shot is due is the
- * camera cue in var_markDriveFlags_8c1bbd80's top byte, refilled every frame
+ * camera cue in var_busState_8c1bb9d0.markDriveFlags_0x3b0's top byte, refilled every frame
  * by BusTask_8c022bdc from the mark-attribute polygon under the bus.
  *
  * Phase 0 waits for that cue to change, cuts to the shot and types its place
@@ -295,7 +295,7 @@ STATIC void demoShotTask_8c0259e8(Task *task, DemoShotState *state)
 {
     Uint32 cue;
 
-    cue = var_markDriveFlags_8c1bbd80 & DEMO_CUE_MASK;
+    cue = var_busState_8c1bb9d0.markDriveFlags_0x3b0 & DEMO_CUE_MASK;
 
     switch (state->phase_0x00) {
     case 0:

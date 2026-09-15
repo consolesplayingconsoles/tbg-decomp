@@ -15,7 +15,7 @@ struct Struct8c225fa8
 
 extern Struct8c225fa8* var_demoCursor_8c225fa8;
 extern Struct8c225fa8* var_demoCursor_8c225fa8_2;
-extern int var_busDriveState_8c1bbc84;
+extern int var_busState_8c1bb9d0.driveState_0x2b4;
 //extern int var_8c1ba364;
 extern int var_demoPrevOn_8c225fac;
 extern PDS_PERIPHERAL var_peripherals_8c1ba35c[2];
@@ -24,7 +24,7 @@ void DemoInputTask_8c016bf4()
 {
     Struct8c225fa8* temp;
 
-    if (var_busDriveState_8c1bbc84 >= 1) {
+    if (var_busState_8c1bb9d0.driveState_0x2b4 >= 1) {
         temp = &var_demoCursor_8c225fa8->field_0x00;
 
         if (temp < &var_demoCursor_8c225fa8_2) {

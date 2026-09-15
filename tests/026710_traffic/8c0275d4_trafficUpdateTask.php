@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_activeAttrGrid_8c228b3c', 4);
         $this->setSize('_ObjectsFUN_8c028958', 4);
-        $this->setSize('_var_scenePresetIds_8c1bbd8c', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_trafficPresetTable_8c227e18', 4);
         $this->setSize('_FadeCmdPushCall1_8c0223ea', 4);
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->initUint32($course + 0x18, 0x11110000); // atariCpu_0x18
         $this->initUint32($course + 0x20, 0x22220000); // attrCpu_0x20
 
-        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 0);
 
         $rec = $this->makeRecord(0, 0, 0, 0.0); // script == 0 -> record block skipped
         $task = $this->makeTask(0, 0, $rec);
@@ -109,7 +109,7 @@ return new class extends TestCase {
         $this->initUint32($course + 0x20, 0);
 
         // demo id 3 pending in bits 8-15
-        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 3 << 8);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 3 << 8);
         $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 1); // currently 1, differs from 3
 
         $table = $this->alloc(4 * 4);
@@ -146,7 +146,7 @@ return new class extends TestCase {
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $this->initUint32($course + 0x18, 0);
         $this->initUint32($course + 0x20, 0);
-        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 0);
 
         $rec = $this->makeRecord(0x14, 5, 0xdeadbeef, 1.5);
         $task = $this->makeTask(3, 5, $rec); // old counter 3 < threshold 5; field_0x0c == 5 (avoid the arm/demo-switch branches)
@@ -176,7 +176,7 @@ return new class extends TestCase {
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $this->initUint32($course + 0x18, 0);
         $this->initUint32($course + 0x20, 0);
-        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 0);
 
         $rec = $this->makeRecord(0x14, 2, 0xdeadbeef, 0.0);
         $task = $this->makeTask(3, 1, $rec); // old counter 3 > threshold 2; field_0x0c == 1
@@ -211,7 +211,7 @@ return new class extends TestCase {
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $this->initUint32($course + 0x18, 0);
         $this->initUint32($course + 0x20, 0);
-        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 0);
 
         $rec = $this->makeRecord(0x14, 2, 0xdeadbeef, 1.5); // progress != 0
         $task = $this->makeTask(3, 5, $rec); // old counter 3 > threshold 2; field_0x0c == 5 (!= 1, and != 0 to avoid the arm branch)

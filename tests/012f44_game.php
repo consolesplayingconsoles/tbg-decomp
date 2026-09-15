@@ -401,14 +401,14 @@ return new class extends TestCase {
             );
 
         $this->shouldCall('_njSetTextureName')->with(
-            $this->addressOf('_var_texname_8c18acf8'),
+            $this->addressOf('_var_renderTexname_8c18acf8'),
             $infoLocal,
             999,
             0x40800000, // NJD_TEXATTR_TYPE_MEMORY|NJD_TEXATTR_GLOBALINDEX
         );
 
         $this->shouldCall('_njSetRenderWidth')->with(256);
-        $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
 
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
@@ -555,14 +555,14 @@ return new class extends TestCase {
             );
 
         $this->shouldCall('_njSetTextureName')->with(
-            $this->addressOf('_var_texname_8c18acf8'),
+            $this->addressOf('_var_renderTexname_8c18acf8'),
             $infoLocal,
             999,
             0x40800000, // NJD_TEXATTR_TYPE_MEMORY|NJD_TEXATTR_GLOBALINDEX
         );
 
         $this->shouldCall('_njSetRenderWidth')->with(256);
-        $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
 
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
@@ -709,14 +709,14 @@ return new class extends TestCase {
             );
 
         $this->shouldCall('_njSetTextureName')->with(
-            $this->addressOf('_var_texname_8c18acf8'),
+            $this->addressOf('_var_renderTexname_8c18acf8'),
             $infoLocal,
             999,
             0x40800000, // NJD_TEXATTR_TYPE_MEMORY|NJD_TEXATTR_GLOBALINDEX
         );
 
         $this->shouldCall('_njSetRenderWidth')->with(256);
-        $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
 
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
@@ -864,14 +864,14 @@ return new class extends TestCase {
             );
 
         $this->shouldCall('_njSetTextureName')->with(
-            $this->addressOf('_var_texname_8c18acf8'),
+            $this->addressOf('_var_renderTexname_8c18acf8'),
             $infoLocal,
             999,
             0x40800000, // NJD_TEXATTR_TYPE_MEMORY|NJD_TEXATTR_GLOBALINDEX
         );
 
         $this->shouldCall('_njSetRenderWidth')->with(256);
-        $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
 
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);

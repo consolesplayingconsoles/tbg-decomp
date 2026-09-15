@@ -39,7 +39,7 @@
           .IMPORT     _strncmp
           .IMPORT     _memset
           .IMPORT     _strlen
-          .IMPORT     _var_8c1bbcb0
+          .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_engineRpm_8c226468
           .IMPORT     __divls
           .IMPORT     __slow_mvn
@@ -376,7 +376,7 @@ _FUN_8c0102d8:                   ; function: FUN_8c0102d8
           MOV.L       R10,@-R15
           MOV.L       R9,@-R15
           MOV.L       R8,@-R15
-          MOV.L       L6+36,R3; _var_8c1bbcb0
+          MOV.L       L6+36,R3; _var_busState_8c1bb9d0+H'2E0 (engineState_0x2e0)
           MOV.L       L6+16,R9; _var_midiHandles_8c0fcd28
           STS.L       PR,@-R15
           FMOV.S      @R2,FR3
@@ -426,7 +426,7 @@ L6:
           .DATA.L     H'41200000
           .DATA.L     H'453B8000
           .DATA.L     H'457A0000
-          .DATA.L     _var_8c1bbcb0
+          .DATA.L     _var_busState_8c1bb9d0+H'2E0 ; (engineState_0x2e0)
           .DATA.L     _sdMidiPlay
           .DATA.L     _sdMidiSetVol
           .DATA.L     _var_uknVol_8c0fcd50

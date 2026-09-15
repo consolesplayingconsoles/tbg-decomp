@@ -2,7 +2,7 @@
           .IMPORT     _njSqrt
           .IMPORT     _acosf
           .IMPORT     _var_tasks_8c1bac28
-          .IMPORT     _var_8c1bbd70
+          .IMPORT     _var_busState_8c1bb9d0
           .EXPORT     _AttrQueryFindConvexPolygon_8c02e51c
           .EXPORT     _AttrQueryFindPolygon_8c02e69c
           .EXPORT     _AttrQueryRegionOccupied_8c02f08a
@@ -1588,7 +1588,7 @@ LAB_8c02f0b8:
 LP_GEN_88808:
           .DATA.W H'0410 ; H'8C02F0BE
           .DATA.L _var_tasks_8c1bac28 ; H'8C02F0C0
-          .DATA.L _var_8c1bbd70 ; H'8C02F0C4
+          .DATA.L _var_busState_8c1bb9d0+H'3A0 ; H'8C02F0C4 (fallbackTaskMatchId_0x3a0)
           .SECTION    B,DATA,ALIGN=4
 _var_activeAttrGrid_8c228b3c:
           .RES.B      4

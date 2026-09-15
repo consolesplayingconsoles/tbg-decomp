@@ -27,12 +27,6 @@ return new class extends TestCase {
         // bytes -- see 026710_traffic.h's lookaheadPoints_0x49c comment and
         // sectionB.h's var_8c1bbacc/var_8c1bbad8 precedent.
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $this->rellocate('_var_8c1bbacc', $base + 0x0fc);  // posZ_0x0fc
-        $this->rellocate('_var_8c1bbad8', $base + 0x108);  // posHistory_0x100[0].z
-        $this->rellocate('_var_8c1bbb38', $base + 0x168);  // posHistory_0x100[8].z
-        $this->rellocate('_var_8c1bbb44', $base + 0x174);  // posHistory_0x100[9].z
-        $this->rellocate('_var_8c1bbb50', $base + 0x180);  // posHistory_0x100[10].z
-        $this->rellocate('_var_8c1bbb5c', $base + 0x18c);  // posHistory_0x100[11].z
     }
 
     private function initFloat(int $addr, float $value): void {

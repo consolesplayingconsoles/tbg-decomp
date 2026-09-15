@@ -26,11 +26,17 @@ typedef enum {
     FADE_REQUEST_IN   = 2
 } FadeRequest;
 
-/* var_mirrorSelect_8c1bbc38: which wing mirror the bus-stop-arrival overlay draws. */
+/* BusState.mirror_0x268: which mirror view is up. */
 typedef enum {
     FADE_MIRROR_NONE  = 0,
     FADE_MIRROR_LEFT  = 1,
-    FADE_MIRROR_RIGHT = 2
+    FADE_MIRROR_RIGHT = 2,
+    /* Not a wing mirror: the door-side view a run starts in
+     * (busInitPlaceBus_8c023310) -- BusRenderUpdateMirrorCamera_8c025604 puts
+     * the camera close alongside the front door instead of back down the
+     * flank. FadeUpdate_8c022560 draws it like the wing mirrors but with no
+     * label sprite. */
+    FADE_MIRROR_DOOR  = 3
 } FadeMirrorSelect;
 
 /* Task private state for FadeInTask_8c022a54/FadePushIn_8c022a9c. Its fields

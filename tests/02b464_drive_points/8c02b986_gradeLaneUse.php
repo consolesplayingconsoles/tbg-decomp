@@ -20,8 +20,7 @@ return new class extends TestCase {
         $this->setSize('_var_laneA_8c228674', 4);
         $this->setSize('_var_laneB_8c228678', 4);
         $this->setSize('_var_laneC_8c22867c', 4);
-        $this->setSize('_var_8c1bbd1c', 4);
-        $this->setSize('_var_8c1bbd38', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
         $this->setSize('_var_frameSpeed_8c22866c', 4);
 
@@ -104,8 +103,8 @@ return new class extends TestCase {
         // each 0x40000 bit present.
         $this->initUint32($base + 0x6c, 5); // var_8c22861c[5]
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 6);
-        $this->initUint32($this->addressOf('_var_8c1bbd1c'), 0x40000);
-        $this->initUint32($this->addressOf('_var_8c1bbd38'), 0x40000);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x34c), 0x40000);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x368), 0x40000);
         $this->initUint32($base + 0x74, 0x40000); // var_8c228634[1]
         $this->initUint32($base + 0x78, 0x40000); // var_8c228634[2]
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
@@ -150,7 +149,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_laneA_8c228674'), 3);
         $this->initUint32($this->addressOf('_var_laneC_8c22867c'), 7); // 674 < 67c -> cmpDir=2
-        $this->initUint32($this->addressOf('_var_8c1bbd1c'), 0x40000000); // matches cmpDir==2 case
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x34c), 0x40000000); // matches cmpDir==2 case
         $this->initUint32($base + 0x48, 0); // var_8c2285fc[4] == 0 -> threshold 0xd2
         $this->initUint32($base + 0x44, 0xd3); // var_8c2285fc[3] > threshold
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
@@ -175,7 +174,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_laneA_8c228674'), 3);
         $this->initUint32($this->addressOf('_var_laneC_8c22867c'), 7); // 674 < 67c -> cmpDir=2
-        $this->initUint32($this->addressOf('_var_8c1bbd1c'), 0); // doesn't match -> threshold 0x3c
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x34c), 0); // doesn't match -> threshold 0x3c
         $this->initUint32($base + 0x48, 0);
         $this->initUint32($base + 0x44, 0x10); // below threshold 0x3c
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);

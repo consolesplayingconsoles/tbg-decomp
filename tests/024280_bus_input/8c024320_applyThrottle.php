@@ -36,10 +36,6 @@ return new class extends TestCase {
         $this->setSize('_asinf', 4);
 
         // Same bytes as $bus + 0x2e4; the asm reads the field both ways.
-        $this->rellocate(
-            '_var_rpmRampAngle_8c1bbcb4',
-            $this->addressOf('_var_busState_8c1bb9d0') + 0x2e4
-        );
     }
 
     private function initFloat(int $addr, float $value): void {

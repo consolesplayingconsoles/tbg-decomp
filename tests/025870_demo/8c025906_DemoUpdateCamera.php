@@ -41,8 +41,7 @@ return new class extends TestCase {
 
         // Pulled in by other not-yet-decompiled functions sharing this
         // object's literal pool.
-        $this->setSize('_var_8c1bb984', 0x40);
-        $this->setSize('_var_markDriveFlags_8c1bbd80', 0xc);
+        $this->setSize('_var_cabinCamera_8c1bb984', 0x40);
         $this->setSize('_var_demoShots_8c227e0c', 4);
         $this->setSize('_var_demoShotRearm_8c227e10', 4);
         $this->setSize('_var_demoShotId_8c227dd4', 4);

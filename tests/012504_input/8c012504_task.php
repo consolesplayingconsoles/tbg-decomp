@@ -508,10 +508,9 @@ return new class extends TestCase {
     // timerRaw: raw bits of float _var_8c1bbc4c (0 == 0.0f).
     private function setupRacingState(int $timerRaw, int $mode): void
     {
-        $this->setSize('_var_8c1bbc4c', 4);
-        $this->setSize('_var_8c1bbcc4', 4);
-        $this->initUint32($this->addressOf('_var_8c1bbc4c'), $timerRaw);
-        $this->initUint32($this->addressOf('_var_8c1bbcc4'), $mode);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), $timerRaw);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2f4), $mode);
     }
 
     private function oddMvn(): Closure

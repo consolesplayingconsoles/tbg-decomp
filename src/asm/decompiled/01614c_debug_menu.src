@@ -32,7 +32,7 @@
           .IMPORT     _var_demoBuffer_8c1bc828
           .IMPORT     _var_demoCursor_8c225fa8
           .IMPORT     _var_demoPrevOn_8c225fac
-          .IMPORT     _var_busDriveState_8c1bbc84
+          .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _FUN_8c01328c
@@ -1035,7 +1035,7 @@ LP_GEN_94139:
           .DATA.L _var_demoBuffer_8c1bc828 ; H'8C01686C
           .DATA.L _var_demoCursor_8c225fa8 ; H'8C016870
           .DATA.L _var_demoPrevOn_8c225fac ; H'8C016874
-          .DATA.L _var_busDriveState_8c1bbc84 ; H'8C016878
+          .DATA.L _var_busState_8c1bb9d0+H'2B4 ; H'8C016878 (driveState_0x2b4)
           .DATA.L _var_demoCursor_8c225fa8 ; H'8C01687C
           .DATA.L _var_peripherals_8c1ba35c ; H'8C016880
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C016884

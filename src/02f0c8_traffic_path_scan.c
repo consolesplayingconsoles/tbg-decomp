@@ -85,9 +85,9 @@ void *TrafficPathScanBuild_8c02f0c8(
             z = p[1];
 
             if ((fabsf(var_busState_8c1bb9d0.posX_0x0f4 - x) < 2.5f &&
-                 fabsf(var_8c1bbacc - z) < 2.5f) ||
+                 fabsf(var_busState_8c1bb9d0.posZ_0x0fc - z) < 2.5f) ||
                 (fabsf(var_busState_8c1bb9d0.posHistory_0x100[0].x - x) < 2.5f &&
-                 fabsf(var_8c1bbad8 - z) < 2.5f)) {
+                 fabsf(var_busState_8c1bb9d0.posHistory_0x100[0].z - z) < 2.5f)) {
                 var_sampleCursor_8c228b9c = p + 2;
                 return var_playerBus_8c1bbd9c;
             }

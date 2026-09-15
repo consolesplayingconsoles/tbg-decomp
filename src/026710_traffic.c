@@ -851,7 +851,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * (its other consumer, TrafficPathScanJunctionOccupied_8c02f28a in 02f0c8_traffic_path_scan, treats
  * -1 as "not cached yet").
  *
- * Tracks a traffic-preset switch via var_scenePresetIds_8c1bbd8c's
+ * Tracks a traffic-preset switch via var_busState_8c1bb9d0.scenePresetIds_0x3bc's
  * bits 8-15 (a different byte lane than pedestriansTask_8c0293f6's own use
  * of the same packed word): the first time through with presetState_0x0c == 0
  * and no preset selected, arms presetState_0x0c = 2; once a *different*
@@ -895,7 +895,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
     ObjectsFUN_8c028958();
     var_occupiedGroup_8c228b44 = (Sint32 *)-1;
 
-    presetMask = var_scenePresetIds_8c1bbd8c & 0xff00;
+    presetMask = var_busState_8c1bb9d0.scenePresetIds_0x3bc & 0xff00;
     if (task->presetState_0x0c == 0) {
         if (presetMask == 0) {
             task->presetState_0x0c = 2;

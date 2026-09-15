@@ -51,7 +51,6 @@
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _SndProc_8c010cd6
           .IMPORT     _StopDrawLightEnd_8c02d146
-          .IMPORT     _var_busDriveState_8c1bbc84
           .EXPORT     _PassengerBoardTask_8c02d21c
           .EXPORT     _PassengerExitTask_8c02d46c
           .EXPORT     _PassengerSeatedTask_8c02d5ca
@@ -1063,7 +1062,7 @@ LP_GEN_72278:
           .DATA.L _TaskFree_8c014b66 ; H'8C02D94C
           .DATA.L _StopDrawLightEnd_8c02d146 ; H'8C02D950
           .DATA.L _var_isFading_8c226568 ; H'8C02D954
-          .DATA.L _var_busDriveState_8c1bbc84 ; H'8C02D958
+          .DATA.L _var_busState_8c1bb9d0+H'2B4 ; H'8C02D958 (driveState_0x2b4)
           .DATA.L _var_cameraMode_8c227d9c ; H'8C02D95C
           .DATA.L _var_cameraCueState_8c227da4 ; H'8C02D960
           .DATA.L _BusRenderApplyCameraMode_8c024f32 ; H'8C02D964

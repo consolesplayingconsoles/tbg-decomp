@@ -19,7 +19,6 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bc44c', 4);
         $this->setSize('_var_8c1bc450', 4);
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
-        $this->setSize('_var_8c1bbc4c', 4);
         $this->setSize('_njSqrt', 4);
 
         // Referenced only inside drawStopMarker_8c02cd92's body, which is
@@ -86,7 +85,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x3b4, $field0x3b4);
         // Checked by state 2, not busState.speed_0x27c (Ghidra folded this
         // read into a bogus "flSpeed_0x27c" reference).
-        $this->initUint32($this->addressOf('_var_8c1bbc4c'), unpack('L', pack('f', $speed))[1]);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), unpack('L', pack('f', $speed))[1]);
         return $base;
     }
 

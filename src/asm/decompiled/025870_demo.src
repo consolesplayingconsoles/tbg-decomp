@@ -1,5 +1,5 @@
 ; 8c025870
-          .IMPORT     _var_8c1bb984
+          .IMPORT     _var_cabinCamera_8c1bb984
           .IMPORT     _njInitCamera
           .IMPORT     _njSetCameraAngle
           .IMPORT     _njSetCameraDepth
@@ -10,7 +10,6 @@
           .IMPORT     _var_demoShotPos_8c227e00
           .IMPORT     _njCalcPoint
           .IMPORT     _var_camera_8c1bb904
-          .IMPORT     _var_markDriveFlags_8c1bbd80
           .IMPORT     _var_demoShotRearm_8c227e10
           .IMPORT     _var_demoShotId_8c227dd4
           .IMPORT     _var_demoShots_8c227e0c
@@ -155,7 +154,7 @@ LP_GEN_52398:
           .DATA.W H'0084 ; H'8C02594A
           .DATA.W H'27D2 ; H'8C02594C
           .RES.W 1 ; H'8C02594E
-          .DATA.L _var_8c1bb984 ; H'8C025950
+          .DATA.L _var_cabinCamera_8c1bb984 ; H'8C025950
           .DATA.L _njInitCamera ; H'8C025954
           .DATA.L _njSetCameraAngle ; H'8C025958
           .DATA.L H'C1700000 ; H'8C02595C
@@ -316,7 +315,7 @@ LP_GEN_71160:
           .DATA.L _njTranslateCameraPosition ; H'8C025AA0
           .DATA.L _njPointCameraInterest ; H'8C025AA4
           .DATA.L H'FF000000 ; H'8C025AA8
-          .DATA.L _var_markDriveFlags_8c1bbd80 ; H'8C025AAC
+          .DATA.L _var_busState_8c1bb9d0+H'3B0 ; H'8C025AAC (markDriveFlags_0x3b0)
           .DATA.L _var_demoShotRearm_8c227e10 ; H'8C025AB0
           .DATA.L _var_demoShotId_8c227dd4 ; H'8C025AB4
           .DATA.L _var_demoShots_8c227e0c ; H'8C025AB8

@@ -13,7 +13,7 @@
 #include "02081c.h"             /* GeomDistanceXZ_8c02081c */
 #include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
 #include "013ae8_route_load.h"  /* var_timeOfDay_8c18ad20 */
-#include "sectionB.h"           /* var_activeTrafficPreset_8c227e14, var_8c1bbac4/acc, ... */
+#include "sectionB.h"           /* var_activeTrafficPreset_8c227e14, var_busState_8c1bb9d0, ... */
 
 /* ====================
  * Functions
@@ -39,8 +39,8 @@
  * the position-update multiply above left in the register (dirX_0x29c or
  * dirZ_0x2a0 times the step's speed), preserved for a bit-exact test.
  *
- * Finally refreshes busDistance_0x490 (var_8c1bbac4/var_8c1bbacc are the bus's
- * own posX/posZ under their own symbols); if that distance is over 200 and the
+ * Finally refreshes busDistance_0x490 (the distance to the player's bus); if
+ * that distance is over 200 and the
  * entity's preset no longer matches var_activeTrafficPreset_8c227e14, frees
  * the task, else tail-calls BusDrawPlaceEntity_8c027c3c to register/draw it for
  * this frame. */
@@ -88,8 +88,8 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
         TrafficUpdateHeading_8c026bc4(leftover, e);
     }
 
-    dx = var_8c1bbac4 - e->posX_0xf4;
-    dz = var_8c1bbacc - e->posZ_0xfc;
+    dx = var_busState_8c1bb9d0.posX_0x0f4 - e->posX_0xf4;
+    dz = var_busState_8c1bb9d0.posZ_0x0fc - e->posZ_0xfc;
     e->busDistance_0x490 = njSqrt(dx * dx + dz * dz);
 
     if (e->busDistance_0x490 > 200.0f && e->spawnPresetId_0x2f4 != var_activeTrafficPreset_8c227e14) {
@@ -589,8 +589,8 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         e->speed_0x27c = speed;
 
         {
-            float dz = var_8c1bbacc - e->posZ_0xfc;
-            float dx = var_8c1bbac4 - e->posX_0xf4;
+            float dz = var_busState_8c1bb9d0.posZ_0x0fc - e->posZ_0xfc;
+            float dx = var_busState_8c1bb9d0.posX_0x0f4 - e->posX_0xf4;
             e->busDistance_0x490 = njSqrt(dx * dx + dz * dz);
         }
 

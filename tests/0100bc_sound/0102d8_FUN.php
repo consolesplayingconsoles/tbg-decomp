@@ -32,7 +32,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50'), 0xf8);
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50') + 0x14, 128);
-        $this->initUint32($this->addressOf('_var_8c1bbcb0'), 1);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0), 1);
 
         $this->shouldCall('_sdMidiSetPitch')
             ->with(0xcafe0006, -200, 0);
@@ -55,7 +55,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50'), 0xf9);
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50') + 0x14, 128);
-        $this->initUint32($this->addressOf('_var_8c1bbcb0'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0), 0);
 
         $this->shouldCall('_sdMidiSetVol')->with(0xcafe0006, -127, 2000);
 
@@ -70,7 +70,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50'), 0xf8);
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50') + 0x14, 128);
-        $this->initUint32($this->addressOf('_var_8c1bbcb0'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0), 0);
         $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(400.1));
 
         $this->shouldCall('_sdMidiSetPitch')
@@ -91,7 +91,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50'), 0b10);
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50') + 0x14, 128);
-        $this->initUint32($this->addressOf('_var_8c1bbcb0'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0), 0);
         $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(399.9));
 
         $this->shouldWriteLongTo('_var_uknVol_8c0fcd50', 0);
@@ -105,7 +105,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50'), 0b010);
         $this->initUint32($this->addressOf('_var_uknVol_8c0fcd50') + 0x14, 128);
-        $this->initUint32($this->addressOf('_var_8c1bbcb0'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0), 0);
         $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(2100.1));
 
         $this->shouldCall('_sdMidiSetPitch')
@@ -123,7 +123,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_engineRpm_8c226468', 4);
-        $this->setSize('_var_8c1bbcb0', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         // Functions
         $this->setSize('_sdMidiSetPitch', 4);

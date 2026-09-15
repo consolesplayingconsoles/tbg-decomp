@@ -1,10 +1,4 @@
 ; 8c02df3c
-          .IMPORT     _var_8c1bbb50
-          .IMPORT     _var_8c1bbb5c
-          .IMPORT     _var_8c1bbb38
-          .IMPORT     _var_8c1bbb44
-          .IMPORT     _var_8c1bbacc
-          .IMPORT     _var_8c1bbad8
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_collisionScanCursor_8c228974
           .IMPORT     _var_busState_8c1bb9d0
@@ -320,12 +314,12 @@ LP_GEN_80684:
           .DATA.W H'00F4 ; H'8C02E172
           .DATA.W H'0100 ; H'8C02E174
           .RES.W 1 ; H'8C02E176
-          .DATA.L _var_8c1bbb50 ; H'8C02E178
-          .DATA.L _var_8c1bbb5c ; H'8C02E17C
-          .DATA.L _var_8c1bbb38 ; H'8C02E180
-          .DATA.L _var_8c1bbb44 ; H'8C02E184
-          .DATA.L _var_8c1bbacc ; H'8C02E188
-          .DATA.L _var_8c1bbad8 ; H'8C02E18C
+          .DATA.L _var_busState_8c1bb9d0+H'180 ; H'8C02E178 (posHistory_0x100[10].z)
+          .DATA.L _var_busState_8c1bb9d0+H'18C ; H'8C02E17C (posHistory_0x100[11].z)
+          .DATA.L _var_busState_8c1bb9d0+H'168 ; H'8C02E180 (posHistory_0x100[8].z)
+          .DATA.L _var_busState_8c1bb9d0+H'174 ; H'8C02E184 (posHistory_0x100[9].z)
+          .DATA.L _var_busState_8c1bb9d0+H'0FC ; H'8C02E188 (posZ_0x0fc)
+          .DATA.L _var_busState_8c1bb9d0+H'108 ; H'8C02E18C (posHistory_0x100[0].z)
           .DATA.L _var_tasks_8c1bac28 ; H'8C02E190
           .DATA.L _var_collisionScanCursor_8c228974 ; H'8C02E194
 LAB_8c02e198:
@@ -490,11 +484,11 @@ LP_GEN_42627:
           .DATA.W H'0100 ; H'8C02E2B6
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02E2B8
           .DATA.L H'40200000 ; H'8C02E2BC
-          .DATA.L _var_8c1bbb50 ; H'8C02E2C0
-          .DATA.L _var_8c1bbb5c ; H'8C02E2C4
-          .DATA.L _var_8c1bbb38 ; H'8C02E2C8
-          .DATA.L _var_8c1bbb44 ; H'8C02E2CC
-          .DATA.L _var_8c1bbacc ; H'8C02E2D0
-          .DATA.L _var_8c1bbad8 ; H'8C02E2D4
+          .DATA.L _var_busState_8c1bb9d0+H'180 ; H'8C02E2C0 (posHistory_0x100[10].z)
+          .DATA.L _var_busState_8c1bb9d0+H'18C ; H'8C02E2C4 (posHistory_0x100[11].z)
+          .DATA.L _var_busState_8c1bb9d0+H'168 ; H'8C02E2C8 (posHistory_0x100[8].z)
+          .DATA.L _var_busState_8c1bb9d0+H'174 ; H'8C02E2CC (posHistory_0x100[9].z)
+          .DATA.L _var_busState_8c1bb9d0+H'0FC ; H'8C02E2D0 (posZ_0x0fc)
+          .DATA.L _var_busState_8c1bb9d0+H'108 ; H'8C02E2D4 (posHistory_0x100[0].z)
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02E2D8
           .END

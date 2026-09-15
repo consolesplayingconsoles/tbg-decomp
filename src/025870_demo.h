@@ -2,8 +2,8 @@
 #ifndef _025870_DEMO_H
 #define _025870_DEMO_H
 
-/* Aims the fade camera (var_8c1bb984, 022464) from inside the bus at eye
- * height, looking forward down the aisle. Despite the unit prefix this is not
+/* Aims var_cabinCamera_8c1bb984 from inside the bus at eye height, looking
+ * forward down the aisle. Despite the unit prefix this is not
  * demo playback: its only caller is StopSpawnInit_8c02d968, which
  * runs in normal play too -- it is the passenger boarding shot, and it shares
  * a unit with the tour below only because both aim a camera the player is not

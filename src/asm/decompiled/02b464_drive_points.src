@@ -32,14 +32,11 @@
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _ObjectsGetTrafficSignalFrame_8c028900
           .IMPORT     _var_prevLane_8c228684
-          .IMPORT     _var_8c1bbd1c
-          .IMPORT     _var_8c1bbd38
           .IMPORT     _var_laneA_8c228674
           .IMPORT     _var_laneC_8c22867c
           .IMPORT     _var_laneB_8c228678
           .IMPORT     _var_prevLaneFlags_8c228688
           .IMPORT     _var_8c228634
-          .IMPORT     _var_8c1bbd54
           .IMPORT     _var_padTriggerR_8c1ba374
           .IMPORT     _BusStopUpdateArrival_8c02ce48
           .IMPORT     _var_practiceRules_8c226410
@@ -858,8 +855,8 @@ LP_GEN_63579:
           .DATA.L _var_offCourseBits_8c228680 ; H'8C02BA18
           .DATA.L _var_prevLane_8c228684 ; H'8C02BA1C
           .DATA.L H'00040000 ; H'8C02BA20
-          .DATA.L _var_8c1bbd1c ; H'8C02BA24
-          .DATA.L _var_8c1bbd38 ; H'8C02BA28
+          .DATA.L _var_busState_8c1bb9d0+H'34C ; H'8C02BA24 (junctionARoadFlags_0x34c)
+          .DATA.L _var_busState_8c1bb9d0+H'368 ; H'8C02BA28 (junctionBRoadFlags_0x368)
 LAB_8c02ba2c:
           MOV.L       LP_GEN_75926+2,R2
           MOV.L       @R2,R3
@@ -981,7 +978,7 @@ LP_GEN_75926:
           .DATA.L _var_laneC_8c22867c ; H'8C02BB00
           .DATA.L _var_laneB_8c228678 ; H'8C02BB04
           .DATA.L H'C0000000 ; H'8C02BB08
-          .DATA.L _var_8c1bbd1c ; H'8C02BB0C
+          .DATA.L _var_busState_8c1bb9d0+H'34C ; H'8C02BB0C (junctionARoadFlags_0x34c)
           .DATA.L H'40000000 ; H'8C02BB10
           .DATA.L H'80000000 ; H'8C02BB14
           .DATA.L _var_frameSpeed_8c22866c ; H'8C02BB18
@@ -1369,9 +1366,9 @@ LP_GEN_74832:
           .DATA.L H'C0000000 ; H'8C02BE0C
           .DATA.L H'30000000 ; H'8C02BE10
           .DATA.L H'10000000 ; H'8C02BE14
-          .DATA.L _var_8c1bbd1c ; H'8C02BE18
+          .DATA.L _var_busState_8c1bb9d0+H'34C ; H'8C02BE18 (junctionARoadFlags_0x34c)
           .DATA.L H'20000000 ; H'8C02BE1C
-          .DATA.L _var_8c1bbd54 ; H'8C02BE20
+          .DATA.L _var_busState_8c1bb9d0+H'384 ; H'8C02BE20 (junctionCRoadFlags_0x384)
 LAB_8c02be24:
           MOV         #H'68,R0
           MOV.L       R13,@(R0,R14)

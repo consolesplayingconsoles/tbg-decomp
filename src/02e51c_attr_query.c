@@ -682,11 +682,7 @@ void *AttrQueryFindPolygonAtHeight_8c02ec50(float x, float y, float z, void *out
 
 /* Scans var_tasks_8c1bac28 for a traffic entry (task state, other than
  * self's) whose signalId_0x410 equals id, falling back to the player bus's
- * own BusState.fallbackTaskMatchId_0x3a0 when no other task matches.
- *
- * BusState.fallbackTaskMatchId_0x3a0 is imported by the original asm as a standalone
- * symbol (var_8c1bbd70), but that address is inside var_busState_8c1bb9d0 --
- * a linker coincidence, not a separate global. */
+ * own BusState.fallbackTaskMatchId_0x3a0 when no other task matches. */
 int AttrQueryRegionOccupied_8c02f08a(Task *self, int id)
 {
     Task *t;

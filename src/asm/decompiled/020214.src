@@ -6,7 +6,7 @@
           .IMPORT     _var_8c2264b8
           .IMPORT     _var_8c2285c4
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _var_8c1bbc4c
+          .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_8c2264bc
           .IMPORT     _AsqGetRandomB_8c0121a8
           .IMPORT     _VibStart_8c010f7a
@@ -171,7 +171,7 @@ LP_GEN_12106:
           .DATA.L _var_8c2285c4 ; H'8C020328
           .DATA.L _TaskFree_8c014b66 ; H'8C02032C
           .DATA.L H'3DBDA12F ; H'8C020330
-          .DATA.L _var_8c1bbc4c ; H'8C020334
+          .DATA.L _var_busState_8c1bb9d0+H'27C ; H'8C020334 (speed_0x27c)
           .DATA.L _var_8c2264bc ; H'8C020338
           .DATA.L _AsqGetRandomB_8c0121a8 ; H'8C02033C
           .DATA.L _VibStart_8c010f7a ; H'8C020340

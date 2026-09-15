@@ -42,9 +42,12 @@ struct loadedNj {
 typedef loadedNj;
 
 NJS_TEXMEMLIST var_tex_8c157af8[TEX_NUM];
-STATIC NJS_TEXNAME    var_texname_8c18acf8[1];
+STATIC NJS_TEXNAME    var_renderTexname_8c18acf8[1];
 
-NJS_TEXLIST init_texlist_8c03bf44 = {var_texname_8c18acf8, 1};
+/* The offscreen render target: one RGB565 texture over var_texbuf_8c277ca0 at
+ * global index 999. 022464 renders the mirror view into it and blits it back
+ * with njDrawTexture. */
+NJS_TEXLIST init_renderTexlist_8c03bf44 = {var_renderTexname_8c18acf8, 1};
 int init_8c03bf48 = 1;
 char init_8c03bf4c[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD4, 0x9B, 0x5E, 0x3F, 0x00, 0x00, 0x00, 0x7F,
@@ -363,9 +366,9 @@ void GameInit_8c0134ec() {
 
     njSetTextureInfo(&info, (Uint16 *) var_texbuf_8c277ca0, NJD_TEXFMT_STRIDE | NJD_TEXFMT_RGB_565, RENDER_X, RENDER_Y);
 
-    njSetTextureName(&var_texname_8c18acf8[0], &info, 999, NJD_TEXATTR_TYPE_MEMORY|NJD_TEXATTR_GLOBALINDEX);
+    njSetTextureName(&var_renderTexname_8c18acf8[0], &info, 999, NJD_TEXATTR_TYPE_MEMORY|NJD_TEXATTR_GLOBALINDEX);
     njSetRenderWidth(256);
-    njLoadTexture(&init_texlist_8c03bf44);
+    njLoadTexture(&init_renderTexlist_8c03bf44);
 
     TaskClear_8c014a9c(var_tasks_8c1ba3c8, 0x10);
     TaskClear_8c014a9c(var_tasks_8c1ba5e8, 0x10);

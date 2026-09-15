@@ -142,7 +142,7 @@ typedef struct {
      * it treats {posX_0x0f4, posY_0x0f8, posZ_0x0fc} as one contiguous float[3]. */
     float posX_0x0f4;
     float posY_0x0f8;
-    float posZ_0x0fc; /* field_0x108 below also exported standalone as var_8c1bbad8 (02f0c8_traffic_path_scan) */
+    float posZ_0x0fc;
 
     /* Waypoint-position history, 12 entries. busInitPlaceBus_8c023310 seeds
      * rec[0]/rec[1]'s x/z 4.9m/8.0m behind the spawn stop and every rec's y
@@ -180,7 +180,10 @@ typedef struct {
     /* No use site. TrafficEntry's same-offset field is unused too. */
     int field_0x264;
 
-    int mirror_0x268;
+    /* Which mirror view is up, a FadeMirrorSelect (022464_fade.h). Set by
+     * BusInputUpdate_8c0246b2 from the turn-signal buttons (024280); read by
+     * FadeUpdate_8c022560 and BusRenderUpdateMirrorCamera_8c025604. */
+    FadeMirrorSelect mirror_0x268;
 
     /* Divided by pitchCos_0x270 by BusRenderUpdateCamera_8c025078 for the
      * mode-1 camera's Y bob -- a real float field (FMOV.S load), not int. */
@@ -296,12 +299,12 @@ typedef struct {
     int junctionCSlot_0x378;
     int field_0x37c;
     int field_0x380;
-    int field_0x384;
+    int junctionCRoadFlags_0x384;
     /* Attribute words [1] and [2] of junctionCSlot_0x378's query -- written
      * by 022bdc/023310, read nowhere. */
     int field_0x388;
     int field_0x38c;
-    int junctionCRoadFlags_0x390;
+    int junctionCRoadFlags2_0x390;
     int cpuAttrOutSlot_0x394;
     int field_0x398;
     int field_0x39c;
@@ -312,7 +315,7 @@ typedef struct {
     int markDriveFlags_0x3b0;
     int markCueByte_0x3b4;
     int markAudioCue_0x3b8;
-    int markExtra_0x3bc;
+    int scenePresetIds_0x3bc;
 
     /* Passenger-door sequence: 0 = shut, 1 = opening, 2 = open, 3 = closing.
      * Only advances while driveState_0x2b4 is 0 (opening) or 1 (closing);
@@ -324,7 +327,7 @@ typedef struct {
      * INSTR_DOOR_OPERATION penalty. Cleared once the step is taken. */
     int doorRequest_0x3c4;
 
-    /* Zeroed by BusInitStart_8c023610. Overlaps var_scenePresetIds_8c1bbd8c+0xc
+    /* Zeroed by BusInitStart_8c023610. Overlaps var_busState_8c1bb9d0.scenePresetIds_0x3bc+0xc
      * (that symbol's reserved span runs 4 bytes past this struct's end) --
      * coincidentally adjacent, not that symbol's field. */
     int cameraYawEase_0x3c8;
@@ -445,21 +448,6 @@ extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into
  * pointer) are used by pickWaitingPassengers_8c02c8ae. */
 extern void *var_8c1bb894;
 extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
-extern float var_groundHeightFallback_8c1bbac8; // fallback ground height when both grid queries miss
-/* Sits at var_busState_8c1bb9d0's base+0xf4 -- same address as its
- * posX_0x0f4 field -- but exported as its own symbol and referenced that
- * way by TrafficDriveDecoration_8c02656a (025b98_traffic_drive), not
- * through the struct. Coincidentally adjacent, not part of it (same
- * pattern as var_8c1bbacc below). */
-extern float var_8c1bbac4;
-/* Sits at var_busState_8c1bb9d0's base+0xfc -- same address as its
- * posZ_0x0fc field -- but exported as its own symbol and referenced that
- * way by TrafficPathScanBuild_8c02f0c8 (02f0c8_traffic_path_scan), not through the struct. Coincidentally
- * adjacent, not part of it (same pattern as var_busCameraFocusX_8c1bbcd8). */
-extern float var_8c1bbacc;
-/* Sits at var_busState_8c1bb9d0's base+0x108 (its field_0x108); exported as
- * its own symbol and referenced that way by TrafficPathScanBuild_8c02f0c8 (02f0c8_traffic_path_scan). */
-extern float var_8c1bbad8;
 extern int var_8c1bb8bc;
 extern int var_8c1bb8c4;
 extern int var_pauseActive_8c1bb8cc;
@@ -472,33 +460,7 @@ extern int var_worstPenaltyMsgSet_8c1bb8ec;
 extern int var_worstPenaltyDelta_8c1bb8f0;
 extern int var_penaltyCount_8c1bb8f4;
 extern Uint8 var_award_8c1bb8f8;
-/* BusState.signalSide_0x25c: BusLineAdvance_8c02412c (02412c) compares it
- * against 2 to take a node's right-hand branch, the mirror of the == 1
- * left-hand test it makes through the struct. */
-extern int var_signalSide_8c1bbc2c;
 
-/* BusState.speed_0x27c. */
-extern float var_8c1bbc4c;
-/* BusState.driveState_0x2b4. Gates replay playback (DemoInputTask_8c016bf4),
- * replay recording (DebugMenuDemoRecordTask_8c01677e) and, at == 1, the
- * Y-button camera cycle in BusRenderUpdateCamera_8c025078 -- all three only
- * once the bus is actually driving. */
-extern int var_busDriveState_8c1bbc84;
-/* BusState.engineState_0x2e0. */
-extern Uint32 var_8c1bbcb0;
-/* BusState.rpmRampAngle_0x2e4. applyThrottle_8c024320 compares its own `step`
- * against it to tell accelerating from coasting. */
-extern int var_rpmRampAngle_8c1bbcb4;
-/* BusState.gear_0x2f4. */
-extern int var_8c1bbcc4;
-/* Bus-to-camera-focus vector (x, _, z); written by
- * BusRenderUpdateCamera_8c025078, read by drawPedestrians_8c028b74 via
- * njArcTan2. Alias var_busState_8c1bb9d0.moveDeltaX_0x308 / .moveDeltaZ_0x310
- * (base+0x308/+0x310), exported as their own symbols instead of struct
- * fields; 028258_objects.c reads through these what 024b4c_bus_render.c
- * writes through the struct. */
-extern float var_busCameraFocusX_8c1bbcd8;
-extern float var_busCameraFocusZ_8c1bbce0;
 extern void* var_messageTextBoxA_8c1bc404;
 extern void* var_messageTextBoxB_8c1bc408; /* second half of the double-buffered message textbox pair */
 extern int var_messageTextBoxIndex_8c1bc40c;   /* active index (0/1) into (&var_messageTextBoxA_8c1bc404)[idx] */
@@ -523,13 +485,6 @@ extern float var_crossingIntersectPoint_8c1bc458;
 extern float var_crossingIntersectPointZ_8c1bc45c;
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
-/* Sit at var_busState_8c1bb9d0's base+0x34c/+0x368/+0x384 (its junctionARoadFlags_0x34c/
- * junctionBRoadFlags_0x368/field_0x384) but are exported as their own symbols and
- * addressed that way by gradeLaneUse_8c02b986/gradeIntersection_8c02bb1c/gradeFrame_8c02bcd8 (02b464),
- * not through the struct. */
-extern int var_8c1bbd1c;
-extern int var_8c1bbd38;
-extern int var_8c1bbd54;
 /* Points at the player's own BusState (presumably &var_busState_8c1bb9d0).
  * Used in 026710_traffic.c only as a sentinel "entry" marking the player's
  * bus in traffic-avoidance code that otherwise walks a list of real traffic
@@ -537,45 +492,6 @@ extern int var_8c1bbd54;
  * never dereferenced there. 02b464 does dereference it, for the player's
  * side of a collision response. */
 extern BusState *var_playerBus_8c1bbd9c;
-/* Bus world matrix; pedestriansTask_8c0293f6 uses it via njCalcPoint to
- * place the crosswalk stop-line scratch points. Immediately follows
- * var_busState_8c1bb9d0 (base+0x84) but exported as its own symbol, not a
- * struct field -- coincidentally adjacent, not part of it. */
-extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
-/* var_busState_8c1bb9d0.markDriveFlags_0x3b0 under its own symbol -- word [0]
- * of the mark-attribute polygon under the bus, refilled every frame by
- * BusTask_8c022bdc. 025870_demo reaches it this way rather than through the
- * struct; the 12 bytes the asm reserves here are that word plus
- * markCueByte_0x3b4 and markAudioCue_0x3b8.
- *
- * Several independent fields of one word, all authored onto the road:
- *   bits  0-2   turn signal the driver is expected to give (01fa78)
- *   bit   8     headlights
- *   bits 16-17  wipers
- *   bits 18-19  gear
- *   bits 24-31  attract-mode camera cue, an index into
- *               var_demoShots_8c227e0c (025870_demo)
- * The low bits are the HUD's driving instructions and the top byte is the
- * demo tour; they are unrelated jobs sharing a polygon. Bus stops are not
- * here at all -- those are the two low bytes of markCueByte_0x3b4. What ties
- * them is only that cues get painted where stops are, which is why
- * BusStopUpdateArrival_8c02ce48 can test the top byte as a plain flag to
- * decide a stop is over. */
-extern int var_markDriveFlags_8c1bbd80;
-/* Three independent byte fields, each an id selecting a preset content set for
- * one subsystem, swapped together:
- *   bits  8-15  traffic     -> var_trafficPresetTable_8c227e18[id]  (026710)
- *   bits 16-23  pedestrians -> var_pedGroupLists_8c228240[id]       (028258)
- *   bits 24-31  set pieces  -> matched against RowEntry.sceneGate_0x14;
- *               nonzero starts the FUMI crossing sequence
- * Named "preset" rather than "demo": nothing here is the attract-mode demo
- * (that is var_demoBuffer_8c1bc828 and friends). Most likely the Japanese
- * sense of "demo" = staged scene, but no writer has been decompiled yet --
- * it lives in whatever owns var_busState_8c1bb9d0, probably 02b464. Revisit
- * the top byte's exact trigger semantics when that lands.
- * Also sits at var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not
- * that struct's markExtra_0x3bc -- coincidentally adjacent, not part of it. */
-extern int var_scenePresetIds_8c1bbd8c;
 /* The two ends of BusDrawFadeLights_8c028022's (027958_bus_draw) crossfade and
  * the per-frame step between them, cached by TrafficInit_8c02769e from
  * CourseSceneParams.rec0_0x0c rows 1 and 2 -- but only when timeOfDay is
@@ -598,8 +514,10 @@ extern void* var_busstopPartsDat_8c1bc428;
 extern NJS_TEXLIST *var_busStopTexlist_8c1bc424;
 extern NJS_CAMERA var_camera_8c1bb904; // 021b9c
 extern NJS_CAMERA var_mirrorCamera_8c1bb944; // 021b9c
-extern NJS_CAMERA var_8c1bb984; // 022464
-extern FadeMirrorSelect var_mirrorSelect_8c1bbc38; // 022464: which wing mirror FadeUpdate_8c022560 draws; real object is 20 bytes, rest unexplored
+/* Aimed from the driver's eye down the aisle by DemoBoardingCamera_8c025870
+ * (025870); FadeUpdate_8c022560's arrival variant 1 renders it into the inset
+ * over the mirror view. */
+extern NJS_CAMERA var_cabinCamera_8c1bb984;
 extern CurrentCourse var_currentCourse_8c1bb868;
 extern int var_cutsceneActive_8c1bb900;
 extern int* var_demoBuf_8c1ba3c4;
@@ -809,7 +727,7 @@ extern NJS_POINT3 var_demoShotPos_8c227e00;
 /* This route's attract-mode camera tour: a DemoShot[] (025870_demo.c), one of
  * init_demoShotsShinjuku_8c045674/...Wangan_8c045b60/...Ome_8c045ee4, selected
  * by DemoStartTour_8c025af4 from var_route_8c18ad1c and indexed by the stop
- * marker in var_markDriveFlags_8c1bbd80. */
+ * marker in var_busState_8c1bb9d0.markDriveFlags_0x3b0. */
 extern int *var_demoShots_8c227e0c;
 /* Makes demoShotTask_8c0259e8 cut to var_demoShotId_8c227dd4's shot on its
  * first frame instead of waiting for the marker to change. */
@@ -974,7 +892,7 @@ extern float var_bumpSpeed_8c228670;
  * taskCallback_8c02c072 (02b464) before the graders run.
  *
  * laneA/B/C are junctionARoadFlags2_0x358 / junctionBRoadFlags2_0x374 /
- * junctionCRoadFlags_0x390 masked with 0xf0000001 -- the bus's three
+ * junctionCRoadFlags2_0x390 masked with 0xf0000001 -- the bus's three
  * road-probe lanes. prevLane/prevLaneFlags are last frame's, kept in
  * var_8c22861c[5]/var_8c228634[0] between frames. offCourseBits is the
  * larger of junction A's and B's 0x30000 bits: 0x30000 is the severe case
@@ -1145,7 +1063,7 @@ extern char *var_8c22890c;
  * Open: the two y=0 points, (-1.6, 0, 0.9) and (-1.39, 0, 2.63), are on -x,
  * the side with the unbroken seat row, though their z matches the doors.
  * They are also the only two rewritten in place by njCalcPoint against
- * var_busWorldMatrix_8c1bba54, and StopSpawnInit_8c02d968 runs once at
+ * var_busState_8c1bb9d0.worldMatrix_0x084, and StopSpawnInit_8c02d968 runs once at
  * course start -- so that transform, not the coordinate, is the thing to
  * check. */
 extern NJS_POINT3 var_boardSpot2_8c228910;
@@ -1203,7 +1121,7 @@ extern int var_8c226414[6]; /* dialog id queue built by buildDialogQueue_8c01e99
 extern int var_8c22642c; /* lesson attempt counter, incremented on practice retry */
 extern int *var_endingVoiceList_8c226430; /* selected ending voice-id list, set by selectEndingDialog_8c01f3c0 */
 extern int var_activeTrafficPreset_8c227e14;
-/* Traffic preset table: indexed by var_scenePresetIds_8c1bbd8c's byte at
+/* Traffic preset table: indexed by var_busState_8c1bb9d0.scenePresetIds_0x3bc's byte at
  * bits 8-15, yielding that preset's record run in the course's *_MAC_CPU1.DAT;
  * read by trafficUpdateTask_8c0275d4 (026710). */
 extern Sint32 *var_trafficPresetTable_8c227e18;

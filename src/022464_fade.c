@@ -198,6 +198,10 @@ STATIC void fadeDraw_8c022464(int layer)
  * screen fade state machine (var_fadePhase_8c227d7c: 0 idle, 1 fading out, 2 fading in,
  * 3 held-fade-in-complete).
  *
+ * The three arrival variants each label themselves with a sprite off
+ * var_busStopTexlist_8c1bc424: 0x27 left mirror, 0x29 right mirror, 0x28 for
+ * variant 1's cabin inset, 0x2a for variant 2.
+ *
  * Every TxtDrawSprite priority arg below is a fixed -1.17 literal, not a
  * parameter -- raw disassembly shows FR4 is never read. */
 void FadeUpdate_8c022560(void)
@@ -206,7 +210,7 @@ void FadeUpdate_8c022560(void)
     switch (var_fadeArrivalVariant_8c22655c) {
     case 0:
       njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
-      switch (var_mirrorSelect_8c1bbc38) {
+      switch (var_busState_8c1bb9d0.mirror_0x268) {
         case FADE_MIRROR_NONE:
           njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorView_8c045578);
           break;
@@ -217,16 +221,16 @@ void FadeUpdate_8c022560(void)
           njSetScreen(&init_screenMirror_8c0455fc);
           var_fadeCamera_8c226558 = &var_mirrorCamera_8c1bb944;
           fadeDraw_8c022464(1);
-          njSetTexture(&init_texlist_8c03bf44);
+          njSetTexture(&init_renderTexlist_8c03bf44);
           njRenderTextureNumG(999);
-          if (var_mirrorSelect_8c1bbc38 == FADE_MIRROR_LEFT) {
+          if (var_busState_8c1bb9d0.mirror_0x268 == FADE_MIRROR_LEFT) {
             njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorLeft_8c045558);
             njDrawTexture(init_mirrorQuadLeft_8c045438, 4, 999, 0);
             njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorLeft_8c045558);
             TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x27, 0.0f, 0.0f, -1.17f);
             njUserClipping(NJD_CLIP_OUTSIDE, init_clipMirrorLeft_8c045558);
           }
-          else if (var_mirrorSelect_8c1bbc38 == FADE_MIRROR_RIGHT) {
+          else if (var_busState_8c1bb9d0.mirror_0x268 == FADE_MIRROR_RIGHT) {
             njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorRight_8c045568);
             njDrawTexture(init_mirrorQuadRight_8c045498, 4, 999, 0);
             njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorRight_8c045568);
@@ -245,11 +249,11 @@ void FadeUpdate_8c022560(void)
       njSetScreen(&init_screenMirrorTall_8c045610);
       var_fadeCamera_8c226558 = &var_mirrorCamera_8c1bb944;
       fadeDraw_8c022464(1);
-      njSetTexture(&init_texlist_8c03bf44);
+      njSetTexture(&init_renderTexlist_8c03bf44);
       njRenderTextureNumG(999);
       njUserClipping(NJD_CLIP_INSIDE, init_clipLayer2_8c045598);
       njSetScreen(&init_screenLayer2_8c045624);
-      var_fadeCamera_8c226558 = &var_8c1bb984;
+      var_fadeCamera_8c226558 = &var_cabinCamera_8c1bb984;
       fadeDraw_8c022464(2);
       njUserClipping(NJD_CLIP_OUTSIDE, init_clipLayer2_8c045598);
       njSetScreen(&init_screenFull_8c0455e8);
@@ -265,7 +269,7 @@ void FadeUpdate_8c022560(void)
       njSetScreen(&init_screenMirrorTall_8c045610);
       var_fadeCamera_8c226558 = &var_mirrorCamera_8c1bb944;
       fadeDraw_8c022464(1);
-      njSetTexture(&init_texlist_8c03bf44);
+      njSetTexture(&init_renderTexlist_8c03bf44);
       njRenderTextureNumG(999);
       njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorViewTall_8c045588);
       njSetScreen(&init_screenFull_8c0455e8);

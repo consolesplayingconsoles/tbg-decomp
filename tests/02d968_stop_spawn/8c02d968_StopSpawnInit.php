@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->setSize('_DemoBoardingCamera_8c025870', 4);
         $this->setSize('_var_interiorTexlist_8c1bc438', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
-        $this->setSize('_var_busWorldMatrix_8c1bba54', 0x40);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_njCalcPoint', 4);
         $this->setSize('_var_boardSpot1_8c228928', 12);
         $this->setSize('_var_boardSpot2_8c228910', 12);
@@ -148,7 +148,7 @@ return new class extends TestCase {
         // A route with no dispatch arm (e.g. an out-of-range value) skips
         // this whole block, including both njCalcPoint transforms.
         if ($pts !== null) {
-            $matrix = $this->addressOf('_var_busWorldMatrix_8c1bba54');
+            $matrix = ($this->addressOf('_var_busState_8c1bb9d0') + 0x084);
             $addrs = [
                 $this->addressOf('_var_boardSpot1_8c228928'),
                 $this->addressOf('_var_boardSpot2_8c228910'),
@@ -240,7 +240,7 @@ return new class extends TestCase {
         $this->setSize('_DemoBoardingCamera_8c025870', 4);
         $this->setSize('_var_interiorTexlist_8c1bc438', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
-        $this->setSize('_var_busWorldMatrix_8c1bba54', 0x40);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_njCalcPoint', 4);
         $this->setSize('_var_boardSpot1_8c228928', 12);
         $this->setSize('_var_boardSpot2_8c228910', 12);
@@ -373,7 +373,7 @@ return new class extends TestCase {
         $this->setSize('_DemoBoardingCamera_8c025870', 4);
         $this->setSize('_var_interiorTexlist_8c1bc438', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
-        $this->setSize('_var_busWorldMatrix_8c1bba54', 0x40);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_njCalcPoint', 4);
         $this->setSize('_var_boardSpot1_8c228928', 12);
         $this->setSize('_var_boardSpot2_8c228910', 12);

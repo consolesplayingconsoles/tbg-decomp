@@ -23,7 +23,7 @@ typedef struct {
     Uint16 backNext_0x02;   /* read by BusDriveFindLaneTarget_8c023e7e */
     /* [0] is the default (used by 02412c), [1] is the next segment when
      * signalSide_0x25c == 1, [2] the one when it is 2 (02412c reads the same
-     * field through var_signalSide_8c1bbc2c) */
+     * field through var_busState_8c1bb9d0.signalSide_0x25c) */
     Uint16 altNext_0x04[3];
     Uint16 fallbackNext_0x0a;
 } LineBusNode;

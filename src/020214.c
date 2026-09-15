@@ -41,7 +41,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
             sdMidiPlay(var_midiHandles_8c0fcd28[3], 1, AsqGetRandomInRangeB_8c0121be(6) + 9, 0);
             var_8c2264b8.idleChimeTimer_0x04 = (AsqGetRandomInRangeB_8c0121be(3) + 2) * 30;
             var_8c2264b8.idleChimeState_0x00 = 1;
-        } else if (var_8c1bbc4c > 0.09259258955717087f) {
+        } else if (var_busState_8c1bb9d0.speed_0x27c > 0.09259258955717087f) {
             if (--var_8c2264bc < 0) {
                 int r = AsqGetRandomB_8c0121a8();
                 if ((r & 1) == 0) {

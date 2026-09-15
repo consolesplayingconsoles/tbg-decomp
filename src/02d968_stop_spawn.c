@@ -89,7 +89,7 @@ void StopSpawnInit_8c02d968(void)
         var_boardSpot1_8c228928.x = -1.6f;
         var_boardSpot1_8c228928.y = 0.0f;
         var_boardSpot1_8c228928.z = 0.9f;
-        njCalcPoint(&var_busWorldMatrix_8c1bba54, &var_boardSpot1_8c228928, &var_boardSpot1_8c228928);
+        njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084, &var_boardSpot1_8c228928, &var_boardSpot1_8c228928);
 
         var_boardSpot2_8c228910.x = 0.15f;
         var_boardSpot2_8c228910.y = 0.68f;
@@ -110,12 +110,12 @@ void StopSpawnInit_8c02d968(void)
         var_exitSpot3_8c22894c.x = -1.39f;
         var_exitSpot3_8c22894c.y = 0.0f;
         var_exitSpot3_8c22894c.z = 2.63f;
-        njCalcPoint(&var_busWorldMatrix_8c1bba54, &var_exitSpot3_8c22894c, &var_exitSpot3_8c22894c);
+        njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084, &var_exitSpot3_8c22894c, &var_exitSpot3_8c22894c);
     } else if (var_route_8c18ad1c == ROUTE_OME) {
         var_boardSpot1_8c228928.x = -1.39f;
         var_boardSpot1_8c228928.y = 0.0f;
         var_boardSpot1_8c228928.z = 2.63f;
-        njCalcPoint(&var_busWorldMatrix_8c1bba54, &var_boardSpot1_8c228928, &var_boardSpot1_8c228928);
+        njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084, &var_boardSpot1_8c228928, &var_boardSpot1_8c228928);
 
         var_boardSpot2_8c228910.x = 1.0f;
         var_boardSpot2_8c228910.y = 0.35f;
@@ -136,7 +136,7 @@ void StopSpawnInit_8c02d968(void)
         var_exitSpot3_8c22894c.x = -1.6f;
         var_exitSpot3_8c22894c.y = 0.0f;
         var_exitSpot3_8c22894c.z = 0.9f;
-        njCalcPoint(&var_busWorldMatrix_8c1bba54, &var_exitSpot3_8c22894c, &var_exitSpot3_8c22894c);
+        njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084, &var_exitSpot3_8c22894c, &var_exitSpot3_8c22894c);
     }
 
     var_passengersFadedOut_8c22895c = 0;

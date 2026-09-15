@@ -1,7 +1,5 @@
 ; 8c02f0c8
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _var_8c1bbacc
-          .IMPORT     _var_8c1bbad8
           .IMPORT     _var_playerBus_8c1bbd9c
           .IMPORT     _var_tasks_8c1bac28
           .EXPORT     _TrafficPathScanBuild_8c02f0c8
@@ -142,8 +140,8 @@ LP_GEN_99248:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02F1B8
           .DATA.L _var_sampleCursor_8c228b9c ; H'8C02F1BC
           .DATA.L H'40200000 ; H'8C02F1C0
-          .DATA.L _var_8c1bbacc ; H'8C02F1C4
-          .DATA.L _var_8c1bbad8 ; H'8C02F1C8
+          .DATA.L _var_busState_8c1bb9d0+H'0FC ; H'8C02F1C4 (posZ_0x0fc)
+          .DATA.L _var_busState_8c1bb9d0+H'108 ; H'8C02F1C8 (posHistory_0x100[0].z)
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02F1CC
           .DATA.L _var_tasks_8c1bac28 ; H'8C02F1D0
 LAB_8c02f1d4:

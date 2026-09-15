@@ -37,12 +37,12 @@ int BusLineAdvance_8c02412c(void)
             int nextIdx;
 
             /* Turn signal picks the branch: left takes altNext[1], right
-             * altNext[2]. var_signalSide_8c1bbc2c is signalSide_0x25c again
+             * altNext[2]. var_busState_8c1bb9d0.signalSide_0x25c is signalSide_0x25c again
              * under its own section B symbol, which is how the asm reads it
              * the second time. */
             if (node->altNext_0x04[1] != 0xffff && var_busState_8c1bb9d0.signalSide_0x25c == 1) {
                 nextIdx = node->altNext_0x04[1];
-            } else if (node->altNext_0x04[2] != 0xffff && var_signalSide_8c1bbc2c == 2) {
+            } else if (node->altNext_0x04[2] != 0xffff && var_busState_8c1bb9d0.signalSide_0x25c == 2) {
                 nextIdx = node->altNext_0x04[2];
             } else {
                 nextIdx = node->altNext_0x04[0];

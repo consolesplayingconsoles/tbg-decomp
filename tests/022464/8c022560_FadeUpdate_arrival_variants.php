@@ -13,11 +13,11 @@ return new class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
         $this->setSize('_var_fadeArrivalVariant_8c22655c', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_fadeCamera_8c226558', 4);
         $this->setSize('_var_mirrorCamera_8c1bb944', 64);
         $this->setSize('_var_camera_8c1bb904', 64);
-        $this->setSize('_var_8c1bb984', 76);
-        $this->setSize('_var_mirrorSelect_8c1bbc38', 20);
+        $this->setSize('_var_cabinCamera_8c1bb984', 76);
         $this->setSize('_var_busStopTexlist_8c1bc424', 4);
         $this->setSize('_njUserClipping', 4);
         $this->setSize('_njControl3D', 4);
@@ -35,7 +35,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_fadeArrivalGate_8c226560'), 1);
         $this->initUint32($this->addressOf('_var_fadeArrivalVariant_8c22655c'), 0);
-        $this->initUint32($this->addressOf('_var_mirrorSelect_8c1bbc38'), 1);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x268), 1);
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 0);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 0);
 
@@ -49,7 +49,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenMirror_8c0455fc'));
         $this->shouldWriteLong($this->addressOf('_var_fadeCamera_8c226558'), $camera1);
         $this->shouldCall('_fadeDraw_8c022464')->with(1);
-        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
         $this->shouldCall('_njRenderTextureNumG')->with(999);
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorLeft_8c045558'));
         $this->shouldCall('_njDrawTexture')->with($this->addressOf('_init_mirrorQuadLeft_8c045438'), 4, 999, 0);
@@ -69,7 +69,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_fadeArrivalGate_8c226560'), 1);
         $this->initUint32($this->addressOf('_var_fadeArrivalVariant_8c22655c'), 0);
-        $this->initUint32($this->addressOf('_var_mirrorSelect_8c1bbc38'), 2);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x268), 2);
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 0);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 0);
 
@@ -83,7 +83,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenMirror_8c0455fc'));
         $this->shouldWriteLong($this->addressOf('_var_fadeCamera_8c226558'), $camera1);
         $this->shouldCall('_fadeDraw_8c022464')->with(1);
-        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
         $this->shouldCall('_njRenderTextureNumG')->with(999);
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorRight_8c045568'));
         $this->shouldCall('_njDrawTexture')->with($this->addressOf('_init_mirrorQuadRight_8c045498'), 4, 999, 0);
@@ -103,7 +103,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_fadeArrivalGate_8c226560'), 1);
         $this->initUint32($this->addressOf('_var_fadeArrivalVariant_8c22655c'), 0);
-        $this->initUint32($this->addressOf('_var_mirrorSelect_8c1bbc38'), 3);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x268), 3); // FADE_MIRROR_DOOR: drawn, but no label sprite
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 0);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 0);
 
@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenMirror_8c0455fc'));
         $this->shouldWriteLong($this->addressOf('_var_fadeCamera_8c226558'), $camera1);
         $this->shouldCall('_fadeDraw_8c022464')->with(1);
-        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
         $this->shouldCall('_njRenderTextureNumG')->with(999);
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenFull_8c0455e8'));
         $this->shouldWriteLong($this->addressOf('_var_fadeCamera_8c226558'), $cameraDefault);
@@ -134,7 +134,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 0);
 
         $camera1 = $this->addressOf('_var_mirrorCamera_8c1bb944');
-        $camera2 = $this->addressOf('_var_8c1bb984');
+        $camera2 = $this->addressOf('_var_cabinCamera_8c1bb984');
         $cameraDefault = $this->addressOf('_var_camera_8c1bb904');
 
         $this->call('_FadeUpdate_8c022560');
@@ -144,7 +144,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenMirrorTall_8c045610'));
         $this->shouldWriteLong($this->addressOf('_var_fadeCamera_8c226558'), $camera1);
         $this->shouldCall('_fadeDraw_8c022464')->with(1);
-        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
         $this->shouldCall('_njRenderTextureNumG')->with(999);
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenLayer2_8c045624'));
@@ -180,7 +180,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenMirrorTall_8c045610'));
         $this->shouldWriteLong($this->addressOf('_var_fadeCamera_8c226558'), $camera1);
         $this->shouldCall('_fadeDraw_8c022464')->with(1);
-        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_texlist_8c03bf44'));
+        $this->shouldCall('_njSetTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
         $this->shouldCall('_njRenderTextureNumG')->with(999);
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipMirrorViewTall_8c045588'));
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenFull_8c0455e8'));

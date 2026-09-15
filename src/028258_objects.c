@@ -163,7 +163,7 @@ typedef struct {
     NJS_CNK_OBJECT *nj_0x04;
     void *dat_0x08;                 /* NJS_OBJECT for type 0, NJS_MOTION for types 0/3, DatBlob for type 1 */
     ObjectAssetType5Extra pos_0x0c; /* type 5 only */
-    /* types 2/3/4; matched against var_scenePresetIds_8c1bbd8c's top byte, see
+    /* types 2/3/4; matched against var_busState_8c1bb9d0.scenePresetIds_0x3bc's top byte, see
      * rowModelTask_8c02a08a */
     Sint8 sceneGate_0x14;
     /* types 2/3/4; routed into the spawned Task's field_0x0c (2/3) or field_0x08 (4) */
@@ -4921,9 +4921,7 @@ STATIC void drawPedestrians_8c028b74(int arg0)
     int bucket;
     int spriteIndex;
 
-    /* var_busCameraFocusX_8c1bbcd8/var_busCameraFocusZ_8c1bbce0 sit right after var_busState_8c1bb9d0 in
-     * memory; see their declaration in sectionB.h. */
-    selfAngle = njArcTan2(-var_busCameraFocusX_8c1bbcd8, -var_busCameraFocusZ_8c1bbce0);
+    selfAngle = njArcTan2(-var_busState_8c1bb9d0.moveDeltaX_0x308, -var_busState_8c1bb9d0.moveDeltaZ_0x310);
 
     for (pageListIndex = 0; pageListIndex < var_pedGroupCount_8c228234; pageListIndex++) {
         if (groups[pageListIndex].active_0x00 == 0) {
@@ -5270,7 +5268,7 @@ STATIC void pedGroupTask_8c029078(PedGroupTask *task)
 
 /* Per-frame driver for every pedestrian group: syncs var_pedGroups_8c228230's
  * wanted/active state with the current preset (task->debounce_0x0c debounces a
- * single pending-change flag across frames where var_scenePresetIds_8c1bbd8c
+ * single pending-change flag across frames where var_busState_8c1bb9d0.scenePresetIds_0x3bc
  * reads 0), rebuilds this frame's crosswalk intersection scratch, runs every
  * group's Task, then registers the draw callback(s) -- drawPedestriansMirror_8c028a38
  * only outside demo mode. */
@@ -5299,7 +5297,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
 
     var_activeGroundGrid_8c2264d4 = var_groundGridPrimary_8c1bb890;
 
-    presetField = var_scenePresetIds_8c1bbd8c & 0xff0000;
+    presetField = var_busState_8c1bb9d0.scenePresetIds_0x3bc & 0xff0000;
     if (task->debounce_0x0c == 0) {
         if (presetField == 0) {
             task->debounce_0x0c = 1;
@@ -5357,11 +5355,11 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     CollisionQueueReset_8c02e486();
     clearPedCrossingFlags_8c02890c();
 
-    njCalcPoint(&var_busWorldMatrix_8c1bba54, &init_stopLineLocalA_8c04650c, &var_groundQueryPoint_8c1bc460);
+    njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084, &init_stopLineLocalA_8c04650c, &var_groundQueryPoint_8c1bc460);
     var_stopLinePointA_8c228268[0] = var_groundQueryPoint_8c1bc460.x;
     var_stopLinePointA_8c228268[1] = var_groundQueryPoint_8c1bc460.z;
 
-    njCalcPoint(&var_busWorldMatrix_8c1bba54, &init_stopLineLocalB_8c046518, &var_groundQueryPoint_8c1bc460);
+    njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084, &init_stopLineLocalB_8c046518, &var_groundQueryPoint_8c1bc460);
     var_stopLinePointB_8c228270[0] = var_groundQueryPoint_8c1bc460.x;
     var_stopLinePointB_8c228270[1] = var_groundQueryPoint_8c1bc460.z;
 
@@ -5603,7 +5601,7 @@ void ObjectsInitBlinkers_8c029920(void)
             if (result.count_0x0c != 0) {
                 GroundProbeInterpolateHeight_8c020f7e(&result, (float *)&var_groundQueryPoint_8c1bc460);
             } else {
-                var_groundQueryPoint_8c1bc460.y = var_groundHeightFallback_8c1bbac8;
+                var_groundQueryPoint_8c1bc460.y = var_busState_8c1bb9d0.posY_0x0f8;
             }
         }
 
@@ -5880,12 +5878,12 @@ STATIC void drawRowModel_8c02a048(int state)
     njControl3D(0x100);
 }
 /* TaskAction for a type-2 row, installed by ObjectsPushTasks_8c02a6ac;
- * task->field_0x08 is the target var_scenePresetIds_8c1bbd8c marker, set from
+ * task->field_0x08 is the target var_busState_8c1bb9d0.scenePresetIds_0x3bc marker, set from
  * row[0x14] there. */
 STATIC void rowModelTask_8c02a08a(Task *task, RowTaskState *state)
 {
     if (state->phase_0x54 == 0) {
-        if (task->field_0x08 == (int)(var_scenePresetIds_8c1bbd8c & 0xff000000)) {
+        if (task->field_0x08 == (int)(var_busState_8c1bb9d0.scenePresetIds_0x3bc & 0xff000000)) {
             state->phase_0x54 = state->phase_0x54 + 1;
         }
     } else if (state->phase_0x54 == 1) {
@@ -5918,7 +5916,7 @@ STATIC void drawRowMotionModel_8c02a0d6(int state)
 STATIC void rowMotionModelTask_8c02a120(Task *task, RowTaskState *state)
 {
     if (state->phase_0x54 == 0) {
-        if (task->field_0x08 == (int)(var_scenePresetIds_8c1bbd8c & 0xff000000)) {
+        if (task->field_0x08 == (int)(var_busState_8c1bb9d0.scenePresetIds_0x3bc & 0xff000000)) {
             state->phase_0x54 = state->phase_0x54 + 1;
         }
     } else if (state->phase_0x54 == 1) {
@@ -6120,7 +6118,7 @@ STATIC void drawFumiCrossing_8c02a47c(int state)
 /* TaskAction for a type-6 (FUMI railway crossing) row, installed by
  * ObjectsPushTasks_8c02a6ac. Cycles the crossing through closing, waiting out
  * a passing train, then opening; idles at phase 0 until
- * var_scenePresetIds_8c1bbd8c's top byte (the set-piece trigger) goes nonzero.
+ * var_busState_8c1bb9d0.scenePresetIds_0x3bc's top byte (the set-piece trigger) goes nonzero.
  * From phase 1 onward, pushes a draw call of drawFumiCrossing_8c02a47c every
  * frame. task is unused. */
 STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
@@ -6152,7 +6150,7 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
         return;
     }
 
-    if ((var_scenePresetIds_8c1bbd8c & 0xff000000) != 0) {
+    if ((var_busState_8c1bb9d0.scenePresetIds_0x3bc & 0xff000000) != 0) {
         state->phase_0x54 = state->phase_0x54 + 1;
         var_trafficSignalFrames_8c227e24[0] = 0;
     }

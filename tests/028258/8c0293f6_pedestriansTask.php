@@ -105,12 +105,13 @@ return new class extends TestCase {
     private function setupCommon(int $groupCount = 0): array
     {
         $this->setSize('_var_8c2285c4', 0x14);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->initUint32($this->addressOf('_var_8c2285c4'), 1);
 
         $grid = $this->addressOf('_var_groundGridPrimary_8c1bb890');
         $this->initUint32($grid, 0x11111111);
 
-        $this->initUint32($this->addressOf('_var_scenePresetIds_8c1bbd8c'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 0);
 
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), $groupCount);
         $this->initUint32($this->addressOf('_var_activePedPreset_8c22822c'), 0);
@@ -139,7 +140,7 @@ return new class extends TestCase {
         $this->shouldCall('_clearPedCrossingFlags_8c02890c');
 
         $this->shouldCall('_njCalcPoint')
-            ->with($this->addressOf('_var_busWorldMatrix_8c1bba54'), $this->addressOf('_init_stopLineLocalA_8c04650c'),
+            ->with(($this->addressOf('_var_busState_8c1bb9d0') + 0x084), $this->addressOf('_init_stopLineLocalA_8c04650c'),
                 $this->addressOf('_var_groundQueryPoint_8c1bc460'))
             ->do(function () {
                 $this->memory->writeUInt32($this->registers[6]->value + 0x0, U32::of(fdec(1.5)));
@@ -149,7 +150,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_stopLinePointA_8c228268') + 4, 2.5);
 
         $this->shouldCall('_njCalcPoint')
-            ->with($this->addressOf('_var_busWorldMatrix_8c1bba54'), $this->addressOf('_init_stopLineLocalB_8c046518'),
+            ->with(($this->addressOf('_var_busState_8c1bb9d0') + 0x084), $this->addressOf('_init_stopLineLocalB_8c046518'),
                 $this->addressOf('_var_groundQueryPoint_8c1bc460'))
             ->do(function () {
                 $this->memory->writeUInt32($this->registers[6]->value + 0x0, U32::of(fdec(3.5)));

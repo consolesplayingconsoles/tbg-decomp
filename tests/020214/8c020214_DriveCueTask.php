@@ -31,7 +31,7 @@ return new class extends TestCase {
         $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_8c22640c', 4);
         $this->setSize('_var_stopPhase_8c2285e4', 4);
-        $this->setSize('_var_8c1bbc4c', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $struct = $this->alloc(0x1c);
         $this->rellocate('_var_8c2264b8', $struct);
@@ -73,7 +73,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_8c22640c'), 0);
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bbc4c'), 0);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), 0);
 
         $midi = $this->addressOf('_var_midiHandles_8c0fcd28');
         for ($i = 0; $i < 8; $i++) {
@@ -145,7 +145,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initUint32($this->addressOf('_var_8c1bbc4c'), $this->f32(1.0)); // above threshold
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), $this->f32(1.0)); // above threshold
         $this->initStruct(0, 0, 4, 1, 0, 0, 0);
         $this->initUint32($this->struct() + 0x04, 5); // var_8c2264bc alias: still > 0 after decrement
 
@@ -162,7 +162,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initUint32($this->addressOf('_var_8c1bbc4c'), $this->f32(1.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), $this->f32(1.0));
         $this->initStruct(0, 0, 4, 1, 0, 0, 0);
         $this->initUint32($this->struct() + 0x04, 0); // decrements to -1, expires
 
@@ -185,7 +185,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
-        $this->initUint32($this->addressOf('_var_8c1bbc4c'), $this->f32(1.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), $this->f32(1.0));
         $this->initStruct(0, 0, 4, 1, 0, 0, 0);
         $this->initUint32($this->struct() + 0x04, 0);
 

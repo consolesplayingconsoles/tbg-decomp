@@ -177,7 +177,7 @@ off-course case shows the same message as the medium one).
 `028258_objects.c`), but traced as purely decorative: `fumiCrossingTask_8c02a4f8`
 is a scripted "row" scenery task like the other roadside props (fly-bys, dat
 blobs, static models) -- its gate-closed/train-passing/gate-open phases are
-gated only on the top byte of `var_scenePresetIds_8c1bbd8c` (a scene-script
+gated only on the top byte of `var_busState_8c1bb9d0.scenePresetIds_0x3bc` (a scene-script
 trigger), never on the bus's position, speed, or state. No collision check
 against the closed gate and no penalty tied to it were found anywhere in the
 codebase. **The remembered "stop at the crossing" penalty was not found; it
@@ -262,7 +262,7 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
     This is the mechanic the `ANNOUNCEMENT` penalty grades ("failing to
     announce the next stop") -- names already accurate, no change made.
   - `idleChimeState_0x00`/`idleChimeTimer_0x04` is an unrelated ambient
-    chime played periodically while driving (gated on `var_8c1bbc4c`, a
+    chime played periodically while driving (gated on `var_busState_8c1bb9d0.speed_0x27c`, a
     steering-related threshold, with a random ~2-5s repeat), not tied to
     stops at all.
   - `nearStopChimeLatch_0x14` plays a short chime (case default in the

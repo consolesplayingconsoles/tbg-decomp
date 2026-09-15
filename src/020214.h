@@ -8,7 +8,7 @@
  * var_8c2264b8 directly). Frees itself via TaskFree_8c014b66 once the drive
  * has reached its ending phase (var_8c2285c4[0] >= 3). While active: plays a
  * periodic idle chime/vibration once the bus is moving fast enough
- * (var_8c1bbc4c) and a countdown (var_8c2264bc) expires, then -- gated by
+ * (var_busState_8c1bb9d0.speed_0x27c) and a countdown (var_8c2264bc) expires, then -- gated by
  * the A-press latch var_8c2264b8.nearStopLatch_0x0c -- runs a stop-approach jingle
  * sequence once per drive (stopAnnounceState_0x08's state machine, restarted if the
  * latch gets cleared again by 02c884), then a "near stop marker" chime

@@ -33,15 +33,14 @@ return new class extends TestCase {
         $this->setSize('_TrafficAdvanceOnPath_8c026ca2', 4);
         $this->setSize('_TrafficRunEntryScript_8c027012', 4);
         $this->setSize('_TrafficReadScriptArgs_8c026710', 4);
-        $this->setSize('_var_8c1bbac4', 4);
-        $this->setSize('_var_8c1bbacc', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_8c2264d0', 4);
 
-        $this->initUint32($this->addressOf('_var_8c1bbac4'), fdec(0.0));
-        $this->initUint32($this->addressOf('_var_8c1bbacc'), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x0f4), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x0fc), fdec(0.0));
         $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 5);
         $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 0); // TIME_OF_DAY_DAY
         $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), 0); // no player bus sentinel match

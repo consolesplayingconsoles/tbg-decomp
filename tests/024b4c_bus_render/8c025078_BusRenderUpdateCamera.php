@@ -72,10 +72,6 @@ return new class extends TestCase {
 
         // Same bytes as $base + 0x2b4 (BusState.driveState_0x2b4); the Y-button
         // gate reads the field through its own section B symbol.
-        $this->rellocate(
-            '_var_busDriveState_8c1bbc84',
-            $this->addressOf('_var_busState_8c1bb9d0') + 0x2b4
-        );
     }
 
     private function f32(float $value): float

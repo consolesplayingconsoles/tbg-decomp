@@ -173,7 +173,7 @@ TrafficEntry *BusCollisionFindHit_8c02e2dc(void)
     Task *cursor;
     TrafficEntry *entry;
 
-    njCalcPoints(&var_busWorldMatrix_8c1bba54, init_busBox_8c04c820,
+    njCalcPoints(&var_busState_8c1bb9d0.worldMatrix_0x084, init_busBox_8c04c820,
                  var_collisionSelfBox_8c228978.v, 8);
 
     var_collisionScanCursor_8c228974 = var_tasks_8c1bac28;

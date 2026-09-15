@@ -12,7 +12,8 @@
 
 /* BT_CONTROLLER / BT_RACING controller-type masks live in 012504_input.h. */
 
-/* var_8c1bbc4c: paddle remap timer (must be 0); var_8c1bbcc4: remap target (5=Up, 0=Down) */
+/* The paddle-shift remap waits for the bus to be stopped (speed_0x27c == 0)
+ * and reads gear_0x2f4 as the target (5 = Up, 0 = Down). */
 
 STATIC char var_name_8c157aec[12];
 STATIC const char *init_fortyFive_8c03bf40 = "FortyFive";
@@ -78,12 +79,12 @@ STATIC void inputTask_8c012504(void)
         }
         /* Y + half-brake while timer idle -> remap Y to D-pad; else check reset combo */
         if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TY) &&
-            var_8c1bbc4c == 0.0f &&
+            var_busState_8c1bb9d0.speed_0x27c == 0.0f &&
             var_peripherals_8c1ba35c[0].l >= 0x81) {
-            LOG_DEBUG(("[INPUT] inputTask_8c012504: paddle-shift remap (mode %d)\n", var_8c1bbcc4));
-            if (var_8c1bbcc4 == 5) {
+            LOG_DEBUG(("[INPUT] inputTask_8c012504: paddle-shift remap (mode %d)\n", var_busState_8c1bb9d0.gear_0x2f4));
+            if (var_busState_8c1bb9d0.gear_0x2f4 == 5) {
                 var_peripherals_8c1ba35c[0].press ^= (PDD_DGT_TY | PDD_DGT_KU);
-            } else if (var_8c1bbcc4 == 0) {
+            } else if (var_busState_8c1bb9d0.gear_0x2f4 == 0) {
                 var_peripherals_8c1ba35c[0].press ^= (PDD_DGT_TY | PDD_DGT_KD);
             }
         } else {

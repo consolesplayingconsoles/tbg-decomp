@@ -332,7 +332,7 @@ STATIC void hudUpdateTask_8c01ff48() {
         if ((var_8c2264a8.blinkCounter_0x0c & 4) == 0) {
             var_8c2264a8.turnSignalIconId_0x04 = 0;
         } else {
-            var_8c2264a8.turnSignalIconId_0x04 = (Uint8)var_busState_8c1bb9d0.markExtra_0x3bc + 0x51;
+            var_8c2264a8.turnSignalIconId_0x04 = (Uint8)var_busState_8c1bb9d0.scenePresetIds_0x3bc + 0x51;
         }
     }
 

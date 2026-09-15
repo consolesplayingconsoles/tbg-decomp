@@ -224,10 +224,10 @@ void BusTask_8c022bdc(Task *task, void *state)
             var_busState_8c1bb9d0.posHistory_0x100[0].x, var_busState_8c1bb9d0.posHistory_0x100[0].y,
             var_busState_8c1bb9d0.posHistory_0x100[0].z, &var_busState_8c1bb9d0.junctionCSlot_0x378);
         if (result != NULL) {
-            var_busState_8c1bb9d0.field_0x384 = result[0];
+            var_busState_8c1bb9d0.junctionCRoadFlags_0x384 = result[0];
             var_busState_8c1bb9d0.field_0x388 = result[1];
             var_busState_8c1bb9d0.field_0x38c = result[2];
-            var_busState_8c1bb9d0.junctionCRoadFlags_0x390 = result[3];
+            var_busState_8c1bb9d0.junctionCRoadFlags2_0x390 = result[3];
         }
 
         var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
@@ -250,12 +250,12 @@ void BusTask_8c022bdc(Task *task, void *state)
             var_busState_8c1bb9d0.markDriveFlags_0x3b0 = 0;
             var_busState_8c1bb9d0.markCueByte_0x3b4 = 0;
             var_busState_8c1bb9d0.markAudioCue_0x3b8 = 0;
-            var_busState_8c1bb9d0.markExtra_0x3bc = 0;
+            var_busState_8c1bb9d0.scenePresetIds_0x3bc = 0;
         } else {
             var_busState_8c1bb9d0.markDriveFlags_0x3b0 = result[0];
             var_busState_8c1bb9d0.markCueByte_0x3b4 = result[1];
             var_busState_8c1bb9d0.markAudioCue_0x3b8 = result[2];
-            var_busState_8c1bb9d0.markExtra_0x3bc = result[3];
+            var_busState_8c1bb9d0.scenePresetIds_0x3bc = result[3];
         }
     }
 
@@ -346,7 +346,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         }
     }
 
-    VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_playerBus_8c1bbd9c);
+    VehicleModelPlace_8c020594(&var_busState_8c1bb9d0.worldMatrix_0x084, var_playerBus_8c1bbd9c);
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
         DemoUpdateCamera_8c025906();

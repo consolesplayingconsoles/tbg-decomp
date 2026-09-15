@@ -7,7 +7,6 @@
           .IMPORT     _var_accelSensitivity_8c1ba29c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
-          .IMPORT     _var_rpmRampAngle_8c1bbcb4
           .IMPORT     _njSin
           .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_firstUpshift_8c22864c
@@ -276,7 +275,7 @@ LP_GEN_79582:
           .DATA.L _sdMidiPlay ; H'8C024450
           .DATA.L _init_gears_8c045638 ; H'8C024454
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024458
-          .DATA.L _var_rpmRampAngle_8c1bbcb4 ; H'8C02445C
+          .DATA.L _var_busState_8c1bb9d0+H'2E4 ; H'8C02445C (rpmRampAngle_0x2e4)
           .DATA.L _njSin ; H'8C024460
           .DATA.L _var_cameraMode_8c227d9c ; H'8C024464
           .DATA.L _var_firstUpshift_8c22864c ; H'8C024468

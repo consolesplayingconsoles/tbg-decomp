@@ -441,11 +441,11 @@ STATIC void gradeSignals_8c02b8b8(void) {
 
 /* Grades a wrong-lane penalty, escalating on repeats
  * via a counter (var_8c2285c4[11], 0x2285f0); grades a further one
- * when var_8c22861c[5]/var_8c228634[1]/[2] and the var_8c1bbd1c/
- * var_8c1bbd38 turn-signal aliases (0x40000 bit) don't all agree; and
+ * when var_8c22861c[5]/var_8c228634[1]/[2] and the junctionARoadFlags_0x34c/
+ * junctionBRoadFlags_0x368 turn-signal bits (0x40000) don't all agree; and
  * grades a third, timeout-based one (var_8c2285fc[3]/[4], via
  * var_8c2285c4[17]/[18]) when the player's signal duration exceeds a
- * threshold picked from var_8c1bbd1c's turn-direction bits. */
+ * threshold picked from junctionARoadFlags_0x34c's turn-direction bits. */
 STATIC void gradeLaneUse_8c02b986(void) {
     /* 1 if the checked side is >= var_laneC_8c22867c, 2 if it's less -- mirrors
      * which of the two comparisons below ran (the other is short-circuited
@@ -466,8 +466,8 @@ STATIC void gradeLaneUse_8c02b986(void) {
         armCooldowns_8c02b578(4);
     }
 
-    if (var_8c2285c4[27] == var_prevLane_8c228684 || (var_8c1bbd1c & 0x40000) == 0
-        || (var_8c1bbd38 & 0x40000) == 0 || (var_8c2285c4[29] & 0x40000) == 0
+    if (var_8c2285c4[27] == var_prevLane_8c228684 || (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x40000) == 0
+        || (var_busState_8c1bb9d0.junctionBRoadFlags_0x368 & 0x40000) == 0 || (var_8c2285c4[29] & 0x40000) == 0
         || (var_8c2285c4[30] & 0x40000) == 0) {
         if (var_inputMapSel_8c1bb8c8 == 0) {
             if (var_laneA_8c228674 != var_laneC_8c22867c) {
@@ -483,8 +483,8 @@ STATIC void gradeLaneUse_8c02b986(void) {
                 var_8c2285c4[18] = 0;
             } else {
                 if (var_8c2285c4[18] == 0) {
-                    if ((cmpDir == 2 && (var_8c1bbd1c & 0xc0000000) == 0x40000000)
-                        || (cmpDir == 1 && (var_8c1bbd1c & 0xc0000000) == 0x80000000)) {
+                    if ((cmpDir == 2 && (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xc0000000) == 0x40000000)
+                        || (cmpDir == 1 && (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xc0000000) == 0x80000000)) {
                         threshold = 0xd2;
                     } else {
                         threshold = 0x3c;
@@ -650,12 +650,9 @@ STATIC void gradeFrame_8c02bcd8(void) {
     }
 
     if (!skipHoldTimer) {
-        /* var_8c1bbd1c/var_8c1bbd54 (== var_busState_8c1bb9d0's junctionARoadFlags_0x34c/
-         * field_0x384, see sectionB.h) -- disasm confirms this check
-         * addresses them via these aliases, not through the struct. */
         if (var_frameSpeed_8c22866c == 0.0f
-            && ((var_8c1bbd1c & 0x30000000) == 0x20000000
-                || (var_8c1bbd54 & 0x30000000) == 0x20000000)) {
+            && ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x30000000) == 0x20000000
+                || (var_busState_8c1bb9d0.junctionCRoadFlags_0x384 & 0x30000000) == 0x20000000)) {
             var_8c22861c[4] = var_8c22861c[4] - 1;
             if (var_8c22861c[4] < 0) {
                 var_8c22861c[4] = 0x78;
@@ -990,7 +987,7 @@ STATIC void taskCallback_8c02c072() {
             laneAlias = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf0000001;
             var_laneA_8c228674 = laneAlias;
             var_laneB_8c228678 = var_busState_8c1bb9d0.junctionBRoadFlags2_0x374 & 0xf0000001;
-            var_laneC_8c22867c = var_busState_8c1bb9d0.junctionCRoadFlags_0x390 & 0xf0000001;
+            var_laneC_8c22867c = var_busState_8c1bb9d0.junctionCRoadFlags2_0x390 & 0xf0000001;
             if (laneAlias == var_laneB_8c228678) {
                 var_8c228634[0] = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000;
                 var_8c22861c[5] = laneAlias;

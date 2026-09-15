@@ -205,7 +205,7 @@ void BusInitStart_8c023610(void)
     BusDriveSampleGround_8c023938();
     BusDriveApplyGround_8c023cba();
 
-    VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_playerBus_8c1bbd9c);
+    VehicleModelPlace_8c020594(&var_busState_8c1bb9d0.worldMatrix_0x084, var_playerBus_8c1bbd9c);
 
     result = AttrQueryFindPolygon_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[2].x,
                            var_busState_8c1bb9d0.posHistory_0x100[2].y,
@@ -245,22 +245,22 @@ void BusInitStart_8c023610(void)
                            var_busState_8c1bb9d0.posHistory_0x100[3].z,
                            &var_busState_8c1bb9d0.junctionCSlot_0x378);
     if (result != NULL) {
-        var_busState_8c1bb9d0.field_0x384 = ((int *)result)[0];
+        var_busState_8c1bb9d0.junctionCRoadFlags_0x384 = ((int *)result)[0];
         var_busState_8c1bb9d0.field_0x388 = ((int *)result)[1];
         var_busState_8c1bb9d0.field_0x38c = ((int *)result)[2];
-        var_busState_8c1bb9d0.junctionCRoadFlags_0x390 = ((int *)result)[3];
+        var_busState_8c1bb9d0.junctionCRoadFlags2_0x390 = ((int *)result)[3];
     } else {
-        var_busState_8c1bb9d0.field_0x384 = 0;
+        var_busState_8c1bb9d0.junctionCRoadFlags_0x384 = 0;
         var_busState_8c1bb9d0.field_0x388 = 0;
         var_busState_8c1bb9d0.field_0x38c = 0;
-        var_busState_8c1bb9d0.junctionCRoadFlags_0x390 = 0;
+        var_busState_8c1bb9d0.junctionCRoadFlags2_0x390 = 0;
     }
 
     var_busState_8c1bb9d0.fallbackTaskMatchId_0x3a0 = 0;
     var_busState_8c1bb9d0.markDriveFlags_0x3b0 = 0;
     var_busState_8c1bb9d0.markCueByte_0x3b4 = 0;
     var_busState_8c1bb9d0.markAudioCue_0x3b8 = 0;
-    var_busState_8c1bb9d0.markExtra_0x3bc = 0;
+    var_busState_8c1bb9d0.scenePresetIds_0x3bc = 0;
     var_busState_8c1bb9d0.doorState_0x3c0 = 0;
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 8) != 8) {

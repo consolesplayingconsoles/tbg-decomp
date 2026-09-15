@@ -17,7 +17,6 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         // The original asm imports BusState.fallbackTaskMatchId_0x3a0 under its own
         // symbol, var_8c1bbd70 -- a linker coincidence, not a real global.
-        $this->rellocate('_var_8c1bbd70', $this->addressOf('_var_busState_8c1bb9d0') + 0x3a0);
     }
 
     private function makeTask(int $index, int $action, int $state): int {

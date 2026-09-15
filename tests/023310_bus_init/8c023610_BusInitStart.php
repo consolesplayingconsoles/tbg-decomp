@@ -83,7 +83,6 @@ return new class extends TestCase {
         // var_busState_8c1bb9d0 (base+0x84); the .src object computes its
         // address via that adjacency rather than the symbol, so mirror the
         // layout here instead of allocating it separately.
-        $this->rellocate('_var_busWorldMatrix_8c1bba54', $base + 0x84);
 
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $atariBus = 0xcafe0100;
@@ -186,7 +185,7 @@ return new class extends TestCase {
         $this->shouldCall('_BusDriveApplyGround_8c023cba');
 
         $this->shouldCall('_VehicleModelPlace_8c020594')->with(
-            $this->addressOf('_var_busWorldMatrix_8c1bba54'),
+            ($this->addressOf('_var_busState_8c1bb9d0') + 0x084),
             $base,
         );
 

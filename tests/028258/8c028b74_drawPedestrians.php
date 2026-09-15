@@ -18,11 +18,10 @@ return new class extends TestCase {
         $this->setSize('_atan2f', 4);
         $this->setSize('_var_pedGroups_8c228230', 4);
         $this->setSize('_var_pedGroupCount_8c228234', 4);
-        $this->setSize('_var_busCameraFocusX_8c1bbcd8', 4);
-        $this->setSize('_var_busCameraFocusZ_8c1bbce0', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
-        $this->initUint32($this->addressOf('_var_busCameraFocusX_8c1bbcd8'), fdec(7.0));
-        $this->initUint32($this->addressOf('_var_busCameraFocusZ_8c1bbce0'), fdec(5.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(7.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x310), fdec(5.0));
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 0);
         $this->initUint32($this->addressOf('_var_pedGroups_8c228230'), 0xbebacafe);
 
@@ -43,11 +42,10 @@ return new class extends TestCase {
         $this->setSize('_njDrawSprite3D', 4);
         $this->setSize('_var_pedGroups_8c228230', 4);
         $this->setSize('_var_pedGroupCount_8c228234', 4);
-        $this->setSize('_var_busCameraFocusX_8c1bbcd8', 4);
-        $this->setSize('_var_busCameraFocusZ_8c1bbce0', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
-        $this->initUint32($this->addressOf('_var_busCameraFocusX_8c1bbcd8'), fdec(7.0));
-        $this->initUint32($this->addressOf('_var_busCameraFocusZ_8c1bbce0'), fdec(5.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(7.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x310), fdec(5.0));
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
         $obj = $this->alloc(0x60);
@@ -84,11 +82,10 @@ return new class extends TestCase {
         $this->setSize('_atan2f', 4);
         $this->setSize('_var_pedGroups_8c228230', 4);
         $this->setSize('_var_pedGroupCount_8c228234', 4);
-        $this->setSize('_var_busCameraFocusX_8c1bbcd8', 4);
-        $this->setSize('_var_busCameraFocusZ_8c1bbce0', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
-        $this->initUint32($this->addressOf('_var_busCameraFocusX_8c1bbcd8'), fdec(7.0));
-        $this->initUint32($this->addressOf('_var_busCameraFocusZ_8c1bbce0'), fdec(5.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(7.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x310), fdec(5.0));
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
         $groups = $this->alloc(0xc);
@@ -114,11 +111,10 @@ return new class extends TestCase {
         $this->setSize('_njDrawSprite3D', 4);
         $this->setSize('_var_pedGroups_8c228230', 4);
         $this->setSize('_var_pedGroupCount_8c228234', 4);
-        $this->setSize('_var_busCameraFocusX_8c1bbcd8', 4);
-        $this->setSize('_var_busCameraFocusZ_8c1bbce0', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
-        $this->initUint32($this->addressOf('_var_busCameraFocusX_8c1bbcd8'), fdec(0.0));
-        $this->initUint32($this->addressOf('_var_busCameraFocusZ_8c1bbce0'), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x310), fdec(0.0));
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
         $target = $this->alloc(0x14);
@@ -188,11 +184,10 @@ return new class extends TestCase {
         $this->setSize('_njDrawSprite3D', 4);
         $this->setSize('_var_pedGroups_8c228230', 4);
         $this->setSize('_var_pedGroupCount_8c228234', 4);
-        $this->setSize('_var_busCameraFocusX_8c1bbcd8', 4);
-        $this->setSize('_var_busCameraFocusZ_8c1bbce0', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
-        $this->initUint32($this->addressOf('_var_busCameraFocusX_8c1bbcd8'), fdec(0.0));
-        $this->initUint32($this->addressOf('_var_busCameraFocusZ_8c1bbce0'), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x310), fdec(0.0));
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
         $target = $this->alloc(0x14);
@@ -269,11 +264,10 @@ return new class extends TestCase {
         $this->setSize('_njDrawSprite3D', 4);
         $this->setSize('_var_pedGroups_8c228230', 4);
         $this->setSize('_var_pedGroupCount_8c228234', 4);
-        $this->setSize('_var_busCameraFocusX_8c1bbcd8', 4);
-        $this->setSize('_var_busCameraFocusZ_8c1bbce0', 4);
+        $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
-        $this->initUint32($this->addressOf('_var_busCameraFocusX_8c1bbcd8'), fdec(0.0));
-        $this->initUint32($this->addressOf('_var_busCameraFocusZ_8c1bbce0'), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(0.0));
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x310), fdec(0.0));
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
         // 128 distinct targets fill the 0x400-byte / 8-byte-entry cache

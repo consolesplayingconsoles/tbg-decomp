@@ -40,10 +40,6 @@ return new class extends TestCase {
         // The alt[2] test reads signalSide_0x25c through its own section B
         // symbol; same bytes as $base + 0x25c (see sectionB.h's BusState
         // note), so the two views have to share one allocation.
-        $this->rellocate(
-            '_var_signalSide_8c1bbc2c',
-            $this->addressOf('_var_busState_8c1bb9d0') + 0x25c
-        );
     }
 
     // A LinePoint: {float len; float x; float z; float dx; float dz;}

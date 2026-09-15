@@ -317,7 +317,7 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
  *     the bus (busState's posX_0x0f4/posZ_0x0fc) to the upcoming stop
  *     (var_8c228900.x/var_8c228908) and drives the marker's animation
  *     frame/draw callback, transitioning to "stopped" (3, via bus_state 3)
- *     once close enough and halted (var_8c1bbc4c == 0), or once the stop
+ *     once close enough and halted (var_busState_8c1bb9d0.speed_0x27c == 0), or once the stop
  *     segment is reached outright (bus_state 4);
  * 3 = idle, waiting for something external to request the finish;
  * 4 = finishes the stop once markDriveFlags_0x3b0's top byte is set, installing the
@@ -363,8 +363,8 @@ void BusStopUpdateArrival_8c02ce48(void)
         if (distance < var_stopMinDistance_8c2285ec) {
             var_stopMinDistance_8c2285ec = distance;
         }
-        if ((distance < 3.0f && var_8c1bbc4c == 0.0f) ||
-            (var_stopMinDistance_8c2285ec < 3.0f && var_8c1bbc4c == 0.0f)) {
+        if ((distance < 3.0f && var_busState_8c1bb9d0.speed_0x27c == 0.0f) ||
+            (var_stopMinDistance_8c2285ec < 3.0f && var_busState_8c1bb9d0.speed_0x27c == 0.0f)) {
             var_busState_8c1bb9d0.driveState_0x2b4 = 3;
             var_stopPhase_8c2285e4 = 3;
             var_8c2285c4[0] = 3;

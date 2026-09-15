@@ -193,7 +193,7 @@ STATIC void midiSetPitch_8c01023c()
 /* Tested */
 STATIC void FUN_8c0102d8()
 {
-    int bcb0 = var_8c1bbcb0;
+    int bcb0 = var_busState_8c1bb9d0.engineState_0x2e0;
     int var_engineRpm_8c226468_as_int = var_engineRpm_8c226468;
 
     if ((var_uknVol_8c0fcd50.activeFlags_0x00 & 1) != 1 && bcb0 == 1) {
