@@ -18,11 +18,11 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
-        $this->setSize('_var_8c228690', 4);
-        $this->setSize('_var_8c228694', 4);
-        $this->setSize('_var_8c228698', 4);
-        $this->setSize('_var_8c22869c', 4);
-        $this->setSize('_var_8c2286a0', 4);
+        $this->setSize('_var_cooldownCollision_8c228690', 4);
+        $this->setSize('_var_cooldownOffCourse_8c228694', 4);
+        $this->setSize('_var_cooldownSignal_8c228698', 4);
+        $this->setSize('_var_cooldownLane_8c22869c', 4);
+        $this->setSize('_var_cooldownIntersection_8c2286a0', 4);
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
@@ -81,11 +81,11 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x94, 0); // var_8c2285c4[37]
         $this->shouldWriteLong($base + 0x98, 0); // var_8c2285c4[38]
 
-        $this->shouldWriteLong($this->addressOf('_var_8c228690'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c228694'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c228698'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c22869c'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c2286a0'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cooldownCollision_8c228690'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cooldownOffCourse_8c228694'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cooldownSignal_8c228698'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cooldownLane_8c22869c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cooldownIntersection_8c2286a0'), 0);
 
         $this->shouldWriteLong($this->addressOf('_var_driveMsgQueue_8c228564') + 0x14, 0);
         $this->shouldWriteLong($this->addressOf('_var_driveMsgQueue_8c228564') + 0x2c, 0);

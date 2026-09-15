@@ -36,7 +36,7 @@ return new class extends TestCase {
         $this->setSize('_var_currentCourse_8c1bb868', 0x24);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
-        $this->setSize('_var_8c228660', 4);
+        $this->setSize('_var_wallHitBits_8c228660', 4);
         $this->setSize('_acosf', 4);
         $this->setSize('_var_8c227db0', 4);
         $this->setSize('_var_8c227db4', 4);
@@ -102,7 +102,7 @@ return new class extends TestCase {
         $this->call('_BusTask_8c022bdc')->with($this->alloc(4), $this->alloc(4));
 
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', $atariBus);
-        $this->shouldWriteLongTo('_var_8c228660', 0);
+        $this->shouldWriteLongTo('_var_wallHitBits_8c228660', 0);
         $this->shouldWriteLong($base + 0x080, 0);
 
         $acosResult = 0.8;

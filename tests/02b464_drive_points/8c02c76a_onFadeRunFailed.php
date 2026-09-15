@@ -14,15 +14,15 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 5); // days_0x00
 
-        $this->call('_FUN_8c02c76a');
+        $this->call('_onFadeRunFailed_8c02c76a');
 
         $this->shouldWriteLong($this->addressOf('_var_progress_8c1ba1cc'), 6);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
 
-        // FUN_8c02c738 is a same-object callee with its own dependencies
+        // beginDriveEnd_8c02c738 is a same-object callee with its own dependencies
         // not set up here; mock rather than let it really execute.
-        $this->shouldCall('_FUN_8c02c738')->andReturn(0);
+        $this->shouldCall('_beginDriveEnd_8c02c738')->andReturn(0);
     }
 };

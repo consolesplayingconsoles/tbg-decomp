@@ -60,9 +60,9 @@
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_8c1bbc4c
           .IMPORT     _var_fadeCompleteCallback_8c22656c
-          .IMPORT     _FUN_8c02c586
+          .IMPORT     _DrivePointsRunComplete_8c02c586
           .IMPORT     _SndStartAdxFadeOut_8c010bae
-          .IMPORT     _FUN_8c02c784
+          .IMPORT     _DrivePointsOnFadeDriveEnd_8c02c784
           .EXPORT     _BusStopFreeTaskGroup_8c02ca96
           .EXPORT     _BusStopSetup_8c02caba
           .EXPORT     _BusStopUpdateStopHeadings_8c02ccc6
@@ -1061,8 +1061,8 @@ LP_GEN_27124:
           .DATA.L _var_8c1bbc4c ; H'8C02D050
           .DATA.L _var_nextStopSegment_8c228710 ; H'8C02D054
           .DATA.L H'FF000000 ; H'8C02D058
-          .DATA.L _FUN_8c02c784 ; H'8C02D05C
+          .DATA.L _DrivePointsOnFadeDriveEnd_8c02c784 ; H'8C02D05C
           .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C02D060
-          .DATA.L _FUN_8c02c586 ; H'8C02D064
+          .DATA.L _DrivePointsRunComplete_8c02c586 ; H'8C02D064
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C02D068
           .END

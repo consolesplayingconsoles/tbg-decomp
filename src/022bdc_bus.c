@@ -49,7 +49,7 @@ void BusTask_8c022bdc(Task *task, void *state)
     prevSpeed = var_busState_8c1bb9d0.speed_0x27c;
 
     var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
-    var_8c228660 = 0;
+    var_wallHitBits_8c228660 = 0;
     var_busState_8c1bb9d0.blinker_0x080 = 0;
 
     /* Current heading angle from the bus's own forward direction

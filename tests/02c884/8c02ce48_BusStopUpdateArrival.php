@@ -74,8 +74,8 @@ return new class extends TestCase {
         //   _drawStopMarker_8c02cd92 (address only, not called directly)
 
         // Cross-unit, not yet decompiled (02b464) -- mock with shouldCall().
-        //   _FUN_8c02c586
-        //   _FUN_8c02c784 (address only, not called directly)
+        //   _DrivePointsRunComplete_8c02c586
+        //   _DrivePointsOnFadeDriveEnd_8c02c784 (address only, not called directly)
     }
 
     private function initBusState(int $field0x3b0, int $field0x3b4, float $speed): int
@@ -357,7 +357,7 @@ return new class extends TestCase {
     }
 
     // State 4, finish bit set, not enough driver points -- skips the extra
-    // FUN_8c02c586 side effect.
+    // DrivePointsRunComplete_8c02c586 side effect.
     public function test_state4_finishes_no_bonus(): void
     {
         $this->resolveSymbols();
@@ -373,12 +373,12 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c2285e8', 0);
         $this->shouldWriteLongTo('_var_8c2285c4', 4);
         $this->shouldWriteLongTo('_var_8c2285cc', 0x1e);
-        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_FUN_8c02c784'));
+        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_DrivePointsOnFadeDriveEnd_8c02c784'));
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
     }
 
-    // State 4, finish bit set, enough driver points and FUN_8c02c586 signals
+    // State 4, finish bit set, enough driver points and DrivePointsRunComplete_8c02c586 signals
     // -- also sets var_8c2285c8.
     public function test_state4_finishes_with_bonus(): void
     {
@@ -395,8 +395,8 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c2285e8', 0);
         $this->shouldWriteLongTo('_var_8c2285c4', 4);
         $this->shouldWriteLongTo('_var_8c2285cc', 0x1e);
-        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_FUN_8c02c784'));
-        $this->shouldCall('_FUN_8c02c586')->with()->andReturn(1);
+        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_DrivePointsOnFadeDriveEnd_8c02c784'));
+        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->with()->andReturn(1);
         $this->shouldWriteLongTo('_var_8c2285c8', 1);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);

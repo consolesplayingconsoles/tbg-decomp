@@ -22,7 +22,7 @@ return new class extends TestCase {
         $this->initUint32($task + 8, 0); // phase 0
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->call('_FUN_8c02c69a')->with($task, 0);
+        $this->call('_driveEndFadeTask_8c02c69a')->with($task, 0);
 
         $this->shouldWriteLong($task + 0xc, 0);
         $this->shouldWriteLong($task + 8, 1);
@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->initUint32($task + 8, 1); // phase 1
         $this->initUint32($task + 0xc, 0x1e); // counter, one away from tripping
 
-        $this->call('_FUN_8c02c69a')->with($task, 0);
+        $this->call('_driveEndFadeTask_8c02c69a')->with($task, 0);
 
         $this->shouldWriteLong($task + 0xc, 0x1f);
         $this->shouldWriteLong($task + 8, 2);
@@ -58,7 +58,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
 
-        $this->call('_FUN_8c02c69a')->with($task, 0);
+        $this->call('_driveEndFadeTask_8c02c69a')->with($task, 0);
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_ResultShowPassedRun_8c01e0b4');
@@ -73,7 +73,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 1);
 
-        $this->call('_FUN_8c02c69a')->with($task, 0);
+        $this->call('_driveEndFadeTask_8c02c69a')->with($task, 0);
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_shouldShowFreeRunIntro_8c1bb8c0'), 0);

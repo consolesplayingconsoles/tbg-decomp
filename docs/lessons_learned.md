@@ -746,8 +746,8 @@ keeps feeding the linker the old path and fails on a missing input. Delete
 ## Ghidra reorders writes; statement order in its output is not evidence
 
 In `busDriveDecelerate_8c023bea` (023938_bus_drive) Ghidra emitted the
-`var_8c228660 |=` before the `speed_0x27c` write in each branch; the asm does
-`sdMidiPlay` -> speed write -> `var_8c228660` write. Nothing about the output
+`var_wallHitBits_8c228660 |=` before the `speed_0x27c` write in each branch; the asm does
+`sdMidiPlay` -> speed write -> `var_wallHitBits_8c228660` write. Nothing about the output
 looks suspicious, so this only surfaced as an unexpected-write-order failure
 against the asm object. Whenever two writes are both observable, check their order
 against the asm rather than reading it off the decompile, and assert the order

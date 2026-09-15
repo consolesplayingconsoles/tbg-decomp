@@ -41,7 +41,7 @@ void BusDriveStop_8c023bce(void)
 }
 
 /* Plays a braking-pitch sound cue keyed by speed_0x27c, damps speed_0x27c
- * toward it, and marks var_8c228660's corresponding bit, then stops the
+ * toward it, and marks var_wallHitBits_8c228660's corresponding bit, then stops the
  * drivetrain (BusDriveStop_8c023bce). Called by FUN_8c023cba whenever the
  * lane-offset path data isn't ready. */
 STATIC void busDriveDecelerate_8c023bea(void)
@@ -49,15 +49,15 @@ STATIC void busDriveDecelerate_8c023bea(void)
     if (var_busState_8c1bb9d0.speed_0x27c < 0.1388889f) {
         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x13, 0);
         var_busState_8c1bb9d0.speed_0x27c = 0.3f;
-        var_8c228660 |= 2;
+        var_wallHitBits_8c228660 |= 2;
     } else if (var_busState_8c1bb9d0.speed_0x27c < 0.2777778f) {
         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x14, 0);
         var_busState_8c1bb9d0.speed_0x27c = var_busState_8c1bb9d0.speed_0x27c / 2.0f + 0.3f;
-        var_8c228660 |= 4;
+        var_wallHitBits_8c228660 |= 4;
     } else {
         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x15, 0);
         var_busState_8c1bb9d0.speed_0x27c = var_busState_8c1bb9d0.speed_0x27c / 2.0f + 0.3f;
-        var_8c228660 |= 6;
+        var_wallHitBits_8c228660 |= 6;
     }
 
     BusDriveStop_8c023bce();

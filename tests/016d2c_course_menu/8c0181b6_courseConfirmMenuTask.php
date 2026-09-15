@@ -468,9 +468,9 @@ return new class extends TestCase {
         // Step 3: Initialize various game state variables
         $this->shouldWriteLongTo('_var_eventCount_8c1bb8e8', 0);
         $this->shouldWriteLongTo('_var_passengerCount_8c1bb8e4', 0);
-        $this->shouldWriteLongTo('_var_8c1bb8f0', 0);
-        $this->shouldWriteLongTo('_var_8c1bb8ec', 0x1d);
-        $this->shouldWriteLongTo('_var_8c1bb8f4', 0);
+        $this->shouldWriteLongTo('_var_worstPenaltyDelta_8c1bb8f0', 0);
+        $this->shouldWriteLongTo('_var_worstPenaltyMsgSet_8c1bb8ec', 0x1d);
+        $this->shouldWriteLongTo('_var_penaltyCount_8c1bb8f4', 0);
 
         // Step 4: Copy progress data to two pointer arrays (5 uint32 values each)
         for ($i = 0; $i < 5; $i++) {
@@ -542,9 +542,9 @@ return new class extends TestCase {
         // Step 3: Initialize various game state variables (this always happens)
         $this->shouldWriteLongTo('_var_eventCount_8c1bb8e8', 0);
         $this->shouldWriteLongTo('_var_passengerCount_8c1bb8e4', 0);
-        $this->shouldWriteLongTo('_var_8c1bb8f0', 0);
-        $this->shouldWriteLongTo('_var_8c1bb8ec', 0x1d);
-        $this->shouldWriteLongTo('_var_8c1bb8f4', 0);
+        $this->shouldWriteLongTo('_var_worstPenaltyDelta_8c1bb8f0', 0);
+        $this->shouldWriteLongTo('_var_worstPenaltyMsgSet_8c1bb8ec', 0x1d);
+        $this->shouldWriteLongTo('_var_penaltyCount_8c1bb8f4', 0);
 
         // Step 4: Copy progress data to two arrays (5 uint32 values each)
         for ($i = 0; $i < 5; $i++) {
@@ -678,9 +678,9 @@ return new class extends TestCase {
         $this->setSize('_var_firstClearOfCourse_8c1bb8e0', 4);
         $this->setSize('_var_passengerCount_8c1bb8e4', 4);
         $this->setSize('_var_eventCount_8c1bb8e8', 4);
-        $this->setSize('_var_8c1bb8ec', 4);
-        $this->setSize('_var_8c1bb8f0', 4);
-        $this->setSize('_var_8c1bb8f4', 4);
+        $this->setSize('_var_worstPenaltyMsgSet_8c1bb8ec', 4);
+        $this->setSize('_var_worstPenaltyDelta_8c1bb8f0', 4);
+        $this->setSize('_var_penaltyCount_8c1bb8f4', 4);
         $this->setSize('_var_8c1ba2b8', 0x14); // 5 uint32 values
         $this->setSize('_var_8c1ba2cc', 0x14); // 5 uint32 values
         $this->setSize('_PTR_PTR_8c044d0c', 32); // Lookup table for days

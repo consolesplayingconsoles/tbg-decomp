@@ -16,9 +16,9 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bbd9c', 4); // BusState*, allocated via alloc()
         $this->setSize('_var_8c228664', 4);
         $this->setSize('_var_8c228668', 4);
-        $this->setSize('_var_8c22866c', 4);
-        $this->setSize('_var_8c228670', 4);
-        $this->setSize('_var_8c228690', 4);
+        $this->setSize('_var_frameSpeed_8c22866c', 4);
+        $this->setSize('_var_bumpSpeed_8c228670', 4);
+        $this->setSize('_var_cooldownCollision_8c228690', 4);
         $this->setSize('_njSqrt', 4);
     }
 
@@ -47,7 +47,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_CollisionQueueTest_8c02e4ac')->andReturn(0x1234);
         $this->shouldCall('_adjust_8c02b464')->with(0x1f, 0xffffff38); // -200
-        $this->shouldWriteLongTo('_var_8c228690', 0x7fff);
+        $this->shouldWriteLongTo('_var_cooldownCollision_8c228690', 0x7fff);
     }
 
     public function test_no_op_when_bus_not_driving(): void
@@ -94,8 +94,8 @@ return new class extends TestCase {
         $this->initFloat($other + 0x27c, 2.5); // speed, saved before overwrite
         $this->initUint32($other + 0x2e4, 0); // needleCurrentValue_0x2e4 == 0 branch
 
-        $this->initFloat($this->addressOf('_var_8c22866c'), 0.05); // player speed: lowest tier
-        $this->initUint32($this->addressOf('_var_8c228690'), 0xfffffffb); // -5: cooldown expired
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.05); // player speed: lowest tier
+        $this->initUint32($this->addressOf('_var_cooldownCollision_8c228690'), 0xfffffffb); // -5: cooldown expired
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
 
         $this->call('_handleBump_8c02b6d4');
@@ -105,17 +105,17 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
         $this->shouldWriteLongTo('_var_8c228668', $other);
-        $this->shouldWriteFloat($this->addressOf('_var_8c228670'), 2.5);
+        $this->shouldWriteFloat($this->addressOf('_var_bumpSpeed_8c228670'), 2.5);
         $this->shouldCall('_njSqrt')->with(25.0)->andReturn(5.0); // dx*dx+dz*dz = 3^2+4^2
         $this->shouldWriteLong($other + 0x2b4, 1);
-        $this->shouldWriteFloat($other + 0x27c, $this->f32($this->f32(0.05) + $this->f32(0.3))); // var_8c22866c + 0.3
+        $this->shouldWriteFloat($other + 0x27c, $this->f32($this->f32(0.05) + $this->f32(0.3))); // var_frameSpeed_8c22866c + 0.3
         $this->shouldWriteFloat($other + 0x29c, $this->f32(3.0 / 5.0)); // dx/dist
         $this->shouldWriteFloat($other + 0x2a0, $this->f32(4.0 / 5.0)); // dz/dist
         $this->shouldWriteLong($other + 0x19c, 0);
         $this->shouldWriteLong($other + 0x1ac, 0);
         $this->shouldWriteLong($other + 0x1bc, 0);
         $this->shouldCall('_BusDriveStop_8c023bce');
-        $this->shouldWriteFloat($me + 0x27c, $this->f32($this->f32(2.5) + $this->f32(0.3))); // var_8c228670 + 0.3
+        $this->shouldWriteFloat($me + 0x27c, $this->f32($this->f32(2.5) + $this->f32(0.3))); // var_bumpSpeed_8c228670 + 0.3
         $this->shouldWriteFloat($me + 0x29c, -$this->f32(3.0 / 5.0));
         $this->shouldWriteFloat($me + 0x2a0, -$this->f32(4.0 / 5.0));
         $this->shouldWriteFloat($me + 0x2ac, -$this->f32(3.0 / 5.0));
@@ -141,8 +141,8 @@ return new class extends TestCase {
         $this->initFloat($other + 0x27c, 2.5);
         $this->initUint32($other + 0x2e4, 1); // needleCurrentValue_0x2e4 != 0 branch
 
-        $this->initFloat($this->addressOf('_var_8c22866c'), 0.5); // highest tier
-        $this->initUint32($this->addressOf('_var_8c228690'), 0); // cooldown still active
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.5); // highest tier
+        $this->initUint32($this->addressOf('_var_cooldownCollision_8c228690'), 0); // cooldown still active
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
 
         $this->call('_handleBump_8c02b6d4');
@@ -152,7 +152,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
         $this->shouldWriteLongTo('_var_8c228668', $other);
-        $this->shouldWriteFloat($this->addressOf('_var_8c228670'), 2.5);
+        $this->shouldWriteFloat($this->addressOf('_var_bumpSpeed_8c228670'), 2.5);
         $this->shouldCall('_njSqrt')->with(25.0)->andReturn(5.0);
         $this->shouldWriteLong($other + 0x2b4, 1);
         $this->shouldWriteFloat($other + 0x27c, $this->f32($this->f32(0.5) + $this->f32(0.3)));
@@ -166,7 +166,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($me + 0x2ac, -$this->f32(3.0 / 5.0));
         $this->shouldWriteFloat($me + 0x2b0, -$this->f32(4.0 / 5.0));
         $this->shouldCall('_VibStart_8c010f7a')->with(6);
-        // Cooldown still active (var_8c228690 >= 0): no penalty, no re-arm.
+        // Cooldown still active (var_cooldownCollision_8c228690 >= 0): no penalty, no re-arm.
     }
 
     public function test_mid_speed_bump_applies_mid_tier_penalty(): void
@@ -185,8 +185,8 @@ return new class extends TestCase {
         $this->initFloat($other + 0x27c, 2.5);
         $this->initUint32($other + 0x2e4, 0);
 
-        $this->initFloat($this->addressOf('_var_8c22866c'), 0.2); // mid tier
-        $this->initUint32($this->addressOf('_var_8c228690'), 0xffffffff); // -1: cooldown expired
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.2); // mid tier
+        $this->initUint32($this->addressOf('_var_cooldownCollision_8c228690'), 0xffffffff); // -1: cooldown expired
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
 
         $this->call('_handleBump_8c02b6d4');
@@ -196,7 +196,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
         $this->shouldWriteLongTo('_var_8c228668', $other);
-        $this->shouldWriteFloat($this->addressOf('_var_8c228670'), 2.5);
+        $this->shouldWriteFloat($this->addressOf('_var_bumpSpeed_8c228670'), 2.5);
         $this->shouldCall('_njSqrt')->with(25.0)->andReturn(5.0);
         $this->shouldWriteLong($other + 0x2b4, 1);
         $this->shouldWriteFloat($other + 0x27c, $this->f32($this->f32(0.2) + $this->f32(0.3)));

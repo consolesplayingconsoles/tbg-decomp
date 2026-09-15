@@ -228,13 +228,13 @@
           .EXPORT     _var_eventCount_8c1bb8e8 ; 016d2c_course_menu
                                     ; 01d7fc
                                     ; 028258
-          .EXPORT     _var_8c1bb8ec ; 016d2c_course_menu
+          .EXPORT     _var_worstPenaltyMsgSet_8c1bb8ec ; 016d2c_course_menu
                                     ; 01e27c
                                     ; 02b464
-          .EXPORT     _var_8c1bb8f0 ; 016d2c_course_menu
+          .EXPORT     _var_worstPenaltyDelta_8c1bb8f0 ; 016d2c_course_menu
                                     ; 01e27c
                                     ; 02b464
-          .EXPORT     _var_8c1bb8f4 ; 016d2c_course_menu
+          .EXPORT     _var_penaltyCount_8c1bb8f4 ; 016d2c_course_menu
                                     ; 01e27c
                                     ; 02b464
           .EXPORT     _var_award_8c1bb8f8 ; 016d2c_course_menu
@@ -787,25 +787,25 @@
                                     ; 02c884
           .EXPORT     _var_8c228640 ; 02c884
           .EXPORT     _var_8c22864c ; 024280
-          .EXPORT     _var_8c228660 ; 022bdc
+          .EXPORT     _var_wallHitBits_8c228660 ; 022bdc
                                     ; 023938
                                     ; 02b464
           .EXPORT     _var_8c228664 ; 02b464
           .EXPORT     _var_8c228668 ; 02b464
-          .EXPORT     _var_8c22866c ; 02b464
-          .EXPORT     _var_8c228670 ; 02b464
-          .EXPORT     _var_8c228674 ; 02b464
-          .EXPORT     _var_8c228678 ; 02b464
-          .EXPORT     _var_8c22867c ; 02b464
-          .EXPORT     _var_8c228680 ; 02b464
-          .EXPORT     _var_8c228684 ; 02b464
-          .EXPORT     _var_8c228688 ; 02b464
-          .EXPORT     _var_8c22868c ; 02b464
-          .EXPORT     _var_8c228690 ; 02b464
-          .EXPORT     _var_8c228694 ; 02b464
-          .EXPORT     _var_8c228698 ; 02b464
-          .EXPORT     _var_8c22869c ; 02b464
-          .EXPORT     _var_8c2286a0 ; 02b464
+          .EXPORT     _var_frameSpeed_8c22866c ; 02b464
+          .EXPORT     _var_bumpSpeed_8c228670 ; 02b464
+          .EXPORT     _var_laneA_8c228674 ; 02b464
+          .EXPORT     _var_laneB_8c228678 ; 02b464
+          .EXPORT     _var_laneC_8c22867c ; 02b464
+          .EXPORT     _var_offCourseBits_8c228680 ; 02b464
+          .EXPORT     _var_prevLane_8c228684 ; 02b464
+          .EXPORT     _var_prevLaneFlags_8c228688 ; 02b464
+          .EXPORT     _var_headingVsRoad_8c22868c ; 02b464
+          .EXPORT     _var_cooldownCollision_8c228690 ; 02b464
+          .EXPORT     _var_cooldownOffCourse_8c228694 ; 02b464
+          .EXPORT     _var_cooldownSignal_8c228698 ; 02b464
+          .EXPORT     _var_cooldownLane_8c22869c ; 02b464
+          .EXPORT     _var_cooldownIntersection_8c2286a0 ; 02b464
           .EXPORT     _var_8c2286a4 ; 02c884
           .EXPORT     _var_startStopIndex_8c228704 ; 012f44_game
                                     ; 02c884
@@ -984,11 +984,11 @@ _var_passengerCount_8c1bb8e4:
           .RES.B      4
 _var_eventCount_8c1bb8e8:
           .RES.B      4
-_var_8c1bb8ec:
+_var_worstPenaltyMsgSet_8c1bb8ec:
           .RES.B      4
-_var_8c1bb8f0:
+_var_worstPenaltyDelta_8c1bb8f0:
           .RES.B      4
-_var_8c1bb8f4:
+_var_penaltyCount_8c1bb8f4:
           .RES.B      4
 _var_award_8c1bb8f8:
           .RES.B      4
@@ -1507,39 +1507,39 @@ _var_8c228640:
           .RES.B      8
 _var_8c22864c:
           .RES.B      20
-_var_8c228660:
+_var_wallHitBits_8c228660:
           .RES.B      4
 _var_8c228664:
           .RES.B      4
 _var_8c228668:
           .RES.B      4
-_var_8c22866c:
+_var_frameSpeed_8c22866c:
           .RES.B      4
-_var_8c228670:
+_var_bumpSpeed_8c228670:
           .RES.B      4
-_var_8c228674:
+_var_laneA_8c228674:
           .RES.B      4
-_var_8c228678:
+_var_laneB_8c228678:
           .RES.B      4
-_var_8c22867c:
+_var_laneC_8c22867c:
           .RES.B      4
-_var_8c228680:
+_var_offCourseBits_8c228680:
           .RES.B      4
-_var_8c228684:
+_var_prevLane_8c228684:
           .RES.B      4
-_var_8c228688:
+_var_prevLaneFlags_8c228688:
           .RES.B      4
-_var_8c22868c:
+_var_headingVsRoad_8c22868c:
           .RES.B      4
-_var_8c228690:
+_var_cooldownCollision_8c228690:
           .RES.B      4
-_var_8c228694:
+_var_cooldownOffCourse_8c228694:
           .RES.B      4
-_var_8c228698:
+_var_cooldownSignal_8c228698:
           .RES.B      4
-_var_8c22869c:
+_var_cooldownLane_8c22869c:
           .RES.B      4
-_var_8c2286a0:
+_var_cooldownIntersection_8c2286a0:
           .RES.B      4
 _var_8c2286a4:
           .RES.B      96

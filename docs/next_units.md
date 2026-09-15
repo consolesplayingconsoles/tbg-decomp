@@ -285,6 +285,38 @@ note above. Two of its four raw-asm dependencies (`024b4c`, `023938`) have
 since been decompiled (see their own entries above); it still depends on
 `02e2dc` and `02b2f0` (see the priority table and suggested order above).
 
+**The graders are a priority chain, not a list.** `taskCallback_8c02c072`
+runs them inside nested `if (cooldown-- < 0)` blocks, so each is gated on the
+cooldown that the category *above* it arms, and each arms its own via
+`armCooldowns_8c02b578`. One offense therefore suppresses every lesser one
+while its cooldown runs -- 150 frames for a collision, 210 for off-course.
+`gradeOffCourseSevere_8c02b864` sits outside the chain and is never
+suppressed.
+
+That `armCooldowns_8c02b578(type)` argument is also what identifies each
+grader's subject, and is where the names below came from rather than
+guesswork: 1 collision, 2 off-course, 3 signal, 4 lane, 5 intersection.
+`gradeWallHit_8c02b7ea` (was `handleFlags_8c02b7ea`),
+`gradeOffCourseSevere_8c02b864`, `gradeOffCourse_8c02b886`,
+`gradeSignals_8c02b8b8`, `gradeLaneUse_8c02b986`,
+`gradeIntersection_8c02bb1c`, and the ungated per-frame
+`gradeFrame_8c02bcd8`. The drive-end group became
+`DrivePointsRunComplete_8c02c586`, `driveEndFadeTask_8c02c69a`,
+`beginDriveEnd_8c02c738`, `onFadeRunFailed_8c02c76a`,
+`onFadeStopEnded_8c02c624` and `DrivePointsOnFadeDriveEnd_8c02c784`.
+
+`gradeIntersection_8c02bb1c` is the weakest of those: its type-5 cooldown
+only covers the blocked-intersection branch, and the speeding check is the
+bigger half of the function. The three `onFade*` names are an invention --
+there is no convention in the codebase for a
+`var_fadeCompleteCallback_8c22656c` target, since `022464_fade.c` only ever
+assigns `FADE_NO_CALLBACK`.
+
+The 34 `init_8c04b*`/`init_8c04c*` HUD glyph-row tables are left
+address-named on purpose: they are only ever reached through
+`init_penaltyMsgGlyphs_8c04c35c[msgSet]`, so an individual name would add nothing the table's
+own comment doesn't already say.
+
 ### `02f320_replay_codec` (ShortUnit `ReplayCodec`) -- done
 
 Confirmed **LZW with LRU eviction**, not lzhuf/adaptive-Huffman as first

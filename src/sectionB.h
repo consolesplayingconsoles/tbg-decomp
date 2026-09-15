@@ -423,9 +423,9 @@ extern int var_runSucceeded_8c1bb8dc;
 extern int var_firstClearOfCourse_8c1bb8e0; // course was unlocked
 extern int var_passengerCount_8c1bb8e4;
 extern int var_eventCount_8c1bb8e8;
-extern int var_8c1bb8ec;
-extern int var_8c1bb8f0;
-extern int var_8c1bb8f4;
+extern int var_worstPenaltyMsgSet_8c1bb8ec;
+extern int var_worstPenaltyDelta_8c1bb8f0;
+extern int var_penaltyCount_8c1bb8f4;
 extern Uint8 var_award_8c1bb8f8;
 /* Reserved 12 bytes; only the leading int is read so far, compared against 2
  * by BusLineAdvance_8c02412c (02412c) to pick a mapped-route node's alternate next
@@ -472,7 +472,7 @@ extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
 /* Sit at var_busState_8c1bb9d0's base+0x34c/+0x368/+0x384 (its junctionARoadFlags_0x34c/
  * junctionBRoadFlags_0x368/field_0x384) but are exported as their own symbols and
- * addressed that way by FUN_8c02b986/FUN_8c02bb1c/FUN_8c02bcd8 (02b464),
+ * addressed that way by gradeLaneUse_8c02b986/gradeIntersection_8c02bb1c/gradeFrame_8c02bcd8 (02b464),
  * not through the struct. */
 extern int var_8c1bbd1c;
 extern int var_8c1bbd38;
@@ -806,13 +806,13 @@ extern EventEntry* var_routeEvents_8c22851c;
 extern int var_eventCandidates_8c228520[];
 extern int var_eventCandidateCount_8c228560;
 
-/* [0] compared against var_8c228688's 0xf000000 bits in FUN_8c02bb1c
+/* [0] compared against var_prevLaneFlags_8c228688's 0xf000000 bits in gradeIntersection_8c02bb1c
  * (02b464), addressed directly; [1]/[2] (0x228638/0x22863c) are the same
  * two ints but addressed only via var_8c2285c4[29]/[30] -- no code
  * reaches them through this symbol. Role unclear. */
 extern int var_8c228634[3];
 /* Set to 1 by BusStopUpdateArrival_8c02ce48 (02c884) when var_8c226450 is
- * armed; read by FUN_8c02bcd8 (02b464) only via var_8c2285c4[31] -- no code
+ * armed; read by gradeFrame_8c02bcd8 (02b464) only via var_8c2285c4[31] -- no code
  * reaches it through this symbol. */
 extern int var_8c228640;
 
@@ -831,68 +831,76 @@ extern unsigned short var_8c1ba376;
 extern unsigned char var_8c1ba29c;
 extern unsigned char var_8c1ba29d;
 
-/* [0]/[1] a duplicated traffic-signal id (FUN_8c02b8b8, 02b464), addressed
+/* [0]/[1] a duplicated traffic-signal id (gradeSignals_8c02b8b8, 02b464), addressed
  * both directly and via var_8c2285c4[14]/[15]; [3]/[4] a threshold/counter
- * pair graded by FUN_8c02b986 (via var_8c2285c4[17]/[18] there); [6] a
- * driving-state latch toggled by FUN_8c02bb1c. [0] cleared to ready by
+ * pair graded by gradeLaneUse_8c02b986 (via var_8c2285c4[17]/[18] there); [6] a
+ * driving-state latch toggled by gradeIntersection_8c02bb1c. [0] cleared to ready by
  * armCooldowns_8c02b578 (types 1-3). Other slots unclear.
  *
  * var_8c2285c4[11]/[12]/[13] (0x2285f0/f4/f8, just before this array) have
  * no export of their own; [13] is a one-shot "already graded" latch read
- * by FUN_8c02b8b8. */
+ * by gradeSignals_8c02b8b8. */
 extern int var_8c2285fc[8];
 
-/* [5] (0x228630) compared against var_8c228684 in FUN_8c02b986/FUN_8c02bb1c
+/* [5] (0x228630) compared against var_prevLane_8c228684 in gradeLaneUse_8c02b986/gradeIntersection_8c02bb1c
  * (02b464), addressed only via var_8c2285c4[27] -- no code reaches it
  * through this symbol. Other slots unclear. */
 extern int var_8c22861c[6];
 
 /* Bitflags set by busDriveDecelerate_8c023bea (023938_bus_drive); bits
- * 0x2/0x4 are read by handleFlags_8c02b7ea (02b464) to grade a
+ * 0x2/0x4 are read by gradeWallHit_8c02b7ea (02b464) to grade a
  * driver-points penalty -- both set is worse than either alone. Other bits
  * unclear. */
-extern int var_8c228660;
+extern int var_wallHitBits_8c228660;
 
-/* The vehicle/pedestrian the player's bus is currently bumping into, set by
- * handleBump_8c02b6d4 (02b464) from BusCollisionFindHit_8c02e2dc's result;
- * var_8c228668 is a redundant copy of the same pointer. */
+/* Both written by handleBump_8c02b6d4 (02b464) with
+ * BusCollisionFindHit_8c02e2dc's result, and read nowhere -- dead stores
+ * kept for parity with the original. */
 extern BusState *var_8c228664;
 extern BusState *var_8c228668;
-/* Player's speed at the moment of the current bump; read to grade the
- * adjust_8c02b464 penalty and vibration strength. */
-extern float var_8c22866c;
-/* var_8c228664's speed_0x27c, saved before handleBump_8c02b6d4
- * (02b464) overwrites it as part of the knockback response. */
-extern float var_8c228670;
 
-/* Bump-grading scratch (02b464): [674]/[678]/[67c] are
- * var_busState_8c1bb9d0.junctionARoadFlags2_0x358/0x374/0x390 masked with 0xf0000001 --
- * the bus's three road-probe results, snapshotted for the lane-change check
- * in FUN_8c02b986; [680] the offense-type code driving
- * FUN_8c02b864/886/8b8/986's penalty picks; [684] a timestamp compared
- * against var_8c22861c[5]; [688] a bitflag word tested against 0xf000000;
- * [68c] a small state code (0/1/2) gating several of the above. */
-extern int var_8c228674;
-extern int var_8c228678;
-extern int var_8c22867c;
-extern int var_8c228680;
-extern int var_8c228684;
-extern int var_8c228688;
-extern int var_8c22868c;
+/* The bus's speed this frame, snapshotted by taskCallback_8c02c072 (02b464)
+ * before the graders run so they all see one value. */
+extern float var_frameSpeed_8c22866c;
 
-/* Per-offense-type cooldowns armed by armCooldowns_8c02b578
- * (02b464) to a large frame count (0x96/0xd2), counted down each frame by
- * taskCallback_8c02c072; handleBump_8c02b6d4 treats
- * slot 0 as expired/ready once it goes negative. Role of each slot beyond
- * that unclear. */
-extern int var_8c228690;
-extern int var_8c228694;
-extern int var_8c228698;
-extern int var_8c22869c;
-extern int var_8c2286a0;
+/* The bumped vehicle's speed_0x27c, saved before handleBump_8c02b6d4
+ * overwrites it, then given to the player as rebound speed. */
+extern float var_bumpSpeed_8c228670;
+
+/* One frame's driving state, all snapshotted together by
+ * taskCallback_8c02c072 (02b464) before the graders run.
+ *
+ * laneA/B/C are junctionARoadFlags2_0x358 / junctionBRoadFlags2_0x374 /
+ * junctionCRoadFlags_0x390 masked with 0xf0000001 -- the bus's three
+ * road-probe lanes. prevLane/prevLaneFlags are last frame's, kept in
+ * var_8c22861c[5]/var_8c228634[0] between frames. offCourseBits is the
+ * larger of junction A's and B's 0x30000 bits: 0x30000 is the severe case
+ * gradeOffCourseSevere_8c02b864 grades, 0x20000 and below go to
+ * gradeOffCourse_8c02b886. headingVsRoad is 0 when there is no road data,
+ * 1 when the bus points along the road and 2 when it points against it --
+ * 2 is what gradeSignals_8c02b8b8 reads as wrong-way. */
+extern int var_laneA_8c228674;
+extern int var_laneB_8c228678;
+extern int var_laneC_8c22867c;
+extern int var_offCourseBits_8c228680;
+extern int var_prevLane_8c228684;
+extern int var_prevLaneFlags_8c228688;
+extern int var_headingVsRoad_8c22868c;
+
+/* One cooldown per offense category, armed by armCooldowns_8c02b578 (02b464)
+ * to 0x96 frames for collision and signal, 0xd2 for the rest, and counted
+ * down by taskCallback_8c02c072. They are not independent: the graders run
+ * in a chain where each is gated on the cooldown the category above it
+ * arms, so a collision silences every lesser offense for 150 frames. A
+ * negative value means expired. */
+extern int var_cooldownCollision_8c228690;
+extern int var_cooldownOffCourse_8c228694;
+extern int var_cooldownSignal_8c228698;
+extern int var_cooldownLane_8c22869c;
+extern int var_cooldownIntersection_8c2286a0;
 
 /* One pending driver-comment banner: `count`/`ids` are a {count, id...}
- * list from init_8c04c35c (02b464), `duration` the computed on-screen time,
+ * list from init_penaltyMsgGlyphs_8c04c35c (02b464), `duration` the computed on-screen time,
  * `holdFrames` a fixed 60. [0] is the currently-displayed message;
  * [1..3] are queued behind it, shifted forward as each one finishes.
  *

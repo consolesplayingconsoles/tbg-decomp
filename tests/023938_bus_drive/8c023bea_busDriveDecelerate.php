@@ -27,13 +27,13 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x2f4, 3);
         $this->initUint32($busState + 0x2b4, 0);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
-        $this->initUint32($this->addressOf('_var_8c228660'), 8); // pre-existing bits
+        $this->initUint32($this->addressOf('_var_wallHitBits_8c228660'), 8); // pre-existing bits
 
         $this->call('_busDriveDecelerate_8c023bea');
 
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
         $this->shouldWriteFloat($busState + 0x27c, 0.3);
-        $this->shouldWriteLongTo('_var_8c228660', 8 | 2);
+        $this->shouldWriteLongTo('_var_wallHitBits_8c228660', 8 | 2);
         $this->shouldCall('_BusDriveStop_8c023bce');
     }
 
@@ -45,13 +45,13 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x2f4, 5); // reverse, left alone
         $this->initUint32($busState + 0x2b4, 0);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
-        $this->initUint32($this->addressOf('_var_8c228660'), 0);
+        $this->initUint32($this->addressOf('_var_wallHitBits_8c228660'), 0);
 
         $this->call('_busDriveDecelerate_8c023bea');
 
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x14, 0);
         $this->shouldWriteFloat($busState + 0x27c, $this->f32($this->f32(0.2) / 2.0 + 0.3));
-        $this->shouldWriteLongTo('_var_8c228660', 4);
+        $this->shouldWriteLongTo('_var_wallHitBits_8c228660', 4);
         $this->shouldCall('_BusDriveStop_8c023bce');
     }
 
@@ -63,13 +63,13 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x2f4, 3);
         $this->initUint32($busState + 0x2b4, 0);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
-        $this->initUint32($this->addressOf('_var_8c228660'), 0);
+        $this->initUint32($this->addressOf('_var_wallHitBits_8c228660'), 0);
 
         $this->call('_busDriveDecelerate_8c023bea');
 
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x15, 0);
         $this->shouldWriteFloat($busState + 0x27c, $this->f32($this->f32(0.5) / 2.0 + 0.3));
-        $this->shouldWriteLongTo('_var_8c228660', 6);
+        $this->shouldWriteLongTo('_var_wallHitBits_8c228660', 6);
         $this->shouldCall('_BusDriveStop_8c023bce');
     }
 };

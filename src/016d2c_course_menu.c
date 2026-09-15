@@ -1242,9 +1242,9 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
 
                 var_eventCount_8c1bb8e8 = 0;
                 var_passengerCount_8c1bb8e4 = 0;
-                var_8c1bb8f0 = 0;
-                var_8c1bb8ec = 0x1d;
-                var_8c1bb8f4 = 0;
+                var_worstPenaltyDelta_8c1bb8f0 = 0;
+                var_worstPenaltyMsgSet_8c1bb8ec = 0x1d;
+                var_penaltyCount_8c1bb8f4 = 0;
 
                 // Copy progress data to two arrays (5 uint32 values each)
                 for (i = 0; i < 5; i++) {

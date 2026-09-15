@@ -78,7 +78,7 @@ STATIC char init_8c0451b4[] = {
 STATIC Uint32 init_8c0451c0[] = { 0, 0, 0, 0, 0, 0, 0, 6, 0xf, 0xf, 0xf };
 STATIC char init_8c0451ec[] = { 0x10, 0x0a, 0x14, 0x11, 0x12, 0x14, 0x15, 0x13, 0x13, 0x1b, 0x09, 0x00 };
 STATIC char init_8c0451f8[] = { 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0xc0, 0x40, 0x00, 0x00, 0x30, 0x41, 0x00, 0x00, 0xe0, 0x40 };
-/* Indexed by the drive-side penalty id in var_8c1bb8ec (a PENALTY_MSG_* from
+/* Indexed by the drive-side penalty id in var_worstPenaltyMsgSet_8c1bb8ec (a PENALTY_MSG_* from
  * 02b464_drive_points.c -- the worst penalty of the run just finished);
  * gives the INSTR_* dialog id (016d2c_course_menu.h) shown for it below.
  * Several PENALTY_MSG_* ids collapse onto the same INSTR_* (e.g. both
@@ -248,9 +248,9 @@ STATIC void FUN_8c01e27c(Task *task)
                 if (init_8c03bd80 != 0) break;
 
                 DebugMenuFreeSessionAssets_8c016182();
-                var_8c1bb8f0 = 0;
-                var_8c1bb8ec = 0x1d;
-                var_8c1bb8f4 = 0;
+                var_worstPenaltyDelta_8c1bb8f0 = 0;
+                var_worstPenaltyMsgSet_8c1bb8ec = 0x1d;
+                var_penaltyCount_8c1bb8f4 = 0;
                 var_8c226410 = init_8c0451c0[var_8c22640c];
                 GamePushLoadingTask_8c013310(var_8c22640c + 0x1b);
                 break;
@@ -498,15 +498,15 @@ STATIC void buildDialogQueue_8c01e992(void)
         return;
     }
 
-    if (var_8c1bb8f4 == 0) {
+    if (var_penaltyCount_8c1bb8f4 == 0) {
         var_8c226414[i++] = 0x1b;
     } else {
-        var_8c226414[i++] = (unsigned char)init_penaltyMsgSetInstr_8c045208[var_8c1bb8ec];
+        var_8c226414[i++] = (unsigned char)init_penaltyMsgSetInstr_8c045208[var_worstPenaltyMsgSet_8c1bb8ec];
 
         if (var_runSucceeded_8c1bb8dc == 0)
-            var_8c226414[i++] = (var_8c1bb8f4 == 1) ? 0x1e : 0x1f;
+            var_8c226414[i++] = (var_penaltyCount_8c1bb8f4 == 1) ? 0x1e : 0x1f;
         else
-            var_8c226414[i++] = (var_8c1bb8f4 == 1) ? 0x1c : 0x1d;
+            var_8c226414[i++] = (var_penaltyCount_8c1bb8f4 == 1) ? 0x1c : 0x1d;
     }
 
     if (var_award_8c1bb8f8 != 0) var_8c226414[i++] = 0x19;

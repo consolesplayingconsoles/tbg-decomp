@@ -38,19 +38,19 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8f4'), 3);
-        $this->initUint32($this->addressOf('_var_8c1bb8f0'), 0xfffffffb); // -5, current worst
-        $this->initUint32($this->addressOf('_var_8c1bb8ec'), 7); // current worst's msgSet
+        $this->initUint32($this->addressOf('_var_penaltyCount_8c1bb8f4'), 3);
+        $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0xfffffffb); // -5, current worst
+        $this->initUint32($this->addressOf('_var_worstPenaltyMsgSet_8c1bb8ec'), 7); // current worst's msgSet
         $this->initUint32($this->pointsAddr(), 50);
         $this->initUint32($this->maxAddr(), 100);
 
         // msgSet = -1: no banner queued, no sound.
         $this->call('_adjust_8c02b464')->with(0xffffffff, 0xfffffff6); // -10, worse than -5
 
-        $this->shouldWriteLongTo('_var_8c1bb8f4', 4);
+        $this->shouldWriteLongTo('_var_penaltyCount_8c1bb8f4', 4);
         $this->shouldWriteLong($this->pointsAddr(), 40);
-        $this->shouldWriteLongTo('_var_8c1bb8f0', 0xfffffff6);
-        $this->shouldWriteLongTo('_var_8c1bb8ec', 0xffffffff);
+        $this->shouldWriteLongTo('_var_worstPenaltyDelta_8c1bb8f0', 0xfffffff6);
+        $this->shouldWriteLongTo('_var_worstPenaltyMsgSet_8c1bb8ec', 0xffffffff);
     }
 
     public function test_penalty_not_worse_than_current_leaves_worst_offense_alone(): void
@@ -58,15 +58,15 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8f4'), 3);
-        $this->initUint32($this->addressOf('_var_8c1bb8f0'), 0xfffffff6); // -10, current worst
-        $this->initUint32($this->addressOf('_var_8c1bb8ec'), 7);
+        $this->initUint32($this->addressOf('_var_penaltyCount_8c1bb8f4'), 3);
+        $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0xfffffff6); // -10, current worst
+        $this->initUint32($this->addressOf('_var_worstPenaltyMsgSet_8c1bb8ec'), 7);
         $this->initUint32($this->pointsAddr(), 50);
         $this->initUint32($this->maxAddr(), 100);
 
         $this->call('_adjust_8c02b464')->with(0xffffffff, 0xfffffffb); // -5, not worse
 
-        $this->shouldWriteLongTo('_var_8c1bb8f4', 4);
+        $this->shouldWriteLongTo('_var_penaltyCount_8c1bb8f4', 4);
         $this->shouldWriteLong($this->pointsAddr(), 45);
     }
 
@@ -76,7 +76,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0); // DIFFICULTY != 2, so no gate
-        $this->initUint32($this->addressOf('_var_8c1bb8f0'), 0xfffffff6);
+        $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0xfffffff6);
         $this->initUint32($this->pointsAddr(), 95);
         $this->initUint32($this->maxAddr(), 100);
 
@@ -91,18 +91,18 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8f4'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8f0'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8ec'), 0);
+        $this->initUint32($this->addressOf('_var_penaltyCount_8c1bb8f4'), 0);
+        $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0);
+        $this->initUint32($this->addressOf('_var_worstPenaltyMsgSet_8c1bb8ec'), 0);
         $this->initUint32($this->pointsAddr(), 3);
         $this->initUint32($this->maxAddr(), 100);
 
         $this->call('_adjust_8c02b464')->with(0xffffffff, 0xfffffff6); // -10
 
-        $this->shouldWriteLongTo('_var_8c1bb8f4', 1);
+        $this->shouldWriteLongTo('_var_penaltyCount_8c1bb8f4', 1);
         $this->shouldWriteLong($this->pointsAddr(), 0xfffffff9); // 3 - 10
-        $this->shouldWriteLongTo('_var_8c1bb8f0', 0xfffffff6);
-        $this->shouldWriteLongTo('_var_8c1bb8ec', 0xffffffff);
+        $this->shouldWriteLongTo('_var_worstPenaltyDelta_8c1bb8f0', 0xfffffff6);
+        $this->shouldWriteLongTo('_var_worstPenaltyMsgSet_8c1bb8ec', 0xffffffff);
         $this->shouldWriteLong($this->pointsAddr(), 0); // re-clamped
     }
 
@@ -123,7 +123,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1); // scored run
         $this->initUint8($this->addressOf('_var_8c1ba290'), 2); // DIFFICULTY == 2
-        $this->initUint32($this->addressOf('_var_8c1bb8f0'), 0);
+        $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0);
         $this->initUint32($this->pointsAddr(), 50);
         $this->initUint32($this->maxAddr(), 100);
 
@@ -139,7 +139,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0); // DIFFICULTY != 2
-        $this->initUint32($this->addressOf('_var_8c1bb8f0'), 0);
+        $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0);
         $this->initUint32($this->pointsAddr(), 50);
         $this->initUint32($this->maxAddr(), 100);
 

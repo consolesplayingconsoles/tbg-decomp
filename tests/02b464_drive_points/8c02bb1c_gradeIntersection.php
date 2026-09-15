@@ -16,9 +16,9 @@ return new class extends TestCase {
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);
-        $this->setSize('_var_8c22866c', 4); // unused placeholder, see initFloat below
-        $this->setSize('_var_8c228684', 4);
-        $this->setSize('_var_8c228688', 4);
+        $this->setSize('_var_frameSpeed_8c22866c', 4); // unused placeholder, see initFloat below
+        $this->setSize('_var_prevLane_8c228684', 4);
+        $this->setSize('_var_prevLaneFlags_8c228688', 4);
         $this->setSize('_var_8c228634', 4);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
         $this->setSize('_var_8c1bbd9c', 4); // BusState*, allocated via alloc()
@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x358, 0); // not driving through a signal -> tail latch is a no-op
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b4, 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0); // speed limit code 0 -> limit 0
-        $this->initFloat($this->addressOf('_var_8c22866c'), 0.0);
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
         $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1); // skip lane check
         $this->initUint32($base + 0x50, 0); // var_8c2285fc[6], stopped-at-signal latch
     }
@@ -53,7 +53,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b4, 0xff000000);
         $this->initUint32($base + 0x3c, 7); // var_8c2285fc[1], signal id
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(0);
         $this->shouldCall('_adjust_8c02b464')->with(0x13, 0xffffffb0); // -80
@@ -70,10 +70,10 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x358, 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b4, 0xff000000);
         $this->initUint32($base + 0x3c, 7);
-        $this->initFloat($this->addressOf('_var_8c22866c'), 1.0); // moving, so also over the (zero) speed limit
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving, so also over the (zero) speed limit
         $this->initUint32($base + 0x30, 5); // var_8c2285c4[12], stays positive after decrement
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(0);
 
@@ -86,7 +86,7 @@ return new class extends TestCase {
         $this->baseline($base);
         $this->initUint32($base + 0x30, 5); // var_8c2285c4[12], nonzero
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, 0);
     }
@@ -95,10 +95,10 @@ return new class extends TestCase {
     {
         $base = $this->resolveSymbols();
         $this->baseline($base);
-        $this->initFloat($this->addressOf('_var_8c22866c'), 1.0); // over the (zero) limit
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // over the (zero) limit
         $this->initUint32($base + 0x30, 5); // still positive after decrement
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, 4);
     }
@@ -107,10 +107,10 @@ return new class extends TestCase {
     {
         $base = $this->resolveSymbols();
         $this->baseline($base);
-        $this->initFloat($this->addressOf('_var_8c22866c'), 1.0); // > limit + 0.185...
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // > limit + 0.185...
         $this->initUint32($base + 0x30, 0); // decrements to -1
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, -1);
         $this->shouldWriteLong($base + 0x30, 0x78);
@@ -121,10 +121,10 @@ return new class extends TestCase {
     {
         $base = $this->resolveSymbols();
         $this->baseline($base);
-        $this->initFloat($this->addressOf('_var_8c22866c'), 0.1); // over limit (0) but under +0.185...
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.1); // over limit (0) but under +0.185...
         $this->initUint32($base + 0x30, 0);
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, -1);
         $this->shouldWriteLong($base + 0x30, 0x78);
@@ -142,11 +142,11 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
 
         $this->initUint32($base + 0x6c, 4); // var_8c22861c[5]
-        $this->initUint32($this->addressOf('_var_8c228684'), 10); // laneDelta = 4-10 < 0
-        $this->initUint32($this->addressOf('_var_8c228688'), 0xf000000);
+        $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta = 4-10 < 0
+        $this->initUint32($this->addressOf('_var_prevLaneFlags_8c228688'), 0xf000000);
         $this->initUint32($this->addressOf('_var_8c228634'), 0xf000000);
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
 
@@ -164,9 +164,9 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
 
         $this->initUint32($base + 0x6c, 4);
-        $this->initUint32($this->addressOf('_var_8c228684'), 10); // laneDelta < 0
+        $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta < 0
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
     }
@@ -181,11 +181,11 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
 
         $this->initUint32($base + 0x6c, 4);
-        $this->initUint32($this->addressOf('_var_8c228684'), 10);
-        $this->initUint32($this->addressOf('_var_8c228688'), 0xf000000);
+        $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10);
+        $this->initUint32($this->addressOf('_var_prevLaneFlags_8c228688'), 0xf000000);
         $this->initUint32($this->addressOf('_var_8c228634'), 0xf000000);
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
     }
@@ -197,7 +197,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x50, 0); // var_8c2285fc[6] not armed
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x358, 0xf000000); // driving through signal
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
 
@@ -213,7 +213,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x40000000); // turning left
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x25c, 1); // left signal on
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
 
@@ -229,7 +229,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x40000000); // turning left
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x25c, 2); // wrong signal
 
-        $this->call('_FUN_8c02bb1c');
+        $this->call('_gradeIntersection_8c02bb1c');
 
         $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
 

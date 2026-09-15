@@ -12,10 +12,10 @@ return new class extends TestCase {
 
         $task = $this->alloc(0x1c);
 
-        $this->call('_FUN_8c02c738');
+        $this->call('_beginDriveEnd_8c02c738');
 
         $this->shouldCall('_FUN_8c01614c');
-        // FUN_8c02c738 has an empty stack frame of its own beyond the two
+        // beginDriveEnd_8c02c738 has an empty stack frame of its own beyond the two
         // TaskPush out-params (created_task, created_state), pushed right
         // after the STS.L PR/ADD #-8,R15 prologue -- so their addresses are
         // the initial test stack pointer (16MiB-4, see sh4objtest's Run)
@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                $this->addressOf('_FUN_8c02c69a'),
+                $this->addressOf('_driveEndFadeTask_8c02c69a'),
                 $sp0 - 12, // &created_task
                 $sp0 - 8, // &created_state
                 0

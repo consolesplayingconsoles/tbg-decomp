@@ -26,8 +26,8 @@ return new class extends TestCase {
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->rellocate('_var_8c1bbd1c', $busState + 0x34c); // junctionARoadFlags_0x34c alias
         $this->rellocate('_var_8c1bbd54', $busState + 0x384); // field_0x384 alias
-        $this->setSize('_var_8c228684', 4);
-        $this->setSize('_var_8c22866c', 4);
+        $this->setSize('_var_prevLane_8c228684', 4);
+        $this->setSize('_var_frameSpeed_8c22866c', 4);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
         $this->setSize('_var_8c1bbd9c', 4); // BusState*, allocated via alloc()
         $this->setSize('_var_8c1ba374', 2);
@@ -68,9 +68,9 @@ return new class extends TestCase {
         $this->initUint32($base + 0x64, 0); // var_8c22861c[3] sig state
         $this->initUint32($base + 0x68, 0); // var_8c22861c[4]
         $this->initUint32($base + 0x6c, 0); // var_8c22861c[5]
-        $this->initUint32($this->addressOf('_var_8c228684'), 0);
+        $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 0);
 
-        $this->initFloat($this->addressOf('_var_8c22866c'), 0.0);
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
         $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1); // skip speed*ang check
 
         $busPtr = $this->alloc(0x2b8);
@@ -109,10 +109,10 @@ return new class extends TestCase {
         $busPtr = $this->baseline($base);
 
         $this->initUint32($base + 0x6c, 4); // var_8c22861c[5]
-        $this->initUint32($this->addressOf('_var_8c228684'), 10); // laneDelta = 4-10 < 0
+        $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta = 4-10 < 0
         $this->initUint32($busPtr + 0x25c, 1); // left signal on
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($busPtr + 0x25c, 0);
         $this->shouldWriteLong($busPtr + 0x268, 0);
@@ -132,10 +132,10 @@ return new class extends TestCase {
         $busPtr = $this->baseline($base);
 
         $this->initUint32($base + 0x6c, 4);
-        $this->initUint32($this->addressOf('_var_8c228684'), 10); // laneDelta < 0
+        $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta < 0
         $this->initUint32($busPtr + 0x25c, 2); // right signal on -- mismatched side, no reset
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4], hold-timer no-op reset
         $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], signalSide_0x25c-unchanged counter
@@ -156,7 +156,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x64, 1); // var_8c22861c[3] sig state = 1
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x10000000); // turning left
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x64, 2); // sigState -> 2 (still turning)
         $this->shouldWriteLong($base + 0x64, 5); // sigState -> 5 (turning, stopped)
@@ -178,7 +178,7 @@ return new class extends TestCase {
 
         $this->initUint32($base + 0x64, 2); // var_8c22861c[3] sig state = 2
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldCall('_adjust_8c02b464')->with(0x14, 0xffffffe2); // -30
         $this->shouldWriteLong($base + 0x64, 1); // sigState -> 1
@@ -200,9 +200,9 @@ return new class extends TestCase {
 
         $this->initUint32($base + 0x64, 2); // var_8c22861c[3] sig state = 2
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x10000000); // still turning
-        $this->initFloat($this->addressOf('_var_8c22866c'), 1.0); // moving
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4] reset (skipHoldTimer path)
 
@@ -222,7 +222,7 @@ return new class extends TestCase {
 
         $this->initUint32($base + 0x64, 5); // var_8c22861c[3] sig state = 5
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x64, 1); // sigState -> 1
         $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4] hold-timer reset
@@ -245,7 +245,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x20000000); // var_8c1bbd1c alias
         $this->initUint32($base + 0x68, 0); // var_8c22861c[4] decrements to -1
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, -1);
         $this->shouldWriteLong($base + 0x68, 0x78);
@@ -269,7 +269,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x8c, 0xe); // var_8c2285c4[35] repeat counter, one away from tripping
         $this->initUint16($this->addressOf('_var_8c1ba374'), 0xff); // held at max
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
 
@@ -294,7 +294,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x88, 1); // var_8c2285c4[34] i.e. var_8c22864c, armed
         $this->initUint16($this->addressOf('_var_8c1ba374'), 0xff); // held at max
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
 
@@ -319,7 +319,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0x90, 0.5); // var_8c2285c4[36] > 0.01
         $this->initUint32($base + 0x94, 0); // var_8c2285c4[37] already expired
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
 
@@ -348,7 +348,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x258, 100); // ang
         $this->initUint32($base + 0x98, 0); // var_8c2285c4[38] decrements to -1
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
 
@@ -372,7 +372,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x5c, 0); // var_8c22861c[1] not yet armed
         $this->initUint32($base + 0x60, 0x709); // var_8c22861c[2] one away from tripping
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
@@ -394,9 +394,9 @@ return new class extends TestCase {
         $busPtr = $this->baseline($base);
 
         $this->initUint32($base + 0x5c, 0); // var_8c22861c[1] not yet armed
-        $this->initFloat($this->addressOf('_var_8c22866c'), 1.0); // moving
+        $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
@@ -417,7 +417,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x7c, 1); // var_8c2285c4[31] i.e. var_8c228640
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // route into the if-branch
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
@@ -439,7 +439,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3c0, 2); // bus_substate
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0x27c, 1.0); // moving
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
@@ -463,7 +463,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c226410'), 0); // bit 0 clear -> messagebox branch too
         $this->initUint32($base + 0x18, 0); // var_8c2285dc decrements to -1
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
@@ -485,7 +485,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
         $this->initUint32($this->addressOf('_var_8c226410'), 3); // bits 0 and 1 both set
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
@@ -509,7 +509,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x14, 0); // var_8c2285d8 (0 < 30)
         $this->initUint32($this->addressOf('_var_8c226450'), 1); // != -1
 
-        $this->call('_FUN_8c02bcd8');
+        $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);

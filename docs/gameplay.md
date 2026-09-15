@@ -122,13 +122,13 @@ variants.
 **Where penalties actually fire, and where they're shown.** In-drive,
 `02b464_drive_points.c` grades every penalty through
 `adjust_8c02b464(msgSet, delta)`, where `msgSet` is a bare numeric literal in
-a *local* id space (0-33, documented at `init_8c04c35c` in that file) --
+a *local* id space (0-33, documented at `init_penaltyMsgGlyphs_8c04c35c` in that file) --
 **not** an `INSTR_*` id. `msgSet` selects which HUD glyph banner is drawn
-in-drive (`init_8c04c35c[msgSet]`, glyph ids for `drawMsgGlyphRow_8c02b2f0`
+in-drive (`init_penaltyMsgGlyphs_8c04c35c[msgSet]`, glyph ids for `drawMsgGlyphRow_8c02b2f0`
 in `02b2f0.c`), which is a third, unrelated id space again (glyph ids run
 past 63). The `INSTR_*` dialog is shown only once, after the run: in
 practice mode's results screen (`01e27c_practice_menu.c`), the run's single
-worst `msgSet` (`var_8c1bb8ec`) is converted to an `INSTR_*` id via
+worst `msgSet` (`var_worstPenaltyMsgSet_8c1bb8ec`) is converted to an `INSTR_*` id via
 `init_penaltyMsgSetInstr_8c045208[]` and pushed as the lesson's closing
 instructor comment. **Story and free-run results
 (`01d7fc_results.c`) never consult that table** -- those modes show only the

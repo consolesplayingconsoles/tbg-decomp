@@ -63,9 +63,9 @@
           .IMPORT     _var_firstClearOfCourse_8c1bb8e0
           .IMPORT     _var_eventCount_8c1bb8e8
           .IMPORT     _var_passengerCount_8c1bb8e4
-          .IMPORT     _var_8c1bb8f0
-          .IMPORT     _var_8c1bb8ec
-          .IMPORT     _var_8c1bb8f4
+          .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
+          .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
+          .IMPORT     _var_penaltyCount_8c1bb8f4
           .IMPORT     _var_8c1ba2cc
           .IMPORT     _var_8c1ba2b8
           .IMPORT     _GamePushLoadingTask_8c013310
@@ -3053,9 +3053,9 @@ LP_GEN_82242:
           .DATA.L __divls ; H'8C0183A8
           .DATA.L _var_eventCount_8c1bb8e8 ; H'8C0183AC
           .DATA.L _var_passengerCount_8c1bb8e4 ; H'8C0183B0
-          .DATA.L _var_8c1bb8f0 ; H'8C0183B4
-          .DATA.L _var_8c1bb8ec ; H'8C0183B8
-          .DATA.L _var_8c1bb8f4 ; H'8C0183BC
+          .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C0183B4
+          .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C0183B8
+          .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C0183BC
           .DATA.L _var_8c1ba2cc ; H'8C0183C0
           .DATA.L _var_8c1ba2b8 ; H'8C0183C4
 LAB_8c0183c8:

@@ -19,9 +19,9 @@
           .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _njSetBackColor
           .IMPORT     _DebugMenuFreeSessionAssets_8c016182
-          .IMPORT     _var_8c1bb8f0
-          .IMPORT     _var_8c1bb8ec
-          .IMPORT     _var_8c1bb8f4
+          .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
+          .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
+          .IMPORT     _var_penaltyCount_8c1bb8f4
           .IMPORT     _var_8c226410
           .IMPORT     _GamePushLoadingTask_8c013310
           .IMPORT     _TaskSetAction_8c014b3e
@@ -544,9 +544,9 @@ LP_GEN_38636:
           .DATA.L _FadePushIn_8c022a9c ; H'8C01E5E8
           .DATA.L H'C1000000 ; H'8C01E5EC
           .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01E5F0
-          .DATA.L _var_8c1bb8f0 ; H'8C01E5F4
-          .DATA.L _var_8c1bb8ec ; H'8C01E5F8
-          .DATA.L _var_8c1bb8f4 ; H'8C01E5FC
+          .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C01E5F4
+          .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C01E5F8
+          .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C01E5FC
           .DATA.L _init_8c0451c0 ; H'8C01E600
           .DATA.L _var_8c226410 ; H'8C01E604
           .DATA.L _GamePushLoadingTask_8c013310 ; H'8C01E608
@@ -1253,9 +1253,9 @@ LP_GEN_88702:
           .DATA.L _var_8c1bb8b8 ; H'8C01EB88
           .DATA.L _var_8c1bb8bc ; H'8C01EB8C
           .DATA.L _var_progress_8c1ba1cc ; H'8C01EB90
-          .DATA.L _var_8c1bb8f4 ; H'8C01EB94
+          .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C01EB94
           .DATA.L _init_penaltyMsgSetInstr_8c045208 ; H'8C01EB98
-          .DATA.L _var_8c1bb8ec ; H'8C01EB9C
+          .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C01EB9C
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01EBA0
           .DATA.L _var_award_8c1bb8f8 ; H'8C01EBA4
           .DATA.L _var_8c226414 ; H'8C01EBA8

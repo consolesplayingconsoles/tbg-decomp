@@ -29,9 +29,9 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 0); // < 0xf threshold
 
-        $this->call('_FUN_8c02c624');
+        $this->call('_onFadeStopEnded_8c02c624');
 
-        $this->shouldCall('_FUN_8c02c586')->andReturn(0);
+        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(0);
 
         $this->shouldCall('_ObjectsFreePedestrianGroups_8c0297da');
         $this->shouldCall('_ObjectsFreeTrafficSignals_8c0288be');
@@ -52,9 +52,9 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 5); // days_0x00
 
-        $this->call('_FUN_8c02c624');
+        $this->call('_onFadeStopEnded_8c02c624');
 
-        $this->shouldCall('_FUN_8c02c586')->andReturn(1);
+        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(1);
 
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);

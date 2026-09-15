@@ -16,7 +16,7 @@
 #include "02c884_bus_stop.h" /* BusStopGetSegment_8c02cd6a */
 #include "0222dc_fadecmd.h" /* FadeCmdPushCall1_8c0223ea */
 #include "0100bc_sound.h" /* SndStartAdxFadeOut_8c010bae */
-#include "02b464_drive_points.h" /* FUN_8c02c586, FUN_8c02c784 */
+#include "02b464_drive_points.h" /* DrivePointsRunComplete_8c02c586, DrivePointsOnFadeDriveEnd_8c02c784 */
 
 /* ====================
  * Compiler Definitions
@@ -382,8 +382,8 @@ void BusStopUpdateArrival_8c02ce48(void)
             var_8c2285e8 = 0;
             var_8c2285c4[0] = 4;
             var_8c2285cc = 0x1e;
-            var_fadeCompleteCallback_8c22656c = FUN_8c02c784;
-            if (0 < var_driverPoints_8c2285d0 && FUN_8c02c586() != 0) {
+            var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
+            if (0 < var_driverPoints_8c2285d0 && DrivePointsRunComplete_8c02c586() != 0) {
                 var_8c2285c8 = 1;
             }
             SndStartAdxFadeOut_8c010bae(0);
