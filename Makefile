@@ -104,7 +104,7 @@ SRCS = \
 	src/02b2f0.c \
 	src/02b464_drive_points.c \
 	src/02c884_bus_stop.c \
-	src/02d06c.c \
+	src/02d06c_stop_draw.c \
 	src/02d19c_passenger.c \
 	src/02d968_stop_spawn.c \
 	src/02df3c_traffic_lookahead.c \

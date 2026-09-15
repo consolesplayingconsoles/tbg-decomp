@@ -12,7 +12,7 @@
 #include "0222dc_fadecmd.h" /* FadeCmdPushCall2_8c022420 */
 #include "022464_fade.h" /* FadeRequest, var_fadeRequest_8c226564, var_fadeArrivalGate_8c226560 */
 #include "027958.h" /* BusDrawSignal_8c0281ac */
-#include "02d06c.h" /* StopDrawWaitingPassengers_8c02d06c */
+#include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02af78_event.h" /* EventApplyFlags_8c02b292 */
 #include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
 #include "02fb50_sh4nlfzn.h" /* rand */

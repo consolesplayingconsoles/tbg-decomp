@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $this->setSize('_njDrawSprite3D', 4);
         $this->setSize('__quick_odd_mvn', 4);
-        $this->setSize('_var_8c2288d8', 0x20); // NJS_SPRITE
+        $this->setSize('_var_passengerSprite_8c2288d8', 0x20); // NJS_SPRITE
         $this->setSize('_var_pedestrianAssets_8c1bbfdc', 0x41 * 0x10); // ModelSlot[65]
 
         $assets = $this->addressOf('_var_pedestrianAssets_8c1bbfdc');
@@ -69,7 +69,7 @@ return new class extends TestCase {
 
         $this->call('_drawPassengerSprite_8c02d19c')->with($state);
 
-        $sprite = $this->addressOf('_var_8c2288d8');
+        $sprite = $this->addressOf('_var_passengerSprite_8c2288d8');
         $this->shouldWriteLong($sprite + 0x18, $tlist);
         $this->mockStructCopy($sprite + 0x00, $state + 0x08);
         $this->shouldCall('_njDrawSprite3D')->with($sprite, 0x20, 0x32);
@@ -90,7 +90,7 @@ return new class extends TestCase {
 
         $this->call('_drawPassengerSprite_8c02d19c')->with($state);
 
-        $sprite = $this->addressOf('_var_8c2288d8');
+        $sprite = $this->addressOf('_var_passengerSprite_8c2288d8');
         $this->shouldWriteLong($sprite + 0x18, $tlist);
         $this->mockStructCopy($sprite + 0x00, $state + 0x08);
         $this->shouldCall('_njDrawSprite3D')->with($sprite, 0x23, 0x30);

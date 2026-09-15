@@ -519,7 +519,7 @@ $(OUTPUT_DIR)/src/028258_objects.obj: src/0222dc_fadecmd.h src/022464_fade.h src
 $(OUTPUT_DIR)/src/028258_objects.obj: src/sectionB.h src/01614c_debug_menu.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/02af78_event.h src/01bb48_vm_game.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/028258_objects.h src/023938_bus_drive.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/026710_traffic.h src/02d06c.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/026710_traffic.h src/02d06c_stop_draw.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/02e400_collision.h src/02fb50_sh4nlfzn.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/includes.h
 $(OUTPUT_DIR)/src/02af78_event.obj: src/02af78_event.h src/sectionB.h
@@ -565,13 +565,13 @@ $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/026710_traffic.h src/014f54_text.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/020b6c_ground_probe.h src/02fb50_sh4nlfzn.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/02c884_bus_stop.h src/0222dc_fadecmd.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/0100bc_sound.h src/02b464_drive_points.h
-$(OUTPUT_DIR)/src/02d06c.obj: src/sectionB.h src/01614c_debug_menu.h src/014a9c_tasks.h
-$(OUTPUT_DIR)/src/02d06c.obj: src/014b8c_backup.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/02d06c.obj: src/011120_asset_queues.h src/serial_debug.h
-$(OUTPUT_DIR)/src/02d06c.obj: src/02171c_tile_stream.h src/02af78_event.h
-$(OUTPUT_DIR)/src/02d06c.obj: src/01bb48_vm_game.h src/015ab8_title.h src/022464_fade.h
-$(OUTPUT_DIR)/src/02d06c.obj: src/028258_objects.h src/020914_ground_query.h
-$(OUTPUT_DIR)/src/02d06c.obj: src/023938_bus_drive.h src/026710_traffic.h src/014f54_text.h
+$(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/sectionB.h src/01614c_debug_menu.h src/014a9c_tasks.h
+$(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/014b8c_backup.h src/013ae8_route_load.h
+$(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/011120_asset_queues.h src/serial_debug.h
+$(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/02171c_tile_stream.h src/02af78_event.h
+$(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/01bb48_vm_game.h src/015ab8_title.h src/022464_fade.h
+$(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/028258_objects.h src/020914_ground_query.h
+$(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/023938_bus_drive.h src/026710_traffic.h src/014f54_text.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/includes.h src/serial_debug.h src/sectionB.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/014b8c_backup.h src/013ae8_route_load.h
@@ -581,7 +581,7 @@ $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/022464_fade.h src/028258_objects.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/020914_ground_query.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/026710_traffic.h src/014f54_text.h src/0222dc_fadecmd.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/0100bc_sound.h src/024b4c_bus_render.h
-$(OUTPUT_DIR)/src/02d19c_passenger.obj: src/02c884_bus_stop.h src/02d06c.h src/02d19c_passenger.h
+$(OUTPUT_DIR)/src/02d19c_passenger.obj: src/02c884_bus_stop.h src/02d06c_stop_draw.h src/02d19c_passenger.h
 $(OUTPUT_DIR)/src/02d968_stop_spawn.obj: src/includes.h src/serial_debug.h src/sectionB.h
 $(OUTPUT_DIR)/src/02d968_stop_spawn.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/02d968_stop_spawn.obj: src/014b8c_backup.h src/013ae8_route_load.h

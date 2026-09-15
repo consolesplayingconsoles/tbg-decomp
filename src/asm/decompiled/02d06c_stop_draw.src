@@ -1,6 +1,6 @@
 ; 8c02d06c
           .IMPORT     _var_waitingPassengers_8c228798
-          .IMPORT     _var_8c2288d8
+          .IMPORT     _var_passengerSprite_8c2288d8
           .IMPORT     _var_8c1bbfe4
           .IMPORT     __quick_odd_mvn
           .IMPORT     _njDrawSprite3D
@@ -146,7 +146,7 @@ LP_GEN_15605:
           .DATA.W H'0100 ; H'8C02D150
           .RES.W 1 ; H'8C02D152
           .DATA.L _var_waitingPassengers_8c228798 ; H'8C02D154
-          .DATA.L _var_8c2288d8 ; H'8C02D158
+          .DATA.L _var_passengerSprite_8c2288d8 ; H'8C02D158
           .DATA.L _var_8c1bbfe4 ; H'8C02D15C
           .DATA.L __quick_odd_mvn ; H'8C02D160
           .DATA.L _njDrawSprite3D ; H'8C02D164

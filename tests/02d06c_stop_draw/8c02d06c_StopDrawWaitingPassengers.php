@@ -11,7 +11,7 @@ return new class extends TestCase {
         $this->setSize('__quick_odd_mvn', 4);
         $this->setSize('_var_waitingPassengerCount_8c228794', 4);
         $this->setSize('_var_waitingPassengers_8c228798', 16 * 0x14); // WaitingPassengerSlot[16]
-        $this->setSize('_var_8c2288d8', 0x20); // NJS_SPRITE
+        $this->setSize('_var_passengerSprite_8c2288d8', 0x20); // NJS_SPRITE
         $this->setSize('_var_pedestrianAssets_8c1bbfdc', 0x41 * 0x10); // ModelSlot[65]
 
         $assets = $this->addressOf('_var_pedestrianAssets_8c1bbfdc');
@@ -25,7 +25,7 @@ return new class extends TestCase {
      * The struct-copy helper SHC emits for the p = pos_0x04 assignment
      * (dest in R1, src in R2, byte count in R0 -- see docs/lessons_learned.md).
      * Performs the copy and asserts dst/src/len so the expected NJS_VECTOR
-     * is what actually lands in var_8c2288d8.p; the writes it performs go
+     * is what actually lands in var_passengerSprite_8c2288d8.p; the writes it performs go
      * straight to memory and are not separately tracked expectations, so
      * register it in chronological position (right after the tlist write,
      * before the njDrawSprite3D call it precedes).
@@ -82,7 +82,7 @@ return new class extends TestCase {
 
         $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(0);
 
-        $sprite = $this->addressOf('_var_8c2288d8');
+        $sprite = $this->addressOf('_var_passengerSprite_8c2288d8');
         $this->shouldWriteLong($sprite + 0x18, $tlist); // tlist
 
         $this->mockStructCopy($sprite + 0x00, $slots + 0x04); // p = pos_0x04
@@ -105,7 +105,7 @@ return new class extends TestCase {
 
         $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(1);
 
-        $sprite = $this->addressOf('_var_8c2288d8');
+        $sprite = $this->addressOf('_var_passengerSprite_8c2288d8');
         $this->shouldWriteLong($sprite + 0x18, $tlist);
 
         $this->mockStructCopy($sprite + 0x00, $slots + 0x04);
@@ -166,7 +166,7 @@ return new class extends TestCase {
 
         $this->call('_StopDrawWaitingPassengers_8c02d06c')->with(0);
 
-        $sprite = $this->addressOf('_var_8c2288d8');
+        $sprite = $this->addressOf('_var_passengerSprite_8c2288d8');
 
         $this->shouldWriteLong($sprite + 0x18, 0x1111);
         $this->mockStructCopy($sprite + 0x00, $slots + 0x00 + 0x04);

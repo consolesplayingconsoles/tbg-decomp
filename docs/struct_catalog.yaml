@@ -6109,7 +6109,7 @@ structs:
     chosen spawn-candidate entry, world position (y filled by the ground snap), and pick order.'
   used_by:
   - src/02c884_bus_stop.c
-  - src/02d06c.c
+  - src/02d06c_stop_draw.c
   members: []
   summary:
     total: 3

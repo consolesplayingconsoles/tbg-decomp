@@ -554,6 +554,38 @@ Two original-game quirks preserved and commented: an unloaded model slot frees
 its just-allocated task but still returns success, and opcode 10 leaves the
 script cursor parked mid-instruction.
 
+### `02d19c_passenger` (ShortUnit `Passenger`) -- done, 8/8 functions
+
+The bus-stop cutscene's passengers. `PassengerBoardTask_8c02d21c` and
+`PassengerExitTask_8c02d46c` each walk a passenger through three waypoints
+(`var_boardSpot1..3`, `var_exitSpot1..3` in sectionB), but there is no walk
+animation: a step only happens on the single frame
+`var_passengersFadedOut_8c22895c` is set, which is the frame
+`var_passengerFadeColor_8c228960`'s alpha reaches zero. The passenger vanishes
+at one spot and reappears at the next in a new pose, and `delay_0x20` staggers
+them so they go one at a time.
+
+Was `@unit BusRider`. Renamed because the rest of the codebase already said
+"passenger" in seven symbol names across unrelated units and in the string
+table, so 02d968 was reading `var_waitingPassengers_8c228798` and spawning
+`BusRider*` tasks from it. "Alight" went to "exit" at the same time -- correct
+transit English, but not the American reading the rest of the comments are
+written in.
+
+### `02d06c_stop_draw` (ShortUnit `StopDraw`) -- done, 3/3 functions
+
+Draws the passengers waiting at the upcoming stop, plus the FadeCallback1 pair
+that brackets every passenger draw. `StopDrawLightBegin_8c02d0fc` is where
+`njSetConstantMaterial(var_passengerFadeColor_8c228960)` happens -- the alpha
+that fades passengers, not the interior: `drawInterior_8c02d1f4` sets no
+constant material at all.
+
+`pedestriansTask_8c0293f6` (028258) registers
+`StopDrawWaitingPassengers_8c02d06c` once per layer and passes the layer
+through as the argument too, so layer 0 draws one facing and layer 1 (the
+mirror) the other -- the same 0x22/0x23 standing pair
+`drawPassengerSprite_8c02d19c` uses for the two aisle columns.
+
 ### `02c884_bus_stop` (ShortUnit `BusStop`) -- done, 10/10 functions
 
 Bus stops: which route segments have one, the passengers waiting at them, and
@@ -586,8 +618,12 @@ What `026710` needs from it:
   and the normal entry point `GamePushLoadingTask_8c013310` hardcodes it to 0.
 
 `BusStopSetup_8c02caba` allocates nothing; it is pure state init. The unit's
-only allocation is `pickWaitingPassengers_8c02c8ae`'s `syMalloc(0x40)` scratch
-list, freed before return. Waiting passengers land in `var_waitingPassengers_8c228798[16]` of
+only allocation is `pickWaitingPassengers_8c02c8ae`'s scratch list (16 pointers,
+written as `16 * sizeof(void *)`), freed before return. That size is an
+unchecked assumption: the scan that fills it is bounded only by the segment's
+candidate list, so a segment offering more than 16 active spots would write past
+it. Commented in place; not reachable with the shipped route data as far as the
+tests exercise it. Waiting passengers land in `var_waitingPassengers_8c228798[16]` of
 `WaitingPassengerSlot` (0x14 bytes: spot pointer, `NJS_POINT3` pos, pick-order
 float), laid along the stop strip as `pos = origin + n*dir` plus `rand()` jitter
 -- except on `ROUTE_OME`, which gets no jitter.
@@ -598,6 +634,11 @@ extra-stop reroll loop then indexes `segments[pick]` off that unreset pointer --
 so its `type_0x00` check reads `totalSegments + pick` records past the table
 start. The flag-array check is unaffected. Commented in the C as real asm
 behavior rather than silently corrected.
+
+The `StopAreaRecord` typedef in the header had been documenting the layout of
+`pickWaitingPassengers_8c02c8ae`'s `var_8c22890c` without the function using it
+-- four raw `*(float *)(p + n)` reads instead. It now casts to the struct, which
+is also what `sectionB.h` points at rather than restating the offsets.
 
 ## Done since last snapshot (2026-07-12/13)
 

@@ -926,13 +926,13 @@ return [
         ],
         [
             "tests" => [
-                "tests/02d06c/8c02d06c_StopDrawWaitingPassengers.php",
-                "tests/02d06c/8c02d0fc_StopDrawLightBegin.php",
-                "tests/02d06c/8c02d146_StopDrawLightEnd.php",
+                "tests/02d06c_stop_draw/8c02d06c_StopDrawWaitingPassengers.php",
+                "tests/02d06c_stop_draw/8c02d0fc_StopDrawLightBegin.php",
+                "tests/02d06c_stop_draw/8c02d146_StopDrawLightEnd.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02d06c.obj",
-                "build/output_test/src/02d06c.obj",
+                "build/output_test/src/asm/decompiled/02d06c_stop_draw.obj",
+                "build/output_test/src/02d06c_stop_draw.obj",
             ]
         ],
         [

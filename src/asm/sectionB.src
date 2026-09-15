@@ -833,7 +833,7 @@
           .EXPORT     _var_waitingPassengers_8c228798 ; 02c884
                                     ; 02d06c
                                     ; 02d968
-          .EXPORT     _var_8c2288d8 ; 02c884
+          .EXPORT     _var_passengerSprite_8c2288d8 ; 02c884
                                     ; 02d06c
                                     ; 02d19c
           .EXPORT     _var_stopTaskGroup_8c2288f8 ; 012f44_game
@@ -1559,7 +1559,7 @@ _var_waitingPassengerCount_8c228794:
           .RES.B      4
 _var_waitingPassengers_8c228798:
           .RES.B      320
-_var_8c2288d8:
+_var_passengerSprite_8c2288d8:
           .RES.B      32
 _var_stopTaskGroup_8c2288f8:
           .RES.B      4

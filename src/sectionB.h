@@ -986,9 +986,10 @@ extern WaitingPassengerSlot var_waitingPassengers_8c228798[16];
  * StopSpawnInit_8c02d968 to spawn each slot's passenger task. */
 extern int var_stopSchedule_8c228718[31];
 
-/* shared NJS_SPRITE used to draw a waiting passenger; only sx/sy/ang/tanim
- * are reset up front, p and tlist are set per-draw. */
-extern NJS_SPRITE var_8c2288d8;
+/* The one NJS_SPRITE every passenger is drawn through, waiting at the stop
+ * (02d06c) or inside the bus (02d19c). Only sx/sy/ang/tanim are reset up
+ * front; p and tlist are set per draw. */
+extern NJS_SPRITE var_passengerSprite_8c2288d8;
 
 /* current (about-to-depart) stop's heading angle, same computation as
  * var_8c228714 but masked unsigned instead of sign-extended; sits right
@@ -1003,9 +1004,10 @@ extern NJS_POINT3 var_8c228900;
  * symbol, used by drawStopMarker_8c02cd92 (02c884). */
 extern float var_8c228908;
 
-/* spawn-area record for the upcoming stop's segment (var_8c1bb894 entry
- * selected by its segment record's field_0x06); fields at +4/+8 are the
- * area's (x, z) origin, +0xc/+0x10 its (dx, dz) extent */
+/* Spawn-area record for the upcoming stop's segment (var_8c1bb894 entry
+ * selected by its segment record's field_0x06). Laid out as StopAreaRecord
+ * (02c884_bus_stop.h), which pickWaitingPassengers_8c02c8ae casts it to;
+ * typed char* here to keep sectionB.h free of that include. */
 extern char *var_8c22890c;
 
 /* Six consecutive NJS_POINT3 waypoints (0x228910-0x22894c, 12 bytes apart),

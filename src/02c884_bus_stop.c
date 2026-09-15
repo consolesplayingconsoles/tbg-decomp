@@ -19,25 +19,33 @@
 #include "02b464_drive_points.h" /* FUN_8c02c586, FUN_8c02c784 */
 
 /* ====================
+ * Compiler Definitions
+ * ====================
+ */
+
+#define MAX_WAITING ((int)(sizeof(var_waitingPassengers_8c228798) / \
+                           sizeof(var_waitingPassengers_8c228798[0])))
+
+/* ====================
  * Functions
  * ====================
  */
 
-/* Clears the 31-slot scripted waiting-passenger schedule (-1 = unused) and
- * resets the shared waiting-passenger sprite's scale/angle/animation ahead
- * of a new stop. */
+/* Empties the scripted schedule (-1 = unused slot) and resets the shared
+ * passenger sprite ahead of a new stop. */
 STATIC void resetStopState_8c02c884(void)
 {
     int i;
 
-    for (i = 0; i < 31; i++) {
+    for (i = 0; i < (int)(sizeof(var_stopSchedule_8c228718) /
+                          sizeof(var_stopSchedule_8c228718[0])); i++) {
         var_stopSchedule_8c228718[i] = -1;
     }
 
-    var_8c2288d8.sx = 0.014f;
-    var_8c2288d8.sy = 0.014f;
-    var_8c2288d8.ang = 0;
-    var_8c2288d8.tanim = init_pedestrianTexAnims_8c04623c;
+    var_passengerSprite_8c2288d8.sx = 0.014f;
+    var_passengerSprite_8c2288d8.sy = 0.014f;
+    var_passengerSprite_8c2288d8.ang = 0;
+    var_passengerSprite_8c2288d8.tanim = init_pedestrianTexAnims_8c04623c;
 }
 
 CourseSegment *BusStopGetSegment_8c02cd6a(int segmentIndex)
@@ -60,13 +68,9 @@ StopAreaRecord *BusStopGetStopArea_8c02cd7a(int segmentIndex)
     return *(StopAreaRecord **)((char *)var_stopAreaTable_8c1bb870 + seg->stopAreaId_0x02 * 8);
 }
 
-/* Locks in the current stop's heading angle (var_8c2288fc, masked to an
- * unsigned 16-bit njArcTan2 angle) from the segment var_nextStopSegment_8c228710
- * was still pointing at, then advances var_nextStopSegment_8c228710 to the
- * next segment with an active-stop flag (var_8c2286a4) and primes that
- * upcoming stop's position (var_8c228900.x/.z) and heading angle
- * (var_8c228714, sign-extended back to a full Angle) from its stop-area
- * record (BusStopGetStopArea_8c02cd7a). */
+/* The same njArcTan2 angle is stored twice in different forms: var_8c2288fc
+ * masked to unsigned 16 bits for the stop being left, var_8c228714
+ * sign-extended to a full Angle for the one coming up. */
 void BusStopUpdateStopHeadings_8c02ccc6(void)
 {
     StopAreaRecord *rec;
@@ -93,8 +97,6 @@ void BusStopUpdateStopHeadings_8c02ccc6(void)
     }
 }
 
-/* Tears down the bus-stop task group (waiting-passenger/departure tasks),
- * freeing its Task array and resetting the handle to "not allocated". */
 void BusStopFreeTaskGroup_8c02ca96(void)
 {
     if (var_stopTaskGroup_8c2288f8 != (void *)-1) {
@@ -115,6 +117,7 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
     GroundQueryResult ground;
     void **candidates;
     CourseSegment *seg;
+    StopAreaRecord *area;
     char *list;
     void **slot;
     int candidateCount;
@@ -130,7 +133,10 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
     GroundProbeInterpolateHeight_8c020f7e(&ground, (float *)&var_8c228900);
 
     seg = BusStopGetSegment_8c02cd6a(var_nextStopSegment_8c228710);
-    candidates = (void **)syMalloc(0x40);
+    /* Sized for 16 candidates, but the scan below is bounded only by the
+     * segment's list -- a segment offering more than 16 active spots would
+     * run past this. */
+    candidates = (void **)syMalloc(16 * sizeof(void *));
 
     list = (char *)seg->stopCandidates_0x08;
     candidateCount = 0;
@@ -145,14 +151,15 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
             var_8c22890c = *(char **)((char *)var_8c1bb894 + seg->ukn_0x06 * 0xc);
 
             var_waitingPassengerCount_8c228794 = AsqGetRandomInRangeA_8c012178(candidateCount) + 1;
-            if (var_waitingPassengerCount_8c228794 > 0x10) {
-                var_waitingPassengerCount_8c228794 = 0x10;
+            if (var_waitingPassengerCount_8c228794 > MAX_WAITING) {
+                var_waitingPassengerCount_8c228794 = MAX_WAITING;
             }
 
-            x0 = *(float *)(var_8c22890c + 4);
-            z0 = *(float *)(var_8c22890c + 8);
-            dx = *(float *)(var_8c22890c + 0xc);
-            dz = *(float *)(var_8c22890c + 0x10);
+            area = (StopAreaRecord *)var_8c22890c;
+            x0 = area->x_0x04;
+            z0 = area->z_0x08;
+            dx = area->dx_0x0c;
+            dz = area->dz_0x10;
 
             counter = 0.0f;
             for (i = 0; i < var_waitingPassengerCount_8c228794; i++) {
@@ -282,10 +289,10 @@ void BusStopSetup_8c02caba(void)
     }
 }
 
-/* Draws the "fuu" stop-marker model at the upcoming stop, facing its
- * heading (var_8c228714) and animated by the frame counter var_8c1bc44c.
- * Installed as a FadeCallback1 by BusStopUpdateArrival_8c02ce48 while
- * approaching a stop; the callback arg is unused. */
+/* Draws the stop marker (the "Foo" model, var_loadedFooNjm_8c1bc448) at the
+ * upcoming stop, facing its heading and animated by var_8c1bc44c. Installed
+ * as a FadeCallback1 by BusStopUpdateArrival_8c02ce48 during the approach;
+ * the callback arg is unused. */
 STATIC void drawStopMarker_8c02cd92(int arg0)
 {
     float frame;

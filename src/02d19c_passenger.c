@@ -14,7 +14,7 @@
 #include "024b4c_bus_render.h"
 #include "028258_objects.h"
 #include "02c884_bus_stop.h"
-#include "02d06c.h"
+#include "02d06c_stop_draw.h"
 #include "02d19c_passenger.h"
 
 /* ====================
@@ -88,9 +88,9 @@ STATIC void drawPassengerSprite_8c02d19c(int arg0)
         return;
     }
 
-    var_8c2288d8.tlist = var_pedestrianAssets_8c1bbfdc[stopIndex].texlist_0x08;
-    var_8c2288d8.p = state->pos_0x08;
-    njDrawSprite3D(&var_8c2288d8, state->spriteNo_0x14, state->isSeated_0x28 == 0 ? 0x32 : 0x30);
+    var_passengerSprite_8c2288d8.tlist = var_pedestrianAssets_8c1bbfdc[stopIndex].texlist_0x08;
+    var_passengerSprite_8c2288d8.p = state->pos_0x08;
+    njDrawSprite3D(&var_passengerSprite_8c2288d8, state->spriteNo_0x14, state->isSeated_0x28 == 0 ? 0x32 : 0x30);
 }
 
 /* Installed as a FadeCallback1 (via literal-pool pointer in PassengerStopSceneTask_8c02d644);
