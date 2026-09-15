@@ -10,32 +10,75 @@
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28 */
 #include "024280.h"
 
+/* ====================
+ * Compiler Definitions
+ * ====================
+ */
+
+#define PHYSICS_FPS 30
+
+#define MAX_RPM 6000.0f
+
+#define SPEED_PER_KMH (3.6f * PHYSICS_FPS)
+
+/** Converts kilometers per hour to internal speed units. */
+#define KMH_TO_SPEED(kmh) \
+    ((kmh) / SPEED_PER_KMH)
+
+#define TOP_SPEED_TO_RATIO(topSpeed) \
+    (KMH_TO_SPEED(topSpeed) / MAX_RPM)
+
+/* Converts gear ramp time in seconds to BAM units/frame. */
+#define ACCEL_RATE_FROM_SECONDS(seconds) \
+    (0x4000 / (PHYSICS_FPS * (seconds)))
+
 /* =====================
  * Type Declarations
  * =====================
  */
 
-/* Per-gear table indexed by BusState.gear_0x2f4, shared by the throttle
- * (applyThrottle_8c024320) and brake (FUN_8c024530/FUN_8c024606) handlers. */
 typedef struct {
-    int throttleRampRate_0x00;   /* role not yet confirmed from the functions decompiled so far */
-    float speedToAngleFactor_0x04;
-    /* speedToAngleFactor_0x04 * 6000.0f -- the units speedToAngleFactor_0x04
-     * converts speed into before feeding it to asinf */
-    float topSpeed_0x08;
-} GearTableEntry;
+    /** How quickly the RPM ramps up, in BAM units/frame */
+    int accelRate_0x00;
+
+    /** How much speed the gear produces for a given engine RPM, in units/frame/RPM */
+    float speedRatio_0x04;
+
+    /** The speed at which the gear should be upshifted. */
+    float upshiftSpeed_0x08;
+} Gear;
 
 /* =====================
  * Initialized Globals
  * =====================
  */
 
-STATIC GearTableEntry init_8c045638[5] = {
-    { 546, 2.1604937501251698e-05f, 0.09259258955717087f },
-    { 136, 4.3209875002503395e-05f, 0.18518517911434174f },
-    { 68, 6.481481250375509e-05f, 0.32407405972480774f },
-    { 45, 8.641975000500679e-05f, 0.46296295523643494f },
-    { 34, 0.00010802468750625849f, 0.6481481194496155f },
+STATIC Gear init_gears_8c045638[5] = {
+    {   /* [0] 1st gear */
+        /* accelRate_0x00    */  ACCEL_RATE_FROM_SECONDS(1),
+        /* speedRatio_0x04   */  TOP_SPEED_TO_RATIO(14.0f),
+        /* upshiftSpeed_0x08 */  KMH_TO_SPEED(10.0f)
+    },
+    {   /* [1] 2nd gear */
+        /* accelRate_0x00    */  ACCEL_RATE_FROM_SECONDS(4),
+        /* speedRatio_0x04   */  TOP_SPEED_TO_RATIO(28.0f),
+        /* upshiftSpeed_0x08 */  KMH_TO_SPEED(20.0f)
+    },
+    {   /* [2] 3rd gear */
+        /* accelRate_0x00    */  ACCEL_RATE_FROM_SECONDS(8),
+        /* speedRatio_0x04   */  TOP_SPEED_TO_RATIO(42.0f),
+        /* upshiftSpeed_0x08 */  KMH_TO_SPEED(35.0f)
+    },
+    {   /* [3] 4th gear */
+        /* accelRate_0x00    */  ACCEL_RATE_FROM_SECONDS(12),
+        /* speedRatio_0x04   */  TOP_SPEED_TO_RATIO(56.0f),
+        /* upshiftSpeed_0x08 */  KMH_TO_SPEED(50.0f)
+    },
+    {   /* [4] 5th gear */
+        /* accelRate_0x00    */  ACCEL_RATE_FROM_SECONDS(16),
+        /* speedRatio_0x04   */  TOP_SPEED_TO_RATIO(70.0f),
+        /* upshiftSpeed_0x08 */  KMH_TO_SPEED(70.0f)
+    },
 };
 
 /* =====================
@@ -118,12 +161,12 @@ STATIC void applyBraking_8c024530(void)
     }
 
     gear = var_busState_8c1bb9d0.gear_0x2f4;
-    if (gear != 0 && init_8c045638[gear - 1].topSpeed_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
+    if (gear != 0 && init_gears_8c045638[gear - 1].upshiftSpeed_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
         gear -= 1;
         var_busState_8c1bb9d0.gear_0x2f4 = gear;
     }
 
-    ratio = var_busState_8c1bb9d0.speed_0x27c / init_8c045638[gear].speedToAngleFactor_0x04;
+    ratio = var_busState_8c1bb9d0.speed_0x27c / init_gears_8c045638[gear].speedRatio_0x04;
     var_busState_8c1bb9d0.target_0x2e8 = ratio;
 
     angle = (int)((asinf(ratio / 6000.0f) * 65536.0f) / TWO_PI);
@@ -155,7 +198,7 @@ STATIC void applyThrottle_8c024320(void)
     if (trigger > deadzone && step >= var_8c1bbcb4) {
         gear = var_busState_8c1bb9d0.gear_0x2f4;
 
-        var_busState_8c1bb9d0.needleCurrentValue_0x2e4 += init_8c045638[gear].throttleRampRate_0x00;
+        var_busState_8c1bb9d0.needleCurrentValue_0x2e4 += init_gears_8c045638[gear].accelRate_0x00;
         if (var_busState_8c1bb9d0.needleCurrentValue_0x2e4 > step) {
             var_busState_8c1bb9d0.needleCurrentValue_0x2e4 = step;
         }
@@ -163,17 +206,17 @@ STATIC void applyThrottle_8c024320(void)
         var_busState_8c1bb9d0.target_0x2e8 =
             njSin(var_busState_8c1bb9d0.needleCurrentValue_0x2e4) * 6000.0f;
         var_busState_8c1bb9d0.speed_0x27c =
-            var_busState_8c1bb9d0.target_0x2e8 * init_8c045638[gear].speedToAngleFactor_0x04;
+            var_busState_8c1bb9d0.target_0x2e8 * init_gears_8c045638[gear].speedRatio_0x04;
 
         if (gear >= 4) {
-            /* Top gear: no upshift left, just clamp to init_8c045638[4].topSpeed_0x08. */
+            /* Top gear: no upshift left, just clamp to init_gears_8c045638[4].upshiftSpeed_0x08. */
             if (var_busState_8c1bb9d0.speed_0x27c > 0.6481481194496155f) {
                 var_busState_8c1bb9d0.speed_0x27c = 0.6481481194496155f;
             }
             return;
         }
 
-        if (var_busState_8c1bb9d0.speed_0x27c <= init_8c045638[gear].topSpeed_0x08) {
+        if (var_busState_8c1bb9d0.speed_0x27c <= init_gears_8c045638[gear].upshiftSpeed_0x08) {
             return;
         }
 
@@ -191,7 +234,7 @@ STATIC void applyThrottle_8c024320(void)
         }
 
         gear = var_busState_8c1bb9d0.gear_0x2f4;
-        if (gear != 0 && init_8c045638[gear - 1].topSpeed_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
+        if (gear != 0 && init_gears_8c045638[gear - 1].upshiftSpeed_0x08 > var_busState_8c1bb9d0.speed_0x27c) {
             /* Same shift cue as the upshift above. */
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, (var_cameraMode_8c227d9c >= 2) ? 0x25 : 0x26, 0);
             gear -= 1;
@@ -201,7 +244,7 @@ STATIC void applyThrottle_8c024320(void)
 
     gear = var_busState_8c1bb9d0.gear_0x2f4;
     var_busState_8c1bb9d0.target_0x2e8 =
-        var_busState_8c1bb9d0.speed_0x27c / init_8c045638[gear].speedToAngleFactor_0x04;
+        var_busState_8c1bb9d0.speed_0x27c / init_gears_8c045638[gear].speedRatio_0x04;
     var_busState_8c1bb9d0.needleCurrentValue_0x2e4 =
         (int)((asinf(var_busState_8c1bb9d0.target_0x2e8 / 6000.0f) * 65536.0f) / TWO_PI);
 }

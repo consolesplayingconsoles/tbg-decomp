@@ -274,7 +274,7 @@ LP_GEN_79582:
           .DATA.L H'45BB8000 ; H'8C024448
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02444C
           .DATA.L _sdMidiPlay ; H'8C024450
-          .DATA.L _init_8c045638 ; H'8C024454
+          .DATA.L _init_gears_8c045638 ; H'8C024454
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024458
           .DATA.L _var_8c1bbcb4 ; H'8C02445C
           .DATA.L _njSin ; H'8C024460
@@ -537,7 +537,7 @@ LP_GEN_12192:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02465C
           .DATA.L H'42400000 ; H'8C024660
           .DATA.L H'3B03126F ; H'8C024664
-          .DATA.L _init_8c045638 ; H'8C024668
+          .DATA.L _init_gears_8c045638 ; H'8C024668
           .DATA.L H'45BB8000 ; H'8C02466C
           .DATA.L _asinf ; H'8C024670
           .DATA.L H'47800000 ; H'8C024674
@@ -1199,7 +1199,7 @@ LP_GEN_84107:
           .DATA.L H'43B40000 ; H'8C024B44
           .DATA.L H'42A1C71C ; H'8C024B48
           .SECTION    D, DATA, ALIGN=4
-_init_8c045638:        ; from defines
+_init_gears_8c045638:        ; from defines
           .DATA.B      H'22, H'02, H'00, H'00
           .DATA.B      H'40, H'3C, H'B5, H'37
           .DATA.B      H'2F, H'A1, H'BD, H'3D, H'88, H'00, H'00, H'00, H'40, H'3C, H'35, H'38, H'2F, H'A1, H'3D, H'3E
