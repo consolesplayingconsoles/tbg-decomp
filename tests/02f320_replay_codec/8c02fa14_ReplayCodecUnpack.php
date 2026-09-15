@@ -19,9 +19,9 @@ return new class extends TestCase {
         $this->initUint32($destSlot, $destBuf);
 
         // code 0x41 is a literal byte (<=0xff), so the parent-walk runs once.
-        $this->initUint8($this->addressOf('_var_8c228bae') + 0x41, 0x41);
-        $this->initUint16($this->addressOf('_var_8c229bae') + 0x41 * 2, 0x1000);
-        $this->initUint16($this->addressOf('_var_8c231bae'), 0x102);
+        $this->initUint8($this->addressOf('_var_dictByte_8c228bae') + 0x41, 0x41);
+        $this->initUint16($this->addressOf('_var_dictParent_8c229bae') + 0x41 * 2, 0x1000);
+        $this->initUint16($this->addressOf('_var_nextCode_8c231bae'), 0x102);
 
         $this->call('_ReplayCodecUnpack_8c02fa14')->with($srcBuf, $destSlot, 100);
 
@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->shouldCall('_ReplayCodecInit_8c02f320');
         $this->shouldCall('_initTables_8c02f704');
         $this->shouldCall('_readCode_8c02f892')->andReturn(0x41);
-        $this->shouldWriteWord($this->addressOf('_var_8c235bb4') + 99 * 2, 0x41);
+        $this->shouldWriteWord($this->addressOf('_var_runBuf_8c235bb4') + 99 * 2, 0x41);
         $this->shouldWriteByte($destBuf, 0x41);
         $this->shouldCall('_extendDict_8c02f740');
         $this->shouldWriteLong($destSlot, $destBuf + 1);
@@ -55,11 +55,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c228bae', 0x1000);
-        $this->setSize('_var_8c229bae', 0x2000);
-        $this->setSize('_var_8c231bae', 2);
-        $this->setSize('_var_8c235bb0', 2);
-        $this->setSize('_var_8c235bb4', 200);
         $this->setSize('_memcpy', 4);
     }
 };

@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // TrafficPathScanNext_8c02f212(): continues the sample scan TrafficPathScanBuild_8c02f0c8 started. Walks the
-// (x, z) pairs in var_8c228b48 from cursor var_8c228b9c up to bound
-// var_8c228ba0, looking for the state of a live, non-excluded
-// (var_8c228b98) task whose entry sits within 2.5 of a sample -- returning
+// (x, z) pairs in var_samples_8c228b48 from cursor var_sampleCursor_8c228b9c up to bound
+// var_sampleEnd_8c228ba0, looking for the state of a live, non-excluded
+// (var_excludedTask_8c228b98) task whose entry sits within 2.5 of a sample -- returning
 // it (and advancing the cursor past that pair) or NULL once the bound is
 // reached.
 //
@@ -20,10 +20,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_8c228b48', 80);
-        $this->setSize('_var_8c228b9c', 4);
-        $this->setSize('_var_8c228ba0', 4);
-        $this->setSize('_var_8c228b98', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
     }
 
@@ -50,9 +46,9 @@ return new class extends TestCase {
     public function test_cursorAtBound_returnsNull(): void {
         $this->resolveSymbols();
 
-        $base = $this->addressOf('_var_8c228b48');
-        $this->initUint32($this->addressOf('_var_8c228b9c'), $base);
-        $this->initUint32($this->addressOf('_var_8c228ba0'), $base);
+        $base = $this->addressOf('_var_samples_8c228b48');
+        $this->initUint32($this->addressOf('_var_sampleCursor_8c228b9c'), $base);
+        $this->initUint32($this->addressOf('_var_sampleEnd_8c228ba0'), $base);
 
         $this->call('_TrafficPathScanNext_8c02f212');
 
@@ -64,12 +60,12 @@ return new class extends TestCase {
     public function test_firstTaskMatches_returnsItsState(): void {
         $this->resolveSymbols();
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
         $this->initFloat($base + 0x00, 10.0);
         $this->initFloat($base + 0x04, 20.0);
-        $this->initUint32($this->addressOf('_var_8c228b9c'), $base);
-        $this->initUint32($this->addressOf('_var_8c228ba0'), $base + 0x08);
-        $this->initUint32($this->addressOf('_var_8c228b98'), 0); // exclude nothing
+        $this->initUint32($this->addressOf('_var_sampleCursor_8c228b9c'), $base);
+        $this->initUint32($this->addressOf('_var_sampleEnd_8c228ba0'), $base + 0x08);
+        $this->initUint32($this->addressOf('_var_excludedTask_8c228b98'), 0); // exclude nothing
 
         $candidate = $this->makeCandidate(10.0, 20.0);
         $this->makeTask(0, 1, $candidate);
@@ -77,24 +73,24 @@ return new class extends TestCase {
 
         $this->call('_TrafficPathScanNext_8c02f212');
 
-        $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x08);
+        $this->shouldWriteLongTo('_var_sampleCursor_8c228b9c', $base + 0x08);
         $this->shouldReturn($candidate);
     }
 
-    // Task 0 is excluded via var_8c228b98 (advance 0 -- the cursor doesn't
+    // Task 0 is excluded via var_excludedTask_8c228b98 (advance 0 -- the cursor doesn't
     // move for it); task 1 is the real, matching candidate.
     public function test_excludedTaskSkipped_nextTaskMatches(): void {
         $this->resolveSymbols();
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
         $this->initFloat($base + 0x00, 10.0);
         $this->initFloat($base + 0x04, 20.0);
-        $this->initUint32($this->addressOf('_var_8c228b9c'), $base);
-        $this->initUint32($this->addressOf('_var_8c228ba0'), $base + 0x08);
+        $this->initUint32($this->addressOf('_var_sampleCursor_8c228b9c'), $base);
+        $this->initUint32($this->addressOf('_var_sampleEnd_8c228ba0'), $base + 0x08);
 
         $excludedCandidate = $this->makeCandidate(10.0, 20.0); // would match, but excluded
         $excludedTask = $this->makeTask(0, 1, $excludedCandidate);
-        $this->initUint32($this->addressOf('_var_8c228b98'), $excludedTask);
+        $this->initUint32($this->addressOf('_var_excludedTask_8c228b98'), $excludedTask);
 
         $candidate = $this->makeCandidate(10.0, 20.0);
         $this->makeTask(1, 1, $candidate);
@@ -102,7 +98,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficPathScanNext_8c02f212');
 
-        $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x08);
+        $this->shouldWriteLongTo('_var_sampleCursor_8c228b9c', $base + 0x08);
         $this->shouldReturn($candidate);
     }
 
@@ -110,12 +106,12 @@ return new class extends TestCase {
     public function test_sentinelTaskSkipped_nextTaskMatches(): void {
         $this->resolveSymbols();
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
         $this->initFloat($base + 0x00, 10.0);
         $this->initFloat($base + 0x04, 20.0);
-        $this->initUint32($this->addressOf('_var_8c228b9c'), $base);
-        $this->initUint32($this->addressOf('_var_8c228ba0'), $base + 0x08);
-        $this->initUint32($this->addressOf('_var_8c228b98'), 0);
+        $this->initUint32($this->addressOf('_var_sampleCursor_8c228b9c'), $base);
+        $this->initUint32($this->addressOf('_var_sampleEnd_8c228ba0'), $base + 0x08);
+        $this->initUint32($this->addressOf('_var_excludedTask_8c228b98'), 0);
 
         $this->makeTask(0, -1, 0xdeadbeef); // sentinel
 
@@ -125,7 +121,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficPathScanNext_8c02f212');
 
-        $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x08);
+        $this->shouldWriteLongTo('_var_sampleCursor_8c228b9c', $base + 0x08);
         $this->shouldReturn($candidate);
     }
 
@@ -137,14 +133,14 @@ return new class extends TestCase {
     public function test_failedXCheck_misalignsNextTasksRead(): void {
         $this->resolveSymbols();
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
         $this->initFloat($base + 0x00, 10.0);  // sample0.x
         $this->initFloat($base + 0x04, 20.0);  // sample0.z / task1's "x"
         $this->initFloat($base + 0x08, 30.0);  // sample1.x / task1's "z"
         $this->initFloat($base + 0x0c, 40.0);  // sample1.z
-        $this->initUint32($this->addressOf('_var_8c228b9c'), $base);
-        $this->initUint32($this->addressOf('_var_8c228ba0'), $base + 0x10);
-        $this->initUint32($this->addressOf('_var_8c228b98'), 0);
+        $this->initUint32($this->addressOf('_var_sampleCursor_8c228b9c'), $base);
+        $this->initUint32($this->addressOf('_var_sampleEnd_8c228ba0'), $base + 0x10);
+        $this->initUint32($this->addressOf('_var_excludedTask_8c228b98'), 0);
 
         $mismatched = $this->makeCandidate(999.0, 0.0); // x check fails against 10.0
         $this->makeTask(0, 1, $mismatched);
@@ -158,7 +154,7 @@ return new class extends TestCase {
         // p started at base, task0 fails x -> p += 1 (base+0x04); task1's
         // x check reads p[0] = sample[1] = 20.0 (matches), z check reads
         // p[1] = sample[2] = 30.0 (matches) -> cursor = p + 2 = base+0x0c.
-        $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x0c);
+        $this->shouldWriteLongTo('_var_sampleCursor_8c228b9c', $base + 0x0c);
         $this->shouldReturn($shifted);
     }
 
@@ -172,12 +168,12 @@ return new class extends TestCase {
     public function test_repeatedXFailure_advancesCursorAcrossPasses(): void {
         $this->resolveSymbols();
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
         $this->initFloat($base + 0x00, 999.0);
         $this->initFloat($base + 0x04, 999.0);
-        $this->initUint32($this->addressOf('_var_8c228b9c'), $base);
-        $this->initUint32($this->addressOf('_var_8c228ba0'), $base + 0x04);
-        $this->initUint32($this->addressOf('_var_8c228b98'), 0);
+        $this->initUint32($this->addressOf('_var_sampleCursor_8c228b9c'), $base);
+        $this->initUint32($this->addressOf('_var_sampleEnd_8c228ba0'), $base + 0x04);
+        $this->initUint32($this->addressOf('_var_excludedTask_8c228b98'), 0);
 
         $mismatched = $this->makeCandidate(0.0, 0.0); // always fails x
         $this->makeTask(0, 1, $mismatched);

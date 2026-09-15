@@ -656,3 +656,4 @@ _init_8c04e988:        ; from ghidra
           .DATA.B      H'FF, H'FF, H'15, H'01, H'3F, H'00, H'FF, H'FF, H'FF, H'FF, H'3F, H'00, H'14, H'01, H'FF, H'FF
           .DATA.B      H'40, H'00, H'FF, H'FF, H'41, H'00, H'40, H'00, H'FF, H'FF, H'12, H'01, H'14, H'01, H'FF, H'FF
           .DATA.B      H'FF, H'FF, H'14, H'01, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
+          .END

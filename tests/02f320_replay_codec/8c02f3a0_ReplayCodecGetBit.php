@@ -11,8 +11,8 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         // getlen=4 -> decrements to 3, no refill; bac bit 3 extracted.
-        $this->initUint16($this->addressOf('_var_8c228ba8'), 4);
-        $this->initUint16($this->addressOf('_var_8c228bac'), 0x0008); // bit 3 set
+        $this->initUint16($this->addressOf('_var_readBitsLeft_8c228ba8'), 4);
+        $this->initUint16($this->addressOf('_var_bitBuf_8c228bac'), 0x0008); // bit 3 set
 
         $srcBuf = $this->alloc(4);
         $srcSlot = $this->alloc(4);
@@ -25,7 +25,7 @@ return new class extends TestCase {
 
         $this->call('_getBit_8c02f3a0')->with($srcSlot, $countSlot);
 
-        $this->shouldWriteWord($this->addressOf('_var_8c228ba8'), 3);
+        $this->shouldWriteWord($this->addressOf('_var_readBitsLeft_8c228ba8'), 3);
         $this->shouldReturn(1);
     }
 
@@ -34,8 +34,8 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         // getlen=0 -> decrements to -1, triggers refill.
-        $this->initUint16($this->addressOf('_var_8c228ba8'), 0);
-        $this->initUint16($this->addressOf('_var_8c228bac'), 0);
+        $this->initUint16($this->addressOf('_var_readBitsLeft_8c228ba8'), 0);
+        $this->initUint16($this->addressOf('_var_bitBuf_8c228bac'), 0);
 
         $srcBuf = $this->alloc(4);
         $this->initUint8($srcBuf, 0x80); // MSB set
@@ -50,9 +50,9 @@ return new class extends TestCase {
 
         $this->call('_getBit_8c02f3a0')->with($srcSlot, $countSlot);
 
-        $this->shouldWriteWord($this->addressOf('_var_8c228ba8'), 0xFFFF);
-        $this->shouldWriteWord($this->addressOf('_var_8c228ba8'), 7);
-        $this->shouldWriteWord($this->addressOf('_var_8c228bac'), 0x80);
+        $this->shouldWriteWord($this->addressOf('_var_readBitsLeft_8c228ba8'), 0xFFFF);
+        $this->shouldWriteWord($this->addressOf('_var_readBitsLeft_8c228ba8'), 7);
+        $this->shouldWriteWord($this->addressOf('_var_bitBuf_8c228bac'), 0x80);
         $this->shouldWriteLong($countVal, 6);
         $this->shouldWriteLong($srcSlot, $srcBuf + 1);
         $this->shouldWriteLong($countSlot, $countVal);
@@ -61,7 +61,5 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c228ba8', 2);
-        $this->setSize('_var_8c228bac', 2);
     }
 };

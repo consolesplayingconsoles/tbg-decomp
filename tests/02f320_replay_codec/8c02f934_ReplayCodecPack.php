@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->shouldCall('_ReplayCodecInit_8c02f320');
         $this->shouldCall('_memcpy')->andReturn($destBuf);
         $this->shouldCall('_initTables_8c02f704');
-        $this->shouldWriteWord($this->addressOf('_var_8c235bb4'), 0x41);
+        $this->shouldWriteWord($this->addressOf('_var_runBuf_8c235bb4'), 0x41);
         $this->shouldCall('_lzwFindChild_8c02f636')->with(0x41, 0x00)->andReturn(0x1000);
         $this->shouldCall('_writeCode_8c02f824');
         $this->shouldCall('_extendDict_8c02f740');
@@ -35,8 +35,5 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_memcpy', 4);
-        $this->setSize('_var_8c235bb4', 200);
-        $this->setSize('_var_8c235bb0', 2);
-        $this->setSize('_var_8c233bb0', 0x2000);
     }
 };

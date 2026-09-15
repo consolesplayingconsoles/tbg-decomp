@@ -6,13 +6,33 @@
 #include "02f0c8.h"
 #include "sectionB.h"
 
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+/* Sample-point scratch buffer for up to 10 (x, z) pairs. */
+float var_samples_8c228b48[20];
+
+/* Task-slot pointer to exclude from scan. Setter still unclear. */
+void *var_excludedTask_8c228b98;
+
+float *var_sampleCursor_8c228b9c;
+float *var_sampleEnd_8c228ba0;
+
 /* ====================
  * Functions
  * ====================
  */
 
-void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord *firstRecord,
-                    Sint32 argIndex, float startProgress, float window)
+void *TrafficPathScanBuild_8c02f0c8(
+    Task *self,
+    TrafficEntry *entry,
+    PathRecord *firstRecord,
+    Sint32 argIndex,
+    float startProgress,
+    float window
+)
 {
     PathRecord *seg = firstRecord;
     float remaining = startProgress;
@@ -32,7 +52,7 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
         }
     }
 
-    cursor = var_8c228b48;
+    cursor = var_samples_8c228b48;
     for (traveled = startProgress; traveled < startProgress + window; traveled += 5.0f) {
         while (seg != (PathRecord *)-1 && seg->length_0x00 <= remaining) {
             remaining -= seg->length_0x00;
@@ -52,9 +72,9 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
         remaining += 5.0f;
     }
 
-    if (cursor != var_8c228b48) {
-        var_8c228ba0 = cursor;
-        for (p = var_8c228b48; p < cursor; p += 2) {
+    if (cursor != var_samples_8c228b48) {
+        var_sampleEnd_8c228ba0 = cursor;
+        for (p = var_samples_8c228b48; p < cursor; p += 2) {
             x = p[0];
             z = p[1];
 
@@ -62,7 +82,7 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
                  fabsf(var_8c1bbacc - z) < 2.5f) ||
                 (fabsf(var_busState_8c1bb9d0.posHistory_0x100[0].x - x) < 2.5f &&
                  fabsf(var_8c1bbad8 - z) < 2.5f)) {
-                var_8c228b9c = p + 2;
+                var_sampleCursor_8c228b9c = p + 2;
                 return var_8c1bbd9c;
             }
 
@@ -71,7 +91,7 @@ void *TrafficPathScanBuild_8c02f0c8(Task *self, TrafficEntry *entry, PathRecord 
                     candidateEntry = t->state;
                     if (fabsf(candidateEntry->posX_0xf4 - x) < 2.5f &&
                         fabsf(candidateEntry->posZ_0xfc - z) < 2.5f) {
-                        var_8c228b9c = p + 2;
+                        var_sampleCursor_8c228b9c = p + 2;
                         return candidateEntry;
                     }
                 }
@@ -89,24 +109,23 @@ void *TrafficPathScanNext_8c02f212(void)
     TrafficEntry *candidateEntry;
     int advance;
 
-    p = var_8c228b9c;
+    p = var_sampleCursor_8c228b9c;
     for (;;) {
-        if (p >= var_8c228ba0) {
+        if (p >= var_sampleEnd_8c228ba0) {
             return NULL;
         }
 
         for (t = var_tasks_8c1bac28; t->action != NULL; t++) {
             advance = 0;
 
-            /* var_8c228b98 is never written anywhere in src/, so this
-             * exclusion never fires -- it stays NULL, a value t can't hold. */
-            if (t->action != (TaskAction)-1 && (void *)t != var_8c228b98) {
+            // Note: var_excludedTask_8c228b98 is never written
+            if (t->action != (TaskAction) -1 && (void *) t != var_excludedTask_8c228b98) {
                 candidateEntry = t->state;
                 advance = 1;
                 if (fabsf(candidateEntry->posX_0xf4 - p[0]) < 2.5f) {
                     advance = 2;
                     if (fabsf(candidateEntry->posZ_0xfc - p[1]) < 2.5f) {
-                        var_8c228b9c = p + 2;
+                        var_sampleCursor_8c228b9c = p + 2;
                         return candidateEntry;
                     }
                 }
@@ -117,14 +136,14 @@ void *TrafficPathScanNext_8c02f212(void)
     }
 }
 
-Sint32 TrafficPathScanTypeInGroup_8c02f28a(Sint32 typeCode)
+Sint32 TrafficPathScanJunctionOccupied_8c02f28a(Sint32 signalId)
 {
     Sint32 *group;
     Sint32 *scan;
     Task *t;
 
-    group = var_8c228b44;
-    if (var_8c228b44 == (Sint32 *)-1) {
+    group = var_occupiedGroup_8c228b44;
+    if (var_occupiedGroup_8c228b44 == (Sint32 *)-1) {
         for (t = var_tasks_8c1bac28; ; t++) {
             if (t->action == NULL) {
                 return 0;
@@ -135,8 +154,8 @@ Sint32 TrafficPathScanTypeInGroup_8c02f28a(Sint32 typeCode)
             }
         }
 
-        scan = var_8c228b40;
-        group = var_8c228b40;
+        scan = var_signalGroups_8c228b40;
+        group = var_signalGroups_8c228b40;
         while (((TrafficEntry *)t->state)->signalWaitFrameId_0x450 != (Uint32)*scan) {
             if (*scan == -1) {
                 scan++;
@@ -145,11 +164,11 @@ Sint32 TrafficPathScanTypeInGroup_8c02f28a(Sint32 typeCode)
                 scan++;
             }
         }
-        var_8c228b44 = group;
+        var_occupiedGroup_8c228b44 = group;
     }
 
     while (*group != -1) {
-        if (typeCode == *group) {
+        if (signalId == *group) {
             return 1;
         }
         group++;

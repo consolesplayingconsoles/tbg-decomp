@@ -27,9 +27,9 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         // c7e(0x200) > bae(0x100)-0x100(0) -> no growth.
-        $this->initUint16($this->addressOf('_var_8c231bae'), 0x100);
-        $this->initUint16($this->addressOf('_var_8c235c7e'), 0x200);
-        $this->initUint16($this->addressOf('_var_8c235c7c'), 9);
+        $this->initUint16($this->addressOf('_var_nextCode_8c231bae'), 0x100);
+        $this->initUint16($this->addressOf('_var_codeLimit_8c235c7e'), 0x200);
+        $this->initUint16($this->addressOf('_var_codeBits_8c235c7c'), 9);
 
         $destBuf = $this->alloc(4);
         $destSlot = $this->alloc(4);
@@ -47,9 +47,9 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         // c7e(0x80) <= bae(0x200)-0x100(0x100) -> grows twice: 0x80->0x100 (still <=0x100) ->0x200.
-        $this->initUint16($this->addressOf('_var_8c231bae'), 0x200);
-        $this->initUint16($this->addressOf('_var_8c235c7e'), 0x80);
-        $this->initUint16($this->addressOf('_var_8c235c7c'), 8);
+        $this->initUint16($this->addressOf('_var_nextCode_8c231bae'), 0x200);
+        $this->initUint16($this->addressOf('_var_codeLimit_8c235c7e'), 0x80);
+        $this->initUint16($this->addressOf('_var_codeBits_8c235c7c'), 8);
 
         $destBuf = $this->alloc(4);
         $destSlot = $this->alloc(4);
@@ -57,10 +57,10 @@ return new class extends TestCase {
 
         $this->call('_writeCode_8c02f824')->with(0x150, $destSlot);
 
-        $this->shouldWriteWord($this->addressOf('_var_8c235c7c'), 9);
-        $this->shouldWriteWord($this->addressOf('_var_8c235c7e'), 0x100);
-        $this->shouldWriteWord($this->addressOf('_var_8c235c7c'), 10);
-        $this->shouldWriteWord($this->addressOf('_var_8c235c7e'), 0x200);
+        $this->shouldWriteWord($this->addressOf('_var_codeBits_8c235c7c'), 9);
+        $this->shouldWriteWord($this->addressOf('_var_codeLimit_8c235c7e'), 0x100);
+        $this->shouldWriteWord($this->addressOf('_var_codeBits_8c235c7c'), 10);
+        $this->shouldWriteWord($this->addressOf('_var_codeLimit_8c235c7e'), 0x200);
         $this->shouldCall('_putBit_8c02f49c')->andReturn(0);
         $this->shouldCall('_putBits_8c02f4da')->andReturn(0);
         $this->shouldWriteLong($destSlot, $destBuf);
@@ -68,8 +68,5 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c231bae', 2);
-        $this->setSize('_var_8c235c7c', 2);
-        $this->setSize('_var_8c235c7e', 2);
     }
 };

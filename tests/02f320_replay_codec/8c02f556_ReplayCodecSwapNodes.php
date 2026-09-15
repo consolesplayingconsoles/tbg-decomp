@@ -11,33 +11,30 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint16($this->addressOf('_var_8c235bb2'), 5);
-        $this->initUint16($this->addressOf('_var_8c231bb0') + 5 * 2, 42);
+        $this->initUint16($this->addressOf('_var_lruTail_8c235bb2'), 5);
+        $this->initUint16($this->addressOf('_var_lruPrev_8c231bb0') + 5 * 2, 42);
 
         $this->call('_swapNodes_8c02f556')->with(5);
 
-        $this->shouldWriteWord($this->addressOf('_var_8c235bb2'), 42);
-        $this->shouldWriteWord($this->addressOf('_var_8c233bb0') + 42 * 2, 0x1000);
+        $this->shouldWriteWord($this->addressOf('_var_lruTail_8c235bb2'), 42);
+        $this->shouldWriteWord($this->addressOf('_var_lruNext_8c233bb0') + 42 * 2, 0x1000);
     }
 
     public function test_swaps_sibling_nodes(): void
     {
         $this->resolveSymbols();
 
-        $this->initUint16($this->addressOf('_var_8c235bb2'), 99);
-        $this->initUint16($this->addressOf('_var_8c233bb0') + 7 * 2, 3);
-        $this->initUint16($this->addressOf('_var_8c231bb0') + 7 * 2, 11);
+        $this->initUint16($this->addressOf('_var_lruTail_8c235bb2'), 99);
+        $this->initUint16($this->addressOf('_var_lruNext_8c233bb0') + 7 * 2, 3);
+        $this->initUint16($this->addressOf('_var_lruPrev_8c231bb0') + 7 * 2, 11);
 
         $this->call('_swapNodes_8c02f556')->with(7);
 
-        $this->shouldWriteWord($this->addressOf('_var_8c231bb0') + 3 * 2, 11);
-        $this->shouldWriteWord($this->addressOf('_var_8c233bb0') + 11 * 2, 3);
+        $this->shouldWriteWord($this->addressOf('_var_lruPrev_8c231bb0') + 3 * 2, 11);
+        $this->shouldWriteWord($this->addressOf('_var_lruNext_8c233bb0') + 11 * 2, 3);
     }
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c231bb0', 0x2000);
-        $this->setSize('_var_8c233bb0', 0x2000);
-        $this->setSize('_var_8c235bb2', 2);
     }
 };

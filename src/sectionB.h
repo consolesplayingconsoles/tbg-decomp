@@ -927,47 +927,6 @@ extern void *var_8c1bb888;
 /* Set to 1 by TrafficDriveVehicle_8c025b98 (025b98) on a stopped-at-junction
  * hit; never read there. Role/other consumers unclear. */
 extern Sint32 var_8c2264d0;
-/* One of init_8c04c980/init_8c04caec/init_8c04cd38 (sectionD), picked by
- * route in TrafficInit_8c02769e (026710); a list of -1-terminated
- * type-id groups, walked by TrafficPathScanTypeInGroup_8c02f28a (02f0c8) to
- * find which group a marker's type belongs to. */
-extern Sint32 *var_8c228b40;
-/* Cached pointer into a var_8c228b40 id-group (TrafficPathScanTypeInGroup_8c02f28a, 02f0c8) --
- * -1 means "not cached yet"; reset to -1 by trafficUpdateTask_8c0275d4
- * (026710). */
-extern Sint32 *var_8c228b44;
-/* Sample-point scratch buffer written by TrafficPathScanBuild_8c02f0c8 (02f0c8): up to 10
- * (x, z) pairs projected along a traffic entry's upcoming path, walked by
- * TrafficPathScanNext_8c02f212 to find nearby occupants. */
-extern float var_8c228b48[20];
-/* Task-slot pointer to exclude from TrafficPathScanNext_8c02f212's scan (02f0c8); never
- * written within 02f0c8 itself -- setter still unclear. */
-extern void *var_8c228b98;
-/* Read/write cursor into var_8c228b48, consumed by TrafficPathScanNext_8c02f212 (02f0c8). */
-extern float *var_8c228b9c;
-/* One-past-the-end of the valid range in var_8c228b48 (02f0c8). */
-extern float *var_8c228ba0;
-
-/* ReplayCodec (02f320) working state and buffers: LZ ring buffer / match
- * tables plus adaptive-code tables used by ReplayCodecInit_8c02f320 and its
- * pack/unpack routines. */
-extern Uint32 var_8c228ba4;
-extern Sint16 var_8c228ba8; /* signed bit-buffer fill count; goes negative to trigger a refill */
-extern Uint16 var_8c228baa;
-extern Uint16 var_8c228bac;
-extern Uint8 var_8c228bae[0x1000];
-extern Sint16 var_8c229bae[0x1000];
-extern Sint16 var_8c22bbae[0x1000];
-extern Sint16 var_8c22dbae[0x1000];
-extern Sint16 var_8c22fbae[0x1000];
-extern Uint16 var_8c231bae;
-extern Sint16 var_8c231bb0[0x1000];
-extern Sint16 var_8c233bb0[0x1000];
-extern Uint16 var_8c235bb0;
-extern Uint16 var_8c235bb2;
-extern Sint16 var_8c235bb4[100];
-extern Uint16 var_8c235c7c;
-extern Uint16 var_8c235c7e;
 
 extern int var_8c2285c8;
 /* Set to 0x1e by BusStopUpdateArrival_8c02ce48 (02c884) on stop completion;

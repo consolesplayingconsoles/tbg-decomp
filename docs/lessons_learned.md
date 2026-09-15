@@ -710,7 +710,7 @@ Finishing this unit's remaining 15 functions confirmed the codec is
 `ReplayCodecUnpack_8c02fa14` build a growing (parent code, appended byte)
 dictionary via hash-chained buckets (`lzwFindChild_8c02f636` /
 `lzwInsertChild_8c02f668` / `lzwRemoveChild_8c02f6ac`), decode a code by
-walking `var_8c229bae` (parent-of) back to a literal byte, and once the
+walking `var_dictParent_8c229bae` (parent-of) back to a literal byte, and once the
 fixed 4096-entry table fills, evict the least-recently-used code (tracked by
 a `listInsert_8c02f58a`/`swapNodes_8c02f556` recency list, move-to-front on
 reuse) -- classic LZW with LRU replacement, not an adaptive-Huffman tree.

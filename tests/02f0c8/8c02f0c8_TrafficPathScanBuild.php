@@ -8,7 +8,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // walks startProgress units along the path records starting at
 // firstScriptArg (no bounds check on this first walk -- a real asm quirk),
 // then samples (x, z) positions every 5.0 units across the next `window`
-// units into var_8c228b48 (cursor/bound var_8c228b9c/var_8c228ba0). Returns
+// units into var_samples_8c228b48 (cursor/bound var_sampleCursor_8c228b9c/var_sampleEnd_8c228ba0). Returns
 // the first sample's occupant: the player's bus sentinel (var_8c1bbd9c) if
 // within 2.5 of either of its two tracked points, else the first live,
 // non-self task within 2.5 -- or NULL.
@@ -18,9 +18,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_8c228b48', 80);
-        $this->setSize('_var_8c228b9c', 4);
-        $this->setSize('_var_8c228ba0', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_var_8c1bbacc', 4);
         $this->setSize('_var_8c1bbad8', 4);
@@ -69,9 +66,9 @@ return new class extends TestCase {
     }
 
     // No task in the way and the bus is far off: both samples are written
-    // (progress 8.0 and 13.0), var_8c228ba0 is set to the end of the
+    // (progress 8.0 and 13.0), var_sampleEnd_8c228ba0 is set to the end of the
     // collected pairs, and the function returns NULL without ever setting
-    // var_8c228b9c.
+    // var_sampleCursor_8c228b9c.
     public function test_noMatch_returnsNull(): void {
         $this->resolveSymbols();
 
@@ -81,7 +78,7 @@ return new class extends TestCase {
         $this->farBusState();
         $this->makeTask(0, 0, 0); // terminator
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
 
         $this->call('_TrafficPathScanBuild_8c02f0c8')->with($self, $entry, $seg, 0, 8.0, 8.0);
 
@@ -89,7 +86,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x04, 0.0);
         $this->shouldWriteFloat($base + 0x08, 13.0);
         $this->shouldWriteFloat($base + 0x0c, 0.0);
-        $this->shouldWriteLongTo('_var_8c228ba0', $base + 0x10);
+        $this->shouldWriteLongTo('_var_sampleEnd_8c228ba0', $base + 0x10);
         $this->shouldReturn(0);
     }
 
@@ -112,7 +109,7 @@ return new class extends TestCase {
         $bus = $this->alloc(4);
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $bus);
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
 
         $this->call('_TrafficPathScanBuild_8c02f0c8')->with($self, $entry, $seg, 0, 8.0, 8.0);
 
@@ -120,8 +117,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x04, 0.0);
         $this->shouldWriteFloat($base + 0x08, 13.0);
         $this->shouldWriteFloat($base + 0x0c, 0.0);
-        $this->shouldWriteLongTo('_var_8c228ba0', $base + 0x10);
-        $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x08);
+        $this->shouldWriteLongTo('_var_sampleEnd_8c228ba0', $base + 0x10);
+        $this->shouldWriteLongTo('_var_sampleCursor_8c228b9c', $base + 0x08);
         $this->shouldReturn($bus);
     }
 
@@ -144,7 +141,7 @@ return new class extends TestCase {
         $bus = $this->alloc(4);
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $bus);
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
 
         $this->call('_TrafficPathScanBuild_8c02f0c8')->with($self, $entry, $seg, 0, 8.0, 8.0);
 
@@ -152,8 +149,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x04, 0.0);
         $this->shouldWriteFloat($base + 0x08, 13.0);
         $this->shouldWriteFloat($base + 0x0c, 0.0);
-        $this->shouldWriteLongTo('_var_8c228ba0', $base + 0x10);
-        $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x10);
+        $this->shouldWriteLongTo('_var_sampleEnd_8c228ba0', $base + 0x10);
+        $this->shouldWriteLongTo('_var_sampleCursor_8c228b9c', $base + 0x10);
         $this->shouldReturn($bus);
     }
 
@@ -176,7 +173,7 @@ return new class extends TestCase {
         $this->makeTask(2, 1, $candidateEntry);
         $this->makeTask(3, 0, 0);
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
 
         $this->call('_TrafficPathScanBuild_8c02f0c8')->with($selfSlot, $entry, $seg, 0, 8.0, 8.0);
 
@@ -184,14 +181,14 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x04, 0.0);
         $this->shouldWriteFloat($base + 0x08, 13.0);
         $this->shouldWriteFloat($base + 0x0c, 0.0);
-        $this->shouldWriteLongTo('_var_8c228ba0', $base + 0x10);
-        $this->shouldWriteLongTo('_var_8c228b9c', $base + 0x08);
+        $this->shouldWriteLongTo('_var_sampleEnd_8c228ba0', $base + 0x10);
+        $this->shouldWriteLongTo('_var_sampleCursor_8c228b9c', $base + 0x08);
         $this->shouldReturn($candidateEntry);
     }
 
     // window == 0.0: the sampling loop's condition (traveled < startProgress
     // + window) is false on entry, so no sample is ever written and the
-    // function returns NULL without touching var_8c228ba0/var_8c228b9c at
+    // function returns NULL without touching var_sampleEnd_8c228ba0/var_sampleCursor_8c228b9c at
     // all.
     public function test_zeroWindow_collectsNothing_returnsNull(): void {
         $this->resolveSymbols();
@@ -227,13 +224,13 @@ return new class extends TestCase {
         $this->farBusState();
         $this->makeTask(0, 0, 0);
 
-        $base = $this->addressOf('_var_8c228b48');
+        $base = $this->addressOf('_var_samples_8c228b48');
 
         $this->call('_TrafficPathScanBuild_8c02f0c8')->with($self, $entry, $seg0, 0, 8.0, 8.0);
 
         $this->shouldWriteFloat($base + 0x00, 8.0);
         $this->shouldWriteFloat($base + 0x04, 0.0);
-        $this->shouldWriteLongTo('_var_8c228ba0', $base + 0x08);
+        $this->shouldWriteLongTo('_var_sampleEnd_8c228ba0', $base + 0x08);
         $this->shouldReturn(0);
     }
 };

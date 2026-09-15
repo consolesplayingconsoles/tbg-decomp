@@ -77,6 +77,7 @@ SRCS = \
 	src/asm/decompiled/02e2dc.src \
 	src/asm/decompiled/02e400_collision.src \
 	src/asm/decompiled/02e51c.src \
+	src/asm/sectionB.src \
 	src/asm/decompiled/02f0c8.src \
 	src/asm/decompiled/02f320_replay_codec.src \
 	src/asm/sectionD.src \
@@ -84,7 +85,6 @@ SRCS = \
 	src/asm/02fb50_sh4nlfzn.src \
 	src/asm/03327c_strt1_sectionC.src \
 	src/asm/04f6c0_SDK.src \
-	src/asm/sectionB.src \
 	src/02fb50_sh4nlfzn_post_data.c
 
 OBJS = $(patsubst src/%.c,$(OUTPUT_DIR)/src/%.obj,$(SRCS))

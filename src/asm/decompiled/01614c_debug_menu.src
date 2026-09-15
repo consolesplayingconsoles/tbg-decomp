@@ -36,7 +36,7 @@
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _FUN_8c01328c
-          .IMPORT     _var_8c228ba4
+          .IMPORT     _var_replayPackedSize_8c228ba4
           .IMPORT     _BupSave_8c014bcc
           .IMPORT     _var_inputMapSel_8c1bb8c8
           .IMPORT     _var_seed_8c157a64
@@ -1266,7 +1266,7 @@ LAB_8c016a32:
           BRA         LAB_8c016b3c
           MOV.L       R3,@(H'8,R12)
 LP_GEN_65913:
-          .DATA.L _var_8c228ba4 ; H'8C016A38
+          .DATA.L _var_replayPackedSize_8c228ba4 ; H'8C016A38
           .DATA.L _const_replayFileName_8c036160 ; H'8C016A3C
           .DATA.L _BupSave_8c014bcc ; H'8C016A40
           .DATA.L __divlu ; H'8C016A44

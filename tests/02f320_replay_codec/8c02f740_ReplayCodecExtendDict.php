@@ -55,8 +55,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint16($this->addressOf('_var_8c231bae'), 100);
-        $this->initUint16($this->addressOf('_var_8c235bb0'), 7); // recency head
+        $this->initUint16($this->addressOf('_var_nextCode_8c231bae'), 100);
+        $this->initUint16($this->addressOf('_var_lruHead_8c235bb0'), 7); // recency head
 
         $symbols = $this->alloc(2);
         $this->initUint16($symbols, 0x41);
@@ -65,7 +65,7 @@ return new class extends TestCase {
         $this->call('_extendDict_8c02f740')->with($symbols, 1, 5, 0);
 
         $this->shouldCall('_lzwFindChild_8c02f636')->with(5, 0x41)->andReturn(0x1000);
-        $this->shouldWriteWord($this->addressOf('_var_8c231bae'), 101);
+        $this->shouldWriteWord($this->addressOf('_var_nextCode_8c231bae'), 101);
         $this->shouldCall('_lzwInsertChild_8c02f668')->with(5, 100, 0x41);
         $this->shouldCall('_listInsert_8c02f58a')->with(100, 7);
     }
@@ -74,9 +74,9 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint16($this->addressOf('_var_8c231bae'), 0x1000); // pool exhausted
-        $this->initUint16($this->addressOf('_var_8c235bb2'), 55); // recency tail
-        $this->initUint16($this->addressOf('_var_8c233bb0') + 300 * 2, 40); // prev[parentCode]
+        $this->initUint16($this->addressOf('_var_nextCode_8c231bae'), 0x1000); // pool exhausted
+        $this->initUint16($this->addressOf('_var_lruTail_8c235bb2'), 55); // recency tail
+        $this->initUint16($this->addressOf('_var_lruNext_8c233bb0') + 300 * 2, 40); // prev[parentCode]
 
         $symbols = $this->alloc(2);
         $this->initUint16($symbols, 0x41);
@@ -95,8 +95,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint16($this->addressOf('_var_8c231bae'), 0x1000);
-        $this->initUint16($this->addressOf('_var_8c235bb2'), 5); // tail == parentCode
+        $this->initUint16($this->addressOf('_var_nextCode_8c231bae'), 0x1000);
+        $this->initUint16($this->addressOf('_var_lruTail_8c235bb2'), 5); // tail == parentCode
 
         $symbols = $this->alloc(2);
         $this->initUint16($symbols, 0x41);
@@ -108,9 +108,5 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c231bae', 2);
-        $this->setSize('_var_8c233bb0', 0x2000);
-        $this->setSize('_var_8c235bb0', 2);
-        $this->setSize('_var_8c235bb2', 2);
     }
 };

@@ -10,10 +10,10 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint16($this->addressOf('_var_8c22bbae') + 10 * 2, 20); // bucket[10] = 20
-        $this->initUint8($this->addressOf('_var_8c228bae') + 20, 0x41);   // key(20) != target, chain continues
-        $this->initUint16($this->addressOf('_var_8c22dbae') + 20 * 2, 30); // next[20] = 30
-        $this->initUint8($this->addressOf('_var_8c228bae') + 30, 0x5A);   // key(30) == target
+        $this->initUint16($this->addressOf('_var_dictChild_8c22bbae') + 10 * 2, 20); // bucket[10] = 20
+        $this->initUint8($this->addressOf('_var_dictByte_8c228bae') + 20, 0x41);   // key(20) != target, chain continues
+        $this->initUint16($this->addressOf('_var_dictNext_8c22dbae') + 20 * 2, 30); // next[20] = 30
+        $this->initUint8($this->addressOf('_var_dictByte_8c228bae') + 30, 0x5A);   // key(30) == target
 
         $this->call('_lzwFindChild_8c02f636')->with(10, 0x5A);
 
@@ -24,7 +24,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint16($this->addressOf('_var_8c22bbae') + 11 * 2, 0x1000); // empty bucket
+        $this->initUint16($this->addressOf('_var_dictChild_8c22bbae') + 11 * 2, 0x1000); // empty bucket
 
         $this->call('_lzwFindChild_8c02f636')->with(11, 0x22);
 
@@ -33,8 +33,5 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c228bae', 0x1000);
-        $this->setSize('_var_8c22bbae', 0x2000);
-        $this->setSize('_var_8c22dbae', 0x2000);
     }
 };

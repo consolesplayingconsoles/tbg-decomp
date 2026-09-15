@@ -12,8 +12,8 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         // putlen=8, writing 3 bits value=6 (0b110) -> bac top 3 bits become 110.
-        $this->initUint16($this->addressOf('_var_8c228baa'), 8);
-        $this->initUint16($this->addressOf('_var_8c228bac'), 0);
+        $this->initUint16($this->addressOf('_var_writeBitsLeft_8c228baa'), 8);
+        $this->initUint16($this->addressOf('_var_bitBuf_8c228bac'), 0);
 
         $destBuf = $this->alloc(4);
         $destSlot = $this->alloc(4);
@@ -21,8 +21,8 @@ return new class extends TestCase {
 
         $this->call('_putBits_8c02f4da')->with(3, 6, $destSlot);
 
-        $this->shouldWriteWord($this->addressOf('_var_8c228baa'), 5);
-        $this->shouldWriteWord($this->addressOf('_var_8c228bac'), 0b11000000);
+        $this->shouldWriteWord($this->addressOf('_var_writeBitsLeft_8c228baa'), 5);
+        $this->shouldWriteWord($this->addressOf('_var_bitBuf_8c228bac'), 0b11000000);
         $this->shouldWriteLong($destSlot, $destBuf);
     }
 
@@ -33,9 +33,9 @@ return new class extends TestCase {
         // putlen=2, writing 5 bits value=0b01101 (13).
         // First 2 bits (01) fill and flush the current byte;
         // remaining 3 bits (101) start the next byte.
-        $this->initUint16($this->addressOf('_var_8c228baa'), 2);
-        $this->initUint16($this->addressOf('_var_8c228bac'), 0b01000000);
-        $this->initUint32($this->addressOf('_var_8c228ba4'), 4);
+        $this->initUint16($this->addressOf('_var_writeBitsLeft_8c228baa'), 2);
+        $this->initUint16($this->addressOf('_var_bitBuf_8c228bac'), 0b01000000);
+        $this->initUint32($this->addressOf('_var_replayPackedSize_8c228ba4'), 4);
 
         $destBuf = $this->alloc(4);
         $destSlot = $this->alloc(4);
@@ -43,20 +43,17 @@ return new class extends TestCase {
 
         $this->call('_putBits_8c02f4da')->with(5, 0b01101, $destSlot);
 
-        $this->shouldWriteWord($this->addressOf('_var_8c228bac'), 0b01000001);
+        $this->shouldWriteWord($this->addressOf('_var_bitBuf_8c228bac'), 0b01000001);
         $this->shouldWriteByte($destBuf, 0b01000001);
-        $this->shouldWriteWord($this->addressOf('_var_8c228bac'), 0);
-        $this->shouldWriteWord($this->addressOf('_var_8c228baa'), 8);
-        $this->shouldWriteLong($this->addressOf('_var_8c228ba4'), 5);
-        $this->shouldWriteWord($this->addressOf('_var_8c228baa'), 5);
-        $this->shouldWriteWord($this->addressOf('_var_8c228bac'), 0b10100000);
+        $this->shouldWriteWord($this->addressOf('_var_bitBuf_8c228bac'), 0);
+        $this->shouldWriteWord($this->addressOf('_var_writeBitsLeft_8c228baa'), 8);
+        $this->shouldWriteLong($this->addressOf('_var_replayPackedSize_8c228ba4'), 5);
+        $this->shouldWriteWord($this->addressOf('_var_writeBitsLeft_8c228baa'), 5);
+        $this->shouldWriteWord($this->addressOf('_var_bitBuf_8c228bac'), 0b10100000);
         $this->shouldWriteLong($destSlot, $destBuf + 1);
     }
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c228ba4', 4);
-        $this->setSize('_var_8c228baa', 2);
-        $this->setSize('_var_8c228bac', 2);
     }
 };

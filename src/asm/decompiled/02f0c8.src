@@ -1,18 +1,14 @@
 ; 8c02f0c8
-          .IMPORT     _var_8c228b48
-          .IMPORT     _var_8c228ba0
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _var_8c228b9c
           .IMPORT     _var_8c1bbacc
           .IMPORT     _var_8c1bbad8
           .IMPORT     _var_8c1bbd9c
           .IMPORT     _var_tasks_8c1bac28
-          .IMPORT     _var_8c228b98
-          .IMPORT     _var_8c228b44
-          .IMPORT     _var_8c228b40
           .EXPORT     _TrafficPathScanBuild_8c02f0c8
           .EXPORT     _TrafficPathScanNext_8c02f212
-          .EXPORT     _TrafficPathScanTypeInGroup_8c02f28a
+          .EXPORT     _TrafficPathScanJunctionOccupied_8c02f28a
+          .EXPORT     _var_signalGroups_8c228b40 ; 026710
+          .EXPORT     _var_occupiedGroup_8c228b44 ; 026710
           .SECTION     P, CODE, ALIGN=4
 _TrafficPathScanBuild_8c02f0c8:
           FMOV        FR4,FR6
@@ -140,11 +136,11 @@ LP_GEN_99248:
           .DATA.W H'0304 ; H'8C02F1A6
           .DATA.W H'00F4 ; H'8C02F1A8
           .DATA.W H'0100 ; H'8C02F1AA
-          .DATA.L _var_8c228b48 ; H'8C02F1AC
+          .DATA.L _var_samples_8c228b48 ; H'8C02F1AC
           .DATA.L H'40A00000 ; H'8C02F1B0
-          .DATA.L _var_8c228ba0 ; H'8C02F1B4
+          .DATA.L _var_sampleEnd_8c228ba0 ; H'8C02F1B4
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02F1B8
-          .DATA.L _var_8c228b9c ; H'8C02F1BC
+          .DATA.L _var_sampleCursor_8c228b9c ; H'8C02F1BC
           .DATA.L H'40200000 ; H'8C02F1C0
           .DATA.L _var_8c1bbacc ; H'8C02F1C4
           .DATA.L _var_8c1bbad8 ; H'8C02F1C8
@@ -252,7 +248,7 @@ LAB_8c02f27c:
           ADD         #H'4,R15
           RTS
           MOV.L       @R15+,R14
-_TrafficPathScanTypeInGroup_8c02f28a:
+_TrafficPathScanJunctionOccupied_8c02f28a:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_98541+28,R14
           MOV.L       @R14,R0
@@ -283,12 +279,12 @@ LP_GEN_98541:
           .DATA.W H'050C ; H'8C02F2BC
           .DATA.W H'0450 ; H'8C02F2BE
           .DATA.L _var_tasks_8c1bac28 ; H'8C02F2C0
-          .DATA.L _var_8c228b9c ; H'8C02F2C4
+          .DATA.L _var_sampleCursor_8c228b9c ; H'8C02F2C4
           .DATA.L H'40200000 ; H'8C02F2C8
-          .DATA.L _var_8c228ba0 ; H'8C02F2CC
-          .DATA.L _var_8c228b98 ; H'8C02F2D0
-          .DATA.L _var_8c228b44 ; H'8C02F2D4
-          .DATA.L _var_8c228b40 ; H'8C02F2D8
+          .DATA.L _var_sampleEnd_8c228ba0 ; H'8C02F2CC
+          .DATA.L _var_excludedTask_8c228b98 ; H'8C02F2D0
+          .DATA.L _var_occupiedGroup_8c228b44 ; H'8C02F2D4
+          .DATA.L _var_signalGroups_8c228b40 ; H'8C02F2D8
 LAB_8c02f2dc:
           MOV.L       @R5,R0
           CMP/EQ      #-H'1,R0
@@ -334,4 +330,17 @@ LAB_8c02f318:
           MOV.L       @R15+,R14
 LP_GEN_28291:
           .RES.W 1 ; H'8C02F31E
+          .SECTION    B,DATA,ALIGN=4
+_var_signalGroups_8c228b40:
+          .RES.B      4
+_var_occupiedGroup_8c228b44:
+          .RES.B      4
+_var_samples_8c228b48:
+          .RES.B      80
+_var_excludedTask_8c228b98:
+          .RES.B      4
+_var_sampleCursor_8c228b9c:
+          .RES.B      4
+_var_sampleEnd_8c228ba0:
+          .RES.B      4
           .END

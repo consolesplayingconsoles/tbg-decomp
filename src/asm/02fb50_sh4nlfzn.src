@@ -1,42 +1,4 @@
 ; 8c02fb50
-          .IMPORT     _var_8c235c80
-          .IMPORT     _var_8c235c84
-          .EXPORT     _const_8c03b974 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b978 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b97c ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b980 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b984 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b988 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b98c ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b990 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b994 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b998 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b99c ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9ac ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9b4 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9b8 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9bc ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9c0 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9c4 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9c8 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9cc ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9d0 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9dc ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9e8 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03b9f0 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03ba08 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bb08 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bb90 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bc70 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bc8c ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bca8 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bcac ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bcec ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bd2c ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bd3c ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bd4c ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bd50 ; 02fb50_sh4nlfzn.src
-          .EXPORT     _const_8c03bd54 ; 02fb50_sh4nlfzn.src
           .EXPORT     _init_8c04f6a8 ; 02fb50_sh4nlfzn.src
           .EXPORT     __divls
           .EXPORT     __divlu
@@ -7836,4 +7798,9 @@ _const_8c03bd54:        ; from defines
 _init_8c04f6a8:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_8c235c80:
+          .RES.B      4
+_var_8c235c84:
+          .RES.B      28
           .END

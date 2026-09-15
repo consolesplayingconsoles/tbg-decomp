@@ -8,7 +8,7 @@
 #include "02e400_collision.h"   /* CollideFindTaskHit_8c02e400 */
 #include "02e51c.h"             /* FUN_8c02e51c, FUN_8c02f08a */
 #include "02df3c.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
-#include "02f0c8.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanTypeInGroup_8c02f28a */
+#include "02f0c8.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanJunctionOccupied_8c02f28a */
 #include "0207d4.h"             /* FUN_8c0207d4, Point3f */
 #include "02081c.h"             /* GeomDistanceXZ_8c02081c */
 #include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
@@ -270,7 +270,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             if (e->signalWaitState_0x448 == 2) {
                 if (e->signalWaitArmedBlock_0x454 == e->blockIndex_0x300) {
                     Sint32 frame = ObjectsGetTrafficSignalFrame_8c028900(e->signalWaitFrameId_0x450);
-                    if (frame != 1 || TrafficPathScanTypeInGroup_8c02f28a(e->signalWaitFrameId_0x450) != 0) {
+                    if (frame != 1 || TrafficPathScanJunctionOccupied_8c02f28a(e->signalWaitFrameId_0x450) != 0) {
                         stopFlag = 1;
                     }
                 } else {

@@ -847,8 +847,8 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * Selects the CPU-vehicle collision/attribute meshes as the active
  * ground-query grid for the GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e queries run while
  * spawning/updating entries below (var_activeGroundGrid_8c2264d4 <-
- * .atariCpu_0x18, var_8c228b3c <- .attrCpu_0x20), and resets var_8c228b44
- * (its other consumer, TrafficPathScanTypeInGroup_8c02f28a in 02f0c8, treats
+ * .atariCpu_0x18, var_8c228b3c <- .attrCpu_0x20), and resets var_occupiedGroup_8c228b44
+ * (its other consumer, TrafficPathScanJunctionOccupied_8c02f28a in 02f0c8, treats
  * -1 as "not cached yet").
  *
  * Tracks a traffic-preset switch via var_scenePresetIds_8c1bbd8c's
@@ -893,7 +893,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
     var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariCpu_0x18;
     var_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
     ObjectsFUN_8c028958();
-    var_8c228b44 = (Sint32 *)-1;
+    var_occupiedGroup_8c228b44 = (Sint32 *)-1;
 
     presetMask = var_scenePresetIds_8c1bbd8c & 0xff00;
     if (task->presetState_0x0c == 0) {
@@ -931,7 +931,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
 /* Reading this needs var_trafficPresetTable_8c227e18 typed as the
  * already-known CurrentCourse.macCpu1_0x24 field value instead of the
  * invented PTR_PTR_8c1bb88c global -- its address is
- * var_currentCourse_8c1bb868 + 0x24 -- and var_8c228b40 as Sint32*.
+ * var_currentCourse_8c1bb868 + 0x24 -- and var_signalGroups_8c228b40 as Sint32*.
  *
  * Pushes the entry point for trafficUpdateTask_8c0275d4 into var_tasks_8c1ba5e8,
  * caching two per-course table pointers (route path array, per-preset script
@@ -949,11 +949,11 @@ void TrafficInit_8c02769e(void)
     var_trafficPresetTable_8c227e18 = (Sint32 *)var_currentCourse_8c1bb868.macCpu1_0x24;
 
     if (var_route_8c18ad1c == ROUTE_WANGAN) {
-        var_8c228b40 = init_8c04c980;
+        var_signalGroups_8c228b40 = init_8c04c980;
     } else if (var_route_8c18ad1c == ROUTE_SHINJUKU) {
-        var_8c228b40 = init_8c04caec;
+        var_signalGroups_8c228b40 = init_8c04caec;
     } else if (var_route_8c18ad1c == ROUTE_OME) {
-        var_8c228b40 = init_8c04cd38;
+        var_signalGroups_8c228b40 = init_8c04cd38;
     }
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT) {

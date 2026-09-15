@@ -466,7 +466,6 @@ return new Class extends TestCase {
         $this->setSize('_init_8c03bd80', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_instructorDialogActive_8c225fb4', 4); // dialog-running flag
-        $this->setSize('_const_8c03628c', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
         // menu-entry onSelect callback into the Save unit (address taken in a table)
         $this->setSize('_SystemMenuSwitchFromTask_8c01ba64', 4);

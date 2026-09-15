@@ -871,39 +871,11 @@
                                     ; 02e400
           .EXPORT     _var_collideQueue_8c228a38 ; 02e400
           .EXPORT     _var_collideQueueCount_8c228b38 ; 02e400
-          .EXPORT     _var_8c228b3c ; 022bdc
-                                    ; 023310
-                                    ; 025b98
-                                    ; 026710
+          .EXPORT     _var_8c228b3c ;; 022bdc
+                                    ;; 023310
+                                    ;; 025b98
+                                    ;; 026710
                                     ; 02e51c
-          .EXPORT     _var_8c228b40 ; 026710
-                                    ; 02f0c8
-          .EXPORT     _var_8c228b44 ; 026710
-                                    ; 02f0c8
-          .EXPORT     _var_8c228b48 ; 02f0c8
-          .EXPORT     _var_8c228b98 ; 02f0c8
-          .EXPORT     _var_8c228b9c ; 02f0c8
-          .EXPORT     _var_8c228ba0 ; 02f0c8
-          .EXPORT     _var_8c228ba4 ; 01614c_debug_menu
-                                    ; 02f320
-          .EXPORT     _var_8c228ba8 ; 02f320
-          .EXPORT     _var_8c228baa ; 02f320
-          .EXPORT     _var_8c228bac ; 02f320
-          .EXPORT     _var_8c228bae ; 02f320
-          .EXPORT     _var_8c229bae ; 02f320
-          .EXPORT     _var_8c22bbae ; 02f320
-          .EXPORT     _var_8c22dbae ; 02f320
-          .EXPORT     _var_8c22fbae ; 02f320
-          .EXPORT     _var_8c231bae ; 02f320
-          .EXPORT     _var_8c231bb0 ; 02f320
-          .EXPORT     _var_8c233bb0 ; 02f320
-          .EXPORT     _var_8c235bb0 ; 02f320
-          .EXPORT     _var_8c235bb2 ; 02f320
-          .EXPORT     _var_8c235bb4 ; 02f320
-          .EXPORT     _var_8c235c7c ; 02f320
-          .EXPORT     _var_8c235c7e ; 02f320
-          .EXPORT     _var_8c235c80 ; 02fb50_sh4nlfzn
-          .EXPORT     _var_8c235c84 ; 02fb50_sh4nlfzn
           .SECTION    B,DATA,ALIGN=4
 _var_busFont_8c1ba1c8:
           .RES.B      4
@@ -1634,54 +1606,4 @@ _var_collideQueueCount_8c228b38:
           .RES.B      4
 _var_8c228b3c:
           .RES.B      4
-_var_8c228b40:
-          .RES.B      4
-_var_8c228b44:
-          .RES.B      4
-_var_8c228b48:
-          .RES.B      80
-_var_8c228b98:
-          .RES.B      4
-_var_8c228b9c:
-          .RES.B      4
-_var_8c228ba0:
-          .RES.B      4
-_var_8c228ba4:
-          .RES.B      4
-_var_8c228ba8:
-          .RES.B      2
-_var_8c228baa:
-          .RES.B      2
-_var_8c228bac:
-          .RES.B      2
-_var_8c228bae:
-          .RES.B      4096
-_var_8c229bae:
-          .RES.B      8192
-_var_8c22bbae:
-          .RES.B      8192
-_var_8c22dbae:
-          .RES.B      8192
-_var_8c22fbae:
-          .RES.B      8192
-_var_8c231bae:
-          .RES.B      2
-_var_8c231bb0:
-          .RES.B      8192
-_var_8c233bb0:
-          .RES.B      8192
-_var_8c235bb0:
-          .RES.B      2
-_var_8c235bb2:
-          .RES.B      2
-_var_8c235bb4:
-          .RES.B      200
-_var_8c235c7c:
-          .RES.B      2
-_var_8c235c7e:
-          .RES.B      2
-_var_8c235c80:
-          .RES.B      4
-_var_8c235c84:
-          .RES.B      28
           .END

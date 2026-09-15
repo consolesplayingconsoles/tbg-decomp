@@ -111,13 +111,13 @@ SRCS = \
 	src/02e2dc.c \
 	src/02e400_collision.c \
 	src/02e51c.c \
+	src/asm/sectionB.src \
 	src/02f0c8.c \
 	src/02f320_replay_codec.c \
 	src/scif.c \
 	src/serial_debug.c \
 	src/asm/sectionD.src \
 	src/asm/04ce10_slots.src \
-	src/asm/sectionB.src \
 	src/02fb50_sh4nlfzn_post_data.c \
 
 C_SRCS = $(filter %.c,$(SRCS))

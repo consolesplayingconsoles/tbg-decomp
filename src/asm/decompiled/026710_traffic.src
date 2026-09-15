@@ -41,12 +41,12 @@
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_8c228b3c
           .IMPORT     _ObjectsFUN_8c028958
-          .IMPORT     _var_8c228b44
+          .IMPORT     _var_occupiedGroup_8c228b44
           .IMPORT     _var_scenePresetIds_8c1bbd8c
           .IMPORT     _var_trafficPresetTable_8c227e18
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _TaskExecGroup_8c014b42
-          .IMPORT     _var_8c228b40
+          .IMPORT     _var_signalGroups_8c228b40
           .IMPORT     _init_8c04c980
           .IMPORT     _init_8c04caec
           .IMPORT     _init_8c04cd38
@@ -2302,7 +2302,7 @@ LP_GEN_74201:
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0277F4
           .DATA.L _var_8c228b3c ; H'8C0277F8
           .DATA.L _ObjectsFUN_8c028958 ; H'8C0277FC
-          .DATA.L _var_8c228b44 ; H'8C027800
+          .DATA.L _var_occupiedGroup_8c228b44 ; H'8C027800
           .DATA.L H'0000FF00 ; H'8C027804
           .DATA.L _var_scenePresetIds_8c1bbd8c ; H'8C027808
           .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C02780C
@@ -2312,7 +2312,7 @@ LP_GEN_74201:
           .DATA.L _var_tasks_8c1bac28 ; H'8C02781C
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C027820
           .DATA.L _var_cpuPathBlocks_8c227e1c ; H'8C027824
-          .DATA.L _var_8c228b40 ; H'8C027828
+          .DATA.L _var_signalGroups_8c228b40 ; H'8C027828
           .DATA.L _var_route_8c18ad1c ; H'8C02782C
           .DATA.L _init_8c04c980 ; H'8C027830
           .DATA.L _init_8c04caec ; H'8C027834

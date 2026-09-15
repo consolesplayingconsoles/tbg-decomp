@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
-        $this->setSize('_var_8c228b40', 4);
+        $this->setSize('_var_signalGroups_8c228b40', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_ObjectsFUN_8c028958', 4);
         $this->setSize('_init_8c04c980', 4);
@@ -99,7 +99,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0x11110000);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
-        $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04c980'));
+        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_8c04c980'));
 
         $this->mockTaskPush($task, $state);
         $this->shouldWriteLong($task + 0x18, 0x99990000);
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
-        $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04caec'));
+        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_8c04caec'));
 
         $this->mockTaskPush($task, $state);
         $this->shouldWriteLong($task + 0x18, 0);
@@ -174,7 +174,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0x33330000);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
-        $this->shouldWriteLong($this->addressOf('_var_8c228b40'), $this->addressOf('_init_8c04cd38'));
+        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_8c04cd38'));
 
         $b0 = $this->addressOf('_var_8c1bbdb0');
         $d0 = $this->addressOf('_var_8c1bbdd0');

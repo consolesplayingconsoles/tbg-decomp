@@ -1,26 +1,10 @@
 ; 8c02f320
-          .IMPORT     _var_8c228baa
-          .IMPORT     _var_8c228bac
-          .IMPORT     _var_8c228ba4
-          .IMPORT     _var_8c235bb2
-          .IMPORT     _var_8c233bb0
-          .IMPORT     _var_8c231bb0
-          .IMPORT     _var_8c235bb0
-          .IMPORT     _var_8c22bbae
-          .IMPORT     _var_8c22dbae
-          .IMPORT     _var_8c228bae
-          .IMPORT     _var_8c229bae
-          .IMPORT     _var_8c22fbae
-          .IMPORT     _var_8c231bae
-          .IMPORT     _var_8c235c7c
-          .IMPORT     _var_8c235c7e
           .IMPORT     _memcpy
-          .IMPORT     _var_8c235bb4
-          .IMPORT     _var_8c228ba8
           .IMPORT     _memset
           .EXPORT     _ReplayCodecPack_8c02f934
           .EXPORT     _ReplayCodecUnpack_8c02fa14
           .EXPORT     _ReplayCodecInit_8c02f320
+          .EXPORT     _var_replayPackedSize_8c228ba4 ; 01614c_debug_menu
           .AIFDEF     UNIT_TESTING
           .EXPORT     _getBit_8c02f3a0
           .EXPORT     _getBits_8c02f3e0
@@ -199,24 +183,24 @@ LAB_8c02f41e:
 LP_GEN_89603:
           .DATA.W H'1000 ; H'8C02F450
           .DATA.W H'0100 ; H'8C02F452
-          .DATA.L _var_8c228ba4 ; H'8C02F454
-          .DATA.L _var_8c228ba8 ; H'8C02F458
-          .DATA.L _var_8c228baa ; H'8C02F45C
-          .DATA.L _var_8c228bac ; H'8C02F460
-          .DATA.L _var_8c235bb0 ; H'8C02F464
-          .DATA.L _var_8c235bb2 ; H'8C02F468
-          .DATA.L _var_8c235c7c ; H'8C02F46C
-          .DATA.L _var_8c235c7e ; H'8C02F470
-          .DATA.L _var_8c231bae ; H'8C02F474
+          .DATA.L _var_replayPackedSize_8c228ba4 ; H'8C02F454
+          .DATA.L _var_readBitsLeft_8c228ba8 ; H'8C02F458
+          .DATA.L _var_writeBitsLeft_8c228baa ; H'8C02F45C
+          .DATA.L _var_bitBuf_8c228bac ; H'8C02F460
+          .DATA.L _var_lruHead_8c235bb0 ; H'8C02F464
+          .DATA.L _var_lruTail_8c235bb2 ; H'8C02F468
+          .DATA.L _var_codeBits_8c235c7c ; H'8C02F46C
+          .DATA.L _var_codeLimit_8c235c7e ; H'8C02F470
+          .DATA.L _var_nextCode_8c231bae ; H'8C02F474
           .DATA.L _memset ; H'8C02F478
-          .DATA.L _var_8c228bae ; H'8C02F47C
-          .DATA.L _var_8c229bae ; H'8C02F480
-          .DATA.L _var_8c22bbae ; H'8C02F484
-          .DATA.L _var_8c22dbae ; H'8C02F488
-          .DATA.L _var_8c22fbae ; H'8C02F48C
-          .DATA.L _var_8c231bb0 ; H'8C02F490
-          .DATA.L _var_8c233bb0 ; H'8C02F494
-          .DATA.L _var_8c235bb4 ; H'8C02F498
+          .DATA.L _var_dictByte_8c228bae ; H'8C02F47C
+          .DATA.L _var_dictParent_8c229bae ; H'8C02F480
+          .DATA.L _var_dictChild_8c22bbae ; H'8C02F484
+          .DATA.L _var_dictNext_8c22dbae ; H'8C02F488
+          .DATA.L _var_dictPrev_8c22fbae ; H'8C02F48C
+          .DATA.L _var_lruPrev_8c231bb0 ; H'8C02F490
+          .DATA.L _var_lruNext_8c233bb0 ; H'8C02F494
+          .DATA.L _var_runBuf_8c235bb4 ; H'8C02F498
 _putBit_8c02f49c:
           MOV.L       LP_GEN_45840+4,R6
           EXTU.W      R4,R4
@@ -385,14 +369,14 @@ LAB_8c02f5b8:
 LP_GEN_45840:
           .DATA.W H'1000 ; H'8C02F5D0
           .RES.W 1 ; H'8C02F5D2
-          .DATA.L _var_8c228baa ; H'8C02F5D4
-          .DATA.L _var_8c228bac ; H'8C02F5D8
-          .DATA.L _var_8c228ba4 ; H'8C02F5DC
+          .DATA.L _var_writeBitsLeft_8c228baa ; H'8C02F5D4
+          .DATA.L _var_bitBuf_8c228bac ; H'8C02F5D8
+          .DATA.L _var_replayPackedSize_8c228ba4 ; H'8C02F5DC
           .DATA.L H'0000FFFF ; H'8C02F5E0
-          .DATA.L _var_8c235bb2 ; H'8C02F5E4
-          .DATA.L _var_8c233bb0 ; H'8C02F5E8
-          .DATA.L _var_8c231bb0 ; H'8C02F5EC
-          .DATA.L _var_8c235bb0 ; H'8C02F5F0
+          .DATA.L _var_lruTail_8c235bb2 ; H'8C02F5E4
+          .DATA.L _var_lruNext_8c233bb0 ; H'8C02F5E8
+          .DATA.L _var_lruPrev_8c231bb0 ; H'8C02F5EC
+          .DATA.L _var_lruHead_8c235bb0 ; H'8C02F5F0
 LAB_8c02f5f4:
           EXTS.W      R11,R2
           CMP/EQ      R2,R0
@@ -534,11 +518,11 @@ LAB_8c02f6ea:
           ADD         #H'8,R15
 LP_GEN_77923:
           .DATA.W H'1000 ; H'8C02F6EE
-          .DATA.L _var_8c22bbae ; H'8C02F6F0
-          .DATA.L _var_8c22dbae ; H'8C02F6F4
-          .DATA.L _var_8c228bae ; H'8C02F6F8
-          .DATA.L _var_8c229bae ; H'8C02F6FC
-          .DATA.L _var_8c22fbae ; H'8C02F700
+          .DATA.L _var_dictChild_8c22bbae ; H'8C02F6F0
+          .DATA.L _var_dictNext_8c22dbae ; H'8C02F6F4
+          .DATA.L _var_dictByte_8c228bae ; H'8C02F6F8
+          .DATA.L _var_dictParent_8c229bae ; H'8C02F6FC
+          .DATA.L _var_dictPrev_8c22fbae ; H'8C02F700
 _initTables_8c02f704:
           MOV.L       R13,@-R15
           MOV         #H'0,R4
@@ -676,15 +660,15 @@ LAB_8c02f7e8:
 LP_GEN_83918:
           .DATA.W H'1000 ; H'8C02F7FC
           .DATA.W H'0100 ; H'8C02F7FE
-          .DATA.L _var_8c22dbae ; H'8C02F800
-          .DATA.L _var_8c22fbae ; H'8C02F804
-          .DATA.L _var_8c22bbae ; H'8C02F808
-          .DATA.L _var_8c229bae ; H'8C02F80C
-          .DATA.L _var_8c228bae ; H'8C02F810
-          .DATA.L _var_8c231bae ; H'8C02F814
-          .DATA.L _var_8c235bb2 ; H'8C02F818
-          .DATA.L _var_8c235bb0 ; H'8C02F81C
-          .DATA.L _var_8c233bb0 ; H'8C02F820
+          .DATA.L _var_dictNext_8c22dbae ; H'8C02F800
+          .DATA.L _var_dictPrev_8c22fbae ; H'8C02F804
+          .DATA.L _var_dictChild_8c22bbae ; H'8C02F808
+          .DATA.L _var_dictParent_8c229bae ; H'8C02F80C
+          .DATA.L _var_dictByte_8c228bae ; H'8C02F810
+          .DATA.L _var_nextCode_8c231bae ; H'8C02F814
+          .DATA.L _var_lruTail_8c235bb2 ; H'8C02F818
+          .DATA.L _var_lruHead_8c235bb0 ; H'8C02F81C
+          .DATA.L _var_lruNext_8c233bb0 ; H'8C02F820
 _writeCode_8c02f824:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
@@ -825,9 +809,9 @@ LAB_8c02f916:
 LP_GEN_72222:
           .DATA.W H'0100 ; H'8C02F920
           .DATA.W H'FF00 ; H'8C02F922
-          .DATA.L _var_8c231bae ; H'8C02F924
-          .DATA.L _var_8c235c7c ; H'8C02F928
-          .DATA.L _var_8c235c7e ; H'8C02F92C
+          .DATA.L _var_nextCode_8c231bae ; H'8C02F924
+          .DATA.L _var_codeBits_8c235c7c ; H'8C02F928
+          .DATA.L _var_codeLimit_8c235c7e ; H'8C02F92C
           .DATA.L H'0000FF00 ; H'8C02F930
 _ReplayCodecPack_8c02f934:
           MOV.L       R14,@-R15
@@ -992,9 +976,9 @@ LP_GEN_73719:
           .DATA.W H'0100 ; H'8C02FA64
           .RES.W 1 ; H'8C02FA66
           .DATA.L _memcpy ; H'8C02FA68
-          .DATA.L _var_8c235bb4 ; H'8C02FA6C
-          .DATA.L _var_8c235bb0 ; H'8C02FA70
-          .DATA.L _var_8c233bb0 ; H'8C02FA74
+          .DATA.L _var_runBuf_8c235bb4 ; H'8C02FA6C
+          .DATA.L _var_lruHead_8c235bb0 ; H'8C02FA70
+          .DATA.L _var_lruNext_8c233bb0 ; H'8C02FA74
 LAB_8c02fa78:
           MOV.L       @(H'c,R15),R5
           MOV         R15,R4
@@ -1104,8 +1088,43 @@ LAB_8c02fb28:
 LP_GEN_11328:
           .DATA.W H'0100 ; H'8C02FB3C
           .RES.W 1 ; H'8C02FB3E
-          .DATA.L _var_8c231bae ; H'8C02FB40
-          .DATA.L _var_8c235bb0 ; H'8C02FB44
-          .DATA.L _var_8c228bae ; H'8C02FB48
-          .DATA.L _var_8c229bae ; H'8C02FB4C
+          .DATA.L _var_nextCode_8c231bae ; H'8C02FB40
+          .DATA.L _var_lruHead_8c235bb0 ; H'8C02FB44
+          .DATA.L _var_dictByte_8c228bae ; H'8C02FB48
+          .DATA.L _var_dictParent_8c229bae ; H'8C02FB4C
+          .SECTION    B,DATA,ALIGN=4
+_var_replayPackedSize_8c228ba4:
+          .RES.B      4
+_var_readBitsLeft_8c228ba8:
+          .RES.B      2
+_var_writeBitsLeft_8c228baa:
+          .RES.B      2
+_var_bitBuf_8c228bac:
+          .RES.B      2
+_var_dictByte_8c228bae:
+          .RES.B      4096
+_var_dictParent_8c229bae:
+          .RES.B      8192
+_var_dictChild_8c22bbae:
+          .RES.B      8192
+_var_dictNext_8c22dbae:
+          .RES.B      8192
+_var_dictPrev_8c22fbae:
+          .RES.B      8192
+_var_nextCode_8c231bae:
+          .RES.B      2
+_var_lruPrev_8c231bb0:
+          .RES.B      8192
+_var_lruNext_8c233bb0:
+          .RES.B      8192
+_var_lruHead_8c235bb0:
+          .RES.B      2
+_var_lruTail_8c235bb2:
+          .RES.B      2
+_var_runBuf_8c235bb4:
+          .RES.B      200
+_var_codeBits_8c235c7c:
+          .RES.B      2
+_var_codeLimit_8c235c7e:
+          .RES.B      2
           .END

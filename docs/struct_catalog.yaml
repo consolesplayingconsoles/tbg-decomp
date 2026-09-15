@@ -2939,7 +2939,7 @@ structs:
     name: atGroundJunction_0x50c
     status: named
     evidence: src/025b98_traffic_drive.c:191,232-234 set to 1 when the lookahead candidate's own junction
-      query hits a polygon without the elevated-road bit (0xf000000) set; src/02f0c8.c:132-133 TrafficPathScanTypeInGroup_8c02f28a
+      query hits a polygon without the elevated-road bit (0xf000000) set; src/02f0c8.c:132-133 TrafficPathScanJunctionOccupied_8c02f28a
       scans tasks for the first entry with field_0x50c != 0 to seed a group lookup, but the exact purpose
       of that group scan is not otherwise established.
   - offset: '0x510'

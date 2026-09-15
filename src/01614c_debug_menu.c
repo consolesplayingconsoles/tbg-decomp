@@ -438,7 +438,7 @@ STATIC void replaySaveTask_8c0167ca(ReplaySaveTask *task, void *state)
     case 2: {
         Uint32 nblock;
 
-        nblock = ((var_8c228ba4 + 0x10) >> 9) + 1;
+        nblock = ((var_replayPackedSize_8c228ba4 + 0x10) >> 9) + 1;
         BupSave_8c014bcc(var_selectedVm_8c1ba34c, "BUS_REPLAY", var_demoBuf_8c1ba3c4, nblock);
         task->phase_0x0c = 3;
         /* fallthrough */
@@ -493,7 +493,7 @@ STATIC void startReplaySave_8c016924(void)
     ReplayCodecInit_8c02f320();
     ReplayCodecPack_8c02f934(var_demoBuffer_8c1bc828, &dest, size);
 
-    buf[0] = var_8c228ba4;
+    buf[0] = var_replayPackedSize_8c228ba4;
     buf[1] = var_currentCourse_8c1bb868.courseId_0x00;
     buf[2] = var_inputMapSel_8c1bb8c8;
     buf[3] = var_seed_8c157a64;

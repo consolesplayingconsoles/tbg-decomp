@@ -108,7 +108,7 @@ return new class extends TestCase {
 
         $demoBuf = $this->addressOf('_var_demoBuf_8c1ba3c4') + 0x100; // fake buffer address
         $this->initUint32($this->addressOf('_var_demoBuf_8c1ba3c4'), $demoBuf);
-        $this->initUint32($this->addressOf('_var_8c228ba4'), 1000);
+        $this->initUint32($this->addressOf('_var_replayPackedSize_8c228ba4'), 1000);
 
         $bup = $this->alloc(0x5c);
         $this->initUint32($bup + 0x08, 42);  // ProgressCount
@@ -179,7 +179,6 @@ return new class extends TestCase {
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
         $this->setSize('_var_demoBuf_8c1ba3c4', 4);
-        $this->setSize('_var_8c228ba4', 4);
         $this->setSize('_buStat', 4);
         $this->setSize('_syFree', 4);
         $this->setSize('_BupUnmount_8c014c46', 4);

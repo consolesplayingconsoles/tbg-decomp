@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'callBlocklist' => ['/^LAB_/', '/^L\d+$/'],
     'sourcePaths' => [
         'Z:\\app\\src' => 'src',
     ],
@@ -713,7 +714,7 @@ return [
             "tests" => [
                 "tests/02f0c8/8c02f0c8_TrafficPathScanBuild.php",
                 "tests/02f0c8/8c02f212_TrafficPathScanNext.php",
-                "tests/02f0c8/8c02f28a_TrafficPathScanTypeInGroup.php",
+                "tests/02f0c8/8c02f28a_TrafficPathScanJunctionOccupied.php",
             ],
             "objects" => [
                 "build/output_test/src/asm/decompiled/02f0c8.obj",
