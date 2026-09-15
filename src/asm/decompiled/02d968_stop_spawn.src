@@ -2,7 +2,7 @@
           .IMPORT     _var_exitSpot1_8c228934
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _var_playMode_8c1bb8d0
-          .IMPORT     _var_8c226410
+          .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _PassengerStopSceneTask_8c02d644
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _PassengerSkipStopTask_8c02d8f0
@@ -305,7 +305,7 @@ LP_GEN_52173:
           .DATA.L _var_exitSpot1_8c228934 ; H'8C02DB58
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02DB5C
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02DB60
-          .DATA.L _var_8c226410 ; H'8C02DB64
+          .DATA.L _var_practiceRules_8c226410 ; H'8C02DB64
           .DATA.L _PassengerStopSceneTask_8c02d644 ; H'8C02DB68
           .DATA.L _TaskPush_8c014ae8 ; H'8C02DB6C
           .DATA.L _PassengerSkipStopTask_8c02d8f0 ; H'8C02DB70

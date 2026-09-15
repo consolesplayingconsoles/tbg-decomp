@@ -29,10 +29,10 @@ return new class extends TestCase {
         $this->setSize('_var_prevLane_8c228684', 4);
         $this->setSize('_var_frameSpeed_8c22866c', 4);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
-        $this->setSize('_var_8c1bbd9c', 4); // BusState*, allocated via alloc()
+        $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
         $this->setSize('_var_padTriggerR_8c1ba374', 2);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_8c2264c4', 4);
         $this->setSize('_var_8c226450', 4);
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $busPtr = $this->alloc(0x2b8);
         $this->initUint32($busPtr + 0x25c, 0);
         $this->initUint32($busPtr + 0x268, 0);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busPtr);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busPtr);
 
         $this->initUint32($base + 0x84, 0); // var_8c2285c4[33]
         $this->initUint32($base + 0x88, 0); // var_8c2285c4[34] i.e. var_firstUpshift_8c22864c, "armed" flag
@@ -92,7 +92,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x4c, 0); // var_8c2285fc[5]
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
         $this->initUint32($this->addressOf('_var_8c2264c4'), 0);
 
@@ -460,7 +460,7 @@ return new class extends TestCase {
         $busPtr = $this->baseline($base);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0); // bit 0 clear -> messagebox branch too
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0); // bit 0 clear -> messagebox branch too
         $this->initUint32($base + 0x18, 0); // var_8c2285dc decrements to -1
 
         $this->call('_gradeFrame_8c02bcd8');
@@ -483,7 +483,7 @@ return new class extends TestCase {
         $busPtr = $this->baseline($base);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
-        $this->initUint32($this->addressOf('_var_8c226410'), 3); // bits 0 and 1 both set
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 3); // bits 0 and 1 both set
 
         $this->call('_gradeFrame_8c02bcd8');
 

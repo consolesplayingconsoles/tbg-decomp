@@ -28,7 +28,7 @@ return new class extends TestCase {
         $this->setSize('_var_currentSegment_8c228708', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_cameraCueBusy_8c227dac', 4);
 
@@ -88,7 +88,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_sceneParams_8c18ad24'), $scene);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), $playMode);
-        $this->initUint32($this->addressOf('_var_8c226410'), $var8c226410);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), $var8c226410);
 
         $this->call('_busInitPlaceBus_8c023310')->with();
 

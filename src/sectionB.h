@@ -162,12 +162,12 @@ typedef struct {
     float headingZ_0x238;
     /* Written as float literals (4.9/2.5/1.25/2.6) by busInitPlaceBus_8c023310;
      * field_0x240 is skipped by that write and its role is unclear. */
-    float field_0x23c;
+    float width_0x23c;
     int field_0x240;
-    float field_0x244;
+    float height_0x244;
     /* Both written there and read nowhere in decompiled C. */
-    float field_0x248;
-    float field_0x24c;
+    float halfHeight_0x248;
+    float groundOffset_0x24c;
 
     int ang_0x250;
 
@@ -220,7 +220,7 @@ typedef struct {
     int groundProbeFn_0x2c8;
     int junctionQueryFnCpu_0x2cc;
     int junctionQueryFnRoute_0x2d0;
-    int field_0x2d4;
+    int busAheadFlag_0x2d4;
     int lightFadeState_0x2d8;
     int lightFadeGate_0x2dc;
     /* 0 = off, 1 = starting (30-frame crank, idles at 500 rpm), 2 = running.
@@ -526,7 +526,7 @@ extern int var_8c1bbd54;
  * entries (see TrafficComputeBlockedSpeed_8c026eaa) -- identity-compared,
  * never dereferenced there. 02b464 does dereference it, for the player's
  * side of a collision response. */
-extern BusState *var_8c1bbd9c;
+extern BusState *var_playerBus_8c1bbd9c;
 /* Bus world matrix; pedestriansTask_8c0293f6 uses it via njCalcPoint to
  * place the crosswalk stop-line scratch points. Immediately follows
  * var_busState_8c1bb9d0 (base+0x84) but exported as its own symbol, not a
@@ -613,15 +613,20 @@ extern ResourceGroup var_loadingResourceGroup_8c1bc3f8;
 extern void* var_markDat_8c1bc420;
 extern void* var_markPartsDat_8c1bc41c;
 extern NJS_TEXLIST *var_markTexlist_8c1bc418;
-/* Read by BusInitStart_8c023610 at +8/+0xc for the bus's texlistLarge_0x004/modelLarge_0x00c
- * (VehPartsBind_8c02786c inputs); role of the rest unclear. */
-extern void *var_8c1bbf7c[24];
+/* var_routeModelSlots_8c1bbddc[26..31] under their own symbol -- 013ae8 loads
+ * all 0x20 slots through that array, which overruns its own label by exactly
+ * these 96 bytes. [0] is the player's bus (3s_bus0_l.njd/3t_bus0_l.pvm);
+ * BusInitStart_8c023610 takes its texlist/nj for texlistLarge_0x004/
+ * modelLarge_0x00c. */
+extern ModelSlot var_vehicleModelSlots_8c1bbf7c[6];
 extern ModelSlot var_pedestrianAssets_8c1bbfdc[0x41];
 extern PDS_PERIPHERAL *var_peripheral_8c1ba358;
 extern PDS_PERIPHERAL var_peripherals_8c1ba35c[2];
 extern enum PLAY_MODE var_playMode_8c1bb8d0;
 extern PlayerProgress var_progress_8c1ba1cc;
 extern void* var_routeModels_8c1bc3ec;
+/* Its own label only reserves 26 slots; the last 6 are
+ * var_vehicleModelSlots_8c1bbf7c (see there). */
 extern ModelSlot var_routeModelSlots_8c1bbddc[0x20];
 extern LoadedModel *var_segmentModels_8c1bc3f0;
 extern int var_selectedVm_8c1ba34c;
@@ -1175,7 +1180,15 @@ extern LoadedModel *var_tileLayerSlots_8c226520[5]; /* per-layer tile grids, wid
 extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
 extern float var_8c226538[3]; // 021b9c: scratch light-direction vector for the visible-tile draw pass
 extern int var_8c22640c;
-extern int var_8c226410;
+/* Which parts of a normal run still apply to the selected practice drill,
+ * from init_practiceRules_8c0451c0 (01e27c). A set bit keeps the normal
+ * behaviour; a clear one takes the drill shortcut, and every reader pairs it
+ * with var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE. 1 = stop announcements and
+ * stop-arrival grading (020214, 02b464), 2 = the schedule (02c884, 02b464's
+ * INSTR_TIME_MANAGEMENT), 4 = the stop sequence and run completion (02b464),
+ * 8 = passengers and bus stops at all (02d968, 02d19c, 022464, and 023310's
+ * blinker/mirror start). */
+extern int var_practiceRules_8c226410;
 extern int var_8c226414[6]; /* dialog id queue built by buildDialogQueue_8c01e992, -1 terminated */
 extern int var_8c22642c; /* lesson attempt counter, incremented on practice retry */
 extern int *var_endingVoiceList_8c226430; /* selected ending voice-id list, set by selectEndingDialog_8c01f3c0 */

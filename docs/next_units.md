@@ -730,7 +730,7 @@ slots, 8 id-resolved config, 9 end, 10 place decoration. Motion walks blocks of
 `TrafficAdvanceOnPath_8c026ca2` finds the containing record and re-projects
 world position, `TrafficUpdateHeading_8c026bc4` derives the heading basis and
 four body corners, `TrafficComputeBlockedSpeed_8c026eaa` scans other entries
-(and the player's bus via the `var_8c1bbd9c` sentinel) for a speed limit,
+(and the player's bus via the `var_playerBus_8c1bbd9c` sentinel) for a speed limit,
 defaulting to `9999.0` when clear.
 
 **Model selection:** `init_8c04622c[16]` maps a variant index to one of the 11

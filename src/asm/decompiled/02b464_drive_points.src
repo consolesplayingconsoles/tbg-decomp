@@ -16,7 +16,7 @@
           .IMPORT     _var_cooldownIntersection_8c2286a0
           .IMPORT     _var_8c2285fc
           .IMPORT     _BusDriveStop_8c023bce
-          .IMPORT     _var_8c1bbd9c
+          .IMPORT     _var_playerBus_8c1bbd9c
           .IMPORT     _var_bumpSpeed_8c228670
           .IMPORT     _var_8c228668
           .IMPORT     _VibStart_8c010f7a
@@ -42,7 +42,7 @@
           .IMPORT     _var_8c1bbd54
           .IMPORT     _var_padTriggerR_8c1ba374
           .IMPORT     _BusStopUpdateArrival_8c02ce48
-          .IMPORT     _var_8c226410
+          .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _var_stopPhase_8c2285e4
           .IMPORT     _var_8c2264c4
           .IMPORT     _var_8c226450
@@ -381,7 +381,7 @@ LP_GEN_34364:
           .DATA.L _var_cooldownIntersection_8c2286a0 ; H'8C02B660
           .DATA.L _var_8c2285fc ; H'8C02B664
           .DATA.L _BusDriveStop_8c023bce ; H'8C02B668
-          .DATA.L _var_8c1bbd9c ; H'8C02B66C
+          .DATA.L _var_playerBus_8c1bbd9c ; H'8C02B66C
           .DATA.L H'3E99999A ; H'8C02B670
           .DATA.L _var_bumpSpeed_8c228670 ; H'8C02B674
           .DATA.L _var_8c228668 ; H'8C02B678
@@ -608,7 +608,7 @@ LP_GEN_48273:
           .DATA.W H'00F4 ; H'8C02B81E
           .DATA.W H'02E4 ; H'8C02B820
           .DATA.W H'019C ; H'8C02B822
-          .DATA.L _var_8c1bbd9c ; H'8C02B824
+          .DATA.L _var_playerBus_8c1bbd9c ; H'8C02B824
           .DATA.L _var_8c228664 ; H'8C02B828
           .DATA.L _BusCollisionFindHit_8c02e2dc ; H'8C02B82C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02B830
@@ -1124,7 +1124,7 @@ LP_GEN_46467:
           .DATA.L H'3E3DA12F ; H'8C02BC34
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C02BC38
           .DATA.L _var_prevLane_8c228684 ; H'8C02BC3C
-          .DATA.L _var_8c1bbd9c ; H'8C02BC40
+          .DATA.L _var_playerBus_8c1bbd9c ; H'8C02BC40
           .DATA.L _var_prevLaneFlags_8c228688 ; H'8C02BC44
           .DATA.L _var_8c228634 ; H'8C02BC48
 LAB_8c02bc4c:
@@ -1250,7 +1250,7 @@ LP_GEN_44318:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02BD30
           .DATA.L _var_8c2285c4 ; H'8C02BD34
           .DATA.L _var_prevLane_8c228684 ; H'8C02BD38
-          .DATA.L _var_8c1bbd9c ; H'8C02BD3C
+          .DATA.L _var_playerBus_8c1bbd9c ; H'8C02BD3C
 LAB_8c02bd40:
           CMP/PL      R5
           BF          LAB_8c02bd56
@@ -1589,7 +1589,7 @@ LP_GEN_59291:
           .RES.W 1 ; H'8C02BFB6
           .DATA.L _BusStopUpdateArrival_8c02ce48 ; H'8C02BFB8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02BFBC
-          .DATA.L _var_8c226410 ; H'8C02BFC0
+          .DATA.L _var_practiceRules_8c226410 ; H'8C02BFC0
           .DATA.L _var_stopPhase_8c2285e4 ; H'8C02BFC4
           .DATA.L _var_8c2264c4 ; H'8C02BFC8
 LAB_8c02bfcc:
@@ -1725,7 +1725,7 @@ LP_GEN_85160:
           .DATA.W H'03C4 ; H'8C02C0B8
           .DATA.W H'FF38 ; H'8C02C0BA
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C0BC
-          .DATA.L _var_8c226410 ; H'8C02C0C0
+          .DATA.L _var_practiceRules_8c226410 ; H'8C02C0C0
           .DATA.L _var_8c226450 ; H'8C02C0C4
           .DATA.L _var_8c2285d8 ; H'8C02C0C8
           .DATA.L _var_8c2285dc ; H'8C02C0CC
@@ -2242,7 +2242,7 @@ LP_GEN_93947:
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C4D4
           .DATA.L _var_8c2285c4 ; H'8C02C4D8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C4DC
-          .DATA.L _var_8c226410 ; H'8C02C4E0
+          .DATA.L _var_practiceRules_8c226410 ; H'8C02C4E0
 LAB_8c02c4e4:
           MOV         #H'4,R2
           MOV.L       R2,@(H'20,R5)
@@ -2388,7 +2388,7 @@ LP_GEN_23130:
           .DATA.L _var_driveMsgQueue_8c228564 ; H'8C02C5FC
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C600
           .DATA.L _var_route_8c18ad1c ; H'8C02C604
-          .DATA.L _var_8c226410 ; H'8C02C608
+          .DATA.L _var_practiceRules_8c226410 ; H'8C02C608
           .DATA.L _var_8c22640c ; H'8C02C60C
 LAB_8c02c610:
           MOV         R5,R4

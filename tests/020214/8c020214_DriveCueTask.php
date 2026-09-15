@@ -28,7 +28,7 @@ return new class extends TestCase {
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_8c22640c', 4);
         $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_8c1bbc4c', 4);
@@ -70,7 +70,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 0);
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 0); // ROUTE_SHINJUKU
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // PLAY_MODE_NORMAL
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_8c22640c'), 0);
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
         $this->initUint32($this->addressOf('_var_8c1bbc4c'), 0);
@@ -306,7 +306,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initInactiveWorld();
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1); // PLAY_MODE_PRACTICE
-        $this->initUint32($this->addressOf('_var_8c226410'), 0); // bit0 unset
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0); // bit0 unset
         $this->initStruct(4, 0, 0, 1, 0, 0, 0);
 
         $task = $this->alloc(4);

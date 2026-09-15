@@ -9,7 +9,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // firstScriptArg (no bounds check on this first walk -- a real asm quirk),
 // then samples (x, z) positions every 5.0 units across the next `window`
 // units into var_samples_8c228b48 (cursor/bound var_sampleCursor_8c228b9c/var_sampleEnd_8c228ba0). Returns
-// the first sample's occupant: the player's bus sentinel (var_8c1bbd9c) if
+// the first sample's occupant: the player's bus sentinel (var_playerBus_8c1bbd9c) if
 // within 2.5 of either of its two tracked points, else the first live,
 // non-self task within 2.5 -- or NULL.
 //
@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_var_8c1bbacc', 4);
         $this->setSize('_var_8c1bbad8', 4);
-        $this->setSize('_var_8c1bbd9c', 4);
+        $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
     }
 
@@ -91,7 +91,7 @@ return new class extends TestCase {
     }
 
     // The first sample (8.0, 0.0) lands within 2.5 of the bus's primary
-    // point (posX_0x0f4 / var_8c1bbacc): returns var_8c1bbd9c and sets the
+    // point (posX_0x0f4 / var_8c1bbacc): returns var_playerBus_8c1bbd9c and sets the
     // cursor to just past that first pair.
     public function test_matchesBusPrimaryPoint_returnsBusSentinel(): void {
         $this->resolveSymbols();
@@ -107,7 +107,7 @@ return new class extends TestCase {
         $this->initFloat($this->addressOf('_var_8c1bbad8'), -9999.0);
 
         $bus = $this->alloc(4);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $bus);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $bus);
 
         $base = $this->addressOf('_var_samples_8c228b48');
 
@@ -139,7 +139,7 @@ return new class extends TestCase {
         $this->initFloat($this->addressOf('_var_8c1bbad8'), 0.0);
 
         $bus = $this->alloc(4);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $bus);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $bus);
 
         $base = $this->addressOf('_var_samples_8c228b48');
 

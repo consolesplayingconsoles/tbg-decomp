@@ -9,7 +9,7 @@ void FUN_8c020528()
     Task* created_task;
     void* created_state;
 
-    if (var_playMode_8c1bb8d0 != 2) {
+    if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         TaskPush_8c014ae8(var_tasks_8c1ba5e8, &DriveCueTask_8c020214, &created_task, &created_state, 0);
         var_8c2264b8.idleChimeState_0x00 = 0;
         var_8c2264b8.idleChimeTimer_0x04 = AsqGetRandomInRangeB_8c0121be(300) + 0x96;

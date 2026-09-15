@@ -74,8 +74,10 @@ STATIC const char const_8c038988[TEXT_SJIS_SIZE(44)] = MSG_CONFIRM_QUIT_PRACTICE
 STATIC char init_8c0451b4[] = {
     0, 2, 3, 4, 6, 9, 12, 15, 17, 19, 24, 25
 };
-/* Per-course loading-screen background id, indexed by var_8c22640c. */
-STATIC Uint32 init_8c0451c0[] = { 0, 0, 0, 0, 0, 0, 0, 6, 0xf, 0xf, 0xf };
+/* Per-drill rule mask (-> var_practiceRules_8c226410, see sectionB.h),
+ * indexed by var_8c22640c. Drills 0-6 turn everything but the driving off;
+ * 8-10 are full runs. */
+STATIC Uint32 init_practiceRules_8c0451c0[] = { 0, 0, 0, 0, 0, 0, 0, 6, 0xf, 0xf, 0xf };
 STATIC char init_8c0451ec[] = { 0x10, 0x0a, 0x14, 0x11, 0x12, 0x14, 0x15, 0x13, 0x13, 0x1b, 0x09, 0x00 };
 STATIC char init_8c0451f8[] = { 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0xc0, 0x40, 0x00, 0x00, 0x30, 0x41, 0x00, 0x00, 0xe0, 0x40 };
 /* Indexed by the drive-side penalty id in var_worstPenaltyMsgSet_8c1bb8ec (a PENALTY_MSG_* from
@@ -251,7 +253,7 @@ STATIC void FUN_8c01e27c(Task *task)
                 var_worstPenaltyDelta_8c1bb8f0 = 0;
                 var_worstPenaltyMsgSet_8c1bb8ec = 0x1d;
                 var_penaltyCount_8c1bb8f4 = 0;
-                var_8c226410 = init_8c0451c0[var_8c22640c];
+                var_practiceRules_8c226410 = init_practiceRules_8c0451c0[var_8c22640c];
                 GamePushLoadingTask_8c013310(var_8c22640c + 0x1b);
                 break;
             }

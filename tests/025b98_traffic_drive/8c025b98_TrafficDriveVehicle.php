@@ -37,14 +37,14 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bbacc', 4);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
-        $this->setSize('_var_8c1bbd9c', 4);
+        $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_8c2264d0', 4);
 
         $this->initUint32($this->addressOf('_var_8c1bbac4'), fdec(0.0));
         $this->initUint32($this->addressOf('_var_8c1bbacc'), fdec(0.0));
         $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 5);
         $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 0); // TIME_OF_DAY_DAY
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), 0); // no player bus sentinel match
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), 0); // no player bus sentinel match
     }
 
     // Zeroed 0x514-byte entry with every field this function reads

@@ -13,7 +13,7 @@ return new class extends TestCase {
         $this->setSize('_VibStart_8c010f7a', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
-        $this->setSize('_var_8c1bbd9c', 4); // BusState*, allocated via alloc()
+        $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
         $this->setSize('_var_8c228664', 4);
         $this->setSize('_var_8c228668', 4);
         $this->setSize('_var_frameSpeed_8c22866c', 4);
@@ -41,7 +41,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $this->alloc(0x2b8));
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $this->alloc(0x2b8));
 
         $this->call('_handleBump_8c02b6d4');
 
@@ -56,7 +56,7 @@ return new class extends TestCase {
 
         $busState = $this->alloc(0x2b8);
         $this->initUint32($busState + 0x2b4, 2); // driveState_0x2b4 != 1
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busState);
 
         $this->call('_handleBump_8c02b6d4');
 
@@ -69,7 +69,7 @@ return new class extends TestCase {
 
         $busState = $this->alloc(0x2b8);
         $this->initUint32($busState + 0x2b4, 1); // driveState_0x2b4 == 1 (driving)
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busState);
 
         $this->call('_handleBump_8c02b6d4');
 
@@ -86,7 +86,7 @@ return new class extends TestCase {
         $this->initUint32($me + 0x2b4, 1); // driveState_0x2b4 == 1 (driving)
         $this->initFloat($me + 0xf4, 0.0); // posX
         $this->initFloat($me + 0xfc, 0.0); // posZ
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $me);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $me);
 
         $other = $this->alloc(0x2b8);
         $this->initFloat($other + 0xf4, 3.0); // posX
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->initUint32($me + 0x2b4, 1);
         $this->initFloat($me + 0xf4, 0.0);
         $this->initFloat($me + 0xfc, 0.0);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $me);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $me);
 
         $other = $this->alloc(0x2b8);
         $this->initFloat($other + 0xf4, 3.0);
@@ -177,7 +177,7 @@ return new class extends TestCase {
         $this->initUint32($me + 0x2b4, 1);
         $this->initFloat($me + 0xf4, 0.0);
         $this->initFloat($me + 0xfc, 0.0);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $me);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $me);
 
         $other = $this->alloc(0x2b8);
         $this->initFloat($other + 0xf4, 3.0);

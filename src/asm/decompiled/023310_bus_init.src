@@ -6,7 +6,7 @@
           .IMPORT     _GroundQueryFindPolygon_8c020914
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _var_playMode_8c1bb8d0
-          .IMPORT     _var_8c226410
+          .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _BusDriveSampleGround_8c023938
           .IMPORT     _acosf
           .IMPORT     _var_cameraMode_8c227d9c
@@ -21,8 +21,8 @@
           .IMPORT     _BusTask_8c022bdc
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
-          .IMPORT     _var_8c1bbd9c
-          .IMPORT     _var_8c1bbf7c
+          .IMPORT     _var_playerBus_8c1bbd9c
+          .IMPORT     _var_vehicleModelSlots_8c1bbf7c
           .IMPORT     _var_trafficModels_8c1bc3f4
           .IMPORT     _VehPartsBind_8c02786c
           .IMPORT     _var_timeOfDay_8c18ad20
@@ -177,7 +177,7 @@ LP_GEN_83541:
           .DATA.L H'3FA00000 ; H'8C023424
           .DATA.L H'40266666 ; H'8C023428
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02342C
-          .DATA.L _var_8c226410 ; H'8C023430
+          .DATA.L _var_practiceRules_8c226410 ; H'8C023430
 LAB_8c023434:
           MOV.W       LP_GEN_55589,R0
           MOV         #H'2,R4
@@ -524,8 +524,8 @@ LP_GEN_28893:
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C0236E8
           .DATA.L _TaskPush_8c014ae8 ; H'8C0236EC
           .DATA.L _var_busState_8c1bb9d0 ; H'8C0236F0
-          .DATA.L _var_8c1bbd9c ; H'8C0236F4
-          .DATA.L _var_8c1bbf7c ; H'8C0236F8
+          .DATA.L _var_playerBus_8c1bbd9c ; H'8C0236F4
+          .DATA.L _var_vehicleModelSlots_8c1bbf7c ; H'8C0236F8
           .DATA.L _var_trafficModels_8c1bc3f4 ; H'8C0236FC
           .DATA.L _VehPartsBind_8c02786c ; H'8C023700
           .DATA.L _var_timeOfDay_8c18ad20 ; H'8C023704
@@ -703,7 +703,7 @@ LP_GEN_45139:
           .DATA.L _BusStopGetSegment_8c02cd6a ; H'8C023860
           .DATA.L _BusDriveSampleGround_8c023938 ; H'8C023864
           .DATA.L _BusDriveApplyGround_8c023cba ; H'8C023868
-          .DATA.L _var_8c1bbd9c ; H'8C02386C
+          .DATA.L _var_playerBus_8c1bbd9c ; H'8C02386C
           .DATA.L _VehicleModelPlace_8c020594 ; H'8C023870
 LAB_8c023874:
           MOV.W       LP_GEN_98696,R0
@@ -806,6 +806,6 @@ LP_GEN_98696:
           .DATA.W H'03C8 ; H'8C023928
           .RES.W 1 ; H'8C02392A
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02392C
-          .DATA.L _var_8c226410 ; H'8C023930
+          .DATA.L _var_practiceRules_8c226410 ; H'8C023930
           .DATA.L _var_brakePressPeak_8c227d8c ; H'8C023934
           .END

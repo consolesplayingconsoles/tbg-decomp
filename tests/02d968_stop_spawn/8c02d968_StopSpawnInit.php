@@ -18,21 +18,21 @@ return new class extends TestCase {
         $this->setSize('_PassengerSkipStopTask_8c02d8f0', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_8c2285c4', 4 * 32);
         // Loaded into R12 unconditionally at function entry by the asm
         // object even though this test's path never uses it.
         $this->setSize('_var_exitSpot1_8c228934', 12);
     }
 
-    // playMode == 1 (demo) and bit 3 of var_8c226410 clear: pushes the
+    // playMode == 1 (demo) and bit 3 of var_practiceRules_8c226410 clear: pushes the
     // "return to demo" task and sets var_8c2285c4[0] = 2, without doing
     // any of the normal course-start spawning.
     public function test_demoModeEarlyReturn(): void {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
 
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x20);
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->setSize('_PassengerStopSceneTask_8c02d644', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_njSetTexture', 4);
         $this->setSize('_njLoadCacheTexture', 4);
         $this->setSize('_DemoBoardingCamera_8c025870', 4);
@@ -109,7 +109,7 @@ return new class extends TestCase {
         $this->setSize('_PassengerExitTask_8c02d46c', 4);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // not demo mode
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), $route);
         $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 0); // no waiting passengers
 
@@ -234,7 +234,7 @@ return new class extends TestCase {
         $this->setSize('_PassengerBoardTask_8c02d21c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_njSetTexture', 4);
         $this->setSize('_njLoadCacheTexture', 4);
         $this->setSize('_DemoBoardingCamera_8c025870', 4);
@@ -262,7 +262,7 @@ return new class extends TestCase {
         $this->setSize('__quick_odd_mvn', 4);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 3); // skip anchor points
         $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 1);
         $this->initUint32($this->addressOf('_var_passengerCount_8c1bb8e4'), 5);
@@ -367,7 +367,7 @@ return new class extends TestCase {
         $this->setSize('_PassengerExitTask_8c02d46c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_njSetTexture', 4);
         $this->setSize('_njLoadCacheTexture', 4);
         $this->setSize('_DemoBoardingCamera_8c025870', 4);
@@ -411,7 +411,7 @@ return new class extends TestCase {
         $this->commonSpawnLoopSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 3); // skip anchor points
         $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 0); // no waiting passengers
         $this->initUint32($this->addressOf('_var_currentSegment_8c228708'), 5);
@@ -529,7 +529,7 @@ return new class extends TestCase {
         $this->commonSpawnLoopSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 3); // skip anchor points
         $this->initUint32($this->addressOf('_var_waitingPassengerCount_8c228794'), 0); // no waiting passengers
         $this->initUint32($this->addressOf('_var_currentSegment_8c228708'), 5);

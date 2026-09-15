@@ -98,7 +98,7 @@ STATIC void task_8c012f9c(Task *task, void* state) {
     Bool r7;
     Float speed_fr2;
 
-    if (var_playMode_8c1bb8d0 != 1 && var_route_8c18ad1c == 2 && var_currentSegment_8c228708 == 0) {
+    if (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE && var_route_8c18ad1c == 2 && var_currentSegment_8c228708 == 0) {
         r7 = TRUE;
     } else {
         r7 = FALSE;
@@ -197,7 +197,7 @@ void FUN_8c01306e(void)
     BusInitStart_8c023610();
     ObjectsInitTrafficSignals_8c02845a();
 
-    if (var_playMode_8c1bb8d0 != 2) {
+    if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         ObjectsInitBlinkers_8c029920();
     }
 

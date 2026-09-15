@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_var_8c1bbacc', 4);
         $this->setSize('_var_8c1bbad8', 4);
-        $this->setSize('_var_8c1bbd9c', 4);
+        $this->setSize('_var_playerBus_8c1bbd9c', 4);
     }
 
     private function makeTask(int $index, int $action, int $state): int {

@@ -343,7 +343,7 @@ void FadeUpdate_8c022560(void)
 
 void FadeStartRunTransition_8c0228a2(void)
 {
-  if ((var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) || ((var_8c226410 & 8) == 8)) {
+  if ((var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) || ((var_practiceRules_8c226410 & 8) == 8)) {
     var_fadeArrivalVariant_8c22655c = 1;
   }
   else {

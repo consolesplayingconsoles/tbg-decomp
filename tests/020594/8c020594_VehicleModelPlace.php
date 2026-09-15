@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // Builds a bus/traffic-entity placement matrix: a rotation basis from the
-// bus's field_0x23c width and the height delta between posY_0x0f8 and
+// bus's width_0x23c width and the height delta between posY_0x0f8 and
 // posHistory_0x100[0].y (also stashing the cos/sin as pitchCos_0x270/0x26c
 // for the camera bob elsewhere), a yaw from atan2f of two more history
 // points via njRotateZ, then the translation row from the bus's current
@@ -41,12 +41,12 @@ return new class extends TestCase {
 
         $this->initFloat($bus + 0xf8, 10.0);  // posY_0x0f8
         $this->initFloat($bus + 0x104, 14.0); // posHistory_0x100[0].y
-        $this->initFloat($bus + 0x23c, 3.0);  // field_0x23c (width)
+        $this->initFloat($bus + 0x23c, 3.0);  // width_0x23c (width)
         $this->initFloat($bus + 0x278, 2.0);  // headingDirZ_0x278
         $this->initFloat($bus + 0x274, 1.0);  // headingDirX_0x274
         $this->initFloat($bus + 0x11c, 1.0);  // posHistory_0x100[2].y
         $this->initFloat($bus + 0x128, 5.0);  // posHistory_0x100[3].y
-        $this->initFloat($bus + 0x244, 2.0);  // field_0x244
+        $this->initFloat($bus + 0x244, 2.0);  // height_0x244
         $this->initFloat($bus + 0xf4, 7.0);   // posX_0x0f4
         $this->initFloat($bus + 0xfc, 9.0);   // posZ_0x0fc
 
@@ -55,7 +55,7 @@ return new class extends TestCase {
         // dy = 14 - 10 = 4; dist = njSqrt(4^2 + 3^2) = njSqrt(25) = 5
         $this->shouldCall('_njSqrt')->with(25.0)->andReturn(5.0);
 
-        $cosT = $this->f32(3.0 / 5.0); // field_0x23c / dist
+        $cosT = $this->f32(3.0 / 5.0); // width_0x23c / dist
         $sinT = $this->f32(4.0 / 5.0); // dy / dist
 
         $this->shouldWriteFloat($bus + 0x270, $cosT);
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($matrix + 0x28, $this->f32(2.0 * $cosT)); // headingDirZ_0x278*cosT
         $this->shouldWriteFloat($matrix + 0x2c, 0.0);
 
-        // atan2f(posHistory[3].y - posHistory[2].y, field_0x244) = atan2f(4.0, 2.0)
+        // atan2f(posHistory[3].y - posHistory[2].y, height_0x244) = atan2f(4.0, 2.0)
         $this->shouldCall('_atan2f')->with(4.0, 2.0)->andReturn(1.2);
 
         $step1 = $this->f32(1.2 * 65536.0);

@@ -445,7 +445,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0);
         $this->shouldWriteLong($this->addressOf('_var_worstPenaltyMsgSet_8c1bb8ec'), 0x1d);
         $this->shouldWriteLong($this->addressOf('_var_penaltyCount_8c1bb8f4'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c226410'), 6);
+        $this->shouldWriteLong($this->addressOf('_var_practiceRules_8c226410'), 6);
         $this->shouldCall('_GamePushLoadingTask_8c013310')->with(7 + 0x1b);
     }
 
@@ -547,6 +547,6 @@ return new class extends TestCase {
         $this->setSize('_var_worstPenaltyDelta_8c1bb8f0', 4);
         $this->setSize('_var_worstPenaltyMsgSet_8c1bb8ec', 4);
         $this->setSize('_var_penaltyCount_8c1bb8f4', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
     }
 };

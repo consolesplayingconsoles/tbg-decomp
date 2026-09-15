@@ -13,7 +13,7 @@ if (!function_exists('fdec')) {
 // TrafficComputeBlockedSpeed_8c026eaa scans the global list of traffic
 // entries starting at "other" (advanced via TrafficPathScanNext_8c02f212, a no-argument
 // accessor for some external iteration cursor), looking for one that
-// constrains "entry"'s speed. var_8c1bbd9c is a global pointer variable
+// constrains "entry"'s speed. var_playerBus_8c1bbd9c is a global pointer variable
 // whose stored value is a sentinel standing in for the player's bus in this
 // list; when "other" equals that stored value, the scan always ends there
 // (no further TrafficPathScanNext_8c02f212() call), reading the bus's own fields directly
@@ -31,8 +31,8 @@ return new class extends TestCase {
         // Pin the bus sentinel variable to its own address so a test's
         // allocated "other" entry can never coincidentally match its
         // (uninitialized, randomized) stored value.
-        $this->setSize('_var_8c1bbd9c', 4);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), 0);
+        $this->setSize('_var_playerBus_8c1bbd9c', 4);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), 0);
         // The compiler schedules the bus-state loads used by the sentinel
         // branch alongside the rest of the loop body's reads, ahead of the
         // branch itself that actually gates using them -- so every test that
@@ -148,7 +148,7 @@ return new class extends TestCase {
     }
 
     // Allocates a bus-shaped blob (own 0xf4/0xfc current, 0x100/0x108
-    // target) and points the global var_8c1bbd9c pointer variable at it, so
+    // target) and points the global var_playerBus_8c1bbd9c pointer variable at it, so
     // the scan recognizes it as the bus sentinel.
     private function allocBus(float $curX, float $curY, float $tgtX, float $tgtY): int {
         $bus = $this->alloc(0x140);
@@ -156,7 +156,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0xfc, fdec($curY));
         $this->initUint32($bus + 0x100, fdec($tgtX));
         $this->initUint32($bus + 0x108, fdec($tgtY));
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $bus);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $bus);
         return $bus;
     }
 

@@ -22,7 +22,7 @@
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_penaltyCount_8c1bb8f4
-          .IMPORT     _var_8c226410
+          .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _GamePushLoadingTask_8c013310
           .IMPORT     _TaskSetAction_8c014b3e
           .IMPORT     _AsqInitQueues_8c011f36
@@ -547,8 +547,8 @@ LP_GEN_38636:
           .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C01E5F4
           .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C01E5F8
           .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C01E5FC
-          .DATA.L _init_8c0451c0 ; H'8C01E600
-          .DATA.L _var_8c226410 ; H'8C01E604
+          .DATA.L _init_practiceRules_8c0451c0 ; H'8C01E600
+          .DATA.L _var_practiceRules_8c226410 ; H'8C01E604
           .DATA.L _GamePushLoadingTask_8c013310 ; H'8C01E608
           .DATA.L _FUN_8c01e27c ; H'8C01E60C
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01E610
@@ -2265,7 +2265,7 @@ _const_8c038988:        ; from defines
           .SECTION    D, DATA, ALIGN=4
 _init_8c0451b4:        ; from defines
           .DATA.B      H'00, H'02, H'03, H'04, H'06, H'09, H'0C, H'0F, H'11, H'13, H'18, H'19
-_init_8c0451c0:        ; from defines
+_init_practiceRules_8c0451c0:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'06, H'00, H'00, H'00
           .DATA.B      H'0F, H'00, H'00, H'00, H'0F, H'00, H'00, H'00, H'0F, H'00, H'00, H'00

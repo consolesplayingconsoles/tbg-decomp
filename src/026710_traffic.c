@@ -417,7 +417,7 @@ void TrafficRelocatePlacementTable_8c026da4(void *handle)
  * TrafficPathScanNext_8c02f212, an accessor with no arguments -- the list
  * cursor is maintained elsewhere), looking for one whose path projection is
  * ahead of "entry", to derive the speed limit "entry" must obey to avoid it.
- * var_8c1bbd9c is a sentinel pointer standing in for the player's bus in this
+ * var_playerBus_8c1bbd9c is a sentinel pointer standing in for the player's bus in this
  * list; when "other" equals it, the check reads the bus's own waypoint fields
  * directly instead (bus has no ordinary entry struct), and the scan always
  * stops there. Returns 9999.0f (no constraint) unless a blocking entry lowers
@@ -436,7 +436,7 @@ float TrafficComputeBlockedSpeed_8c026eaa(TrafficEntry *entry, TrafficEntry *oth
     float candidate;
 
     for (; o != NULL; o = (TrafficEntry *)TrafficPathScanNext_8c02f212()) {
-        if (o == (TrafficEntry *)var_8c1bbd9c) {
+        if (o == (TrafficEntry *)var_playerBus_8c1bbd9c) {
             dot = (o->frontPointX_0x100 - var_busState_8c1bb9d0.posX_0x0f4) *
                       (o->frontPointX_0x100 - o->posX_0xf4) +
                   (o->frontPointZ_0x108 - o->posZ_0xfc) *

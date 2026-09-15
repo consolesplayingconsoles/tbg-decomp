@@ -13,12 +13,12 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // or another live traffic entry's front-reference (rearPointX_0x10c/rearPointZ_0x114) or
 // current (posX_0xf4/posZ_0xfc) position, via the shared
 // var_collisionScanCursor_8c228974/var_tasks_8c1bac28 scan (self excluded).
-// Returns var_8c1bbd9c (player), the matched entry, or NULL.
+// Returns var_playerBus_8c1bbd9c (player), the matched entry, or NULL.
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
-        $this->setSize('_var_8c1bbd9c', 4);
+        $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
         $this->setSize('_var_collisionScanCursor_8c228974', 4);
 
@@ -93,7 +93,7 @@ return new class extends TestCase {
 
     // First cache point lands within 2.0 of the player bus's
     // posHistory_0x100[10] (a recent-history sample, not the live position):
-    // returns var_8c1bbd9c straight away.
+    // returns var_playerBus_8c1bbd9c straight away.
     public function test_refillSkipped_matchesBusHistoryPoint_returnsBusSentinel(): void {
         $this->resolveSymbols();
 
@@ -106,7 +106,7 @@ return new class extends TestCase {
         $this->makeTask(0, 0, 0); // terminator, unused on this path
 
         $bus = $this->alloc(4);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $bus);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $bus);
 
         $this->call('_TrafficLookaheadScan_8c02dfca')->with(
             $this->alloc(4), $entry, 10.0
@@ -118,7 +118,7 @@ return new class extends TestCase {
     // First cache point lands within 2.5 of the player bus's live position
     // (posX_0x0f4/posZ_0x0fc) -- the "break" branch, distinct in the asm/C
     // from the direct-return history-point checks above but observably the
-    // same result: var_8c1bbd9c.
+    // same result: var_playerBus_8c1bbd9c.
     public function test_refillSkipped_matchesBusLivePosition_returnsBusSentinel(): void {
         $this->resolveSymbols();
 
@@ -131,7 +131,7 @@ return new class extends TestCase {
         $this->makeTask(0, 0, 0);
 
         $bus = $this->alloc(4);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $bus);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $bus);
 
         $this->call('_TrafficLookaheadScan_8c02dfca')->with(
             $this->alloc(4), $entry, 10.0
@@ -269,7 +269,7 @@ return new class extends TestCase {
         $this->setCachePoint($entry, 0, 100.5, 200.5);
 
         $bus = $this->alloc(4);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $bus);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $bus);
 
         $this->call('_TrafficLookaheadScan_8c02dfca')->with(
             $this->alloc(4), $entry, -10.0

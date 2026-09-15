@@ -281,7 +281,7 @@ void BusStopSetup_8c02caba(void)
     }
     var_driverPoints_8c2285d0 = var_8c2285d4;
 
-    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_8c226410 & 2) != 2) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 2) != 2) {
         var_8c2285dc = var_8c2285d8;
         var_8c2285d8 = 0;
     } else {

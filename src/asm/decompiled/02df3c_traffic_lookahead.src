@@ -8,7 +8,7 @@
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_collisionScanCursor_8c228974
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _var_8c1bbd9c
+          .IMPORT     _var_playerBus_8c1bbd9c
           .EXPORT     _TrafficLookaheadInit_8c02df3c
           .EXPORT     _TrafficLookaheadScan_8c02dfca
           .SECTION     P, CODE, ALIGN=4
@@ -496,5 +496,5 @@ LP_GEN_42627:
           .DATA.L _var_8c1bbb44 ; H'8C02E2CC
           .DATA.L _var_8c1bbacc ; H'8C02E2D0
           .DATA.L _var_8c1bbad8 ; H'8C02E2D4
-          .DATA.L _var_8c1bbd9c ; H'8C02E2D8
+          .DATA.L _var_playerBus_8c1bbd9c ; H'8C02E2D8
           .END

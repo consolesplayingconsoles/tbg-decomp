@@ -8,7 +8,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_8c1bb8b8', 4);

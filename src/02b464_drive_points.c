@@ -204,7 +204,7 @@ STATIC int *init_penaltyMsgGlyphs_8c04c35c[] = {
  */
 
 STATIC void adjust_8c02b464(int msgSet, int delta) {
-    if (var_playMode_8c1bb8d0 == 2) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
         return;
     }
 
@@ -212,7 +212,7 @@ STATIC void adjust_8c02b464(int msgSet, int delta) {
      * results screen (01e27c_practice_menu.c). */
     if (delta < 0) {
         var_penaltyCount_8c1bb8f4 = var_penaltyCount_8c1bb8f4 + 1;
-    } else if (var_8c1ba290[0] == 2 && var_playMode_8c1bb8d0 != 1) {
+    } else if (var_8c1ba290[0] == 2 && var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
         return;
     }
 
@@ -294,7 +294,7 @@ STATIC void handleBump_8c02b6d4(void) {
         return;
     }
 
-    if (var_8c1bbd9c->driveState_0x2b4 != 1) {
+    if (var_playerBus_8c1bbd9c->driveState_0x2b4 != 1) {
         return;
     }
 
@@ -310,8 +310,8 @@ STATIC void handleBump_8c02b6d4(void) {
 
     var_8c228668 = (BusState *)other;
     var_bumpSpeed_8c228670 = other->speed_0x27c;
-    dx = other->posX_0xf4 - var_8c1bbd9c->posX_0x0f4;
-    dz = other->posZ_0xfc - var_8c1bbd9c->posZ_0x0fc;
+    dx = other->posX_0xf4 - var_playerBus_8c1bbd9c->posX_0x0f4;
+    dz = other->posZ_0xfc - var_playerBus_8c1bbd9c->posZ_0x0fc;
     dist = njSqrt(dx * dx + dz * dz);
 
     /* Speed floor of var_frameSpeed_8c22866c + 0.3 -- see BusDriveStop_8c023bce. */
@@ -332,11 +332,11 @@ STATIC void handleBump_8c02b6d4(void) {
 
     BusDriveStop_8c023bce();
 
-    var_8c1bbd9c->speed_0x27c = var_bumpSpeed_8c228670 + 0.3f;
-    var_8c1bbd9c->dir_x_0x29c = -other->dirX_0x29c;
-    var_8c1bbd9c->dir_z_0x2a0 = -other->dirZ_0x2a0;
-    var_8c1bbd9c->dir_x2_0x2ac = -other->dirX_0x29c;
-    var_8c1bbd9c->dir_z2_0x2b0 = -other->dirZ_0x2a0;
+    var_playerBus_8c1bbd9c->speed_0x27c = var_bumpSpeed_8c228670 + 0.3f;
+    var_playerBus_8c1bbd9c->dir_x_0x29c = -other->dirX_0x29c;
+    var_playerBus_8c1bbd9c->dir_z_0x2a0 = -other->dirZ_0x2a0;
+    var_playerBus_8c1bbd9c->dir_x2_0x2ac = -other->dirX_0x29c;
+    var_playerBus_8c1bbd9c->dir_z2_0x2b0 = -other->dirZ_0x2a0;
 
     if (var_frameSpeed_8c22866c < 0.1388889f) {
         VibStart_8c010f7a(4);
@@ -519,7 +519,7 @@ STATIC void gradeLaneUse_8c02b986(void) {
  * limit derived from busState junctionARoadFlags_0x34c, tracked via var_8c2285c4[12]
  * (0x2285f4, no export of its own); and a lane-change without the turn
  * signal armed (var_8c2285c4[27] i.e. var_8c22861c[5] vs var_prevLane_8c228684,
- * var_8c1bbd9c->signalSide_0x25c, var_prevLaneFlags_8c228688/var_8c228634[0]). The tail
+ * var_playerBus_8c1bbd9c->signalSide_0x25c, var_prevLaneFlags_8c228688/var_8c228634[0]). The tail
  * tracks whether the bus is stopped at a signal (var_8c2285c4[20], i.e.
  * var_8c2285fc[6]) and, once it moves off with the wrong turn signal for
  * the lane taken, grades a fourth. */
@@ -553,8 +553,8 @@ STATIC void gradeIntersection_8c02bb1c(void) {
 
     if (var_inputMapSel_8c1bb8c8 == 0) {
         laneDelta = (var_8c2285c4[27] & ~1) - (var_prevLane_8c228684 & ~1);
-        if ((laneDelta < 0 && var_8c1bbd9c->signalSide_0x25c != 1)
-            || (laneDelta >= 1 && var_8c1bbd9c->signalSide_0x25c != 2)) {
+        if ((laneDelta < 0 && var_playerBus_8c1bbd9c->signalSide_0x25c != 1)
+            || (laneDelta >= 1 && var_playerBus_8c1bbd9c->signalSide_0x25c != 2)) {
             if ((var_prevLaneFlags_8c228688 & 0xf000000) != 0 && (var_8c228634[0] & 0xf000000) != 0) {
                 adjust_8c02b464(0xf, -8); /* -> INSTR_NO_SIGNAL */
             }
@@ -612,10 +612,10 @@ STATIC void gradeFrame_8c02bcd8(void) {
     int skipHoldTimer = 0;
 
     laneDelta = (var_8c22861c[5] & ~1) - (var_prevLane_8c228684 & ~1);
-    if ((laneDelta < 0 && var_8c1bbd9c->signalSide_0x25c == 1)
-        || (laneDelta > 0 && var_8c1bbd9c->signalSide_0x25c == 2)) {
-        var_8c1bbd9c->signalSide_0x25c = 0;
-        var_8c1bbd9c->mirror_0x268 = 0;
+    if ((laneDelta < 0 && var_playerBus_8c1bbd9c->signalSide_0x25c == 1)
+        || (laneDelta > 0 && var_playerBus_8c1bbd9c->signalSide_0x25c == 2)) {
+        var_playerBus_8c1bbd9c->signalSide_0x25c = 0;
+        var_playerBus_8c1bbd9c->mirror_0x268 = 0;
     }
 
     if (var_8c2285fc[5] == 0) {
@@ -742,7 +742,7 @@ STATIC void gradeFrame_8c02bcd8(void) {
 
     BusStopUpdateArrival_8c02ce48();
 
-    if ((var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 1) != 1)
+    if ((var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 1) != 1)
         || var_stopPhase_8c2285e4 == 0
         || var_8c2264c4 != 0) {
         if (var_8c2285c4[31] != 0) {
@@ -759,7 +759,7 @@ STATIC void gradeFrame_8c02bcd8(void) {
         var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 1;
     }
 
-    if (var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 2) != 2) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 2) != 2) {
         var_8c2285dc--;
         if (var_8c2285dc < 0) {
             var_8c2285dc = 0;
@@ -784,8 +784,8 @@ int DrivePointsRunComplete_8c02c586(void) {
      * "incoming" value is dead code. */
     int threshold = 0;
 
-    if (var_playMode_8c1bb8d0 == 1) {
-        if ((var_8c226410 & 4) != 4) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
+        if ((var_practiceRules_8c226410 & 4) != 4) {
             return 1;
         }
         if (var_8c22640c == 7) {
@@ -829,7 +829,7 @@ STATIC void driveEndFadeTask_8c02c69a(Task *task, void *state) {
         }
     } else if (*phase == 2 && var_isFading_8c226568 == 0) {
         DebugMenuFreeSessionAssets_8c016182();
-        if (var_playMode_8c1bb8d0 == 1) {
+        if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
             PracticeMenuLessonRetry_8c01f21c();
             return;
         }
@@ -1045,7 +1045,7 @@ STATIC void taskCallback_8c02c072() {
                 var_8c2285c4[0] = 4;
                 var_8c2285c4[2] = 0x1e;
                 var_messageBoxActive_8c22847c = 1;
-                if (var_playMode_8c1bb8d0 == 1) {
+                if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                     var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
                 } else {
                     var_fadeCompleteCallback_8c22656c = onFadeRunFailed_8c02c76a;
@@ -1074,7 +1074,7 @@ STATIC void taskCallback_8c02c072() {
             var_8c2285c4[0] = 4;
             var_8c2285c4[2] = 0x1e;
             var_messageBoxActive_8c22847c = 1;
-            if (var_playMode_8c1bb8d0 == 1) {
+            if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
             } else if (var_driverPoints_8c2285d0 == 0) {
                 var_fadeCompleteCallback_8c22656c = onFadeRunFailed_8c02c76a;
@@ -1134,7 +1134,7 @@ void DrivePointsReset_8c02c46a(void) {
     var_8c2285c4[0] = 0;
     var_8c2285c4[1] = 0;
 
-    if (var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 4) != 4) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 4) != 4) {
         var_stopPhase_8c2285e4 = 4;
     } else {
         var_stopPhase_8c2285e4 = 1;

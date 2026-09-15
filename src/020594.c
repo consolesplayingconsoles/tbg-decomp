@@ -23,8 +23,8 @@ void VehicleModelPlace_8c020594(NJS_MATRIX *matrix, BusState *bus)
 {
     Float *m = *matrix;
     Float dy = bus->posHistory_0x100[0].y - bus->posY_0x0f8;
-    Float dist = njSqrt(dy * dy + bus->field_0x23c * bus->field_0x23c);
-    Float cosT = bus->field_0x23c / dist;
+    Float dist = njSqrt(dy * dy + bus->width_0x23c * bus->width_0x23c);
+    Float cosT = bus->width_0x23c / dist;
     Float sinT = dy / dist;
     Float angle;
 
@@ -47,7 +47,7 @@ void VehicleModelPlace_8c020594(NJS_MATRIX *matrix, BusState *bus)
     m[11] = 0.0f;
 
     angle = atan2f(bus->posHistory_0x100[3].y - bus->posHistory_0x100[2].y,
-                    bus->field_0x244);
+                    bus->height_0x244);
     njRotateZ(matrix, (Sint32)(angle * 65536.0f / TWO_PI));
 
     m[12] = bus->posX_0x0f4;

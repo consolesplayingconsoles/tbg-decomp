@@ -17,7 +17,7 @@
           .IMPORT     _BusStopGetSegment_8c02cd6a
           .IMPORT     _var_trafficSignalFrames_8c227e24
           .IMPORT     _var_currentCourse_8c1bb868
-          .IMPORT     _var_8c1bbd9c
+          .IMPORT     _var_playerBus_8c1bbd9c
           .IMPORT     _TrafficPathScanNext_8c02f212
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_progress_8c1ba1cc
@@ -1151,7 +1151,7 @@ LP_GEN_83164:
           .DATA.W H'0418 ; H'8C026F48
           .DATA.W H'0100 ; H'8C026F4A
           .DATA.L H'461C3C00 ; H'8C026F4C
-          .DATA.L _var_8c1bbd9c ; H'8C026F50
+          .DATA.L _var_playerBus_8c1bbd9c ; H'8C026F50
           .DATA.L _TrafficPathScanNext_8c02f212 ; H'8C026F54
           .DATA.L _var_busState_8c1bb9d0 ; H'8C026F58
           .DATA.L H'BE3DA12F ; H'8C026F5C

@@ -89,7 +89,7 @@ void *TrafficPathScanBuild_8c02f0c8(
                 (fabsf(var_busState_8c1bb9d0.posHistory_0x100[0].x - x) < 2.5f &&
                  fabsf(var_8c1bbad8 - z) < 2.5f)) {
                 var_sampleCursor_8c228b9c = p + 2;
-                return var_8c1bbd9c;
+                return var_playerBus_8c1bbd9c;
             }
 
             for (t = var_tasks_8c1bac28; t->action != NULL; t++) {

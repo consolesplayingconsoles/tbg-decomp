@@ -496,7 +496,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
 
 /* Task action spawned instead of the normal per-passenger tasks when
  * var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE and the course-restart flag
- * var_8c226410 bit 3 is clear -- resets the fade-arrival bookkeeping once
+ * var_practiceRules_8c226410 bit 3 is clear -- resets the fade-arrival bookkeeping once
  * (guarded by var_isFading_8c226568) and frees itself. */
 void PassengerSkipStopTask_8c02d8f0(Task *task, void *state)
 {

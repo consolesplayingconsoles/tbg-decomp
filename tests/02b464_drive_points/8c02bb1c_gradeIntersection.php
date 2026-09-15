@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->setSize('_var_prevLaneFlags_8c228688', 4);
         $this->setSize('_var_8c228634', 4);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
-        $this->setSize('_var_8c1bbd9c', 4); // BusState*, allocated via alloc()
+        $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
 
         return $base;
     }
@@ -139,7 +139,7 @@ return new class extends TestCase {
 
         $busState = $this->alloc(0x2b8);
         $this->initUint32($busState + 0x25c, 0); // turn signal not matching left (1)
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busState);
 
         $this->initUint32($base + 0x6c, 4); // var_8c22861c[5]
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta = 4-10 < 0
@@ -161,7 +161,7 @@ return new class extends TestCase {
 
         $busState = $this->alloc(0x2b8);
         $this->initUint32($busState + 0x25c, 1); // left signal matches laneDelta < 0
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busState);
 
         $this->initUint32($base + 0x6c, 4);
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta < 0
@@ -178,7 +178,7 @@ return new class extends TestCase {
 
         $busState = $this->alloc(0x2b8);
         $this->initUint32($busState + 0x25c, 0);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busState);
 
         $this->initUint32($base + 0x6c, 4);
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10);

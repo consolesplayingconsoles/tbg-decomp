@@ -40,7 +40,7 @@ return new class extends TestCase {
         $this->setSize('_var_activePedPreset_8c22822c', 4);
 
         $this->setSize('_var_progress_8c1ba1cc', 0xd2);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_8c1ba290', 5);
 
         // var_8c2285c4/c8/driverPoints_d0/8c2285d4/d8/dc are adjacent globals
@@ -99,7 +99,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), self::PLAY_MODE_NORMAL);
 
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0); // < 1
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_8c2285d8'), 500);
 
         $this->call('_BusStopSetup_8c02caba')->with();
@@ -162,7 +162,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), self::PLAY_MODE_PRACTICE);
 
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0); // bit 2 clear
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0); // bit 2 clear
         $this->initUint32($this->addressOf('_var_8c2285d8'), 42);
 
         $this->call('_BusStopSetup_8c02caba')->with();
@@ -234,7 +234,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), self::PLAY_MODE_DEMO);
 
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_8c2285d8'), 10);
 
         $this->call('_BusStopSetup_8c02caba')->with();
@@ -291,7 +291,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), self::PLAY_MODE_PRACTICE);
 
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0);
-        $this->initUint32($this->addressOf('_var_8c226410'), 2); // bit 2 set
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 2); // bit 2 set
         $this->initUint32($this->addressOf('_var_8c2285d8'), 900);
 
         $this->call('_BusStopSetup_8c02caba')->with();

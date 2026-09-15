@@ -14,7 +14,7 @@
 void TrafficLookaheadInit_8c02df3c(TrafficEntry *entry);
 
 /* Reports what is standing on the entry's path within `lookahead` units:
- * var_8c1bbd9c for the player's bus, another entry's state, or NULL.
+ * var_playerBus_8c1bbd9c for the player's bus, another entry's state, or NULL.
  * Refills the cache to 20 units first if driving has run it short. */
 void *TrafficLookaheadScan_8c02dfca(
     /* The entry's own task, excluded from the scan */

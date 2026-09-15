@@ -310,7 +310,7 @@ void BusTask_8c022bdc(Task *task, void *state)
     if (var_timeOfDay_8c18ad20 == 1) {
         var_busState_8c1bb9d0.blinker_0x080 |= 0x10;
     } else if (var_timeOfDay_8c18ad20 == 2) {
-        BusDrawFadeLights_8c028022(var_8c1bbd9c);
+        BusDrawFadeLights_8c028022(var_playerBus_8c1bbd9c);
     }
 
     if (var_busState_8c1bb9d0.gear_0x2f4 == 5) {
@@ -344,7 +344,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         }
     }
 
-    VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
+    VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_playerBus_8c1bbd9c);
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
         DemoUpdateCamera_8c025906();

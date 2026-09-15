@@ -65,7 +65,7 @@ void StopSpawnInit_8c02d968(void)
     SegMatchEntry *matched;
     SegMatchEntry tmp;
 
-    if (var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 8) != 8) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 8) != 8) {
         TaskPush_8c014ae8(var_tasks_8c1ba5e8, &PassengerSkipStopTask_8c02d8f0, &task, (void **)&state, 0);
         var_8c2285c4[0] = 2;
         return;

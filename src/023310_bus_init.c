@@ -50,13 +50,16 @@ STATIC void busInitPlaceBus_8c023310(void)
                                      var_busState_8c1bb9d0.posZ_0x0fc, &groundResult);
     GroundProbeInterpolateHeight_8c020f7e(&groundResult, &var_busState_8c1bb9d0.posX_0x0f4);
 
-    var_busState_8c1bb9d0.field_0x23c = 4.9f;
-    var_busState_8c1bb9d0.field_0x244 = 2.5f;
-    var_busState_8c1bb9d0.field_0x248 = 1.25f;
-    var_busState_8c1bb9d0.field_0x24c = 2.6f;
+    /* The bus's own body dimensions, in the same four fields TrafficEntry
+     * fills from its dims[] table. BusDriveSampleGround_8c023938 hardcodes
+     * the same 4.9/1.25/2.6 rather than reading them back. */
+    var_busState_8c1bb9d0.width_0x23c = 4.9f;
+    var_busState_8c1bb9d0.height_0x244 = 2.5f;
+    var_busState_8c1bb9d0.halfHeight_0x248 = 1.25f;
+    var_busState_8c1bb9d0.groundOffset_0x24c = 2.6f;
     var_busState_8c1bb9d0.ang_0x258 = 0;
 
-    if (var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 8) != 8) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 8) != 8) {
         var_busState_8c1bb9d0.signalSide_0x25c = 2;
         var_busState_8c1bb9d0.mirror_0x268 = 2;
     } else {
@@ -104,7 +107,7 @@ STATIC void busInitPlaceBus_8c023310(void)
     var_busState_8c1bb9d0.lineSegmentProgress_0x2c0 = 2.0f;
     var_busState_8c1bb9d0.lineSegmentRemaining_0x2bc = 2.0f;
     var_busState_8c1bb9d0.laneOffset_0x2c4 = 2.0f;
-    var_busState_8c1bb9d0.field_0x2d4 = 1;
+    var_busState_8c1bb9d0.busAheadFlag_0x2d4 = 1;
 
     BusDriveSampleGround_8c023938();
 
@@ -116,7 +119,7 @@ STATIC void busInitPlaceBus_8c023310(void)
     var_busState_8c1bb9d0.ang_0x250 = ang;
     var_busState_8c1bb9d0.targetHeadingAngle_0x254 = ang;
 
-    if (var_playMode_8c1bb8d0 == 2) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
         var_cameraMode_8c227d9c = 5;
     } else {
         var_cameraMode_8c227d9c = 0;
@@ -146,9 +149,9 @@ void BusInitStart_8c023610(void)
 
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &BusTask_8c022bdc, &created_task, &created_state, 0);
 
-    var_8c1bbd9c = &var_busState_8c1bb9d0;
-    var_busState_8c1bb9d0.texlistLarge_0x004 = (int)var_8c1bbf7c[2];
-    var_busState_8c1bb9d0.modelLarge_0x00c = (int)var_8c1bbf7c[3];
+    var_playerBus_8c1bbd9c = &var_busState_8c1bb9d0;
+    var_busState_8c1bb9d0.texlistLarge_0x004 = (int)var_vehicleModelSlots_8c1bbf7c[0].texlist_0x08;
+    var_busState_8c1bb9d0.modelLarge_0x00c = (int)var_vehicleModelSlots_8c1bbf7c[0].nj_0x0c;
     var_busState_8c1bb9d0.shadowModel_0x014 = *(int *)((char *)var_trafficModels_8c1bc3f4 + 0x44);
     VehPartsBind_8c02786c(&var_busState_8c1bb9d0, 0x1a);
 
@@ -202,7 +205,7 @@ void BusInitStart_8c023610(void)
     BusDriveSampleGround_8c023938();
     BusDriveApplyGround_8c023cba();
 
-    VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
+    VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_playerBus_8c1bbd9c);
 
     result = AttrQueryFindPolygon_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[2].x,
                            var_busState_8c1bb9d0.posHistory_0x100[2].y,
@@ -260,7 +263,7 @@ void BusInitStart_8c023610(void)
     var_busState_8c1bb9d0.markExtra_0x3bc = 0;
     var_busState_8c1bb9d0.bus_substate_0x3c0 = 0;
 
-    if (var_playMode_8c1bb8d0 == 1 && (var_8c226410 & 8) != 8) {
+    if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 8) != 8) {
         var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
     } else {
         var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 1;

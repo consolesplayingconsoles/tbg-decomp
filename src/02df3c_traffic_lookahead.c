@@ -5,7 +5,7 @@
 #include "014a9c_tasks.h"       /* Task, TaskAction */
 #include "026710_traffic.h"     /* TrafficEntry, PathRecord */
 #include "02df3c_traffic_lookahead.h"
-#include "sectionB.h"           /* var_busState_8c1bb9d0, var_8c1bbd9c, var_tasks_8c1bac28 */
+#include "sectionB.h"           /* var_busState_8c1bb9d0, var_playerBus_8c1bbd9c, var_tasks_8c1bac28 */
 
 /* ====================
  * Compiler Definitions
@@ -150,7 +150,7 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
         }
 
         if (BUS_BLOCKS(&var_busState_8c1bb9d0, px, pz)) {
-            return var_8c1bbd9c;
+            return var_playerBus_8c1bbd9c;
         }
 
         var_collisionScanCursor_8c228974 = var_tasks_8c1bac28;
@@ -177,7 +177,7 @@ void *TrafficLookaheadScan_8c02dfca(Task *self, TrafficEntry *entry, float looka
     px = out[0];
     pz = out[1];
     if (px != CACHE_END && BUS_BLOCKS(&var_busState_8c1bb9d0, px, pz)) {
-        return var_8c1bbd9c;
+        return var_playerBus_8c1bbd9c;
     }
     return NULL;
 }

@@ -206,7 +206,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 e->busAheadFlag_0x2d4 = 0;
             } else {
                 brakeDist = GeomDistanceXZ_8c02081c(&ahead->rearPointX_0x10c, &e->pathPointX_0x0ec);
-                if (ahead == (TrafficEntry *)var_8c1bbd9c) {
+                if (ahead == (TrafficEntry *)var_playerBus_8c1bbd9c) {
                     float busDist = GeomDistanceXZ_8c02081c(&ahead->posX_0xf4, &e->pathPointX_0x0ec);
                     if (busDist < brakeDist) {
                         brakeDist = busDist;

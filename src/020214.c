@@ -83,7 +83,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
             break;
         }
 
-        if (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE || (var_8c226410 & 1) != 0) {
+        if (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE || (var_practiceRules_8c226410 & 1) != 0) {
             int soundId;
 
             switch (var_route_8c18ad1c) {

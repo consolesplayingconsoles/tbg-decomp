@@ -54,7 +54,7 @@ return new class extends TestCase {
         $this->setSize('_BusDriveSampleGround_8c023938', 4);
         $this->setSize('_BusDriveApplyGround_8c023cba', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
-        $this->setSize('_var_8c1bbd9c', 4);
+        $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_BusDrawFadeLights_8c028022', 4);
         $this->setSize('_sdMidiStop', 4);
         $this->setSize('_sdMidiPlay', 4);
@@ -97,7 +97,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 0);
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bbd9c'), $base);
+        $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $base);
 
         $this->call('_BusTask_8c022bdc')->with($this->alloc(4), $this->alloc(4));
 

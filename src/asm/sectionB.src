@@ -314,7 +314,7 @@
           .EXPORT     _var_markDriveFlags_8c1bbd80 ; 025870_demo
           .EXPORT     _var_scenePresetIds_8c1bbd8c ; 026710
                                     ; 028258
-          .EXPORT     _var_8c1bbd9c ; 022bdc
+          .EXPORT     _var_playerBus_8c1bbd9c ; 022bdc
                                     ; 023310
                                     ; 025b98
                                     ; 026710
@@ -339,7 +339,7 @@
                                                     ; 013ae8_route_load
                                                     ; 026710
                                                     ; 028258
-          .EXPORT     _var_8c1bbf7c ; 023310
+          .EXPORT     _var_vehicleModelSlots_8c1bbf7c ; 023310
           .EXPORT     _var_pedestrianAssets_8c1bbfdc ; 012f44_game
                                                      ; 013ae8_route_load
                                                      ; 028258
@@ -527,7 +527,7 @@
                                     ; 01e27c
                                     ; 020214
                                     ; 02b464
-          .EXPORT     _var_8c226410 ; 01e27c
+          .EXPORT     _var_practiceRules_8c226410 ; 01e27c
                                     ; 020214
                                     ; 022464
                                     ; 023310
@@ -1052,7 +1052,7 @@ _var_markDriveFlags_8c1bbd80:
           .RES.B      12
 _var_scenePresetIds_8c1bbd8c:
           .RES.B      16
-_var_8c1bbd9c:
+_var_playerBus_8c1bbd9c:
           .RES.B      4
 _var_nightLightIntensityStep_8c1bbda0:
           .RES.B      8
@@ -1072,7 +1072,7 @@ _var_nightLightColorOn_8c1bbdd0:
           .RES.B      12
 _var_routeModelSlots_8c1bbddc:
           .RES.B      416
-_var_8c1bbf7c:
+_var_vehicleModelSlots_8c1bbf7c:
           .RES.B      96
 _var_pedestrianAssets_8c1bbfdc:
           .RES.B      8
@@ -1240,7 +1240,7 @@ _var_runFailed_8c226408:
           .RES.B      4
 _var_8c22640c:
           .RES.B      4
-_var_8c226410:
+_var_practiceRules_8c226410:
           .RES.B      4
 _var_8c226414:
           .RES.B      24

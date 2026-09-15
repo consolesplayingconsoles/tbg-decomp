@@ -16,7 +16,7 @@ return new class extends TestCase {
 
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_var_cooldownCollision_8c228690', 4);
         $this->setSize('_var_cooldownOffCourse_8c228694', 4);
@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c226410'), 0);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x358, 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x368, 0);

@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_BusTask_8c022bdc', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
-        $this->setSize('_var_8c1bbf7c', 0x60);
+        $this->setSize('_var_vehicleModelSlots_8c1bbf7c', 0x60);
         $this->setSize('_var_trafficModels_8c1bc3f4', 4);
         $this->setSize('_VehPartsBind_8c02786c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
@@ -53,9 +53,9 @@ return new class extends TestCase {
         $this->setSize('_BusDriveSampleGround_8c023938', 4);
         $this->setSize('_BusDriveApplyGround_8c023cba', 4);
         $this->setSize('_VehicleModelPlace_8c020594', 4);
-        $this->setSize('_var_8c1bbd9c', 4);
+        $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c226410', 4);
+        $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_brakePressPeak_8c227d8c', 4);
     }
 
@@ -99,7 +99,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busDoorMotion_8c1bc410'), $timeStruct);
         $this->initUint32($timeStruct + 4, $rawTimeBits);
 
-        $vehParts = $this->addressOf('_var_8c1bbf7c');
+        $vehParts = $this->addressOf('_var_vehicleModelSlots_8c1bbf7c');
         $vpField4 = 0xcafe0500;
         $vpField8 = 0xcafe0600;
         $this->initUint32($vehParts + 0x08, $vpField4);
@@ -131,7 +131,7 @@ return new class extends TestCase {
         $this->initUint16($segment + 0x02, $stopAreaId);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), $playMode);
-        $this->initUint32($this->addressOf('_var_8c226410'), $var8c226410);
+        $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), $var8c226410);
 
         $this->call('_BusInitStart_8c023610')->with();
 
@@ -147,7 +147,7 @@ return new class extends TestCase {
             $this->addressOf('_BusTask_8c022bdc'),
         );
 
-        $this->shouldWriteLongTo('_var_8c1bbd9c', $base);
+        $this->shouldWriteLongTo('_var_playerBus_8c1bbd9c', $base);
         $this->shouldWriteLong($base + 0x004, $vpField4);
         $this->shouldWriteLong($base + 0x00c, $vpField8);
         $this->shouldWriteLong($base + 0x014, 0xcafe0700);
