@@ -38,7 +38,7 @@ not just size order.
 | 1 | 4 | 17 K | `02e2dc` | `02b464_drive_points` |
 | 1 | 1 | 14 K | `020214` | `020528` |
 | 1 | 2 | 6 K | `02b2f0` | `02b464_drive_points` |
-| 1 | 1 | 6 K | `02412c` | `022bdc_bus` |
+| 1 | 1 | 6 K | `02412c_bus_line` | `022bdc_bus` |
 | 1 | 3 | 6 K | `02d06c` | `028258_objects` |
 
 **Second wave (fan-in 0 from decompiled code today, but real game code
@@ -92,13 +92,13 @@ finishing `02d968` immediately makes `02d19c` a ranked target, and `02d19c`
 itself calls into `02d06c` (already in the table above, called by
 `028258_objects`), so it also bumps `02d06c`'s fan-in from 1 to 2. No other
 remaining unit hides a cluster this way -- the rest of the graph (`024280_bus_input`,
-`021b9c`, `02e2dc`, `020214`, `02b2f0`, `02412c`, `02d06c`) is flat: one
+`021b9c`, `02e2dc`, `020214`, `02b2f0`, `02412c_bus_line`, `02d06c`) is flat: one
 caller each, no further asm-to-asm fan-out (`02e2dc` -> `02081c` is the only
 other asm-to-asm code edge left, and `02081c` is already covered above).
 
 Lower priority, smaller and more isolated once the above land: `024280_bus_input`
 (38 K, `022bdc_bus`'s other callee), `021b9c` (`0222dc_fadecmd`'s one
-remaining callee), `020214` (`020528`'s callee), `02b2f0`/`02412c`/`02d06c`
+remaining callee), `020214` (`020528`'s callee), `02b2f0`/`02412c_bus_line`/`02d06c`
 (the small single-caller leftovers).
 
 ## Open struct-field naming questions

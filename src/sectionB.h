@@ -69,6 +69,11 @@ typedef struct {
  * =================
  */
 
+/* var_busState_8c1bb9d0's own storage. sectionB.src also labels 25 addresses
+ * inside it and exports them separately, so a fair number of the loose
+ * var_8c1bbxxx symbols below are really fields of this struct reached under
+ * another name; each one says which field it is. In a test they
+ * have to be rellocate()'d onto the struct or the two views drift apart. */
 // TODO:
 typedef struct {
     int typeCode_0x000;
@@ -457,25 +462,24 @@ extern int var_worstPenaltyMsgSet_8c1bb8ec;
 extern int var_worstPenaltyDelta_8c1bb8f0;
 extern int var_penaltyCount_8c1bb8f4;
 extern Uint8 var_award_8c1bb8f8;
-/* Reserved 12 bytes; only the leading int is read so far, compared against 2
- * by BusLineAdvance_8c02412c (02412c) to pick a mapped-route node's alternate next
- * segment. */
-extern int var_8c1bbc2c;
+/* BusState.signalSide_0x25c: BusLineAdvance_8c02412c (02412c) compares it
+ * against 2 to take a node's right-hand branch, the mirror of the == 1
+ * left-hand test it makes through the struct. */
+extern int var_signalSide_8c1bbc2c;
 
-/* Checked against 0.0 by BusStopUpdateArrival_8c02ce48 (02c884) to gate stop
- * arrival; likely a current-speed value (role/owner elsewhere unclear). */
+/* BusState.speed_0x27c. */
 extern float var_8c1bbc4c;
-/* Gates the recorded-input path: replay playback (DemoInputTask_8c016bf4),
+/* BusState.bus_state_0x2b4. Gates replay playback (DemoInputTask_8c016bf4),
  * replay recording (DebugMenuDemoRecordTask_8c01677e) and, at == 1, the
- * Y-button camera cycle in BusRenderUpdateCamera_8c025078. The shipped build
- * has no writer that can arm it -- the lone `= 1` left is in
- * PassengerSkipStopTask_8c02d8f0, on the practice-mode stop skip. */
-extern int var_replayArmed_8c1bbc84;
+ * Y-button camera cycle in BusRenderUpdateCamera_8c025078 -- all three only
+ * once the bus is actually driving. */
+extern int var_busDriveState_8c1bbc84;
+/* BusState.engineState_0x2e0. */
 extern Uint32 var_8c1bbcb0;
-/* Minimum scaled throttle step (see applyThrottle_8c024320's `step`) for a
- * trigger push to count as accelerating rather than coasting. Nothing writes
- * it. */
-extern int var_throttleMinStep_8c1bbcb4;
+/* BusState.rpmRampAngle_0x2e4. applyThrottle_8c024320 compares its own `step`
+ * against it to tell accelerating from coasting. */
+extern int var_rpmRampAngle_8c1bbcb4;
+/* BusState.gear_0x2f4. */
 extern int var_8c1bbcc4;
 /* Bus-to-camera-focus vector (x, _, z); written by
  * BusRenderUpdateCamera_8c025078, read by drawPedestrians_8c028b74 via
@@ -731,11 +735,12 @@ extern int var_fadeDrawCommandCount_8c226570[3]; // 022464: per-layer draw-comma
 extern FadeDrawCommand var_fadeDrawCommands_8c22657c[3][128]; // 022464: per-layer draw-command queue
 extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
 extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
-/* Mirrors var_currentCourse_8c1bb868.lineBus_0x08, reset by BusInitStart_8c023610
- * alongside var_activeGroundGrid_8c2264d4/var_activeAttrGrid_8c228b3c/var_8c227d88. */
-extern LineBusSegment *var_8c227d84;
-/* Mirrors var_currentCourse_8c1bb868.ukn_0x0c. */
-extern LineBusNode *var_8c227d88;
+/* The active course's route line: its segments (each a LinePoint list) and
+ * the node table that links them. Copied from
+ * var_currentCourse_8c1bb868.lineBus_0x08/ukn_0x0c by BusInitStart_8c023610,
+ * alongside var_activeGroundGrid_8c2264d4/var_activeAttrGrid_8c228b3c. */
+extern LineBusSegment *var_lineSegments_8c227d84;
+extern LineBusNode *var_lineNodes_8c227d88;
 /* Peak brake-pedal travel of the current press, scaled to 0..255 and never
  * walked back down; applyBrakingSfx_8c024606 (024280) picks the release note
  * from it. */

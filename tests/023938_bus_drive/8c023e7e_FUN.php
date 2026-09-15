@@ -8,8 +8,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * _FUN_8c023e7e(void): walks the current route line segment forward by the
  * bus's per-frame move distance to find the next lane-crossing point, then
  * confirms it against the crossing segment via IntersectSegments_8c0206f0.
- * Advances through var_8c227d88's linked segment records and indexes
- * var_8c227d84 for each segment's point list. Called once per frame by
+ * Advances through var_lineNodes_8c227d88's linked segment records and indexes
+ * var_lineSegments_8c227d84 for each segment's point list. Called once per frame by
  * BusTask_8c022bdc (022bdc).
  */
 return new class extends TestCase {
@@ -21,8 +21,8 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
-        $this->setSize('_var_8c227d84', 4);
-        $this->setSize('_var_8c227d88', 4);
+        $this->setSize('_var_lineSegments_8c227d84', 4);
+        $this->setSize('_var_lineNodes_8c227d88', 4);
         $this->setSize('_var_crossingIntersectPoint_8c1bc458', 4);
         $this->setSize('_var_8c1bc45c', 4);
         $this->setSize('_IntersectSegments_8c0206f0', 4);
@@ -148,7 +148,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x334, 0);
         $this->initUint32($base + 0x338, 0); // forward mode
         $this->initUint32($base + 0x33c, 2); // current segment index
-        $this->initUint32($this->addressOf('_var_8c227d88'), $nodes);
+        $this->initUint32($this->addressOf('_var_lineNodes_8c227d88'), $nodes);
         $this->setNodeFwd($nodes, 2, 0xffff);
 
         $this->call('_FUN_8c023e7e')->with();
@@ -174,8 +174,8 @@ return new class extends TestCase {
         $this->initUint32($base + 0x33c, 5); // current segment index
         $this->initUint32($base + 0x27c, $this->fdec(0.0)); // speed_0x27c
         $this->initUint32($base + 0x2c0, $this->fdec(25.0)); // lineSegmentProgress_0x2c0
-        $this->initUint32($this->addressOf('_var_8c227d88'), $nodes);
-        $this->initUint32($this->addressOf('_var_8c227d84'), $segs);
+        $this->initUint32($this->addressOf('_var_lineNodes_8c227d88'), $nodes);
+        $this->initUint32($this->addressOf('_var_lineSegments_8c227d84'), $segs);
         $this->setNodeFwd($nodes, 5, 7);
 
         $this->call('_FUN_8c023e7e')->with();
@@ -221,8 +221,8 @@ return new class extends TestCase {
         $this->initUint32($base + 0x33c, 5);
         $this->initUint32($base + 0x27c, $this->fdec(0.0));
         $this->initUint32($base + 0x2c0, $this->fdec(25.0));
-        $this->initUint32($this->addressOf('_var_8c227d88'), $nodes);
-        $this->initUint32($this->addressOf('_var_8c227d84'), $segs);
+        $this->initUint32($this->addressOf('_var_lineNodes_8c227d88'), $nodes);
+        $this->initUint32($this->addressOf('_var_lineSegments_8c227d84'), $segs);
         $this->setNodeFwd($nodes, 5, 7);
 
         $this->call('_FUN_8c023e7e')->with();

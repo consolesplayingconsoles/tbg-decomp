@@ -139,8 +139,8 @@ void BusInitStart_8c023610(void)
 
     var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
     var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
-    var_8c227d84 = var_currentCourse_8c1bb868.lineBus_0x08;
-    var_8c227d88 = var_currentCourse_8c1bb868.ukn_0x0c;
+    var_lineSegments_8c227d84 = var_currentCourse_8c1bb868.lineBus_0x08;
+    var_lineNodes_8c227d88 = var_currentCourse_8c1bb868.ukn_0x0c;
 
     var_busDoorLastFrame_8c227db4 = (float)var_busDoorMotion_8c1bc410->nbFrame - 1.0f;
 

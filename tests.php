@@ -937,11 +937,11 @@ return [
         ],
         [
             "tests" => [
-                "tests/02412c/8c02412c_BusLineAdvance.php",
+                "tests/02412c_bus_line/8c02412c_BusLineAdvance.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02412c.obj",
-                "build/output_test/src/02412c.obj",
+                "build/output_test/src/asm/decompiled/02412c_bus_line.obj",
+                "build/output_test/src/02412c_bus_line.obj",
             ]
         ],
         [

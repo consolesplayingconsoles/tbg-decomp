@@ -14,8 +14,8 @@
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_activeAttrGrid_8c228b3c
-          .IMPORT     _var_8c227d84
-          .IMPORT     _var_8c227d88
+          .IMPORT     _var_lineSegments_8c227d84
+          .IMPORT     _var_lineNodes_8c227d88
           .IMPORT     _var_busDoorMotion_8c1bc410
           .IMPORT     _var_busDoorLastFrame_8c227db4
           .IMPORT     _BusTask_8c022bdc
@@ -515,8 +515,8 @@ LP_GEN_28893:
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C0236C4
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0236C8
           .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C0236CC
-          .DATA.L _var_8c227d84 ; H'8C0236D0
-          .DATA.L _var_8c227d88 ; H'8C0236D4
+          .DATA.L _var_lineSegments_8c227d84 ; H'8C0236D0
+          .DATA.L _var_lineNodes_8c227d88 ; H'8C0236D4
           .DATA.L _var_busDoorMotion_8c1bc410 ; H'8C0236D8
           .DATA.L H'4F800000 ; H'8C0236DC
           .DATA.L _var_busDoorLastFrame_8c227db4 ; H'8C0236E0

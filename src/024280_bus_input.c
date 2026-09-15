@@ -179,10 +179,11 @@ STATIC void applyBraking_8c024530(void)
     *smoothedBrake /= 2.0f;
 }
 
-/* Throttle handler: while the .r trigger clears its saved deadzone by at
- * least var_throttleMinStep_8c1bbcb4, winds rpmRampAngle_0x2e4 up at the
- * current gear's accelRate_0x00 and upshifts through the gear table;
- * otherwise coasts and downshifts. */
+/* Throttle handler: while the .r trigger is pushed past its deadzone and at
+ * least as far as the engine has already wound up (var_rpmRampAngle_8c1bbcb4
+ * is this same rpmRampAngle_0x2e4, reached through its own section B symbol),
+ * winds the ramp on at the current gear's accelRate_0x00 and upshifts through
+ * the gear table; otherwise coasts and downshifts. */
 STATIC void applyThrottle_8c024320(void)
 {
     Uint16 trigger;
@@ -196,7 +197,7 @@ STATIC void applyThrottle_8c024320(void)
     delta = (float)((int)trigger - (int)deadzone);
     step = (int)((delta / (255.0f - deadzone)) * 16384.0f);
 
-    if (trigger > deadzone && step >= var_throttleMinStep_8c1bbcb4) {
+    if (trigger > deadzone && step >= var_rpmRampAngle_8c1bbcb4) {
         gear = var_busState_8c1bb9d0.gear_0x2f4;
 
         var_busState_8c1bb9d0.rpmRampAngle_0x2e4 += init_gears_8c045638[gear].accelRate_0x00;

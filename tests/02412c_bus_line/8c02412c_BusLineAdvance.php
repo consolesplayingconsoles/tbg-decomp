@@ -7,8 +7,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 /*
  * _BusLineAdvance_8c02412c(void): advances the bus along its mapped route line by the
  * distance accumulated in busState.lineSegmentRemaining_0x2bc/lineSegmentProgress_0x2c0, switching route
- * segments via the var_8c227d88 node table (indexed by currentLineNodeIdx_0x33c) when the
- * current segment's point list (var_8c227d84[idx].points_0x00, LinePoint[])
+ * segments via the var_lineNodes_8c227d88 node table (indexed by currentLineNodeIdx_0x33c) when the
+ * current segment's point list (var_lineSegments_8c227d84[idx].points_0x00, LinePoint[])
  * is exhausted. Writes the resulting waypoint to laneTargetX_0x0ec/laneTargetZ_0x0f0,
  * offsets the bus's actual position from it along the normalized direction
  * by the lane offset laneOffset_0x2c4, and recomputes the secondary heading
@@ -32,11 +32,18 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_8c227d84', 4);
-        $this->setSize('_var_8c227d88', 4);
-        $this->setSize('_var_8c1bbc2c', 12);
+        $this->setSize('_var_lineSegments_8c227d84', 4);
+        $this->setSize('_var_lineNodes_8c227d88', 4);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_acosf', 4);
+
+        // The alt[2] test reads signalSide_0x25c through its own section B
+        // symbol; same bytes as $base + 0x25c (see sectionB.h's BusState
+        // note), so the two views have to share one allocation.
+        $this->rellocate(
+            '_var_signalSide_8c1bbc2c',
+            $this->addressOf('_var_busState_8c1bb9d0') + 0x25c
+        );
     }
 
     // A LinePoint: {float len; float x; float z; float dx; float dz;}
@@ -154,7 +161,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x254, -(int)((1.0 * 65536.0) / 6.283184051513672));
     }
 
-    public function test_segment_exhausted_switches_via_signalSide_0x25c(): void
+    public function test_segment_exhausted_switches_via_left_signal(): void
     {
         $this->resolveSymbols();
 
@@ -173,13 +180,13 @@ return new class extends TestCase {
 
         $nodes = $this->allocNodes(8);
         $this->setNodeAlt($nodes, 7, 1, 3);      // alt[1] -> segment 3
-        $this->initUint32($this->addressOf('_var_8c227d88'), $nodes);
+        $this->initUint32($this->addressOf('_var_lineNodes_8c227d88'), $nodes);
 
         // Segment 3's point list: found immediately (len 100 > remaining).
         $point3 = $this->allocPoint(100.0, 9.0, 11.0, 0.0, 0.0);
         $segs = $this->allocSegs(4);
         $this->setSeg($segs, 3, $point3);
-        $this->initUint32($this->addressOf('_var_8c227d84'), $segs);
+        $this->initUint32($this->addressOf('_var_lineSegments_8c227d84'), $segs);
 
         $this->initUint32($base + 0x0f4, $this->fdec(9.0)); // posX_0x0f4
         $this->initUint32($base + 0x0fc, $this->fdec(11.0)); // posZ_0x0fc
@@ -211,7 +218,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x254, -(int)((1.0 * 65536.0) / 6.283184051513672));
     }
 
-    public function test_segment_exhausted_switches_via_var_8c1bbc2c(): void
+    public function test_segment_exhausted_switches_via_right_signal(): void
     {
         $this->resolveSymbols();
 
@@ -223,18 +230,17 @@ return new class extends TestCase {
         $this->initUint32($base + 0x2b8, $p0);
         $this->initUint32($base + 0x2bc, $this->fdec(20.0));
         $this->initUint32($base + 0x33c, 7);
-        $this->initUint32($base + 0x25c, 0); // != 1, so alt[1] is skipped
-        $this->initUint32($this->addressOf('_var_8c1bbc2c'), 2); // selects alt[2]
+        $this->initUint32($base + 0x25c, 2); // right signal: alt[1] skipped, alt[2] selected
 
         $nodes = $this->allocNodes(8);
         $this->setNodeAlt($nodes, 7, 1, 0xffff); // alt[1]: no connection
         $this->setNodeAlt($nodes, 7, 2, 5);       // alt[2] -> segment 5
-        $this->initUint32($this->addressOf('_var_8c227d88'), $nodes);
+        $this->initUint32($this->addressOf('_var_lineNodes_8c227d88'), $nodes);
 
         $point5 = $this->allocPoint(100.0, 9.0, 11.0, 0.0, 0.0);
         $segs = $this->allocSegs(6);
         $this->setSeg($segs, 5, $point5);
-        $this->initUint32($this->addressOf('_var_8c227d84'), $segs);
+        $this->initUint32($this->addressOf('_var_lineSegments_8c227d84'), $segs);
 
         $this->initUint32($base + 0x0f4, $this->fdec(9.0));
         $this->initUint32($base + 0x0fc, $this->fdec(11.0));
@@ -273,19 +279,18 @@ return new class extends TestCase {
         $this->initUint32($base + 0x2b8, $p0);
         $this->initUint32($base + 0x2bc, $this->fdec(20.0));
         $this->initUint32($base + 0x33c, 7);
-        $this->initUint32($base + 0x25c, 0); // != 1, alt[1] skipped
-        $this->initUint32($this->addressOf('_var_8c1bbc2c'), 0); // != 2, alt[2] skipped
+        $this->initUint32($base + 0x25c, 0); // no signal: alt[1] and alt[2] both skipped
 
         $nodes = $this->allocNodes(8);
         $this->setNodeAlt($nodes, 7, 0, 2);      // alt[0] (default) -> segment 2
         $this->setNodeAlt($nodes, 7, 1, 0xffff);
         $this->setNodeAlt($nodes, 7, 2, 0xffff);
-        $this->initUint32($this->addressOf('_var_8c227d88'), $nodes);
+        $this->initUint32($this->addressOf('_var_lineNodes_8c227d88'), $nodes);
 
         $point2 = $this->allocPoint(100.0, 9.0, 11.0, 0.0, 0.0);
         $segs = $this->allocSegs(3);
         $this->setSeg($segs, 2, $point2);
-        $this->initUint32($this->addressOf('_var_8c227d84'), $segs);
+        $this->initUint32($this->addressOf('_var_lineSegments_8c227d84'), $segs);
 
         $this->initUint32($base + 0x0f4, $this->fdec(9.0));
         $this->initUint32($base + 0x0fc, $this->fdec(11.0));

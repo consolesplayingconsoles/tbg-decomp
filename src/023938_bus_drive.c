@@ -229,14 +229,14 @@ void FUN_8c023938(void)
 /* Walks the current route line segment forward by the bus's per-frame move
  * distance to find the next lane-crossing point, then confirms it against
  * the crossing segment via IntersectSegments_8c0206f0. Advances through
- * var_8c227d88's linked segment records (fwdNext_0x00/backNext_0x02,
+ * var_lineNodes_8c227d88's linked segment records (fwdNext_0x00/backNext_0x02,
  * falling back to fallbackNext_0x0a when a segment runs out of points) and
- * indexes var_8c227d84 for each segment's point list. Called once per frame
+ * indexes var_lineSegments_8c227d84 for each segment's point list. Called once per frame
  * by BusTask_8c022bdc (022bdc). */
 void FUN_8c023e7e(void)
 {
-    LineBusSegment *segs = var_8c227d84;
-    LineBusNode *nodes = var_8c227d88;
+    LineBusSegment *segs = var_lineSegments_8c227d84;
+    LineBusNode *nodes = var_lineNodes_8c227d88;
     Uint16 idx;
     LinePoint *seg;
     LinePoint *segEnd;

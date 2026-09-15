@@ -1,7 +1,7 @@
 #ifndef _023938_BUS_DRIVE_H
 #define _023938_BUS_DRIVE_H
 
-/* One point on a route line segment (var_8c227d84 entries point into an
+/* One point on a route line segment (var_lineSegments_8c227d84 entries point into an
  * array of these). */
 typedef struct {
     float len_0x00;  /* remaining distance to the next point */
@@ -11,18 +11,19 @@ typedef struct {
     float dz_0x10;
 } LinePoint;
 
-/* var_8c227d84 entry: a route line's point list plus its total length. */
+/* var_lineSegments_8c227d84 entry: a route line's point list plus its total length. */
 typedef struct {
     LinePoint *points_0x00;
     float length_0x04;
 } LineBusSegment;
 
-/* var_8c227d88 entry, 0xc bytes/6 ushorts. */
+/* var_lineNodes_8c227d88 entry, 0xc bytes/6 ushorts. */
 typedef struct {
     Uint16 fwdNext_0x00;    /* read by FUN_8c023e7e */
     Uint16 backNext_0x02;   /* read by FUN_8c023e7e */
     /* [0] is the default (used by 02412c), [1] is the next segment when
-     * signalSide_0x25c == 1, [2] is the next segment when var_8c1bbc2c == 2 */
+     * signalSide_0x25c == 1, [2] the one when it is 2 (02412c reads the same
+     * field through var_signalSide_8c1bbc2c) */
     Uint16 altNext_0x04[3];
     Uint16 fallbackNext_0x0a;
 } LineBusNode;

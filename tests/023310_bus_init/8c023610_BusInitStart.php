@@ -30,8 +30,8 @@ return new class extends TestCase {
         $this->setSize('_var_currentCourse_8c1bb868', 0x14);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_activeAttrGrid_8c228b3c', 4);
-        $this->setSize('_var_8c227d84', 4);
-        $this->setSize('_var_8c227d88', 4);
+        $this->setSize('_var_lineSegments_8c227d84', 4);
+        $this->setSize('_var_lineNodes_8c227d88', 4);
         $this->setSize('_var_busDoorMotion_8c1bc410', 4);
         $this->setSize('_var_busDoorLastFrame_8c227db4', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
@@ -137,8 +137,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', $atariBus);
         $this->shouldWriteLongTo('_var_activeAttrGrid_8c228b3c', $attrBus);
-        $this->shouldWriteLongTo('_var_8c227d84', $lineBus);
-        $this->shouldWriteLongTo('_var_8c227d88', $ukn);
+        $this->shouldWriteLongTo('_var_lineSegments_8c227d84', $lineBus);
+        $this->shouldWriteLongTo('_var_lineNodes_8c227d88', $ukn);
 
         $this->shouldWriteFloat($this->addressOf('_var_busDoorLastFrame_8c227db4'), $expectVar8c227db4);
 

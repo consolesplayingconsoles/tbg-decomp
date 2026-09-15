@@ -6,8 +6,10 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // applyThrottle_8c024320: STATIC, called from BusInputUpdate_8c0246b2 each frame while driving.
 // While the .r trigger (var_padTriggerR_8c1ba374) clears its saved deadzone
-// (var_accelSensitivity_8c1ba29c) by at least var_throttleMinStep_8c1bbcb4's minimum scaled step, ramps
-// BusState.rpmRampAngle_0x2e4 toward that step by init_gears_8c045638[gear].accelRate_0x00,
+// (var_accelSensitivity_8c1ba29c) and the scaled step it asks for is at least
+// where the engine already sits (var_rpmRampAngle_8c1bbcb4 is
+// BusState.rpmRampAngle_0x2e4 under its own section B symbol -- see
+// sectionB.h), ramps that angle toward the step by init_gears_8c045638[gear].accelRate_0x00,
 // feeds it through njSin to derive targetRpm_0x2e8/speed_0x27c, and upshifts
 // (with a shift-cue MIDI note) once speed clears the next gear's top speed
 // -- or, at the top gear, just clamps speed to its max. Otherwise coasts:
@@ -26,13 +28,18 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
         $this->setSize('_var_padTriggerR_8c1ba374', 2);
         $this->setSize('_var_accelSensitivity_8c1ba29c', 1);
-        $this->setSize('_var_throttleMinStep_8c1bbcb4', 4);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_firstUpshift_8c22864c', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4 * 8);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_njSin', 4);
         $this->setSize('_asinf', 4);
+
+        // Same bytes as $bus + 0x2e4; the asm reads the field both ways.
+        $this->rellocate(
+            '_var_rpmRampAngle_8c1bbcb4',
+            $this->addressOf('_var_busState_8c1bb9d0') + 0x2e4
+        );
     }
 
     private function initFloat(int $addr, float $value): void {
@@ -42,23 +49,21 @@ return new class extends TestCase {
     private function setup(
         int $trigger,
         int $deadzone,
-        int $minStep,
         int $gear,
         float $speed,
-        int $field2e4,
+        int $rampAngle,
         int $mirrorLevel = 0
     ): int {
         $this->resolveSymbols();
         $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), $trigger);
         $this->initUint8($this->addressOf('_var_accelSensitivity_8c1ba29c'), $deadzone);
-        $this->initUint32($this->addressOf('_var_throttleMinStep_8c1bbcb4'), $minStep);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), $mirrorLevel);
         $this->initUint32($this->addressOf('_var_firstUpshift_8c22864c'), 0xdeadbeef);
 
         $bus = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($bus + 0x2f4, $gear);
         $this->initFloat($bus + 0x27c, $speed);
-        $this->initUint32($bus + 0x2e4, $field2e4);
+        $this->initUint32($bus + 0x2e4, $rampAngle);
 
         $midiHandle = 0xcafe0900;
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), $midiHandle);
@@ -68,7 +73,7 @@ return new class extends TestCase {
     // Trigger within the deadzone: coasts. No downshift since gear 1's
     // decayed speed (0.19975) stays above gear 0's top speed (0.0926).
     public function test_coasting_noDownshift(): void {
-        $bus = $this->setup(0, 0, 0, 1, 0.2, 999);
+        $bus = $this->setup(0, 0, 1, 0.2, 999);
 
         $this->call('_applyThrottle_8c024320');
 
@@ -78,10 +83,11 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2e4, 0);
     }
 
-    // Trigger past deadzone but below var_throttleMinStep_8c1bbcb4's minimum step: treated
-    // as coasting even though the trigger is technically pressed.
-    public function test_belowMinStep_treatedAsCoasting(): void {
-        $bus = $this->setup(200, 50, 99999, 1, 0.2, 999);
+    // Trigger past its deadzone but asking for less than the engine has
+    // already wound up to: treated as coasting even though the trigger is
+    // technically pressed.
+    public function test_belowCurrentRamp_treatedAsCoasting(): void {
+        $bus = $this->setup(200, 50, 1, 0.2, 99999);
 
         $this->call('_applyThrottle_8c024320');
 
@@ -95,7 +101,7 @@ return new class extends TestCase {
     // downshifts to gear 0, plays the shift cue (mirror level 0 -> note
     // 0x26), and derives the needle from the new gear.
     public function test_coasting_downshifts(): void {
-        $bus = $this->setup(0, 0, 0, 2, 0.05, 999, 0);
+        $bus = $this->setup(0, 0, 2, 0.05, 999, 0);
 
         $this->call('_applyThrottle_8c024320');
 
@@ -109,7 +115,7 @@ return new class extends TestCase {
 
     // Same downshift, but mirror level >= 2 selects the other shift-cue note.
     public function test_coasting_downshift_altNoteWhenMirrorLevelHigh(): void {
-        $bus = $this->setup(0, 0, 0, 2, 0.05, 999, 2);
+        $bus = $this->setup(0, 0, 2, 0.05, 999, 2);
 
         $this->call('_applyThrottle_8c024320');
 
@@ -124,7 +130,7 @@ return new class extends TestCase {
     // Accelerating in gear 1, but the resulting speed stays under gear 1's
     // top speed: no upshift, no shared-tail needle recompute.
     public function test_accelerating_noUpshift(): void {
-        $bus = $this->setup(200, 50, 0, 1, 0.0, 100);
+        $bus = $this->setup(200, 50, 1, 0.0, 100);
 
         $this->call('_applyThrottle_8c024320');
 
@@ -138,7 +144,7 @@ return new class extends TestCase {
     // upshifts to gear 2, plays the shift cue, and the shared tail
     // recomputes the needle from the new gear.
     public function test_accelerating_upshifts(): void {
-        $bus = $this->setup(200, 50, 0, 1, 0.0, 100);
+        $bus = $this->setup(200, 50, 1, 0.0, 100);
 
         $this->call('_applyThrottle_8c024320');
 
@@ -156,7 +162,7 @@ return new class extends TestCase {
     // Accelerating out of gear 0 specifically: var_firstUpshift_8c22864c is set to 1 on
     // the first upshift out of gear 0.
     public function test_accelerating_upshiftFromGearZero_setsFirstShiftFlag(): void {
-        $bus = $this->setup(200, 50, 0, 0, 0.0, 0);
+        $bus = $this->setup(200, 50, 0, 0.0, 0);
 
         $this->call('_applyThrottle_8c024320');
 
@@ -176,7 +182,7 @@ return new class extends TestCase {
     // just gets clamped to it -- no shift, no needle recompute, no gear
     // write at all.
     public function test_accelerating_topGear_clampsSpeed(): void {
-        $bus = $this->setup(255, 0, 0, 4, 0.0, 5000);
+        $bus = $this->setup(255, 0, 4, 0.0, 5000);
 
         $this->call('_applyThrottle_8c024320');
 

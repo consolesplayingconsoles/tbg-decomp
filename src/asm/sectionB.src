@@ -293,17 +293,17 @@
           .EXPORT     _var_8c1bbb44 ; 02df3c
           .EXPORT     _var_8c1bbb50 ; 02df3c
           .EXPORT     _var_8c1bbb5c ; 02df3c
-          .EXPORT     _var_8c1bbc2c ; 02412c
+          .EXPORT     _var_signalSide_8c1bbc2c ; 02412c
           .EXPORT     _var_mirrorSelect_8c1bbc38 ; 022464
           .EXPORT     _var_8c1bbc4c ; 012504_input
                                     ; 020214
                                     ; 02c884
-          .EXPORT     _var_replayArmed_8c1bbc84 ; 01614c_debug_menu
+          .EXPORT     _var_busDriveState_8c1bbc84 ; 01614c_debug_menu
                                     ; 016bf4_demo_input
                                     ; 024b4c
                                     ; 02d19c
           .EXPORT     _var_8c1bbcb0 ; 0100bc_sound
-          .EXPORT     _var_throttleMinStep_8c1bbcb4 ; 024280
+          .EXPORT     _var_rpmRampAngle_8c1bbcb4 ; 024280
           .EXPORT     _var_8c1bbcc4 ; 012504_input
           .EXPORT     _var_busCameraFocusX_8c1bbcd8 ; 028258
           .EXPORT     _var_busCameraFocusZ_8c1bbce0 ; 028258
@@ -638,10 +638,10 @@
                                     ; 022464
           .EXPORT     _var_fadePhase_8c227d7c ; 022464
           .EXPORT     _var_fadeProgress_8c227d80 ; 022464
-          .EXPORT     _var_8c227d84 ; 023310
+          .EXPORT     _var_lineSegments_8c227d84 ; 023310
                                     ; 023938
                                     ; 02412c
-          .EXPORT     _var_8c227d88 ; 023310
+          .EXPORT     _var_lineNodes_8c227d88 ; 023310
                                     ; 023938
                                     ; 02412c
           .EXPORT     _var_brakePressPeak_8c227d8c ; 023310
@@ -1022,17 +1022,17 @@ _var_8c1bbb50:
           .RES.B      12
 _var_8c1bbb5c:
           .RES.B      208
-_var_8c1bbc2c:
+_var_signalSide_8c1bbc2c:
           .RES.B      12
 _var_mirrorSelect_8c1bbc38:
           .RES.B      20
 _var_8c1bbc4c:
           .RES.B      56
-_var_replayArmed_8c1bbc84:
+_var_busDriveState_8c1bbc84:
           .RES.B      44
 _var_8c1bbcb0:
           .RES.B      4
-_var_throttleMinStep_8c1bbcb4:
+_var_rpmRampAngle_8c1bbcb4:
           .RES.B      16
 _var_8c1bbcc4:
           .RES.B      20
@@ -1334,9 +1334,9 @@ _var_fadePhase_8c227d7c:
           .RES.B      4
 _var_fadeProgress_8c227d80:
           .RES.B      4
-_var_8c227d84:
+_var_lineSegments_8c227d84:
           .RES.B      4
-_var_8c227d88:
+_var_lineNodes_8c227d88:
           .RES.B      4
 _var_brakePressPeak_8c227d8c:
           .RES.B      4
