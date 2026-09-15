@@ -431,11 +431,11 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
             njReleaseTexture(var_interiorTexlist_8c1bc438);
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_cameraMode_8c227d9c = 2;
-                var_8c227da4 = 0;
-                FUN_8c024f32();
+                var_cameraCueState_8c227da4 = 0;
+                BusRenderApplyCameraMode_8c024f32();
             } else {
                 if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
-                    FUN_8c024b86();
+                    BusRenderRestoreCameraState_8c024b86();
                 }
             }
 
@@ -504,8 +504,8 @@ void PassengerSkipStopTask_8c02d8f0(Task *task, void *state)
         var_8c1bbc84 = 1;
         var_fadeArrivalVariant_8c22655c = 0;
         var_cameraMode_8c227d9c = 2;
-        var_8c227da4 = 0;
-        FUN_8c024f32();
+        var_cameraCueState_8c227da4 = 0;
+        BusRenderApplyCameraMode_8c024f32();
         TaskFree_8c014b66(task);
     }
 }

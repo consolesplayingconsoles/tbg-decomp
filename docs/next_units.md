@@ -323,11 +323,13 @@ Lights, textures, draws and cameras the player's bus model: the gameplay
 camera (`BusRenderUpdateCamera_8c025078`, using the private
 `positionCamera_8c024d6c` helper), the mirror camera
 (`BusRenderUpdateMirrorCamera_8c025604`), the third-person model
-(`FUN_8c024bb8`), a turn-blink state machine (`FUN_8c024f32`, driven by
-`FUN_8c024b4c`/`FUN_8c024b86`'s frame-history shift).
+(`BusRenderDrawBusModel_8c024bb8`), and the camera-mode plumbing
+(`BusRenderApplyCameraMode_8c024f32`, plus the
+`BusRenderSaveCameraState_8c024b4c`/`BusRenderRestoreCameraState_8c024b86`
+pair that parks the camera state across a stop scene).
 
 `drawFrontBusModel_8c024cc8` (the dashboard-view model) is reachable only
-via a function pointer sitting in `BusRenderUpdateMirrorCamera_8c025604`'s
+via a function pointer sitting in `BusRenderUpdateCamera_8c025078`'s
 literal pool -- case (3) of the Ghidra boundary/call-graph note above.
 
 ### `025870_demo` (ShortUnit `Demo`) -- done, 5/5 functions

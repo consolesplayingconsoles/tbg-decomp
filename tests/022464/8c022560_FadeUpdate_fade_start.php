@@ -15,8 +15,8 @@ return new class extends TestCase {
         $this->setSize('_var_fadeArrivalVariant_8c22655c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x268 + 4);
         $this->setSize('_var_fadeCamera_8c226558', 4);
-        $this->setSize('_var_8c1bb944', 64);
-        $this->setSize('_var_8c1bb904', 64);
+        $this->setSize('_var_mirrorCamera_8c1bb944', 64);
+        $this->setSize('_var_camera_8c1bb904', 64);
         $this->setSize('_var_8c1bb984', 76);
         $this->setSize('_var_busStopTexlist_8c1bc424', 4);
         $this->setSize('_njUserClipping', 4);

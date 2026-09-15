@@ -57,7 +57,7 @@ STATIC Uint8 init_8c0453b4[] = {
 };
 
 /* 3 NJS_POINT3 local-space corners of the rotating tachometer needle triangle
- * (drawHud_8c01fbac), njCalcPoint'd through var_8c1bc46c into var_8c226478. */
+ * (drawHud_8c01fbac), njCalcPoint'd through var_scratchMatrix_8c1bc46c into var_8c226478. */
 STATIC Uint8 init_8c045414[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0,
     0x08, 0xD6, 0x51, 0x3F, 0x00, 0x00, 0x00, 0x00,
@@ -218,13 +218,13 @@ STATIC void drawHud_8c01fbac(int arg0) {
         break;
     }
 
-    njUnitMatrix(&var_8c1bc46c);
-    njTranslate(&var_8c1bc46c, 320.0f, 436.0f, 0.0f);
+    njUnitMatrix(&var_scratchMatrix_8c1bc46c);
+    njTranslate(&var_scratchMatrix_8c1bc46c, 320.0f, 436.0f, 0.0f);
     angle = ((Sint32)var_engineRpm_8c226468 * 32768) / 6000;
-    njRotateZ(&var_8c1bc46c, angle);
-    njCalcPoint(&var_8c1bc46c, (NJS_POINT3 *)&init_8c045414[0], (NJS_POINT3 *)&var_8c226478[0]);
-    njCalcPoint(&var_8c1bc46c, (NJS_POINT3 *)&init_8c045414[12], (NJS_POINT3 *)&var_8c226478[1]);
-    njCalcPoint(&var_8c1bc46c, (NJS_POINT3 *)&init_8c045414[24], (NJS_POINT3 *)&var_8c226478[2]);
+    njRotateZ(&var_scratchMatrix_8c1bc46c, angle);
+    njCalcPoint(&var_scratchMatrix_8c1bc46c, (NJS_POINT3 *)&init_8c045414[0], (NJS_POINT3 *)&var_8c226478[0]);
+    njCalcPoint(&var_scratchMatrix_8c1bc46c, (NJS_POINT3 *)&init_8c045414[12], (NJS_POINT3 *)&var_8c226478[1]);
+    njCalcPoint(&var_scratchMatrix_8c1bc46c, (NJS_POINT3 *)&init_8c045414[24], (NJS_POINT3 *)&var_8c226478[2]);
     njDrawPolygon((NJS_POLYGON_VTX *)var_8c226478, 3, 0);
 
     speed = (Sint32)((var_busState_8c1bb9d0.speed_0x27c * 108000.0f) / 1000.0f);

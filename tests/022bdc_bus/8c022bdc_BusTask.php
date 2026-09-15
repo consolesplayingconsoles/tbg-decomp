@@ -38,8 +38,8 @@ return new class extends TestCase {
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_wallHitBits_8c228660', 4);
         $this->setSize('_acosf', 4);
-        $this->setSize('_var_8c227db0', 4);
-        $this->setSize('_var_8c227db4', 4);
+        $this->setSize('_var_busDoorFrame_8c227db0', 4);
+        $this->setSize('_var_busDoorLastFrame_8c227db4', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x28);
         $this->setSize('_BusInputUpdate_8c0246b2', 4);
         $this->setSize('_var_8c2264b8', 0x1c);

@@ -12,7 +12,7 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * _DemoUpdateCamera_8c025906(void): sets up the live camera (var_8c1bb904)
+ * _DemoUpdateCamera_8c025906(void): sets up the live camera (var_camera_8c1bb904)
  * each frame during demo playback. var_cameraMode_8c227d9c==7 first re-derives the
  * bus's draw position (posX_0x2fc/posY_0x300/posZ_0x304) from var_demoShotPos_8c227e00
  * transformed by the bus's world matrix; then, for 5/6/7, points the camera
@@ -28,7 +28,7 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c1bb904', 0x40);
+        $this->setSize('_var_camera_8c1bb904', 0x40);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_demoShotPos_8c227e00', 0xc);
@@ -52,7 +52,7 @@ return new class extends TestCase {
         $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
         $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
-        $this->setSize('_FUN_8c024bb8', 4);
+        $this->setSize('_BusRenderDrawBusModel_8c024bb8', 4);
         $this->setSize('_FadeCmdPushCall1_8c0223ea', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
     }
@@ -68,7 +68,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $camera = $this->addressOf('_var_8c1bb904');
+        $camera = $this->addressOf('_var_camera_8c1bb904');
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $point = $this->addressOf('_var_demoShotPos_8c227e00');
 
@@ -95,7 +95,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $camera = $this->addressOf('_var_8c1bb904');
+        $camera = $this->addressOf('_var_camera_8c1bb904');
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
 
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 5);
@@ -119,7 +119,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $camera = $this->addressOf('_var_8c1bb904');
+        $camera = $this->addressOf('_var_camera_8c1bb904');
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
 
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);

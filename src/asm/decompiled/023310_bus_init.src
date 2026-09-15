@@ -10,14 +10,14 @@
           .IMPORT     _FUN_8c023938
           .IMPORT     _acosf
           .IMPORT     _var_cameraMode_8c227d9c
-          .IMPORT     _var_8c227dac
+          .IMPORT     _var_cameraCueBusy_8c227dac
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_activeAttrGrid_8c228b3c
           .IMPORT     _var_8c227d84
           .IMPORT     _var_8c227d88
-          .IMPORT     _var_8c1bc410
-          .IMPORT     _var_8c227db4
+          .IMPORT     _var_busDoorMotion_8c1bc410
+          .IMPORT     _var_busDoorLastFrame_8c227db4
           .IMPORT     _BusTask_8c022bdc
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
@@ -511,15 +511,15 @@ LAB_8c0236b8:
           ADD         #H'4c,R4
 LP_GEN_28893:
           .RES.W 1 ; H'8C0236BE
-          .DATA.L _var_8c227dac ; H'8C0236C0
+          .DATA.L _var_cameraCueBusy_8c227dac ; H'8C0236C0
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C0236C4
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0236C8
           .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C0236CC
           .DATA.L _var_8c227d84 ; H'8C0236D0
           .DATA.L _var_8c227d88 ; H'8C0236D4
-          .DATA.L _var_8c1bc410 ; H'8C0236D8
+          .DATA.L _var_busDoorMotion_8c1bc410 ; H'8C0236D8
           .DATA.L H'4F800000 ; H'8C0236DC
-          .DATA.L _var_8c227db4 ; H'8C0236E0
+          .DATA.L _var_busDoorLastFrame_8c227db4 ; H'8C0236E0
           .DATA.L _BusTask_8c022bdc ; H'8C0236E4
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C0236E8
           .DATA.L _TaskPush_8c014ae8 ; H'8C0236EC

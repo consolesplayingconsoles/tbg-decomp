@@ -28,7 +28,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c228900', 8);
         $this->setSize('_var_8c228908', 4);
         $this->setSize('_var_8c228714', 4);
-        $this->setSize('_var_8c1bc46c', 0x40);
+        $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_8c1bc440', 4);
         $this->setSize('_var_8c1bc444', 4);
         $this->setSize('_var_loadedFooNjm_8c1bc448', 4);

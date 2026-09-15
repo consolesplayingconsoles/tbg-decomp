@@ -18,17 +18,17 @@ if (!function_exists('fdec')) {
  * busState.mirror_0x268 is nonzero. Otherwise picks a local mirror-camera
  * offset/interest by mirror_0x268 (1/2/3), rotates BOTH the offset and the
  * interest point into world space by the bus's world matrix (worldMatrix_0x084,
- * two separate njCalcPoint calls), positions the mirror camera (var_8c1bb944)
+ * two separate njCalcPoint calls), positions the mirror camera (var_mirrorCamera_8c1bb944)
  * at the rotated offset, points its interest at the rotated interest point,
  * rolls it by recent Y waypoint history, activates it, and queues
- * FUN_8c024bb8 on fade layer 1 with the alt light direction.
+ * BusRenderDrawBusModel_8c024bb8 on fade layer 1 with the alt light direction.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_8c1bb944', 0x40);
-        $this->setSize('_var_8c227dc4', 0xc);
+        $this->setSize('_var_mirrorCamera_8c1bb944', 0x40);
+        $this->setSize('_var_mirrorLightDir_8c227dc4', 0xc);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
 
         $this->setSize('_njInitCamera', 4);
@@ -81,7 +81,7 @@ return new class extends TestCase {
     ): void {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $camera = $this->addressOf('_var_8c1bb944');
+        $camera = $this->addressOf('_var_mirrorCamera_8c1bb944');
 
         $this->initUint32($base + 0x268, $mode);
         $this->initFloat($base + 0x11c, 1.5); // posHistory[2].y
@@ -146,12 +146,12 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSetCamera')->with($camera);
 
-        $this->shouldWriteFloat($this->addressOf('_var_8c227dc4'), 0.4);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227dc4') + 4, 0.5);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227dc4') + 8, 0.6);
-        $this->shouldCall('_njCalcVector')->with(0, $this->addressOf('_var_8c227dc4'), $this->addressOf('_var_8c227dc4'));
+        $this->shouldWriteFloat($this->addressOf('_var_mirrorLightDir_8c227dc4'), 0.4);
+        $this->shouldWriteFloat($this->addressOf('_var_mirrorLightDir_8c227dc4') + 4, 0.5);
+        $this->shouldWriteFloat($this->addressOf('_var_mirrorLightDir_8c227dc4') + 8, 0.6);
+        $this->shouldCall('_njCalcVector')->with(0, $this->addressOf('_var_mirrorLightDir_8c227dc4'), $this->addressOf('_var_mirrorLightDir_8c227dc4'));
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_FUN_8c024bb8'), 1);
+        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 1);
     }
 
     public function test_mirror_mode_1(): void

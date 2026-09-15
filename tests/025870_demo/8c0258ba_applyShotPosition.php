@@ -33,7 +33,7 @@ return new class extends TestCase {
         // Pulled in by other not-yet-decompiled functions sharing this
         // object's literal pool.
         $this->setSize('_var_8c1bb984', 0x40);
-        $this->setSize('_var_8c1bb904', 0x40);
+        $this->setSize('_var_camera_8c1bb904', 0x40);
         $this->setSize('_var_markDriveFlags_8c1bbd80', 0xc);
         $this->setSize('_var_demoShots_8c227e0c', 4);
         $this->setSize('_var_demoShotRearm_8c227e10', 4);
@@ -49,7 +49,7 @@ return new class extends TestCase {
         $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
         $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
-        $this->setSize('_FUN_8c024bb8', 4);
+        $this->setSize('_BusRenderDrawBusModel_8c024bb8', 4);
         $this->setSize('_FadeCmdPushCall1_8c0223ea', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
     }

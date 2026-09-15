@@ -32,8 +32,8 @@ return new class extends TestCase {
         $this->setSize('_var_activeAttrGrid_8c228b3c', 4);
         $this->setSize('_var_8c227d84', 4);
         $this->setSize('_var_8c227d88', 4);
-        $this->setSize('_var_8c1bc410', 4);
-        $this->setSize('_var_8c227db4', 4);
+        $this->setSize('_var_busDoorMotion_8c1bc410', 4);
+        $this->setSize('_var_busDoorLastFrame_8c227db4', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_BusTask_8c022bdc', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
@@ -96,7 +96,7 @@ return new class extends TestCase {
         $this->initUint32($course + 0x10, $attrBus);
 
         $timeStruct = $this->alloc(8);
-        $this->initUint32($this->addressOf('_var_8c1bc410'), $timeStruct);
+        $this->initUint32($this->addressOf('_var_busDoorMotion_8c1bc410'), $timeStruct);
         $this->initUint32($timeStruct + 4, $rawTimeBits);
 
         $vehParts = $this->addressOf('_var_8c1bbf7c');
@@ -140,7 +140,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c227d84', $lineBus);
         $this->shouldWriteLongTo('_var_8c227d88', $ukn);
 
-        $this->shouldWriteFloat($this->addressOf('_var_8c227db4'), $expectVar8c227db4);
+        $this->shouldWriteFloat($this->addressOf('_var_busDoorLastFrame_8c227db4'), $expectVar8c227db4);
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),

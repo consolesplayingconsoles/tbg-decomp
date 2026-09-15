@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->setSize('_njCnkSetSimpleLight', 4);
         $this->setSize('_njCnkSetEasyLight', 4);
         $this->setSize('_var_busSimpleLightDir_8c227db8', 12);
-        $this->setSize('_var_8c227dc4', 12);
+        $this->setSize('_var_mirrorLightDir_8c227dc4', 12);
     }
 
     private function initFloat(int $addr, float $value): void {
@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->seedDir('_var_busSimpleLightDir_8c227db8', 1.0, 2.0, 3.0);
-        $this->seedDir('_var_8c227dc4', 4.0, 5.0, 6.0);
+        $this->seedDir('_var_mirrorLightDir_8c227dc4', 4.0, 5.0, 6.0);
 
         $this->call('_applyTrafficLighting_8c02756a')->with(0);
 
@@ -45,7 +45,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->seedDir('_var_busSimpleLightDir_8c227db8', 1.0, 2.0, 3.0);
-        $this->seedDir('_var_8c227dc4', 4.0, 5.0, 6.0);
+        $this->seedDir('_var_mirrorLightDir_8c227dc4', 4.0, 5.0, 6.0);
 
         $this->call('_applyTrafficLighting_8c02756a')->with(1);
 

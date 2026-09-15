@@ -19,7 +19,7 @@ if (!function_exists('fdec')) {
  * primary directional light's row from var_sceneParams_8c18ad24, seeds the
  * position-history breadcrumb, computes an initial heading from the stop's
  * direction vector via acosf, and (re)arms the debug/practice replay flags
- * (var_cameraMode_8c227d9c / var_8c227dac) depending on var_playMode_8c1bb8d0.
+ * (var_cameraMode_8c227d9c / var_cameraCueBusy_8c227dac) depending on var_playMode_8c1bb8d0.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -30,7 +30,7 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_8c226410', 4);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
-        $this->setSize('_var_8c227dac', 4);
+        $this->setSize('_var_cameraCueBusy_8c227dac', 4);
 
         $this->setSize('_BusStopGetStopArea_8c02cd7a', 4);
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
@@ -191,7 +191,7 @@ return new class extends TestCase {
 
         if ($expectVar8c227dac !== null) {
             $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', $expectVar8c227d9c);
-            $this->shouldWriteLongTo('_var_8c227dac', $expectVar8c227dac);
+            $this->shouldWriteLongTo('_var_cameraCueBusy_8c227dac', $expectVar8c227dac);
         } else {
             $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', $expectVar8c227d9c);
         }
@@ -248,7 +248,7 @@ return new class extends TestCase {
         );
     }
 
-    // Demo mode (2): var_cameraMode_8c227d9c = 5, var_8c227dac untouched.
+    // Demo mode (2): var_cameraMode_8c227d9c = 5, var_cameraCueBusy_8c227dac untouched.
     public function test_demo_play_mode(): void
     {
         $this->runAndAssert(

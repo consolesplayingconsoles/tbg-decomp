@@ -63,25 +63,25 @@ void BusTask_8c022bdc(Task *task, void *state)
 
     if (var_busState_8c1bb9d0.bus_state_0x2b4 == 0) {
         /* Boarding: substate 0 waits for the doors-open trigger, substate 1
-         * ramps var_8c227db0 up to var_8c227db4 (door hold time) then moves
+         * ramps var_busDoorFrame_8c227db0 up to var_busDoorLastFrame_8c227db4 (door hold time) then moves
          * to substate 2 (BusStop drives the rest from there). */
         if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 0) {
             if (var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 != 0) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x1d, 0);
-                var_8c227db0 = 0.0f;
+                var_busDoorFrame_8c227db0 = 0.0f;
                 var_busState_8c1bb9d0.bus_substate_0x3c0 = 1;
             }
         } else if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 1) {
-            var_8c227db0 += 0.5f;
-            if (var_8c227db4 < var_8c227db0) {
-                var_8c227db0 = var_8c227db4;
+            var_busDoorFrame_8c227db0 += 0.5f;
+            if (var_busDoorLastFrame_8c227db4 < var_busDoorFrame_8c227db0) {
+                var_busDoorFrame_8c227db0 = var_busDoorLastFrame_8c227db4;
                 var_busState_8c1bb9d0.bus_substate_0x3c0 = 2;
                 var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
             }
         }
     } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 1) {
         /* Driving: substate 2 waits for the doors-close trigger (A button or
-         * scripted), substate 3 ramps var_8c227db0 back down to 0 then
+         * scripted), substate 3 ramps var_busDoorFrame_8c227db0 back down to 0 then
          * returns to substate 0. */
         if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 2) {
             if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
@@ -92,8 +92,8 @@ void BusTask_8c022bdc(Task *task, void *state)
                 var_busState_8c1bb9d0.bus_substate_0x3c0 = 3;
             }
         } else if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 3) {
-            var_8c227db0 -= 0.5f;
-            if (var_8c227db0 < 0.0f) {
+            var_busDoorFrame_8c227db0 -= 0.5f;
+            if (var_busDoorFrame_8c227db0 < 0.0f) {
                 var_busState_8c1bb9d0.bus_substate_0x3c0 = 0;
                 var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
             }

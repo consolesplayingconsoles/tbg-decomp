@@ -822,10 +822,10 @@ return [
         ],
         [
             "tests" => [
-                "tests/024b4c_bus_render/8c024b4c_FUN.php",
-                "tests/024b4c_bus_render/8c024b86_FUN.php",
-                "tests/024b4c_bus_render/8c024f32_FUN.php",
-                "tests/024b4c_bus_render/8c024bb8_FUN.php",
+                "tests/024b4c_bus_render/8c024b4c_BusRenderSaveCameraState.php",
+                "tests/024b4c_bus_render/8c024b86_BusRenderRestoreCameraState.php",
+                "tests/024b4c_bus_render/8c024f32_BusRenderApplyCameraMode.php",
+                "tests/024b4c_bus_render/8c024bb8_BusRenderDrawBusModel.php",
                 "tests/024b4c_bus_render/8c024d6c_positionCamera.php",
                 "tests/024b4c_bus_render/8c025078_BusRenderUpdateCamera.php",
                 "tests/024b4c_bus_render/8c025604_BusRenderUpdateMirrorCamera.php",

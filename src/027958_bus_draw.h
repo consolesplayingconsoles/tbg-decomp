@@ -12,7 +12,7 @@
  * (02786c_vehicle_parts) -- it only drives the extra wheel and turn-lamp nodes
  * that binder cached for this vehicle type.
  *
- * Called with the player's BusState by FUN_8c024bb8 (024b4c), and with a
+ * Called with the player's BusState by BusRenderDrawBusModel_8c024bb8 (024b4c), and with a
  * TrafficEntry by this unit's own near-draw callbacks. */
 void BusDrawUpdateModels_8c027958(BusState *bus);
 

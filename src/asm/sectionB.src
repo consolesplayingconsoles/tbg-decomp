@@ -251,11 +251,11 @@
           .EXPORT     _var_cutsceneActive_8c1bb900 ; 013ae8_route_load
                                                    ; 02af78_event
                                                    ; 02d19c
-          .EXPORT     _var_8c1bb904 ; 021b9c
+          .EXPORT     _var_camera_8c1bb904 ; 021b9c
                                     ; 022464
                                     ; 024b4c
                                     ; 025870_demo
-          .EXPORT     _var_8c1bb944 ; 021b9c
+          .EXPORT     _var_mirrorCamera_8c1bb944 ; 021b9c
                                     ; 022464
                                     ; 024b4c
           .EXPORT     _var_8c1bb984 ; 022464
@@ -366,10 +366,10 @@
           .EXPORT     _var_messageTextBoxB_8c1bc408 ; 01f3c0
                                     ; 028258
           .EXPORT     _var_messageTextBoxIndex_8c1bc40c ; 028258
-          .EXPORT     _var_8c1bc410 ; 012f44_game
+          .EXPORT     _var_busDoorMotion_8c1bc410 ; 012f44_game
                                     ; 023310
                                     ; 024b4c
-          .EXPORT     _var_8c1bc414 ; 012f44_game
+          .EXPORT     _var_busDoorShape_8c1bc414 ; 012f44_game
                                     ; 024b4c
           .EXPORT     _var_markTexlist_8c1bc418 ; 0129cc_pause
                                                 ; 013ae8_route_load
@@ -412,7 +412,7 @@
                                     ; 024b4c
                                     ; 025b98
                                     ; 028258
-          .EXPORT     _var_8c1bc46c ; 01fa78
+          .EXPORT     _var_scratchMatrix_8c1bc46c ; 01fa78
                                     ; 023938
                                     ; 024b4c
                                     ; 02c884
@@ -646,7 +646,7 @@
                                     ; 02412c
           .EXPORT     _var_8c227d8c ; 023310
                                     ; 024280
-          .EXPORT     _var_8c227d90 ; 024b4c
+          .EXPORT     _var_fixedCameraTarget_8c227d90 ; 024b4c
           .EXPORT     _var_cameraMode_8c227d9c ; 020214
                                     ; 023310
                                     ; 024280
@@ -654,38 +654,38 @@
                                     ; 025870_demo
                                     ; 028258
                                     ; 02d19c
-          .EXPORT     _var_8c227da0 ; 012f44_game
+          .EXPORT     _var_savedCameraMode_8c227da0 ; 012f44_game
                                     ; 024b4c
-          .EXPORT     _var_8c227da4 ; 024b4c
+          .EXPORT     _var_cameraCueState_8c227da4 ; 024b4c
                                     ; 02d19c
-          .EXPORT     _var_8c227da8 ; 012f44_game
+          .EXPORT     _var_savedCameraCueState_8c227da8 ; 012f44_game
                                     ; 024b4c
-          .EXPORT     _var_8c227dac ; 023310
+          .EXPORT     _var_cameraCueBusy_8c227dac ; 023310
                                     ; 024b4c
-          .EXPORT     _var_8c227db0 ; 022bdc
+          .EXPORT     _var_busDoorFrame_8c227db0 ; 022bdc
                                     ; 024b4c
-          .EXPORT     _var_8c227db4 ; 022bdc
+          .EXPORT     _var_busDoorLastFrame_8c227db4 ; 022bdc
                                     ; 023310
           .EXPORT     _var_busSimpleLightDir_8c227db8 ; 024b4c
                                     ; 026710
                                     ; 028258
                                     ; 02d19c
-          .EXPORT     _var_8c227dc4 ; 024b4c
+          .EXPORT     _var_mirrorLightDir_8c227dc4 ; 024b4c
                                     ; 026710
           .EXPORT     _var_fogParam_8c227dd0 ; 013ae8_route_load
                                              ; 024b4c
           .EXPORT     _var_demoShotId_8c227dd4 ; 012f44_game
                                     ; 025870_demo
-          .EXPORT     _var_8c227dd8 ; 024b4c
-          .EXPORT     _var_8c227ddc ; 024b4c
-          .EXPORT     _var_8c227de0 ; 024b4c
-          .EXPORT     _var_8c227de4 ; 024b4c
-          .EXPORT     _var_8c227de8 ; 024b4c
-          .EXPORT     _var_8c227dec ; 024b4c
-          .EXPORT     _var_8c227df0 ; 024b4c
-          .EXPORT     _var_8c227df4 ; 024b4c
-          .EXPORT     _var_8c227df8 ; 024b4c
-          .EXPORT     _var_8c227dfc ; 024b4c
+          .EXPORT     _var_cameraHeightFrom_8c227dd8 ; 024b4c
+          .EXPORT     _var_savedCameraHeightFrom_8c227ddc ; 024b4c
+          .EXPORT     _var_cameraHeightTo_8c227de0 ; 024b4c
+          .EXPORT     _var_savedCameraHeightTo_8c227de4 ; 024b4c
+          .EXPORT     _var_cameraHeightDelta_8c227de8 ; 024b4c
+          .EXPORT     _var_savedCameraHeightDelta_8c227dec ; 024b4c
+          .EXPORT     _var_cameraHeight_8c227df0 ; 024b4c
+          .EXPORT     _var_savedCameraHeight_8c227df4 ; 024b4c
+          .EXPORT     _var_cameraHeightPhase_8c227df8 ; 024b4c
+          .EXPORT     _var_savedCameraHeightPhase_8c227dfc ; 024b4c
           .EXPORT     _var_demoShotPos_8c227e00 ; 025870_demo
           .EXPORT     _var_demoShots_8c227e0c ; 025870_demo
           .EXPORT     _var_demoShotRearm_8c227e10 ; 025870_demo
@@ -996,9 +996,9 @@ _var_gameMode_8c1bb8fc:
           .RES.B      4
 _var_cutsceneActive_8c1bb900:
           .RES.B      4
-_var_8c1bb904:
+_var_camera_8c1bb904:
           .RES.B      64
-_var_8c1bb944:
+_var_mirrorCamera_8c1bb944:
           .RES.B      64
 _var_8c1bb984:
           .RES.B      76
@@ -1092,9 +1092,9 @@ _var_messageTextBoxB_8c1bc408:
           .RES.B      4
 _var_messageTextBoxIndex_8c1bc40c:
           .RES.B      4
-_var_8c1bc410:
+_var_busDoorMotion_8c1bc410:
           .RES.B      4
-_var_8c1bc414:
+_var_busDoorShape_8c1bc414:
           .RES.B      4
 _var_markTexlist_8c1bc418:
           .RES.B      4
@@ -1134,7 +1134,7 @@ _var_8c1bc45c:
           .RES.B      4
 _var_groundQueryPoint_8c1bc460:
           .RES.B      12
-_var_8c1bc46c:
+_var_scratchMatrix_8c1bc46c:
           .RES.B      64
 _var_gBupInfo_8c1bc4ac:
           .RES.B      736
@@ -1340,49 +1340,49 @@ _var_8c227d88:
           .RES.B      4
 _var_8c227d8c:
           .RES.B      4
-_var_8c227d90:
+_var_fixedCameraTarget_8c227d90:
           .RES.B      12
 _var_cameraMode_8c227d9c:
           .RES.B      4
-_var_8c227da0:
+_var_savedCameraMode_8c227da0:
           .RES.B      4
-_var_8c227da4:
+_var_cameraCueState_8c227da4:
           .RES.B      4
-_var_8c227da8:
+_var_savedCameraCueState_8c227da8:
           .RES.B      4
-_var_8c227dac:
+_var_cameraCueBusy_8c227dac:
           .RES.B      4
-_var_8c227db0:
+_var_busDoorFrame_8c227db0:
           .RES.B      4
-_var_8c227db4:
+_var_busDoorLastFrame_8c227db4:
           .RES.B      4
 _var_busSimpleLightDir_8c227db8:
           .RES.B      12
-_var_8c227dc4:
+_var_mirrorLightDir_8c227dc4:
           .RES.B      12
 _var_fogParam_8c227dd0:
           .RES.B      4
 _var_demoShotId_8c227dd4:
           .RES.B      4
-_var_8c227dd8:
+_var_cameraHeightFrom_8c227dd8:
           .RES.B      4
-_var_8c227ddc:
+_var_savedCameraHeightFrom_8c227ddc:
           .RES.B      4
-_var_8c227de0:
+_var_cameraHeightTo_8c227de0:
           .RES.B      4
-_var_8c227de4:
+_var_savedCameraHeightTo_8c227de4:
           .RES.B      4
-_var_8c227de8:
+_var_cameraHeightDelta_8c227de8:
           .RES.B      4
-_var_8c227dec:
+_var_savedCameraHeightDelta_8c227dec:
           .RES.B      4
-_var_8c227df0:
+_var_cameraHeight_8c227df0:
           .RES.B      4
-_var_8c227df4:
+_var_savedCameraHeight_8c227df4:
           .RES.B      4
-_var_8c227df8:
+_var_cameraHeightPhase_8c227df8:
           .RES.B      4
-_var_8c227dfc:
+_var_savedCameraHeightPhase_8c227dfc:
           .RES.B      4
 _var_demoShotPos_8c227e00:
           .RES.B      12

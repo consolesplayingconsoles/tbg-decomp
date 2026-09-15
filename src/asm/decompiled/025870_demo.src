@@ -9,7 +9,7 @@
           .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_demoShotPos_8c227e00
           .IMPORT     _njCalcPoint
-          .IMPORT     _var_8c1bb904
+          .IMPORT     _var_camera_8c1bb904
           .IMPORT     _var_markDriveFlags_8c1bbd80
           .IMPORT     _var_demoShotRearm_8c227e10
           .IMPORT     _var_demoShotId_8c227dd4
@@ -22,7 +22,7 @@
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _ObjectsOpenTextbox_8c02ae3e
-          .IMPORT     _FUN_8c024bb8
+          .IMPORT     _BusRenderDrawBusModel_8c024bb8
           .EXPORT     _DemoBoardingCamera_8c025870
           .EXPORT     _DemoUpdateCamera_8c025906
           .EXPORT     _DemoStartTour_8c025af4
@@ -170,7 +170,7 @@ LP_GEN_52398:
           .DATA.L _var_cameraMode_8c227d9c ; H'8C025980
           .DATA.L _var_demoShotPos_8c227e00 ; H'8C025984
           .DATA.L _njCalcPoint ; H'8C025988
-          .DATA.L _var_8c1bb904 ; H'8C02598C
+          .DATA.L _var_camera_8c1bb904 ; H'8C02598C
           .DATA.L H'C3960000 ; H'8C025990
 LAB_8c025994:
           MOV.W       LP_GEN_71160,R6
@@ -312,7 +312,7 @@ LP_GEN_71160:
           .DATA.W H'00F4 ; H'8C025A92
           .DATA.L _var_demoShotPos_8c227e00 ; H'8C025A94
           .DATA.L _njCalcPoint ; H'8C025A98
-          .DATA.L _var_8c1bb904 ; H'8C025A9C
+          .DATA.L _var_camera_8c1bb904 ; H'8C025A9C
           .DATA.L _njTranslateCameraPosition ; H'8C025AA0
           .DATA.L _njPointCameraInterest ; H'8C025AA4
           .DATA.L H'FF000000 ; H'8C025AA8
@@ -411,7 +411,7 @@ LP_GEN_72418:
           .DATA.W H'023E ; H'8C025B60
           .DATA.W H'0180 ; H'8C025B62
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C025B64
-          .DATA.L _FUN_8c024bb8 ; H'8C025B68
+          .DATA.L _BusRenderDrawBusModel_8c024bb8 ; H'8C025B68
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C025B6C
           .DATA.L _var_demoShots_8c227e0c ; H'8C025B70
           .DATA.L _var_route_8c18ad1c ; H'8C025B74

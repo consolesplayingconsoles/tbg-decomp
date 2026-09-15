@@ -252,9 +252,9 @@ STATIC void applyShotPosition_8c0258ba(void)
 /* See 025870_demo.h. */
 void DemoUpdateCamera_8c025906(void)
 {
-    njInitCamera(&var_8c1bb904);
-    njSetCameraAngle(&var_8c1bb904, 10194);
-    njSetCameraDepth(&var_8c1bb904, -1.0f, -300.0f);
+    njInitCamera(&var_camera_8c1bb904);
+    njSetCameraAngle(&var_camera_8c1bb904, 10194);
+    njSetCameraDepth(&var_camera_8c1bb904, -1.0f, -300.0f);
 
     if (var_cameraMode_8c227d9c == BUS_CAMERA_DEMO_CHASE) {
         njCalcPoint(&var_busState_8c1bb9d0.worldMatrix_0x084,
@@ -265,11 +265,11 @@ void DemoUpdateCamera_8c025906(void)
     if (var_cameraMode_8c227d9c == BUS_CAMERA_DEMO_WORLD_POINT ||
         var_cameraMode_8c227d9c == BUS_CAMERA_DEMO_LOCAL_POINT ||
         var_cameraMode_8c227d9c == BUS_CAMERA_DEMO_CHASE) {
-        njTranslateCameraPosition(&var_8c1bb904,
+        njTranslateCameraPosition(&var_camera_8c1bb904,
                                    var_busState_8c1bb9d0.posX_0x2fc,
                                    var_busState_8c1bb9d0.posY_0x300,
                                    var_busState_8c1bb9d0.posZ_0x304);
-        njPointCameraInterest(&var_8c1bb904,
+        njPointCameraInterest(&var_camera_8c1bb904,
                                var_busState_8c1bb9d0.posX_0x0f4,
                                var_busState_8c1bb9d0.posY_0x0f8,
                                var_busState_8c1bb9d0.posZ_0x0fc);
@@ -341,7 +341,7 @@ STATIC void demoShotTask_8c0259e8(Task *task, DemoShotState *state)
         ObjectsMenuTextboxText_8c02af1c(state->revealCount_0x04 >> CAPTION_FRAMES_PER_GLYPH_SHIFT);
     }
 
-    FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)FUN_8c024bb8, 0);
+    FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)BusRenderDrawBusModel_8c024bb8, 0);
 }
 
 /* See 025870_demo.h. */

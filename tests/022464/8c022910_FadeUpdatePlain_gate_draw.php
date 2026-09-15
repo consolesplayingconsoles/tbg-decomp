@@ -13,7 +13,7 @@ return new class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
         $this->setSize('_var_fadeCamera_8c226558', 4);
-        $this->setSize('_var_8c1bb904', 64);
+        $this->setSize('_var_camera_8c1bb904', 64);
         $this->setSize('_njUserClipping', 4);
         $this->setSize('_njControl3D', 4);
         $this->setSize('_njSetScreen', 4);
@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 0);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 0);
 
-        $var8c1bb904 = $this->addressOf('_var_8c1bb904');
+        $var8c1bb904 = $this->addressOf('_var_camera_8c1bb904');
 
         $this->call('_FadeUpdatePlain_8c022910');
 

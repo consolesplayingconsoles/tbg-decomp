@@ -10,7 +10,7 @@
           .IMPORT     _var_8c22643c
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_markTexlist_8c1bc418
-          .IMPORT     _var_8c1bc46c
+          .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njTranslate
           .IMPORT     _njRotateZ
@@ -614,7 +614,7 @@ LP_GEN_41663:
           .DATA.W H'02E8 ; H'8C01FEF6
           .DATA.W H'1770 ; H'8C01FEF8
           .DATA.W H'027C ; H'8C01FEFA
-          .DATA.L _var_8c1bc46c ; H'8C01FEFC
+          .DATA.L _var_scratchMatrix_8c1bc46c ; H'8C01FEFC
           .DATA.L _njUnitMatrix ; H'8C01FF00
           .DATA.L H'43A00000 ; H'8C01FF04
           .DATA.L H'43DA0000 ; H'8C01FF08

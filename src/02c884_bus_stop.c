@@ -297,11 +297,11 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
 {
     float frame;
 
-    njUnitMatrix(&var_8c1bc46c);
+    njUnitMatrix(&var_scratchMatrix_8c1bc46c);
     frame = var_8c1bc44c;
-    njTranslate(&var_8c1bc46c, var_8c228900.x, var_8c228900.y, var_8c228908);
-    njRotateY(&var_8c1bc46c, var_8c228714);
-    njMultiMatrix(0, &var_8c1bc46c);
+    njTranslate(&var_scratchMatrix_8c1bc46c, var_8c228900.x, var_8c228900.y, var_8c228908);
+    njRotateY(&var_scratchMatrix_8c1bc46c, var_8c228714);
+    njMultiMatrix(0, &var_scratchMatrix_8c1bc46c);
     njSetTexture(var_8c1bc440);
     njCnkSimpleDrawMotion(var_8c1bc444, var_loadedFooNjm_8c1bc448, frame);
 }

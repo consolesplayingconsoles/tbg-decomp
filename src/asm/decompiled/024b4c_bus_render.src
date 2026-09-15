@@ -1,20 +1,20 @@
 ; 8c024b4c
           .IMPORT     _var_cameraMode_8c227d9c
-          .IMPORT     _var_8c227da0
-          .IMPORT     _var_8c227da4
-          .IMPORT     _var_8c227da8
-          .IMPORT     _var_8c227dd8
-          .IMPORT     _var_8c227ddc
-          .IMPORT     _var_8c227de0
-          .IMPORT     _var_8c227de4
-          .IMPORT     _var_8c227de8
-          .IMPORT     _var_8c227dec
-          .IMPORT     _var_8c227df0
-          .IMPORT     _var_8c227df4
-          .IMPORT     _var_8c227df8
-          .IMPORT     _var_8c227dfc
+          .IMPORT     _var_savedCameraMode_8c227da0
+          .IMPORT     _var_cameraCueState_8c227da4
+          .IMPORT     _var_savedCameraCueState_8c227da8
+          .IMPORT     _var_cameraHeightFrom_8c227dd8
+          .IMPORT     _var_savedCameraHeightFrom_8c227ddc
+          .IMPORT     _var_cameraHeightTo_8c227de0
+          .IMPORT     _var_savedCameraHeightTo_8c227de4
+          .IMPORT     _var_cameraHeightDelta_8c227de8
+          .IMPORT     _var_savedCameraHeightDelta_8c227dec
+          .IMPORT     _var_cameraHeight_8c227df0
+          .IMPORT     _var_savedCameraHeight_8c227df4
+          .IMPORT     _var_cameraHeightPhase_8c227df8
+          .IMPORT     _var_savedCameraHeightPhase_8c227dfc
           .IMPORT     _var_busSimpleLightDir_8c227db8
-          .IMPORT     _var_8c227dc4
+          .IMPORT     _var_mirrorLightDir_8c227dc4
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _njCnkSetSimpleLightIntensity
@@ -22,10 +22,10 @@
           .IMPORT     _BusDrawUpdateModels_8c027958
           .IMPORT     _njMultiMatrix
           .IMPORT     _njSetTexture
-          .IMPORT     _var_8c1bc414
-          .IMPORT     _var_8c1bc410
+          .IMPORT     _var_busDoorShape_8c1bc414
+          .IMPORT     _var_busDoorMotion_8c1bc410
           .IMPORT     _njCnkSimpleDrawShapeMotion
-          .IMPORT     _var_8c227db0
+          .IMPORT     _var_busDoorFrame_8c227db0
           .IMPORT     _njControl3D
           .IMPORT     _njCnkModDrawObject
           .IMPORT     _var_frontTexlist_8c1bc430
@@ -35,14 +35,14 @@
           .IMPORT     _acosf
           .IMPORT     __divls
           .IMPORT     _var_groundQueryPoint_8c1bc460
-          .IMPORT     _var_8c1bc46c
+          .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njRotateY
           .IMPORT     _njCalcPoint
-          .IMPORT     _var_8c1bb904
+          .IMPORT     _var_camera_8c1bb904
           .IMPORT     _njTranslateCameraPosition
           .IMPORT     _njPointCameraInterest
-          .IMPORT     _var_8c227dac
+          .IMPORT     _var_cameraCueBusy_8c227dac
           .IMPORT     _njSin
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_8c1bbc84
@@ -54,18 +54,18 @@
           .IMPORT     _njSetMatrix
           .IMPORT     _atan2f
           .IMPORT     _njRollCameraInterest
-          .IMPORT     _var_8c227d90
+          .IMPORT     _var_fixedCameraTarget_8c227d90
           .IMPORT     _njSetCamera
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _njCalcVector
           .IMPORT     _FadeCmdPushCall1_8c0223ea
-          .IMPORT     _var_8c1bb944
-          .EXPORT     _FUN_8c024b4c
-          .EXPORT     _FUN_8c024b86
-          .EXPORT     _FUN_8c024f32
+          .IMPORT     _var_mirrorCamera_8c1bb944
+          .EXPORT     _BusRenderSaveCameraState_8c024b4c
+          .EXPORT     _BusRenderRestoreCameraState_8c024b86
+          .EXPORT     _BusRenderApplyCameraMode_8c024f32
           .EXPORT     _BusRenderUpdateCamera_8c025078
           .EXPORT     _BusRenderUpdateMirrorCamera_8c025604
-          .EXPORT     _FUN_8c024bb8
+          .EXPORT     _BusRenderDrawBusModel_8c024bb8
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawFrontBusModel_8c024cc8
@@ -73,7 +73,7 @@
           .AENDI
 
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c024b4c:
+_BusRenderSaveCameraState_8c024b4c:
           MOV.L       LP_GEN_17430+10,R2
           MOV.L       LP_GEN_17430+14,R1
           MOV.L       @R2,R3
@@ -103,7 +103,7 @@ _FUN_8c024b4c:
           MOV.L       @R1,R3
           RTS
           MOV.L       R3,@R2
-_FUN_8c024b86:
+_BusRenderRestoreCameraState_8c024b86:
           MOV.L       LP_GEN_17430+14,R3
           MOV.L       LP_GEN_17430+10,R2
           MOV.L       @R3,R0
@@ -127,9 +127,9 @@ _FUN_8c024b86:
           FMOV.S      FR3,@R2
           MOV.L       LP_GEN_17430+50,R0
           FMOV.S      @R1,FR3
-          BRA         _FUN_8c024f32
+          BRA         _BusRenderApplyCameraMode_8c024f32
           FMOV.S      FR3,@R0
-_FUN_8c024bb8:
+_BusRenderDrawBusModel_8c024bb8:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -200,21 +200,21 @@ LP_GEN_17430:
           .DATA.W H'03C0 ; H'8C024C38
           .RES.W 1 ; H'8C024C3A
           .DATA.L _var_cameraMode_8c227d9c ; H'8C024C3C
-          .DATA.L _var_8c227da0 ; H'8C024C40
-          .DATA.L _var_8c227da4 ; H'8C024C44
-          .DATA.L _var_8c227da8 ; H'8C024C48
-          .DATA.L _var_8c227dd8 ; H'8C024C4C
-          .DATA.L _var_8c227ddc ; H'8C024C50
-          .DATA.L _var_8c227de0 ; H'8C024C54
-          .DATA.L _var_8c227de4 ; H'8C024C58
-          .DATA.L _var_8c227de8 ; H'8C024C5C
-          .DATA.L _var_8c227dec ; H'8C024C60
-          .DATA.L _var_8c227df0 ; H'8C024C64
-          .DATA.L _var_8c227df4 ; H'8C024C68
-          .DATA.L _var_8c227df8 ; H'8C024C6C
-          .DATA.L _var_8c227dfc ; H'8C024C70
+          .DATA.L _var_savedCameraMode_8c227da0 ; H'8C024C40
+          .DATA.L _var_cameraCueState_8c227da4 ; H'8C024C44
+          .DATA.L _var_savedCameraCueState_8c227da8 ; H'8C024C48
+          .DATA.L _var_cameraHeightFrom_8c227dd8 ; H'8C024C4C
+          .DATA.L _var_savedCameraHeightFrom_8c227ddc ; H'8C024C50
+          .DATA.L _var_cameraHeightTo_8c227de0 ; H'8C024C54
+          .DATA.L _var_savedCameraHeightTo_8c227de4 ; H'8C024C58
+          .DATA.L _var_cameraHeightDelta_8c227de8 ; H'8C024C5C
+          .DATA.L _var_savedCameraHeightDelta_8c227dec ; H'8C024C60
+          .DATA.L _var_cameraHeight_8c227df0 ; H'8C024C64
+          .DATA.L _var_savedCameraHeight_8c227df4 ; H'8C024C68
+          .DATA.L _var_cameraHeightPhase_8c227df8 ; H'8C024C6C
+          .DATA.L _var_savedCameraHeightPhase_8c227dfc ; H'8C024C70
           .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C024C74
-          .DATA.L _var_8c227dc4 ; H'8C024C78
+          .DATA.L _var_mirrorLightDir_8c227dc4 ; H'8C024C78
           .DATA.L _njCnkSetSimpleLight ; H'8C024C7C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024C80
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C024C84
@@ -222,8 +222,8 @@ LP_GEN_17430:
           .DATA.L _BusDrawUpdateModels_8c027958 ; H'8C024C8C
           .DATA.L _njMultiMatrix ; H'8C024C90
           .DATA.L _njSetTexture ; H'8C024C94
-          .DATA.L _var_8c1bc414 ; H'8C024C98
-          .DATA.L _var_8c1bc410 ; H'8C024C9C
+          .DATA.L _var_busDoorShape_8c1bc414 ; H'8C024C98
+          .DATA.L _var_busDoorMotion_8c1bc410 ; H'8C024C9C
           .DATA.L _njCnkSimpleDrawShapeMotion ; H'8C024CA0
 LAB_8c024ca4:
           MOV.L       LP_GEN_54676+16,R2
@@ -301,7 +301,7 @@ LP_GEN_54676:
           .DATA.W H'00CC ; H'8C024D2E
           .DATA.W H'0084 ; H'8C024D30
           .RES.W 1 ; H'8C024D32
-          .DATA.L _var_8c227db0 ; H'8C024D34
+          .DATA.L _var_busDoorFrame_8c227db0 ; H'8C024D34
           .DATA.L _njCnkSimpleDrawShapeMotion ; H'8C024D38
           .DATA.L _njControl3D ; H'8C024D3C
           .DATA.L _njCnkModDrawObject ; H'8C024D40
@@ -544,7 +544,7 @@ LAB_8c024efc:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_FUN_8c024f32:
+_BusRenderApplyCameraMode_8c024f32:
           MOVA        LP_GEN_17475+48,R0
           MOV.L       LP_GEN_17475+72,R3
           FMOV.S      @R0,FR8
@@ -588,18 +588,18 @@ LP_GEN_17475:
           .RES.W 1 ; H'8C024F7A
           .DATA.L __divls ; H'8C024F7C
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C024F80
-          .DATA.L _var_8c1bc46c ; H'8C024F84
+          .DATA.L _var_scratchMatrix_8c1bc46c ; H'8C024F84
           .DATA.L _njUnitMatrix ; H'8C024F88
           .DATA.L _njRotateY ; H'8C024F8C
           .DATA.L _njCalcPoint ; H'8C024F90
-          .DATA.L _var_8c1bb904 ; H'8C024F94
+          .DATA.L _var_camera_8c1bb904 ; H'8C024F94
           .DATA.L _njTranslateCameraPosition ; H'8C024F98
           .DATA.L _njPointCameraInterest ; H'8C024F9C
           .DATA.L H'40A00000 ; H'8C024FA0
-          .DATA.L _var_8c227da4 ; H'8C024FA4
+          .DATA.L _var_cameraCueState_8c227da4 ; H'8C024FA4
           .DATA.L H'41F00000 ; H'8C024FA8
           .DATA.L H'41900000 ; H'8C024FAC
-          .DATA.L _var_8c227df0 ; H'8C024FB0
+          .DATA.L _var_cameraHeight_8c227df0 ; H'8C024FB0
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024FB4
           .DATA.L _var_cameraMode_8c227d9c ; H'8C024FB8
 LAB_8c024fbc:
@@ -703,7 +703,7 @@ LP_GEN_98635:
           .DATA.W H'03C8 ; H'8C02506A
           .DATA.W H'00FC ; H'8C02506C
           .DATA.W H'0304 ; H'8C02506E
-          .DATA.L _var_8c227de0 ; H'8C025070
+          .DATA.L _var_cameraHeightTo_8c227de0 ; H'8C025070
           .DATA.L _var_cameraMode_8c227d9c ; H'8C025074
 _BusRenderUpdateCamera_8c025078:
           MOV.L       R14,@-R15
@@ -839,18 +839,18 @@ LP_GEN_61715:
           .DATA.W H'03B8 ; H'8C025166
           .DATA.W H'0222 ; H'8C025168
           .RES.W 1 ; H'8C02516A
-          .DATA.L _var_8c227dac ; H'8C02516C
+          .DATA.L _var_cameraCueBusy_8c227dac ; H'8C02516C
           .DATA.L _var_cameraMode_8c227d9c ; H'8C025170
-          .DATA.L _var_8c227df0 ; H'8C025174
+          .DATA.L _var_cameraHeight_8c227df0 ; H'8C025174
           .DATA.L _var_busState_8c1bb9d0 ; H'8C025178
           .DATA.L H'40A00000 ; H'8C02517C
-          .DATA.L _var_8c227dd8 ; H'8C025180
-          .DATA.L _var_8c227da4 ; H'8C025184
-          .DATA.L _var_8c227de0 ; H'8C025188
-          .DATA.L _var_8c227df8 ; H'8C02518C
+          .DATA.L _var_cameraHeightFrom_8c227dd8 ; H'8C025180
+          .DATA.L _var_cameraCueState_8c227da4 ; H'8C025184
+          .DATA.L _var_cameraHeightTo_8c227de0 ; H'8C025188
+          .DATA.L _var_cameraHeightPhase_8c227df8 ; H'8C02518C
           .DATA.L H'0F000000 ; H'8C025190
           .DATA.L H'09000000 ; H'8C025194
-          .DATA.L _var_8c227de8 ; H'8C025198
+          .DATA.L _var_cameraHeightDelta_8c227de8 ; H'8C025198
           .DATA.L _njSin ; H'8C02519C
 LAB_8c0251a0:
           MOV.L       @R15,R1
@@ -920,7 +920,7 @@ LP_GEN_96735:
           .RES.W 1 ; H'8C025212
           .DATA.L H'09000000 ; H'8C025214
           .DATA.L H'41900000 ; H'8C025218
-          .DATA.L _var_8c227de8 ; H'8C02521C
+          .DATA.L _var_cameraHeightDelta_8c227de8 ; H'8C02521C
           .DATA.L _njSin ; H'8C025220
 LAB_8c025224:
           FMOV.S      @R4,FR3
@@ -956,7 +956,7 @@ LAB_8c02524e:
           BF          LAB_8c02525e
           MOV.L       R11,@R10
 LAB_8c02525e:
-          BSR         _FUN_8c024f32
+          BSR         _BusRenderApplyCameraMode_8c024f32
           NOP
 LAB_8c025262:
           MOV.L       LP_GEN_48962+24,R3
@@ -1031,7 +1031,7 @@ LP_GEN_48962:
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C0252E0
           .DATA.L _var_8c1bbc84 ; H'8C0252E4
           .DATA.L _var_cameraMode_8c227d9c ; H'8C0252E8
-          .DATA.L _var_8c1bb904 ; H'8C0252EC
+          .DATA.L _var_camera_8c1bb904 ; H'8C0252EC
           .DATA.L _njInitCamera ; H'8C0252F0
           .DATA.L _njSetCameraAngle ; H'8C0252F4
           .DATA.L _var_fogParam_8c227dd0 ; H'8C0252F8
@@ -1179,12 +1179,12 @@ LP_GEN_73507:
           .DATA.W H'00C8 ; H'8C025410
           .RES.W 1 ; H'8C025412
           .DATA.L __divls ; H'8C025414
-          .DATA.L _var_8c1bc46c ; H'8C025418
+          .DATA.L _var_scratchMatrix_8c1bc46c ; H'8C025418
           .DATA.L _njSetMatrix ; H'8C02541C
           .DATA.L _njRotateY ; H'8C025420
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C025424
           .DATA.L _njCalcPoint ; H'8C025428
-          .DATA.L _var_8c1bb904 ; H'8C02542C
+          .DATA.L _var_camera_8c1bb904 ; H'8C02542C
           .DATA.L _njTranslateCameraPosition ; H'8C025430
 LAB_8c025434:
           MOV         R11,R8
@@ -1305,7 +1305,7 @@ LP_GEN_36204:
           .DATA.W H'0300 ; H'8C02550E
           .DATA.W H'0128 ; H'8C025510
           .RES.W 1 ; H'8C025512
-          .DATA.L _var_8c1bb904 ; H'8C025514
+          .DATA.L _var_camera_8c1bb904 ; H'8C025514
           .DATA.L _njTranslateCameraPosition ; H'8C025518
           .DATA.L _njPointCameraInterest ; H'8C02551C
           .DATA.L H'40151EB8 ; H'8C025520
@@ -1463,8 +1463,8 @@ LP_GEN_36343:
           .DATA.W H'0268 ; H'8C02564E
           .DATA.W H'238E ; H'8C025650
           .RES.W 1 ; H'8C025652
-          .DATA.L _var_8c227d90 ; H'8C025654
-          .DATA.L _var_8c1bb904 ; H'8C025658
+          .DATA.L _var_fixedCameraTarget_8c227d90 ; H'8C025654
+          .DATA.L _var_camera_8c1bb904 ; H'8C025658
           .DATA.L _njTranslateCameraPosition ; H'8C02565C
           .DATA.L _njPointCameraInterest ; H'8C025660
           .DATA.L _njSetCamera ; H'8C025664
@@ -1472,10 +1472,10 @@ LP_GEN_36343:
           .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C02566C
           .DATA.L _njCalcVector ; H'8C025670
           .DATA.L _drawFrontBusModel_8c024cc8 ; H'8C025674
-          .DATA.L _FUN_8c024bb8 ; H'8C025678
+          .DATA.L _BusRenderDrawBusModel_8c024bb8 ; H'8C025678
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02567C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C025680
-          .DATA.L _var_8c1bb944 ; H'8C025684
+          .DATA.L _var_mirrorCamera_8c1bb944 ; H'8C025684
           .DATA.L _njInitCamera ; H'8C025688
           .DATA.L _njSetCameraAngle ; H'8C02568C
           .DATA.L H'C1633333 ; H'8C025690
@@ -1679,7 +1679,7 @@ LP_GEN_86833:
           .DATA.L H'BF400000 ; H'8C025820
           .DATA.L H'40F33333 ; H'8C025824
           .DATA.L H'C2480000 ; H'8C025828
-          .DATA.L _var_8c1bb944 ; H'8C02582C
+          .DATA.L _var_mirrorCamera_8c1bb944 ; H'8C02582C
           .DATA.L _njSetCameraDepth ; H'8C025830
           .DATA.L _njCalcPoint ; H'8C025834
           .DATA.L _njTranslateCameraPosition ; H'8C025838
@@ -1692,8 +1692,8 @@ LP_GEN_86833:
           .DATA.L _njSqrt ; H'8C025854
           .DATA.L _njSetCamera ; H'8C025858
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C02585C
-          .DATA.L _var_8c227dc4 ; H'8C025860
+          .DATA.L _var_mirrorLightDir_8c227dc4 ; H'8C025860
           .DATA.L _njCalcVector ; H'8C025864
-          .DATA.L _FUN_8c024bb8 ; H'8C025868
+          .DATA.L _BusRenderDrawBusModel_8c024bb8 ; H'8C025868
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02586C
           .END

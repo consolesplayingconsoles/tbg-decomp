@@ -6,8 +6,8 @@
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_wallHitBits_8c228660
           .IMPORT     _acosf
-          .IMPORT     _var_8c227db0
-          .IMPORT     _var_8c227db4
+          .IMPORT     _var_busDoorFrame_8c227db0
+          .IMPORT     _var_busDoorLastFrame_8c227db4
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _BusInputUpdate_8c0246b2
           .IMPORT     _var_8c2264b8
@@ -188,8 +188,8 @@ LP_GEN_58738:
           .DATA.L _acosf ; H'8C022D00
           .DATA.L H'40C90FD8 ; H'8C022D04
           .DATA.L H'3F000000 ; H'8C022D08
-          .DATA.L _var_8c227db0 ; H'8C022D0C
-          .DATA.L _var_8c227db4 ; H'8C022D10
+          .DATA.L _var_busDoorFrame_8c227db0 ; H'8C022D0C
+          .DATA.L _var_busDoorLastFrame_8c227db4 ; H'8C022D10
 LAB_8c022d14:
           MOV.L       LP_GEN_73202+12,R2
           MOV.L       @R2,R3

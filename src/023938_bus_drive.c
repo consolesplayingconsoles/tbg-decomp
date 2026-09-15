@@ -108,9 +108,9 @@ void FUN_8c023cba(void)
             busDriveDecelerate_8c023bea();
             p->x = sign;
             p->z = 0.0f;
-            njUnitMatrix(&var_8c1bc46c);
-            njRotateY(&var_8c1bc46c, var_busState_8c1bb9d0.ang_0x250);
-            njCalcPoint(&var_8c1bc46c, p, p);
+            njUnitMatrix(&var_scratchMatrix_8c1bc46c);
+            njRotateY(&var_scratchMatrix_8c1bc46c, var_busState_8c1bb9d0.ang_0x250);
+            njCalcPoint(&var_scratchMatrix_8c1bc46c, p, p);
             var_busState_8c1bb9d0.dir_x_0x29c = p->x;
             var_busState_8c1bb9d0.dir_z_0x2a0 = p->z;
             if (useDivide) {

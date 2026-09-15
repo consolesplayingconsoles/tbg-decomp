@@ -59,7 +59,7 @@
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
           .IMPORT     _var_fadeRequest_8c226564
-          .IMPORT     _FUN_8c024b4c
+          .IMPORT     _BusRenderSaveCameraState_8c024b4c
           .IMPORT     _SndUpdateAdxVolFade_8c010a40
           .IMPORT     _DriveMsgDraw_8c02b388
           .IMPORT     _FadeCmdPushCall1_8c0223ea
@@ -2232,7 +2232,7 @@ LP_GEN_93947:
           .DATA.L _var_vibport_8c1ba354 ; H'8C02C4AC
           .DATA.L _pdVibMxStop ; H'8C02C4B0
           .DATA.L _var_fadeRequest_8c226564 ; H'8C02C4B4
-          .DATA.L _FUN_8c024b4c ; H'8C02C4B8
+          .DATA.L _BusRenderSaveCameraState_8c024b4c ; H'8C02C4B8
           .DATA.L _SndUpdateAdxVolFade_8c010a40 ; H'8C02C4BC
           .DATA.L _var_driveMsgQueue_8c228564 ; H'8C02C4C0
           .DATA.L _DriveMsgDraw_8c02b388 ; H'8C02C4C4

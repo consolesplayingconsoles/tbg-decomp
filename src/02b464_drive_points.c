@@ -1097,7 +1097,7 @@ STATIC void taskCallback_8c02c072() {
                     }
                     var_8c2285c4[0] = 5;
                     var_fadeRequest_8c226564 = FADE_REQUEST_IN;
-                    FUN_8c024b4c();
+                    BusRenderSaveCameraState_8c024b4c();
                 } else {
                     SndUpdateAdxVolFade_8c010a40();
                 }

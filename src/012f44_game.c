@@ -235,8 +235,8 @@ void FUN_8c01328c() {
     AsqSetSeedA_8c012160(var_seed_8c157a64);
     AsqSetSeedB_8c0121a2(var_seed_8c157a64);
     AsqApplyButtonConfig_8c0121e8();
-    var_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
-    var_8c227da8 = 0;
+    var_savedCameraMode_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
+    var_savedCameraCueState_8c227da8 = 0;
 
     RouteLoadPushTask_8c0144fc();
 }
@@ -261,8 +261,8 @@ void GamePushLoadingTask_8c013310(int p1) {
     AsqSetSeedA_8c012160(var_seed_8c157a64);
     AsqSetSeedB_8c0121a2(var_seed_8c157a64);
     AsqApplyButtonConfig_8c0121e8();
-    var_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
-    var_8c227da8 = 0;
+    var_savedCameraMode_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
+    var_savedCameraCueState_8c227da8 = 0;
 
     RouteLoadPushTask_8c0144fc();
 }
@@ -441,8 +441,8 @@ void GameInit_8c0134ec() {
     AsqRequestNj_8c011492("\\SYSTEM", "fuu.njd", &var_8c1bc444, 0);
     AsqRequestNj_8c011492("\\SYSTEM", "fuu.njm", &var_loadedFooNjm_8c1bc448, 0);
 
-    AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njm", &var_8c1bc410, 0);
-    AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njs", &var_8c1bc414, 0);
+    AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njm", &var_busDoorMotion_8c1bc410, 0);
+    AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njs", &var_busDoorShape_8c1bc414, 0);
 
     RouteLoadResetPvmReady_8c014322();
     AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadSetPvmReady_8c014330);

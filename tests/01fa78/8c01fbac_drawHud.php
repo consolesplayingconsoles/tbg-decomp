@@ -38,7 +38,7 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_markTexlist_8c1bc418', 4);
         $this->setSize('_var_busStopTexlist_8c1bc424', 4);
-        $this->setSize('_var_8c1bc46c', 0x40);
+        $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_driverPoints_8c2285d0', 4);
 
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
@@ -131,7 +131,7 @@ return new class extends TestCase {
     // unconditionally every frame after the needle-position update.
     private function assertNeedleAndSpeedTail(int $angleDividend, int $angleReturn, int $speed): void
     {
-        $mat = $this->addressOf('_var_8c1bc46c');
+        $mat = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $init045414 = $this->addressOf('_init_8c045414');
         $vtx = $this->addressOf('_var_8c226478');
 
@@ -216,7 +216,7 @@ return new class extends TestCase {
 
         $this->shouldWriteFloat($base + 0x2c, 100.0); // uknVol -= 200
 
-        $mat = $this->addressOf('_var_8c1bc46c');
+        $mat = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $init045414 = $this->addressOf('_init_8c045414');
         $vtx = $this->addressOf('_var_8c226478');
         $this->shouldCall('_njUnitMatrix')->with($mat);

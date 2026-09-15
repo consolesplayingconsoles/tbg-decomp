@@ -5,22 +5,22 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _FUN_8c024bb8(void *altLight): lights, textures and draws the
+ * _BusRenderDrawBusModel_8c024bb8(void *altLight): lights, textures and draws the
  * third-person bus model with its door/etc shape motion. altLight only
- * selects the light direction (non-NULL -> var_8c227dc4, NULL ->
+ * selects the light direction (non-NULL -> var_mirrorLightDir_8c227dc4, NULL ->
  * var_busSimpleLightDir_8c227db8). The drawn object is always
  * busState.modelLarge_0x00c; only the animation frame depends on the special
- * bus substate (bus_substate_0x3c0 != 0 -> var_8c227db0, else frame 0).
+ * bus substate (bus_substate_0x3c0 != 0 -> var_busDoorFrame_8c227db0, else frame 0).
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busSimpleLightDir_8c227db8', 0xc);
-        $this->setSize('_var_8c227dc4', 0xc);
+        $this->setSize('_var_mirrorLightDir_8c227dc4', 0xc);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_8c1bc410', 4);
-        $this->setSize('_var_8c1bc414', 4);
-        $this->setSize('_var_8c227db0', 4);
+        $this->setSize('_var_busDoorMotion_8c1bc410', 4);
+        $this->setSize('_var_busDoorShape_8c1bc414', 4);
+        $this->setSize('_var_busDoorFrame_8c227db0', 4);
         $this->setSize('_BusDrawUpdateModels_8c027958', 4);
         $this->setSize('_njCnkSetSimpleLight', 4);
         $this->setSize('_njCnkSetSimpleLightIntensity', 4);
@@ -52,8 +52,8 @@ return new class extends TestCase {
         $this->initUint32($base + 0x4, 0x11223344);
         $this->initUint32($base + 0xc, 0x77665544);
         $this->initUint32($base + 0x14, 0xaabbccdd);
-        $this->initUint32($this->addressOf('_var_8c1bc410'), 0x22334455);
-        $this->initUint32($this->addressOf('_var_8c1bc414'), 0x33445566);
+        $this->initUint32($this->addressOf('_var_busDoorMotion_8c1bc410'), 0x22334455);
+        $this->initUint32($this->addressOf('_var_busDoorShape_8c1bc414'), 0x33445566);
     }
 
     public function test_null_light_normal_substate_draws_frame_zero(): void
@@ -69,7 +69,7 @@ return new class extends TestCase {
         $this->initFloat($lightDir + 0x4, 0.2);
         $this->initFloat($lightDir + 0x8, 0.3);
 
-        $this->call('_FUN_8c024bb8')->with(0);
+        $this->call('_BusRenderDrawBusModel_8c024bb8')->with(0);
 
         $this->shouldCall('_njCnkSetSimpleLight')->with($this->f32(0.1), $this->f32(0.2), $this->f32(0.3));
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.5, 2.5);
@@ -90,14 +90,14 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($base + 0x3c0, 1);
         $this->seedCommonBusState($base);
-        $this->initFloat($this->addressOf('_var_8c227db0'), 12.5);
+        $this->initFloat($this->addressOf('_var_busDoorFrame_8c227db0'), 12.5);
 
-        $altDir = $this->addressOf('_var_8c227dc4');
+        $altDir = $this->addressOf('_var_mirrorLightDir_8c227dc4');
         $this->initFloat($altDir + 0x0, 0.4);
         $this->initFloat($altDir + 0x4, 0.5);
         $this->initFloat($altDir + 0x8, 0.6);
 
-        $this->call('_FUN_8c024bb8')->with(0x99887766);
+        $this->call('_BusRenderDrawBusModel_8c024bb8')->with(0x99887766);
 
         $this->shouldCall('_njCnkSetSimpleLight')->with($this->f32(0.4), $this->f32(0.5), $this->f32(0.6));
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.5, 2.5);

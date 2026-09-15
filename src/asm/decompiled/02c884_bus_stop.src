@@ -40,7 +40,7 @@
           .IMPORT     _var_8c2288fc
           .IMPORT     _var_8c228714
           .IMPORT     _var_stopAreaTable_8c1bb870
-          .IMPORT     _var_8c1bc46c
+          .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njTranslate
           .IMPORT     _njRotateY
@@ -782,7 +782,7 @@ LP_GEN_16762:
           .DATA.L _var_8c228714 ; H'8C02CE10
           .DATA.L H'FFFF0000 ; H'8C02CE14
           .DATA.L _var_stopAreaTable_8c1bb870 ; H'8C02CE18
-          .DATA.L _var_8c1bc46c ; H'8C02CE1C
+          .DATA.L _var_scratchMatrix_8c1bc46c ; H'8C02CE1C
           .DATA.L _njUnitMatrix ; H'8C02CE20
           .DATA.L _njTranslate ; H'8C02CE24
           .DATA.L _njRotateY ; H'8C02CE28

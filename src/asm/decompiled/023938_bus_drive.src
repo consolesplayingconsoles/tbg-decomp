@@ -5,7 +5,7 @@
           .IMPORT     _var_wallHitBits_8c228660
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_groundQueryPoint_8c1bc460
-          .IMPORT     _var_8c1bc46c
+          .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njRotateY
           .IMPORT     _njCalcPoint
@@ -590,7 +590,7 @@ LP_GEN_13112:
           .DATA.W H'02A0 ; H'8C023D92
           .DATA.L _var_busState_8c1bb9d0 ; H'8C023D94
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C023D98
-          .DATA.L _var_8c1bc46c ; H'8C023D9C
+          .DATA.L _var_scratchMatrix_8c1bc46c ; H'8C023D9C
           .DATA.L _njUnitMatrix ; H'8C023DA0
           .DATA.L _njRotateY ; H'8C023DA4
           .DATA.L _njCalcPoint ; H'8C023DA8
@@ -768,7 +768,7 @@ LP_GEN_21361:
           .DATA.W H'0334 ; H'8C023EF2
           .DATA.W H'0338 ; H'8C023EF4
           .DATA.W H'033C ; H'8C023EF6
-          .DATA.L _var_8c1bc46c ; H'8C023EF8
+          .DATA.L _var_scratchMatrix_8c1bc46c ; H'8C023EF8
           .DATA.L _njUnitMatrix ; H'8C023EFC
           .DATA.L _njRotateY ; H'8C023F00
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C023F04

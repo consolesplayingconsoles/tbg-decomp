@@ -14,13 +14,13 @@ if (!function_exists('fdec')) {
 
 /*
  * _BusRenderUpdateCamera_8c025078(void): drives the gameplay camera each
- * frame. First eases var_8c227df0 between var_8c227dd8 and a target via a
- * quarter-sine ramp over var_8c227df8, driven by a state machine on
- * var_8c227da4 (0..3) gated by a scripted cue nibble in
+ * frame. First eases var_cameraHeight_8c227df0 between var_cameraHeightFrom_8c227dd8 and a target via a
+ * quarter-sine ramp over var_cameraHeightPhase_8c227df8, driven by a state machine on
+ * var_cameraCueState_8c227da4 (0..3) gated by a scripted cue nibble in
  * busState.markAudioCue_0x3b8's bits 24-27. The Y button cycles the camera mode
  * var_cameraMode_8c227d9c (0..3) when allowed. Then positions/aims the camera per
  * var_cameraMode_8c227d9c (0=fixed follow, 1=bump/sway follow, 2/3=smooth chase via
- * positionCamera_8c024d6c, 4=fixed on var_8c227d90; modes 0/1 also
+ * positionCamera_8c024d6c, 4=fixed on var_fixedCameraTarget_8c227d90; modes 0/1 also
  * roll by recent Y history), activates the camera, recomputes the simple
  * light direction, and queues the bus draw callback for modes 0/2/3.
  */
@@ -32,18 +32,18 @@ return new class extends TestCase {
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
-        $this->setSize('_var_8c227da0', 4);
-        $this->setSize('_var_8c227da4', 4);
-        $this->setSize('_var_8c227da8', 4);
-        $this->setSize('_var_8c227dac', 4);
-        $this->setSize('_var_8c227dd8', 4);
-        $this->setSize('_var_8c227de0', 4);
-        $this->setSize('_var_8c227de8', 4);
-        $this->setSize('_var_8c227df0', 4);
-        $this->setSize('_var_8c227df8', 4);
-        $this->setSize('_var_8c227d90', 0xc);
-        $this->setSize('_var_8c1bb904', 0x40);
-        $this->setSize('_var_8c1bc46c', 0x40);
+        $this->setSize('_var_savedCameraMode_8c227da0', 4);
+        $this->setSize('_var_cameraCueState_8c227da4', 4);
+        $this->setSize('_var_savedCameraCueState_8c227da8', 4);
+        $this->setSize('_var_cameraCueBusy_8c227dac', 4);
+        $this->setSize('_var_cameraHeightFrom_8c227dd8', 4);
+        $this->setSize('_var_cameraHeightTo_8c227de0', 4);
+        $this->setSize('_var_cameraHeightDelta_8c227de8', 4);
+        $this->setSize('_var_cameraHeight_8c227df0', 4);
+        $this->setSize('_var_cameraHeightPhase_8c227df8', 4);
+        $this->setSize('_var_fixedCameraTarget_8c227d90', 0xc);
+        $this->setSize('_var_camera_8c1bb904', 0x40);
+        $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_8c1bbc84', 4);
@@ -107,13 +107,13 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0); // press
         $this->initUint32($this->addressOf('_var_8c1bbc84'), 0);
-        $this->initUint32($this->addressOf('_var_8c227dac'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
 
         $this->initFloat($this->addressOf('_var_fogParam_8c227dd0'), 12.5);
         $this->initUint32($base + 0x078, 0); // pitchAngle_0x078
         $this->initUint32($base + 0x07c, 777); // rollAngle_0x07c
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc7 + 1, 0); // progress flag clear
-        $this->initFloat($this->addressOf('_var_8c227df0'), 0.0);
+        $this->initFloat($this->addressOf('_var_cameraHeight_8c227df0'), 0.0);
 
         $scene = $this->allocSceneParams(0.1, 0.2, 0.3);
         $this->initUint32($this->addressOf('_var_sceneParams_8c18ad24'), $scene);
@@ -122,14 +122,14 @@ return new class extends TestCase {
     /** Asserts the always-executed camera init + tail (light dir, no draw dispatch). */
     private function expectAlwaysAndTail(bool $expectDraw = false, ?string $drawFn = null): void
     {
-        $this->shouldCall('_njInitCamera')->with($this->addressOf('_var_8c1bb904'));
-        $this->shouldCall('_njSetCameraAngle')->with($this->addressOf('_var_8c1bb904'), 10194);
-        $this->shouldCall('_njSetCameraDepth')->with($this->addressOf('_var_8c1bb904'), -1.0, 12.5);
+        $this->shouldCall('_njInitCamera')->with($this->addressOf('_var_camera_8c1bb904'));
+        $this->shouldCall('_njSetCameraAngle')->with($this->addressOf('_var_camera_8c1bb904'), 10194);
+        $this->shouldCall('_njSetCameraDepth')->with($this->addressOf('_var_camera_8c1bb904'), -1.0, 12.5);
     }
 
     private function expectTail(?string $drawFn = null): void
     {
-        $this->shouldCall('_njSetCamera')->with($this->addressOf('_var_8c1bb904'));
+        $this->shouldCall('_njSetCamera')->with($this->addressOf('_var_camera_8c1bb904'));
         $this->shouldWriteFloat($this->addressOf('_var_busSimpleLightDir_8c227db8'), 0.1);
         $this->shouldWriteFloat($this->addressOf('_var_busSimpleLightDir_8c227db8') + 4, 0.2);
         $this->shouldWriteFloat($this->addressOf('_var_busSimpleLightDir_8c227db8') + 8, 0.3);
@@ -144,7 +144,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99); // sentinel: no valid positioning mode
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
@@ -158,25 +158,25 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->setCue($base, 0x05000000); // nibble 5
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 3);
-        $this->initFloat($this->addressOf('_var_8c227df0'), 12.0);
+        $this->initFloat($this->addressOf('_var_cameraHeight_8c227df0'), 12.0);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        $this->shouldWriteFloat($this->addressOf('_var_8c227de0'), 5.0);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227dd8'), 12.0);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227de8'), $this->f32(12.0 - 5.0));
-        $this->shouldWriteLong($this->addressOf('_var_8c227df8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c227dac'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c227da4'), 1);
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeightTo_8c227de0'), 5.0);
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeightFrom_8c227dd8'), 12.0);
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeightDelta_8c227de8'), $this->f32(12.0 - 5.0));
+        $this->shouldWriteLong($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cameraCueBusy_8c227dac'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_cameraCueState_8c227da4'), 1);
 
         $this->expectAlwaysAndTail();
 
         $this->shouldCall('_positionCamera_8c024d6c')->with(30.0, 12.0, 2.0);
 
-        $this->expectTail('_FUN_8c024bb8');
+        $this->expectTail('_BusRenderDrawBusModel_8c024bb8');
     }
 
     public function test_transition_da4_1_continues_ramp(): void
@@ -184,17 +184,17 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 1);
-        $this->initUint32($this->addressOf('_var_8c227df8'), 0x1000);
-        $this->initFloat($this->addressOf('_var_8c227dd8'), 10.0);
-        $this->initFloat($this->addressOf('_var_8c227de8'), 4.0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 1);
+        $this->initUint32($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0x1000);
+        $this->initFloat($this->addressOf('_var_cameraHeightFrom_8c227dd8'), 10.0);
+        $this->initFloat($this->addressOf('_var_cameraHeightDelta_8c227de8'), 4.0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227df8'), 0x1000 + 0x222);
+        $this->shouldWriteLong($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0x1000 + 0x222);
         $this->shouldCall('_njSin')->with(0x1000 + 0x222)->andReturn(0.5);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227df0'), $this->f32(10.0 - $this->f32(0.5 * 4.0)));
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeight_8c227df0'), $this->f32(10.0 - $this->f32(0.5 * 4.0)));
 
         $this->expectAlwaysAndTail();
         $this->expectTail(null);
@@ -205,17 +205,17 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 1);
-        $this->initUint32($this->addressOf('_var_8c227df8'), 0x3f00);
-        $this->initFloat($this->addressOf('_var_8c227de0'), 20.0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 1);
+        $this->initUint32($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0x3f00);
+        $this->initFloat($this->addressOf('_var_cameraHeightTo_8c227de0'), 20.0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227df8'), 0x3f00 + 0x222);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227df0'), 20.0);
-        $this->shouldWriteLong($this->addressOf('_var_8c227dac'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c227da4'), 2);
+        $this->shouldWriteLong($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0x3f00 + 0x222);
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeight_8c227df0'), 20.0);
+        $this->shouldWriteLong($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cameraCueState_8c227da4'), 2);
 
         $this->expectAlwaysAndTail();
         $this->expectTail(null);
@@ -226,7 +226,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 2);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 2);
         $this->setCue($base, 0); // not exactly 0x09000000
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
@@ -241,25 +241,25 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 2);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 2);
         $this->setCue($base, 0x09000000);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2);
-        $this->initFloat($this->addressOf('_var_8c227df0'), 3.0); // < 5.0
+        $this->initFloat($this->addressOf('_var_cameraHeight_8c227df0'), 3.0); // < 5.0
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        $this->shouldWriteFloat($this->addressOf('_var_8c227de0'), 5.0);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227dd8'), 3.0);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227de8'), $this->f32(5.0 - 3.0));
-        $this->shouldWriteLong($this->addressOf('_var_8c227df8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c227dac'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c227da4'), 3);
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeightTo_8c227de0'), 5.0);
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeightFrom_8c227dd8'), 3.0);
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeightDelta_8c227de8'), $this->f32(5.0 - 3.0));
+        $this->shouldWriteLong($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cameraCueBusy_8c227dac'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_cameraCueState_8c227da4'), 3);
 
         $this->expectAlwaysAndTail();
 
         $this->shouldCall('_positionCamera_8c024d6c')->with(18.0, 3.0, 0.5);
 
-        $this->expectTail('_FUN_8c024bb8');
+        $this->expectTail('_BusRenderDrawBusModel_8c024bb8');
     }
 
     public function test_transition_da4_3_continues_ramp(): void
@@ -267,17 +267,17 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 3);
-        $this->initUint32($this->addressOf('_var_8c227df8'), 0x2000);
-        $this->initFloat($this->addressOf('_var_8c227dd8'), 6.0);
-        $this->initFloat($this->addressOf('_var_8c227de8'), 2.0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 3);
+        $this->initUint32($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0x2000);
+        $this->initFloat($this->addressOf('_var_cameraHeightFrom_8c227dd8'), 6.0);
+        $this->initFloat($this->addressOf('_var_cameraHeightDelta_8c227de8'), 2.0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227df8'), 0x2000 + 0x222);
+        $this->shouldWriteLong($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0x2000 + 0x222);
         $this->shouldCall('_njSin')->with(0x2000 + 0x222)->andReturn(0.25);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227df0'), $this->f32(6.0 + $this->f32(0.25 * 2.0)));
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeight_8c227df0'), $this->f32(6.0 + $this->f32(0.25 * 2.0)));
 
         $this->expectAlwaysAndTail();
         $this->expectTail(null);
@@ -288,17 +288,17 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 3);
-        $this->initUint32($this->addressOf('_var_8c227df8'), 0x3f00);
-        $this->initFloat($this->addressOf('_var_8c227de0'), 8.0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 3);
+        $this->initUint32($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0x3f00);
+        $this->initFloat($this->addressOf('_var_cameraHeightTo_8c227de0'), 8.0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 99);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        $this->shouldWriteLong($this->addressOf('_var_8c227df8'), 0x3f00 + 0x222);
-        $this->shouldWriteFloat($this->addressOf('_var_8c227df0'), 8.0);
-        $this->shouldWriteLong($this->addressOf('_var_8c227dac'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c227da4'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cameraHeightPhase_8c227df8'), 0x3f00 + 0x222);
+        $this->shouldWriteFloat($this->addressOf('_var_cameraHeight_8c227df0'), 8.0);
+        $this->shouldWriteLong($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_cameraCueState_8c227da4'), 0);
 
         $this->expectAlwaysAndTail();
         $this->expectTail(null);
@@ -309,23 +309,23 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
         $this->initUint32($this->addressOf('_var_8c1bbc84'), 1);
-        $this->initUint32($this->addressOf('_var_8c227dac'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 1);
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_cameraMode_8c227d9c'), 2);
-        $this->shouldCall('_FUN_8c024f32');
+        $this->shouldCall('_BusRenderApplyCameraMode_8c024f32');
 
         $this->expectAlwaysAndTail();
 
         // Positioning for the new mode (2) follows.
         $this->shouldCall('_positionCamera_8c024d6c')->with(18.0, 0.0, 0.5);
 
-        $this->expectTail('_FUN_8c024bb8');
+        $this->expectTail('_BusRenderDrawBusModel_8c024bb8');
     }
 
     public function test_y_button_wraps_mode_to_zero(): void
@@ -333,10 +333,10 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
         $this->initUint32($this->addressOf('_var_8c1bbc84'), 1);
-        $this->initUint32($this->addressOf('_var_8c227dac'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 3);
 
         $this->initFloat($base + 0x0f4, 5.0);
@@ -351,7 +351,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_cameraMode_8c227d9c'), 4);
         $this->shouldWriteLong($this->addressOf('_var_cameraMode_8c227d9c'), 0);
-        $this->shouldCall('_FUN_8c024f32');
+        $this->shouldCall('_BusRenderApplyCameraMode_8c024f32');
 
         $this->expectAlwaysAndTail();
 
@@ -360,14 +360,14 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x300, $this->f32(6.0 + 0.0 + 2.0));
 
         $this->shouldCall('__divls');
-        $this->shouldCall('_njSetMatrix')->with($this->addressOf('_var_8c1bc46c'), $base + 0x084);
-        $this->shouldCall('_njRotateY')->with($this->addressOf('_var_8c1bc46c'), 0);
+        $this->shouldCall('_njSetMatrix')->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), $base + 0x084);
+        $this->shouldCall('_njRotateY')->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_groundQueryPoint_8c1bc460'), 0.0);
         $this->shouldWriteFloat($this->addressOf('_var_groundQueryPoint_8c1bc460') + 4, 2.0);
         $this->shouldWriteFloat($this->addressOf('_var_groundQueryPoint_8c1bc460') + 8, -1.0);
         $groundPt = $this->addressOf('_var_groundQueryPoint_8c1bc460');
         $this->shouldCall('_njCalcPoint')
-            ->with($this->addressOf('_var_8c1bc46c'), $groundPt, $groundPt)
+            ->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), $groundPt, $groundPt)
             ->do(function () use ($groundPt) {
                 $this->memory->writeUInt32($groundPt + 0x0, U32::of(fdec(1.0)));
                 $this->memory->writeUInt32($groundPt + 0x4, U32::of(fdec(2.0)));
@@ -378,13 +378,13 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x310, $this->f32(7.0 - 3.0));
         $this->shouldWriteFloat($base + 0x314, 1.0);
 
-        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_8c1bb904'), 5.0, $this->f32(6.0 + 2.0), 7.0);
-        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_8c1bb904'), 1.0, 2.0, 3.0);
+        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_camera_8c1bb904'), 5.0, $this->f32(6.0 + 2.0), 7.0);
+        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), 1.0, 2.0, 3.0);
 
         $angle = 90.0;
         $this->shouldCall('_atan2f')->with(0.0, 2.33)->andReturn($angle);
         $rollAngle = (int) $this->f32($this->f32($angle * 65536.0) / 6.283184) + 777;
-        $this->shouldCall('_njRollCameraInterest')->with($this->addressOf('_var_8c1bb904'), $rollAngle);
+        $this->shouldCall('_njRollCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), $rollAngle);
 
         $this->expectTail('_drawFrontBusModel_8c024cc8');
     }
@@ -394,20 +394,20 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
         $this->initUint32($this->addressOf('_var_8c1bbc84'), 1);
-        $this->initUint32($this->addressOf('_var_8c227dac'), 1); // ramping
+        $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 1); // ramping
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2); // >= 2
 
         $this->call('_BusRenderUpdateCamera_8c025078')->with();
 
-        // No advance, no FUN_8c024f32 call.
+        // No advance, no BusRenderApplyCameraMode_8c024f32 call.
         $this->expectAlwaysAndTail();
 
         $this->shouldCall('_positionCamera_8c024d6c')->with(18.0, 0.0, 0.5);
 
-        $this->expectTail('_FUN_8c024bb8');
+        $this->expectTail('_BusRenderDrawBusModel_8c024bb8');
     }
 
     public function test_positioning_mode0_progress_flag_clear(): void
@@ -415,7 +415,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->initUint32($base + 0x078, 0); // pitchAngle_0x078
         $this->initUint32($base + 0x07c, 321); // rollAngle_0x07c
@@ -440,14 +440,14 @@ return new class extends TestCase {
         $this->shouldCall('__divls');
         $this->shouldWriteLong($base + 0x3c8, 70); // 10 + 60, below 100 target: no clamp
 
-        $this->shouldCall('_njSetMatrix')->with($this->addressOf('_var_8c1bc46c'), $base + 0x084);
-        $this->shouldCall('_njRotateY')->with($this->addressOf('_var_8c1bc46c'), 70);
+        $this->shouldCall('_njSetMatrix')->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), $base + 0x084);
+        $this->shouldCall('_njRotateY')->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), 70);
         $this->shouldWriteFloat($this->addressOf('_var_groundQueryPoint_8c1bc460'), 0.0);
         $this->shouldWriteFloat($this->addressOf('_var_groundQueryPoint_8c1bc460') + 4, 2.0);
         $this->shouldWriteFloat($this->addressOf('_var_groundQueryPoint_8c1bc460') + 8, -1.0);
         $groundPt = $this->addressOf('_var_groundQueryPoint_8c1bc460');
         $this->shouldCall('_njCalcPoint')
-            ->with($this->addressOf('_var_8c1bc46c'), $groundPt, $groundPt)
+            ->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), $groundPt, $groundPt)
             ->do(function () use ($groundPt) {
                 $this->memory->writeUInt32($groundPt + 0x0, U32::of(fdec(0.5)));
                 $this->memory->writeUInt32($groundPt + 0x4, U32::of(fdec(0.6)));
@@ -458,13 +458,13 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x310, $this->f32(3.0 - 0.7));
         $this->shouldWriteFloat($base + 0x314, 1.0);
 
-        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_8c1bb904'), 1.0, $this->f32(2.0 + 2.0), 3.0);
-        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_8c1bb904'), 0.5, 0.6, 0.7);
+        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_camera_8c1bb904'), 1.0, $this->f32(2.0 + 2.0), 3.0);
+        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), 0.5, 0.6, 0.7);
 
         $angle = 45.0;
         $this->shouldCall('_atan2f')->with(0.0, 2.33)->andReturn($angle);
         $rollAngle = (int) $this->f32($this->f32($angle * 65536.0) / 6.283184) + 321;
-        $this->shouldCall('_njRollCameraInterest')->with($this->addressOf('_var_8c1bb904'), $rollAngle);
+        $this->shouldCall('_njRollCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), $rollAngle);
 
         $this->expectTail('_drawFrontBusModel_8c024cc8');
     }
@@ -474,7 +474,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->initUint32($base + 0x078, 0); // pitchAngle_0x078
         $this->initUint32($base + 0x07c, 999); // rollAngle_0x07c (overridden to 0)
@@ -500,14 +500,14 @@ return new class extends TestCase {
         $this->shouldCall('__divls');
         $this->shouldWriteLong($base + 0x3c8, 340); // 400 - 60, above 200 target: no clamp
 
-        $this->shouldCall('_njSetMatrix')->with($this->addressOf('_var_8c1bc46c'), $base + 0x084);
-        $this->shouldCall('_njRotateY')->with($this->addressOf('_var_8c1bc46c'), 340);
+        $this->shouldCall('_njSetMatrix')->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), $base + 0x084);
+        $this->shouldCall('_njRotateY')->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), 340);
         $groundPt = $this->addressOf('_var_groundQueryPoint_8c1bc460');
         $this->shouldWriteFloat($groundPt, 0.0);
         $this->shouldWriteFloat($groundPt + 4, 2.0);
         $this->shouldWriteFloat($groundPt + 8, -1.0);
         $this->shouldCall('_njCalcPoint')
-            ->with($this->addressOf('_var_8c1bc46c'), $groundPt, $groundPt)
+            ->with($this->addressOf('_var_scratchMatrix_8c1bc46c'), $groundPt, $groundPt)
             ->do(function () use ($groundPt) {
                 $this->memory->writeUInt32($groundPt + 0x0, U32::of(fdec(0.1)));
                 $this->memory->writeUInt32($groundPt + 0x4, U32::of(fdec(0.2)));
@@ -518,14 +518,14 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x310, $this->f32(3.0 - 0.3));
         $this->shouldWriteFloat($base + 0x314, 1.0);
 
-        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_8c1bb904'), 1.0, $this->f32(2.0 + 2.0), 3.0);
-        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_8c1bb904'), 0.1, 0.2, 0.3);
+        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_camera_8c1bb904'), 1.0, $this->f32(2.0 + 2.0), 3.0);
+        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), 0.1, 0.2, 0.3);
 
         $angle = -30.0;
         $this->shouldCall('_atan2f')->with(0.0, 2.33)->andReturn($angle);
         // ang forced to 0 by the progress flag.
         $rollAngle = (int) $this->f32($this->f32($angle * 65536.0) / 6.283184) + 0;
-        $this->shouldCall('_njRollCameraInterest')->with($this->addressOf('_var_8c1bb904'), $rollAngle);
+        $this->shouldCall('_njRollCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), $rollAngle);
 
         $this->expectTail('_drawFrontBusModel_8c024cc8');
     }
@@ -535,7 +535,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 1);
         $this->initUint32($base + 0x078, 0);
         $this->initUint32($base + 0x07c, 42);
@@ -565,13 +565,13 @@ return new class extends TestCase {
         $posY = $this->f32($this->f32(2.0 * $ratio) + 20.0 + 0.0 + 2.0);
         $this->shouldWriteFloat($base + 0x300, $posY);
 
-        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_8c1bb904'), $this->f32(10.0 + 2.0), $posY, $this->f32(30.0 + -3.0));
-        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_8c1bb904'), 10.0, $this->f32(20.0 + 2.0), 30.0);
+        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_camera_8c1bb904'), $this->f32(10.0 + 2.0), $posY, $this->f32(30.0 + -3.0));
+        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), 10.0, $this->f32(20.0 + 2.0), 30.0);
 
         $angle = 12.0;
         $this->shouldCall('_atan2f')->with(0.0, 2.33)->andReturn($angle);
         $rollAngle = (int) $this->f32($this->f32($angle * 65536.0) / 6.283184) + 42;
-        $this->shouldCall('_njRollCameraInterest')->with($this->addressOf('_var_8c1bb904'), $rollAngle);
+        $this->shouldCall('_njRollCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), $rollAngle);
 
         $this->expectTail(null);
     }
@@ -581,14 +581,14 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->seedCommon($base);
-        $this->initUint32($this->addressOf('_var_8c227da4'), 0);
+        $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 4);
 
         $this->initFloat($base + 0x2fc, 50.0);
         $this->initFloat($base + 0x300, 60.0);
         $this->initFloat($base + 0x304, 70.0);
 
-        $d90 = $this->addressOf('_var_8c227d90');
+        $d90 = $this->addressOf('_var_fixedCameraTarget_8c227d90');
         $this->initFloat($d90 + 0x0, 5.0);
         $this->initFloat($d90 + 0x4, 6.0);
         $this->initFloat($d90 + 0x8, 7.0);
@@ -600,8 +600,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x308, $this->f32(50.0 - 5.0));
         $this->shouldWriteFloat($base + 0x310, $this->f32(70.0 - 7.0));
 
-        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_8c1bb904'), 50.0, 60.0, 70.0);
-        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_8c1bb904'), 5.0, 6.0, 7.0);
+        $this->shouldCall('_njTranslateCameraPosition')->with($this->addressOf('_var_camera_8c1bb904'), 50.0, 60.0, 70.0);
+        $this->shouldCall('_njPointCameraInterest')->with($this->addressOf('_var_camera_8c1bb904'), 5.0, 6.0, 7.0);
 
         // No roll for mode 4.
         $this->expectTail(null);

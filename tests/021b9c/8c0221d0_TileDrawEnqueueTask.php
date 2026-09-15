@@ -19,8 +19,8 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_njSetCamera', 4);
-        $this->setSize('_var_8c1bb904', 0x40);
-        $this->setSize('_var_8c1bb944', 0x40);
+        $this->setSize('_var_camera_8c1bb904', 0x40);
+        $this->setSize('_var_mirrorCamera_8c1bb944', 0x40);
         $this->setSize('_var_8c226538', 4 * 3);
         $this->setSize('_var_fadeLightDir0_8c2264d8', 4 * 3);
         $this->setSize('_var_fadeLightDir1_8c2264e4', 4 * 3);
@@ -58,8 +58,8 @@ return new class extends TestCase {
 
         $this->call('_TileDrawEnqueueTask_8c0221d0')->with($task, $state);
 
-        $camera0 = $this->addressOf('_var_8c1bb904');
-        $camera1 = $this->addressOf('_var_8c1bb944');
+        $camera0 = $this->addressOf('_var_camera_8c1bb904');
+        $camera1 = $this->addressOf('_var_mirrorCamera_8c1bb944');
         $dir1 = $this->addressOf('_var_8c226538');
         $dir0 = $this->addressOf('_var_fadeLightDir0_8c2264d8');
         $dir2 = $this->addressOf('_var_fadeLightDir1_8c2264e4');

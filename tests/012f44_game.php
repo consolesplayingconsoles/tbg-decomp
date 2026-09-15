@@ -492,8 +492,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_8c1bc440'), 1, 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_8c1bc444'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_loadedFooNjm_8c1bc448'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_8c1bc410'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_8c1bc414'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
         $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetPvmReady_8c014330'));;
@@ -646,8 +646,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_8c1bc440'), 1, 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_8c1bc444'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_loadedFooNjm_8c1bc448'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_8c1bc410'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_8c1bc414'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
         $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetPvmReady_8c014330'));;
@@ -800,8 +800,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_8c1bc440'), 1, 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_8c1bc444'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_loadedFooNjm_8c1bc448'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_8c1bc410'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_8c1bc414'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
         $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetPvmReady_8c014330'));;
@@ -954,8 +954,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_8c1bc440'), 1, 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_8c1bc444'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_loadedFooNjm_8c1bc448'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_8c1bc410'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_8c1bc414'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
         $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetPvmReady_8c014330'));;

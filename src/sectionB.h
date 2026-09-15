@@ -477,8 +477,8 @@ extern float var_busCameraFocusZ_8c1bbce0;
 extern void* var_messageTextBoxA_8c1bc404;
 extern void* var_messageTextBoxB_8c1bc408; /* second half of the double-buffered message textbox pair */
 extern int var_messageTextBoxIndex_8c1bc40c;   /* active index (0/1) into (&var_messageTextBoxA_8c1bc404)[idx] */
-extern NJS_MOTION* var_8c1bc410;
-extern void* var_8c1bc414;
+extern NJS_MOTION* var_busDoorMotion_8c1bc410;
+extern void* var_busDoorShape_8c1bc414;
 extern void* var_8c1bc440;
 extern void* var_8c1bc444;
 /* Current "fuu" stop-marker animation frame, driven by
@@ -486,9 +486,9 @@ extern void* var_8c1bc444;
  * the bus approaches a stop, wrapping to 0 at var_8c1bc450. */
 extern float var_8c1bc44c;
 extern float var_8c1bc450;
-/* Scratch matrix for the "fuu" stop-marker model, built each frame by
- * drawStopMarker_8c02cd92 (02c884). */
-extern NJS_MATRIX var_8c1bc46c;
+/* Shared scratch matrix, rebuilt by each user before it reads it back
+ * (01fa78, 023938, 024b4c, 02c884). */
+extern NJS_MATRIX var_scratchMatrix_8c1bc46c;
 extern NJS_POINT3 var_groundQueryPoint_8c1bc460; // scratch world point for ground-height queries, e.g. FUN_8c02840c
 extern void* var_vmGameBuf_8c1bc454;
 extern float var_crossingIntersectPoint_8c1bc458; // IntersectSegments_8c0206f0's intersection-point output (x); [1] (var_8c1bc45c) holds y
@@ -568,8 +568,8 @@ extern float var_nightLightIntensityOff1_8c1bbdac;
 extern void* var_busstopDat_8c1bc42c;
 extern void* var_busstopPartsDat_8c1bc428;
 extern NJS_TEXLIST *var_busStopTexlist_8c1bc424;
-extern NJS_CAMERA var_8c1bb904; // 021b9c
-extern NJS_CAMERA var_8c1bb944; // 021b9c
+extern NJS_CAMERA var_camera_8c1bb904; // 021b9c
+extern NJS_CAMERA var_mirrorCamera_8c1bb944; // 021b9c
 extern NJS_CAMERA var_8c1bb984; // 022464
 extern FadeMirrorSelect var_mirrorSelect_8c1bbc38; // 022464: which wing mirror FadeUpdate_8c022560 draws; real object is 20 bytes, rest unexplored
 extern CurrentCourse var_currentCourse_8c1bb868;
@@ -728,39 +728,42 @@ extern LineBusNode *var_8c227d88;
 extern int var_8c227d8c; // 024280
 /* Fixed camera-interest point for BusRenderUpdateCamera_8c025078's
  * var_cameraMode_8c227d9c==4 mode. */
-extern float var_8c227d90[3];
+extern float var_fixedCameraTarget_8c227d90[3];
 extern int var_cameraMode_8c227d9c;
-extern Uint32 var_8c227da0;
-extern int var_8c227da4; /* 02d19c/024b4c: shifted into var_8c227da8 each frame alongside var_cameraMode_8c227d9c->var_8c227da0 */
-extern int var_8c227da8;
-extern int var_8c227dac; /* zeroed alongside var_cameraMode_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
+extern Uint32 var_savedCameraMode_8c227da0;
+extern int var_cameraCueState_8c227da4; /* 02d19c/024b4c: shifted into var_savedCameraCueState_8c227da8 each frame alongside var_cameraMode_8c227d9c->var_savedCameraMode_8c227da0 */
+extern int var_savedCameraCueState_8c227da8;
+extern int var_cameraCueBusy_8c227dac; /* zeroed alongside var_cameraMode_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
 /* Door-timer counter driven by BusTask_8c022bdc (022bdc): counts up by 0.5/frame
- * while boarding (bus_substate_0x3c0==1), capped at var_8c227db4, then counts
+ * while boarding (bus_substate_0x3c0==1), capped at var_busDoorLastFrame_8c227db4, then counts
  * back down by 0.5/frame once departing (bus_substate_0x3c0==3) until it hits 0. */
-extern float var_8c227db0;
-/* var_8c1bc410->nbFrame - 1.0, set by BusInitStart_8c023610, read by BusTask_8c022bdc
+extern float var_busDoorFrame_8c227db0;
+/* var_busDoorMotion_8c1bc410->nbFrame - 1.0, set by BusInitStart_8c023610, read by BusTask_8c022bdc
  * (022bdc). */
-extern float var_8c227db4;
+extern float var_busDoorLastFrame_8c227db4;
 extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by BusRenderUpdateCamera_8c025078
-extern float var_8c227dc4[3];
+extern float var_mirrorLightDir_8c227dc4[3];
 /* Which attract-mode shot is showing, so demoShotTask_8c0259e8 only cuts on a
  * change. 012f44_game.c pre-seeds it with the course's opening shot from
  * init_demoFirstShot_8c0460b0 (sectionD.h). */
 extern int var_demoShotId_8c227dd4;
 /* Five prev/current float pairs, each shifted (dd8->ddc, de0->de4, de8->dec,
- * df0->df4, df8->dfc) every frame by FUN_8c024b4c (024b4c). */
-extern float var_8c227dd8;
-extern float var_8c227ddc;
-extern float var_8c227de0;
-extern float var_8c227de4;
-extern float var_8c227de8;
-extern float var_8c227dec;
-extern float var_8c227df0;
-extern float var_8c227df4;
+ * df0->df4, df8->dfc) every frame by BusRenderSaveCameraState_8c024b4c (024b4c). */
+extern float var_cameraHeightFrom_8c227dd8;
+extern float var_savedCameraHeightFrom_8c227ddc;
+extern float var_cameraHeightTo_8c227de0;
+extern float var_savedCameraHeightTo_8c227de4;
+extern float var_cameraHeightDelta_8c227de8;
+extern float var_savedCameraHeightDelta_8c227dec;
+/* The chase camera's height above the bus, passed to
+ * positionCamera_8c024d6c (024b4c) as its dyOffset. 5.0 near / 18.0 far by
+ * default; scripted cues ramp it to another value and back. */
+extern float var_cameraHeight_8c227df0;
+extern float var_savedCameraHeight_8c227df4;
 /* BusRenderUpdateCamera_8c025078's quarter-sine ease-angle accumulator
  * (BAMS units, 0 to 0x4000) -- a real int (MOV.L/ADD/CMP/GE), not float. */
-extern Sint32 var_8c227df8;
-extern Sint32 var_8c227dfc;
+extern Sint32 var_cameraHeightPhase_8c227df8;
+extern Sint32 var_savedCameraHeightPhase_8c227dfc;
 /* The current demo shot's pos_0x04, copied here by demoShotTask_8c0259e8
  * (025870_demo). Read as a world point for camera mode 5 and as a bus-space
  * offset for 6 and 7; the first two are resolved once by

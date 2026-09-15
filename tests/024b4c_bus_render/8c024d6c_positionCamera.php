@@ -27,8 +27,8 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_8c1bb904', 0x40);
-        $this->setSize('_var_8c1bc46c', 0x40);
+        $this->setSize('_var_camera_8c1bb904', 0x40);
+        $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_acosf', 4);
@@ -57,7 +57,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $camera = $this->addressOf('_var_8c1bb904');
+        $camera = $this->addressOf('_var_camera_8c1bb904');
 
         $this->initFloat($base + 0x0f4, 10.0); // posX_0x0f4
         $this->initFloat($base + 0x0f8, 100.0); // posY_0x0f8
@@ -98,8 +98,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $camera = $this->addressOf('_var_8c1bb904');
-        $matrix = $this->addressOf('_var_8c1bc46c');
+        $camera = $this->addressOf('_var_camera_8c1bb904');
+        $matrix = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $groundPt = $this->addressOf('_var_groundQueryPoint_8c1bc460');
 
         $this->initFloat($base + 0x0f4, 0.0);
@@ -154,8 +154,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $camera = $this->addressOf('_var_8c1bb904');
-        $matrix = $this->addressOf('_var_8c1bc46c');
+        $camera = $this->addressOf('_var_camera_8c1bb904');
+        $matrix = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $groundPt = $this->addressOf('_var_groundQueryPoint_8c1bc460');
 
         $this->initFloat($base + 0x0f4, 0.0);
@@ -215,8 +215,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $camera = $this->addressOf('_var_8c1bb904');
-        $matrix = $this->addressOf('_var_8c1bc46c');
+        $camera = $this->addressOf('_var_camera_8c1bb904');
+        $matrix = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $groundPt = $this->addressOf('_var_groundQueryPoint_8c1bc460');
 
         $this->initFloat($base + 0x0f4, 0.0);

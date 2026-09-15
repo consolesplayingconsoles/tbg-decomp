@@ -110,7 +110,7 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
 
 /* Same as drawTileGrid_8c021b9c, but for fade-command layer 1 (the mirror render):
  * light direction/setup differs (var_fadeLightDir1_8c2264e4 and camera
- * var_8c1bb944, set up by TileDrawEnqueueTask_8c0221d0), everything else -- including the
+ * var_mirrorCamera_8c1bb944, set up by TileDrawEnqueueTask_8c0221d0), everything else -- including the
  * per-layer Easy/Simple split -- is identical. Reachable only via the
  * function-pointer literal TileDrawEnqueueTask_8c0221d0 pushes to FadeCmdPushCall2_8c022420,
  * never called directly, so it stays private. */
@@ -200,7 +200,7 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
  * `state`) for both layers. */
 void TileDrawEnqueueTask_8c0221d0(Task *task, void *state)
 {
-    njSetCamera(&var_8c1bb904);
+    njSetCamera(&var_camera_8c1bb904);
 
     var_8c226538[0] = var_sceneParams_8c18ad24->dir1_0x48[0];
     var_8c226538[1] = var_sceneParams_8c18ad24->dir1_0x48[0];
@@ -212,7 +212,7 @@ void TileDrawEnqueueTask_8c0221d0(Task *task, void *state)
     var_fadeLightDir0_8c2264d8[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
     njCalcVector(NULL, (NJS_VECTOR *)var_fadeLightDir0_8c2264d8, (NJS_VECTOR *)var_fadeLightDir0_8c2264d8);
 
-    njSetCamera(&var_8c1bb944);
+    njSetCamera(&var_mirrorCamera_8c1bb944);
 
     var_fadeLightDir1_8c2264e4[0] = var_sceneParams_8c18ad24->dir2_0x68[0];
     var_fadeLightDir1_8c2264e4[1] = var_sceneParams_8c18ad24->dir2_0x68[0];

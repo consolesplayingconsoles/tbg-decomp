@@ -830,7 +830,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
     float *dir;
 
     if (flag != 0) {
-        dir = var_8c227dc4;
+        dir = var_mirrorLightDir_8c227dc4;
     } else {
         dir = var_busSimpleLightDir_8c227db8;
     }

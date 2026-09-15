@@ -18,7 +18,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c1bc46c', 0x40);
+        $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_8c228900', 8);
         $this->setSize('_var_8c228908', 4);
         $this->setSize('_var_8c228714', 4);
@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bc444'), $model);
         $this->initUint32($this->addressOf('_var_loadedFooNjm_8c1bc448'), $motion);
 
-        $mat = $this->addressOf('_var_8c1bc46c');
+        $mat = $this->addressOf('_var_scratchMatrix_8c1bc46c');
 
         $this->call('_drawStopMarker_8c02cd92')->with(0);
 

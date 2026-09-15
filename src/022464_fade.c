@@ -215,7 +215,7 @@ void FadeUpdate_8c022560(void)
         default:
           njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorView_8c045578);
           njSetScreen(&init_screenMirror_8c0455fc);
-          var_fadeCamera_8c226558 = &var_8c1bb944;
+          var_fadeCamera_8c226558 = &var_mirrorCamera_8c1bb944;
           fadeDraw_8c022464(1);
           njSetTexture(&init_texlist_8c03bf44);
           njRenderTextureNumG(999);
@@ -236,14 +236,14 @@ void FadeUpdate_8c022560(void)
           break;
       }
       njSetScreen(&init_screenFull_8c0455e8);
-      var_fadeCamera_8c226558 = &var_8c1bb904;
+      var_fadeCamera_8c226558 = &var_camera_8c1bb904;
       fadeDraw_8c022464(0);
       break;
     case 1:
       njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
       njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorViewTall_8c045588);
       njSetScreen(&init_screenMirrorTall_8c045610);
-      var_fadeCamera_8c226558 = &var_8c1bb944;
+      var_fadeCamera_8c226558 = &var_mirrorCamera_8c1bb944;
       fadeDraw_8c022464(1);
       njSetTexture(&init_texlist_8c03bf44);
       njRenderTextureNumG(999);
@@ -254,7 +254,7 @@ void FadeUpdate_8c022560(void)
       njUserClipping(NJD_CLIP_OUTSIDE, init_clipLayer2_8c045598);
       njSetScreen(&init_screenFull_8c0455e8);
       njDrawTexture(init_mirrorQuadTall_8c0454f8, 4, 999, 0);
-      var_fadeCamera_8c226558 = &var_8c1bb904;
+      var_fadeCamera_8c226558 = &var_camera_8c1bb904;
       fadeDraw_8c022464(0);
       njUserClipping(NJD_CLIP_DISABLE, init_clipLayer2_8c045598);
       TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x28, 0.0f, 0.0f, -1.17f);
@@ -263,7 +263,7 @@ void FadeUpdate_8c022560(void)
       njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
       njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorViewTall_8c045588);
       njSetScreen(&init_screenMirrorTall_8c045610);
-      var_fadeCamera_8c226558 = &var_8c1bb944;
+      var_fadeCamera_8c226558 = &var_mirrorCamera_8c1bb944;
       fadeDraw_8c022464(1);
       njSetTexture(&init_texlist_8c03bf44);
       njRenderTextureNumG(999);
@@ -271,7 +271,7 @@ void FadeUpdate_8c022560(void)
       njSetScreen(&init_screenFull_8c0455e8);
       njDrawTexture(init_mirrorQuadTall_8c0454f8, 4, 999, 0);
       TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x2a, 0.0f, 0.0f, -1.17f);
-      var_fadeCamera_8c226558 = &var_8c1bb904;
+      var_fadeCamera_8c226558 = &var_camera_8c1bb904;
       fadeDraw_8c022464(0);
       break;
     }
@@ -367,7 +367,7 @@ void FadeUpdatePlain_8c022910(void)
     njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
     njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorView_8c045578);
     njSetScreen(&init_screenFull_8c0455e8);
-    var_fadeCamera_8c226558 = &var_8c1bb904;
+    var_fadeCamera_8c226558 = &var_camera_8c1bb904;
     fadeDraw_8c022464(0);
   }
   if (var_fadePhase_8c227d7c == FADE_PHASE_IDLE) {

@@ -68,8 +68,8 @@
           .IMPORT     _FileMenuResetNewGame_8c01895e
           .IMPORT     _AsqApplyButtonConfig_8c0121e8
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _var_8c227da0
-          .IMPORT     _var_8c227da8
+          .IMPORT     _var_savedCameraMode_8c227da0
+          .IMPORT     _var_savedCameraCueState_8c227da8
           .IMPORT     _RouteLoadIsPvmReady_8c01432a
           .IMPORT     _var_loadedFooNjm_8c1bc448
           .IMPORT     _var_8c1bc450
@@ -156,8 +156,8 @@
           .IMPORT     _var_8c1bc440
           .IMPORT     _AsqRequestNj_8c011492
           .IMPORT     _var_8c1bc444
-          .IMPORT     _var_8c1bc410
-          .IMPORT     _var_8c1bc414
+          .IMPORT     _var_busDoorMotion_8c1bc410
+          .IMPORT     _var_busDoorShape_8c1bc414
           .IMPORT     _gdFsEntryErrFuncAll
           .IMPORT     _var_queuesAreInitialized_8c157a60
           .IMPORT     _gdFsReqDrvStat
@@ -784,8 +784,8 @@ LP_GEN_38000:
           .DATA.L _AsqSetSeedB_8c0121a2
           .DATA.L _AsqApplyButtonConfig_8c0121e8
           .DATA.L _var_progress_8c1ba1cc + H'C6
-          .DATA.L _var_8c227da0
-          .DATA.L _var_8c227da8
+          .DATA.L _var_savedCameraMode_8c227da0
+          .DATA.L _var_savedCameraCueState_8c227da8
           .DATA.L _RouteLoadPushTask_8c0144fc
           .DATA.L _var_progress_8c1ba1cc + H'C5
           .DATA.L _const_8c033364
@@ -1490,10 +1490,10 @@ LP_GEN_19861:
           .DATA.L     s_fuu_njd_8c033430
           .DATA.L     _var_loadedFooNjm_8c1bc448
           .DATA.L     s_fuu_njm_8c033438
-          .DATA.L     _var_8c1bc410
+          .DATA.L     _var_busDoorMotion_8c1bc410
           .DATA.L     s_3s_bus_m2_njm_8c03344c
           .DATA.L     s_SD_COMMON_8c033440
-          .DATA.L     _var_8c1bc414
+          .DATA.L     _var_busDoorShape_8c1bc414
           .DATA.L     s_3s_bus_m2_njs_8c03345c
           .DATA.L     _RouteLoadResetPvmReady_8c014322
           .DATA.L     _RouteLoadSetPvmReady_8c014330

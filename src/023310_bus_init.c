@@ -120,7 +120,7 @@ STATIC void busInitPlaceBus_8c023310(void)
         var_cameraMode_8c227d9c = 5;
     } else {
         var_cameraMode_8c227d9c = 0;
-        var_8c227dac = 0;
+        var_cameraCueBusy_8c227dac = 0;
     }
 }
 
@@ -142,7 +142,7 @@ void BusInitStart_8c023610(void)
     var_8c227d84 = var_currentCourse_8c1bb868.lineBus_0x08;
     var_8c227d88 = var_currentCourse_8c1bb868.ukn_0x0c;
 
-    var_8c227db4 = (float)var_8c1bc410->nbFrame - 1.0f;
+    var_busDoorLastFrame_8c227db4 = (float)var_busDoorMotion_8c1bc410->nbFrame - 1.0f;
 
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &BusTask_8c022bdc, &created_task, &created_state, 0);
 

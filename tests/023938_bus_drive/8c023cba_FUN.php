@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->setSize('_njUnitMatrix', 4);
         $this->setSize('_njRotateY', 4);
         $this->setSize('_njCalcPoint', 4);
-        $this->setSize('_var_8c1bc46c', 0x40);
+        $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
     }
@@ -111,7 +111,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $matrix = $this->addressOf('_var_8c1bc46c');
+        $matrix = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $point = $this->addressOf('_var_groundQueryPoint_8c1bc460');
 
         $this->seedAllHits($base);
@@ -145,7 +145,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $matrix = $this->addressOf('_var_8c1bc46c');
+        $matrix = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $point = $this->addressOf('_var_groundQueryPoint_8c1bc460');
 
         $this->seedAllHits($base);
@@ -177,7 +177,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $matrix = $this->addressOf('_var_8c1bc46c');
+        $matrix = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $point = $this->addressOf('_var_groundQueryPoint_8c1bc460');
 
         $this->seedAllHits($base);
