@@ -193,7 +193,7 @@ void BusRenderUpdateCamera_8c025078(void)
     }
 
     if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TY)
-        && var_8c1bbc84 == 1
+        && var_replayArmed_8c1bbc84 == 1
         && (var_cameraCueBusy_8c227dac == 0 || var_cameraMode_8c227d9c < 2)) {
         var_cameraMode_8c227d9c++;
         if (var_cameraMode_8c227d9c > BUS_CAMERA_THIRD_PERSON_FAR) {

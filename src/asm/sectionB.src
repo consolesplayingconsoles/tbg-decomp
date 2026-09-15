@@ -298,7 +298,7 @@
           .EXPORT     _var_8c1bbc4c ; 012504_input
                                     ; 020214
                                     ; 02c884
-          .EXPORT     _var_8c1bbc84 ; 01614c_debug_menu
+          .EXPORT     _var_replayArmed_8c1bbc84 ; 01614c_debug_menu
                                     ; 016bf4_demo_input
                                     ; 024b4c
                                     ; 02d19c
@@ -1028,7 +1028,7 @@ _var_mirrorSelect_8c1bbc38:
           .RES.B      20
 _var_8c1bbc4c:
           .RES.B      56
-_var_8c1bbc84:
+_var_replayArmed_8c1bbc84:
           .RES.B      44
 _var_8c1bbcb0:
           .RES.B      4

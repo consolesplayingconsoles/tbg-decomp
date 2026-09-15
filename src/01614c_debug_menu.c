@@ -387,7 +387,7 @@ void FUN_8c016770(void)
 /* record counterpart of DemoInputTask_8c016bf4's playback */
 void DebugMenuDemoRecordTask_8c01677e(Task *task, void *state)
 {
-    if (var_8c1bbc84 > 0 && var_demoCursor_8c225fa8 < &var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY]) {
+    if (var_replayArmed_8c1bbc84 > 0 && var_demoCursor_8c225fa8 < &var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY]) {
         var_demoCursor_8c225fa8->on = var_peripherals_8c1ba35c[0].on != 0;
         var_demoCursor_8c225fa8->x1 = (Sint8)var_peripherals_8c1ba35c[0].x1;
         var_demoCursor_8c225fa8->r = (Uint8)var_peripherals_8c1ba35c[0].r;

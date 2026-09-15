@@ -10,7 +10,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * _var_demoCursor_8c225fa8, advancing it by one 8-byte ReplayInput record.
  *
  * Guard (both must hold, else no-op):
- *   _var_8c1bbc84 > 0                                           (still recording)
+ *   _var_replayArmed_8c1bbc84 > 0                                           (replay armed)
  *   cursor < &_var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY]  (still inside buffer)
  */
 return new class extends TestCase {
@@ -25,7 +25,7 @@ return new class extends TestCase {
         $record = $this->addressOf('_var_demoBuffer_8c1bc828');
 
         $this->initUint32($this->addressOf('_var_demoCursor_8c225fa8'), $record);
-        $this->initUint32($this->addressOf('_var_8c1bbc84'), 1);
+        $this->initUint32($this->addressOf('_var_replayArmed_8c1bbc84'), 1);
 
         $this->initUint32($peripheral + 0x08, 0x5);    // on
         $this->initUint16($peripheral + 0x1c, 0x12);   // x1
@@ -49,7 +49,7 @@ return new class extends TestCase {
             $this->addressOf('_var_demoCursor_8c225fa8'),
             $this->addressOf('_var_demoBuffer_8c1bc828')
         );
-        $this->initUint32($this->addressOf('_var_8c1bbc84'), 0);
+        $this->initUint32($this->addressOf('_var_replayArmed_8c1bbc84'), 0);
 
         $this->call('_DebugMenuDemoRecordTask_8c01677e')->with(0, 0);
     }
@@ -61,7 +61,7 @@ return new class extends TestCase {
         $end = $this->addressOf('_var_demoBuffer_8c1bc828') + self::REPLAY_BUFFER_SIZE;
 
         $this->initUint32($this->addressOf('_var_demoCursor_8c225fa8'), $end);
-        $this->initUint32($this->addressOf('_var_8c1bbc84'), 1);
+        $this->initUint32($this->addressOf('_var_replayArmed_8c1bbc84'), 1);
 
         $this->call('_DebugMenuDemoRecordTask_8c01677e')->with(0, 0);
     }
@@ -69,7 +69,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34);
-        $this->setSize('_var_8c1bbc84', 4);
+        $this->setSize('_var_replayArmed_8c1bbc84', 4);
         /*
          * In the real ROM, var_demoCursor_8c225fa8 (address 0x8c225fa8) is placed
          * immediately after var_demoBuffer_8c1bc828's 432000-byte extent (address

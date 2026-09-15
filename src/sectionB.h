@@ -460,7 +460,12 @@ extern int var_8c1bbc2c;
 /* Checked against 0.0 by BusStopUpdateArrival_8c02ce48 (02c884) to gate stop
  * arrival; likely a current-speed value (role/owner elsewhere unclear). */
 extern float var_8c1bbc4c;
-extern int var_8c1bbc84;
+/* Gates the recorded-input path: replay playback (DemoInputTask_8c016bf4),
+ * replay recording (DebugMenuDemoRecordTask_8c01677e) and, at == 1, the
+ * Y-button camera cycle in BusRenderUpdateCamera_8c025078. The shipped build
+ * has no writer that can arm it -- the lone `= 1` left is in
+ * PassengerSkipStopTask_8c02d8f0, on the practice-mode stop skip. */
+extern int var_replayArmed_8c1bbc84;
 extern Uint32 var_8c1bbcb0;
 /* Minimum scaled throttle step (see applyThrottle_8c024320's `step`) for a trigger
  * push to count as accelerating rather than coasting. */
