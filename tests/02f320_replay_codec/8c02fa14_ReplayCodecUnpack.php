@@ -49,7 +49,11 @@ return new class extends TestCase {
         $this->shouldCall('_readCode_8c02f892')->andReturn(0x41);
         $this->shouldWriteWord($this->addressOf('_var_runBuf_8c235bb4') + 99 * 2, 0x41);
         $this->shouldWriteByte($destBuf, 0x41);
-        $this->shouldCall('_extendDict_8c02f740');
+        /* The run is built backwards, so it starts at runBuf[100 - count], not
+         * at runBuf[0]; extendDict reads its symbols from there. Asserting the
+         * pointer is the whole point of this expectation. */
+        $this->shouldCall('_extendDict_8c02f740')
+            ->with($this->addressOf('_var_runBuf_8c235bb4') + 99 * 2, 1, 0x1000, 0);
         $this->shouldWriteLong($destSlot, $destBuf + 1);
     }
 

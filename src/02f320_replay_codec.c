@@ -470,6 +470,7 @@ void ReplayCodecUnpack_8c02fa14(void *src, void **dest, Uint32 size)
     Sint16 code;
     Sint16 leafCode;
     Sint16 walkCode;
+    Sint16 *run;
     Sint16 i;
 
     consumed = 0;
@@ -519,22 +520,25 @@ void ReplayCodecUnpack_8c02fa14(void *src, void **dest, Uint32 size)
             readResult = walkCode;
         }
 
+        /* The walk above filled the run backwards, so it ends at the top of
+         * var_runBuf_8c235bb4; `run` is its first symbol. extendDict reads the
+         * run from here too -- passing the buffer base instead feeds it
+         * whatever the previous run left at the bottom. */
+        run = &var_runBuf_8c235bb4[100 - expandCount];
+
         {
             /* Byte-typed view, not a plain Sint16 index: SHC compiles a
              * direct word-array copy loop into MOV.W @Rm+,Rn, which
              * sh4objtest's interpreter doesn't implement. */
-            Uint8 *symBufBytes;
-            Sint16 start;
+            Uint8 *runBytes = (Uint8 *)run;
 
-            symBufBytes = (Uint8 *)&var_runBuf_8c235bb4;
-            start = 100 - expandCount;
             for (i = 0; i < expandCount; i++) {
-                destPtr[i] = symBufBytes[(start + i) * 2];
+                destPtr[i] = runBytes[i * 2];
             }
             destPtr += expandCount;
         }
 
-        extendDict_8c02f740(var_runBuf_8c235bb4, expandCount, prevCode, prevExpandCount);
+        extendDict_8c02f740(run, expandCount, prevCode, prevExpandCount);
         outputCount += (Uint32)(Uint16)expandCount;
         prevCode = leafCode;
     }
