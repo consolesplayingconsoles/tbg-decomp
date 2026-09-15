@@ -101,6 +101,62 @@ Lower priority, smaller and more isolated once the above land: `024280`
 remaining callee), `020214` (`020528`'s callee), `02b2f0`/`02412c`/`02d06c`
 (the small single-caller leftovers).
 
+## Open struct-field naming questions
+
+Carried over from `docs/struct_catalog.yaml` when that file was retired (see
+below). These are the fields that had enough evidence to name but were never
+named; everything else the catalog tracked either lives in the headers now or
+was already there. Field-by-field negative results ("written here, read
+nowhere") went into the owning header next to the field.
+
+**`BusState.field_0x25c`** -- `024280.c:277-280`: the two rear/side-mirror
+buttons (`PDS_PERIPHERAL.press` bits 0x400/0x2) drive a small per-button
+press/hold/release state here, which toggles `mirror_0x268` between its 0/1/2
+modes. Nameable as-is.
+
+**`BusState.field_0x334`** -- `023938_bus_drive.c:249-253,317`: gates
+`FUN_8c023e7e`. While set, that function only waits for `laneOffset_0x2c4` to
+settle back to 2.0, then clears it and re-arms a new search; it is set to 1
+once a new crossing point lands in `laneTargetX_0x0ec`/`laneTargetZ_0x0f0`.
+Nameable as-is.
+
+**`BusState.field_0x338`** -- `023938_bus_drive.c:258-306`: 0/1 select
+forward/backward search direction through the node table's
+`fwdNext_0x00`/`backNext_0x02`, 2 marks the search blocked. Also driven by the
+mirror-view input handler (`024280.c:281-289`) in mapped-route steering mode.
+Nameable as-is.
+
+**`TrafficEntry.field_0x04c`..`0x060`** -- `02786c_vehicle_parts.c:71-100`
+binds this run of 6 child-model nodes off the body root, but only for typeCode
+0x1a, and no reader exists anywhere. `BusState.bodyModels_0x04c[6]` is
+byte-identical and likewise never explicitly read, so both are probably
+model-tree caching whose consumer hasn't been found. Name it after
+`bodyModels_0x04c` or leave it until a reader turns up.
+
+**`MenuState.field_0x3c` / `field_0x40`** -- the one genuinely contested pair,
+and the reason to keep this list. They read as a grid column/row in
+`016d2c_course_menu.c` (`selected = field_0x3c + field_0x40 * 5`, plus the
+up/down/left/right nav) and in `01c980_profile_file.c`'s unlock grid. But in
+every other screen `field_0x3c` is generic `PromptHandleBinary_8c016caa`
+output or a plain page index with no row partner (`018644_file_menu.c`,
+`0193c8_vm_menu.c`, `01b19c_system_menu.c`, `01bb48_vm_game.c`,
+`01e27c_practice_menu.c`), and `field_0x40` is a standalone counter in
+`019e98_main_menu.c` / `01b19c_system_menu.c` and a lesson-list scroll offset
+in `01e27c_practice_menu.c`. The grid reading fits 2 of 6+ writers. A union,
+or two names, or neither -- don't name these without settling that first.
+
+### Why the struct catalog was retired
+
+`docs/struct_catalog.yaml` tracked 910 struct members across 111 structs in
+6,176 lines. 783 were already named, which made those rows a second copy of
+the headers; 77 of the 111 structs carried no member rows at all, just a
+`purpose` restating the struct's own docblock. It had no generator despite a
+`generated:` header, nothing validated it, and 35 of its 111 `line:` fields
+pointed at the wrong line. Fifteen of its open rows recommended merging
+`BusState`'s 0x088-0x0c0 floats into one `NJS_MATRIX` -- work `sectionB.h` had
+already done. The negative results were the part worth keeping, and they are
+now comments on the fields they describe.
+
 ## Two dead functions worth a look
 
 - `FUN_8c01fe84` in `01fa78` -- **RESOLVED.** It was never a separate
@@ -281,9 +337,8 @@ was what dissolved the apparent split. Worth trying before invoking the
 
 Ghidra had hidden six functions reachable only via TaskPush pointers,
 including the master per-frame `taskCallback_8c02c072` -- see the boundary
-note above. Two of its four raw-asm dependencies (`024b4c`, `023938`) have
-since been decompiled (see their own entries above); it still depends on
-`02e2dc` and `02b2f0` (see the priority table and suggested order above).
+note above. All four of its raw-asm dependencies (`024b4c`, `023938`,
+`02e2dc`, `02b2f0`) have since been decompiled; see their own entries.
 
 **The graders are a priority chain, not a list.** `taskCallback_8c02c072`
 runs them inside nested `if (cooldown-- < 0)` blocks, so each is gated on the
@@ -316,6 +371,35 @@ The 34 `init_8c04b*`/`init_8c04c*` HUD glyph-row tables are left
 address-named on purpose: they are only ever reached through
 `init_penaltyMsgGlyphs_8c04c35c[msgSet]`, so an individual name would add nothing the table's
 own comment doesn't already say.
+
+### `02b2f0_drive_msg` (ShortUnit `DriveMsg`) -- done, 2/2 functions
+
+The banner half of `02b464_drive_points`: it only draws, `02b464` owns the
+queue. Glyph ids index a 16x16 cell atlas in `var_markTexlist_8c1bc418` --
+the same texlist and id space as `0129cc_pause.c`'s `MARK_*` sprites.
+
+Two corrections came out of this pass, both in code the unit only reads:
+
+- `DriveMsgSlot.duration` is the row's starting x, not a time. `02b464` sets
+  it to `(640 - 32 * count) / 2`, which centers a row of 32-wide glyphs.
+  Renamed to `x`; the old name had a note in `sectionB.h` saying the draw
+  side contradicted it, which is the kind of note that should have been a
+  rename.
+- `(ResourceGroup *)&var_markTexlist_8c1bc418` was commented here (and in the
+  test, and indexed in `gameplay.md`) as an original bug passing the
+  variable's own address. It isn't: 8c1bc418/41c/420 are loaded from
+  `mark.pvm`, `mark_parts.dat` and `mark.dat` -- the same
+  pvm/`_parts.dat`/`.dat` triple `012f44_game.c` loads into the *declared*
+  `ResourceGroup var_loadingResourceGroup_8c1bc3f8`. That also settles the
+  open doubt in `gameplay.md` about `tanim_0x04` holding a raw dat pointer:
+  a real group holds one too. Bug entry removed; folding the three into one
+  symbol is a move-data job.
+
+`var_8c2285c8` became `var_runPassed_8c2285c8`: `BusStopUpdateArrival_8c02ce48`
+sets it when a drive ends with points left and every owed stop served, and
+this unit's only use is to draw mark sprite `0x78` instead of the banner
+stack. Nothing ever clears it. What that sprite depicts is unverified -- the
+id sits in the middle of the pause menu's `0x74..0x7c` run.
 
 ### `02f320_replay_codec` (ShortUnit `ReplayCodec`) -- done
 

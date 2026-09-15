@@ -384,7 +384,7 @@ void BusStopUpdateArrival_8c02ce48(void)
             var_8c2285cc = 0x1e;
             var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
             if (0 < var_driverPoints_8c2285d0 && DrivePointsRunComplete_8c02c586() != 0) {
-                var_8c2285c8 = 1;
+                var_runPassed_8c2285c8 = 1;
             }
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);

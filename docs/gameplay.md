@@ -125,7 +125,7 @@ variants.
 a *local* id space (0-33, documented at `init_penaltyMsgGlyphs_8c04c35c` in that file) --
 **not** an `INSTR_*` id. `msgSet` selects which HUD glyph banner is drawn
 in-drive (`init_penaltyMsgGlyphs_8c04c35c[msgSet]`, glyph ids for `drawMsgGlyphRow_8c02b2f0`
-in `02b2f0.c`), which is a third, unrelated id space again (glyph ids run
+in `02b2f0_drive_msg.c`), which is a third, unrelated id space again (glyph ids run
 past 63). The `INSTR_*` dialog is shown only once, after the run: in
 practice mode's results screen (`01e27c_practice_menu.c`), the run's single
 worst `msgSet` (`var_worstPenaltyMsgSet_8c1bb8ec`) is converted to an `INSTR_*` id via
@@ -251,7 +251,7 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
   (`020214.c`), operating on `DriveCueState var_8c2264b8` (`sectionB.h`):
   - `stopAnnounceState_0x08`/`stopAnnounceTimer_0x10` is the **driver's own
     stop announcement** -- confirmed player-initiated: armed by
-    `nearStopLatch_0x0c`, documented (`sectionB.h:635`) as set by
+    `nearStopLatch_0x0c`, documented at that field in `sectionB.h` as set by
     `BusTask_8c022bdc` "when the A button is first pressed while driving".
     Its state machine plays a route-specific door-chime cue, then (after 60
     frames) an actual spoken stop-name announcement via `SndProc_8c010cd6`.
@@ -301,43 +301,31 @@ Practice mode and the course menu skip selection entirely.
 
 Real defects in the SHIPPED game, found while decompiling and deliberately
 kept (correct for functional equivalence -- do not "fix" these). Each is
-also noted in a code comment at its site; this is the index. All three so
-far are the same shape: the address of a pointer variable (`&ptr`) passed
-where the pointer's value (`ptr`) was meant.
+also noted in a code comment at its site; this is the index. Both are the
+same shape: the address of a pointer variable (`&ptr`) passed where the
+pointer's value (`ptr`) was meant.
 
 - **`FUN_8c023e7e`** (`023938_bus_drive.c`) calls `sdMidiPlay` with
   `&var_midiHandles_8c0fcd28[0]` -- the array's address -- where every other
   call site in the codebase passes the handle value
   `var_midiHandles_8c0fcd28[0]`.
-- **`DriveMsgDraw_8c02b388`** (`02b2f0.c`) passes `&var_markTexlist_8c1bc418`
-  -- the pointer variable's own address -- to `TxtDrawSprite_8c014f54`, while
-  the `njSetTexture` call five lines below it in the same function correctly
-  dereferences the same variable. See the caveat below: the same `&ptr` cast
-  is also used, consistently, at many other call sites for "mark"/"bus stop"
-  sprites -- worth a second look before treating this one as clear-cut.
 - **`CollisionFindTaskHit_8c02e400`** (`02e400_collision.c`) builds the "self"
   bounding box from `&init_variantBoxes_8c04c940[idx]` (the table slot's address) while a
   candidate's box comes from `init_variantBoxes_8c04c940[idx]` (the box it points at), so
   self is built from the pointer table's own bytes reinterpreted as floats.
 
-**Caveat on the `DriveMsgDraw` case:** `var_markTexlist_8c1bc418` is
-immediately followed in memory by `var_markPartsDat_8c1bc41c` and then
-`var_markDat_8c1bc420` (`sectionB.h`), byte-contiguous and exactly
-`sizeof(ResourceGroup)` (12 bytes: `tlist_0x00`/`tanim_0x04`/`contents_0x08`).
-The same `(ResourceGroup *)&var_markTexlist_8c1bc418` cast used in
-`DriveMsgDraw_8c02b388` also appears, unremarked, at ~9 call sites in
-`0129cc_pause.c` and one in `02b464_drive_points.c` (plus the analogous
-`&var_busStopTexlist_8c1bc424` cast 4x in `022464_fade.c`) -- always for
-drawing these same "mark"/"bus stop" sprites. That looks less like a typo
-than a deliberate inline-struct-via-adjacent-globals layout (the same kind
-of representation the project already tracks as "ResourceGroup ptr debt",
-e.g. `var_resourceGroup_8c2263a8` in `016108.c`), which would make this
-usage *correct* rather than buggy -- except that `tanim_0x04` then reads
-`var_markPartsDat_8c1bc41c` (a raw dat-file pointer, not a real
-`NJS_TEXANIM*`), so whether it is truly harmless depends on whether
-`njDrawSprite2D` (SDK, not decompiled here) reads `tanim` for these sprite
-IDs. Flagging for a second opinion rather than deciding unilaterally; the
-code comment and this entry are left as originally written pending that call.
+**Was listed here, now resolved -- `(ResourceGroup *)&var_markTexlist_8c1bc418`
+is correct.** `var_markTexlist_8c1bc418`, `var_markPartsDat_8c1bc41c` and
+`var_markDat_8c1bc420` (`sectionB.h`) are byte-contiguous and exactly
+`sizeof(ResourceGroup)` -- and `013ae8_route_load.c:143` / `012f44_game.c:425-426`
+fill them from `mark.pvm`, `mark_parts.dat` and `mark.dat`, the same
+pvm/`_parts.dat`/`.dat` triple that `012f44_game.c:430-432` loads into the
+*declared* `ResourceGroup var_loadingResourceGroup_8c1bc3f8`'s
+`tlist_0x00`/`tanim_0x04`/`contents_0x08`. So `tanim_0x04` reading
+`var_markPartsDat_8c1bc41c` is what a real group does too, which was the last
+doubt. Three globals named per-field before the struct existed, not a bug; the
+same holds for the bus-stop trio at 8c1bc424. Folding each into one symbol is a
+move-data job.
 
 
 

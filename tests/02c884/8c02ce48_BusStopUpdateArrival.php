@@ -54,7 +54,7 @@ return new class extends TestCase {
         // too (see the note above about rellocate() and 8c02caba_BusStopSetup.php
         // for the same pattern on a smaller slice of this same region).
         $this->setSize('_var_8c2285c4', 4);
-        $this->setSize('_var_8c2285c8', 4);
+        $this->setSize('_var_runPassed_8c2285c8', 4);
         $this->setSize('_var_8c2285cc', 4);
         $this->setSize('_var_driverPoints_8c2285d0', 4);
         $this->setSize('_var_8c2285d4', 4);
@@ -379,7 +379,7 @@ return new class extends TestCase {
     }
 
     // State 4, finish bit set, enough driver points and DrivePointsRunComplete_8c02c586 signals
-    // -- also sets var_8c2285c8.
+    // -- also sets var_runPassed_8c2285c8.
     public function test_state4_finishes_with_bonus(): void
     {
         $this->resolveSymbols();
@@ -397,7 +397,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c2285cc', 0x1e);
         $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_DrivePointsOnFadeDriveEnd_8c02c784'));
         $this->shouldCall('_DrivePointsRunComplete_8c02c586')->with()->andReturn(1);
-        $this->shouldWriteLongTo('_var_8c2285c8', 1);
+        $this->shouldWriteLongTo('_var_runPassed_8c2285c8', 1);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
     }

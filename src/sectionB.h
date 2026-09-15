@@ -73,10 +73,16 @@ typedef struct {
 typedef struct {
     int field_0x000;
     int texlistLarge_0x004;
+    /* TrafficEntry's texlistSmall_0x08/modelSmall_0x10 sit here; the player
+     * bus never sets or reads either, so it has no far/simple LOD. */
     int field_0x008;
     int modelLarge_0x00c;
     int field_0x010;
     int bodyModel_0x014;
+    /* field_0x018/0x028/0x040/0x044/0x048 are a type-code-dependent cache of
+     * sub-model nodes walked out of modelLarge_0x00c, filled by
+     * VehPartsBind_8c02786c and used by BusDrawUpdateModels_8c027958 -- see
+     * that function's comment for which phase drives which. */
     NJS_OBJECT *field_0x018;
     NJS_OBJECT *frontWheelA_0x01c;
     NJS_OBJECT *frontWheelB_0x020;
@@ -91,6 +97,8 @@ typedef struct {
     NJS_OBJECT *field_0x044;
     NJS_OBJECT *field_0x048;
     NJS_OBJECT *bodyModels_0x04c[6];
+    /* Zeroed by busInitPlaceBus_8c023310 and never read; TrafficEntry's
+     * three at the same offsets are the same way. */
     int field_0x064;
     int field_0x068;
     int field_0x06c;
@@ -141,13 +149,14 @@ typedef struct {
     /* Bus heading unit vector (x,z), dotted and crossed against the move
      * delta by positionCamera_8c024d6c to size/sign its turn. */
     float headingX_0x230;
-    int field_0x234;
+    int field_0x234;  /* no use site; the pair has no y, so likely padding */
     float headingZ_0x238;
     /* Written as float literals (4.9/2.5/1.25/2.6) by busInitPlaceBus_8c023310;
      * field_0x240 is skipped by that write and its role is unclear. */
     float field_0x23c;
     int field_0x240;
     float field_0x244;
+    /* Both written there and read nowhere in decompiled C. */
     float field_0x248;
     float field_0x24c;
 
@@ -159,6 +168,7 @@ typedef struct {
 
     int signalSide_0x25c;
     int turnSignalBlinkCounter_0x260;
+    /* No use site. TrafficEntry's same-offset field is unused too. */
     int field_0x264;
 
     int mirror_0x268;
@@ -175,6 +185,8 @@ typedef struct {
     float speed_0x27c;
     float acc_hist_0x280[4];
 
+    /* No use site. TrafficEntry uses 0x290 as a float in a speed calc
+     * (025b98), but the bus never touches it. */
     int field_0x290;
     int field_0x294;
     int field_0x298;
@@ -185,8 +197,8 @@ typedef struct {
     float dir_x_0x29c;
     float dir_z_0x2a0;
 
-    int field_0x2a4;
-    int field_0x2a8;
+    int field_0x2a4;  /* no use site */
+    int field_0x2a8;  /* no use site */
     float dir_x2_0x2ac;
     float dir_z2_0x2b0;
 
@@ -211,6 +223,8 @@ typedef struct {
      * decompile shows a spurious int cast here). */
     float target_0x2e8;
     int idleFrameCounter_0x2ec;
+    /* Cleared by the needle-ramp mode-2 transition (024280) and read
+     * nowhere. */
     int field_0x2f0;
 
     int gear_0x2f4;
@@ -235,7 +249,7 @@ typedef struct {
     float mirrorWorldOffsetY_0x31c;
     float mirrorWorldOffsetZ_0x320;
     float mirrorDirX_0x324;
-    int field_0x328;
+    int field_0x328;  /* no use site; padding, like field_0x234 */
     float mirrorDirZ_0x32c;
     float mirrorDist_0x330;
     /* Drive FUN_8c023e7e's search for a lane-change target point (0/1 =
@@ -265,6 +279,8 @@ typedef struct {
     int field_0x37c;
     int field_0x380;
     int field_0x384;
+    /* Attribute words [1] and [2] of junctionCSlot_0x378's query -- written
+     * by 022bdc/023310, read nowhere. */
     int field_0x388;
     int field_0x38c;
     int junctionCRoadFlags_0x390;
@@ -334,6 +350,8 @@ typedef struct {
      * thresholds (see applyThrottle_8c024320/FUN_8c024606) */
     char accelSensitivity_0xd0;
     char brakeSensitivity_0xd1;
+    /* Never touched by any .c; padding between the sensitivity bytes and
+     * the volumes at 0xd4. */
     char field_0xd2;
     char field_0xd3;
 
@@ -538,6 +556,13 @@ extern void *var_interiorNj_8c1bc43c;
 extern NJS_TEXLIST *var_interiorTexlist_8c1bc438;
 extern NJS_MOTION* var_loadedFooNjm_8c1bc448;
 extern ResourceGroup var_loadingResourceGroup_8c1bc3f8;
+/* These three are one ResourceGroup (015ab8_title.h) at 8c1bc418: mark.pvm,
+ * mark_parts.dat and mark.dat, the same triple 012f44_game.c loads into the
+ * declared var_loadingResourceGroup_8c1bc3f8's tlist/tanim/contents. Every
+ * TxtDrawSprite_8c014f54 caller reaches them by casting
+ * &var_markTexlist_8c1bc418; 8c1bc424 is the same shape for the bus stop.
+ * Naming them per-field predates the struct -- folding them into one is a
+ * move-data job. */
 extern void* var_markDat_8c1bc420;
 extern void* var_markPartsDat_8c1bc41c;
 extern NJS_TEXLIST *var_markTexlist_8c1bc418;
@@ -596,8 +621,9 @@ extern int var_lcdSlot_8c2263a0;   // 01bb48
 extern void* var_8c226434;
 extern void* var_8c226438;
 /* Turn-signal/traffic-signal violation checker scratch (01fa78,
- * drawHud_8c01fbac/HudReset_8c02018c). Zeroed by HudReset_8c02018c; field_0x08/0x0c unread
- * so far. */
+ * drawHud_8c01fbac/HudReset_8c02018c). HudReset_8c02018c zeroes field_0x00/0x04
+ * and nothing reads them back; field_0x08/0x0c it does not even zero, and no
+ * .c references them at all. */
 typedef struct {
     int field_0x00;
     int field_0x04;
@@ -899,22 +925,17 @@ extern int var_cooldownSignal_8c228698;
 extern int var_cooldownLane_8c22869c;
 extern int var_cooldownIntersection_8c2286a0;
 
-/* One pending driver-comment banner: `count`/`ids` are a {count, id...}
- * list from init_penaltyMsgGlyphs_8c04c35c (02b464), `duration` the computed on-screen time,
- * `holdFrames` a fixed 60. [0] is the currently-displayed message;
- * [1..3] are queued behind it, shifted forward as each one finishes.
- *
- * DriveMsgDraw_8c02b388 (02b2f0) reads `ids` as the 16x16-atlas glyph
- * indices for the slot's banner (low nibble = column, high nibble = row),
- * `glyphCount` as how many of them to draw, and `duration` (despite its
- * name) as the row's starting x -- real asm behavior, not touched here. */
+/* One driver-comment banner. `count`/`ids` point into a {count, id...} row
+ * of init_penaltyMsgGlyphs_8c04c35c (02b464); the ids are 16x16-atlas glyph
+ * indices. [0] is the newest message, [1..3] older ones shifted back as each
+ * new one arrives. Typed out one glyph per two frames, then held 60. */
 typedef struct {
     int count;
     int *ids;
-    float duration;
-    int glyphCount_0x0c;
-    int revealCounter_0x10;
-    int holdFrames;
+    float x;          /* row's left edge, centered: (640 - 32 * count) / 2 */
+    int revealed;     /* glyphs typed out so far; revealCounter >> 1 */
+    int revealCounter;
+    int holdFrames;   /* counts down once fully revealed; 0 = slot free */
 } DriveMsgSlot;
 extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
@@ -930,7 +951,10 @@ extern void *var_8c1bb888;
  * hit; never read there. Role/other consumers unclear. */
 extern Sint32 var_8c2264d0;
 
-extern int var_8c2285c8;
+/* Set by BusStopUpdateArrival_8c02ce48 (02c884) when a drive ends with points
+ * left and every owed stop served. Never cleared. DriveMsgDraw_8c02b388
+ * (02b2f0) is its only reader. */
+extern int var_runPassed_8c2285c8;
 /* Set to 0x1e by BusStopUpdateArrival_8c02ce48 (02c884) on stop completion;
  * role/owner unclear. */
 extern int var_8c2285cc;

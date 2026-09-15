@@ -82,8 +82,8 @@ already a pointer, a temporary that exists only to hold a cast.
 
 ## Out of scope
 
-- **Renaming.** The naming backlog (`docs/struct_catalog.yaml`, `check_naming.py`) is a
-  separate job with its own conventions.
+- **Renaming.** Naming is a separate job with its own conventions
+  (`check_naming.py`, and the open questions in `docs/next_units.md`).
 - **Struct and data layout**, except a type correction that removes casts at its uses.
 - **New helpers, split functions, deduplication, "while I'm here" improvements.** The
   output is the same function written the way this codebase writes functions.

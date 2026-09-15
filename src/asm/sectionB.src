@@ -760,7 +760,7 @@
                                     ; 02c884
                                     ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c2285c8 ; 02b2f0
+          .EXPORT     _var_runPassed_8c2285c8 ; 02b2f0
                                     ; 02c884
           .EXPORT     _var_8c2285cc ; 02c884
           .EXPORT     _var_driverPoints_8c2285d0 ; 01d7fc
@@ -1476,7 +1476,7 @@ _var_driveMsgQueue_8c228564:
           .RES.B      96
 _var_8c2285c4:
           .RES.B      4
-_var_8c2285c8:
+_var_runPassed_8c2285c8:
           .RES.B      4
 _var_8c2285cc:
           .RES.B      4

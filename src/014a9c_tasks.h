@@ -14,6 +14,11 @@ typedef QueuedDat;
 
 typedef void (*TaskAction)(struct Task *task, void *state);
 
+/* Only action/state and queuedItem_0x18 mean anything to the dispatcher in
+ * 014a9c_tasks.c. field_0x08/0x0c are overlaid by each concrete task type
+ * with its own meaning (phase_0x08, gdfs_0x0c in the asset-queue tasks);
+ * field_0x10/0x14/0x1c are unused by every task type surveyed so far, so a
+ * task struct that leaves them out is not missing anything. */
 struct Task {
     TaskAction action;
     void *state;

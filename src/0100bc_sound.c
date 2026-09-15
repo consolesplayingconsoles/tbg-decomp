@@ -26,10 +26,10 @@
 
 typedef struct {
     int activeFlags_0x00;
-    int field_0x04;
+    int field_0x04;  /* never read or written in this unit */
     int midRpmVolBase_0x08;
     int highRpmVolBase_0x0c;
-    int field_0x10;
+    int field_0x10;  /* same */
     int idleVol_0x14;
     float midRpmSlope_0x18;
     float highRpmSlope_0x1c;

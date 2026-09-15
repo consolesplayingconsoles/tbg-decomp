@@ -34,6 +34,7 @@
 #define RENDER_X        256
 #define RENDER_Y        512
 
+/* Declared and never used -- no reference anywhere in src/. */
 struct loadedNj {
     void *field_0x00;
     int *field_0x04;

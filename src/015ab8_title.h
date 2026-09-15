@@ -68,7 +68,7 @@ struct MenuState {
     int field_0x40;
     int scrollTopRow_0x44;
     int cursorVisible_0x48;
-    int field_0x4c;
+    int field_0x4c;  /* declared here, referenced by no .c in the tree */
     int courseId_0x50;
     int field_0x54;
     int field_0x58;

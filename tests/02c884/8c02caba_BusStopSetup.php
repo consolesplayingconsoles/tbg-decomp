@@ -49,14 +49,14 @@ return new class extends TestCase {
         // rather than by their own relocation, so they must sit at their
         // real relative offsets here too.
         $this->setSize('_var_8c2285c4', 4);
-        $this->setSize('_var_8c2285c8', 8);
+        $this->setSize('_var_runPassed_8c2285c8', 8);
         $this->setSize('_var_driverPoints_8c2285d0', 4);
         $this->setSize('_var_8c2285d4', 4);
         $this->setSize('_var_8c2285d8', 4);
         $this->setSize('_var_8c2285dc', 8);
         $timerBlock = $this->alloc(0x20);
         $this->rellocate('_var_8c2285c4', $timerBlock + 0x00);
-        $this->rellocate('_var_8c2285c8', $timerBlock + 0x04);
+        $this->rellocate('_var_runPassed_8c2285c8', $timerBlock + 0x04);
         $this->rellocate('_var_driverPoints_8c2285d0', $timerBlock + 0x0c);
         $this->rellocate('_var_8c2285d4', $timerBlock + 0x10);
         $this->rellocate('_var_8c2285d8', $timerBlock + 0x14);

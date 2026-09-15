@@ -86,6 +86,8 @@ typedef struct {
     int revealedCharCount_0x0c;
     int charRevealTimer_0x10;
     int bobAngle_0x14;
+    /* Never read or written -- the live voice cue is the same-offset
+     * InstructorDialogTask.voiceCuePtr_0x18, on the task, not here. */
     int *field_0x18;
 } InstructorDialogState;
 

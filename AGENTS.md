@@ -173,8 +173,6 @@ under `tests/<addr>/`, and register it in the matching group in `tests.php`
 - **Reading/maintaining Ghidra via MCP** → `docs/ghidra-mcp.md`
 - **Gameplay reference (what the code implements)** → `docs/gameplay.md`
 - **Next decompilation targets (relocation-graph analysis)** → `docs/next_units.md`
-- **Struct member naming backlog (what is nameable now)** → `docs/struct_catalog.yaml`
-- **Struct catalog schema (status vocabulary, `check:` methods)** → `docs/struct_catalog_schema.yaml`
 - **Lessons learned (non-obvious toolchain/asm quirks)** → `docs/lessons_learned.md`
 - **Writing tests** → `tests/AGENTS.md`
 - **Setting up a new unit** → `.claude/skills/setup-unit/SKILL.md`

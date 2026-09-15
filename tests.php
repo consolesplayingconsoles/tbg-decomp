@@ -723,12 +723,12 @@ return [
         ],
         [
             "tests" => [
-                "tests/02b2f0/8c02b2f0_drawMsgGlyphRow.php",
-                "tests/02b2f0/8c02b388_DriveMsgDraw.php",
+                "tests/02b2f0_drive_msg/8c02b2f0_drawMsgGlyphRow.php",
+                "tests/02b2f0_drive_msg/8c02b388_DriveMsgDraw.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02b2f0.obj",
-                "build/output_test/src/02b2f0.obj",
+                "build/output_test/src/asm/decompiled/02b2f0_drive_msg.obj",
+                "build/output_test/src/02b2f0_drive_msg.obj",
             ]
         ],
         [

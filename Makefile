@@ -101,7 +101,7 @@ SRCS = \
 	src/027958.c \
 	src/028258_objects.c \
 	src/02af78_event.c \
-	src/02b2f0.c \
+	src/02b2f0_drive_msg.c \
 	src/02b464_drive_points.c \
 	src/02c884_bus_stop.c \
 	src/02d06c_stop_draw.c \

@@ -72,6 +72,8 @@ typedef struct {
     NJS_OBJECT *field_0x058;
     NJS_OBJECT *field_0x05c;
     NJS_OBJECT *field_0x060;
+    /* Zeroed by initEntryState_8c026748 and never read; BusState's three at
+     * the same offsets are the same way. */
     Uint32 field_0x064;
     Uint32 field_0x068;
     Uint32 field_0x06c;
@@ -100,6 +102,8 @@ typedef struct {
     float frontPointY_0x104;
     float frontPointZ_0x108;
     float rearPointX_0x10c;
+    /* Unreferenced. The front point at 0x100 has a y; the rear point never
+     * gets one, so this is likely leftover from a symmetric layout. */
     Uint32 field_0x110;
     float rearPointZ_0x114;
     float probeSideAX_0x118;
@@ -128,9 +132,11 @@ typedef struct {
     Sint32 heading_0x250;
     Sint32 headingAlt_0x254;
     Uint32 headingDelta_0x258;
+    /* Every hit for this offset is on var_busState_8c1bb9d0 (lane-change
+     * arrow state); nothing reaches it through a TrafficEntry. */
     Uint32 field_0x25c;
     Uint32 blinkCounter_0x260;
-    Uint32 field_0x264;
+    Uint32 field_0x264;  /* no use site anywhere in src/ */
     Uint32 mirrorVisible_0x268;
     Sint32 headingSin_0x26c;
     float headingCos_0x270;
@@ -172,6 +178,8 @@ typedef struct {
     float projectDistance_0x2c4;
     GroundProbeFn probeFn_0x2c8;
     JunctionQueryFn junctionQueryFn_0x2cc;
+    /* BusState holds a second junction-query fn pointer here; the traffic
+     * code never touches the offset. */
     Uint32 field_0x2d0;
     Uint32 busAheadFlag_0x2d4;
     Uint32 lightFadeState_0x2d8;
@@ -194,9 +202,13 @@ typedef struct {
     Uint32 junctionHitCount_0x40c;
     Uint32 signalId_0x410;
     float laneOffsetRatio_0x414;
+    /* One input to the per-frame speed-limit min() (025b98). Two writers
+     * with unclear intent: BusInputMirrorLookahead_8c024280 as a mirror
+     * visibility floor, and TrafficComputeBlockedSpeed_8c026eaa writing
+     * *another* entry's copy. */
     float field_0x418;
     float lookaheadMargin_0x41c;
-    Uint32 field_0x420;
+    Uint32 field_0x420;  /* no use site anywhere in src/ */
     Uint32 obstacleLimitActive_0x424;
     Uint32 curveLimitActive_0x428;
     Uint32 yieldState_0x42c;
@@ -205,6 +217,9 @@ typedef struct {
     Uint32 yieldExitSignalId_0x438;
     Uint8 padding_0x43c[0xc];
     Uint32 signalWaitState_0x448;
+    /* Unreferenced. init_8c0460bc gives the 0x448 family one arg word where
+     * the 0x458/0x468 families get two, so this is probably just matching
+     * their width. */
     Uint32 field_0x44c;
     Uint32 signalWaitFrameId_0x450;
     Uint32 signalWaitArmedBlock_0x454;
@@ -233,7 +248,7 @@ typedef struct {
     /* float, not Sint32 -- TrafficDriveVehicle_8c025b98 decrements it by
      * the frame's speed like an odometer. */
     float lookaheadCacheLen_0x4ec;
-    Uint32 field_0x4f0;
+    Uint32 field_0x4f0;  /* unreferenced; likely alignment */
     PathRecord *lookaheadCursor_0x4f4;
     Uint32 lookaheadCursorBlock_0x4f8;
     float lookaheadCursorDist_0x4fc;
