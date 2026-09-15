@@ -172,7 +172,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x510, 0x40);
 
         $this->shouldCall('_TrafficReadScriptArgs_8c026710')->with($entry, $script);
-        $this->shouldCall('_TrafficPathScanBuild_8c02f0c8')->with($task, $entry, 0x12345678, 0)->andReturn(0);
+        $this->shouldCall('_TrafficPathScanBuild_8c02f0c8')->with($task, $entry, 0x12345678, 0, 2.5, 8.0)->andReturn(0);
 
         $this->shouldWriteFloat($entry + 0x2e8, 2.5);
         $this->shouldCall('_AsqGetRandomA_8c012166')->andReturn(0);
@@ -275,7 +275,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x510, 0);
 
         $this->shouldCall('_TrafficReadScriptArgs_8c026710')->with($entry, $script);
-        $this->shouldCall('_TrafficPathScanBuild_8c02f0c8')->with($task, $entry, 0xdeadbeef, 0)->andReturn(1);
+        $this->shouldCall('_TrafficPathScanBuild_8c02f0c8')->with($task, $entry, 0xdeadbeef, 0, 1.0, 8.0)->andReturn(1);
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
 
         $this->shouldReturn(0);

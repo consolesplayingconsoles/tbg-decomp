@@ -786,7 +786,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         if (*script != 10) {
             TrafficReadScriptArgs_8c026710(e, script);
 
-            if (TrafficPathScanBuild_8c02f0c8(task, e, e->resolvedArgs_0x304[0], 0, 8.0f, 8.0f) != 0) {
+            if (TrafficPathScanBuild_8c02f0c8(task, e, e->resolvedArgs_0x304[0], 0, progress, 8.0f) != 0) {
                 TaskFree_8c014b66(task);
                 return 0;
             }

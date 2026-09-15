@@ -47,6 +47,13 @@ $this->shouldCall('_fn')->with($a, $b);
 $this->shouldCall('_fn')->andReturn($value);
 $this->shouldCall('_fn')->with($a)->andReturn($value);
 
+// List EVERY argument. A PHP float literal takes the next FR slot (fr4, fr5,
+// ...), counted separately from the integer slots, so mixed signatures are
+// written in plain C order. An argument left off the list is never compared:
+// a wrong float in a call whose ->with() declared only the ints passed the
+// suite for the whole life of 026710_traffic.
+$this->shouldCall('_fn')->with($ptr, $n, 2.5, 8.0);
+
 // A plain PHP string literal matches a pointer arg by dereferencing it and
 // comparing the C string contents -- no allocString()/addressOf() needed.
 // Use this for pointers to string literals (e.g. anonymous C literals that
