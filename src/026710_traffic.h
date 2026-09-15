@@ -52,17 +52,17 @@ typedef struct {
     NJS_TEXLIST *texlistSmall_0x08;
     NJS_OBJECT *modelLarge_0x0c;
     void *modelSmall_0x10;
-    void *bodyModel_0x14;
-    NJS_OBJECT *steerNode_0x018;
-    NJS_OBJECT *wheelNode1_0x01c;
-    NJS_OBJECT *wheelNode2_0x020;
-    NJS_OBJECT *wheelNode3_0x024;
-    NJS_OBJECT *wheelNode4_0x028;
-    NJS_OBJECT *blinkerLight0_0x02c;
-    NJS_OBJECT *blinkerLight1_0x030;
-    NJS_OBJECT *blinkerLight2_0x034;
-    NJS_OBJECT *blinkerLight3_0x038;
-    NJS_OBJECT *blinkerLight4_0x03c;
+    void *shadowModel_0x14;
+    NJS_OBJECT *bodyNode_0x018;
+    NJS_OBJECT *frontWheelA_0x01c;
+    NJS_OBJECT *frontWheelB_0x020;
+    NJS_OBJECT *rearWheelA_0x024;
+    NJS_OBJECT *rearWheelB_0x028;
+    /* The five lamp nodes hanging off bodyNode_0x018, shown/hidden from
+     * bits 0-4 of blinker_0x080. Bit 0 is the brake lamp (025b98 sets it
+     * while decelerating or stopped); bits 3 and 4 are forced on for the
+     * night/evening running lights. */
+    NJS_OBJECT *blinkerLights_0x02c[5];
     NJS_OBJECT *turnLampA_0x040;
     NJS_OBJECT *turnLampB_0x044;
     NJS_OBJECT *turnLampC_0x048;
@@ -77,10 +77,12 @@ typedef struct {
     Uint32 field_0x064;
     Uint32 field_0x068;
     Uint32 field_0x06c;
+    /* Same animation angles as BusState's at these offsets (sectionB.h). */
+    /* Same animation angles as BusState's at these offsets (sectionB.h). */
     Uint32 distanceTraveled_0x070;
-    Uint32 ang_0x074;
-    Uint32 acc_0x078;
-    Uint32 ang_0x07c;
+    Uint32 steerAngle_0x074;
+    Uint32 pitchAngle_0x078;
+    Uint32 rollAngle_0x07c;
     Uint32 blinker_0x080;
     NJS_MATRIX worldMatrix_0x84;
     float simpleLightIntensity0_0x0c4;
@@ -116,7 +118,7 @@ typedef struct {
     /* 4 scratch ground-probe results. spawnEntry_8c0272b8 clears each one's
      * vertexIds_0x08/count_0x0c (leaving attr_0x00/polyIdSlot_0x04
      * untouched -- real asm behavior). Only the first 3 (0x190/0x1a0/0x1b0)
-     * have confirmed consumers: per 027958.h/BusDrawPlaceEntity_8c027c3c, which fills them
+     * have confirmed consumers: per 027958_bus_draw.h/BusDrawPlaceEntity_8c027c3c, which fills them
      * through probeFn_0x2c8's probe callback and interpolates posY_0xf8/
      * probeSideAY_0x11c/probeSideBY_0x128 from them; their .attr_0x00 words are read as
      * a "probe already valid" gate by TrafficDriveDecoration_8c02656a,
@@ -237,7 +239,8 @@ typedef struct {
     PathRecord *junctionPath_0x484;
     Uint32 junctionWaitTimer_0x488;
     Sint32 animKind_0x48c;
-    float field_0x490;
+    /* Distance to the player bus, refreshed per frame by 025b98. */
+    float busDistance_0x490;
     Uint32 groundAligned_0x494;
     Uint32 pendingAttachmentRelease_0x498;
     /* Cache of upcoming path positions (x,z pairs) at 5-unit intervals,

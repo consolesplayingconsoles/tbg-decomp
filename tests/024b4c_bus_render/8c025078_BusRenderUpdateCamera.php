@@ -110,8 +110,8 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c227dac'), 0);
 
         $this->initFloat($this->addressOf('_var_fogParam_8c227dd0'), 12.5);
-        $this->initUint32($base + 0x078, 0); // acc_0x078
-        $this->initUint32($base + 0x07c, 777); // ang_0x07c
+        $this->initUint32($base + 0x078, 0); // pitchAngle_0x078
+        $this->initUint32($base + 0x07c, 777); // rollAngle_0x07c
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc7 + 1, 0); // progress flag clear
         $this->initFloat($this->addressOf('_var_8c227df0'), 0.0);
 
@@ -417,8 +417,8 @@ return new class extends TestCase {
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
-        $this->initUint32($base + 0x078, 0); // acc_0x078
-        $this->initUint32($base + 0x07c, 321); // ang_0x07c
+        $this->initUint32($base + 0x078, 0); // pitchAngle_0x078
+        $this->initUint32($base + 0x07c, 321); // rollAngle_0x07c
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc7 + 1, 0); // progress flag clear
 
         $this->initFloat($base + 0x0f4, 1.0);
@@ -476,8 +476,8 @@ return new class extends TestCase {
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
-        $this->initUint32($base + 0x078, 0); // acc_0x078
-        $this->initUint32($base + 0x07c, 999); // ang_0x07c (overridden to 0)
+        $this->initUint32($base + 0x078, 0); // pitchAngle_0x078
+        $this->initUint32($base + 0x07c, 999); // rollAngle_0x07c (overridden to 0)
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc7 + 1, 1); // progress flag set
 
         $this->initFloat($base + 0x0f4, 1.0);

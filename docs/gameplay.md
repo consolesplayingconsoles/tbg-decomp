@@ -90,8 +90,11 @@ bus along a predefined route with predefined passenger stop requests.
   Failing to signal there is the `NO_SIGNAL` penalty.
 - Signalling the wrong way is also penalised: the lane-change check compares
   the signal against the direction actually taken.
-- The lamps are five arrow models driven by bits of `blinker_0x080`
-  (`027958.c`); the tick SFX plays on the first frame of each signal.
+- The lamps are five models on the bus body, shown and hidden from the low
+  five bits of `blinker_0x080` (`blinkerLights_0x02c`, `027958_bus_draw.c`).
+  Not all five are blinkers: bit 0 is the brake lamp and bits 3/4 the night
+  running lights, both forced on elsewhere. The tick SFX plays on the first
+  frame of each signal.
 - `HudSignalCueState.turnSignalLatched_0x10` (`01fa78.c`) is a different,
   unrelated latch: a one-shot "already popped the driver-comment mark for
   this blinker-on period" flag derived from the *lamp* bits

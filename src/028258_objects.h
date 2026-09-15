@@ -12,7 +12,7 @@
  * one of those through `attachedTo_0xd0`, mirrors its open/closed state, and
  * only ever uses frames_0x10[0].
  *
- * The 027958 draw callbacks light exactly one entry of `frames_0x10` per frame --
+ * The 027958_bus_draw draw callbacks light exactly one entry of `frames_0x10` per frame --
  * NJD_EVAL_HIDE cleared on it, set on the other two -- then draw `model_0xb8`
  * with `tlist_0xb4`. For a type 2/3/4 object BusDrawSignalAttachment_8c028206 reads drawA_0xc8 as
  * plain visibility rather than as a per-placement draw flag. */

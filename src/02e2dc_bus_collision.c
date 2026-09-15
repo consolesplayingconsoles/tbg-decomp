@@ -162,7 +162,7 @@ NJS_POINT3 *init_variantBoxes_8c04c940[16] = {
  * ====================
  */
 
-/* field_0x490 is the distance to the bus, refreshed per-frame by
+/* busDistance_0x490 is the distance to the bus, refreshed per-frame by
  * TrafficDriveVehicle_8c025b98/TrafficDriveDecoration_8c02656a.
  *
  * The overlap test here is GeomQuadOverlap_8c020842, where the otherwise
@@ -184,7 +184,7 @@ TrafficEntry *BusCollisionFindHit_8c02e2dc(void)
         if (cursor->action != (TaskAction)-1) {
             entry = (TrafficEntry *)cursor->state;
 
-            if (entry->field_0x490 < 12.0f) {
+            if (entry->busDistance_0x490 < 12.0f) {
                 njCalcPoints(&entry->worldMatrix_0x84,
                              init_variantBoxes_8c04c940[entry->variantIndex_0x2e0],
                              var_collisionCandidateBox_8c2289d8.v, 8);
@@ -223,7 +223,7 @@ STATIC BusState *findNextHit_8c02e35a(void)
         if (cursor->action != (TaskAction)-1) {
             entry = (TrafficEntry *)cursor->state;
 
-            if (entry->field_0x490 < 12.0f) {
+            if (entry->busDistance_0x490 < 12.0f) {
                 njCalcPoints(&entry->worldMatrix_0x84,
                              init_variantBoxes_8c04c940[entry->variantIndex_0x2e0],
                              var_collisionCandidateBox_8c2289d8.v, 8);

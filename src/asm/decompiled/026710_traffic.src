@@ -3,8 +3,8 @@
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _AttrQueryFindConvexPolygon_8c02e51c
           .IMPORT     _var_sceneParams_8c18ad24
-          .IMPORT     _var_8c1bbdb0
-          .IMPORT     _var_8c1bbdd0
+          .IMPORT     _var_nightLightIntensityOn_8c1bbdb0
+          .IMPORT     _var_nightLightColorOn_8c1bbdd0
           .IMPORT     _GroundQueryFindPolygon_8c020914
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _njCos
@@ -50,10 +50,10 @@
           .IMPORT     _init_8c04c980
           .IMPORT     _init_8c04caec
           .IMPORT     _init_8c04cd38
-          .IMPORT     _var_8c1bbda8
-          .IMPORT     _var_8c1bbdc4
-          .IMPORT     _var_8c1bbda0
-          .IMPORT     _var_8c1bbdb8
+          .IMPORT     _var_nightLightIntensityOff_8c1bbda8
+          .IMPORT     _var_nightLightColorOff_8c1bbdc4
+          .IMPORT     _var_nightLightIntensityStep_8c1bbda0
+          .IMPORT     _var_nightLightColorStep_8c1bbdb8
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TrafficDriveDecoration_8c02656a
           .IMPORT     _GroundProbeTrackPolygonAtHeight_8c021290
@@ -446,8 +446,8 @@ LP_GEN_59685:
           .DATA.W H'024C ; H'8C0269DE
           .DATA.W H'0278 ; H'8C0269E0
           .DATA.W H'0274 ; H'8C0269E2
-          .DATA.L _var_8c1bbdb0 ; H'8C0269E4
-          .DATA.L _var_8c1bbdd0 ; H'8C0269E8
+          .DATA.L _var_nightLightIntensityOn_8c1bbdb0 ; H'8C0269E4
+          .DATA.L _var_nightLightColorOn_8c1bbdd0 ; H'8C0269E8
           .DATA.L H'C0000000 ; H'8C0269EC
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C0269F0
           .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C0269F4
@@ -2318,14 +2318,14 @@ LP_GEN_74201:
           .DATA.L _init_8c04caec ; H'8C027834
           .DATA.L _init_8c04cd38 ; H'8C027838
           .DATA.L _var_timeOfDay_8c18ad20 ; H'8C02783C
-          .DATA.L _var_8c1bbdb0 ; H'8C027840
+          .DATA.L _var_nightLightIntensityOn_8c1bbdb0 ; H'8C027840
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C027844
-          .DATA.L _var_8c1bbdd0 ; H'8C027848
-          .DATA.L _var_8c1bbda8 ; H'8C02784C
-          .DATA.L _var_8c1bbdc4 ; H'8C027850
-          .DATA.L _var_8c1bbda0 ; H'8C027854
+          .DATA.L _var_nightLightColorOn_8c1bbdd0 ; H'8C027848
+          .DATA.L _var_nightLightIntensityOff_8c1bbda8 ; H'8C02784C
+          .DATA.L _var_nightLightColorOff_8c1bbdc4 ; H'8C027850
+          .DATA.L _var_nightLightIntensityStep_8c1bbda0 ; H'8C027854
           .DATA.L H'41A00000 ; H'8C027858
-          .DATA.L _var_8c1bbdb8 ; H'8C02785C
+          .DATA.L _var_nightLightColorStep_8c1bbdb8 ; H'8C02785C
           .DATA.L _trafficUpdateTask_8c0275d4 ; H'8C027860
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C027864
           .DATA.L _TaskPush_8c014ae8 ; H'8C027868

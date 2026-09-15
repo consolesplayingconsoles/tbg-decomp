@@ -11,7 +11,7 @@
 #include "020b6c_ground_probe.h"
 #include "0222dc_fadecmd.h" /* FadeCmdPushCall2_8c022420 */
 #include "022464_fade.h" /* FadeRequest, var_fadeRequest_8c226564, var_fadeArrivalGate_8c226560 */
-#include "027958.h" /* BusDrawSignal_8c0281ac */
+#include "027958_bus_draw.h" /* BusDrawSignal_8c0281ac */
 #include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02af78_event.h" /* EventApplyFlags_8c02b292 */
 #include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
@@ -4585,7 +4585,7 @@ STATIC void snapPointToGround_8c02840c(void)
  * TrafficSignalDef): first every type-1 entry, then the 2/3/4 attachments, which
  * search the tasks already pushed for the id they name. The task state's
  * tlist_0xb4/model_0xb8 are a var_routeModels_8c1bc3ec pair; the draw callbacks
- * in 027958 feed them to njSetTexture and njCnkSimpleDrawObject. */
+ * in 027958_bus_draw feed them to njSetTexture and njCnkSimpleDrawObject. */
 void ObjectsInitTrafficSignals_8c02845a(void)
 {
     TrafficSignalDef *def;

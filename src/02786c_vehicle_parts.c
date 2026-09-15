@@ -28,44 +28,44 @@ void VehPartsBind_8c02786c(TrafficEntry *entry, Uint32 typeCode)
     nj = entry->modelLarge_0x0c;
 
     node = nj->child;
-    entry->steerNode_0x018 = node;
+    entry->bodyNode_0x018 = node;
     node->evalflags &= ~NJD_EVAL_UNIT_ANG;
 
     node = node->sibling;
-    entry->wheelNode1_0x01c = node;
+    entry->frontWheelA_0x01c = node;
     node->evalflags &= ~NJD_EVAL_UNIT_ANG;
 
     node = node->sibling;
-    entry->wheelNode2_0x020 = node;
+    entry->frontWheelB_0x020 = node;
     node->evalflags &= ~NJD_EVAL_UNIT_ANG;
 
     node = node->sibling;
-    entry->wheelNode3_0x024 = node;
+    entry->rearWheelA_0x024 = node;
     node->evalflags &= ~NJD_EVAL_UNIT_ANG;
 
     if (typeCode == 0x14 || typeCode == 0x16 || typeCode == 0x0e || typeCode == 0x10) {
         node = node->sibling;
-        entry->wheelNode4_0x028 = node;
+        entry->rearWheelB_0x028 = node;
         node->evalflags &= ~NJD_EVAL_UNIT_ANG;
     }
 
     /* Second walk re-reads entry->modelLarge_0x0c rather than reusing the
-     * entry->steerNode_0x018 cache above -- matches the original asm. */
+     * entry->bodyNode_0x018 cache above -- matches the original asm. */
     nj = entry->modelLarge_0x0c;
     node = nj->child->child;
-    entry->blinkerLight0_0x02c = node;
+    entry->blinkerLights_0x02c[0] = node;
 
     node = node->sibling;
-    entry->blinkerLight1_0x030 = node;
+    entry->blinkerLights_0x02c[1] = node;
 
     node = node->sibling;
-    entry->blinkerLight2_0x034 = node;
+    entry->blinkerLights_0x02c[2] = node;
 
     node = node->sibling;
-    entry->blinkerLight3_0x038 = node;
+    entry->blinkerLights_0x02c[3] = node;
 
     node = node->sibling;
-    entry->blinkerLight4_0x03c = node;
+    entry->blinkerLights_0x02c[4] = node;
 
     if (typeCode == 0x1a) {
         entry->field_0x058 = node->child;

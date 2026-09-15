@@ -12,11 +12,11 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float heading): called once per frame
- * per traffic entity by TrafficDriveVehicle_8c025b98 (025b98, still raw asm). See 027958.h
- * for the full description; this test covers the near/far draw-registration
- * cone tests, the ground-probe-pointer realign trigger, the suspension-lean
- * integer easing, and the ground re-probe/grid-swap block.
+ * BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float accel): called once
+ * per frame per traffic entity by TrafficDriveVehicle_8c025b98 (025b98). See
+ * 027958_bus_draw.h for the full description; this test covers the forward and
+ * mirror cone tests, the ground-probe-pointer realign trigger, the suspension
+ * lean easing, and the ground re-probe/grid-swap block.
  */
 return new class extends TestCase {
     private function f32(float $value): float
@@ -30,7 +30,7 @@ return new class extends TestCase {
         $this->setSize('_njSqrt', 4);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_groundGridFallback_8c1bb86c', 4);
-        $this->setSize('_var_8c1bb880', 4);
+        $this->setSize('_var_groundGridCpu_8c1bb880', 4);
         $this->setSize('_FadeCmdPushCall2_8c022420', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_VehicleModelPlace_8c020594', 4);
@@ -63,7 +63,7 @@ return new class extends TestCase {
 
     /** Allocates an entity far from both the near and far cone references
      * (posX_0xf4 = 1000), with the ground-realign block fully skipped
-     * (field_0x2c8 unrelated, field_0x490 already close). */
+     * (field_0x2c8 unrelated, busDistance_0x490 already close). */
     private function makeIdleEntity(): int
     {
         $entity = $this->alloc(0x514);
@@ -72,7 +72,7 @@ return new class extends TestCase {
         $this->initUint32($entity + 0xf4, fdec(1000.0)); // posX_0xf4
         $this->initUint32($entity + 0xfc, fdec(0.0));    // posZ_0xfc
         $this->initUint32($entity + 0x2c8, 0);            // field_0x2c8 (probe fn)
-        $this->initUint32($entity + 0x490, fdec(100.0));  // field_0x490 (>= 85.333336)
+        $this->initUint32($entity + 0x490, fdec(100.0));  // busDistance_0x490 (>= 85.333336)
 
         return $entity;
     }
@@ -86,7 +86,7 @@ return new class extends TestCase {
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_busDrawSimpleCb_8c027a88'), $entity, 0);
+        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
         $this->forceStop();
     }
 
@@ -128,7 +128,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(900.0))->andReturn(30.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_busDrawSimpleCb_8c027bac'), $entity, 1);
+        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 1);
         $this->forceStop();
     }
 
@@ -143,7 +143,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(400.0))->andReturn(20.0);
         $this->shouldWriteLong($entity + 0x268, 1);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_busDrawSimpleCb_8c027bac'), $entity, 0);
+        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 0);
         $this->forceStop();
     }
 
@@ -157,7 +157,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_busDrawSimpleCb_8c027bac'), $entity, 0);
+        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 0);
         $this->forceStop();
     }
 
@@ -180,7 +180,7 @@ return new class extends TestCase {
     {
         $bus = $this->makeBus();
         $entity = $this->makeIdleEntity();
-        // Near/far both out of range; field_0x2c8 doesn't match; field_0x490
+        // Near/far both out of range; field_0x2c8 doesn't match; busDistance_0x490
         // already below the 85.333336 threshold -> outer condition false.
 
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
@@ -206,7 +206,7 @@ return new class extends TestCase {
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_busDrawSimpleCb_8c027a88'), $entity, 0);
+        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
 
         // Suspension-lean easing still runs (all deltas are 0 here).
@@ -226,7 +226,7 @@ return new class extends TestCase {
         $entity = $this->makeIdleEntity();
         $this->initUint32($entity + 0xf4, fdec(-10.0)); // near registers, dist 10
         $this->initUint32($entity + 0x2c8, $this->addressOf('_GroundProbeTrackPolygonAtHeight_8c021290'));
-        $this->initUint32($entity + 0x2b4, 0); // no fallback-grid swap
+        $this->initUint32($entity + 0x2b4, 0); // driveState != 1: no grid swap
 
         $this->initUint32($entity + 0x27c, fdec(0.5));   // speed
         $this->initUint32($entity + 0x070, 1000);
@@ -248,7 +248,7 @@ return new class extends TestCase {
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.01);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_busDrawSimpleCb_8c027a88'), $entity, 0);
+        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
 
         // Second (far) njSqrt: same entity position, dist 10 from the
         // default (0,0) mirror reference -- fails the tight cone test.
@@ -286,7 +286,7 @@ return new class extends TestCase {
     {
         $bus = $this->makeBus();
         $entity = $this->makeIdleEntity();
-        // Near/far both stay out of range; force entry via field_0x490.
+        // Near/far both stay out of range; force entry via busDistance_0x490.
         $this->initUint32($entity + 0x490, fdec(0.0));
         $this->initUint32($entity + 0x2b4, 1);
         $this->initUint32($entity + 0x2c8, $this->addressOf('_njMultiMatrix'));
@@ -308,10 +308,10 @@ return new class extends TestCase {
         $this->initUint32($entity + 0x104, fdec(8.0));
         $this->initUint32($entity + 0x108, fdec(9.0));
 
-        $fallback = $this->alloc(4);
-        $primary = $this->alloc(4);
-        $this->initUint32($this->addressOf('_var_groundGridFallback_8c1bb86c'), $fallback);
-        $this->initUint32($this->addressOf('_var_8c1bb880'), $primary);
+        $busGrid = $this->alloc(4);
+        $cpuGrid = $this->alloc(4);
+        $this->initUint32($this->addressOf('_var_groundGridFallback_8c1bb86c'), $busGrid);
+        $this->initUint32($this->addressOf('_var_groundGridCpu_8c1bb880'), $cpuGrid);
 
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
@@ -323,7 +323,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entity + 0x07c, 0);
         $this->shouldWriteLong($entity + 0x078, 0);
 
-        $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', $fallback);
+        $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', $busGrid);
 
         $probeA = $entity + 0x190;
         $probeB = $entity + 0x1a0;
@@ -337,7 +337,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entity + 0xf8, fdec((2.0 + 5.0) / 2.0));
         $this->shouldCall('_GroundProbeInterpolateHeight_8c020f7e')->with($probeC, $entity + 0x100);
 
-        $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', $primary);
+        $this->shouldWriteLongTo('_var_activeGroundGrid_8c2264d4', $cpuGrid);
 
         $this->shouldCall('_VehicleModelPlace_8c020594')->with($entity + 0x84, $entity);
         $this->shouldWriteLong($entity + 0x494, 1);

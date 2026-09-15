@@ -15,7 +15,7 @@
 
 Relocation-graph analysis regenerated 2026-08-29 by `make graph` after
 `022bdc_bus`, `023310_bus_init`, `024b4c_bus_render`, `025870`, `02e51c_attr_query`,
-`023938_bus_drive`, `027958` and `025b98_traffic_drive` all landed. The
+`023938_bus_drive`, `027958_bus_draw` and `025b98_traffic_drive` all landed. The
 previous target list is fully exhausted; this is the next round.
 
 "Fan-in" is how many already-decompiled (`.c`) units call into a given unit
@@ -29,7 +29,7 @@ not just size order.
 
 | Fan-in | Exports | Bytes | Unit | Called by |
 |---|---|---|---|---|
-| 3 | 1 | 6 K | `020594` | `022bdc_bus`, `023310_bus_init`, `027958` |
+| 3 | 1 | 6 K | `020594` | `022bdc_bus`, `023310_bus_init`, `027958_bus_draw` |
 | 3 | 2 | 4 K | `02081c` | `022bdc_bus`, `023938_bus_drive`, `025b98_traffic_drive` |
 | 2 | 2 | 15 K | `02df3c` | `025b98_traffic_drive`, `026710_traffic` |
 | 1 | 6 | 38 K | `024280` | `022bdc_bus` |
@@ -70,7 +70,7 @@ will bump `02081c`'s fan-in from 3 to 4.
 
 The `023310` bus cluster (previous round's pick) is now fully decompiled --
 `022bdc_bus`, `023938_bus_drive`, `024b4c_bus_render`, `025870`, `02e51c_attr_query`,
-`027958` and `025b98_traffic_drive` all landed. That's exactly why the two
+`027958_bus_draw` and `025b98_traffic_drive` all landed. That's exactly why the two
 tiny units at the top of the table today (`020594`, `02081c`) sit at fan-in
 3: they're leftover callees shared across that whole now-decompiled cluster.
 
@@ -199,7 +199,7 @@ incomplete call graph -- out of Ghidra, in three distinct ways:
    in Ghidra's decompilation, because the only reference is a raw pointer
    sitting in another function's literal pool (`.DATA.L`) rather than any
    `BSR`/`JSR` -- `024b4c_bus_render`'s `drawFrontBusModel_8c024cc8` and
-   `027958`'s `busDrawSimpleCb_8c027a88`/`busDrawSimpleCb_8c027bac`. Unlike
+   `027958_bus_draw`'s `drawAhead_8c027a88`/`drawMirror_8c027bac`. Unlike
    (1) these aren't merged into a neighbour -- Ghidra does list them as
    functions -- but nothing in the pseudocode calls them, so a straight
    BSR/JSR-based call-graph reading skips them entirely.
@@ -228,26 +228,60 @@ it turned out to hold more than a boolean push flag. `TrafficDriveDecoration`
 shares the same collision-push shape via `driveState_0x2b4 == 1`.
 
 `TrafficEntry.groundProbe_0x190` is declared `[4]` (`026710_traffic.h`), but
-both this unit and `027958` only ever read/write indices `[0..2]` -- **no
+both this unit and `027958_bus_draw` only ever read/write indices `[0..2]` -- **no
 reader for `groundProbe_0x190[3]` has been found anywhere in the tree.**
 Genuinely open; worth a fresh grep once more of the traffic cluster is
 decompiled.
 
-### `027958` -- done, left deliberately hex-only
+### `027958_bus_draw` (ShortUnit `BusDraw`) -- done, 7/7 functions
 
-Bundles three unrelated jobs that happened to end up in one Ghidra-drawn
-range: bus blinker-light state (`FUN_8c027958`/`FUN_8c028022`), traffic-
-signal draw callbacks for `028258_objects` (`FUN_8c0281ac`/`FUN_8c028206`),
-and a ground-alignment matrix helper for `025b98` (`FUN_8c027c3c`). No
-`@unit` tag, left hex-addressed, on the "exports span unrelated jobs"
-grounds -- but see `02e51c_attr_query` below, where that same call turned
-out to be wrong, so this one deserves a re-check.
+The re-check `02e51c_attr_query` (below) called for. The unit had been left
+hex-only as three unrelated jobs sharing a Ghidra range; reading the bodies
+against their callers dissolved that the same way it did for `02e51c`. Every
+function is one step of *drawing a vehicle or a signal*, and all of them run
+inside the fade command list:
 
-Two of its seven functions -- `busDrawSimpleCb_8c027a88`/
-`busDrawSimpleCb_8c027bac`, registered as `FadeCmdPushCall2_8c022420` draw
-callbacks by `FUN_8c027c3c` (itself called once per frame per moving
-traffic entity by `TrafficDriveVehicle_8c025b98`) -- are case (3) of the
-Ghidra boundary/call-graph note above.
+- `BusDrawUpdateModels_8c027958` pushes a frame of animation onto a vehicle's
+  model nodes. Its switch on `typeCode_0x000` has exactly the arms
+  `VehPartsBind_8c02786c` (`02786c_vehicle_parts`) has -- it drives only the
+  nodes that binder cached for this vehicle type, which is what makes the two
+  functions readable as a pair rather than as a mystery phase machine.
+- `drawAhead_8c027a88`/`drawMirror_8c027bac` are the two draw callbacks,
+  `BusDrawPlaceEntity_8c027c3c` picks between them and also owns the entity's
+  lean and ground alignment.
+- `BusDrawSignal_8c0281ac`/`BusDrawSignalAttachment_8c028206` draw a
+  `TrafficSignal` for `028258_objects`.
+- `BusDrawFadeLights_8c028022` crossfades the night light rows.
+
+Three corrections came out of it:
+
+1. `BusDrawPlaceEntity_8c027c3c`'s second parameter was documented as a
+   heading; `025b98` passes a 4-frame sum of speed deltas, i.e. acceleration.
+   It feeds `pitchAngle_0x078` (was `acc_0x078`), which leans the body
+   forward under braking -- `024b4c` converts the same field to degrees to
+   raise and lower the cockpit camera. `rollAngle_0x07c` (was `ang_0x07c`)
+   is the lateral lean, clamped to the same 4 degrees here and in `022bdc`.
+2. `bodyModel_0x14` is not a body: it is drawn with `njCnkModDrawObject`
+   under `NJD_CONTROL_3D_SHADOW | ..._TRANS_MODIFIER`, so it is the shadow
+   volume. Renamed `shadowModel_0x14`, which also stops it colliding with
+   `bodyModels_0x04c[6]`, the six actual body variants.
+3. `TrafficEntry.steerNode_0x018` steers nothing -- it takes pitch on `ang[0]`
+   and roll on `ang[2]`, and the lamp nodes hang off it. Renamed
+   `bodyNode_0x018`.
+
+`BusState` and `TrafficEntry` are two views of one 0x00-0x60 prefix and had
+drifted into two names per byte (`field_0x000`/`typeCode_0x000`,
+`rearWheel_0x024`/`wheelNode3_0x024`, ...). They now agree, and the five lamp
+pointers at 0x02c became one `blinkerLights_0x02c[5]` in both, so the
+show/hide loop reads off `blinker_0x080`'s low five bits directly. Bit 0 is
+the brake lamp; bits 3 and 4 are the night/evening running lights. Still
+divergent, and worth a later pass: `bodyModels_0x04c[6]` is six separate
+`field_`s on the `TrafficEntry` side.
+
+Two of its seven functions -- `drawAhead_8c027a88`/`drawMirror_8c027bac`,
+registered as `FadeCmdPushCall2_8c022420` draw callbacks by
+`BusDrawPlaceEntity_8c027c3c` -- are case (3) of the Ghidra
+boundary/call-graph note above.
 
 ### `023938_bus_drive` (ShortUnit `BusDrive`) -- done, 5/5 functions
 
@@ -331,7 +365,8 @@ AI entry by `025b98`, as `fallbackTaskMatchId_0x3a0` on the player by
 asks which actor currently holds a given one. Reading the odd function out
 against its *callers'* fields, rather than against its siblings' shape,
 was what dissolved the apparent split. Worth trying before invoking the
-"exports span unrelated jobs" exemption elsewhere (e.g. `027958` above).
+"exports span unrelated jobs" exemption elsewhere -- it retired the last
+holder of that exemption, `027958_bus_draw` above, for the same reason.
 
 ### `02b464_drive_points` (ShortUnit `DrivePoints`) -- done, driving-evaluation/penalty subsystem
 
@@ -472,7 +507,7 @@ entry's variant index (`entry+0x2e0`) -- the same 16 variants as
 `026710_traffic`'s `init_8c04622c` / `init_8c0460c8`. Slot 13 is the bus's own
 box, also reached by name as `init_busBox_8c04c820`.
 
-`BusCollisionFindHit_8c02e2dc` prefilters on `field_0x490 < 12.0` (distance to
+`BusCollisionFindHit_8c02e2dc` prefilters on `busDistance_0x490 < 12.0` (distance to
 the bus, refreshed per frame by the drive tasks) before box-testing. It uses
 `GeomQuadOverlap_8c020842` where the otherwise identical traffic-vs-traffic
 scan next door uses `njCollisionCheckBB` -- an asymmetry that is invisible

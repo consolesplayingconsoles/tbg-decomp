@@ -154,12 +154,12 @@
                                                   ; 026710
                                                   ; 028258
           .EXPORT     _var_groundGridFallback_8c1bb86c ; 012f44_game
-                                    ; 027958
+                                    ; 027958_bus_draw
                                     ; 028258
                                     ; 02c884
           .EXPORT     _var_stopAreaTable_8c1bb870 ; 02c884
           .EXPORT     _var_8c1bb878 ; 025b98
-          .EXPORT     _var_8c1bb880 ; 027958
+          .EXPORT     _var_groundGridCpu_8c1bb880 ; 027958_bus_draw
           .EXPORT     _var_8c1bb888 ; 025b98
           .EXPORT     _var_groundGridPrimary_8c1bb890 ; 028258
           .EXPORT     _var_8c1bb894 ; 02c884
@@ -272,7 +272,7 @@
                                              ; 024b4c
                                              ; 025870
                                              ; 026710
-                                             ; 027958
+                                             ; 027958_bus_draw
                                              ; 028258
                                              ; 02b464
                                              ; 02c884
@@ -321,20 +321,20 @@
                                     ; 02b464
                                     ; 02df3c
                                     ; 02f0c8_traffic_path_scan
-          .EXPORT     _var_8c1bbda0 ; 026710
-                                    ; 027958
-          .EXPORT     _var_8c1bbda8 ; 026710
-                                    ; 027958
-          .EXPORT     _var_8c1bbdac ; 027958
-          .EXPORT     _var_8c1bbdb0 ; 026710
-                                    ; 027958
-          .EXPORT     _var_8c1bbdb4 ; 027958
-          .EXPORT     _var_8c1bbdb8 ; 026710
-                                    ; 027958
-          .EXPORT     _var_8c1bbdc4 ; 026710
-                                    ; 027958
-          .EXPORT     _var_8c1bbdd0 ; 026710
-                                    ; 027958
+          .EXPORT     _var_nightLightIntensityStep_8c1bbda0 ; 026710
+                                    ; 027958_bus_draw
+          .EXPORT     _var_nightLightIntensityOff_8c1bbda8 ; 026710
+                                    ; 027958_bus_draw
+          .EXPORT     _var_nightLightIntensityOff1_8c1bbdac ; 027958_bus_draw
+          .EXPORT     _var_nightLightIntensityOn_8c1bbdb0 ; 026710
+                                    ; 027958_bus_draw
+          .EXPORT     _var_nightLightIntensityOn1_8c1bbdb4 ; 027958_bus_draw
+          .EXPORT     _var_nightLightColorStep_8c1bbdb8 ; 026710
+                                    ; 027958_bus_draw
+          .EXPORT     _var_nightLightColorOff_8c1bbdc4 ; 026710
+                                    ; 027958_bus_draw
+          .EXPORT     _var_nightLightColorOn_8c1bbdd0 ; 026710
+                                    ; 027958_bus_draw
           .EXPORT     _var_routeModelSlots_8c1bbddc ; 012f44_game
                                                     ; 013ae8_route_load
                                                     ; 026710
@@ -562,7 +562,7 @@
                                     ; 022bdc
                                     ; 023310
                                     ; 026710
-                                    ; 027958
+                                    ; 027958_bus_draw
                                     ; 028258
                                     ; 02c884
           .EXPORT     _var_fadeLightDir0_8c2264d8 ; 021b9c
@@ -946,7 +946,7 @@ _var_stopAreaTable_8c1bb870:
           .RES.B      8
 _var_8c1bb878:
           .RES.B      8
-_var_8c1bb880:
+_var_groundGridCpu_8c1bb880:
           .RES.B      8
 _var_8c1bb888:
           .RES.B      8
@@ -1054,21 +1054,21 @@ _var_scenePresetIds_8c1bbd8c:
           .RES.B      16
 _var_8c1bbd9c:
           .RES.B      4
-_var_8c1bbda0:
+_var_nightLightIntensityStep_8c1bbda0:
           .RES.B      8
-_var_8c1bbda8:
+_var_nightLightIntensityOff_8c1bbda8:
           .RES.B      4
-_var_8c1bbdac:
+_var_nightLightIntensityOff1_8c1bbdac:
           .RES.B      4
-_var_8c1bbdb0:
+_var_nightLightIntensityOn_8c1bbdb0:
           .RES.B      4
-_var_8c1bbdb4:
+_var_nightLightIntensityOn1_8c1bbdb4:
           .RES.B      4
-_var_8c1bbdb8:
+_var_nightLightColorStep_8c1bbdb8:
           .RES.B      12
-_var_8c1bbdc4:
+_var_nightLightColorOff_8c1bbdc4:
           .RES.B      12
-_var_8c1bbdd0:
+_var_nightLightColorOn_8c1bbdd0:
           .RES.B      12
 _var_routeModelSlots_8c1bbddc:
           .RES.B      416

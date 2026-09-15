@@ -124,7 +124,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x070, 0);
         $this->shouldWriteLong($base + 0x074, 0);
 
-        // acc_hist_0x280 shift: all zero in, all zero out; acc_0x078 = 0.
+        // acc_hist_0x280 shift: all zero in, all zero out; pitchAngle_0x078 = 0.
         $this->shouldWriteFloat($base + 0x280, 0.0);
         $this->shouldWriteFloat($base + 0x284, 0.0);
         $this->shouldWriteFloat($base + 0x288, 0.0);

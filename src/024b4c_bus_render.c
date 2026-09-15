@@ -5,7 +5,7 @@
 
 #include "serial_debug.h"
 #include "sectionB.h"
-#include "027958.h"
+#include "027958_bus_draw.h"
 #include "0222dc_fadecmd.h"
 #include "024b4c_bus_render.h"
 
@@ -100,7 +100,7 @@ void FUN_8c024bb8(void *altLight)
                                 var_8c1bc410, var_8c1bc414, frame);
 
     njControl3D(NJD_CONTROL_3D_MODEL_CLIP | NJD_CONTROL_3D_SHADOW | NJD_CONTROL_3D_TRANS_MODIFIER);
-    njCnkModDrawObject((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.bodyModel_0x014);
+    njCnkModDrawObject((NJS_CNK_OBJECT *)var_busState_8c1bb9d0.shadowModel_0x014);
     njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
 }
 
@@ -141,7 +141,7 @@ STATIC void drawFrontBusModel_8c024cc8(void)
 void BusRenderUpdateCamera_8c025078(void)
 {
     Sint32 cue = var_busState_8c1bb9d0.markAudioCue_0x3b8 & 0x0F000000;
-    float turnFactor;
+    float pitchOffset;
     Sint32 ang;
 
     if (var_8c227da4 == 0) {
@@ -208,8 +208,8 @@ void BusRenderUpdateCamera_8c025078(void)
     njSetCameraAngle(&var_8c1bb904, 10194);
     njSetCameraDepth(&var_8c1bb904, -1.0f, var_fogParam_8c227dd0);
 
-    turnFactor = (float)var_busState_8c1bb9d0.acc_0x078 * 360.0f / 65536.0f / -8.0f;
-    ang = var_busState_8c1bb9d0.ang_0x07c;
+    pitchOffset = (float)var_busState_8c1bb9d0.pitchAngle_0x078 * 360.0f / 65536.0f / -8.0f;
+    ang = var_busState_8c1bb9d0.rollAngle_0x07c;
 
     switch (var_cameraMode_8c227d9c) {
     case BUS_CAMERA_COCKPIT: {
@@ -217,13 +217,13 @@ void BusRenderUpdateCamera_8c025078(void)
 
         if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] != 0) {
             ang = 0;
-            turnFactor = 0.0f;
+            pitchOffset = 0.0f;
         }
 
         var_busState_8c1bb9d0.posX_0x2fc = var_busState_8c1bb9d0.posX_0x0f4;
         var_busState_8c1bb9d0.posZ_0x304 = var_busState_8c1bb9d0.posZ_0x0fc;
         var_busState_8c1bb9d0.posY_0x300 =
-            var_busState_8c1bb9d0.posY_0x0f8 + turnFactor + 2.0f;
+            var_busState_8c1bb9d0.posY_0x0f8 + pitchOffset + 2.0f;
 
         target = var_busState_8c1bb9d0.ang_0x258 / 3;
         if (var_busState_8c1bb9d0.cameraYawEase_0x3c8 != 0 || target < -728 || target > 728) {
@@ -270,7 +270,7 @@ void BusRenderUpdateCamera_8c025078(void)
     case BUS_CAMERA_FIRST_PERSON:
         if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] != 0) {
             ang = 0;
-            turnFactor = 0.0f;
+            pitchOffset = 0.0f;
         }
 
         var_busState_8c1bb9d0.moveDeltaX_0x308 = var_busState_8c1bb9d0.headingDirX_0x274 * 1.0f;
@@ -282,7 +282,7 @@ void BusRenderUpdateCamera_8c025078(void)
             var_busState_8c1bb9d0.posZ_0x0fc + var_busState_8c1bb9d0.moveDeltaZ_0x310;
         var_busState_8c1bb9d0.posY_0x300 =
             2.0f * (var_busState_8c1bb9d0.pitchSin_0x26c / var_busState_8c1bb9d0.pitchCos_0x270)
-            + var_busState_8c1bb9d0.posY_0x0f8 + turnFactor + 2.0f;
+            + var_busState_8c1bb9d0.posY_0x0f8 + pitchOffset + 2.0f;
 
         njTranslateCameraPosition(&var_8c1bb904,
                                    var_busState_8c1bb9d0.posX_0x2fc,

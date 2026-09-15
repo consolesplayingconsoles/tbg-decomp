@@ -4,7 +4,7 @@
 #include "025b98_traffic_drive.h"
 #include "014a9c_tasks.h"       /* Task, TaskFree_8c014b66 */
 #include "026710_traffic.h"     /* TrafficEntry, TrafficUpdateHeading_8c026bc4 */
-#include "027958.h"             /* BusDrawPlaceEntity_8c027c3c, BusDrawFadeLights_8c028022 */
+#include "027958_bus_draw.h"    /* BusDrawPlaceEntity_8c027c3c, BusDrawFadeLights_8c028022 */
 #include "02e400_collision.h"   /* CollisionFindTaskHit_8c02e400 */
 #include "02e51c_attr_query.h"             /* AttrQueryFindConvexPolygon_8c02e51c, AttrQueryRegionOccupied_8c02f08a */
 #include "02df3c_traffic_lookahead.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
@@ -39,11 +39,11 @@
  * the position-update multiply above left in the register (dirX_0x29c or
  * dirZ_0x2a0 times the step's speed), preserved for a bit-exact test.
  *
- * Finally refreshes field_0x490 (distance to the fixed camera/reference
- * point var_8c1bbac4/var_8c1bbacc); if that distance is over 200 and the
+ * Finally refreshes busDistance_0x490 (var_8c1bbac4/var_8c1bbacc are the bus's
+ * own posX/posZ under their own symbols); if that distance is over 200 and the
  * entity's preset no longer matches var_activeTrafficPreset_8c227e14, frees
- * the task, else tail-calls BusDrawPlaceEntity_8c027c3c to register/draw it for this
- * frame. */
+ * the task, else tail-calls BusDrawPlaceEntity_8c027c3c to register/draw it for
+ * this frame. */
 void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
 {
     float dx, dz;
@@ -90,9 +90,9 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
 
     dx = var_8c1bbac4 - e->posX_0xf4;
     dz = var_8c1bbacc - e->posZ_0xfc;
-    e->field_0x490 = njSqrt(dx * dx + dz * dz);
+    e->busDistance_0x490 = njSqrt(dx * dx + dz * dz);
 
-    if (e->field_0x490 > 200.0f && e->spawnPresetId_0x2f4 != var_activeTrafficPreset_8c227e14) {
+    if (e->busDistance_0x490 > 200.0f && e->spawnPresetId_0x2f4 != var_activeTrafficPreset_8c227e14) {
         TaskFree_8c014b66(task);
         return;
     }
@@ -150,10 +150,11 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  *
  * Shared tail (all driveStates): shifts a 4-slot ring buffer of recent
  * speed deltas down by one slot (dropping the oldest), sums the 3 dropped
- * samples plus this frame's own speed delta into a "heading" value, sets
- * a couple of headlight/blinker flag bits, stores the new speed_0x27c, and
- * finally either tail-calls BusDrawPlaceEntity_8c027c3c to register/draw the entity this
- * frame (within 200 units of the player, or its preset still matches
+ * samples plus this frame's own speed delta into the acceleration
+ * BusDrawPlaceEntity_8c027c3c leans the body with, sets a couple of
+ * lamp bits, stores the new speed_0x27c, and finally either tail-calls
+ * BusDrawPlaceEntity_8c027c3c to register/draw the entity this frame (within
+ * 200 units of the player, or its preset still matches
  * var_activeTrafficPreset_8c227e14) or frees the task. */
 void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
 {
@@ -559,7 +560,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
 
     /* ---- shared tail: ring buffer, blinker, distance/render dispatch ---- */
     {
-        float sum = 0.0f;
+        float accel = 0.0f;
         Sint32 i;
         /* real asm behavior: slot 3 is re-stored with its own (unchanged)
          * value after the shift below -- a genuine write, not just a
@@ -568,13 +569,13 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         float lastSlot = e->field_0x280[3];
 
         for (i = 0; i < 3; i++) {
-            sum += e->field_0x280[i + 1];
+            accel += e->field_0x280[i + 1];
             e->field_0x280[i] = e->field_0x280[i + 1];
         }
         e->field_0x280[3] = lastSlot;
-        sum += speed - e->speed_0x27c;
+        accel += speed - e->speed_0x27c;
 
-        if (speed == 0.0f || (Sint32)e->acc_0x078 < 0) {
+        if (speed == 0.0f || (Sint32)e->pitchAngle_0x078 < 0) {
             e->blinker_0x080 |= 1;
         }
         e->blinker_0x080 |= e->extraLightFlags_0x510;
@@ -590,12 +591,12 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
         {
             float dz = var_8c1bbacc - e->posZ_0xfc;
             float dx = var_8c1bbac4 - e->posX_0xf4;
-            e->field_0x490 = njSqrt(dx * dx + dz * dz);
+            e->busDistance_0x490 = njSqrt(dx * dx + dz * dz);
         }
 
-        if (e->field_0x490 <= 200.0f || e->spawnPresetId_0x2f4 == var_activeTrafficPreset_8c227e14) {
+        if (e->busDistance_0x490 <= 200.0f || e->spawnPresetId_0x2f4 == var_activeTrafficPreset_8c227e14) {
             e->mirrorVisible_0x268 = 0;
-            BusDrawPlaceEntity_8c027c3c(e, sum);
+            BusDrawPlaceEntity_8c027c3c(e, accel);
             return;
         }
         TaskFree_8c014b66(task);

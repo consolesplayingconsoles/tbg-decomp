@@ -13,7 +13,7 @@
 #include "02081c.h"               /* GeomDistanceXZ_8c02081c */
 #include "024b4c_bus_render.h"               /* BusRenderUpdateCamera_8c025078, BusRenderUpdateMirrorCamera_8c025604 */
 #include "025870.h"               /* DemoUpdateCamera_8c025906 */
-#include "027958.h"               /* BusDrawFadeLights_8c028022 */
+#include "027958_bus_draw.h"      /* BusDrawFadeLights_8c028022 */
 #include "022bdc_bus.h"           /* BusTask_8c022bdc */
 #include "02e51c_attr_query.h"
 
@@ -279,32 +279,32 @@ void BusTask_8c022bdc(Task *task, void *state)
         }
     }
 
-    var_busState_8c1bb9d0.distance_traveled_0x070 -= (int)(var_busState_8c1bb9d0.speed_0x27c * 65536.0f);
-    var_busState_8c1bb9d0.ang_0x074 = var_busState_8c1bb9d0.ang_0x258;
+    var_busState_8c1bb9d0.distanceTraveled_0x070 -= (int)(var_busState_8c1bb9d0.speed_0x27c * 65536.0f);
+    var_busState_8c1bb9d0.steerAngle_0x074 = var_busState_8c1bb9d0.ang_0x258;
 
     {
-        float sum = 0.0f;
+        float accel = 0.0f;
 
         for (i = 0; i < 3; i++) {
-            sum += var_busState_8c1bb9d0.acc_hist_0x280[i + 1];
+            accel += var_busState_8c1bb9d0.acc_hist_0x280[i + 1];
             var_busState_8c1bb9d0.acc_hist_0x280[i] = var_busState_8c1bb9d0.acc_hist_0x280[i + 1];
         }
         var_busState_8c1bb9d0.acc_hist_0x280[3] = var_busState_8c1bb9d0.speed_0x27c - prevSpeed;
-        sum += var_busState_8c1bb9d0.acc_hist_0x280[3];
-        var_busState_8c1bb9d0.acc_0x078 = (int)(sum * 1024.0f);
+        accel += var_busState_8c1bb9d0.acc_hist_0x280[3];
+        var_busState_8c1bb9d0.pitchAngle_0x078 = (int)(accel * 1024.0f);
     }
-    if (var_busState_8c1bb9d0.acc_0x078 < -0x5b) {
-        var_busState_8c1bb9d0.acc_0x078 = -0x5b;
-    } else if (var_busState_8c1bb9d0.acc_0x078 > 0x5b) {
-        var_busState_8c1bb9d0.acc_0x078 = 0x5b;
+    if (var_busState_8c1bb9d0.pitchAngle_0x078 < -0x5b) {
+        var_busState_8c1bb9d0.pitchAngle_0x078 = -0x5b;
+    } else if (var_busState_8c1bb9d0.pitchAngle_0x078 > 0x5b) {
+        var_busState_8c1bb9d0.pitchAngle_0x078 = 0x5b;
     }
 
-    var_busState_8c1bb9d0.ang_0x07c =
+    var_busState_8c1bb9d0.rollAngle_0x07c =
         (int)-(var_busState_8c1bb9d0.speed_0x27c * (float)var_busState_8c1bb9d0.ang_0x258 * 0.2f);
-    if (var_busState_8c1bb9d0.ang_0x07c < -0x2d8) {
-        var_busState_8c1bb9d0.ang_0x07c = -0x2d8;
-    } else if (var_busState_8c1bb9d0.ang_0x07c > 0x2d8) {
-        var_busState_8c1bb9d0.ang_0x07c = 0x2d8;
+    if (var_busState_8c1bb9d0.rollAngle_0x07c < -0x2d8) {
+        var_busState_8c1bb9d0.rollAngle_0x07c = -0x2d8;
+    } else if (var_busState_8c1bb9d0.rollAngle_0x07c > 0x2d8) {
+        var_busState_8c1bb9d0.rollAngle_0x07c = 0x2d8;
     }
 
     if (var_timeOfDay_8c18ad20 == 1) {

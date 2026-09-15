@@ -33,10 +33,10 @@ STATIC void busInitPlaceBus_8c023310(void)
     var_busState_8c1bb9d0.field_0x064 = 0;
     var_busState_8c1bb9d0.field_0x068 = 0;
     var_busState_8c1bb9d0.field_0x06c = 0;
-    var_busState_8c1bb9d0.distance_traveled_0x070 = 0;
-    var_busState_8c1bb9d0.ang_0x074 = 0;
-    var_busState_8c1bb9d0.acc_0x078 = 0;
-    var_busState_8c1bb9d0.ang_0x07c = 0;
+    var_busState_8c1bb9d0.distanceTraveled_0x070 = 0;
+    var_busState_8c1bb9d0.steerAngle_0x074 = 0;
+    var_busState_8c1bb9d0.pitchAngle_0x078 = 0;
+    var_busState_8c1bb9d0.rollAngle_0x07c = 0;
     var_busState_8c1bb9d0.blinker_0x080 = 0;
 
     for (i = 0; i < 5; i++) {
@@ -149,7 +149,7 @@ void BusInitStart_8c023610(void)
     var_8c1bbd9c = &var_busState_8c1bb9d0;
     var_busState_8c1bb9d0.texlistLarge_0x004 = (int)var_8c1bbf7c[2];
     var_busState_8c1bb9d0.modelLarge_0x00c = (int)var_8c1bbf7c[3];
-    var_busState_8c1bb9d0.bodyModel_0x014 = *(int *)((char *)var_trafficModels_8c1bc3f4 + 0x44);
+    var_busState_8c1bb9d0.shadowModel_0x014 = *(int *)((char *)var_trafficModels_8c1bc3f4 + 0x44);
     VehPartsBind_8c02786c(&var_busState_8c1bb9d0, 0x1a);
 
     /* bodyModels_0x04c[0..5] default to 0x3f, then the one for this run's

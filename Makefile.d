@@ -411,7 +411,7 @@ $(OUTPUT_DIR)/src/022bdc_bus.obj: src/015ab8_title.h src/022464_fade.h src/02825
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/020914_ground_query.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/026710_traffic.h src/014f54_text.h src/0100bc_sound.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/020594.h src/024280.h src/02412c.h src/02081c.h
-$(OUTPUT_DIR)/src/022bdc_bus.obj: src/024b4c_bus_render.h src/025870.h src/027958.h
+$(OUTPUT_DIR)/src/022bdc_bus.obj: src/024b4c_bus_render.h src/025870.h src/027958_bus_draw.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/022bdc_bus.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/includes.h src/serial_debug.h src/sectionB.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
@@ -461,7 +461,7 @@ $(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/02af78_event.h src/01bb48_vm_game.h
 $(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/015ab8_title.h src/022464_fade.h
 $(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/028258_objects.h src/020914_ground_query.h
 $(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/023938_bus_drive.h src/026710_traffic.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/014f54_text.h src/027958.h
+$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/014f54_text.h src/027958_bus_draw.h
 $(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/0222dc_fadecmd.h src/024b4c_bus_render.h
 $(OUTPUT_DIR)/src/025870.obj: src/includes.h src/serial_debug.h src/sectionB.h
 $(OUTPUT_DIR)/src/025870.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
@@ -474,7 +474,7 @@ $(OUTPUT_DIR)/src/025870.obj: src/026710_traffic.h src/014f54_text.h src/0222dc_
 $(OUTPUT_DIR)/src/025870.obj: src/024b4c_bus_render.h src/025870.h
 $(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/025b98_traffic_drive.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/026710_traffic.h src/020914_ground_query.h
-$(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/027958.h src/sectionB.h
+$(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/027958_bus_draw.h src/sectionB.h
 $(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/01614c_debug_menu.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/013ae8_route_load.h
 $(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/011120_asset_queues.h src/serial_debug.h
@@ -499,23 +499,23 @@ $(OUTPUT_DIR)/src/026710_traffic.obj: src/015ab8_title.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/014f54_text.h src/sectionD.h src/includes.h
 $(OUTPUT_DIR)/src/02786c_vehicle_parts.obj: src/02786c_vehicle_parts.h src/026710_traffic.h
 $(OUTPUT_DIR)/src/02786c_vehicle_parts.obj: src/020914_ground_query.h
-$(OUTPUT_DIR)/src/027958.obj: src/includes.h src/serial_debug.h src/sectionB.h
-$(OUTPUT_DIR)/src/027958.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
-$(OUTPUT_DIR)/src/027958.obj: src/014b8c_backup.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/027958.obj: src/011120_asset_queues.h src/02171c_tile_stream.h
-$(OUTPUT_DIR)/src/027958.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8_title.h
-$(OUTPUT_DIR)/src/027958.obj: src/022464_fade.h src/028258_objects.h
-$(OUTPUT_DIR)/src/027958.obj: src/020914_ground_query.h src/023938_bus_drive.h
-$(OUTPUT_DIR)/src/027958.obj: src/026710_traffic.h src/014f54_text.h
-$(OUTPUT_DIR)/src/027958.obj: src/020b6c_ground_probe.h src/020594.h src/0222dc_fadecmd.h
-$(OUTPUT_DIR)/src/027958.obj: src/027958.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/includes.h src/sectionB.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/014b8c_backup.h src/013ae8_route_load.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/011120_asset_queues.h src/02171c_tile_stream.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8_title.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/022464_fade.h src/028258_objects.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/020914_ground_query.h src/023938_bus_drive.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/026710_traffic.h src/014f54_text.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/020b6c_ground_probe.h src/020594.h src/0222dc_fadecmd.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/027958_bus_draw.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/011120_asset_queues.h src/serial_debug.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/014a9c_tasks.h src/013ae8_route_load.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/02171c_tile_stream.h src/014f54_text.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/015ab8_title.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/0100bc_sound.h src/0206f0_intersect.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/020914_ground_query.h src/020b6c_ground_probe.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/0222dc_fadecmd.h src/022464_fade.h src/027958.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/0222dc_fadecmd.h src/022464_fade.h src/027958_bus_draw.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/sectionB.h src/01614c_debug_menu.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/02af78_event.h src/01bb48_vm_game.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/028258_objects.h src/023938_bus_drive.h

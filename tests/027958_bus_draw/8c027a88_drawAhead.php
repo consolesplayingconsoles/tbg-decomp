@@ -12,14 +12,15 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * busDrawSimpleCb_8c027bac(TrafficEntry *entity, int lod): FadeCmdPushCall2
- * far (rear-view mirror) draw callback registered by BusDrawPlaceEntity_8c027c3c. Same
- * shape as busDrawSimpleCb_8c027a88 but with no near/detailed variant and no
- * night/day split: lod == 0 always draws the simple-light near model (and
- * refreshes blinkers via BusDrawUpdateModels_8c027958), lod != 0 always draws the easy-light
- * far model.
+ * drawAhead_8c027a88(TrafficEntry *entity, int lod): the forward-cone draw
+ * callback BusDrawPlaceEntity_8c027c3c registers. lod == 0 draws the detailed
+ * model, refreshes the entity's model nodes, and lays shadowModel_0x14 over it
+ * as a modifier volume; lod != 0 draws modelSmall_0x10 only, with simple light
+ * at night and easy light otherwise.
  */
 return new class extends TestCase {
+    /** Allocates an entity with its texlist/model pointer fields and both
+     * light rows wired to known scratch targets/values. */
     private function makeEntity(): array
     {
         $entity = $this->alloc(0x514);
@@ -29,11 +30,13 @@ return new class extends TestCase {
         $texlistSmall = $this->alloc(4);
         $modelLarge = $this->alloc(4);
         $modelSmall = $this->alloc(4);
+        $bodyModel = $this->alloc(4);
 
         $this->initUint32($entity + 0x04, $texlistLarge);
         $this->initUint32($entity + 0x08, $texlistSmall);
         $this->initUint32($entity + 0x0c, $modelLarge);
         $this->initUint32($entity + 0x10, $modelSmall);
+        $this->initUint32($entity + 0x14, $bodyModel);
 
         $this->initUint32($entity + 0xc4, fdec(1.0));
         $this->initUint32($entity + 0xc8, fdec(2.0));
@@ -47,14 +50,14 @@ return new class extends TestCase {
         $this->initUint32($entity + 0xe4, fdec(9.0));
         $this->initUint32($entity + 0xe8, fdec(10.0));
 
-        return [$entity, $texlistLarge, $texlistSmall, $modelLarge, $modelSmall];
+        return [$entity, $texlistLarge, $texlistSmall, $modelLarge, $modelSmall, $bodyModel];
     }
 
-    public function test_lod0_draws_simple_near_model(): void
+    public function test_lod0_draws_detail_and_updates_blinkers(): void
     {
-        [$entity, $texlistLarge, , $modelLarge] = $this->makeEntity();
+        [$entity, $texlistLarge, , $modelLarge, , $bodyModel] = $this->makeEntity();
 
-        $this->call('_busDrawSimpleCb_8c027bac')->with($entity, 0);
+        $this->call('_drawAhead_8c027a88')->with($entity, 0);
 
         $this->shouldCall('_njMultiMatrix')->with(0, $entity + 0x84);
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.0, 2.0);
@@ -62,13 +65,33 @@ return new class extends TestCase {
         $this->shouldCall('_BusDrawUpdateModels_8c027958')->with($entity);
         $this->shouldCall('_njSetTexture')->with($texlistLarge);
         $this->shouldCall('_njCnkSimpleDrawObject')->with($modelLarge);
+        $this->shouldCall('_njControl3D')->with(0x2500);
+        $this->shouldCall('_njCnkModDrawObject')->with($bodyModel);
+        $this->shouldCall('_njControl3D')->with(0x100);
     }
 
-    public function test_lod1_draws_easy_far_model(): void
+    public function test_lod1_night_draws_simple_far_model(): void
     {
         [$entity, , $texlistSmall, , $modelSmall] = $this->makeEntity();
+        $this->setSize('_var_timeOfDay_8c18ad20', 4);
+        $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 2);
 
-        $this->call('_busDrawSimpleCb_8c027bac')->with($entity, 1);
+        $this->call('_drawAhead_8c027a88')->with($entity, 1);
+
+        $this->shouldCall('_njMultiMatrix')->with(0, $entity + 0x84);
+        $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.0, 2.0);
+        $this->shouldCall('_njCnkSetSimpleLightColor')->with(3.0, 4.0, 5.0);
+        $this->shouldCall('_njSetTexture')->with($texlistSmall);
+        $this->shouldCall('_njCnkSimpleDrawObject')->with($modelSmall);
+    }
+
+    public function test_lod1_day_draws_easy_far_model(): void
+    {
+        [$entity, , $texlistSmall, , $modelSmall] = $this->makeEntity();
+        $this->setSize('_var_timeOfDay_8c18ad20', 4);
+        $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 0);
+
+        $this->call('_drawAhead_8c027a88')->with($entity, 1);
 
         $this->shouldCall('_njMultiMatrix')->with(0, $entity + 0x84);
         $this->shouldCall('_njCnkSetEasyLightIntensity')->with(6.0, 7.0);

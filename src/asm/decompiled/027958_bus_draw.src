@@ -16,16 +16,16 @@
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _var_groundGridFallback_8c1bb86c
           .IMPORT     _var_activeGroundGrid_8c2264d4
-          .IMPORT     _var_8c1bb880
+          .IMPORT     _var_groundGridCpu_8c1bb880
           .IMPORT     _VehicleModelPlace_8c020594
-          .IMPORT     _var_8c1bbda0
-          .IMPORT     _var_8c1bbdb8
-          .IMPORT     _var_8c1bbdb0
-          .IMPORT     _var_8c1bbdb4
-          .IMPORT     _var_8c1bbdd0
-          .IMPORT     _var_8c1bbda8
-          .IMPORT     _var_8c1bbdac
-          .IMPORT     _var_8c1bbdc4
+          .IMPORT     _var_nightLightIntensityStep_8c1bbda0
+          .IMPORT     _var_nightLightColorStep_8c1bbdb8
+          .IMPORT     _var_nightLightIntensityOn_8c1bbdb0
+          .IMPORT     _var_nightLightIntensityOn1_8c1bbdb4
+          .IMPORT     _var_nightLightColorOn_8c1bbdd0
+          .IMPORT     _var_nightLightIntensityOff_8c1bbda8
+          .IMPORT     _var_nightLightIntensityOff1_8c1bbdac
+          .IMPORT     _var_nightLightColorOff_8c1bbdc4
           .IMPORT     _GroundProbeTrackPolygonAtHeight_8c021290
           .EXPORT     _BusDrawUpdateModels_8c027958
           .EXPORT     _BusDrawFadeLights_8c028022
@@ -33,8 +33,8 @@
           .EXPORT     _BusDrawSignal_8c0281ac
           .EXPORT     _BusDrawSignalAttachment_8c028206
           .AIFDEF UNIT_TESTING
-          .EXPORT     _busDrawSimpleCb_8c027a88
-          .EXPORT     _busDrawSimpleCb_8c027bac
+          .EXPORT     _drawAhead_8c027a88
+          .EXPORT     _drawMirror_8c027bac
           .AENDI
           .SECTION     P, CODE, ALIGN=4
 _BusDrawUpdateModels_8c027958:
@@ -210,7 +210,7 @@ LAB_8c027a7e:
 LAB_8c027a84:
           RTS
           NOP
-_busDrawSimpleCb_8c027a88:
+_drawAhead_8c027a88:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -349,7 +349,7 @@ LP_GEN_89751:
           .DATA.L _njCnkSetEasyLightIntensity ; H'8C027BA0
           .DATA.L _njCnkSetEasyLightColor ; H'8C027BA4
           .DATA.L _njCnkEasyDrawObject ; H'8C027BA8
-_busDrawSimpleCb_8c027bac:
+_drawMirror_8c027bac:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -515,7 +515,7 @@ LP_GEN_94732:
           .DATA.L H'43480000 ; H'8C027D00
           .DATA.L H'3E322D0E ; H'8C027D04
           .DATA.L H'425C0000 ; H'8C027D08
-          .DATA.L _busDrawSimpleCb_8c027a88 ; H'8C027D0C
+          .DATA.L _drawAhead_8c027a88 ; H'8C027D0C
 LAB_8c027d10:
           MOV.L       LP_GEN_22833+26,R5
           MOV         #H'0,R4
@@ -669,13 +669,13 @@ LP_GEN_22833:
           .DATA.W H'0250 ; H'8C027E26
           .DATA.W H'FF4A ; H'8C027E28
           .DATA.W H'FD28 ; H'8C027E2A
-          .DATA.L _busDrawSimpleCb_8c027a88 ; H'8C027E2C
+          .DATA.L _drawAhead_8c027a88 ; H'8C027E2C
           .DATA.L _njSqrt ; H'8C027E30
           .DATA.L H'42480000 ; H'8C027E34
           .DATA.L H'3F774BC7 ; H'8C027E38
           .DATA.L H'41E00000 ; H'8C027E3C
           .DATA.L H'41700000 ; H'8C027E40
-          .DATA.L _busDrawSimpleCb_8c027bac ; H'8C027E44
+          .DATA.L _drawMirror_8c027bac ; H'8C027E44
           .DATA.L _GroundProbeTrackPolygonAtHeight_8c021290 ; H'8C027E48
           .DATA.L H'42AAAAAB ; H'8C027E4C
           .DATA.L H'47800000 ; H'8C027E50
@@ -974,10 +974,10 @@ LP_GEN_83484:
           .DATA.W H'02DC ; H'8C02807E
           .DATA.L _var_groundGridFallback_8c1bb86c ; H'8C028080
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C028084
-          .DATA.L _var_8c1bb880 ; H'8C028088
+          .DATA.L _var_groundGridCpu_8c1bb880 ; H'8C028088
           .DATA.L _VehicleModelPlace_8c020594 ; H'8C02808C
-          .DATA.L _var_8c1bbda0 ; H'8C028090
-          .DATA.L _var_8c1bbdb8 ; H'8C028094
+          .DATA.L _var_nightLightIntensityStep_8c1bbda0 ; H'8C028090
+          .DATA.L _var_nightLightColorStep_8c1bbdb8 ; H'8C028094
 LAB_8c028098:
           MOV.W       LP_GEN_22864,R0
           FMOV.S      @R7,FR3
@@ -1112,12 +1112,12 @@ LP_GEN_22864:
           .DATA.W H'00D4 ; H'8C02818E
           .DATA.W H'02D8 ; H'8C028190
           .DATA.W H'02DC ; H'8C028192
-          .DATA.L _var_8c1bbdb0 ; H'8C028194
-          .DATA.L _var_8c1bbdb4 ; H'8C028198
-          .DATA.L _var_8c1bbdd0 ; H'8C02819C
-          .DATA.L _var_8c1bbda8 ; H'8C0281A0
-          .DATA.L _var_8c1bbdac ; H'8C0281A4
-          .DATA.L _var_8c1bbdc4 ; H'8C0281A8
+          .DATA.L _var_nightLightIntensityOn_8c1bbdb0 ; H'8C028194
+          .DATA.L _var_nightLightIntensityOn1_8c1bbdb4 ; H'8C028198
+          .DATA.L _var_nightLightColorOn_8c1bbdd0 ; H'8C02819C
+          .DATA.L _var_nightLightIntensityOff_8c1bbda8 ; H'8C0281A0
+          .DATA.L _var_nightLightIntensityOff1_8c1bbdac ; H'8C0281A4
+          .DATA.L _var_nightLightColorOff_8c1bbdc4 ; H'8C0281A8
 _BusDrawSignal_8c0281ac:
           MOV.L       R14,@-R15
           MOV         R4,R14

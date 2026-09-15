@@ -28,12 +28,12 @@ return new class extends TestCase {
         $this->setSize('_init_8c04caec', 4);
         $this->setSize('_init_8c04cd38', 4);
 
-        $this->setSize('_var_8c1bbda0', 2 * 4);
-        $this->setSize('_var_8c1bbda8', 2 * 4);
-        $this->setSize('_var_8c1bbdb0', 2 * 4);
-        $this->setSize('_var_8c1bbdb8', 3 * 4);
-        $this->setSize('_var_8c1bbdc4', 3 * 4);
-        $this->setSize('_var_8c1bbdd0', 3 * 4);
+        $this->setSize('_var_nightLightIntensityStep_8c1bbda0', 2 * 4);
+        $this->setSize('_var_nightLightIntensityOff_8c1bbda8', 2 * 4);
+        $this->setSize('_var_nightLightIntensityOn_8c1bbdb0', 2 * 4);
+        $this->setSize('_var_nightLightColorStep_8c1bbdb8', 3 * 4);
+        $this->setSize('_var_nightLightColorOff_8c1bbdc4', 3 * 4);
+        $this->setSize('_var_nightLightColorOn_8c1bbdd0', 3 * 4);
     }
 
     private function initFloat(int $addr, float $value): void {
@@ -176,12 +176,12 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_8c04cd38'));
 
-        $b0 = $this->addressOf('_var_8c1bbdb0');
-        $d0 = $this->addressOf('_var_8c1bbdd0');
-        $a8 = $this->addressOf('_var_8c1bbda8');
-        $c4 = $this->addressOf('_var_8c1bbdc4');
-        $a0 = $this->addressOf('_var_8c1bbda0');
-        $b8 = $this->addressOf('_var_8c1bbdb8');
+        $b0 = $this->addressOf('_var_nightLightIntensityOn_8c1bbdb0');
+        $d0 = $this->addressOf('_var_nightLightColorOn_8c1bbdd0');
+        $a8 = $this->addressOf('_var_nightLightIntensityOff_8c1bbda8');
+        $c4 = $this->addressOf('_var_nightLightColorOff_8c1bbdc4');
+        $a0 = $this->addressOf('_var_nightLightIntensityStep_8c1bbda0');
+        $b8 = $this->addressOf('_var_nightLightColorStep_8c1bbdb8');
 
         $this->shouldWriteFloatAt($b0 + 0, 50.0);
         $this->shouldWriteFloatAt($b0 + 4, 60.0);

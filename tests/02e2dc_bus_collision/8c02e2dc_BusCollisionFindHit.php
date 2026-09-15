@@ -8,7 +8,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // bumping into. Transforms the bus's own fixed local box (init_busBox_8c04c820)
 // into world space via the bus's world matrix, then scans
 // var_tasks_8c1bac28 from the start (skipping the -1 sentinel), gating each
-// candidate on TrafficEntry.field_0x490 (distance to the bus) being under
+// candidate on TrafficEntry.busDistance_0x490 (distance to the bus) being under
 // 12.0 world units before paying for the box transform + collision test.
 // Returns the first hit's state, or NULL once the scan hits a zero-action
 // terminator.

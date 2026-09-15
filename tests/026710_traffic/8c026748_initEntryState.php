@@ -443,8 +443,8 @@ return new class extends TestCase {
         $this->setSize('_njCos', 4);
         $this->setSize('_njSin', 4);
         $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
-        $this->setSize('_var_8c1bbdb0', 8);
-        $this->setSize('_var_8c1bbdd0', 12);
+        $this->setSize('_var_nightLightIntensityOn_8c1bbdb0', 8);
+        $this->setSize('_var_nightLightColorOn_8c1bbdd0', 12);
 
         $this->entry = $this->alloc(0x510);
         $this->typeVal = $this->alloc(2);
@@ -460,11 +460,11 @@ return new class extends TestCase {
         $this->initUint32($this->entry + 0xfc, fdec(20.0));
         $this->initUint32($this->entry + 0xf8, fdec(3.0));
 
-        $this->initUint32($this->addressOf('_var_8c1bbdb0') + 0, fdec(0.1));
-        $this->initUint32($this->addressOf('_var_8c1bbdb0') + 4, fdec(0.2));
-        $this->initUint32($this->addressOf('_var_8c1bbdd0') + 0, fdec(0.3));
-        $this->initUint32($this->addressOf('_var_8c1bbdd0') + 4, fdec(0.4));
-        $this->initUint32($this->addressOf('_var_8c1bbdd0') + 8, fdec(0.5));
+        $this->initUint32($this->addressOf('_var_nightLightIntensityOn_8c1bbdb0') + 0, fdec(0.1));
+        $this->initUint32($this->addressOf('_var_nightLightIntensityOn_8c1bbdb0') + 4, fdec(0.2));
+        $this->initUint32($this->addressOf('_var_nightLightColorOn_8c1bbdd0') + 0, fdec(0.3));
+        $this->initUint32($this->addressOf('_var_nightLightColorOn_8c1bbdd0') + 4, fdec(0.4));
+        $this->initUint32($this->addressOf('_var_nightLightColorOn_8c1bbdd0') + 8, fdec(0.5));
 
         $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 2); // TIME_OF_DAY_NIGHT
 

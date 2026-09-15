@@ -71,31 +71,31 @@ typedef struct {
 
 // TODO:
 typedef struct {
-    int field_0x000;
+    int typeCode_0x000;
     int texlistLarge_0x004;
     /* TrafficEntry's texlistSmall_0x08/modelSmall_0x10 sit here; the player
      * bus never sets or reads either, so it has no far/simple LOD. */
     int field_0x008;
     int modelLarge_0x00c;
     int field_0x010;
-    int bodyModel_0x014;
-    /* field_0x018/0x028/0x040/0x044/0x048 are a type-code-dependent cache of
-     * sub-model nodes walked out of modelLarge_0x00c, filled by
-     * VehPartsBind_8c02786c and used by BusDrawUpdateModels_8c027958 -- see
-     * that function's comment for which phase drives which. */
-    NJS_OBJECT *field_0x018;
+    int shadowModel_0x014;
+    /* Sub-model nodes walked out of modelLarge_0x00c by VehPartsBind_8c02786c
+     * and animated by BusDrawUpdateModels_8c027958 (027958_bus_draw). Which of
+     * rearWheelB_0x028 and the three turn lamps get bound at all depends on
+     * typeCode_0x000; the bus is type 0x1a. */
+    NJS_OBJECT *bodyNode_0x018;
     NJS_OBJECT *frontWheelA_0x01c;
     NJS_OBJECT *frontWheelB_0x020;
-    NJS_OBJECT *rearWheel_0x024;
-    NJS_OBJECT *field_0x028;
-    NJS_OBJECT *blinkerLightA_0x02c;
-    NJS_OBJECT *blinkerLightB_0x030;
-    NJS_OBJECT *blinkerLightC_0x034;
-    NJS_OBJECT *blinkerLightD_0x038;
-    NJS_OBJECT *blinkerLightE_0x03c;
-    NJS_OBJECT *field_0x040;
-    NJS_OBJECT *field_0x044;
-    NJS_OBJECT *field_0x048;
+    NJS_OBJECT *rearWheelA_0x024;
+    NJS_OBJECT *rearWheelB_0x028;
+    /* The five lamp nodes hanging off bodyNode_0x018, shown/hidden from bits
+     * 0-4 of blinker_0x080. Bit 0 is the brake lamp (025b98 sets it while
+     * decelerating or stopped); bits 3 and 4 are forced on for the
+     * night/evening running lights. */
+    NJS_OBJECT *blinkerLights_0x02c[5];
+    NJS_OBJECT *turnLampA_0x040;
+    NJS_OBJECT *turnLampB_0x044;
+    NJS_OBJECT *turnLampC_0x048;
     NJS_OBJECT *bodyModels_0x04c[6];
     /* Zeroed by busInitPlaceBus_8c023310 and never read; TrafficEntry's
      * three at the same offsets are the same way. */
@@ -103,10 +103,14 @@ typedef struct {
     int field_0x068;
     int field_0x06c;
 
-    int distance_traveled_0x070;
-    int ang_0x074;
-    int acc_0x078;
-    int ang_0x07c;
+    /* Animation angles, BAMS. distanceTraveled spins the wheels (one world
+     * unit per revolution), steerAngle turns the front pair, and pitch/roll
+     * lean the body: pitch off a 4-frame acceleration sum, roll off yaw rate
+     * times speed. Both lean angles stay within a few degrees. */
+    int distanceTraveled_0x070;
+    int steerAngle_0x074;
+    int pitchAngle_0x078;
+    int rollAngle_0x07c;
     int blinker_0x080;
 
     /* Bus's world transform matrix, applied by njMultiMatrix/njSetMatrix
@@ -405,9 +409,12 @@ extern void* var_groundGridFallback_8c1bb86c;
  * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
 extern void *var_stopAreaTable_8c1bb870;
 
-/* Restored into var_activeGroundGrid_8c2264d4 by BusDrawPlaceEntity_8c027c3c (027958) after
- * a traffic entity's fallback-grid ground probe. */
-extern void* var_8c1bb880;
+/* var_currentCourse_8c1bb868.atariCpu_0x18 under its own symbol -- the CPU
+ * collision grid traffic normally probes against. var_groundGridFallback_8c1bb86c
+ * above is the same trick on .atariBus_0x04 and var_groundGridPrimary_8c1bb890
+ * below on .atariHum_0x28, so neither of those names says which grid it is
+ * either; folding all three into the struct is a move-data job. */
+extern void* var_groundGridCpu_8c1bb880;
 
 extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into var_activeGroundGrid_8c2264d4
 
@@ -523,19 +530,23 @@ extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
 /* Used by stopTextboxTask_8c0259e8 (025870). */
 extern NJS_POINT3 var_8c1bbd80;
 extern int var_scenePresetIds_8c1bbd8c;
-// 026710: cached copies of two CourseSceneParams.rec0_0x0c rows, and their
-// per-20-frame deltas, built by TrafficInit_8c02769e when timeOfDay is
-// TIME_OF_DAY_NIGHT. Each row is split 2+3 like the struct field itself
-// (var_8c1bbdb4/var_8c1bbdac are var_8c1bbdb0[1]/var_8c1bbda8[1],
-// separately-imported aliases for the same addresses in 027958).
-extern float var_8c1bbda0[2]; // (row2 - row1) / 20, first 2 components
-extern float var_8c1bbda8[2]; // cached rec0_0x0c[1][0..1]
-extern float var_8c1bbdb0[2]; // cached rec0_0x0c[2][0..1]
-extern float var_8c1bbdb8[3]; // (row2 - row1) / 20, last 3 components
-extern float var_8c1bbdc4[3]; // cached rec0_0x0c[1][2..4]
-extern float var_8c1bbdd0[3]; // cached rec0_0x0c[2][2..4]
-extern float var_8c1bbdb4; // alias of var_8c1bbdb0[1] (027958)
-extern float var_8c1bbdac; // alias of var_8c1bbda8[1] (027958)
+/* The two ends of BusDrawFadeLights_8c028022's (027958_bus_draw) crossfade and
+ * the per-frame step between them, cached by TrafficInit_8c02769e from
+ * CourseSceneParams.rec0_0x0c rows 1 and 2 -- but only when timeOfDay is
+ * TIME_OF_DAY_NIGHT, so by day these hold whatever the last night run left.
+ * A row is {intensity0, intensity1, r, g, b}, split 2+3 here exactly as
+ * BusState.lightCoeffRow_0x0c4 consumes it. "Off" and "On" are the states of
+ * lightFadeGate_0x2dc, a road-polygon attribute word. The ...On1/...Off1 pair
+ * is the [1] element of each intensity row under its own symbol, imported
+ * separately by 027958_bus_draw's asm. */
+extern float var_nightLightIntensityStep_8c1bbda0[2];
+extern float var_nightLightIntensityOff_8c1bbda8[2];
+extern float var_nightLightIntensityOn_8c1bbdb0[2];
+extern float var_nightLightColorStep_8c1bbdb8[3];
+extern float var_nightLightColorOff_8c1bbdc4[3];
+extern float var_nightLightColorOn_8c1bbdd0[3];
+extern float var_nightLightIntensityOn1_8c1bbdb4;
+extern float var_nightLightIntensityOff1_8c1bbdac;
 extern void* var_busstopDat_8c1bc42c;
 extern void* var_busstopPartsDat_8c1bc428;
 extern NJS_TEXLIST *var_busStopTexlist_8c1bc424;

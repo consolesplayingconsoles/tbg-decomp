@@ -876,17 +876,17 @@ return [
         ],
         [
             "tests" => [
-                "tests/027958/8c027958_BusDrawUpdateModels.php",
-                "tests/027958/8c0281ac_BusDrawSignal.php",
-                "tests/027958/8c028206_BusDrawSignalAttachment.php",
-                "tests/027958/8c028022_BusDrawFadeLights.php",
-                "tests/027958/8c027a88_busDrawSimpleCb.php",
-                "tests/027958/8c027bac_busDrawSimpleCb.php",
-                "tests/027958/8c027c3c_BusDrawPlaceEntity.php",
+                "tests/027958_bus_draw/8c027958_BusDrawUpdateModels.php",
+                "tests/027958_bus_draw/8c0281ac_BusDrawSignal.php",
+                "tests/027958_bus_draw/8c028206_BusDrawSignalAttachment.php",
+                "tests/027958_bus_draw/8c028022_BusDrawFadeLights.php",
+                "tests/027958_bus_draw/8c027a88_drawAhead.php",
+                "tests/027958_bus_draw/8c027bac_drawMirror.php",
+                "tests/027958_bus_draw/8c027c3c_BusDrawPlaceEntity.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/027958.obj",
-                "build/output_test/src/027958.obj",
+                "build/output_test/src/asm/decompiled/027958_bus_draw.obj",
+                "build/output_test/src/027958_bus_draw.obj",
             ]
         ],
         [

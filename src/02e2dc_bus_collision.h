@@ -12,7 +12,7 @@
 extern NJS_POINT3 *init_variantBoxes_8c04c940[16];
 
 /* Reports which vehicle or pedestrian the player's bus is currently bumping
- * into, or NULL. Only candidates within 12 world units (field_0x490) are
+ * into, or NULL. Only candidates within 12 world units (busDistance_0x490) are
  * box-tested; that field is past BusState's 0x3cc end, so a hit is never the
  * bus itself. Leaves the bus's own world-space box in
  * var_collisionSelfBox_8c228978. */

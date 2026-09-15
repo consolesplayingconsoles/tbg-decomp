@@ -173,20 +173,20 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     e->field_0x068 = 0;
     e->field_0x06c = 0;
     e->distanceTraveled_0x070 = 0;
-    e->ang_0x074 = 0;
-    e->acc_0x078 = 0;
-    e->ang_0x07c = 0;
+    e->steerAngle_0x074 = 0;
+    e->pitchAngle_0x078 = 0;
+    e->rollAngle_0x07c = 0;
     e->blinker_0x080 = 0;
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT && type == 10 &&
         (junction = AttrQueryFindConvexPolygon_8c02e51c(e->posX_0xf4, e->posY_0xf8,
                                   e->posZ_0xfc, &e->junctionSlot_0x404)) != NULL &&
         *(Sint32 *)((Uint8 *)junction + 4) != 0) {
-        e->simpleLightIntensity0_0x0c4 = var_8c1bbdb0[0];
-        e->simpleLightIntensity1_0x0c8 = var_8c1bbdb0[1];
-        e->simpleLightColorR_0x0cc = var_8c1bbdd0[0];
-        e->simpleLightColorG_0x0d0 = var_8c1bbdd0[1];
-        e->simpleLightColorB_0x0d4 = var_8c1bbdd0[2];
+        e->simpleLightIntensity0_0x0c4 = var_nightLightIntensityOn_8c1bbdb0[0];
+        e->simpleLightIntensity1_0x0c8 = var_nightLightIntensityOn_8c1bbdb0[1];
+        e->simpleLightColorR_0x0cc = var_nightLightColorOn_8c1bbdd0[0];
+        e->simpleLightColorG_0x0d0 = var_nightLightColorOn_8c1bbdd0[1];
+        e->simpleLightColorB_0x0d4 = var_nightLightColorOn_8c1bbdd0[2];
     } else {
         e->easyLightIntensity0_0x0d8 = var_sceneParams_8c18ad24->rec0_0x0c[2][0];
         e->easyLightIntensity1_0x0dc = var_sceneParams_8c18ad24->rec0_0x0c[2][1];
@@ -272,7 +272,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
         e->mergeWaitState_0x468 = 0;
         e->junctionWaitState_0x474 = 0;
         *scriptIp = scriptCursor + 6;
-        e->field_0x490 = 9999.0f;
+        e->busDistance_0x490 = 9999.0f;
         e->lookaheadCacheLen_0x4ec = 0.0f;
         e->lookaheadCursor_0x4f4 = seg;
         e->lookaheadCursorBlock_0x4f8 = e->blockIndex_0x300;
@@ -808,7 +808,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         e->modelSmall_0x10 = var_routeModelSlots_8c1bbddc[typeCode + 1].nj_0x0c;
 
         bodyTypeIdx = init_8c04622c[variantIdx];
-        e->bodyModel_0x14 = var_trafficModels_8c1bc3f4[bodyTypeIdx].njDest;
+        e->shadowModel_0x14 = var_trafficModels_8c1bc3f4[bodyTypeIdx].njDest;
 
         VehPartsBind_8c02786c(e, typeCode);
         TrafficRunEntryScript_8c027012(e);
@@ -938,7 +938,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
  * table) and, when time of day is night, a copy of two adjacent
  * CourseSceneParams.rec0_0x0c rows plus their per-20-frame deltas -- consumed
  * by initEntryState_8c026748's junction-light path and (rows only) by
- * BusDrawFadeLights_8c028022 in 027958.
+ * BusDrawFadeLights_8c028022 in 027958_bus_draw.
  */
 void TrafficInit_8c02769e(void)
 {
@@ -957,22 +957,22 @@ void TrafficInit_8c02769e(void)
     }
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT) {
-        var_8c1bbdb0[0] = var_sceneParams_8c18ad24->rec0_0x0c[2][0];
-        var_8c1bbdb0[1] = var_sceneParams_8c18ad24->rec0_0x0c[2][1];
-        var_8c1bbdd0[0] = var_sceneParams_8c18ad24->rec0_0x0c[2][2];
-        var_8c1bbdd0[1] = var_sceneParams_8c18ad24->rec0_0x0c[2][3];
-        var_8c1bbdd0[2] = var_sceneParams_8c18ad24->rec0_0x0c[2][4];
-        var_8c1bbda8[0] = var_sceneParams_8c18ad24->rec0_0x0c[1][0];
-        var_8c1bbda8[1] = var_sceneParams_8c18ad24->rec0_0x0c[1][1];
-        var_8c1bbdc4[0] = var_sceneParams_8c18ad24->rec0_0x0c[1][2];
-        var_8c1bbdc4[1] = var_sceneParams_8c18ad24->rec0_0x0c[1][3];
-        var_8c1bbdc4[2] = var_sceneParams_8c18ad24->rec0_0x0c[1][4];
+        var_nightLightIntensityOn_8c1bbdb0[0] = var_sceneParams_8c18ad24->rec0_0x0c[2][0];
+        var_nightLightIntensityOn_8c1bbdb0[1] = var_sceneParams_8c18ad24->rec0_0x0c[2][1];
+        var_nightLightColorOn_8c1bbdd0[0] = var_sceneParams_8c18ad24->rec0_0x0c[2][2];
+        var_nightLightColorOn_8c1bbdd0[1] = var_sceneParams_8c18ad24->rec0_0x0c[2][3];
+        var_nightLightColorOn_8c1bbdd0[2] = var_sceneParams_8c18ad24->rec0_0x0c[2][4];
+        var_nightLightIntensityOff_8c1bbda8[0] = var_sceneParams_8c18ad24->rec0_0x0c[1][0];
+        var_nightLightIntensityOff_8c1bbda8[1] = var_sceneParams_8c18ad24->rec0_0x0c[1][1];
+        var_nightLightColorOff_8c1bbdc4[0] = var_sceneParams_8c18ad24->rec0_0x0c[1][2];
+        var_nightLightColorOff_8c1bbdc4[1] = var_sceneParams_8c18ad24->rec0_0x0c[1][3];
+        var_nightLightColorOff_8c1bbdc4[2] = var_sceneParams_8c18ad24->rec0_0x0c[1][4];
 
-        var_8c1bbda0[0] = (var_8c1bbdb0[0] - var_8c1bbda8[0]) / 20.0f;
-        var_8c1bbda0[1] = (var_8c1bbdb0[1] - var_8c1bbda8[1]) / 20.0f;
-        var_8c1bbdb8[0] = (var_8c1bbdd0[0] - var_8c1bbdc4[0]) / 20.0f;
-        var_8c1bbdb8[1] = (var_8c1bbdd0[1] - var_8c1bbdc4[1]) / 20.0f;
-        var_8c1bbdb8[2] = (var_8c1bbdd0[2] - var_8c1bbdc4[2]) / 20.0f;
+        var_nightLightIntensityStep_8c1bbda0[0] = (var_nightLightIntensityOn_8c1bbdb0[0] - var_nightLightIntensityOff_8c1bbda8[0]) / 20.0f;
+        var_nightLightIntensityStep_8c1bbda0[1] = (var_nightLightIntensityOn_8c1bbdb0[1] - var_nightLightIntensityOff_8c1bbda8[1]) / 20.0f;
+        var_nightLightColorStep_8c1bbdb8[0] = (var_nightLightColorOn_8c1bbdd0[0] - var_nightLightColorOff_8c1bbdc4[0]) / 20.0f;
+        var_nightLightColorStep_8c1bbdb8[1] = (var_nightLightColorOn_8c1bbdd0[1] - var_nightLightColorOff_8c1bbdc4[1]) / 20.0f;
+        var_nightLightColorStep_8c1bbdb8[2] = (var_nightLightColorOn_8c1bbdd0[2] - var_nightLightColorOff_8c1bbdc4[2]) / 20.0f;
     }
 
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, trafficUpdateTask_8c0275d4, (Task **)&task, &state, 0);
