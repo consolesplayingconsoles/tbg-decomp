@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->setSize('_BusStopGetStopArea_8c02cd7a', 4);
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
-        $this->setSize('_FUN_8c023938', 4);
+        $this->setSize('_BusDriveSampleGround_8c023938', 4);
         $this->setSize('_acosf', 4);
     }
 
@@ -177,7 +177,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x2c4, 2.0);
         $this->shouldWriteLong($base + 0x2d4, 1);
 
-        $this->shouldCall('_FUN_8c023938');
+        $this->shouldCall('_BusDriveSampleGround_8c023938');
 
         $this->shouldCall('_acosf')->with($acosArg)->andReturn($acosResult);
 

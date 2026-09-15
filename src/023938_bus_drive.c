@@ -27,22 +27,23 @@ typedef void (*GroundQueryFn)(float x, float y, float z, GroundQueryResult *out)
  * ====================
  */
 
-/* Resets the bus's drivetrain to idle: clears the collision-reset latch
- * (rpmRampAngle_0x2e4), zeroes gear_0x2f4 unless it's already in reverse (5), and
- * marks bus_state_0x2b4 == 2. Called both by handleBump_8c02b6d4 (02b464)
- * after a collision knockback and internally after a braking-sound update. */
+/* Resets the bus's drivetrain to idle: winds the engine ramp
+ * (rpmRampAngle_0x2e4) back to zero, drops out of gear unless already in
+ * reverse (5), and puts driveState_0x2b4 into the knockback state (2). Called
+ * by handleBump_8c02b6d4 (02b464) after a collision and internally after a
+ * braking-sound update. */
 void BusDriveStop_8c023bce(void)
 {
     var_busState_8c1bb9d0.rpmRampAngle_0x2e4 = 0;
     if (var_busState_8c1bb9d0.gear_0x2f4 != 5) {
         var_busState_8c1bb9d0.gear_0x2f4 = 0;
     }
-    var_busState_8c1bb9d0.bus_state_0x2b4 = 2;
+    var_busState_8c1bb9d0.driveState_0x2b4 = 2;
 }
 
 /* Plays a braking-pitch sound cue keyed by speed_0x27c, damps speed_0x27c
  * toward it, and marks var_wallHitBits_8c228660's corresponding bit, then stops the
- * drivetrain (BusDriveStop_8c023bce). Called by FUN_8c023cba whenever the
+ * drivetrain (BusDriveStop_8c023bce). Called by BusDriveApplyGround_8c023cba whenever the
  * lane-offset path data isn't ready. */
 STATIC void busDriveDecelerate_8c023bea(void)
 {
@@ -65,13 +66,13 @@ STATIC void busDriveDecelerate_8c023bea(void)
 
 /* Rebuilds the bus's steering-correction direction (dir_x_0x29c/dir_z_0x2a0
  * and their scaled mirrors dir_x2_0x2ac/dir_z2_0x2b0) from the corner
- * ground-probe results FUN_8c023938 filled into groundSamples_0x190, then
+ * ground-probe results BusDriveSampleGround_8c023938 filled into groundSamples_0x190, then
  * averages two pairs of those probes' interpolated heights into
  * posY_0x0f8/posHistory_0x100[0].y and fans those out to the lane-offset
  * posHistory entries used for steering lookahead. Called by BusInitStart_8c023610
  * (023310_bus_init) and BusTask_8c022bdc (022bdc) once per frame while
  * driving. */
-void FUN_8c023cba(void)
+void BusDriveApplyGround_8c023cba(void)
 {
     GroundQueryResult *gs = var_busState_8c1bb9d0.groundSamples_0x190;
     NJS_POINT3 *hist = var_busState_8c1bb9d0.posHistory_0x100;
@@ -147,7 +148,7 @@ void FUN_8c023cba(void)
  * (no probe for those two) and the heading unit vector headingDirX_0x274/0x278.
  * Called by busInitPlaceBus_8c023310/BusInitStart_8c023610 (023310_bus_init) and
  * BusTask_8c022bdc (022bdc). */
-void FUN_8c023938(void)
+void BusDriveSampleGround_8c023938(void)
 {
     GroundQueryFn query = (GroundQueryFn)var_busState_8c1bb9d0.groundProbeFn_0x2c8;
     NJS_POINT3 *hist = var_busState_8c1bb9d0.posHistory_0x100;
@@ -194,7 +195,10 @@ void FUN_8c023938(void)
     query(hist[5].x, hist[5].y, hist[5].z, &gs[3]);
 
     /* Same x/z formula as hist[4] -- a separate probe slot (gs[8]) for the
-     * same point, original-game duplication preserved. */
+     * same point. hist[11] below is the partner hist[5] should have been:
+     * hist[5] is built from origX/origZ, so it lands on hist[3]'s point
+     * instead of the lookahead pair's, and gs[3] ends up a second copy of
+     * gs[1]. Both quirks are the original's; the dual-object test pins them. */
     hist[10].x = hist[1].x - lat;
     hist[10].z = hist[1].z + lon;
     query(hist[10].x, hist[10].y, hist[10].z, &gs[8]);
@@ -233,7 +237,7 @@ void FUN_8c023938(void)
  * falling back to fallbackNext_0x0a when a segment runs out of points) and
  * indexes var_lineSegments_8c227d84 for each segment's point list. Called once per frame
  * by BusTask_8c022bdc (022bdc). */
-void FUN_8c023e7e(void)
+void BusDriveFindLaneTarget_8c023e7e(void)
 {
     LineBusSegment *segs = var_lineSegments_8c227d84;
     LineBusNode *nodes = var_lineNodes_8c227d88;
@@ -262,7 +266,7 @@ void FUN_8c023e7e(void)
     if (var_busState_8c1bb9d0.laneTargetSearchSide_0x338 == 0) {
         idx = nodes[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c].fwdNext_0x00;
     } else {
-        /* laneTargetSearchSide_0x338 only ever holds 0, 1 or 2 (024280.c) and 2 already
+        /* laneTargetSearchSide_0x338 only ever holds 0, 1 or 2 (024280_bus_input.c) and 2 already
          * returned above, so this covers 1 -- the original leaves the
          * register unset for any other value. */
         idx = nodes[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c].backNext_0x02;
@@ -329,7 +333,7 @@ void FUN_8c023e7e(void)
                     nextIdx = nodes[idx].fallbackNext_0x0a;
                     next = segs[nextIdx].points_0x00;
                 }
-                var_8c1bc45c = var_busState_8c1bb9d0.posZ_0x0fc;
+                var_crossingIntersectPointZ_8c1bc45c = var_busState_8c1bb9d0.posZ_0x0fc;
                 var_crossingIntersectPoint_8c1bc458 = var_busState_8c1bb9d0.posX_0x0f4;
                 found = IntersectSegments_8c0206f0(&var_crossingIntersectPoint_8c1bc458, cand,
                                                     &seg->x_0x04, &next->x_0x04,

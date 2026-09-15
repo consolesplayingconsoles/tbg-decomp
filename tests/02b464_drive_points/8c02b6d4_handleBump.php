@@ -55,7 +55,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $busState = $this->alloc(0x2b8);
-        $this->initUint32($busState + 0x2b4, 2); // bus_state_0x2b4 != 1
+        $this->initUint32($busState + 0x2b4, 2); // driveState_0x2b4 != 1
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
 
         $this->call('_handleBump_8c02b6d4');
@@ -68,7 +68,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $busState = $this->alloc(0x2b8);
-        $this->initUint32($busState + 0x2b4, 1); // bus_state_0x2b4 == 1 (driving)
+        $this->initUint32($busState + 0x2b4, 1); // driveState_0x2b4 == 1 (driving)
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $busState);
 
         $this->call('_handleBump_8c02b6d4');
@@ -83,7 +83,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $me = $this->alloc(0x2b8);
-        $this->initUint32($me + 0x2b4, 1); // bus_state_0x2b4 == 1 (driving)
+        $this->initUint32($me + 0x2b4, 1); // driveState_0x2b4 == 1 (driving)
         $this->initFloat($me + 0xf4, 0.0); // posX
         $this->initFloat($me + 0xfc, 0.0); // posZ
         $this->initUint32($this->addressOf('_var_8c1bbd9c'), $me);

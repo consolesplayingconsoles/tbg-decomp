@@ -20,9 +20,9 @@ if (!function_exists('fdec')) {
 /*
  * _BusTask_8c022bdc(Task *task, void *state): the player's bus per-frame
  * dispatcher, pushed as the run's task action by BusInitStart_8c023610.
- * This test covers the simplest reachable path: bus_state_0x2b4==0
+ * This test covers the simplest reachable path: driveState_0x2b4==0
  * (boarding), bus_substate_0x3c0==0 with no doors-open trigger (no state
- * change, no sdMidiPlay), speed_0x27c==0 (skips the FUN_8c023938/023cba/
+ * change, no sdMidiPlay), speed_0x27c==0 (skips the BusDriveSampleGround_8c023938/023cba/
  * ground-query block), var_inputMapSel_8c1bb8c8==0 (skips the steering-
  * smoothing block -- state 0 never reads steering itself), timeOfDay
  * neither DAY nor NIGHT (skips the blinker branch), gear!=5
@@ -44,15 +44,15 @@ return new class extends TestCase {
         $this->setSize('_BusInputUpdate_8c0246b2', 4);
         $this->setSize('_var_8c2264b8', 0x1c);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
-        $this->setSize('_FUN_8c023e7e', 4);
+        $this->setSize('_BusDriveFindLaneTarget_8c023e7e', 4);
         $this->setSize('_BusLineAdvance_8c02412c', 4);
         $this->setSize('_njSin', 4);
         $this->setSize('_njCos', 4);
         $this->setSize('_BusInputCapMirrorTraffic_8c024280', 4);
         $this->setSize('_GeomDistanceXZ_8c02081c', 4);
         $this->setSize('_FUN_8c010c6e', 4);
-        $this->setSize('_FUN_8c023938', 4);
-        $this->setSize('_FUN_8c023cba', 4);
+        $this->setSize('_BusDriveSampleGround_8c023938', 4);
+        $this->setSize('_BusDriveApplyGround_8c023cba', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_8c1bbd9c', 4);
         $this->setSize('_BusDrawFadeLights_8c028022', 4);
@@ -80,7 +80,7 @@ return new class extends TestCase {
         // allocating it separately (see 8c023610_BusInitStart.php).
         $this->rellocate('_var_busWorldMatrix_8c1bba54', $base + 0x84);
 
-        // bus_state_0x2b4/bus_substate_0x3c0/mirrorPendingToggle_0x3c4/speed_0x27c/
+        // driveState_0x2b4/bus_substate_0x3c0/mirrorPendingToggle_0x3c4/speed_0x27c/
         // gear_0x2f4/signalSide_0x25c/ang_0x258/posX_0x0f4/posHistory_0x100[0].x
         // are all already 0 from the zero-fill above.
 
@@ -115,7 +115,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_FUN_8c010c6e');
 
-        // speed_0x27c == 0: the FUN_8c023938/023cba + ground-query block is
+        // speed_0x27c == 0: the BusDriveSampleGround_8c023938/023cba + ground-query block is
         // skipped entirely.
 
         // var_inputMapSel_8c1bb8c8 == 0: the steering-smoothing block is

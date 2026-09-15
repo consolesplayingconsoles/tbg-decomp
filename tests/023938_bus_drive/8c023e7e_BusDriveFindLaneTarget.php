@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _FUN_8c023e7e(void): walks the current route line segment forward by the
+ * _BusDriveFindLaneTarget_8c023e7e(void): walks the current route line segment forward by the
  * bus's per-frame move distance to find the next lane-crossing point, then
  * confirms it against the crossing segment via IntersectSegments_8c0206f0.
  * Advances through var_lineNodes_8c227d88's linked segment records and indexes
@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->setSize('_var_lineSegments_8c227d84', 4);
         $this->setSize('_var_lineNodes_8c227d88', 4);
         $this->setSize('_var_crossingIntersectPoint_8c1bc458', 4);
-        $this->setSize('_var_8c1bc45c', 4);
+        $this->setSize('_var_crossingIntersectPointZ_8c1bc45c', 4);
         $this->setSize('_IntersectSegments_8c0206f0', 4);
         $this->setSize('_FUN_8c0207fa', 4);
         $this->setSize('_GeomDistanceXZ_8c02081c', 4);
@@ -108,7 +108,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x334, 1);
         $this->initUint32($base + 0x2c4, $this->fdec(2.0));
 
-        $this->call('_FUN_8c023e7e')->with();
+        $this->call('_BusDriveFindLaneTarget_8c023e7e')->with();
 
         $this->shouldWriteLong($base + 0x25c, 0);
         $this->shouldWriteLong($base + 0x268, 0); // mirror_0x268
@@ -123,7 +123,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x334, 1);
         $this->initUint32($base + 0x2c4, $this->fdec(1.0)); // not 2.0
 
-        $this->call('_FUN_8c023e7e')->with();
+        $this->call('_BusDriveFindLaneTarget_8c023e7e')->with();
 
         // No writes and no calls at all.
     }
@@ -136,7 +136,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x334, 0);
         $this->initUint32($base + 0x338, 2);
 
-        $this->call('_FUN_8c023e7e')->with();
+        $this->call('_BusDriveFindLaneTarget_8c023e7e')->with();
     }
 
     public function test_no_forward_segment_flags_off_route(): void
@@ -151,7 +151,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_lineNodes_8c227d88'), $nodes);
         $this->setNodeFwd($nodes, 2, 0xffff);
 
-        $this->call('_FUN_8c023e7e')->with();
+        $this->call('_BusDriveFindLaneTarget_8c023e7e')->with();
 
         $this->shouldWriteLong($base + 0x338, 2);
     }
@@ -178,7 +178,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_lineSegments_8c227d84'), $segs);
         $this->setNodeFwd($nodes, 5, 7);
 
-        $this->call('_FUN_8c023e7e')->with();
+        $this->call('_BusDriveFindLaneTarget_8c023e7e')->with();
 
         // remaining = 0*128 + segs[7].length(50) * lineSegmentProgress_0x2c0(25) / segs[5].length(25) = 50.0
         // cand = remaining*dx + x, remaining*dz + z = (60.0, 20.0)
@@ -225,7 +225,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_lineSegments_8c227d84'), $segs);
         $this->setNodeFwd($nodes, 5, 7);
 
-        $this->call('_FUN_8c023e7e')->with();
+        $this->call('_BusDriveFindLaneTarget_8c023e7e')->with();
 
         $this->shouldCallFun0207fa($base, 60.0, 20.0, 5.0); // side > 0 -- kills the track in forward mode
 

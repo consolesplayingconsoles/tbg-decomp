@@ -7,7 +7,7 @@
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, FUN_8c010c6e */
 #include "014a9c_tasks.h"         /* Task */
 #include "020594.h"               /* VehicleModelPlace_8c020594 */
-#include "023938_bus_drive.h"               /* FUN_8c023938/023cba/023e7e */
+#include "023938_bus_drive.h"               /* BusDriveSampleGround_8c023938/023cba/023e7e */
 #include "024280_bus_input.h"               /* BusInputUpdate_8c0246b2/024280 */
 #include "02412c_bus_line.h"               /* BusLineAdvance_8c02412c */
 #include "02081c.h"               /* GeomDistanceXZ_8c02081c */
@@ -61,7 +61,7 @@ void BusTask_8c022bdc(Task *task, void *state)
     }
     var_busState_8c1bb9d0.ang_0x250 = ang;
 
-    if (var_busState_8c1bb9d0.bus_state_0x2b4 == 0) {
+    if (var_busState_8c1bb9d0.driveState_0x2b4 == 0) {
         /* Boarding: substate 0 waits for the doors-open trigger, substate 1
          * ramps var_busDoorFrame_8c227db0 up to var_busDoorLastFrame_8c227db4 (door hold time) then moves
          * to substate 2 (BusStop drives the rest from there). */
@@ -79,7 +79,7 @@ void BusTask_8c022bdc(Task *task, void *state)
                 var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
             }
         }
-    } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 1) {
+    } else if (var_busState_8c1bb9d0.driveState_0x2b4 == 1) {
         /* Driving: substate 2 waits for the doors-close trigger (A button or
          * scripted), substate 3 ramps var_busDoorFrame_8c227db0 back down to 0 then
          * returns to substate 0. */
@@ -136,7 +136,7 @@ void BusTask_8c022bdc(Task *task, void *state)
                 }
             }
 
-            FUN_8c023e7e();
+            BusDriveFindLaneTarget_8c023e7e();
 
             if (var_busState_8c1bb9d0.laneTargetSearchDone_0x334 == 0) {
                 var_busState_8c1bb9d0.lineSegmentRemaining_0x2bc += var_busState_8c1bb9d0.speed_0x27c;
@@ -149,7 +149,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         if (var_busState_8c1bb9d0.mirror_0x268 != 0) {
             BusInputCapMirrorTraffic_8c024280();
         }
-    } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 2) {
+    } else if (var_busState_8c1bb9d0.driveState_0x2b4 == 2) {
         /* Knockback/reverse: slide along the collision-knockback direction
          * (dir_x/dir_z), decelerating to a stop, then resume driving (or
          * braking, if the run is over). */
@@ -163,10 +163,10 @@ void BusTask_8c022bdc(Task *task, void *state)
                 var_busState_8c1bb9d0.laneOffset_0x2c4 =
                     GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.laneTargetX_0x0ec);
             }
-            var_busState_8c1bb9d0.bus_state_0x2b4 = (var_8c2285c4[0] < 3) ? 1 : 3;
+            var_busState_8c1bb9d0.driveState_0x2b4 = (var_8c2285c4[0] < 3) ? 1 : 3;
             var_busState_8c1bb9d0.speed_0x27c = 0.0f;
         }
-    } else if (var_busState_8c1bb9d0.bus_state_0x2b4 == 4) {
+    } else if (var_busState_8c1bb9d0.driveState_0x2b4 == 4) {
         /* Braking to a stop (run over): ramp speed_0x27c toward 0 at
          * 0.02/frame, snapping to exactly 0 and moving to state 3 once it
          * crosses, then keep moving along headingDirX_0x274/headingDirZ_0x278. */
@@ -174,19 +174,19 @@ void BusTask_8c022bdc(Task *task, void *state)
             var_busState_8c1bb9d0.speed_0x27c += 0.02f;
             if (var_busState_8c1bb9d0.speed_0x27c > 0.0f) {
                 var_busState_8c1bb9d0.speed_0x27c = 0.0f;
-                var_busState_8c1bb9d0.bus_state_0x2b4 = 3;
+                var_busState_8c1bb9d0.driveState_0x2b4 = 3;
             }
         } else {
             var_busState_8c1bb9d0.speed_0x27c -= 0.02f;
             if (var_busState_8c1bb9d0.speed_0x27c < 0.0f) {
                 var_busState_8c1bb9d0.speed_0x27c = 0.0f;
-                var_busState_8c1bb9d0.bus_state_0x2b4 = 3;
+                var_busState_8c1bb9d0.driveState_0x2b4 = 3;
             }
         }
         var_busState_8c1bb9d0.posX_0x0f4 -= var_busState_8c1bb9d0.speed_0x27c * var_busState_8c1bb9d0.headingDirX_0x274;
         var_busState_8c1bb9d0.posZ_0x0fc -= var_busState_8c1bb9d0.speed_0x27c * var_busState_8c1bb9d0.headingDirZ_0x278;
     }
-    /* bus_state_0x2b4 == 3 (fully stopped): nothing else to do here, falls
+    /* driveState_0x2b4 == 3 (fully stopped): nothing else to do here, falls
      * straight into the shared tail below. */
 
     FUN_8c010c6e();
@@ -194,8 +194,8 @@ void BusTask_8c022bdc(Task *task, void *state)
     if (var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
         int *result;
 
-        FUN_8c023938();
-        FUN_8c023cba();
+        BusDriveSampleGround_8c023938();
+        BusDriveApplyGround_8c023cba();
 
         var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
         result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0)(

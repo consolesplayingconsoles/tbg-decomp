@@ -70,7 +70,7 @@ return new class extends TestCase {
             $this->setRegister(0, $this->getRegister(1)->div($this->getRegister(0)));
         });
 
-        // Same bytes as $base + 0x2b4 (BusState.bus_state_0x2b4); the Y-button
+        // Same bytes as $base + 0x2b4 (BusState.driveState_0x2b4); the Y-button
         // gate reads the field through its own section B symbol.
         $this->rellocate(
             '_var_busDriveState_8c1bbc84',
@@ -109,7 +109,7 @@ return new class extends TestCase {
     private function seedCommon(int $base): void
     {
         $this->setCue($base, 0);
-        $this->initUint32($base + 0x2b4, 0); // bus_state_0x2b4: not driving
+        $this->initUint32($base + 0x2b4, 0); // driveState_0x2b4: not driving
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0); // press
         $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
@@ -316,7 +316,7 @@ return new class extends TestCase {
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
-        $this->initUint32($base + 0x2b4, 1); // bus_state_0x2b4: driving
+        $this->initUint32($base + 0x2b4, 1); // driveState_0x2b4: driving
         $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 1);
 
@@ -340,7 +340,7 @@ return new class extends TestCase {
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
-        $this->initUint32($base + 0x2b4, 1); // bus_state_0x2b4: driving
+        $this->initUint32($base + 0x2b4, 1); // driveState_0x2b4: driving
         $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 3);
 
@@ -401,7 +401,7 @@ return new class extends TestCase {
         $this->seedCommon($base);
         $this->initUint32($this->addressOf('_var_cameraCueState_8c227da4'), 0);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, self::PDD_DGT_TY);
-        $this->initUint32($base + 0x2b4, 1); // bus_state_0x2b4: driving
+        $this->initUint32($base + 0x2b4, 1); // driveState_0x2b4: driving
         $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 1); // ramping
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 2); // >= 2
 

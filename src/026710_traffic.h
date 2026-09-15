@@ -163,7 +163,7 @@ typedef struct {
     float dirX_0x29c;
     float dirZ_0x2a0;
     Uint8 padding_0x2a4[0x10];
-    /* Same offset as BusState.bus_state_0x2b4. The top-level state driving
+    /* Same offset as BusState.driveState_0x2b4. The top-level state driving
      * both per-frame drivers: 0/2 = normal driving (TrafficDriveVehicle_8c025b98's
      * main body; 2 additionally blends the ground-snapped height back down
      * to normal, then reverts to 0), 1 = being pushed by

@@ -365,19 +365,19 @@ void BusStopUpdateArrival_8c02ce48(void)
         }
         if ((distance < 3.0f && var_8c1bbc4c == 0.0f) ||
             (var_stopMinDistance_8c2285ec < 3.0f && var_8c1bbc4c == 0.0f)) {
-            var_busState_8c1bb9d0.bus_state_0x2b4 = 3;
+            var_busState_8c1bb9d0.driveState_0x2b4 = 3;
             var_stopPhase_8c2285e4 = 3;
             var_8c2285c4[0] = 3;
             var_8c2285e8 = 0;
         } else if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff) == var_nextStopSegment_8c228710) {
-            var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
+            var_busState_8c1bb9d0.driveState_0x2b4 = 4;
             var_stopPhase_8c2285e4 = 3;
             var_8c2285c4[0] = 3;
             var_8c2285e8 = 2;
         }
     } else if (var_stopPhase_8c2285e4 == 4) {
         if ((var_busState_8c1bb9d0.markDriveFlags_0x3b0 & 0xff000000) != 0) {
-            var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
+            var_busState_8c1bb9d0.driveState_0x2b4 = 4;
             var_stopPhase_8c2285e4 = 3;
             var_8c2285e8 = 0;
             var_8c2285c4[0] = 4;

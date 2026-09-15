@@ -131,7 +131,7 @@ typedef struct {
     int easyLightColorG_0x0e4;
     int easyLightColorB_0x0e8;
     /* Last confirmed lane-crossing point (x,z), read by GeomDistanceXZ_8c02081c
-     * (022bdc) and written by FUN_8c023e7e (023938) -- real float fields
+     * (022bdc) and written by BusDriveFindLaneTarget_8c023e7e (023938) -- real float fields
      * (FMOV.S stores), not int. */
     float laneTargetX_0x0ec;
     float laneTargetZ_0x0f0;
@@ -150,9 +150,9 @@ typedef struct {
      * x/z untouched (stale). */
     NJS_POINT3 posHistory_0x100[12];
 
-    /* 10 ground-polygon samples around the bus, taken by FUN_8c023938 at
+    /* 10 ground-polygon samples around the bus, taken by BusDriveSampleGround_8c023938 at
      * corner/lookahead points derived from posHistory_0x100, then read back
-     * by FUN_8c023cba to average a lane-offset ground height. */
+     * by BusDriveApplyGround_8c023cba to average a lane-offset ground height. */
     GroundQueryResult groundSamples_0x190[10];
 
     /* Bus heading unit vector (x,z), dotted and crossed against the move
@@ -211,7 +211,7 @@ typedef struct {
     float dir_x2_0x2ac;
     float dir_z2_0x2b0;
 
-    int bus_state_0x2b4;
+    int driveState_0x2b4;
 
     int currentLinePointPtr_0x2b8; /* the spawn stop area's StopAreaRecord*, cast to int */
     float lineSegmentRemaining_0x2bc;
@@ -266,7 +266,7 @@ typedef struct {
     int field_0x328;  /* no use site; padding, like field_0x234 */
     float mirrorDirZ_0x32c;
     float mirrorDist_0x330;
-    /* Drive FUN_8c023e7e's search for a lane-change target point (0/1 =
+    /* Drive BusDriveFindLaneTarget_8c023e7e's search for a lane-change target point (0/1 =
      * search forward/backward from currentLineNodeIdx_0x33c, 2 = idle/done);
      * armed by the same two buttons that toggle signalSide_0x25c, in
      * mapped-route steering mode (024280.c). Despite the name, unrelated to
@@ -469,7 +469,7 @@ extern int var_signalSide_8c1bbc2c;
 
 /* BusState.speed_0x27c. */
 extern float var_8c1bbc4c;
-/* BusState.bus_state_0x2b4. Gates replay playback (DemoInputTask_8c016bf4),
+/* BusState.driveState_0x2b4. Gates replay playback (DemoInputTask_8c016bf4),
  * replay recording (DebugMenuDemoRecordTask_8c01677e) and, at == 1, the
  * Y-button camera cycle in BusRenderUpdateCamera_8c025078 -- all three only
  * once the bus is actually driving. */
@@ -506,8 +506,11 @@ extern float var_8c1bc450;
 extern NJS_MATRIX var_scratchMatrix_8c1bc46c;
 extern NJS_POINT3 var_groundQueryPoint_8c1bc460; // scratch world point for ground-height queries, e.g. FUN_8c02840c
 extern void* var_vmGameBuf_8c1bc454;
-extern float var_crossingIntersectPoint_8c1bc458; // IntersectSegments_8c0206f0's intersection-point output (x); [1] (var_8c1bc45c) holds y
-extern float var_8c1bc45c; // var_crossingIntersectPoint_8c1bc458's y, immediately adjacent -- see that field's comment
+/* IntersectSegments_8c0206f0's intersection-point output, an XZ pair. The two
+ * halves are exported separately but must stay adjacent -- callers pass
+ * &var_crossingIntersectPoint_8c1bc458 as the whole point. */
+extern float var_crossingIntersectPoint_8c1bc458;
+extern float var_crossingIntersectPointZ_8c1bc45c;
 extern void* var_busFont_8c1ba1c8;
 extern BusState var_busState_8c1bb9d0;
 /* Sit at var_busState_8c1bb9d0's base+0x34c/+0x368/+0x384 (its junctionARoadFlags_0x34c/

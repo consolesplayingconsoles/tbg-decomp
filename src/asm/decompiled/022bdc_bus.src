@@ -12,7 +12,7 @@
           .IMPORT     _BusInputUpdate_8c0246b2
           .IMPORT     _var_8c2264b8
           .IMPORT     _var_inputMapSel_8c1bb8c8
-          .IMPORT     _FUN_8c023e7e
+          .IMPORT     _BusDriveFindLaneTarget_8c023e7e
           .IMPORT     _BusLineAdvance_8c02412c
           .IMPORT     _njSin
           .IMPORT     _njCos
@@ -20,8 +20,8 @@
           .IMPORT     _GeomDistanceXZ_8c02081c
           .IMPORT     _var_8c2285c4
           .IMPORT     _FUN_8c010c6e
-          .IMPORT     _FUN_8c023938
-          .IMPORT     _FUN_8c023cba
+          .IMPORT     _BusDriveSampleGround_8c023938
+          .IMPORT     _BusDriveApplyGround_8c023cba
           .IMPORT     _var_activeAttrGrid_8c228b3c
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _var_8c1bbd9c
@@ -316,7 +316,7 @@ LP_GEN_73202:
           .DATA.L _BusInputUpdate_8c0246b2 ; H'8C022DF8
           .DATA.L _var_8c2264b8 ; H'8C022DFC
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C022E00
-          .DATA.L _FUN_8c023e7e ; H'8C022E04
+          .DATA.L _BusDriveFindLaneTarget_8c023e7e ; H'8C022E04
           .DATA.L _BusLineAdvance_8c02412c ; H'8C022E08
 LAB_8c022e0c:
           MOV.W       LP_GEN_93321,R0
@@ -647,8 +647,8 @@ LP_GEN_63897:
           .DATA.W H'03A0 ; H'8C023084
           .DATA.W H'02DC ; H'8C023086
           .DATA.L _FUN_8c010c6e ; H'8C023088
-          .DATA.L _FUN_8c023938 ; H'8C02308C
-          .DATA.L _FUN_8c023cba ; H'8C023090
+          .DATA.L _BusDriveSampleGround_8c023938 ; H'8C02308C
+          .DATA.L _BusDriveApplyGround_8c023cba ; H'8C023090
           .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C023094
 LAB_8c023098:
           MOV.W       LP_GEN_75383,R0

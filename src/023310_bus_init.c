@@ -99,14 +99,14 @@ STATIC void busInitPlaceBus_8c023310(void)
     var_busState_8c1bb9d0.acc_hist_0x280[2] = 0.0f;
     var_busState_8c1bb9d0.acc_hist_0x280[3] = 0.0f;
 
-    var_busState_8c1bb9d0.bus_state_0x2b4 = 0;
+    var_busState_8c1bb9d0.driveState_0x2b4 = 0;
     var_busState_8c1bb9d0.currentLinePointPtr_0x2b8 = (int)stopArea;
     var_busState_8c1bb9d0.lineSegmentProgress_0x2c0 = 2.0f;
     var_busState_8c1bb9d0.lineSegmentRemaining_0x2bc = 2.0f;
     var_busState_8c1bb9d0.laneOffset_0x2c4 = 2.0f;
     var_busState_8c1bb9d0.field_0x2d4 = 1;
 
-    FUN_8c023938();
+    BusDriveSampleGround_8c023938();
 
     angle = acosf(var_busState_8c1bb9d0.headingDirZ_0x278);
     ang = (int)(angle * 65536.0f / TWO_PI);
@@ -199,8 +199,8 @@ void BusInitStart_8c023610(void)
     var_busState_8c1bb9d0.field_0x3a8 = 0;
     var_busState_8c1bb9d0.field_0x3ac = 0;
 
-    FUN_8c023938();
-    FUN_8c023cba();
+    BusDriveSampleGround_8c023938();
+    BusDriveApplyGround_8c023cba();
 
     VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
 

@@ -6,9 +6,9 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 /*
- * _FUN_8c023cba(void): rebuilds the bus's steering-correction direction
+ * _BusDriveApplyGround_8c023cba(void): rebuilds the bus's steering-correction direction
  * (dir_x_0x29c/dir_z_0x2a0 and their scaled mirrors dir_x2_0x2ac/
- * dir_z2_0x2b0) from the 10 corner ground-probe results FUN_8c023938 fills
+ * dir_z2_0x2b0) from the 10 corner ground-probe results BusDriveSampleGround_8c023938 fills
  * into groundSamples_0x190, then always averages two pairs of those probes'
  * interpolated heights into posY_0x0f8/posHistory_0x100[0].y and fans those
  * out to the lane-offset posHistory entries. Called by FUN_8c023610
@@ -96,7 +96,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x230, $this->fdec(0.6)); // headingX_0x230 (heading x)
         $this->initUint32($base + 0x238, $this->fdec(0.8)); // headingZ_0x238 (heading z)
 
-        $this->call('_FUN_8c023cba')->with();
+        $this->call('_BusDriveApplyGround_8c023cba')->with();
 
         $this->shouldCall('_busDriveDecelerate_8c023bea');
         $this->shouldWriteFloat($base + 0x2ac, 0.6); // dir_x2_0x2ac
@@ -118,7 +118,7 @@ return new class extends TestCase {
         $this->initUint32($this->groundSampleAttr($base, 4), 0); // gs[4] miss
         $this->initUint32($base + 0x250, 0x1234); // ang_0x250
 
-        $this->call('_FUN_8c023cba')->with();
+        $this->call('_BusDriveApplyGround_8c023cba')->with();
 
         $this->shouldCall('_busDriveDecelerate_8c023bea');
         $this->shouldWriteFloat($point + 0x0, 1.0); // sign (default +1.0)
@@ -152,7 +152,7 @@ return new class extends TestCase {
         $this->initUint32($this->groundSampleAttr($base, 5), 0); // gs[5] miss
         $this->initUint32($base + 0x250, 0x4321); // ang_0x250
 
-        $this->call('_FUN_8c023cba')->with();
+        $this->call('_BusDriveApplyGround_8c023cba')->with();
 
         $this->shouldCall('_busDriveDecelerate_8c023bea');
         $this->shouldWriteFloat($point + 0x0, -1.0); // sign (negated)
@@ -184,7 +184,7 @@ return new class extends TestCase {
         $this->initUint32($this->groundSampleAttr($base, 2), 0); // gs[2] miss
         $this->initUint32($base + 0x250, 0x2222); // ang_0x250
 
-        $this->call('_FUN_8c023cba')->with();
+        $this->call('_BusDriveApplyGround_8c023cba')->with();
 
         $this->shouldCall('_busDriveDecelerate_8c023bea');
         $this->shouldWriteFloat($point + 0x0, 1.0); // sign stays default (+1.0)
@@ -212,7 +212,7 @@ return new class extends TestCase {
 
         $this->seedAllHits($base);
 
-        $this->call('_FUN_8c023cba')->with();
+        $this->call('_BusDriveApplyGround_8c023cba')->with();
 
         // No decelerate call and no steering-field writes -- only the
         // unconditional tail runs.

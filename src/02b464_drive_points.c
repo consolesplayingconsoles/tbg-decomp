@@ -294,7 +294,7 @@ STATIC void handleBump_8c02b6d4(void) {
         return;
     }
 
-    if (var_8c1bbd9c->bus_state_0x2b4 != 1) {
+    if (var_8c1bbd9c->driveState_0x2b4 != 1) {
         return;
     }
 
@@ -707,7 +707,7 @@ STATIC void gradeFrame_8c02bcd8(void) {
         }
     }
 
-    if (var_inputMapSel_8c1bb8c8 == 0 && var_busState_8c1bb9d0.bus_state_0x2b4 == 1) {
+    if (var_inputMapSel_8c1bb8c8 == 0 && var_busState_8c1bb9d0.driveState_0x2b4 == 1) {
         float t = var_busState_8c1bb9d0.speed_0x27c * (float)var_busState_8c1bb9d0.ang_0x258;
         if (t < -2000.0f || t > 2000.0f) {
             /* var_8c2285c4[38] (0x22865c, no export of its own) */
@@ -1041,7 +1041,7 @@ STATIC void taskCallback_8c02c072() {
             var_8c228634[2] = var_busState_8c1bb9d0.junctionBRoadFlags_0x368;
 
             if (var_driverPoints_8c2285d0 == 0) {
-                var_busState_8c1bb9d0.bus_state_0x2b4 = 4;
+                var_busState_8c1bb9d0.driveState_0x2b4 = 4;
                 var_8c2285c4[0] = 4;
                 var_8c2285c4[2] = 0x1e;
                 var_messageBoxActive_8c22847c = 1;

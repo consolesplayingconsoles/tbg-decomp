@@ -439,7 +439,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
                 }
             }
 
-            var_busState_8c1bb9d0.bus_state_0x2b4 = 1;
+            var_busState_8c1bb9d0.driveState_0x2b4 = 1;
             var_busState_8c1bb9d0.signalSide_0x25c =
                 (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE && var_route_8c18ad1c == ROUTE_OME &&
                  var_currentSegment_8c228708 == 0) ? 1 : 2;
@@ -501,7 +501,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
 void PassengerSkipStopTask_8c02d8f0(Task *task, void *state)
 {
     if (var_isFading_8c226568 == 0) {
-        var_busDriveState_8c1bbc84 = 1; /* BusState.bus_state_0x2b4: back to driving */
+        var_busDriveState_8c1bbc84 = 1; /* BusState.driveState_0x2b4: back to driving */
         var_fadeArrivalVariant_8c22655c = 0;
         var_cameraMode_8c227d9c = 2;
         var_cameraCueState_8c227da4 = 0;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _FUN_8c023938(void): computes 10 corner/lookahead ground-sample points
+ * _BusDriveSampleGround_8c023938(void): computes 10 corner/lookahead ground-sample points
  * around the bus from its heading (posHistory_0x100[0] vs posX_0x0f4/
  * posZ_0x0fc) and queries each through the ground-query callback stored at
  * groundProbeFn_0x2c8 (GroundQueryFindPolygon_8c020914 or a GroundProbe* variant),
@@ -58,7 +58,7 @@ return new class extends TestCase {
 
         $this->initUint32($base + 0x2c8, $query); // groundProbeFn_0x2c8
 
-        $this->call('_FUN_8c023938')->with();
+        $this->call('_BusDriveSampleGround_8c023938')->with();
 
         $this->shouldCall('_njSqrt')->with(100.0)->andReturn(10.0);
 

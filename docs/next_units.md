@@ -115,7 +115,7 @@ press/hold/release state here, which toggles `mirror_0x268` between its 0/1/2
 modes. Nameable as-is.
 
 **`BusState.field_0x334`** -- `023938_bus_drive.c:249-253,317`: gates
-`FUN_8c023e7e`. While set, that function only waits for `laneOffset_0x2c4` to
+`BusDriveFindLaneTarget_8c023e7e`. While set, that function only waits for `laneOffset_0x2c4` to
 settle back to 2.0, then clears it and re-arms a new search; it is set to 1
 once a new crossing point lands in `laneTargetX_0x0ec`/`laneTargetZ_0x0f0`.
 Nameable as-is.
@@ -285,13 +285,13 @@ boundary/call-graph note above.
 
 ### `023938_bus_drive` (ShortUnit `BusDrive`) -- done, 5/5 functions
 
-Per-frame driving update for the player's bus: `FUN_8c023938` fills 10
+Per-frame driving update for the player's bus: `BusDriveSampleGround_8c023938` fills 10
 corner/lookahead ground-sample points via the bus's ground-query callback
 (`BusState.field_0x2c8`, picked once by `busInitPlaceBus_8c023310`);
-`FUN_8c023cba` turns those samples into a steering-correction direction and
+`BusDriveApplyGround_8c023cba` turns those samples into a steering-correction direction and
 averaged height, falling back to the private `busDriveDecelerate_8c023bea`
 (a braking-pitch sound cue) when the lane-offset path data isn't ready;
-`BusDriveStop_8c023bce` resets the drivetrain to idle (`bus_state_0x2b4 ==
+`BusDriveStop_8c023bce` resets the drivetrain to idle (`driveState_0x2b4 ==
 2`) after a knockback (called by `02b464`) or after that braking update.
 The public entry points are shared between
 `busInitPlaceBus_8c023310`/`BusInitStart_8c023610` (one-time setup) and

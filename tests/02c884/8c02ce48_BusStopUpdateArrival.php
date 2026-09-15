@@ -81,7 +81,7 @@ return new class extends TestCase {
     private function initBusState(int $field0x3b0, int $field0x3b4, float $speed): int
     {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
-        $this->initUint32($base + 0x2b4, 0xdeadbeef); // bus_state_0x2b4, overwritten on every tested path
+        $this->initUint32($base + 0x2b4, 0xdeadbeef); // driveState_0x2b4, overwritten on every tested path
         $this->initUint32($base + 0x3b0, $field0x3b0);
         $this->initUint32($base + 0x3b4, $field0x3b4);
         // Checked by state 2, not busState.speed_0x27c (Ghidra folded this
@@ -276,7 +276,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_8c1bc44c'), 1.0);
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_stopMinDistance_8c2285ec'), 2.0);
-        $this->shouldWriteLong($busBase + 0x2b4, 3); // bus_state_0x2b4
+        $this->shouldWriteLong($busBase + 0x2b4, 3); // driveState_0x2b4
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
         $this->shouldWriteLongTo('_var_8c2285c4', 3);
         $this->shouldWriteLongTo('_var_8c2285e8', 0);
@@ -328,7 +328,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_8c1bc44c'), 1.0);
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_stopMinDistance_8c2285ec'), 20.0);
-        $this->shouldWriteLong($busBase + 0x2b4, 4); // bus_state_0x2b4
+        $this->shouldWriteLong($busBase + 0x2b4, 4); // driveState_0x2b4
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
         $this->shouldWriteLongTo('_var_8c2285c4', 3);
         $this->shouldWriteLongTo('_var_8c2285e8', 2);
@@ -368,7 +368,7 @@ return new class extends TestCase {
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
-        $this->shouldWriteLong($busBase + 0x2b4, 4); // bus_state_0x2b4
+        $this->shouldWriteLong($busBase + 0x2b4, 4); // driveState_0x2b4
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
         $this->shouldWriteLongTo('_var_8c2285e8', 0);
         $this->shouldWriteLongTo('_var_8c2285c4', 4);

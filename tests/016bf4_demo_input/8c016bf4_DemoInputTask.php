@@ -27,7 +27,7 @@ return new class extends TestCase {
         $record = $this->addressOf('_var_demoBuffer_8c1bc828');
 
         $this->initUint32($this->addressOf('_var_demoCursor_8c225fa8'), $record); // cursor at start
-        $this->initUint32($this->addressOf('_var_busDriveState_8c1bbc84'), 1);  // bus_state_0x2b4: driving
+        $this->initUint32($this->addressOf('_var_busDriveState_8c1bbc84'), 1);  // driveState_0x2b4: driving
         $this->initUint32($this->addressOf('_var_demoPrevOn_8c225fac'), 0);  // previous "on" (for press calc)
 
         $this->initUint32($record + 0, 0x5);      // on raw
@@ -55,7 +55,7 @@ return new class extends TestCase {
             $this->addressOf('_var_demoCursor_8c225fa8'),
             $this->addressOf('_var_demoBuffer_8c1bc828')
         );
-        $this->initUint32($this->addressOf('_var_busDriveState_8c1bbc84'), 0);  // bus_state_0x2b4: not driving
+        $this->initUint32($this->addressOf('_var_busDriveState_8c1bbc84'), 0);  // driveState_0x2b4: not driving
 
         $this->call('_DemoInputTask_8c016bf4');
 
@@ -70,7 +70,7 @@ return new class extends TestCase {
         $end = $this->addressOf('_var_demoBuffer_8c1bc828') + self::REPLAY_BUFFER_SIZE;
 
         $this->initUint32($this->addressOf('_var_demoCursor_8c225fa8'), $end);  // cursor == end
-        $this->initUint32($this->addressOf('_var_busDriveState_8c1bbc84'), 1);     // bus_state_0x2b4: driving
+        $this->initUint32($this->addressOf('_var_busDriveState_8c1bbc84'), 1);     // driveState_0x2b4: driving
 
         $this->call('_DemoInputTask_8c016bf4');
 

@@ -188,7 +188,7 @@ This also resolves a naming trap flagged during this investigation:
 promising lead (their names, and the "second press of an already-latched
 side" input pattern at `024280_bus_input.c:441-511`, suggested a "look both ways"
 mechanic), but they are unrelated to the railway crossing. They drive
-`FUN_8c023e7e` (`023938_bus_drive.c`) -- the search for a lane-change
+`BusDriveFindLaneTarget_8c023e7e` (`023938_bus_drive.c`) -- the search for a lane-change
 target point via route-line-segment intersection (`IntersectSegments_8c0206f0`)
 in the mapped-route steering control scheme (`var_inputMapSel_8c1bb8c8 != 0`).
 "Crossing" there means a *route-line* crossing (two line segments
@@ -309,7 +309,7 @@ also noted in a code comment at its site; this is the index. Both are the
 same shape: the address of a pointer variable (`&ptr`) passed where the
 pointer's value (`ptr`) was meant.
 
-- **`FUN_8c023e7e`** (`023938_bus_drive.c`) calls `sdMidiPlay` with
+- **`BusDriveFindLaneTarget_8c023e7e`** (`023938_bus_drive.c`) calls `sdMidiPlay` with
   `&var_midiHandles_8c0fcd28[0]` -- the array's address -- where every other
   call site in the codebase passes the handle value
   `var_midiHandles_8c0fcd28[0]`.

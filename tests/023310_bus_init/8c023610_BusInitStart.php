@@ -50,8 +50,8 @@ return new class extends TestCase {
         $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
         $this->setSize('_AttrQueryFindPolygon_8c02e69c', 4);
         $this->setSize('_BusStopGetSegment_8c02cd6a', 4);
-        $this->setSize('_FUN_8c023938', 4);
-        $this->setSize('_FUN_8c023cba', 4);
+        $this->setSize('_BusDriveSampleGround_8c023938', 4);
+        $this->setSize('_BusDriveApplyGround_8c023cba', 4);
         $this->setSize('_VehicleModelPlace_8c020594', 4);
         $this->setSize('_var_8c1bbd9c', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
@@ -182,8 +182,8 @@ return new class extends TestCase {
             $this->shouldWriteLong($base + $off, 0);
         }
 
-        $this->shouldCall('_FUN_8c023938');
-        $this->shouldCall('_FUN_8c023cba');
+        $this->shouldCall('_BusDriveSampleGround_8c023938');
+        $this->shouldCall('_BusDriveApplyGround_8c023cba');
 
         $this->shouldCall('_VehicleModelPlace_8c020594')->with(
             $this->addressOf('_var_busWorldMatrix_8c1bba54'),

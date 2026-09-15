@@ -407,7 +407,7 @@
                                     ; 01bb48
           .EXPORT     _var_crossingIntersectPoint_8c1bc458 ; 023938
                                     ; 028258
-          .EXPORT     _var_8c1bc45c ; 023938
+          .EXPORT     _var_crossingIntersectPointZ_8c1bc45c ; 023938
           .EXPORT     _var_groundQueryPoint_8c1bc460 ; 023938
                                     ; 024b4c
                                     ; 025b98
@@ -1130,7 +1130,7 @@ _var_vmGameBuf_8c1bc454:
           .RES.B      4
 _var_crossingIntersectPoint_8c1bc458:
           .RES.B      4
-_var_8c1bc45c:
+_var_crossingIntersectPointZ_8c1bc45c:
           .RES.B      4
 _var_groundQueryPoint_8c1bc460:
           .RES.B      12
