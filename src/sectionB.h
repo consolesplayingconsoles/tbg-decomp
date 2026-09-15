@@ -514,6 +514,26 @@ extern BusState *var_8c1bbd9c;
  * var_busState_8c1bb9d0 (base+0x84) but exported as its own symbol, not a
  * struct field -- coincidentally adjacent, not part of it. */
 extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
+/* var_busState_8c1bb9d0.markDriveFlags_0x3b0 under its own symbol -- word [0]
+ * of the mark-attribute polygon under the bus, refilled every frame by
+ * BusTask_8c022bdc. 025870_demo reaches it this way rather than through the
+ * struct; the 12 bytes the asm reserves here are that word plus
+ * markCueByte_0x3b4 and markAudioCue_0x3b8.
+ *
+ * Several independent fields of one word, all authored onto the road:
+ *   bits  0-2   turn signal the driver is expected to give (01fa78)
+ *   bit   8     headlights
+ *   bits 16-17  wipers
+ *   bits 18-19  gear
+ *   bits 24-31  attract-mode camera cue, an index into
+ *               var_demoShots_8c227e0c (025870_demo)
+ * The low bits are the HUD's driving instructions and the top byte is the
+ * demo tour; they are unrelated jobs sharing a polygon. Bus stops are not
+ * here at all -- those are the two low bytes of markCueByte_0x3b4. What ties
+ * them is only that cues get painted where stops are, which is why
+ * BusStopUpdateArrival_8c02ce48 can test the top byte as a plain flag to
+ * decide a stop is over. */
+extern int var_markDriveFlags_8c1bbd80;
 /* Three independent byte fields, each an id selecting a preset content set for
  * one subsystem, swapped together:
  *   bits  8-15  traffic     -> var_trafficPresetTable_8c227e18[id]  (026710)
@@ -527,8 +547,6 @@ extern NJS_MATRIX var_busWorldMatrix_8c1bba54;
  * the top byte's exact trigger semantics when that lands.
  * Also sits at var_busState_8c1bb9d0's base+0x3bc but is its own symbol, not
  * that struct's markExtra_0x3bc -- coincidentally adjacent, not part of it. */
-/* Used by stopTextboxTask_8c0259e8 (025870). */
-extern NJS_POINT3 var_8c1bbd80;
 extern int var_scenePresetIds_8c1bbd8c;
 /* The two ends of BusDrawFadeLights_8c028022's (027958_bus_draw) crossfade and
  * the per-frame step between them, cached by TrafficInit_8c02769e from
@@ -725,7 +743,10 @@ extern float var_8c227db0;
 extern float var_8c227db4;
 extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by BusRenderUpdateCamera_8c025078
 extern float var_8c227dc4[3];
-extern int var_8c227dd4;
+/* Which attract-mode shot is showing, so demoShotTask_8c0259e8 only cuts on a
+ * change. 012f44_game.c pre-seeds it with the course's opening shot from
+ * init_demoFirstShot_8c0460b0 (sectionD.h). */
+extern int var_demoShotId_8c227dd4;
 /* Five prev/current float pairs, each shifted (dd8->ddc, de0->de4, de8->dec,
  * df0->df4, df8->dfc) every frame by FUN_8c024b4c (024b4c). */
 extern float var_8c227dd8;
@@ -740,16 +761,19 @@ extern float var_8c227df4;
  * (BAMS units, 0 to 0x4000) -- a real int (MOV.L/ADD/CMP/GE), not float. */
 extern Sint32 var_8c227df8;
 extern Sint32 var_8c227dfc;
-/* Local-space offset transformed by the bus's world matrix into
- * posX_0x2fc/posY_0x300/posZ_0x304 for DemoUpdateCamera_8c025906's
- * var_cameraMode_8c227d9c==7 mode; also used directly (untransformed, y relative to
- * ground) for mode 5 and transformed for mode 6 by FUN_8c0258ba (025870). */
-extern NJS_POINT3 var_8c227e00;
-/* Selected route's stop-announcement table (one of init_stopsShinjuku_8c045674/
- * init_stopsWangan_8c045b60/init_stopsOme_8c045ee4, picked by var_route_8c18ad1c), each 20-byte
- * record: {kind, x, y, z, name}. Set by FUN_8c025af4 (025870). */
-extern int *var_8c227e0c;
-extern int var_8c227e10; /* set to 1 by FUN_8c025af4 once the stop textbox task is armed (025870) */
+/* The current demo shot's pos_0x04, copied here by demoShotTask_8c0259e8
+ * (025870_demo). Read as a world point for camera mode 5 and as a bus-space
+ * offset for 6 and 7; the first two are resolved once by
+ * applyShotPosition_8c0258ba, mode 7 every frame by DemoUpdateCamera_8c025906. */
+extern NJS_POINT3 var_demoShotPos_8c227e00;
+/* This route's attract-mode camera tour: a DemoShot[] (025870_demo.c), one of
+ * init_demoShotsShinjuku_8c045674/...Wangan_8c045b60/...Ome_8c045ee4, selected
+ * by DemoStartTour_8c025af4 from var_route_8c18ad1c and indexed by the stop
+ * marker in var_markDriveFlags_8c1bbd80. */
+extern int *var_demoShots_8c227e0c;
+/* Makes demoShotTask_8c0259e8 cut to var_demoShotId_8c227dd4's shot on its
+ * first frame instead of waiting for the marker to change. */
+extern int var_demoShotRearm_8c227e10;
 extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by ObjectsInitTrafficSignals_8c02845a */
 extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by ObjectsGetTrafficSignalFrame_8c028900 */
 extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */

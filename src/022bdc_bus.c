@@ -12,7 +12,7 @@
 #include "02412c.h"               /* BusLineAdvance_8c02412c */
 #include "02081c.h"               /* GeomDistanceXZ_8c02081c */
 #include "024b4c_bus_render.h"               /* BusRenderUpdateCamera_8c025078, BusRenderUpdateMirrorCamera_8c025604 */
-#include "025870.h"               /* DemoUpdateCamera_8c025906 */
+#include "025870_demo.h"               /* DemoUpdateCamera_8c025906 */
 #include "027958_bus_draw.h"      /* BusDrawFadeLights_8c028022 */
 #include "022bdc_bus.h"           /* BusTask_8c022bdc */
 #include "02e51c_attr_query.h"

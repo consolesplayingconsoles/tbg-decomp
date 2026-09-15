@@ -26,7 +26,7 @@
 #include "02fb50_sh4nlfzn_post_data.h"
 #include "02171c_tile_stream.h"
 #include "023310_bus_init.h"
-#include "025870.h"
+#include "025870_demo.h"
 #include "02d968_stop_spawn.h"
 
 // #define CACHE_BUFSIZE   0x20000
@@ -188,7 +188,7 @@ void FUN_8c01306e(void)
             created_task->field_0x0c = (void*) 0;
         }
         TaskPush_8c014ae8(var_tasks_8c1ba5e8, &DemoInputTask_8c016bf4, &created_task, &created_state, 0);
-        FUN_8c025af4();
+        DemoStartTour_8c025af4();
     }
 
     var_pauseActive_8c1bb8cc = 0;
@@ -225,10 +225,10 @@ void FUN_8c01328c() {
         var_inputMapSel_8c1bb8c8 = var_debugMenuCourseSel_8c1bc824->inputMapSel_0x08;
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
     } else if ((var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) && (var_8c1bb8d4 != 0)) {
-        var_8c227dd4 = init_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
+        var_demoShotId_8c227dd4 = init_demoFirstShot_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
         FileMenuResetNewGame_8c01895e();
     } else {
-        var_8c227dd4 = 0;
+        var_demoShotId_8c227dd4 = 0;
     }
 
     njRandomSeed(var_seed_8c157a64);
@@ -252,9 +252,9 @@ void GamePushLoadingTask_8c013310(int p1) {
         var_inputMapSel_8c1bb8c8 = var_progress_8c1ba1cc.driveMode_0xc5;
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
     } else if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO && var_8c1bb8d4 != 0) {
-        var_8c227dd4 = init_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
+        var_demoShotId_8c227dd4 = init_demoFirstShot_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
     } else {
-        var_8c227dd4 = 0;
+        var_demoShotId_8c227dd4 = 0;
     }
 
     njRandomSeed(var_seed_8c157a64);

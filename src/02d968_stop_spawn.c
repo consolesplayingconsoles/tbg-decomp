@@ -6,7 +6,7 @@
 #include "sectionB.h"
 #include "014a9c_tasks.h"
 #include "02d19c_passenger.h"
-#include "025870.h"
+#include "025870_demo.h"
 
 /* ====================
  * Compiler Definitions
@@ -77,7 +77,7 @@ void StopSpawnInit_8c02d968(void)
 
     njSetTexture(var_interiorTexlist_8c1bc438);
     njLoadCacheTexture(var_interiorTexlist_8c1bc438);
-    FUN_8c025870();
+    DemoBoardingCamera_8c025870();
 
     /* The passenger walk waypoints, in bus-local space; the two outside the bus
      * are transformed to world space in place. Ome gets the same six

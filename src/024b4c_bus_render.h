@@ -7,8 +7,8 @@
  * (BusRenderUpdateCamera_8c025078); the Y button cycles only 0-3
  * (BUS_CAMERA_FIXED_TARGET is never assigned anywhere in the decompiled
  * code -- traced as dead in the shipped game, not merely hard to reach).
- * 5-7 are demo-playback-only (DemoUpdateCamera_8c025906, 025870.c),
- * selected per StopRecord.kind_0x00 by stopTextboxTask_8c0259e8. */
+ * 5-7 are demo-playback-only (DemoUpdateCamera_8c025906, 025870_demo.c),
+ * selected per DemoShot.cameraKind_0x00 by demoShotTask_8c0259e8. */
 enum {
     BUS_CAMERA_COCKPIT = 0,          /* at the bus origin; dashboard model
                                        * drawn; eased yaw sway with steering */
@@ -36,7 +36,7 @@ void FUN_8c024f32(void);
 
 /* Lights, textures and draws the third-person bus model (with door/etc
  * shape motion, always busState.modelLarge_0x00c); altLight only selects the
- * light direction (non-NULL -> var_8c227dc4). Called by 025870. */
+ * light direction (non-NULL -> var_8c227dc4). Called by 025870_demo. */
 void FUN_8c024bb8(void *altLight);
 
 /* Updates the gameplay camera to follow the player's bus, outside demo

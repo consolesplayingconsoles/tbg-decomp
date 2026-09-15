@@ -5,8 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _FUN_8c025870(void): sets up the fade camera (var_8c1bb984) at a fixed
- * vantage point. Unconditional straight-line function -- one path.
+ * _DemoBoardingCamera_8c025870(void): aims the fade camera (var_8c1bb984)
+ * down the aisle for the passenger boarding shot. Unconditional
+ * straight-line function -- one path.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -23,7 +24,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->call('_FUN_8c025870')->with();
+        $this->call('_DemoBoardingCamera_8c025870')->with();
 
         $this->shouldCall('_njInitCamera')->with($this->addressOf('_var_8c1bb984'));
         $this->shouldCall('_njSetCameraAngle')->with($this->addressOf('_var_8c1bb984'), 12743);

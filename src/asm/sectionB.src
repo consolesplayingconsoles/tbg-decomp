@@ -122,7 +122,7 @@
                                           ; 01fa78
                                           ; 0222dc
                                           ; 023310
-                                          ; 025870
+                                          ; 025870_demo
                                           ; 026710
                                           ; 028258
                                           ; 02b464
@@ -254,12 +254,12 @@
           .EXPORT     _var_8c1bb904 ; 021b9c
                                     ; 022464
                                     ; 024b4c
-                                    ; 025870
+                                    ; 025870_demo
           .EXPORT     _var_8c1bb944 ; 021b9c
                                     ; 022464
                                     ; 024b4c
           .EXPORT     _var_8c1bb984 ; 022464
-                                    ; 025870
+                                    ; 025870_demo
           .EXPORT     _var_busState_8c1bb9d0 ; 012f44_game
                                              ; 01fa78
                                              ; 02171c
@@ -270,7 +270,7 @@
                                              ; 02412c
                                              ; 024280
                                              ; 024b4c
-                                             ; 025870
+                                             ; 025870_demo
                                              ; 026710
                                              ; 027958_bus_draw
                                              ; 028258
@@ -311,7 +311,7 @@
           .EXPORT     _var_8c1bbd38 ; 02b464
           .EXPORT     _var_8c1bbd54 ; 02b464
           .EXPORT     _var_8c1bbd70 ; 02e51c
-          .EXPORT     _var_8c1bbd80 ; 025870
+          .EXPORT     _var_markDriveFlags_8c1bbd80 ; 025870_demo
           .EXPORT     _var_scenePresetIds_8c1bbd8c ; 026710
                                     ; 028258
           .EXPORT     _var_8c1bbd9c ; 022bdc
@@ -651,7 +651,7 @@
                                     ; 023310
                                     ; 024280
                                     ; 024b4c
-                                    ; 025870
+                                    ; 025870_demo
                                     ; 028258
                                     ; 02d19c
           .EXPORT     _var_8c227da0 ; 012f44_game
@@ -674,8 +674,8 @@
                                     ; 026710
           .EXPORT     _var_fogParam_8c227dd0 ; 013ae8_route_load
                                              ; 024b4c
-          .EXPORT     _var_8c227dd4 ; 012f44_game
-                                    ; 025870
+          .EXPORT     _var_demoShotId_8c227dd4 ; 012f44_game
+                                    ; 025870_demo
           .EXPORT     _var_8c227dd8 ; 024b4c
           .EXPORT     _var_8c227ddc ; 024b4c
           .EXPORT     _var_8c227de0 ; 024b4c
@@ -686,9 +686,9 @@
           .EXPORT     _var_8c227df4 ; 024b4c
           .EXPORT     _var_8c227df8 ; 024b4c
           .EXPORT     _var_8c227dfc ; 024b4c
-          .EXPORT     _var_8c227e00 ; 025870
-          .EXPORT     _var_8c227e0c ; 025870
-          .EXPORT     _var_8c227e10 ; 025870
+          .EXPORT     _var_demoShotPos_8c227e00 ; 025870_demo
+          .EXPORT     _var_demoShots_8c227e0c ; 025870_demo
+          .EXPORT     _var_demoShotRearm_8c227e10 ; 025870_demo
           .EXPORT     _var_activeTrafficPreset_8c227e14 ; 014f54_text
                                                    ; 025b98
                                                    ; 026710
@@ -1048,7 +1048,7 @@ _var_8c1bbd54:
           .RES.B      28
 _var_8c1bbd70:
           .RES.B      16
-_var_8c1bbd80:
+_var_markDriveFlags_8c1bbd80:
           .RES.B      12
 _var_scenePresetIds_8c1bbd8c:
           .RES.B      16
@@ -1362,7 +1362,7 @@ _var_8c227dc4:
           .RES.B      12
 _var_fogParam_8c227dd0:
           .RES.B      4
-_var_8c227dd4:
+_var_demoShotId_8c227dd4:
           .RES.B      4
 _var_8c227dd8:
           .RES.B      4
@@ -1384,11 +1384,11 @@ _var_8c227df8:
           .RES.B      4
 _var_8c227dfc:
           .RES.B      4
-_var_8c227e00:
+_var_demoShotPos_8c227e00:
           .RES.B      12
-_var_8c227e0c:
+_var_demoShots_8c227e0c:
           .RES.B      4
-_var_8c227e10:
+_var_demoShotRearm_8c227e10:
           .RES.B      4
 _var_activeTrafficPreset_8c227e14:
           .RES.B      4

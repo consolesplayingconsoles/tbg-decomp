@@ -14,7 +14,7 @@
 > reader found anywhere).
 
 Relocation-graph analysis regenerated 2026-08-29 by `make graph` after
-`022bdc_bus`, `023310_bus_init`, `024b4c_bus_render`, `025870`, `02e51c_attr_query`,
+`022bdc_bus`, `023310_bus_init`, `024b4c_bus_render`, `025870_demo`, `02e51c_attr_query`,
 `023938_bus_drive`, `027958_bus_draw` and `025b98_traffic_drive` all landed. The
 previous target list is fully exhausted; this is the next round.
 
@@ -69,7 +69,7 @@ will bump `02081c`'s fan-in from 3 to 4.
 ## Suggested order
 
 The `023310` bus cluster (previous round's pick) is now fully decompiled --
-`022bdc_bus`, `023938_bus_drive`, `024b4c_bus_render`, `025870`, `02e51c_attr_query`,
+`022bdc_bus`, `023938_bus_drive`, `024b4c_bus_render`, `025870_demo`, `02e51c_attr_query`,
 `027958_bus_draw` and `025b98_traffic_drive` all landed. That's exactly why the two
 tiny units at the top of the table today (`020594`, `02081c`) sit at fan-in
 3: they're leftover callees shared across that whole now-decompiled cluster.
@@ -330,14 +330,52 @@ camera (`BusRenderUpdateCamera_8c025078`, using the private
 via a function pointer sitting in `BusRenderUpdateMirrorCamera_8c025604`'s
 literal pool -- case (3) of the Ghidra boundary/call-graph note above.
 
-### `025870` (ShortUnit `Demo`) -- done, 5/5 functions
+### `025870_demo` (ShortUnit `Demo`) -- done, 5/5 functions
 
-Demo/attract-mode playback (`FUN_8c025870`, `DemoUpdateCamera_8c025906`,
-`FUN_8c025af4`) plus the in-drive "next stop" textbox: `FUN_8c0258ba`
-repositions the bus draw point, and its 4-phase state machine
-`stopTextboxTask_8c0259e8` is a `TaskPush_8c014ae8` action -- exported
-normally in the `.src`, but reachable only by address (installed as a
-callback, never called by name in this unit). Worth remembering even when
+The attract-mode camera tour. What had been read as "demo playback plus an
+in-drive next-stop textbox" is one thing: a per-route table of camera shots,
+each with a place name captioned over it.
+
+`DemoStartTour_8c025af4` selects the route's `DemoShot[]` and pushes
+`demoShotTask_8c0259e8`; that task watches a **camera cue** -- the top byte of
+`var_markDriveFlags_8c1bbd80`, which `BusTask_8c022bdc` refills every frame
+from the mark-attribute polygon under the bus -- and on a change cuts to that
+id's shot and types its caption. `applyShotPosition_8c0258ba` resolves the
+shot's position once, `DemoUpdateCamera_8c025906` places the camera from it
+each frame.
+
+**The cues are not bus stops**, though they get painted where stops are. The
+low bits of the same word are the HUD's driving instructions (turn signal,
+headlights, wipers, gear -- `01fa78`); stop segment ids live in a different
+word, `markCueByte_0x3b4`. The counts say the same thing: 63/45/23 cues per
+route against a 31-slot stop schedule, and only 21/4/2 of them are named --
+most are unnamed bus-relative framings, several in a row at one spot to cut
+between angles. What the shared polygon does buy is
+`BusStopUpdateArrival_8c02ce48`'s phase 4, which tests the cue byte as a plain
+flag to decide a stop is over. `var_markDriveFlags_8c1bbd80` in `sectionB.h`
+now carries the full bit map.
+
+Two things worth keeping:
+
+- **`DemoBoardingCamera_8c025870` is not demo code.** Its only caller is
+  `StopSpawnInit_8c02d968`, which runs in normal play -- it aims the fade
+  camera down the aisle for the passenger boarding shot. It keeps the `Demo`
+  prefix because that is the unit it lives in (as `016bf4_demo_input` also
+  does), not as a claim about when it runs; its header says so plainly. If
+  the prefix ever reads as a lie, the fix is a new ShortUnit for the pair of
+  scripted-camera jobs, not a quiet rename.
+- The 28 Shift-JIS place names left the `.c` as hex byte arrays and became
+  `MSG_PLACE_*` in `strings_ja_jp.sjis.h`/`strings_en_us.h`, written inline in
+  the shot tables. They were never constants: they are the compiler's own
+  literal pool, and inlining reproduces it byte for byte. Getting there also
+  turned up 3 bytes of section-alignment fill that the archived `.src` had
+  recorded as data -- dropped from the `.src`, matching build unaffected. Both
+  that and why the size cannot be derived with `sizeof` are in
+  `lessons_learned.md`; `01e27c_practice_menu` still uses the older
+  `TEXT_SJIS_SIZE(n)` form and could get the same treatment.
+
+`demoShotTask_8c0259e8` is a `TaskPush_8c014ae8` action -- exported normally
+in the `.src`, but reachable only by address. Worth remembering even when
 Ghidra's export list looks complete: a `TaskPush` install site can hide a
 function's real call graph the same way a raw literal pool does.
 

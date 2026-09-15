@@ -850,15 +850,15 @@ return [
         ],
         [
             "tests" => [
-                "tests/025870/8c025870_FUN.php",
-                "tests/025870/8c0258ba_FUN.php",
-                "tests/025870/8c025906_demoUpdateCamera.php",
-                "tests/025870/8c0259e8_stopTextboxTask.php",
-                "tests/025870/8c025af4_FUN.php",
+                "tests/025870_demo/8c025870_DemoBoardingCamera.php",
+                "tests/025870_demo/8c0258ba_applyShotPosition.php",
+                "tests/025870_demo/8c025906_DemoUpdateCamera.php",
+                "tests/025870_demo/8c0259e8_demoShotTask.php",
+                "tests/025870_demo/8c025af4_DemoStartTour.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/025870.obj",
-                "build/output_test/src/025870.obj",
+                "build/output_test/src/asm/decompiled/025870_demo.obj",
+                "build/output_test/src/025870_demo.obj",
             ]
         ],
         [

@@ -656,7 +656,7 @@ section B var) already has a real owner elsewhere in the tree, but that owner
 doesn't yet make the symbol visible to this file:
 
 - For a still-undecompiled owner (`01f3c0.src`, `01fa78.src`, `024280.src`,
-  `025870.src`, and even the already-decompiled `028258_objects.src`), the
+  `025870_demo.src`, and even the already-decompiled `028258_objects.src`), the
   label exists but is never `.EXPORT`ed -- nothing outside that file has
   needed it yet.
 - For the C-based `Makefile`, an owner that *is* decompiled (e.g.
@@ -801,3 +801,65 @@ Scope every substitution by the accessing variable's type, then re-read the
 whole file. The tests do not reliably catch it: a wrongly renamed field of the
 same type and offset still passes.
 
+## A hand-written string constant is usually a literal pool; inline it
+
+`025870_demo`'s 28 place names started life as hand-written `Uint8` byte
+arrays, but they are really the compiler's own literal pool: address order is
+first-use order, identical strings are deduplicated to one copy (104 of its
+131 shots share the empty caption), and each is padded to a 4-byte boundary.
+That is what the original source looked like -- the names were written inline
+in the tables -- and written inline again the pool comes back byte-identical.
+
+The tell that a run of constants is a pool: every size is exactly
+text + terminator rounded up to 4, the empty one appears once no matter how
+many places use it, and address order tracks the order the tables reference
+them.
+
+Two things that do *not* work, if the rebuilt pool ends up short at the tail:
+
+- adding an explicitly declared array to make up the difference -- SHC emits
+  declared arrays *before* the pool, so it shifts everything
+  (`[C] data differs at 0x0`);
+- padding the last literal in the strings header (`"...\0\0\0"`). It does
+  produce a match, but it puts a layout artifact inside translatable text, and
+  it is fixing the wrong end -- see below.
+
+## `.RES.B` after a string's terminator is section fill, not data
+
+The archived asm for the last constant in a section ends with the alignment
+fill the assembler inserted before the next `.SECTION`:
+
+    ;.DATA.B     H'00
+    ;.RES.B      3
+    .DATA.B  ... H'4F, H'00, H'00, H'00, H'00
+
+The disassembler's own commented-out original separates the two -- terminator,
+then `.RES.B 3` -- but the emitted line folds the fill in as data. That makes
+the archived object 3 bytes longer than any C that reproduces the real
+content, and the diff looks like a missing pad in the C.
+
+It is the archive that is wrong. Dropping the fill from the `.src` leaves
+`[C] match (357 bytes)` against the C object *and* keeps the matching build
+byte-identical, because the linker re-inserts the same fill at the
+`.SECTION D, DATA, ALIGN=4` boundary. Check for this before contorting the C
+to reproduce a tail that was never data.
+
+## SHC emits a second, pooled copy of any literal named inside `sizeof`
+
+Every archived Shift-JIS constant obeys one rule -- text + terminator, rounded
+up to 4 -- so `strings.h`'s hand-written `TEXT_SJIS_SIZE(n)` looks derivable:
+
+```c
+#define TEXT_SJIS(sym, text) const char sym[(sizeof(text) + 3) & ~3] = text
+```
+
+It isn't. Naming the literal in `sizeof` makes SHC materialise it into the
+string pool *as well as* into the array, so section C comes out holding both:
+`025870_demo` went 360 -> 717 bytes and `01e27c_practice_menu` 72 -> 142, both
+losing a data match they had. One mention (the initializer alone) pools
+nothing; two mentions pool one copy.
+
+There is no way to derive the length without naming the literal twice, so
+where a sized array is genuinely needed the count stays written down. The
+better escape is usually not to need one: inline the literals and let the
+compiler lay the pool out, as `025870_demo` now does.

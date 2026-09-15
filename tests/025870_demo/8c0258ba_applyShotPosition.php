@@ -12,10 +12,10 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * _FUN_8c0258ba(void): positions the bus's draw position
+ * _applyShotPosition_8c0258ba(void): positions the bus's draw position
  * (posX_0x2fc/posY_0x300/posZ_0x304) for var_cameraMode_8c227d9c==5 (pin to the fixed
- * world point var_8c227e00, y relative to ground) or ==6 (transform
- * var_8c227e00 by the bus's world matrix instead). No-op otherwise.
+ * world point var_demoShotPos_8c227e00, y relative to ground) or ==6 (transform
+ * var_demoShotPos_8c227e00 by the bus's world matrix instead). No-op otherwise.
  */
 return new class extends TestCase {
     private function f32(float $value): float
@@ -27,17 +27,17 @@ return new class extends TestCase {
     {
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_8c227e00', 0xc);
+        $this->setSize('_var_demoShotPos_8c227e00', 0xc);
         $this->setSize('_njCalcPoint', 4);
 
         // Pulled in by other not-yet-decompiled functions sharing this
         // object's literal pool.
         $this->setSize('_var_8c1bb984', 0x40);
         $this->setSize('_var_8c1bb904', 0x40);
-        $this->setSize('_var_8c1bbd80', 0xc);
-        $this->setSize('_var_8c227e0c', 4);
-        $this->setSize('_var_8c227e10', 4);
-        $this->setSize('_var_8c227dd4', 4);
+        $this->setSize('_var_markDriveFlags_8c1bbd80', 0xc);
+        $this->setSize('_var_demoShots_8c227e0c', 4);
+        $this->setSize('_var_demoShotRearm_8c227e10', 4);
+        $this->setSize('_var_demoShotId_8c227dd4', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_njInitCamera', 4);
@@ -59,7 +59,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
-        $point = $this->addressOf('_var_8c227e00');
+        $point = $this->addressOf('_var_demoShotPos_8c227e00');
 
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 5);
         $this->initUint32($point, fdec(10.0));
@@ -67,7 +67,7 @@ return new class extends TestCase {
         $this->initUint32($point + 8, fdec(-30.0));
         $this->initUint32($busState + 0xf8, fdec(5.0)); // posY_0x0f8
 
-        $this->call('_FUN_8c0258ba')->with();
+        $this->call('_applyShotPosition_8c0258ba')->with();
 
         $this->shouldWriteFloat($busState + 0x2fc, $this->f32(10.0));   // posX_0x2fc = point.x
         $this->shouldWriteFloat($busState + 0x300, $this->f32(7.5));    // posY_0x300 = posY_0x0f8 + point.y
@@ -79,11 +79,11 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
-        $point = $this->addressOf('_var_8c227e00');
+        $point = $this->addressOf('_var_demoShotPos_8c227e00');
 
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 6);
 
-        $this->call('_FUN_8c0258ba')->with();
+        $this->call('_applyShotPosition_8c0258ba')->with();
 
         $this->shouldCall('_njCalcPoint')->with($busState + 0x84, $point, $busState + 0x2fc);
     }
@@ -99,6 +99,6 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x300, fdec(2.0));
         $this->initUint32($busState + 0x304, fdec(3.0));
 
-        $this->call('_FUN_8c0258ba')->with();
+        $this->call('_applyShotPosition_8c0258ba')->with();
     }
 };

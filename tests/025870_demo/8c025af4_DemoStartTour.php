@@ -6,25 +6,25 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 /*
- * _FUN_8c025af4(void): opens the "next stop" textbox and arms
- * stopTextboxTask_8c0259e8 via TaskPush_8c014ae8, after picking the
- * current route's stop table (var_8c227e0c) among the three per-route
- * init_stopsShinjuku_8c045674/init_stopsWangan_8c045b60/
- * init_stopsOme_8c045ee4 tables.
+ * _DemoStartTour_8c025af4(void): opens the caption textbox and arms
+ * demoShotTask_8c0259e8 via TaskPush_8c014ae8, after selecting this route's
+ * shot table into var_demoShots_8c227e0c from
+ * init_demoShotsShinjuku_8c045674/init_demoShotsWangan_8c045b60/
+ * init_demoShotsOme_8c045ee4.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_8c227e00', 0xc);
+        $this->setSize('_var_demoShotPos_8c227e00', 0xc);
         $this->setSize('_njCalcPoint', 4);
         $this->setSize('_var_8c1bb984', 0x40);
         $this->setSize('_var_8c1bb904', 0x40);
-        $this->setSize('_var_8c1bbd80', 0xc);
-        $this->setSize('_var_8c227e0c', 4);
-        $this->setSize('_var_8c227e10', 4);
-        $this->setSize('_var_8c227dd4', 4);
+        $this->setSize('_var_markDriveFlags_8c1bbd80', 0xc);
+        $this->setSize('_var_demoShots_8c227e0c', 4);
+        $this->setSize('_var_demoShotRearm_8c227e10', 4);
+        $this->setSize('_var_demoShotId_8c227dd4', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_njInitCamera', 4);
@@ -50,14 +50,14 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0xc);
 
-        $this->call('_FUN_8c025af4');
+        $this->call('_DemoStartTour_8c025af4');
 
-        $this->shouldWriteLongTo('_var_8c227e0c', $this->addressOf($expectedTable));
+        $this->shouldWriteLongTo('_var_demoShots_8c227e0c', $this->addressOf($expectedTable));
 
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
-                $this->addressOf('_stopTextboxTask_8c0259e8'),
+                $this->addressOf('_demoShotTask_8c0259e8'),
             )
             ->do(function () use ($task, $state) {
                 // Verify the stack-passed alloc_size (5th arg) directly,
@@ -77,21 +77,21 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsOpenTextbox_8c02ae3e')->with(0x20, 0x180, -1.0, 0x023e, 0x40, 0, 0, -1);
 
-        $this->shouldWriteLongTo('_var_8c227e10', 1);
+        $this->shouldWriteLongTo('_var_demoShotRearm_8c227e10', 1);
     }
 
     public function test_shinjuku_route(): void
     {
-        $this->runForRoute(0, '_init_stopsShinjuku_8c045674');
+        $this->runForRoute(0, '_init_demoShotsShinjuku_8c045674');
     }
 
     public function test_wangan_route(): void
     {
-        $this->runForRoute(1, '_init_stopsWangan_8c045b60');
+        $this->runForRoute(1, '_init_demoShotsWangan_8c045b60');
     }
 
     public function test_ome_route(): void
     {
-        $this->runForRoute(2, '_init_stopsOme_8c045ee4');
+        $this->runForRoute(2, '_init_demoShotsOme_8c045ee4');
     }
 };
