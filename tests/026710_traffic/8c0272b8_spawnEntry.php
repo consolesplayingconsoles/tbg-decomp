@@ -18,9 +18,9 @@ return new class extends TestCase {
         $this->setSize('_VehPartsBind_8c02786c', 4);
         $this->setSize('_TrafficPathScanBuild_8c02f0c8', 4);
         $this->setSize('_GroundProbeTrackPolygon_8c020b6c', 4);
-        $this->setSize('_FUN_8c02e51c', 4);
+        $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
         $this->setSize('_GroundProbeTrackPolygonAtHeight_8c021290', 4);
-        $this->setSize('_FUN_8c02eab4', 4);
+        $this->setSize('_AttrQueryFindConvexPolygonAtHeight_8c02eab4', 4);
         $this->setSize('_TrafficDriveVehicle_8c025b98', 4);
         $this->setSize('_TrafficDriveDecoration_8c02656a', 4);
         $this->setSize('_var_tasks_8c1bac28', 4);
@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x2e4, 1);
         $this->shouldWriteLong($entry + 0x48c, 3); // 0x8000 clear
         $this->shouldWriteLong($entry + 0x2c8, $this->addressOf('_GroundProbeTrackPolygon_8c020b6c'));
-        $this->shouldWriteLong($entry + 0x2cc, $this->addressOf('_FUN_8c02e51c'));
+        $this->shouldWriteLong($entry + 0x2cc, $this->addressOf('_AttrQueryFindConvexPolygon_8c02e51c'));
         $this->shouldWriteLong($entry + 0x2e0, 0xe); // 0x1c >> 1
 
         $this->shouldWriteLong($entry + 0x510, 0);
@@ -164,7 +164,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x2e4, 0);
         $this->shouldWriteLong($entry + 0x48c, 3);
         $this->shouldWriteLong($entry + 0x2c8, $this->addressOf('_GroundProbeTrackPolygon_8c020b6c'));
-        $this->shouldWriteLong($entry + 0x2cc, $this->addressOf('_FUN_8c02e51c'));
+        $this->shouldWriteLong($entry + 0x2cc, $this->addressOf('_AttrQueryFindConvexPolygon_8c02e51c'));
         $this->shouldWriteLong($entry + 0x2e0, 0xa); // 0x14 >> 1
 
         $this->shouldWriteLong($entry + 0x510, 0);
@@ -241,7 +241,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x2e4, 0);
         $this->shouldWriteLong($entry + 0x48c, 3);
         $this->shouldWriteLong($entry + 0x2c8, $this->addressOf('_GroundProbeTrackPolygon_8c020b6c'));
-        $this->shouldWriteLong($entry + 0x2cc, $this->addressOf('_FUN_8c02e51c'));
+        $this->shouldWriteLong($entry + 0x2cc, $this->addressOf('_AttrQueryFindConvexPolygon_8c02e51c'));
         $this->shouldWriteLong($entry + 0x2e0, 0x01);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
@@ -270,7 +270,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($entry + 0x2e4, 0);
         $this->shouldWriteLong($entry + 0x48c, 3);
         $this->shouldWriteLong($entry + 0x2c8, $this->addressOf('_GroundProbeTrackPolygon_8c020b6c'));
-        $this->shouldWriteLong($entry + 0x2cc, $this->addressOf('_FUN_8c02e51c'));
+        $this->shouldWriteLong($entry + 0x2cc, $this->addressOf('_AttrQueryFindConvexPolygon_8c02e51c'));
         $this->shouldWriteLong($entry + 0x2e0, 0x01);
         $this->shouldWriteLong($entry + 0x510, 0);
 

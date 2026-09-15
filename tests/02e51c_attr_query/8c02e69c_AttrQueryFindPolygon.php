@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c02e69c is FUN_8c02e51c's concave-aware sibling: each candidate is
+// AttrQueryFindPolygon_8c02e69c is AttrQueryFindConvexPolygon_8c02e51c's concave-aware sibling: each candidate is
 // tested one of two ways, chosen by polys[slot].shapeFlag_0x10 (0 = convex
 // cross-product walk; else concave angle-sum via njSqrt/acosf), same idea
 // as GroundQueryFindPolygon_8c020914's attr-sign split (020914). Same
-// track-then-search shape and return convention as FUN_8c02e51c.
+// track-then-search shape and return convention as AttrQueryFindConvexPolygon_8c02e51c.
 
 return new class extends TestCase {
     private function f32(float $value): float
@@ -44,7 +44,7 @@ return new class extends TestCase {
         return $addr;
     }
 
-    // JunctionPoly layout: 0x00 vertexCount, 0x04 vertexIds, 0x08 attr,
+    // AttrPoly layout: 0x00 vertexCount, 0x04 vertexIds, 0x08 attr,
     // 0x0c unused, 0x10 shapeFlag, 0x14 unused (0x18 bytes total).
     private function allocPoly(int $vertexCount, int $vertexIds, int $attr, int $shapeFlag): int {
         $poly = $this->alloc(0x18);
@@ -175,7 +175,7 @@ return new class extends TestCase {
         [$attr0, $ids0, , , $slotAddr0, ] = $this->makeConvexGrid(0xabcd, 0xdead);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02e69c')->with(
+        $this->call('_AttrQueryFindPolygon_8c02e69c')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -192,7 +192,7 @@ return new class extends TestCase {
         $this->makeConvexGrid(0xabcd, 0xdead);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02e69c')->with(
+        $this->call('_AttrQueryFindPolygon_8c02e69c')->with(
             $this->f32(50.0), $this->f32(0.0), $this->f32(50.0), $out
         );
 
@@ -202,7 +202,7 @@ return new class extends TestCase {
     }
 
     // Previous match (quad 0, convex) still contains the query point:
-    // returns immediately from the track re-test. Unlike FUN_8c02e51c,
+    // returns immediately from the track re-test. Unlike AttrQueryFindConvexPolygon_8c02e51c,
     // a track hit here does NOT rewrite *out -- it already holds this
     // same match.
     public function test_track_stillInside_hit_convex(): void {
@@ -210,7 +210,7 @@ return new class extends TestCase {
         [$attr0, $ids0, , , , ] = $this->makeConvexGrid(0x1234, 0x9999);
         [$out, ] = $this->makeOut(0, $ids0, 4);
 
-        $this->call('_FUN_8c02e69c')->with(
+        $this->call('_AttrQueryFindPolygon_8c02e69c')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -226,7 +226,7 @@ return new class extends TestCase {
         [, $ids0, $attr1, $ids1, , $slotAddr1] = $this->makeConvexGrid(0x1234, 0x9999);
         [$out, ] = $this->makeOut(0, $ids0, 4);
 
-        $this->call('_FUN_8c02e69c')->with(
+        $this->call('_AttrQueryFindPolygon_8c02e69c')->with(
             $this->f32(25.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -245,7 +245,7 @@ return new class extends TestCase {
         [$attrAddr, $slotAddr] = $this->makeGridWithOnePoly($poly, $verts);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02e69c')->with(
+        $this->call('_AttrQueryFindPolygon_8c02e69c')->with(
             $this->f32(0.0), $this->f32(0.0), $this->f32(0.0), $out
         );
 
@@ -267,7 +267,7 @@ return new class extends TestCase {
         [$attrAddr, ] = $this->makeGridWithOnePoly($poly, $verts);
         [$out, ] = $this->makeOut(0, $ids, 3);
 
-        $this->call('_FUN_8c02e69c')->with(
+        $this->call('_AttrQueryFindPolygon_8c02e69c')->with(
             $this->f32(0.0), $this->f32(0.0), $this->f32(0.0), $out
         );
 

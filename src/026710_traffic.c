@@ -14,8 +14,8 @@
 #include "02786c_vehicle_parts.h"
 #include "02c884_bus_stop.h"
 #include "02df3c.h"
-#include "02e51c.h"
-#include "02f0c8.h"
+#include "02e51c_attr_query.h"
+#include "02f0c8_traffic_path_scan.h"
 #include "sectionB.h"
 #include "sectionD.h"
 #include "includes.h" /* STATIC */
@@ -179,7 +179,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
     e->blinker_0x080 = 0;
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT && type == 10 &&
-        (junction = FUN_8c02e51c(e->posX_0xf4, e->posY_0xf8,
+        (junction = AttrQueryFindConvexPolygon_8c02e51c(e->posX_0xf4, e->posY_0xf8,
                                   e->posZ_0xfc, &e->junctionSlot_0x404)) != NULL &&
         *(Sint32 *)((Uint8 *)junction + 4) != 0) {
         e->simpleLightIntensity0_0x0c4 = var_8c1bbdb0[0];
@@ -762,10 +762,10 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
 
     if (typeCode & 0x4000) {
         e->probeFn_0x2c8 = GroundProbeTrackPolygonAtHeight_8c021290;
-        e->junctionQueryFn_0x2cc = FUN_8c02eab4;
+        e->junctionQueryFn_0x2cc = AttrQueryFindConvexPolygonAtHeight_8c02eab4;
     } else {
         e->probeFn_0x2c8 = GroundProbeTrackPolygon_8c020b6c;
-        e->junctionQueryFn_0x2cc = FUN_8c02e51c;
+        e->junctionQueryFn_0x2cc = AttrQueryFindConvexPolygon_8c02e51c;
     }
 
     typeCode &= 0xfff;
@@ -848,7 +848,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * ground-query grid for the GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e queries run while
  * spawning/updating entries below (var_activeGroundGrid_8c2264d4 <-
  * .atariCpu_0x18, var_activeAttrGrid_8c228b3c <- .attrCpu_0x20), and resets var_occupiedGroup_8c228b44
- * (its other consumer, TrafficPathScanJunctionOccupied_8c02f28a in 02f0c8, treats
+ * (its other consumer, TrafficPathScanJunctionOccupied_8c02f28a in 02f0c8_traffic_path_scan, treats
  * -1 as "not cached yet").
  *
  * Tracks a traffic-preset switch via var_scenePresetIds_8c1bbd8c's

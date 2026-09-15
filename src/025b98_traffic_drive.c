@@ -6,9 +6,9 @@
 #include "026710_traffic.h"     /* TrafficEntry, TrafficUpdateHeading_8c026bc4 */
 #include "027958.h"             /* BusDrawPlaceEntity_8c027c3c, BusDrawFadeLights_8c028022 */
 #include "02e400_collision.h"   /* CollideFindTaskHit_8c02e400 */
-#include "02e51c.h"             /* FUN_8c02e51c, FUN_8c02f08a */
+#include "02e51c_attr_query.h"             /* AttrQueryFindConvexPolygon_8c02e51c, AttrQueryRegionOccupied_8c02f08a */
 #include "02df3c.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
-#include "02f0c8.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanJunctionOccupied_8c02f28a */
+#include "02f0c8_traffic_path_scan.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanJunctionOccupied_8c02f28a */
 #include "0207d4.h"             /* FUN_8c0207d4, Point3f */
 #include "02081c.h"             /* GeomDistanceXZ_8c02081c */
 #include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
@@ -120,7 +120,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  *          0-3).
  *
  * Normal driving (0/2) first resolves a junction under the entity's own
- * position (entry->junctionQueryFn_0x2cc, one of FUN_8c02e51c/eab4) to get a signal
+ * position (entry->junctionQueryFn_0x2cc, one of AttrQueryFindConvexPolygon_8c02e51c/eab4) to get a signal
  * id (signalId_0x410) and refreshes an obstacle-braking distance (fVar8) by
  * scanning ahead with TrafficLookaheadScan_8c02dfca over a lookahead of
  * speed_0x27c*36.0 + lookaheadMargin_0x41c (+5.0 once already braking, to stop the
@@ -224,7 +224,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                      * swap not otherwise established. */
                     var_activeAttrGrid_8c228b3c = var_8c1bb878;
                     {
-                        void *junction = FUN_8c02e51c(
+                        void *junction = AttrQueryFindConvexPolygon_8c02e51c(
                             ahead->posX_0xf4,
                             ahead->posY_0xf8,
                             ahead->posZ_0xfc,
@@ -304,7 +304,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
 
             if (e->mergeWaitState_0x468 == 2) {
                 if (e->mergeWaitArmedBlock_0x470 == e->blockIndex_0x300) {
-                    if (FUN_8c02f08a(task, e->mergeWaitSignalId_0x46c) != 0) {
+                    if (AttrQueryRegionOccupied_8c02f08a(task, e->mergeWaitSignalId_0x46c) != 0) {
                         stopFlag = 1;
                     }
                 } else {

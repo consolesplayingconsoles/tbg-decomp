@@ -27,10 +27,10 @@
           .IMPORT     _VehPartsBind_8c02786c
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _var_route_8c18ad1c
-          .IMPORT     _FUN_8c02e69c
-          .IMPORT     _FUN_8c02eab4
-          .IMPORT     _FUN_8c02ec50
-          .IMPORT     _FUN_8c02e51c
+          .IMPORT     _AttrQueryFindPolygon_8c02e69c
+          .IMPORT     _AttrQueryFindConvexPolygonAtHeight_8c02eab4
+          .IMPORT     _AttrQueryFindPolygonAtHeight_8c02ec50
+          .IMPORT     _AttrQueryFindConvexPolygon_8c02e51c
           .IMPORT     _BusStopGetSegment_8c02cd6a
           .IMPORT     _FUN_8c023cba
           .IMPORT     _VehicleModelPlace_8c020594
@@ -693,13 +693,13 @@ LP_GEN_45139:
           .DATA.W H'0368 ; H'8C02383C
           .RES.W 1 ; H'8C02383E
           .DATA.L _var_route_8c18ad1c ; H'8C023840
-          .DATA.L _FUN_8c02e69c ; H'8C023844
+          .DATA.L _AttrQueryFindPolygon_8c02e69c ; H'8C023844
           .DATA.L _var_currentSegment_8c228708 ; H'8C023848
           .DATA.L _GroundProbeFindPolygonAtHeight_8c020fe4 ; H'8C02384C
-          .DATA.L _FUN_8c02eab4 ; H'8C023850
-          .DATA.L _FUN_8c02ec50 ; H'8C023854
+          .DATA.L _AttrQueryFindConvexPolygonAtHeight_8c02eab4 ; H'8C023850
+          .DATA.L _AttrQueryFindPolygonAtHeight_8c02ec50 ; H'8C023854
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C023858
-          .DATA.L _FUN_8c02e51c ; H'8C02385C
+          .DATA.L _AttrQueryFindConvexPolygon_8c02e51c ; H'8C02385C
           .DATA.L _BusStopGetSegment_8c02cd6a ; H'8C023860
           .DATA.L _FUN_8c023938 ; H'8C023864
           .DATA.L _FUN_8c023cba ; H'8C023868

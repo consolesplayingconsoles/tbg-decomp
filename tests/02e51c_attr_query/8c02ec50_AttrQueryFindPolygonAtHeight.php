@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c02ec50 is the AtHeight counterpart of FUN_8c02e69c: same
+// AttrQueryFindPolygonAtHeight_8c02ec50 is the AtHeight counterpart of AttrQueryFindPolygon_8c02e69c: same
 // convex/concave split by shapeFlag_0x10 (njSqrt/acosf for the concave
 // path), but the full cell search additionally rejects a candidate whose
 // first vertex's y is more than 20 units from the query point's y --
-// same idea as FUN_8c02eab4 is to FUN_8c02e51c. The track (re-test) path
-// does not height-check, and (like FUN_8c02e69c) a track hit does not
+// same idea as AttrQueryFindConvexPolygonAtHeight_8c02eab4 is to AttrQueryFindConvexPolygon_8c02e51c. The track (re-test) path
+// does not height-check, and (like AttrQueryFindPolygon_8c02e69c) a track hit does not
 // rewrite *out.
 
 return new class extends TestCase {
@@ -46,7 +46,7 @@ return new class extends TestCase {
         return $addr;
     }
 
-    // JunctionPoly layout: 0x00 vertexCount, 0x04 vertexIds, 0x08 attr,
+    // AttrPoly layout: 0x00 vertexCount, 0x04 vertexIds, 0x08 attr,
     // 0x0c unused, 0x10 shapeFlag, 0x14 unused (0x18 bytes total).
     private function allocPoly(int $vertexCount, int $vertexIds, int $attr, int $shapeFlag): int {
         $poly = $this->alloc(0x18);
@@ -180,7 +180,7 @@ return new class extends TestCase {
             $this->makeConvexGrid(0xabcd, 0xdead, 0.0, 100.0, 20.0);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02ec50')->with(
+        $this->call('_AttrQueryFindPolygonAtHeight_8c02ec50')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -197,7 +197,7 @@ return new class extends TestCase {
         $this->makeConvexGrid(0xabcd, 0xdead, 200.0, 300.0, 20.0);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02ec50')->with(
+        $this->call('_AttrQueryFindPolygonAtHeight_8c02ec50')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -215,7 +215,7 @@ return new class extends TestCase {
             $this->makeConvexGrid(0x1234, 0x9999, 0.0, 100.0, 20.0);
         [$out, ] = $this->makeOut(0, $ids0, 4);
 
-        $this->call('_FUN_8c02ec50')->with(
+        $this->call('_AttrQueryFindPolygonAtHeight_8c02ec50')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -233,7 +233,7 @@ return new class extends TestCase {
             $this->makeConvexGrid(0x1234, 0x9999, 0.0, 0.0, 20.0);
         [$out, ] = $this->makeOut(0, $ids0, 4);
 
-        $this->call('_FUN_8c02ec50')->with(
+        $this->call('_AttrQueryFindPolygonAtHeight_8c02ec50')->with(
             $this->f32(25.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -252,7 +252,7 @@ return new class extends TestCase {
         [$attrAddr, $slotAddr] = $this->makeGridWithOnePoly($poly, $verts);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02ec50')->with(
+        $this->call('_AttrQueryFindPolygonAtHeight_8c02ec50')->with(
             $this->f32(0.0), $this->f32(0.0), $this->f32(0.0), $out
         );
 
@@ -273,7 +273,7 @@ return new class extends TestCase {
         [$attrAddr, ] = $this->makeGridWithOnePoly($poly, $verts);
         [$out, ] = $this->makeOut(0, $ids, 3);
 
-        $this->call('_FUN_8c02ec50')->with(
+        $this->call('_AttrQueryFindPolygonAtHeight_8c02ec50')->with(
             $this->f32(0.0), $this->f32(0.0), $this->f32(0.0), $out
         );
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c02eab4 is the height-filtered counterpart of FUN_8c02e51c: same
+// AttrQueryFindConvexPolygonAtHeight_8c02eab4 is the height-filtered counterpart of AttrQueryFindConvexPolygon_8c02e51c: same
 // track-then-search shape and convex-only test, but the full cell search
 // additionally rejects a candidate whose first vertex's y is more than 20
 // units from the query point's y -- how an elevated road is told apart
@@ -98,7 +98,7 @@ return new class extends TestCase {
         [$attr0, $ids0, , , $slotAddr0, ] = $this->makeGrid(0xabcd, 0xdead, 0.0, 100.0);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02eab4')->with(
+        $this->call('_AttrQueryFindConvexPolygonAtHeight_8c02eab4')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -115,7 +115,7 @@ return new class extends TestCase {
         $this->makeGrid(0xabcd, 0xdead, 200.0, 300.0);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02eab4')->with(
+        $this->call('_AttrQueryFindConvexPolygonAtHeight_8c02eab4')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -131,7 +131,7 @@ return new class extends TestCase {
         [$attr0, $ids0, , , , ] = $this->makeGrid(0x1234, 0x9999, 0.0, 100.0);
         [$out, $slot] = $this->makeOut(0, $ids0, 4);
 
-        $this->call('_FUN_8c02eab4')->with(
+        $this->call('_AttrQueryFindConvexPolygonAtHeight_8c02eab4')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -152,7 +152,7 @@ return new class extends TestCase {
             $this->makeGrid(0x1234, 0x9999, 0.0, 0.0, 20.0);
         [$out, ] = $this->makeOut(0, $ids0, 4);
 
-        $this->call('_FUN_8c02eab4')->with(
+        $this->call('_AttrQueryFindConvexPolygonAtHeight_8c02eab4')->with(
             $this->f32(25.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 

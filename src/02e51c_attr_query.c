@@ -1,11 +1,11 @@
-/* @unit: not stamped -- this TU groups two unrelated jobs (see 02e51c.h). */
+/* @unit AttrQuery */
 
 #include <shinobi.h>
 #include "includes.h" /* TWO_PI */
 
-#include "02e51c.h"             /* FUN_8c02e51c etc, FUN_8c02f08a */
-#include "026710_traffic.h"     /* TrafficEntry */
-#include "sectionB.h"           /* var_tasks_8c1bac28, var_busState_8c1bb9d0s */
+#include "02e51c_attr_query.h"
+#include "026710_traffic.h"  /* TrafficEntry */
+#include "sectionB.h"        /* var_tasks_8c1bac28, var_busState_8c1bb9d0 */
 
 /* ====================
  * Type Declarations
@@ -17,14 +17,14 @@
 
 typedef struct {
     float x, y, z;
-} JunctionVertex;
+} AttrVertex;
 
 /* One cell of the attribute grid: the polygons whose footprint touches it.
  * Same shape as GroundCell (020914_ground_query.c). */
 typedef struct {
     int count_0x00;
     int *polyIds_0x04;
-} JunctionCell;
+} AttrCell;
 
 /* 24-byte stride, same as GroundPoly, but attr/flag fields sit at different
  * offsets and there is no plane normal -- this grid is only ever used for
@@ -36,17 +36,17 @@ typedef struct {
     int field_0x0c;         /* never read; copied out to the caller verbatim */
     int shapeFlag_0x10;     /* 0 = convex (cross-product test), else concave (angle-sum test) */
     int field_0x14;         /* never read; copied out to the caller verbatim */
-} JunctionPoly;
+} AttrPoly;
 
 typedef struct {
     int cellsX_0x00;
     int cellsZ_0x04;
     int field_0x08;
     int field_0x0c;
-    JunctionCell *cells_0x10;
-    JunctionPoly *polys_0x14;
-    JunctionVertex *verts_0x18;
-} JunctionGrid;
+    AttrCell *cells_0x10;
+    AttrPoly *polys_0x14;
+    AttrVertex *verts_0x18;
+} AttrGrid;
 
 /* The result struct written by all four query functions below. Unlike
  * GroundQueryResult (020914_ground_query.h), there is no leading attr field
@@ -58,7 +58,7 @@ typedef struct {
     int *slot;
     int *vertexIds;
     int count;
-} JunctionQueryResult;
+} AttrQueryResult;
 
 #define CELL_SIZE 150.0f
 
@@ -80,8 +80,8 @@ void *var_activeAttrGrid_8c228b3c;
  * ====================
  */
 
-/* Looks up the road junction under world point (x, z) -- y is unused -- in
- * the grid selected by var_activeAttrGrid_8c228b3c, writing the match into *out and
+/* Finds the attribute polygon containing world point (x, z) -- y is unused
+ * -- in var_activeAttrGrid_8c228b3c, writing the match into *out and
  * returning &polys[slot].attr_0x08 on a hit, NULL on a miss.
  *
  * If *out already holds a previous match (out->count != 0), that polygon is
@@ -89,18 +89,18 @@ void *var_activeAttrGrid_8c228b3c;
  * same track-then-search shape as GroundProbeTrackPolygon_8c020b6c
  * (020b6c_ground_probe.c), except this polygon set is only ever tested the
  * convex way (cross-product walk); there is no concave/angle-sum path here. */
-void *FUN_8c02e51c(float x, float y, float z, void *outParam)
+void *AttrQueryFindConvexPolygon_8c02e51c(float x, float y, float z, void *outParam)
 {
-    JunctionQueryResult *out = (JunctionQueryResult *)outParam;
-    JunctionGrid *grid = (JunctionGrid *)var_activeAttrGrid_8c228b3c;
-    JunctionCell *cell;
+    AttrQueryResult *out = (AttrQueryResult *)outParam;
+    AttrGrid *grid = (AttrGrid *)var_activeAttrGrid_8c228b3c;
+    AttrCell *cell;
     int cx, cz;
     int i;
 
     if (out->count != 0) {
         int *ids = out->vertexIds;
         int *slot = out->slot;
-        JunctionVertex *v;
+        AttrVertex *v;
         float pdx, pdz;
         int n = out->count;
         int hit;
@@ -151,7 +151,7 @@ void *FUN_8c02e51c(float x, float y, float z, void *outParam)
         int *slot = &cell->polyIds_0x04[i];
         int *ids = grid->polys_0x14[*slot].vertexIds_0x04;
         int n;
-        JunctionVertex *v;
+        AttrVertex *v;
         float pdx, pdz;
         int hit;
         int j;
@@ -196,25 +196,25 @@ void *FUN_8c02e51c(float x, float y, float z, void *outParam)
     return NULL;
 }
 
-/* Height-filtered counterpart of FUN_8c02e51c: same (x, z) convex-only
- * containment test and the same track-then-search shape, but the full cell
+/* Height-filtered counterpart of AttrQueryFindConvexPolygon_8c02e51c: same
+ * (x, z) convex-only containment test and track-then-search shape, but the full cell
  * search additionally rejects a candidate whose first vertex's y is more
  * than HEIGHT_TOLERANCE from the query point's y, so an elevated road can be
  * told apart from the surface street beneath it -- same idea as
  * GroundProbeFindPolygonAtHeight_8c020fe4. The track (re-test) path skips
  * the height check -- same asymmetry as GroundProbeTrackPolygonAtHeight_8c021290. */
-void *FUN_8c02eab4(float x, float y, float z, void *outParam)
+void *AttrQueryFindConvexPolygonAtHeight_8c02eab4(float x, float y, float z, void *outParam)
 {
-    JunctionQueryResult *out = (JunctionQueryResult *)outParam;
-    JunctionGrid *grid = (JunctionGrid *)var_activeAttrGrid_8c228b3c;
-    JunctionCell *cell;
+    AttrQueryResult *out = (AttrQueryResult *)outParam;
+    AttrGrid *grid = (AttrGrid *)var_activeAttrGrid_8c228b3c;
+    AttrCell *cell;
     int cx, cz;
     int i;
 
     if (out->count != 0) {
         int *ids = out->vertexIds;
         int *slot = out->slot;
-        JunctionVertex *v;
+        AttrVertex *v;
         float pdx, pdz;
         int n = out->count;
         int hit;
@@ -265,7 +265,7 @@ void *FUN_8c02eab4(float x, float y, float z, void *outParam)
         int *slot = &cell->polyIds_0x04[i];
         int *ids = grid->polys_0x14[*slot].vertexIds_0x04;
         int n;
-        JunctionVertex *v;
+        AttrVertex *v;
         float pdx, pdz;
         int hit;
         int j;
@@ -311,22 +311,22 @@ void *FUN_8c02eab4(float x, float y, float z, void *outParam)
     return NULL;
 }
 
-/* Same track-then-search shape as FUN_8c02e51c, but each candidate is
- * tested one of two ways, chosen by shapeFlag_0x10 (0 = convex, else
+/* Same track-then-search shape as AttrQueryFindConvexPolygon_8c02e51c, but
+ * each candidate is tested one of two ways, chosen by shapeFlag_0x10 (0 = convex, else
  * concave), just like GroundQueryFindPolygon_8c020914's attr-sign split. */
-void *FUN_8c02e69c(float x, float y, float z, void *outParam)
+void *AttrQueryFindPolygon_8c02e69c(float x, float y, float z, void *outParam)
 {
-    JunctionQueryResult *out = (JunctionQueryResult *)outParam;
-    JunctionGrid *grid = (JunctionGrid *)var_activeAttrGrid_8c228b3c;
-    JunctionCell *cell;
+    AttrQueryResult *out = (AttrQueryResult *)outParam;
+    AttrGrid *grid = (AttrGrid *)var_activeAttrGrid_8c228b3c;
+    AttrCell *cell;
     int cx, cz;
     int i;
 
     if (out->count != 0) {
         int *ids = out->vertexIds;
         int *slot = out->slot;
-        JunctionPoly *poly = &grid->polys_0x14[*slot];
-        JunctionVertex *v;
+        AttrPoly *poly = &grid->polys_0x14[*slot];
+        AttrVertex *v;
         float pdx, pdz;
         int n = out->count;
         int hit;
@@ -388,7 +388,8 @@ void *FUN_8c02e69c(float x, float y, float z, void *outParam)
             hit = acc > 0x8000;
         }
 
-        /* Unlike FUN_8c02e51c's track path, a track hit here does not
+        /* Unlike AttrQueryFindConvexPolygon_8c02e51c's track path, a track
+         * hit here does not
          * rewrite *out -- it already holds this same match, so the asm
          * jumps straight to computing the return address. */
         if (hit) {
@@ -410,10 +411,10 @@ void *FUN_8c02e69c(float x, float y, float z, void *outParam)
 
     for (i = 0; i < cell->count_0x00; i++) {
         int *slot = &cell->polyIds_0x04[i];
-        JunctionPoly *poly = &grid->polys_0x14[*slot];
+        AttrPoly *poly = &grid->polys_0x14[*slot];
         int *ids = poly->vertexIds_0x04;
         int n;
-        JunctionVertex *v;
+        AttrVertex *v;
         float pdx, pdz;
         int hit;
         int j;
@@ -493,23 +494,24 @@ void *FUN_8c02e69c(float x, float y, float z, void *outParam)
     return NULL;
 }
 
-/* AtHeight counterpart of FUN_8c02e69c: same convex/concave split by
+/* AtHeight counterpart of AttrQueryFindPolygon_8c02e69c: same convex/concave split by
  * shapeFlag_0x10, but the full cell search additionally rejects a candidate
  * whose first vertex's y is more than HEIGHT_TOLERANCE from the query
- * point's y, same as FUN_8c02eab4 is to FUN_8c02e51c. */
-void *FUN_8c02ec50(float x, float y, float z, void *outParam)
+ * point's y -- AttrQueryFindConvexPolygonAtHeight_8c02eab4's relation to
+ * AttrQueryFindConvexPolygon_8c02e51c, applied to this pair. */
+void *AttrQueryFindPolygonAtHeight_8c02ec50(float x, float y, float z, void *outParam)
 {
-    JunctionQueryResult *out = (JunctionQueryResult *)outParam;
-    JunctionGrid *grid = (JunctionGrid *)var_activeAttrGrid_8c228b3c;
-    JunctionCell *cell;
+    AttrQueryResult *out = (AttrQueryResult *)outParam;
+    AttrGrid *grid = (AttrGrid *)var_activeAttrGrid_8c228b3c;
+    AttrCell *cell;
     int cx, cz;
     int i;
 
     if (out->count != 0) {
         int *ids = out->vertexIds;
         int *slot = out->slot;
-        JunctionPoly *poly = &grid->polys_0x14[*slot];
-        JunctionVertex *v;
+        AttrPoly *poly = &grid->polys_0x14[*slot];
+        AttrVertex *v;
         float pdx, pdz;
         int n = out->count;
         int hit;
@@ -571,7 +573,8 @@ void *FUN_8c02ec50(float x, float y, float z, void *outParam)
             hit = acc > 0x8000;
         }
 
-        /* Unlike FUN_8c02e51c's track path, a track hit here does not
+        /* Unlike AttrQueryFindConvexPolygon_8c02e51c's track path, a track
+         * hit here does not
          * rewrite *out -- it already holds this same match, so the asm
          * jumps straight to computing the return address. */
         if (hit) {
@@ -593,10 +596,10 @@ void *FUN_8c02ec50(float x, float y, float z, void *outParam)
 
     for (i = 0; i < cell->count_0x00; i++) {
         int *slot = &cell->polyIds_0x04[i];
-        JunctionPoly *poly = &grid->polys_0x14[*slot];
+        AttrPoly *poly = &grid->polys_0x14[*slot];
         int *ids = poly->vertexIds_0x04;
         int n;
-        JunctionVertex *v;
+        AttrVertex *v;
         float pdx, pdz;
         int hit;
         int j;
@@ -678,23 +681,22 @@ void *FUN_8c02ec50(float x, float y, float z, void *outParam)
 }
 
 /* Scans var_tasks_8c1bac28 for a traffic entry (task state, other than
- * self's) whose signalId_0x410 equals value; falls back to the player bus's
- * own BusState.fallbackTaskMatchId_0x3a0 when no other task matches. Returns nonzero on
- * either match.
+ * self's) whose signalId_0x410 equals id, falling back to the player bus's
+ * own BusState.fallbackTaskMatchId_0x3a0 when no other task matches.
  *
  * BusState.fallbackTaskMatchId_0x3a0 is imported by the original asm as a standalone
  * symbol (var_8c1bbd70), but that address is inside var_busState_8c1bb9d0 --
  * a linker coincidence, not a separate global. */
-int FUN_8c02f08a(Task *self, int value)
+int AttrQueryRegionOccupied_8c02f08a(Task *self, int id)
 {
     Task *t;
 
     for (t = var_tasks_8c1bac28; t->action != NULL; t++) {
         if ((void *)t->action != (void *)-1 && t != self &&
-            ((TrafficEntry *)t->state)->signalId_0x410 == value) {
+            ((TrafficEntry *)t->state)->signalId_0x410 == id) {
             return 1;
         }
     }
 
-    return var_busState_8c1bb9d0.fallbackTaskMatchId_0x3a0 == value;
+    return var_busState_8c1bb9d0.fallbackTaskMatchId_0x3a0 == id;
 }

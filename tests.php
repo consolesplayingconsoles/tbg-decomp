@@ -712,13 +712,13 @@ return [
         ],
         [
             "tests" => [
-                "tests/02f0c8/8c02f0c8_TrafficPathScanBuild.php",
-                "tests/02f0c8/8c02f212_TrafficPathScanNext.php",
-                "tests/02f0c8/8c02f28a_TrafficPathScanJunctionOccupied.php",
+                "tests/02f0c8_traffic_path_scan/8c02f0c8_TrafficPathScanBuild.php",
+                "tests/02f0c8_traffic_path_scan/8c02f212_TrafficPathScanNext.php",
+                "tests/02f0c8_traffic_path_scan/8c02f28a_TrafficPathScanJunctionOccupied.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02f0c8.obj",
-                "build/output_test/src/02f0c8.obj",
+                "build/output_test/src/asm/decompiled/02f0c8_traffic_path_scan.obj",
+                "build/output_test/src/02f0c8_traffic_path_scan.obj",
             ]
         ],
         [
@@ -863,15 +863,15 @@ return [
         ],
         [
             "tests" => [
-                "tests/02e51c/8c02e51c_FUN.php",
-                "tests/02e51c/8c02eab4_FUN.php",
-                "tests/02e51c/8c02e69c_FUN.php",
-                "tests/02e51c/8c02ec50_FUN.php",
-                "tests/02e51c/8c02f08a_FUN.php",
+                "tests/02e51c_attr_query/8c02e51c_AttrQueryFindConvexPolygon.php",
+                "tests/02e51c_attr_query/8c02eab4_AttrQueryFindConvexPolygonAtHeight.php",
+                "tests/02e51c_attr_query/8c02e69c_AttrQueryFindPolygon.php",
+                "tests/02e51c_attr_query/8c02ec50_AttrQueryFindPolygonAtHeight.php",
+                "tests/02e51c_attr_query/8c02f08a_AttrQueryRegionOccupied.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02e51c.obj",
-                "build/output_test/src/02e51c.obj",
+                "build/output_test/src/asm/decompiled/02e51c_attr_query.obj",
+                "build/output_test/src/02e51c_attr_query.obj",
             ]
         ],
         [

@@ -494,7 +494,7 @@ is the ground truth.
 `TrafficInitEntryState_8c026748` (`026710_traffic`) has no real float parameters
 at all -- its whole first "instruction argument" shape was an artifact of my
 own `set_function_prototype` calls on the function itself and on unprototyped
-callees it invokes (`GroundQueryFindPolygon_8c020914`, `FUN_8c02e51c`). Each time I forced a
+callees it invokes (`GroundQueryFindPolygon_8c020914`, `AttrQueryFindConvexPolygon_8c02e51c`). Each time I forced a
 guessed signature, Ghidra's decompiler dutifully produced a plausible-looking
 `in_frN`/`unaff_rN` value to satisfy it -- convincing pseudocode with zero
 grounding, since neither function had a real prototype to check against. The

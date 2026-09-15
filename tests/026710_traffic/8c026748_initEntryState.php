@@ -442,7 +442,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->setSize('_njCos', 4);
         $this->setSize('_njSin', 4);
-        $this->setSize('_FUN_8c02e51c', 4);
+        $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
         $this->setSize('_var_8c1bbdb0', 8);
         $this->setSize('_var_8c1bbdd0', 12);
 
@@ -478,7 +478,7 @@ return new class extends TestCase {
             $this->shouldWriteLong($this->entry + $off, 0);
         }
 
-        $this->shouldCall('_FUN_8c02e51c')->with(10.0, 3.0, 20.0, $this->entry + 0x404)->andReturn($junction);
+        $this->shouldCall('_AttrQueryFindConvexPolygon_8c02e51c')->with(10.0, 3.0, 20.0, $this->entry + 0x404)->andReturn($junction);
 
         $this->shouldWriteFloat($this->entry + 0xc4, 0.1);
         $this->shouldWriteFloat($this->entry + 0xc8, 0.2);
@@ -529,7 +529,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->setSize('_njCos', 4);
         $this->setSize('_njSin', 4);
-        $this->setSize('_FUN_8c02e51c', 4);
+        $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
 
         $this->entry = $this->alloc(0x510);
         $this->typeVal = $this->alloc(2);
@@ -563,7 +563,7 @@ return new class extends TestCase {
         }
 
         // Junction lookup misses -> null result, night-color branch rejected.
-        $this->shouldCall('_FUN_8c02e51c')->with(10.0, 3.0, 20.0, $this->entry + 0x404)->andReturn(0);
+        $this->shouldCall('_AttrQueryFindConvexPolygon_8c02e51c')->with(10.0, 3.0, 20.0, $this->entry + 0x404)->andReturn(0);
 
         $this->shouldWriteFloat($this->entry + 0xd8, 6.6);
         $this->shouldWriteFloat($this->entry + 0xdc, 7.7);

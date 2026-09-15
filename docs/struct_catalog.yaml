@@ -12,7 +12,7 @@
 #
 # Known gaps this format cannot express, recorded in members' evidence instead:
 #   - Runs of scalars that are really one record (TrafficEntry 0x04c-0x060,
-#     0x118-0x12c, the JunctionQueryResult triples at 0x404/0x500).
+#     0x118-0x12c, the AttrQueryResult triples at 0x404/0x500).
 #   - BusState 0x084-0x0c0 is one NJS_MATRIX, not 16 ints.
 #   - MenuState's tail slots mean different things per screen; they need union
 #     typing, not a rename.
@@ -74,8 +74,8 @@ structs:
   - src/02d19c.c
   - src/02df3c.c
   - src/02e2dc.c
-  - src/02e51c.c
-  - src/02f0c8.c
+  - src/02e51c_attr_query.c
+  - src/02f0c8_traffic_path_scan.c
   - src/012f44_game.c
   - src/01fa78.c
   members:
@@ -1193,7 +1193,7 @@ structs:
     type: int
     name: junctionQueryFnCpu_0x2cc
     status: named
-    evidence: 'src/02e51c.h:21-26: stored here (Wangan/segment-10 special case = FUN_8c02eab4, else FUN_8c02e51c);
+    evidence: 'src/02e51c_attr_query.h:21-26: stored here (Wangan/segment-10 special case = AttrQueryFindConvexPolygonAtHeight_8c02eab4, else AttrQueryFindConvexPolygon_8c02e51c);
       src/022bdc_bus.c:229-256 calls it for the attrCpu and attrMark grids at the bus''s own position.
       Same offset/role as TrafficEntry.junctionQueryFn_0x2cc (026710_traffic.h:14-15).
 
@@ -1202,7 +1202,7 @@ structs:
     type: int
     name: junctionQueryFnRoute_0x2d0
     status: named
-    evidence: 'src/02e51c.h:29-32: stored here (Wangan/segment-10 special case = FUN_8c02ec50, else FUN_8c02e69c);
+    evidence: 'src/02e51c_attr_query.h:29-32: stored here (Wangan/segment-10 special case = AttrQueryFindPolygonAtHeight_8c02ec50, else AttrQueryFindPolygon_8c02e69c);
       src/022bdc_bus.c:198-227 calls it for the attrBus grid at the three lookahead points (posHistory[2]/[3]/[0]).
 
       '
@@ -1453,7 +1453,7 @@ structs:
     name: junctionASlot_0x340
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. This is the out-struct''s slot field for the posHistory[2]
@@ -1467,7 +1467,7 @@ structs:
     proposed_name: junctionAVertexIds_0x344
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Out-struct''s vertexIds field for the posHistory[2] query
@@ -1481,7 +1481,7 @@ structs:
     proposed_name: junctionACount_0x348
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Out-struct''s count field for the posHistory[2] query -- zeroed
@@ -1493,7 +1493,7 @@ structs:
     name: junctionARoadFlags_0x34c
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [0] for the posHistory[2] query. Heavily read
@@ -1509,7 +1509,7 @@ structs:
     proposed_name: junctionAAttr1_0x350
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [1] for the posHistory[2] query -- only ever
@@ -1523,7 +1523,7 @@ structs:
     proposed_name: junctionAAttr2_0x354
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [2] for the posHistory[2] query -- only ever
@@ -1535,7 +1535,7 @@ structs:
     name: junctionARoadFlags2_0x358
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [3] for the posHistory[2] query. Heavily read
@@ -1549,7 +1549,7 @@ structs:
     name: junctionBSlot_0x35c
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Out-struct''s slot field for the posHistory[3] query (src/022bdc_bus.c:209-212;
@@ -1563,7 +1563,7 @@ structs:
     proposed_name: junctionBVertexIds_0x360
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Out-struct''s vertexIds field for the posHistory[3] query
@@ -1577,7 +1577,7 @@ structs:
     proposed_name: junctionBCount_0x364
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Out-struct''s count field for the posHistory[3] query -- zeroed
@@ -1589,7 +1589,7 @@ structs:
     name: junctionBRoadFlags_0x368
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [0] for the posHistory[3] query. src/02b464_drive_points.c:999,1071,1190
@@ -1601,7 +1601,7 @@ structs:
     name: junctionBAttr1_0x36c
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [1] for the posHistory[3] query. src/02b464_drive_points.c:1004-1006
@@ -1615,7 +1615,7 @@ structs:
     proposed_name: junctionBAttr2_0x370
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [2] for the posHistory[3] query -- only ever
@@ -1627,7 +1627,7 @@ structs:
     name: junctionBRoadFlags2_0x374
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [3] for the posHistory[3] query. src/02b464_drive_points.c:1023
@@ -1639,7 +1639,7 @@ structs:
     name: junctionCSlot_0x378
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Out-struct''s slot field for the posHistory[0] (current-position)
@@ -1653,7 +1653,7 @@ structs:
     proposed_name: junctionCVertexIds_0x37c
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Out-struct''s vertexIds field for the posHistory[0] query
@@ -1667,7 +1667,7 @@ structs:
     proposed_name: junctionCCount_0x380
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Out-struct''s count field for the posHistory[0] query -- zeroed
@@ -1681,7 +1681,7 @@ structs:
     proposed_name: junctionCAttr0_0x384
     confidence: low
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [0] for the posHistory[0] query -- src/02b464_drive_points.c:675
@@ -1738,7 +1738,7 @@ structs:
     name: junctionCRoadFlags_0x390
     status: named
     evidence: 'Written by three parallel calls to junctionQueryFnRoute_0x2d0 in BusTask_8c022bdc (src/022bdc_bus.c:198-226),
-      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); FUN_8c02e51c''s doc (src/02e51c.h:9-16)
+      one per lookahead point (posHistory[2], posHistory[3], posHistory[0]); AttrQueryFindConvexPolygon_8c02e51c''s doc (src/02e51c_attr_query.h:9-16)
       gives the callback''s out-param shape as {int *slot; int *vertexIds; int count;} and its return
       as &polys[*slot].attr_0x08, so each call''s 3-int out-struct is followed by a 4-int copy of that
       polygon''s attribute record on a hit. Attribute word [3] for the posHistory[0] query. src/02b464_drive_points.c:1024
@@ -1769,7 +1769,7 @@ structs:
     check:
       method: none
       experiment: 'Structurally the vertexIds slot of cpuAttrOutSlot_0x394''s 3-int out-struct (matching
-        the shape FUN_8c02e51c''s own doc gives, and the same "zeroed at init, never read back" pattern
+        the shape AttrQueryFindConvexPolygon_8c02e51c''s own doc gives, and the same "zeroed at init, never read back" pattern
         as the already-nameable junctionAVertexIds_0x344/junctionBVertexIds_0x360 siblings). The caller
         (src/022bdc_bus.c:227-231) only uses the returned attribute pointer, never out->vertexIds by name
         -- this is established by reading the callback''s contract, not by anything that could vary at
@@ -1794,7 +1794,7 @@ structs:
     type: int
     name: fallbackTaskMatchId_0x3a0
     status: named
-    evidence: 'src/02e51c.h:39-42 (FUN_8c02f08a): "Scans var_tasks_8c1bac28 for a traffic entry ... whose
+    evidence: 'src/02e51c_attr_query.h:39-42 (AttrQueryRegionOccupied_8c02f08a): "Scans var_tasks_8c1bac28 for a traffic entry ... whose
       field_0x410 equals value; falls back to the player bus''s own BusState.field_0x3a0 when no other
       task matches." src/022bdc_bus.c:235,238 sets it from the attrCpu junction query''s first result
       word (or -1 on a miss).
@@ -1918,8 +1918,8 @@ structs:
   - src/025b98_traffic_drive.c
   - src/02786c_vehicle_parts.c
   - src/02df3c.c
-  - src/02f0c8.c
-  - src/02e51c.c
+  - src/02f0c8_traffic_path_scan.c
+  - src/02e51c_attr_query.c
   - src/02e400_collision.c
   - src/027958.c
   - src/024280.c
@@ -2589,7 +2589,7 @@ structs:
     type: Sint32
     name: blockIndex_0x300
     status: named
-    evidence: src/026710_traffic.c:133,139-141,549-555,621-623 (and 02df3c.c/02f0c8.c) -- the running
+    evidence: src/026710_traffic.c:133,139-141,549-555,621-623 (and 02df3c.c/02f0c8_traffic_path_scan.c) -- the running
       index into resolvedArgs_0x304, extensively documented already as 'which path block the entity is
       currently in'.
   - offset: '0x304'
@@ -2600,29 +2600,29 @@ structs:
     type: Uint32
     name: junctionSlot_0x404
     status: named
-    evidence: src/025b98_traffic_drive.c:176 passed as &e->field_0x404 to junctionQueryFn_0x2cc (FUN_8c02e51c/eab4),
-      whose out-param is a 3-word JunctionQueryResult {slot,vertexIds,count} (02e51c.c:60-64) -- this
+    evidence: src/025b98_traffic_drive.c:176 passed as &e->field_0x404 to junctionQueryFn_0x2cc (AttrQueryFindConvexPolygon_8c02e51c/eab4),
+      whose out-param is a 3-word AttrQueryResult {slot,vertexIds,count} (02e51c_attr_query.c:60-64) -- this
       is that struct's leading `slot` word, inlined. src/026710_traffic.c:164 also used at spawn for the
       night-junction-light check.
   - offset: '0x408'
     type: Uint32
     name: junctionVertexIds_0x408
     status: named
-    evidence: Second word of the inlined JunctionQueryResult at field_0x404 (see above); src/026710_traffic.c:147
-      zeroed at spawn alongside field_0x40c, matching JunctionQueryResult's reset pattern (out->vertexIds=0)
-      in 02e51c.c.
+    evidence: Second word of the inlined AttrQueryResult at field_0x404 (see above); src/026710_traffic.c:147
+      zeroed at spawn alongside field_0x40c, matching AttrQueryResult's reset pattern (out->vertexIds=0)
+      in 02e51c_attr_query.c.
   - offset: '0x40c'
     type: Uint32
     name: junctionHitCount_0x40c
     status: named
-    evidence: Third word (`count`, the hit/miss flag) of the inlined JunctionQueryResult at field_0x404;
-      src/026710_traffic.c:148 zeroed at spawn, matching 02e51c.c's out->count=0 reset.
+    evidence: Third word (`count`, the hit/miss flag) of the inlined AttrQueryResult at field_0x404;
+      src/026710_traffic.c:148 zeroed at spawn, matching 02e51c_attr_query.c's out->count=0 reset.
   - offset: '0x410'
     type: Uint32
     name: signalId_0x410
     status: named
     evidence: src/025b98_traffic_drive.c:181,190 set from the junction query hit (*(Sint32*)hit) or -1;
-      src/02e51c.c:689 (FUN_8c02f08a) reads other entries' field_0x410 by exactly this name's meaning
+      src/02e51c_attr_query.c:689 (AttrQueryRegionOccupied_8c02f08a) reads other entries' field_0x410 by exactly this name's meaning
       to test 'is anyone else waiting at signal X'.
   - offset: '0x414'
     type: float
@@ -2794,13 +2794,13 @@ structs:
     name: mergeWaitState_0x468
     status: named
     evidence: src/026710_traffic.c:653 armed to 2 by script opcode 7; src/025b98_traffic_drive.c:305-313
-      (0=idle,2=armed) gates a stop check via FUN_8c02f08a (is anyone else -- or the bus -- currently
+      (0=idle,2=armed) gates a stop check via AttrQueryRegionOccupied_8c02f08a (is anyone else -- or the bus -- currently
       at the target signal).
   - offset: '0x46c'
     type: Uint32
     name: mergeWaitSignalId_0x46c
     status: named
-    evidence: src/026710_traffic.c:654; src/025b98_traffic_drive.c:307,src/02e51c.c:689 passed to FUN_8c02f08a
+    evidence: src/026710_traffic.c:654; src/025b98_traffic_drive.c:307,src/02e51c_attr_query.c:689 passed to AttrQueryRegionOccupied_8c02f08a
       as the signal id to check other entries' signalId_0x410/BusState.field_0x3a0 against.
   - offset: '0x470'
     type: Uint32
@@ -2918,28 +2918,28 @@ structs:
     type: Uint32
     name: junctionSlot2_0x500
     status: named
-    evidence: src/025b98_traffic_drive.c:231 passed as the out-param to FUN_8c02e51c when querying the
+    evidence: src/025b98_traffic_drive.c:231 passed as the out-param to AttrQueryFindConvexPolygon_8c02e51c when querying the
       *lookahead candidate's* own junction (not the entity's own field_0x404); src/026710_traffic.c:149
-      zeroed at spawn alongside field_0x504/0x508 -- a second inlined JunctionQueryResult, same shape
+      zeroed at spawn alongside field_0x504/0x508 -- a second inlined AttrQueryResult, same shape
       as field_0x404/0x408/0x40c.
   - offset: '0x504'
     type: Uint32
     name: junctionVertexIds2_0x504
     status: named
-    evidence: Second word of the inlined JunctionQueryResult at field_0x500; src/026710_traffic.c:149
+    evidence: Second word of the inlined AttrQueryResult at field_0x500; src/026710_traffic.c:149
       zeroed at spawn.
   - offset: '0x508'
     type: Uint32
     name: junctionHitCount2_0x508
     status: named
-    evidence: Third word (`count`) of the inlined JunctionQueryResult at field_0x500; src/026710_traffic.c:150
+    evidence: Third word (`count`) of the inlined AttrQueryResult at field_0x500; src/026710_traffic.c:150
       zeroed at spawn.
   - offset: '0x50c'
     type: Uint32
     name: atGroundJunction_0x50c
     status: named
     evidence: src/025b98_traffic_drive.c:191,232-234 set to 1 when the lookahead candidate's own junction
-      query hits a polygon without the elevated-road bit (0xf000000) set; src/02f0c8.c:132-133 TrafficPathScanJunctionOccupied_8c02f28a
+      query hits a polygon without the elevated-road bit (0xf000000) set; src/02f0c8_traffic_path_scan.c:132-133 TrafficPathScanJunctionOccupied_8c02f28a
       scans tasks for the first entry with field_0x50c != 0 to seed a group lookup, but the exact purpose
       of that group scan is not otherwise established.
   - offset: '0x510'
@@ -4089,14 +4089,14 @@ structs:
     nameable: 0
     blocked: 0
     opaque: 0
-- name: JunctionCell
-  file: src/02e51c.c
+- name: AttrCell
+  file: src/02e51c_attr_query.c
   line: 24
   size: '0x08'
   purpose: 'One cell of the junction attribute grid: the polygons whose footprint touches it (same shape
     as GroundCell).'
   used_by:
-  - src/02e51c.c
+  - src/02e51c_attr_query.c
   members: []
   summary:
     total: 2
@@ -4104,22 +4104,22 @@ structs:
     nameable: 0
     blocked: 0
     opaque: 0
-- name: JunctionGrid
-  file: src/02e51c.c
+- name: AttrGrid
+  file: src/02e51c_attr_query.c
   line: 44
   size: '0x1c'
   purpose: 'The road-junction attribute grid''s spatial index: dimensions and the cell/poly/vertex arrays,
     selected via var_activeAttrGrid_8c228b3c. Same field layout as GroundGrid (020914_ground_query.h), but this unit''s
     own code path only ever consults the dimension fields and a compile-time CELL_SIZE constant.'
   used_by:
-  - src/02e51c.c
+  - src/02e51c_attr_query.c
   members:
   - offset: '0x08'
     type: int
     name: cellSizeX_0x08
     status: named
     evidence: 'structural analogy only: GroundGrid''s same offset is cellSizeX_0x08 (float); this unit
-      uses a hardcoded CELL_SIZE 150.0f macro (src/02e51c.c:68) instead of reading this field anywhere,
+      uses a hardcoded CELL_SIZE 150.0f macro (src/02e51c_attr_query.c:68) instead of reading this field anywhere,
       so it is never dereferenced here'
   - offset: '0x0c'
     type: int
@@ -4133,27 +4133,27 @@ structs:
     nameable: 0
     blocked: 0
     opaque: 0
-- name: JunctionPoly
-  file: src/02e51c.c
+- name: AttrPoly
+  file: src/02e51c_attr_query.c
   line: 35
   size: '0x18'
   purpose: 'One polygon of the road-junction attribute grid: vertex list, an opaque attribute word returned
     to the caller on a hit, and a convex/concave containment-test selector. 24-byte stride like GroundPoly,
     but for flat (x,z) containment only -- no plane normal.'
   used_by:
-  - src/02e51c.c
+  - src/02e51c_attr_query.c
   members:
   - offset: '0x0c'
     type: int
     name: field_0x0c
     status: blocked
-    evidence: 'src/02e51c.c:29-31 doc comment: "never read by any of this unit''s functions; copied out
+    evidence: 'src/02e51c_attr_query.c:29-31 doc comment: "never read by any of this unit''s functions; copied out
       to the caller verbatim alongside attr_0x08 and shapeFlag_0x10"'
     blocked_on: opaque passthrough payload; no consumer of the returned value found yet in the units that
-      call FUN_8c02e51c/FUN_8c02e69c
+      call AttrQueryFindConvexPolygon_8c02e51c/AttrQueryFindPolygon_8c02e69c
     check:
       method: runtime_log
-      experiment: 'field_0x0c/0x14 are copied verbatim out to the caller of FUN_8c02e51c/FUN_8c02e69c
+      experiment: 'field_0x0c/0x14 are copied verbatim out to the caller of AttrQueryFindConvexPolygon_8c02e51c/AttrQueryFindPolygon_8c02e69c
         alongside attr_0x08 and shapeFlag_0x10; one confirmed caller is busInitPlaceBus''s neighborhood
         in src/023310_bus_init.c, which stores the whole 4-int result into BusState fields (around field_0x34c/0x354
         etc.) that are never read back out in this file -- so the trail may continue into BusState territory
@@ -4193,15 +4193,15 @@ structs:
     nameable: 0
     blocked: 2
     opaque: 0
-- name: JunctionQueryResult
-  file: src/02e51c.c
+- name: AttrQueryResult
+  file: src/02e51c_attr_query.c
   line: 60
   size: '0x0c'
   purpose: 'Result struct written by the four junction query functions: a hit/miss count plus the matched
     polygon''s slot and vertex-id list; the matched polygon''s attr lives at &polys[*slot].attr_0x08 instead
     of in this struct.'
   used_by:
-  - src/02e51c.c
+  - src/02e51c_attr_query.c
   members: []
   summary:
     total: 3
@@ -4209,13 +4209,13 @@ structs:
     nameable: 0
     blocked: 0
     opaque: 0
-- name: JunctionVertex
-  file: src/02e51c.c
+- name: AttrVertex
+  file: src/02e51c_attr_query.c
   line: 18
   size: '0x0c'
   purpose: One (x,y,z) vertex of the road-junction attribute grid's vertex array.
   used_by:
-  - src/02e51c.c
+  - src/02e51c_attr_query.c
   members: []
   summary:
     total: 1

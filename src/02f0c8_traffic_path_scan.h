@@ -1,5 +1,5 @@
-#ifndef _02F0C8_H
-#define _02F0C8_H
+#ifndef _02F0C8_TRAFFIC_PATH_SCAN_H
+#define _02F0C8_TRAFFIC_PATH_SCAN_H
 
 #include "014a9c_tasks.h"
 #include "026710_traffic.h"
@@ -53,4 +53,4 @@ Sint32 TrafficPathScanJunctionOccupied_8c02f28a(
     Sint32 signalId
 );
 
-#endif // _02F0C8_H
+#endif // _02F0C8_TRAFFIC_PATH_SCAN_H

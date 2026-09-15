@@ -139,7 +139,7 @@
                                           ; 02e2dc
                                           ; 02e400
                                           ; 02e51c
-                                          ; 02f0c8
+                                          ; 02f0c8_traffic_path_scan
           .EXPORT     _var_tasks_8c1bb448 ; 012f44_game
                                           ; 01614c_debug_menu
                                           ; 028258
@@ -278,7 +278,7 @@
                                              ; 02c884
                                              ; 02d19c
                                              ; 02df3c
-                                             ; 02f0c8
+                                             ; 02f0c8_traffic_path_scan
           .EXPORT     _var_busWorldMatrix_8c1bba54 ; 028258
                                     ; 02d968
                                     ; 02e2dc
@@ -286,9 +286,9 @@
           .EXPORT     _var_groundHeightFallback_8c1bbac8 ; 028258
           .EXPORT     _var_8c1bbacc ; 025b98
                                     ; 02df3c
-                                    ; 02f0c8
+                                    ; 02f0c8_traffic_path_scan
           .EXPORT     _var_8c1bbad8 ; 02df3c
-                                    ; 02f0c8
+                                    ; 02f0c8_traffic_path_scan
           .EXPORT     _var_8c1bbb38 ; 02df3c
           .EXPORT     _var_8c1bbb44 ; 02df3c
           .EXPORT     _var_8c1bbb50 ; 02df3c
@@ -320,7 +320,7 @@
                                     ; 026710
                                     ; 02b464
                                     ; 02df3c
-                                    ; 02f0c8
+                                    ; 02f0c8_traffic_path_scan
           .EXPORT     _var_8c1bbda0 ; 026710
                                     ; 027958
           .EXPORT     _var_8c1bbda8 ; 026710

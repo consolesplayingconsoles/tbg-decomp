@@ -15,7 +15,7 @@
 #include "025870.h"               /* DemoUpdateCamera_8c025906 */
 #include "027958.h"               /* BusDrawFadeLights_8c028022 */
 #include "022bdc_bus.h"           /* BusTask_8c022bdc */
-#include "02e51c.h"
+#include "02e51c_attr_query.h"
 
 /* =====================
  * Type Declarations
@@ -23,7 +23,7 @@
  */
 
 /* Shape shared by BusState.junctionQueryFnCpu_0x2cc/junctionQueryFnRoute_0x2d0's ground/junction query
- * callees (FUN_8c02e51c/FUN_8c02e69c/FUN_8c02ec50/FUN_8c02eab4/
+ * callees (AttrQueryFindConvexPolygon_8c02e51c/AttrQueryFindPolygon_8c02e69c/AttrQueryFindPolygonAtHeight_8c02ec50/AttrQueryFindConvexPolygonAtHeight_8c02eab4/
  * GroundQueryFindPolygon_8c020914/GroundProbeFindPolygonAtHeight_8c020fe4,
  * picked once by BusInitStart_8c023610). */
 typedef void *(*GroundQueryFn)(float x, float y, float z, void *out);

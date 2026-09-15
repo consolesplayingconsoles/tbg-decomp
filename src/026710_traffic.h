@@ -13,7 +13,7 @@ typedef void (*GroundProbeFn)(float x, float y, float z, GroundQueryResult *out)
 
 /* Junction/collision query callback stored in TrafficEntry.junctionQueryFn_0x2cc:
  * same shape as BusState's junctionQueryFnCpu_0x2cc/junctionQueryFnRoute_0x2d0 (022bdc_bus.c), one of
- * FUN_8c02e51c/FUN_8c02eab4. Distinct signature from GroundProbeFn above --
+ * AttrQueryFindConvexPolygon_8c02e51c/AttrQueryFindConvexPolygonAtHeight_8c02eab4. Distinct signature from GroundProbeFn above --
  * this one returns a hit pointer instead of writing through out. */
 typedef void *(*JunctionQueryFn)(float x, float y, float z, void *out);
 

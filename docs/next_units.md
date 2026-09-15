@@ -14,7 +14,7 @@
 > reader found anywhere).
 
 Relocation-graph analysis regenerated 2026-08-29 by `make graph` after
-`022bdc_bus`, `023310_bus_init`, `024b4c_bus_render`, `025870`, `02e51c`,
+`022bdc_bus`, `023310_bus_init`, `024b4c_bus_render`, `025870`, `02e51c_attr_query`,
 `023938_bus_drive`, `027958` and `025b98_traffic_drive` all landed. The
 previous target list is fully exhausted; this is the next round.
 
@@ -69,7 +69,7 @@ will bump `02081c`'s fan-in from 3 to 4.
 ## Suggested order
 
 The `023310` bus cluster (previous round's pick) is now fully decompiled --
-`022bdc_bus`, `023938_bus_drive`, `024b4c_bus_render`, `025870`, `02e51c`,
+`022bdc_bus`, `023938_bus_drive`, `024b4c_bus_render`, `025870`, `02e51c_attr_query`,
 `027958` and `025b98_traffic_drive` all landed. That's exactly why the two
 tiny units at the top of the table today (`020594`, `02081c`) sit at fan-in
 3: they're leftover callees shared across that whole now-decompiled cluster.
@@ -182,9 +182,10 @@ decompiled.
 Bundles three unrelated jobs that happened to end up in one Ghidra-drawn
 range: bus blinker-light state (`FUN_8c027958`/`FUN_8c028022`), traffic-
 signal draw callbacks for `028258_objects` (`FUN_8c0281ac`/`FUN_8c028206`),
-and a ground-alignment matrix helper for `025b98` (`FUN_8c027c3c`). Same
-"exports span unrelated jobs" reasoning as `02e51c` below -- no `@unit` tag,
-left hex-addressed.
+and a ground-alignment matrix helper for `025b98` (`FUN_8c027c3c`). No
+`@unit` tag, left hex-addressed, on the "exports span unrelated jobs"
+grounds -- but see `02e51c_attr_query` below, where that same call turned
+out to be wrong, so this one deserves a re-check.
 
 Two of its seven functions -- `busDrawSimpleCb_8c027a88`/
 `busDrawSimpleCb_8c027bac`, registered as `FadeCmdPushCall2_8c022420` draw
@@ -250,15 +251,31 @@ callback, never called by name in this unit). Worth remembering even when
 Ghidra's export list looks complete: a `TaskPush` install site can hide a
 function's real call graph the same way a raw literal pool does.
 
-### `02e51c` -- done, left deliberately hex-only (no `@unit` tag)
+### `02e51c_attr_query` (ShortUnit `AttrQuery`) -- done, 5/5 functions
 
-Two unrelated jobs sharing one Ghidra-drawn address range, hence no
-`ShortUnit` tag: four float-heavy grid/junction geometry lookups
-(`FUN_8c02e51c`/`eab4`/`e69c`/`ec50`, road-junction-under-a-point queries,
-same `(x, y, z, out)` shape as `GroundQueryFindPolygon_8c020914` but a
-different 3-field result layout) and one unrelated integer task-scan
-(`FUN_8c02f08a`). Exports spanning genuinely unrelated jobs is exactly the
-`@unit`-tag exemption case -- same reasoning applies to `027958` above.
+Queries the *attribute* grid, the sibling of the collision ("atari") grid
+that `020914_ground_query` searches. The course supplies both as a pair --
+`atariBus_0x04`/`atariCpu_0x18` select `var_activeGroundGrid_8c2264d4`,
+`attrBus_0x10`/`attrMark_0x14`/`attrCpu_0x20` select
+`var_activeAttrGrid_8c228b3c` -- and every caller sets the two together,
+which is where the `AttrQuery`/`GroundQuery` name pairing comes from.
+
+Four lookups return the attribute polygon under a point, in the same
+`(x, y, z, out)` shape as `GroundQueryFindPolygon_8c020914` but with a
+different 3-field result layout, split along two axes: convex-only
+(`8c02e51c`/`8c02eab4`) vs. the `shapeFlag_0x10` convex/concave split
+(`8c02e69c`/`8c02ec50`), and plain vs. `AtHeight`.
+
+This unit was previously left hex-only on the grounds that
+`AttrQueryRegionOccupied_8c02f08a`, an integer task-scan, was an unrelated
+second job. That was wrong, and the mistake is worth keeping: the four
+lookups *produce* a polygon's `attr_0x08` (stored as `signalId_0x410` on an
+AI entry by `025b98`, as `fallbackTaskMatchId_0x3a0` on the player by
+`022bdc` -- same query, same field), and `8c02f08a` is the consumer that
+asks which actor currently holds a given one. Reading the odd function out
+against its *callers'* fields, rather than against its siblings' shape,
+was what dissolved the apparent split. Worth trying before invoking the
+"exports span unrelated jobs" exemption elsewhere (e.g. `027958` above).
 
 ### `02b464_drive_points` (ShortUnit `DrivePoints`) -- done, driving-evaluation/penalty subsystem
 
@@ -293,7 +310,7 @@ meter, turn signals, rotating needle, speedometer, and two timers. See the
 traffic-signal/points-ramp branches are UNTESTED. Worth a follow-up pass with
 targeted tests before the unit is considered fully verified.
 
-### `02f0c8` -- done, left hex-only
+### `02f0c8_traffic_path_scan` -- done, left hex-only
 
 Spawn-clearance path scanner + continuation, plus an unrelated marker-group
 lookup.

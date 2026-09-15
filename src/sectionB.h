@@ -125,7 +125,7 @@ typedef struct {
      * it treats {posX_0x0f4, posY_0x0f8, posZ_0x0fc} as one contiguous float[3]. */
     float posX_0x0f4;
     float posY_0x0f8;
-    float posZ_0x0fc; /* field_0x108 below also exported standalone as var_8c1bbad8 (02f0c8) */
+    float posZ_0x0fc; /* field_0x108 below also exported standalone as var_8c1bbad8 (02f0c8_traffic_path_scan) */
 
     /* Waypoint-position history, 12 entries. busInitPlaceBus_8c023310 seeds
      * rec[0]/rec[1]'s x/z 4.9m/8.0m behind the spawn stop and every rec's y
@@ -409,11 +409,11 @@ extern float var_groundHeightFallback_8c1bbac8; // fallback ground height when b
 extern float var_8c1bbac4;
 /* Sits at var_busState_8c1bb9d0's base+0xfc -- same address as its
  * posZ_0x0fc field -- but exported as its own symbol and referenced that
- * way by TrafficPathScanBuild_8c02f0c8 (02f0c8), not through the struct. Coincidentally
+ * way by TrafficPathScanBuild_8c02f0c8 (02f0c8_traffic_path_scan), not through the struct. Coincidentally
  * adjacent, not part of it (same pattern as var_busCameraFocusX_8c1bbcd8). */
 extern float var_8c1bbacc;
 /* Sits at var_busState_8c1bb9d0's base+0x108 (its field_0x108); exported as
- * its own symbol and referenced that way by TrafficPathScanBuild_8c02f0c8 (02f0c8). */
+ * its own symbol and referenced that way by TrafficPathScanBuild_8c02f0c8 (02f0c8_traffic_path_scan). */
 extern float var_8c1bbad8;
 extern int var_8c1bb8bc;
 extern int var_8c1bb8c4;

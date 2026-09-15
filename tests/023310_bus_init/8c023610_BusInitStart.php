@@ -18,7 +18,7 @@ if (!function_exists('f32')) {
  * (VehPartsBind_8c02786c), picks a (route, timeOfDay) content-swap pointer
  * and a ground-query dispatch table (normal vs. the Wangan-route/segment-10
  * *AtHeight variants), calls busInitPlaceBus_8c023310 to place the bus, then
- * runs three FUN_8c02e69c region lookups (seeded from the just-computed
+ * runs three AttrQueryFindPolygon_8c02e69c region lookups (seeded from the just-computed
  * posHistory_0x100[2]/[3] breadcrumbs) into junctionASlot_0x340/0x35c/0x378,
  * copying each 4-word hit into junctionARoadFlags_0x34c/0x368/0x384 or zeroing on a miss.
  * busInitPlaceBus_8c023310 is mocked here; its own test covers its body.
@@ -44,11 +44,11 @@ return new class extends TestCase {
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_currentSegment_8c228708', 4);
         $this->setSize('_GroundProbeFindPolygonAtHeight_8c020fe4', 4);
-        $this->setSize('_FUN_8c02eab4', 4);
-        $this->setSize('_FUN_8c02ec50', 4);
+        $this->setSize('_AttrQueryFindConvexPolygonAtHeight_8c02eab4', 4);
+        $this->setSize('_AttrQueryFindPolygonAtHeight_8c02ec50', 4);
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
-        $this->setSize('_FUN_8c02e51c', 4);
-        $this->setSize('_FUN_8c02e69c', 4);
+        $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
+        $this->setSize('_AttrQueryFindPolygon_8c02e69c', 4);
         $this->setSize('_BusStopGetSegment_8c02cd6a', 4);
         $this->setSize('_FUN_8c023938', 4);
         $this->setSize('_FUN_8c023cba', 4);
@@ -160,12 +160,12 @@ return new class extends TestCase {
 
         if ($wanganAtHeight) {
             $this->shouldWriteLong($base + 0x2c8, $this->addressOf('_GroundProbeFindPolygonAtHeight_8c020fe4'));
-            $this->shouldWriteLong($base + 0x2cc, $this->addressOf('_FUN_8c02eab4'));
-            $this->shouldWriteLong($base + 0x2d0, $this->addressOf('_FUN_8c02ec50'));
+            $this->shouldWriteLong($base + 0x2cc, $this->addressOf('_AttrQueryFindConvexPolygonAtHeight_8c02eab4'));
+            $this->shouldWriteLong($base + 0x2d0, $this->addressOf('_AttrQueryFindPolygonAtHeight_8c02ec50'));
         } else {
             $this->shouldWriteLong($base + 0x2c8, $this->addressOf('_GroundQueryFindPolygon_8c020914'));
-            $this->shouldWriteLong($base + 0x2cc, $this->addressOf('_FUN_8c02e51c'));
-            $this->shouldWriteLong($base + 0x2d0, $this->addressOf('_FUN_8c02e69c'));
+            $this->shouldWriteLong($base + 0x2cc, $this->addressOf('_AttrQueryFindConvexPolygon_8c02e51c'));
+            $this->shouldWriteLong($base + 0x2d0, $this->addressOf('_AttrQueryFindPolygon_8c02e69c'));
         }
 
         $this->shouldCall('_busInitPlaceBus_8c023310');
@@ -190,7 +190,7 @@ return new class extends TestCase {
             $base,
         );
 
-        $this->shouldCall('_FUN_8c02e69c')
+        $this->shouldCall('_AttrQueryFindPolygon_8c02e69c')
             ->with(f32($point2[0]), f32($point2[1]), f32($point2[2]), $base + 0x340)
             ->andReturn($lookup1 === null ? 0 : $this->allocInts($lookup1));
         if ($lookup1 !== null) {
@@ -205,7 +205,7 @@ return new class extends TestCase {
             $this->shouldWriteLong($base + 0x358, 0);
         }
 
-        $this->shouldCall('_FUN_8c02e69c')
+        $this->shouldCall('_AttrQueryFindPolygon_8c02e69c')
             ->with(f32($point3[0]), f32($point3[1]), f32($point3[2]), $base + 0x35c)
             ->andReturn($lookup2 === null ? 0 : $this->allocInts($lookup2));
         if ($lookup2 !== null) {
@@ -220,7 +220,7 @@ return new class extends TestCase {
             $this->shouldWriteLong($base + 0x374, 0);
         }
 
-        $this->shouldCall('_FUN_8c02e69c')
+        $this->shouldCall('_AttrQueryFindPolygon_8c02e69c')
             ->with(f32($point3[0]), f32($point3[1]), f32($point3[2]), $base + 0x378)
             ->andReturn($lookup3 === null ? 0 : $this->allocInts($lookup3));
         if ($lookup3 !== null) {

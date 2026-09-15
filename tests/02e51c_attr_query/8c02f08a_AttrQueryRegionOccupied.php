@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c02f08a scans var_tasks_8c1bac28 for a task (other than self, and
+// AttrQueryRegionOccupied_8c02f08a scans var_tasks_8c1bac28 for a task (other than self, and
 // skipping the -1 sentinel) whose state's signalId_0x410 equals value. If none
 // match by the zero-action terminator, it falls back to comparing value
 // against var_busState_8c1bb9d0.fallbackTaskMatchId_0x3a0 (imported by the original asm
@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->makeTask(0, 0, 0); // terminator
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3a0, 42);
 
-        $this->call('_FUN_8c02f08a')->with($self, 7);
+        $this->call('_AttrQueryRegionOccupied_8c02f08a')->with($self, 7);
 
         $this->shouldReturn(0);
     }
@@ -54,7 +54,7 @@ return new class extends TestCase {
         $this->makeTask(0, 0, 0); // terminator
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3a0, 7);
 
-        $this->call('_FUN_8c02f08a')->with($self, 7);
+        $this->call('_AttrQueryRegionOccupied_8c02f08a')->with($self, 7);
 
         $this->shouldReturn(1);
     }
@@ -70,7 +70,7 @@ return new class extends TestCase {
         $this->makeTask(1, 0, 0); // terminator
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3a0, 42);
 
-        $this->call('_FUN_8c02f08a')->with($self, 7);
+        $this->call('_AttrQueryRegionOccupied_8c02f08a')->with($self, 7);
 
         $this->shouldReturn(0);
     }
@@ -85,7 +85,7 @@ return new class extends TestCase {
         $this->makeTask(1, 0, 0); // terminator
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3a0, 42);
 
-        $this->call('_FUN_8c02f08a')->with($self, 7);
+        $this->call('_AttrQueryRegionOccupied_8c02f08a')->with($self, 7);
 
         $this->shouldReturn(0);
     }
@@ -101,7 +101,7 @@ return new class extends TestCase {
         $this->makeTask(0, 1, $entry);
         $this->makeTask(1, 0, 0); // terminator; must never be reached
 
-        $this->call('_FUN_8c02f08a')->with($self, 7);
+        $this->call('_AttrQueryRegionOccupied_8c02f08a')->with($self, 7);
 
         $this->shouldReturn(1);
     }
@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->makeTask(1, 0, 0); // terminator
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3a0, 42);
 
-        $this->call('_FUN_8c02f08a')->with($self, 7);
+        $this->call('_AttrQueryRegionOccupied_8c02f08a')->with($self, 7);
 
         $this->shouldReturn(0);
     }

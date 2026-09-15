@@ -11,7 +11,7 @@
 #include "023938_bus_drive.h"
 #include "023310_bus_init.h"
 #include "02786c_vehicle_parts.h" /* VehPartsBind_8c02786c */
-#include "02e51c.h"               /* FUN_8c02e51c, FUN_8c02eab4, FUN_8c02e69c, FUN_8c02ec50 */
+#include "02e51c_attr_query.h"               /* AttrQueryFindConvexPolygon_8c02e51c, AttrQueryFindConvexPolygonAtHeight_8c02eab4, AttrQueryFindPolygon_8c02e69c, AttrQueryFindPolygonAtHeight_8c02ec50 */
 #include "020594.h"               /* VehicleModelPlace_8c020594 */
 #include "022bdc_bus.h"               /* BusTask_8c022bdc */
 
@@ -170,12 +170,12 @@ void BusInitStart_8c023610(void)
 
     if (var_route_8c18ad1c == ROUTE_WANGAN && var_currentSegment_8c228708 == 10) {
         var_busState_8c1bb9d0.groundProbeFn_0x2c8 = (int)GroundProbeFindPolygonAtHeight_8c020fe4;
-        var_busState_8c1bb9d0.junctionQueryFnCpu_0x2cc = (int)FUN_8c02eab4;
-        var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0 = (int)FUN_8c02ec50;
+        var_busState_8c1bb9d0.junctionQueryFnCpu_0x2cc = (int)AttrQueryFindConvexPolygonAtHeight_8c02eab4;
+        var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0 = (int)AttrQueryFindPolygonAtHeight_8c02ec50;
     } else {
         var_busState_8c1bb9d0.groundProbeFn_0x2c8 = (int)GroundQueryFindPolygon_8c020914;
-        var_busState_8c1bb9d0.junctionQueryFnCpu_0x2cc = (int)FUN_8c02e51c;
-        var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0 = (int)FUN_8c02e69c;
+        var_busState_8c1bb9d0.junctionQueryFnCpu_0x2cc = (int)AttrQueryFindConvexPolygon_8c02e51c;
+        var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0 = (int)AttrQueryFindPolygon_8c02e69c;
     }
 
     busInitPlaceBus_8c023310();
@@ -204,7 +204,7 @@ void BusInitStart_8c023610(void)
 
     VehicleModelPlace_8c020594(&var_busWorldMatrix_8c1bba54, var_8c1bbd9c);
 
-    result = FUN_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[2].x,
+    result = AttrQueryFindPolygon_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[2].x,
                            var_busState_8c1bb9d0.posHistory_0x100[2].y,
                            var_busState_8c1bb9d0.posHistory_0x100[2].z,
                            &var_busState_8c1bb9d0.junctionASlot_0x340);
@@ -220,7 +220,7 @@ void BusInitStart_8c023610(void)
         var_busState_8c1bb9d0.junctionARoadFlags2_0x358 = 0;
     }
 
-    result = FUN_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[3].x,
+    result = AttrQueryFindPolygon_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[3].x,
                            var_busState_8c1bb9d0.posHistory_0x100[3].y,
                            var_busState_8c1bb9d0.posHistory_0x100[3].z,
                            &var_busState_8c1bb9d0.junctionBSlot_0x35c);
@@ -237,7 +237,7 @@ void BusInitStart_8c023610(void)
     }
 
     /* Same posHistory[3] point as above, second out-buffer. */
-    result = FUN_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[3].x,
+    result = AttrQueryFindPolygon_8c02e69c(var_busState_8c1bb9d0.posHistory_0x100[3].x,
                            var_busState_8c1bb9d0.posHistory_0x100[3].y,
                            var_busState_8c1bb9d0.posHistory_0x100[3].z,
                            &var_busState_8c1bb9d0.junctionCSlot_0x378);

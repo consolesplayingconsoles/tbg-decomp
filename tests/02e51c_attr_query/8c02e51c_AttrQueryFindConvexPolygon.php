@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// FUN_8c02e51c looks up the road junction under (x, z) in the attribute
+// AttrQueryFindConvexPolygon_8c02e51c looks up the road junction under (x, z) in the attribute
 // grid pointed to by var_activeAttrGrid_8c228b3c. *out already holding a previous match
 // (out->count != 0, at offset 0x08) re-tests that polygon first (a plain
 // convex cross-product walk, no concave path in this unit's simple pair);
@@ -99,7 +99,7 @@ return new class extends TestCase {
         [$attr0, $ids0, , , $slotAddr0, ] = $this->makeGrid(0xabcd, 0xdead);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02e51c')->with(
+        $this->call('_AttrQueryFindConvexPolygon_8c02e51c')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -116,7 +116,7 @@ return new class extends TestCase {
         $this->makeGrid(0xabcd, 0xdead);
         [$out, ] = $this->makeOut(0, 0, 0);
 
-        $this->call('_FUN_8c02e51c')->with(
+        $this->call('_AttrQueryFindConvexPolygon_8c02e51c')->with(
             $this->f32(50.0), $this->f32(0.0), $this->f32(50.0), $out
         );
 
@@ -132,7 +132,7 @@ return new class extends TestCase {
         [$attr0, $ids0, , , , ] = $this->makeGrid(0x1234, 0x9999);
         [$out, $slot] = $this->makeOut(0, $ids0, 4);
 
-        $this->call('_FUN_8c02e51c')->with(
+        $this->call('_AttrQueryFindConvexPolygon_8c02e51c')->with(
             $this->f32(5.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 
@@ -151,7 +151,7 @@ return new class extends TestCase {
         [, $ids0, $attr1, $ids1, , $slotAddr1] = $this->makeGrid(0x1234, 0x9999);
         [$out, ] = $this->makeOut(0, $ids0, 4);
 
-        $this->call('_FUN_8c02e51c')->with(
+        $this->call('_AttrQueryFindConvexPolygon_8c02e51c')->with(
             $this->f32(25.0), $this->f32(0.0), $this->f32(5.0), $out
         );
 

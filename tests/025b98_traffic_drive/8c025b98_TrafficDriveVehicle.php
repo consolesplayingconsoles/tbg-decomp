@@ -205,12 +205,12 @@ return new class extends TestCase {
     // function's own is the speed==0 junction-skip case).
     public function test_drivingScriptExhaustedFreesTask(): void {
         $this->resolveSymbols();
-        $this->setSize('_FUN_8c02e51c', 4);
+        $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
         $task = $this->alloc(4);
         $entry = $this->allocEntry();
         $this->initUint32($entry + 0x2b4, 0); // driveState
         $this->initUint32($entry + 0x27c, fdec(1.0)); // speed
-        $this->initUint32($entry + 0x2cc, $this->addressOf('_FUN_8c02e51c'));
+        $this->initUint32($entry + 0x2cc, $this->addressOf('_AttrQueryFindConvexPolygon_8c02e51c'));
         $this->initUint32($entry + 0xf4, fdec(1.0));  // posX
         $this->initUint32($entry + 0xf8, fdec(2.0));  // posY
         $this->initUint32($entry + 0xfc, fdec(3.0));  // posZ
@@ -225,7 +225,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($entry + 0x080, 0); // cleared unconditionally at top
 
-        $this->shouldCall('_FUN_8c02e51c')->with(1.0, 2.0, 3.0, $entry + 0x404)->andReturn(0);
+        $this->shouldCall('_AttrQueryFindConvexPolygon_8c02e51c')->with(1.0, 2.0, 3.0, $entry + 0x404)->andReturn(0);
         $this->shouldWriteLong($entry + 0x2dc, 0);
         $this->shouldWriteLong($entry + 0x410, -1); // unaff_r8 = -1 on a miss
         $this->shouldWriteLong($entry + 0x50c, 0);

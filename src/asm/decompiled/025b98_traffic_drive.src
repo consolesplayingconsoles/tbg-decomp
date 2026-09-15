@@ -4,14 +4,14 @@
           .IMPORT     _var_8c1bbd9c
           .IMPORT     _var_8c1bb878
           .IMPORT     _var_activeAttrGrid_8c228b3c
-          .IMPORT     _FUN_8c02e51c
+          .IMPORT     _AttrQueryFindConvexPolygon_8c02e51c
           .IMPORT     _var_8c2264d0
           .IMPORT     _var_8c1bb888
           .IMPORT     _ObjectsGetTrafficSignalFrame_8c028900
           .IMPORT     _TrafficPathScanJunctionOccupied_8c02f28a
           .IMPORT     _ObjectsFUN_8c028998
           .IMPORT     _ObjectsFUN_8c028984
-          .IMPORT     _FUN_8c02f08a
+          .IMPORT     _AttrQueryRegionOccupied_8c02f08a
           .IMPORT     _var_groundQueryPoint_8c1bc460
           .IMPORT     _TrafficPathScanBuild_8c02f0c8
           .IMPORT     _TrafficComputeBlockedSpeed_8c026eaa
@@ -302,7 +302,7 @@ LP_GEN_24120:
           .DATA.L _var_8c1bbd9c ; H'8C025D94
           .DATA.L _var_8c1bb878 ; H'8C025D98
           .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C025D9C
-          .DATA.L _FUN_8c02e51c ; H'8C025DA0
+          .DATA.L _AttrQueryFindConvexPolygon_8c02e51c ; H'8C025DA0
           .DATA.L H'0F000000 ; H'8C025DA4
           .DATA.L _var_8c2264d0 ; H'8C025DA8
           .DATA.L _var_8c1bb888 ; H'8C025DAC
@@ -571,7 +571,7 @@ LP_GEN_70698:
           .DATA.W H'023C ; H'8C025F96
           .DATA.W H'02C0 ; H'8C025F98
           .DATA.W H'0484 ; H'8C025F9A
-          .DATA.L _FUN_8c02f08a ; H'8C025F9C
+          .DATA.L _AttrQueryRegionOccupied_8c02f08a ; H'8C025F9C
           .DATA.L H'41F00000 ; H'8C025FA0
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C025FA4
           .DATA.L H'41000000 ; H'8C025FA8
