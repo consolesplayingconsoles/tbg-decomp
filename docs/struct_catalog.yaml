@@ -4109,7 +4109,7 @@ structs:
   line: 44
   size: '0x1c'
   purpose: 'The road-junction attribute grid''s spatial index: dimensions and the cell/poly/vertex arrays,
-    selected via var_8c228b3c. Same field layout as GroundGrid (020914_ground_query.h), but this unit''s
+    selected via var_activeAttrGrid_8c228b3c. Same field layout as GroundGrid (020914_ground_query.h), but this unit''s
     own code path only ever consults the dimension fields and a compile-time CELL_SIZE constant.'
   used_by:
   - src/02e51c.c

@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c2285c4', 4);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
-        $this->setSize('_var_8c228b3c', 4);
+        $this->setSize('_var_activeAttrGrid_8c228b3c', 4);
         $this->setSize('_ObjectsFUN_8c028958', 4);
         $this->setSize('_var_scenePresetIds_8c1bbd8c', 4);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
@@ -84,7 +84,7 @@ return new class extends TestCase {
         $this->call('_trafficUpdateTask_8c0275d4')->with($task, 0);
 
         $this->shouldWriteLong($this->addressOf('_var_activeGroundGrid_8c2264d4'), 0x11110000);
-        $this->shouldWriteLong($this->addressOf('_var_8c228b3c'), 0x22220000);
+        $this->shouldWriteLong($this->addressOf('_var_activeAttrGrid_8c228b3c'), 0x22220000);
         $this->shouldCall('_ObjectsFUN_8c028958');
         $this->shouldWriteLong($this->addressOf('_var_occupiedGroup_8c228b44'), 0xffffffff);
 
@@ -123,7 +123,7 @@ return new class extends TestCase {
         $this->call('_trafficUpdateTask_8c0275d4')->with($task, 0);
 
         $this->shouldWriteLong($this->addressOf('_var_activeGroundGrid_8c2264d4'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c228b3c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_activeAttrGrid_8c228b3c'), 0);
         $this->shouldCall('_ObjectsFUN_8c028958');
         $this->shouldWriteLong($this->addressOf('_var_occupiedGroup_8c228b44'), 0xffffffff);
 
@@ -154,7 +154,7 @@ return new class extends TestCase {
         $this->call('_trafficUpdateTask_8c0275d4')->with($task, 0);
 
         $this->shouldWriteLong($this->addressOf('_var_activeGroundGrid_8c2264d4'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c228b3c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_activeAttrGrid_8c228b3c'), 0);
         $this->shouldCall('_ObjectsFUN_8c028958');
         $this->shouldWriteLong($this->addressOf('_var_occupiedGroup_8c228b44'), 0xffffffff);
 
@@ -184,7 +184,7 @@ return new class extends TestCase {
         $this->call('_trafficUpdateTask_8c0275d4')->with($task, 0);
 
         $this->shouldWriteLong($this->addressOf('_var_activeGroundGrid_8c2264d4'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c228b3c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_activeAttrGrid_8c228b3c'), 0);
         $this->shouldCall('_ObjectsFUN_8c028958');
         $this->shouldWriteLong($this->addressOf('_var_occupiedGroup_8c228b44'), 0xffffffff);
 
@@ -219,7 +219,7 @@ return new class extends TestCase {
         $this->call('_trafficUpdateTask_8c0275d4')->with($task, 0);
 
         $this->shouldWriteLong($this->addressOf('_var_activeGroundGrid_8c2264d4'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c228b3c'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_activeAttrGrid_8c228b3c'), 0);
         $this->shouldCall('_ObjectsFUN_8c028958');
         $this->shouldWriteLong($this->addressOf('_var_occupiedGroup_8c228b44'), 0xffffffff);
 

@@ -1,5 +1,4 @@
 ; 8c02e51c
-          .IMPORT     _var_8c228b3c
           .IMPORT     _njSqrt
           .IMPORT     _acosf
           .IMPORT     _var_tasks_8c1bac28
@@ -9,6 +8,7 @@
           .EXPORT     _FUN_8c02f08a
           .EXPORT     _FUN_8c02eab4
           .EXPORT     _FUN_8c02ec50
+          .EXPORT     _var_activeAttrGrid_8c228b3c
           .SECTION     P, CODE, ALIGN=4
 _FUN_8c02e51c:
           MOV.L       R14,@-R15
@@ -383,7 +383,7 @@ LAB_8c02e7b8:
           NOP
 LP_GEN_79145:
           .RES.W 1 ; H'8C02E7DA
-          .DATA.L _var_8c228b3c ; H'8C02E7DC
+          .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C02E7DC
           .DATA.L H'43160000 ; H'8C02E7E0
           .DATA.L _njSqrt ; H'8C02E7E4
           .DATA.L _acosf ; H'8C02E7E8
@@ -765,7 +765,7 @@ LP_GEN_76824:
           .DATA.L H'47800000 ; H'8C02EAA4
           .DATA.L H'00008000 ; H'8C02EAA8
           .DATA.L H'43160000 ; H'8C02EAAC
-          .DATA.L _var_8c228b3c ; H'8C02EAB0
+          .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C02EAB0
 _FUN_8c02eab4:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
@@ -1133,7 +1133,7 @@ LAB_8c02ece8:
           FMOV        FR3,FR4
 LP_GEN_96028:
           .RES.W 1 ; H'8C02ED6A
-          .DATA.L _var_8c228b3c ; H'8C02ED6C
+          .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C02ED6C
           .DATA.L H'43160000 ; H'8C02ED70
           .DATA.L H'41A00000 ; H'8C02ED74
           .DATA.L _acosf ; H'8C02ED78
@@ -1459,7 +1459,7 @@ LP_GEN_86413:
           .RES.W 1 ; H'8C02EFD2
           .DATA.L H'00008000 ; H'8C02EFD4
           .DATA.L H'43160000 ; H'8C02EFD8
-          .DATA.L _var_8c228b3c ; H'8C02EFDC
+          .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C02EFDC
           .DATA.L H'41A00000 ; H'8C02EFE0
 LAB_8c02efe4:
           CMP/PL      R11
@@ -1589,4 +1589,7 @@ LP_GEN_88808:
           .DATA.W H'0410 ; H'8C02F0BE
           .DATA.L _var_tasks_8c1bac28 ; H'8C02F0C0
           .DATA.L _var_8c1bbd70 ; H'8C02F0C4
+          .SECTION    B,DATA,ALIGN=4
+_var_activeAttrGrid_8c228b3c:
+          .RES.B      4
           .END

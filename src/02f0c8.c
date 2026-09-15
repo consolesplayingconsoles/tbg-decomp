@@ -11,6 +11,12 @@
  * =======================
  */
 
+/** The route's signal ids grouped by intersection */
+Sint32 *var_signalGroups_8c228b40;
+
+/** The group whose intersection a vehicle occupies */
+Sint32 *var_occupiedGroup_8c228b44;
+
 /* Sample-point scratch buffer for up to 10 (x, z) pairs. */
 float var_samples_8c228b48[20];
 

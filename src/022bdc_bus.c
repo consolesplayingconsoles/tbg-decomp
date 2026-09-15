@@ -15,6 +15,7 @@
 #include "025870.h"               /* DemoUpdateCamera_8c025906 */
 #include "027958.h"               /* BusDrawFadeLights_8c028022 */
 #include "022bdc_bus.h"           /* BusTask_8c022bdc */
+#include "02e51c.h"
 
 /* =====================
  * Type Declarations
@@ -196,7 +197,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         FUN_8c023938();
         FUN_8c023cba();
 
-        var_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
+        var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
         result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnRoute_0x2d0)(
             var_busState_8c1bb9d0.posHistory_0x100[2].x, var_busState_8c1bb9d0.posHistory_0x100[2].y,
             var_busState_8c1bb9d0.posHistory_0x100[2].z, &var_busState_8c1bb9d0.junctionASlot_0x340);
@@ -227,7 +228,7 @@ void BusTask_8c022bdc(Task *task, void *state)
             var_busState_8c1bb9d0.junctionCRoadFlags_0x390 = result[3];
         }
 
-        var_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
+        var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
         result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnCpu_0x2cc)(
             var_busState_8c1bb9d0.posX_0x0f4, var_busState_8c1bb9d0.posY_0x0f8,
             var_busState_8c1bb9d0.posZ_0x0fc, &var_busState_8c1bb9d0.cpuAttrOutSlot_0x394);
@@ -239,7 +240,7 @@ void BusTask_8c022bdc(Task *task, void *state)
             var_busState_8c1bb9d0.lightFadeGate_0x2dc = result[1];
         }
 
-        var_8c228b3c = var_currentCourse_8c1bb868.attrMark_0x14;
+        var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrMark_0x14;
         result = ((GroundQueryFn)var_busState_8c1bb9d0.junctionQueryFnCpu_0x2cc)(
             var_busState_8c1bb9d0.posX_0x0f4, var_busState_8c1bb9d0.posY_0x0f8,
             var_busState_8c1bb9d0.posZ_0x0fc, &var_busState_8c1bb9d0.markAttrOutSlot_0x3a4);

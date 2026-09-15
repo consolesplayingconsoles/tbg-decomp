@@ -24,7 +24,6 @@ return new class extends TestCase {
     }
 
     private function resolveSymbols(): void {
-        $this->setSize('_var_8c228b3c', 4);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_acosf', 4);
     }
@@ -75,7 +74,7 @@ return new class extends TestCase {
         $this->initUint32($cell + 0x00, 1); // count
         $this->initUint32($cell + 0x04, $polyIds);
 
-        $this->initUint32($this->addressOf('_var_8c228b3c'), $grid);
+        $this->initUint32($this->addressOf('_var_activeAttrGrid_8c228b3c'), $grid);
 
         return [$poly + 0x08, $polyIds];
     }
@@ -141,7 +140,7 @@ return new class extends TestCase {
             $idsAddrs[$p] = $ids;
         }
 
-        $this->initUint32($this->addressOf('_var_8c228b3c'), $grid);
+        $this->initUint32($this->addressOf('_var_activeAttrGrid_8c228b3c'), $grid);
 
         return [$attrs[0], $idsAddrs[0], $attrs[1], $idsAddrs[1], $polyIds + 0, $polyIds + 4];
     }

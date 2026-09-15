@@ -871,11 +871,6 @@
                                     ; 02e400
           .EXPORT     _var_collideQueue_8c228a38 ; 02e400
           .EXPORT     _var_collideQueueCount_8c228b38 ; 02e400
-          .EXPORT     _var_8c228b3c ;; 022bdc
-                                    ;; 023310
-                                    ;; 025b98
-                                    ;; 026710
-                                    ; 02e51c
           .SECTION    B,DATA,ALIGN=4
 _var_busFont_8c1ba1c8:
           .RES.B      4
@@ -1603,7 +1598,5 @@ _var_collideCandidateBox_8c2289d8:
 _var_collideQueue_8c228a38:
           .RES.B      256
 _var_collideQueueCount_8c228b38:
-          .RES.B      4
-_var_8c228b3c:
           .RES.B      4
           .END

@@ -23,7 +23,6 @@ return new class extends TestCase {
     }
 
     private function resolveSymbols(): void {
-        $this->setSize('_var_8c228b3c', 4);
     }
 
     // Two overlapping (same x, z footprint) convex quads at different
@@ -77,7 +76,7 @@ return new class extends TestCase {
             $idsAddrs[$p] = $ids;
         }
 
-        $this->initUint32($this->addressOf('_var_8c228b3c'), $grid);
+        $this->initUint32($this->addressOf('_var_activeAttrGrid_8c228b3c'), $grid);
 
         return [$attrs[0], $idsAddrs[0], $attrs[1], $idsAddrs[1], $polyIds + 0, $polyIds + 4];
     }

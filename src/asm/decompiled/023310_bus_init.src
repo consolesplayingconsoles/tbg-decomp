@@ -13,7 +13,7 @@
           .IMPORT     _var_8c227dac
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeGroundGrid_8c2264d4
-          .IMPORT     _var_8c228b3c
+          .IMPORT     _var_activeAttrGrid_8c228b3c
           .IMPORT     _var_8c227d84
           .IMPORT     _var_8c227d88
           .IMPORT     _var_8c1bc410
@@ -514,7 +514,7 @@ LP_GEN_28893:
           .DATA.L _var_8c227dac ; H'8C0236C0
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C0236C4
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0236C8
-          .DATA.L _var_8c228b3c ; H'8C0236CC
+          .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C0236CC
           .DATA.L _var_8c227d84 ; H'8C0236D0
           .DATA.L _var_8c227d88 ; H'8C0236D4
           .DATA.L _var_8c1bc410 ; H'8C0236D8

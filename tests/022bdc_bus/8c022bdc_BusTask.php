@@ -53,7 +53,6 @@ return new class extends TestCase {
         $this->setSize('_FUN_8c010c6e', 4);
         $this->setSize('_FUN_8c023938', 4);
         $this->setSize('_FUN_8c023cba', 4);
-        $this->setSize('_var_8c228b3c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_8c1bbd9c', 4);
         $this->setSize('_BusDrawFadeLights_8c028022', 4);

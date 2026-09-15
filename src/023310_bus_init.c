@@ -138,7 +138,7 @@ void BusInitStart_8c023610(void)
     void *result;
 
     var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
-    var_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
+    var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
     var_8c227d84 = var_currentCourse_8c1bb868.lineBus_0x08;
     var_8c227d88 = var_currentCourse_8c1bb868.ukn_0x0c;
 

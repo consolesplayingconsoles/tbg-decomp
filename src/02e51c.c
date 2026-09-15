@@ -5,7 +5,7 @@
 
 #include "02e51c.h"             /* FUN_8c02e51c etc, FUN_8c02f08a */
 #include "026710_traffic.h"     /* TrafficEntry */
-#include "sectionB.h"           /* var_tasks_8c1bac28, var_busState_8c1bb9d0, var_8c228b3c */
+#include "sectionB.h"           /* var_tasks_8c1bac28, var_busState_8c1bb9d0s */
 
 /* ====================
  * Type Declarations
@@ -67,13 +67,21 @@ typedef struct {
  * filter, same tolerance as GroundProbeFindPolygonAtHeight_8c020fe4's. */
 #define HEIGHT_TOLERANCE 20.0f
 
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+void *var_activeAttrGrid_8c228b3c;
+
+
 /* ====================
  * Functions
  * ====================
  */
 
 /* Looks up the road junction under world point (x, z) -- y is unused -- in
- * the grid selected by var_8c228b3c, writing the match into *out and
+ * the grid selected by var_activeAttrGrid_8c228b3c, writing the match into *out and
  * returning &polys[slot].attr_0x08 on a hit, NULL on a miss.
  *
  * If *out already holds a previous match (out->count != 0), that polygon is
@@ -84,7 +92,7 @@ typedef struct {
 void *FUN_8c02e51c(float x, float y, float z, void *outParam)
 {
     JunctionQueryResult *out = (JunctionQueryResult *)outParam;
-    JunctionGrid *grid = (JunctionGrid *)var_8c228b3c;
+    JunctionGrid *grid = (JunctionGrid *)var_activeAttrGrid_8c228b3c;
     JunctionCell *cell;
     int cx, cz;
     int i;
@@ -198,7 +206,7 @@ void *FUN_8c02e51c(float x, float y, float z, void *outParam)
 void *FUN_8c02eab4(float x, float y, float z, void *outParam)
 {
     JunctionQueryResult *out = (JunctionQueryResult *)outParam;
-    JunctionGrid *grid = (JunctionGrid *)var_8c228b3c;
+    JunctionGrid *grid = (JunctionGrid *)var_activeAttrGrid_8c228b3c;
     JunctionCell *cell;
     int cx, cz;
     int i;
@@ -309,7 +317,7 @@ void *FUN_8c02eab4(float x, float y, float z, void *outParam)
 void *FUN_8c02e69c(float x, float y, float z, void *outParam)
 {
     JunctionQueryResult *out = (JunctionQueryResult *)outParam;
-    JunctionGrid *grid = (JunctionGrid *)var_8c228b3c;
+    JunctionGrid *grid = (JunctionGrid *)var_activeAttrGrid_8c228b3c;
     JunctionCell *cell;
     int cx, cz;
     int i;
@@ -492,7 +500,7 @@ void *FUN_8c02e69c(float x, float y, float z, void *outParam)
 void *FUN_8c02ec50(float x, float y, float z, void *outParam)
 {
     JunctionQueryResult *out = (JunctionQueryResult *)outParam;
-    JunctionGrid *grid = (JunctionGrid *)var_8c228b3c;
+    JunctionGrid *grid = (JunctionGrid *)var_activeAttrGrid_8c228b3c;
     JunctionCell *cell;
     int cx, cz;
     int i;

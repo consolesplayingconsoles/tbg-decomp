@@ -3,7 +3,7 @@
           .IMPORT     _TrafficLookaheadScan_8c02dfca
           .IMPORT     _var_8c1bbd9c
           .IMPORT     _var_8c1bb878
-          .IMPORT     _var_8c228b3c
+          .IMPORT     _var_activeAttrGrid_8c228b3c
           .IMPORT     _FUN_8c02e51c
           .IMPORT     _var_8c2264d0
           .IMPORT     _var_8c1bb888
@@ -301,7 +301,7 @@ LP_GEN_24120:
           .DATA.L _TrafficLookaheadScan_8c02dfca ; H'8C025D90
           .DATA.L _var_8c1bbd9c ; H'8C025D94
           .DATA.L _var_8c1bb878 ; H'8C025D98
-          .DATA.L _var_8c228b3c ; H'8C025D9C
+          .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C025D9C
           .DATA.L _FUN_8c02e51c ; H'8C025DA0
           .DATA.L H'0F000000 ; H'8C025DA4
           .DATA.L _var_8c2264d0 ; H'8C025DA8

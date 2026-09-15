@@ -22,7 +22,7 @@
           .IMPORT     _FUN_8c010c6e
           .IMPORT     _FUN_8c023938
           .IMPORT     _FUN_8c023cba
-          .IMPORT     _var_8c228b3c
+          .IMPORT     _var_activeAttrGrid_8c228b3c
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _var_8c1bbd9c
           .IMPORT     _BusDrawFadeLights_8c028022
@@ -649,7 +649,7 @@ LP_GEN_63897:
           .DATA.L _FUN_8c010c6e ; H'8C023088
           .DATA.L _FUN_8c023938 ; H'8C02308C
           .DATA.L _FUN_8c023cba ; H'8C023090
-          .DATA.L _var_8c228b3c ; H'8C023094
+          .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C023094
 LAB_8c023098:
           MOV.W       LP_GEN_75383,R0
           MOV         #-H'1,R1

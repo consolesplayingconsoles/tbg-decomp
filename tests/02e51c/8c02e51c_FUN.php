@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // FUN_8c02e51c looks up the road junction under (x, z) in the attribute
-// grid pointed to by var_8c228b3c. *out already holding a previous match
+// grid pointed to by var_activeAttrGrid_8c228b3c. *out already holding a previous match
 // (out->count != 0, at offset 0x08) re-tests that polygon first (a plain
 // convex cross-product walk, no concave path in this unit's simple pair);
 // only on a miss does it fall back to a 1x1-cell full search, which skips
@@ -24,7 +24,6 @@ return new class extends TestCase {
     }
 
     private function resolveSymbols(): void {
-        $this->setSize('_var_8c228b3c', 4);
     }
 
     // Two convex quads in (x, z), CCW winding, offset along x so they never
@@ -78,7 +77,7 @@ return new class extends TestCase {
             $idsAddrs[$p] = $ids;
         }
 
-        $this->initUint32($this->addressOf('_var_8c228b3c'), $grid);
+        $this->initUint32($this->addressOf('_var_activeAttrGrid_8c228b3c'), $grid);
 
         return [$attrs[0], $idsAddrs[0], $attrs[1], $idsAddrs[1], $polyIds + 0, $polyIds + 4];
     }

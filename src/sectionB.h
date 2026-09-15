@@ -666,7 +666,7 @@ extern FadeDrawCommand var_fadeDrawCommands_8c22657c[3][128]; // 022464: per-lay
 extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
 extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
 /* Mirrors var_currentCourse_8c1bb868.lineBus_0x08, reset by BusInitStart_8c023610
- * alongside var_activeGroundGrid_8c2264d4/var_8c228b3c/var_8c227d88. */
+ * alongside var_activeGroundGrid_8c2264d4/var_activeAttrGrid_8c228b3c/var_8c227d88. */
 extern LineBusSegment *var_8c227d84;
 /* Mirrors var_currentCourse_8c1bb868.ukn_0x0c. */
 extern LineBusNode *var_8c227d88;
@@ -916,12 +916,6 @@ extern int var_8c2285c4[];
  * on the very first upshift out of gear 0. */
 extern int var_8c22864c;
 
-/* Set by trafficUpdateTask_8c0275d4 (026710); selects the junction
- * attribute grid FUN_8c02e51c (02e51c) searches. TrafficDriveVehicle_8c025b98
- * (025b98) swaps it to var_8c1bb878 for its own junction-under-entity query,
- * then restores var_8c1bb888 -- role for other consumers (023310, 022bdc,
- * 02f0c8) unclear. */
-extern void *var_8c228b3c;
 extern void *var_8c1bb878;
 extern void *var_8c1bb888;
 /* Set to 1 by TrafficDriveVehicle_8c025b98 (025b98) on a stopped-at-junction

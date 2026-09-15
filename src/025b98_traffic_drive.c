@@ -220,9 +220,9 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 if (e->busAheadFlag_0x2d4 != 0) {
                     /* Junction/collision query at the candidate's own
                      * position, on the fallback attribute grid -- role of
-                     * var_8c228b3c/var_8c1bb878/var_8c1bb888 beyond this
+                     * var_activeAttrGrid_8c228b3c/var_8c1bb878/var_8c1bb888 beyond this
                      * swap not otherwise established. */
-                    var_8c228b3c = var_8c1bb878;
+                    var_activeAttrGrid_8c228b3c = var_8c1bb878;
                     {
                         void *junction = FUN_8c02e51c(
                             ahead->posX_0xf4,
@@ -237,7 +237,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                             }
                         }
                     }
-                    var_8c228b3c = var_8c1bb888;
+                    var_activeAttrGrid_8c228b3c = var_8c1bb888;
                 }
             }
         }

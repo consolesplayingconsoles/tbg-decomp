@@ -847,7 +847,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * Selects the CPU-vehicle collision/attribute meshes as the active
  * ground-query grid for the GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e queries run while
  * spawning/updating entries below (var_activeGroundGrid_8c2264d4 <-
- * .atariCpu_0x18, var_8c228b3c <- .attrCpu_0x20), and resets var_occupiedGroup_8c228b44
+ * .atariCpu_0x18, var_activeAttrGrid_8c228b3c <- .attrCpu_0x20), and resets var_occupiedGroup_8c228b44
  * (its other consumer, TrafficPathScanJunctionOccupied_8c02f28a in 02f0c8, treats
  * -1 as "not cached yet").
  *
@@ -891,7 +891,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
     }
 
     var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariCpu_0x18;
-    var_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
+    var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
     ObjectsFUN_8c028958();
     var_occupiedGroup_8c228b44 = (Sint32 *)-1;
 

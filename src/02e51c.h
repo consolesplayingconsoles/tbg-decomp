@@ -4,10 +4,18 @@
 #ifndef _02E51C_H
 #define _02E51C_H
 
-#include "014a9c_tasks.h"       /* Task */
+#include "014a9c_tasks.h"
+
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+/* Selects the attribute grid for searching. */
+extern void *var_activeAttrGrid_8c228b3c;
 
 /* Looks up the road junction under world point (x, z) -- y is unused -- in
- * the attribute grid selected by var_8c228b3c, writing the match into *out
+ * the attribute grid selected by var_activeAttrGrid_8c228b3c, writing the match into *out
  * (out->count, at offset 0x08, nonzero on a hit; gates a track-vs-full-search
  * branch on the next call, same idea as GroundQueryResult's count_0x0c) --
  * same (x, y, z, out) call shape as GroundQueryFindPolygon_8c020914

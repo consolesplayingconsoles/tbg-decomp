@@ -39,7 +39,7 @@
           .IMPORT     _njCnkSetEasyLight
           .IMPORT     _var_8c2285c4
           .IMPORT     _var_activeGroundGrid_8c2264d4
-          .IMPORT     _var_8c228b3c
+          .IMPORT     _var_activeAttrGrid_8c228b3c
           .IMPORT     _ObjectsFUN_8c028958
           .IMPORT     _var_occupiedGroup_8c228b44
           .IMPORT     _var_scenePresetIds_8c1bbd8c
@@ -2300,7 +2300,7 @@ LP_GEN_74201:
           .DATA.L _var_8c2285c4 ; H'8C0277EC
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C0277F0
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0277F4
-          .DATA.L _var_8c228b3c ; H'8C0277F8
+          .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C0277F8
           .DATA.L _ObjectsFUN_8c028958 ; H'8C0277FC
           .DATA.L _var_occupiedGroup_8c228b44 ; H'8C027800
           .DATA.L H'0000FF00 ; H'8C027804
