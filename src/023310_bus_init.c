@@ -261,12 +261,12 @@ void BusInitStart_8c023610(void)
     var_busState_8c1bb9d0.markCueByte_0x3b4 = 0;
     var_busState_8c1bb9d0.markAudioCue_0x3b8 = 0;
     var_busState_8c1bb9d0.markExtra_0x3bc = 0;
-    var_busState_8c1bb9d0.bus_substate_0x3c0 = 0;
+    var_busState_8c1bb9d0.doorState_0x3c0 = 0;
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 8) != 8) {
-        var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
+        var_busState_8c1bb9d0.doorRequest_0x3c4 = 0;
     } else {
-        var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 1;
+        var_busState_8c1bb9d0.doorRequest_0x3c4 = 1;
     }
 
     var_brakePressPeak_8c227d8c = 0;

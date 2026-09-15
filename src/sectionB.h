@@ -211,6 +211,10 @@ typedef struct {
     float dir_x2_0x2ac;
     float dir_z2_0x2b0;
 
+    /* 0 = stopped at a bus stop (the door sequence in doorState_0x3c0 runs
+     * here), 1 = driving, 2 = knockback after a collision, 3 = halted for
+     * good, 4 = braking down to 3. All five are dispatched by
+     * BusTask_8c022bdc (022bdc). */
     int driveState_0x2b4;
 
     int currentLinePointPtr_0x2b8; /* the spawn stop area's StopAreaRecord*, cast to int */
@@ -310,9 +314,15 @@ typedef struct {
     int markAudioCue_0x3b8;
     int markExtra_0x3bc;
 
-    int bus_substate_0x3c0;
+    /* Passenger-door sequence: 0 = shut, 1 = opening, 2 = open, 3 = closing.
+     * Only advances while driveState_0x2b4 is 0 (opening) or 1 (closing);
+     * var_busDoorFrame_8c227db0 is the animation frame it drives. */
+    int doorState_0x3c0;
 
-    int mirrorPendingToggle_0x3c4;
+    /* Asks doorState_0x3c0 for the next step in its cycle -- the A button
+     * while stopped, the scripted arrival, or 02b464 after docking the
+     * INSTR_DOOR_OPERATION penalty. Cleared once the step is taken. */
+    int doorRequest_0x3c4;
 
     /* Zeroed by BusInitStart_8c023610. Overlaps var_scenePresetIds_8c1bbd8c+0xc
      * (that symbol's reserved span runs 4 bytes past this struct's end) --
@@ -762,8 +772,8 @@ extern int var_cameraCueState_8c227da4; /* 02d19c/024b4c: shifted into var_saved
 extern int var_savedCameraCueState_8c227da8;
 extern int var_cameraCueBusy_8c227dac; /* zeroed alongside var_cameraMode_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
 /* Door-timer counter driven by BusTask_8c022bdc (022bdc): counts up by 0.5/frame
- * while boarding (bus_substate_0x3c0==1), capped at var_busDoorLastFrame_8c227db4, then counts
- * back down by 0.5/frame once departing (bus_substate_0x3c0==3) until it hits 0. */
+ * while boarding (doorState_0x3c0==1), capped at var_busDoorLastFrame_8c227db4, then counts
+ * back down by 0.5/frame once departing (doorState_0x3c0==3) until it hits 0. */
 extern float var_busDoorFrame_8c227db0;
 /* var_busDoorMotion_8c1bc410->nbFrame - 1.0, set by BusInitStart_8c023610, read by BusTask_8c022bdc
  * (022bdc). */

@@ -79,11 +79,11 @@ void BusRenderApplyCameraMode_8c024f32(void)
  * (var_mirrorLightDir_8c227dc4) when non-NULL, else the default (var_busSimpleLightDir) --
  * it is otherwise unused. The drawn object is always busState.modelLarge_0x00c;
  * only the animation frame depends on the special bus substate
- * (bus_substate_0x3c0 != 0 -> var_busDoorFrame_8c227db0, else frame 0). */
+ * (doorState_0x3c0 != 0 -> var_busDoorFrame_8c227db0, else frame 0). */
 void BusRenderDrawBusModel_8c024bb8(void *altLight)
 {
     float *dir = altLight ? var_mirrorLightDir_8c227dc4 : var_busSimpleLightDir_8c227db8;
-    float frame = (var_busState_8c1bb9d0.bus_substate_0x3c0 != 0) ? var_busDoorFrame_8c227db0 : 0.0f;
+    float frame = (var_busState_8c1bb9d0.doorState_0x3c0 != 0) ? var_busDoorFrame_8c227db0 : 0.0f;
 
     njCnkSetSimpleLight(dir[0], dir[1], dir[2]);
     njCnkSetSimpleLightIntensity(var_busState_8c1bb9d0.lightCoeffRow_0x0c4[0],

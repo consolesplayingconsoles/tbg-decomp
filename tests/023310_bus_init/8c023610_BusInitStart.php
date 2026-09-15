@@ -281,7 +281,7 @@ return new class extends TestCase {
     // field_0x058 array, route 1 -> slot 4 (field_0x05c) gets the override.
     // All 3 lookups miss. rawTimeBits negative to exercise the unsigned
     // conversion's +2^32 correction. Practice mode without the debug bit ->
-    // mirrorPendingToggle_0x3c4 = 0.
+    // doorRequest_0x3c4 = 0.
     public function test_wangan_segment10_night_misses(): void
     {
         $this->runAndAssert(

@@ -10,7 +10,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * selects the light direction (non-NULL -> var_mirrorLightDir_8c227dc4, NULL ->
  * var_busSimpleLightDir_8c227db8). The drawn object is always
  * busState.modelLarge_0x00c; only the animation frame depends on the special
- * bus substate (bus_substate_0x3c0 != 0 -> var_busDoorFrame_8c227db0, else frame 0).
+ * bus substate (doorState_0x3c0 != 0 -> var_busDoorFrame_8c227db0, else frame 0).
  */
 return new class extends TestCase {
     private function resolveSymbols(): void

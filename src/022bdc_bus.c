@@ -62,40 +62,39 @@ void BusTask_8c022bdc(Task *task, void *state)
     var_busState_8c1bb9d0.ang_0x250 = ang;
 
     if (var_busState_8c1bb9d0.driveState_0x2b4 == 0) {
-        /* Boarding: substate 0 waits for the doors-open trigger, substate 1
-         * ramps var_busDoorFrame_8c227db0 up to var_busDoorLastFrame_8c227db4 (door hold time) then moves
-         * to substate 2 (BusStop drives the rest from there). */
-        if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 0) {
-            if (var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 != 0) {
+        /* At a stop: shut waits for doorRequest_0x3c4, opening ramps
+         * var_busDoorFrame_8c227db0 up to var_busDoorLastFrame_8c227db4 and
+         * leaves the doors open (BusStop drives the rest from there). */
+        if (var_busState_8c1bb9d0.doorState_0x3c0 == 0) {
+            if (var_busState_8c1bb9d0.doorRequest_0x3c4 != 0) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x1d, 0);
                 var_busDoorFrame_8c227db0 = 0.0f;
-                var_busState_8c1bb9d0.bus_substate_0x3c0 = 1;
+                var_busState_8c1bb9d0.doorState_0x3c0 = 1;
             }
-        } else if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 1) {
+        } else if (var_busState_8c1bb9d0.doorState_0x3c0 == 1) {
             var_busDoorFrame_8c227db0 += 0.5f;
             if (var_busDoorLastFrame_8c227db4 < var_busDoorFrame_8c227db0) {
                 var_busDoorFrame_8c227db0 = var_busDoorLastFrame_8c227db4;
-                var_busState_8c1bb9d0.bus_substate_0x3c0 = 2;
-                var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
+                var_busState_8c1bb9d0.doorState_0x3c0 = 2;
+                var_busState_8c1bb9d0.doorRequest_0x3c4 = 0;
             }
         }
     } else if (var_busState_8c1bb9d0.driveState_0x2b4 == 1) {
-        /* Driving: substate 2 waits for the doors-close trigger (A button or
-         * scripted), substate 3 ramps var_busDoorFrame_8c227db0 back down to 0 then
-         * returns to substate 0. */
-        if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 2) {
+        /* Driving away: open waits for the A button or a scripted request,
+         * closing ramps var_busDoorFrame_8c227db0 back down to 0 and shuts. */
+        if (var_busState_8c1bb9d0.doorState_0x3c0 == 2) {
             if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
-                var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 1;
+                var_busState_8c1bb9d0.doorRequest_0x3c4 = 1;
             }
-            if (var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 != 0) {
+            if (var_busState_8c1bb9d0.doorRequest_0x3c4 != 0) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x1e, 0);
-                var_busState_8c1bb9d0.bus_substate_0x3c0 = 3;
+                var_busState_8c1bb9d0.doorState_0x3c0 = 3;
             }
-        } else if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 3) {
+        } else if (var_busState_8c1bb9d0.doorState_0x3c0 == 3) {
             var_busDoorFrame_8c227db0 -= 0.5f;
             if (var_busDoorFrame_8c227db0 < 0.0f) {
-                var_busState_8c1bb9d0.bus_substate_0x3c0 = 0;
-                var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 0;
+                var_busState_8c1bb9d0.doorState_0x3c0 = 0;
+                var_busState_8c1bb9d0.doorRequest_0x3c4 = 0;
             }
         }
 
@@ -163,6 +162,9 @@ void BusTask_8c022bdc(Task *task, void *state)
                 var_busState_8c1bb9d0.laneOffset_0x2c4 =
                     GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.laneTargetX_0x0ec);
             }
+            /* var_8c2285c4[0] is the run phase (see gradeStopPhase_8c02c0f0's
+             * comment in 02b464): below 3 the run is still going, so resume
+             * driving; from 3 on it is over and the bus stays put. */
             var_busState_8c1bb9d0.driveState_0x2b4 = (var_8c2285c4[0] < 3) ? 1 : 3;
             var_busState_8c1bb9d0.speed_0x27c = 0.0f;
         }
@@ -307,9 +309,9 @@ void BusTask_8c022bdc(Task *task, void *state)
         var_busState_8c1bb9d0.rollAngle_0x07c = 0x2d8;
     }
 
-    if (var_timeOfDay_8c18ad20 == 1) {
+    if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_EVENING) {
         var_busState_8c1bb9d0.blinker_0x080 |= 0x10;
-    } else if (var_timeOfDay_8c18ad20 == 2) {
+    } else if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT) {
         BusDrawFadeLights_8c028022(var_playerBus_8c1bbd9c);
     }
 

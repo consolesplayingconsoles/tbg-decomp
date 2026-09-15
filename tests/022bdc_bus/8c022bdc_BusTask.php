@@ -21,7 +21,7 @@ if (!function_exists('fdec')) {
  * _BusTask_8c022bdc(Task *task, void *state): the player's bus per-frame
  * dispatcher, pushed as the run's task action by BusInitStart_8c023610.
  * This test covers the simplest reachable path: driveState_0x2b4==0
- * (boarding), bus_substate_0x3c0==0 with no doors-open trigger (no state
+ * (boarding), doorState_0x3c0==0 with no doors-open trigger (no state
  * change, no sdMidiPlay), speed_0x27c==0 (skips the BusDriveSampleGround_8c023938/023cba/
  * ground-query block), var_inputMapSel_8c1bb8c8==0 (skips the steering-
  * smoothing block -- state 0 never reads steering itself), timeOfDay
@@ -80,7 +80,7 @@ return new class extends TestCase {
         // allocating it separately (see 8c023610_BusInitStart.php).
         $this->rellocate('_var_busWorldMatrix_8c1bba54', $base + 0x84);
 
-        // driveState_0x2b4/bus_substate_0x3c0/mirrorPendingToggle_0x3c4/speed_0x27c/
+        // driveState_0x2b4/doorState_0x3c0/doorRequest_0x3c4/speed_0x27c/
         // gear_0x2f4/signalSide_0x25c/ang_0x258/posX_0x0f4/posHistory_0x100[0].x
         // are all already 0 from the zero-fill above.
 

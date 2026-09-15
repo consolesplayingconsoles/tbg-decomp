@@ -754,9 +754,9 @@ STATIC void gradeFrame_8c02bcd8(void) {
         var_8c2264c4 = 1;
     }
 
-    if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 2 && var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
+    if (var_busState_8c1bb9d0.doorState_0x3c0 == 2 && var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
         adjust_8c02b464(0x21, -15); /* -> INSTR_DOOR_OPERATION */
-        var_busState_8c1bb9d0.mirrorPendingToggle_0x3c4 = 1;
+        var_busState_8c1bb9d0.doorRequest_0x3c4 = 1;
     }
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 2) != 2) {

@@ -107,7 +107,7 @@ STATIC void task_8c012f9c(Task *task, void* state) {
     if (var_busState_8c1bb9d0.speed_0x27c == 0) {
         switch (task->field_0x08) {
             case 0:
-                if (var_busState_8c1bb9d0.bus_substate_0x3c0 == 0) {
+                if (var_busState_8c1bb9d0.doorState_0x3c0 == 0) {
                     var_fadeArrivalVariant_8c22655c = 0;
                     if (r7 == FALSE) {
                         var_busState_8c1bb9d0.mirror_0x268 = 2;
