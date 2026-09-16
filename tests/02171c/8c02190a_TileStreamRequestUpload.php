@@ -34,9 +34,9 @@ return new class extends TestCase {
      * addresses. Layer 4 (model-only) is out of this function's range and
      * left unset. */
     private function setUpLayers(int $width, int $height): array {
-        $this->setSize('_var_8c22650c', 5 * 4);
+        $this->setSize('_var_tileLayerIndexes_8c22650c', 5 * 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 5 * 4);
-        $dimsBase = $this->addressOf('_var_8c22650c');
+        $dimsBase = $this->addressOf('_var_tileLayerIndexes_8c22650c');
         $gridBase = $this->addressOf('_var_tileLayerSlots_8c226520');
 
         $dims = $this->alloc(8);

@@ -4,7 +4,7 @@
 #include "011120_asset_queues.h" /* LoadedModel */
 #include "013ae8_route_load.h" /* CourseSceneParams */
 #include "014a9c_tasks.h"
-#include "021b9c.h"
+#include "021b9c_tile_draw.h"
 #include "022464_fade.h" /* FadeDrawCommand, FadeCallback1, FadeCallback2 */
 #include "sectionB.h"
 
@@ -14,7 +14,7 @@
  */
 
 /* Run-start setup for the tile draw pass. The two latched lighting records
- * split by 021b9c's lighting mode: rec1_0x54 into njCnkSetEasyLight*,
+ * split by 021b9c_tile_draw's lighting mode: rec1_0x54 into njCnkSetEasyLight*,
  * rec2_0x74 into njCnkSetSimpleLight*. */
 void FadeCmdPushTileDrawTask_8c0222dc(void)
 {

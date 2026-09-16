@@ -2,7 +2,7 @@
           .IMPORT     _var_tileLayerSlots_8c226520
           .IMPORT     _syFree
           .IMPORT     _var_currentCourse_8c1bb868
-          .IMPORT     _var_8c22650c
+          .IMPORT     _var_tileLayerIndexes_8c22650c
           .IMPORT     _syMalloc
           .IMPORT     _var_currentTileRegionList_8c226534
           .IMPORT     _var_datFiles_8c18adb4
@@ -377,7 +377,7 @@ LP_GEN_62938:
           .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021990
           .DATA.L _syFree ; H'8C021994
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C021998
-          .DATA.L _var_8c22650c ; H'8C02199C
+          .DATA.L _var_tileLayerIndexes_8c22650c ; H'8C02199C
           .DATA.L _syMalloc ; H'8C0219A0
           .DATA.L _var_currentTileRegionList_8c226534 ; H'8C0219A4
           .DATA.L _var_datFiles_8c18adb4 ; H'8C0219A8
@@ -584,7 +584,7 @@ LP_GEN_62772:
           .DATA.L _var_8c1bb8a4 ; H'8C021B20
           .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021B24
           .DATA.L _var_8c22651c ; H'8C021B28
-          .DATA.L _var_8c22650c ; H'8C021B2C
+          .DATA.L _var_tileLayerIndexes_8c22650c ; H'8C021B2C
           .DATA.L _njReleaseTexture ; H'8C021B30
 _TileStreamDrawTile_8c021b34:
           MOV.L       R14,@-R15

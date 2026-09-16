@@ -781,7 +781,7 @@ the asm never emitted. Inline the literal at its use site instead. Hit in
 The helper divides unsigned, so a mock built on it is silently wrong for
 negative dividends -- it passes every non-negative case and fails only at a
 clamp boundary. Do the signed division manually (`intdiv` on `signedValue()`).
-Hit in `021b9c`'s clamp-boundary test.
+Hit in `021b9c_tile_draw`'s clamp-boundary test.
 
 ## `field_0xNN` names are not unique across structs; blind sed clobbers them
 

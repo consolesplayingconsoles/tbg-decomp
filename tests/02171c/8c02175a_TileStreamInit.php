@@ -8,7 +8,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void {
         // int courseId_0x00; void *slots_0x04[19];
         $this->setSize('_var_currentCourse_8c1bb868', 4 + 19 * 4);
-        $this->setSize('_var_8c22650c', 5 * 4);
+        $this->setSize('_var_tileLayerIndexes_8c22650c', 5 * 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 5 * 4);
         $this->setSize('_syMalloc', 4);
     }
@@ -30,7 +30,7 @@ return new class extends TestCase {
 
         $slots = [];
         for ($i = 0; $i < 5; $i++) {
-            $this->shouldWriteLong($this->addressOf('_var_8c22650c') + $i * 4, $dims[$i]);
+            $this->shouldWriteLong($this->addressOf('_var_tileLayerIndexes_8c22650c') + $i * 4, $dims[$i]);
         }
 
         for ($i = 0; $i < 5; $i++) {
@@ -66,7 +66,7 @@ return new class extends TestCase {
         $this->call('_TileStreamInit_8c02175a');
 
         for ($i = 0; $i < 5; $i++) {
-            $this->shouldWriteLong($this->addressOf('_var_8c22650c') + $i * 4, $dims[$i]);
+            $this->shouldWriteLong($this->addressOf('_var_tileLayerIndexes_8c22650c') + $i * 4, $dims[$i]);
         }
 
         for ($i = 0; $i < 5; $i++) {

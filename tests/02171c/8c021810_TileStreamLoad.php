@@ -55,10 +55,10 @@ return new class extends TestCase {
      * ['grid' => ..., 'datFile' => ...] entry per layer (datFile is an
      * opaque pointer, only ever passed through to the mocked lookupTile). */
     private function setUpLayers(int $width, int $height): array {
-        $this->setSize('_var_8c22650c', 5 * 4);
+        $this->setSize('_var_tileLayerIndexes_8c22650c', 5 * 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 5 * 4);
         $this->setSize('_var_datFiles_8c18adb4', 4 * 4);
-        $dimsBase = $this->addressOf('_var_8c22650c');
+        $dimsBase = $this->addressOf('_var_tileLayerIndexes_8c22650c');
         $gridBase = $this->addressOf('_var_tileLayerSlots_8c226520');
         $datFilesBase = $this->addressOf('_var_datFiles_8c18adb4');
         $this->setSize('_syFree', 4);
@@ -192,10 +192,10 @@ return new class extends TestCase {
     }
 
     /* Every real course gives all 5 layers the same grid dims, but the asm
-     * always strides by var_8c22650c[0]->width regardless of which layer is
-     * being loaded -- confirmed by decompiling FUN_8c021810. Give layers 1-3
-     * a different width than layer 0 to catch a switch back to per-layer
-     * width. */
+     * always strides by var_tileLayerIndexes_8c22650c[0]->width regardless of
+     * which layer is being loaded -- confirmed by decompiling FUN_8c021810.
+     * Give layers 1-3 a different width than layer 0 to catch a switch back
+     * to per-layer width. */
     public function test_uses_layer_zero_width_for_every_layer(): void {
         $this->setUpRegion([[0, 0, 1, 1]]); // col 0..1, row 0..1
         $layers = $this->setUpLayers(2, 2);
@@ -206,7 +206,7 @@ return new class extends TestCase {
             $dims = $this->alloc(8);
             $this->initUint32($dims + 0, 5);
             $this->initUint32($dims + 4, 2);
-            $this->initUint32($this->addressOf('_var_8c22650c') + $layer * 4, $dims);
+            $this->initUint32($this->addressOf('_var_tileLayerIndexes_8c22650c') + $layer * 4, $dims);
 
             $grid = $this->alloc(5 * 2 * 8);
             for ($i = 0; $i < 5 * 2; $i++) {

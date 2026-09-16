@@ -32,11 +32,11 @@ void TileStreamInit_8c02175a(void)
     int i;
 
     for (i = 0; i < 5; i++) {
-        var_8c22650c[i] = var_currentCourse_8c1bb868.tileLayers_0x3c[i];
+        var_tileLayerIndexes_8c22650c[i] = var_currentCourse_8c1bb868.tileLayers_0x3c[i];
     }
 
     for (i = 0; i < 5; i++) {
-        TileIndex *index = var_8c22650c[i];
+        TileIndex *index = var_tileLayerIndexes_8c22650c[i];
         int count = index->width * index->height;
         LoadedModel *slot = (LoadedModel *)syMalloc(count * sizeof(LoadedModel));
         var_tileLayerSlots_8c226520[i] = slot;
@@ -83,8 +83,8 @@ void TileStreamLoad_8c021810(void)
             for (row = rect->startRow; row <= rect->endRow; row++) {
                 for (col = rect->startCol; col <= rect->endCol; col++) {
                     /* Always layer 0's width, like TileStreamRequestUpload_8c02190a --
-                     * not var_8c22650c[layer]. */
-                    idx = row * var_8c22650c[0]->width + col;
+                     * not var_tileLayerIndexes_8c22650c[layer]. */
+                    idx = row * var_tileLayerIndexes_8c22650c[0]->width + col;
                     fpos = 0;
                     if (lookupTile_8c0217de(col, row, &tileData, var_datFiles_8c18adb4[layer])) {
                         slot = &var_tileLayerSlots_8c226520[layer][idx];
@@ -117,8 +117,8 @@ void TileStreamRequestUpload_8c02190a(void)
         return;
     }
 
-    width = var_8c22650c[0]->width;
-    height = var_8c22650c[0]->height;
+    width = var_tileLayerIndexes_8c22650c[0]->width;
+    height = var_tileLayerIndexes_8c22650c[0]->height;
     area = width * height;
     requested = (char *)syMalloc(area);
     for (idx = 0; idx < area; idx++) {
@@ -162,7 +162,7 @@ void TileStreamReleaseAll_8c021a24(void)
     for (row = 0; row < height; row++) {
         for (col = 0; col < width; col++) {
             for (layer = 0; layer < 4; layer++) {
-                idx = row * var_8c22650c[layer]->width + col;
+                idx = row * var_tileLayerIndexes_8c22650c[layer]->width + col;
                 slot = &var_tileLayerSlots_8c226520[layer][idx];
                 if (slot->texlist != NULL) {
                     njReleaseTexture(slot->texlist);
@@ -173,7 +173,7 @@ void TileStreamReleaseAll_8c021a24(void)
                 }
             }
 
-            idx = row * var_8c22650c[4]->width + col;
+            idx = row * var_tileLayerIndexes_8c22650c[4]->width + col;
             slot = &var_tileLayerSlots_8c226520[4][idx];
             if (slot->njDest != NULL) {
                 syFree(slot->njDest);

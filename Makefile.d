@@ -375,18 +375,18 @@ $(OUTPUT_DIR)/src/02171c_tile_stream.obj: src/015ab8_title.h src/022464_fade.h
 $(OUTPUT_DIR)/src/02171c_tile_stream.obj: src/028258_objects.h src/020914_ground_query.h
 $(OUTPUT_DIR)/src/02171c_tile_stream.obj: src/023938_bus_drive.h src/026710_traffic.h
 $(OUTPUT_DIR)/src/02171c_tile_stream.obj: src/014f54_text.h src/includes.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/includes.h src/serial_debug.h src/sectionB.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/014b8c_backup.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/011120_asset_queues.h src/02171c_tile_stream.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8_title.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/022464_fade.h src/028258_objects.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/020914_ground_query.h src/023938_bus_drive.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/026710_traffic.h src/014f54_text.h src/021b9c.h
-$(OUTPUT_DIR)/src/021b9c.obj: src/0222dc_fadecmd.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/includes.h src/serial_debug.h src/sectionB.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/014b8c_backup.h src/013ae8_route_load.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/011120_asset_queues.h src/02171c_tile_stream.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8_title.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/022464_fade.h src/028258_objects.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/020914_ground_query.h src/023938_bus_drive.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/026710_traffic.h src/014f54_text.h src/021b9c_tile_draw.h
+$(OUTPUT_DIR)/src/021b9c_tile_draw.obj: src/0222dc_fadecmd.h
 $(OUTPUT_DIR)/src/0222dc_fadecmd.obj: src/011120_asset_queues.h src/serial_debug.h
 $(OUTPUT_DIR)/src/0222dc_fadecmd.obj: src/014a9c_tasks.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/0222dc_fadecmd.obj: src/02171c_tile_stream.h src/021b9c.h
+$(OUTPUT_DIR)/src/0222dc_fadecmd.obj: src/02171c_tile_stream.h src/021b9c_tile_draw.h
 $(OUTPUT_DIR)/src/0222dc_fadecmd.obj: src/022464_fade.h src/sectionB.h
 $(OUTPUT_DIR)/src/0222dc_fadecmd.obj: src/01614c_debug_menu.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/0222dc_fadecmd.obj: src/02af78_event.h src/01bb48_vm_game.h

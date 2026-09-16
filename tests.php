@@ -955,13 +955,13 @@ return [
         ],
         [
             "tests" => [
-                "tests/021b9c/8c021b9c_drawTileGrid.php",
-                "tests/021b9c/8c021ec4_drawTileGridMirror.php",
-                "tests/021b9c/8c0221d0_TileDrawEnqueueTask.php",
+                "tests/021b9c_tile_draw/8c021b9c_drawTileGrid.php",
+                "tests/021b9c_tile_draw/8c021ec4_drawTileGridMirror.php",
+                "tests/021b9c_tile_draw/8c0221d0_TileDrawEnqueueTask.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/021b9c.obj",
-                "build/output_test/src/021b9c.obj",
+                "build/output_test/src/asm/decompiled/021b9c_tile_draw.obj",
+                "build/output_test/src/021b9c_tile_draw.obj",
             ]
         ],
         [

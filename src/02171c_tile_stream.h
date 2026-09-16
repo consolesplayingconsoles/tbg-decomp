@@ -12,7 +12,7 @@
 
 /* Tile layer index file: grid dims followed by a width*height table of byte
  * offsets from the file base (0 = the tile has no data). The copies held in
- * CurrentCourse.slots_0x04[14..18] are only read for their dims. */
+ * CurrentCourse.tileLayers_0x3c are only read for their dims. */
 typedef struct {
     int width;
     int height;

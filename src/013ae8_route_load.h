@@ -116,7 +116,7 @@ extern enum ROUTE var_route_8c18ad1c;
 extern enum TIME_OF_DAY var_timeOfDay_8c18ad20;
 extern FogParams *var_fogParams_8c18ad28;
 
-// Read by driving/render units 023310, 026710, 021b9c, 0222dc, 024b4c
+// Read by driving/render units 023310, 026710, 021b9c_tile_draw, 0222dc, 024b4c
 extern CourseSceneParams *var_sceneParams_8c18ad24;
 
 /* One 0x2c-byte record of var_currentCourseConfig_8c18ad18->segments_0x08,

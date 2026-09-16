@@ -512,8 +512,8 @@ extern float var_nightLightIntensityOff1_8c1bbdac;
 extern void* var_busstopDat_8c1bc42c;
 extern void* var_busstopPartsDat_8c1bc428;
 extern NJS_TEXLIST *var_busStopTexlist_8c1bc424;
-extern NJS_CAMERA var_camera_8c1bb904; // 021b9c
-extern NJS_CAMERA var_mirrorCamera_8c1bb944; // 021b9c
+extern NJS_CAMERA var_camera_8c1bb904; // 021b9c_tile_draw
+extern NJS_CAMERA var_mirrorCamera_8c1bb944; // 021b9c_tile_draw
 /* Aimed from the driver's eye down the aisle by DemoBoardingCamera_8c025870
  * (025870); FadeUpdate_8c022560's arrival variant 1 renders it into the inset
  * over the mirror view. */
@@ -647,18 +647,14 @@ extern int var_8c2264bc;
  * base, so this unit uses var_8c2264b8.nearStopLatch_0x0c). */
 extern int var_8c2264c4;
 extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
-extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c: light direction for fade layer 0
-extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c: light direction for fade layer 1 (mirror side)
-/* 021b9c's simple-light draw block for fade layer 1 addresses these two as
- * their own symbols rather than var_fadeLightDir1_8c2264e4[1]/[2] -- same
- * bytes, exported separately in src/asm/sectionB.src. */
-extern float var_8c2264e8; // alias of var_fadeLightDir1_8c2264e4[1]
-extern float var_8c2264ec; // alias of var_fadeLightDir1_8c2264e4[2]
+extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
+extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c_tile_draw: simple-light direction, fade layer 1 (mirror side)
 /* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Two separate
  * symbols (not one float[5]) because each is exported/imported on its own in
  * src/asm/sectionB.src -- coincidentally adjacent, not one C variable. */
 extern float var_fadeLightIntensity_8c2264f0[2]; // [0..1]
 extern float var_fadeLightColor_8c2264f8[3]; // [2..4]
+extern float var_fadeEasyLightDir_8c226538[3]; // 021b9c_tile_draw: easy-light direction, shared by both fade layers
 /* 0222dc: same deal, for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
 extern float var_fadeEasyLightIntensity_8c226544[2]; // [0..1]
 extern float var_fadeEasyLightColor_8c22654c[3]; // [2..4]
@@ -1101,12 +1097,12 @@ extern int var_currentSegment_8c228708;
  * EventApplyFlags_8c02b292 */
 extern int var_selectedEventEntry_8c228478;
 extern void* var_currentSysResGroupInfo_8c225fb0;
-extern TileIndex *var_8c22650c[5]; /* per-layer grid dims, copied from
-                                    * var_currentCourse_8c1bb868.slots_0x04[14..18] by TileStreamInit_8c02175a */
+extern TileIndex *var_tileLayerIndexes_8c22650c[5]; /* copied from
+                                    * var_currentCourse_8c1bb868.tileLayers_0x3c by TileStreamInit_8c02175a; only
+                                    * the dims are read, the offset tables come from var_datFiles_8c18adb4 */
 extern LoadedModel *var_tileLayerSlots_8c226520[5]; /* per-layer tile grids, width * height slots each;
                                                       * layers 0-3 hold texture+model pairs, layer 4 model only */
 extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
-extern float var_8c226538[3]; // 021b9c: scratch light-direction vector for the visible-tile draw pass
 extern int var_8c22640c;
 /* Which parts of a normal run still apply to the selected practice drill,
  * from init_practiceRules_8c0451c0 (01e27c). A set bit keeps the normal

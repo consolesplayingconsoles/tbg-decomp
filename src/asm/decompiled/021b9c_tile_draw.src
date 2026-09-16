@@ -14,7 +14,7 @@
           .IMPORT     _var_fadeCamera_8c226558
           .IMPORT     _njSetTexture
           .IMPORT     _njSetCamera
-          .IMPORT     _var_8c226538
+          .IMPORT     _var_fadeEasyLightDir_8c226538
           .IMPORT     _njCnkSetEasyLightIntensity
           .IMPORT     _njCnkSetEasyLightColor
           .IMPORT     _njCnkEasyDrawObject
@@ -22,14 +22,12 @@
           .IMPORT     _njCnkSetSimpleLightIntensity
           .IMPORT     _njCnkSetSimpleLightColor
           .IMPORT     _njCnkSimpleDrawObject
-          .IMPORT     _var_8c2264ec
-          .IMPORT     _var_8c2264e8
           .IMPORT     _var_fadeLightDir1_8c2264e4
           .IMPORT     _var_camera_8c1bb904
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _njCalcVector
           .IMPORT     _var_mirrorCamera_8c1bb944
-          .IMPORT     _var_8c22650c
+          .IMPORT     _var_tileLayerIndexes_8c22650c
           .IMPORT     _FadeCmdPushCall2_8c022420
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _TileStreamDrawTile_8c021b34
@@ -193,7 +191,7 @@ LP_GEN_32922:
           .DATA.L _var_fadeCamera_8c226558 ; H'8C021CD4
           .DATA.L _njSetTexture ; H'8C021CD8
           .DATA.L _njSetCamera ; H'8C021CDC
-          .DATA.L _var_8c226538 ; H'8C021CE0
+          .DATA.L _var_fadeEasyLightDir_8c226538 ; H'8C021CE0
 LAB_8c021ce4:
           MOV         #H'40,R0
           MOV.L       @(H'3c,R15),R3
@@ -580,7 +578,7 @@ LP_GEN_10089:
           .DATA.L _njSetCamera ; H'8C021FE0
           .DATA.L _njSetTexture ; H'8C021FE4
           .DATA.L _var_fadeCamera_8c226558 ; H'8C021FE8
-          .DATA.L _var_8c226538 ; H'8C021FEC
+          .DATA.L _var_fadeEasyLightDir_8c226538 ; H'8C021FEC
 LAB_8c021ff0:
           MOV.L       @(H'3c,R15),R3
           MOV.L       @(H'38,R15),R9
@@ -802,8 +800,8 @@ LP_GEN_73379:
           .DATA.L _njCnkSetEasyLight ; H'8C022190
           .DATA.L _njCnkSetEasyLightColor ; H'8C022194
           .DATA.L _njCnkEasyDrawObject ; H'8C022198
-          .DATA.L _var_8c2264ec ; H'8C02219C
-          .DATA.L _var_8c2264e8 ; H'8C0221A0
+          .DATA.L _var_fadeLightDir1_8c2264e4+H'08 ; H'8C02219C (dir1[2])
+          .DATA.L _var_fadeLightDir1_8c2264e4+H'04 ; H'8C0221A0 (dir1[1])
           .DATA.L _var_fadeLightDir1_8c2264e4 ; H'8C0221A4
           .DATA.L _njCnkSetSimpleLight ; H'8C0221A8
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C0221AC
@@ -931,13 +929,13 @@ LP_GEN_78610:
           .DATA.L _njControl3D ; H'8C0222A0
           .DATA.L _var_camera_8c1bb904 ; H'8C0222A4
           .DATA.L _njSetCamera ; H'8C0222A8
-          .DATA.L _var_8c226538 ; H'8C0222AC
+          .DATA.L _var_fadeEasyLightDir_8c226538 ; H'8C0222AC
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C0222B0
           .DATA.L _njCalcVector ; H'8C0222B4
           .DATA.L _var_fadeLightDir0_8c2264d8 ; H'8C0222B8
           .DATA.L _var_mirrorCamera_8c1bb944 ; H'8C0222BC
           .DATA.L _var_fadeLightDir1_8c2264e4 ; H'8C0222C0
-          .DATA.L _var_8c22650c ; H'8C0222C4
+          .DATA.L _var_tileLayerIndexes_8c22650c ; H'8C0222C4
           .DATA.L _drawTileGrid_8c021b9c ; H'8C0222C8
           .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C0222CC
           .DATA.L _drawTileGridMirror_8c021ec4 ; H'8C0222D0

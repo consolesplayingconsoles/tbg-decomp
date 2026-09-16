@@ -8,7 +8,7 @@ return new class extends TestCase {
     public function test_releases_loaded_and_skips_empty_slots(): void {
         // int courseId_0x00; void *slots_0x04[19];
         $this->setSize('_var_currentCourse_8c1bb868', 4 + 19 * 4);
-        $this->setSize('_var_8c22650c', 5 * 4);
+        $this->setSize('_var_tileLayerIndexes_8c22650c', 5 * 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 5 * 4);
         $this->setSize('_njReleaseTexture', 4);
         $this->setSize('_syFree', 4);
@@ -22,9 +22,9 @@ return new class extends TestCase {
         // var_8c1bb8a4 aliases var_currentCourse_8c1bb868.slots_0x04[14].
         $this->rellocate('_var_8c1bb8a4', $slot14);
 
-        $dimsBase = $this->addressOf('_var_8c22650c');
+        $dimsBase = $this->addressOf('_var_tileLayerIndexes_8c22650c');
         $gridBase = $this->addressOf('_var_tileLayerSlots_8c226520');
-        // var_8c22651c aliases var_8c22650c[4].
+        // var_8c22651c aliases var_tileLayerIndexes_8c22650c[4].
         $this->rellocate('_var_8c22651c', $dimsBase + 4 * 4);
 
         $grids = [];
@@ -64,14 +64,15 @@ return new class extends TestCase {
     }
 
     /* Every real course gives all 5 layers the same grid dims, but the asm
-     * strides each layer (0-3) by its own var_8c22650c[layer]->width, and the
-     * model-only layer by var_8c22650c[4]->width -- confirmed by decompiling
+     * strides each layer (0-3) by its own
+     * var_tileLayerIndexes_8c22650c[layer]->width, and the model-only layer by
+     * var_tileLayerIndexes_8c22650c[4]->width -- confirmed by decompiling
      * FUN_8c021a24. Give every layer a different width than the outer
      * row/col bound (from courseIndex = tileLayers_0x3c[0]) to catch a
      * collapse back to one shared width. */
     public function test_uses_each_layers_own_width(): void {
         $this->setSize('_var_currentCourse_8c1bb868', 4 + 19 * 4);
-        $this->setSize('_var_8c22650c', 5 * 4);
+        $this->setSize('_var_tileLayerIndexes_8c22650c', 5 * 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 5 * 4);
         $this->setSize('_njReleaseTexture', 4);
         $this->setSize('_syFree', 4);
@@ -85,7 +86,7 @@ return new class extends TestCase {
         $this->initUint32($slot14, $courseDims);
         $this->rellocate('_var_8c1bb8a4', $slot14);
 
-        $dimsBase = $this->addressOf('_var_8c22650c');
+        $dimsBase = $this->addressOf('_var_tileLayerIndexes_8c22650c');
         $gridBase = $this->addressOf('_var_tileLayerSlots_8c226520');
         $this->rellocate('_var_8c22651c', $dimsBase + 4 * 4);
 

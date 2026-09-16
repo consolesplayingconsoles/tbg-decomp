@@ -6,10 +6,12 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 /*
- * drawTileGrid_8c021b9c(int width, int height): draws the visible window of the
- * width*height tile grid (var_tileLayerSlots_8c226520) around the bus's
- * current position for fade-command layer 0. Layers 0/2/3 draw with the
- * Chunk "Easy" light model, layer 1 with "Simple".
+ * drawTileGridMirror_8c021ec4(int width, int height): the mirror-render twin of
+ * drawTileGrid_8c021b9c -- reachable only via the function-pointer literal
+ * TileDrawEnqueueTask_8c0221d0 pushes to FadeCmdPushCall2_8c022420(1, ...), never called
+ * directly, so it stays private (exported under UNIT_TESTING only). Same
+ * visible-window/Easy-Simple-Easy-Easy structure; its Simple-light block
+ * reads var_fadeLightDir1_8c2264e4 instead of var_fadeLightDir0_8c2264d8.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -22,13 +24,13 @@ return new class extends TestCase {
         $this->setSize('_var_fadeEasyLightIntensity_8c226544', 4 * 2);
         $this->setSize('_var_fadeEasyLightColor_8c22654c', 4 * 3);
         $this->setSize('_njCnkSetEasyLight', 4);
-        $this->setSize('_var_fadeLightDir0_8c2264d8', 4 * 3);
+        $this->setSize('_var_fadeLightDir1_8c2264e4', 4 * 3);
         $this->setSize('_var_fadeLightIntensity_8c2264f0', 4 * 2);
         $this->setSize('_var_fadeLightColor_8c2264f8', 4 * 3);
         $this->setSize('_var_fadeCamera_8c226558', 4);
         $this->setSize('_njSetTexture', 4);
         $this->setSize('_njSetCamera', 4);
-        $this->setSize('_var_8c226538', 4 * 3);
+        $this->setSize('_var_fadeEasyLightDir_8c226538', 4 * 3);
         $this->setSize('_njCnkSetEasyLightIntensity', 4);
         $this->setSize('_njCnkSetEasyLightColor', 4);
         $this->setSize('_njCnkEasyDrawObject', 4);
@@ -37,8 +39,7 @@ return new class extends TestCase {
         $this->setSize('_njCnkSetSimpleLightColor', 4);
         $this->setSize('_njCnkSimpleDrawObject', 4);
         $this->setSize('__divls', 4);
-        // Signed division (dividend R1, divisor R0; see docs/lessons_learned.md /
-        // reference_calling_conventions) -- UInt::div() is unsigned, so do it by hand.
+        // Signed division (dividend R1, divisor R0) -- UInt::div() is unsigned.
         $this->onCall('__divls', function () {
             $dividend = $this->getRegister(1)->signedValue();
             $divisor = $this->getRegister(0)->signedValue();
@@ -62,11 +63,11 @@ return new class extends TestCase {
 
     private function seedLightGlobals(): void
     {
-        $this->seedVector('_var_8c226538', 1.0, 2.0, 3.0);
+        $this->seedVector('_var_fadeEasyLightDir_8c226538', 1.0, 2.0, 3.0);
         $this->initUint32($this->addressOf('_var_fadeEasyLightIntensity_8c226544') + 0, $this->f(4.0));
         $this->initUint32($this->addressOf('_var_fadeEasyLightIntensity_8c226544') + 4, $this->f(5.0));
         $this->seedVector('_var_fadeEasyLightColor_8c22654c', 6.0, 7.0, 8.0);
-        $this->seedVector('_var_fadeLightDir0_8c2264d8', 9.0, 10.0, 11.0);
+        $this->seedVector('_var_fadeLightDir1_8c2264e4', 9.0, 10.0, 11.0);
         $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 0, $this->f(12.0));
         $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 4, $this->f(13.0));
         $this->seedVector('_var_fadeLightColor_8c2264f8', 14.0, 15.0, 16.0);
@@ -124,7 +125,7 @@ return new class extends TestCase {
         $this->initUint32($slots + 2 * 4, $slot2);
         $this->initUint32($slots + 3 * 4, $slot3);
 
-        $this->call('_drawTileGrid_8c021b9c')->with(1, 1);
+        $this->call('_drawTileGridMirror_8c021ec4')->with(1, 1);
 
         $this->shouldCall('__divls');
         $this->shouldCall('__divls');
@@ -149,7 +150,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fogParam_8c226504'), 0);
 
         $slots = $this->addressOf('_var_tileLayerSlots_8c226520');
-        $slot0 = $this->allocSlot(0, 0); // texlist == NULL
+        $slot0 = $this->allocSlot(0, 0);
         $slot1 = $this->allocSlot(0, 0);
         $slot2 = $this->allocSlot(0, 0);
         $slot3 = $this->allocSlot(0, 0);
@@ -158,58 +159,11 @@ return new class extends TestCase {
         $this->initUint32($slots + 2 * 4, $slot2);
         $this->initUint32($slots + 3 * 4, $slot3);
 
-        $this->call('_drawTileGrid_8c021b9c')->with(1, 1);
+        $this->call('_drawTileGridMirror_8c021ec4')->with(1, 1);
 
         $this->shouldCall('__divls');
         $this->shouldCall('__divls');
         $this->shouldCall('_njControl3D')->with(0x2500);
-        $this->shouldCall('_njControl3D')->with(0x100);
-    }
-
-    public function test_visible_window_is_clamped_to_grid_bounds(): void
-    {
-        $this->resolveSymbols();
-        $this->seedLightGlobals();
-
-        // posX/150 - halfRadius = -2 - 1 = -3 (clamped to 0);
-        // colEnd = -3 + radius(10) = 7 (clamped to width-1 = 2).
-        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2fc, $this->f(-300.0));
-        // posZ/150 - halfRadius = 0 - 1 = -1 (clamped to 0);
-        // rowEnd = -1 + 10 = 9 (clamped to height-1 = 0).
-        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x304, $this->f(0.0));
-        $this->initUint32($this->addressOf('_var_fogParam_8c226508'), 1);
-        $this->initUint32($this->addressOf('_var_fogParam_8c226504'), 10);
-
-        $width = 3;
-        $height = 1;
-        $slots = $this->addressOf('_var_tileLayerSlots_8c226520');
-
-        // Layer 0 populated across the whole row; layers 1-3 left NULL.
-        $layer0 = $this->alloc(8 * $width * $height);
-        for ($i = 0; $i < $width * $height; $i++) {
-            $this->initUint32($layer0 + $i * 8 + 0, 0x3000 + $i);
-            $this->initUint32($layer0 + $i * 8 + 4, 0x4000 + $i);
-        }
-        $this->initUint32($slots + 0 * 4, $layer0);
-        // Layers 1-3: same width*height slot count as layer 0, all NULL.
-        $emptyLayer = $this->alloc(8 * $width * $height);
-        for ($i = 0; $i < $width * $height; $i++) {
-            $this->initUint32($emptyLayer + $i * 8 + 0, 0);
-            $this->initUint32($emptyLayer + $i * 8 + 4, 0);
-        }
-        $this->initUint32($slots + 1 * 4, $emptyLayer);
-        $this->initUint32($slots + 2 * 4, $emptyLayer);
-        $this->initUint32($slots + 3 * 4, $emptyLayer);
-
-        $this->call('_drawTileGrid_8c021b9c')->with($width, $height);
-
-        $this->shouldCall('__divls');
-        $this->shouldCall('__divls');
-        $this->shouldCall('_njControl3D')->with(0x2500);
-
-        $this->assertEasyDraw(0x3000, 0x4000);
-        $this->assertEasyDraw(0x3001, 0x4001);
-        $this->assertEasyDraw(0x3002, 0x4002);
         $this->shouldCall('_njControl3D')->with(0x100);
     }
 };
