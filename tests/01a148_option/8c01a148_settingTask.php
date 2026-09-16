@@ -8,7 +8,7 @@ return new class extends TestCase {
     const PRESS = 0x10;           // var_peripherals_8c1ba35c[0].press offset
     const STATE = 0x18;          // var_menuState_8c1bc7a8.state_0x18 offset
     const SELECTED = 0x38;       // var_menuState_8c1bc7a8.selected_0x38 offset
-    const LOGO = 0x68;           // var_menuState_8c1bc7a8.logo_timer_0x68 offset
+    const LOGO = 0x68;           // var_menuState_8c1bc7a8.timer_0x68 offset
     const TA = 1 << 2;           // confirm
     const TB = 1 << 1;           // cancel
     const KU = 1 << 4;           // prev row
@@ -54,8 +54,8 @@ return new class extends TestCase {
     /*
      * Queue the per-frame draw. Each of the 5 toggle rows draws a label sprite,
      * then a value marker (positioned at 337 + 64*value, 77 + 56*row); the marker
-     * blinks off when its row is being edited on an even logo_timer frame -- and
-     * the edited row always bumps logo_timer. Then the DEFAULT-area sprite, the
+     * blinks off when its row is being edited on an even timer_0x68 frame -- and
+     * the edited row always bumps timer_0x68. Then the DEFAULT-area sprite, the
      * RETURN sprite, and the title frame.
      */
     private function expectDraw(int $state, int $selected, array $values, int $logo): void
@@ -202,7 +202,7 @@ return new class extends TestCase {
 
     public function test_edit_marker_blinks_hidden_on_even_frame()
     {
-        // Editing row 0 with an even logo_timer: that row's marker is skipped.
+        // Editing row 0 with an even timer_0x68: that row's marker is skipped.
         $this->arrange(0, 2, 0, [0, 0, 0, 0, 0], 0, 0);
         $this->call('_settingTask_8c01a148');
         $this->expectDraw(2, 0, [0, 0, 0, 0, 0], 0);

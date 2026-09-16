@@ -56,7 +56,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x00_Init_NoopWhenUknPvmBoolIsTrue() {
+    public function testState0x00_Init_WaitsWhileTitleAssetsLoad() {
         $this->resolveImports();
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18 , 0);
@@ -117,7 +117,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 2);
-        // Init logo timer
+        // Init timer_0x68
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 0);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
@@ -144,7 +144,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x02_Fortyfive_PushesFadeOutAfterThirteenTicks() {
+    public function testState0x02_Fortyfive_PushesFadeOutAfterThirtyTicks() {
         $this->resolveImports();
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 2);
@@ -218,7 +218,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 5);
-        // Init logo timer
+        // Init timer_0x68
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 0);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -5.0);
@@ -245,7 +245,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x05_Adx_PushesFadeOutAfterThirteenTicks() {
+    public function testState0x05_Adx_PushesFadeOutAfterThirtyTicks() {
         $this->resolveImports();
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 5);
@@ -281,7 +281,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x06_AdxFadeOut_AdvancesToTitleWhenFirstConditionFails() {
+    public function testState0x06_AdxFadeOut_AdvancesToTitleWhenNotFirstBootThisPowerOn() {
         $this->resolveImports();
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
@@ -298,7 +298,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x06_AdxFadeOut_AdvancesToTitleWhenSecondConditionFails() {
+    public function testState0x06_AdxFadeOut_AdvancesToTitleWhenAVmuHoldsASave() {
         $this->resolveImports();
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
@@ -319,7 +319,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x06_AdxFadeOut_AdvancesToWarningWhenBothConditionsPasses() {
+    public function testState0x06_AdxFadeOut_WarnsOnFirstBootWithNoSave() {
         $this->resolveImports();
 
 
@@ -341,7 +341,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x047_VmuWarningFadeIn_WaitsForFadeInBeforeAdvancing() {
+    public function testState0x07_VmuWarningFadeIn_WaitsForFadeInBeforeAdvancing() {
         $this->resolveImports();
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 7);
@@ -372,7 +372,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x08_VmuWarning_WaitsWhenNoInputOrSaveNames() {
+    public function testState0x08_VmuWarning_WaitsWhileNoInputAndNoVmuSave() {
         $this->resolveImports();
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 8);
@@ -445,7 +445,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x08_VmuWarning_AdvancesWhenSaveNamePasses() {
+    public function testState0x08_VmuWarning_AdvancesWhenAVmuSaveAppears() {
         $this->resolveImports();
 
 
@@ -558,7 +558,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function testState0x0b_BusSlide_AdvancesWhenBusReachesCenterOfScreen() {
+    public function testState0x0b_BusSlide_AdvancesWhenBusReachesItsRestingX() {
         $this->resolveImports();
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x0b);
@@ -574,8 +574,7 @@ return new class extends TestCase {
         // Init flag Y position as 167.0
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x24, 0x43270000);
 
-        // A break statement is missing, so we continue
-        // to the next switch case (Flag Reveal).
+        // No break in the original: the flag reveal runs in the same frame.
 
         // 164.666671753
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x24, 0x4324aaab);
@@ -658,8 +657,6 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x0d);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        // TODO: assert that state is still 0x0d when drawSprite is called;
-
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
         // Draw flag
@@ -737,7 +734,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0f);
-        // Reset logo timer
+        // Reset timer_0x68
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 0);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
@@ -1023,9 +1020,6 @@ return new class extends TestCase {
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0e);
         $this->shouldWriteSymbolOffset('_var_isFading_8c226568', 0, 0);
 
-        // Switch case
-        // $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x0e);
-
         $this->forceStop();
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -1047,9 +1041,6 @@ return new class extends TestCase {
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0e);
         $this->shouldWriteSymbolOffset('_var_isFading_8c226568', 0, 0);
-
-        // Switch case
-        // $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x0e);
 
         $this->forceStop();
 

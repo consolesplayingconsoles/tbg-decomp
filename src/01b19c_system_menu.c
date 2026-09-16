@@ -194,7 +194,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             break;
         }
         /* A = confirm */
-        var_menuState_8c1bc7a8.field_0x3c = 0;
+        var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
         var_menuState_8c1bc7a8.subState_0x1c = SAVE_PHASE_CONFIRM;
         switch (var_menuState_8c1bc7a8.selected_0x38) {
         case SAVE_MENU_LOAD:
@@ -284,7 +284,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
     case SAVE_STATE_LOAD:
         switch (var_menuState_8c1bc7a8.subState_0x1c) {
         case SAVE_PHASE_CONFIRM:
-            result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
+            result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
             if (result == 1) {
                 /* confirmed -- kick off the VMU read */
                 BupLoad_8c014bc6(var_selectedVm_8c1ba34c,
@@ -351,7 +351,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
     case SAVE_STATE_SAVE:
         switch (var_menuState_8c1bc7a8.subState_0x1c) {
         case SAVE_PHASE_CONFIRM:
-            result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
+            result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
             if (result == 1) {
                 /* confirmed -- write and wait */
                 SystemMenuWriteToVmu_8c01b26c();
@@ -359,14 +359,14 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVING_NO_POWER_OFF);
                 VmGameSetLcdSlot_8c01c8fc(1);
                 TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00,
-                                       var_menuState_8c1bc7a8.field_0x3c + 2,
+                                       var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                                        228.0f, 266.0f, -4.0f);
             } else if (result == 2) {
                 /* cancelled */
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
                 ObjectsSwapMessageBoxFor_8c02aefc("");
                 TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00,
-                                       var_menuState_8c1bc7a8.field_0x3c + 2,
+                                       var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                                        228.0f, 266.0f, -4.0f);
             } else if (vmStatus != VMU_STATUS_SAVING_POSSIBLE &&
                        vmStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE &&
@@ -398,7 +398,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         break;
 
     case SAVE_STATE_QUIT_CONFIRM:
-        result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
+        result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
         if (result == 1) {
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_EXIT_TO_TITLE;
             VmMenuUnmountVms_8c0194de();
@@ -414,8 +414,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         if (var_isFading_8c226568 != 0 || var_vmMountBusy_8c22606c != 0) {
             break;
         }
-        var_menuState_8c1bc7a8.field_0x3c = 1;
-        var_menuState_8c1bc7a8.field_0x40 = 0;
+        var_menuState_8c1bc7a8.cursorCol_0x3c = 1;
+        var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
         FileMenuFreeBuffers_8c0187d0();
         CourseMenuSwitchFromTask_8c017e18(task);
         return;
@@ -435,7 +435,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
     if (drawPrompt) {
         /* highlight over the active yes/no prompt option */
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00,
-                               var_menuState_8c1bc7a8.field_0x3c + 2,
+                               var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                                228.0f, 266.0f, -4.0f);
     }
 

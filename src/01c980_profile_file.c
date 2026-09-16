@@ -416,8 +416,8 @@ STATIC void drawEpisodeChecklist_8c01cac8(void)
     Bool anyChecked = FALSE;
 
     flags = init_profileUnlockFlags_8c044ffc[
-        var_menuState_8c1bc7a8.field_0x40 * ROW_LENGTH
-        + var_menuState_8c1bc7a8.field_0x3c
+        var_menuState_8c1bc7a8.cursorRow_0x40 * ROW_LENGTH
+        + var_menuState_8c1bc7a8.cursorCol_0x3c
     ];
 
     while (*flags != 0xff) {
@@ -440,7 +440,7 @@ STATIC void drawEpisodeChecklist_8c01cac8(void)
     if (anyChecked) {
         TxtDrawSprite_8c014f54(
             &var_resourceGroup_8c2263a8,
-            var_menuState_8c1bc7a8.field_0x3c,
+            var_menuState_8c1bc7a8.cursorCol_0x3c,
             0.0f, 0.0f, -3.0f
         );
     }
@@ -478,7 +478,7 @@ STATIC void drawEpisodeChecklist_8c01cac8(void)
  * async load and park in STATE_PAGE_LOAD, polled again next frame. */
 STATIC void updatePageLoad_8c01cbec(void)
 {
-    ResourceGroupInfo *pageResgrpInfo = init_rowResgrps_8c045148[var_menuState_8c1bc7a8.field_0x40];
+    ResourceGroupInfo *pageResgrpInfo = init_rowResgrps_8c045148[var_menuState_8c1bc7a8.cursorRow_0x40];
 
     if (var_currentSysResGroupInfo_8c225fb0 == pageResgrpInfo) {
         switch (var_menuState_8c1bc7a8.selected_0x38) {
@@ -535,33 +535,33 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
 
             /* 5 full rows of 10, plus a 5-wide row 5 -- 55 slots. */
             if (press & PDD_DGT_KU) {
-                if (--var_menuState_8c1bc7a8.field_0x40 < 0) {
-                    var_menuState_8c1bc7a8.field_0x40 =
-                        (var_menuState_8c1bc7a8.field_0x3c < 5) ? 5 : 4;
+                if (--var_menuState_8c1bc7a8.cursorRow_0x40 < 0) {
+                    var_menuState_8c1bc7a8.cursorRow_0x40 =
+                        (var_menuState_8c1bc7a8.cursorCol_0x3c < 5) ? 5 : 4;
                 }
                 moved = TRUE;
             } else if (press & PDD_DGT_KD) {
-                ++var_menuState_8c1bc7a8.field_0x40;
-                if ((var_menuState_8c1bc7a8.field_0x3c < 5 &&
-                     var_menuState_8c1bc7a8.field_0x40 > 5) ||
-                    (var_menuState_8c1bc7a8.field_0x3c > 4 &&
-                     var_menuState_8c1bc7a8.field_0x40 > 4)) {
-                    var_menuState_8c1bc7a8.field_0x40 = 0;
+                ++var_menuState_8c1bc7a8.cursorRow_0x40;
+                if ((var_menuState_8c1bc7a8.cursorCol_0x3c < 5 &&
+                     var_menuState_8c1bc7a8.cursorRow_0x40 > 5) ||
+                    (var_menuState_8c1bc7a8.cursorCol_0x3c > 4 &&
+                     var_menuState_8c1bc7a8.cursorRow_0x40 > 4)) {
+                    var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
                 }
                 moved = TRUE;
             } else if (press & PDD_DGT_KL) {
-                if (--var_menuState_8c1bc7a8.field_0x3c < 0) {
-                    var_menuState_8c1bc7a8.field_0x3c =
-                        (var_menuState_8c1bc7a8.field_0x40 < 5) ? 9 : 4;
+                if (--var_menuState_8c1bc7a8.cursorCol_0x3c < 0) {
+                    var_menuState_8c1bc7a8.cursorCol_0x3c =
+                        (var_menuState_8c1bc7a8.cursorRow_0x40 < 5) ? 9 : 4;
                 }
                 moved = TRUE;
             } else if (press & PDD_DGT_KR) {
-                ++var_menuState_8c1bc7a8.field_0x3c;
-                if ((var_menuState_8c1bc7a8.field_0x40 < 5 &&
-                     var_menuState_8c1bc7a8.field_0x3c > 9) ||
-                    (var_menuState_8c1bc7a8.field_0x40 > 4 &&
-                     var_menuState_8c1bc7a8.field_0x3c > 4)) {
-                    var_menuState_8c1bc7a8.field_0x3c = 0;
+                ++var_menuState_8c1bc7a8.cursorCol_0x3c;
+                if ((var_menuState_8c1bc7a8.cursorRow_0x40 < 5 &&
+                     var_menuState_8c1bc7a8.cursorCol_0x3c > 9) ||
+                    (var_menuState_8c1bc7a8.cursorRow_0x40 > 4 &&
+                     var_menuState_8c1bc7a8.cursorCol_0x3c > 4)) {
+                    var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
                 }
                 moved = TRUE;
             }
@@ -570,9 +570,9 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 =
                     STATE_GRID_ANIMATING;
                 var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.x =
-                    var_menuState_8c1bc7a8.field_0x3c * 45.0f + 96.0f;
+                    var_menuState_8c1bc7a8.cursorCol_0x3c * 45.0f + 96.0f;
                 var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.y =
-                    var_menuState_8c1bc7a8.field_0x40 * 48.0f + 128.0f;
+                    var_menuState_8c1bc7a8.cursorRow_0x40 * 48.0f + 128.0f;
                 var_menuState_8c1bc7a8.cursorVelocity_0x30.x =
                     (var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.x
                         - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x) / 6.0f;
@@ -663,47 +663,47 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
             }
             var_menuState_8c1bc7a8.state_0x18 =
                 STATE_PAGE_ADVANCE_DELAY;
-            var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+            var_menuState_8c1bc7a8.timer_0x68 = 0;
             return;
 
         case STATE_PAGE_ADVANCE_DELAY:
-            if (++var_menuState_8c1bc7a8.logo_timer_0x68 < 4)
+            if (++var_menuState_8c1bc7a8.timer_0x68 < 4)
                 return;
 
             switch (var_menuState_8c1bc7a8.selected_0x38) {
                 case PAGE_OPTION_JUMP_PREV:
                     /* Search backward for the previous unlocked slot. */
                     if (var_profileUnlockedCount_8c2263a4 != 0) {
-                        int slot = var_menuState_8c1bc7a8.field_0x40 * ROW_LENGTH
-                            + var_menuState_8c1bc7a8.field_0x3c;
+                        int slot = var_menuState_8c1bc7a8.cursorRow_0x40 * ROW_LENGTH
+                            + var_menuState_8c1bc7a8.cursorCol_0x3c;
                         do {
                             if (--slot < 0) slot = PROFILE_COUNT - 1;
                         } while (!var_profileUnlocked_8c2263b4[slot]);
-                        var_menuState_8c1bc7a8.field_0x3c = slot % ROW_LENGTH;
-                        var_menuState_8c1bc7a8.field_0x40 = slot / ROW_LENGTH;
+                        var_menuState_8c1bc7a8.cursorCol_0x3c = slot % ROW_LENGTH;
+                        var_menuState_8c1bc7a8.cursorRow_0x40 = slot / ROW_LENGTH;
                     }
                     break;
 
                 case PAGE_OPTION_PREV:
-                    if (--var_menuState_8c1bc7a8.field_0x3c < 0) {
-                        var_menuState_8c1bc7a8.field_0x3c = 9;
-                        if (--var_menuState_8c1bc7a8.field_0x40 < 0) {
-                            var_menuState_8c1bc7a8.field_0x3c = 4;
-                            var_menuState_8c1bc7a8.field_0x40 = 5;
+                    if (--var_menuState_8c1bc7a8.cursorCol_0x3c < 0) {
+                        var_menuState_8c1bc7a8.cursorCol_0x3c = 9;
+                        if (--var_menuState_8c1bc7a8.cursorRow_0x40 < 0) {
+                            var_menuState_8c1bc7a8.cursorCol_0x3c = 4;
+                            var_menuState_8c1bc7a8.cursorRow_0x40 = 5;
                         }
                     }
                     break;
 
                 case PAGE_OPTION_NEXT:
-                    if (var_menuState_8c1bc7a8.field_0x40 < 5) {
-                        if (++var_menuState_8c1bc7a8.field_0x3c > 9) {
-                            var_menuState_8c1bc7a8.field_0x3c = 0;
-                            ++var_menuState_8c1bc7a8.field_0x40;
+                    if (var_menuState_8c1bc7a8.cursorRow_0x40 < 5) {
+                        if (++var_menuState_8c1bc7a8.cursorCol_0x3c > 9) {
+                            var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
+                            ++var_menuState_8c1bc7a8.cursorRow_0x40;
                         }
                     } else {
-                        if (++var_menuState_8c1bc7a8.field_0x3c > 4) {
-                            var_menuState_8c1bc7a8.field_0x3c = 0;
-                            var_menuState_8c1bc7a8.field_0x40 = 0;
+                        if (++var_menuState_8c1bc7a8.cursorCol_0x3c > 4) {
+                            var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
+                            var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
                         }
                     }
                     break;
@@ -715,13 +715,13 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                         break;
 
                     /* Search forward for the next unlocked slot. */
-                    slot = var_menuState_8c1bc7a8.field_0x40 * ROW_LENGTH
-                        + var_menuState_8c1bc7a8.field_0x3c;
+                    slot = var_menuState_8c1bc7a8.cursorRow_0x40 * ROW_LENGTH
+                        + var_menuState_8c1bc7a8.cursorCol_0x3c;
                     do {
                         if (++slot > PROFILE_COUNT - 1) slot = 0;
                     } while (!var_profileUnlocked_8c2263b4[slot]);
-                    var_menuState_8c1bc7a8.field_0x3c = slot % ROW_LENGTH;
-                    var_menuState_8c1bc7a8.field_0x40 = slot / ROW_LENGTH;
+                    var_menuState_8c1bc7a8.cursorCol_0x3c = slot % ROW_LENGTH;
+                    var_menuState_8c1bc7a8.cursorRow_0x40 = slot / ROW_LENGTH;
                     break;
                 }
             }
@@ -736,9 +736,9 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
             }
             var_menuState_8c1bc7a8.state_0x18 = STATE_GRID_FADE_IN;
             var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x =
-                var_menuState_8c1bc7a8.field_0x3c * 45.0f + 96.0f;
+                var_menuState_8c1bc7a8.cursorCol_0x3c * 45.0f + 96.0f;
             var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y =
-                var_menuState_8c1bc7a8.field_0x40 * 48.0f + 128.0f;
+                var_menuState_8c1bc7a8.cursorRow_0x40 * 48.0f + 128.0f;
             FadePushIn_8c022a9c(10);
             return;
 
@@ -746,9 +746,9 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
             if (var_isFading_8c226568)
                 break;
             /* col/row are shared with the course menu, whose cursor reads
-             * field_0x3c + field_0x40 * 5: (0, 1) is its PROFILE FILE button. */
-            var_menuState_8c1bc7a8.field_0x3c = 0;
-            var_menuState_8c1bc7a8.field_0x40 = 1;
+             * cursorCol_0x3c + cursorRow_0x40 * 5: (0, 1) is its PROFILE FILE button. */
+            var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
+            var_menuState_8c1bc7a8.cursorRow_0x40 = 1;
             var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = 0.0f;
             DebugMenuFreeSessionAssets_8c016182();
             CourseMenuReturn_8c017ef2();
@@ -773,8 +773,8 @@ void ProfileFilePushTask_8c01d1c4(Task *task)
     TaskSetAction_8c014b3e(task, menuTask_8c01ccec);
 
     var_menuState_8c1bc7a8.state_0x18 = STATE_INIT;
-    var_menuState_8c1bc7a8.field_0x3c = 0;
-    var_menuState_8c1bc7a8.field_0x40 = 0;
+    var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
+    var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
     var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = GRID_X;
     var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y = GRID_Y;
 

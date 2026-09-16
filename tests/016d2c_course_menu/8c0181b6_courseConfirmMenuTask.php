@@ -78,7 +78,7 @@ return new class extends TestCase {
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Still fading ¨ remain in state 1 and render epilogue
+        // Still fading -> remain in state 1 and render epilogue
         $this->shouldCall('__divls');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
@@ -110,11 +110,11 @@ return new class extends TestCase {
         // Enter state 2 (dialog/prompt)
         $this->initMenuStateUint32(0x18, 2);
         $this->initMenuStateUint32(0x38, 0); // selected_0x38
-        $this->initMenuStateUint32(0x50, 12); // field_0x50 ¨ preview sprite 12/3 = 4
+        $this->initMenuStateUint32(0x50, 12); // field_0x50 -> preview sprite 12/3 = 4
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Prompt returns YES (1) ¨ advance to state 3 and fade out
+        // Prompt returns YES (1) -> advance to state 3 and fade out
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x38
         )->andReturn(1);
@@ -153,11 +153,11 @@ return new class extends TestCase {
         // Enter state 2 (dialog/prompt)
         $this->initMenuStateUint32(0x18, 2);
         $this->initMenuStateUint32(0x38, 0); // selected_0x38
-        $this->initMenuStateUint32(0x50, 12); // field_0x50 ¨ preview sprite 12/3 = 4
+        $this->initMenuStateUint32(0x50, 12); // field_0x50 -> preview sprite 12/3 = 4
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Prompt returns NO/Cancel (2) ¨ set state 7, do two SndStartAdxFadeOut_8c010bae calls, then fade out
+        // Prompt returns NO/Cancel (2) -> set state 7, do two SndStartAdxFadeOut_8c010bae calls, then fade out
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x38
         )->andReturn(2);
@@ -198,11 +198,11 @@ return new class extends TestCase {
         // Enter state 2 (dialog/prompt)
         $this->initMenuStateUint32(0x18, 2);
         $this->initMenuStateUint32(0x38, 0); // selected_0x38
-        $this->initMenuStateUint32(0x50, 12); // field_0x50 ¨ preview sprite 12/3 = 4
+        $this->initMenuStateUint32(0x50, 12); // field_0x50 -> preview sprite 12/3 = 4
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Prompt returns 0 ¨ stay in state 2; no fade out; just epilogue draws
+        // Prompt returns 0 -> stay in state 2; no fade out; just epilogue draws
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x38
         )->andReturn(0);
@@ -240,11 +240,11 @@ return new class extends TestCase {
         $this->initMenuStateUint32(0x18, 3);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initMenuStateUint32(0x38, 0); // selected_0x38
-        $this->initMenuStateUint32(0x50, 12); // field_0x50 ¨ preview sprite 12/3 = 4
+        $this->initMenuStateUint32(0x50, 12); // field_0x50 -> preview sprite 12/3 = 4
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // When fade finished ¨ state=4 and push fade-in(0x14)
+        // When fade finished -> state=4 and push fade-in(0x14)
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 4);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(20);
 
@@ -281,11 +281,11 @@ return new class extends TestCase {
         $this->initMenuStateUint32(0x18, 3);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initMenuStateUint32(0x38, 0); // selected_0x38
-        $this->initMenuStateUint32(0x50, 12); // field_0x50 ¨ preview sprite 12/3 = 4
+        $this->initMenuStateUint32(0x50, 12); // field_0x50 -> preview sprite 12/3 = 4
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Still fading ¨ remain in state 3; epilogue draws occur
+        // Still fading -> remain in state 3; epilogue draws occur
         $this->shouldCall('__divls');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
@@ -318,11 +318,11 @@ return new class extends TestCase {
         $this->initMenuStateUint32(0x18, 4);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initMenuStateUint32(0x38, 0); // selected_0x38
-        $this->initMenuStateUint32(0x50, 12); // field_0x50 ¨ preview sprite 12/3 = 4
+        $this->initMenuStateUint32(0x50, 12); // field_0x50 -> preview sprite 12/3 = 4
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Fade complete ¨ advance to state 5, reset logo_timer_0x68 to 0
+        // Fade complete -> advance to state 5, reset timer_0x68 to 0
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 5);
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x68, 0);
 
@@ -339,22 +339,22 @@ return new class extends TestCase {
         $this->initMenuStateUint32(0x18, 4);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initMenuStateUint32(0x38, 0); // selected_0x38
-        $this->initMenuStateUint32(0x50, 12); // field_0x50 ¨ preview sprite 12/3 = 4
+        $this->initMenuStateUint32(0x50, 12); // field_0x50 -> preview sprite 12/3 = 4
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Still fading ¨ remain in state 4
+        // Still fading -> remain in state 4
         // In original assembly, state 4 tail-calls to drawRouteInfo regardless
         $this->shouldCall('_drawRouteInfo_8c018118');
     }
 
-    public function test_logo_timer_state_increments_timer(): void
+    public function test_route_info_display_increments_timer(): void
     {
         $this->resolveSymbols();
 
-        // Enter state 5 (logo timer)
+        // Enter state 5 (ROUTE INFO display)
         $this->initMenuStateUint32(0x18, 5);
-        $this->initMenuStateUint32(0x68, 10); // logo_timer_0x68 = 10
+        $this->initMenuStateUint32(0x68, 10); // timer_0x68 = 10
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
@@ -364,13 +364,13 @@ return new class extends TestCase {
         $this->shouldCall('_drawRouteInfo_8c018118');
     }
 
-    public function test_logo_timer_state_advances_when_timer_exceeds_threshold(): void
+    public function test_route_info_display_advances_when_timer_exceeds_threshold(): void
     {
         $this->resolveSymbols();
 
         // Enter state 5 with timer at threshold (30)
         $this->initMenuStateUint32(0x18, 5);
-        $this->initMenuStateUint32(0x68, 30); // logo_timer_0x68 = 30
+        $this->initMenuStateUint32(0x68, 30); // timer_0x68 = 30
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
@@ -395,7 +395,7 @@ return new class extends TestCase {
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Still fading ¨ call drawRouteInfo and return
+        // Still fading -> call drawRouteInfo and return
         $this->shouldCall('_drawRouteInfo_8c018118');
     }
 
@@ -410,7 +410,7 @@ return new class extends TestCase {
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // init_8c03bd80 is busy ¨ just return (no calls).
+        // init_8c03bd80 is busy -> just return (no calls).
         // The C recompile eagerly computes the course index (__divls) before
         // checking init_8c03bd80; the asm checks init_8c03bd80 first.
         if (!$this->isAsmObject()) {
@@ -577,7 +577,7 @@ return new class extends TestCase {
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Still fading ¨ render epilogue (no state transition)
+        // Still fading -> render epilogue (no state transition)
         $this->shouldCall('__divls');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
@@ -613,7 +613,7 @@ return new class extends TestCase {
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // init_8c03bd80 is busy ¨ just return (no rendering)
+        // init_8c03bd80 is busy -> just return (no rendering)
     }
 
     public function test_return_to_menu_state_transitions_back_to_main_menu(): void

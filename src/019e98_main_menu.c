@@ -98,8 +98,8 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                     var_menuState_8c1bc7a8.selected_0x38--;
                     CHANGE_STATE(MAIN_MENU_STATE_ANIMATING_LEFT);
-                    var_menuState_8c1bc7a8.startTimer_0x64 = 0;
-                    var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+                    var_menuState_8c1bc7a8.counter_0x64 = 0;
+                    var_menuState_8c1bc7a8.timer_0x68 = 0;
                 }
             }
             else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_KR) {
@@ -107,8 +107,8 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                     var_menuState_8c1bc7a8.selected_0x38++;
                     CHANGE_STATE(MAIN_MENU_STATE_ANIMATING_RIGHT);
-                    var_menuState_8c1bc7a8.startTimer_0x64 = 0;
-                    var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+                    var_menuState_8c1bc7a8.counter_0x64 = 0;
+                    var_menuState_8c1bc7a8.timer_0x68 = 0;
                 }
             } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -119,24 +119,24 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
         }
 
         case MAIN_MENU_STATE_ANIMATING_RIGHT: {
-            if (var_menuState_8c1bc7a8.logo_timer_0x68 % 4 == 0) {
+            if (var_menuState_8c1bc7a8.timer_0x68 % 4 == 0) {
                 var_menuState_8c1bc7a8.field_0x5c++;
-                var_menuState_8c1bc7a8.startTimer_0x64++;
+                var_menuState_8c1bc7a8.counter_0x64++;
             }
-            var_menuState_8c1bc7a8.logo_timer_0x68++;
-            if (var_menuState_8c1bc7a8.startTimer_0x64 >= 2) {
+            var_menuState_8c1bc7a8.timer_0x68++;
+            if (var_menuState_8c1bc7a8.counter_0x64 >= 2) {
                 CHANGE_STATE(MAIN_MENU_STATE_IDLE);
             }
             break;
         }
 
         case MAIN_MENU_STATE_ANIMATING_LEFT: {
-            if (var_menuState_8c1bc7a8.logo_timer_0x68 % 4 == 0) {
+            if (var_menuState_8c1bc7a8.timer_0x68 % 4 == 0) {
                 var_menuState_8c1bc7a8.field_0x5c--;
-                var_menuState_8c1bc7a8.startTimer_0x64++;
+                var_menuState_8c1bc7a8.counter_0x64++;
             }
-            var_menuState_8c1bc7a8.logo_timer_0x68++;
-            if (var_menuState_8c1bc7a8.startTimer_0x64 >= 2) {
+            var_menuState_8c1bc7a8.timer_0x68++;
+            if (var_menuState_8c1bc7a8.counter_0x64 >= 2) {
                 CHANGE_STATE(MAIN_MENU_STATE_IDLE);
             }
             break;
@@ -153,8 +153,8 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
                 case 0:
                 case 1: {
                     int result;
-                    var_menuState_8c1bc7a8.field_0x3c = 2;
-                    var_menuState_8c1bc7a8.field_0x40 = 0;
+                    var_menuState_8c1bc7a8.cursorCol_0x3c = 2;
+                    var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
                     var_gameMode_8c1bb8fc = var_menuState_8c1bc7a8.selected_0x38;
                     var_shouldShowFreeRunIntro_8c1bb8c0 = 1;
                     CourseMenuSwitchFromTask_8c017e18(task);

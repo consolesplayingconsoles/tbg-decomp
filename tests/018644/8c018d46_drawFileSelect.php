@@ -85,7 +85,7 @@ return new class extends TestCase {
 
         $this->ms = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($this->ms + 0x38, $selected);   // selected_0x38 (cursor column, 0-2)
-        $this->initUint32($this->ms + 0x3c, $scroll);      // field_0x3c (leftmost card)
+        $this->initUint32($this->ms + 0x3c, $scroll);      // cursorCol_0x3c (leftmost card)
         $this->initUint32($this->addressOf('_var_8c1ba2e0'), self::BASE);
     }
 

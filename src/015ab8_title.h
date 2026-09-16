@@ -1,3 +1,5 @@
+/* 8c015ab8: the title screen -- logo sequence, no-VMU warning, PRESS START --
+ * and MenuState, the one state block every menu screen takes turns owning. */
 #ifndef _TITLE_H_
 #define _TITLE_H_
 
@@ -27,6 +29,7 @@ enum TITLE_STATE {
 };
 typedef enum TITLE_STATE TITLE_STATE;
 
+/* TODO: move ResourceGroup/ResourceGroupInfo to a header of their own. */
 struct ResourceGroupInfo {
     char* parts;
     char* dat;
@@ -35,7 +38,6 @@ struct ResourceGroupInfo {
 }
 typedef ResourceGroupInfo;
 
-// TODO: Move
 struct ResourceGroup {
     NJS_TEXLIST *tlist_0x00;
     NJS_TEXANIM *tanim_0x04;
@@ -46,6 +48,8 @@ typedef ResourceGroup;
 struct MenuState {
     ResourceGroup resourceGroupA_0x00;
     ResourceGroup resourceGroupB_0x0c;
+    /* Typed after the title's enum, but every screen puts its own state
+     * machine here. */
     TITLE_STATE state_0x18;
     int subState_0x1c;
     union {
@@ -64,19 +68,31 @@ struct MenuState {
     } pos;
     NJS_POINT2 cursorVelocity_0x30;
     int selected_0x38;
-    int field_0x3c;
-    int field_0x40;
+    /* Shared menu cursor: 0x3c steps on left/right, 0x40 on up/down. What the
+     * axes index is each screen's own business -- COURSE SELECT's 5x3 button
+     * grid (row * 5 + col), PROFILE FILE's 10x6 unlock grid, the PRACTICE
+     * guide's scroll row, a Yes/No prompt in 0x3c alone. A screen on its way
+     * out parks the pair on the course-menu button it wants selected next. */
+    int cursorCol_0x3c;
+    int cursorRow_0x40;
     int scrollTopRow_0x44;
     int cursorVisible_0x48;
-    int field_0x4c;  /* declared here, referenced by no .c in the tree */
+    int field_0x4c;  /* nothing in the tree reads or writes it */
     int courseId_0x50;
+    /* Per-screen scratch with no shared meaning: the ending uses 0x54/0x58 as
+     * the two credit boxes' character-reveal caps and 0x5c as which box is
+     * current; PRACTICE uses them as a lesson's first/last/current guide page;
+     * the main menu uses 0x5c alone as a sprite index. */
     int field_0x54;
     int field_0x58;
     int field_0x5c;
     int instructorSprite_0x60;
-    int startTimer_0x64;
-    int logo_timer_0x68;
-    int selectedVmuSlot_0x6c;
+    /* Two more per-screen counters. 0x68 is the frame tick everywhere (blink
+     * parity, dwell timers); 0x64 is a step or page index, and the title's
+     * PRESS START timeout. */
+    int counter_0x64;
+    int timer_0x68;
+    int selectedVmuSlot_0x6c;  /* except in 01d7fc, which caches a VMU status here */
     int returnAction_0x70;
     int returnActionArg_0x74;
     BACKUPINFO* bupInfo_0x78;
@@ -89,6 +105,7 @@ extern ResourceGroupInfo init_mainMenuResourceGroup_8c044264;
 extern ResourceGroupInfo init_practice01ResourceGroup_8c044274;
 extern ResourceGroupInfo init_practice02ResourceGroup_8c044284;
 
+/* direct: skip the logo sequence and fade straight into the title. */
 void TitlePushTitle_8c015fd6(Bool direct);
 
 #endif /* _TITLE_H_ */

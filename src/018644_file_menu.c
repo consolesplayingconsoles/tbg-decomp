@@ -430,7 +430,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
     var_saveBufCursor_8c225fe0 = (char *)var_saveBufCursor_8c225fe0 + 0x600;
 }
 
-/* A page shows three cards; field_0x3c is the index of the leftmost one. */
+/* A page shows three cards; cursorCol_0x3c is the index of the leftmost one. */
 STATIC void drawFileSelect_8c018d46(void)
 {
     int i;
@@ -439,16 +439,16 @@ STATIC void drawFileSelect_8c018d46(void)
 
     if (var_fileCards_8c226018[0] == FILE_CARD_NEW) {
         dst = var_8c1ba2e0;
-        if (var_menuState_8c1bc7a8.field_0x3c != 0) {
-            dst = (char *)var_8c1ba2e0 + (var_menuState_8c1bc7a8.field_0x3c - 1) * 0x600;
+        if (var_menuState_8c1bc7a8.cursorCol_0x3c != 0) {
+            dst = (char *)var_8c1ba2e0 + (var_menuState_8c1bc7a8.cursorCol_0x3c - 1) * 0x600;
         }
     } else {
-        dst = (char *)var_8c1ba2e0 + var_menuState_8c1bc7a8.field_0x3c * 0x600;
+        dst = (char *)var_8c1ba2e0 + var_menuState_8c1bc7a8.cursorCol_0x3c * 0x600;
     }
     var_saveBufCursor_8c225fe0 = dst;
 
     x = 55.0;
-    for (i = var_menuState_8c1bc7a8.field_0x3c;
+    for (i = var_menuState_8c1bc7a8.cursorCol_0x3c;
          x <= 419.0 && var_fileCards_8c226018[i] != FILE_CARD_EMPTY;
          i++) {
         drawFileCard_8c018b4c(var_fileCards_8c226018[i], x);
@@ -461,12 +461,12 @@ STATIC void drawFileSelect_8c018d46(void)
 
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-        var_menuState_8c1bc7a8.field_0x3c != 0 ? 0x16 : 0x15,
+        var_menuState_8c1bc7a8.cursorCol_0x3c != 0 ? 0x16 : 0x15,
         0.0, 0.0, -3.0);
 
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-        var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c + 3] == FILE_CARD_EMPTY ? 0x17 : 0x18,
+        var_fileCards_8c226018[var_menuState_8c1bc7a8.cursorCol_0x3c + 3] == FILE_CARD_EMPTY ? 0x17 : 0x18,
         0.0, 0.0, -3.0);
 
     TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x14, 0.0, 0.0, -4.0);
@@ -540,17 +540,17 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             if (var_menuState_8c1bc7a8.selected_0x38 != 0) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                 var_menuState_8c1bc7a8.selected_0x38--;
-            } else if (var_menuState_8c1bc7a8.field_0x3c > 0) {
+            } else if (var_menuState_8c1bc7a8.cursorCol_0x3c > 0) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
-                var_menuState_8c1bc7a8.field_0x3c--;
+                var_menuState_8c1bc7a8.cursorCol_0x3c--;
             }
         } else if (press & PDD_DGT_KR) {
             if (var_menuState_8c1bc7a8.selected_0x38 >= 2) {
-                if (var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c + 3] != FILE_CARD_EMPTY) {
+                if (var_fileCards_8c226018[var_menuState_8c1bc7a8.cursorCol_0x3c + 3] != FILE_CARD_EMPTY) {
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
-                    var_menuState_8c1bc7a8.field_0x3c++;
+                    var_menuState_8c1bc7a8.cursorCol_0x3c++;
                 }
-            } else if (var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c +
+            } else if (var_fileCards_8c226018[var_menuState_8c1bc7a8.cursorCol_0x3c +
                                     var_menuState_8c1bc7a8.selected_0x38 + 1] != FILE_CARD_EMPTY) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                 var_menuState_8c1bc7a8.selected_0x38++;
@@ -561,13 +561,13 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             FadePushOut_8c022b60(10);
         } else if (press & PDD_DGT_TA) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-            if (var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c +
+            if (var_fileCards_8c226018[var_menuState_8c1bc7a8.cursorCol_0x3c +
                              var_menuState_8c1bc7a8.selected_0x38] == FILE_CARD_NEW) {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_NEW_FILE);
             } else {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_FILE);
             }
-            var_menuState_8c1bc7a8.field_0x40 = 0;
+            var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
             CHANGE_STATE(FILE_MENU_STATE_CONFIRM);
         }
         drawFileSelect_8c018d46();
@@ -578,7 +578,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             int cardValue;
 
             CHANGE_STATE(FILE_MENU_STATE_CONFIRM_FADE_OUT);
-            cardValue = var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c +
+            cardValue = var_fileCards_8c226018[var_menuState_8c1bc7a8.cursorCol_0x3c +
                                      var_menuState_8c1bc7a8.selected_0x38];
             if (cardValue == FILE_CARD_NEW) {
                 int slot = 0;
@@ -669,7 +669,7 @@ void FileMenuSwitchFromTask_8c019334(Task *task)
         buildFileList_8c018a22();
         CHANGE_STATE(FILE_MENU_STATE_READY);
     }
-    var_menuState_8c1bc7a8.field_0x3c = 0;
+    var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
     FadePushIn_8c022a9c(10);
 }

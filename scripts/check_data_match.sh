@@ -18,7 +18,6 @@ NOT_MATCHING="
 0129cc_pause
 012f44_game
 014f54_text
-015ab8_title
 01614c_debug_menu
 01f3c0_ending
 "

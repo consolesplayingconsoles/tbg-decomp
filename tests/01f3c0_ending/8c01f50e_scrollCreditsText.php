@@ -10,7 +10,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * "current"); wraps and loads the next credit page once the current box
  * scrolls fully off-screen. init_endingCreditsHead_8c04528c and
  * init_endingCreditsTail_8c045290 are laid out back to back in the real
- * binary, so startTimer_0x64 indexes across both as one 38-entry table.
+ * binary, so counter_0x64 indexes across both as one 38-entry table.
  */
 return new class extends TestCase {
     const MENU_STATE_SIZE = 0x7c;

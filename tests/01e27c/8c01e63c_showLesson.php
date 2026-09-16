@@ -38,7 +38,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $menuState = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($menuState + 0x18, 1); // state_0x18 = SHOW_LESSON_STATE_FADE_IN
-        $this->initUint32($menuState + 0x40, 2); // field_0x40
+        $this->initUint32($menuState + 0x40, 2); // cursorRow_0x40
         $this->initUint32($menuState + 0x0c, 0x11111111); // resourceGroupB_0x0c
         $this->initUint32($menuState + 0x00, 0x22222222); // resourceGroupA_0x00
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
@@ -63,12 +63,12 @@ return new class extends TestCase {
         );
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_guideClipRect_8c0451f8'));
 
-        // field_0x40 (2) > 0 -> up arrow
+        // cursorRow_0x40 (2) > 0 -> up arrow
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuState + 0x0c, 0x18, 0.0, 0.0, -4.5
         );
 
-        // field_0x40 + 3 (5) != init_lessonGuideRows_8c0451ec[5] (10) -> down arrow
+        // cursorRow_0x40 + 3 (5) != init_lessonGuideRows_8c0451ec[5] (10) -> down arrow
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
             $menuState + 0x0c, 0x19, 0.0, 0.0, -4.5
         );
@@ -166,7 +166,7 @@ return new class extends TestCase {
     public function test_view_down_scrolls_forward_just_before_end()
     {
         $this->resolveSymbols();
-        // field_0x40 + 3 (9) < pageCount(10) -> still scrolls
+        // cursorRow_0x40 + 3 (9) < pageCount(10) -> still scrolls
         $menuState = $this->setupViewDraw(state: 2, field: 6, press: 0x20);
 
         $task = $this->alloc(0x20);
@@ -181,7 +181,7 @@ return new class extends TestCase {
     public function test_view_down_reaches_end()
     {
         $this->resolveSymbols();
-        // field_0x40 + 3 (10) >= pageCount(10) -> reaches the end
+        // cursorRow_0x40 + 3 (10) >= pageCount(10) -> reaches the end
         $menuState = $this->setupViewDraw(state: 2, field: 7, press: 0x20);
 
         $task = $this->alloc(0x20);

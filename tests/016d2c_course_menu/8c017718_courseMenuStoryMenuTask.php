@@ -403,7 +403,7 @@ return new Class extends TestCase {
 
         // timer++
         $this->shouldWriteLong($base + 0x68, 9);
-        // shared epilogue: cursorVisible_0x48 = (logo_timer & 1) -> 9 & 1 = 1
+        // shared epilogue: cursorVisible_0x48 = (timer_0x68 & 1) -> 9 & 1 = 1
         $this->shouldWriteLong($base + 0x48, 1);
 
         $this->shouldRenderFrame(42, 21, 1);
@@ -483,7 +483,7 @@ return new Class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
 
-        // Choose coordinates that DISABLE the free path: field_0x3c == 1 && field_0x40 == 0
+        // Choose coordinates that DISABLE the free path: cursorCol_0x3c == 1 && cursorRow_0x40 == 0
         $this->initMenuStateUint32(0x3c, 1);
         $this->initMenuStateUint32(0x40, 0);
 
@@ -520,7 +520,7 @@ return new Class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
 
-        // Coordinates that TRIGGER the free path: field_0x3c != 1 (e.g., 2) || field_0x40 != 0
+        // Coordinates that TRIGGER the free path: cursorCol_0x3c != 1 (e.g., 2) || cursorRow_0x40 != 0
         $this->initMenuStateUint32(0x3c, 2);
         $this->initMenuStateUint32(0x40, 0);
 

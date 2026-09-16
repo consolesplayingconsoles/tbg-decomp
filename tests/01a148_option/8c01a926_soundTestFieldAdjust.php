@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     const PRESS = 16;              // var_peripherals_8c1ba35c[0].press offset
     const STATE = 0x18;            // var_menuState_8c1bc7a8.state_0x18 offset
-    const FIELD = 0x3c;            // var_menuState_8c1bc7a8.field_0x3c (edit digit)
+    const FIELD = 0x3c;            // var_menuState_8c1bc7a8.cursorCol_0x3c (edit digit)
     const KU = 1 << 4;             // up    -> increment digit
     const KD = 1 << 5;             // down  -> decrement digit
     const KL = 1 << 6;             // left  -> more significant digit

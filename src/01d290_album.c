@@ -286,8 +286,8 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                 LOG_DEBUG(("[ALBUM] albumMenuTask_8c01d300: fade-out complete, switching screen\n"));
                 /* Course-menu cursor column/row: button 1*5 + 1 is the
                  * album's own button, so it is selected on return. */
-                var_menuState_8c1bc7a8.field_0x3c = 1;
-                var_menuState_8c1bc7a8.field_0x40 = 1;
+                var_menuState_8c1bc7a8.cursorCol_0x3c = 1;
+                var_menuState_8c1bc7a8.cursorRow_0x40 = 1;
                 var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = 0.0;
                 DebugMenuFreeSessionAssets_8c016182();
                 CourseMenuReturn_8c017ef2();

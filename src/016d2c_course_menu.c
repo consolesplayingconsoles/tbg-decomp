@@ -198,7 +198,7 @@ STATIC int cursorOffTarget_8c016dc6()
     float y;
     float x;
 
-    selected = var_menuState_8c1bc7a8.field_0x3c + var_menuState_8c1bc7a8.field_0x40 * 5;
+    selected = var_menuState_8c1bc7a8.cursorCol_0x3c + var_menuState_8c1bc7a8.cursorRow_0x40 * 5;
     x = init_courseMenuButtons_8c04442c[selected].x_0x08;
     y = init_courseMenuButtons_8c04442c[selected].y_0x0c;
     if (
@@ -382,8 +382,8 @@ STATIC void handleCourseMenuInput_8c017126()
     if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
         if (
             init_courseMenuButtons_8c04442c[
-                var_menuState_8c1bc7a8.field_0x3c
-                + var_menuState_8c1bc7a8.field_0x40 * 5
+                var_menuState_8c1bc7a8.cursorCol_0x3c
+                + var_menuState_8c1bc7a8.cursorRow_0x40 * 5
             ]
             .unlocked_0x04 == 0
         ) {
@@ -394,18 +394,18 @@ STATIC void handleCourseMenuInput_8c017126()
             SndStartAdxFadeOut_8c010bae(1);
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             CHANGE_STATE(COURSE_MENU_STATE_COURSE_SELECTED);
-            var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+            var_menuState_8c1bc7a8.timer_0x68 = 0;
         }
     }
 
     if (var_peripherals_8c1ba35c[0].press & PDD_DGT_KU) {
         do {
-            if (--var_menuState_8c1bc7a8.field_0x40 < 0) {
-                var_menuState_8c1bc7a8.field_0x40 = 2;
+            if (--var_menuState_8c1bc7a8.cursorRow_0x40 < 0) {
+                var_menuState_8c1bc7a8.cursorRow_0x40 = 2;
             }
         } while (
             init_courseMenuButtons_8c04442c[
-                var_menuState_8c1bc7a8.field_0x40 * 5 + var_menuState_8c1bc7a8.field_0x3c
+                var_menuState_8c1bc7a8.cursorRow_0x40 * 5 + var_menuState_8c1bc7a8.cursorCol_0x3c
             ].enabled_0x00 == 0
         );
 
@@ -414,12 +414,12 @@ STATIC void handleCourseMenuInput_8c017126()
         }
     } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_KD) {
         do {
-            if (++var_menuState_8c1bc7a8.field_0x40 > 2) {
-                var_menuState_8c1bc7a8.field_0x40 = 0;
+            if (++var_menuState_8c1bc7a8.cursorRow_0x40 > 2) {
+                var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
             }
         } while (
             init_courseMenuButtons_8c04442c[
-                var_menuState_8c1bc7a8.field_0x40 * 5 + var_menuState_8c1bc7a8.field_0x3c
+                var_menuState_8c1bc7a8.cursorRow_0x40 * 5 + var_menuState_8c1bc7a8.cursorCol_0x3c
             ].enabled_0x00 == 0
         );
 
@@ -428,12 +428,12 @@ STATIC void handleCourseMenuInput_8c017126()
         }
     } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_KL) {
         do {
-            if (--var_menuState_8c1bc7a8.field_0x3c < 0) {
-                var_menuState_8c1bc7a8.field_0x3c = 4;
+            if (--var_menuState_8c1bc7a8.cursorCol_0x3c < 0) {
+                var_menuState_8c1bc7a8.cursorCol_0x3c = 4;
             }
         } while (
             init_courseMenuButtons_8c04442c[
-                var_menuState_8c1bc7a8.field_0x40 * 5 + var_menuState_8c1bc7a8.field_0x3c
+                var_menuState_8c1bc7a8.cursorRow_0x40 * 5 + var_menuState_8c1bc7a8.cursorCol_0x3c
             ].enabled_0x00 == 0
         );
 
@@ -442,12 +442,12 @@ STATIC void handleCourseMenuInput_8c017126()
         }
     } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_KR) {
         do {
-            if (++var_menuState_8c1bc7a8.field_0x3c > 4) {
-                var_menuState_8c1bc7a8.field_0x3c = 0;
+            if (++var_menuState_8c1bc7a8.cursorCol_0x3c > 4) {
+                var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
             }
         } while (
             init_courseMenuButtons_8c04442c[
-                var_menuState_8c1bc7a8.field_0x40 * 5 + var_menuState_8c1bc7a8.field_0x3c
+                var_menuState_8c1bc7a8.cursorRow_0x40 * 5 + var_menuState_8c1bc7a8.cursorCol_0x3c
             ].enabled_0x00 == 0
         );
 
@@ -721,11 +721,11 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
         }
 
         case COURSE_MENU_STATE_COURSE_SELECTED: {
-            if (++var_menuState_8c1bc7a8.logo_timer_0x68 > 10) {
+            if (++var_menuState_8c1bc7a8.timer_0x68 > 10) {
                 CHANGE_STATE(COURSE_MENU_STATE_FADE_OUT);
                 FadePushOut_8c022b60(10);
             }
-            var_menuState_8c1bc7a8.cursorVisible_0x48 = var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
+            var_menuState_8c1bc7a8.cursorVisible_0x48 = var_menuState_8c1bc7a8.timer_0x68 & 1;
             break;
         }
 
@@ -733,20 +733,20 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
             int buttonIndex;
 
             if (var_isFading_8c226568) {
-                var_menuState_8c1bc7a8.cursorVisible_0x48 = ++var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
+                var_menuState_8c1bc7a8.cursorVisible_0x48 = ++var_menuState_8c1bc7a8.timer_0x68 & 1;
                 break;
             }
 
             if (init_8c03bd80)
                 return;
 
-            if (var_menuState_8c1bc7a8.field_0x3c != 1 || var_menuState_8c1bc7a8.field_0x40 != 0) {
+            if (var_menuState_8c1bc7a8.cursorCol_0x3c != 1 || var_menuState_8c1bc7a8.cursorRow_0x40 != 0) {
                 CourseMenuFreeResourceGroup_8c0185c4(&var_menuState_8c1bc7a8.resourceGroupB_0x0c);
                 var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
             }
 
             var_menuState_8c1bc7a8.selected_0x38 = 0;
-            buttonIndex = var_menuState_8c1bc7a8.field_0x40 * 5 + var_menuState_8c1bc7a8.field_0x3c;
+            buttonIndex = var_menuState_8c1bc7a8.cursorRow_0x40 * 5 + var_menuState_8c1bc7a8.cursorCol_0x3c;
             var_menuState_8c1bc7a8.courseId_0x50 =
                 init_courseMenuButtons_8c04442c[buttonIndex].courseId_0x18;
 
@@ -875,11 +875,11 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
         }
 
         case COURSE_MENU_STATE_COURSE_SELECTED: {
-            if (++var_menuState_8c1bc7a8.logo_timer_0x68 > 10) {
+            if (++var_menuState_8c1bc7a8.timer_0x68 > 10) {
                 CHANGE_STATE(COURSE_MENU_STATE_FADE_OUT);
                 FadePushOut_8c022b60(10);
             }
-            var_menuState_8c1bc7a8.cursorVisible_0x48 = var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
+            var_menuState_8c1bc7a8.cursorVisible_0x48 = var_menuState_8c1bc7a8.timer_0x68 & 1;
             break;
         }
 
@@ -887,20 +887,20 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
             int buttonIndex;
 
             if (var_isFading_8c226568) {
-                var_menuState_8c1bc7a8.cursorVisible_0x48 = ++var_menuState_8c1bc7a8.logo_timer_0x68 & 1;
+                var_menuState_8c1bc7a8.cursorVisible_0x48 = ++var_menuState_8c1bc7a8.timer_0x68 & 1;
                 break;
             }
 
             if (init_8c03bd80)
                 return;
 
-            if (var_menuState_8c1bc7a8.field_0x3c != 1 || var_menuState_8c1bc7a8.field_0x40 != 0) {
+            if (var_menuState_8c1bc7a8.cursorCol_0x3c != 1 || var_menuState_8c1bc7a8.cursorRow_0x40 != 0) {
                 CourseMenuFreeResourceGroup_8c0185c4(&var_menuState_8c1bc7a8.resourceGroupB_0x0c);
                 var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
             }
 
             var_menuState_8c1bc7a8.selected_0x38 = 0;
-            buttonIndex = var_menuState_8c1bc7a8.field_0x40 * 5 + var_menuState_8c1bc7a8.field_0x3c;
+            buttonIndex = var_menuState_8c1bc7a8.cursorRow_0x40 * 5 + var_menuState_8c1bc7a8.cursorCol_0x3c;
             var_menuState_8c1bc7a8.courseId_0x50 =
                 init_courseMenuButtons_8c04442c[buttonIndex].courseId_0x18;
 
@@ -1122,7 +1122,7 @@ STATIC void drawFixedInteger_8c01803e(float x, float y, int value, int digits)
 
 STATIC void drawRouteInfo_8c018118(void)
 {
-    int index = var_menuState_8c1bc7a8.field_0x40 * 6 + (var_menuState_8c1bc7a8.field_0x3c - 2) * 2;
+    int index = var_menuState_8c1bc7a8.cursorRow_0x40 * 6 + (var_menuState_8c1bc7a8.cursorCol_0x3c - 2) * 2;
 
     // Draw day
     drawFixedInteger_8c01803e(219.0, 108.0, var_progress_8c1ba1cc.days_0x00, 0);
@@ -1143,7 +1143,7 @@ STATIC void drawRouteInfo_8c018118(void)
     // Draw route info
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-        var_menuState_8c1bc7a8.field_0x40 + 9,
+        var_menuState_8c1bc7a8.cursorRow_0x40 + 9,
         0.0,
         0.0,
         -7.0
@@ -1196,15 +1196,15 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
         case COURSE_CONFIRM_STATE_ROUTE_INFO_FADE_IN: {
             if (var_isFading_8c226568 == 0) {
                 CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_ROUTE_INFO_DISPLAY);
-                var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+                var_menuState_8c1bc7a8.timer_0x68 = 0;
             }
             drawRouteInfo_8c018118();
             return;
         }
 
         case COURSE_CONFIRM_STATE_ROUTE_INFO_DISPLAY: {
-            var_menuState_8c1bc7a8.logo_timer_0x68++;
-            if (var_menuState_8c1bc7a8.logo_timer_0x68 > 30) {
+            var_menuState_8c1bc7a8.timer_0x68++;
+            if (var_menuState_8c1bc7a8.timer_0x68 > 30) {
                 CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_START_LOADING);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
@@ -1381,7 +1381,7 @@ void CourseMenuFreeResourceGroup_8c0185c4(ResourceGroup *res_group)
  */
 
  /*
-  * Cursor index is field_0x3c + field_0x40 * 5 (other screens park it here too).
+  * Cursor index is cursorCol_0x3c + cursorRow_0x40 * 5 (other screens park it here too).
   * Columns 2-4 are the course grid, one row per route, one column per departure;
   * courseId is 3 * the courses_0x44 index.
   *

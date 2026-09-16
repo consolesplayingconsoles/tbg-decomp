@@ -199,7 +199,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
         case STATE_CONFIRM_FADE_OUT:
             if (var_isFading_8c226568 == 0) {
                 var_menuState_8c1bc7a8.state_0x18 = STATE_LOADING_FADE_IN;
-                var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+                var_menuState_8c1bc7a8.timer_0x68 = 0;
                 njSetBackColor(0, 0, 0);
                 FadePushIn_8c022a9c(0x14);
                 break;
@@ -237,7 +237,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
             break;
 
         case STATE_LOADING_HOLD:
-            if (++var_menuState_8c1bc7a8.logo_timer_0x68 > 10) {
+            if (++var_menuState_8c1bc7a8.timer_0x68 > 10) {
                 var_menuState_8c1bc7a8.state_0x18 = STATE_LOADING_START;
                 FadePushOut_8c022b60(0x14);
             }
@@ -306,7 +306,7 @@ STATIC void initDescriptionReveal_8c01e576(Task *task)
 }
 
 /* The selected lesson's guide text, scrolled a row at a time through a 4-row
- * window (field_0x40 over init_lessonGuideRows_8c0451ec[lesson]). A carries on
+ * window (cursorRow_0x40 over init_lessonGuideRows_8c0451ec[lesson]). A carries on
  * into the lesson's description pages (initDescriptionReveal_8c01e576), B --
  * or A once scrolled past the last row -- goes back to the lesson list. */
 STATIC void showLesson_8c01e63c(Task *task)
@@ -340,15 +340,15 @@ STATIC void showLesson_8c01e63c(Task *task)
                 FadePushOut_8c022b60(10);
             } else if (!(var_peripherals_8c1ba35c[0].press & 0x10)) {
                 if (var_peripherals_8c1ba35c[0].press & 0x20) {
-                    if (var_menuState_8c1bc7a8.field_0x40 + 3 < (signed char)init_lessonGuideRows_8c0451ec[var_practiceLesson_8c22640c])
-                        var_menuState_8c1bc7a8.field_0x40++;
+                    if (var_menuState_8c1bc7a8.cursorRow_0x40 + 3 < (signed char)init_lessonGuideRows_8c0451ec[var_practiceLesson_8c22640c])
+                        var_menuState_8c1bc7a8.cursorRow_0x40++;
                     else
                         var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_VIEW_END;
 
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                 }
-            } else if (var_menuState_8c1bc7a8.field_0x40 >= 1) {
-                var_menuState_8c1bc7a8.field_0x40--;
+            } else if (var_menuState_8c1bc7a8.cursorRow_0x40 >= 1) {
+                var_menuState_8c1bc7a8.cursorRow_0x40--;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
             }
             break;
@@ -394,18 +394,18 @@ STATIC void showLesson_8c01e63c(Task *task)
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_practiceLesson_8c22640c + 0x27,
-        65.0f, 195.0f - (float)var_menuState_8c1bc7a8.field_0x40 * 24.0f, -4.0f
+        65.0f, 195.0f - (float)var_menuState_8c1bc7a8.cursorRow_0x40 * 24.0f, -4.0f
     );
     njUserClipping(0, init_guideClipRect_8c0451f8);
 
-    if (var_menuState_8c1bc7a8.field_0x40 > 0)
+    if (var_menuState_8c1bc7a8.cursorRow_0x40 > 0)
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x18,
             0.0f, 0.0f, -4.5f
         );
 
-    if (var_menuState_8c1bc7a8.field_0x40 + 3 != (signed char)init_lessonGuideRows_8c0451ec[var_practiceLesson_8c22640c])
+    if (var_menuState_8c1bc7a8.cursorRow_0x40 + 3 != (signed char)init_lessonGuideRows_8c0451ec[var_practiceLesson_8c22640c])
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x19,
@@ -452,7 +452,7 @@ STATIC void showLesson_8c01e63c(Task *task)
 STATIC void practiceCancelReturn_8c01e920(Task *task)
 {
     TaskSetAction_8c014b3e(task, showLesson_8c01e63c);
-    var_menuState_8c1bc7a8.field_0x40 = 0;
+    var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
     ObjectsSwapMessageBoxFor_8c02aefc(const_emptyMsg_8c038984);
 
     AsqInitQueues_8c011f36(8, 0, 0, 8);
@@ -595,7 +595,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
             else if ((var_peripherals_8c1ba35c[0].press & 2) != 0) {
                 var_menuState_8c1bc7a8.subState_0x1c = var_menuState_8c1bc7a8.state_0x18;
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_QUIT_PROMPT;
-                var_menuState_8c1bc7a8.field_0x3c = 0;
+                var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
                 var_menuTextboxCharLimit_8c225fb8 = ObjectsSwapMessageBoxFor_8c02aefc(const_confirmQuitMsg_8c038988);
             }
@@ -621,7 +621,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
             if ((var_peripherals_8c1ba35c[0].press & 4) != 0) {
                 var_menuState_8c1bc7a8.subState_0x1c = var_menuState_8c1bc7a8.state_0x18;
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_QUIT_PROMPT;
-                var_menuState_8c1bc7a8.field_0x3c = 0;
+                var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 var_menuTextboxCharLimit_8c225fb8 = ObjectsSwapMessageBoxFor_8c02aefc(const_confirmQuitMsg_8c038988);
             }
@@ -633,7 +633,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
             break;
 
         case LESSON_STATE_QUIT_PROMPT: {
-            int result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
+            int result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
             if (result == 1) {
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_LOADING_FADE_OUT;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -651,7 +651,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
              * still-fading path below. */
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8,
-                var_menuState_8c1bc7a8.field_0x3c + 2,
+                var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0f, 320.0f, -5.0f
             );
             break;
@@ -684,8 +684,8 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
                     var_8c1bb8bc = 1;
                 }
 
-                var_menuState_8c1bc7a8.field_0x3c = 0;
-                var_menuState_8c1bc7a8.field_0x40 = 0;
+                var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
+                var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
                 /* Offset 0x24, not scrollTopRow_0x44 -- Ghidra conflated the two
                  * like the earlier x/y mixups; this union slot is otherwise
                  * unused by this screen. */
@@ -707,7 +707,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
              * prompt indicator draw. */
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8,
-                var_menuState_8c1bc7a8.field_0x3c + 2,
+                var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0f, 320.0f, -5.0f
             );
             break;

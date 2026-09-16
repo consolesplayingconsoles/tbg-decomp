@@ -407,7 +407,7 @@ STATIC void drawVmWarning_8c019852()
     TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x11, 0.0, 0.0, -5.0);
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
-        var_menuState_8c1bc7a8.field_0x3c + 2,
+        var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
         228.0, 304.0, -5.0
     );
     TxtDrawSprite_8c014f54(
@@ -424,8 +424,8 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
     {
         /* Init */
         case VM_MENU_STATE_INIT: {
-            var_menuState_8c1bc7a8.logo_timer_0x68++;
-            if (var_menuState_8c1bc7a8.logo_timer_0x68 < 5) {
+            var_menuState_8c1bc7a8.timer_0x68++;
+            if (var_menuState_8c1bc7a8.timer_0x68 < 5) {
                 return;
             }
 
@@ -445,7 +445,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             } else {
                 CHANGE_STATE(VM_MENU_STATE_VM_WARNING_FADE_IN);
                 task->field_0x08 = 0;
-                var_menuState_8c1bc7a8.field_0x3c = 0;
+                var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
             }
 
             FadePushIn_8c022a9c(10);
@@ -552,7 +552,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                     }
 
-                    var_menuState_8c1bc7a8.field_0x3c = 0;
+                    var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
                 }
             }
 
@@ -583,7 +583,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
         /* Confirm */
         case VM_MENU_STATE_CONFIRM: {
-            int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
+            int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
             if (promptResult == 1) {
                 var_selectedVm_8c1ba34c = var_menuState_8c1bc7a8.selectedVmuSlot_0x6c;
                 CHANGE_STATE(VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU);
@@ -595,7 +595,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
-                var_menuState_8c1bc7a8.field_0x3c + 2,
+                var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0,
                 304.0,
                 -5.0
@@ -607,7 +607,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
         // Proceed without saving?
         case VM_MENU_STATE_PROCEED_WITHOUT_SAVING: {
-            int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
+            int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
             if (promptResult == 1) {
                 var_selectedVm_8c1ba34c = -1;
                 FileMenuResetNewGame_8c01895e();
@@ -623,7 +623,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
-                var_menuState_8c1bc7a8.field_0x3c + 2,
+                var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0,
                 304.0,
                 -5.0
@@ -649,7 +649,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 // Idle
                 case 0: {
                     if (!VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)) {
-                        int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
+                        int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
                         if (promptResult == 1) {
                             var_selectedVm_8c1ba34c = -1;
                             FileMenuResetNewGame_8c01895e();
@@ -676,7 +676,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 // VM Inserted Fade out
                 case 1: {
                     if (!var_isFading_8c226568) {
-                        var_menuState_8c1bc7a8.logo_timer_0x68 = 10;
+                        var_menuState_8c1bc7a8.timer_0x68 = 10;
                         CHANGE_STATE(VM_MENU_STATE_INIT);
                         return;
                     }
@@ -715,7 +715,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
-                var_menuState_8c1bc7a8.field_0x3c + 2,
+                var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0,
                 304.0,
                 -5.0
@@ -755,5 +755,5 @@ void VmMenuSwitchFromTask_8c019e44(Task *task)
     TaskSetAction_8c014b3e(task, vmMenuTask_8c0198a0);
     var_menuState_8c1bc7a8.state_0x18 = VM_MENU_STATE_INIT;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
-    var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+    var_menuState_8c1bc7a8.timer_0x68 = 0;
 }

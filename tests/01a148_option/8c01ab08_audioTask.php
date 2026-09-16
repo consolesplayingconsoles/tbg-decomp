@@ -8,8 +8,8 @@ return new class extends TestCase {
     const PRESS = 0x10;      // var_peripherals_8c1ba35c[0].press offset
     const STATE = 0x18;      // var_menuState_8c1bc7a8.state_0x18 offset
     const SELECTED = 0x38;   // .selected_0x38
-    const FIELD3C = 0x3c;    // .field_0x3c (sound-test edit digit index)
-    const LOGO = 0x68;       // .logo_timer_0x68 (marker blink)
+    const FIELD3C = 0x3c;    // .cursorCol_0x3c (sound-test edit digit index)
+    const LOGO = 0x68;       // .timer_0x68 (marker blink)
     const TA = 1 << 2;       // confirm
     const TB = 1 << 1;       // cancel
     const KU = 1 << 4;       // prev row
@@ -311,8 +311,8 @@ return new class extends TestCase {
 
     public function test_edit_marker_hidden_on_even_frame()
     {
-        // Editing MUSIC vol with an even logo_timer: the marker is skipped, but
-        // logo_timer still bumps.
+        // Editing MUSIC vol with an even timer_0x68: the marker is skipped, but
+        // timer_0x68 still bumps.
         $this->arrange(press: 0, state: 3, selected: 1, d4: 5, logo: 2);
         $this->shouldCall('_audioEditValue_8c01a8b6')->with($this->progress(self::D4), 10);
         $this->shouldDrawLabels(1);

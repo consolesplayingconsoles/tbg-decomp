@@ -79,7 +79,7 @@ return new class extends TestCase {
     }
 
     /* Enter a confirm state (3/5/6): state, sub-state subState_0x1c, prompt cursor
-     * field_0x3c, selected, and the entry-hoisted globals. */
+     * cursorCol_0x3c, selected, and the entry-hoisted globals. */
     private function stateEnter(int $menuState, int $state, int $field1c, int $field3c, int $selected): void
     {
         $this->initUint32($menuState + 0x18, $state);

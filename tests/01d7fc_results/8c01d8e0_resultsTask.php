@@ -669,14 +669,14 @@ return new class extends TestCase {
     public function test_state_1_advances_to_2_and_draws_indicator_once_fade_clears(): void
     {
         $this->setup(1);
-        $this->initUint32($this->ms + 0x64, 5); // startTimer_0x64: garbage, must be reset
-        $this->initUint32($this->ms + 0x68, 5); // logo_timer_0x68: garbage, must be reset
+        $this->initUint32($this->ms + 0x64, 5); // counter_0x64: garbage, must be reset
+        $this->initUint32($this->ms + 0x68, 5); // timer_0x68: garbage, must be reset
 
         $this->call('_resultsTask_8c01d8e0');
 
         $this->shouldWriteLong($this->ms + 0x18, 2); // state_0x18 = 2
-        $this->shouldWriteLong($this->ms + 0x64, 0); // startTimer_0x64 = 0
-        $this->shouldWriteLong($this->ms + 0x68, 0); // logo_timer_0x68 = 0
+        $this->shouldWriteLong($this->ms + 0x64, 0); // counter_0x64 = 0
+        $this->shouldWriteLong($this->ms + 0x68, 0); // timer_0x68 = 0
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
@@ -700,12 +700,12 @@ return new class extends TestCase {
     public function test_state_2_no_digits_yet_before_timer_threshold(): void
     {
         $this->setup(2);
-        $this->initUint32($this->ms + 0x64, 0); // startTimer_0x64
-        $this->initUint32($this->ms + 0x68, 0); // logo_timer_0x68: below threshold after increment
+        $this->initUint32($this->ms + 0x64, 0); // counter_0x64
+        $this->initUint32($this->ms + 0x68, 0); // timer_0x68: below threshold after increment
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldWriteLong($this->ms + 0x68, 1); // logo_timer_0x68 = 1
+        $this->shouldWriteLong($this->ms + 0x68, 1); // timer_0x68 = 1
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
@@ -716,15 +716,15 @@ return new class extends TestCase {
     public function test_state_2_first_digit_revealed_when_timer_ticks_over(): void
     {
         $this->setup(2);
-        $this->initUint32($this->ms + 0x64, 0);  // startTimer_0x64
-        $this->initUint32($this->ms + 0x68, 10); // logo_timer_0x68: crosses threshold on increment
+        $this->initUint32($this->ms + 0x64, 0);  // counter_0x64
+        $this->initUint32($this->ms + 0x68, 10); // timer_0x68: crosses threshold on increment
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 0x10, 0x55667788); // index 4
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
-        $this->shouldWriteLong($this->ms + 0x64, 1);  // startTimer_0x64 = 1
-        $this->shouldWriteLong($this->ms + 0x68, 0);  // logo_timer_0x68 = 0
+        $this->shouldWriteLong($this->ms + 0x68, 11); // timer_0x68 = 11 (pre-reset increment)
+        $this->shouldWriteLong($this->ms + 0x64, 1);  // counter_0x64 = 1
+        $this->shouldWriteLong($this->ms + 0x68, 0);  // timer_0x68 = 0
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 6, 0);
 
@@ -739,16 +739,16 @@ return new class extends TestCase {
     public function test_state_2_all_digits_revealed_and_advances_to_3_with_no_award(): void
     {
         $this->setup(2);
-        $this->initUint32($this->ms + 0x64, 6);  // startTimer_0x64: about to reach 7
-        $this->initUint32($this->ms + 0x68, 10); // logo_timer_0x68: crosses threshold on increment
+        $this->initUint32($this->ms + 0x64, 6);  // counter_0x64: about to reach 7
+        $this->initUint32($this->ms + 0x68, 10); // timer_0x68: crosses threshold on increment
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0); // no award
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 0x10, 0x55667788); // index 4
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
-        $this->shouldWriteLong($this->ms + 0x64, 7);  // startTimer_0x64 = 7
-        $this->shouldWriteLong($this->ms + 0x68, 0);  // logo_timer_0x68 = 0
+        $this->shouldWriteLong($this->ms + 0x68, 11); // timer_0x68 = 11 (pre-reset increment)
+        $this->shouldWriteLong($this->ms + 0x64, 7);  // counter_0x64 = 7
+        $this->shouldWriteLong($this->ms + 0x68, 0);  // timer_0x68 = 0
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 6, 0);
 
@@ -778,9 +778,9 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
-        $this->shouldWriteLong($this->ms + 0x64, 7);  // startTimer_0x64 = 7
-        $this->shouldWriteLong($this->ms + 0x68, 0);  // logo_timer_0x68 = 0
+        $this->shouldWriteLong($this->ms + 0x68, 11); // timer_0x68 = 11 (pre-reset increment)
+        $this->shouldWriteLong($this->ms + 0x64, 7);  // counter_0x64 = 7
+        $this->shouldWriteLong($this->ms + 0x68, 0);  // timer_0x68 = 0
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 6, 0);
 
@@ -812,9 +812,9 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
-        $this->shouldWriteLong($this->ms + 0x64, 7);  // startTimer_0x64 = 7
-        $this->shouldWriteLong($this->ms + 0x68, 0);  // logo_timer_0x68 = 0
+        $this->shouldWriteLong($this->ms + 0x68, 11); // timer_0x68 = 11 (pre-reset increment)
+        $this->shouldWriteLong($this->ms + 0x64, 7);  // counter_0x64 = 7
+        $this->shouldWriteLong($this->ms + 0x68, 0);  // timer_0x68 = 0
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 6, 0);
 
@@ -846,9 +846,9 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldWriteLong($this->ms + 0x68, 11); // logo_timer_0x68 = 11 (pre-reset increment)
-        $this->shouldWriteLong($this->ms + 0x64, 7);  // startTimer_0x64 = 7
-        $this->shouldWriteLong($this->ms + 0x68, 0);  // logo_timer_0x68 = 0
+        $this->shouldWriteLong($this->ms + 0x68, 11); // timer_0x68 = 11 (pre-reset increment)
+        $this->shouldWriteLong($this->ms + 0x64, 7);  // counter_0x64 = 7
+        $this->shouldWriteLong($this->ms + 0x68, 0);  // timer_0x68 = 0
 
         $this->shouldCall('_sdMidiPlay')->with(0x55667788, 1, 6, 0);
 

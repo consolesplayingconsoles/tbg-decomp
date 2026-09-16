@@ -592,7 +592,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
                     }
                     m->selectedVmuSlot_0x6c = m->selected_0x38;
-                    m->field_0x3c = 0;
+                    m->cursorCol_0x3c = 0;
                     task->phase_0x08 = 0; /* prompt phase, shared by DOWNLOAD and EXP_LOAD */
                 } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
                     m->state_0x18 = STATE_RETURN_FADE_OUT;
@@ -621,7 +621,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
     case STATE_DOWNLOAD: {
         switch (task->phase_0x08) {
             case DOWNLOAD_PHASE_PROMPT: {
-                switch (PromptHandleBinary_8c016caa(&m->field_0x3c)) {
+                switch (PromptHandleBinary_8c016caa(&m->cursorCol_0x3c)) {
                     case 1: {
                         int save = saveExecFile_8c01bd30(
                             var_vmGameBuf_8c1bc454,
@@ -697,7 +697,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                         break;
                     }
                 }
-                TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, m->field_0x3c + 2, 228.0f, 300.0f, -5.0f);
+                TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, m->cursorCol_0x3c + 2, 228.0f, 300.0f, -5.0f);
                 break;
             }
 
@@ -749,7 +749,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
     case STATE_EXP_LOAD: {
         switch (task->phase_0x08) {
             case EXP_PHASE_PROMPT: {
-                switch (PromptHandleBinary_8c016caa(&m->field_0x3c)) {
+                switch (PromptHandleBinary_8c016caa(&m->cursorCol_0x3c)) {
                     case 1: {
                         int load = loadFileEx_8c01be30(
                             m->selectedVmuSlot_0x6c, "TOKYOBUS._VM", var_texbuf_8c277ca0, 0, 6
@@ -774,7 +774,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                         break;
                     }
                 }
-                TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, m->field_0x3c + 2, 228.0f, 300.0f, -5.0f);
+                TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, m->cursorCol_0x3c + 2, 228.0f, 300.0f, -5.0f);
                 break;
             }
 

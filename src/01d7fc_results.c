@@ -126,20 +126,20 @@ STATIC void resultsTask_8c01d8e0(void)
     case 1:
         if (!var_isFading_8c226568) {
             var_menuState_8c1bc7a8.state_0x18 = 2;
-            var_menuState_8c1bc7a8.startTimer_0x64 = 0;
-            var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+            var_menuState_8c1bc7a8.counter_0x64 = 0;
+            var_menuState_8c1bc7a8.timer_0x68 = 0;
         }
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
         goto tail;
 
     case 2:
-        var_menuState_8c1bc7a8.logo_timer_0x68++;
-        if (var_menuState_8c1bc7a8.logo_timer_0x68 > 10) {
-            var_menuState_8c1bc7a8.startTimer_0x64++;
-            var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+        var_menuState_8c1bc7a8.timer_0x68++;
+        if (var_menuState_8c1bc7a8.timer_0x68 > 10) {
+            var_menuState_8c1bc7a8.counter_0x64++;
+            var_menuState_8c1bc7a8.timer_0x68 = 0;
             sdMidiPlay(var_midiHandles_8c0fcd28[4], 1, 6, 0);
         }
-        if (var_menuState_8c1bc7a8.startTimer_0x64 == 7) {
+        if (var_menuState_8c1bc7a8.counter_0x64 == 7) {
             if (var_award_8c1bb8f8 == AWARD_TIER_GOLD) {
                 SndMidiResetFxAndPlay_8c010846(5, 2);
             } else if (var_award_8c1bb8f8 == AWARD_TIER_SILVER) {
@@ -149,9 +149,9 @@ STATIC void resultsTask_8c01d8e0(void)
             }
             var_menuState_8c1bc7a8.state_0x18 = 3;
         }
-        /* One more score row per tick of startTimer_0x64, top (course clear)
+        /* One more score row per tick of counter_0x64, top (course clear)
          * down to bottom (total); 0 draws nothing. */
-        switch (var_menuState_8c1bc7a8.startTimer_0x64) {
+        switch (var_menuState_8c1bc7a8.counter_0x64) {
         case 7:
             drawScoreDigits_8c01d7fc(var_scoreTotal_8c226404, 312.0f);
             /* fallthrough */

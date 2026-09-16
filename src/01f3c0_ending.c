@@ -212,14 +212,14 @@ STATIC int scrollCreditsText_8c01f50e(void)
         if ((float) box->y_0x04 < -480.0f) {
             box->y_0x04 += 960;
 
-            if (TxtPrepareTextBoxLayout_8c01543a(box, (&init_endingCreditsHead_8c04528c[0])[var_menuState_8c1bc7a8.startTimer_0x64]) != 0) {
+            if (TxtPrepareTextBoxLayout_8c01543a(box, (&init_endingCreditsHead_8c04528c[0])[var_menuState_8c1bc7a8.counter_0x64]) != 0) {
                 if (idx != 0) {
                     var_menuState_8c1bc7a8.field_0x58 = 0;
                 } else {
                     var_menuState_8c1bc7a8.field_0x54 = 0;
                 }
                 var_menuState_8c1bc7a8.field_0x5c = idx ^ 1;
-                var_menuState_8c1bc7a8.startTimer_0x64++;
+                var_menuState_8c1bc7a8.counter_0x64++;
             } else {
                 var_menuState_8c1bc7a8.subState_0x1c = 1;
             }
@@ -283,7 +283,7 @@ STATIC void creditsTask_8c01f658(void)
         }
 
         var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_CREDITS_INTRO;
-        var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+        var_menuState_8c1bc7a8.timer_0x68 = 0;
         ObjectsFreeTextboxes_8c02af32();
         TxtInit_8c01524c();
         var_messageTextBoxA_8c1bc404 = TxtCreateTextBox_8c0152fc(0, 480, -5.0f, 640, 480, 0, 0, -1);
@@ -292,10 +292,10 @@ STATIC void creditsTask_8c01f658(void)
         TxtPrepareTextBoxLayout_8c01543a((TextBox *) var_messageTextBoxB_8c1bc408, init_endingCreditsTail_8c045290[0]);
         var_menuState_8c1bc7a8.subState_0x1c = 0;
         var_menuState_8c1bc7a8.field_0x5c = 0;
-        var_menuState_8c1bc7a8.startTimer_0x64 = 2;
+        var_menuState_8c1bc7a8.counter_0x64 = 2;
         var_menuState_8c1bc7a8.field_0x54 = 0;
         var_menuState_8c1bc7a8.field_0x58 = 0;
-        var_menuState_8c1bc7a8.logo_timer_0x68 = 3240;
+        var_menuState_8c1bc7a8.timer_0x68 = 3240;
         SndProc_8c010cd6(0, 12);
         FadePushIn_8c022a9c(30);
         return;
@@ -305,25 +305,25 @@ STATIC void creditsTask_8c01f658(void)
             var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_CREDITS_SCROLL;
         }
         scrollCreditsText_8c01f50e();
-        var_menuState_8c1bc7a8.logo_timer_0x68--;
+        var_menuState_8c1bc7a8.timer_0x68--;
         return;
 
     case ENDING_TASK_STATE_CREDITS_SCROLL:
-        var_menuState_8c1bc7a8.logo_timer_0x68--;
-        if (var_menuState_8c1bc7a8.logo_timer_0x68 < 0) {
+        var_menuState_8c1bc7a8.timer_0x68--;
+        if (var_menuState_8c1bc7a8.timer_0x68 < 0) {
             SndProc_8c010cd6(0, 11);
-            var_menuState_8c1bc7a8.logo_timer_0x68 = 2700;
+            var_menuState_8c1bc7a8.timer_0x68 = 2700;
         }
         if (var_menuState_8c1bc7a8.subState_0x1c != 0) {
             var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_CREDITS_HOLD;
-            var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
+            var_menuState_8c1bc7a8.timer_0x68 = 0;
         }
         scrollCreditsText_8c01f50e();
         return;
 
     case ENDING_TASK_STATE_CREDITS_HOLD:
-        var_menuState_8c1bc7a8.logo_timer_0x68++;
-        if (var_menuState_8c1bc7a8.logo_timer_0x68 > 150) {
+        var_menuState_8c1bc7a8.timer_0x68++;
+        if (var_menuState_8c1bc7a8.timer_0x68 > 150) {
             var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_EXIT;
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);

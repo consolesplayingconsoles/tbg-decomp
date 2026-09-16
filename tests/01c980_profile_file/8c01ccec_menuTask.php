@@ -600,7 +600,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
-        $this->initUint32($this->menu(0x68), 2); // logo_timer, below threshold
+        $this->initUint32($this->menu(0x68), 2); // timer_0x68, below threshold
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
         $this->shouldWriteLong($this->menu(0x68), 3);

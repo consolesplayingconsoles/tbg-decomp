@@ -116,7 +116,5 @@ int CourseMenuBuildCourseUnlockList_8c0172dc(void);
 void CourseMenuApplyUnlocks_8c0173e6(void);
 void CourseMenuReturn_8c017ef2(void);
 
-/* TODO: move ResourceGroup/ResourceGroupInfo out to a header of their own. */
-
 #endif /* _COURSE_MENU_H */
 

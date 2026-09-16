@@ -178,7 +178,7 @@ STATIC void settingTask_8c01a148(Task *task)
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
         /* Value marker; blinks (every other frame) while its row is being edited. */
         if (m->state_0x18 != OPTION_STATE_EDIT || i != m->selected_0x38 ||
-            (m->logo_timer_0x68++ & 1)) {
+            (m->timer_0x68++ & 1)) {
             TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x29,
                                    337.0f + 64.0f * var_settingValues_8c226074[i],
                                    77.0f + 56.0f * i, -4.0f);
@@ -459,7 +459,7 @@ STATIC int soundTestFieldRead_8c01a904(int *digits, int count)
     return value;
 }
 /*
- * Sound-test field edit. L moves field_0x3c up a digit (leftwards on screen,
+ * Sound-test field edit. L moves cursorCol_0x3c up a digit (leftwards on screen,
  * digits[0] being the ones), R back down; U/D step that digit with carry across
  * the field, wrapping the whole value within [0, max]. B leaves the field,
  * stopping the MUSIC/SFX/VOICE playback the phase (6/7/8) started.
@@ -470,19 +470,19 @@ STATIC void soundTestFieldAdjust_8c01a926(int *digits, int count, int max)
     int i;
 
     if (press & PDD_DGT_KL) {
-        if (var_menuState_8c1bc7a8.field_0x3c < count - 1) {
-            var_menuState_8c1bc7a8.field_0x3c += 1;
+        if (var_menuState_8c1bc7a8.cursorCol_0x3c < count - 1) {
+            var_menuState_8c1bc7a8.cursorCol_0x3c += 1;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
         }
     } else if (press & PDD_DGT_KR) {
-        if (var_menuState_8c1bc7a8.field_0x3c > 0) {
-            var_menuState_8c1bc7a8.field_0x3c -= 1;
+        if (var_menuState_8c1bc7a8.cursorCol_0x3c > 0) {
+            var_menuState_8c1bc7a8.cursorCol_0x3c -= 1;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
         }
     }
 
     if (press & PDD_DGT_KU) {
-        for (i = var_menuState_8c1bc7a8.field_0x3c; i < count; i++) {
+        for (i = var_menuState_8c1bc7a8.cursorCol_0x3c; i < count; i++) {
             int v = digits[i] + 1;
             digits[i] = v;
             if (v <= 9) {
@@ -496,7 +496,7 @@ STATIC void soundTestFieldAdjust_8c01a926(int *digits, int count, int max)
             }
         }
     } else if (press & PDD_DGT_KD) {
-        for (i = var_menuState_8c1bc7a8.field_0x3c; i < count; i++) {
+        for (i = var_menuState_8c1bc7a8.cursorCol_0x3c; i < count; i++) {
             int v = digits[i] - 1;
             digits[i] = v;
             if (v >= 0) {
@@ -548,7 +548,7 @@ STATIC void soundTestFieldDraw_8c01aaaa(float x, float y, int *digits, int count
  *   state 6/7/8   = MUSIC/SFX/VOICE sound-test digit fields
  * AUDIO_FADE_OUT hands back to the OPTION top menu with the cursor on AUDIO.
  * The volume/sound-mode markers blink (drawn every other frame) while their row is
- * being edited; the three sound-test fields and their cursor use field_0x3c as the
+ * being edited; the three sound-test fields and their cursor use cursorCol_0x3c as the
  * edit digit index.
  */
 STATIC void audioTask_8c01ab08(Task *task)
@@ -569,7 +569,7 @@ STATIC void audioTask_8c01ab08(Task *task)
             if (press & PDD_DGT_TA) {
                 if (m->selected_0x38 < 7) {
                     CHANGE_STATE(m->selected_0x38 + 2);
-                    m->field_0x3c = 0;
+                    m->cursorCol_0x3c = 0;
                 } else if (m->selected_0x38 == 7) {
                     FileMenuResetSoundDefaults_8c0188dc();
                 } else {
@@ -635,7 +635,7 @@ STATIC void audioTask_8c01ab08(Task *task)
                 soundTestFieldAdjust_8c01a926(var_musicTestDigits_8c226078, 2, 0x10);
             }
             TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
-                                   436.0f - (float)m->field_0x3c * 26.0f, 220.0f, -3.0f);
+                                   436.0f - (float)m->cursorCol_0x3c * 26.0f, 220.0f, -3.0f);
             break;
         }
 
@@ -646,7 +646,7 @@ STATIC void audioTask_8c01ab08(Task *task)
                 soundTestFieldAdjust_8c01a926(var_sfxTestDigits_8c226080, 2, 0x44);
             }
             TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
-                                   436.0f - (float)m->field_0x3c * 26.0f, 256.0f, -3.0f);
+                                   436.0f - (float)m->cursorCol_0x3c * 26.0f, 256.0f, -3.0f);
             break;
         }
 
@@ -657,7 +657,7 @@ STATIC void audioTask_8c01ab08(Task *task)
                 soundTestFieldAdjust_8c01a926(var_voiceTestDigits_8c226088, 4, 0x56c);
             }
             TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
-                                   436.0f - (float)m->field_0x3c * 26.0f, 292.0f, -3.0f);
+                                   436.0f - (float)m->cursorCol_0x3c * 26.0f, 292.0f, -3.0f);
             break;
         }
 
@@ -676,19 +676,19 @@ STATIC void audioTask_8c01ab08(Task *task)
     }
 
     /* SOUND mode marker (blinks while editing row 0), then the 3 volume markers. */
-    if (m->state_0x18 != 2 || m->selected_0x38 != 0 || (m->logo_timer_0x68++ & 1)) {
+    if (m->state_0x18 != 2 || m->selected_0x38 != 0 || (m->timer_0x68++ & 1)) {
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x29,
                                (float)var_soundMode_8c226070 * 64.0f + 401.0f, 69.0f, -4.0f);
     }
-    if (m->state_0x18 != 3 || (m->logo_timer_0x68++ & 1)) {
+    if (m->state_0x18 != 3 || (m->timer_0x68++ & 1)) {
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
                                (float)var_progress_8c1ba1cc.musicVolume_0xd4 * 20.0f + 400.0f, 110.0f, -4.0f);
     }
-    if (m->state_0x18 != 4 || (m->logo_timer_0x68++ & 1)) {
+    if (m->state_0x18 != 4 || (m->timer_0x68++ & 1)) {
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
                                (float)var_progress_8c1ba1cc.sfxVolume_0xd5 * 20.0f + 400.0f, 146.0f, -4.0f);
     }
-    if (m->state_0x18 != 5 || (m->logo_timer_0x68++ & 1)) {
+    if (m->state_0x18 != 5 || (m->timer_0x68++ & 1)) {
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
                                (float)var_progress_8c1ba1cc.voiceVolume_0xd6 * 20.0f + 400.0f, 182.0f, -4.0f);
     }
