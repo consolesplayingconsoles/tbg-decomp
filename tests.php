@@ -7,6 +7,20 @@ return [
     ],
     'groups' => [
         [
+            // The matching build compiles this unit from C, so there is no
+            // archived original asm to run these against -- the C object is
+            // the only one.
+            'tests' => [
+                "tests/010e90_vibration/8c010e90_stepPattern.php",
+                "tests/010e90_vibration/8c010f7a_VibStart.php",
+                "tests/010e90_vibration/8c010fae_VibUpdate.php",
+                "tests/010e90_vibration/8c010fbe_VibClear.php",
+            ],
+            'objects' => [
+                "build/output_test/src/010e90_vibration.obj",
+            ],
+        ],
+        [
             'tests' => [
                 "tests/010fe8_heap/8c010fe8_heapInit.php",
                 "tests/010fe8_heap/8c01102a_heapAlloc.php",

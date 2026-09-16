@@ -7,10 +7,11 @@ OUTPUT_DIR=$(BUILD_DIR)/output_test
 
 SHELL := /bin/bash
 
-UNITS = $(basename $(notdir $(wildcard src/asm/decompiled/*.src)))
-
-ASM_SRCS = $(addprefix src/asm/decompiled/, $(addsuffix .src, $(UNITS)))
-C_SRCS = $(addprefix src/, $(addsuffix .c, $(UNITS)))
+# Every C unit gets a test object. A unit with an archived original gets an asm
+# one too, so its group can run each case against both; a unit the matching
+# build compiles from C has no such archive and is tested against the C alone.
+ASM_SRCS = $(wildcard src/asm/decompiled/*.src)
+C_SRCS = $(wildcard src/*.c)
 
 C_OBJS = $(patsubst src/%.c,$(OUTPUT_DIR)/src/%.obj,$(C_SRCS))
 ASM_OBJS = $(patsubst src/%.src,$(OUTPUT_DIR)/src/%.obj,$(ASM_SRCS))
