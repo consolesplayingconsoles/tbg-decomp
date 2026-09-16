@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_pathA()
+    public function test_ch0FadeOutStep()
     {
         $this->resolveSymbols();
 
@@ -22,7 +22,7 @@ return new class extends TestCase {
         $this->singleCall('_SndUpdateAdxVolFade_8c010a40')->run();
     }
 
-    public function test_pathB()
+    public function test_ch1FadeOutStep()
     {
         $this->resolveSymbols();
 
@@ -39,14 +39,14 @@ return new class extends TestCase {
         $this->singleCall('_SndUpdateAdxVolFade_8c010a40')->run();
     }
 
-    public function test_pathC()
+    public function test_ch0FadeOutEnds()
     {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x00, 0b00001101);
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x0c, 10);
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x04, 311);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0b11111111);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0b11111111);
 
         $this->shouldWrite(
             $this->addressOf('_var_adxFade_8c157a34') + 0x0c,
@@ -62,19 +62,19 @@ return new class extends TestCase {
             0b00001100
         );
 
-        $this->shouldWrite($this->addressOf('_init_8c03bd80'), 0b11111110);
+        $this->shouldWrite($this->addressOf('_init_adxPlaying_8c03bd80'), 0b11111110);
 
         $this->singleCall('_SndUpdateAdxVolFade_8c010a40')->run();
     }
 
-    public function test_pathD()
+    public function test_ch1FadeOutEnds()
     {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x00, 0b00001110);
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x10, 10);
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x08, 311);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0b11111111);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0b11111111);
 
         $this->shouldWrite(
             $this->addressOf('_var_adxFade_8c157a34') + 0x10,
@@ -90,12 +90,12 @@ return new class extends TestCase {
             0b00001100
         );
 
-        $this->shouldWrite($this->addressOf('_init_8c03bd80'), 0b11101111);
+        $this->shouldWrite($this->addressOf('_init_adxPlaying_8c03bd80'), 0b11101111);
 
         $this->singleCall('_SndUpdateAdxVolFade_8c010a40')->run();
     }
 
-    public function test_pathE()
+    public function test_ch0FadeInStep()
     {
         $this->resolveSymbols();
 
@@ -112,7 +112,7 @@ return new class extends TestCase {
         $this->singleCall('_SndUpdateAdxVolFade_8c010a40')->run();
     }
 
-    public function test_pathF()
+    public function test_ch1FadeInStep()
     {
         $this->resolveSymbols();
 
@@ -129,14 +129,14 @@ return new class extends TestCase {
         $this->singleCall('_SndUpdateAdxVolFade_8c010a40')->run();
     }
 
-    public function test_pathG()
+    public function test_ch0FadeInEnds()
     {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x00, 0b1101_0000);
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x0c, 390);
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x04, 601);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0b11111111);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0b11111111);
 
         $this->shouldWrite(
             $this->addressOf('_var_adxFade_8c157a34') + 0x0c,
@@ -154,14 +154,14 @@ return new class extends TestCase {
         $this->singleCall('_SndUpdateAdxVolFade_8c010a40')->run();
     }
 
-    public function test_pathH()
+    public function test_ch1FadeInEnds()
     {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x00, 0b1110_0000);
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x10, 390);
         $this->initUint32($this->addressOf('_var_adxFade_8c157a34') + 0x08, 601);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0b11111111);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0b11111111);
 
         $this->shouldWrite(
             $this->addressOf('_var_adxFade_8c157a34') + 0x10,

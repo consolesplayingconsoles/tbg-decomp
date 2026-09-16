@@ -120,7 +120,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
             }
             AsqFreeQueues_8c011f7e();
             CHANGE_STATE(ALBUM_STATE_FADE_IN);
-            SndProc_8c010cd6(0, 0x10);
+            SndPlayAdx_8c010cd6(0, 0x10);
             FadePushIn_8c022a9c(10);
             return;
         }
@@ -280,7 +280,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
 
         case ALBUM_STATE_FADE_OUT: {
             if (!var_isFading_8c226568) {
-                if (init_8c03bd80) {
+                if (init_adxPlaying_8c03bd80) {
                     return;
                 }
                 LOG_DEBUG(("[ALBUM] albumMenuTask_8c01d300: fade-out complete, switching screen\n"));

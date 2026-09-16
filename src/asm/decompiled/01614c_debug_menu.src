@@ -4,7 +4,7 @@
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_tasks_8c1ba808
           .IMPORT     _var_tasks_8c1ba5e8
-          .IMPORT     _FUN_8c010c7c
+          .IMPORT     _SndStopAllAdx_8c010c7c
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _VibClear_8c010fbe
           .IMPORT     _var_tasks_8c1ba3c8
@@ -427,7 +427,7 @@ LP_GEN_42967:
           .DATA.L _var_tasks_8c1bac28 ; H'8C016390
           .DATA.L _var_tasks_8c1ba808 ; H'8C016394
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C016398
-          .DATA.L _FUN_8c010c7c ; H'8C01639C
+          .DATA.L _SndStopAllAdx_8c010c7c ; H'8C01639C
           .DATA.L _sdMidiStopAll ; H'8C0163A0
           .DATA.L _var_vibport_8c1ba354 ; H'8C0163A4
           .DATA.L _pdVibMxStop ; H'8C0163A8

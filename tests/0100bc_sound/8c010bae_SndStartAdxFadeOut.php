@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_pathNone()
+    public function test_ch0AlreadyFading()
     {
         $this->resolveSymbols();
 
@@ -14,7 +14,7 @@ return new class extends TestCase {
         $this->singleCall('_SndStartAdxFadeOut_8c010bae')->with(0)->run();
     }
 
-    public function test_pathNone2()
+    public function test_ignoredWhileFadingIn()
     {
         $this->resolveSymbols();
 
@@ -23,7 +23,7 @@ return new class extends TestCase {
         $this->singleCall('_SndStartAdxFadeOut_8c010bae')->with(0)->run();
     }
 
-    public function test_pathNone3()
+    public function test_ignoredWhileFadingInUnknownStream()
     {
         $this->resolveSymbols();
 
@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->singleCall('_SndStartAdxFadeOut_8c010bae')->with(3)->run();
     }
 
-    public function test_pathA()
+    public function test_armsCh0()
     {
         $this->resolveSymbols();
 
@@ -48,7 +48,7 @@ return new class extends TestCase {
         $this->singleCall('_SndStartAdxFadeOut_8c010bae')->with(0)->run();
     }
 
-    public function test_pathB()
+    public function test_armsCh1()
     {
         $this->resolveSymbols();
 

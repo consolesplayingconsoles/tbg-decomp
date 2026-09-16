@@ -49,7 +49,7 @@
           .IMPORT     _var_currentSegment_8c228708
           .IMPORT     _var_fadeArrivalVariant_8c22655c
           .IMPORT     _var_timeOfDay_8c18ad20
-          .IMPORT     _SndProc_8c010cd6
+          .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _StopDrawLightEnd_8c02d146
           .EXPORT     _PassengerBoardTask_8c02d21c
           .EXPORT     _PassengerExitTask_8c02d46c
@@ -1058,7 +1058,7 @@ LP_GEN_72278:
           .DATA.L _var_currentSegment_8c228708 ; H'8C02D93C
           .DATA.L _var_fadeArrivalVariant_8c22655c ; H'8C02D940
           .DATA.L _var_timeOfDay_8c18ad20 ; H'8C02D944
-          .DATA.L _SndProc_8c010cd6 ; H'8C02D948
+          .DATA.L _SndPlayAdx_8c010cd6 ; H'8C02D948
           .DATA.L _TaskFree_8c014b66 ; H'8C02D94C
           .DATA.L _StopDrawLightEnd_8c02d146 ; H'8C02D950
           .DATA.L _var_isFading_8c226568 ; H'8C02D954

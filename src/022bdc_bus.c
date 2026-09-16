@@ -4,7 +4,7 @@
 
 #include "sectionB.h"
 #include "013ae8_route_load.h"    /* CurrentCourse */
-#include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, FUN_8c010c6e */
+#include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, SndUpdateEngine_8c010c6e */
 #include "014a9c_tasks.h"         /* Task */
 #include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */
 #include "023938_bus_drive.h"               /* BusDriveSampleGround_8c023938/023cba/023e7e */
@@ -190,7 +190,7 @@ void BusTask_8c022bdc(Task *task, void *state)
     /* driveState_0x2b4 == 3 (fully stopped): nothing else to do here, falls
      * straight into the shared tail below. */
 
-    FUN_8c010c6e();
+    SndUpdateEngine_8c010c6e();
 
     if (var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
         int *result;

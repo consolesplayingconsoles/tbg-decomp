@@ -1088,7 +1088,7 @@ STATIC void taskCallback_8c02c072() {
         } else {
             if (var_8c2285c4[0] == 4) {
                 var_8c2285c4[2] = var_8c2285c4[2] - 1;
-                if (var_8c2285c4[2] < 0 && init_8c03bd80 == 0) {
+                if (var_8c2285c4[2] < 0 && init_adxPlaying_8c03bd80 == 0) {
                     sdMidiStopAll();
                     if (var_vibport_8c1ba354 != -1) {
                         pdVibMxStop(var_vibport_8c1ba354);

@@ -51,7 +51,7 @@
           .IMPORT     _var_8c228714
           .IMPORT     _var_8c22861c
           .IMPORT     _SndStartAdxFadeOut_8c010bae
-          .IMPORT     _init_8c03bd80
+          .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _sdMidiStopAll
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
@@ -2224,7 +2224,7 @@ LAB_8c02c4a0:
           BRA         LAB_8c02c4e8
           MOV.L       R6,@(H'20,R5)
 LP_GEN_93947:
-          .DATA.L _init_8c03bd80 ; H'8C02C4A4
+          .DATA.L _init_adxPlaying_8c03bd80 ; H'8C02C4A4
           .DATA.L _sdMidiStopAll ; H'8C02C4A8
           .DATA.L _var_vibport_8c1ba354 ; H'8C02C4AC
           .DATA.L _pdVibMxStop ; H'8C02C4B0

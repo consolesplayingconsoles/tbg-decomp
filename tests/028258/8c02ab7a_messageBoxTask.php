@@ -24,7 +24,7 @@ return new class extends TestCase {
     }
 
     // A 0xffff-terminated ids array with no entries, so the shared draw tail
-    // falls straight through to menuTextboxText/FUN_8c0106ac.
+    // falls straight through to menuTextboxText/SndPollVoiceEnd_8c0106ac.
     private function allocEmptyIds(): int
     {
         $ids = $this->alloc(2);
@@ -57,7 +57,7 @@ return new class extends TestCase {
     {
         $this->shouldWriteFloat($this->addressOf('_init_msgScroll_8c04ab3c') + 0x24, -3.0);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with($pageIndex);
-        $this->shouldCall('_FUN_8c0106ac');
+        $this->shouldCall('_SndPollVoiceEnd_8c0106ac');
     }
 
     public function test_phase0_swaps_in_message_and_waits(): void
@@ -93,7 +93,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with($string)->andReturn(5);
         $this->shouldWriteLong($state + self::ST_PAGE_COUNT, 5);
-        $this->shouldCall('_SndProc_8c010cd6')->with(2, 0x1234);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(2, 0x1234);
 
         $this->shouldWriteLong($state + self::ST_PAGE_INDEX, 1);
         $this->shouldWriteLong($state + self::ST_FRAME_COUNTER, 0);
@@ -106,7 +106,7 @@ return new class extends TestCase {
         // 0xffff-terminated.
         $this->shouldWriteFloat($this->addressOf('_init_msgScroll_8c04ab3c') + 0x24, -3.0);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(1);
-        $this->shouldCall('_FUN_8c0106ac');
+        $this->shouldCall('_SndPollVoiceEnd_8c0106ac');
     }
 
     public function test_phase1_reswaps_current_message(): void
@@ -127,7 +127,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with($string)->andReturn(3);
         $this->shouldWriteLong($state + self::ST_PAGE_COUNT, 3);
-        $this->shouldCall('_SndProc_8c010cd6')->with(2, 0x5678);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(2, 0x5678);
 
         $this->shouldWriteLong($state + self::ST_PAGE_INDEX, 1);
         $this->shouldWriteLong($state + self::ST_FRAME_COUNTER, 0);
@@ -147,7 +147,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($state + self::ST_FRAME_COUNTER, 99);
         $this->shouldWriteLong($state + self::ST_PHASE, 3);
-        $this->shouldCall('_FUN_8c010ca6')->with(1);
+        $this->shouldCall('_SndStopAdx_8c010ca6')->with(1);
         $this->shouldWriteLong($state + self::ST_FRAME_COUNTER, 100);
         $this->shouldWriteLong($state + self::ST_PAGE_INDEX, 2);
         $this->shouldWriteLong($state + self::ST_FRAME_COUNTER, 0);
@@ -265,7 +265,7 @@ return new class extends TestCase {
 
         $this->call('_messageBoxTask_8c02ab7a')->with($task, $state);
 
-        $this->shouldCall('_FUN_8c010ca6')->with(1);
+        $this->shouldCall('_SndStopAdx_8c010ca6')->with(1);
         $this->shouldWriteLong($state + self::ST_MSG, $msgData + 0x08);
         $this->shouldWriteLong($state + self::ST_PHASE, 1);
         $this->expectDrawEmpty($state, 1);
@@ -295,7 +295,7 @@ return new class extends TestCase {
 
         $this->call('_messageBoxTask_8c02ab7a')->with($task, $state);
 
-        $this->shouldCall('_FUN_8c010ca6')->with(1);
+        $this->shouldCall('_SndStopAdx_8c010ca6')->with(1);
         $this->shouldWriteLong($state + self::ST_MSG, $msgData + 0x08);
         $this->shouldWriteLong($state + self::ST_ROW, $row + 0x08);
         $this->shouldWriteLong($state + self::ST_PHASE, 0);
@@ -325,7 +325,7 @@ return new class extends TestCase {
 
         $this->call('_messageBoxTask_8c02ab7a')->with($task, $state);
 
-        $this->shouldCall('_FUN_8c010ca6')->with(1);
+        $this->shouldCall('_SndStopAdx_8c010ca6')->with(1);
         $this->shouldWriteLong($state + self::ST_MSG, $msgData + 0x08);
         $this->shouldWriteLong($state + self::ST_ROW, $row + 0x08);
         $this->shouldWriteLongTo('_var_fadeRequest_8c226564', 2 /* FADE_REQUEST_IN */);
@@ -403,7 +403,7 @@ return new class extends TestCase {
         $this->shouldCall('_njDrawScroll')->with($this->addressOf('_init_msgScroll_8c04ab3c'));
         $this->shouldWriteFloat($this->addressOf('_init_msgScroll_8c04ab3c') + 0x24, -2.9);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(1);
-        $this->shouldCall('_FUN_8c0106ac');
+        $this->shouldCall('_SndPollVoiceEnd_8c0106ac');
     }
 
     public function test_draw_with_no_matching_asset_leaves_pvm_dat_stale(): void
@@ -445,6 +445,6 @@ return new class extends TestCase {
             });
         $this->shouldWriteFloat($this->addressOf('_init_msgScroll_8c04ab3c') + 0x24, -2.9);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(1);
-        $this->shouldCall('_FUN_8c0106ac');
+        $this->shouldCall('_SndPollVoiceEnd_8c0106ac');
     }
 };

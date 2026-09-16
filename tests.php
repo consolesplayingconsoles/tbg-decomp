@@ -46,14 +46,14 @@ return [
         ],
         [
             'tests' => [
-                "tests/0100bc_sound/0100bc_initUknVol.php",
-                "tests/0100bc_sound/010128_midiSetVol.php",
-                "tests/0100bc_sound/0102d8_FUN.php",
-                "tests/0100bc_sound/010972_setAdxVol.php",
-                "tests/0100bc_sound/010a40_FUN_adxVol.php",
-                "tests/0100bc_sound/010bae_FUN.php",
-                "tests/0100bc_sound/010c2c_FUN.php",
-                "tests/0100bc_sound/010cd6_snd.php",
+                "tests/0100bc_sound/8c0100bc_initEngineVol.php",
+                "tests/0100bc_sound/8c010128_updateEngineVol.php",
+                "tests/0100bc_sound/8c0102d8_updateEngineVoices.php",
+                "tests/0100bc_sound/8c010972_SndSetAdxVol.php",
+                "tests/0100bc_sound/8c010a40_SndUpdateAdxVolFade.php",
+                "tests/0100bc_sound/8c010bae_SndStartAdxFadeOut.php",
+                "tests/0100bc_sound/8c010c2c_unusedStartAdxCh1FadeIn.php",
+                "tests/0100bc_sound/8c010cd6_SndPlayAdx.php",
             ],
             'objects' => [
                 "build/output_test/src/asm/decompiled/0100bc_sound.obj",

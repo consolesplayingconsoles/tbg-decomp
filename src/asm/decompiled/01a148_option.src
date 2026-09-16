@@ -17,18 +17,18 @@
           .IMPORT     __modls
           .IMPORT     __divls
           .IMPORT     _sdMidiStop
-          .IMPORT     _FUN_8c010ca6
+          .IMPORT     _SndStopAdx_8c010ca6
           .IMPORT     _var_musicTestDigits_8c226078
           .IMPORT     _FileMenuResetSoundDefaults_8c0188dc
           .IMPORT     _var_soundMode_8c226070
           .IMPORT     _SndSetSoundMode_8c0108c0
           .IMPORT     _SndSetAdxVol_8c010972
-          .IMPORT     _SndSetMidiVolAndInitStruct_8c0109f4
-          .IMPORT     _FUN_8c0107ac
+          .IMPORT     _SndSetMidiVol_8c0109f4
+          .IMPORT     _SndPlayBgm_8c0107ac
           .IMPORT     _var_sfxTestDigits_8c226080
-          .IMPORT     _FUN_8c0106d2
+          .IMPORT     _SndPlaySfx_8c0106d2
           .IMPORT     _var_voiceTestDigits_8c226088
-          .IMPORT     _FUN_8c010720
+          .IMPORT     _SndPlayVoice_8c010720
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
           .IMPORT     _var_8c1ba290
           .AIFDEF UNIT_TESTING
@@ -1543,7 +1543,7 @@ LAB_8c01ac44:
           NOP
 LP_GEN_82753:
           .RES.W 1 ; H'8C01AC4E
-          .DATA.L _FUN_8c010ca6 ; H'8C01AC50
+          .DATA.L _SndStopAdx_8c010ca6 ; H'8C01AC50
           .DATA.L _sdMidiPlay ; H'8C01AC54
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01AC58
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01AC5C
@@ -1690,14 +1690,14 @@ LP_GEN_27951:
           .RES.W 1 ; H'8C01AD76
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01AD78
           .DATA.L _SndSetAdxVol_8c010972 ; H'8C01AD7C
-          .DATA.L _SndSetMidiVolAndInitStruct_8c0109f4 ; H'8C01AD80
-          .DATA.L _FUN_8c0107ac ; H'8C01AD84
+          .DATA.L _SndSetMidiVol_8c0109f4 ; H'8C01AD80
+          .DATA.L _SndPlayBgm_8c0107ac ; H'8C01AD84
           .DATA.L H'435C0000 ; H'8C01AD88
           .DATA.L _var_sfxTestDigits_8c226080 ; H'8C01AD8C
-          .DATA.L _FUN_8c0106d2 ; H'8C01AD90
+          .DATA.L _SndPlaySfx_8c0106d2 ; H'8C01AD90
           .DATA.L H'43800000 ; H'8C01AD94
           .DATA.L _var_voiceTestDigits_8c226088 ; H'8C01AD98
-          .DATA.L _FUN_8c010720 ; H'8C01AD9C
+          .DATA.L _SndPlayVoice_8c010720 ; H'8C01AD9C
 LAB_8c01ada0:
           MOV.W       LP_GEN_36649,R6
           MOV         #H'4,R5

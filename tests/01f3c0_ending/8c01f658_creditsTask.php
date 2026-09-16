@@ -29,13 +29,13 @@ return new class extends TestCase {
         $this->setSize('_var_endingVoiceList_8c226430', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_instructorDialogActive_8c225fb4', 4);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->setSize('_var_messageTextBoxA_8c1bc404', 4);
         $this->setSize('_var_messageTextBoxB_8c1bc408', 4);
         $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
-        $this->setSize('_SndProc_8c010cd6', 4);
+        $this->setSize('_SndPlayAdx_8c010cd6', 4);
         $this->setSize('_FadePushIn_8c022a9c', 4);
         $this->setSize('_CourseMenuPushDialogTask_8c0170c6', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
@@ -105,7 +105,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + self::FLAG_Y_0X24, 100.0);
         $this->shouldWriteFloat($base + self::VELOCITY_X_0X30, 1.0);
         $this->shouldWriteFloat($base + self::VELOCITY_Y_0X34, 0.0);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 1);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 1);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
@@ -184,7 +184,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->setState(3);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $this->call('_creditsTask_8c01f658');
     }
@@ -194,7 +194,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $base = $this->setState(3);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
         $box0 = $this->alloc(4);
         $box1 = $this->alloc(4);
 
@@ -248,7 +248,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + self::FIELD_0X54, 0);
         $this->shouldWriteLong($base + self::FIELD_0X58, 0);
         $this->shouldWriteLong($base + self::LOGOTIMER_0X68, 3240);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 12);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 12);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(30);
     }
 
@@ -306,7 +306,7 @@ return new class extends TestCase {
         $this->call('_creditsTask_8c01f658');
 
         $this->shouldWriteLong($base + self::LOGOTIMER_0X68, 0xffffffff);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 11);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 11);
         $this->shouldWriteLong($base + self::LOGOTIMER_0X68, 2700);
         $this->shouldCall('_scrollCreditsText_8c01f50e')->andReturn(0);
     }
@@ -374,7 +374,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->setState(7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $this->call('_creditsTask_8c01f658');
     }
@@ -384,7 +384,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->setState(7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0xffffffff);
 
         $this->call('_creditsTask_8c01f658');
@@ -398,7 +398,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->setState(7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
 
         $this->call('_creditsTask_8c01f658');

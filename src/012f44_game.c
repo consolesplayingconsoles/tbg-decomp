@@ -95,7 +95,7 @@ int init_drvStatPending_8c03bfa8 = 0;
 void GameTask_8c012f44()
 {
     if ((var_resetRequested_8c157a78 != 0) && (var_vmBusy_8c157a7c == 0)) {
-        FUN_8c010ca6(0);
+        SndStopAdx_8c010ca6(0);
         sdMidiStopAll();
         if (var_vibport_8c1ba354 != -1) {
             pdVibMxStop(var_vibport_8c1ba354);
@@ -104,8 +104,8 @@ void GameTask_8c012f44()
         /* Already on the title: quit instead, by arming the pair
          * GameMain_8c01392e reads as "return -1". */
         if (var_titleActive_8c1bb8c4 != 0) {
-            init_8c03bd80 = 1;
-            init_8c03bd84 = 0;
+            init_adxPlaying_8c03bd80 = 1;
+            init_soundOk_8c03bd84 = 0;
         } else {
             TitlePushTitle_8c015fd6(1);
         }
@@ -292,8 +292,8 @@ STATIC void bootTask_8c013388(Task *task, void *state) {
                 var_fuuLastFrame_8c1bc450 = (Float) var_fuuNjm_8c1bc448->nbFrame - 1;
 
                 AsqResetQueues_8c011f6c();
-                AsqRequestDat_8c011182("\\SOUND", "manatee.drv", &var_memblkSource_8c0fcd48);
-                AsqRequestDat_8c011182("\\SOUND", "bus.mlt", &var_memblkSource_8c0fcd4c);
+                AsqRequestDat_8c011182("\\SOUND", "manatee.drv", &var_sndDrvData_8c0fcd48);
+                AsqRequestDat_8c011182("\\SOUND", "bus.mlt", &var_sndBankData_8c0fcd4c);
                 RouteLoadClearLatch_8c014322();
                 AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadSetLatch_8c014330);
             }
@@ -303,7 +303,7 @@ STATIC void bootTask_8c013388(Task *task, void *state) {
             if (RouteLoadGetLatch_8c01432a() != 0) {
                 AsqFreeQueues_8c011f7e();
                 TaskFree_8c014b66(task);
-                SndInitSoundMidiAdx_8c010e18("\\SOUND");
+                SndInit_8c010e18("\\SOUND");
                 var_lcdAnimActive_8c2260a8 = 1;
 #ifdef DEBUG_MENU
                 /* Boot straight into the debug menu (DebugMenuOpen_8c01673a) --
@@ -464,9 +464,9 @@ int GameMain_8c01392e(void) {
     GDFS gdfs;
     Sint32 stat;
 
-    if (init_8c03bd80 != 0) {
+    if (init_adxPlaying_8c03bd80 != 0) {
         /* Hit on title screen, after fadein */
-        if (init_8c03bd84 == 0) {
+        if (init_soundOk_8c03bd84 == 0) {
             if (var_vibport_8c1ba354 != -1) {
                 pdVibMxStop(var_vibport_8c1ba354);
             }

@@ -7,7 +7,7 @@
           .IMPORT     _var_activeCtrlType_8c157a70
           .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _var_onRetire_8c18ad10
-          .IMPORT     _SndControlAdxtWithOutVol_8c0107d2
+          .IMPORT     _SndSetPaused_8c0107d2
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
           .IMPORT     _FadeUpdate_8c022560
@@ -37,8 +37,8 @@
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _FadeUpdatePlain_8c022910
-          .IMPORT     _init_8c03bd80
-          .IMPORT     _init_8c03bd84
+          .IMPORT     _init_adxPlaying_8c03bd80
+          .IMPORT     _init_soundOk_8c03bd84
           .IMPORT     _init_pauseDimQuad_8c03bf4c
           .IMPORT     _SndUpdateAdxVolFade_8c010a40
           .IMPORT     _SndStartAdxFadeOut_8c010bae
@@ -333,7 +333,7 @@ LP_GEN_41107:
           .DATA.L _var_activeCtrlType_8c157a70
           .DATA.L _var_messageBoxActive_8c22847c
           .DATA.L _var_onRetire_8c18ad10
-          .DATA.L _SndControlAdxtWithOutVol_8c0107d2
+          .DATA.L _SndSetPaused_8c0107d2
           .DATA.L _var_vibport_8c1ba354
           .DATA.L _pdVibMxStop
           .DATA.L _FadeUpdate_8c022560
@@ -629,8 +629,8 @@ LP_GEN_43727:
           .DATA.L _var_pauseActive_8c1bb8cc
           .DATA.L _var_peripheral_8c1ba358
           .DATA.L _FadeUpdatePlain_8c022910
-          .DATA.L _init_8c03bd80
-          .DATA.L _init_8c03bd84
+          .DATA.L _init_adxPlaying_8c03bd80
+          .DATA.L _init_soundOk_8c03bd84
           .DATA.L _SndUpdateAdxVolFade_8c010a40
           .DATA.L _SndStartAdxFadeOut_8c010bae
           .DATA.L H'10+_var_peripherals_8c1ba35c

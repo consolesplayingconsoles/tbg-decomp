@@ -131,7 +131,7 @@ void DebugMenuFreeSessionAssets_8c016182(void)
 {
     int i;
 
-    FUN_8c010c7c();
+    SndStopAllAdx_8c010c7c();
     sdMidiStopAll();
     if (var_vibport_8c1ba354 != -1) {
         pdVibMxStop(var_vibport_8c1ba354);

@@ -301,8 +301,8 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_fuuLastFrame_8c1bc450', fdec(41));
 
         $this->shouldCall('_AsqResetQueues_8c011f6c');
-        $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SOUND", "manatee.drv", $this->addressOf('_var_memblkSource_8c0fcd48'));
-        $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SOUND", "bus.mlt", $this->addressOf('_var_memblkSource_8c0fcd4c'));
+        $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SOUND", "manatee.drv", $this->addressOf('_var_sndDrvData_8c0fcd48'));
+        $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SOUND", "bus.mlt", $this->addressOf('_var_sndBankData_8c0fcd4c'));
         $this->shouldCall('_RouteLoadClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
 
@@ -336,7 +336,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldCall('_TaskFree_8c014b66')->with($taskPtr);
-        $this->shouldCall('_SndInitSoundMidiAdx_8c010e18');
+        $this->shouldCall('_SndInit_8c010e18');
         $this->shouldWriteTo('_var_lcdAnimActive_8c2260a8', 1);
         $this->shouldCall('_TitlePushTitle_8c015fd6');
 
@@ -964,7 +964,7 @@ return new class extends TestCase {
         $this->resolveNjUserMain();
 
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xbebacafe);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
         $this->initUint32($this->addressOf('_var_queuesAreInitialized_8c157a60'), 0);
         $this->initUint32($this->addressOf('_init_drvStatPending_8c03bfa8'), 1);
         $this->initUint32($this->addressOf('_var_gdErr_8c18ad14'), 0);
@@ -993,8 +993,8 @@ return new class extends TestCase {
     {
         $this->resolveNjUserMain();
 
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
-        $this->initUint32($this->addressOf('_init_8c03bd84'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_soundOk_8c03bd84'), 1);
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba3c8'));
 
@@ -1005,8 +1005,8 @@ return new class extends TestCase {
     {
         $this->resolveNjUserMain();
 
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
-        $this->initUint32($this->addressOf('_init_8c03bd84'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_soundOk_8c03bd84'), 0);
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), -1 & 0xffffffff);
 
         $this->singleCall('_GameMain_8c01392e')->singleShouldReturn(-1 & 0xffffffff)->run();
@@ -1017,11 +1017,11 @@ return new class extends TestCase {
         $this->resolveNjUserMain();
 
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xbebacafe);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
-        $this->initUint32($this->addressOf('_init_8c03bd84'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_soundOk_8c03bd84'), 0);
 
-        $this->shouldReadFrom('_init_8c03bd80', 1);
-        $this->shouldReadFrom('_init_8c03bd84', 0);
+        $this->shouldReadFrom('_init_adxPlaying_8c03bd80', 1);
+        $this->shouldReadFrom('_init_soundOk_8c03bd84', 0);
         $this->shouldReadFrom('_var_vibport_8c1ba354', 0xbebacafe);
 
         $this->shouldCall('_pdVibMxStop')->with(0xbebacafe);
@@ -1039,7 +1039,7 @@ return new class extends TestCase {
     private function resolveNjUserMain()
     {
         $this->setSize('_var_vibport_8c1ba354', 4);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_var_queuesAreInitialized_8c157a60', 4);
         $this->setSize('_var_tasks_8c1ba3c8', 4);
 

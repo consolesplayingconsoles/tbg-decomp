@@ -109,8 +109,8 @@
           .IMPORT     _var_messageAssets_8c228484
           .IMPORT     _var_selectedEventEntry_8c228478
           .IMPORT     _var_peripheral_8c1ba358
-          .IMPORT     _SndProc_8c010cd6
-          .IMPORT     _FUN_8c010ca6
+          .IMPORT     _SndPlayAdx_8c010cd6
+          .IMPORT     _SndStopAdx_8c010ca6
           .IMPORT     _var_fadeRequest_8c226564
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _EventApplyFlags_8c02b292
@@ -118,7 +118,7 @@
           .IMPORT     _var_fadeArrivalGate_8c226560
           .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _njDrawScroll
-          .IMPORT     _FUN_8c0106ac
+          .IMPORT     _SndPollVoiceEnd_8c0106ac
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _var_eventCount_8c1bb8e8
           .IMPORT     _var_messageTextBoxA_8c1bc404
@@ -5887,9 +5887,9 @@ LAB_8c02ad28:
 LP_GEN_90033:
           .RES.W 1 ; H'8C02AD3E
           .DATA.L _var_messageTextDat_8c228518 ; H'8C02AD40
-          .DATA.L _SndProc_8c010cd6 ; H'8C02AD44
+          .DATA.L _SndPlayAdx_8c010cd6 ; H'8C02AD44
           .DATA.L _var_peripheral_8c1ba358 ; H'8C02AD48
-          .DATA.L _FUN_8c010ca6 ; H'8C02AD4C
+          .DATA.L _SndStopAdx_8c010ca6 ; H'8C02AD4C
           .DATA.L _var_fadeRequest_8c226564 ; H'8C02AD50
           .DATA.L _var_isFading_8c226568 ; H'8C02AD54
           .DATA.L _TaskFree_8c014b66 ; H'8C02AD58
@@ -5904,7 +5904,7 @@ LP_GEN_90033:
           .DATA.L H'3DCCCCCD ; H'8C02AD7C
           .DATA.L _var_messageAssets_8c228484 ; H'8C02AD80
           .DATA.L _njDrawScroll ; H'8C02AD84
-          .DATA.L _FUN_8c0106ac ; H'8C02AD88
+          .DATA.L _SndPollVoiceEnd_8c0106ac ; H'8C02AD88
 _ObjectsStartMessageBox_8c02ad8c:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15

@@ -14,7 +14,7 @@
  *   by TrafficDriveVehicle_8c025b98;
  * - the driver's own stop announcement (stopAnnounceState_0x08): a
  *   route-specific chime, then the spoken stop name 60 frames later via
- *   SndProc_8c010cd6, requested by nearStopLatch_0x0c;
+ *   SndPlayAdx_8c010cd6, requested by nearStopLatch_0x0c;
  * - a chime at a fixed list of per-route segments, third-person camera only
  *   (nearStopChimeLatch_0x14).
  *

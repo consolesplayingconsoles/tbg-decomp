@@ -12,8 +12,8 @@ return new class extends TestCase {
         $this->call('_PauseDemoEndTask_8c012d5a')->with($task);
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
-        $this->shouldWriteLong($this->addressOf('_init_8c03bd80'), 1);
-        $this->shouldWriteLong($this->addressOf('_init_8c03bd84'), 0);
+        $this->shouldWriteLong($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
+        $this->shouldWriteLong($this->addressOf('_init_soundOk_8c03bd84'), 0);
     }
 
     public function test_phase0_start_pressed_starts_fade_and_advances_to_phase1()
@@ -150,8 +150,8 @@ return new class extends TestCase {
         $this->setSize('_FadeUpdatePlain_8c022910', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
-        $this->setSize('_init_8c03bd80', 4);
-        $this->setSize('_init_8c03bd84', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
+        $this->setSize('_init_soundOk_8c03bd84', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x68);
         $this->setSize('_var_midiHandles_8c0fcd28', 4);
@@ -159,7 +159,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, $press);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), $isFading);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), $init80);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), $init80);
 
         $this->initUint32($this->addressOf('_var_resetRequested_8c157a78'), $resetRequested);
         $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), 0);

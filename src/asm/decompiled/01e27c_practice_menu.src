@@ -3,12 +3,12 @@
           .IMPORT     _ObjectsMenuTextboxText_8c02af1c
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
-          .IMPORT     _init_8c03bd80
+          .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _var_practiceLesson_8c22640c
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
-          .IMPORT     _SndProc_8c010cd6
+          .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _FadePushIn_8c022a9c
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _ObjectsSwapMessageBoxFor_8c02aefc
@@ -45,7 +45,7 @@
           .IMPORT     _var_lessonDialogQueue_8c226414
           .IMPORT     __modls
           .IMPORT     __divls
-          .IMPORT     _FUN_8c010d8a
+          .IMPORT     _SndStopBgm_8c010d8a
           .IMPORT     _CourseMenuPushDialogTask_8c0170c6
           .IMPORT     _var_instructorDialogActive_8c225fb4
           .IMPORT     _var_menuTextboxCharLimit_8c225fb8
@@ -236,14 +236,14 @@ LP_GEN_72974:
           .DATA.L H'43600000 ; H'8C01E37C
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01E380
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01E384
-          .DATA.L _init_8c03bd80 ; H'8C01E388
+          .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01E388
           .DATA.L H'C0900000 ; H'8C01E38C
           .DATA.L _var_practiceLesson_8c22640c ; H'8C01E390
           .DATA.L _var_isFading_8c226568 ; H'8C01E394
           .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01E398
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01E39C
           .DATA.L _init_lessonPageStarts_8c0451b4 ; H'8C01E3A0
-          .DATA.L _SndProc_8c010cd6 ; H'8C01E3A4
+          .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01E3A4
           .DATA.L _FadePushIn_8c022a9c ; H'8C01E3A8
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01E3AC
 LAB_8c01e3b0:
@@ -762,12 +762,12 @@ LP_GEN_92116:
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01E7A8
           .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01E7AC
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01E7B0
-          .DATA.L _SndProc_8c010cd6 ; H'8C01E7B4
+          .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01E7B4
           .DATA.L _FadePushIn_8c022a9c ; H'8C01E7B8
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C01E7BC
           .DATA.L _init_lessonGuideRows_8c0451ec ; H'8C01E7C0
           .DATA.L _FadePushOut_8c022b60 ; H'8C01E7C4
-          .DATA.L _init_8c03bd80 ; H'8C01E7C8
+          .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01E7C8
 LAB_8c01e7cc:
           MOV.L       LP_GEN_46961+2,R3
           MOV.L       @R3,R2
@@ -1568,8 +1568,8 @@ LP_GEN_52292:
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01EDFC
           .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01EE00
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01EE04
-          .DATA.L _FUN_8c010d8a ; H'8C01EE08
-          .DATA.L _SndProc_8c010cd6 ; H'8C01EE0C
+          .DATA.L _SndStopBgm_8c010d8a ; H'8C01EE08
+          .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01EE0C
           .DATA.L _FadePushIn_8c022a9c ; H'8C01EE10
           .DATA.L _var_lessonDialogQueue_8c226414 ; H'8C01EE14
           .DATA.L _CourseMenuPushDialogTask_8c0170c6 ; H'8C01EE18
@@ -1723,7 +1723,7 @@ LP_GEN_95699:
           .DATA.L _const_emptyMsg_8c038984 ; H'8C01EF38
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C01EF3C
           .DATA.L _var_practiceLesson_8c22640c ; H'8C01EF40
-          .DATA.L _init_8c03bd80 ; H'8C01EF44
+          .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01EF44
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01EF48
           .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C01EF4C
           .DATA.L _var_lessonAttempts_8c22642c ; H'8C01EF50

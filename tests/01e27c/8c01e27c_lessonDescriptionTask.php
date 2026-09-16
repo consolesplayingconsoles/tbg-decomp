@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x5c, 4);
         $this->shouldWriteLong($menuStateBase + 0x58, 5);
 
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 0xd);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 0xd);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
@@ -423,7 +423,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $task = $this->alloc(0x20);
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
@@ -435,7 +435,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 7);
 
         $task = $this->alloc(0x20);
@@ -455,7 +455,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 8);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $task = $this->alloc(0x20);
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
@@ -467,7 +467,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 8);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         $task = $this->alloc(0x20);
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
@@ -531,7 +531,7 @@ return new class extends TestCase {
         $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x68); // 2 x PDS_PERIPHERAL
         $this->setSize('_sdMidiPlay', 4);

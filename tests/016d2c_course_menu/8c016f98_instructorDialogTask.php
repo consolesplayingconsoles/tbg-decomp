@@ -53,7 +53,7 @@ return new class extends TestCase {
 
         $this->call('_instructorDialogTask_8c016f98')->with($task, $state);
 
-        $this->shouldCall('_SndProc_8c010cd6')->with(2, 3);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(2, 3);
         $this->shouldWriteLong($task + 0x18, $sound + 4);
         $this->shouldCall("_ObjectsSwapMessageBoxFor_8c02aefc")
             ->with("Hello, World!")
@@ -202,7 +202,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($state + 0x10, 99);
         $this->shouldWriteLong($state + 0x00, 2);
-        $this->shouldCall('_FUN_8c010ca6')->with(1);
+        $this->shouldCall('_SndStopAdx_8c010ca6')->with(1);
 
         $this->shouldWriteLong($state + 0x10, 100);
         $this->shouldWriteLong($state + 0x0c, 4);
@@ -227,7 +227,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($state + 0x10, 99);
         $this->shouldWriteLong($state + 0x00, 2);
-        $this->shouldCall('_FUN_8c010ca6')->with(1);
+        $this->shouldCall('_SndStopAdx_8c010ca6')->with(1);
 
         $this->shouldWriteLong($state + 0x10, 100);
         $this->shouldWriteLong($state + 0x0c, 4);
@@ -330,7 +330,7 @@ return new class extends TestCase {
         $this->setSize('_var_instructorDialogActive_8c225fb4', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
         // Functions
-        $this->setSize('_SndProc_8c010cd6', 0x4);
+        $this->setSize('_SndPlayAdx_8c010cd6', 0x4);
         $this->setSize('_TaskFree_8c014b66', 0x4);
     }
 };

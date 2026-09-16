@@ -283,7 +283,7 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
             }
 
             if (task->voiceCuePtr_0x18 && *task->voiceCuePtr_0x18) {
-                SndProc_8c010cd6(2, *task->voiceCuePtr_0x18);
+                SndPlayAdx_8c010cd6(2, *task->voiceCuePtr_0x18);
                 task->voiceCuePtr_0x18++;
             }
 
@@ -299,7 +299,7 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
             if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                 state->charRevealTimer_0x10 = 99;
                 state->state_0x00 = 2;
-                FUN_8c010ca6(1);
+                SndStopAdx_8c010ca6(1);
             }
 
             if (++state->charRevealTimer_0x10 < 3) {
@@ -660,8 +660,8 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
 
             AsqFreeQueues_8c011f7e();
             CHANGE_STATE(COURSE_MENU_STATE_FADE_IN);
-            FUN_8c010d8a();
-            SndProc_8c010cd6(0, 15);
+            SndStopBgm_8c010d8a();
+            SndPlayAdx_8c010cd6(0, 15);
             FadePushIn_8c022a9c(10);
             return;
         }
@@ -737,7 +737,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 break;
             }
 
-            if (init_8c03bd80)
+            if (init_adxPlaying_8c03bd80)
                 return;
 
             if (var_menuState_8c1bc7a8.cursorCol_0x3c != 1 || var_menuState_8c1bc7a8.cursorRow_0x40 != 0) {
@@ -762,7 +762,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
             if (var_isFading_8c226568)
                 break;
 
-            if (init_8c03bd80)
+            if (init_adxPlaying_8c03bd80)
                 return;
 
             var_runReportPending_8c1bb8b8 = 0;
@@ -814,8 +814,8 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
 
             AsqFreeQueues_8c011f7e();
             CHANGE_STATE(COURSE_MENU_STATE_FADE_IN);
-            FUN_8c010d8a();
-            SndProc_8c010cd6(0, 15);
+            SndStopBgm_8c010d8a();
+            SndPlayAdx_8c010cd6(0, 15);
             FadePushIn_8c022a9c(10);
             return;
         }
@@ -891,7 +891,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
                 break;
             }
 
-            if (init_8c03bd80)
+            if (init_adxPlaying_8c03bd80)
                 return;
 
             if (var_menuState_8c1bc7a8.cursorCol_0x3c != 1 || var_menuState_8c1bc7a8.cursorRow_0x40 != 0) {
@@ -912,7 +912,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
             if (var_isFading_8c226568)
                 break;
 
-            if (init_8c03bd80)
+            if (init_adxPlaying_8c03bd80)
                 return;
 
             MainMenuSwitchFromTask_8c01a09a(task, 1);
@@ -1023,7 +1023,7 @@ void CourseMenuSwitchFromTask_8c017e18(Task *task)
         AsqFreeQueues_8c011f7e();
         CHANGE_STATE(COURSE_MENU_STATE_FADE_IN);
         FadePushIn_8c022a9c(10);
-        SndProc_8c010cd6(0, 15);
+        SndPlayAdx_8c010cd6(0, 15);
         return;
     }
 
@@ -1160,7 +1160,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
             AsqFreeQueues_8c011f7e();
             CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_FADE_IN);
             FadePushIn_8c022a9c(10);
-            SndProc_8c010cd6(0, 15);
+            SndPlayAdx_8c010cd6(0, 15);
             return;
         }
 
@@ -1220,7 +1220,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 int courseIndex = var_menuState_8c1bc7a8.courseId_0x50 / 3;
 
                 /* Hold until both ADX streams have finished fading out. */
-                if (init_8c03bd80 != 0) {
+                if (init_adxPlaying_8c03bd80 != 0) {
                     return;
                 }
                 DebugMenuFreeSessionAssets_8c016182();
@@ -1257,7 +1257,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
 
         case COURSE_CONFIRM_STATE_FADE_OUT_TO_COURSE_MENU: {
             if (var_isFading_8c226568 == 0) {
-                if (init_8c03bd80 != 0) {
+                if (init_adxPlaying_8c03bd80 != 0) {
                     return;
                 }
 

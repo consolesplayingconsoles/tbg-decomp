@@ -16,7 +16,7 @@ return new class extends TestCase {
         $this->setSize('_njReleaseTexture', 4);
         $this->setSize('_BusRenderRestoreCameraState_8c024b86', 4);
         $this->setSize('_BusRenderApplyCameraMode_8c024f32', 4);
-        $this->setSize('_SndProc_8c010cd6', 4);
+        $this->setSize('_SndPlayAdx_8c010cd6', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_passengersFadedOut_8c22895c', 4);
@@ -338,7 +338,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($busState + 0x2b4, 1);
         $this->shouldWriteLong($busState + 0x25c, 1); // !PRACTICE && OME && segment==0
         $this->shouldWriteLongTo('_var_fadeArrivalVariant_8c22655c', 2);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 1 + 5); // OME offset = 5
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 1 + 5); // OME offset = 5
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
     }
 

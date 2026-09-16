@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->setSize('_AsqGetRandomB_8c0121a8', 4);
         $this->setSize('_VibStart_8c010f7a', 4);
         $this->setSize('_VibUpdate_8c010fae', 4);
-        $this->setSize('_SndProc_8c010cd6', 4);
+        $this->setSize('_SndPlayAdx_8c010cd6', 4);
         $this->setSize('_var_8c2285c4', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_vibport_8c1ba354', 4);
@@ -335,7 +335,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
-        $this->shouldCall('_SndProc_8c010cd6')->with(1, 5 + 0x28); // ROUTE_SHINJUKU
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(1, 5 + 0x28); // ROUTE_SHINJUKU
         $this->shouldWriteLong($this->struct() + 0x08, 3);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
@@ -369,7 +369,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
-        $this->shouldCall('_SndProc_8c010cd6')->with(1, 5 + 0x3f);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(1, 5 + 0x3f);
         $this->shouldWriteLong($this->struct() + 0x08, 2);
         $this->shouldWriteLong($this->struct() + 0x10, 30);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
@@ -390,7 +390,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
-        $this->shouldCall('_SndProc_8c010cd6')->with(1, 5 + 0x3f);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(1, 5 + 0x3f);
         $this->shouldWriteLong($this->struct() + 0x08, 2);
         $this->shouldCall('_AsqGetRandomInRangeB_8c0121be')->with(60)->andReturn(9);
         $this->shouldWriteLong($this->struct() + 0x10, 9 + 120);
@@ -411,7 +411,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
-        $this->shouldCall('_SndProc_8c010cd6')->with(1, 5 + 0x28);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(1, 5 + 0x28);
         $this->shouldWriteLong($this->struct() + 0x08, 3);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
@@ -432,7 +432,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
-        $this->shouldCall('_SndProc_8c010cd6')->with(1, 10 + 5 + 0x11);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(1, 10 + 5 + 0x11);
         $this->shouldWriteLong($this->struct() + 0x08, 3);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
@@ -453,7 +453,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
-        $this->shouldCall('_SndProc_8c010cd6')->with(1, 6 + 5 + 0x11);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(1, 6 + 5 + 0x11);
         $this->shouldWriteLong($this->struct() + 0x08, 3);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }

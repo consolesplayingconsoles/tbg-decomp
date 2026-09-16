@@ -5,61 +5,61 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_case0()
+    public function test_music()
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0b1010_1010);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0b1010_1010);
 
         $this->shouldCall('_ADXT_Stop')->with(0xcafe0000);
         $this->shouldCall('_ADXT_StartAfs')->with(0xcafe0000, 0, 42);
-        $this->shouldWriteLongTo('_init_8c03bd80', 0b1010_1011);
+        $this->shouldWriteLongTo('_init_adxPlaying_8c03bd80', 0b1010_1011);
 
-        $this->singleCall('_SndProc_8c010cd6')
+        $this->singleCall('_SndPlayAdx_8c010cd6')
             ->with(0, 42)
             ->singleShouldReturn(1)
             ->run();
     }
 
-    public function test_case1()
+    public function test_announcement()
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0b1010_1010);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0b1010_1010);
 
         $this->shouldCall('_ADXT_Stop')->with(0xcafe0001);
         $this->shouldCall('_ADXT_StartAfs')->with(0xcafe0001, 0, 42);
-        $this->shouldWriteLongTo('_init_8c03bd80', 0b1011_1010);
+        $this->shouldWriteLongTo('_init_adxPlaying_8c03bd80', 0b1011_1010);
 
-        $this->singleCall('_SndProc_8c010cd6')
+        $this->singleCall('_SndPlayAdx_8c010cd6')
             ->with(1, 42)
             ->singleShouldReturn(1)
             ->run();
     }
 
-    public function test_case2()
+    public function test_dialogue()
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0b1010_1010);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0b1010_1010);
 
         $this->shouldCall('_ADXT_Stop')->with(0xcafe0001);
         $this->shouldCall('_ADXT_StartAfs')->with(0xcafe0001, 1, 42);
-        $this->shouldWriteLongTo('_init_8c03bd80', 0b1011_1010);
+        $this->shouldWriteLongTo('_init_adxPlaying_8c03bd80', 0b1011_1010);
 
-        $this->singleCall('_SndProc_8c010cd6')
+        $this->singleCall('_SndPlayAdx_8c010cd6')
             ->with(2, 42)
             ->singleShouldReturn(1)
             ->run();
     }
 
-    public function test_caseDefault()
+    public function test_unknownBank()
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0b1010_1010);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0b1010_1010);
 
-        $this->singleCall('_SndProc_8c010cd6')
+        $this->singleCall('_SndPlayAdx_8c010cd6')
             ->with(3, 42)
             ->singleShouldReturn(0)
             ->run();

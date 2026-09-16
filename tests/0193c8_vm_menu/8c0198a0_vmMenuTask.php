@@ -76,8 +76,8 @@ return new class extends TestCase {
 
         $this->shouldCall('__quick_evn_mvn')->do($mvn);
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブ可能です");
-        $this->shouldCall('_FUN_8c010d8a');
-        $this->shouldCall('_SndProc_8c010cd6');
+        $this->shouldCall('_SndStopBgm_8c010d8a');
+        $this->shouldCall('_SndPlayAdx_8c010cd6');
 
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
 
@@ -1087,7 +1087,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 9); // state
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 3); // slot
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 3);
 
@@ -1101,7 +1101,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 9); // state
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 3); // slot
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $this->singleCall('_vmMenuTask_8c0198a0')->with(0, 0)->run();
     }
@@ -1113,7 +1113,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 9); // state
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 3); // slot
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with(0xcafecafe);
 

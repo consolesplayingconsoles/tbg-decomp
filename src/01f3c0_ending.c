@@ -251,7 +251,7 @@ STATIC void creditsTask_8c01f658(void)
         var_menuState_8c1bc7a8.pos.title.flagY_0x24 = 100.0f;
         var_menuState_8c1bc7a8.cursorVelocity_0x30.x = 1.0f;
         var_menuState_8c1bc7a8.cursorVelocity_0x30.y = 0.0f;
-        SndProc_8c010cd6(0, 1);
+        SndPlayAdx_8c010cd6(0, 1);
         FadePushIn_8c022a9c(10);
         return;
 
@@ -278,7 +278,7 @@ STATIC void creditsTask_8c01f658(void)
             updateEndingOverlay_8c01f42c();
             return;
         }
-        if (init_8c03bd80 != 0) {
+        if (init_adxPlaying_8c03bd80 != 0) {
             return;
         }
 
@@ -296,7 +296,7 @@ STATIC void creditsTask_8c01f658(void)
         var_menuState_8c1bc7a8.field_0x54 = 0;
         var_menuState_8c1bc7a8.field_0x58 = 0;
         var_menuState_8c1bc7a8.timer_0x68 = 3240;
-        SndProc_8c010cd6(0, 12);
+        SndPlayAdx_8c010cd6(0, 12);
         FadePushIn_8c022a9c(30);
         return;
 
@@ -311,7 +311,7 @@ STATIC void creditsTask_8c01f658(void)
     case ENDING_TASK_STATE_CREDITS_SCROLL:
         var_menuState_8c1bc7a8.timer_0x68--;
         if (var_menuState_8c1bc7a8.timer_0x68 < 0) {
-            SndProc_8c010cd6(0, 11);
+            SndPlayAdx_8c010cd6(0, 11);
             var_menuState_8c1bc7a8.timer_0x68 = 2700;
         }
         if (var_menuState_8c1bc7a8.subState_0x1c != 0) {
@@ -337,7 +337,7 @@ STATIC void creditsTask_8c01f658(void)
             scrollCreditsText_8c01f50e();
             return;
         }
-        if (init_8c03bd80 != 0) {
+        if (init_adxPlaying_8c03bd80 != 0) {
             return;
         }
         DebugMenuFreeSessionAssets_8c016182();

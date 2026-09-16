@@ -516,11 +516,11 @@ STATIC void soundTestFieldAdjust_8c01a926(int *digits, int count, int max)
         return;
     }
     if (var_menuState_8c1bc7a8.state_0x18 == 6) {
-        FUN_8c010ca6(0);
+        SndStopAdx_8c010ca6(0);
     } else if (var_menuState_8c1bc7a8.state_0x18 == 7) {
         sdMidiStop(var_midiHandles_8c0fcd28[0]);
     } else if (var_menuState_8c1bc7a8.state_0x18 == 8) {
-        FUN_8c010ca6(1);
+        SndStopAdx_8c010ca6(1);
     }
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_NAVIGATE;
     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
@@ -615,7 +615,7 @@ STATIC void audioTask_8c01ab08(Task *task)
         case 4: {   /* SFX volume */
             audioEditValue_8c01a8b6(&var_progress_8c1ba1cc.sfxVolume_0xd5, 10);
             if (press & PDD_DGT_TA) {
-                SndSetMidiVolAndInitStruct_8c0109f4(var_progress_8c1ba1cc.sfxVolume_0xd5);
+                SndSetMidiVol_8c0109f4(var_progress_8c1ba1cc.sfxVolume_0xd5);
             }
             break;
         }
@@ -630,7 +630,7 @@ STATIC void audioTask_8c01ab08(Task *task)
 
         case 6: {   /* MUSIC test */
             if (press & PDD_DGT_TA) {
-                FUN_8c0107ac(soundTestFieldRead_8c01a904(var_musicTestDigits_8c226078, 2));
+                SndPlayBgm_8c0107ac(soundTestFieldRead_8c01a904(var_musicTestDigits_8c226078, 2));
             } else {
                 soundTestFieldAdjust_8c01a926(var_musicTestDigits_8c226078, 2, 0x10);
             }
@@ -641,7 +641,7 @@ STATIC void audioTask_8c01ab08(Task *task)
 
         case 7: {   /* SFX test */
             if (press & PDD_DGT_TA) {
-                FUN_8c0106d2(soundTestFieldRead_8c01a904(var_sfxTestDigits_8c226080, 2));
+                SndPlaySfx_8c0106d2(soundTestFieldRead_8c01a904(var_sfxTestDigits_8c226080, 2));
             } else {
                 soundTestFieldAdjust_8c01a926(var_sfxTestDigits_8c226080, 2, 0x44);
             }
@@ -652,7 +652,7 @@ STATIC void audioTask_8c01ab08(Task *task)
 
         case 8: {   /* VOICE test */
             if (press & PDD_DGT_TA) {
-                FUN_8c010720(soundTestFieldRead_8c01a904(var_voiceTestDigits_8c226088, 4));
+                SndPlayVoice_8c010720(soundTestFieldRead_8c01a904(var_voiceTestDigits_8c226088, 4));
             } else {
                 soundTestFieldAdjust_8c01a926(var_voiceTestDigits_8c226088, 4, 0x56c);
             }

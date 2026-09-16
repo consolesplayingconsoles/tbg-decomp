@@ -466,7 +466,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
                     soundOffset = 0;
                     break;
                 }
-                SndProc_8c010cd6(0, var_timeOfDay_8c18ad20 + soundOffset);
+                SndPlayAdx_8c010cd6(0, var_timeOfDay_8c18ad20 + soundOffset);
             }
 
             TaskFree_8c014b66(task);

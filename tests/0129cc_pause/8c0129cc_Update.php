@@ -23,7 +23,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_pauseSettle_8c18ad04'), 0);
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
-        $this->shouldCall('_SndControlAdxtWithOutVol_8c0107d2')->with(1);
+        $this->shouldCall('_SndSetPaused_8c0107d2')->with(1);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
         $this->shouldReturn(1);
     }
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_pauseSettle_8c18ad04'), 0);
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
-        $this->shouldCall('_SndControlAdxtWithOutVol_8c0107d2')->with(1);
+        $this->shouldCall('_SndSetPaused_8c0107d2')->with(1);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
         $this->shouldCall('_pdVibMxStop')->with(3);
         $this->shouldReturn(1);
@@ -71,7 +71,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 0);
-        $this->shouldCall('_SndControlAdxtWithOutVol_8c0107d2')->with(0);
+        $this->shouldCall('_SndSetPaused_8c0107d2')->with(0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
         $this->shouldCall('_njDrawPolygon');
         $this->shouldReturn(0);
@@ -86,7 +86,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 0);
-        $this->shouldCall('_SndControlAdxtWithOutVol_8c0107d2')->with(0);
+        $this->shouldCall('_SndSetPaused_8c0107d2')->with(0);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x75, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
@@ -413,7 +413,7 @@ return new class extends TestCase {
         $this->setSize('_njDrawPolygon', 4);
         $this->setSize('_init_pauseDimQuad_8c03bf4c', 4);
         $this->setSize('_sdMidiPlay', 4);
-        $this->setSize('_SndControlAdxtWithOutVol_8c0107d2', 4);
+        $this->setSize('_SndSetPaused_8c0107d2', 4);
         $this->setSize('_pdVibMxStop', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);

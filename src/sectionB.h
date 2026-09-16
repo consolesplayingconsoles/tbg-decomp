@@ -1181,7 +1181,7 @@ extern char *var_settingValues_8c226074;
 extern int var_musicTestDigits_8c226078[2];
 extern int var_sfxTestDigits_8c226080[2];
 extern int var_voiceTestDigits_8c226088[4];
-extern float var_engineRpm_8c226468; // real type is 0100bc_sound.c's local UnknownVolStructB {float}
+extern float var_engineRpm_8c226468;
 extern int var_8c22646c; // written (zeroed) by HudReset_8c02018c (01fa78_hud), never read
 /* Gear-message / lane-change-message latch for hudUpdateTask_8c01ff48
  * (01fa78): set once the corresponding driver-comment popup has been staged,

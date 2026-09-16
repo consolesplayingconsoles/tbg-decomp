@@ -13,7 +13,7 @@
           .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _var_practiceLesson_8c22640c
-          .IMPORT     _SndProc_8c010cd6
+          .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _var_nextStopSegment_8c228710
           .IMPORT     _var_stopPhase_8c2285e4
           .IMPORT     _var_cameraMode_8c227d9c
@@ -430,7 +430,7 @@ LP_GEN_85437:
           .DATA.L _var_practiceRules_8c226410 ; H'8C0204FC
           .DATA.L _var_route_8c18ad1c ; H'8C020500
           .DATA.L _var_practiceLesson_8c22640c ; H'8C020504
-          .DATA.L _SndProc_8c010cd6 ; H'8C020508
+          .DATA.L _SndPlayAdx_8c010cd6 ; H'8C020508
           .DATA.L _var_nextStopSegment_8c228710 ; H'8C02050C
           .DATA.L _var_stopPhase_8c2285e4 ; H'8C020510
           .DATA.L _var_cameraMode_8c227d9c ; H'8C020514

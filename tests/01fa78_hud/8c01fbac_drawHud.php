@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention;
 /*
  * _drawHud_8c01fbac(int arg0): the in-drive HUD render. arg0 is the driver-
  * comment message code hudUpdateTask_8c01ff48 stages through the fade-command queue.
- * var_hudDriveMarkIcon_8c226450/454/458/uknVol_8c226468/8c226478 all alias into the
+ * var_hudDriveMarkIcon_8c226450/454/458/var_engineRpm_8c226468/8c226478 all alias into the
  * var_hudMarkLatch_8c22643c scratch block, and var_driverPointsMax_8c2285d4/d8/dc/mirrorViewLevel_8c2285e4
  * all alias into var_8c2285c4 -- see hudUpdateTask_8c01ff48's test for the same
  * aliasing and 02b464_drive_points for the var_8c2285c4 convention.
@@ -214,7 +214,7 @@ return new class extends TestCase {
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x25, 0.0, 0.0, -1.21);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x26, 0.0, 0.0, -1.21);
 
-        $this->shouldWriteFloat($base + 0x2c, 100.0); // uknVol -= 200
+        $this->shouldWriteFloat($base + 0x2c, 100.0); // engineRpm -= 200
 
         $mat = $this->addressOf('_var_scratchMatrix_8c1bc46c');
         $init045414 = $this->addressOf('_init_tachoNeedle_8c045414');
@@ -309,7 +309,7 @@ return new class extends TestCase {
 
         $this->assertMeterAndBorders();
 
-        // target(650) < uknVol(600) is false, so it ramps up: 600 + 200 =
+        // target(650) < engineRpm(600) is false, so it ramps up: 600 + 200 =
         // 800 (written), then since 800 overshoots the 650 target, clamps
         // to the target (a second write).
         $this->shouldWriteFloat($base + 0x2c, 800.0);

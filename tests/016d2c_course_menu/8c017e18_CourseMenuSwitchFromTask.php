@@ -95,7 +95,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 15);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 15);
     }
 
     public function test_switches_to_story_mode()
@@ -182,7 +182,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 15);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 15);
     }
 
     public function resolveSymbols()

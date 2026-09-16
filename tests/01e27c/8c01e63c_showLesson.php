@@ -29,7 +29,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($menuState + 0x18, 1);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 0xd);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 0xd);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
@@ -249,7 +249,7 @@ return new class extends TestCase {
         $menuState = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($menuState + 0x18, 4); // SHOW_LESSON_STATE_FADE_OUT_TO_DESCRIPTION
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         $task = $this->alloc(0x20);
         $this->call('_showLesson_8c01e63c')->with($task);
@@ -263,7 +263,7 @@ return new class extends TestCase {
         $menuState = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($menuState + 0x18, 4); // SHOW_LESSON_STATE_FADE_OUT_TO_DESCRIPTION
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $task = $this->alloc(0x20);
         $this->call('_showLesson_8c01e63c')->with($task);
@@ -390,14 +390,14 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
-        $this->setSize('_SndProc_8c010cd6', 4);
+        $this->setSize('_SndPlayAdx_8c010cd6', 4);
         $this->setSize('_FadePushIn_8c022a9c', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234); // sentinel handle
         $this->setSize('_var_peripherals_8c1ba35c', 0x34);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_var_practiceLesson_8c22640c', 4);

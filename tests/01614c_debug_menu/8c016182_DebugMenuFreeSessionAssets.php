@@ -22,7 +22,7 @@ return new class extends TestCase {
 
         $this->call('_DebugMenuFreeSessionAssets_8c016182');
 
-        $this->shouldCall('_FUN_8c010c7c');
+        $this->shouldCall('_SndStopAllAdx_8c010c7c');
         $this->shouldCall('_sdMidiStopAll');
         $this->shouldCall('_pdVibMxStop')->with(5);
         $this->shouldCall('_VibClear_8c010fbe');
@@ -68,7 +68,7 @@ return new class extends TestCase {
 
         $this->call('_DebugMenuFreeSessionAssets_8c016182');
 
-        $this->shouldCall('_FUN_8c010c7c');
+        $this->shouldCall('_SndStopAllAdx_8c010c7c');
         $this->shouldCall('_sdMidiStopAll');
         $this->shouldCall('_VibClear_8c010fbe');
         $this->shouldCall('_DebugMenuFreeDriveTasks_8c01614c');

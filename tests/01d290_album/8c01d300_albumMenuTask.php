@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->m(0x18), 1);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 0x10);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 0x10);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
 
         $this->singleCall('_albumMenuTask_8c01d300')->with(0xbebacafe, 0)->run();
@@ -349,7 +349,7 @@ return new class extends TestCase {
         $this->seedState(6);
         $this->seedSlot(0);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         // Returns early: no draw / no selected write.
         $this->singleCall('_albumMenuTask_8c01d300')->with(0xbebacafe, 0)->run();
@@ -361,7 +361,7 @@ return new class extends TestCase {
         $this->seedState(6);
         $this->seedSlot(0);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         $this->shouldWriteLong($this->m(0x3c), 1);
         $this->shouldWriteLong($this->m(0x40), 1);
@@ -452,7 +452,7 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
         $this->setSize('_var_peripherals_8c1ba35c', 52 * 2);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0xbeef0000);
 
         // Functions
@@ -460,7 +460,7 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 0x4);
         $this->setSize('_RouteLoadGetLatch_8c01432a', 0x4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 0x4);
-        $this->setSize('_SndProc_8c010cd6', 0x4);
+        $this->setSize('_SndPlayAdx_8c010cd6', 0x4);
         $this->setSize('_FadePushIn_8c022a9c', 0x4);
         $this->setSize('_FadePushOut_8c022b60', 0x4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 0x4);

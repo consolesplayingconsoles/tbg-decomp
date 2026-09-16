@@ -440,8 +440,8 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
                 var_menuState_8c1bc7a8.pos.vmSelect.cursor_0x20 = var_menuState_8c1bc7a8.pos.vmSelect.cursorTarget_0x28;
                 ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
-                FUN_8c010d8a();
-                SndProc_8c010cd6(0,0xe);
+                SndStopBgm_8c010d8a();
+                SndPlayAdx_8c010cd6(0,0xe);
             } else {
                 CHANGE_STATE(VM_MENU_STATE_VM_WARNING_FADE_IN);
                 task->field_0x08 = 0;
@@ -732,7 +732,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             }
             // Bits 0 and 4 stay set while the two ADX streams are still
             // playing; hold the screen until both fade-outs have finished.
-            if (init_8c03bd80) return;
+            if (init_adxPlaying_8c03bd80) return;
             MainMenuSwitchFromTask_8c01a09a(task, 0);
             return;
         }

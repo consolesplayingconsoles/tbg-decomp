@@ -139,7 +139,7 @@ return new class extends TestCase {
         $this->arrange(self::TB, 0, 6);
         $d = $this->digits([0, 0]);
         $this->call('_soundTestFieldAdjust_8c01a926')->with($d, 2, 99);
-        $this->shouldCall('_FUN_8c010ca6')->with(0);
+        $this->shouldCall('_SndStopAdx_8c010ca6')->with(0);
         $this->shouldWriteLong($this->menu(self::STATE), 1);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
     }
@@ -159,7 +159,7 @@ return new class extends TestCase {
         $this->arrange(self::TB, 0, 8);
         $d = $this->digits([0, 0]);
         $this->call('_soundTestFieldAdjust_8c01a926')->with($d, 2, 99);
-        $this->shouldCall('_FUN_8c010ca6')->with(1);
+        $this->shouldCall('_SndStopAdx_8c010ca6')->with(1);
         $this->shouldWriteLong($this->menu(self::STATE), 1);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
     }

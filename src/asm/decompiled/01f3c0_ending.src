@@ -10,10 +10,10 @@
           .IMPORT     _var_messageTextBoxA_8c1bc404
           .IMPORT     _TxtPrepareTextBoxLayout_8c01543a
           .IMPORT     _TxtDrawTextbox_8c0155e0
-          .IMPORT     _init_8c03bd80
+          .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _SndProc_8c010cd6
+          .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _FadePushIn_8c022a9c
@@ -505,10 +505,10 @@ LP_GEN_79838:
           .DATA.W H'00FF ; H'8C01F718
           .RES.W 1 ; H'8C01F71A
           .DATA.L _TxtDrawTextbox_8c0155e0 ; H'8C01F71C
-          .DATA.L _init_8c03bd80 ; H'8C01F720
+          .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01F720
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C01F724
           .DATA.L _var_isFading_8c226568 ; H'8C01F728
-          .DATA.L _SndProc_8c010cd6 ; H'8C01F72C
+          .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01F72C
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01F730
           .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01F734
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01F738

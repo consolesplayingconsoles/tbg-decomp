@@ -11,7 +11,7 @@
           .IMPORT     _syMalloc
           .IMPORT     _SndGetSoundMode_8c010924
           .IMPORT     _SndSetAdxVol_8c010972
-          .IMPORT     _SndSetMidiVolAndInitStruct_8c0109f4
+          .IMPORT     _SndSetMidiVol_8c0109f4
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _TaskSetAction_8c014b3e
@@ -27,7 +27,7 @@
           .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _ObjectsSwapMessageBoxFor_8c02aefc
           .IMPORT     _ObjectsMenuTextboxText_8c02af1c
-          .IMPORT     _init_8c03bd80
+          .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_vmBusy_8c157a7c
@@ -699,7 +699,7 @@ LP_GEN_23929:
           .RES.W 1 ; H'8C018B0E
           .DATA.L _var_progress_8c1ba1cc ; H'8C018B10
           .DATA.L _SndSetAdxVol_8c010972 ; H'8C018B14
-          .DATA.L _SndSetMidiVolAndInitStruct_8c0109f4 ; H'8C018B18
+          .DATA.L _SndSetMidiVol_8c0109f4 ; H'8C018B18
           .DATA.L _var_fileCardCount_8c226014 ; H'8C018B1C
           .DATA.L _var_fileCards_8c226018 ; H'8C018B20
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C018B24
@@ -1682,7 +1682,7 @@ LP_GEN_73468:
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C0192B4
           .DATA.L _VmMenuUnmountVms_8c0194de ; H'8C0192B8
           .DATA.L _var_vmMountBusy_8c22606c ; H'8C0192BC
-          .DATA.L _init_8c03bd80 ; H'8C0192C0
+          .DATA.L _init_adxPlaying_8c03bd80 ; H'8C0192C0
           .DATA.L _var_currentSysResGroupInfo_8c225fb0 ; H'8C0192C4
           .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C0192C8
 LAB_8c0192cc:

@@ -525,7 +525,7 @@ return new class extends TestCase {
         // 640.0 is stored as 0x44200000
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x20, 0x44200000);
 
-        $this->shouldCall('_SndProc_8c010cd6')->with(0,0);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0,0);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
@@ -923,11 +923,11 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x10);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
-        $this->shouldReadSymbolOffset('_init_8c03bd80', 0, 1);
+        $this->shouldReadSymbolOffset('_init_adxPlaying_8c03bd80', 0, 1);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -939,11 +939,11 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x10);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
-        $this->shouldReadSymbolOffset('_init_8c03bd80', 0, 0);
+        $this->shouldReadSymbolOffset('_init_adxPlaying_8c03bd80', 0, 0);
         $this->shouldWriteSymbolOffset('_var_titleActive_8c1bb8c4', 0, 0);
         $this->shouldCall('_VmMenuSwitchFromTask_8c019e44')->with(0xbebacafe);
 
@@ -978,9 +978,9 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x11);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);   
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);   
 
-        $this->shouldReadSymbolOffset('_init_8c03bd80', 0, 1);
+        $this->shouldReadSymbolOffset('_init_adxPlaying_8c03bd80', 0, 1);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -996,7 +996,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x11);
 
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->shouldReadSymbolOffset('_init_8c03bd80', 0, 0);
+        $this->shouldReadSymbolOffset('_init_adxPlaying_8c03bd80', 0, 0);
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TxtStartAttractDemo_8c0159ac');
 

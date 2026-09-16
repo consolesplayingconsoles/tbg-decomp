@@ -5,7 +5,7 @@
 #include "013ae8_route_load.h" /* var_commonDirCopy_8c18ad8c, var_commonDir_8c18ad6c, enum ROUTE */
 #include "014a9c_tasks.h" /* Task */
 #include "014f54_text.h" /* enum PLAY_MODE */
-#include "0100bc_sound.h" /* FUN_8c010ca6, SndProc_8c010cd6, FUN_8c0106ac */
+#include "0100bc_sound.h" /* SndStopAdx_8c010ca6, SndPlayAdx_8c010cd6, SndPollVoiceEnd_8c0106ac */
 #include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
@@ -6397,7 +6397,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
 
     case 4:
         if ((var_peripheral_8c1ba358->press & PDD_DGT_TA) != 0) {
-            FUN_8c010ca6(1);
+            SndStopAdx_8c010ca6(1);
             state->line_0x18++;
             nextString = state->line_0x18->text_0x00;
             if (*nextString == '\0') {
@@ -6430,7 +6430,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
 
     if (stage == MSGBOX_STAGE_SWAP) {
         state->pageCount_0x04 = ObjectsSwapMessageBoxFor_8c02aefc(state->line_0x18->text_0x00);
-        SndProc_8c010cd6(2, state->line_0x18->voiceId_0x04);
+        SndPlayAdx_8c010cd6(2, state->line_0x18->voiceId_0x04);
         state->pageIndex_0x08 = 1;
         state->frameCounter_0x0c = 0;
         state->phase_0x00 = 2;
@@ -6441,7 +6441,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
         if ((var_peripheral_8c1ba358->press & PDD_DGT_TA) != 0) {
             state->frameCounter_0x0c = 99;
             state->phase_0x00 = 3;
-            FUN_8c010ca6(1);
+            SndStopAdx_8c010ca6(1);
         }
         state->frameCounter_0x0c++;
         if (state->frameCounter_0x0c >= 3) {
@@ -6469,7 +6469,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
         init_msgScroll_8c04ab3c.pr += 0.1f;
     }
     ObjectsMenuTextboxText_8c02af1c(state->pageIndex_0x08);
-    FUN_8c0106ac();
+    SndPollVoiceEnd_8c0106ac();
 }
 /* Starts the event message-box display: applies the message-text relocation
  * fixup, spawns the message task with the selected event's slide table,

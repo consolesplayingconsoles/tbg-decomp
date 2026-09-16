@@ -6,14 +6,14 @@
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
-          .IMPORT     _SndProc_8c010cd6
+          .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _FadePushIn_8c022a9c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _CourseMenuInterpolateCursor_8c016d2c
-          .IMPORT     _init_8c03bd80
+          .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _DebugMenuFreeSessionAssets_8c016182
           .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _TaskSetAction_8c014b3e
@@ -237,7 +237,7 @@ LP_GEN_16673:
           .DATA.L _var_isFading_8c226568 ; H'8C01D408
           .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01D40C
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01D410
-          .DATA.L _SndProc_8c010cd6 ; H'8C01D414
+          .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01D414
           .DATA.L _FadePushIn_8c022a9c ; H'8C01D418
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01D41C
           .DATA.L _sdMidiPlay ; H'8C01D420
@@ -682,7 +682,7 @@ LP_GEN_43132:
           .DATA.L H'C0000000 ; H'8C01D750
           .DATA.L H'C0400000 ; H'8C01D754
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01D758
-          .DATA.L _init_8c03bd80 ; H'8C01D75C
+          .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01D75C
           .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01D760
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01D764
           .DATA.L _albumMenuTask_8c01d300 ; H'8C01D768

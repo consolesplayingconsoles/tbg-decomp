@@ -311,7 +311,7 @@ void FileMenuApplySoundSettings_8c0189fc(void)
     LOG_DEBUG(("[FILE_MENU] FileMenuApplySoundSettings_8c0189fc\n"));
 
     SndSetAdxVol_8c010972(var_progress_8c1ba1cc.musicVolume_0xd4, 0);
-    SndSetMidiVolAndInitStruct_8c0109f4(var_progress_8c1ba1cc.sfxVolume_0xd5);
+    SndSetMidiVol_8c0109f4(var_progress_8c1ba1cc.sfxVolume_0xd5);
     SndSetAdxVol_8c010972(var_progress_8c1ba1cc.voiceVolume_0xd6, 1);
 }
 
@@ -629,7 +629,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         break;
 
     case FILE_MENU_STATE_UNMOUNT_TO_MAIN:
-        if (var_vmMountBusy_8c22606c != 0 || init_8c03bd80 != 0) {
+        if (var_vmMountBusy_8c22606c != 0 || init_adxPlaying_8c03bd80 != 0) {
             break;
         }
         var_currentSysResGroupInfo_8c225fb0 = (void *)-1;

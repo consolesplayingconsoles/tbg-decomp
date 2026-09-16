@@ -264,7 +264,7 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
     stop announcement**, armed by `nearStopLatch_0x0c`, which
     `BusTask_8c022bdc` sets on the first A press of a drive. Its state
     machine plays a route-specific door-chime cue, then (after 60 frames) an
-    actual spoken stop-name announcement via `SndProc_8c010cd6`. This is the
+    actual spoken stop-name announcement via `SndPlayAdx_8c010cd6`. This is the
     mechanic the `ANNOUNCEMENT` penalty grades ("failing to announce the
     next stop"). Not purely player-initiated, though: `gradeFrame_8c02bcd8`
     (`02b464`) sets the same latch right after docking that penalty, so the

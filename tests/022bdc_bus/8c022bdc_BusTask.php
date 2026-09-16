@@ -50,7 +50,7 @@ return new class extends TestCase {
         $this->setSize('_njCos', 4);
         $this->setSize('_BusInputCapMirrorTraffic_8c024280', 4);
         $this->setSize('_GeomDistanceXZ_8c02081c', 4);
-        $this->setSize('_FUN_8c010c6e', 4);
+        $this->setSize('_SndUpdateEngine_8c010c6e', 4);
         $this->setSize('_BusDriveSampleGround_8c023938', 4);
         $this->setSize('_BusDriveApplyGround_8c023cba', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
@@ -112,7 +112,7 @@ return new class extends TestCase {
         // Boarding, substate 0, no doors-open trigger: nothing else in the
         // state-dispatch block.
 
-        $this->shouldCall('_FUN_8c010c6e');
+        $this->shouldCall('_SndUpdateEngine_8c010c6e');
 
         // speed_0x27c == 0: the BusDriveSampleGround_8c023938/023cba + ground-query block is
         // skipped entirely.

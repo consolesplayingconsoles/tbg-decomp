@@ -25,8 +25,8 @@ return new Class extends TestCase {
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
-        $this->shouldCall('_FUN_8c010d8a');
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 15);
+        $this->shouldCall('_SndStopBgm_8c010d8a');
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 15);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
@@ -459,7 +459,7 @@ return new Class extends TestCase {
         );
     }
 
-    public function test_fade_out_state_waits_for_init_8c03bd80()
+    public function test_fade_out_state_waits_for_init_adxPlaying_8c03bd80()
     {
         $this->resolveSymbols();
 
@@ -468,7 +468,7 @@ return new Class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initMenuStateUint32(0x60, 42);
         $this->initUint32($this->addressOf('_var_menuTextboxCharLimit_8c225fb8'), 21);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $this->call('_courseMenuStoryMenuTask_8c017718');
     }
@@ -481,7 +481,7 @@ return new Class extends TestCase {
         $this->initMenuStateUint32(0x18, 6);
         // No fade in progress, init flag cleared
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         // Choose coordinates that DISABLE the free path: cursorCol_0x3c == 1 && cursorRow_0x40 == 0
         $this->initMenuStateUint32(0x3c, 1);
@@ -515,10 +515,10 @@ return new Class extends TestCase {
     {
         $this->resolveSymbols();
 
-        // Enter FADE_OUT and ensure wefre allowed to proceed
+        // Enter FADE_OUT and ensure we're allowed to proceed
         $this->initMenuStateUint32(0x18, 6);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         // Coordinates that TRIGGER the free path: cursorCol_0x3c != 1 (e.g., 2) || cursorRow_0x40 != 0
         $this->initMenuStateUint32(0x3c, 2);
@@ -575,14 +575,14 @@ return new Class extends TestCase {
         );
     }
 
-    public function test_fade_out_to_main_menu_waits_for_init_8c03bd80()
+    public function test_fade_out_to_main_menu_waits_for_init_adxPlaying_8c03bd80()
     {
         $this->resolveSymbols();
 
         // Enter FADE_OUT_TO_MAIN_MENU
         $this->initMenuStateUint32(0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0); // fade done
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         // Epilogue inputs
         $this->initMenuStateUint32(0x60, 42);
@@ -600,7 +600,7 @@ return new Class extends TestCase {
         // Enter FADE_OUT_TO_MAIN_MENU
         $this->initMenuStateUint32(0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0); // fade finished
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         // (Epilogue inputs would be irrelevant?this path returns early)
 
@@ -621,7 +621,7 @@ return new Class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
         $this->setSize('_var_dialogQueue_8c225fbc', 4 * 4);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_instructorDialogActive_8c225fb4', 4); // dialog-running flag
         $this->setSize('_var_progress_8c1ba1cc', 0x94);

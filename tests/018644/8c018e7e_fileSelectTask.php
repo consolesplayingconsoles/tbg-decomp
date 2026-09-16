@@ -396,12 +396,12 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e');
     }
 
-    /* Unmounted, but an ADX stream is still playing out (init_8c03bd80): keep waiting. */
+    /* Unmounted, but an ADX stream is still playing out (init_adxPlaying_8c03bd80): keep waiting. */
     public function test_state6_adx_busy(): void
     {
         $this->setup(6, 0);
         $this->initUint32($this->addressOf('_var_vmMountBusy_8c22606c'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
         $this->call('_fileSelectTask_8c018e7e');
     }
@@ -412,7 +412,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->setup(6, 0);
         $this->initUint32($this->addressOf('_var_vmMountBusy_8c22606c'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
         $this->call('_fileSelectTask_8c018e7e')->with($task);
 
@@ -531,7 +531,7 @@ return new class extends TestCase {
         $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_vmMountBusy_8c22606c', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);
 
         $this->ms = $this->addressOf('_var_menuState_8c1bc7a8');

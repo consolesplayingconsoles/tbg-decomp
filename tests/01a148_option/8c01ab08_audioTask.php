@@ -53,12 +53,12 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndSetSoundMode_8c0108c0', 4);
         $this->setSize('_SndSetAdxVol_8c010972', 4);
-        $this->setSize('_SndSetMidiVolAndInitStruct_8c0109f4', 4);
+        $this->setSize('_SndSetMidiVol_8c0109f4', 4);
         $this->setSize('_FileMenuResetSoundDefaults_8c0188dc', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
-        $this->setSize('_FUN_8c0107ac', 4);
-        $this->setSize('_FUN_8c0106d2', 4);
-        $this->setSize('_FUN_8c010720', 4);
+        $this->setSize('_SndPlayBgm_8c0107ac', 4);
+        $this->setSize('_SndPlaySfx_8c0106d2', 4);
+        $this->setSize('_SndPlayVoice_8c010720', 4);
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + self::PRESS, $press);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), self::MIDI);
@@ -283,7 +283,7 @@ return new class extends TestCase {
     {
         $this->arrange(press: self::TA, state: 4, selected: 2, d5: 7, logo: 1);
         $this->shouldCall('_audioEditValue_8c01a8b6')->with($this->progress(self::D5), 10);
-        $this->shouldCall('_SndSetMidiVolAndInitStruct_8c0109f4')->with(7);
+        $this->shouldCall('_SndSetMidiVol_8c0109f4')->with(7);
         $this->shouldDrawLabels(2);
         $this->shouldDrawSoundModeMarker(0);
         $this->shouldDrawVolMarker(self::MUSIC_Y, 0);
@@ -340,7 +340,7 @@ return new class extends TestCase {
     {
         $this->arrange(press: self::TA, state: 6, selected: 4, field3c: 0);
         $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_musicTestDigits_8c226078'), 2)->andReturn(0x2a);
-        $this->shouldCall('_FUN_8c0107ac')->with(0x2a);
+        $this->shouldCall('_SndPlayBgm_8c0107ac')->with(0x2a);
         $this->shouldDrawTestCursor(220.0, 0);
         $this->shouldDrawLabels(4);
         $this->shouldDrawMarkersPlain(0, 0, 0, 0);
@@ -352,7 +352,7 @@ return new class extends TestCase {
     {
         $this->arrange(press: self::TA, state: 7, selected: 5, field3c: 0);
         $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_sfxTestDigits_8c226080'), 2)->andReturn(0x11);
-        $this->shouldCall('_FUN_8c0106d2')->with(0x11);
+        $this->shouldCall('_SndPlaySfx_8c0106d2')->with(0x11);
         $this->shouldDrawTestCursor(256.0, 0);
         $this->shouldDrawLabels(5);
         $this->shouldDrawMarkersPlain(0, 0, 0, 0);
@@ -364,7 +364,7 @@ return new class extends TestCase {
     {
         $this->arrange(press: self::TA, state: 8, selected: 6, field3c: 2);
         $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_voiceTestDigits_8c226088'), 4)->andReturn(0x100);
-        $this->shouldCall('_FUN_8c010720')->with(0x100);
+        $this->shouldCall('_SndPlayVoice_8c010720')->with(0x100);
         $this->shouldDrawTestCursor(292.0, 2);
         $this->shouldDrawLabels(6);
         $this->shouldDrawMarkersPlain(0, 0, 0, 0);

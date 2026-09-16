@@ -125,7 +125,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
             var_menuState_8c1bc7a8.field_0x54 = init_lessonPageStarts_8c0451b4[var_practiceLesson_8c22640c];
             var_menuState_8c1bc7a8.field_0x5c = var_menuState_8c1bc7a8.field_0x54;
             var_menuState_8c1bc7a8.field_0x58 = init_lessonPageStarts_8c0451b4[var_practiceLesson_8c22640c + 1] - 1;
-            SndProc_8c010cd6(0, 0xd);
+            SndPlayAdx_8c010cd6(0, 0xd);
             FadePushIn_8c022a9c(10);
             break;
 
@@ -251,7 +251,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
 
         case STATE_LOADING_START:
             if (var_isFading_8c226568 == 0) {
-                if (init_8c03bd80 != 0) break;
+                if (init_adxPlaying_8c03bd80 != 0) break;
 
                 DebugMenuFreeSessionAssets_8c016182();
                 var_worstPenaltyDelta_8c1bb8f0 = 0;
@@ -271,7 +271,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
 
         case STATE_CANCEL_FADE_OUT:
             if (var_isFading_8c226568 == 0) {
-                if (init_8c03bd80 != 0) break;
+                if (init_adxPlaying_8c03bd80 != 0) break;
 
                 practiceCancelReturn_8c01e920(task);
                 break;
@@ -317,7 +317,7 @@ STATIC void showLesson_8c01e63c(Task *task)
 
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_FADE_IN;
-            SndProc_8c010cd6(0, 0xd);
+            SndPlayAdx_8c010cd6(0, 0xd);
             FadePushIn_8c022a9c(10);
             return;
 
@@ -366,7 +366,7 @@ STATIC void showLesson_8c01e63c(Task *task)
 
         case SHOW_LESSON_STATE_FADE_OUT_TO_DESCRIPTION:
             if (var_isFading_8c226568 == 0) {
-                if (init_8c03bd80 != 0) return;
+                if (init_adxPlaying_8c03bd80 != 0) return;
                 initDescriptionReveal_8c01e576(task);
                 return;
             }
@@ -561,8 +561,8 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_DIALOG_FADE_IN;
-            FUN_8c010d8a();
-            SndProc_8c010cd6(0, 0xd);
+            SndStopBgm_8c010d8a();
+            SndPlayAdx_8c010cd6(0, 0xd);
             FadePushIn_8c022a9c(10);
             return;
 
@@ -667,7 +667,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 
         case LESSON_STATE_LOADING_FADE_OUT:
             if (var_isFading_8c226568 == 0) {
-                if (init_8c03bd80 != 0) return;
+                if (init_adxPlaying_8c03bd80 != 0) return;
 
                 if (var_gameMode_8c1bb8fc == 0) {
                     if (var_lessonAttempts_8c22642c == 0) {

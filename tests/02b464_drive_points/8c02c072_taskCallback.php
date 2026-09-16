@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->setSize('_var_cooldownSignal_8c228698', 4);
         $this->setSize('_var_cooldownLane_8c22869c', 4);
         $this->setSize('_var_cooldownIntersection_8c2286a0', 4);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_var_vibport_8c1ba354', 4);
         $this->setSize('_var_fadeRequest_8c226564', 4);
         $this->setSize('_DriveMsgDraw_8c02b388', 4);

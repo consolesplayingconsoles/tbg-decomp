@@ -235,7 +235,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 LOG_DEBUG(("[TITLE] State changed: 0X0B_BUS_SLIDE\n"));
                 var_menuState_8c1bc7a8.pos.title.busX_0x20 = 640;
 
-                SndProc_8c010cd6(0, 0);
+                SndPlayAdx_8c010cd6(0, 0);
             }
 
             /* Draw title */
@@ -360,7 +360,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3);
 
             if (var_isFading_8c226568 == FALSE) {
-                if (!init_8c03bd80) {
+                if (!init_adxPlaying_8c03bd80) {
                     var_titleActive_8c1bb8c4 = FALSE;
 
                     VmMenuSwitchFromTask_8c019e44(task);
@@ -384,7 +384,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
 
         case TITLE_STATE_0X11_TIME_OUT: {
             if (var_isFading_8c226568 == FALSE) {
-                if (init_8c03bd80 == FALSE) {
+                if (init_adxPlaying_8c03bd80 == FALSE) {
                     DebugMenuFreeSessionAssets_8c016182();
                     TxtStartAttractDemo_8c0159ac();
                 }

@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
-        $this->shouldCall('_SndProc_8c010cd6')->with(0, 15);
+        $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 15);
     }
 
     public function test_fade_in_state_advances_when_fade_complete(): void
@@ -399,20 +399,20 @@ return new class extends TestCase {
         $this->shouldCall('_drawRouteInfo_8c018118');
     }
 
-    public function test_start_loading_state_waits_when_init_busy(): void
+    public function test_start_loading_state_waits_for_adx(): void
     {
         $this->resolveSymbols();
 
-        // Enter state 6, not fading, but init_8c03bd80 is busy
+        // Enter state 6, not fading, but an ADX stream is still playing
         $this->initMenuStateUint32(0x18, 6);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1); // busy
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1); // still playing
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // init_8c03bd80 is busy -> just return (no calls).
-        // The C recompile eagerly computes the course index (__divls) before
-        // checking init_8c03bd80; the asm checks init_8c03bd80 first.
+        // Still playing -> just return (no calls). The C recompile eagerly
+        // computes the course index (__divls) before the check; the asm
+        // checks first.
         if (!$this->isAsmObject()) {
             $this->shouldCall('__divls');
         }
@@ -425,7 +425,7 @@ return new class extends TestCase {
         // Enter state 6, not fading, init not busy
         $this->initMenuStateUint32(0x18, 6);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0); // not busy
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0); // silent
         $this->initMenuStateUint32(0x50, 12); // field_0x50 = 12
 
         // Initialize player progress struct with course data
@@ -502,7 +502,7 @@ return new class extends TestCase {
         // Enter state 6, not fading, init not busy
         $this->initMenuStateUint32(0x18, 6);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0); // not busy
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0); // silent
         $this->initMenuStateUint32(0x50, 12); // field_0x50 = 12
 
         // Initialize player progress struct with course data
@@ -602,18 +602,18 @@ return new class extends TestCase {
         );
     }
 
-    public function test_return_to_menu_state_waits_when_init_busy(): void
+    public function test_return_to_menu_state_waits_for_adx(): void
     {
         $this->resolveSymbols();
 
-        // Enter state 7, not fading, but init_8c03bd80 is busy
+        // Enter state 7, not fading, but an ADX stream is still playing
         $this->initMenuStateUint32(0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 1); // busy
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1); // still playing
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // init_8c03bd80 is busy -> just return (no rendering)
+        // Still playing -> just return (no rendering)
     }
 
     public function test_return_to_menu_state_transitions_back_to_main_menu(): void
@@ -626,7 +626,7 @@ return new class extends TestCase {
         // Enter state 7, not fading, init not busy
         $this->initMenuStateUint32(0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bd80'), 0); // not busy
+        $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0); // silent
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0); // story mode
         $this->initMenuStateUint32(0x38, 0); // selected_0x38
         $this->initMenuStateUint32(0x50, 12); // field_0x50
@@ -663,7 +663,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
-        $this->setSize('_init_8c03bd80', 4);
+        $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);

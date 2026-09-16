@@ -1,14 +1,14 @@
 ; 8c012f44
           .IMPORT     _var_resetRequested_8c157a78
           .IMPORT     _var_vmBusy_8c157a7c
-          .IMPORT     _FUN_8c010ca6
+          .IMPORT     _SndStopAdx_8c010ca6
           .IMPORT     _sdMidiStopAll
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
           .IMPORT     _DebugMenuFreeSessionAssets_8c016182
           .IMPORT     _var_titleActive_8c1bb8c4
-          .IMPORT     _init_8c03bd80
-          .IMPORT     _init_8c03bd84
+          .IMPORT     _init_adxPlaying_8c03bd80
+          .IMPORT     _init_soundOk_8c03bd84
           .IMPORT     _TitlePushTitle_8c015fd6
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_route_8c18ad1c
@@ -74,15 +74,15 @@
           .IMPORT     _var_fuuNjm_8c1bc448
           .IMPORT     _var_fuuLastFrame_8c1bc450
           .IMPORT     _AsqResetQueues_8c011f6c
-          .IMPORT     _var_memblkSource_8c0fcd48
+          .IMPORT     _var_sndDrvData_8c0fcd48
           .IMPORT     _AsqRequestDat_8c011182
-          .IMPORT     _var_memblkSource_8c0fcd4c
+          .IMPORT     _var_sndBankData_8c0fcd4c
           .IMPORT     _RouteLoadClearLatch_8c014322
           .IMPORT     _RouteLoadSetLatch_8c014330
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _AsqFreeQueues_8c011f7e
-          .IMPORT     _SndInitSoundMidiAdx_8c010e18
+          .IMPORT     _SndInit_8c010e18
           .IMPORT     _var_lcdAnimActive_8c2260a8
           .IMPORT     _njSetTextureMemorySize
           .IMPORT     _syCblCheckCable
@@ -312,14 +312,14 @@ LP_GEN_99840:
           .RES.W      1
           .DATA.L _var_resetRequested_8c157a78
           .DATA.L _var_vmBusy_8c157a7c
-          .DATA.L _FUN_8c010ca6
+          .DATA.L _SndStopAdx_8c010ca6
           .DATA.L _sdMidiStopAll
           .DATA.L _var_vibport_8c1ba354
           .DATA.L _pdVibMxStop
           .DATA.L _DebugMenuFreeSessionAssets_8c016182
           .DATA.L _var_titleActive_8c1bb8c4
-          .DATA.L _init_8c03bd80
-          .DATA.L _init_8c03bd84
+          .DATA.L _init_adxPlaying_8c03bd80
+          .DATA.L _init_soundOk_8c03bd84
           .DATA.L _TitlePushTitle_8c015fd6
           .DATA.L _var_playMode_8c1bb8d0
           .DATA.L _var_route_8c18ad1c
@@ -913,10 +913,10 @@ LP_GEN_65923:
           .DATA.L H'4F800000
           .DATA.L _var_fuuLastFrame_8c1bc450
           .DATA.L _AsqResetQueues_8c011f6c
-          .DATA.L _var_memblkSource_8c0fcd48
+          .DATA.L _var_sndDrvData_8c0fcd48
           .DATA.L _const_8c03336c
           .DATA.L _AsqRequestDat_8c011182
-          .DATA.L _var_memblkSource_8c0fcd4c
+          .DATA.L _var_sndBankData_8c0fcd4c
           .DATA.L _const_8c033378
           .DATA.L _RouteLoadClearLatch_8c014322
           .DATA.L _RouteLoadSetLatch_8c014330
@@ -924,7 +924,7 @@ LP_GEN_65923:
           .DATA.L _AsqProcessQueues_8c011fe0
           .DATA.L _AsqFreeQueues_8c011f7e
           .DATA.L _TaskFree_8c014b66
-          .DATA.L _SndInitSoundMidiAdx_8c010e18
+          .DATA.L _SndInit_8c010e18
           .DATA.L _var_lcdAnimActive_8c2260a8
           .DATA.L _TitlePushTitle_8c015fd6
           .DATA.L _var_gdErr_8c18ad14
@@ -1503,8 +1503,8 @@ LP_GEN_19861:
           .DATA.L     _usrGdErrFunc_8c0134d6
           .DATA.L     _gdFsEntryErrFuncAll
           .DATA.L     _var_vibport_8c1ba354
-          .DATA.L     _init_8c03bd80
-          .DATA.L     _init_8c03bd84
+          .DATA.L     _init_adxPlaying_8c03bd80
+          .DATA.L     _init_soundOk_8c03bd84
           .DATA.L     _pdVibMxStop
           .DATA.L     _var_queuesAreInitialized_8c157a60
           .DATA.L     _init_drvStatPending_8c03bfa8

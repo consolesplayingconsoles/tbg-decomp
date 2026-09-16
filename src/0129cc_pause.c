@@ -90,7 +90,7 @@ STATIC int update_8c0129cc(void)
             var_pauseActive_8c1bb8cc = TRUE;
             var_pauseSettle_8c18ad04 = 0;
             var_onRetire_8c18ad10 = 0;
-            SndControlAdxtWithOutVol_8c0107d2(1);
+            SndSetPaused_8c0107d2(1);
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             if (var_vibport_8c1ba354 != -1) {
                 pdVibMxStop(var_vibport_8c1ba354);
@@ -115,13 +115,13 @@ STATIC int update_8c0129cc(void)
     if ((p->press & PDD_DGT_ST) != 0) {
         /* Start again: close, no sound. */
         var_pauseActive_8c1bb8cc = 0;
-        SndControlAdxtWithOutVol_8c0107d2(0);
+        SndSetPaused_8c0107d2(0);
         LOG_DEBUG(("[PAUSE] update_8c0129cc: menu closed (Start)\n"));
     } else if (var_onRetire_8c18ad10 == 0) {
         /* Cursor on CONTINUE: A resumes, Down moves to RETIRE. */
         if ((p->press & PDD_DGT_TA) != 0) {
             var_pauseActive_8c1bb8cc = 0;
-            SndControlAdxtWithOutVol_8c0107d2(0);
+            SndSetPaused_8c0107d2(0);
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             LOG_DEBUG(("[PAUSE] update_8c0129cc: resumed (A)\n"));
         } else if ((p->press & PDD_DGT_KD) != 0 || p->y1 > STICK_THRESHOLD) {
@@ -281,8 +281,8 @@ void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
         DebugMenuFreeSessionAssets_8c016182();
-        init_8c03bd80 = 1;
-        init_8c03bd84 = 0;
+        init_adxPlaying_8c03bd80 = 1;
+        init_soundOk_8c03bd84 = 0;
         LOG_DEBUG(("[PAUSE] PauseDemoEndTask_8c012d5a: reset requested\n"));
         return;
     }
@@ -314,7 +314,7 @@ void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
             task->counter_0x0c++;
             break;
         }
-        if (init_8c03bd80 != 0) {
+        if (init_adxPlaying_8c03bd80 != 0) {
             return;
         }
         DebugMenuFreeSessionAssets_8c016182();

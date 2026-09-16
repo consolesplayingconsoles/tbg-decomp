@@ -6,7 +6,7 @@
 #include "013ae8_route_load.h" /* enum ROUTE */
 #include "011120_asset_queues.h" /* AsqGetRandomB_8c0121a8, AsqGetRandomInRangeB_8c0121be */
 #include "010e90_vibration.h" /* VibStart_8c010f7a, VibUpdate_8c010fae */
-#include "0100bc_sound.h" /* SndProc_8c010cd6, var_midiHandles_8c0fcd28 */
+#include "0100bc_sound.h" /* SndPlayAdx_8c010cd6, var_midiHandles_8c0fcd28 */
 #include "020214_drive_cue_task.h"
 
 /* ====================
@@ -120,7 +120,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
             break;
         }
 
-        SndProc_8c010cd6(1, local0 + local1);
+        SndPlayAdx_8c010cd6(1, local0 + local1);
 
         if (var_prevStopSegment_8c22870c == var_nextStopSegment_8c228710) {
             var_driveCueState_8c2264b8.stopAnnounceState_0x08 = 2;

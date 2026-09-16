@@ -12,7 +12,7 @@
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _init_saveNames_8c044d50
-          .IMPORT     _init_8c03bd80
+          .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _var_titleActive_8c1bb8c4
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_peripherals_8c1ba35c
@@ -33,7 +33,7 @@
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
           .IMPORT     _RouteLoadSetLatch_8c014330
           .IMPORT     _AsqProcessQueues_8c011fe0
-          .IMPORT     _SndProc_8c010cd6
+          .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _InputCheckColdBoot_8c012984
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _InputPushTask_8c0128cc
@@ -481,7 +481,7 @@ L37:
           .DATA.L     _var_midiHandles_8c0fcd28
           .DATA.L     _sdMidiPlay ; H'8c015df0
           .DATA.L     H'44200000 ; 640.0
-          .DATA.L     _SndProc_8c010cd6
+          .DATA.L     _SndPlayAdx_8c010cd6
           .DATA.L     H'40A38E39 ; 5.111111
           .DATA.L     H'43340000 ; 180.0 - H'8c015e00
           .DATA.L     H'43270000 ; 167.0
@@ -651,7 +651,7 @@ L48:
           .DATA.L     _sdMidiPlay ; H'8c015f40
           .DATA.L     _init_saveNames_8c044d50
           .DATA.L     _VmMenuUpdateVmusStatus_8c019550
-          .DATA.L     _init_8c03bd80
+          .DATA.L     _init_adxPlaying_8c03bd80
           .DATA.L     _var_titleActive_8c1bb8c4 ; H'8c015f50
           .DATA.L     _VmMenuSwitchFromTask_8c019e44
           .DATA.L     _DebugMenuFreeSessionAssets_8c016182
