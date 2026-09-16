@@ -53,11 +53,15 @@ for c_obj in build/output/src/*.obj; do
   echo
 done
 
+echo "=== Imported symbols ==="
+python3 scripts/check_imports.py || fail=1
+echo
+
 echo "=== Summary ==="
 if [ $fail -eq 0 ]; then
-  echo "All checked units data-match"
+  echo "All checked units data-match and import what the archive imports"
 else
-  echo "Some checked units do not data-match"
+  echo "Some checked units do not data-match, or diverge on imports"
 fi
 
 exit $fail
