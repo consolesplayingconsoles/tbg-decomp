@@ -24,9 +24,9 @@ return new class extends TestCase {
         $this->setSize('_var_signalGroups_8c228b40', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_ObjectsClearCrossingOccupied_8c028958', 4);
-        $this->setSize('_init_8c04c980', 4);
-        $this->setSize('_init_8c04caec', 4);
-        $this->setSize('_init_8c04cd38', 4);
+        $this->setSize('_init_signalGroupsWangan_8c04c980', 4);
+        $this->setSize('_init_signalGroupsShinjuku_8c04caec', 4);
+        $this->setSize('_init_signalGroupsOme_8c04cd38', 4);
 
         $this->setSize('_var_nightLightIntensityStep_8c1bbda0', 2 * 4);
         $this->setSize('_var_nightLightIntensityOff_8c1bbda8', 2 * 4);
@@ -71,7 +71,7 @@ return new class extends TestCase {
             ->andReturn(1);
     }
 
-    // ROUTE_WANGAN (1) selects init_8c04c980; timeOfDay != NIGHT skips the
+    // ROUTE_WANGAN (1) selects init_signalGroupsWangan_8c04c980; timeOfDay != NIGHT skips the
     // scene-row caching entirely.
     public function test_routeWangan_dayOrEvening_skipsSceneCache(): void {
         $this->resolveSymbols();
@@ -99,7 +99,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0x11110000);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
-        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_8c04c980'));
+        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_signalGroupsWangan_8c04c980'));
 
         $this->mockTaskPush($task, $state);
         $this->shouldWriteLong($task + 0x18, 0x99990000);
@@ -109,7 +109,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsClearCrossingOccupied_8c028958');
     }
 
-    // ROUTE_SHINJUKU (0) selects init_8c04caec.
+    // ROUTE_SHINJUKU (0) selects init_signalGroupsShinjuku_8c04caec.
     public function test_routeShinjuku_selectsCaec(): void {
         $this->resolveSymbols();
 
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
-        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_8c04caec'));
+        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_signalGroupsShinjuku_8c04caec'));
 
         $this->mockTaskPush($task, $state);
         $this->shouldWriteLong($task + 0x18, 0);
@@ -143,7 +143,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsClearCrossingOccupied_8c028958');
     }
 
-    // ROUTE_OME (2) selects init_8c04cd38 AND (timeOfDay == NIGHT) triggers
+    // ROUTE_OME (2) selects init_signalGroupsOme_8c04cd38 AND (timeOfDay == NIGHT) triggers
     // the scene-row cache + delta computation.
     public function test_routeOme_night_cachesSceneRowsAndDeltas(): void {
         $this->resolveSymbols();
@@ -174,7 +174,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_cpuPathBlocks_8c227e1c'), 0x33330000);
         $this->shouldWriteLong($this->addressOf('_var_trafficPresetTable_8c227e18'), $table);
 
-        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_8c04cd38'));
+        $this->shouldWriteLong($this->addressOf('_var_signalGroups_8c228b40'), $this->addressOf('_init_signalGroupsOme_8c04cd38'));
 
         $b0 = $this->addressOf('_var_nightLightIntensityOn_8c1bbdb0');
         $d0 = $this->addressOf('_var_nightLightColorOn_8c1bbdd0');

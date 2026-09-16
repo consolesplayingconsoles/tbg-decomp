@@ -46,9 +46,9 @@
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _var_signalGroups_8c228b40
-          .IMPORT     _init_8c04c980
-          .IMPORT     _init_8c04caec
-          .IMPORT     _init_8c04cd38
+          .IMPORT     _init_signalGroupsWangan_8c04c980
+          .IMPORT     _init_signalGroupsShinjuku_8c04caec
+          .IMPORT     _init_signalGroupsOme_8c04cd38
           .IMPORT     _var_nightLightIntensityOff_8c1bbda8
           .IMPORT     _var_nightLightColorOff_8c1bbdc4
           .IMPORT     _var_nightLightIntensityStep_8c1bbda0
@@ -2313,9 +2313,9 @@ LP_GEN_74201:
           .DATA.L _var_cpuPathBlocks_8c227e1c ; H'8C027824
           .DATA.L _var_signalGroups_8c228b40 ; H'8C027828
           .DATA.L _var_route_8c18ad1c ; H'8C02782C
-          .DATA.L _init_8c04c980 ; H'8C027830
-          .DATA.L _init_8c04caec ; H'8C027834
-          .DATA.L _init_8c04cd38 ; H'8C027838
+          .DATA.L _init_signalGroupsWangan_8c04c980 ; H'8C027830
+          .DATA.L _init_signalGroupsShinjuku_8c04caec ; H'8C027834
+          .DATA.L _init_signalGroupsOme_8c04cd38 ; H'8C027838
           .DATA.L _var_timeOfDay_8c18ad20 ; H'8C02783C
           .DATA.L _var_nightLightIntensityOn_8c1bbdb0 ; H'8C027840
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C027844

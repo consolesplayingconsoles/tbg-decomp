@@ -1,11 +1,11 @@
 ; 8c03bd80
           ; 026710
-          .EXPORT     _init_8c04c980 ; 026710.src
-          .EXPORT     _init_8c04caec ; 026710.src
-          .EXPORT     _init_8c04cd38 ; 026710.src
+          .EXPORT     _init_signalGroupsWangan_8c04c980 ; 026710.src
+          .EXPORT     _init_signalGroupsShinjuku_8c04caec ; 026710.src
+          .EXPORT     _init_signalGroupsOme_8c04cd38 ; 026710.src
 
           .SECTION    D, DATA, ALIGN=4
-_init_8c04c980:        ; from defines
+_init_signalGroupsWangan_8c04c980:        ; from defines
           .DATA.B      H'01, H'00, H'00, H'00, H'02, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'03, H'00, H'00, H'00
           .DATA.B      H'04, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'05, H'00, H'00, H'00, H'06, H'00, H'00, H'00
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'07, H'00, H'00, H'00, H'3C, H'00, H'00, H'00, H'08, H'00, H'00, H'00
@@ -29,7 +29,7 @@ _init_8c04c980:        ; from defines
           .DATA.B      H'31, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'32, H'00, H'00, H'00, H'33, H'00, H'00, H'00
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'34, H'00, H'00, H'00, H'35, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'36, H'00, H'00, H'00, H'37, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF
-_init_8c04caec:        ; from defines
+_init_signalGroupsShinjuku_8c04caec:        ; from defines
           .DATA.B      H'01, H'00, H'00, H'00, H'02, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'03, H'00, H'00, H'00
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'04, H'00, H'00, H'00, H'05, H'00, H'00, H'00, H'06, H'00, H'00, H'00
           .DATA.B      H'65, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'07, H'00, H'00, H'00, H'08, H'00, H'00, H'00
@@ -67,7 +67,7 @@ _init_8c04caec:        ; from defines
           .DATA.B      H'63, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'4D, H'00, H'00, H'00, H'4E, H'00, H'00, H'00
           .DATA.B      H'64, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'4F, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'50, H'00, H'00, H'00, H'51, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF
-_init_8c04cd38:        ; from defines
+_init_signalGroupsOme_8c04cd38:        ; from defines
           .DATA.B      H'01, H'00, H'00, H'00, H'25, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'02, H'00, H'00, H'00
           .DATA.B      H'03, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF, H'04, H'00, H'00, H'00, H'05, H'00, H'00, H'00
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'06, H'00, H'00, H'00, H'07, H'00, H'00, H'00, H'08, H'00, H'00, H'00

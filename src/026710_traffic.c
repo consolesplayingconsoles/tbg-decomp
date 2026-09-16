@@ -951,11 +951,11 @@ void TrafficInit_8c02769e(void)
     var_trafficPresetTable_8c227e18 = (Sint32 *)var_currentCourse_8c1bb868.macCpu1_0x24;
 
     if (var_route_8c18ad1c == ROUTE_WANGAN) {
-        var_signalGroups_8c228b40 = init_8c04c980;
+        var_signalGroups_8c228b40 = init_signalGroupsWangan_8c04c980;
     } else if (var_route_8c18ad1c == ROUTE_SHINJUKU) {
-        var_signalGroups_8c228b40 = init_8c04caec;
+        var_signalGroups_8c228b40 = init_signalGroupsShinjuku_8c04caec;
     } else if (var_route_8c18ad1c == ROUTE_OME) {
-        var_signalGroups_8c228b40 = init_8c04cd38;
+        var_signalGroups_8c228b40 = init_signalGroupsOme_8c04cd38;
     }
 
     if (var_timeOfDay_8c18ad20 == TIME_OF_DAY_NIGHT) {
