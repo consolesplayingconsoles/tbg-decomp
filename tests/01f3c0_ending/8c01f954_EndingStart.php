@@ -5,10 +5,11 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * EndingStart_8c01f954(void): entry point called once the player finishes
- * their final course. Picks the ending dialog tier, seeds the instructor
- * sprite from it, kicks off input handling, and pushes GameTask_8c012f44
- * and creditsTask_8c01f658 as Tasks, then sets up the ending's resources.
+ * EndingStart_8c01f954(void): entry point, reached once the career's month
+ * of days runs out. Picks the ending dialog tier, seeds the instructor sprite
+ * from it, pushes the usual per-screen tasks (peripheral support,
+ * GameTask_8c012f44) plus creditsTask_8c01f658, then sets up the ending's
+ * resources.
  */
 return new class extends TestCase {
     const STATE_0X18 = 0x18;

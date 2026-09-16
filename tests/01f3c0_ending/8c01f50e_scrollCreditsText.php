@@ -7,10 +7,10 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 /*
  * scrollCreditsText_8c01f50e(void): scrolls the double-buffered credit
  * textboxes up by 2px/frame (field_0x5c selects which of the pair is
- * "current"); wraps and loads the next credit line once the current box
- * scrolls fully off-screen. init_8c04528c/init_8c045290 are laid out back
- * to back in the real binary, so field_0x64 indexes across both as one
- * 38-entry table.
+ * "current"); wraps and loads the next credit page once the current box
+ * scrolls fully off-screen. init_endingCreditsHead_8c04528c and
+ * init_endingCreditsTail_8c045290 are laid out back to back in the real
+ * binary, so startTimer_0x64 indexes across both as one 38-entry table.
  */
 return new class extends TestCase {
     const MENU_STATE_SIZE = 0x7c;
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $mbBase = $this->addressOf('_var_messageTextBoxA_8c1bc404');
         $this->rellocate('_var_messageTextBoxB_8c1bc408', $mbBase + 4);
 
-        // init_8c04528c/init_8c045290 are defined by *this* unit (real
+        // init_endingCreditsHead_8c04528c/init_endingCreditsTail_8c045290 are defined by *this* unit (real
         // internal relocations, not test-relocatable), so no rellocate is
         // needed or possible here -- the C/asm each place them wherever
         // their own compiler/assembler naturally lays out consecutive
@@ -66,13 +66,13 @@ return new class extends TestCase {
     // expressible as an ASCII PHP literal (the strings are Shift-JIS) or
     // reachable via addressOf (anonymous string literals have no symbol) --
     // read it back at call time instead, inside the callback where
-    // $this->memory is populated. $index is the combined table index (0 =
-    // init_8c04528c[0], 1.. = init_8c045290[index-1]).
+    // $this->memory is populated. $index is the combined table index
+    // (0 = head[0], 1.. = tail[index - 1]).
     private function checkPrepareLayoutArgs(int $box, int $index): callable
     {
         $readAddr = $index === 0
-            ? $this->addressOf('_init_8c04528c')
-            : $this->addressOf('_init_8c045290') + ($index - 1) * 4;
+            ? $this->addressOf('_init_endingCreditsHead_8c04528c')
+            : $this->addressOf('_init_endingCreditsTail_8c045290') + ($index - 1) * 4;
 
         return function () use ($box, $index, $readAddr) {
             $r4 = $this->registers[4]->value;
@@ -156,7 +156,7 @@ return new class extends TestCase {
         $this->initUint32($box0 + self::TEXTBOX_Y_0X04, 50);
         $this->initUint32($box1 + self::TEXTBOX_Y_0X04, -479 & 0xffffffff);
 
-        // Index 1 spills past init_8c04528c's single entry into init_8c045290[0].
+        // Index 1 spills past the head's single entry into the tail.
         $this->call('_scrollCreditsText_8c01f50e');
 
         $this->shouldWriteLong($box1 + self::TEXTBOX_Y_0X04, -481 & 0xffffffff);

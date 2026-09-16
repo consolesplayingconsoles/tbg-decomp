@@ -221,8 +221,8 @@ return new class extends TestCase {
         // expressible as ASCII PHP literals (Shift-JIS) or reachable via
         // addressOf (anonymous string literals have no symbol) -- read them
         // back from the array at call time instead.
-        $credits0Addr = $this->addressOf('_init_8c04528c');
-        $credits1Addr = $this->addressOf('_init_8c045290');
+        $credits0Addr = $this->addressOf('_init_endingCreditsHead_8c04528c');
+        $credits1Addr = $this->addressOf('_init_endingCreditsTail_8c045290');
         $this->shouldCall('_TxtPrepareTextBoxLayout_8c01543a')
             ->do(function () use ($box0, $credits0Addr) {
                 $r5 = $this->registers[5]->value;

@@ -5,12 +5,13 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * updateEndingOverlay_8c01f42c(void): per-frame easing of the credits header
- * sprite, drawn from MenuState.pos.title (busX_0x20/flagY_0x24) with
- * cursorVelocity_0x30 as its velocity. subState_0x1c (0/1) drives a
- * grow-then-shrink vertical bounce; the x position bounces between 0 and 90
- * by negating cursorVelocity_0x30.x at the limits. Also redraws the
- * instructor portrait and resets the background color every frame.
+ * updateEndingOverlay_8c01f42c(void): per-frame update and draw of the ending
+ * dialog scene, before the credits. Sprite 4 of the ending resource group
+ * bounces from MenuState.pos.title (busX_0x20/flagY_0x24) with
+ * cursorVelocity_0x30 as its velocity: subState_0x1c 0 falls under gravity
+ * until y passes 300, 1 rises until the velocity flips, and x turns around at
+ * 0 and 90. Also redraws the instructor portrait and resets the background
+ * color every frame.
  */
 return new class extends TestCase {
     const MENU_STATE_SIZE = 0x7c;

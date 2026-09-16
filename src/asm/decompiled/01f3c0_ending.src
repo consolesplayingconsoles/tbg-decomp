@@ -50,8 +50,8 @@
           .EXPORT     _updateEndingOverlay_8c01f42c
           .EXPORT     _scrollCreditsText_8c01f50e
           .EXPORT     _creditsTask_8c01f658
-          .EXPORT     _init_8c04528c
-          .EXPORT     _init_8c045290
+          .EXPORT     _init_endingCreditsHead_8c04528c
+          .EXPORT     _init_endingCreditsTail_8c045290
           .EXPORT     _init_endingResourceGroup_8c045324
           .AENDI
           .EXPORT     _EndingStart_8c01f954
@@ -360,7 +360,7 @@ LP_GEN_39506:
           .DATA.L _var_messageTextBoxA_8c1bc404 ; H'8C01F608
           .DATA.L H'C3F00000 ; H'8C01F60C
           .DATA.L H'44700000 ; H'8C01F610
-          .DATA.L _init_8c04528c ; H'8C01F614
+          .DATA.L _init_endingCreditsHead_8c04528c ; H'8C01F614
           .DATA.L _TxtPrepareTextBoxLayout_8c01543a ; H'8C01F618
 LAB_8c01f61c:
           MOV.L       R12,@(H'1c,R14)
@@ -685,9 +685,9 @@ LP_GEN_41910:
           .DATA.L _var_messageTextBoxA_8c1bc404 ; H'8C01F894
           .DATA.L _TxtCreateTextBox_8c0152fc ; H'8C01F898
           .DATA.L _var_messageTextBoxB_8c1bc408 ; H'8C01F89C
-          .DATA.L _init_8c04528c ; H'8C01F8A0
+          .DATA.L _init_endingCreditsHead_8c04528c ; H'8C01F8A0
           .DATA.L _TxtPrepareTextBoxLayout_8c01543a ; H'8C01F8A4
-          .DATA.L _init_8c045290 ; H'8C01F8A8
+          .DATA.L _init_endingCreditsTail_8c045290 ; H'8C01F8A8
           .DATA.L _FadePushIn_8c022a9c ; H'8C01F8AC
 LAB_8c01f8b0:
           MOV         #H'68,R0
@@ -1441,9 +1441,9 @@ _init_endingVoicesNormal_8c04525c:        ; from defines
 _init_endingVoicesFailure_8c045278:        ; from defines
           .DATA.B      H'2A, H'05, H'00, H'00, H'2B, H'05, H'00, H'00, H'2C, H'05, H'00, H'00, H'2D, H'05, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'00
-_init_8c04528c:        ; from defines
+_init_endingCreditsHead_8c04528c:        ; from defines
           .DATA.L      _const_8c0389b4 ; ukn
-_init_8c045290:        ; from defines
+_init_endingCreditsTail_8c045290:        ; from defines
           .DATA.L      _const_8c038a40 ; ukn
           .DATA.L      _const_8c038ac4 ; ukn
           .DATA.L      _const_8c038b98 ; ukn

@@ -25,17 +25,19 @@
  * ====================
  */
 
-/* Ending-sequence phase, held in MenuState.state_0x18 (reused generically by
- * every screen that drives this struct's state machine). */
+/* Ending-sequence phase, held in MenuState.state_0x18 (the generic state slot
+ * every screen drives). */
 enum ENDING_TASK_STATE {
-    ENDING_TASK_STATE_WAIT_PVM = 0,             /* waits for the route PVM to be ready, then fades in */
-    ENDING_TASK_STATE_FADE_IN = 1,              /* waits for the fade-in, then pushes the pass/fail instructor dialog */
-    ENDING_TASK_STATE_INSTRUCTOR_DIALOG = 2,    /* waits for the dialog, then fades out to the credits */
-    ENDING_TASK_STATE_FADE_OUT_TO_CREDITS = 3,  /* waits for the fade, then opens the credits textboxes */
-    ENDING_TASK_STATE_CREDITS_INTRO = 4,        /* waits for the credits fade-in before starting the scroll timer */
-    ENDING_TASK_STATE_CREDITS_SCROLL = 5,       /* scrolls until scrollCreditsText_8c01f50e runs out of credit lines */
-    ENDING_TASK_STATE_CREDITS_HOLD = 6,         /* holds on the last frame, then fades out */
-    ENDING_TASK_STATE_EXIT = 7,                 /* waits for the fade, then returns to title or the failed-run results */
+    /* EndingStart_8c01f954 sets the pvm-ready flag before queueing the ending
+     * assets and the load clears it, so this phase waits for a zero. */
+    ENDING_TASK_STATE_WAIT_PVM = 0,
+    ENDING_TASK_STATE_FADE_IN = 1,
+    ENDING_TASK_STATE_INSTRUCTOR_DIALOG = 2,
+    ENDING_TASK_STATE_FADE_OUT_TO_CREDITS = 3,
+    ENDING_TASK_STATE_CREDITS_INTRO = 4,
+    ENDING_TASK_STATE_CREDITS_SCROLL = 5,
+    ENDING_TASK_STATE_CREDITS_HOLD = 6,
+    ENDING_TASK_STATE_EXIT = 7,
 };
 
 /* ====================
@@ -47,11 +49,10 @@ STATIC const char const_endingPartsName_8c039f4c[20] = "ending_parts.dat";
 STATIC const char const_endingDatName_8c039f60[12] = "ending.dat";
 STATIC const char const_endingPvmName_8c039f6c[12] = "ending.pvm";
 
-/* Voice ids for CourseMenuPushDialogTask_8c0170c6's dialog_0x04->text_0x00
- * SndProc_8c010cd6(2, id) walk (016d2c_course_menu.c:368); tiers named after
- * the matching entries of init_instructorDialogs_8c044c08 (index 1-4), which
- * selectEndingDialog_8c01f3c0 picks with the same var_dialogQueue_8c225fbc[0]
- * value. */
+/* One voice id per dialog page, walked by instructorDialogTask_8c016f98 via
+ * voiceCuePtr_0x18 and terminated by 0. The four tiers line up with
+ * init_instructorDialogs_8c044c08 entries INSTR_SUCCESS_PERFECT ..
+ * INSTR_FAILURE_FINAL, which selectEndingDialog_8c01f3c0 picks in step. */
 STATIC int init_endingVoicesPerfect_8c04522c[] = {
     0x51a, 0x51b, 0x51c, 0x51d, 0x51e, 0,
 };
@@ -68,16 +69,16 @@ STATIC int init_endingVoicesFailure_8c045278[] = {
     0x52a, 0x52b, 0x52c, 0x52d, 0,
 };
 
-/* init_8c04528c and init_8c045290 are laid out back to back in the original
- * binary (1 + 37 pointers with no gap), so scrollCreditsText_8c01f50e reads
- * across the pair as one contiguous 38-entry table via startTimer_0x64. */
-STATIC const char *const init_8c04528c[] = {
+/* Head and tail of one credit roll: laid out back to back in the original
+ * binary (1 + 37 pointers, no gap), and scrollCreditsText_8c01f50e indexes
+ * across the pair from the head as a single 38-entry table. */
+STATIC const char *const init_endingCreditsHead_8c04528c[] = {
     MSG_ENDING_CREDITS_01,
 };
 
 /* Terminated by an empty string (originally a pointer to a 4-byte zeroed
  * buffer), not a null pointer. */
-STATIC const char *const init_8c045290[] = {
+STATIC const char *const init_endingCreditsTail_8c045290[] = {
     MSG_ENDING_CREDITS_02, MSG_ENDING_CREDITS_03, MSG_ENDING_CREDITS_04, MSG_ENDING_CREDITS_05,
     MSG_ENDING_CREDITS_06, MSG_ENDING_CREDITS_07, MSG_ENDING_CREDITS_08, MSG_ENDING_CREDITS_09,
     MSG_ENDING_CREDITS_10, MSG_ENDING_CREDITS_11, MSG_ENDING_CREDITS_12, MSG_ENDING_CREDITS_13,
@@ -146,13 +147,12 @@ STATIC void selectEndingDialog_8c01f3c0(void)
     }
 }
 
-/* Per-frame easing for the credits header sprite and its draw. Reuses
- * MenuState.pos.title (busX/flagY) as the header's x/y and
- * cursorVelocity_0x30 as its x/y velocity: subState_0x1c drives a
- * grow-then-shrink vertical bounce (0 = growing, 1 = shrinking), while the
- * x position bounces between 0 and 90 by negating its velocity at the
- * limits. Also redraws the instructor portrait and resets the background
- * color every frame. */
+/* Per-frame update and draw of the dialog scene, before the credits start.
+ * Sprite 4 of the ending resource group bounces behind the instructor
+ * portrait, borrowing MenuState.pos.title (busX/flagY) as its x/y and
+ * cursorVelocity_0x30 as its velocity: subState_0x1c 0 falls under a constant
+ * 0.1/frame gravity until y passes 300, 1 rises until the velocity flips, and
+ * x turns around at 0 and 90. */
 STATIC void updateEndingOverlay_8c01f42c(void)
 {
     const float step = 0.1f;
@@ -190,14 +190,13 @@ STATIC void updateEndingOverlay_8c01f42c(void)
     njSetBackColor(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);
 }
 
-/* Scrolls the double-buffered credit textboxes (var_messageTextBoxA/B) up by
- * 2px/frame. field_0x5c (0/1) tracks which of the pair is "current"; once it
- * scrolls fully off-screen (y < -480) it wraps back to the bottom (y += 960)
- * and loads the next credit line (startTimer_0x64 indexes across the combined
- * init_8c04528c/init_8c045290 table). When TxtPrepareTextBoxLayout_8c01543a
- * fails (the "" terminator), subState_0x1c is latched to signal "no more
- * credits" to creditsTask_8c01f658. field_0x54/field_0x58 are per-box
- * frame counters, clamped to 0xff, fed into TxtDrawTextbox_8c0155e0. */
+/* Scrolls the two credit textboxes (var_messageTextBoxA/B) up 2px/frame,
+ * recycling whichever one field_0x5c points at: once it is fully off the top
+ * (y < -480) it drops back a screen below (y += 960) and takes the next credit
+ * page. TxtPrepareTextBoxLayout_8c01543a returning 0 means the "" terminator,
+ * and subState_0x1c latches that for creditsTask_8c01f658. field_0x54/0x58 are
+ * box A's and B's character-reveal caps, one more character per frame up to
+ * 0xff, reset when that box takes a new page. */
 STATIC int scrollCreditsText_8c01f50e(void)
 {
     TextBox *box;
@@ -213,7 +212,7 @@ STATIC int scrollCreditsText_8c01f50e(void)
         if ((float) box->y_0x04 < -480.0f) {
             box->y_0x04 += 960;
 
-            if (TxtPrepareTextBoxLayout_8c01543a(box, (&init_8c04528c[0])[var_menuState_8c1bc7a8.startTimer_0x64]) != 0) {
+            if (TxtPrepareTextBoxLayout_8c01543a(box, (&init_endingCreditsHead_8c04528c[0])[var_menuState_8c1bc7a8.startTimer_0x64]) != 0) {
                 if (idx != 0) {
                     var_menuState_8c1bc7a8.field_0x58 = 0;
                 } else {
@@ -289,8 +288,8 @@ STATIC void creditsTask_8c01f658(void)
         TxtInit_8c01524c();
         var_messageTextBoxA_8c1bc404 = TxtCreateTextBox_8c0152fc(0, 480, -5.0f, 640, 480, 0, 0, -1);
         var_messageTextBoxB_8c1bc408 = TxtCreateTextBox_8c0152fc(0, 960, -5.0f, 640, 480, 0, 0, -1);
-        TxtPrepareTextBoxLayout_8c01543a((TextBox *) var_messageTextBoxA_8c1bc404, init_8c04528c[0]);
-        TxtPrepareTextBoxLayout_8c01543a((TextBox *) var_messageTextBoxB_8c1bc408, init_8c045290[0]);
+        TxtPrepareTextBoxLayout_8c01543a((TextBox *) var_messageTextBoxA_8c1bc404, init_endingCreditsHead_8c04528c[0]);
+        TxtPrepareTextBoxLayout_8c01543a((TextBox *) var_messageTextBoxB_8c1bc408, init_endingCreditsTail_8c045290[0]);
         var_menuState_8c1bc7a8.subState_0x1c = 0;
         var_menuState_8c1bc7a8.field_0x5c = 0;
         var_menuState_8c1bc7a8.startTimer_0x64 = 2;
@@ -351,12 +350,12 @@ STATIC void creditsTask_8c01f658(void)
     }
 }
 
-/* Entry point, called once the player finishes their final course (see the
- * var_progress_8c1ba1cc.days_0x00 > 30 checks at both call sites). Picks the
- * ending dialog tier, seeds the instructor sprite from it, starts the
- * "did you pass?" input handling, and pushes GameTask_8c012f44 (the
- * gameplay task, kept running for the driving-scene backdrop)
- * and creditsTask_8c01f658 (the ending state machine) as Tasks. */
+/* Entry point, reached from the results and lesson screens once
+ * var_progress_8c1ba1cc.days_0x00 passes 30 -- the career is one month long.
+ * Picks the dialog tier, seeds the instructor sprite from it, then sets the
+ * screen up the way every other one does (peripheral-support task plus
+ * GameTask_8c012f44's soft-reset watchdog) before pushing the ending's own
+ * creditsTask_8c01f658. */
 void EndingStart_8c01f954(void)
 {
     Task *gameTask;
