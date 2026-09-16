@@ -669,9 +669,10 @@ extern DriveCueState var_driveCueState_8c2264b8;
 extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
 extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c_tile_draw: simple-light direction, fade layer 1 (mirror side)
-/* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Two separate
- * symbols (not one float[5]) because each is exported/imported on its own in
- * src/asm/sectionB.src -- coincidentally adjacent, not one C variable. */
+/* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Every access is
+ * a bare single-word pool load, so the archive says nothing about whether the
+ * five floats are one array or two; split here because the intensity pair and
+ * the colour triple go to different SDK calls. */
 extern float var_fadeLightIntensity_8c2264f0[2]; // [0..1]
 extern float var_fadeLightColor_8c2264f8[3]; // [2..4]
 extern float var_fadeEasyLightDir_8c226538[3]; // 021b9c_tile_draw: easy-light direction, shared by both fade layers

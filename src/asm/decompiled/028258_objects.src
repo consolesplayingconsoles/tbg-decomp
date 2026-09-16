@@ -92,7 +92,6 @@
           .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_fadeLightDir0_8c2264d8
           .IMPORT     _var_fadeLightDir1_8c2264e4
-          .IMPORT     _var_8c2264f4
           .IMPORT     _var_fadeLightIntensity_8c2264f0
           .IMPORT     _njCnkSetSimpleLightIntensity
           .IMPORT     _var_fadeLightColor_8c2264f8
@@ -5004,7 +5003,7 @@ LP_GEN_23851:
           .DATA.L _var_fadeLightDir0_8c2264d8 ; H'8C02A67C
           .DATA.L _var_fadeLightDir1_8c2264e4 ; H'8C02A680
           .DATA.L _njCnkSetSimpleLight ; H'8C02A684
-          .DATA.L _var_8c2264f4 ; H'8C02A688
+          .DATA.L _var_fadeLightIntensity_8c2264f0 + H'4 ; H'8C02A688
           .DATA.L _var_fadeLightIntensity_8c2264f0 ; H'8C02A68C
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C02A690
           .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C02A694

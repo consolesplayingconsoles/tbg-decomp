@@ -524,7 +524,6 @@
                                     ; 0222dc
                                     ; 028258
                                     ; 02d06c
-          .EXPORT     _var_8c2264f4 ; 028258
                                     ; 02d06c
           .EXPORT     _var_fadeLightColor_8c2264f8 ; 021b9c_tile_draw
                                     ; 0222dc
@@ -1116,9 +1115,7 @@ _var_fadeLightDir0_8c2264d8:
 _var_fadeLightDir1_8c2264e4:
           .RES.B      12
 _var_fadeLightIntensity_8c2264f0:
-          .RES.B      4
-_var_8c2264f4:
-          .RES.B      4
+          .RES.B      8
 _var_fadeLightColor_8c2264f8:
           .RES.B      12
 _var_fogParam_8c226504:

@@ -7,7 +7,6 @@
           .IMPORT     _var_waitingPassengerCount_8c228794
           .IMPORT     _var_fadeLightDir0_8c2264d8
           .IMPORT     _njCnkSetSimpleLight
-          .IMPORT     _var_8c2264f4
           .IMPORT     _var_fadeLightIntensity_8c2264f0
           .IMPORT     _njCnkSetSimpleLightIntensity
           .IMPORT     _var_fadeLightColor_8c2264f8
@@ -153,7 +152,7 @@ LP_GEN_15605:
           .DATA.L _var_waitingPassengerCount_8c228794 ; H'8C02D168
           .DATA.L _var_fadeLightDir0_8c2264d8 ; H'8C02D16C
           .DATA.L _njCnkSetSimpleLight ; H'8C02D170
-          .DATA.L _var_8c2264f4 ; H'8C02D174
+          .DATA.L _var_fadeLightIntensity_8c2264f0 + H'4 ; H'8C02D174
           .DATA.L _var_fadeLightIntensity_8c2264f0 ; H'8C02D178
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C02D17C
           .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C02D180
