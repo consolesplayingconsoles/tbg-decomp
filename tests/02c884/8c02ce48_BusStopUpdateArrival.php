@@ -32,18 +32,18 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bc444', 4);
         $this->setSize('_var_loadedFooNjm_8c1bc448', 4);
 
-        // var_8c226450/8c226454 are accessed via displacement off the
-        // already-imported var_8c22643c (0x14/0x18 further in), not by their
+        // var_hudDriveMarkIcon_8c226450/8c226454 are accessed via displacement off the
+        // already-imported var_hudMarkLatch_8c22643c (0x14/0x18 further in), not by their
         // own relocation -- see src/asm/sectionB.src for the real layout.
         // rellocate() only takes effect the *first* time a name is resolved,
         // so a symbol already registered by setSize() can't be moved
         // afterwards; instead, size each symbol (and any gap between them)
         // to its real width so plain sequential allocation reproduces the
         // real relative layout on its own.
-        $this->setSize('_var_8c22643c', 4);
+        $this->setSize('_var_hudMarkLatch_8c22643c', 4);
         $this->alloc(0x10); // gap: 8c226440..8c22644f (unused by this function)
-        $this->setSize('_var_8c226450', 4);
-        $this->setSize('_var_8c226454', 4);
+        $this->setSize('_var_hudDriveMarkIcon_8c226450', 4);
+        $this->setSize('_var_hudBlinkTimer_8c226454', 4);
 
         // var_8c2285c4 through var_8c228640 are ALL one contiguous scratch
         // region in the real binary (see src/asm/sectionB.src -- there is no
@@ -56,9 +56,9 @@ return new class extends TestCase {
         $this->setSize('_var_runPassed_8c2285c8', 4);
         $this->setSize('_var_8c2285cc', 4);
         $this->setSize('_var_driverPoints_8c2285d0', 4);
-        $this->setSize('_var_8c2285d4', 4);
-        $this->setSize('_var_8c2285d8', 4);
-        $this->setSize('_var_8c2285dc', 8); // covers 8c2285dc and the unnamed 8c2285e0
+        $this->setSize('_var_driverPointsMax_8c2285d4', 4);
+        $this->setSize('_var_scheduleTime_8c2285d8', 4);
+        $this->setSize('_var_runClock_8c2285dc', 8); // covers 8c2285dc and the unnamed 8c2285e0
         $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_8c2285e8', 4);
         $this->setSize('_var_stopMinDistance_8c2285ec', 4);
@@ -131,7 +131,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 2);
         $this->shouldWriteFloat($this->addressOf('_var_stopMinDistance_8c2285ec'), 9999.0);
-        $this->shouldWriteLongTo('_var_8c226454', 0);
+        $this->shouldWriteLongTo('_var_hudBlinkTimer_8c226454', 0);
         $this->shouldCall('_pickWaitingPassengers_8c02c8ae')->with();
         $this->shouldWriteFloat($this->addressOf('_var_8c1bc44c'), 0.0);
     }
@@ -150,7 +150,7 @@ return new class extends TestCase {
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 1);
-        $this->shouldWriteLongTo('_var_8c226454', 0);
+        $this->shouldWriteLongTo('_var_hudBlinkTimer_8c226454', 0);
     }
 
     // State 0, high byte set but matches neither segment -- no-op.
@@ -177,13 +177,13 @@ return new class extends TestCase {
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
     }
 
-    // State 1, low byte set, var_8c226450 armed (!= -1) -- flags var_8c228640.
+    // State 1, low byte set, var_hudDriveMarkIcon_8c226450 armed (!= -1) -- flags var_8c228640.
     public function test_state1_departs_armed(): void
     {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
-        $this->initUint32($this->addressOf('_var_8c226450'), 3);
+        $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), 3);
         $this->initBusState(0, 1, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
@@ -194,13 +194,13 @@ return new class extends TestCase {
         $this->shouldCall('_advanceStopSegment_8c02ccae')->with();
     }
 
-    // State 1, low byte set, var_8c226450 unarmed (-1) -- var_8c228640 untouched.
+    // State 1, low byte set, var_hudDriveMarkIcon_8c226450 unarmed (-1) -- var_8c228640 untouched.
     public function test_state1_departs_unarmed(): void
     {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
-        $this->initUint32($this->addressOf('_var_8c226450'), -1);
+        $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), -1);
         $this->initBusState(0, 1, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();

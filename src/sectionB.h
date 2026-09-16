@@ -19,24 +19,24 @@
  * =================
  */
 
-/* Set by showMark_8c01fa78 (01fa78): markSpriteId_0x00 = its first arg, displayTimer_0x08 =
- * its second. Both, plus turnSignalIconId_0x04, are read as pending sprite ids in
- * drawHud_8c01fbac's tail (drawSpeedAndTimers_8c01fe84 split); blinkCounter_0x0c unread so far. */
+/* The driver-comment popup currently on screen (01fa78_hud). showMark_8c01fa78
+ * sets markSpriteId_0x00 and displayTimer_0x08 (frames left); blinkIconId_0x04
+ * is a second sprite hudUpdateTask_8c01ff48 blinks on top of it, from the map
+ * cell's scenePresetIds_0x3bc, and only while the mark id is in [0x1e, 0x50].
+ * Both are drawn from var_markTexlist_8c1bc418. */
 typedef struct {
     int markSpriteId_0x00;
-    int turnSignalIconId_0x04;
+    int blinkIconId_0x04;
     int displayTimer_0x08;
     int blinkCounter_0x0c;
 } HudMarkState;
 
-/* A screen-space vertex used with njDrawPolygon: position plus a packed
- * color, matching the layout of init_8c045334/init_8c045374/init_8c0453b4
- * (01fa78). var_8c226478 holds 3 of these -- x/y/z filled per-frame by
- * njCalcPoint, color seeded once by HudReset_8c02018c. */
+/* A screen-space vertex for njDrawPolygon: position plus an ARGB word. The
+ * HUD's static quads (01fa78_hud) are raw byte arrays of these. */
 typedef struct {
     float x, y, z;
     Uint32 color;
-} DrawVertex8c226478;
+} HudVertex;
 
 /* Ambient drive-cue state, owned by 020214_drive_cue_task (see its .h).
  * Three fields are written from outside that unit: BusTask_8c022bdc (022bdc)
@@ -607,37 +607,37 @@ extern char var_defragBuf_8c2261a0[512]; // 01bb48: buDefragDisk work buffer
 extern int var_lcdSlot_8c2263a0;   // 01bb48
 extern void* var_8c226434;
 extern void* var_8c226438;
-/* Turn-signal/traffic-signal violation checker scratch (01fa78,
- * drawHud_8c01fbac/HudReset_8c02018c). HudReset_8c02018c zeroes field_0x00/0x04
- * and nothing reads them back; field_0x08/0x0c it does not even zero, and no
- * .c references them at all. */
+/* 01fa78_hud scratch; only the last word is live. HudReset_8c02018c zeroes
+ * field_0x00/0x04 and nothing reads them back, and field_0x08/0x0c are never
+ * touched at all. */
 typedef struct {
     int field_0x00;
     int field_0x04;
     int field_0x08;
     int field_0x0c;
-    int turnSignalLatched_0x10;
-} HudSignalCueState;
-extern HudSignalCueState var_8c22643c; // 01fa78
-/* Read (!= -1 sentinel) by BusStopUpdateArrival_8c02ce48 (02c884); role/owner
- * (02b464) unclear. */
-extern int var_8c226450;
-/* Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
- * transition; role/owner (02b464) unclear. */
-extern int var_8c226454;
-/* Driver-points meter fill scratch (01fa78, HudReset_8c02018c/hudUpdateTask_8c01ff48):
- * displayedValue_0x00 the displayed (ramped) value, lastSample_0x04 the last raw
- * var_driverPoints_8c2285d0 sample, rampStep_0x08 the per-frame ramp step
- * ((new-old)/20). field_0x0c seeded to a fixed 1.0f; unread so far. */
+    int driveMarkLatched_0x10;
+} HudMarkLatchState;
+extern HudMarkLatchState var_hudMarkLatch_8c22643c; // 01fa78
+/* HUD sprite id for the map's drive instruction under the bus
+ * (markDriveFlags_0x3b0's low 3 bits, + 0x1f), latched by
+ * hudUpdateTask_8c01ff48 (01fa78_hud) and only ever -1 before the run's first
+ * marked cell. 02b464 and 02c884 read it as "the bus has passed one". */
+extern int var_hudDriveMarkIcon_8c226450;
+/* Free-running frame counter gating the blink of that HUD slot; reset by
+ * hudUpdateTask_8c01ff48 on a new instruction and by
+ * BusStopUpdateArrival_8c02ce48 (02c884) on a stop-phase change. */
+extern int var_hudBlinkTimer_8c226454;
+/* Driver-points meter fill, ramped toward var_driverPoints_8c2285d0 over 20
+ * frames (01fa78_hud). field_0x0c is seeded to 1.0f and never read. */
 typedef struct {
     float displayedValue_0x00;
     float lastSample_0x04;
     float rampStep_0x08;
     float field_0x0c;
 } DriverPointsMeterState;
-extern DriverPointsMeterState var_8c226458; // 01fa78
-extern DrawVertex8c226478 var_8c226478[3]; // 01fa78
-extern HudMarkState var_8c2264a8; // 01fa78
+extern DriverPointsMeterState var_pointsMeter_8c226458; // 01fa78
+extern HudVertex var_tachoNeedleVerts_8c226478[3]; // 01fa78
+extern HudMarkState var_hudMark_8c2264a8; // 01fa78
 extern DriveCueState var_driveCueState_8c2264b8;
 extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
@@ -819,7 +819,7 @@ extern int var_eventCandidateCount_8c228560;
  * two ints but addressed only via var_8c2285c4[29]/[30] -- no code
  * reaches them through this symbol. Role unclear. */
 extern int var_8c228634[3];
-/* Set to 1 by BusStopUpdateArrival_8c02ce48 (02c884) when var_8c226450 is
+/* Set to 1 by BusStopUpdateArrival_8c02ce48 (02c884) when var_hudDriveMarkIcon_8c226450 is
  * armed; read by gradeFrame_8c02bcd8 (02b464) only via var_8c2285c4[31] -- no code
  * reaches it through this symbol. */
 extern int var_8c228640;
@@ -944,14 +944,21 @@ extern int var_8c2285cc;
  * to pick the award tier and as the score's EXP component */
 extern int var_driverPoints_8c2285d0;
 
-/* set alongside var_driverPoints_8c2285d0 by BusStopSetup_8c02caba (same
- * 100/200 value); role elsewhere unclear */
-extern int var_8c2285d4;
+/* The run's starting driver points (100, or 200 on the easiest difficulty
+ * outside practice), set with var_driverPoints_8c2285d0 by
+ * BusStopSetup_8c02caba. Full-scale value of the HUD points meter. */
+extern int var_driverPointsMax_8c2285d4;
 
-/* gate for EventPickForSegment_8c02b170: only runs while
- * var_8c2285dc <= var_8c2285d8 (role of each side unclear) */
-extern int var_8c2285d8;
-extern int var_8c2285dc;
+/* The timetable slot for the current segment, reloaded from the course's
+ * per-segment table by advanceStopSegment_8c02ccae, and the run clock, which
+ * BusStopSetup_8c02caba starts 450 frames (15s) before the first slot and
+ * gradeFrame_8c02bcd8 advances every frame. Both are 30fps frame counts, both
+ * drawn as HH:MM:SS by the HUD. Running past the slot costs points once a
+ * second and closes the story-event window (EventPickForSegment_8c02b170).
+ * In a practice drill without rule bit 1 the pair is inverted: the slot goes
+ * to 0 and the clock counts down to a hard TIME_MANAGEMENT failure. */
+extern int var_scheduleTime_8c2285d8;
+extern int var_runClock_8c2285dc;
 
 /* Bus-stop arrival state machine driven by BusStopUpdateArrival_8c02ce48
  * (02c884): 0 = cruising, 1 = departed-previous-stop wait, 2 = approaching
@@ -1138,7 +1145,7 @@ extern int var_8c226078[2]; /* MUSIC TEST */
 extern int var_8c226080[2]; /* SFX TEST */
 extern int var_8c226088[4]; /* VOICE TEST */
 extern float var_engineRpm_8c226468; // real type is 0100bc_sound.c's local UnknownVolStructB {float}
-extern int var_8c22646c; // written (zeroed) by HudReset_8c02018c (01fa78), never read
+extern int var_8c22646c; // written (zeroed) by HudReset_8c02018c (01fa78_hud), never read
 /* Gear-message / lane-change-message latch for hudUpdateTask_8c01ff48
  * (01fa78): set once the corresponding driver-comment popup has been staged,
  * cleared when the bus-state bit returns to 0. */

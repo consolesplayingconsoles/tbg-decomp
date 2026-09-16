@@ -1,5 +1,5 @@
 ; 8c01fa78
-          .IMPORT     _var_8c2264a8
+          .IMPORT     _var_hudMark_8c2264a8
           .IMPORT     __divls
           .IMPORT     __modls
           .IMPORT     _TxtDrawSprite_8c014f54
@@ -7,14 +7,14 @@
           .IMPORT     _var_8c2285c4
           .IMPORT     _njDrawPolygon
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _var_8c22643c
+          .IMPORT     _var_hudMarkLatch_8c22643c
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_markTexlist_8c1bc418
           .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njTranslate
           .IMPORT     _njRotateZ
-          .IMPORT     _var_8c226478
+          .IMPORT     _var_tachoNeedleVerts_8c226478
           .IMPORT     _njCalcPoint
           .IMPORT     _ObjectsGetTrafficSignal_8c0288b2
           .IMPORT     _ObjectsGetTrafficSignalFrame_8c028900
@@ -29,10 +29,10 @@
           .EXPORT     _drawHud_8c01fbac
           .EXPORT     _drawSpeedAndTimers_8c01fe84
           .EXPORT     _hudUpdateTask_8c01ff48
-          .EXPORT     _init_8c045334
-          .EXPORT     _init_8c045374
-          .EXPORT     _init_8c0453b4
-          .EXPORT     _init_8c045414
+          .EXPORT     _init_pointsMeterFill_8c045334
+          .EXPORT     _init_pointsMeterTrack_8c045374
+          .EXPORT     _init_hudPanel_8c0453b4
+          .EXPORT     _init_tachoNeedle_8c045414
           .AENDI
           .SECTION     P, CODE, ALIGN=4
 _showMark_8c01fa78:
@@ -166,7 +166,7 @@ _drawTimeDigits_8c01fa80:
 LP_GEN_77638:
           .DATA.W H'0708 ; H'8C01FB74
           .RES.W 1 ; H'8C01FB76
-          .DATA.L _var_8c2264a8 ; H'8C01FB78
+          .DATA.L _var_hudMark_8c2264a8 ; H'8C01FB78
           .DATA.L H'0001A5E0 ; H'8C01FB7C
           .DATA.L __divls ; H'8C01FB80
           .DATA.L __modls ; H'8C01FB84
@@ -298,9 +298,9 @@ LP_GEN_37481:
           .DATA.L H'BF9AE148 ; H'8C01FC84
           .DATA.L _var_busState_8c1bb9d0 ; H'8C01FC88
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01FC8C
-          .DATA.L _var_8c22643c ; H'8C01FC90
+          .DATA.L _var_hudMarkLatch_8c22643c ; H'8C01FC90
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C01FC94
-          .DATA.L _var_8c2264a8 ; H'8C01FC98
+          .DATA.L _var_hudMark_8c2264a8 ; H'8C01FC98
           .DATA.L _var_markTexlist_8c1bc418 ; H'8C01FC9C
           .DATA.L H'BF99999A ; H'8C01FCA0
           .DATA.L _var_busStopTexlist_8c1bc424 ; H'8C01FCA4
@@ -436,11 +436,11 @@ LP_GEN_59952:
           .DATA.W H'02E0 ; H'8C01FD96
           .DATA.L _var_busStopTexlist_8c1bc424 ; H'8C01FD98
           .DATA.L H'42180000 ; H'8C01FD9C
-          .DATA.L _init_8c045334 ; H'8C01FDA0
+          .DATA.L _init_pointsMeterFill_8c045334 ; H'8C01FDA0
           .DATA.L H'434A0000 ; H'8C01FDA4
           .DATA.L H'C1800000 ; H'8C01FDA8
-          .DATA.L _init_8c045374 ; H'8C01FDAC
-          .DATA.L _init_8c0453b4 ; H'8C01FDB0
+          .DATA.L _init_pointsMeterTrack_8c045374 ; H'8C01FDAC
+          .DATA.L _init_hudPanel_8c0453b4 ; H'8C01FDB0
           .DATA.L H'43FA0000 ; H'8C01FDB4
           .DATA.L H'43480000 ; H'8C01FDB8
 LAB_8c01fdbc:
@@ -621,8 +621,8 @@ LP_GEN_41663:
           .DATA.L _njTranslate ; H'8C01FF0C
           .DATA.L __divls ; H'8C01FF10
           .DATA.L _njRotateZ ; H'8C01FF14
-          .DATA.L _init_8c045414 ; H'8C01FF18
-          .DATA.L _var_8c226478 ; H'8C01FF1C
+          .DATA.L _init_tachoNeedle_8c045414 ; H'8C01FF18
+          .DATA.L _var_tachoNeedleVerts_8c226478 ; H'8C01FF1C
           .DATA.L _njCalcPoint ; H'8C01FF20
           .DATA.L H'47D2F000 ; H'8C01FF24
           .DATA.L H'447A0000 ; H'8C01FF28
@@ -738,8 +738,8 @@ LP_GEN_64387:
           .DATA.W H'012C ; H'8C01FFFC
           .DATA.W H'00B4 ; H'8C01FFFE
           .DATA.L _var_busState_8c1bb9d0 ; H'8C020000
-          .DATA.L _var_8c2264a8 ; H'8C020004
-          .DATA.L _var_8c22643c ; H'8C020008
+          .DATA.L _var_hudMark_8c2264a8 ; H'8C020004
+          .DATA.L _var_hudMarkLatch_8c22643c ; H'8C020008
           .DATA.L H'00030000 ; H'8C02000C
           .DATA.L H'00020000 ; H'8C020010
           .DATA.L H'00010000 ; H'8C020014
@@ -995,28 +995,28 @@ LP_GEN_28448:
           .DATA.L _hudUpdateTask_8c01ff48 ; H'8C0201FC
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C020200
           .DATA.L _TaskPush_8c014ae8 ; H'8C020204
-          .DATA.L _var_8c22643c ; H'8C020208
-          .DATA.L _var_8c226478 ; H'8C02020C
+          .DATA.L _var_hudMarkLatch_8c22643c ; H'8C020208
+          .DATA.L _var_tachoNeedleVerts_8c226478 ; H'8C02020C
           .DATA.L H'FFFF0000 ; H'8C020210
           .SECTION    D, DATA, ALIGN=4
-_init_8c045334:        ; from defines
+_init_pointsMeterFill_8c045334:        ; from defines
           .DATA.B      H'00, H'00, H'18, H'42, H'00, H'00, H'D8, H'43, H'FB, H'91, H'53, H'3F, H'00, H'F4, H'00, H'FF
           .DATA.B      H'00, H'00, H'18, H'42, H'00, H'00, H'DE, H'43, H'FB, H'91, H'53, H'3F, H'00, H'F4, H'00, H'FF
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'D8, H'43, H'FB, H'91, H'53, H'3F, H'00, H'F4, H'00, H'FF
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'DE, H'43, H'FB, H'91, H'53, H'3F, H'00, H'F4, H'00, H'FF
-_init_8c045374:        ; from defines
+_init_pointsMeterTrack_8c045374:        ; from defines
           .DATA.B      H'00, H'00, H'18, H'42, H'00, H'00, H'D8, H'43, H'4D, H'21, H'50, H'3F, H'00, H'00, H'B8, H'FF
           .DATA.B      H'00, H'00, H'18, H'42, H'00, H'00, H'DE, H'43, H'4D, H'21, H'50, H'3F, H'00, H'00, H'B8, H'FF
           .DATA.B      H'00, H'00, H'70, H'43, H'00, H'00, H'D8, H'43, H'4D, H'21, H'50, H'3F, H'00, H'00, H'B8, H'FF
           .DATA.B      H'00, H'00, H'60, H'43, H'00, H'00, H'DE, H'43, H'4D, H'21, H'50, H'3F, H'00, H'00, H'B8, H'FF
-_init_8c0453b4:        ; from defines
+_init_hudPanel_8c0453b4:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'80, H'D4, H'43, H'9D, H'73, H'4E, H'3F, H'00, H'00, H'00, H'80
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'80, H'EF, H'43, H'9D, H'73, H'4E, H'3F, H'00, H'00, H'00, H'80
           .DATA.B      H'00, H'00, H'72, H'43, H'00, H'80, H'D4, H'43, H'9D, H'73, H'4E, H'3F, H'00, H'00, H'00, H'80
           .DATA.B      H'00, H'C0, H'1F, H'44, H'00, H'80, H'EF, H'43, H'9D, H'73, H'4E, H'3F, H'00, H'00, H'00, H'80
           .DATA.B      H'00, H'80, H'90, H'43, H'00, H'00, H'C1, H'43, H'9D, H'73, H'4E, H'3F, H'00, H'00, H'00, H'80
           .DATA.B      H'00, H'C0, H'1F, H'44, H'00, H'00, H'C1, H'43, H'9D, H'73, H'4E, H'3F, H'00, H'00, H'00, H'80
-_init_8c045414:        ; from defines
+_init_tachoNeedle_8c045414:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'C0, H'08, H'D6, H'51, H'3F
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'40, H'08, H'D6, H'51, H'3F
           .DATA.B      H'00, H'00, H'20, H'C2, H'00, H'00, H'00, H'00, H'08, H'D6, H'51, H'3F

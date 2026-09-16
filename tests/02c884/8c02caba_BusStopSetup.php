@@ -14,8 +14,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * reached. Finishes by priming var_nextStopSegment_8c228710 /
  * var_prevStopSegment_8c22870c from var_startStopIndex_8c228704, resetting the upcoming
  * stop's state/passengers, and setting a couple of run-scoped
- * timers/thresholds (var_driverPoints_8c2285d0/var_8c2285d4,
- * var_8c2285d8/var_8c2285dc) from progress and play mode.
+ * timers/thresholds (var_driverPoints_8c2285d0/var_driverPointsMax_8c2285d4,
+ * var_scheduleTime_8c2285d8/var_runClock_8c2285dc) from progress and play mode.
  */
 return new class extends TestCase {
     const PLAY_MODE_NORMAL = 0;
@@ -51,16 +51,16 @@ return new class extends TestCase {
         $this->setSize('_var_8c2285c4', 4);
         $this->setSize('_var_runPassed_8c2285c8', 8);
         $this->setSize('_var_driverPoints_8c2285d0', 4);
-        $this->setSize('_var_8c2285d4', 4);
-        $this->setSize('_var_8c2285d8', 4);
-        $this->setSize('_var_8c2285dc', 8);
+        $this->setSize('_var_driverPointsMax_8c2285d4', 4);
+        $this->setSize('_var_scheduleTime_8c2285d8', 4);
+        $this->setSize('_var_runClock_8c2285dc', 8);
         $timerBlock = $this->alloc(0x20);
         $this->rellocate('_var_8c2285c4', $timerBlock + 0x00);
         $this->rellocate('_var_runPassed_8c2285c8', $timerBlock + 0x04);
         $this->rellocate('_var_driverPoints_8c2285d0', $timerBlock + 0x0c);
-        $this->rellocate('_var_8c2285d4', $timerBlock + 0x10);
-        $this->rellocate('_var_8c2285d8', $timerBlock + 0x14);
-        $this->rellocate('_var_8c2285dc', $timerBlock + 0x18);
+        $this->rellocate('_var_driverPointsMax_8c2285d4', $timerBlock + 0x10);
+        $this->rellocate('_var_scheduleTime_8c2285d8', $timerBlock + 0x14);
+        $this->rellocate('_var_runClock_8c2285dc', $timerBlock + 0x18);
 
         $this->setSize('_EventScanCandidates_8c02b03c', 4);
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
@@ -100,7 +100,7 @@ return new class extends TestCase {
 
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0); // < 1
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
-        $this->initUint32($this->addressOf('_var_8c2285d8'), 500);
+        $this->initUint32($this->addressOf('_var_scheduleTime_8c2285d8'), 500);
 
         $this->call('_BusStopSetup_8c02caba')->with();
 
@@ -131,11 +131,11 @@ return new class extends TestCase {
         $this->shouldCall('_advanceStopSegment_8c02ccae');
 
         // var_8c1ba290[0] < 1 && playMode != DEMO -> 200
-        $this->shouldWriteLongTo('_var_8c2285d4', 200);
+        $this->shouldWriteLongTo('_var_driverPointsMax_8c2285d4', 200);
         $this->shouldWriteLongTo('_var_driverPoints_8c2285d0', 200);
 
         // playMode != PRACTICE -> dc = d8 - 0x1c2
-        $this->shouldWriteLongTo('_var_8c2285dc', 500 - 0x1c2);
+        $this->shouldWriteLongTo('_var_runClock_8c2285dc', 500 - 0x1c2);
     }
 
     public function test_practice_mode_single_extra_pick(): void
@@ -163,7 +163,7 @@ return new class extends TestCase {
 
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0); // bit 2 clear
-        $this->initUint32($this->addressOf('_var_8c2285d8'), 42);
+        $this->initUint32($this->addressOf('_var_scheduleTime_8c2285d8'), 42);
 
         $this->call('_BusStopSetup_8c02caba')->with();
 
@@ -200,12 +200,12 @@ return new class extends TestCase {
         $this->shouldCall('_advanceStopSegment_8c02ccae');
 
         // var_8c1ba290[0] < 1, but playMode == PRACTICE -> 100
-        $this->shouldWriteLongTo('_var_8c2285d4', 100);
+        $this->shouldWriteLongTo('_var_driverPointsMax_8c2285d4', 100);
         $this->shouldWriteLongTo('_var_driverPoints_8c2285d0', 100);
 
         // playMode == PRACTICE && bit 2 clear -> dc = d8 (42), d8 = 0
-        $this->shouldWriteLongTo('_var_8c2285dc', 42);
-        $this->shouldWriteLongTo('_var_8c2285d8', 0);
+        $this->shouldWriteLongTo('_var_runClock_8c2285dc', 42);
+        $this->shouldWriteLongTo('_var_scheduleTime_8c2285d8', 0);
     }
 
     public function test_demo_mode_skips_demo_entry_clear_and_event_flags_a_segment(): void
@@ -235,7 +235,7 @@ return new class extends TestCase {
 
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
-        $this->initUint32($this->addressOf('_var_8c2285d8'), 10);
+        $this->initUint32($this->addressOf('_var_scheduleTime_8c2285d8'), 10);
 
         $this->call('_BusStopSetup_8c02caba')->with();
 
@@ -265,11 +265,11 @@ return new class extends TestCase {
         $this->shouldCall('_advanceStopSegment_8c02ccae');
 
         // var_8c1ba290[0] < 1 && playMode != PRACTICE (DEMO qualifies) -> 200
-        $this->shouldWriteLongTo('_var_8c2285d4', 200);
+        $this->shouldWriteLongTo('_var_driverPointsMax_8c2285d4', 200);
         $this->shouldWriteLongTo('_var_driverPoints_8c2285d0', 200);
 
         // playMode != PRACTICE -> dc = d8 - 0x1c2
-        $this->shouldWriteLongTo('_var_8c2285dc', 10 - 0x1c2);
+        $this->shouldWriteLongTo('_var_runClock_8c2285dc', 10 - 0x1c2);
     }
 
     public function test_practice_mode_with_bit_set_still_takes_the_else_gate_branch(): void
@@ -292,7 +292,7 @@ return new class extends TestCase {
 
         $this->initUint8($this->addressOf('_var_8c1ba290'), 0);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 2); // bit 2 set
-        $this->initUint32($this->addressOf('_var_8c2285d8'), 900);
+        $this->initUint32($this->addressOf('_var_scheduleTime_8c2285d8'), 900);
 
         $this->call('_BusStopSetup_8c02caba')->with();
 
@@ -320,10 +320,10 @@ return new class extends TestCase {
         $this->shouldCall('_advanceStopSegment_8c02ccae');
 
         // playMode == PRACTICE -> 100
-        $this->shouldWriteLongTo('_var_8c2285d4', 100);
+        $this->shouldWriteLongTo('_var_driverPointsMax_8c2285d4', 100);
         $this->shouldWriteLongTo('_var_driverPoints_8c2285d0', 100);
 
         // playMode == PRACTICE but bit 2 SET -> still dc = d8 - 0x1c2
-        $this->shouldWriteLongTo('_var_8c2285dc', 900 - 0x1c2);
+        $this->shouldWriteLongTo('_var_runClock_8c2285dc', 900 - 0x1c2);
     }
 };

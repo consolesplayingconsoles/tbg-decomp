@@ -11,7 +11,7 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60); // 4 x DriveMsgSlot
         // [3] = driver points (var_driverPoints_8c2285d0), [4] = its max
-        // (var_8c2285d4); this TU addresses both via var_8c2285c4, like
+        // (var_driverPointsMax_8c2285d4); this TU addresses both via var_8c2285c4, like
         // 013ae8_route_load.c and 01e27c_practice_menu.c do.
         $this->setSize('_var_8c2285c4', 0x14);
     }

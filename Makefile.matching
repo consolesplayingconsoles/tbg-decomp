@@ -41,7 +41,7 @@ SRCS = \
 	src/asm/decompiled/01d7fc_results.src \
 	src/asm/decompiled/01e27c_practice_menu.src \
 	src/asm/decompiled/01f3c0_ending.src \
-	src/asm/decompiled/01fa78.src \
+	src/asm/decompiled/01fa78_hud.src \
 	src/asm/decompiled/020214_drive_cue_task.src \
 	src/020528_drive_cue_init.c \
 	src/asm/decompiled/020594_vehicle_model.src \

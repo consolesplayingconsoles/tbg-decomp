@@ -96,12 +96,13 @@ bus along a predefined route with predefined passenger stop requests.
   Not all five are blinkers: bit 0 is the brake lamp and bits 3/4 the night
   running lights, both forced on elsewhere. The tick SFX plays on the first
   frame of each signal.
-- `HudSignalCueState.turnSignalLatched_0x10` (`01fa78.c`) is a different,
-  unrelated latch: a one-shot "already popped the driver-comment mark for
-  this blinker-on period" flag derived from the *lamp* bits
-  (`markDriveFlags_0x3b0`), not from the driver's `signalSide_0x25c`. Its
-  name stays as is; it was checked for consistency and found to already
-  describe a distinct concept.
+- `HudMarkLatchState.driveMarkLatched_0x10` (`01fa78_hud.c`) is unrelated to
+  the driver's signalling: it is a one-shot latch over
+  `markDriveFlags_0x3b0`'s low 3 bits, which are not lamp bits at all.
+  `BusTask_8c022bdc` fills `markDriveFlags_0x3b0` every frame from the
+  attribute-grid record under the bus, so it carries the *map's* authored
+  drive instructions, not the player's `signalSide_0x25c` or
+  `blinker_0x080`.
 
 ## Reverse
 
@@ -237,20 +238,23 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
   active. This is very likely the world-space marker the player remembers;
   its actual on-screen color is not confirmed from code (no texture data
   decompiled here).
-- **HUD indicator.** `drawHud_8c01fbac` (`01fa78.c:131-143`) draws a sprite
+- **HUD indicator.** `drawHud_8c01fbac` (`01fa78_hud.c`) draws a sprite
   from `var_busStopTexlist_8c1bc424` at a fixed screen slot, blinking per
-  `var_8c226454`'s timer, whose meaning depends on
+  `var_hudBlinkTimer_8c226454`'s timer, whose meaning depends on
   `var_stopPhase_8c2285e4`: icon `0x1f` during phase 2 (approaching the next
   active stop) is shown unconditionally while blinking -- this is the HUD
   upcoming-stop indicator. Phase 1 (just departed) instead shows icon
-  `0x1e`, but only while `var_8c226450 != -1`; phase 0/4 (cruising) draws
-  `var_8c226450` itself. `var_8c226450` is not a stop icon at all despite an
-  earlier comment here calling it one -- `hudUpdateTask_8c01ff48`
-  (`01fa78.c:274`) is its only real write site, setting it to the driver's
-  own turn-signal icon id (`blinker + 0x1f`, -1 when off); the HUD is
-  reusing the same screen slot for the turn-signal indicator (phase 0/4),
-  a signal reminder (phase 1, gated on the signal still being on), and the
-  next-stop indicator (phase 2) as the bus moves through the stop cycle.
+  `0x1e`, but only while `var_hudDriveMarkIcon_8c226450 != -1`; phase 0/4 (cruising) draws
+  `var_hudDriveMarkIcon_8c226450` itself, which is not a stop icon:
+  `hudUpdateTask_8c01ff48` is its only write site outside
+  `HudReset_8c02018c`, latching `markDriveFlags_0x3b0`'s low 3 bits as a
+  sprite id (`marker + 0x1f`). Those bits come from the attribute grid under
+  the bus, so this is the map's own drive instruction -- not the driver's
+  turn signal, as an earlier revision of this file claimed -- and the -1
+  holds only until the bus crosses the first marked cell of the run. The HUD
+  reuses one screen slot for that instruction (phase 0/4), a signal reminder
+  (phase 1), and the next-stop indicator (phase 2) as the bus moves through
+  the stop cycle.
 - **The chime.** Two independent chime systems live in `DriveCueTask_8c020214`
   (`020214_drive_cue_task.c`), operating on `DriveCueState var_driveCueState_8c2264b8` (`sectionB.h`):
   - `stopAnnounceState_0x08`/`stopAnnounceTimer_0x10` is the **driver's own
@@ -263,9 +267,9 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
     (`02b464`) sets the same latch right after docking that penalty, so the
     announcement plays anyway once the game has charged you for missing it.
   - `idleChimeState_0x00`/`idleChimeTimer_0x04` is an unrelated ambient
-    chime played periodically while driving (gated on `var_busState_8c1bb9d0.speed_0x27c`, a
-    steering-related threshold, with a random ~2-5s repeat), not tied to
-    stops at all.
+    chime played periodically while driving (gated on a low
+    `var_busState_8c1bb9d0.speed_0x27c` threshold, on a randomized repeat),
+    not tied to stops at all.
   - `nearStopChimeLatch_0x14` plays a short chime (case default in the
     function's tail block) but, despite its name, is gated on a *fixed*,
     hand-authored list of specific segment indices per route (e.g. Shinjuku:

@@ -6,11 +6,11 @@ use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention;
 /*
  * _drawHud_8c01fbac(int arg0): the in-drive HUD render. arg0 is the driver-
  * comment message code hudUpdateTask_8c01ff48 stages through the fade-command queue.
- * var_8c226450/454/458/uknVol_8c226468/8c226478 all alias into the
- * var_8c22643c scratch block, and var_8c2285d4/d8/dc/mirrorViewLevel_8c2285e4
+ * var_hudDriveMarkIcon_8c226450/454/458/uknVol_8c226468/8c226478 all alias into the
+ * var_hudMarkLatch_8c22643c scratch block, and var_driverPointsMax_8c2285d4/d8/dc/mirrorViewLevel_8c2285e4
  * all alias into var_8c2285c4 -- see hudUpdateTask_8c01ff48's test for the same
  * aliasing and 02b464_drive_points for the var_8c2285c4 convention.
- * init_8c045334/374/3b4/414 were local (unexported) labels in the .src
+ * init_pointsMeterFill_8c045334/374/3b4/414 were local (unexported) labels in the .src
  * object; gated .EXPORTs under .AIFDEF UNIT_TESTING were added so tests can
  * see them, matching init_fadeQuad_8c0455a8's convention in 022464_fade.
  * The drawSpeedAndTimers_8c01fe84 tail is exercised in its own test file and mocked here.
@@ -19,22 +19,22 @@ return new class extends TestCase {
     private function setup(): array
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
-        $this->setSize('_var_8c22643c', 0x6c);
-        $base = $this->addressOf('_var_8c22643c');
-        $this->rellocate('_var_8c226450', $base + 0x14);
-        $this->rellocate('_var_8c226454', $base + 0x18);
-        $this->rellocate('_var_8c226458', $base + 0x1c);
+        $this->setSize('_var_hudMarkLatch_8c22643c', 0x6c);
+        $base = $this->addressOf('_var_hudMarkLatch_8c22643c');
+        $this->rellocate('_var_hudDriveMarkIcon_8c226450', $base + 0x14);
+        $this->rellocate('_var_hudBlinkTimer_8c226454', $base + 0x18);
+        $this->rellocate('_var_pointsMeter_8c226458', $base + 0x1c);
         $this->rellocate('_var_engineRpm_8c226468', $base + 0x2c);
-        $this->rellocate('_var_8c226478', $base + 0x3c);
+        $this->rellocate('_var_tachoNeedleVerts_8c226478', $base + 0x3c);
 
         $this->setSize('_var_8c2285c4', 0x80);
         $dp = $this->addressOf('_var_8c2285c4');
-        $this->rellocate('_var_8c2285d4', $dp + 0x10);
-        $this->rellocate('_var_8c2285d8', $dp + 0x14);
-        $this->rellocate('_var_8c2285dc', $dp + 0x18);
+        $this->rellocate('_var_driverPointsMax_8c2285d4', $dp + 0x10);
+        $this->rellocate('_var_scheduleTime_8c2285d8', $dp + 0x14);
+        $this->rellocate('_var_runClock_8c2285dc', $dp + 0x18);
         $this->rellocate('_var_stopPhase_8c2285e4', $dp + 0x20);
 
-        $this->setSize('_var_8c2264a8', 0x10);
+        $this->setSize('_var_hudMark_8c2264a8', 0x10);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_markTexlist_8c1bc418', 4);
         $this->setSize('_var_busStopTexlist_8c1bc424', 4);
@@ -57,7 +57,7 @@ return new class extends TestCase {
             $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + $off, 0);
         }
         for ($off = 0; $off < 0x10; $off += 4) {
-            $this->initUint32($this->addressOf('_var_8c2264a8') + $off, 0);
+            $this->initUint32($this->addressOf('_var_hudMark_8c2264a8') + $off, 0);
         }
         for ($off = 0; $off < 0x80; $off += 4) {
             $this->initUint32($dp + $off, 0);
@@ -82,7 +82,7 @@ return new class extends TestCase {
     // asm (no BSR/JSR anywhere reaches that label -- see drawHud_8c01fbac's own
     // comment), so the .src object can't have that call mocked away: it
     // just keeps executing the real digit/timer draws. The C object made
-    // it a real call, which can be mocked. var_8c2285d8/dc are assumed 0
+    // it a real call, which can be mocked. var_scheduleTime_8c2285d8/dc are assumed 0
     // (this file's default zero-fill) wherever this is used.
     private function assertSpeedTail(int $speed): void
     {
@@ -114,7 +114,7 @@ return new class extends TestCase {
     // not a behavior change.
     private function assertMeterAndBorders(): void
     {
-        $init045334 = $this->addressOf('_init_8c045334');
+        $init045334 = $this->addressOf('_init_pointsMeterFill_8c045334');
 
         $this->shouldWriteFloat($init045334 + 0x20, 38.0);
         if ($this->isAsmObject()) {
@@ -123,8 +123,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($init045334 + 0x30, 38.0);
 
         $this->shouldCall('_njDrawPolygon')->with($init045334, 4, 0);
-        $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_8c045374'), 4, 0);
-        $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_8c0453b4'), 6, 1);
+        $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_pointsMeterTrack_8c045374'), 4, 0);
+        $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_hudPanel_8c0453b4'), 6, 1);
     }
 
     // The needle matrix/CalcPoint sequence + the speed tail, run
@@ -132,8 +132,8 @@ return new class extends TestCase {
     private function assertNeedleAndSpeedTail(int $angleDividend, int $angleReturn, int $speed): void
     {
         $mat = $this->addressOf('_var_scratchMatrix_8c1bc46c');
-        $init045414 = $this->addressOf('_init_8c045414');
-        $vtx = $this->addressOf('_var_8c226478');
+        $init045414 = $this->addressOf('_init_tachoNeedle_8c045414');
+        $vtx = $this->addressOf('_var_tachoNeedleVerts_8c226478');
 
         $this->shouldCall('_njUnitMatrix')->with($mat);
         $this->shouldCall('_njTranslate')->with($mat, 320.0, 436.0, 0.0);
@@ -170,18 +170,18 @@ return new class extends TestCase {
         [$base, $dp] = $this->setup();
 
         // Driver-comment popup: both staged icons and arg0's icon are drawn.
-        $popup = $this->addressOf('_var_8c2264a8');
+        $popup = $this->addressOf('_var_hudMark_8c2264a8');
         $this->initUint32($popup + 0x00, 0x40); // markSpriteId_0x00 (icon id)
-        $this->initUint32($popup + 0x04, 0x30); // turnSignalIconId_0x04 (id, doubles as its own gate)
+        $this->initUint32($popup + 0x04, 0x30); // blinkIconId_0x04 (id, doubles as its own gate)
         $this->initUint32($popup + 0x08, 1);    // displayTimer_0x08 (gate for markSpriteId_0x00)
 
         // Next-stop icon: mirror level 0, armed, blink window open.
-        $this->initUint32($base + 0x14, 5);  // var_8c226450
-        $this->initUint32($base + 0x18, 61); // var_8c226454 (> 60)
+        $this->initUint32($base + 0x14, 5);  // var_hudDriveMarkIcon_8c226450
+        $this->initUint32($base + 0x18, 61); // var_hudBlinkTimer_8c226454 (> 60)
 
         // Driver-points meter: (50.0 * 202.0) / 100 + 38.0 = 139.0, inner = 123.0.
-        $this->initUint32($base + 0x1c, unpack('L', pack('f', 50.0))[1]); // var_8c226458.displayedValue_0x00
-        $this->initUint32($dp + 0x10, 100); // var_8c2285d4 (divisor)
+        $this->initUint32($base + 0x1c, unpack('L', pack('f', 50.0))[1]); // var_pointsMeter_8c226458.displayedValue_0x00
+        $this->initUint32($dp + 0x10, 100); // var_driverPointsMax_8c2285d4 (divisor)
 
         // Both turn-signal bits set.
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x80, 6); // blinker_0x080
@@ -203,13 +203,13 @@ return new class extends TestCase {
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 7, 0.0, 0.0, -1.21);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 5, 0.0, 0.0, -1.2);
 
-        $init045334 = $this->addressOf('_init_8c045334');
+        $init045334 = $this->addressOf('_init_pointsMeterFill_8c045334');
         $this->shouldWriteFloat($init045334 + 0x20, 139.0);
         $this->shouldWriteFloat($init045334 + 0x30, 123.0);
 
         $this->shouldCall('_njDrawPolygon')->with($init045334, 4, 0);
-        $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_8c045374'), 4, 0);
-        $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_8c0453b4'), 6, 1);
+        $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_pointsMeterTrack_8c045374'), 4, 0);
+        $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_hudPanel_8c0453b4'), 6, 1);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x25, 0.0, 0.0, -1.21);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x26, 0.0, 0.0, -1.21);
@@ -217,8 +217,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + 0x2c, 100.0); // uknVol -= 200
 
         $mat = $this->addressOf('_var_scratchMatrix_8c1bc46c');
-        $init045414 = $this->addressOf('_init_8c045414');
-        $vtx = $this->addressOf('_var_8c226478');
+        $init045414 = $this->addressOf('_init_tachoNeedle_8c045414');
+        $vtx = $this->addressOf('_var_tachoNeedleVerts_8c226478');
         $this->shouldCall('_njUnitMatrix')->with($mat);
         $this->shouldCall('_njTranslate')->with($mat, 320.0, 436.0, 0.0);
         // angle = (int)100.0 * 32768 / 6000
@@ -237,9 +237,9 @@ return new class extends TestCase {
         [$base, $dp] = $this->setup();
 
         $this->initUint32($dp + 0x20, 1); // var_stopPhase_8c2285e4
-        $this->initUint32($base + 0x14, 5);  // var_8c226450 (armed)
-        $this->initUint32($base + 0x18, 61); // var_8c226454 (> 60)
-        $this->initUint32($dp + 0x10, 100);  // var_8c2285d4 (avoid div-by-zero)
+        $this->initUint32($base + 0x14, 5);  // var_hudDriveMarkIcon_8c226450 (armed)
+        $this->initUint32($base + 0x18, 61); // var_hudBlinkTimer_8c226454 (> 60)
+        $this->initUint32($dp + 0x10, 100);  // var_driverPointsMax_8c2285d4 (avoid div-by-zero)
 
         $this->call('_drawHud_8c01fbac')->with(0);
 
@@ -254,8 +254,8 @@ return new class extends TestCase {
         [$base, $dp] = $this->setup();
 
         $this->initUint32($dp + 0x20, 2); // var_stopPhase_8c2285e4
-        $this->initUint32($base + 0x18, 61); // var_8c226454 (> 60) -- level 2 ignores var_8c226450
-        $this->initUint32($dp + 0x10, 100);  // var_8c2285d4
+        $this->initUint32($base + 0x18, 61); // var_hudBlinkTimer_8c226454 (> 60) -- level 2 ignores var_hudDriveMarkIcon_8c226450
+        $this->initUint32($dp + 0x10, 100);  // var_driverPointsMax_8c2285d4
 
         $this->call('_drawHud_8c01fbac')->with(0);
 
@@ -270,9 +270,9 @@ return new class extends TestCase {
         [$base, $dp] = $this->setup();
 
         $this->initUint32($dp + 0x20, 0); // var_stopPhase_8c2285e4
-        $this->initUint32($base + 0x14, 5);  // var_8c226450 (armed)
-        $this->initUint32($base + 0x18, 0);  // var_8c226454 (blink window closed, bits 1/2 clear)
-        $this->initUint32($dp + 0x10, 100);  // var_8c2285d4
+        $this->initUint32($base + 0x14, 5);  // var_hudDriveMarkIcon_8c226450 (armed)
+        $this->initUint32($base + 0x18, 0);  // var_hudBlinkTimer_8c226454 (blink window closed, bits 1/2 clear)
+        $this->initUint32($dp + 0x10, 100);  // var_driverPointsMax_8c2285d4
 
         $this->call('_drawHud_8c01fbac')->with(0);
 
@@ -283,7 +283,7 @@ return new class extends TestCase {
     {
         [$base, $dp] = $this->setup();
 
-        $this->initUint32($dp + 0x10, 100); // var_8c2285d4
+        $this->initUint32($dp + 0x10, 100); // var_driverPointsMax_8c2285d4
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0, 1); // needle mode 1
         $this->initUint32($base + 0x2c, unpack('L', pack('f', 100.0))[1]); // var_engineRpm_8c226468 < 500
 
@@ -300,7 +300,7 @@ return new class extends TestCase {
     {
         [$base, $dp] = $this->setup();
 
-        $this->initUint32($dp + 0x10, 100); // var_8c2285d4
+        $this->initUint32($dp + 0x10, 100); // var_driverPointsMax_8c2285d4
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0, 2); // needle mode 2
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e8, unpack('L', pack('f', 650.0))[1]); // targetRpm_0x2e8 > 500
         $this->initUint32($base + 0x2c, unpack('L', pack('f', 600.0))[1]); // above target -> ramp up, overshoots

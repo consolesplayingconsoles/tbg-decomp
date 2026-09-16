@@ -496,15 +496,15 @@ return [
         ],
         [
             "tests" => [
-                "tests/01fa78/8c01fa78_showMark.php",
-                "tests/01fa78/8c01fa80_drawTimeDigits.php",
-                "tests/01fa78/8c01fbac_drawHud.php",
-                "tests/01fa78/8c01ff48_hudUpdateTask.php",
-                "tests/01fa78/8c02018c_HudReset.php",
+                "tests/01fa78_hud/8c01fa78_showMark.php",
+                "tests/01fa78_hud/8c01fa80_drawTimeDigits.php",
+                "tests/01fa78_hud/8c01fbac_drawHud.php",
+                "tests/01fa78_hud/8c01ff48_hudUpdateTask.php",
+                "tests/01fa78_hud/8c02018c_HudReset.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/01fa78.obj",
-                "build/output_test/src/01fa78.obj",
+                "build/output_test/src/asm/decompiled/01fa78_hud.obj",
+                "build/output_test/src/01fa78_hud.obj",
             ]
         ],
         [

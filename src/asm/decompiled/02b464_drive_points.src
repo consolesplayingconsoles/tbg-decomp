@@ -42,9 +42,9 @@
           .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _var_stopPhase_8c2285e4
           .IMPORT     _var_driveCueState_8c2264b8
-          .IMPORT     _var_8c226450
-          .IMPORT     _var_8c2285d8
-          .IMPORT     _var_8c2285dc
+          .IMPORT     _var_hudDriveMarkIcon_8c226450
+          .IMPORT     _var_scheduleTime_8c2285d8
+          .IMPORT     _var_runClock_8c2285dc
           .IMPORT     __modls
           .IMPORT     _var_fadeCompleteCallback_8c22656c
           .IMPORT     _var_messageBoxActive_8c22847c
@@ -1723,9 +1723,9 @@ LP_GEN_85160:
           .DATA.W H'FF38 ; H'8C02C0BA
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C0BC
           .DATA.L _var_practiceRules_8c226410 ; H'8C02C0C0
-          .DATA.L _var_8c226450 ; H'8C02C0C4
-          .DATA.L _var_8c2285d8 ; H'8C02C0C8
-          .DATA.L _var_8c2285dc ; H'8C02C0CC
+          .DATA.L _var_hudDriveMarkIcon_8c226450 ; H'8C02C0C4
+          .DATA.L _var_scheduleTime_8c2285d8 ; H'8C02C0C8
+          .DATA.L _var_runClock_8c2285dc ; H'8C02C0CC
           .DATA.L __modls ; H'8C02C0D0
           .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C02C0D4
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02C0D8

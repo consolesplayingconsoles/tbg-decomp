@@ -7,7 +7,7 @@
 #include "014f54_text.h"
 #include "016bf4_demo_input.h"
 #include "0129cc_pause.h"
-#include "01fa78.h" /* HudReset_8c02018c */
+#include "01fa78_hud.h" /* HudReset_8c02018c */
 #include "01614c_debug_menu.h"
 #include "028258_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "sectionD.h"

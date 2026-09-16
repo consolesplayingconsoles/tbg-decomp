@@ -18,8 +18,8 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_8c2285c4');
 
         $this->rellocate('_var_8c2285fc', $base + 0x38);
-        $this->rellocate('_var_8c2285d8', $base + 0x14);
-        $this->rellocate('_var_8c2285dc', $base + 0x18);
+        $this->rellocate('_var_scheduleTime_8c2285d8', $base + 0x14);
+        $this->rellocate('_var_runClock_8c2285dc', $base + 0x18);
         $this->rellocate('_var_8c22861c', $base + 0x58);
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
-        $this->setSize('_var_8c226450', 4);
+        $this->setSize('_var_hudDriveMarkIcon_8c226450', 4);
         $this->setSize('_BusStopUpdateArrival_8c02ce48', 4);
         $this->setSize('_VibStart_8c010f7a', 4);
 
@@ -94,9 +94,9 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
         $this->initUint32(($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c), 0);
 
-        $this->initUint32($base + 0x18, 0); // var_8c2285dc
-        $this->initUint32($base + 0x14, 0); // var_8c2285d8
-        $this->initUint32($this->addressOf('_var_8c226450'), -1);
+        $this->initUint32($base + 0x18, 0); // var_runClock_8c2285dc
+        $this->initUint32($base + 0x14, 0); // var_scheduleTime_8c2285d8
+        $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), -1);
 
         return $busPtr;
     }
@@ -121,7 +121,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong(($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c), 1);
-        $this->shouldWriteLong($base + 0x18, 1); // var_8c2285dc incremented
+        $this->shouldWriteLong($base + 0x18, 1); // var_runClock_8c2285dc incremented
     }
 
     public function test_lane_signal_untouched_when_delta_negative_and_right_signal_on(): void
@@ -142,7 +142,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong(($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c), 1);
-        $this->shouldWriteLong($base + 0x18, 1); // var_8c2285dc incremented
+        $this->shouldWriteLong($base + 0x18, 1); // var_runClock_8c2285dc incremented
     }
 
     // sigState 1 -> (turning) -> 2 -> (still turning, stopped) -> 5
@@ -459,7 +459,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0); // bit 0 clear -> messagebox branch too
-        $this->initUint32($base + 0x18, 0); // var_8c2285dc decrements to -1
+        $this->initUint32($base + 0x18, 0); // var_runClock_8c2285dc decrements to -1
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -492,20 +492,20 @@ return new class extends TestCase {
         $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong(($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c), 1);
 
-        $this->shouldWriteLong($base + 0x18, 1); // var_8c2285dc incremented (bit 1 set -> else branch)
+        $this->shouldWriteLong($base + 0x18, 1); // var_runClock_8c2285dc incremented (bit 1 set -> else branch)
     }
 
-    // Not a course run (playMode != 1): var_8c2285dc just increments, and
-    // once past var_8c2285d8 and a multiple of some divisor, a silent
+    // Not a course run (playMode != 1): var_runClock_8c2285dc just increments, and
+    // once past var_scheduleTime_8c2285d8 and a multiple of some divisor, a silent
     // (msgSet -1) adjustment fires via __modls.
     public function test_run_progress_probe_modls_divisor(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x18, 29); // var_8c2285dc -> increments to 30
-        $this->initUint32($base + 0x14, 0); // var_8c2285d8 (0 < 30)
-        $this->initUint32($this->addressOf('_var_8c226450'), 1); // != -1
+        $this->initUint32($base + 0x18, 29); // var_runClock_8c2285dc -> increments to 30
+        $this->initUint32($base + 0x14, 0); // var_scheduleTime_8c2285d8 (0 < 30)
+        $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), 1); // != -1
 
         $this->call('_gradeFrame_8c02bcd8');
 

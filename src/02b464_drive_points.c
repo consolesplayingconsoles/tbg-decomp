@@ -216,7 +216,7 @@ STATIC void adjust_8c02b464(int msgSet, int delta) {
         return;
     }
 
-    /* var_8c2285c4[3]/[4] are var_driverPoints_8c2285d0/var_8c2285d4 (see
+    /* var_8c2285c4[3]/[4] are var_driverPoints_8c2285d0/var_driverPointsMax_8c2285d4 (see
      * sectionB.h) -- this TU addresses them via var_8c2285c4, like
      * 013ae8_route_load.c and 01e27c_practice_menu.c do. */
     var_8c2285c4[3] = var_8c2285c4[3] + delta;
@@ -603,8 +603,8 @@ STATIC void gradeIntersection_8c02bb1c(void) {
  * BusStopUpdateArrival_8c02ce48; grades/awards points around the driver
  * message box and mirror view; grades a wrong-substate-while-moving
  * penalty; and advances the run's pass/fail progress counter
- * (var_8c2285dc), applying a further silent penalty periodically once it
- * runs long past var_8c2285d8. */
+ * (var_runClock_8c2285dc), applying a further silent penalty periodically once it
+ * runs long past var_scheduleTime_8c2285d8. */
 STATIC void gradeFrame_8c02bcd8(void) {
     int laneDelta;
     unsigned int turnBits;
@@ -757,16 +757,16 @@ STATIC void gradeFrame_8c02bcd8(void) {
     }
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 2) != 2) {
-        var_8c2285dc--;
-        if (var_8c2285dc < 0) {
-            var_8c2285dc = 0;
+        var_runClock_8c2285dc--;
+        if (var_runClock_8c2285dc < 0) {
+            var_runClock_8c2285dc = 0;
             adjust_8c02b464(0x1d, -200); /* -> INSTR_TIME_MANAGEMENT */
             return;
         }
     } else {
-        var_8c2285dc = var_8c2285dc + 1;
-        if (var_8c226450 != -1 && var_8c2285d8 < var_8c2285dc
-            && var_8c2285dc % 30 == 0) {
+        var_runClock_8c2285dc = var_runClock_8c2285dc + 1;
+        if (var_hudDriveMarkIcon_8c226450 != -1 && var_scheduleTime_8c2285d8 < var_runClock_8c2285dc
+            && var_runClock_8c2285dc % 30 == 0) {
             adjust_8c02b464(-1, -1);
             return;
         }

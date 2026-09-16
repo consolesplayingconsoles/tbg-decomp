@@ -75,7 +75,7 @@ SRCS = \
 	src/01d7fc_results.c \
 	src/01e27c_practice_menu.c \
 	src/01f3c0_ending.c \
-	src/01fa78.c \
+	src/01fa78_hud.c \
 	src/020214_drive_cue_task.c \
 	src/020528_drive_cue_init.c \
 	src/020594_vehicle_model.c \

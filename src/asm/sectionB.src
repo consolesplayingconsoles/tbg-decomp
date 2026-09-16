@@ -514,18 +514,18 @@
           .EXPORT     _var_endingVoiceList_8c226430 ; 01f3c0
           .EXPORT     _var_8c226434 ; 012f44_game
           .EXPORT     _var_8c226438 ; 012f44_game
-          .EXPORT     _var_8c22643c ; 01fa78
+          .EXPORT     _var_hudMarkLatch_8c22643c ; 01fa78
                                     ; 02c884
-          .EXPORT     _var_8c226450 ; 02b464
+          .EXPORT     _var_hudDriveMarkIcon_8c226450 ; 02b464
                                     ; 02c884
-          .EXPORT     _var_8c226454 ; 02c884
-          .EXPORT     _var_8c226458 ; 01fa78
+          .EXPORT     _var_hudBlinkTimer_8c226454 ; 02c884
+          .EXPORT     _var_pointsMeter_8c226458 ; 01fa78
           .EXPORT     _var_engineRpm_8c226468 ; 0100bc_sound
           .EXPORT     _var_8c22646c ; 01fa78
           .EXPORT     _var_gearLatch_8c226470 ; 01fa78
           .EXPORT     _var_laneLatch_8c226474 ; 01fa78
-          .EXPORT     _var_8c226478 ; 01fa78
-          .EXPORT     _var_8c2264a8 ; 01fa78
+          .EXPORT     _var_tachoNeedleVerts_8c226478 ; 01fa78
+          .EXPORT     _var_hudMark_8c2264a8 ; 01fa78
           .EXPORT     _var_driveCueState_8c2264b8 ; 020214
                                     ; 022bdc
                                     ; 025b98
@@ -739,11 +739,11 @@
                                     ; 01fa78
                                     ; 02b464
                                     ; 02c884
-          .EXPORT     _var_8c2285d4 ; 02c884
-          .EXPORT     _var_8c2285d8 ; 02af78_event
+          .EXPORT     _var_driverPointsMax_8c2285d4 ; 02c884
+          .EXPORT     _var_scheduleTime_8c2285d8 ; 02af78_event
                                     ; 02b464
                                     ; 02c884
-          .EXPORT     _var_8c2285dc ; 02af78_event
+          .EXPORT     _var_runClock_8c2285dc ; 02af78_event
                                     ; 02b464
                                     ; 02c884
           .EXPORT     _var_stopPhase_8c2285e4 ; 020214
@@ -1173,13 +1173,13 @@ _var_8c226434:
           .RES.B      4
 _var_8c226438:
           .RES.B      4
-_var_8c22643c:
+_var_hudMarkLatch_8c22643c:
           .RES.B      20
-_var_8c226450:
+_var_hudDriveMarkIcon_8c226450:
           .RES.B      4
-_var_8c226454:
+_var_hudBlinkTimer_8c226454:
           .RES.B      4
-_var_8c226458:
+_var_pointsMeter_8c226458:
           .RES.B      16
 _var_engineRpm_8c226468:
           .RES.B      4
@@ -1189,9 +1189,9 @@ _var_gearLatch_8c226470:
           .RES.B      4
 _var_laneLatch_8c226474:
           .RES.B      4
-_var_8c226478:
+_var_tachoNeedleVerts_8c226478:
           .RES.B      48
-_var_8c2264a8:
+_var_hudMark_8c2264a8:
           .RES.B      16
 _var_driveCueState_8c2264b8:
           .RES.B      28
@@ -1391,11 +1391,11 @@ _var_8c2285cc:
           .RES.B      4
 _var_driverPoints_8c2285d0:
           .RES.B      4
-_var_8c2285d4:
+_var_driverPointsMax_8c2285d4:
           .RES.B      4
-_var_8c2285d8:
+_var_scheduleTime_8c2285d8:
           .RES.B      4
-_var_8c2285dc:
+_var_runClock_8c2285dc:
           .RES.B      8
 _var_stopPhase_8c2285e4:
           .RES.B      4
