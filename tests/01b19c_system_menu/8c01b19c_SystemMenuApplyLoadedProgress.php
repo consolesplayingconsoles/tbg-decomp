@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->shouldWriteByte($this->addressOf('_var_award_8c1bb8f8'), 0x44);
     }
 
-    public function test_award_byte_is_sign_extended()
+    public function test_award_copies_the_whole_byte()
     {
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
         $this->initUint32($progress + 0xd8, 0);

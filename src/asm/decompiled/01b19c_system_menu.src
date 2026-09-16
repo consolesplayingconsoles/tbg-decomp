@@ -6,7 +6,7 @@
           .IMPORT     _var_award_8c1bb8f8
           .IMPORT     __modls
           .IMPORT     __divls
-          .IMPORT     _var_8c226098
+          .IMPORT     _var_vmsComment_8c226098
           .IMPORT     _strcpy
           .IMPORT     _var_exp_8c1ba25c
           .IMPORT     _ProfileFileUpdateUnlocks_8c01c980
@@ -69,7 +69,7 @@
           .EXPORT     _SystemMenuApplyLoadedProgress_8c01b19c
           .AIFDEF UNIT_TESTING
           .EXPORT     _writeDecimalDigits_8c01b1c0
-          .EXPORT     _updateVmuIconText_8c01b206
+          .EXPORT     _updateVmsComment_8c01b206
           .EXPORT     _saveTask_8c01b3ac
           .AENDI
           .EXPORT     _SystemMenuWriteToVmu_8c01b26c
@@ -160,7 +160,7 @@ LAB_8c01b1fe:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_updateVmuIconText_8c01b206:
+_updateVmsComment_8c01b206:
           MOV.L       R14,@-R15
           MOV         #H'20,R5
           MOV.L       LP_GEN_63917+30,R14
@@ -199,7 +199,7 @@ LP_GEN_63917:
           .DATA.L _var_award_8c1bb8f8 ; H'8C01B250
           .DATA.L __modls ; H'8C01B254
           .DATA.L __divls ; H'8C01B258
-          .DATA.L _var_8c226098 ; H'8C01B25C
+          .DATA.L _var_vmsComment_8c226098 ; H'8C01B25C
           .DATA.L _const_8c0380a4 ; H'8C01B260
           .DATA.L _strcpy ; H'8C01B264
           .DATA.L _var_exp_8c1ba25c ; H'8C01B268
@@ -230,7 +230,7 @@ _SystemMenuWriteToVmu_8c01b26c:
           MOV.L       LP_GEN_27906+32,R1
           MOV.W       LP_GEN_27906+2,R0
           MOV.L       @R1,R3
-          BSR         _updateVmuIconText_8c01b206
+          BSR         _updateVmsComment_8c01b206
           MOV.L       R3,@(R0,R14)
           MOV.L       LP_GEN_27906+40,R3
           MOV         #H'60,R6
@@ -326,7 +326,7 @@ LP_GEN_27906:
           .DATA.L _var_profileUnlockedCount_8c2263a4 ; H'8C01B364
           .DATA.L _var_backupFileHeader_8c1ba2e4 ; H'8C01B368
           .DATA.L _memset ; H'8C01B36C
-          .DATA.L _var_8c226098 ; H'8C01B370
+          .DATA.L _var_vmsComment_8c226098 ; H'8C01B370
           .DATA.L _njMemCopy ; H'8C01B374
           .DATA.L _const_8c0380b0 ; H'8C01B378
           .DATA.L _strcpy ; H'8C01B37C

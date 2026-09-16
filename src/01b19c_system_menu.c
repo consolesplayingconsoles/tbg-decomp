@@ -43,8 +43,8 @@ typedef enum SaveState {
 typedef enum SaveMenuItem {
     SAVE_MENU_LOAD = 0,
     SAVE_MENU_SAVE = 1,
-    SAVE_MENU_BACK = 2, /* leave the menu, resume the course (-> EXIT_TO_COURSE) */
-    SAVE_MENU_QUIT = 3  /* quit to title, with confirm (-> QUIT_CONFIRM) */
+    SAVE_MENU_BACK = 2, /* -> EXIT_TO_COURSE */
+    SAVE_MENU_QUIT = 3  /* -> QUIT_CONFIRM */
 } SaveMenuItem;
 
 /* Load/save sub-phase, held in menuState.subState_0x1c. */
@@ -59,7 +59,7 @@ typedef enum SavePhase {
  */
 
 STATIC void writeDecimalDigits_8c01b1c0(char *dst, int value);
-STATIC void updateVmuIconText_8c01b206(void);
+STATIC void updateVmsComment_8c01b206(void);
 
 /* ====================
  * Functions
@@ -71,7 +71,6 @@ void SystemMenuApplyLoadedProgress_8c01b19c(void)
     var_8c1bb8b8 = var_progress_8c1ba1cc.introDialogQueued_0xd8;
     var_8c1bb8bc = var_progress_8c1ba1cc.introDialogPending_0xdc;
     var_runSucceeded_8c1bb8dc = var_progress_8c1ba1cc.runSucceeded_0xe0;
-    /* only the low byte is written; upper 3 bytes of the int slot are left alone */
     var_award_8c1bb8f8 = var_progress_8c1ba1cc.award_0xe4;
 }
 
@@ -98,17 +97,18 @@ STATIC void writeDecimalDigits_8c01b1c0(char *dst, int value)
     }
 }
 
-/* Rebuild the "9/DD  EXP EEE" status line shown on the VMU icon. */
-STATIC void updateVmuIconText_8c01b206(void)
+/* Rebuild the VMS file comment: "9/<day> EXP <points>", space-padded to 16
+ * bytes and left unterminated. */
+STATIC void updateVmsComment_8c01b206(void)
 {
     int i;
 
     for (i = 0; i < 0x10; i++) {
-        var_8c226098[i] = ' ';
+        var_vmsComment_8c226098[i] = ' ';
     }
-    strcpy(var_8c226098, "9/   EXP ");
-    writeDecimalDigits_8c01b1c0(&var_8c226098[2], var_progress_8c1ba1cc.days_0x00);
-    writeDecimalDigits_8c01b1c0(&var_8c226098[9], var_exp_8c1ba25c);
+    strcpy(var_vmsComment_8c226098, "9/   EXP ");
+    writeDecimalDigits_8c01b1c0(&var_vmsComment_8c226098[2], var_progress_8c1ba1cc.days_0x00);
+    writeDecimalDigits_8c01b1c0(&var_vmsComment_8c226098[9], var_exp_8c1ba25c);
 }
 
 void SystemMenuWriteToVmu_8c01b26c(void)
@@ -121,11 +121,12 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     var_progress_8c1ba1cc.award_0xe4 = var_award_8c1bb8f8;
     ProfileFileUpdateUnlocks_8c01c980();
     var_progress_8c1ba1cc.profileUnlockedCount_0x8c = var_profileUnlockedCount_8c2263a4;
-    updateVmuIconText_8c01b206();
+    updateVmsComment_8c01b206();
 
     memset(&var_backupFileHeader_8c1ba2e4, 0, 0x60);
-    njMemCopy(&var_backupFileHeader_8c1ba2e4, var_8c226098, 0x10);
-    /* VMU file comment: "Tokyo Bus Guide data" */
+    /* lands in vms_comment[18]; its last two bytes stay zeroed */
+    njMemCopy(&var_backupFileHeader_8c1ba2e4, var_vmsComment_8c226098, 0x10);
+    /* "Tokyo Bus Guide data" */
     strcpy(var_backupFileHeader_8c1ba2e4.btr_comment, STR_TITLE_DATA);
     njMemCopy(var_backupFileHeader_8c1ba2e4.game_name, init_8c04410c, 0x10);
     var_backupFileHeader_8c1ba2e4.icon_palette = var_vmuIconFileBuf_8c1ba344;
@@ -144,13 +145,12 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     var_vmBusy_8c157a7c = 1;
 }
 
-/* Per-frame update for the save/load menu task. Dispatches on the menu state
- * machine (0-8) and draws the current screen. */
+/* Per-frame update for the save/load menu task. */
 STATIC void saveTask_8c01b3ac(Task *task, void *state)
 {
     int vmStatus;
     int result;
-    int drawPrompt = 0;   /* states 3/5/6 draw the yes/no highlight before the tail */
+    int drawPrompt = 0;   /* LOAD/SAVE/QUIT_CONFIRM highlight the yes/no answer */
 
     if (var_menuState_8c1bc7a8.state_0x18 < SAVE_STATE_EXIT_TO_COURSE) {
         if (var_selectedVm_8c1ba34c == -1) {
@@ -281,7 +281,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         }
         break;
 
-    case SAVE_STATE_LOAD: /* LOAD confirm/progress, sub-state in subState_0x1c */
+    case SAVE_STATE_LOAD:
         switch (var_menuState_8c1bc7a8.subState_0x1c) {
         case SAVE_PHASE_CONFIRM:
             result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
@@ -303,7 +303,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             }
             break;
-        case SAVE_PHASE_IN_PROGRESS: /* wait for the read to complete */
+        case SAVE_PHASE_IN_PROGRESS:
             if (buStat(var_selectedVm_8c1ba34c) != 0) {
                 break;
             }
@@ -334,7 +334,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         drawPrompt = 1;
         break;
 
-    case SAVE_STATE_LOAD_FAILED: /* corrupt-save notice, wait for A to bail to title */
+    case SAVE_STATE_LOAD_FAILED:
         if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
             DebugMenuFreeSessionAssets_8c016182();
             TitlePushTitle_8c015fd6(0);
@@ -348,7 +348,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         }
         return;
 
-    case SAVE_STATE_SAVE: /* SAVE confirm/progress, sub-state in subState_0x1c */
+    case SAVE_STATE_SAVE:
         switch (var_menuState_8c1bc7a8.subState_0x1c) {
         case SAVE_PHASE_CONFIRM:
             result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
@@ -375,12 +375,11 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             }
             break;
-        case SAVE_PHASE_IN_PROGRESS: /* wait for the write to complete */
+        case SAVE_PHASE_IN_PROGRESS:
             BupGetInfo_8c014bba(var_selectedVm_8c1ba34c);
             if (buStat(var_selectedVm_8c1ba34c) != 0) {
                 break;
             }
-            /* on success "Save complete", else "Save failed" */
             if (buGetLastError(var_selectedVm_8c1ba34c) == 0) {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVE_DONE);
             } else {
@@ -398,7 +397,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         drawPrompt = 1;
         break;
 
-    case SAVE_STATE_QUIT_CONFIRM: /* QUIT-to-title confirm */
+    case SAVE_STATE_QUIT_CONFIRM:
         result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.field_0x3c);
         if (result == 1) {
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_EXIT_TO_TITLE;
@@ -411,7 +410,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         drawPrompt = 1;
         break;
 
-    case SAVE_STATE_EXIT_TO_COURSE: /* drive-exit -- fade out then hand back to course */
+    case SAVE_STATE_EXIT_TO_COURSE:
         if (var_isFading_8c226568 != 0 || var_vmMountBusy_8c22606c != 0) {
             break;
         }
@@ -421,7 +420,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         CourseMenuSwitchFromTask_8c017e18(task);
         return;
 
-    case SAVE_STATE_EXIT_TO_TITLE: /* title-exit -- fade out then hand back to title */
+    case SAVE_STATE_EXIT_TO_TITLE:
         if (var_isFading_8c226568 != 0 || var_vmMountBusy_8c22606c != 0) {
             break;
         }
@@ -453,9 +452,9 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                            0, 0.0f, 0.0f, -7.0f);
 }
 
-/* Course-menu "onSelect" that switches the running task into the save/load
- * flow: install the update action, reset its state, and kick off loading the
- * VMU header from \SYSTEM\bus_mem.VMI. */
+/* onSelect for course-menu button 1: switch the running task into the
+ * save/load flow. bus_mem.VMI is the VMU icon file -- palette at +0,
+ * icon data at +0x20. */
 void SystemMenuSwitchFromTask_8c01ba64(Task *task)
 {
     TaskSetAction_8c014b3e(task, saveTask_8c01b3ac);

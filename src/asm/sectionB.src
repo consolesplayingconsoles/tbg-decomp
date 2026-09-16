@@ -469,7 +469,7 @@
           .EXPORT     _var_8c226078 ; 01a148
           .EXPORT     _var_8c226080 ; 01a148
           .EXPORT     _var_8c226088 ; 01a148
-          .EXPORT     _var_8c226098 ; 01b19c
+          .EXPORT     _var_vmsComment_8c226098 ; 01b19c
           .EXPORT     _var_lcdAnimActive_8c2260a8 ; 012f44_game
                                     ; 01bb48
           .EXPORT     _var_lcdAnimBus_8c2260ac ; 012f44_game
@@ -1115,7 +1115,7 @@ _var_8c226080:
           .RES.B      8
 _var_8c226088:
           .RES.B      16
-_var_8c226098:
+_var_vmsComment_8c226098:
           .RES.B      16
 _var_lcdAnimActive_8c2260a8:
           .RES.B      4

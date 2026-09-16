@@ -22,19 +22,19 @@ return new class extends TestCase {
         }
     }
 
-    public function test_builds_status_line(): void
+    public function test_builds_vms_comment(): void
     {
-        $this->setSize('_var_8c226098', 0x10);
-        $text = $this->addressOf('_var_8c226098');
+        $this->setSize('_var_vmsComment_8c226098', 0x10);
+        $text = $this->addressOf('_var_vmsComment_8c226098');
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
         $exp = $this->addressOf('_var_exp_8c1ba25c');
 
         $this->initUint32($progress + 0x00, 9);   // days_0x00
         $this->initUint32($exp, 250);
 
-        $this->call('_updateVmuIconText_8c01b206');
+        $this->call('_updateVmsComment_8c01b206');
 
-        // Fill the 16-byte icon text with spaces.
+        // Fill the 16-byte comment with spaces.
         for ($i = 0; $i < 0x10; $i++) {
             $this->shouldWriteByte($text + $i, 0x20);
         }

@@ -53,11 +53,11 @@ return new class extends TestCase {
         $this->shouldWriteByte($progress + 0xe4, 0x44);
         $this->shouldCall('_ProfileFileUpdateUnlocks_8c01c980');
         $this->shouldWriteLong($progress + 0x8c, 0x55555555);
-        $this->shouldCall('_updateVmuIconText_8c01b206');
+        $this->shouldCall('_updateVmsComment_8c01b206');
 
         // Build the backup file header.
         $this->shouldCall('_memset')->with($header, 0, 0x60);
-        $this->shouldCall('_njMemCopy')->with($header, $this->addressOf('_var_8c226098'), 0x10);
+        $this->shouldCall('_njMemCopy')->with($header, $this->addressOf('_var_vmsComment_8c226098'), 0x10);
         $this->expectStrcpy($header + 0x12, "東京バス案内　データ");
         $this->shouldCall('_njMemCopy')->with($header + 0x34, $this->addressOf('_init_8c04410c'), 0x10);
         $this->shouldWriteLong($header + 0x44, 0x8c400000);       // icon_palette

@@ -217,11 +217,11 @@ return new class extends TestCase {
         $this->expectDrawTail($menuState, 1, 0);
     }
 
-    public function test_state2_confirm_quit_story(): void
+    public function test_state2_back_to_course_menu(): void
     {
         $this->resolveEagerPointers(txtDraw: false, swapBox: true, midi: false);
         $menuState = $this->menuStateBase();
-        $this->state2Enter($menuState, 2, 0x4);        // selected=quit-drive
+        $this->state2Enter($menuState, 2, 0x4);        // selected=back
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
         $this->expectVmStatusTop(0);
@@ -235,10 +235,10 @@ return new class extends TestCase {
         $this->expectDrawTail($menuState, 2, 0);
     }
 
-    public function test_state2_confirm_quit_story_mode(): void
+    public function test_state2_quit_confirm_story_mode(): void
     {
         $menuState = $this->menuStateBase();
-        $this->state2Enter($menuState, 3, 0x4);        // selected=quit-title
+        $this->state2Enter($menuState, 3, 0x4);        // selected=quit
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
@@ -252,7 +252,7 @@ return new class extends TestCase {
         $this->expectDrawTail($menuState, 3, 0);
     }
 
-    public function test_state2_confirm_quit_free_mode(): void
+    public function test_state2_quit_confirm_free_mode(): void
     {
         $menuState = $this->menuStateBase();
         $this->state2Enter($menuState, 3, 0x4);
@@ -448,7 +448,7 @@ return new class extends TestCase {
         $this->expectPromptTail($menuState, 1, 0, 0);
     }
 
-    public function test_state3_no_card(): void
+    public function test_state3_save_no_longer_loadable(): void
     {
         // PromptHandleBinary returns 0, vmStatus not 5/6 -> error message
         $this->resolveEagerPointers(txtDraw: false, swapBox: false, midi: true);
@@ -456,7 +456,7 @@ return new class extends TestCase {
         $this->stateEnter($menuState, 3, 0, 2, 0);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
-        $this->expectVmStatusTop(3);   // vmStatus = 3 (no card)
+        $this->expectVmStatusTop(3);   // PROCEED_WITHOUT_SAVING: nothing to read
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($menuState + 0x3c)->andReturn(0);
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc');
         $this->shouldWriteLong($menuState + 0x18, 2);
@@ -575,7 +575,7 @@ return new class extends TestCase {
         $this->expectPromptTail($menuState, 1, 1, 0);
     }
 
-    public function test_state5_no_card(): void
+    public function test_state5_can_no_longer_save(): void
     {
         // returns 0, vmStatus not 4/5/6 -> error message, no second draw
         $this->resolveEagerPointers(txtDraw: false, swapBox: false, midi: true);
@@ -605,7 +605,7 @@ return new class extends TestCase {
 
     public function test_state5_confirm_save(): void
     {
-        // SaveWriteToVmu is a same-unit sibling; mock it (covered by its own test).
+        // SystemMenuWriteToVmu_8c01b26c is a same-unit sibling; mock it.
         $this->resolveEagerPointers(txtDraw: false, swapBox: false, midi: true);
         $menuState = $this->menuStateBase();
         $this->stateEnter($menuState, 5, 0, 0, 1);

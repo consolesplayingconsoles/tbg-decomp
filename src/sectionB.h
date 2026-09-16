@@ -595,7 +595,7 @@ extern int var_8c226014;        // 018644: FILE SELECT leading NEW-FILE card cou
 extern int var_8c226018[12];    // 018644: FILE SELECT card list (0xa=NEW FILE, 0xb=empty)
 
 extern int var_vmMountBusy_8c22606c;
-extern char var_8c226098[16]; // VMU icon status text, built by 01b19c_system_menu
+extern char var_vmsComment_8c226098[16]; // 01b19c: VMS file comment, "9/<day> EXP <points>"
 extern int var_lcdAnimActive_8c2260a8;
 extern LcdAnim var_lcdAnimBus_8c2260ac; // 01bb48: vm_bus.lcd anim
 extern LcdAnim var_lcdAnimDanger_8c2260b8; // 01bb48: vm_danger.lcd anim
