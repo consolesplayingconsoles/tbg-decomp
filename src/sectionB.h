@@ -479,7 +479,7 @@ extern void* var_fuuNj_8c1bc444;
 /* Current "fuu" stop-marker animation frame, driven by
  * BusStopUpdateArrival_8c02ce48 (02c884): counts up by 1.0 per frame while
  * the bus approaches a stop, wrapping to 0 at var_fuuLastFrame_8c1bc450. */
-extern float var_8c1bc44c;
+extern float var_fuuFrame_8c1bc44c;
 extern float var_fuuLastFrame_8c1bc450;
 /* Shared scratch matrix, rebuilt by each user before it reads it back
  * (01fa78, 023938, 024b4c, 02c884). */
@@ -828,10 +828,11 @@ extern int var_eventCandidateCount_8c228560;
  * two ints but addressed only via var_8c2285c4[29]/[30] -- no code
  * reaches them through this symbol. Role unclear. */
 extern int var_8c228634[3];
-/* Set to 1 by BusStopUpdateArrival_8c02ce48 (02c884) when var_hudDriveMarkIcon_8c226450 is
- * armed; read by gradeFrame_8c02bcd8 (02b464) only via var_8c2285c4[31] -- no code
- * reaches it through this symbol. */
-extern int var_8c228640;
+/* Latched when the bus leaves a stop with a drive-mark instruction on screen
+ * (var_hudDriveMarkIcon_8c226450 != -1); gradeFrame_8c02bcd8 (02b464) spends it
+ * on a +20 msgSet-0x1e award. Reached there only via var_8c2285c4[31] -- no
+ * code uses this symbol. */
+extern int var_instructionBonusPending_8c228640;
 
 /* PDS_PERIPHERAL.r of var_peripherals_8c1ba35c[0] -- the throttle trigger --
  * addressed directly by this symbol rather than through the array/field
@@ -935,8 +936,8 @@ extern int var_firstUpshift_8c22864c;
  * left and every owed stop served. Never cleared. DriveMsgDraw_8c02b388
  * (02b2f0) is its only reader. */
 extern int var_runPassed_8c2285c8;
-/* Set to 0x1e by BusStopUpdateArrival_8c02ce48 (02c884) on stop completion;
- * role/owner unclear. */
+/* Set to 0x1e by BusStopUpdateArrival_8c02ce48 (02c884) on stop completion and
+ * read nowhere in the image -- a dead store. */
 extern int var_8c2285cc;
 
 /* Driver points left when the run ended, out of var_driverPointsMax_8c2285d4.
@@ -965,8 +966,8 @@ extern int var_runClock_8c2285dc;
  * (mirror-view draw enabled -- gates pedestriansTask_8c0293f6's
  * StopDrawWaitingPassengers_8c02d06c registration), 3 = stopped/waiting, 4 = finishing. */
 extern int var_stopPhase_8c2285e4;
-/* Set to 0 or 2 by BusStopUpdateArrival_8c02ce48 depending on how the
- * approach (state 2) ended; role elsewhere unclear. */
+/* Set to 0 or 2 by BusStopUpdateArrival_8c02ce48 depending on how the approach
+ * (state 2) ended, and read nowhere in the image -- a dead store. */
 extern int var_8c2285e8;
 /* Running minimum distance-to-stop while approaching (state 2), reset to
  * 9999.0 on arming. */
@@ -974,7 +975,7 @@ extern float var_stopMinDistance_8c2285ec;
 
 /* per-segment "has an active stop" flag, one word each, indexed by a segment
  * record's candidate-list entry byte (see BusStopGetSegment_8c02cd6a, 02c884) */
-extern int var_8c2286a4[24];
+extern int var_segmentHasStop_8c2286a4[24];
 
 /* index of the stop the run starts from: 0 for a normal course start, or the
  * debug menu's per-entry startStopIndex_0x04 to begin partway along the route */
@@ -986,7 +987,7 @@ extern int var_nextStopSegment_8c228710; // segment index of the upcoming stop
 /* upcoming stop's heading angle (njArcTan2 of its stop-area record's
  * direction vector, see NinjaApi.h), sign-extended from the low 16 bits by
  * BusStopUpdateStopHeadings_8c02ccc6 */
-extern int var_8c228714;
+extern int var_nextStopHeading_8c228714;
 
 /* number of slots filled in var_waitingPassengers_8c228798 by pickWaitingPassengers_8c02c8ae
  * (0-16); read by 02d06c/02d968 to spawn that many passenger tasks. */
@@ -1011,24 +1012,20 @@ extern int var_stopSchedule_8c228718[31];
  * front; p and tlist are set per draw. */
 extern NJS_SPRITE var_passengerSprite_8c2288d8;
 
-/* current (about-to-depart) stop's heading angle, same computation as
- * var_8c228714 but masked unsigned instead of sign-extended; sits right
- * after var_stopTaskGroup_8c2288f8 */
-extern int var_8c2288fc;
+/* Same computation as var_nextStopHeading_8c228714, but masked to unsigned 16
+ * bits instead of sign-extended. */
+extern int var_currentStopHeading_8c2288fc;
 
 /* scratch ground-query point for the upcoming stop, snapped to ground by
  * pickWaitingPassengers_8c02c8ae; x/z (only) also set by
  * BusStopUpdateStopHeadings_8c02ccc6 ahead of that ground snap */
-extern NJS_POINT3 var_8c228900;
-/* Coincidentally sits at var_8c228900's .z (base+8) and is its own exported
- * symbol, used by drawStopMarker_8c02cd92 (02c884). */
-extern float var_8c228908;
+extern NJS_POINT3 var_nextStopPoint_8c228900;
 
 /* Spawn-area record for the upcoming stop's segment (the course's lineHum_0x2c
  * table, selected by its segment record's field_0x06). Laid out as
  * StopAreaRecord (02c884_bus_stop.h), which pickWaitingPassengers_8c02c8ae casts it to;
  * typed char* here to keep sectionB.h free of that include. */
-extern char *var_8c22890c;
+extern char *var_nextStopArea_8c22890c;
 
 /* Six consecutive NJS_POINT3 waypoints (0x228910-0x22894c, 12 bytes apart),
  * filled by StopSpawnInit_8c02d968 at course start and stepped through by

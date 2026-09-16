@@ -356,7 +356,7 @@
                                     ; 02c884
           .EXPORT     _var_fuuNjm_8c1bc448 ; 012f44_game
                                                  ; 02c884
-          .EXPORT     _var_8c1bc44c ; 02c884
+          .EXPORT     _var_fuuFrame_8c1bc44c ; 02c884
           .EXPORT     _var_fuuLastFrame_8c1bc450 ; 012f44_game
                                     ; 02c884
           .EXPORT     _var_vmGameBuf_8c1bc454 ; 012f44_game
@@ -738,7 +738,7 @@
           .EXPORT     _var_8c22861c ; 02b464
           .EXPORT     _var_8c228634 ; 02b464
                                     ; 02c884
-          .EXPORT     _var_8c228640 ; 02c884
+          .EXPORT     _var_instructionBonusPending_8c228640 ; 02c884
           .EXPORT     _var_firstUpshift_8c22864c ; 024280
           .EXPORT     _var_wallHitBits_8c228660 ; 022bdc
                                     ; 023938
@@ -759,7 +759,7 @@
           .EXPORT     _var_cooldownSignal_8c228698 ; 02b464
           .EXPORT     _var_cooldownLane_8c22869c ; 02b464
           .EXPORT     _var_cooldownIntersection_8c2286a0 ; 02b464
-          .EXPORT     _var_8c2286a4 ; 02c884
+          .EXPORT     _var_segmentHasStop_8c2286a4 ; 02c884
           .EXPORT     _var_startStopIndex_8c228704 ; 012f44_game
                                     ; 02c884
           .EXPORT     _var_currentSegment_8c228708 ; 012f44_game
@@ -775,7 +775,7 @@
           .EXPORT     _var_nextStopSegment_8c228710 ; 020214
                                     ; 02b464
                                     ; 02c884
-          .EXPORT     _var_8c228714 ; 02b464
+          .EXPORT     _var_nextStopHeading_8c228714 ; 02b464
                                     ; 02c884
           .EXPORT     _var_stopSchedule_8c228718 ; 02c884
                                     ; 02d19c
@@ -793,10 +793,9 @@
                                     ; 02c884
                                     ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_8c2288fc ; 02c884
-          .EXPORT     _var_8c228900 ; 02c884
-          .EXPORT     _var_8c228908 ; 02c884
-          .EXPORT     _var_8c22890c ; 02c884
+          .EXPORT     _var_currentStopHeading_8c2288fc ; 02c884
+          .EXPORT     _var_nextStopPoint_8c228900 ; 02c884
+          .EXPORT     _var_nextStopArea_8c22890c ; 02c884
           .EXPORT     _var_boardSpot2_8c228910 ; 02d19c
                                     ; 02d968
           .EXPORT     _var_boardSpot3_8c22891c ; 02d19c
@@ -985,7 +984,7 @@ _var_fuuNj_8c1bc444:
           .RES.B      4
 _var_fuuNjm_8c1bc448:
           .RES.B      4
-_var_8c1bc44c:
+_var_fuuFrame_8c1bc44c:
           .RES.B      4
 _var_fuuLastFrame_8c1bc450:
           .RES.B      4
@@ -1353,7 +1352,7 @@ _var_8c22861c:
 _var_8c228634:
           .RES.B      4
           .RES.B      8
-_var_8c228640:
+_var_instructionBonusPending_8c228640:
           .RES.B      4
           .RES.B      8
 _var_firstUpshift_8c22864c:
@@ -1392,7 +1391,7 @@ _var_cooldownLane_8c22869c:
           .RES.B      4
 _var_cooldownIntersection_8c2286a0:
           .RES.B      4
-_var_8c2286a4:
+_var_segmentHasStop_8c2286a4:
           .RES.B      96
 _var_startStopIndex_8c228704:
           .RES.B      4
@@ -1402,7 +1401,7 @@ _var_prevStopSegment_8c22870c:
           .RES.B      4
 _var_nextStopSegment_8c228710:
           .RES.B      4
-_var_8c228714:
+_var_nextStopHeading_8c228714:
           .RES.B      4
 _var_stopSchedule_8c228718:
           .RES.B      124
@@ -1414,13 +1413,11 @@ _var_passengerSprite_8c2288d8:
           .RES.B      32
 _var_stopTaskGroup_8c2288f8:
           .RES.B      4
-_var_8c2288fc:
+_var_currentStopHeading_8c2288fc:
           .RES.B      4
-_var_8c228900:
-          .RES.B      8
-_var_8c228908:
-          .RES.B      4
-_var_8c22890c:
+_var_nextStopPoint_8c228900:
+          .RES.B      12
+_var_nextStopArea_8c22890c:
           .RES.B      4
 _var_boardSpot2_8c228910:
           .RES.B      12

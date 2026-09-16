@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _BusStopSetup_8c02caba(void): per-run bus-stop setup, called right after
- * the course loads. Clears var_8c2286a4 (active-stop flags), flags one
+ * the course loads. Clears var_segmentHasStop_8c2286a4 (active-stop flags), flags one
  * segment per candidate story event, then forces a stop at every type-2
  * course segment and randomly flags additional segments (never type-3)
  * until the course's randomized total stop count
@@ -24,7 +24,7 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_8c2286a4', 96);
+        $this->setSize('_var_segmentHasStop_8c2286a4', 96);
         $this->setSize('_var_startStopIndex_8c228704', 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_prevStopSegment_8c22870c', 4);
@@ -103,7 +103,7 @@ return new class extends TestCase {
 
         $this->call('_BusStopSetup_8c02caba')->with();
 
-        $flags = $this->addressOf('_var_8c2286a4');
+        $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 96; $i += 4) {
             $this->shouldWriteLong($flags + $i, 0);
         }
@@ -166,7 +166,7 @@ return new class extends TestCase {
 
         $this->call('_BusStopSetup_8c02caba')->with();
 
-        $flags = $this->addressOf('_var_8c2286a4');
+        $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 96; $i += 4) {
             $this->shouldWriteLong($flags + $i, 0);
         }
@@ -180,7 +180,7 @@ return new class extends TestCase {
         // First roll (pick=1) reads the ghost record at index 2+1=3
         // (type 3, excluded) -> rerolls. Second roll (pick=0) reads index
         // 2+0=2, the terminator itself (type 0, not excluded) -> flags
-        // var_8c2286a4[0] (the *actual* pick value, not the ghost index).
+        // var_segmentHasStop_8c2286a4[0] (the *actual* pick value, not the ghost index).
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(1);
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(0);
         $this->shouldWriteLong($flags + 0, 1);
@@ -238,7 +238,7 @@ return new class extends TestCase {
 
         $this->call('_BusStopSetup_8c02caba')->with();
 
-        $flags = $this->addressOf('_var_8c2286a4');
+        $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 96; $i += 4) {
             $this->shouldWriteLong($flags + $i, 0);
         }
@@ -295,7 +295,7 @@ return new class extends TestCase {
 
         $this->call('_BusStopSetup_8c02caba')->with();
 
-        $flags = $this->addressOf('_var_8c2286a4');
+        $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 96; $i += 4) {
             $this->shouldWriteLong($flags + $i, 0);
         }

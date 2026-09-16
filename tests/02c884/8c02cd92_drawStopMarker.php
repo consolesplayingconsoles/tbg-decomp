@@ -6,11 +6,11 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _drawStopMarker_8c02cd92(int arg0): draws the "fuu" stop-marker model at
- * the upcoming stop's position (var_8c228900.x/.y, var_8c228908 as z),
- * facing its heading (var_8c228714) and animated by the frame counter
- * var_8c1bc44c. Installed as a FadeCallback1; arg0 is unused.
+ * the upcoming stop's position (var_nextStopPoint_8c228900),
+ * facing its heading (var_nextStopHeading_8c228714) and animated by the frame counter
+ * var_fuuFrame_8c1bc44c. Installed as a FadeCallback1; arg0 is unused.
  *
- * Ghidra's decompile folded all of var_8c228900.x/.y and var_8c228908 into
+ * Ghidra's decompile folded all three var_nextStopPoint_8c228900 fields into
  * one repeated "DAT_8c228904" reference (and invented a used float
  * parameter); the actual x/y/z mapping here was disambiguated against the
  * real asm object.
@@ -19,10 +19,9 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
-        $this->setSize('_var_8c228900', 8);
-        $this->setSize('_var_8c228908', 4);
-        $this->setSize('_var_8c228714', 4);
-        $this->setSize('_var_8c1bc44c', 4);
+        $this->setSize('_var_nextStopPoint_8c228900', 0xc);
+        $this->setSize('_var_nextStopHeading_8c228714', 4);
+        $this->setSize('_var_fuuFrame_8c1bc44c', 4);
         $this->setSize('_var_fuuTexlist_8c1bc440', 4);
         $this->setSize('_var_fuuNj_8c1bc444', 4);
         $this->setSize('_var_fuuNjm_8c1bc448', 4);
@@ -32,13 +31,13 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $point = $this->addressOf('_var_8c228900');
+        $point = $this->addressOf('_var_nextStopPoint_8c228900');
         $this->initUint32($point + 0, unpack('L', pack('f', 11.0))[1]); // .x
         $this->initUint32($point + 4, unpack('L', pack('f', 22.0))[1]); // .y
-        $this->initUint32($this->addressOf('_var_8c228908'), unpack('L', pack('f', 33.0))[1]); // .z
+        $this->initUint32($point + 8, unpack('L', pack('f', 33.0))[1]); // .z
 
-        $this->initUint32($this->addressOf('_var_8c228714'), 12345);
-        $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 55.0))[1]);
+        $this->initUint32($this->addressOf('_var_nextStopHeading_8c228714'), 12345);
+        $this->initUint32($this->addressOf('_var_fuuFrame_8c1bc44c'), unpack('L', pack('f', 55.0))[1]);
 
         $texlist = 0xcafe0001;
         $model = 0xcafe0002;

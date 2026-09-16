@@ -75,7 +75,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x74, 0); // var_8c228634[1]
         $this->shouldWriteLong($base + 0x78, 0); // var_8c228634[2]
 
-        $this->shouldWriteLong($base + 0x7c, 0); // var_8c2285c4[31] i.e. var_8c228640
+        $this->shouldWriteLong($base + 0x7c, 0); // var_8c2285c4[31] i.e. var_instructionBonusPending_8c228640
         $this->shouldWriteLong($base + 0x88, 0); // var_8c2285c4[34] i.e. var_firstUpshift_8c22864c
         $this->shouldWriteFloat($base + 0x90, 0.0); // var_8c2285c4[36] float
         $this->shouldWriteLong($base + 0x94, 0); // var_8c2285c4[37]

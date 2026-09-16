@@ -68,8 +68,8 @@ StopAreaRecord *BusStopGetStopArea_8c02cd7a(int segmentIndex)
     return *(StopAreaRecord **)((char *)var_currentCourse_8c1bb868.lineBus_0x08 + seg->stopAreaId_0x02 * 8);
 }
 
-/* The same njArcTan2 angle is stored twice in different forms: var_8c2288fc
- * masked to unsigned 16 bits for the stop being left, var_8c228714
+/* The same njArcTan2 angle is stored twice in different forms: var_currentStopHeading_8c2288fc
+ * masked to unsigned 16 bits for the stop being left, var_nextStopHeading_8c228714
  * sign-extended to a full Angle for the one coming up. */
 void BusStopUpdateStopHeadings_8c02ccc6(void)
 {
@@ -79,21 +79,21 @@ void BusStopUpdateStopHeadings_8c02ccc6(void)
 
     var_currentSegment_8c228708 = var_nextStopSegment_8c228710;
     rec = BusStopGetStopArea_8c02cd7a(var_nextStopSegment_8c228710);
-    var_8c2288fc = (int)(njArcTan2(rec->dx_0x0c, rec->dz_0x10) + 0x8000) & 0xffff;
+    var_currentStopHeading_8c2288fc = (int)(njArcTan2(rec->dx_0x0c, rec->dz_0x10) + 0x8000) & 0xffff;
 
     seg = var_currentSegment_8c228708;
     do {
         seg++;
         var_nextStopSegment_8c228710 = seg;
-    } while (var_8c2286a4[seg] == 0);
+    } while (var_segmentHasStop_8c2286a4[seg] == 0);
 
     rec = BusStopGetStopArea_8c02cd7a(var_nextStopSegment_8c228710);
-    var_8c228900.x = rec->x_0x04;
-    var_8c228900.z = rec->z_0x08;
+    var_nextStopPoint_8c228900.x = rec->x_0x04;
+    var_nextStopPoint_8c228900.z = rec->z_0x08;
     angle = njArcTan2(rec->dx_0x0c, rec->dz_0x10) + 0x8000;
-    var_8c228714 = angle;
+    var_nextStopHeading_8c228714 = angle;
     if ((angle & 0x8000) != 0) {
-        var_8c228714 = angle | 0xffff0000;
+        var_nextStopHeading_8c228714 = angle | 0xffff0000;
     }
 }
 
@@ -108,7 +108,7 @@ void BusStopFreeTaskGroup_8c02ca96(void)
 
 /* Picks the waiting passengers for the upcoming stop (var_nextStopSegment_8c228710):
  * snaps its ground position, collects the segment's candidate stop spots that
- * have an active-stop flag (var_8c2286a4) into a scratch list, then randomly
+ * have an active-stop flag (var_segmentHasStop_8c2286a4) into a scratch list, then randomly
  * picks 1-16 of them without replacement into var_waitingPassengers_8c228798, positioned along
  * the stop's spawn-area strip (the course's lineHum_0x2c table) with per-passenger jitter --
  * except on ROUTE_OME, which skips the jitter. */
@@ -129,8 +129,8 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
     var_waitingPassengerCount_8c228794 = 0;
     var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
 
-    GroundQueryFindPolygon_8c020914(var_8c228900.x, var_8c228900.y, var_8c228900.z, &ground);
-    GroundProbeInterpolateHeight_8c020f7e(&ground, (float *)&var_8c228900);
+    GroundQueryFindPolygon_8c020914(var_nextStopPoint_8c228900.x, var_nextStopPoint_8c228900.y, var_nextStopPoint_8c228900.z, &ground);
+    GroundProbeInterpolateHeight_8c020f7e(&ground, (float *)&var_nextStopPoint_8c228900);
 
     seg = BusStopGetSegment_8c02cd6a(var_nextStopSegment_8c228710);
     /* Sized for 16 candidates, but the scan below is bounded only by the
@@ -142,20 +142,20 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
     candidateCount = 0;
     if (list != 0) {
         for (; list[1] != 0; list += 2) {
-            if (var_8c2286a4[(int)list[1]] != 0) {
+            if (var_segmentHasStop_8c2286a4[(int)list[1]] != 0) {
                 candidates[candidateCount++] = list;
             }
         }
 
         if (candidateCount != 0) {
-            var_8c22890c = *(char **)((char *)var_currentCourse_8c1bb868.lineHum_0x2c + seg->ukn_0x06 * 0xc);
+            var_nextStopArea_8c22890c = *(char **)((char *)var_currentCourse_8c1bb868.lineHum_0x2c + seg->ukn_0x06 * 0xc);
 
             var_waitingPassengerCount_8c228794 = AsqGetRandomInRangeA_8c012178(candidateCount) + 1;
             if (var_waitingPassengerCount_8c228794 > MAX_WAITING) {
                 var_waitingPassengerCount_8c228794 = MAX_WAITING;
             }
 
-            area = (StopAreaRecord *)var_8c22890c;
+            area = (StopAreaRecord *)var_nextStopArea_8c22890c;
             x0 = area->x_0x04;
             z0 = area->z_0x08;
             dx = area->dx_0x0c;
@@ -216,24 +216,24 @@ void BusStopSetup_8c02caba(void)
     int pick;
     CourseSegment *segments;
 
-    for (i = 0; i < (int)(sizeof(var_8c2286a4) / sizeof(var_8c2286a4[0])); i++) {
-        var_8c2286a4[i] = 0;
+    for (i = 0; i < (int)(sizeof(var_segmentHasStop_8c2286a4) / sizeof(var_segmentHasStop_8c2286a4[0])); i++) {
+        var_segmentHasStop_8c2286a4[i] = 0;
     }
 
     EventScanCandidates_8c02b03c();
     for (i = 0; i < var_eventCandidateCount_8c228560; i++) {
         candidateId = var_eventCandidates_8c228520[i];
-        var_8c2286a4[var_routeEvents_8c22851c[candidateId].segmentId_0x02] = 1;
+        var_segmentHasStop_8c2286a4[var_routeEvents_8c22851c[candidateId].segmentId_0x02] = 1;
     }
 
     segments = var_currentCourseConfig_8c18ad18->segments_0x08;
     activeStopCount = 0;
     totalSegments = 0;
     while (segments->type_0x00 != 0) {
-        if (var_8c2286a4[totalSegments] != 0) {
+        if (var_segmentHasStop_8c2286a4[totalSegments] != 0) {
             activeStopCount++;
         } else if (segments->type_0x00 == 2) {
-            var_8c2286a4[totalSegments] = 1;
+            var_segmentHasStop_8c2286a4[totalSegments] = 1;
             activeStopCount++;
         }
         totalSegments++;
@@ -253,9 +253,9 @@ void BusStopSetup_8c02caba(void)
      * course's segment table start. Preserved as-is: real asm behavior. */
     while (extraStopCount > 0) {
         pick = AsqGetRandomInRangeA_8c012178(totalSegments);
-        if (segments[pick].type_0x00 != 3 && var_8c2286a4[pick] == 0) {
+        if (segments[pick].type_0x00 != 3 && var_segmentHasStop_8c2286a4[pick] == 0) {
             extraStopCount--;
-            var_8c2286a4[pick] = 1;
+            var_segmentHasStop_8c2286a4[pick] = 1;
         }
     }
 
@@ -290,7 +290,7 @@ void BusStopSetup_8c02caba(void)
 }
 
 /* Draws the stop marker (the "Foo" model, var_fuuNjm_8c1bc448) at the
- * upcoming stop, facing its heading and animated by var_8c1bc44c. Installed
+ * upcoming stop, facing its heading and animated by var_fuuFrame_8c1bc44c. Installed
  * as a FadeCallback1 by BusStopUpdateArrival_8c02ce48 during the approach;
  * the callback arg is unused. */
 STATIC void drawStopMarker_8c02cd92(int arg0)
@@ -298,9 +298,9 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
     float frame;
 
     njUnitMatrix(&var_scratchMatrix_8c1bc46c);
-    frame = var_8c1bc44c;
-    njTranslate(&var_scratchMatrix_8c1bc46c, var_8c228900.x, var_8c228900.y, var_8c228908);
-    njRotateY(&var_scratchMatrix_8c1bc46c, var_8c228714);
+    frame = var_fuuFrame_8c1bc44c;
+    njTranslate(&var_scratchMatrix_8c1bc46c, var_nextStopPoint_8c228900.x, var_nextStopPoint_8c228900.y, var_nextStopPoint_8c228900.z);
+    njRotateY(&var_scratchMatrix_8c1bc46c, var_nextStopHeading_8c228714);
     njMultiMatrix(0, &var_scratchMatrix_8c1bc46c);
     njSetTexture(var_fuuTexlist_8c1bc440);
     njCnkSimpleDrawMotion(var_fuuNj_8c1bc444, var_fuuNjm_8c1bc448, frame);
@@ -315,7 +315,7 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
  *     advances to the next stop segment;
  * 2 = approach -- tracks the running minimum straight-line distance from
  *     the bus (busState's posX_0x0f4/posZ_0x0fc) to the upcoming stop
- *     (var_8c228900.x/var_8c228908) and drives the marker's animation
+ *     (var_nextStopPoint_8c228900.x/.z) and drives the marker's animation
  *     frame/draw callback, transitioning to "stopped" (3, via bus_state 3)
  *     once close enough and halted (var_busState_8c1bb9d0.speed_0x27c == 0), or once the stop
  *     segment is reached outright (bus_state 4);
@@ -336,7 +336,7 @@ void BusStopUpdateArrival_8c02ce48(void)
                 var_stopMinDistance_8c2285ec = 9999.0f;
                 var_hudBlinkTimer_8c226454 = 0;
                 pickWaitingPassengers_8c02c8ae();
-                var_8c1bc44c = 0.0f;
+                var_fuuFrame_8c1bc44c = 0.0f;
             } else if (crossedSegment == var_prevStopSegment_8c22870c) {
                 var_stopPhase_8c2285e4 = 1;
                 var_hudBlinkTimer_8c226454 = 0;
@@ -346,18 +346,18 @@ void BusStopUpdateArrival_8c02ce48(void)
         if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff) != 0) {
             var_stopPhase_8c2285e4 = 0;
             if (var_hudDriveMarkIcon_8c226450 != -1) {
-                var_8c228640 = 1;
+                var_instructionBonusPending_8c228640 = 1;
             }
             var_driveCueState_8c2264b8.nearStopLatch_0x0c = 0;
             advanceStopSegment_8c02ccae();
         }
     } else if (var_stopPhase_8c2285e4 == 2) {
-        dx = var_8c228900.x - var_busState_8c1bb9d0.posX_0x0f4;
-        dz = var_8c228908 - var_busState_8c1bb9d0.posZ_0x0fc;
+        dx = var_nextStopPoint_8c228900.x - var_busState_8c1bb9d0.posX_0x0f4;
+        dz = var_nextStopPoint_8c228900.z - var_busState_8c1bb9d0.posZ_0x0fc;
         distance = njSqrt(dx * dx + dz * dz);
-        var_8c1bc44c += 1.0f;
-        if (var_fuuLastFrame_8c1bc450 <= var_8c1bc44c) {
-            var_8c1bc44c = 0.0f;
+        var_fuuFrame_8c1bc44c += 1.0f;
+        if (var_fuuLastFrame_8c1bc450 <= var_fuuFrame_8c1bc44c) {
+            var_fuuFrame_8c1bc44c = 0.0f;
         }
         FadeCmdPushCall1_8c0223ea(0, drawStopMarker_8c02cd92, 0);
         if (distance < var_stopMinDistance_8c2285ec) {

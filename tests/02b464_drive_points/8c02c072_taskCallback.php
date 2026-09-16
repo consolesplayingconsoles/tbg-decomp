@@ -130,15 +130,15 @@ return new class extends TestCase {
         $this->initUint32($base + 0x24, 0); // var_8c2285c4[9] -- arrival quality grade
 
         $this->setSize('_var_nextStopSegment_8c228710', 4);
-        $this->setSize('_var_8c228714', 4);
+        $this->setSize('_var_nextStopHeading_8c228714', 4);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
 
-        // var_8c228714 is the upcoming stop's heading angle, not the segment
+        // var_nextStopHeading_8c228714 is the upcoming stop's heading angle, not the segment
         // index var_nextStopSegment_8c228710 -- set them apart so a test
         // reading the wrong symbol fails.
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 0);
-        $this->initUint32($this->addressOf('_var_8c228714'), 0x1000);
+        $this->initUint32($this->addressOf('_var_nextStopHeading_8c228714'), 0x1000);
 
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($busState + 0x250, 0); // ang_0x250
@@ -150,7 +150,7 @@ return new class extends TestCase {
 
         $this->call('_taskCallback_8c02c072');
 
-        // diff = var_8c228714(0x1000) - ang_0x250(0) = 0x1000, inside
+        // diff = var_nextStopHeading_8c228714(0x1000) - ang_0x250(0) = 0x1000, inside
         // (0x71c, 0xf8e3) -> heading-mismatch penalty fires.
         $this->shouldCall('_adjust_8c02b464')->with(0x1b, 0xfffffffd); // -3
 

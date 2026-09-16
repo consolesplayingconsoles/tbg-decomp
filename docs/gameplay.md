@@ -215,7 +215,7 @@ The score bar itself is `var_driverPoints_8c2285d0`, driven by
   no texture animation.
 
 **Which stops need servicing.** Confirmed: NOT every stop needs a stop, and
-the decision is a per-segment *active-stop* flag (`var_8c2286a4[segment]`),
+the decision is a per-segment *active-stop* flag (`var_segmentHasStop_8c2286a4[segment]`),
 decided once at course load by `BusStopSetup_8c02caba` (`02c884_bus_stop.c`)
 before driving starts, not by a live "passenger requests a stop" event:
 `CourseSegment.type_0x00 == 2` forces a stop there; a segment carrying a
@@ -224,13 +224,13 @@ remainder are filled randomly up to the course's
 `[randomStopCountMin_0x14, randomStopCountMax_0x18)` total, skipping any
 `type_0x00 == 3` segment (permanently excluded from random picking). A
 segment's waiting passengers are spawned only when it is flagged active
-(`pickWaitingPassengers_8c02c8ae`, gated on `var_8c2286a4`), so from the
+(`pickWaitingPassengers_8c02c8ae`, gated on `var_segmentHasStop_8c2286a4`), so from the
 player's side "someone is waiting" and "the stop is due" are the same
 thing, even though the true cause is this precomputed flag, not a live
 request. `StopAreaRecord.ukn_0x00` (a per-route physical stop-location
 record: the course's `lineBus_0x08` table, `02c884_bus_stop.h`) was checked as a
 candidate for a live per-stop request flag; no reader or writer exists in
-decompiled code, and unlike `var_8c2286a4` (a per-run scratch array reset
+decompiled code, and unlike `var_segmentHasStop_8c2286a4` (a per-run scratch array reset
 every course) it belongs to a table that reads as static per-route load
 data, so it does not fit the request role. Its purpose is still unconfirmed.
 - **World-space marker.** `drawStopMarker_8c02cd92`
@@ -276,7 +276,7 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
   - `nearStopChimeLatch_0x14` plays a short chime (case default in the
     function's tail block) but, despite its name, is gated on a *fixed*,
     hand-authored list of specific segment indices per route (e.g. Shinjuku:
-    4, 5, 10, 21, 22, 23) -- not on `var_8c2286a4`, the actual per-run active-
+    4, 5, 10, 21, 22, 23) -- not on `var_segmentHasStop_8c2286a4`, the actual per-run active-
     stop selection, and only while the camera is in a third-person mode
     (`var_cameraMode_8c227d9c >= 2`). Since the fixed list and the
     randomized active-stop set are unrelated, this chime cannot be a general

@@ -6,11 +6,11 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _BusStopUpdateStopHeadings_8c02ccc6(void): locks in the current stop's
- * heading angle (var_8c2288fc, njArcTan2 of the stop-area record var_nextStopSegment_8c228710
+ * heading angle (var_currentStopHeading_8c2288fc, njArcTan2 of the stop-area record var_nextStopSegment_8c228710
  * was still pointing at, masked to an unsigned 16-bit angle), then advances
  * var_nextStopSegment_8c228710 to the next segment with an active-stop flag
- * (var_8c2286a4) and primes that upcoming stop's position
- * (var_8c228900.x/.z) and heading angle (var_8c228714, stored as the raw
+ * (var_segmentHasStop_8c2286a4) and primes that upcoming stop's position
+ * (var_nextStopPoint_8c228900.x/.z) and heading angle (var_nextStopHeading_8c228714, stored as the raw
  * sum then re-stored sign-extended from its low 16 bits when negative)
  * from its stop-area record (BusStopGetStopArea_8c02cd7a).
  */
@@ -19,10 +19,10 @@ return new class extends TestCase {
     {
         $this->setSize('_var_currentSegment_8c228708', 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
-        $this->setSize('_var_8c2286a4', 24 * 4);
-        $this->setSize('_var_8c2288fc', 4);
-        $this->setSize('_var_8c228900', 0xc);
-        $this->setSize('_var_8c228714', 4);
+        $this->setSize('_var_segmentHasStop_8c2286a4', 24 * 4);
+        $this->setSize('_var_currentStopHeading_8c2288fc', 4);
+        $this->setSize('_var_nextStopPoint_8c228900', 0xc);
+        $this->setSize('_var_nextStopHeading_8c228714', 4);
         $this->setSize('_atan2f', 4);
 
         // _BusStopGetStopArea_8c02cd7a is same-object -- mock with shouldCall() directly,
@@ -44,7 +44,7 @@ return new class extends TestCase {
 
     private function initFlags(array $activeIndices): void
     {
-        $base = $this->addressOf('_var_8c2286a4');
+        $base = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 24; $i++) {
             $this->initUint32($base + $i * 4, in_array($i, $activeIndices, true) ? 1 : 0);
         }
@@ -69,24 +69,24 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_currentSegment_8c228708', 5);
         $this->shouldCall('_BusStopGetStopArea_8c02cd7a')->with(5)->andReturn($rec1);
         $this->shouldCall('_atan2f')->with(0.0, 1.0)->andReturn(0.0); // atan2f(dx, dz)
-        $this->shouldWriteLongTo('_var_8c2288fc', 32768);
+        $this->shouldWriteLongTo('_var_currentStopHeading_8c2288fc', 32768);
 
         $this->shouldWriteLongTo('_var_nextStopSegment_8c228710', 6);
 
         $this->shouldCall('_BusStopGetStopArea_8c02cd7a')->with(6)->andReturn($rec2);
 
-        $base = $this->addressOf('_var_8c228900');
+        $base = $this->addressOf('_var_nextStopPoint_8c228900');
         $this->shouldWriteFloat($base + 0, 10.0);
         $this->shouldWriteFloat($base + 8, 20.0);
 
         $this->shouldCall('_atan2f')->with(1.0, 0.0)->andReturn(M_PI_2); // atan2f(dx, dz)
-        $this->shouldWriteLongTo('_var_8c228714', 49152);
-        $this->shouldWriteLongTo('_var_8c228714', -16384); // 0x8000 bit set -> sign-extended
+        $this->shouldWriteLongTo('_var_nextStopHeading_8c228714', 49152);
+        $this->shouldWriteLongTo('_var_nextStopHeading_8c228714', -16384); // 0x8000 bit set -> sign-extended
     }
 
     // Multi-iteration search loop (skips two inactive segments), and a
     // heading angle whose sum doesn't set the 0x8000 bit -- only one write
-    // to var_8c228714, no sign-extend re-store.
+    // to var_nextStopHeading_8c228714, no sign-extend re-store.
     public function test_2_multi_iteration_no_sign_extend(): void
     {
         $this->resolveSymbols();
@@ -105,7 +105,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_currentSegment_8c228708', 2);
         $this->shouldCall('_BusStopGetStopArea_8c02cd7a')->with(2)->andReturn($rec1);
         $this->shouldCall('_atan2f')->with(0.0, 1.0)->andReturn(0.0);
-        $this->shouldWriteLongTo('_var_8c2288fc', 32768);
+        $this->shouldWriteLongTo('_var_currentStopHeading_8c2288fc', 32768);
 
         // segments 3, 4 skipped (flag clear); the global is written back on
         // every increment, not just the final match.
@@ -115,11 +115,11 @@ return new class extends TestCase {
 
         $this->shouldCall('_BusStopGetStopArea_8c02cd7a')->with(5)->andReturn($rec2);
 
-        $base = $this->addressOf('_var_8c228900');
+        $base = $this->addressOf('_var_nextStopPoint_8c228900');
         $this->shouldWriteFloat($base + 0, 1.0);
         $this->shouldWriteFloat($base + 8, 2.0);
 
         $this->shouldCall('_atan2f')->with(-1.0, 0.0)->andReturn(-M_PI_2);
-        $this->shouldWriteLongTo('_var_8c228714', 16384);
+        $this->shouldWriteLongTo('_var_nextStopHeading_8c228714', 16384);
     }
 };

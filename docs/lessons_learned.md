@@ -479,7 +479,7 @@ A bare `LAB_` hit is a candidate function Ghidra folded into a neighbour.
 ## Test memory does not start zeroed
 
 A test that never zero-fills the state it reads can pass for the wrong reason.
-`var_8c2286a4` was typed `char[96]` and read byte-indexed in one function and
+`var_segmentHasStop_8c2286a4` was typed `char[96]` and read byte-indexed in one function and
 word-indexed (`SHLL2`) in another; the byte-indexed C was simply wrong, but its
 test never discriminated, because whatever indexing it used read
 garbage-nonzero out of uninitialised test memory.

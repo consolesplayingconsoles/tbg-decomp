@@ -6,9 +6,9 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _pickWaitingPassengers_8c02c8ae(void): picks the waiting passengers for the
- * upcoming stop (var_nextStopSegment_8c228710). Snaps var_8c228900 to ground,
+ * upcoming stop (var_nextStopSegment_8c228710). Snaps var_nextStopPoint_8c228900 to ground,
  * collects the segment's candidate stop spots (segment record's list at +8)
- * whose var_8c2286a4 active-stop flag is set into a scratch list, then
+ * whose var_segmentHasStop_8c2286a4 active-stop flag is set into a scratch list, then
  * randomly picks 1-16 of them without replacement into var_waitingPassengers_8c228798,
  * positioned along the picked stop's spawn-area strip (the course's lineHum_0x2c
  * table entry selected by the segment record's field_0x06) with per-passenger jitter --
@@ -20,11 +20,11 @@ return new class extends TestCase {
         $this->setSize('_var_waitingPassengerCount_8c228794', 4);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
-        $this->setSize('_var_8c228900', 0xc);
+        $this->setSize('_var_nextStopPoint_8c228900', 0xc);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
-        $this->setSize('_var_8c2286a4', 96);
-        $this->setSize('_var_8c22890c', 4);
+        $this->setSize('_var_segmentHasStop_8c2286a4', 96);
+        $this->setSize('_var_nextStopArea_8c22890c', 4);
         $this->setSize('_var_waitingPassengers_8c228798', 0x140);
 
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
@@ -41,11 +41,11 @@ return new class extends TestCase {
         $this->initUint32($address, unpack('L', pack('f', $value))[1]);
     }
 
-    /* var_8c2286a4 is a word-per-segment flag array; the test memory it lives
+    /* var_segmentHasStop_8c2286a4 is a word-per-segment flag array; the test memory it lives
      * in does not start zeroed, so every case must fill it explicitly. */
     private function initActiveStopFlags(array $activeSegments): void
     {
-        $flags = $this->addressOf('_var_8c2286a4');
+        $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 24; $i++) {
             $this->initUint32($flags + $i * 4, 0);
         }
@@ -63,7 +63,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $point = $this->addressOf('_var_8c228900');
+        $point = $this->addressOf('_var_nextStopPoint_8c228900');
         $this->initFloat($point + 0x0, 5.0);
         $this->initFloat($point + 0x4, 6.0);
         $this->initFloat($point + 0x8, 7.0);
@@ -118,7 +118,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $point = $this->addressOf('_var_8c228900');
+        $point = $this->addressOf('_var_nextStopPoint_8c228900');
         $this->initFloat($point + 0x0, 5.0);
         $this->initFloat($point + 0x4, 6.0);
         $this->initFloat($point + 0x8, 7.0);
@@ -187,7 +187,7 @@ return new class extends TestCase {
         // Candidate scan skips the inactive entry and keeps the active one.
         $this->shouldWriteLong($candidates + 0, $list + 2);
 
-        $this->shouldWriteLongTo('_var_8c22890c', $area);
+        $this->shouldWriteLongTo('_var_nextStopArea_8c22890c', $area);
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
         $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 1);
 
@@ -222,7 +222,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->setSize('_rand', 4);
 
-        $point = $this->addressOf('_var_8c228900');
+        $point = $this->addressOf('_var_nextStopPoint_8c228900');
         $this->initFloat($point + 0x0, 5.0);
         $this->initFloat($point + 0x4, 6.0);
         $this->initFloat($point + 0x8, 7.0);
@@ -282,7 +282,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($candidates + 0, $list);
 
-        $this->shouldWriteLongTo('_var_8c22890c', $area);
+        $this->shouldWriteLongTo('_var_nextStopArea_8c22890c', $area);
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
         $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 1);
 
@@ -328,7 +328,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $point = $this->addressOf('_var_8c228900');
+        $point = $this->addressOf('_var_nextStopPoint_8c228900');
         $this->initFloat($point + 0x0, 5.0);
         $this->initFloat($point + 0x4, 6.0);
         $this->initFloat($point + 0x8, 7.0);
@@ -392,7 +392,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($candidates + 0, $list);
         $this->shouldWriteLong($candidates + 4, $list + 2);
 
-        $this->shouldWriteLongTo('_var_8c22890c', $area);
+        $this->shouldWriteLongTo('_var_nextStopArea_8c22890c', $area);
         // AsqGetRandomInRangeA_8c012178(2) returns 1 -> count = 2.
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(1);
         $this->shouldWriteLongTo('_var_waitingPassengerCount_8c228794', 2);

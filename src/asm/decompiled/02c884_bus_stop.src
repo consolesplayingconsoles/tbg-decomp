@@ -5,13 +5,13 @@
           .IMPORT     _var_waitingPassengerCount_8c228794
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeGroundGrid_8c2264d4
-          .IMPORT     _var_8c228900
+          .IMPORT     _var_nextStopPoint_8c228900
           .IMPORT     _GroundQueryFindPolygon_8c020914
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _var_nextStopSegment_8c228710
           .IMPORT     _syMalloc
-          .IMPORT     _var_8c2286a4
-          .IMPORT     _var_8c22890c
+          .IMPORT     _var_segmentHasStop_8c2286a4
+          .IMPORT     _var_nextStopArea_8c22890c
           .IMPORT     _AsqGetRandomInRangeA_8c012178
           .IMPORT     _var_waitingPassengers_8c228798
           .IMPORT     _var_route_8c18ad1c
@@ -36,8 +36,8 @@
           .IMPORT     _var_scheduleTime_8c2285d8
           .IMPORT     _var_currentSegment_8c228708
           .IMPORT     _atan2f
-          .IMPORT     _var_8c2288fc
-          .IMPORT     _var_8c228714
+          .IMPORT     _var_currentStopHeading_8c2288fc
+          .IMPORT     _var_nextStopHeading_8c228714
           .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njTranslate
@@ -45,14 +45,13 @@
           .IMPORT     _njMultiMatrix
           .IMPORT     _var_fuuTexlist_8c1bc440
           .IMPORT     _njSetTexture
-          .IMPORT     _var_8c1bc44c
+          .IMPORT     _var_fuuFrame_8c1bc44c
           .IMPORT     _var_fuuNjm_8c1bc448
           .IMPORT     _var_fuuNj_8c1bc444
           .IMPORT     _njCnkSimpleDrawMotion
           .IMPORT     _var_hudMarkLatch_8c22643c
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_driveCueState_8c2264b8
-          .IMPORT     _var_8c228908
           .IMPORT     _njSqrt
           .IMPORT     _var_fuuLastFrame_8c1bc450
           .IMPORT     _FadeCmdPushCall1_8c0223ea
@@ -432,13 +431,13 @@ LP_GEN_58192:
           .DATA.L _var_waitingPassengerCount_8c228794 ; H'8C02CB28
           .DATA.L _var_currentCourse_8c1bb868+H'4 ; H'8C02CB2C (atariBus_0x04)
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C02CB30
-          .DATA.L _var_8c228900 ; H'8C02CB34
+          .DATA.L _var_nextStopPoint_8c228900 ; H'8C02CB34
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C02CB38
           .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C02CB3C
           .DATA.L _var_nextStopSegment_8c228710 ; H'8C02CB40
           .DATA.L _syMalloc ; H'8C02CB44
-          .DATA.L _var_8c2286a4 ; H'8C02CB48
-          .DATA.L _var_8c22890c ; H'8C02CB4C
+          .DATA.L _var_segmentHasStop_8c2286a4 ; H'8C02CB48
+          .DATA.L _var_nextStopArea_8c22890c ; H'8C02CB4C
           .DATA.L _var_currentCourse_8c1bb868+H'2C ; H'8C02CB50 (lineHum_0x2c)
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02CB54
           .DATA.L H'47000000 ; H'8C02CB58
@@ -773,10 +772,10 @@ LP_GEN_16762:
           .DATA.L H'47800000 ; H'8C02CDF8
           .DATA.L _atan2f ; H'8C02CDFC
           .DATA.L H'00008000 ; H'8C02CE00
-          .DATA.L _var_8c2288fc ; H'8C02CE04
-          .DATA.L _var_8c2286a4 ; H'8C02CE08
-          .DATA.L _var_8c228900 ; H'8C02CE0C
-          .DATA.L _var_8c228714 ; H'8C02CE10
+          .DATA.L _var_currentStopHeading_8c2288fc ; H'8C02CE04
+          .DATA.L _var_segmentHasStop_8c2286a4 ; H'8C02CE08
+          .DATA.L _var_nextStopPoint_8c228900 ; H'8C02CE0C
+          .DATA.L _var_nextStopHeading_8c228714 ; H'8C02CE10
           .DATA.L H'FFFF0000 ; H'8C02CE14
           .DATA.L _var_currentCourse_8c1bb868+H'8 ; H'8C02CE18 (lineBus_0x08)
           .DATA.L _var_scratchMatrix_8c1bc46c ; H'8C02CE1C
@@ -786,7 +785,7 @@ LP_GEN_16762:
           .DATA.L _njMultiMatrix ; H'8C02CE2C
           .DATA.L _var_fuuTexlist_8c1bc440 ; H'8C02CE30
           .DATA.L _njSetTexture ; H'8C02CE34
-          .DATA.L _var_8c1bc44c ; H'8C02CE38
+          .DATA.L _var_fuuFrame_8c1bc44c ; H'8C02CE38
           .DATA.L _var_fuuNjm_8c1bc448 ; H'8C02CE3C
           .DATA.L _var_fuuNj_8c1bc444 ; H'8C02CE40
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02CE44
@@ -898,7 +897,7 @@ LAB_8c02ceea:
 LP_GEN_52477:
           .DATA.W H'03B4 ; H'8C02CF06
           .DATA.L _var_hudMarkLatch_8c22643c ; H'8C02CF08
-          .DATA.L _var_8c1bc44c ; H'8C02CF0C
+          .DATA.L _var_fuuFrame_8c1bc44c ; H'8C02CF0C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02CF10
           .DATA.L _var_8c2285c4 ; H'8C02CF14
           .DATA.L H'0000FF00 ; H'8C02CF18
@@ -1048,8 +1047,8 @@ LP_GEN_27124:
           .DATA.W H'02B4 ; H'8C02D02E
           .DATA.W H'03B4 ; H'8C02D030
           .DATA.W H'03B0 ; H'8C02D032
-          .DATA.L _var_8c228900 ; H'8C02D034
-          .DATA.L _var_8c228908 ; H'8C02D038
+          .DATA.L _var_nextStopPoint_8c228900 ; H'8C02D034
+          .DATA.L _var_nextStopPoint_8c228900+H'8 ; H'8C02D038 (.z)
           .DATA.L _njSqrt ; H'8C02D03C
           .DATA.L _var_fuuLastFrame_8c1bc450 ; H'8C02D040
           .DATA.L _drawStopMarker_8c02cd92 ; H'8C02D044
