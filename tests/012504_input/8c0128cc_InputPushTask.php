@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_PspTask_8c012324'),
-            $this->addressOf('_var_8c157a74'),
+            $this->addressOf('_var_pushedTask_8c157a74'),
             $sp0 - 16, // &created_state (stack local; InputPushTask_8c0128cc's only local, sole word pushed just above TaskPush's stack arg)
             0
         );
@@ -43,7 +43,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_inputManualTask_8c012504'),
-            $this->addressOf('_var_8c157a74'),
+            $this->addressOf('_var_pushedTask_8c157a74'),
             $sp0 - 16, // &created_state
             0
         );
@@ -62,7 +62,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_inputAutoTask_8c012718'),
-            $this->addressOf('_var_8c157a74'),
+            $this->addressOf('_var_pushedTask_8c157a74'),
             $sp0 - 16, // &created_state
             0
         );
@@ -81,7 +81,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_tasks_8c1ba3c8', 4);
-        $this->setSize('_var_8c157a74', 4);
+        $this->setSize('_var_pushedTask_8c157a74', 4);
         $this->setSize('_var_stickLatchX_8c157ae4', 4);
         $this->setSize('_var_stickLatchY_8c157ae8', 4);
         $this->setSize('_var_keyRepeat_8c157ad4', 0x10);

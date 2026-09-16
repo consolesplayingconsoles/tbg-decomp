@@ -82,7 +82,6 @@ return new class extends TestCase {
             })
             ->andReturn(1);
 
-        // TODO: Test malloc path
         // $this->shouldCall('_syMalloc')
         //     ->with(0x100 * 2048)
         //     ->andReturn(0xbebacafe);
@@ -286,7 +285,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_pvmQueue_8c157abc'), 0xbaadf00d);
 
-        $this->initUint32($this->addressOf('_var_8c157a88'), 1);
+        $this->initUint32($this->addressOf('_var_loadRetryNeeded_8c157a88'), 1);
 
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
@@ -297,7 +296,7 @@ return new class extends TestCase {
         $sizeLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd4;
 
         $this->shouldWrite($taskPtr + 0x18, 0xbaadf00d);
-        $this->shouldWriteTo('_var_8c157a88', 0);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteStringTo('_var_queueBaseDir_8c157a80', 'DATA EMPTY');
 
         $this->singleCall('_taskLoadQueuedPvms_8c011b00')
@@ -351,7 +350,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_pvmQueue_8c157abc'), 0xbaadf00d);
 
-        $this->initUint32($this->addressOf('_var_8c157a88'), 0);
+        $this->initUint32($this->addressOf('_var_loadRetryNeeded_8c157a88'), 0);
 
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
@@ -547,7 +546,7 @@ return new class extends TestCase {
         $this->shouldCall('_gdFsClose')
             ->with(0xbebacafe);
     
-        $this->shouldWriteTo('_var_8c157a88', 1);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $pvmQueue + $sizeOfQueuedPvm);
         $this->shouldWrite($taskPtr + 0x08, 0);
 

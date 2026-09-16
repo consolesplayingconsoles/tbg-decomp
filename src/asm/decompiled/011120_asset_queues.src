@@ -46,16 +46,16 @@
           .EXPORT     _AsqGetRandomInRangeB_8c0121be
           .EXPORT     _AsqApplyButtonConfig_8c0121e8
 
-          .EXPORT     _init_btnRemap_8c03be80
-          .EXPORT     _init_btnRemapAlt_8c03beb8
-          .EXPORT     _init_btnRemapWheel_8c03bef0
-          .EXPORT     _init_btnRemapWheelAlt_8c03bf18
+          .EXPORT     _init_btnRemapManual_8c03be80
+          .EXPORT     _init_btnRemapAuto_8c03beb8
+          .EXPORT     _init_btnRemapWheelManual_8c03bef0
+          .EXPORT     _init_btnRemapWheelAuto_8c03bf18
 
           .EXPORT     _var_queuesAreInitialized_8c157a60
           .EXPORT     _var_seed_8c157a64
           .EXPORT     _var_loadScreenActive_8c157a6c
           .EXPORT     _var_activeCtrlType_8c157a70
-          .EXPORT     _var_8c157a74
+          .EXPORT     _var_pushedTask_8c157a74
           .EXPORT     _var_resetRequested_8c157a78
           .EXPORT     _var_vmBusy_8c157a7c
 
@@ -89,7 +89,7 @@
           .EXPORT     _taskLoadQueuedPvms_8c011b00
           .EXPORT     _var_queueBaseDir_8c157a80
           .EXPORT     _var_queueBuffer_8c157a84
-          .EXPORT     _var_8c157a88
+          .EXPORT     _var_loadRetryNeeded_8c157a88
           .EXPORT     _var_datQueue_8c157a8c
           .EXPORT     _var_datQueueRear_8c157a90
           .EXPORT     _var_datQueueTail_8c157a94
@@ -163,7 +163,7 @@ _resetDatQueue_8c01116a:                   ; function: _resetDatQueue_8c01116a
           MOV.L       L14+20,R2; _var_queueBaseDir_8c157a80
           MOV.L       R3,@R1
           MOV         #1,R1
-          MOV.L       L14+16,R3; _init_8c03be7c
+          MOV.L       L14+16,R3; _init_dataEmpty_8c03be7c
           MOV.L       @R3,R0
           MOV.L       R0,@R2
           MOV.L       L14+24,R0; _var_datQueueIsIdle_8c157a98
@@ -213,7 +213,7 @@ _taskLoadQueuedDats_8c0111b4:                  ; function: taskLoadQueuedDats_8c
           ADD         #-4,R15
           MOV         R4,R13
           MOV.L       @(8,R13),R0
-          MOV.L       L14+28,R11; _var_8c157a88
+          MOV.L       L14+28,R11; _var_loadRetryNeeded_8c157a88
           MOV.L       @(24,R13),R14
           CMP/EQ      #0,R0
           BT/S        L7
@@ -290,7 +290,7 @@ L10:
           MOV.L       @R1,R3
           MOV.L       R3,@(24,R13)
           MOV.L       R0,@R11
-          MOV.L       L14+16,R0 ; _init_8c03be7c
+          MOV.L       L14+16,R0 ; _init_dataEmpty_8c03be7c
           MOV.L       @R0,R3
           BRA         L19
           MOV.L       R3,@R12
@@ -324,10 +324,10 @@ L14:
           .DATA.L     _syMalloc ; H'8c011290
           .DATA.L     _var_datQueueTail_8c157a94
           .DATA.L     _var_datQueueRear_8c157a90
-          .DATA.L     _init_8c03be7c
+          .DATA.L     _init_dataEmpty_8c03be7c
           .DATA.L     _var_queueBaseDir_8c157a80 ; H'8c0112a0
           .DATA.L     _var_datQueueIsIdle_8c157a98
-          .DATA.L     _var_8c157a88
+          .DATA.L     _var_loadRetryNeeded_8c157a88
           .DATA.L     _strcmp
           .DATA.L     _gdFsChangeDir ; H'8c0112b0
           .DATA.L     _gdFsOpen
@@ -517,8 +517,8 @@ L28:
           .DATA.L     _taskLoadQueuedDats_8c0111b4
           .DATA.L     _var_tasks_8c1ba3c8
           .DATA.L     _TaskPush_8c014ae8
-          .DATA.L     _var_8c157a88
-          .DATA.L     _init_8c03be7c
+          .DATA.L     _var_loadRetryNeeded_8c157a88
+          .DATA.L     _init_dataEmpty_8c03be7c
           .DATA.L     _var_queueBaseDir_8c157a80
 _initNjQueue_8c011430:           ; function: initNjQueue_8c011430
                                  ; frame size=16
@@ -572,7 +572,7 @@ _resetNjQueue_8c01147a:                   ; function: _resetNjQueue_8c01147a
           MOV.L       L36+22,R2; _var_queueBaseDir_8c157a80
           MOV.L       R3,@R1
           MOV         #1,R1
-          MOV.L       L36+18,R3; _init_8c03be7c
+          MOV.L       L36+18,R3; _init_dataEmpty_8c03be7c
           MOV.L       @R3,R0
           MOV.L       R0,@R2
           MOV.L       L36+26,R0; _var_njQueueIsIdle_8c157aa8
@@ -653,7 +653,7 @@ L36:
           .DATA.L     _syMalloc
           .DATA.L     _var_njQueueTail_8c157aa4
           .DATA.L     _var_njQueueRear_8c157aa0
-          .DATA.L     _init_8c03be7c ; L36+18
+          .DATA.L     _init_dataEmpty_8c03be7c ; L36+18
           .DATA.L     _var_queueBaseDir_8c157a80
           .DATA.L     _var_njQueueIsIdle_8c157aa8
           .DATA.L     _syFree
@@ -763,9 +763,9 @@ L46:
           .DATA.L     _gdFsGetFileSctSize ; L46+16
           .DATA.L     _syMalloc
           .DATA.L     _gdFsRead
-          .DATA.L     _var_8c157a88
+          .DATA.L     _var_loadRetryNeeded_8c157a88
           .DATA.L     _var_njQueue_8c157a9c ; L46+32
-          .DATA.L     _init_8c03be7c
+          .DATA.L     _init_dataEmpty_8c03be7c
           .DATA.L     _var_njQueueIsIdle_8c157aa8
           .DATA.L     _TaskFree_8c014b66
           .DATA.L     _gdFsGetStat ; L46+48
@@ -897,7 +897,7 @@ L57:
           .DATA.L     _njReadBinary
           .DATA.L     _gdFsGetTransStat
           .DATA.L     _gdFsTrans32
-          .DATA.L     _var_8c157a88 ; L57+18
+          .DATA.L     _var_loadRetryNeeded_8c157a88 ; L57+18
           .DATA.L     _var_njQueueRear_8c157aa0
           .DATA.L     _var_njQueue_8c157a9c
           .DATA.L     _var_njQueueIsIdle_8c157aa8
@@ -1231,8 +1231,8 @@ L84:
           .DATA.L     _taskLoadQueuedNjs_8c0114cc
           .DATA.L     _var_tasks_8c1ba3c8 ; L84+16
           .DATA.L     _TaskPush_8c014ae8
-          .DATA.L     _var_8c157a88
-          .DATA.L     _init_8c03be7c
+          .DATA.L     _var_loadRetryNeeded_8c157a88
+          .DATA.L     _init_dataEmpty_8c03be7c
           .DATA.L     _var_queueBaseDir_8c157a80 ; L84+32
           .DATA.L     _var_njQueueIsIdle_8c157aa8
           .DATA.L     _var_njQueue_8c157a9c
@@ -1494,7 +1494,7 @@ L101:
           .DATA.L     _syMalloc
           .DATA.L     _var_pvmQueueTail_8c157ac4 ; L101+44
           .DATA.L     _var_pvmQueueRear_8c157ac0
-          .DATA.L     _init_8c03be7c
+          .DATA.L     _init_dataEmpty_8c03be7c
           .DATA.L     _var_queueBaseDir_8c157a80
           .DATA.L     _var_pvmQueueIsIdle_8c157ac8 ; L101+60
           .DATA.L     _var_texbuf_8c277ca0
@@ -1626,9 +1626,9 @@ L113:
           .DATA.L     _gdFsOpen
           .DATA.L     _gdFsGetFileSctSize ; L113+16
           .DATA.L     _gdFsRead
-          .DATA.L     _var_8c157a88
+          .DATA.L     _var_loadRetryNeeded_8c157a88
           .DATA.L     _var_pvmQueue_8c157abc
-          .DATA.L     _init_8c03be7c ; L113+32
+          .DATA.L     _init_dataEmpty_8c03be7c ; L113+32
           .DATA.L     _var_pvmQueueIsIdle_8c157ac8
           .DATA.L     _TaskFree_8c014b66
           .DATA.L     _gdFsGetStat
@@ -1757,7 +1757,7 @@ L121:
           .DATA.L     _gdFsGetTransStat
           .DATA.L     _gdFsTrans32
           .DATA.L     _gdFsClose
-          .DATA.L     _var_8c157a88 ; L121+28
+          .DATA.L     _var_loadRetryNeeded_8c157a88 ; L121+28
           .DATA.L     _var_pvmQueueRear_8c157ac0
           .DATA.L     _var_pvmQueue_8c157abc
           .DATA.L     _var_pvmQueueIsIdle_8c157ac8
@@ -2057,8 +2057,8 @@ L139:
           .DATA.L     _taskLoadQueuedPvms_8c011b00
           .DATA.L     _var_tasks_8c1ba3c8 ; L139+16
           .DATA.L     _TaskPush_8c014ae8
-          .DATA.L     _var_8c157a88
-          .DATA.L     _init_8c03be7c
+          .DATA.L     _var_loadRetryNeeded_8c157a88
+          .DATA.L     _init_dataEmpty_8c03be7c
           .DATA.L     _var_queueBaseDir_8c157a80 ; L139+32
           .DATA.L     _var_pvmQueueIsIdle_8c157ac8
           .DATA.L     _var_pvmQueue_8c157abc
@@ -2377,8 +2377,8 @@ LP_GEN_90004:
           .DATA.L     __modlu
           .DATA.L     _var_seed_8c157ad0
           .DATA.L     _var_progress_8c1ba1cc
-          .DATA.L     _init_btnRemapWheelAlt_8c03bf18
-          .DATA.L     _init_btnRemap_8c03be80
+          .DATA.L     _init_btnRemapWheelAuto_8c03bf18
+          .DATA.L     _init_btnRemapManual_8c03be80
 
 LAB_8c012234:
           MOV.L       @(H'4,R4),R2
@@ -2516,12 +2516,12 @@ LP_GEN_88006:
           .DATA.W H'00CE
           .DATA.W H'00CF
           .DATA.W H'0000
-          .DATA.L _init_btnRemapAlt_8c03beb8
-          .DATA.L _init_btnRemapWheel_8c03bef0
+          .DATA.L _init_btnRemapAuto_8c03beb8
+          .DATA.L _init_btnRemapWheelManual_8c03bef0
           .SECTION    D,DATA,ALIGN=4
-_init_8c03be7c:                      ; static: _8c03334c
+_init_dataEmpty_8c03be7c:                      ; static: _8c03334c
           .DATA.L     L372031
-_init_btnRemap_8c03be80:        ; from defines
+_init_btnRemapManual_8c03be80:        ; from defines
           .DATA.L      H'00000000
           .DATA.L      H'00000400
           .DATA.L      H'00000000
@@ -2536,7 +2536,7 @@ _init_btnRemap_8c03be80:        ; from defines
           .DATA.L      H'00000020
           .DATA.L      H'00000000
           .DATA.L      H'00000008
-_init_btnRemapAlt_8c03beb8:        ; from defines
+_init_btnRemapAuto_8c03beb8:        ; from defines
           .DATA.L      H'00000000
           .DATA.L      H'00000400
           .DATA.L      H'00000000
@@ -2551,7 +2551,7 @@ _init_btnRemapAlt_8c03beb8:        ; from defines
           .DATA.L      H'00000002
           .DATA.L      H'00000000
           .DATA.L      H'00000008
-_init_btnRemapWheel_8c03bef0:        ; from defines
+_init_btnRemapWheelManual_8c03bef0:        ; from defines
           .DATA.L      H'00000000
           .DATA.L      H'00000400
           .DATA.L      H'00000000
@@ -2562,7 +2562,7 @@ _init_btnRemapWheel_8c03bef0:        ; from defines
           .DATA.L      H'00000004
           .DATA.L      H'00000000
           .DATA.L      H'00000008
-_init_btnRemapWheelAlt_8c03bf18:        ; from defines
+_init_btnRemapWheelAuto_8c03bf18:        ; from defines
           .DATA.L      H'00000000
           .DATA.L      H'00000400
           .DATA.L      H'00000000
@@ -2588,7 +2588,7 @@ _var_loadScreenActive_8c157a6c:
           .RES.B      4
 _var_activeCtrlType_8c157a70:
           .RES.B      4
-_var_8c157a74:
+_var_pushedTask_8c157a74:
           .RES.B      4
 _var_resetRequested_8c157a78:
           .RES.B      4
@@ -2598,7 +2598,7 @@ _var_queueBaseDir_8c157a80:
           .RES.B      4
 _var_queueBuffer_8c157a84:
           .RES.B      4
-_var_8c157a88:
+_var_loadRetryNeeded_8c157a88:
           .RES.B      4
 _var_datQueue_8c157a8c:
           .RES.B      4

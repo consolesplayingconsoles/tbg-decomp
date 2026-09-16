@@ -5,17 +5,17 @@
           .IMPORT     _var_peripheral_8c1ba358
           .IMPORT     _var_activeCtrlType_8c157a70
           .IMPORT     _var_peripherals_8c1ba35c
-          .IMPORT     _init_btnRemap_8c03be80
-          .IMPORT     _init_btnRemapWheel_8c03bef0
+          .IMPORT     _init_btnRemapManual_8c03be80
+          .IMPORT     _init_btnRemapWheelManual_8c03bef0
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _const_peripheral_8c033318
           .IMPORT     __quick_odd_mvn
           .IMPORT     _VmGameUpdateLcd_8c01c910
-          .IMPORT     _init_btnRemapAlt_8c03beb8
-          .IMPORT     _init_btnRemapWheelAlt_8c03bf18
+          .IMPORT     _init_btnRemapAuto_8c03beb8
+          .IMPORT     _init_btnRemapWheelAuto_8c03bf18
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _var_tasks_8c1ba3c8
-          .IMPORT     _var_8c157a74
+          .IMPORT     _var_pushedTask_8c157a74
           .IMPORT     _PspTask_8c012324
           .IMPORT     _var_stickLatchX_8c157ae4
           .IMPORT     _var_stickLatchY_8c157ae8
@@ -171,8 +171,8 @@ LP_GEN_80518:
           .DATA.L _var_activeCtrlType_8c157a70
           .DATA.L _var_peripherals_8c1ba35c
           .DATA.L H'000700FE
-          .DATA.L _init_btnRemap_8c03be80
-          .DATA.L _init_btnRemapWheel_8c03bef0
+          .DATA.L _init_btnRemapManual_8c03be80
+          .DATA.L _init_btnRemapWheelManual_8c03bef0
 
 LAB_8c012614:
           MOV.L       @R14,R2
@@ -454,8 +454,8 @@ LP_GEN_64371:
           .DATA.L _var_peripherals_8c1ba35c
           .DATA.L H'000700FE
           .DATA.L _var_activeCtrlType_8c157a70
-          .DATA.L _init_btnRemapAlt_8c03beb8
-          .DATA.L _init_btnRemapWheelAlt_8c03bf18
+          .DATA.L _init_btnRemapAuto_8c03beb8
+          .DATA.L _init_btnRemapWheelAuto_8c03bf18
 
 LAB_8c012828:
           MOV.L       @R14,R3
@@ -594,7 +594,7 @@ LP_GEN_17272:
           .DATA.L _VmGameUpdateLcd_8c01c910
           .DATA.L _TaskPush_8c014ae8
           .DATA.L _var_tasks_8c1ba3c8
-          .DATA.L _var_8c157a74
+          .DATA.L _var_pushedTask_8c157a74
           .DATA.L _PspTask_8c012324
           .DATA.L _var_stickLatchX_8c157ae4
           .DATA.L _var_stickLatchY_8c157ae8
@@ -666,7 +666,7 @@ LAB_8c0129a4:
           NOP
 LP_GEN_44279:
           .DATA.L     _var_driveMode_8c1bb8c8
-          .DATA.L     _var_8c157a74
+          .DATA.L     _var_pushedTask_8c157a74
           .DATA.L     _inputManualTask_8c012504
           .DATA.L     _inputAutoTask_8c012718
           .DATA.L     _init_fortyFive_8c03bf40

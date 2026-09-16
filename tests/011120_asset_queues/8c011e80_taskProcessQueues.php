@@ -25,7 +25,6 @@ return new class extends TestCase {
 
     public function test_datQueue_itAdvancesWhenDone()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $task = $this->alloc(4);
@@ -91,7 +90,6 @@ return new class extends TestCase {
 
     public function test_njQueue_itAdvancesWhenDone()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $task = $this->alloc(4);
@@ -157,7 +155,6 @@ return new class extends TestCase {
 
     public function test_pvmQueue_itAdvancesWhenDone()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $task = $this->alloc(4);
@@ -223,7 +220,6 @@ return new class extends TestCase {
 
     public function test_texlist_itAdvancesWhenDone()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $task = $this->alloc(4);

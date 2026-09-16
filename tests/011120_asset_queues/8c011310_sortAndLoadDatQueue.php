@@ -45,8 +45,6 @@ return new class extends TestCase {
             $datQueue + 3 * $sizeOfQueuedDat
         );
 
-        //
-
         $this->shouldWriteTo('_var_datQueueIsIdle_8c157a98', 0);
 
         $tempQueuedDat = $this->alloc(4);
@@ -65,7 +63,6 @@ return new class extends TestCase {
             ->andReturn(strcmp('FILEC.BIN', 'FILEB.BIN'));
 
 
-        // TODO: Move implementation to Simulator
         $evnMvn = function () {
             $src = $this->registers[2];
             $dst = $this->registers[1];
@@ -105,7 +102,7 @@ return new class extends TestCase {
 
         $this->shouldWrite($createdTask + 0x18, $datQueue);
         $this->shouldWrite($createdTask + 0x08, 0);
-        $this->shouldWriteTo('_var_8c157a88', 0);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteStringTo('_var_queueBaseDir_8c157a80', 'DATA EMPTY');
 
         $this->singleCall('_sortAndLoadDatQueue_8c011310')
@@ -152,8 +149,6 @@ return new class extends TestCase {
             $this->addressOf('_var_datQueueRear_8c157a90'),
             $datQueue + 1 * $sizeOfQueuedDat
         );
-
-        //
 
         $this->shouldWriteTo('_var_datQueueIsIdle_8c157a98', 0);
 

@@ -49,7 +49,6 @@ return new class extends TestCase {
             ->with($fileCStrAddr, $fileBStrAddr)
             ->andReturn(strcmp('FILEC.BIN', 'FILEB.BIN'));
 
-        // TODO: Move implementation to Simulator
         $evnMvn = function () {
             $src = $this->registers[2];
             $dst = $this->registers[1];
@@ -89,7 +88,7 @@ return new class extends TestCase {
 
         $this->shouldWrite($createdTask + 0x18, $pvmQueue);
         $this->shouldWrite($createdTask + 0x08, 0);
-        $this->shouldWriteTo('_var_8c157a88', 0);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteStringTo('_var_queueBaseDir_8c157a80', 'DATA EMPTY');
 
         $this->singleCall('_sortAndLoadPvmQueue_8c011d24')
@@ -135,7 +134,7 @@ return new class extends TestCase {
 
         $this->shouldWrite($createdTask + 0x18, $pvmQueue);
         $this->shouldWrite($createdTask + 0x08, 0);
-        $this->shouldWriteTo('_var_8c157a88', 0);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteStringTo('_var_queueBaseDir_8c157a80', 'DATA EMPTY');
 
         $this->singleCall('_sortAndLoadPvmQueue_8c011d24')

@@ -61,7 +61,6 @@ return new class extends TestCase {
             ->do($strCmpFn);
 
 
-        // TODO: Move implementation to Simulator
         $oddMvn = function () {
             $src = $this->registers[2];
             $dst = $this->registers[1];
@@ -101,7 +100,7 @@ return new class extends TestCase {
 
         $this->shouldWrite($createdTask + 0x18, $njQueue);
         $this->shouldWrite($createdTask + 0x08, 0);
-        $this->shouldWriteTo('_var_8c157a88', 0);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteStringTo('_var_queueBaseDir_8c157a80', 'DATA EMPTY');
 
         $this->singleCall('_sortAndLoadNjQueue_8c0116b6')

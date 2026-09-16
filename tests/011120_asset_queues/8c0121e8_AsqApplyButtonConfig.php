@@ -781,12 +781,12 @@ return new class extends TestCase {
 
     private function init3be80(int $offset, int $value): void
     {
-        $this->initUint32($this->addressOf('_init_btnRemap_8c03be80') + $offset * 4, $value);
+        $this->initUint32($this->addressOf('_init_btnRemapManual_8c03be80') + $offset * 4, $value);
     }
 
     private function shouldWriteOffset3be80(int $offset, int $value): void
     {
-        $this->shouldWrite($this->addressOf('_init_btnRemap_8c03be80') + $offset * 4, $value);
+        $this->shouldWrite($this->addressOf('_init_btnRemapManual_8c03be80') + $offset * 4, $value);
     }
 
     private function resolveImports(): void

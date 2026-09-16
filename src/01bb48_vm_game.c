@@ -13,6 +13,7 @@
 #include "022464_fade.h"
 #include "0100bc_sound.h"
 #include "028258_objects.h"
+#include "02fb50_sh4nlfzn_post_data.h"
 #include "sectionB.h"
 #include "strings.h"
 

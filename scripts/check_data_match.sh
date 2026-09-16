@@ -20,7 +20,6 @@
 set -e
 
 NOT_MATCHING="
-011120_asset_queues
 0129cc_pause
 012f44_game
 014f54_text

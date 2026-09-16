@@ -54,7 +54,6 @@ return new class extends TestCase {
 
         /// First iteration
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -78,7 +77,6 @@ return new class extends TestCase {
             })
             ->andReturn(1);
 
-        // TODO: Use variable for qd_r14
         $this->shouldCall('_syMalloc')
             ->with(5 * 2048)
             ->andReturn(0xbebacafe);
@@ -153,7 +151,6 @@ return new class extends TestCase {
 
         /// First iteration
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -177,7 +174,6 @@ return new class extends TestCase {
             })
             ->andReturn(1);
 
-        // TODO: Use variable for qd_r14
         $this->shouldCall('_syMalloc')
             ->with(5 * 2048)
             ->andReturn(0xbebacafe);
@@ -234,7 +230,7 @@ return new class extends TestCase {
         $this->initUint32($currentQueuedDat + 0x08, $dat1Dest); // void* dest;
         $this->initUint32($currentQueuedDat + 0x0c, 1); // int loaded_0x0c;
 
-        $this->initUint32($this->addressOf('_var_8c157a88'), 1);
+        $this->initUint32($this->addressOf('_var_loadRetryNeeded_8c157a88'), 1);
 
         $this->initUint32(
             $this->addressOf('_var_datQueueRear_8c157a90'),
@@ -249,9 +245,9 @@ return new class extends TestCase {
 
         $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd4;
 
-        $this->shouldReadFrom('_var_8c157a88', 1);
+        $this->shouldReadFrom('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $datQueue);
-        $this->shouldWriteTo('_var_8c157a88', 0);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteStringTo('_var_queueBaseDir_8c157a80', 'DATA EMPTY');
 
         $this->singleCall('_taskLoadQueuedDats_8c0111b4')
@@ -261,7 +257,6 @@ return new class extends TestCase {
 
     public function test_case0_breaksOnQueueCursorAndFreeTask()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $this->resolveImports();
@@ -310,7 +305,7 @@ return new class extends TestCase {
 
         $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd4;
 
-        $this->shouldReadFrom('_var_8c157a88', 0);
+        $this->shouldReadFrom('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteTo('_var_datQueueIsIdle_8c157a98', 1);
         $this->shouldCall('_TaskFree_8c014b66')
             ->with($taskPtr);
@@ -523,7 +518,7 @@ return new class extends TestCase {
             ->with(0xbebacafe);
         $this->shouldCall('_syFree', 0xcafe1000);
 
-        $this->shouldWriteTo('_var_8c157a88', 1);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $datQueue + $sizeOfQueuedDat);
         $this->shouldWrite($taskPtr + 0x08, 0);
 

@@ -1,4 +1,4 @@
-/* 8c011120 */
+/* 8c011120 - Asset Queues */
 #ifndef _011120_ASSET_QUEUES_H
 #define _011120_ASSET_QUEUES_H
 
@@ -30,16 +30,6 @@ typedef struct {
     unsigned int logical_0x04;
 } ButtonRemap;
 
-/* =====================
- * External Declarations
-   =====================
- */
-
-extern Task var_tasks_8c1ba3c8[];
-/* TODO: DRY */
-extern Sint8 var_texbuf_8c277ca0[];
-
-
 /* =======================
  * Non-initialized Globals
  * =======================
@@ -49,20 +39,21 @@ extern int var_queuesAreInitialized_8c157a60;
 extern int var_seed_8c157a64;
 extern int var_loadScreenActive_8c157a6c;
 
-/* TODO: Confirm type */
+/* PDS_PERIPHERAL.support of the pad on port 0, masked to BT_CONTROLLER, or -1
+ * when nothing usable is plugged in (see 012504_input.h). */
 extern int var_activeCtrlType_8c157a70;
-extern int var_8c157a74;
+extern Task *var_pushedTask_8c157a74;
 extern int var_resetRequested_8c157a78;
 extern int var_vmBusy_8c157a7c;
 
-extern ButtonRemap init_btnRemap_8c03be80[7];
-extern ButtonRemap init_btnRemapAlt_8c03beb8[7];
-extern ButtonRemap init_btnRemapWheel_8c03bef0[5];
-extern ButtonRemap init_btnRemapWheelAlt_8c03bf18[5];
+extern ButtonRemap init_btnRemapManual_8c03be80[7];
+extern ButtonRemap init_btnRemapAuto_8c03beb8[7];
+extern ButtonRemap init_btnRemapWheelManual_8c03bef0[5];
+extern ButtonRemap init_btnRemapWheelAuto_8c03bf18[5];
 
 /* =========
  * Functions
-   =========
+ * =========
  */
 
 void AsqNop_8c011120();

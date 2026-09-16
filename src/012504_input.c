@@ -65,13 +65,13 @@ STATIC void inputManualTask_8c012504(void)
     if (support == BT_CONTROLLER) {
         LOG_TRACE(("[INPUT] inputManualTask_8c012504: standard controller\n"));
         for (i = 0; i < 7; i++) {
-            if (var_peripheral_8c1ba358->on & init_btnRemap_8c03be80[i].physical_0x00) {
-                var_peripherals_8c1ba35c[0].on |= init_btnRemap_8c03be80[i].logical_0x04;
+            if (var_peripheral_8c1ba358->on & init_btnRemapManual_8c03be80[i].physical_0x00) {
+                var_peripherals_8c1ba35c[0].on |= init_btnRemapManual_8c03be80[i].logical_0x04;
             }
         }
         for (i = 0; i < 7; i++) {
-            if (var_peripheral_8c1ba358->press & init_btnRemap_8c03be80[i].physical_0x00) {
-                var_peripherals_8c1ba35c[0].press |= init_btnRemap_8c03be80[i].logical_0x04;
+            if (var_peripheral_8c1ba358->press & init_btnRemapManual_8c03be80[i].physical_0x00) {
+                var_peripherals_8c1ba35c[0].press |= init_btnRemapManual_8c03be80[i].logical_0x04;
             }
         }
         /* Sega's mandatory soft-reset combo. */
@@ -84,13 +84,13 @@ STATIC void inputManualTask_8c012504(void)
     } else if (support == BT_RACING) {
         LOG_TRACE(("[INPUT] inputManualTask_8c012504: racing wheel\n"));
         for (i = 0; i < 5; i++) {
-            if (var_peripheral_8c1ba358->on & init_btnRemapWheel_8c03bef0[i].physical_0x00) {
-                var_peripherals_8c1ba35c[0].on |= init_btnRemapWheel_8c03bef0[i].logical_0x04;
+            if (var_peripheral_8c1ba358->on & init_btnRemapWheelManual_8c03bef0[i].physical_0x00) {
+                var_peripherals_8c1ba35c[0].on |= init_btnRemapWheelManual_8c03bef0[i].logical_0x04;
             }
         }
         for (i = 0; i < 5; i++) {
-            if (var_peripheral_8c1ba358->press & init_btnRemapWheel_8c03bef0[i].physical_0x00) {
-                var_peripherals_8c1ba35c[0].press |= init_btnRemapWheel_8c03bef0[i].logical_0x04;
+            if (var_peripheral_8c1ba358->press & init_btnRemapWheelManual_8c03bef0[i].physical_0x00) {
+                var_peripherals_8c1ba35c[0].press |= init_btnRemapWheelManual_8c03bef0[i].logical_0x04;
             }
         }
         /* Forward/reverse selector: at a standstill with the brake past
@@ -163,13 +163,13 @@ STATIC void inputAutoTask_8c012718(void)
     if (support == BT_CONTROLLER) {
         LOG_TRACE(("[INPUT] inputAutoTask_8c012718: standard controller\n"));
         for (i = 0; i < 7; i++) {
-            if (var_peripheral_8c1ba358->on & init_btnRemapAlt_8c03beb8[i].physical_0x00) {
-                var_peripherals_8c1ba35c[0].on |= init_btnRemapAlt_8c03beb8[i].logical_0x04;
+            if (var_peripheral_8c1ba358->on & init_btnRemapAuto_8c03beb8[i].physical_0x00) {
+                var_peripherals_8c1ba35c[0].on |= init_btnRemapAuto_8c03beb8[i].logical_0x04;
             }
         }
         for (i = 0; i < 7; i++) {
-            if (var_peripheral_8c1ba358->press & init_btnRemapAlt_8c03beb8[i].physical_0x00) {
-                var_peripherals_8c1ba35c[0].press |= init_btnRemapAlt_8c03beb8[i].logical_0x04;
+            if (var_peripheral_8c1ba358->press & init_btnRemapAuto_8c03beb8[i].physical_0x00) {
+                var_peripherals_8c1ba35c[0].press |= init_btnRemapAuto_8c03beb8[i].logical_0x04;
             }
         }
         /* Sega's mandatory soft-reset combo. */
@@ -182,13 +182,13 @@ STATIC void inputAutoTask_8c012718(void)
     } else if (support == BT_RACING) {
         LOG_TRACE(("[INPUT] inputAutoTask_8c012718: racing wheel\n"));
         for (i = 0; i < 5; i++) {
-            if (var_peripheral_8c1ba358->on & init_btnRemapWheelAlt_8c03bf18[i].physical_0x00) {
-                var_peripherals_8c1ba35c[0].on |= init_btnRemapWheelAlt_8c03bf18[i].logical_0x04;
+            if (var_peripheral_8c1ba358->on & init_btnRemapWheelAuto_8c03bf18[i].physical_0x00) {
+                var_peripherals_8c1ba35c[0].on |= init_btnRemapWheelAuto_8c03bf18[i].logical_0x04;
             }
         }
         for (i = 0; i < 5; i++) {
-            if (var_peripheral_8c1ba358->press & init_btnRemapWheelAlt_8c03bf18[i].physical_0x00) {
-                var_peripherals_8c1ba35c[0].press |= init_btnRemapWheelAlt_8c03bf18[i].logical_0x04;
+            if (var_peripheral_8c1ba358->press & init_btnRemapWheelAuto_8c03bf18[i].physical_0x00) {
+                var_peripherals_8c1ba35c[0].press |= init_btnRemapWheelAuto_8c03bf18[i].logical_0x04;
             }
         }
         /* The wheel has no X/Y, so the combo is Start + A + B. */
@@ -222,7 +222,7 @@ void InputPushTask_8c0128cc(int param)
     if (param == 0) {
         LOG_DEBUG(("[INPUT] InputPushTask_8c0128cc: queueing peripheral-support task\n"));
         TaskPush_8c014ae8(var_tasks_8c1ba3c8, PspTask_8c012324,
-                          &var_8c157a74, &created_state, 0);
+                          &var_pushedTask_8c157a74, &created_state, 0);
         var_stickLatchX_8c157ae4 = 0;
         var_stickLatchY_8c157ae8 = 0;
         var_keyRepeat_8c157ad4.active_0x00 = 0;
@@ -235,7 +235,7 @@ void InputPushTask_8c0128cc(int param)
         LOG_DEBUG(("[INPUT] InputPushTask_8c0128cc: queueing input handler (%s)\n",
                    var_driveMode_8c1bb8c8 == 0 ? "inputManualTask_8c012504" : "inputAutoTask_8c012718"));
         TaskPush_8c014ae8(var_tasks_8c1ba3c8, action,
-                          &var_8c157a74, &created_state, 0);
+                          &var_pushedTask_8c157a74, &created_state, 0);
     }
 }
 

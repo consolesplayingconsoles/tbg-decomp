@@ -1,5 +1,4 @@
 /* @unit Asq */
-/* 8c011120 */
 
 #include <shinobi.h>
 #include <string.h>
@@ -8,6 +7,7 @@
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "014a9c_tasks.h"
+#include "02fb50_sh4nlfzn_post_data.h"
 #include "sectionB.h"
 #include "stdio.h"
 
@@ -15,6 +15,19 @@
  * Compiler Definitions
  * ====================
  */
+
+/* taskProcessQueues_8c011e80 walks the four queues in this order. */
+#define QUEUE_DAT     0
+#define QUEUE_NJ      1
+#define QUEUE_PVM     2
+#define QUEUE_TEXLIST 3
+
+/* Bytes per name in njSetPvmTextureList's filename block. */
+#define PVM_NAME_LEN 28
+
+/* Above this many sectors the file gets its own buffer instead of
+   var_texbuf_8c277ca0. */
+#define BIG_FILE_SECTORS 0x100
 
 
 /* =================
@@ -30,7 +43,7 @@ typedef struct {
     int loaded_0x10;
 } QueuedNj;
 
-/* TODO: Same struct as Task, but with QueuedNj. */
+/* Task, with field_0x0c and queuedItem_0x18 typed for this loader. */
 typedef struct {
     TaskAction action;
     void *state;
@@ -38,7 +51,6 @@ typedef struct {
     GDFS gdfs_0x0c;
     int field_0x10;
     int field_0x14;
-    /* Perhaps we should use a union or a void* to handle both cases? */
     QueuedNj* queuedNj_0x18;
     int field_0x1c;
 } TaskLoadQueuedNjs;
@@ -98,15 +110,16 @@ int var_seed_8c157a64;
 STATIC int var_texlistQueueCount_8c157a68;
 int var_loadScreenActive_8c157a6c;
 
-/* TODO: Confirm type */
 int var_activeCtrlType_8c157a70;
-int var_8c157a74;
+/* TaskPush_8c014ae8 needs somewhere to report the task it made;
+   InputPushTask_8c0128cc gives it this, and nothing ever reads it back. */
+Task *var_pushedTask_8c157a74;
 int var_resetRequested_8c157a78;
 int var_vmBusy_8c157a7c;
 
 STATIC char *var_queueBaseDir_8c157a80;
 STATIC Sint8 *var_queueBuffer_8c157a84;
-STATIC int var_8c157a88;
+STATIC int var_loadRetryNeeded_8c157a88;
 
 STATIC QueuedDat *var_datQueue_8c157a8c;
 STATIC QueuedDat *var_datQueueRear_8c157a90;
@@ -133,10 +146,13 @@ STATIC int var_seed_8c157ad0;
 
 /* ===================
  * Initialized Globals
-   ===================
+ * ===================
  */
 
-ButtonRemap init_btnRemap_8c03be80[7] = {
+/* The base dir a queue carries when it holds nothing to load. */
+STATIC char *init_dataEmpty_8c03be7c = "DATA EMPTY";
+
+ButtonRemap init_btnRemapManual_8c03be80[7] = {
     /* physical, logical */
     { 0, PDD_DGT_TX },
     { 0, PDD_DGT_TB },
@@ -147,7 +163,7 @@ ButtonRemap init_btnRemap_8c03be80[7] = {
     { 0, PDD_DGT_ST },
 };
 
-ButtonRemap init_btnRemapAlt_8c03beb8[7] = {
+ButtonRemap init_btnRemapAuto_8c03beb8[7] = {
     { 0, PDD_DGT_TX },
     { 0, PDD_DGT_TB },
     { 0, PDD_DGT_TY },
@@ -157,7 +173,7 @@ ButtonRemap init_btnRemapAlt_8c03beb8[7] = {
     { 0, PDD_DGT_ST },
 };
 
-ButtonRemap init_btnRemapWheel_8c03bef0[5] = {
+ButtonRemap init_btnRemapWheelManual_8c03bef0[5] = {
     { 0, PDD_DGT_TX },
     { 0, PDD_DGT_TB },
     { 0, PDD_DGT_TY },
@@ -165,7 +181,7 @@ ButtonRemap init_btnRemapWheel_8c03bef0[5] = {
     { 0, PDD_DGT_ST },
 };
 
-ButtonRemap init_btnRemapWheelAlt_8c03bf18[5] = {
+ButtonRemap init_btnRemapWheelAuto_8c03bf18[5] = {
     { 0, PDD_DGT_TX },
     { 0, PDD_DGT_TB },
     { 0, PDD_DGT_TY },
@@ -176,15 +192,13 @@ ButtonRemap init_btnRemapWheelAlt_8c03bf18[5] = {
 
 /* =========
  * Functions
-   =========
+ * =========
  */
 
-/* Matched :) */
 void AsqNop_8c011120() {
     /* Empty body */
 }
 
-/* Matched :) */
 STATIC int initDatQueue_8c011124(int n) {
     if (n != 0) {
         if ((var_datQueue_8c157a8c = syMalloc(n * sizeof(QueuedDat))) == NULL) {
@@ -199,14 +213,12 @@ STATIC int initDatQueue_8c011124(int n) {
     return 1;
 }
 
-/* Matched */
 STATIC void resetDatQueue_8c01116a() {
     var_datQueueRear_8c157a90 = var_datQueue_8c157a8c;
-    var_queueBaseDir_8c157a80 = "DATA EMPTY";
+    var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
     var_datQueueIsIdle_8c157a98 = 1;
 }
 
-/* Matched */
 int AsqRequestDat_8c011182(char* basedir, char* filename, void* dest) {
 
     if (*filename == 0) {
@@ -229,66 +241,49 @@ int AsqRequestDat_8c011182(char* basedir, char* filename, void* dest) {
     return 1;
 }
 
-/* Almost matching */
 STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
     QueuedDat* item = task->queuedDat_0x18;
     Sint32 size;
 
     switch (task->phase_0x08) {
-        /* 8c0111cc */
         case 0: {
-            /* 8c0111da */
             while (1) {
-                /* TODO: Test this condition */
                 if (item >= var_datQueueRear_8c157a90) {
                     break;
                 }
 
                 if (item->loaded_0x0c == 0) {
-                    /* TODO: Test this update */
-                    if (*item->basedir != 0 && /* 8c0111ee */
-                        strcmp(var_queueBaseDir_8c157a80, item->basedir) != 0 /* 8c0111f6 */
+                    if (*item->basedir != 0 &&
+                        strcmp(var_queueBaseDir_8c157a80, item->basedir) != 0
                     ) {
-                            var_queueBaseDir_8c157a80 = item->basedir;
-                            gdFsChangeDir(item->basedir);
-                        // }
+                        var_queueBaseDir_8c157a80 = item->basedir;
+                        gdFsChangeDir(item->basedir);
                     }
 
-                    /* 8c01120c */
                     task->gdfs_0x0c = gdFsOpen(item->filename, 0);
                     if (task->gdfs_0x0c == NULL) {
-                        /* 8c0112f4 (shared) */
-                        /* TODO: Write test for this */
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedDat_0x18++;
                         task->phase_0x08 = 0;
                         return;
                     }
 
-                    /* 8c01121a */
                     if (!gdFsGetFileSctSize(task->gdfs_0x0c, &size)) {
-                        /* 8c0112f4 (shared) */
-                        /* TODO: Write test for this */
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedDat_0x18++;
                         task->phase_0x08 = 0;
                         return;
                     }
 
-                    /* 8c011226 */
                     *item->dest = syMalloc(size * 2048);
 
-                    /* 8c011234 */
                     if (gdFsRead(task->gdfs_0x0c, size, *item->dest) != GDD_ERR_OK) {
-                        /* 8c0112f4 (shared) */
-                        /* TODO: Write test for this */
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedDat_0x18++;
                         task->phase_0x08 = 0;
                         return;
                     }
 
-                    /* 8c011282 (shared) */
                     gdFsClose(task->gdfs_0x0c);
                     item->loaded_0x0c = 1;
                     task->queuedDat_0x18 = ++item;
@@ -299,15 +294,12 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                 item++;
             }
 
-            /* 8c01124a */
-            if (var_8c157a88 != 0) {
-                /* 8c011250 */
+            if (var_loadRetryNeeded_8c157a88 != 0) {
                 task->queuedDat_0x18 = var_datQueue_8c157a8c;
-                var_8c157a88 = 0;
-                var_queueBaseDir_8c157a80 = "DATA EMPTY";
+                var_loadRetryNeeded_8c157a88 = 0;
+                var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
                 /* return */;
             } else {
-                /* 8c011262 */
                 var_datQueueIsIdle_8c157a98 = 1;
                 TaskFree_8c014b66((Task*) task);
                 /* return; */
@@ -315,22 +307,17 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
             break;
         }
 
-        /* 8c0111d2 */
         case 1: {
-            /* 8c011270 */
             switch (gdFsGetStat(task->gdfs_0x0c)) {
                 case GDD_STAT_COMPLETE: {
-                    /* 8c011282 (shared) */
                     gdFsClose(task->gdfs_0x0c);
                     item->loaded_0x0c = 1;
                     task->queuedDat_0x18++;
                     task->phase_0x08 = 0;
                     return;
                 } 
-                case GDD_STAT_READ: { /* 8c01127a */
-                    /* 8c0112cc */
+                case GDD_STAT_READ: {
                     if (gdFsGetTransStat(task->gdfs_0x0c) == GDD_FS_TRANS_READY) {
-                        /* 8c0112d6 */
                         gdFsTrans32(task->gdfs_0x0c, 2048, *item->dest);
                     }
                     break;
@@ -338,8 +325,7 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                 default: {
                     gdFsClose(task->gdfs_0x0c);
                     syFree(item->dest);
-                    /* 8c0112f4 (shared) */
-                    var_8c157a88 = 1;
+                    var_loadRetryNeeded_8c157a88 = 1;
                     task->queuedDat_0x18++;
                     task->phase_0x08 = 0;
                     break;
@@ -350,49 +336,41 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
     }
 }
 
-/* Tested */
 STATIC int sortAndLoadDatQueue_8c011310() {
-    int r9;
     Task *created_task;
     void *created_state;
-    QueuedDat *temp_r11;
+    QueuedDat *temp;
 
     if ((int) var_datQueue_8c157a8c == (int) var_datQueueRear_8c157a90) {
         return 0;
     }
 
-    /* 8c01132e */
     var_datQueueIsIdle_8c157a98 = 0;
 
-    temp_r11 = syMalloc((int) var_datQueueRear_8c157a90 - (int) var_datQueue_8c157a8c);
+    temp = syMalloc((int) var_datQueueRear_8c157a90 - (int) var_datQueue_8c157a8c);
 
-    /* 8c011340 */
     while (1) {
-        int r9 = 0;
-        QueuedDat *a_r13 = var_datQueue_8c157a8c;
-        QueuedDat *b_r14 = var_datQueue_8c157a8c;
+        int swapped = 0;
+        QueuedDat *a = var_datQueue_8c157a8c;
+        QueuedDat *b = var_datQueue_8c157a8c;
 
-        /* 8c011376 */
-        while (++b_r14 < var_datQueueRear_8c157a90) {
-            /* 8c011348 */
-            if (strcmp(a_r13->filename, b_r14->filename) > 0) {
-                /* 8c011354 */
-                *temp_r11 = *a_r13;
-                *a_r13 = *b_r14;
-                *b_r14 = *temp_r11;
-                r9 = 1;
+        while (++b < var_datQueueRear_8c157a90) {
+            if (strcmp(a->filename, b->filename) > 0) {
+                *temp = *a;
+                *a = *b;
+                *b = *temp;
+                swapped = 1;
             }
 
-            /* 8c011374 */
-            a_r13++;
+            a++;
         }
 
-        if (r9 == 0) { /* 8c011374 */
+        if (!swapped) {
             break;
         }
     }
 
-    syFree(temp_r11);
+    syFree(temp);
 
     if (!TaskPush_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedDats_8c0111b4, &created_task, &created_state, 0)) {
         return 0;
@@ -400,25 +378,22 @@ STATIC int sortAndLoadDatQueue_8c011310() {
 
     created_task->queuedItem_0x18 = var_datQueue_8c157a8c;
     created_task->field_0x08 = 0;
-    var_8c157a88 = 0;
-    var_queueBaseDir_8c157a80 = "DATA EMPTY";
+    var_loadRetryNeeded_8c157a88 = 0;
+    var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
 
     return 1;
 }
 
-/* Matched */
 STATIC int datQueueIsIdle_8c0113d2() {
     return var_datQueueIsIdle_8c157a98;
 }
 
-/* Matched */
 STATIC void freeDatQueue_8c0113d8() {
     if (var_datQueue_8c157a8c != (QueuedDat*) -1) {
         syFree((void*) var_datQueue_8c157a8c);
     }
 }
 
-/* Matched */
 STATIC int initNjQueue_8c011430(int param) {
     if (param != 0) {
         if ((var_njQueue_8c157a9c = syMalloc(param * sizeof(QueuedNj))) == NULL) {
@@ -433,14 +408,12 @@ STATIC int initNjQueue_8c011430(int param) {
     return 1;
 }
 
-/* Matched */
 STATIC void resetNjQueue_8c01147a() {
     var_njQueueRear_8c157aa0 = var_njQueue_8c157a9c;
-    var_queueBaseDir_8c157a80 = "DATA EMPTY";
+    var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
     var_njQueueIsIdle_8c157aa8 = 1;
 }
 
-/* Matched */
 int AsqRequestNj_8c011492(char* basedir, char* filename, void* dest, void* dest2) {
 
     if (*filename == 0) {
@@ -463,7 +436,6 @@ int AsqRequestNj_8c011492(char* basedir, char* filename, void* dest, void* dest2
     return 1;
 }
 
-/* Tested */
 STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
     QueuedNj* qnj = task->queuedNj_0x18;
     Sint32 size;
@@ -490,39 +462,36 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                     task->gdfs_0x0c = gdFsOpen(qnj->filename, 0);
 
                     if (task->gdfs_0x0c == NULL) {
-                        /* 8c01168c (shared) */
                         if (var_queueBuffer_8c157a84 != var_texbuf_8c277ca0) {
                             syFree(var_queueBuffer_8c157a84);
                         }
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedNj_0x18++;
                         task->phase_0x08 = 0;
                         return;
                     }
 
                     if (!gdFsGetFileSctSize(task->gdfs_0x0c, &size)) {
-                        /* 8c01168c (shared) */
                         if (var_queueBuffer_8c157a84 != var_texbuf_8c277ca0) {
                             syFree(var_queueBuffer_8c157a84);
                         }
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedNj_0x18++;
                         task->phase_0x08 = 0;
                         return;
                     }
 
-                    if (size > 0x100) {
+                    if (size > BIG_FILE_SECTORS) {
                         var_queueBuffer_8c157a84 = syMalloc(size * 2048);
                     } else {
                         var_queueBuffer_8c157a84 = var_texbuf_8c277ca0;
                     }
 
                     if (gdFsRead(task->gdfs_0x0c, size, var_queueBuffer_8c157a84) != GDD_ERR_OK) {
-                        /* 8c01168c (shared) */
                         if (var_queueBuffer_8c157a84 != var_texbuf_8c277ca0) {
                             syFree(var_queueBuffer_8c157a84);
                         }
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedNj_0x18++;
                         task->phase_0x08 = 0;
                         return; 
@@ -550,10 +519,10 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                 qnj++;
             }
 
-            if (var_8c157a88 != 0) {
+            if (var_loadRetryNeeded_8c157a88 != 0) {
                 task->queuedNj_0x18 = var_njQueue_8c157a9c;
-                var_8c157a88 = 0;
-                var_queueBaseDir_8c157a80 = "DATA EMPTY";
+                var_loadRetryNeeded_8c157a88 = 0;
+                var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
             } else {
                 var_njQueueIsIdle_8c157aa8 = 1;
                 TaskFree_8c014b66((Task*) task);
@@ -563,7 +532,6 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
 
         case 1:
             switch (gdFsGetStat(task->gdfs_0x0c)) {
-                /* 8c011614 */
                 case GDD_STAT_COMPLETE: {
                     gdFsClose(task->gdfs_0x0c);
                     qnj->loaded_0x10 = 1;
@@ -595,7 +563,8 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                 }
                 default: {
                     gdFsClose(task->gdfs_0x0c);
-                    
+
+                    /* Freed twice in the original. */
                     if (var_queueBuffer_8c157a84 != var_texbuf_8c277ca0) {
                         syFree(var_queueBuffer_8c157a84);
                     }
@@ -604,8 +573,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                         syFree(var_queueBuffer_8c157a84);
                     }
 
-                    var_8c157a88 = 1;
-                    /* TODO: Test this with other item indexes */
+                    var_loadRetryNeeded_8c157a88 = 1;
                     task->queuedNj_0x18 = ++qnj;
                     task->phase_0x08 = 0;
                     break;
@@ -615,7 +583,6 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
         }
 }
 
-/* Tested */
 STATIC int sortAndLoadNjQueue_8c0116b6() {
     Task *created_task;
     void* created_state;
@@ -625,33 +592,27 @@ STATIC int sortAndLoadNjQueue_8c0116b6() {
         return 0;
     }
 
-    /* 8c01132e */
     var_njQueueIsIdle_8c157aa8 = 0;
 
     temp = syMalloc((int) var_njQueueRear_8c157aa0 - (int) var_njQueue_8c157a9c);
 
-    /* 8c011340 */
     while (1) {
         int swapped = 0;
         QueuedNj *a = var_njQueue_8c157a9c;
         QueuedNj *b = var_njQueue_8c157a9c;
 
-        /* 8c011376 */
         while (++b < var_njQueueRear_8c157aa0) {
-            /* 8c011348 */
             if (strcmp(a->filename, b->filename) > 0) {
-                /* 8c011354 */
                 *temp = *a;
                 *a = *b;
                 *b = *temp;
                 swapped = 1;
             }
 
-            /* 8c011374 */
             a++;
         }
 
-        if (!swapped) { /* 8c011374 */
+        if (!swapped) {
             break;
         }
     }
@@ -664,25 +625,22 @@ STATIC int sortAndLoadNjQueue_8c0116b6() {
 
     created_task->queuedItem_0x18 = var_njQueue_8c157a9c;
     created_task->field_0x08 = 0;
-    var_8c157a88 = 0;
-    var_queueBaseDir_8c157a80 = "DATA EMPTY";
+    var_loadRetryNeeded_8c157a88 = 0;
+    var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
 
     return 1;
 }
 
-/* Matched */
 STATIC int njQueueIsIdle_8c01179e() {
     return var_njQueueIsIdle_8c157aa8;
 }
 
-/* Tested */
 STATIC void freeNjQueue_8c0117a4() {
     if (var_njQueue_8c157a9c != (QueuedNj*) -1) {
         syFree(var_njQueue_8c157a9c);
     }
 }
 
-/* Tested */
 STATIC int initTexlistQueue_8c0117b8(int n) {
   if (n != 0) {
     var_texlistQueue_8c157aac = syMalloc(n * sizeof(QueuedTexlist));
@@ -697,16 +655,14 @@ STATIC int initTexlistQueue_8c0117b8(int n) {
   return 1;
 }
 
-/* Tested */
 STATIC void resetTexlistQueue_8c0117fe() {
     var_texlistQueueRear_8c157ab0 = var_texlistQueue_8c157aac;
-    var_queueBaseDir_8c157a80 = "DATA EMPTY";
+    var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
     var_texlistQueueCount_8c157a68 = 0;
     var_texlistQueueIsIdle_8c157ab8 = 1;
     return;
 }
 
-/* Tested */
 int AsqRequestTexlist_8c01181c(char *basedir, NJS_TEXLIST *texlist) {
     if (var_texlistQueueRear_8c157ab0 >= var_texlistQueueTail_8c157ab4) {
         return 0;
@@ -720,7 +676,6 @@ int AsqRequestTexlist_8c01181c(char *basedir, NJS_TEXLIST *texlist) {
     return 1;
 }
 
-/* Tested */
 STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
     QueuedTexlist *item = task->queuedItem_0x18;
     NJS_TEXLIST *texlist;
@@ -766,8 +721,6 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
                  * counter increment. */
                 if (comparedIndex != comparedTextureCount) break;
 
-                /* Refactor: */
-                /* if (currentTexture->texaddr) break */
             }
 
             /* If the current texture wasn't found in any compared texlist,
@@ -790,7 +743,6 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
 
             if (texlist->nbTexture) {
                 int i;
-                /* TODO: Test this skip */
                 for (i = 0; i < texlist->nbTexture; i++) {
                     if (!texlist->textures[i].texaddr) {
                         njLoadTextureNum(i);
@@ -807,7 +759,6 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
             return;
         }
 
-        /* TODO: Test this path */
         if (!alreadyLoaded) {
             task->queuedItem_0x18 = item;
             return;
@@ -815,7 +766,6 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
     }
 }
 
-/* Tested */
 STATIC int loadTexlistQueue_8c0119f8() {
     Task *created_task;
     void *created_state;
@@ -833,19 +783,16 @@ STATIC int loadTexlistQueue_8c0119f8() {
     return 1;
 }
 
-/* Tested */
 STATIC int texlistQueueIsIdle_8c011a42() {
   return var_texlistQueueIsIdle_8c157ab8;
 }
 
-/* Tested */
 STATIC void freeTexlistQueue_8c011a48() {
     if (var_texlistQueue_8c157aac != (void *) -1) {
         syFree(var_texlistQueue_8c157aac);
     }
 }
 
-/* Tested */
 STATIC int initPvmQueue_8c011a5c(int count) {
     if (count) {
         var_pvmQueue_8c157abc = syMalloc(count * sizeof(QueuedPvm));
@@ -862,7 +809,6 @@ STATIC int initPvmQueue_8c011a5c(int count) {
     return 1;
 }
 
-/* Tested */
 int AsqRequestPvm_8c011ac0(char *basedir, char *filename, void *texlist, int count, int attr) {
     if (!*filename || var_pvmQueueRear_8c157ac0 >= var_pvmQueueTail_8c157ac4) {
         return 0;
@@ -882,7 +828,6 @@ int AsqRequestPvm_8c011ac0(char *basedir, char *filename, void *texlist, int cou
     return 1;
 }
 
-/* Tested */
 STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
     QueuedPvm *pvm = (QueuedPvm*) task->queuedPvm_0x18;
     Sint32 size;
@@ -905,28 +850,27 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
 
                     task->gdfs_0x0c = gdFsOpen(pvm->filename, 0);
                     if (!task->gdfs_0x0c) {
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedPvm_0x18 = ++pvm;
                         task->phase_0x08 = 0;
                         return;
                     }
 
                     if (!gdFsGetFileSctSize(task->gdfs_0x0c, &size)) {
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedPvm_0x18 = ++pvm;
                         task->phase_0x08 = 0;
                         return;
                     }
 
-                    if (size > 0x100) {
-                        /* TODO: Test this path */
+                    if (size > BIG_FILE_SECTORS) {
                         var_queueBuffer_8c157a84 = syMalloc(size * 2048);
                     } else {
                         var_queueBuffer_8c157a84 = var_texbuf_8c277ca0;
                     }
 
                     if (gdFsRead(task->gdfs_0x0c, size, var_queueBuffer_8c157a84)) {
-                        var_8c157a88 = 1;
+                        var_loadRetryNeeded_8c157a88 = 1;
                         task->queuedPvm_0x18 = ++pvm;
                         task->phase_0x08 = 0;
                         return;
@@ -942,8 +886,9 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                         texname[i].attr = pvm->attr_0x10;
                     }
 
-                    /* Huh? */
-                    filename = syMalloc(pvm->count_0x0c * 0x1c);
+                    /* njSetPvmTextureList wants a flat block of 28-byte
+                       filename slots, one per texture. */
+                    filename = syMalloc(pvm->count_0x0c * PVM_NAME_LEN);
 
                     njSetPvmTextureList(texlist, texname, filename, pvm->count_0x0c);
                     njLoadTexturePvmMemory((Uint8*) var_queueBuffer_8c157a84, texlist);
@@ -958,10 +903,10 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                 }
             }
 
-            if (var_8c157a88) {
+            if (var_loadRetryNeeded_8c157a88) {
                 task->queuedPvm_0x18 = var_pvmQueue_8c157abc;
-                var_8c157a88 = 0;
-                var_queueBaseDir_8c157a80 = "DATA EMPTY";
+                var_loadRetryNeeded_8c157a88 = 0;
+                var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
             } else {
                 var_pvmQueueIsIdle_8c157ac8 = 1;
                 TaskFree_8c014b66((Task*) task);
@@ -988,14 +933,14 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                         texname[i].attr = pvm->attr_0x10;
                     }
 
-                    /* Huh? */
-                    filename = syMalloc(pvm->count_0x0c * 0x1c);
+                    /* njSetPvmTextureList wants a flat block of 28-byte
+                       filename slots, one per texture. */
+                    filename = syMalloc(pvm->count_0x0c * PVM_NAME_LEN);
 
                     njSetPvmTextureList(texlist, texname, filename, pvm->count_0x0c);
                     njLoadTexturePvmMemory((Uint8*) var_queueBuffer_8c157a84, texlist);
 
                     if (var_queueBuffer_8c157a84 != var_texbuf_8c277ca0) {
-                        /* TODO: Test this path */
                         syFree(var_queueBuffer_8c157a84);
                     }
 
@@ -1016,11 +961,10 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                 default: {
                     gdFsClose(task->gdfs_0x0c);
                     if (var_queueBuffer_8c157a84 != var_texbuf_8c277ca0) {
-                        /* TODO: Test this path */
                         syFree(var_queueBuffer_8c157a84);
                     }
 
-                    var_8c157a88 = 1;
+                    var_loadRetryNeeded_8c157a88 = 1;
                     task->queuedPvm_0x18 = ++pvm;
                     task->phase_0x08 = 0;
                     return;
@@ -1030,7 +974,6 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
     }
 }
 
-/* Tested */
 STATIC int sortAndLoadPvmQueue_8c011d24() {
     Task *created_task;
     void* created_state;
@@ -1042,10 +985,9 @@ STATIC int sortAndLoadPvmQueue_8c011d24() {
 
     var_pvmQueueIsIdle_8c157ac8 = 0;
 
-    /* Why not allocate a single QueuedPvm? */
+    /* One element would do; the original allocates the whole queue's worth. */
     temp = syMalloc((int) var_pvmQueueRear_8c157ac0 - (int) var_pvmQueue_8c157abc);
 
-    /* TODO: Test this skip */
     if (var_loadScreenActive_8c157a6c != 0) {
         while (1) {
             int swapped = 0;
@@ -1077,25 +1019,22 @@ STATIC int sortAndLoadPvmQueue_8c011d24() {
 
     created_task->queuedItem_0x18 = var_pvmQueue_8c157abc;
     created_task->field_0x08 = 0;
-    var_8c157a88 = 0;
-    var_queueBaseDir_8c157a80 = "DATA EMPTY";
+    var_loadRetryNeeded_8c157a88 = 0;
+    var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
 
     return 1;
 }
 
-/* Tested */
 STATIC int pvmQueueIsIdle_8c011e22() {
   return var_pvmQueueIsIdle_8c157ac8;
 }
 
-/* Tested */
 STATIC void freePvmQueue_8c011e28() {
   if (var_pvmQueue_8c157abc != (void *) -1) {
     syFree(var_pvmQueue_8c157abc);
   }
 }
 
-/* Tested */
 void AsqReleaseAndFreeTexlist_8c011e3c(NJS_TEXLIST *texlist) {
     njReleaseTexture(texlist);
     syFree(texlist->textures[0].filename);
@@ -1103,19 +1042,17 @@ void AsqReleaseAndFreeTexlist_8c011e3c(NJS_TEXLIST *texlist) {
     syFree(texlist);
 }
 
-/* Tested */
-/* Unused */
+/* Nothing in the image calls this: AsqReleaseAndFreeTexlist_8c011e3c, which
+ * releases the textures first, is what everything uses. */
 STATIC void asqFreeTexlist_8c011e60(NJS_TEXLIST *texlist) {
     syFree(texlist->textures[0].filename);
     syFree(texlist->textures);
     syFree(texlist);
 }
 
-/* Tested */
 STATIC void taskProcessQueues_8c011e80(Task *task, TaskProcessQueuesState *state) {
     switch (state->queue_0x00) {
-        /* TODO: Use enum */
-        case 0: {
+        case QUEUE_DAT: {
             if (datQueueIsIdle_8c0113d2()) {
                 if (state->afterDatCallback_0x08) {
                     state->afterDatCallback_0x08();
@@ -1127,7 +1064,7 @@ STATIC void taskProcessQueues_8c011e80(Task *task, TaskProcessQueuesState *state
             break;
         }
 
-        case 1: {
+        case QUEUE_NJ: {
             if (njQueueIsIdle_8c01179e()) {
                 if (state->afterNjCallback_0x0c) {
                     state->afterNjCallback_0x0c();
@@ -1139,7 +1076,7 @@ STATIC void taskProcessQueues_8c011e80(Task *task, TaskProcessQueuesState *state
             break;
         }
 
-        case 2: {
+        case QUEUE_PVM: {
             if (pvmQueueIsIdle_8c011e22()) {
                 if (state->afterPvmCallback_0x10) {
                     state->afterPvmCallback_0x10();
@@ -1151,7 +1088,7 @@ STATIC void taskProcessQueues_8c011e80(Task *task, TaskProcessQueuesState *state
             break;
         }
 
-        case 3: {
+        case QUEUE_TEXLIST: {
             if (texlistQueueIsIdle_8c011a42()) {
                 TaskFree_8c014b66(task);
                 if (state->afterTexlistCallback_0x14) {
@@ -1170,7 +1107,6 @@ STATIC void taskProcessQueues_8c011e80(Task *task, TaskProcessQueuesState *state
     }
 }
 
-/* Tested */
 void AsqInitQueues_8c011f36(int datCount,int njCount,int texlistCount,int pvmCount)
 {
     LOG_INFO(("[ASSET_QUEUES] Initializing queues: DAT %d, NJ %d, TEXLIST %d, PVM %d\n", datCount, njCount, texlistCount, pvmCount));
@@ -1184,7 +1120,6 @@ void AsqInitQueues_8c011f36(int datCount,int njCount,int texlistCount,int pvmCou
     var_queuesAreInitialized_8c157a60 = 1;
 }
 
-/* Tested */
 void AsqResetQueues_8c011f6c() {
     LOG_INFO(("[ASSET_QUEUES] Resetting queues\n"));
 
@@ -1192,11 +1127,10 @@ void AsqResetQueues_8c011f6c() {
     resetNjQueue_8c01147a();
     resetTexlistQueue_8c0117fe();
     var_pvmQueueRear_8c157ac0 = var_pvmQueue_8c157abc;
-    var_queueBaseDir_8c157a80 = "DATA EMPTY";
+    var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
     var_pvmQueueIsIdle_8c157ac8 = 1;
 }
 
-/* Tested */
 void AsqFreeQueues_8c011f7e() {
     LOG_INFO(("[ASSET_QUEUES] Freeing queues\n"));
 
@@ -1208,13 +1142,12 @@ void AsqFreeQueues_8c011f7e() {
     var_queuesAreInitialized_8c157a60 = 0;
 }
 
-/* Tested */
 void AsqProcessQueues_8c011fe0(void *func, void *afterDatCallback, void *afterNjCallback, void *afterPvmCallback, void *afterTexlistCallback) {
     Task* created_task;
     TaskProcessQueuesState* created_state;
 
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, &taskProcessQueues_8c011e80, &created_task, (void**) &created_state, 0x18);
-    created_state->queue_0x00 = 0;
+    created_state->queue_0x00 = QUEUE_DAT;
     created_state->afterDatCallback_0x08 = afterDatCallback;
     created_state->afterNjCallback_0x0c = afterNjCallback;
     created_state->afterPvmCallback_0x10 = afterPvmCallback;
@@ -1224,7 +1157,6 @@ void AsqProcessQueues_8c011fe0(void *func, void *afterDatCallback, void *afterNj
     sortAndLoadDatQueue_8c011310();
 }
 
-/* Tested */
 LoadedModel* AsqRequestModels_8c012030(char *basedir, ModelFiles *pairs, int texlistCount) {
     int pairCount = 0;
     LoadedModel *dest;
@@ -1252,7 +1184,6 @@ LoadedModel* AsqRequestModels_8c012030(char *basedir, ModelFiles *pairs, int tex
     return dest;
 }
 
-/* Tested */
 void AsqFreeModels_8c0120fe(LoadedModel **pairsPtr) {
     int i;
     LoadedModel *pairs = *pairsPtr;
@@ -1273,18 +1204,15 @@ void AsqFreeModels_8c0120fe(LoadedModel **pairsPtr) {
     }
 }
 
-/* Tested */
 void AsqSetSeedA_8c012160(int seed) {
     var_seed_8c157acc = seed;
 }
 
-/* Tested */
 int AsqGetRandomA_8c012166() {
     var_seed_8c157acc = var_seed_8c157acc * 5 + 13;
     return var_seed_8c157acc;
 }
 
-/* Tested */
 int AsqGetRandomInRangeA_8c012178(unsigned int p1) {
     if (p1) {
         return AsqGetRandomA_8c012166() % p1;
@@ -1293,18 +1221,15 @@ int AsqGetRandomInRangeA_8c012178(unsigned int p1) {
     return 0;
 }
 
-/* Tested */
 void AsqSetSeedB_8c0121a2(int seed) {
     var_seed_8c157ad0 = seed;
 }
 
-/* Tested */
 int AsqGetRandomB_8c0121a8() {
     var_seed_8c157ad0 = (var_seed_8c157ad0 >> 1) * 7 + 0xb;
     return var_seed_8c157ad0;
 }
 
-/* Tested */
 int AsqGetRandomInRangeB_8c0121be(unsigned int p1) {
     if (p1) {
         return AsqGetRandomB_8c0121a8() % p1;
@@ -1313,80 +1238,79 @@ int AsqGetRandomInRangeB_8c0121be(unsigned int p1) {
     return 0;
 }
 
-/* Tested */
 void AsqApplyButtonConfig_8c0121e8() {
     int i;
 
     for (i = 0; i < 7; i++) {
-        init_btnRemap_8c03be80[i].physical_0x00 = init_btnRemap_8c03be80[i].logical_0x04;
+        init_btnRemapManual_8c03be80[i].physical_0x00 = init_btnRemapManual_8c03be80[i].logical_0x04;
     }
 
     if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5] != 0) {
         if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5] == 1) {
-            init_btnRemap_8c03be80[0].physical_0x00 = PDD_DGT_TA;
-            init_btnRemap_8c03be80[3].physical_0x00 = PDD_DGT_TX;
+            init_btnRemapManual_8c03be80[0].physical_0x00 = PDD_DGT_TA;
+            init_btnRemapManual_8c03be80[3].physical_0x00 = PDD_DGT_TX;
         } else if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5] == 2) {
-            init_btnRemap_8c03be80[1].physical_0x00 = PDD_DGT_TA;
-            init_btnRemap_8c03be80[3].physical_0x00 = PDD_DGT_TB;
+            init_btnRemapManual_8c03be80[1].physical_0x00 = PDD_DGT_TA;
+            init_btnRemapManual_8c03be80[3].physical_0x00 = PDD_DGT_TB;
         }
     }
 
     for (i = 0; i < 7; i++) {
-        init_btnRemapAlt_8c03beb8[i].physical_0x00 = init_btnRemapAlt_8c03beb8[i].logical_0x04;
+        init_btnRemapAuto_8c03beb8[i].physical_0x00 = init_btnRemapAuto_8c03beb8[i].logical_0x04;
     }
 
-    init_btnRemapAlt_8c03beb8[4].physical_0x00 = PDD_DGT_KL;
-    init_btnRemapAlt_8c03beb8[5].physical_0x00 = PDD_DGT_KR;
+    init_btnRemapAuto_8c03beb8[4].physical_0x00 = PDD_DGT_KL;
+    init_btnRemapAuto_8c03beb8[5].physical_0x00 = PDD_DGT_KR;
 
     if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6] != 0) {
         if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6] == 1) {
-            init_btnRemapAlt_8c03beb8[0].physical_0x00 = PDD_DGT_TA;
-            init_btnRemapAlt_8c03beb8[3].physical_0x00 = PDD_DGT_TX;
+            init_btnRemapAuto_8c03beb8[0].physical_0x00 = PDD_DGT_TA;
+            init_btnRemapAuto_8c03beb8[3].physical_0x00 = PDD_DGT_TX;
         } else if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6] == 2) {
-            init_btnRemapAlt_8c03beb8[1].physical_0x00 = PDD_DGT_TA;
-            init_btnRemapAlt_8c03beb8[3].physical_0x00 = PDD_DGT_TB;
+            init_btnRemapAuto_8c03beb8[1].physical_0x00 = PDD_DGT_TA;
+            init_btnRemapAuto_8c03beb8[3].physical_0x00 = PDD_DGT_TB;
         }
     }
 
     if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[7] == 0 || var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[7] != 1) {
-        init_btnRemapWheel_8c03bef0[0].physical_0x00 = PDD_DGT_KD;
-        init_btnRemapWheel_8c03bef0[1].physical_0x00 = PDD_DGT_KU;
-        init_btnRemapWheel_8c03bef0[2].physical_0x00 = PDD_DGT_TB;
-        init_btnRemapWheel_8c03bef0[3].physical_0x00 = PDD_DGT_TA;
+        init_btnRemapWheelManual_8c03bef0[0].physical_0x00 = PDD_DGT_KD;
+        init_btnRemapWheelManual_8c03bef0[1].physical_0x00 = PDD_DGT_KU;
+        init_btnRemapWheelManual_8c03bef0[2].physical_0x00 = PDD_DGT_TB;
+        init_btnRemapWheelManual_8c03bef0[3].physical_0x00 = PDD_DGT_TA;
     } else {
-        init_btnRemapWheel_8c03bef0[0].physical_0x00 = PDD_DGT_TB;
-        init_btnRemapWheel_8c03bef0[1].physical_0x00 = PDD_DGT_TA;
-        init_btnRemapWheel_8c03bef0[2].physical_0x00 = PDD_DGT_KD;
-        init_btnRemapWheel_8c03bef0[3].physical_0x00 = PDD_DGT_KU;
+        init_btnRemapWheelManual_8c03bef0[0].physical_0x00 = PDD_DGT_TB;
+        init_btnRemapWheelManual_8c03bef0[1].physical_0x00 = PDD_DGT_TA;
+        init_btnRemapWheelManual_8c03bef0[2].physical_0x00 = PDD_DGT_KD;
+        init_btnRemapWheelManual_8c03bef0[3].physical_0x00 = PDD_DGT_KU;
     }
 
-    init_btnRemapWheel_8c03bef0[4].physical_0x00 = PDD_DGT_ST;
+    init_btnRemapWheelManual_8c03bef0[4].physical_0x00 = PDD_DGT_ST;
 
     if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8] == 0) {
-        init_btnRemapWheelAlt_8c03bf18[0].physical_0x00 = PDD_DGT_KD;
-        init_btnRemapWheelAlt_8c03bf18[1].physical_0x00 = PDD_DGT_KU;
-        init_btnRemapWheelAlt_8c03bf18[2].physical_0x00 = PDD_DGT_TB;
-        init_btnRemapWheelAlt_8c03bf18[3].physical_0x00 = PDD_DGT_TA;
+        init_btnRemapWheelAuto_8c03bf18[0].physical_0x00 = PDD_DGT_KD;
+        init_btnRemapWheelAuto_8c03bf18[1].physical_0x00 = PDD_DGT_KU;
+        init_btnRemapWheelAuto_8c03bf18[2].physical_0x00 = PDD_DGT_TB;
+        init_btnRemapWheelAuto_8c03bf18[3].physical_0x00 = PDD_DGT_TA;
     } else {
         if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8] == 1) {
-            init_btnRemapWheelAlt_8c03bf18[0].physical_0x00 = PDD_DGT_TB;
-            init_btnRemapWheelAlt_8c03bf18[1].physical_0x00 = PDD_DGT_TA;
-            init_btnRemapWheelAlt_8c03bf18[2].physical_0x00 = PDD_DGT_KD;
-            init_btnRemapWheelAlt_8c03bf18[3].physical_0x00 = PDD_DGT_KU;
+            init_btnRemapWheelAuto_8c03bf18[0].physical_0x00 = PDD_DGT_TB;
+            init_btnRemapWheelAuto_8c03bf18[1].physical_0x00 = PDD_DGT_TA;
+            init_btnRemapWheelAuto_8c03bf18[2].physical_0x00 = PDD_DGT_KD;
+            init_btnRemapWheelAuto_8c03bf18[3].physical_0x00 = PDD_DGT_KU;
         } else {
             if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8] != 2) {
-                init_btnRemapWheelAlt_8c03bf18[0].physical_0x00 = PDD_DGT_KD;
-                init_btnRemapWheelAlt_8c03bf18[1].physical_0x00 = PDD_DGT_KU;
-                init_btnRemapWheelAlt_8c03bf18[2].physical_0x00 = PDD_DGT_TB;
-                init_btnRemapWheelAlt_8c03bf18[3].physical_0x00 = PDD_DGT_TA;
+                init_btnRemapWheelAuto_8c03bf18[0].physical_0x00 = PDD_DGT_KD;
+                init_btnRemapWheelAuto_8c03bf18[1].physical_0x00 = PDD_DGT_KU;
+                init_btnRemapWheelAuto_8c03bf18[2].physical_0x00 = PDD_DGT_TB;
+                init_btnRemapWheelAuto_8c03bf18[3].physical_0x00 = PDD_DGT_TA;
             } else {
-                init_btnRemapWheelAlt_8c03bf18[0].physical_0x00 = PDD_DGT_KL;
-                init_btnRemapWheelAlt_8c03bf18[1].physical_0x00 = PDD_DGT_KR;
-                init_btnRemapWheelAlt_8c03bf18[2].physical_0x00 = PDD_DGT_KD;
-                init_btnRemapWheelAlt_8c03bf18[3].physical_0x00 = PDD_DGT_KU;
+                init_btnRemapWheelAuto_8c03bf18[0].physical_0x00 = PDD_DGT_KL;
+                init_btnRemapWheelAuto_8c03bf18[1].physical_0x00 = PDD_DGT_KR;
+                init_btnRemapWheelAuto_8c03bf18[2].physical_0x00 = PDD_DGT_KD;
+                init_btnRemapWheelAuto_8c03bf18[3].physical_0x00 = PDD_DGT_KU;
             }
         }
     }
 
-    init_btnRemapWheelAlt_8c03bf18[4].physical_0x00 = PDD_DGT_ST;
+    init_btnRemapWheelAuto_8c03bf18[4].physical_0x00 = PDD_DGT_ST;
 }

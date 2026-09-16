@@ -70,7 +70,6 @@ return new class extends TestCase {
 
         /// First iteration
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -196,7 +195,6 @@ return new class extends TestCase {
 
         /// First iteration
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -310,13 +308,13 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $this->initUint32($this->addressOf('_var_texbuf_8c277ca0'), 0xbebacafe);
         $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), $this->addressOf('_var_texbuf_8c277ca0'));
 
-        $this->initUint32($this->addressOf('_var_8c157a88'), 0);
+        $this->initUint32($this->addressOf('_var_loadRetryNeeded_8c157a88'), 0);
         
         $this->shouldWriteLongTo('_var_njQueueIsIdle_8c157aa8', 1);
         $this->shouldCall('_TaskFree_8c014b66')->with($taskPtr);
@@ -378,16 +376,16 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $this->initUint32($this->addressOf('_var_texbuf_8c277ca0'), 0xbebacafe);
         $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), $this->addressOf('_var_texbuf_8c277ca0'));
 
-        $this->initUint32($this->addressOf('_var_8c157a88'), 1);
+        $this->initUint32($this->addressOf('_var_loadRetryNeeded_8c157a88'), 1);
 
         $this->shouldWrite($taskPtr + 0x18, $njQueue);
-        $this->shouldwriteTo('_var_8c157a88', 0);
+        $this->shouldwriteTo('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteStringTo('_var_queueBaseDir_8c157a80', 'DATA EMPTY');
 
         $this->singleCall('_taskLoadQueuedNjs_8c0114cc')
@@ -428,7 +426,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $sizeLocal = $this->isAsmObject() ? 0xffffd0 : 0xffffcc;
@@ -437,7 +435,6 @@ return new class extends TestCase {
 
         /// First iteration
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -512,14 +509,13 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $sizeLocal = $this->isAsmObject() ? 0xffffd0 : 0xffffcc;
         $fposLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd0;
         $rtypeLocal = $this->isAsmObject() ? 0xffffd8 : 0xffffd4;
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -603,14 +599,13 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $sizeLocal = $this->isAsmObject() ? 0xffffd0 : 0xffffcc;
         $fposLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd0;
         $rtypeLocal = $this->isAsmObject() ? 0xffffd8 : 0xffffd4;
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -719,14 +714,13 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $sizeLocal = $this->isAsmObject() ? 0xffffd0 : 0xffffcc;
         $fposLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd0;
         $rtypeLocal = $this->isAsmObject() ? 0xffffd8 : 0xffffd4;
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -816,7 +810,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
         
         $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), $this->addressOf('_var_texbuf_8c277ca0'));
@@ -825,7 +819,6 @@ return new class extends TestCase {
         $fposLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd0;
         $rtypeLocal = $this->isAsmObject() ? 0xffffd8 : 0xffffd4;
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -841,7 +834,7 @@ return new class extends TestCase {
             ->andReturn(0);
         $this->shouldWrite($taskPtr + 0x0c, 0);
 
-        $this->shouldWriteTo('_var_8c157a88', 1);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $njQueue + 1 * $sizeOfQueuedNj);
         $this->shouldWrite($taskPtr + 0x08, 0);
 
@@ -880,7 +873,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $readTarget = $this->alloc(4);
@@ -892,7 +885,6 @@ return new class extends TestCase {
         $fposLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd0;
         $rtypeLocal = $this->isAsmObject() ? 0xffffd8 : 0xffffd4;
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -910,7 +902,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_syFree')->with($readTarget);
 
-        $this->shouldWriteTo('_var_8c157a88', 1);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $njQueue + 1 * $sizeOfQueuedNj);
         $this->shouldWrite($taskPtr + 0x08, 0);
 
@@ -949,7 +941,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
         
         $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), $this->addressOf('_var_texbuf_8c277ca0'));
@@ -958,7 +950,6 @@ return new class extends TestCase {
         $fposLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd0;
         $rtypeLocal = $this->isAsmObject() ? 0xffffd8 : 0xffffd4;
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -981,7 +972,7 @@ return new class extends TestCase {
             })
             ->andReturn(0);
 
-        $this->shouldWriteTo('_var_8c157a88', 1);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $njQueue + 1 * $sizeOfQueuedNj);
         $this->shouldWrite($taskPtr + 0x08, 0);
 
@@ -1020,7 +1011,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $readTarget = $this->alloc(4);
@@ -1031,7 +1022,6 @@ return new class extends TestCase {
         $fposLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd0;
         $rtypeLocal = $this->isAsmObject() ? 0xffffd8 : 0xffffd4;
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -1056,7 +1046,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_syFree')->with($readTarget);
 
-        $this->shouldWriteTo('_var_8c157a88', 1);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $njQueue + 1 * $sizeOfQueuedNj);
         $this->shouldWrite($taskPtr + 0x08, 0);
 
@@ -1095,7 +1085,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
         
         $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), $this->addressOf('_var_texbuf_8c277ca0'));
@@ -1104,7 +1094,6 @@ return new class extends TestCase {
         $fposLocal = $this->isAsmObject() ? 0xffffd4 : 0xffffd0;
         $rtypeLocal = $this->isAsmObject() ? 0xffffd8 : 0xffffd4;
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -1133,7 +1122,7 @@ return new class extends TestCase {
             ->with(0xf5f50000, 0x100, $this->addressOf('_var_texbuf_8c277ca0'))
             ->andReturn(-13); // GDD_ERR_BUSY
 
-        $this->shouldWriteTo('_var_8c157a88', 1);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $njQueue + 1 * $sizeOfQueuedNj);
         $this->shouldWrite($taskPtr + 0x08, 0);
 
@@ -1172,7 +1161,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
         $this->initUint32($taskPtr + 0x08, 0);
-        // task->queuedDat_0x18 points to the first item in the queue
+        // task->queuedNj_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $njQueue);
 
         $sizeLocal = $this->isAsmObject() ? 0xffffd0 : 0xffffcc;
@@ -1181,7 +1170,6 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_texbuf_8c277ca0'), 0xbebacafe);
 
-        // TODO: Implement blind shouldRead
 
         $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
         $this->shouldCall($strCmp)
@@ -1216,7 +1204,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_syFree')->with($texBuf);
 
-        $this->shouldWriteTo('_var_8c157a88', 1);
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $njQueue + 1 * $sizeOfQueuedNj);
         $this->shouldWrite($taskPtr + 0x08, 0);
 
@@ -1683,7 +1671,7 @@ return new class extends TestCase {
         $this->shouldCall('_gdFsClose')
             ->with(0xf5f50000);
 
-        $this->shouldwriteTo('_var_8c157a88', 1);
+        $this->shouldwriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $njQueue + 1 * $sizeOfQueuedNj);
         $this->shouldWrite($taskPtr + 0x08, 0);
 
@@ -1733,7 +1721,7 @@ return new class extends TestCase {
         $this->shouldCall('_syFree')->with(0xbebacafe);
         $this->shouldCall('_syFree')->with(0xbebacafe);
         
-        $this->shouldwriteTo('_var_8c157a88', 1);
+        $this->shouldwriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $njQueue + 1 * $sizeOfQueuedNj);
         $this->shouldWrite($taskPtr + 0x08, 0);
 
