@@ -96,7 +96,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function test_doNotSortWhen8c157a6cIsZero()
+    public function test_skipsSortWhenLoadScreenInactive()
     {
         $sizeOfQueuedPvm = 0x18;
         $queueSize = 16;

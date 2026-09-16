@@ -77,7 +77,7 @@ return new class extends TestCase {
             ->andReturn(strcmp('\\DIR_A', 'DATA EMPTY'));
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe0002, 0)
@@ -202,7 +202,7 @@ return new class extends TestCase {
             ->andReturn(strcmp('\\DIR_A', 'DATA EMPTY'));
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe0002, 0)
@@ -442,7 +442,7 @@ return new class extends TestCase {
             ->andReturn(strcmp('\\DIR_A', 'DATA EMPTY'));
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe0002, 0)
@@ -523,7 +523,7 @@ return new class extends TestCase {
             ->andReturn(strcmp('\\DIR_A', 'DATA EMPTY'));
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe0002, 0)
@@ -613,7 +613,7 @@ return new class extends TestCase {
             ->andReturn(strcmp('\\DIR_A', 'DATA EMPTY'));
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe0002, 0)
@@ -728,7 +728,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirBStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirBStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirBStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe2002, 0)
@@ -826,7 +826,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         // task->gdfs_0x0c = gdFsOpen(...)
         $this->shouldCall('_gdFsOpen')
@@ -892,7 +892,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         // task->gdfs_0x0c = gdFsOpen(...)
         $this->shouldCall('_gdFsOpen')
@@ -957,7 +957,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         // task->gdfs_0x0c = gdFsOpen(...)
         $this->shouldCall('_gdFsOpen')
@@ -1029,7 +1029,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         // task->gdfs_0x0c = gdFsOpen(...)
         $this->shouldCall('_gdFsOpen')
@@ -1101,7 +1101,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         // task->gdfs_0x0c = gdFsOpen(...)
         $this->shouldCall('_gdFsOpen')
@@ -1177,7 +1177,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirAStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirAStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirAStrAddress);
 
         // task->gdfs_0x0c = gdFsOpen(...)
         $this->shouldCall('_gdFsOpen')
@@ -1728,6 +1728,49 @@ return new class extends TestCase {
         $this->singleCall('_taskLoadQueuedNjs_8c0114cc')
             ->with($taskPtr, 0)
             ->run();
+    }
+
+    public function test_case1_errorPathAdvancesPastTheCurrentItem()
+    {
+        $this->resolveImports();
+
+        $sizeOfQueuedNj = 0x14;
+        $njQueue = $this->alloc(16 * $sizeOfQueuedNj);
+
+        $this->initQueuedNj(
+            address:  $njQueue + 2 * $sizeOfQueuedNj,
+            basedir:  0xcafe2001,
+            filename: 0xcafe2002,
+            dest:     0xcafe2003,
+            dest2:    0xcafe2004,
+            flag:     0,
+        );
+
+        $taskPtr = $this->alloc(0x20);
+        $this->initUint32($taskPtr + 0x08, 1);
+        $this->initUint32($taskPtr + 0x0c, 0xf5f50000);
+        $this->initUint32($taskPtr + 0x18, $njQueue + 2 * $sizeOfQueuedNj);
+
+        $this->initUint32($this->addressOf('_var_texbuf_8c277ca0'), 0xdeadbeef);
+        $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), 0xbebacafe);
+
+        $this->call('_taskLoadQueuedNjs_8c0114cc')->with($taskPtr, 0);
+
+        $this->shouldCall('_gdFsGetStat')
+            ->with(0xf5f50000)
+            ->andReturn(3); // GDD_STAT_SEEK
+
+        $this->shouldCall('_gdFsClose')
+            ->with(0xf5f50000);
+
+        // Original-game bug: this path runs its own free and then falls into
+        // the shared error epilogue, which frees the same buffer again.
+        $this->shouldCall('_syFree')->with(0xbebacafe);
+        $this->shouldCall('_syFree')->with(0xbebacafe);
+
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
+        $this->shouldWrite($taskPtr + 0x18, $njQueue + 3 * $sizeOfQueuedNj);
+        $this->shouldWrite($taskPtr + 0x08, 0);
     }
 
     public function test_case2()

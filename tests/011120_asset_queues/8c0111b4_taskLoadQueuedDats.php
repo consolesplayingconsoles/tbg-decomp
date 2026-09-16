@@ -50,7 +50,7 @@ return new class extends TestCase {
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $datQueue);
 
-        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd4;
+        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd8;
 
         /// First iteration
 
@@ -61,7 +61,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe0002, 0)
@@ -147,7 +147,7 @@ return new class extends TestCase {
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $datQueue);
 
-        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd4;
+        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd8;
 
         /// First iteration
 
@@ -158,7 +158,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe0002, 0)
@@ -243,7 +243,7 @@ return new class extends TestCase {
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $datQueue);
 
-        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd4;
+        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd8;
 
         $this->shouldReadFrom('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $datQueue);
@@ -303,7 +303,7 @@ return new class extends TestCase {
         // task->queuedDat_0x18 points to the first item in the queue
         $this->initUint32($taskPtr + 0x18, $datQueue);
 
-        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd4;
+        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd8;
 
         $this->shouldReadFrom('_var_loadRetryNeeded_8c157a88', 0);
         $this->shouldWriteTo('_var_datQueueIsIdle_8c157a98', 1);
@@ -313,6 +313,191 @@ return new class extends TestCase {
         $this->singleCall('_taskLoadQueuedDats_8c0111b4')
             ->with($taskPtr, 0)
             ->run();
+    }
+
+    /*
+     * The three case-0 failure paths below share one epilogue (L17/L18 in the
+     * archived asm): set the retry flag, step the cursor past the item that
+     * failed, go back to phase 0.
+     */
+
+    public function test_case0_openFailureMarksRetryAndAdvances()
+    {
+        $this->resolveImports();
+
+        $sizeOfQueuedDat = 0x10;
+        $datQueue = $this->alloc(16 * $sizeOfQueuedDat);
+
+        $dirStrAddress = $this->allocString('\\DIR');
+        $this->initUint32($this->addressOf('_var_queueBaseDir_8c157a80'), $dirStrAddress);
+
+        $this->initQueuedDat($datQueue, $dirStrAddress, 0xcafe0002, 0xcafe0003, 0);
+        $this->initUint32(
+            $this->addressOf('_var_datQueueRear_8c157a90'),
+            $datQueue + 1 * $sizeOfQueuedDat
+        );
+
+        $taskPtr = $this->alloc(0x20);
+        $this->initUint32($taskPtr + 0x08, 0);
+        $this->initUint32($taskPtr + 0x18, $datQueue);
+
+        $this->call('_taskLoadQueuedDats_8c0111b4')->with($taskPtr, 0);
+
+        // Already in the item's basedir, so no gdFsChangeDir.
+        $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
+        $this->shouldCall($strCmp)
+            ->with($dirStrAddress, $dirStrAddress)
+            ->andReturn(0);
+
+        $this->shouldCall('_gdFsOpen')
+            ->with(0xcafe0002, 0)
+            ->andReturn(0);
+        $this->shouldWrite($taskPtr + 0x0c, 0);
+
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
+        $this->shouldWrite($taskPtr + 0x18, $datQueue + 1 * $sizeOfQueuedDat);
+        $this->shouldWrite($taskPtr + 0x08, 0);
+    }
+
+    public function test_case0_sizeQueryFailureMarksRetryAndAdvances()
+    {
+        $this->resolveImports();
+
+        $sizeOfQueuedDat = 0x10;
+        $datQueue = $this->alloc(16 * $sizeOfQueuedDat);
+
+        $dirStrAddress = $this->allocString('\\DIR');
+        $this->initUint32($this->addressOf('_var_queueBaseDir_8c157a80'), $dirStrAddress);
+
+        $this->initQueuedDat($datQueue, $dirStrAddress, 0xcafe0002, 0xcafe0003, 0);
+        $this->initUint32(
+            $this->addressOf('_var_datQueueRear_8c157a90'),
+            $datQueue + 1 * $sizeOfQueuedDat
+        );
+
+        $taskPtr = $this->alloc(0x20);
+        $this->initUint32($taskPtr + 0x08, 0);
+        $this->initUint32($taskPtr + 0x18, $datQueue);
+
+        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd8;
+
+        $this->call('_taskLoadQueuedDats_8c0111b4')->with($taskPtr, 0);
+
+        $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
+        $this->shouldCall($strCmp)
+            ->with($dirStrAddress, $dirStrAddress)
+            ->andReturn(0);
+
+        $this->shouldCall('_gdFsOpen')
+            ->with(0xcafe0002, 0)
+            ->andReturn(0xf5f50000);
+        $this->shouldWrite($taskPtr + 0x0c, 0xf5f50000);
+
+        $this->shouldCall('_gdFsGetFileSctSize')
+            ->with(0xf5f50000, $sizeLocal)
+            ->andReturn(0);
+
+        // No syMalloc, no gdFsRead: the file is abandoned unopened-for-read.
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
+        $this->shouldWrite($taskPtr + 0x18, $datQueue + 1 * $sizeOfQueuedDat);
+        $this->shouldWrite($taskPtr + 0x08, 0);
+    }
+
+    public function test_case0_readFailureMarksRetryAndLeavesTheBufferAllocated()
+    {
+        $this->resolveImports();
+
+        $sizeOfQueuedDat = 0x10;
+        $datQueue = $this->alloc(16 * $sizeOfQueuedDat);
+
+        $dirStrAddress = $this->allocString('\\DIR');
+        $this->initUint32($this->addressOf('_var_queueBaseDir_8c157a80'), $dirStrAddress);
+
+        $dat1Dest = $this->alloc(4);
+        $this->initQueuedDat($datQueue, $dirStrAddress, 0xcafe0002, $dat1Dest, 0);
+        $this->initUint32(
+            $this->addressOf('_var_datQueueRear_8c157a90'),
+            $datQueue + 1 * $sizeOfQueuedDat
+        );
+
+        $taskPtr = $this->alloc(0x20);
+        $this->initUint32($taskPtr + 0x08, 0);
+        $this->initUint32($taskPtr + 0x18, $datQueue);
+
+        $sizeLocal = $this->isAsmObject() ? 0xffffdc : 0xffffd8;
+
+        $this->call('_taskLoadQueuedDats_8c0111b4')->with($taskPtr, 0);
+
+        $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
+        $this->shouldCall($strCmp)
+            ->with($dirStrAddress, $dirStrAddress)
+            ->andReturn(0);
+
+        $this->shouldCall('_gdFsOpen')
+            ->with(0xcafe0002, 0)
+            ->andReturn(0xf5f50000);
+        $this->shouldWrite($taskPtr + 0x0c, 0xf5f50000);
+
+        $this->shouldCall('_gdFsGetFileSctSize')
+            ->with(0xf5f50000, $sizeLocal)
+            ->do(function (...$params) use ($sizeLocal) {
+                $this->writeUInt32($sizeLocal, 0, U32::of(5));
+            })
+            ->andReturn(1);
+
+        $this->shouldCall('_syMalloc')
+            ->with(5 * 2048)
+            ->andReturn(0xbebacafe);
+        $this->shouldWrite($dat1Dest, 0xbebacafe);
+
+        $this->shouldCall('_gdFsRead')
+            ->with(0xf5f50000, 5, 0xbebacafe)
+            ->andReturn(1); // not GDD_ERR_OK
+
+        // The destination buffer is neither freed nor cleared; the retry pass
+        // mallocs another one over it.
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
+        $this->shouldWrite($taskPtr + 0x18, $datQueue + 1 * $sizeOfQueuedDat);
+        $this->shouldWrite($taskPtr + 0x08, 0);
+    }
+
+    public function test_case0_failureAdvancesPastTheFailedItemNotTheTaskCursor()
+    {
+        $this->resolveImports();
+
+        $sizeOfQueuedDat = 0x10;
+        $datQueue = $this->alloc(16 * $sizeOfQueuedDat);
+
+        $dirStrAddress = $this->allocString('\\DIR');
+        $this->initUint32($this->addressOf('_var_queueBaseDir_8c157a80'), $dirStrAddress);
+
+        // Item 0 is already loaded, so the scan skips it and fails on item 1.
+        $this->initQueuedDat($datQueue, 0xcafe0001, 0xcafe0002, 0xcafe0003, 1);
+        $this->initQueuedDat($datQueue + 1 * $sizeOfQueuedDat, $dirStrAddress, 0xcafe1002, 0xcafe1003, 0);
+        $this->initUint32(
+            $this->addressOf('_var_datQueueRear_8c157a90'),
+            $datQueue + 2 * $sizeOfQueuedDat
+        );
+
+        $taskPtr = $this->alloc(0x20);
+        $this->initUint32($taskPtr + 0x08, 0);
+        $this->initUint32($taskPtr + 0x18, $datQueue);
+
+        $this->call('_taskLoadQueuedDats_8c0111b4')->with($taskPtr, 0);
+
+        $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
+        $this->shouldCall($strCmp)
+            ->with($dirStrAddress, $dirStrAddress)
+            ->andReturn(0);
+
+        $this->shouldCall('_gdFsOpen')
+            ->with(0xcafe1002, 0)
+            ->andReturn(0);
+        $this->shouldWrite($taskPtr + 0x0c, 0);
+
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
+        $this->shouldWrite($taskPtr + 0x18, $datQueue + 2 * $sizeOfQueuedDat);
+        $this->shouldWrite($taskPtr + 0x08, 0);
     }
 
     public function test_case1_gdfsStatComplete()
@@ -516,7 +701,7 @@ return new class extends TestCase {
             ->andReturn(4); // GDD_STAT_BUSY
         $this->shouldCall('_gdFsClose')
             ->with(0xbebacafe);
-        $this->shouldCall('_syFree', 0xcafe1000);
+        $this->shouldCall('_syFree')->with(0xcafe1000);
 
         $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
         $this->shouldWrite($taskPtr + 0x18, $datQueue + $sizeOfQueuedDat);
@@ -543,6 +728,14 @@ return new class extends TestCase {
         $this->singleCall('_taskLoadQueuedDats_8c0111b4')
             ->with($taskPtr, 0)
             ->run();
+    }
+
+    protected function initQueuedDat(int $address, int $basedir, int $filename, int $dest, int $loaded): void
+    {
+        $this->initUint32($address + 0x00, $basedir);
+        $this->initUint32($address + 0x04, $filename);
+        $this->initUint32($address + 0x08, $dest);
+        $this->initUint32($address + 0x0c, $loaded);
     }
 
     private function resolveImports()

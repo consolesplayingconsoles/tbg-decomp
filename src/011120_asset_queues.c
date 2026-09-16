@@ -268,14 +268,14 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                     task->gdfs_0x0c = gdFsOpen(item->filename, 0);
                     if (task->gdfs_0x0c == NULL) {
                         var_loadRetryNeeded_8c157a88 = 1;
-                        task->queuedDat_0x18++;
+                        task->queuedDat_0x18 = item + 1;
                         task->phase_0x08 = 0;
                         return;
                     }
 
                     if (!gdFsGetFileSctSize(task->gdfs_0x0c, &size)) {
                         var_loadRetryNeeded_8c157a88 = 1;
-                        task->queuedDat_0x18++;
+                        task->queuedDat_0x18 = item + 1;
                         task->phase_0x08 = 0;
                         return;
                     }
@@ -284,14 +284,14 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
 
                     if (gdFsRead(task->gdfs_0x0c, size, *item->dest) != GDD_ERR_OK) {
                         var_loadRetryNeeded_8c157a88 = 1;
-                        task->queuedDat_0x18++;
+                        task->queuedDat_0x18 = item + 1;
                         task->phase_0x08 = 0;
                         return;
                     }
 
                     gdFsClose(task->gdfs_0x0c);
                     item->loaded_0x0c = 1;
-                    task->queuedDat_0x18 = ++item;
+                    task->queuedDat_0x18 = item + 1;
                     task->phase_0x08 = 0;
                     return;
                 }
@@ -317,7 +317,7 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                 case GDD_STAT_COMPLETE: {
                     gdFsClose(task->gdfs_0x0c);
                     item->loaded_0x0c = 1;
-                    task->queuedDat_0x18++;
+                    task->queuedDat_0x18 = item + 1;
                     task->phase_0x08 = 0;
                     return;
                 } 
@@ -329,9 +329,9 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                 } 
                 default: {
                     gdFsClose(task->gdfs_0x0c);
-                    syFree(item->dest);
+                    syFree(*item->dest);
                     var_loadRetryNeeded_8c157a88 = 1;
-                    task->queuedDat_0x18++;
+                    task->queuedDat_0x18 = item + 1;
                     task->phase_0x08 = 0;
                     break;
                 }

@@ -66,7 +66,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe0002, 0)
@@ -186,7 +186,7 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteTo('_var_queueBaseDir_8c157a80', $dirStrAddress);
-        $this->shouldCall('_gdFsChangeDir', $dirStrAddress);
+        $this->shouldCall('_gdFsChangeDir')->with($dirStrAddress);
 
         $this->shouldCall('_gdFsOpen')
             ->with(0xcafe1002, 0)
@@ -375,7 +375,7 @@ return new class extends TestCase {
         $sizeOfQueuedPvm = 0x18;
         $queueSize = 16;
         $pvmQueue = $this->alloc($queueSize * $sizeOfQueuedPvm);
-        $this->initUint32($this->addressOf('_var_pvmQueue_8c157a8c'), $pvmQueue);
+        $this->initUint32($this->addressOf('_var_pvmQueue_8c157abc'), $pvmQueue);
 
         $dataEmptyStrAddress = $this->allocString('DATA EMPTY');
         $dirStrAddress = $this->allocString('\\DIR');
@@ -444,7 +444,7 @@ return new class extends TestCase {
         $sizeOfQueuedPvm = 0x18;
         $queueSize = 16;
         $pvmQueue = $this->alloc($queueSize * $sizeOfQueuedPvm);
-        $this->initUint32($this->addressOf('_var_pvmQueue_8c157a8c'), $pvmQueue);
+        $this->initUint32($this->addressOf('_var_pvmQueue_8c157abc'), $pvmQueue);
 
         $dataEmptyStrAddress = $this->allocString('DATA EMPTY');
         $dirStrAddress = $this->allocString('\\DIR');
@@ -481,7 +481,7 @@ return new class extends TestCase {
         $sizeOfQueuedPvm = 0x18;
         $queueSize = 16;
         $pvmQueue = $this->alloc($queueSize * $sizeOfQueuedPvm);
-        $this->initUint32($this->addressOf('_var_pvmQueue_8c157a8c'), $pvmQueue);
+        $this->initUint32($this->addressOf('_var_pvmQueue_8c157abc'), $pvmQueue);
 
         $dataEmptyStrAddress = $this->allocString('DATA EMPTY');
         $dirStrAddress = $this->allocString('\\DIR');
@@ -516,7 +516,7 @@ return new class extends TestCase {
         $sizeOfQueuedPvm = 0x18;
         $queueSize = 16;
         $pvmQueue = $this->alloc($queueSize * $sizeOfQueuedPvm);
-        $this->initUint32($this->addressOf('_var_pvmQueue_8c157a8c'), $pvmQueue);
+        $this->initUint32($this->addressOf('_var_pvmQueue_8c157abc'), $pvmQueue);
 
         $dataEmptyStrAddress = $this->allocString('DATA EMPTY');
         $dirStrAddress = $this->allocString('\\DIR');
@@ -555,6 +555,124 @@ return new class extends TestCase {
             ->run();
     }
 
+    public function test_case0_bigFileGetsItsOwnBufferAndFreesItAfterLoad()
+    {
+        $this->resolveImports();
+
+        $sizeOfQueuedPvm = 0x18;
+        $pvmQueue = $this->alloc(16 * $sizeOfQueuedPvm);
+
+        $dirStrAddress = $this->allocString('\\DIR');
+        $this->initUint32($this->addressOf('_var_queueBaseDir_8c157a80'), $dirStrAddress);
+
+        $pvm1Texlist = $this->alloc(4);
+        $this->initUint32($pvmQueue + 0x00, $dirStrAddress); // char* basedir;
+        $this->initUint32($pvmQueue + 0x04, 0xcafe0002); // char* filename;
+        $this->initUint32($pvmQueue + 0x08, $pvm1Texlist); // void** texlist_0x08;
+        $this->initUint32($pvmQueue + 0x0c, 2); // int count_0x0c;
+        $this->initUint32($pvmQueue + 0x10, 0xcafe0005); // int attr_0x10;
+        $this->initUint32($pvmQueue + 0x14, 0); // int loaded_0x14;
+
+        $this->initUint32(
+            $this->addressOf('_var_pvmQueueRear_8c157ac0'),
+            $pvmQueue + 1 * $sizeOfQueuedPvm
+        );
+
+        $taskPtr = $this->alloc(0x20);
+        $this->initUint32($taskPtr + 0x08, 0);
+        $this->initUint32($taskPtr + 0x18, $pvmQueue);
+
+        $sizeLocal = 0xffffd4;
+
+        $this->call('_taskLoadQueuedPvms_8c011b00')->with($taskPtr, 0);
+
+        // Already in the item's basedir, so no gdFsChangeDir.
+        $strCmp = $this->isAsmObject() ? '_strcmp' : '__slow_strcmp1';
+        $this->shouldCall($strCmp)
+            ->with($dirStrAddress, $dirStrAddress)
+            ->andReturn(0);
+
+        $this->shouldCall('_gdFsOpen')
+            ->with(0xcafe0002, 0)
+            ->andReturn(0xf5f50000);
+        $this->shouldWrite($taskPtr + 0x0c, 0xf5f50000);
+
+        $this->shouldCall('_gdFsGetFileSctSize')
+            ->with(0xf5f50000, $sizeLocal)
+            ->do(function (...$params) use ($sizeLocal) {
+                $this->writeUInt32($sizeLocal, 0, U32::of(0x101));
+            })
+            ->andReturn(1);
+
+        // Over BIG_FILE_SECTORS, so the file gets a buffer of its own rather
+        // than the shared var_texbuf_8c277ca0.
+        $this->shouldCall('_syMalloc')
+            ->with(0x101 * 2048)
+            ->andReturn(0xbebacafe);
+        $this->shouldWriteTo('_var_queueBuffer_8c157a84', 0xbebacafe);
+
+        $this->shouldCall('_gdFsRead')
+            ->with(0xf5f50000, 0x101, 0xbebacafe)
+            ->andReturn(0); // GDD_ERR_OK
+
+        $this->shouldCall('_gdFsClose')
+            ->with(0xf5f50000);
+        $this->shouldWrite($pvmQueue + 0x14, 1);
+
+        $this->shouldCall('_syMalloc')->with(8)->andReturn(0xa110c001);
+        $this->shouldWrite($pvm1Texlist, 0xa110c001);
+
+        $texname = $this->alloc(2 * 0x0c);
+        $this->shouldCall('_syMalloc')->with(2 * 0x0c)->andReturn($texname);
+        $this->shouldWrite($texname + 0x00 + 0x04, 0xcafe0005);
+        $this->shouldWrite($texname + 0x0c + 0x04, 0xcafe0005);
+
+        $this->shouldCall('_syMalloc')->with(2 * 0x1c)->andReturn(0xa110c002);
+
+        $this->shouldCall('_njSetPvmTextureList')
+            ->with(0xa110c001, $texname, 0xa110c002, 2);
+
+        $this->shouldCall('_njLoadTexturePvmMemory')
+            ->with(0xbebacafe, 0xa110c001);
+
+        $this->shouldCall('_syFree')->with(0xbebacafe);
+
+        $this->shouldWrite($taskPtr + 0x18, $pvmQueue + 1 * $sizeOfQueuedPvm);
+        $this->shouldWrite($taskPtr + 0x08, 0);
+    }
+
+    public function test_case1_errorPathFreesTheOwnBufferAndAdvancesPastTheCurrentItem()
+    {
+        $this->resolveImports();
+
+        $sizeOfQueuedPvm = 0x18;
+        $pvmQueue = $this->alloc(16 * $sizeOfQueuedPvm);
+        $this->initUint32($this->addressOf('_var_pvmQueue_8c157abc'), $pvmQueue);
+
+        $this->initUint32($this->addressOf('_var_queueBuffer_8c157a84'), 0xbebacafe);
+
+        $taskPtr = $this->alloc(0x20);
+        $this->initUint32($taskPtr + 0x08, 1);
+        $this->initUint32($taskPtr + 0x0c, 0xf5f50000);
+        $this->initUint32($taskPtr + 0x18, $pvmQueue + 2 * $sizeOfQueuedPvm);
+
+        $this->call('_taskLoadQueuedPvms_8c011b00')->with($taskPtr, 0);
+
+        $this->shouldCall('_gdFsGetStat')
+            ->with(0xf5f50000)
+            ->andReturn(4); // GDD_STAT_BUSY
+
+        $this->shouldCall('_gdFsClose')
+            ->with(0xf5f50000);
+
+        // Its own buffer, so it is released -- once, unlike the Nj loader.
+        $this->shouldCall('_syFree')->with(0xbebacafe);
+
+        $this->shouldWriteTo('_var_loadRetryNeeded_8c157a88', 1);
+        $this->shouldWrite($taskPtr + 0x18, $pvmQueue + 3 * $sizeOfQueuedPvm);
+        $this->shouldWrite($taskPtr + 0x08, 0);
+    }
+
     public function test_nocase()
     {
         $this->resolveImports();
@@ -562,7 +680,7 @@ return new class extends TestCase {
         $sizeOfQueuedPvm = 0x18;
         $queueSize = 16;
         $pvmQueue = $this->alloc($queueSize * $sizeOfQueuedPvm);
-        $this->initUint32($this->addressOf('_var_pvmQueue_8c157a8c'), $pvmQueue);
+        $this->initUint32($this->addressOf('_var_pvmQueue_8c157abc'), $pvmQueue);
 
         $taskPtr = $this->alloc(0x20);
         // task->phase_0x08
