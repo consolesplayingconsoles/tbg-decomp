@@ -516,8 +516,8 @@ STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
             if (RouteLoadGetLatch_8c01432a() != 0) {
                 TileStreamInit_8c02175a();
                 TrafficRelocatePlacementTable_8c026da4(var_currentCourse_8c1bb868.macCpu1_0x24);
-                FUN_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
-                FUN_8c028dd0(var_currentCourse_8c1bb868.macHumM0_0x34);
+                ObjectsRelocatePedGroupDefs_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
+                ObjectsRelocatePedGroupLists_8c028dd0(var_currentCourse_8c1bb868.macHumM0_0x34);
                 BusStopSetup_8c02caba();
                 // Arm this segment's cutscene first: syncSegmentModels reads cutsceneActive.
                 EventPickForSegment_8c02b170();
@@ -684,8 +684,8 @@ void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state)
             if (RouteLoadGetLatch_8c01432a() != 0) {
                 TileStreamInit_8c02175a();
                 TrafficRelocatePlacementTable_8c026da4(var_currentCourse_8c1bb868.macCpu1_0x24);
-                FUN_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
-                FUN_8c028dd0(var_currentCourse_8c1bb868.macHumM0_0x34);
+                ObjectsRelocatePedGroupDefs_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
+                ObjectsRelocatePedGroupLists_8c028dd0(var_currentCourse_8c1bb868.macHumM0_0x34);
                 BusStopSetup_8c02caba();
                 // Arm this segment's cutscene first: syncSegmentModels reads cutsceneActive.
                 EventPickForSegment_8c02b170();

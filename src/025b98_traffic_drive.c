@@ -11,7 +11,7 @@
 #include "02f0c8_traffic_path_scan.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanJunctionOccupied_8c02f28a */
 #include "0207d4_vec_xz.h" /* VecXZDot_8c0207d4, PointXZ */
 #include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
-#include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
+#include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsMarkCrossingOccupied_8c028984/98 */
 #include "013ae8_route_load.h"  /* var_timeOfDay_8c18ad20 */
 #include "sectionB.h"           /* var_activeTrafficPreset_8c227e14, var_busState_8c1bb9d0, ... */
 
@@ -283,20 +283,20 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             }
 
             if (e->attachmentWaitState_0x458 == 2) {
-                if (ObjectsFUN_8c028998(e->attachmentId_0x45c) != 0) {
+                if (ObjectsIsPedCrossing_8c028998(e->attachmentId_0x45c) != 0) {
                     stopFlag = 1;
                 }
             } else if (e->attachmentWaitState_0x458 == 3) {
                 if (signalId == (Sint32)e->attachmentExitSignalId_0x460) {
                     e->attachmentWaitState_0x458 = 0;
                 } else {
-                    ObjectsFUN_8c028984(e->attachmentId_0x45c);
+                    ObjectsMarkCrossingOccupied_8c028984(e->attachmentId_0x45c);
                 }
             }
 
             if (e->pendingAttachmentRelease_0x498 != 0) {
                 if (e->attachmentArmedBlock_0x464 == e->blockIndex_0x300) {
-                    ObjectsFUN_8c028984(e->pendingAttachmentRelease_0x498);
+                    ObjectsMarkCrossingOccupied_8c028984(e->pendingAttachmentRelease_0x498);
                 } else {
                     e->pendingAttachmentRelease_0x498 = 0;
                 }

@@ -4750,10 +4750,10 @@ int ObjectsGetTrafficSignalFrame_8c028900(int index)
 {
     return var_trafficSignalFrames_8c227e24[index];
 }
-/* Resets var_pedCrossingFlags_8c227e2c (per-signal-id "a pedestrian is crossing here" flags,
- * read externally via ObjectsFUN_8c028998, e.g. by the 026710 traffic
- * vehicle spawner) for the frame; called once per frame by
- * pedestriansTask_8c0293f6 before any pedestrianTask_8c028e00 re-marks it. */
+/* Clears the per-signal-id "a pedestrian is crossing here" flags for the frame.
+ * Called by pedestriansTask_8c0293f6 before any pedestrianTask_8c028e00 re-marks
+ * one; the 026710 traffic vehicle spawner reads them back through
+ * ObjectsIsPedCrossing_8c028998. */
 STATIC void clearPedCrossingFlags_8c02890c(void)
 {
     int i;
@@ -4764,7 +4764,7 @@ STATIC void clearPedCrossingFlags_8c02890c(void)
     }
 }
 
-void ObjectsFUN_8c028958(void)
+void ObjectsClearCrossingOccupied_8c028958(void)
 {
     int i;
 
@@ -4779,20 +4779,19 @@ STATIC void markPedCrossing_8c02897a(int index)
     var_pedCrossingFlags_8c227e2c[index] = 1;
 }
 
-void ObjectsFUN_8c028984(int index)
+void ObjectsMarkCrossingOccupied_8c028984(int index)
 {
     var_crossingOccupiedFlags_8c22802c[index] = 1;
 }
 
-/* Set externally (e.g. by the 026710 traffic vehicle spawner) via
- * ObjectsFUN_8c028984/ObjectsFUN_8c028958; gates pedestrianTask_8c028e00 from
- * starting to cross a signal. */
+/* The mirror of the flags above: 026710 marks a crossing occupied while one of
+ * its vehicles is on it, which gates pedestrianTask_8c028e00 from stepping out. */
 STATIC int isCrossingOccupied_8c02898e(int index)
 {
     return var_crossingOccupiedFlags_8c22802c[index];
 }
 
-int ObjectsFUN_8c028998(int index)
+int ObjectsIsPedCrossing_8c028998(int index)
 {
     return var_pedCrossingFlags_8c227e2c[index];
 }
@@ -5000,7 +4999,10 @@ STATIC void drawPedestrians_8c028b74(int arg0)
     syFree(cache);
 }
 
-void FUN_8c028dd0(void *handle)
+/* Relocation fixup for a freshly-loaded macHumM0 blob (which becomes
+ * var_pedGroupLists_8c228240): a 0-terminated array of self-relative offsets,
+ * each turned into an absolute pointer in place. */
+void ObjectsRelocatePedGroupLists_8c028dd0(void *handle)
 {
     int *entry = handle;
     while (*entry != 0) {
@@ -5013,7 +5015,7 @@ void FUN_8c028dd0(void *handle)
  * the array's own base address to each entry's specs_0x08, converting it from
  * a self-relative offset to an absolute pointer. Terminated by an entry whose
  * id_0x00 is -1. */
-void FUN_8c028de8(void *handle)
+void ObjectsRelocatePedGroupDefs_8c028de8(void *handle)
 {
     int *entry = handle;
     while (entry[0] != -1) {
@@ -6168,9 +6170,10 @@ STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
     njCnkSetSimpleLightColor(var_fadeLightColor_8c2264f8[0], var_fadeLightColor_8c2264f8[1], var_fadeLightColor_8c2264f8[2]);
 }
 /* TaskAction spawned once after the table is fully processed, installed by
- * ObjectsPushTasks_8c02a6ac. If var_8c2285c4 (an enable flag) is set, pushes
- * setSimpleLightCallback_8c02a5d0 as a draw callback on both fade layers, then
- * runs the row tasks just spawned into var_tasks_8c1bb448 to completion. */
+ * ObjectsPushTasks_8c02a6ac. Once the run is under way (var_8c2285c4[0], the
+ * run phase), pushes setSimpleLightCallback_8c02a5d0 as a draw callback on both
+ * fade layers, then runs the row tasks just spawned into var_tasks_8c1bb448 to
+ * completion. */
 STATIC void execRowTaskGroupTask_8c02a60e(void)
 {
     if (var_8c2285c4[0] != 0) {
@@ -6277,7 +6280,7 @@ void ObjectsPushTasks_8c02a6ac(void)
  * offsets, each group an array of (string offset, value) pairs terminated
  * by an entry whose string is empty. Converts every offset to an absolute
  * pointer, in place. */
-STATIC void FUN_8c02a9fc(void *handle)
+STATIC void relocateMessageText_8c02a9fc(void *handle)
 {
     int *group;
     int *entry;
@@ -6480,7 +6483,7 @@ void ObjectsStartMessageBox_8c02ad8c(void)
     Task *task;
     MessageBoxState *state;
 
-    FUN_8c02a9fc(var_messageTextDat_8c228518);
+    relocateMessageText_8c02a9fc(var_messageTextDat_8c228518);
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, &messageBoxTask_8c02ab7a, &task, (void **)&state, 0x1c);
     state->slide_0x10 = var_eventSlides_8c228480[var_selectedEventEntry_8c228478];
     ObjectsOpenTextbox_8c02ae3e(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);

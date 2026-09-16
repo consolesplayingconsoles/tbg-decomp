@@ -43,8 +43,8 @@
           .IMPORT     _njLoadCacheTexture
           .IMPORT     _TileStreamInit_8c02175a
           .IMPORT     _TrafficRelocatePlacementTable_8c026da4
-          .IMPORT     _FUN_8c028de8
-          .IMPORT     _FUN_8c028dd0
+          .IMPORT     _ObjectsRelocatePedGroupDefs_8c028de8
+          .IMPORT     _ObjectsRelocatePedGroupLists_8c028dd0
           .IMPORT     _BusStopSetup_8c02caba
           .IMPORT     _EventPickForSegment_8c02b170
           .IMPORT     _TileStreamRequestUpload_8c02190a
@@ -1326,8 +1326,8 @@ LP_GEN_90737:
           .DATA.L _TileStreamInit_8c02175a
           .DATA.L _var_currentCourse_8c1bb868
           .DATA.L _TrafficRelocatePlacementTable_8c026da4
-          .DATA.L _FUN_8c028de8
-          .DATA.L _FUN_8c028dd0
+          .DATA.L _ObjectsRelocatePedGroupDefs_8c028de8
+          .DATA.L _ObjectsRelocatePedGroupLists_8c028dd0
           .DATA.L _BusStopSetup_8c02caba
           .DATA.L _EventPickForSegment_8c02b170
           .DATA.L _TileStreamRequestUpload_8c02190a
@@ -1857,8 +1857,8 @@ LP_GEN_48435:
           .DATA.L _TileStreamInit_8c02175a
           .DATA.L _var_currentCourse_8c1bb868
           .DATA.L _TrafficRelocatePlacementTable_8c026da4
-          .DATA.L _FUN_8c028de8
-          .DATA.L _FUN_8c028dd0
+          .DATA.L _ObjectsRelocatePedGroupDefs_8c028de8
+          .DATA.L _ObjectsRelocatePedGroupLists_8c028dd0
           .DATA.L _BusStopSetup_8c02caba
           .DATA.L _EventPickForSegment_8c02b170
           .DATA.L _TileStreamRequestUpload_8c02190a

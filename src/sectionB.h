@@ -734,7 +734,7 @@ extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTas
 extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by ObjectsGetTrafficSignalFrame_8c028900 */
 extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */
 extern int var_pedCrossingFlags_8c227e2c[128]; /* 64 8-byte entries, zeroed by clearPedCrossingFlags_8c02890c */
-extern int var_crossingOccupiedFlags_8c22802c[128]; /* 64 8-byte entries, zeroed by ObjectsFUN_8c028958 */
+extern int var_crossingOccupiedFlags_8c22802c[128]; /* 64 8-byte entries, zeroed by ObjectsClearCrossingOccupied_8c028958 */
 /* 12-byte entries {active, unused, list*}; list is NULL-terminated, holes
  * marked -1. Read by drawPedestrians_8c028b74; var_pedGroupCount_8c228234 is the count. */
 extern void* var_pedGroups_8c228230;
@@ -925,6 +925,12 @@ typedef struct {
 } DriveMsgSlot;
 extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
+/* [0] is the run phase, stepped by taskCallback_8c02c072 (02b464): 0 = not
+ * driving, 2 = driving and being graded, 3 = at the stop, 4 = wrapping up,
+ * 5 = done. Several units gate their per-frame work on it.
+ *
+ * The rest of the array is the base address the drive units reach the whole
+ * run-state block through -- see the per-slot notes on the symbols above. */
 extern int var_8c2285c4[];
 
 /* var_8c2285c4[34] (0x22864c), addressed directly by applyThrottle_8c024320:

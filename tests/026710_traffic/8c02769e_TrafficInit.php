@@ -23,7 +23,7 @@ return new class extends TestCase {
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_signalGroups_8c228b40', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
-        $this->setSize('_ObjectsFUN_8c028958', 4);
+        $this->setSize('_ObjectsClearCrossingOccupied_8c028958', 4);
         $this->setSize('_init_8c04c980', 4);
         $this->setSize('_init_8c04caec', 4);
         $this->setSize('_init_8c04cd38', 4);
@@ -106,7 +106,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x08, 0);
         $this->shouldWriteLong($task + 0x0c, 1);
 
-        $this->shouldCall('_ObjectsFUN_8c028958');
+        $this->shouldCall('_ObjectsClearCrossingOccupied_8c028958');
     }
 
     // ROUTE_SHINJUKU (0) selects init_8c04caec.
@@ -140,7 +140,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x08, 0);
         $this->shouldWriteLong($task + 0x0c, 1);
 
-        $this->shouldCall('_ObjectsFUN_8c028958');
+        $this->shouldCall('_ObjectsClearCrossingOccupied_8c028958');
     }
 
     // ROUTE_OME (2) selects init_8c04cd38 AND (timeOfDay == NIGHT) triggers
@@ -205,6 +205,6 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x08, 0);
         $this->shouldWriteLong($task + 0x0c, 1);
 
-        $this->shouldCall('_ObjectsFUN_8c028958');
+        $this->shouldCall('_ObjectsClearCrossingOccupied_8c028958');
     }
 };

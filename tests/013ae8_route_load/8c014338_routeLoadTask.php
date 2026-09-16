@@ -58,8 +58,8 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
         $this->shouldCall('_TileStreamInit_8c02175a');
         $this->shouldCall('_TrafficRelocatePlacementTable_8c026da4')->with(0x8cd00008);
-        $this->shouldCall('_FUN_8c028de8')->with(0x8cd0000b);
-        $this->shouldCall('_FUN_8c028dd0')->with(0x8cd0000c);
+        $this->shouldCall('_ObjectsRelocatePedGroupDefs_8c028de8')->with(0x8cd0000b);
+        $this->shouldCall('_ObjectsRelocatePedGroupLists_8c028dd0')->with(0x8cd0000c);
         $this->shouldCall('_BusStopSetup_8c02caba');
         $this->shouldCall('_EventPickForSegment_8c02b170');
         $this->shouldCall('_AsqResetQueues_8c011f6c');
@@ -190,8 +190,8 @@ return new class extends TestCase {
             '_GameEnterDrive_8c01306e' => 4,
             '_TileStreamInit_8c02175a' => 4,
             '_TrafficRelocatePlacementTable_8c026da4' => 4,
-            '_FUN_8c028de8' => 4,
-            '_FUN_8c028dd0' => 4,
+            '_ObjectsRelocatePedGroupDefs_8c028de8' => 4,
+            '_ObjectsRelocatePedGroupLists_8c028dd0' => 4,
             '_BusStopSetup_8c02caba' => 4,
             '_EventPickForSegment_8c02b170' => 4,
             '_TileStreamLoad_8c021810' => 4,

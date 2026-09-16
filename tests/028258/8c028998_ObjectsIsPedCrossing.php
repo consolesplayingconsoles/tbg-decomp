@@ -10,7 +10,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_pedCrossingFlags_8c227e2c');
         $this->initUint32($base + 3 * 4, 0x77777777);
 
-        $this->call('_ObjectsFUN_8c028998')->with(3);
+        $this->call('_ObjectsIsPedCrossing_8c028998')->with(3);
 
         $this->shouldReturn(0x77777777);
     }

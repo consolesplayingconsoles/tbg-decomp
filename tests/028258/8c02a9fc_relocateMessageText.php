@@ -10,7 +10,7 @@ return new class extends TestCase {
         $handle = $this->alloc(0x04);
         $this->initUint32($handle + 0x00, 0);
 
-        $this->call('_FUN_8c02a9fc')->with($handle);
+        $this->call('_relocateMessageText_8c02a9fc')->with($handle);
     }
 
     public function test_single_group_immediately_empty_entry(): void
@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->initUint32($handle + 0x10, 0x18);
         $this->initUint8($handle + 0x18, 0);
 
-        $this->call('_FUN_8c02a9fc')->with($handle);
+        $this->call('_relocateMessageText_8c02a9fc')->with($handle);
 
         $this->shouldWriteLong($handle + 0x00, $handle + 0x10);
         $this->shouldWriteLong($handle + 0x10, $handle + 0x18);
@@ -51,7 +51,7 @@ return new class extends TestCase {
         $this->initUint32($handle + 0x28, 0x30);
         $this->initUint8($handle + 0x30, 0);
 
-        $this->call('_FUN_8c02a9fc')->with($handle);
+        $this->call('_relocateMessageText_8c02a9fc')->with($handle);
 
         $this->shouldWriteLong($handle + 0x00, $handle + 0x10);
         $this->shouldWriteLong($handle + 0x10, $handle + 0x20);

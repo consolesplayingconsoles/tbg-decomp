@@ -18,7 +18,7 @@ return new class extends TestCase {
 
         $this->initUint32($table + 0x18, -1); // terminator
 
-        $this->call('_FUN_8c028de8')->with($table);
+        $this->call('_ObjectsRelocatePedGroupDefs_8c028de8')->with($table);
 
         $this->shouldWriteLong($table + 0x08, $table + 0x20);
         $this->shouldWriteLong($table + 0x14, $table + 0x30);
@@ -29,6 +29,6 @@ return new class extends TestCase {
         $table = $this->alloc(4);
         $this->initUint32($table + 0x00, -1); // terminator
 
-        $this->call('_FUN_8c028de8')->with($table);
+        $this->call('_ObjectsRelocatePedGroupDefs_8c028de8')->with($table);
     }
 };

@@ -397,8 +397,8 @@ Sint32 TrafficAdvanceOnPath_8c026ca2(float unused, TrafficEntry *entry)
  * 0xc bytes; the offset array's own slot is overwritten with the record's
  * absolute address, and the record's dword at +4 is likewise turned from a
  * self-relative offset into an absolute pointer, walking 0xc-byte strides
- * until a record's +4 field is 0. Same shape as FUN_8c028dd0/FUN_8c028de8
- * in 028258_objects.c. */
+ * until a record's +4 field is 0. Same shape as the two
+ * ObjectsRelocatePedGroup* fixups in 028258_objects.c. */
 void TrafficRelocatePlacementTable_8c026da4(void *handle)
 {
     Sint32 *outer;
@@ -892,7 +892,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
 
     var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariCpu_0x18;
     var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
-    ObjectsFUN_8c028958();
+    ObjectsClearCrossingOccupied_8c028958();
     var_occupiedGroup_8c228b44 = (Sint32 *)-1;
 
     presetMask = var_busState_8c1bb9d0.scenePresetIds_0x3bc & 0xff00;
@@ -980,5 +980,5 @@ void TrafficInit_8c02769e(void)
     task->counter_0x08 = 0;
     task->presetState_0x0c = 1;
 
-    ObjectsFUN_8c028958();
+    ObjectsClearCrossingOccupied_8c028958();
 }

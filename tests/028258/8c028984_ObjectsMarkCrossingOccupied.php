@@ -10,7 +10,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_crossingOccupiedFlags_8c22802c');
         $this->initUint32($base + 3 * 4, 0);
 
-        $this->call('_ObjectsFUN_8c028984')->with(3);
+        $this->call('_ObjectsMarkCrossingOccupied_8c028984')->with(3);
 
         $this->shouldWriteLong($base + 3 * 4, 1);
     }

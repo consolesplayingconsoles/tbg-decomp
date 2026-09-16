@@ -152,15 +152,15 @@
           .AIFDEF UNIT_TESTING
           .EXPORT     _clearPedCrossingFlags_8c02890c
           .AENDI
-          .EXPORT     _ObjectsFUN_8c028958
+          .EXPORT     _ObjectsClearCrossingOccupied_8c028958
           .AIFDEF UNIT_TESTING
           .EXPORT     _markPedCrossing_8c02897a
           .AENDI
-          .EXPORT     _ObjectsFUN_8c028984
+          .EXPORT     _ObjectsMarkCrossingOccupied_8c028984
           .AIFDEF UNIT_TESTING
           .EXPORT     _isCrossingOccupied_8c02898e
           .AENDI
-          .EXPORT     _ObjectsFUN_8c028998
+          .EXPORT     _ObjectsIsPedCrossing_8c028998
           .AIFDEF UNIT_TESTING
           .EXPORT     _advancePedPathPos_8c0289ac
           .AENDI
@@ -170,8 +170,8 @@
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawPedestrians_8c028b74
           .AENDI
-          .EXPORT     _FUN_8c028dd0
-          .EXPORT     _FUN_8c028de8
+          .EXPORT     _ObjectsRelocatePedGroupLists_8c028dd0
+          .EXPORT     _ObjectsRelocatePedGroupDefs_8c028de8
           .AIFDEF UNIT_TESTING
           .EXPORT     _pedestrianTask_8c028e00
           .AENDI
@@ -256,7 +256,7 @@
           .AENDI
           .EXPORT     _ObjectsPushTasks_8c02a6ac
           .AIFDEF UNIT_TESTING
-          .EXPORT     _FUN_8c02a9fc
+          .EXPORT     _relocateMessageText_8c02a9fc
           .AENDI
           .EXPORT     _ObjectsClearMessageAssets_8c02aa28
           .EXPORT     _ObjectsRequestMessageAssets_8c02aa36
@@ -1201,7 +1201,7 @@ LP_GEN_38963:
           .DATA.L _TaskFreeGroup_8c014ab4 ; H'8C02894C
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C028950
           .DATA.L _var_pedCrossingFlags_8c227e2c ; H'8C028954
-_ObjectsFUN_8c028958:
+_ObjectsClearCrossingOccupied_8c028958:
           MOV.L       LP_GEN_59214+2,R5
           MOV.W       LP_GEN_59214,R7
           ADD         R7,R5
@@ -1227,7 +1227,7 @@ _markPedCrossing_8c02897a:
           SHLL2       R4
           RTS
           MOV.L       R3,@(R0,R4)
-_ObjectsFUN_8c028984:
+_ObjectsMarkCrossingOccupied_8c028984:
           MOV.L       LP_GEN_59214+6,R0
           MOV         #H'1,R3
           SHLL2       R4
@@ -1239,7 +1239,7 @@ _isCrossingOccupied_8c02898e:
           SHLL2       R0
           RTS
           MOV.L       @(R0,R1),R0
-_ObjectsFUN_8c028998:
+_ObjectsIsPedCrossing_8c028998:
           MOV.L       LP_GEN_59214+2,R1
           MOV         R4,R0
           SHLL2       R0
@@ -1832,7 +1832,7 @@ LAB_8c028db4:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_FUN_8c028dd0:
+_ObjectsRelocatePedGroupLists_8c028dd0:
           MOV         R4,R6
           BRA         LAB_8c028dde
           MOV         R4,R5
@@ -1847,7 +1847,7 @@ LAB_8c028dde:
           BF          LAB_8c028dd6
           RTS
           NOP
-_FUN_8c028de8:
+_ObjectsRelocatePedGroupDefs_8c028de8:
           MOV         R4,R6
           BRA         LAB_8c028df6
           MOV         R4,R5
@@ -5441,7 +5441,7 @@ LP_GEN_79722:
           .DATA.L _var_fumiLampNodes_8c228434 ; H'8C02A9F0
           .DATA.L _execRowTaskGroupTask_8c02a60e ; H'8C02A9F4
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02A9F8
-_FUN_8c02a9fc:
+_relocateMessageText_8c02a9fc:
           MOV         R4,R6
           BRA         LAB_8c02aa1e
           MOV         R4,R5
@@ -5907,7 +5907,7 @@ _ObjectsStartMessageBox_8c02ad8c:
           STS.L       PR,@-R15
           ADD         #-H'8,R15
           MOV.L       LP_GEN_16602+4,R3
-          BSR         _FUN_8c02a9fc
+          BSR         _relocateMessageText_8c02a9fc
           MOV.L       @R3,R4
           MOV         #H'1c,R1
           MOV.L       LP_GEN_16602+12,R4

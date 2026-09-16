@@ -29,7 +29,7 @@ return new class extends TestCase {
 
         $this->call('_ObjectsStartMessageBox_8c02ad8c');
 
-        $this->shouldCall('_FUN_8c02a9fc')->with($handle);
+        $this->shouldCall('_relocateMessageText_8c02a9fc')->with($handle);
 
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(

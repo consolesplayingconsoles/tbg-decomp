@@ -8,8 +8,8 @@
           .IMPORT     _var_driveCueState_8c2264b8
           .IMPORT     _ObjectsGetTrafficSignalFrame_8c028900
           .IMPORT     _TrafficPathScanJunctionOccupied_8c02f28a
-          .IMPORT     _ObjectsFUN_8c028998
-          .IMPORT     _ObjectsFUN_8c028984
+          .IMPORT     _ObjectsIsPedCrossing_8c028998
+          .IMPORT     _ObjectsMarkCrossingOccupied_8c028984
           .IMPORT     _AttrQueryRegionOccupied_8c02f08a
           .IMPORT     _var_groundQueryPoint_8c1bc460
           .IMPORT     _TrafficPathScanBuild_8c02f0c8
@@ -434,8 +434,8 @@ LP_GEN_90300:
           .RES.W 1 ; H'8C025E96
           .DATA.L _ObjectsGetTrafficSignalFrame_8c028900 ; H'8C025E98
           .DATA.L _TrafficPathScanJunctionOccupied_8c02f28a ; H'8C025E9C
-          .DATA.L _ObjectsFUN_8c028998 ; H'8C025EA0
-          .DATA.L _ObjectsFUN_8c028984 ; H'8C025EA4
+          .DATA.L _ObjectsIsPedCrossing_8c028998 ; H'8C025EA0
+          .DATA.L _ObjectsMarkCrossingOccupied_8c028984 ; H'8C025EA4
 LAB_8c025ea8:
           MOV.W       LP_GEN_70698,R0
           MOV.L       R12,@(R0,R13)
