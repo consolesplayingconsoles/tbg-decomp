@@ -59,9 +59,7 @@ typedef struct {
  * init_demoShotsWangan_8c045b60 = ROUTE_WANGAN, init_demoShotsOme_8c045ee4 =
  * ROUTE_OME. A row's position is the cue id the mark grid paints and
  * init_demoFirstShot_8c0460b0 (sectionD.h) points at, which is what its
- * caption macro is numbered by. The original .src carries two labels inside
- * the Ome table (init_8c046000/init_8c04608a) that land mid-record and are
- * referenced by nothing; they are folded into init_demoShotsOme_8c045ee4 here. */
+ * caption macro is numbered by. */
 STATIC DemoShot init_demoShotsShinjuku_8c045674[] = {
     {1, {4.0f, 0.5f, -4.0f}, MSG_DEMO_SHOT_SHINJUKU_0},
     {0, {4138.0f, 13.0f, 4452.0f}, MSG_DEMO_SHOT_SHINJUKU_1},

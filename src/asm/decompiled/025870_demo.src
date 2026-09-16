@@ -812,7 +812,6 @@ _init_demoShotsOme_8c045ee4:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'48, H'D7, H'45, H'00, H'00, H'90, H'41, H'00, H'40, H'B3, H'45
           .DATA.L      _const_placeNameNone_8c039f80 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00
-_init_8c046000:        ; aggressive search
           .DATA.B      H'00, H'30, H'29, H'45, H'00, H'00, H'80, H'BF, H'00, H'80, H'B6, H'44
           .DATA.L      _const_placeNameNone_8c039f80 ; ukn
           .DATA.B      H'02, H'00, H'00, H'00, H'00, H'00, H'80, H'C0, H'00, H'00, H'80, H'3F, H'00, H'00, H'90, H'C1
@@ -828,7 +827,6 @@ _init_8c046000:        ; aggressive search
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'70, H'05, H'45, H'00, H'00, H'00, H'41, H'00, H'60, H'8A, H'44
           .DATA.L      _const_placeNameNone_8c039f80 ; ukn
           .DATA.B      H'02, H'00
-_init_8c04608a:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'80, H'40, H'00, H'00, H'20, H'41
           .DATA.L      _const_placeNameNone_8c039f80 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'F9, H'44, H'00, H'00, H'40, H'41, H'00, H'40, H'47, H'44
