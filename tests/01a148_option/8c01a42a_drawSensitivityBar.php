@@ -16,7 +16,7 @@ return new class extends TestCase {
     private function arrange(): int
     {
         $this->setSize('_njDrawPolygon', 4);
-        return $this->addressOf('_init_8c044de8');
+        return $this->addressOf('_init_sensitivityBarQuad_8c044de8');
     }
 
     // x = value * 320 / 256 + 256; a quad spanning [x, 576] x [y, y+20].

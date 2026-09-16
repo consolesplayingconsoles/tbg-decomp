@@ -21,7 +21,7 @@ return new class extends TestCase {
         return $ptr;
     }
 
-    public function test_draws_digits_left_to_right()
+    public function test_draws_digits_right_to_left()
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);

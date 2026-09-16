@@ -16,23 +16,23 @@ return new class extends TestCase {
     /*
      * Install the AUDIO task, reset the phase/cursor, clear the three sound-test
      * digit fields, and kick the fade-in. The clear zeroes 9 longs (each field
-     * high digit first); var_8c226088[0] is written twice -- once off the SFX base
-     * (var_8c226080 + 8) and once off the VOICE base. The three arrays are laid
+     * high digit first); var_voiceTestDigits_8c226088[0] is written twice -- once off the SFX base
+     * (var_sfxTestDigits_8c226080 + 8) and once off the VOICE base. The three arrays are laid
      * out contiguously in BSS, so they must be setSize'd consecutively here for
-     * the SFX-base overflow write to land in var_8c226088's storage.
+     * the SFX-base overflow write to land in var_voiceTestDigits_8c226088's storage.
      */
     public function test_switch_to_audio()
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_TaskSetAction_8c014b3e', 4);
         $this->setSize('_FadePushIn_8c022a9c', 4);
-        $this->setSize('_var_8c226078', 8);
-        $this->setSize('_var_8c226080', 8);
-        $this->setSize('_var_8c226088', 16);
+        $this->setSize('_var_musicTestDigits_8c226078', 8);
+        $this->setSize('_var_sfxTestDigits_8c226080', 8);
+        $this->setSize('_var_voiceTestDigits_8c226088', 16);
 
-        $music = $this->addressOf('_var_8c226078');
-        $sfx = $this->addressOf('_var_8c226080');
-        $voice = $this->addressOf('_var_8c226088');
+        $music = $this->addressOf('_var_musicTestDigits_8c226078');
+        $sfx = $this->addressOf('_var_sfxTestDigits_8c226080');
+        $voice = $this->addressOf('_var_voiceTestDigits_8c226088');
 
         $task = $this->alloc(0x20);
         $this->call('_switchToAudio_8c01afd8')->with($task);

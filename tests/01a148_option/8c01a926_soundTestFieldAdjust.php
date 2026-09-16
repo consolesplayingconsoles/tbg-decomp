@@ -10,8 +10,8 @@ return new class extends TestCase {
     const FIELD = 0x3c;            // var_menuState_8c1bc7a8.field_0x3c (edit digit)
     const KU = 1 << 4;             // up    -> increment digit
     const KD = 1 << 5;             // down  -> decrement digit
-    const KL = 1 << 6;             // left  -> move edit digit up
-    const KR = 1 << 7;             // right -> move edit digit down
+    const KL = 1 << 6;             // left  -> more significant digit
+    const KR = 1 << 7;             // right -> less significant digit
     const TB = 1 << 1;             // cancel -> leave field
     const MIDI = 0xd1d1d1d1;
 
@@ -50,7 +50,7 @@ return new class extends TestCase {
         return $ptr;
     }
 
-    public function test_left_moves_edit_digit_up()
+    public function test_left_selects_more_significant_digit()
     {
         $this->arrange(self::KL, 0);
         $d = $this->digits([0, 0]);
@@ -66,7 +66,7 @@ return new class extends TestCase {
         $this->call('_soundTestFieldAdjust_8c01a926')->with($d, 2, 99);
     }
 
-    public function test_right_moves_edit_digit_down()
+    public function test_right_selects_less_significant_digit()
     {
         $this->arrange(self::KR, 1);
         $d = $this->digits([0, 0]);

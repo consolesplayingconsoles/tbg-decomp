@@ -465,10 +465,10 @@
           .EXPORT     _var_soundMode_8c226070 ; 012f44_game
                                               ; 018644_file_menu
                                               ; 01a148
-          .EXPORT     _var_8c226074 ; 01a148
-          .EXPORT     _var_8c226078 ; 01a148
-          .EXPORT     _var_8c226080 ; 01a148
-          .EXPORT     _var_8c226088 ; 01a148
+          .EXPORT     _var_settingValues_8c226074 ; 01a148
+          .EXPORT     _var_musicTestDigits_8c226078 ; 01a148
+          .EXPORT     _var_sfxTestDigits_8c226080 ; 01a148
+          .EXPORT     _var_voiceTestDigits_8c226088 ; 01a148
           .EXPORT     _var_vmsComment_8c226098 ; 01b19c
           .EXPORT     _var_lcdAnimActive_8c2260a8 ; 012f44_game
                                     ; 01bb48
@@ -1107,13 +1107,13 @@ _var_vmMountBusy_8c22606c:
           .RES.B      4
 _var_soundMode_8c226070:
           .RES.B      4
-_var_8c226074:
+_var_settingValues_8c226074:
           .RES.B      4
-_var_8c226078:
+_var_musicTestDigits_8c226078:
           .RES.B      8
-_var_8c226080:
+_var_sfxTestDigits_8c226080:
           .RES.B      8
-_var_8c226088:
+_var_voiceTestDigits_8c226088:
           .RES.B      16
 _var_vmsComment_8c226098:
           .RES.B      16

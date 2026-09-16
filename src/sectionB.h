@@ -390,7 +390,7 @@ typedef struct {
     char field_0xd2;
     char field_0xd3;
 
-    /* AUDIO MUSIC/SFX/VOICE volume (0-10); reset with the sound mode
+    /* AUDIO MUSIC/SFX/VOICE volume (0-9, 10 steps); reset with the sound mode
      * (see FileMenuResetSoundDefaults_8c0188dc) */
     char musicVolume_0xd4;
     char sfxVolume_0xd5;
@@ -408,7 +408,7 @@ typedef struct {
 
 /*
  * SETTING screen's 5 persisted toggle bytes (DIFFICULTY/DRIVE MODE/DEFAULT
- * VIEW/VIBRATION/SCREEN ROLL); var_8c226074 points here while that screen is
+ * VIEW/VIBRATION/SCREEN ROLL); var_settingValues_8c226074 points here while that screen is
  * active. Sits exactly at &var_progress_8c1ba1cc.difficulty_0xc4 (0x1ba1cc+0xc4),
  * but kept as its own symbol since it's owned by sectionB.src, not decompiled.
  * [0] (DIFFICULTY) is read by BusStopSetup_8c02caba to pick the run's
@@ -1143,11 +1143,13 @@ extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1c
 extern char var_profileUnlocked_8c2263b4[56]; // one byte per PROFILE FILE grid slot (55 used, 1 pad byte); set by ProfileFile
 extern ResourceGroup* var_resourceGroup_8c2263a8;
 extern Sint8 var_soundMode_8c226070;
-extern char *var_8c226074; /* SETTING screen: ptr to the 5 gameplay-setting bytes */
-/* AUDIO sound-test fields: one int per digit, least significant at index 0. */
-extern int var_8c226078[2]; /* MUSIC TEST */
-extern int var_8c226080[2]; /* SFX TEST */
-extern int var_8c226088[4]; /* VOICE TEST */
+/* -> var_8c1ba290; pointed there only by OptionSwitchToTopMenu_8c01b122. */
+extern char *var_settingValues_8c226074;
+/* AUDIO sound-test entry fields: one int per decimal digit, ones at index 0.
+ * Laid out contiguously, and switchToAudio_8c01afd8 clears them relying on it. */
+extern int var_musicTestDigits_8c226078[2];
+extern int var_sfxTestDigits_8c226080[2];
+extern int var_voiceTestDigits_8c226088[4];
 extern float var_engineRpm_8c226468; // real type is 0100bc_sound.c's local UnknownVolStructB {float}
 extern int var_8c22646c; // written (zeroed) by HudReset_8c02018c (01fa78_hud), never read
 /* Gear-message / lane-change-message latch for hudUpdateTask_8c01ff48

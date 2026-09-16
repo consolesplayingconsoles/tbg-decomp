@@ -1,5 +1,5 @@
 ; 8c01a148
-          .IMPORT     _var_8c226074
+          .IMPORT     _var_settingValues_8c226074
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_midiHandles_8c0fcd28
@@ -18,16 +18,16 @@
           .IMPORT     __divls
           .IMPORT     _sdMidiStop
           .IMPORT     _FUN_8c010ca6
-          .IMPORT     _var_8c226078
+          .IMPORT     _var_musicTestDigits_8c226078
           .IMPORT     _FileMenuResetSoundDefaults_8c0188dc
           .IMPORT     _var_soundMode_8c226070
           .IMPORT     _SndSetSoundMode_8c0108c0
           .IMPORT     _SndSetAdxVol_8c010972
           .IMPORT     _SndSetMidiVolAndInitStruct_8c0109f4
           .IMPORT     _FUN_8c0107ac
-          .IMPORT     _var_8c226080
+          .IMPORT     _var_sfxTestDigits_8c226080
           .IMPORT     _FUN_8c0106d2
-          .IMPORT     _var_8c226088
+          .IMPORT     _var_voiceTestDigits_8c226088
           .IMPORT     _FUN_8c010720
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
           .IMPORT     _var_8c1ba290
@@ -39,7 +39,7 @@
           .EXPORT     _soundTestFieldRead_8c01a904
           .EXPORT     _soundTestFieldAdjust_8c01a926
           .EXPORT     _soundTestFieldDraw_8c01aaaa
-          .EXPORT     _init_8c044de8
+          .EXPORT     _init_sensitivityBarQuad_8c044de8
           .EXPORT     _settingTask_8c01a148
           .EXPORT     _switchToSetting_8c01a3c0
           .EXPORT     _keyConfigTask_8c01a50c
@@ -195,7 +195,7 @@ LAB_8c01a21c:
           MOV.B       R2,@R1
 LP_GEN_11111:
           .RES.W 1 ; H'8C01A24A
-          .DATA.L _var_8c226074 ; H'8C01A24C
+          .DATA.L _var_settingValues_8c226074 ; H'8C01A24C
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01A250
           .DATA.L _sdMidiPlay ; H'8C01A254
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01A258
@@ -203,7 +203,7 @@ LP_GEN_11111:
           .DATA.L _var_isFading_8c226568 ; H'8C01A260
           .DATA.L _FileMenuResetControlDefaults_8c018862 ; H'8C01A264
           .DATA.L _FadePushOut_8c022b60 ; H'8C01A268
-          .DATA.L _init_8c044de0 ; H'8C01A26C
+          .DATA.L _init_settingOptionCounts_8c044de0 ; H'8C01A26C
 LAB_8c01a270:
           MOV.W       LP_GEN_35922,R0
           TST         R0,R5
@@ -492,7 +492,7 @@ LP_GEN_85851:
           .DATA.L _sdMidiPlay ; H'8C01A49C
           .DATA.L H'43800000 ; H'8C01A4A0
           .DATA.L H'43A00000 ; H'8C01A4A4
-          .DATA.L _init_8c044de8 ; H'8C01A4A8
+          .DATA.L _init_sensitivityBarQuad_8c044de8 ; H'8C01A4A8
           .DATA.L H'41A00000 ; H'8C01A4AC
           .DATA.L _njDrawPolygon ; H'8C01A4B0
 _keyConfigEditExit_8c01a4b4:
@@ -1549,7 +1549,7 @@ LP_GEN_82753:
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01AC5C
           .DATA.L H'C0800000 ; H'8C01AC60
           .DATA.L H'41D00000 ; H'8C01AC64
-          .DATA.L _var_8c226078 ; H'8C01AC68
+          .DATA.L _var_musicTestDigits_8c226078 ; H'8C01AC68
           .DATA.L _var_progress_8c1ba1cc ; H'8C01AC6C
           .DATA.L _var_isFading_8c226568 ; H'8C01AC70
           .DATA.L H'43DA0000 ; H'8C01AC74
@@ -1693,10 +1693,10 @@ LP_GEN_27951:
           .DATA.L _SndSetMidiVolAndInitStruct_8c0109f4 ; H'8C01AD80
           .DATA.L _FUN_8c0107ac ; H'8C01AD84
           .DATA.L H'435C0000 ; H'8C01AD88
-          .DATA.L _var_8c226080 ; H'8C01AD8C
+          .DATA.L _var_sfxTestDigits_8c226080 ; H'8C01AD8C
           .DATA.L _FUN_8c0106d2 ; H'8C01AD90
           .DATA.L H'43800000 ; H'8C01AD94
-          .DATA.L _var_8c226088 ; H'8C01AD98
+          .DATA.L _var_voiceTestDigits_8c226088 ; H'8C01AD98
           .DATA.L _FUN_8c010720 ; H'8C01AD9C
 LAB_8c01ada0:
           MOV.W       LP_GEN_36649,R6
@@ -1930,9 +1930,9 @@ LP_GEN_67516:
           .DATA.L H'43DC8000 ; H'8C01AF5C
           .DATA.L H'43610000 ; H'8C01AF60
           .DATA.L H'43828000 ; H'8C01AF64
-          .DATA.L _var_8c226080 ; H'8C01AF68
+          .DATA.L _var_sfxTestDigits_8c226080 ; H'8C01AF68
           .DATA.L H'43950000 ; H'8C01AF6C
-          .DATA.L _var_8c226088 ; H'8C01AF70
+          .DATA.L _var_voiceTestDigits_8c226088 ; H'8C01AF70
 LAB_8c01af74:
           BT          LAB_8c01af88
           MOV         R14,R4
@@ -2189,15 +2189,15 @@ LP_GEN_51773:
           .DATA.L _audioTask_8c01ab08 ; H'8C01B14C
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01B150
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01B154
-          .DATA.L _var_8c226078 ; H'8C01B158
-          .DATA.L _var_8c226080 ; H'8C01B15C
-          .DATA.L _var_8c226088 ; H'8C01B160
+          .DATA.L _var_musicTestDigits_8c226078 ; H'8C01B158
+          .DATA.L _var_sfxTestDigits_8c226080 ; H'8C01B15C
+          .DATA.L _var_voiceTestDigits_8c226088 ; H'8C01B160
           .DATA.L _FadePushIn_8c022a9c ; H'8C01B164
           .DATA.L _var_isFading_8c226568 ; H'8C01B168
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01B16C
           .DATA.L _sdMidiPlay ; H'8C01B170
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01B174
-          .DATA.L _init_8c044e28 ; H'8C01B178
+          .DATA.L _init_topMenuActions_8c044e28 ; H'8C01B178
           .DATA.L _FadePushOut_8c022b60 ; H'8C01B17C
           .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C01B180
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01B184
@@ -2205,11 +2205,11 @@ LP_GEN_51773:
           .DATA.L H'C0A00000 ; H'8C01B18C
           .DATA.L _topMenuTask_8c01b00a ; H'8C01B190
           .DATA.L _var_8c1ba290 ; H'8C01B194
-          .DATA.L _var_8c226074 ; H'8C01B198
+          .DATA.L _var_settingValues_8c226074 ; H'8C01B198
           .SECTION    D, DATA, ALIGN=4
-_init_8c044de0:        ; from defines
+_init_settingOptionCounts_8c044de0:        ; from defines
           .DATA.B      H'03, H'02, H'04, H'02, H'02, H'00, H'00, H'00
-_init_8c044de8:        ; from defines
+_init_sensitivityBarQuad_8c044de8:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00
 _init_8c044dec:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'00, H'FB, H'91, H'53, H'3F, H'00, H'F4, H'F4, H'C4
@@ -2221,7 +2221,7 @@ _init_8c044e0c:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'00, H'FB, H'91, H'53, H'3F, H'00, H'00, H'F4, H'C4, H'00, H'00, H'10, H'44
 _init_8c044e1c:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'00, H'FB, H'91, H'53, H'3F, H'00, H'00, H'F4, H'C4
-_init_8c044e28:        ; from defines
+_init_topMenuActions_8c044e28:        ; from defines
           .DATA.L      _switchToSetting_8c01a3c0 ; ukn
           .DATA.L      _switchToKeyConfig_8c01a89c ; ukn
           .DATA.L      _switchToAudio_8c01afd8 ; ukn

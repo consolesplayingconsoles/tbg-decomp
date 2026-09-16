@@ -22,20 +22,26 @@
 
 #define CHANGE_STATE(x) var_menuState_8c1bc7a8.state_0x18 = (x)
 
+/* Each screen's own fade-out phase; only 0 and 1 are shared (see OPTION_STATE). */
+#define TOP_MENU_FADE_OUT   2
+#define KEY_CONFIG_FADE_OUT 6
+#define AUDIO_FADE_OUT      9
+
 /* ====================
  * Type Declarations
  * ====================
  */
 
 /*
- * OPTION-screen phase, held in MenuState.state_0x18. The SETTING screen uses only
- * these four; per-row edit screens (AUDIO) extend the EDIT range with sub-states.
+ * OPTION-screen phase, held in MenuState.state_0x18. Only 0 and 1 mean the same
+ * on all four screens; from 2 up each numbers its own edit and fade-out phases,
+ * so EDIT/FADE_OUT below are the SETTING screen's.
  */
 enum OPTION_STATE {
     OPTION_STATE_FADE_IN  = 0,
     OPTION_STATE_NAVIGATE = 1,
     OPTION_STATE_EDIT     = 2,
-    OPTION_STATE_FADE_OUT = 3,   /* fade-out, then hand back to the top menu */
+    OPTION_STATE_FADE_OUT = 3,
 };
 
 /* ====================
@@ -45,14 +51,14 @@ enum OPTION_STATE {
 
 /* SETTING per-row option counts: DIFFICULTY, DRIVE MODE, DEFAULT VIEW, VIBRATION,
  * SCREEN ROLL. Each toggle wraps within its count. */
-STATIC char init_8c044de0[5] = { 3, 2, 4, 2, 2 };
+STATIC char init_settingOptionCounts_8c044de0[5] = { 3, 2, 4, 2, 2 };
 
 /*
  * KEY CONFIGURE sensitivity fill-bar (ACCEL/BRAKE) -- a yellow->red gradient quad.
  * drawSensitivityBar_8c01a42a moves the left edge x and sets the top/bottom y each
  * frame; the right edge (576.0), depth, and vertex colors are fixed here.
  */
-STATIC NJS_POLYGON_VTX init_8c044de8[4] = {
+STATIC NJS_POLYGON_VTX init_sensitivityBarQuad_8c044de8[4] = {
     {   0.0f, 0.0f, 0.8264462351799011f, ARGB(0xc4, 0xf4, 0xf4, 0x00) },
     {   0.0f, 0.0f, 0.8264462351799011f, ARGB(0xc4, 0xf4, 0xf4, 0x00) },
     { 576.0f, 0.0f, 0.8264462351799011f, ARGB(0xc4, 0xf4, 0x00, 0x00) },
@@ -64,7 +70,7 @@ STATIC NJS_POLYGON_VTX init_8c044de8[4] = {
  * ====================
  */
 
-/* Switch-in wrappers, referenced by init_8c044e28 below; defined further down. */
+/* Switch-in wrappers, referenced by init_topMenuActions_8c044e28 below. */
 STATIC void switchToSetting_8c01a3c0(Task *task);
 STATIC void switchToKeyConfig_8c01a89c(Task *task);
 STATIC void switchToAudio_8c01afd8(Task *task);
@@ -76,7 +82,7 @@ STATIC void switchToAudio_8c01afd8(Task *task);
 
 /* OPTION top-menu dispatch, indexed by the selected row (SETTING, KEY CONFIGURE,
  * AUDIO, RETURN); the chosen entry is installed after the fade-out. */
-STATIC TaskAction init_8c044e28[4] = {
+STATIC TaskAction init_topMenuActions_8c044e28[4] = {
     switchToSetting_8c01a3c0,
     switchToKeyConfig_8c01a89c,
     switchToAudio_8c01afd8,
@@ -86,15 +92,12 @@ STATIC TaskAction init_8c044e28[4] = {
 /* ====================
  * Functions
  * ====================
- *
- * Functions are kept in address order. Each not-yet-decompiled function is a
- * one-line placeholder; replace it in place with its definition.
  */
 
 /*
- * SETTING screen task. See OPTION_STATE for the phase progression. Rows 0-4 are
- * the toggles (backed by var_8c226074, wrapping per init_8c044de0), row 5 =
- * DEFAULT (reset), row 6 = RETURN.
+ * SETTING screen task. Rows 0-4 are the toggles (backed by
+ * var_settingValues_8c226074, wrapping per init_settingOptionCounts_8c044de0),
+ * row 5 = DEFAULT (reset), row 6 = RETURN.
  */
 STATIC void settingTask_8c01a148(Task *task)
 {
@@ -146,15 +149,15 @@ STATIC void settingTask_8c01a148(Task *task)
                 CHANGE_STATE(OPTION_STATE_NAVIGATE);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_KL) {
-                var_8c226074[m->selected_0x38] -= 1;
-                if (var_8c226074[m->selected_0x38] < 0) {
-                    var_8c226074[m->selected_0x38] = init_8c044de0[m->selected_0x38] - 1;
+                var_settingValues_8c226074[m->selected_0x38] -= 1;
+                if (var_settingValues_8c226074[m->selected_0x38] < 0) {
+                    var_settingValues_8c226074[m->selected_0x38] = init_settingOptionCounts_8c044de0[m->selected_0x38] - 1;
                 }
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
             } else if (press & PDD_DGT_KR) {
-                var_8c226074[m->selected_0x38] += 1;
-                if (var_8c226074[m->selected_0x38] >= init_8c044de0[m->selected_0x38]) {
-                    var_8c226074[m->selected_0x38] = 0;
+                var_settingValues_8c226074[m->selected_0x38] += 1;
+                if (var_settingValues_8c226074[m->selected_0x38] >= init_settingOptionCounts_8c044de0[m->selected_0x38]) {
+                    var_settingValues_8c226074[m->selected_0x38] = 0;
                 }
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
             }
@@ -177,7 +180,7 @@ STATIC void settingTask_8c01a148(Task *task)
         if (m->state_0x18 != OPTION_STATE_EDIT || i != m->selected_0x38 ||
             (m->logo_timer_0x68++ & 1)) {
             TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x29,
-                                   337.0f + 64.0f * var_8c226074[i],
+                                   337.0f + 64.0f * var_settingValues_8c226074[i],
                                    77.0f + 56.0f * i, -4.0f);
         }
     }
@@ -197,7 +200,7 @@ STATIC void settingTask_8c01a148(Task *task)
 STATIC void switchToSetting_8c01a3c0(Task *task)
 {
     TaskSetAction_8c014b3e(task, settingTask_8c01a148);
-    var_menuState_8c1bc7a8.state_0x18 = 0;
+    var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
     FadePushIn_8c022a9c(10);
 }
@@ -234,15 +237,15 @@ STATIC float drawSensitivityBar_8c01a42a(float y, unsigned char value)
     float x = (float)value * 320.0f / 256.0f + 256.0f;
 
     /* The left-edge x is stored twice, mirroring the original's redundant stores. */
-    init_8c044de8[1].x = x;
-    init_8c044de8[0].x = x;
-    init_8c044de8[2].y = y;
-    init_8c044de8[0].y = y;
-    init_8c044de8[1].x = x;
-    init_8c044de8[0].x = x;
-    init_8c044de8[3].y = y + 20.0f;
-    init_8c044de8[1].y = y + 20.0f;
-    njDrawPolygon(init_8c044de8, 4, 1);
+    init_sensitivityBarQuad_8c044de8[1].x = x;
+    init_sensitivityBarQuad_8c044de8[0].x = x;
+    init_sensitivityBarQuad_8c044de8[2].y = y;
+    init_sensitivityBarQuad_8c044de8[0].y = y;
+    init_sensitivityBarQuad_8c044de8[1].x = x;
+    init_sensitivityBarQuad_8c044de8[0].x = x;
+    init_sensitivityBarQuad_8c044de8[3].y = y + 20.0f;
+    init_sensitivityBarQuad_8c044de8[1].y = y + 20.0f;
+    njDrawPolygon(init_sensitivityBarQuad_8c044de8, 4, 1);
     return x;
 }
 
@@ -255,7 +258,7 @@ STATIC int keyConfigEditExit_8c01a4b4(void)
 {
     if (var_activeCtrlType_8c157a70 == BT_CONTROLLER || var_activeCtrlType_8c157a70 == BT_RACING) {
         if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-            var_menuState_8c1bc7a8.state_0x18 = 1;
+            var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_NAVIGATE;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             return 1;
         }
@@ -263,18 +266,20 @@ STATIC int keyConfigEditExit_8c01a4b4(void)
             return 0;
         }
     }
-    var_menuState_8c1bc7a8.state_0x18 = 1;
+    var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_NAVIGATE;
     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
     return 1;
 }
 
 /*
- * KEY CONFIGURE screen task. Rows 0-2 are controller-dependent settings, row 3 =
- * DEFAULT (reset), row 4 = RETURN. Confirming a row 0-2 switches state_0x18 to
- * (row + 2): state 2 = button-assignment edit (BT_CONTROLLER/BT_RACING pick from
- * PlayerProgress.controlAndDisplayFlags_0xc7[5..8], selected by the A/B variant in driveMode_0xc5),
- * state 3 = ACCEL sensitivity (accelSensitivity_0xd0, from the right trigger), state 4 =
- * BRAKE sensitivity (brakeSensitivity_0xd1, from the left trigger); state 6 = fade-out.
+ * KEY CONFIGURE screen task. Row 3 = DEFAULT (reset), row 4 = RETURN; confirming
+ * a row 0-2 switches state_0x18 to (row + 2):
+ *   2 = button assignment -- controlAndDisplayFlags_0xc7[5..8], picked by
+ *       controller type (BT_CONTROLLER/BT_RACING) and the A/B variant in
+ *       driveMode_0xc5; each pair's sprite bases are 3, 3, 2 and 3 apart,
+ *       matching the option counts
+ *   3 = ACCEL sensitivity, accelSensitivity_0xd0 from the right trigger
+ *   4 = BRAKE sensitivity, brakeSensitivity_0xd1 from the left trigger
  */
 STATIC void keyConfigTask_8c01a50c(Task *task)
 {
@@ -297,12 +302,12 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
                 } else if (m->selected_0x38 == 3) {
                     FileMenuResetViewDefaults_8c0188bc();
                 } else {
-                    CHANGE_STATE(6);
+                    CHANGE_STATE(KEY_CONFIG_FADE_OUT);
                     FadePushOut_8c022b60(10);
                 }
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
-                CHANGE_STATE(6);
+                CHANGE_STATE(KEY_CONFIG_FADE_OUT);
                 FadePushOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             } else if (press & PDD_DGT_KU) {
@@ -360,7 +365,7 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
             break;
         }
 
-        case 6: {
+        case KEY_CONFIG_FADE_OUT: {
             if (var_isFading_8c226568 == 0) {
                 OptionSwitchToTopMenu_8c01b122(task, 1);
                 return;
@@ -419,7 +424,7 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 STATIC void switchToKeyConfig_8c01a89c(Task *task)
 {
     TaskSetAction_8c014b3e(task, keyConfigTask_8c01a50c);
-    var_menuState_8c1bc7a8.state_0x18 = 0;
+    var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
     FadePushIn_8c022a9c(10);
 }
@@ -431,10 +436,10 @@ STATIC void switchToKeyConfig_8c01a89c(Task *task)
 STATIC void audioEditValue_8c01a8b6(char *value, char count)
 {
     if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-        var_menuState_8c1bc7a8.state_0x18 = 1;
+        var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_NAVIGATE;
         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
     } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
-        var_menuState_8c1bc7a8.state_0x18 = 1;
+        var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_NAVIGATE;
         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
     }
     cycleValue_8c01a3da(value, count);
@@ -454,11 +459,10 @@ STATIC int soundTestFieldRead_8c01a904(int *digits, int count)
     return value;
 }
 /*
- * Sound-test field edit: L/R move the edit digit (field_0x3c), U/D increment /
- * decrement it with carry across digits, wrapping the whole field within
- * [0, max]. B (TB) leaves the field: for the MUSIC/SFX/VOICE test rows (phase
- * 6/7/8) it stops or (re)starts the corresponding test playback before dropping
- * back to the navigate phase.
+ * Sound-test field edit. L moves field_0x3c up a digit (leftwards on screen,
+ * digits[0] being the ones), R back down; U/D step that digit with carry across
+ * the field, wrapping the whole value within [0, max]. B leaves the field,
+ * stopping the MUSIC/SFX/VOICE playback the phase (6/7/8) started.
  */
 STATIC void soundTestFieldAdjust_8c01a926(int *digits, int count, int max)
 {
@@ -518,13 +522,13 @@ STATIC void soundTestFieldAdjust_8c01a926(int *digits, int count, int max)
     } else if (var_menuState_8c1bc7a8.state_0x18 == 8) {
         FUN_8c010ca6(1);
     }
-    var_menuState_8c1bc7a8.state_0x18 = 1;
+    var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_NAVIGATE;
     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
 }
 /*
- * Draw a sound-test field's digits as sprites, left to right from (x, y) with
- * a 26px step. digits[0] (least significant) sits at the right; sprite index is
- * the digit value offset into the number font (0x54 = '0').
+ * Draw a sound-test field right to left from (x, y) in 26px steps, so digits[0]
+ * (the ones) sits at x. Sprite index is the digit offset into the number font,
+ * 0x54 = '0'.
  */
 STATIC void soundTestFieldDraw_8c01aaaa(float x, float y, int *digits, int count)
 {
@@ -540,9 +544,9 @@ STATIC void soundTestFieldDraw_8c01aaaa(float x, float y, int *digits, int count
  * AUDIO screen task. Rows 0-6 are settings, row 7 = DEFAULT (reset), row 8 = RETURN.
  * Confirming row N (N<7) enters edit state N+2:
  *   state 2       = SOUND mode (STEREO/MONO, var_soundMode_8c226070)
- *   state 3/4/5   = MUSIC/SFX/VOICE volume (musicVolume_0xd4/sfxVolume_0xd5/voiceVolume_0xd6, 0-10)
+ *   state 3/4/5   = MUSIC/SFX/VOICE volume (musicVolume_0xd4/sfxVolume_0xd5/voiceVolume_0xd6, 0-9)
  *   state 6/7/8   = MUSIC/SFX/VOICE sound-test digit fields
- * state 9 = fade-out, then hand back to the OPTION top menu (cursor on AUDIO = row 2).
+ * AUDIO_FADE_OUT hands back to the OPTION top menu with the cursor on AUDIO.
  * The volume/sound-mode markers blink (drawn every other frame) while their row is
  * being edited; the three sound-test fields and their cursor use field_0x3c as the
  * edit digit index.
@@ -569,13 +573,13 @@ STATIC void audioTask_8c01ab08(Task *task)
                 } else if (m->selected_0x38 == 7) {
                     FileMenuResetSoundDefaults_8c0188dc();
                 } else {
-                    CHANGE_STATE(9);
+                    CHANGE_STATE(AUDIO_FADE_OUT);
                     SndSetSoundMode_8c0108c0(var_soundMode_8c226070);
                     FadePushOut_8c022b60(10);
                 }
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
-                CHANGE_STATE(9);
+                CHANGE_STATE(AUDIO_FADE_OUT);
                 SndSetSoundMode_8c0108c0(var_soundMode_8c226070);
                 FadePushOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
@@ -626,9 +630,9 @@ STATIC void audioTask_8c01ab08(Task *task)
 
         case 6: {   /* MUSIC test */
             if (press & PDD_DGT_TA) {
-                FUN_8c0107ac(soundTestFieldRead_8c01a904(var_8c226078, 2));
+                FUN_8c0107ac(soundTestFieldRead_8c01a904(var_musicTestDigits_8c226078, 2));
             } else {
-                soundTestFieldAdjust_8c01a926(var_8c226078, 2, 0x10);
+                soundTestFieldAdjust_8c01a926(var_musicTestDigits_8c226078, 2, 0x10);
             }
             TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
                                    436.0f - (float)m->field_0x3c * 26.0f, 220.0f, -3.0f);
@@ -637,9 +641,9 @@ STATIC void audioTask_8c01ab08(Task *task)
 
         case 7: {   /* SFX test */
             if (press & PDD_DGT_TA) {
-                FUN_8c0106d2(soundTestFieldRead_8c01a904(var_8c226080, 2));
+                FUN_8c0106d2(soundTestFieldRead_8c01a904(var_sfxTestDigits_8c226080, 2));
             } else {
-                soundTestFieldAdjust_8c01a926(var_8c226080, 2, 0x44);
+                soundTestFieldAdjust_8c01a926(var_sfxTestDigits_8c226080, 2, 0x44);
             }
             TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
                                    436.0f - (float)m->field_0x3c * 26.0f, 256.0f, -3.0f);
@@ -648,16 +652,16 @@ STATIC void audioTask_8c01ab08(Task *task)
 
         case 8: {   /* VOICE test */
             if (press & PDD_DGT_TA) {
-                FUN_8c010720(soundTestFieldRead_8c01a904(var_8c226088, 4));
+                FUN_8c010720(soundTestFieldRead_8c01a904(var_voiceTestDigits_8c226088, 4));
             } else {
-                soundTestFieldAdjust_8c01a926(var_8c226088, 4, 0x56c);
+                soundTestFieldAdjust_8c01a926(var_voiceTestDigits_8c226088, 4, 0x56c);
             }
             TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
                                    436.0f - (float)m->field_0x3c * 26.0f, 292.0f, -3.0f);
             break;
         }
 
-        case 9: {   /* fade-out */
+        case AUDIO_FADE_OUT: {
             if (var_isFading_8c226568 == 0) {
                 OptionSwitchToTopMenu_8c01b122(task, 2);
                 return;
@@ -689,9 +693,9 @@ STATIC void audioTask_8c01ab08(Task *task)
                                (float)var_progress_8c1ba1cc.voiceVolume_0xd6 * 20.0f + 400.0f, 182.0f, -4.0f);
     }
 
-    soundTestFieldDraw_8c01aaaa(441.0f, 225.0f, var_8c226078, 2);
-    soundTestFieldDraw_8c01aaaa(441.0f, 261.0f, var_8c226080, 2);
-    soundTestFieldDraw_8c01aaaa(441.0f, 298.0f, var_8c226088, 4);
+    soundTestFieldDraw_8c01aaaa(441.0f, 225.0f, var_musicTestDigits_8c226078, 2);
+    soundTestFieldDraw_8c01aaaa(441.0f, 261.0f, var_sfxTestDigits_8c226080, 2);
+    soundTestFieldDraw_8c01aaaa(441.0f, 298.0f, var_voiceTestDigits_8c226088, 4);
 
     if (m->selected_0x38 < 7) {
         TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x61, 0.0f, 0.0f, -4.0f);
@@ -705,32 +709,32 @@ STATIC void audioTask_8c01ab08(Task *task)
 /*
  * Switch to the AUDIO screen: install its task, reset to the fade-in phase, and
  * clear the three sound-test digit fields. The asm zeroes three longs off the SFX
- * base (var_8c226080); the third lands on var_8c226088[0], which the VOICE clear
+ * base (var_sfxTestDigits_8c226080); the third lands on var_voiceTestDigits_8c226088[0], which the VOICE clear
  * below zeroes again -- a redundant store kept for equivalence.
  */
 STATIC void switchToAudio_8c01afd8(Task *task)
 {
     TaskSetAction_8c014b3e(task, audioTask_8c01ab08);
-    var_menuState_8c1bc7a8.state_0x18 = 0;
+    var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
-    var_8c226078[1] = 0;
-    var_8c226078[0] = 0;
-    var_8c226080[2] = 0;   /* overlaps var_8c226088[0] */
-    var_8c226080[1] = 0;
-    var_8c226080[0] = 0;
-    var_8c226088[3] = 0;
-    var_8c226088[2] = 0;
-    var_8c226088[1] = 0;
-    var_8c226088[0] = 0;
+    var_musicTestDigits_8c226078[1] = 0;
+    var_musicTestDigits_8c226078[0] = 0;
+    var_sfxTestDigits_8c226080[2] = 0;   /* overlaps var_voiceTestDigits_8c226088[0] */
+    var_sfxTestDigits_8c226080[1] = 0;
+    var_sfxTestDigits_8c226080[0] = 0;
+    var_voiceTestDigits_8c226088[3] = 0;
+    var_voiceTestDigits_8c226088[2] = 0;
+    var_voiceTestDigits_8c226088[1] = 0;
+    var_voiceTestDigits_8c226088[0] = 0;
     FadePushIn_8c022a9c(10);
 }
 
 /*
  * OPTION top-menu task. Four rows (SETTING / KEY CONFIGURE / AUDIO / RETURN,
- * wrapping 0-3). Phases: 0 = wait for fade-in, 1 = navigate, 2 = fade-out then
- * hand off to the pending task. Confirm (A) or RETURN picks init_8c044e28[row];
- * cancel (B) returns to the main menu. The pending task and its arg (always 2)
- * are stashed in returnAction_0x70/returnActionArg_0x74 and tail-called once the fade-out ends.
+ * wrapping 0-3). Confirm picks init_topMenuActions_8c044e28[row] -- RETURN's
+ * entry being the main menu -- and cancel the main menu; either way the chosen
+ * action and its arg (always 2) wait in returnAction_0x70/returnActionArg_0x74
+ * until the fade-out ends.
  */
 STATIC void topMenuTask_8c01b00a(Task *task)
 {
@@ -747,13 +751,13 @@ STATIC void topMenuTask_8c01b00a(Task *task)
 
         case OPTION_STATE_NAVIGATE: {
             if (press & PDD_DGT_TA) {
-                CHANGE_STATE(OPTION_STATE_EDIT);
-                m->returnAction_0x70 = (int)init_8c044e28[m->selected_0x38];
+                CHANGE_STATE(TOP_MENU_FADE_OUT);
+                m->returnAction_0x70 = (int)init_topMenuActions_8c044e28[m->selected_0x38];
                 m->returnActionArg_0x74 = 2;
                 FadePushOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
-                CHANGE_STATE(OPTION_STATE_EDIT);
+                CHANGE_STATE(TOP_MENU_FADE_OUT);
                 m->returnAction_0x70 = (int)MainMenuSwitchFromTask_8c01a09a;
                 m->returnActionArg_0x74 = 2;
                 FadePushOut_8c022b60(10);
@@ -774,7 +778,7 @@ STATIC void topMenuTask_8c01b00a(Task *task)
             break;
         }
 
-        case OPTION_STATE_EDIT: {   /* fade-out, then hand off to the pending task */
+        case TOP_MENU_FADE_OUT: {
             if (var_isFading_8c226568 == 0) {
                 ((TaskAction)m->returnAction_0x70)(task, (void *)m->returnActionArg_0x74);
                 return;
@@ -790,15 +794,15 @@ STATIC void topMenuTask_8c01b00a(Task *task)
 
 /*
  * Reinstall the current task as the OPTION top-menu task, cursor on `row`
- * (SETTING=0, KEY CONFIGURE=1, AUDIO=2). Resets var_8c226074 to point at the
- * SETTING toggles; the top menu doesn't use it itself, but switchToSetting_8c01a3c0
- * assumes it's already valid.
+ * (SETTING=0, KEY CONFIGURE=1, AUDIO=2). This is the only place
+ * var_settingValues_8c226074 is ever pointed at its backing array;
+ * settingTask_8c01a148 only reads through it.
  */
 void OptionSwitchToTopMenu_8c01b122(Task *task, int row)
 {
     TaskSetAction_8c014b3e(task, topMenuTask_8c01b00a);
-    var_menuState_8c1bc7a8.state_0x18 = 0;
+    var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = row;
-    var_8c226074 = var_8c1ba290;
+    var_settingValues_8c226074 = var_8c1ba290;
     FadePushIn_8c022a9c(10);
 }

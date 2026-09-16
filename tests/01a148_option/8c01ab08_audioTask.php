@@ -46,9 +46,9 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xd7);
-        $this->setSize('_var_8c226078', 8);
-        $this->setSize('_var_8c226080', 8);
-        $this->setSize('_var_8c226088', 16);
+        $this->setSize('_var_musicTestDigits_8c226078', 8);
+        $this->setSize('_var_sfxTestDigits_8c226080', 8);
+        $this->setSize('_var_voiceTestDigits_8c226088', 16);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndSetSoundMode_8c0108c0', 4);
@@ -112,9 +112,9 @@ return new class extends TestCase {
     /* The 3 sound-test digit fields (soundTestFieldDraw has its own test -> mocked). */
     private function shouldDrawTestFields(): void
     {
-        $this->shouldCall('_soundTestFieldDraw_8c01aaaa')->with(441.0, 225.0, $this->addressOf('_var_8c226078'), 2);
-        $this->shouldCall('_soundTestFieldDraw_8c01aaaa')->with(441.0, 261.0, $this->addressOf('_var_8c226080'), 2);
-        $this->shouldCall('_soundTestFieldDraw_8c01aaaa')->with(441.0, 298.0, $this->addressOf('_var_8c226088'), 4);
+        $this->shouldCall('_soundTestFieldDraw_8c01aaaa')->with(441.0, 225.0, $this->addressOf('_var_musicTestDigits_8c226078'), 2);
+        $this->shouldCall('_soundTestFieldDraw_8c01aaaa')->with(441.0, 261.0, $this->addressOf('_var_sfxTestDigits_8c226080'), 2);
+        $this->shouldCall('_soundTestFieldDraw_8c01aaaa')->with(441.0, 298.0, $this->addressOf('_var_voiceTestDigits_8c226088'), 4);
     }
 
     /* Sound-test digit cursor (0x70) at row height $y, x = 436 - 26*off. */
@@ -328,7 +328,7 @@ return new class extends TestCase {
     {
         // No confirm: soundTestFieldAdjust drives the digits (its own contract).
         $this->arrange(press: 0, state: 6, selected: 4, field3c: 1);
-        $this->shouldCall('_soundTestFieldAdjust_8c01a926')->with($this->addressOf('_var_8c226078'), 2, 0x10);
+        $this->shouldCall('_soundTestFieldAdjust_8c01a926')->with($this->addressOf('_var_musicTestDigits_8c226078'), 2, 0x10);
         $this->shouldDrawTestCursor(220.0, 1);
         $this->shouldDrawLabels(4);
         $this->shouldDrawMarkersPlain(0, 0, 0, 0);
@@ -339,7 +339,7 @@ return new class extends TestCase {
     public function test_music_test_confirm_plays()
     {
         $this->arrange(press: self::TA, state: 6, selected: 4, field3c: 0);
-        $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_8c226078'), 2)->andReturn(0x2a);
+        $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_musicTestDigits_8c226078'), 2)->andReturn(0x2a);
         $this->shouldCall('_FUN_8c0107ac')->with(0x2a);
         $this->shouldDrawTestCursor(220.0, 0);
         $this->shouldDrawLabels(4);
@@ -351,7 +351,7 @@ return new class extends TestCase {
     public function test_sfx_test_confirm_plays()
     {
         $this->arrange(press: self::TA, state: 7, selected: 5, field3c: 0);
-        $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_8c226080'), 2)->andReturn(0x11);
+        $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_sfxTestDigits_8c226080'), 2)->andReturn(0x11);
         $this->shouldCall('_FUN_8c0106d2')->with(0x11);
         $this->shouldDrawTestCursor(256.0, 0);
         $this->shouldDrawLabels(5);
@@ -363,7 +363,7 @@ return new class extends TestCase {
     public function test_voice_test_confirm_plays()
     {
         $this->arrange(press: self::TA, state: 8, selected: 6, field3c: 2);
-        $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_8c226088'), 4)->andReturn(0x100);
+        $this->shouldCall('_soundTestFieldRead_8c01a904')->with($this->addressOf('_var_voiceTestDigits_8c226088'), 4)->andReturn(0x100);
         $this->shouldCall('_FUN_8c010720')->with(0x100);
         $this->shouldDrawTestCursor(292.0, 2);
         $this->shouldDrawLabels(6);

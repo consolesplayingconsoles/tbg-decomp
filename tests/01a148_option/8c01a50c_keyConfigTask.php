@@ -257,7 +257,7 @@ return new class extends TestCase {
     public function test_edit_button_exit_skips_cycle_this_frame()
     {
         // keyConfigEditExit signals the edit ended this frame (its state/midi side
-        // effects are its own contract); we only assert OptionKeyConfigTask skips
+        // effects are its own contract); we only assert keyConfigTask_8c01a50c skips
         // cycleValue and still draws the (stale) state-2 icon this same frame.
         $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::CONTROLLER, variant: 0, choiceAPad: 1);
         $this->shouldCall('_keyConfigEditExit_8c01a4b4')->andReturn(1);

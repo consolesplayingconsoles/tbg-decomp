@@ -24,14 +24,14 @@ return new class extends TestCase {
         return $this->addressOf('_var_menuState_8c1bc7a8') + $off;
     }
 
-    /* Seed globals; point var_8c226074 at a fresh 5-byte settings array. */
+    /* Seed globals; point var_settingValues_8c226074 at a fresh 5-byte settings array. */
     private function arrange(int $press, int $state, int $selected,
                              array $values, int $isFading = 0, int $logo = 1): void
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_8c226074', 4);
+        $this->setSize('_var_settingValues_8c226074', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_FileMenuResetControlDefaults_8c018862', 4);
@@ -48,7 +48,7 @@ return new class extends TestCase {
         foreach ($values as $i => $v) {
             $this->initUint8($this->settings + $i, $v & 0xff);
         }
-        $this->initUint32($this->addressOf('_var_8c226074'), $this->settings);
+        $this->initUint32($this->addressOf('_var_settingValues_8c226074'), $this->settings);
     }
 
     /*

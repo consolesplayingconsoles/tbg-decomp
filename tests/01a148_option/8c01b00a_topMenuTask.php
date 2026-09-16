@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
         // _MainMenuSwitchFromTask_8c01a09a and the three switch-in wrappers are
-        // auto-allocated via the init_8c044e28 dispatch table's relocations.
+        // auto-allocated via the init_topMenuActions_8c044e28 dispatch table's relocations.
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + self::PRESS, $press);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), self::MIDI);
