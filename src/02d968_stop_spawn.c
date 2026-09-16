@@ -21,9 +21,9 @@
  * ====================
  */
 
-/* local_44's element type: one entry per var_stopSchedule_8c228718 slot sharing the
- * bus's current segment, built up before being Fisher-Yates shuffled and
- * spawned via PassengerExitTask_8c02d46c. */
+/* One var_stopSchedule_8c228718 slot sharing the bus's current segment. These
+ * are collected, Fisher-Yates shuffled, then spawned via
+ * PassengerExitTask_8c02d46c. */
 typedef struct {
     void *entry_0x00;
     int index_0x04;
@@ -59,7 +59,7 @@ void StopSpawnInit_8c02d968(void)
     Task *task;
     StopScheduleState *state;
     PassengerStopSceneState *rawState;
-    int i, n, count, quadrant, randIdx;
+    int i, n, count, midiSlot, randIdx;
     void *scriptEntry;
     void *matchedBuf;
     SegMatchEntry *matched;
@@ -169,8 +169,8 @@ void StopSpawnInit_8c02d968(void)
         state->jitterZ_0x1c = ((float)rand() / 32768.0f) * 0.2f;
         state->delay_0x20 = i;
         state->isSeated_0x28 = 0;
-        quadrant = i % 4;
-        state->voice_0x2c = quadrant;
+        midiSlot = i % 4;
+        state->voice_0x2c = midiSlot;
         state->soundIdA_0x30 = init_passengerVoiceVariant_8c04c4dc[*(char *)state->entry_0x00] + 0x32;
         state->soundIdB_0x34 = state->soundIdA_0x30 + 4;
         var_passengerCount_8c1bb8e4++;
@@ -243,8 +243,8 @@ void StopSpawnInit_8c02d968(void)
         state->delay_0x20 = i;
         state->slotIndex_0x24 = matched[i].index_0x04;
         state->isSeated_0x28 = 1;
-        quadrant = i % 4;
-        state->voice_0x2c = quadrant;
+        midiSlot = i % 4;
+        state->voice_0x2c = midiSlot;
         state->soundIdA_0x30 = init_passengerVoiceVariant_8c04c4dc[*(char *)state->entry_0x00] + 0x36;
         state->soundIdB_0x34 = state->soundIdA_0x30 - 8;
     }
