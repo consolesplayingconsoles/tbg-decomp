@@ -109,12 +109,12 @@ return [
         ],
         [
             'tests' => [
-                "tests/02081c/8c02081c_GeomDistanceXZ.php",
-                "tests/02081c/8c020842_GeomQuadOverlap.php",
+                "tests/02081c_geom/8c02081c_GeomDistanceXZ.php",
+                "tests/02081c_geom/8c020842_GeomQuadOverlap.php",
             ],
             'objects' => [
-                "build/output_test/src/asm/decompiled/02081c.obj",
-                "build/output_test/src/02081c.obj",
+                "build/output_test/src/asm/decompiled/02081c_geom.obj",
+                "build/output_test/src/02081c_geom.obj",
             ],
         ],
         [

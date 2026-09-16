@@ -10,7 +10,7 @@
 #include "023938_bus_drive.h"               /* BusDriveSampleGround_8c023938/023cba/023e7e */
 #include "024280_bus_input.h"               /* BusInputUpdate_8c0246b2/024280 */
 #include "02412c_bus_line.h"               /* BusLineAdvance_8c02412c */
-#include "02081c.h"               /* GeomDistanceXZ_8c02081c */
+#include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
 #include "024b4c_bus_render.h"               /* BusRenderUpdateCamera_8c025078, BusRenderUpdateMirrorCamera_8c025604 */
 #include "025870_demo.h"               /* DemoUpdateCamera_8c025906 */
 #include "027958_bus_draw.h"      /* BusDrawFadeLights_8c028022 */

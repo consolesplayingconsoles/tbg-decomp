@@ -10,7 +10,7 @@
 #include "02df3c_traffic_lookahead.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
 #include "02f0c8_traffic_path_scan.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanJunctionOccupied_8c02f28a */
 #include "0207d4.h"             /* FUN_8c0207d4, Point3f */
-#include "02081c.h"             /* GeomDistanceXZ_8c02081c */
+#include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
 #include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
 #include "013ae8_route_load.h"  /* var_timeOfDay_8c18ad20 */
 #include "sectionB.h"           /* var_activeTrafficPreset_8c227e14, var_busState_8c1bb9d0, ... */

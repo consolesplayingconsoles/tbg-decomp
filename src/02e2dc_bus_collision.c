@@ -2,7 +2,7 @@
 
 #include <shinobi.h>
 #include "014a9c_tasks.h"
-#include "02081c.h"
+#include "02081c_geom.h"
 #include "026710_traffic.h" /* TrafficEntry */
 #include "02e2dc_bus_collision.h"
 #include "sectionB.h"

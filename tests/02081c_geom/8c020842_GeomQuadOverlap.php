@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// Separating-axis overlap test between two convex quads (4 NJS_POINT3
-// points each; y unused except a coarse pre-gate on point index 1).
+// TRUE if either of two convex quads (4 NJS_POINT3s each, x/z only) holds
+// a vertex of the other, after a one-sided height cull on vertex 1.
 return new class extends TestCase {
     private function initFloat(int $address, float $value): void
     {

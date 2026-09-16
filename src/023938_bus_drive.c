@@ -9,7 +9,7 @@
 #include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
 #include "020b6c_ground_probe.h" /* GroundProbeInterpolateHeight_8c020f7e */
 #include "0207d4.h" /* FUN_8c0207fa, Point3f */
-#include "02081c.h" /* GeomDistanceXZ_8c02081c */
+#include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
 #include "023938_bus_drive.h"
 
 /* ====================

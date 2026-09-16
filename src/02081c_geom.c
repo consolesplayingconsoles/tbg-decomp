@@ -1,8 +1,14 @@
 /* @unit Geom */
 #include <shinobi.h>
 
-#include "02081c.h"
+#include "02081c_geom.h"
 
+/* ====================
+ * Functions
+ * ====================
+ */
+
+/* See 02081c_geom.h. */
 float GeomDistanceXZ_8c02081c(void *a, void *b)
 {
     Float *pa = (Float *)a;
@@ -13,15 +19,13 @@ float GeomDistanceXZ_8c02081c(void *a, void *b)
     return njSqrt(dz * dz + dx * dx);
 }
 
-/* Separating-axis overlap test between two convex quads (4 NJS_POINT3s
- * each, x/z only -- y is unused). */
+/* See 02081c_geom.h. */
 Bool GeomQuadOverlap_8c020842(NJS_POINT3 *a, NJS_POINT3 *b)
 {
     Sint32 i, j;
 
-    /* Coarse Y check on the quads' second point (index 1) before the real
-     * test in both directions (a's vertices against b's edges, then b's
-     * against a's). */
+    /* Height cull, one-sided and sampled at vertex 1 only: a high above b
+     * misses, b high above a does not. */
     if (a[1].y - b[1].y > 5.0f) {
         return FALSE;
     }
