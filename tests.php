@@ -19,7 +19,7 @@ return [
         ],
         [
             'tests' => [
-                "tests/012324/12324_task.php",
+                "tests/012324_peripheral_support/8c012324_PspTask.php",
             ],
             'objects' => [
                 "build/output_test/src/asm/decompiled/012324_peripheral_support.obj",

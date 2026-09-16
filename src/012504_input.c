@@ -211,8 +211,9 @@ STATIC void inputAutoTask_8c012718(void)
     VmGameUpdateLcd_8c01c910();
 }
 
-/* param 0: install peripheral-support task, clear auto-fire state;
- * param 1: install the mapped input handler. */
+/* Installs the task that fills var_peripherals_8c1ba35c each frame: 0 for the
+ * menus (PspTask_8c012324, with its stick and repeat state reset), 1 for a
+ * drive. Any other value installs nothing. */
 void InputPushTask_8c0128cc(int param)
 {
     void (*action)(void);
@@ -222,9 +223,9 @@ void InputPushTask_8c0128cc(int param)
         LOG_DEBUG(("[INPUT] InputPushTask_8c0128cc: queueing peripheral-support task\n"));
         TaskPush_8c014ae8(var_tasks_8c1ba3c8, PspTask_8c012324,
                           &var_8c157a74, &created_state, 0);
-        var_8c157ae4 = 0;
-        var_8c157ae8 = 0;
-        var_8c157ad4[0] = 0;
+        var_stickLatchX_8c157ae4 = 0;
+        var_stickLatchY_8c157ae8 = 0;
+        var_keyRepeat_8c157ad4.active_0x00 = 0;
     } else if (param == 1) {
         if (var_driveMode_8c1bb8c8 == 0) {
             action = inputManualTask_8c012504;

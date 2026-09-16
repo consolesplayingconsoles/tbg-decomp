@@ -25,9 +25,9 @@ return new class extends TestCase {
             $sp0 - 16, // &created_state (stack local; InputPushTask_8c0128cc's only local, sole word pushed just above TaskPush's stack arg)
             0
         );
-        $this->shouldWriteLongTo('_var_8c157ae4', 0);
-        $this->shouldWriteLongTo('_var_8c157ae8', 0);
-        $this->shouldWriteLongTo('_var_8c157ad4', 0);
+        $this->shouldWriteLongTo('_var_stickLatchX_8c157ae4', 0);
+        $this->shouldWriteLongTo('_var_stickLatchY_8c157ae8', 0);
+        $this->shouldWriteLongTo('_var_keyRepeat_8c157ad4', 0);
     }
 
     public function test_installs_the_manual_input_task()
@@ -82,9 +82,9 @@ return new class extends TestCase {
     {
         $this->setSize('_var_tasks_8c1ba3c8', 4);
         $this->setSize('_var_8c157a74', 4);
-        $this->setSize('_var_8c157ae4', 4);
-        $this->setSize('_var_8c157ae8', 4);
-        $this->setSize('_var_8c157ad4', 0x10);
+        $this->setSize('_var_stickLatchX_8c157ae4', 4);
+        $this->setSize('_var_stickLatchY_8c157ae8', 4);
+        $this->setSize('_var_keyRepeat_8c157ad4', 0x10);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_PspTask_8c012324', 4);
     }

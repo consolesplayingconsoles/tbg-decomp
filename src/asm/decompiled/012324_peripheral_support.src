@@ -10,9 +10,9 @@
           .IMPORT     _VmGameUpdateLcd_8c01c910
           .IMPORT     _SndUpdateAdxVolFade_8c010a40
           .EXPORT     _PspTask_8c012324
-          .EXPORT     _var_8c157ad4
-          .EXPORT     _var_8c157ae4
-          .EXPORT     _var_8c157ae8
+          .EXPORT     _var_keyRepeat_8c157ad4
+          .EXPORT     _var_stickLatchX_8c157ae4
+          .EXPORT     _var_stickLatchY_8c157ae8
           .SECTION     P, CODE, ALIGN=4
 _PspTask_8c012324:
           MOV.L       R14,@-R15
@@ -151,8 +151,8 @@ LP_GEN_72787:
           .DATA.L _var_activeCtrlType_8c157a70
           .DATA.L H'000700FE
           .DATA.L __quick_odd_mvn
-          .DATA.L _var_8c157ae4
-          .DATA.L _var_8c157ae8
+          .DATA.L _var_stickLatchX_8c157ae4
+          .DATA.L _var_stickLatchY_8c157ae8
 
 LAB_8c012434:
           MOV.L       R13,@R5
@@ -259,14 +259,14 @@ LP_GEN_88452:
           .DATA.L _const_peripheral_8c033318
           .DATA.L __quick_odd_mvn
           .DATA.L _var_vibport_8c1ba354
-          .DATA.L _var_8c157ad4
+          .DATA.L _var_keyRepeat_8c157ad4
           .DATA.L _VmGameUpdateLcd_8c01c910
           .DATA.L _SndUpdateAdxVolFade_8c010a40
           .SECTION    B,DATA,ALIGN=4
-_var_8c157ad4:
+_var_keyRepeat_8c157ad4:
           .RES.L      4
-_var_8c157ae4:
+_var_stickLatchX_8c157ae4:
           .RES.B      4
-_var_8c157ae8:
+_var_stickLatchY_8c157ae8:
           .RES.B      4
           .END
