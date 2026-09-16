@@ -8,7 +8,7 @@ SHA1_CHECKSUM=a6df9e0de39b2d11e9339aef915d20e35763ec81
 SHELL := /bin/bash
 
 SRCS = \
-	src/asm/010000.src \
+	src/asm/010000_start.src \
 	src/010080_main.c \
 	src/asm/decompiled/0100bc_sound.src \
 	src/010e90_vibration.c \
