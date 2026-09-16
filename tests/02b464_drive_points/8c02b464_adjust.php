@@ -14,6 +14,7 @@ return new class extends TestCase {
         // (var_driverPointsMax_8c2285d4); this TU addresses both via var_8c2285c4, like
         // 013ae8_route_load.c and 01e27c_practice_menu.c do.
         $this->setSize('_var_8c2285c4', 0x14);
+        $this->setSize('_var_progress_8c1ba1cc', 0xe8);
     }
 
     private function pointsAddr(): int
@@ -24,6 +25,11 @@ return new class extends TestCase {
     private function maxAddr(): int
     {
         return $this->addressOf('_var_8c2285c4') + 0x10;
+    }
+
+    private function difficultyAddr(): int
+    {
+        return $this->addressOf('_var_progress_8c1ba1cc') + 0xc4;
     }
 
     public function test_no_op_while_scored_demo_playing(): void
@@ -75,7 +81,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint8($this->addressOf('_var_8c1ba290'), 0); // DIFFICULTY != 2, so no gate
+        $this->initUint8($this->difficultyAddr(), 0); // DIFFICULTY != 2, so no gate
         $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0xfffffff6);
         $this->initUint32($this->pointsAddr(), 95);
         $this->initUint32($this->maxAddr(), 100);
@@ -111,7 +117,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint8($this->addressOf('_var_8c1ba290'), 2); // DIFFICULTY == 2
+        $this->initUint8($this->difficultyAddr(), 2); // DIFFICULTY == 2
 
         // Positive delta while gated: no writes at all, function returns immediately.
         $this->call('_adjust_8c02b464')->with(0xffffffff, 10);
@@ -122,7 +128,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1); // scored run
-        $this->initUint8($this->addressOf('_var_8c1ba290'), 2); // DIFFICULTY == 2
+        $this->initUint8($this->difficultyAddr(), 2); // DIFFICULTY == 2
         $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0);
         $this->initUint32($this->pointsAddr(), 50);
         $this->initUint32($this->maxAddr(), 100);
@@ -138,7 +144,7 @@ return new class extends TestCase {
         $this->doNotRandomizeMemory();
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
-        $this->initUint8($this->addressOf('_var_8c1ba290'), 0); // DIFFICULTY != 2
+        $this->initUint8($this->difficultyAddr(), 0); // DIFFICULTY != 2
         $this->initUint32($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0);
         $this->initUint32($this->pointsAddr(), 50);
         $this->initUint32($this->maxAddr(), 100);

@@ -193,7 +193,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
         var_driveCueState_8c2264b8.nearStopChimeLatch_0x14 = 0;
     }
 
-    if (var_vibport_8c1ba354 != (Uint32)-1 && var_vibrationSetting_8c1ba293 == 0) {
+    if (var_vibport_8c1ba354 != (Uint32)-1 && var_progress_8c1ba1cc.vibration_0xc7 == 0) {
         VibUpdate_8c010fae(var_vibport_8c1ba354);
     }
 }

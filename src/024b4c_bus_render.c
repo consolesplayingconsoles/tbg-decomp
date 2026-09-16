@@ -213,7 +213,7 @@ void BusRenderUpdateCamera_8c025078(void)
     case BUS_CAMERA_COCKPIT: {
         Sint32 target;
 
-        if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] != 0) {
+        if (var_progress_8c1ba1cc.screenRoll_0xc8 != 0) {
             ang = 0;
             pitchOffset = 0.0f;
         }
@@ -266,7 +266,7 @@ void BusRenderUpdateCamera_8c025078(void)
         break;
     }
     case BUS_CAMERA_FIRST_PERSON:
-        if (var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] != 0) {
+        if (var_progress_8c1ba1cc.screenRoll_0xc8 != 0) {
             ang = 0;
             pitchOffset = 0.0f;
         }

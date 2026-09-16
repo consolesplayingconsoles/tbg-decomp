@@ -32,7 +32,7 @@
           .IMPORT     _var_startStopIndex_8c228704
           .IMPORT     _var_prevStopSegment_8c22870c
           .IMPORT     _var_8c2285c4
-          .IMPORT     _var_8c1ba290
+          .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _var_scheduleTime_8c2285d8
           .IMPORT     _var_currentSegment_8c228708
@@ -589,7 +589,7 @@ LP_GEN_85265:
           .DATA.L _var_nextStopSegment_8c228710 ; H'8C02CC84
           .DATA.L _var_prevStopSegment_8c22870c ; H'8C02CC88
           .DATA.L _var_8c2285c4 ; H'8C02CC8C
-          .DATA.L _var_8c1ba290 ; H'8C02CC90
+          .DATA.L _var_progress_8c1ba1cc+H'C4 ; H'8C02CC90 (difficulty_0xc4)
           .DATA.L _var_practiceRules_8c226410 ; H'8C02CC94
 LAB_8c02cc98:
           MOV.L       R5,@(H'18,R4)

@@ -150,7 +150,7 @@ STATIC void applyBraking_8c024530(void)
     int angle;
     float *smoothedBrake;
 
-    prevDeadzone = var_brakeSensitivity_8c1ba29d;
+    prevDeadzone = var_progress_8c1ba1cc.brakeSensitivity_0xd1;
     delta = (float)((int)var_padTriggerL_8c1ba376 - (int)prevDeadzone);
 
     brakeAmount = 0.002f + (var_busState_8c1bb9d0.speed_0x27c / 48.0f) *
@@ -194,7 +194,7 @@ STATIC void applyThrottle_8c024320(void)
     int gear;
 
     trigger = var_padTriggerR_8c1ba374;
-    deadzone = var_accelSensitivity_8c1ba29c;
+    deadzone = var_progress_8c1ba1cc.accelSensitivity_0xd0;
     delta = (float)((int)trigger - (int)deadzone);
     step = (int)((delta / (255.0f - deadzone)) * 16384.0f);
 
@@ -255,15 +255,15 @@ STATIC void applyThrottle_8c024320(void)
 
 /* Plays the brake pedal's SFX and tracks its press intensity in
  * var_brakePressPeak_8c227d8c, ratcheting it up to (never down from) the scaled travel
- * distance while the .l trigger keeps moving further from var_brakeSensitivity_8c1ba29d's
- * saved deadzone. */
+ * distance while the .l trigger keeps moving further past the saved
+ * brakeSensitivity_0xd1 deadzone. */
 STATIC void applyBrakingSfx_8c024606(void)
 {
     Uint16 trigger;
     Uint8 prevDeadzone;
 
     trigger = var_padTriggerL_8c1ba376;
-    prevDeadzone = var_brakeSensitivity_8c1ba29d;
+    prevDeadzone = var_progress_8c1ba1cc.brakeSensitivity_0xd1;
 
     if (trigger > prevDeadzone) {
         int delta = trigger - prevDeadzone;
@@ -298,9 +298,9 @@ void BusInputUpdate_8c0246b2(void)
     applyBrakingSfx_8c024606();
 
     brakeTrigger = pad->l;
-    brakeDeadzone = var_brakeSensitivity_8c1ba29d;
+    brakeDeadzone = var_progress_8c1ba1cc.brakeSensitivity_0xd1;
     throttleTrigger = pad->r;
-    throttleDeadzone = var_accelSensitivity_8c1ba29c;
+    throttleDeadzone = var_progress_8c1ba1cc.accelSensitivity_0xd0;
 
     mode = var_busState_8c1bb9d0.engineState_0x2e0;
     switch (mode) {

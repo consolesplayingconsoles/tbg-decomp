@@ -212,7 +212,7 @@ STATIC void adjust_8c02b464(int msgSet, int delta) {
      * results screen (01e27c_practice_menu.c). */
     if (delta < 0) {
         var_penaltyCount_8c1bb8f4 = var_penaltyCount_8c1bb8f4 + 1;
-    } else if (var_8c1ba290[0] == 2 && var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
+    } else if (var_progress_8c1ba1cc.difficulty_0xc4 == 2 && var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
         return;
     }
 

@@ -198,8 +198,8 @@ LP_GEN_66558:
           ; coverage:ignore-next-line -- alignment padding, not executed code
           .RES.W 1 ; H'8C02B082
           .DATA.L _var_progress_8c1ba1cc ; H'8C02B084
-          .DATA.L _var_progress_8c1ba1cc+H'04 ; H'8C02B088 (field_0x04)
-          .DATA.L _var_progress_8c1ba1cc+H'18 ; H'8C02B08C (field_0x18)
+          .DATA.L _var_progress_8c1ba1cc+H'04 ; H'8C02B088 (eventProgressFlags_0x04)
+          .DATA.L _var_progress_8c1ba1cc+H'18 ; H'8C02B08C (profileProgressFlags_0x18)
           .DATA.L _var_runEventFlags_8c1ba2b4 ; H'8C02B090
           .DATA.L _var_eventCandidateCount_8c228560 ; H'8C02B094
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02B098

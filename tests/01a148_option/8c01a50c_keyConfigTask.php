@@ -20,11 +20,11 @@ return new class extends TestCase {
     const RACING = 0x700fe;       // BT_RACING
 
     // PlayerProgress field offsets from var_progress_8c1ba1cc.
-    const VARIANT = 0xc5;         // driveMode_0xc5 -- A/B button-config variant
-    const CHOICE_A_PAD = 0xcc;    // controlAndDisplayFlags_0xc7[5] -- variant A, BT_CONTROLLER
-    const CHOICE_B_PAD = 0xcd;    // controlAndDisplayFlags_0xc7[6] -- variant B, BT_CONTROLLER
-    const CHOICE_A_RACE = 0xce;   // controlAndDisplayFlags_0xc7[7] -- variant A, BT_RACING
-    const CHOICE_B_RACE = 0xcf;   // controlAndDisplayFlags_0xc7[8] -- variant B, BT_RACING
+    const DRIVE_MODE = 0xc5;      // driveMode_0xc5 -- 0 manual, 1 auto
+    const CHOICE_MANUAL_PAD = 0xcc;    // btnConfigManual_0xcc, BT_CONTROLLER
+    const CHOICE_AUTO_PAD = 0xcd;      // btnConfigAuto_0xcd, BT_CONTROLLER
+    const CHOICE_MANUAL_RACE = 0xce;   // btnConfigWheelManual_0xce, BT_RACING
+    const CHOICE_AUTO_RACE = 0xcf;     // btnConfigWheelAuto_0xcf, BT_RACING
     const ACCEL = 0xd0;           // accelSensitivity_0xd0
     const BRAKE = 0xd1;           // brakeSensitivity_0xd1
 
@@ -41,9 +41,9 @@ return new class extends TestCase {
     }
 
     private function arrange(int $press, int $state, int $selected,
-                             int $ctrlType = self::CONTROLLER, int $variant = 0,
-                             int $choiceAPad = 0, int $choiceBPad = 0,
-                             int $choiceARace = 0, int $choiceBRace = 0,
+                             int $ctrlType = self::CONTROLLER, int $driveMode = 0,
+                             int $choiceManualPad = 0, int $choiceAutoPad = 0,
+                             int $choiceManualRace = 0, int $choiceAutoRace = 0,
                              int $accel = 0, int $brake = 0, int $r = 0, int $l = 0,
                              int $isFading = 0): void
     {
@@ -64,11 +64,11 @@ return new class extends TestCase {
         $this->initUint32($this->menu(self::STATE), $state);
         $this->initUint32($this->menu(self::SELECTED), $selected);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), $isFading);
-        $this->initUint8($this->progress(self::VARIANT), $variant);
-        $this->initUint8($this->progress(self::CHOICE_A_PAD), $choiceAPad);
-        $this->initUint8($this->progress(self::CHOICE_B_PAD), $choiceBPad);
-        $this->initUint8($this->progress(self::CHOICE_A_RACE), $choiceARace);
-        $this->initUint8($this->progress(self::CHOICE_B_RACE), $choiceBRace);
+        $this->initUint8($this->progress(self::DRIVE_MODE), $driveMode);
+        $this->initUint8($this->progress(self::CHOICE_MANUAL_PAD), $choiceManualPad);
+        $this->initUint8($this->progress(self::CHOICE_AUTO_PAD), $choiceAutoPad);
+        $this->initUint8($this->progress(self::CHOICE_MANUAL_RACE), $choiceManualRace);
+        $this->initUint8($this->progress(self::CHOICE_AUTO_RACE), $choiceAutoRace);
         $this->initUint8($this->progress(self::ACCEL), $accel);
         $this->initUint8($this->progress(self::BRAKE), $brake);
 
@@ -168,7 +168,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(self::STATE), 2);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->shouldDrawRowLabels(selected: 0);
-        $this->shouldDrawButtonIcon(idx: 0x35);   // controller, variant A, choice 0: 0x35 + 0
+        $this->shouldDrawButtonIcon(idx: 0x35);   // controller, manual mode, choice 0: 0x35 + 0
         $this->shouldDrawChrome(selected: 0);
     }
 
@@ -204,41 +204,41 @@ return new class extends TestCase {
         $this->shouldDrawChrome(selected: 0);
     }
 
-    public function test_edit_button_variant_a_controller()
+    public function test_edit_button_manual_controller()
     {
-        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::CONTROLLER, variant: 0, choiceAPad: 1);
+        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::CONTROLLER, driveMode: 0, choiceManualPad: 1);
         $this->shouldCall('_keyConfigEditExit_8c01a4b4')->andReturn(0);
-        $this->shouldCall('_cycleValue_8c01a3da')->with($this->progress(self::CHOICE_A_PAD), 3);
+        $this->shouldCall('_cycleValue_8c01a3da')->with($this->progress(self::CHOICE_MANUAL_PAD), 3);
         $this->shouldDrawRowLabels(selected: 0);
         $this->shouldDrawButtonIcon(idx: 0x36);   // 0x35 + choice 1
         $this->shouldDrawChrome(selected: 0);
     }
 
-    public function test_edit_button_variant_a_racing()
+    public function test_edit_button_manual_racing()
     {
-        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::RACING, variant: 0, choiceARace: 1);
+        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::RACING, driveMode: 0, choiceManualRace: 1);
         $this->shouldCall('_keyConfigEditExit_8c01a4b4')->andReturn(0);
-        $this->shouldCall('_cycleValue_8c01a3da')->with($this->progress(self::CHOICE_A_RACE), 2);
+        $this->shouldCall('_cycleValue_8c01a3da')->with($this->progress(self::CHOICE_MANUAL_RACE), 2);
         $this->shouldDrawRowLabels(selected: 0);
         $this->shouldDrawButtonIcon(idx: 0x3c);   // 0x3b + choice 1
         $this->shouldDrawChrome(selected: 0);
     }
 
-    public function test_edit_button_variant_b_controller()
+    public function test_edit_button_auto_controller()
     {
-        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::CONTROLLER, variant: 1, choiceBPad: 2);
+        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::CONTROLLER, driveMode: 1, choiceAutoPad: 2);
         $this->shouldCall('_keyConfigEditExit_8c01a4b4')->andReturn(0);
-        $this->shouldCall('_cycleValue_8c01a3da')->with($this->progress(self::CHOICE_B_PAD), 3);
+        $this->shouldCall('_cycleValue_8c01a3da')->with($this->progress(self::CHOICE_AUTO_PAD), 3);
         $this->shouldDrawRowLabels(selected: 0);
         $this->shouldDrawButtonIcon(idx: 0x3a);   // 0x38 + choice 2
         $this->shouldDrawChrome(selected: 0);
     }
 
-    public function test_edit_button_variant_b_racing()
+    public function test_edit_button_auto_racing()
     {
-        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::RACING, variant: 1, choiceBRace: 2);
+        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::RACING, driveMode: 1, choiceAutoRace: 2);
         $this->shouldCall('_keyConfigEditExit_8c01a4b4')->andReturn(0);
-        $this->shouldCall('_cycleValue_8c01a3da')->with($this->progress(self::CHOICE_B_RACE), 3);
+        $this->shouldCall('_cycleValue_8c01a3da')->with($this->progress(self::CHOICE_AUTO_RACE), 3);
         $this->shouldDrawRowLabels(selected: 0);
         $this->shouldDrawButtonIcon(idx: 0x3f);   // 0x3d + choice 2
         $this->shouldDrawChrome(selected: 0);
@@ -248,7 +248,7 @@ return new class extends TestCase {
     {
         // Neither BT_CONTROLLER nor BT_RACING: no cycleValue call, and the icon
         // draw is skipped entirely (idx stays -1) -- but we're still in state 2.
-        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: 0x12345, variant: 0);
+        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: 0x12345, driveMode: 0);
         $this->shouldCall('_keyConfigEditExit_8c01a4b4')->andReturn(0);
         $this->shouldDrawRowLabels(selected: 0);
         $this->shouldDrawChrome(selected: 0);
@@ -259,7 +259,7 @@ return new class extends TestCase {
         // keyConfigEditExit signals the edit ended this frame (its state/midi side
         // effects are its own contract); we only assert keyConfigTask_8c01a50c skips
         // cycleValue and still draws the (stale) state-2 icon this same frame.
-        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::CONTROLLER, variant: 0, choiceAPad: 1);
+        $this->arrange(press: 0, state: 2, selected: 0, ctrlType: self::CONTROLLER, driveMode: 0, choiceManualPad: 1);
         $this->shouldCall('_keyConfigEditExit_8c01a4b4')->andReturn(1);
         $this->shouldDrawRowLabels(selected: 0);
         $this->shouldDrawButtonIcon(idx: 0x36);

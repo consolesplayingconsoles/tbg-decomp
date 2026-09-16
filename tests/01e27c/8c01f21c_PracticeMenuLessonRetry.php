@@ -58,12 +58,8 @@ return new class extends TestCase {
         $candidateScoreAddr = $this->addressOf('_var_8c2285c4') + 3 * 4;
         $this->initUint32($candidateScoreAddr, 20);
 
-        // The archived asm still imports these under their pre-simplification
-        // names; alias them onto the same cells the C reads via
-        // var_progress_8c1ba1cc.practiceLessonBestScores_0x98[]/var_8c2285c4[3].
-        // var_8c1ba264 is indexed directly by var_practiceLesson_8c22640c in the asm, so
-        // it aliases the array base (practiceLessonBestScores_0x98[0]), not the [3] cell.
-        $this->rellocate('_var_8c1ba264', $progressBase + 0x98);
+        // The archived asm still imports var_driverPoints_8c2285d0 under its own
+        // name; alias it onto the cell the C reads via var_8c2285c4[3].
         $this->rellocate('_var_driverPoints_8c2285d0', $candidateScoreAddr);
 
         $this->call('_PracticeMenuLessonRetry_8c01f21c');
@@ -143,6 +139,7 @@ return new class extends TestCase {
         $this->setSize('_InputPushTask_8c0128cc', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
+        $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_tex_8c157af8', 4);
         $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
         $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);

@@ -371,20 +371,35 @@ typedef struct {
     int letters_0x2c[6];
     CourseProgress courses_0x44[9];
     int profileUnlockedCount_0x8c;
-    int exp_0x90; // aliased by var_exp_8c1ba25c (01b19c_system_menu addresses it directly; others via this field)
+    int exp_0x90; // EXP, also shown on the VMU icon status line (see updateVmsComment_8c01b206)
     int field_0x94;
     int practiceLessonBestScores_0x98[11];
-    signed char difficulty_0xc4;
+
+    /* The SETTING screen's five rows, in screen order; while that screen is up
+     * var_settingValues_8c226074 walks them from here, wrapping each per
+     * init_settingOptionCounts_8c044de0. */
+    char difficulty_0xc4;
     char driveMode_0xc5;
     char defaultView_0xc6;
+    char vibration_0xc7;  /* 0 is on -- DriveCueTask_8c020214 ticks rumble only while it reads 0 */
+    /* 0 is on; nonzero holds the cockpit and first-person views level,
+     * ignoring the bus's roll and pitch (BusRenderUpdateCamera_8c025078). */
+    char screenRoll_0xc8;
 
-    /* covers the bytes 011120_asset_queues.c indexes at 0xcc-0xcf */
-    char controlAndDisplayFlags_0xc7[9];
+    char reserved_0xc9[3];
 
-    /* 0xd0/0xd1 look like saved input deadzone
-     * thresholds (see applyThrottle_8c024320/applyBrakingSfx_8c024606) */
-    char accelSensitivity_0xd0;
-    char brakeSensitivity_0xd1;
+    /* KEY CONFIGURE button assignment, one row per drive mode x controller
+     * type; each selects a layout for the matching remap table in
+     * AsqApplyButtonConfig_8c0121e8. */
+    char btnConfigManual_0xcc;
+    char btnConfigAuto_0xcd;
+    char btnConfigWheelManual_0xce;
+    char btnConfigWheelAuto_0xcf;
+
+    /* KEY CONFIGURE ACCEL/BRAKE sensitivity: the trigger travel (0-0x80) below
+     * which 024280_bus_input ignores the axis. */
+    unsigned char accelSensitivity_0xd0;
+    unsigned char brakeSensitivity_0xd1;
     /* Never touched by any .c; padding between the sensitivity bytes and
      * the volumes at 0xd4. */
     char field_0xd2;
@@ -407,21 +422,6 @@ typedef struct {
     char award_0xe4;
     char reserved_0xe5[3]; // padding
 } PlayerProgress;
-
-/*
- * SETTING screen's 5 persisted toggle bytes (DIFFICULTY/DRIVE MODE/DEFAULT
- * VIEW/VIBRATION/SCREEN ROLL); var_settingValues_8c226074 points here while that screen is
- * active. Sits exactly at &var_progress_8c1ba1cc.difficulty_0xc4 (0x1ba1cc+0xc4),
- * but kept as its own symbol since it's owned by sectionB.src, not decompiled.
- * [0] (DIFFICULTY) is read by BusStopSetup_8c02caba to pick the run's
- * driver-points reset value.
- */
-extern char var_8c1ba290[5];
-/* var_8c1ba290[3], the VIBRATION toggle, with its own export. 0 is on:
- * DriveCueTask_8c020214 ticks rumble playback only while it reads 0. */
-extern char var_vibrationSetting_8c1ba293;
-
-extern int var_exp_8c1ba25c; // EXP shown on the VMU icon status line (see 01b19c_system_menu)
 
 /* single-word bitset, set/tested by setRunEventFlag_8c02b022/hasRunEventFlag_8c02b030; role unclear */
 extern int var_runEventFlags_8c1ba2b4;
@@ -865,14 +865,6 @@ extern unsigned short var_padTriggerR_8c1ba374;
  * addressed directly (see var_padTriggerR_8c1ba374 above for .r). */
 extern unsigned short var_padTriggerL_8c1ba376;
 
-/* The progress struct's accelSensitivity_0xd0/brakeSensitivity_0xd1,
- * addressed directly rather than through var_progress_8c1ba1cc. Used as the
- * deadzone thresholds for .r and .l respectively (see
- * var_padTriggerR_8c1ba374/var_padTriggerL_8c1ba376 above). Always consumed
- * as an unsigned byte (every read is followed by EXTU.B in the asm). */
-extern unsigned char var_accelSensitivity_8c1ba29c;
-extern unsigned char var_brakeSensitivity_8c1ba29d;
-
 /* [0]/[1] a duplicated traffic-signal id (gradeSignals_8c02b8b8, 02b464), addressed
  * both directly and via var_8c2285c4[14]/[15]; [3]/[4] a threshold/counter
  * pair graded by gradeLaneUse_8c02b986 (via var_8c2285c4[17]/[18] there); [6] a
@@ -1174,7 +1166,8 @@ extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1c
 extern char var_profileUnlocked_8c2263b4[56]; // one byte per PROFILE FILE grid slot (55 used, 1 pad byte); set by ProfileFile
 extern ResourceGroup* var_resourceGroup_8c2263a8;
 extern Sint8 var_soundMode_8c226070;
-/* -> var_8c1ba290; pointed there only by OptionSwitchToTopMenu_8c01b122. */
+/* The SETTING rows at var_progress_8c1ba1cc.difficulty_0xc4; pointed there
+ * only by OptionSwitchToTopMenu_8c01b122. */
 extern char *var_settingValues_8c226074;
 /* AUDIO sound-test entry fields: one int per decimal digit, ones at index 0.
  * Laid out contiguously, and switchToAudio_8c01afd8 clears them relying on it. */

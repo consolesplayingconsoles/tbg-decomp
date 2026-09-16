@@ -28,12 +28,6 @@ return new class extends TestCase {
             $this->setRegister(0, U32::of(intdiv($dividend, $divisor) & 0xffffffff));
         });
 
-        // Alias the deadzone bytes onto var_progress_8c1ba1cc + 0xd0/0xd1:
-        // BusInputUpdate_8c0246b2 reads them through the progress struct directly
-        // rather than through the var_accelSensitivity_8c1ba29c/29d symbols.
-        $progress = $this->addressOf('_var_progress_8c1ba1cc');
-        $this->rellocate('_var_accelSensitivity_8c1ba29c', $progress + 0xd0);
-        $this->rellocate('_var_brakeSensitivity_8c1ba29d', $progress + 0xd1);
     }
 
     private function initFloat(int $addr, float $value): void {
@@ -46,11 +40,11 @@ return new class extends TestCase {
         int $throttleTrigger,
         int $brakeDeadzone = 0,
         int $throttleDeadzone = 0,
-        int $inputMapSel = 0
+        int $driveMode = 0
     ): array {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), $inputMapSel);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), $driveMode);
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xdeadbeef);
 
         $pad = $this->addressOf('_var_peripherals_8c1ba35c');
@@ -59,8 +53,9 @@ return new class extends TestCase {
         $this->initUint16($pad + 0x1c, 0); // .x1, centered
         $this->initUint32($pad + 0x10, 0); // .press, nothing held
 
-        $this->initUint8($this->addressOf('_var_accelSensitivity_8c1ba29c'), $throttleDeadzone);
-        $this->initUint8($this->addressOf('_var_brakeSensitivity_8c1ba29d'), $brakeDeadzone);
+        $progress = $this->addressOf('_var_progress_8c1ba1cc');
+        $this->initUint8($progress + 0xd0, $throttleDeadzone); // accelSensitivity_0xd0
+        $this->initUint8($progress + 0xd1, $brakeDeadzone);    // brakeSensitivity_0xd1
 
         $bus = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($bus + 0x2e0, $mode);
@@ -400,7 +395,7 @@ return new class extends TestCase {
         $this->forceStop();
     }
 
-    // --- mirror buttons, direct steering mode (inputMapSel == 0) ---
+    // --- mirror buttons, manual drive mode (driveMode == 0) ---
 
     public function test_directMode_mirrorButtonA_pressed_entersMirror(): void {
         ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0);
@@ -480,10 +475,10 @@ return new class extends TestCase {
         $this->forceStop();
     }
 
-    // --- mirror buttons, mapped-route mode (inputMapSel != 0) ---
+    // --- mirror buttons, auto drive mode (driveMode == 1) ---
 
     public function test_mappedMode_field334Set_bailsImmediately(): void {
-        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, inputMapSel: 1);
+        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, driveMode: 1);
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x334, 1);
 
@@ -497,7 +492,7 @@ return new class extends TestCase {
     }
 
     public function test_mappedMode_mirrorButtonA_pressed_entersMirror(): void {
-        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, inputMapSel: 1);
+        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, driveMode: 1);
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x25c, 0);
         $this->initUint32($this->addressOf('_var_8c2285c4') + 0x6c, 0);
@@ -514,7 +509,7 @@ return new class extends TestCase {
     }
 
     public function test_mappedMode_mirrorButtonA_held_clearsField338(): void {
-        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, inputMapSel: 1);
+        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, driveMode: 1);
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x25c, 1);
 
@@ -529,7 +524,7 @@ return new class extends TestCase {
     }
 
     public function test_mappedMode_mirrorButtonB_held_releasesMirror(): void {
-        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, inputMapSel: 1);
+        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, driveMode: 1);
         $this->initUint32($pad + 0x10, 0x2);
         $this->initUint32($bus + 0x25c, 1);
 
@@ -545,7 +540,7 @@ return new class extends TestCase {
     }
 
     public function test_mappedMode_mirrorButtonB_atAltState_setsField338(): void {
-        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, inputMapSel: 1);
+        ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, driveMode: 1);
         $this->initUint32($pad + 0x10, 0x2);
         $this->initUint32($bus + 0x25c, 2);
 
@@ -560,7 +555,7 @@ return new class extends TestCase {
     }
 
     public function test_mappedMode_noMirrorButton_onlySetsField338(): void {
-        ['bus' => $bus] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, inputMapSel: 1);
+        ['bus' => $bus] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, driveMode: 1);
 
         $this->call('_BusInputUpdate_8c0246b2');
 

@@ -108,7 +108,7 @@ STATIC void updateVmsComment_8c01b206(void)
     }
     strcpy(var_vmsComment_8c226098, "9/   EXP ");
     writeDecimalDigits_8c01b1c0(&var_vmsComment_8c226098[2], var_progress_8c1ba1cc.days_0x00);
-    writeDecimalDigits_8c01b1c0(&var_vmsComment_8c226098[9], var_exp_8c1ba25c);
+    writeDecimalDigits_8c01b1c0(&var_vmsComment_8c226098[9], var_progress_8c1ba1cc.exp_0x90);
 }
 
 void SystemMenuWriteToVmu_8c01b26c(void)

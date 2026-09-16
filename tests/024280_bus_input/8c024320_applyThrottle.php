@@ -6,10 +6,9 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // applyThrottle_8c024320: STATIC, called from BusInputUpdate_8c0246b2 each frame while driving.
 // While the .r trigger (var_padTriggerR_8c1ba374) clears its saved deadzone
-// (var_accelSensitivity_8c1ba29c) and the scaled step it asks for is at least
-// where the engine already sits (var_rpmRampAngle_8c1bbcb4 is
-// BusState.rpmRampAngle_0x2e4 under its own section B symbol -- see
-// sectionB.h), ramps that angle toward the step by init_gears_8c045638[gear].accelRate_0x00,
+// (accelSensitivity_0xd0) and the scaled step it asks for is at least where the
+// engine already sits (BusState.rpmRampAngle_0x2e4), ramps that angle toward the
+// step by init_gears_8c045638[gear].accelRate_0x00,
 // feeds it through njSin to derive targetRpm_0x2e8/speed_0x27c, and upshifts
 // (with a shift-cue MIDI note) once speed clears the next gear's top speed
 // -- or, at the top gear, just clamps speed to its max. Otherwise coasts:
@@ -27,7 +26,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
         $this->setSize('_var_padTriggerR_8c1ba374', 2);
-        $this->setSize('_var_accelSensitivity_8c1ba29c', 1);
+        $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_firstUpshift_8c22864c', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4 * 8);
@@ -52,7 +51,7 @@ return new class extends TestCase {
     ): int {
         $this->resolveSymbols();
         $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), $trigger);
-        $this->initUint8($this->addressOf('_var_accelSensitivity_8c1ba29c'), $deadzone);
+        $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xd0, $deadzone);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), $mirrorLevel);
         $this->initUint32($this->addressOf('_var_firstUpshift_8c22864c'), 0xdeadbeef);
 

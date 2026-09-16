@@ -219,18 +219,18 @@ void FileMenuResetSettingDefaults_8c018862(void)
     var_progress_8c1ba1cc.difficulty_0xc4 = 1;
     var_progress_8c1ba1cc.driveMode_0xc5 = 0;
     var_progress_8c1ba1cc.defaultView_0xc6 = 2;
-    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[0] = 0;
-    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] = 0;
+    var_progress_8c1ba1cc.vibration_0xc7 = 0;
+    var_progress_8c1ba1cc.screenRoll_0xc8 = 0;
 }
 
 void FileMenuResetKeyConfigDefaults_8c0188bc(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuResetKeyConfigDefaults_8c0188bc\n"));
 
-    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5] = 0;
-    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6] = 0;
-    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[7] = 0;
-    var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8] = 0;
+    var_progress_8c1ba1cc.btnConfigManual_0xcc = 0;
+    var_progress_8c1ba1cc.btnConfigAuto_0xcd = 0;
+    var_progress_8c1ba1cc.btnConfigWheelManual_0xce = 0;
+    var_progress_8c1ba1cc.btnConfigWheelAuto_0xcf = 0;
     var_progress_8c1ba1cc.accelSensitivity_0xd0 = 0x10;
     var_progress_8c1ba1cc.brakeSensitivity_0xd1 = 0x10;
 }

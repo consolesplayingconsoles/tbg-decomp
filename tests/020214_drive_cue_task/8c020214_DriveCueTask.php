@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c2285c4', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_vibport_8c1ba354', 4);
-        $this->setSize('_var_vibrationSetting_8c1ba293', 1);
+        $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_prevStopSegment_8c22870c', 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
@@ -60,7 +60,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c2285c4'), 0);
         // No vibration cue at the end unless a test wants one.
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xffffffff);
-        $this->initUint8($this->addressOf('_var_vibrationSetting_8c1ba293'), 0);
+        $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xc7, 0);
         // Mirror-view marker chime off by default.
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 0);
@@ -602,12 +602,12 @@ return new class extends TestCase {
     // VibStop gating.
     // ------------------------------------------------------------------
 
-    public function test_vibstop_called_when_vibration_off(): void
+    public function test_vibupdate_ticked_when_vibration_on(): void
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 7);
-        $this->initUint8($this->addressOf('_var_vibrationSetting_8c1ba293'), 0);
+        $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xc7, 0);
         $this->initStruct(4, 0, 4, 0, 0, 0, 0);
 
         $task = $this->alloc(4);
@@ -618,7 +618,7 @@ return new class extends TestCase {
         $this->shouldCall('_VibUpdate_8c010fae')->with(7);
     }
 
-    public function test_vibstop_skipped_when_port_unset(): void
+    public function test_vibupdate_skipped_when_port_unset(): void
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
@@ -632,12 +632,12 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->struct() + 0x14, 0);
     }
 
-    public function test_vibstop_skipped_when_vibration_setting_on(): void
+    public function test_vibupdate_skipped_when_vibration_off(): void
     {
         $this->resolveSymbols();
         $this->initInactiveWorld();
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 7);
-        $this->initUint8($this->addressOf('_var_vibrationSetting_8c1ba293'), 1);
+        $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xc7, 1);
         $this->initStruct(4, 0, 4, 0, 0, 0, 0);
 
         $task = $this->alloc(4);

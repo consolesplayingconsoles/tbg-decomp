@@ -25,12 +25,12 @@ return new class extends TestCase {
     public function test_builds_vms_comment(): void
     {
         $this->setSize('_var_vmsComment_8c226098', 0x10);
+        $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $text = $this->addressOf('_var_vmsComment_8c226098');
         $progress = $this->addressOf('_var_progress_8c1ba1cc');
-        $exp = $this->addressOf('_var_exp_8c1ba25c');
 
         $this->initUint32($progress + 0x00, 9);   // days_0x00
-        $this->initUint32($exp, 250);
+        $this->initUint32($progress + 0x90, 250); // exp_0x90
 
         $this->call('_updateVmsComment_8c01b206');
 

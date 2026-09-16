@@ -14,23 +14,13 @@
                                              ; 01d7fc
                                              ; 01e27c
                                              ; 01f3c0
+                                             ; 020214
                                              ; 024280
                                              ; 024b4c
                                              ; 026710
                                              ; 02af78_event
                                              ; 02b464
-          .EXPORT     _var_8c1ba1d0
-          .EXPORT     _var_8c1ba1e4
-          .EXPORT     _var_exp_8c1ba25c ; 01b19c
-          .EXPORT     _var_8c1ba264 ; 01e27c
-          .EXPORT     _var_8c1ba290 ; 01a148
-                                    ; 02b464
-                                    ; 02c884
-          .EXPORT     _var_8c1ba291
-          .EXPORT     _var_8c1ba292
-          .EXPORT     _var_vibrationSetting_8c1ba293 ; 020214
-          .EXPORT     _var_accelSensitivity_8c1ba29c ; 024280
-          .EXPORT     _var_brakeSensitivity_8c1ba29d ; 024280
+                                             ; 02c884
           .EXPORT     _var_runEventFlags_8c1ba2b4 ; 02af78_event
           .EXPORT     _var_eventFlagsSnapshot_8c1ba2b8 ; 0129cc_pause
                                     ; 016d2c_course_menu
@@ -846,29 +836,7 @@
 _var_busFont_8c1ba1c8:
           .RES.B      4
 _var_progress_8c1ba1cc:
-          .RES.B      4
-_var_8c1ba1d0:
-          .RES.B      20
-_var_8c1ba1e4:
-          .RES.B      44
-_var_8c1ba210:
-          .RES.B      76
-_var_exp_8c1ba25c:
-          .RES.B      8
-_var_8c1ba264:
-          .RES.B      44
-_var_8c1ba290:
-          .RES.B      1
-_var_8c1ba291:
-          .RES.B      1
-_var_8c1ba292:
-          .RES.B      1
-_var_vibrationSetting_8c1ba293:
-          .RES.B      9
-_var_accelSensitivity_8c1ba29c:
-          .RES.B      1
-_var_brakeSensitivity_8c1ba29d:
-          .RES.B      23
+          .RES.B      232
 _var_runEventFlags_8c1ba2b4:
           .RES.B      4
 _var_eventFlagsSnapshot_8c1ba2b8:

@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // applyBraking_8c024530: STATIC, called from BusInputUpdate_8c0246b2 each frame while
 // driving. Decelerates BusState.speed_0x27c by 0.002 plus a term that grows
 // with speed and with how far the .l trigger (var_padTriggerL_8c1ba376) has moved past
-// its saved deadzone (var_brakeSensitivity_8c1ba29d), clamped to 0. If the resulting speed
+// its saved deadzone (brakeSensitivity_0xd1), clamped to 0. If the resulting speed
 // drops under the next-lower gear's top speed (init_gears_8c045638[gear-1].
 // upshiftSpeed_0x08), downshifts one gear. Then derives targetRpm_0x2e8/rpmRampAngle_0x2e4
 // from the (possibly new) gear's table entry via asinf, and updates
@@ -22,7 +22,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
         $this->setSize('_var_padTriggerL_8c1ba376', 2);
-        $this->setSize('_var_brakeSensitivity_8c1ba29d', 1);
+        $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_8c2285c4', 4 * 40);
         $this->setSize('_asinf', 4);
     }
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->initFloat($bus + 0x27c, $speed);
         $this->initUint32($bus + 0x2f4, $gear);
         $this->initUint16($this->addressOf('_var_padTriggerL_8c1ba376'), $trigger);
-        $this->initUint8($this->addressOf('_var_brakeSensitivity_8c1ba29d'), $prevDeadzone);
+        $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xd1, $prevDeadzone);
         $this->initFloat($this->addressOf('_var_8c2285c4') + 0x90, $smoothedBrake);
         return $bus;
     }

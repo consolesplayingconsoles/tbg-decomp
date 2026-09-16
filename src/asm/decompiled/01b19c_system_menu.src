@@ -8,7 +8,6 @@
           .IMPORT     __divls
           .IMPORT     _var_vmsComment_8c226098
           .IMPORT     _strcpy
-          .IMPORT     _var_exp_8c1ba25c
           .IMPORT     _ProfileFileUpdateUnlocks_8c01c980
           .IMPORT     _var_profileUnlockedCount_8c2263a4
           .IMPORT     _var_backupFileHeader_8c1ba2e4
@@ -202,7 +201,7 @@ LP_GEN_63917:
           .DATA.L _var_vmsComment_8c226098 ; H'8C01B25C
           .DATA.L _const_8c0380a4 ; H'8C01B260
           .DATA.L _strcpy ; H'8C01B264
-          .DATA.L _var_exp_8c1ba25c ; H'8C01B268
+          .DATA.L _var_progress_8c1ba1cc+H'90 ; H'8C01B268 (exp_0x90)
 _SystemMenuWriteToVmu_8c01b26c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15

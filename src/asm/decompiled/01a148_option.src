@@ -30,7 +30,6 @@
           .IMPORT     _var_voiceTestDigits_8c226088
           .IMPORT     _SndPlayVoice_8c010720
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
-          .IMPORT     _var_8c1ba290
           .AIFDEF UNIT_TESTING
           .EXPORT     _cycleValue_8c01a3da
           .EXPORT     _keyConfigEditExit_8c01a4b4
@@ -2204,7 +2203,7 @@ LP_GEN_51773:
           .DATA.L H'C0800000 ; H'8C01B188
           .DATA.L H'C0A00000 ; H'8C01B18C
           .DATA.L _topMenuTask_8c01b00a ; H'8C01B190
-          .DATA.L _var_8c1ba290 ; H'8C01B194
+          .DATA.L _var_progress_8c1ba1cc+H'C4 ; H'8C01B194 (difficulty_0xc4)
           .DATA.L _var_settingValues_8c226074 ; H'8C01B198
           .SECTION    D, DATA, ALIGN=4
 _init_settingOptionCounts_8c044de0:        ; from defines

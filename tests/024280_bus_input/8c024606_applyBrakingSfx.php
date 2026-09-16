@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // applyBrakingSfx_8c024606: STATIC, called from BusInputUpdate_8c0246b2 each frame.
 // While the .l trigger (var_padTriggerL_8c1ba376) sits further past its saved deadzone
-// (var_brakeSensitivity_8c1ba29d) than var_brakePressPeak_8c227d8c's current value maps to, ratchets
+// (brakeSensitivity_0xd1) than var_brakePressPeak_8c227d8c's current value maps to, ratchets
 // var_brakePressPeak_8c227d8c up to delta*255/(255-deadzone) (never down). Once the
 // trigger stops advancing (<= the deadzone) and var_brakePressPeak_8c227d8c is nonzero,
 // plays one of two midi notes on var_midiHandles_8c0fcd28[0] depending on
@@ -17,7 +17,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_padTriggerL_8c1ba376', 2);
-        $this->setSize('_var_brakeSensitivity_8c1ba29d', 1);
+        $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_brakePressPeak_8c227d8c', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4 * 8);
         $this->setSize('_sdMidiPlay', 4);
@@ -30,7 +30,7 @@ return new class extends TestCase {
     private function setup(int $trigger, int $prevDeadzone, int $counter): int {
         $this->resolveSymbols();
         $this->initUint16($this->addressOf('_var_padTriggerL_8c1ba376'), $trigger);
-        $this->initUint8($this->addressOf('_var_brakeSensitivity_8c1ba29d'), $prevDeadzone);
+        $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xd1, $prevDeadzone);
         $this->initUint32($this->addressOf('_var_brakePressPeak_8c227d8c'), $counter);
 
         $midiHandle = 0xcafe0900;

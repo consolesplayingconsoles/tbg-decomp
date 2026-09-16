@@ -20,7 +20,7 @@ one short and dated with the unit where it was found.
 
 **Found in:** `02af78_event` (2026-07-12)
 
-A field we already model as part of a C struct (e.g. `PlayerProgress.field_0x04`
+A field we already model as part of a C struct (e.g. `PlayerProgress.eventProgressFlags_0x04`
 within `var_progress_8c1ba1cc`) can show up in some *other* unit's asm as its
 own separately-`.IMPORT`ed symbol (e.g. `_var_8c1ba1d0`) that happens to sit at
 that struct's field address — visible because the owning unit's `.src` exports
@@ -38,9 +38,10 @@ the standalone import as the wrongly-disassembled artifact and correct the
 asm: drop the `.IMPORT`, and rewrite every use (typically a `.DATA.L` literal
 pool entry) as `_baseSymbol+H'<offset>` sum-expression addressing instead of
 the separate name. This keeps one C struct as the single source of truth and
-avoids the test-side alias entirely. The owning unit's now-unreferenced
-`.EXPORT` line for the dropped symbol can be left alone if that unit isn't
-decompiled yet — it's harmless dead export, not worth touching out of scope.
+avoids the test-side alias entirely. Once no unit imports the label any more,
+drop it from `sectionB.src` too, rolling its `.RES.B` into the struct's own
+symbol; the eleven `PlayerProgress` labels went that way, as the 24 `BusState`
+ones did before them.
 
 ## Calls to sibling functions in the same TU are still mocked
 
@@ -283,8 +284,9 @@ as a struct field access in C and in the test (`addressOf('_other') + offset`),
 not a separate `setSize()`. Note this can be genuinely per-caller: another unit
 that imports the invented name **directly** (`.IMPORT _var_exp_8c1ba25c`) is
 using a real, separate linker symbol that only *coincides* with the struct
-field's address because sectionB.src lays the two out back to back -- don't
-"fix" that caller too without checking its own asm first.
+field's address because sectionB.src labels it there. Check that caller's own
+asm before touching it -- but a label that lands inside a struct we already
+model is an alias either way, and folding every user of it is the end state.
 
 A second shape of the same trap: when the base register holds a
 compile-time-constant address (e.g. `r14` = `&var_busState_8c1bb9d0`), Ghidra

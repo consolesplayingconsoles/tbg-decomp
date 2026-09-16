@@ -274,10 +274,9 @@ STATIC int keyConfigEditExit_8c01a4b4(void)
 /*
  * KEY CONFIGURE screen task. Row 3 = DEFAULT (reset), row 4 = RETURN; confirming
  * a row 0-2 switches state_0x18 to (row + 2):
- *   2 = button assignment -- controlAndDisplayFlags_0xc7[5..8], picked by
- *       controller type (BT_CONTROLLER/BT_RACING) and the A/B variant in
- *       driveMode_0xc5; each pair's sprite bases are 3, 3, 2 and 3 apart,
- *       matching the option counts
+ *   2 = button assignment -- one of btnConfigManual_0xcc..btnConfigWheelAuto_0xcf,
+ *       picked by controller type (BT_CONTROLLER/BT_RACING) and driveMode_0xc5;
+ *       each one's sprite base is 3, 3, 2 and 3 apart, matching the option counts
  *   3 = ACCEL sensitivity, accelSensitivity_0xd0 from the right trigger
  *   4 = BRAKE sensitivity, brakeSensitivity_0xd1 from the left trigger
  */
@@ -330,15 +329,15 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
             if (!keyConfigEditExit_8c01a4b4()) {
                 if (var_progress_8c1ba1cc.driveMode_0xc5 == 0) {
                     if (var_activeCtrlType_8c157a70 == BT_CONTROLLER) {
-                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5], 3);
+                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.btnConfigManual_0xcc, 3);
                     } else if (var_activeCtrlType_8c157a70 == BT_RACING) {
-                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[7], 2);
+                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.btnConfigWheelManual_0xce, 2);
                     }
                 } else {
                     if (var_activeCtrlType_8c157a70 == BT_CONTROLLER) {
-                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6], 3);
+                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.btnConfigAuto_0xcd, 3);
                     } else if (var_activeCtrlType_8c157a70 == BT_RACING) {
-                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8], 3);
+                        cycleValue_8c01a3da(&var_progress_8c1ba1cc.btnConfigWheelAuto_0xcf, 3);
                     }
                 }
             }
@@ -347,8 +346,8 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 
         case 3: {
             if (!keyConfigEditExit_8c01a4b4()) {
-                var_progress_8c1ba1cc.accelSensitivity_0xd0 = (char)var_peripherals_8c1ba35c[0].r;
-                if ((unsigned char)var_progress_8c1ba1cc.accelSensitivity_0xd0 > 0x80) {
+                var_progress_8c1ba1cc.accelSensitivity_0xd0 = var_peripherals_8c1ba35c[0].r;
+                if (var_progress_8c1ba1cc.accelSensitivity_0xd0 > 0x80) {
                     var_progress_8c1ba1cc.accelSensitivity_0xd0 = 0x80;
                 }
             }
@@ -357,8 +356,8 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 
         case 4: {
             if (!keyConfigEditExit_8c01a4b4()) {
-                var_progress_8c1ba1cc.brakeSensitivity_0xd1 = (char)var_peripherals_8c1ba35c[0].l;
-                if ((unsigned char)var_progress_8c1ba1cc.brakeSensitivity_0xd1 > 0x80) {
+                var_progress_8c1ba1cc.brakeSensitivity_0xd1 = var_peripherals_8c1ba35c[0].l;
+                if (var_progress_8c1ba1cc.brakeSensitivity_0xd1 > 0x80) {
                     var_progress_8c1ba1cc.brakeSensitivity_0xd1 = 0x80;
                 }
             }
@@ -384,15 +383,15 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 
         if (var_progress_8c1ba1cc.driveMode_0xc5 == 0) {
             if (var_activeCtrlType_8c157a70 == BT_CONTROLLER) {
-                idx = var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5] + 0x35;
+                idx = var_progress_8c1ba1cc.btnConfigManual_0xcc + 0x35;
             } else if (var_activeCtrlType_8c157a70 == BT_RACING) {
-                idx = var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[7] + 0x3b;
+                idx = var_progress_8c1ba1cc.btnConfigWheelManual_0xce + 0x3b;
             }
         } else {
             if (var_activeCtrlType_8c157a70 == BT_CONTROLLER) {
-                idx = var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6] + 0x38;
+                idx = var_progress_8c1ba1cc.btnConfigAuto_0xcd + 0x38;
             } else if (var_activeCtrlType_8c157a70 == BT_RACING) {
-                idx = var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[8] + 0x3d;
+                idx = var_progress_8c1ba1cc.btnConfigWheelAuto_0xcf + 0x3d;
             }
         }
 
@@ -803,6 +802,6 @@ void OptionSwitchToTopMenu_8c01b122(Task *task, int row)
     TaskSetAction_8c014b3e(task, topMenuTask_8c01b00a);
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = row;
-    var_settingValues_8c226074 = var_8c1ba290;
+    var_settingValues_8c226074 = &var_progress_8c1ba1cc.difficulty_0xc4;
     FadePushIn_8c022a9c(10);
 }

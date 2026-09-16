@@ -204,7 +204,8 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
  * is reached. Finishes by priming the next/prev stop segment and the
  * upcoming stop's passengers, and resetting a couple of run-scoped
  * timers/thresholds (var_driverPoints_8c2285d0/var_driverPointsMax_8c2285d4,
- * var_scheduleTime_8c2285d8/var_runClock_8c2285dc) based on var_8c1ba290[0] and play mode. */
+ * var_scheduleTime_8c2285d8/var_runClock_8c2285dc) based on the difficulty setting
+ * and play mode. */
 void BusStopSetup_8c02caba(void)
 {
     int i;
@@ -273,8 +274,7 @@ void BusStopSetup_8c02caba(void)
     BusStopUpdateStopHeadings_8c02ccc6();
     advanceStopSegment_8c02ccae();
 
-    /* var_8c1ba290[0] is the DIFFICULTY setting byte (see sectionB.h). */
-    if (var_8c1ba290[0] < 1 && var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
+    if (var_progress_8c1ba1cc.difficulty_0xc4 < 1 && var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
         var_driverPointsMax_8c2285d4 = 200;
     } else {
         var_driverPointsMax_8c2285d4 = 100;

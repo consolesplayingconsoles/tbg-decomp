@@ -4,7 +4,6 @@
           .IMPORT     _var_driveMode_8c1bb8c8
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_padTriggerR_8c1ba374
-          .IMPORT     _var_accelSensitivity_8c1ba29c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _njSin
@@ -12,7 +11,6 @@
           .IMPORT     _var_firstUpshift_8c22864c
           .IMPORT     _asinf
           .IMPORT     _var_padTriggerL_8c1ba376
-          .IMPORT     _var_brakeSensitivity_8c1ba29d
           .IMPORT     _var_8c2285c4
           .IMPORT     _var_brakePressPeak_8c227d8c
           .IMPORT     __divls
@@ -115,7 +113,6 @@ LP_GEN_37903:
           .DATA.L _var_tasks_8c1bac28 ; H'8C024314
           .DATA.L _var_driveMode_8c1bb8c8 ; H'8C024318
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C02431C
-; var_accelSensitivity_8c1ba29c looks like a saved input deadzone threshold (throttle axis, .r)
 _applyThrottle_8c024320:
           MOV.L       LP_GEN_79582+8,R3
           MOVA        LP_GEN_79582+16,R0
@@ -267,7 +264,7 @@ LP_GEN_79582:
           .DATA.W H'02F4 ; H'8C024434
           .DATA.W H'027C ; H'8C024436
           .DATA.L _var_padTriggerR_8c1ba374 ; H'8C024438
-          .DATA.L _var_accelSensitivity_8c1ba29c ; H'8C02443C
+          .DATA.L _var_progress_8c1ba1cc+H'D0 ; H'8C02443C (accelSensitivity_0xd0)
           .DATA.L H'437F0000 ; H'8C024440
           .DATA.L H'46800000 ; H'8C024444
           .DATA.L H'45BB8000 ; H'8C024448
@@ -488,7 +485,6 @@ LAB_8c0245ac:
           FMOV.S      @R15+,FR15
           RTS
           MOV.L       @R15+,R14
-; var_brakeSensitivity_8c1ba29d looks like a saved input deadzone threshold (other input axis, .l)
 _applyBrakingSfx_8c024606:
           MOV.L       LP_GEN_12192+16,R2
           MOV.L       LP_GEN_12192+12,R3
@@ -531,7 +527,7 @@ LP_GEN_12192:
           .DATA.W H'0090 ; H'8C02464C
           .DATA.W H'0080 ; H'8C02464E
           .DATA.L _var_padTriggerL_8c1ba376 ; H'8C024650
-          .DATA.L _var_brakeSensitivity_8c1ba29d ; H'8C024654
+          .DATA.L _var_progress_8c1ba1cc+H'D1 ; H'8C024654 (brakeSensitivity_0xd1)
           .DATA.L H'437F0000 ; H'8C024658
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02465C
           .DATA.L H'42400000 ; H'8C024660

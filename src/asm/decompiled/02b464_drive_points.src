@@ -2,7 +2,6 @@
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_driveMsgQueue_8c228564
           .IMPORT     _var_penaltyCount_8c1bb8f4
-          .IMPORT     _var_8c1ba290
           .IMPORT     _var_8c2285c4
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
@@ -244,7 +243,7 @@ LP_GEN_45010:
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02B54C
           .DATA.L _var_driveMsgQueue_8c228564 ; H'8C02B550
           .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C02B554
-          .DATA.L _var_8c1ba290 ; H'8C02B558
+          .DATA.L _var_progress_8c1ba1cc+H'C4 ; H'8C02B558 (difficulty_0xc4)
           .DATA.L _var_8c2285c4 ; H'8C02B55C
           .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C02B560
           .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C02B564
