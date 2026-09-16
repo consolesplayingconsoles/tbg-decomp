@@ -33,7 +33,8 @@ A matching build prints `Matching project built! \o/`; a non-matching build prin
 src/
   <addr>_name.c              # Decompiled C unit
   <addr>_name.h              # Public interface for that unit
-  asm/<addr>.src             # Original assembly (not yet decompiled)
+  asm/<addr>.src             # Original assembly. All game code is decompiled;
+                             # what is left is SDK, section data, boot header.
   asm/decompiled/<addr>.src  # Original assembly, decompiled (used for archival and unit tests)
   includes.h                 # Shared macros (STATIC, NM_STATIC, TWO_PI)
   serial_debug.h             # LOG_* serial debug logging macros
@@ -172,7 +173,6 @@ under `tests/<addr>/`, and register it in the matching group in `tests.php`
 
 - **Reading/maintaining Ghidra via MCP** → `docs/ghidra-mcp.md`
 - **Gameplay reference (what the code implements)** → `docs/gameplay.md`
-- **Next decompilation targets (relocation-graph analysis)** → `docs/next_units.md`
 - **Lessons learned (non-obvious toolchain/asm quirks)** → `docs/lessons_learned.md`
 - **Writing tests** → `tests/AGENTS.md`
 - **Setting up a new unit** → `.claude/skills/setup-unit/SKILL.md`

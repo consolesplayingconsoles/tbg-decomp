@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// Dead code -- no caller anywhere in the tree (see docs/next_units.md's
-// dead-functions section), kept only for object parity with the original
-// binary. A near-copy of FUN_8c02e2dc's scan loop, but it neither
-// (re)initializes var_collisionScanCursor_8c228974 nor recomputes the bus's
-// own box: it resumes wherever the cursor is already sitting, advancing
-// past that entry first (unconditionally, before the terminator check).
+// Dead code -- no caller anywhere in the tree, kept only for object parity
+// with the original binary. A near-copy of BusCollisionFindHit_8c02e2dc's
+// scan loop, but it neither (re)initializes var_collisionScanCursor_8c228974
+// nor recomputes the bus's own box: it resumes wherever the cursor is already
+// sitting, advancing past that entry first (unconditionally, before the
+// terminator check).
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
@@ -45,8 +45,8 @@ return new class extends TestCase {
 
     // The cursor starts one slot before a terminator: the unconditional
     // first advance lands directly on it, so the scan finds nothing and no
-    // box transform of any kind happens (unlike FUN_8c02e2dc, there is no
-    // "self box" setup here at all).
+    // box transform of any kind happens (unlike BusCollisionFindHit_8c02e2dc,
+    // there is no "self box" setup here at all).
     public function test_advancesPastCurrentSlot_thenEmptyScan_returnsNull(): void {
         $this->resolveSymbols();
 
@@ -63,7 +63,7 @@ return new class extends TestCase {
     }
 
     // Once resumed, a near candidate found colliding returns its state,
-    // exactly like FUN_8c02e2dc's tail does.
+    // exactly like BusCollisionFindHit_8c02e2dc's tail does.
     public function test_nearCollidingCandidate_returnsItsState(): void {
         $this->resolveSymbols();
 

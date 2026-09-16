@@ -242,7 +242,7 @@
 
 /* Ending staff-roll credit lines, in scroll order (01f3c0_ending).
  * Each corresponds to one const_8c... block in that unit; see
- * docs/next_units.md / the unit itself for how they are addressed. */
+ * init_endingCreditsHead_8c04528c there for how they are addressed. */
 #define MSG_ENDING_CREDITS_01 "`‚f‚`‚l‚d@‚c‚d‚r‚h‚f‚m`<E><E><E>‚j‚d‚m‚i‚h@‚m‚`‚j‚`‚m‚n<E><E><E><E><E><E>`‚n‚q‚h‚f‚h‚m‚`‚k@‚o‚k‚`‚m`<E><E><E>‚s‚`‚j‚d‚n@‚x‚`‚f‚h" /* const_8c0389b4 */
 #define MSG_ENDING_CREDITS_02 "<E><E><E>`‚l‚`‚h‚m@‚o‚q‚n‚f‚q‚`‚l‚l‚d‚q`<E><E><E>‚j‚`‚y‚t‚`‚j‚h@‚s‚n‚h‚c‚`<E><E><E><E><E><E>`‚r‚t‚a@‚o‚q‚n‚f‚q‚`‚l‚l‚d‚q`" /* const_8c038a40 */
 #define MSG_ENDING_CREDITS_03 "‚x‚n‚t‚g‚d‚h@‚r‚`‚s‚n<E><E>‚r‚g‚h‚m‚h‚b‚g‚h‚q‚n@‚s‚`‚j‚`‚g‚`‚r‚g‚h<E><E><E><E><E><E>`‚`‚r‚r‚h‚r‚s‚`‚m‚s@‚o‚q‚n‚f‚q‚`‚l‚l‚d‚q`<E><E><E>‚l‚h‚s‚r‚t‚m‚n‚q‚h@‚l‚`‚s‚r‚t‚c‚`<E><E>‚l‚h‚m‚n‚q‚t@‚l‚h‚x‚`‚i‚h‚l‚`" /* const_8c038ac4 */

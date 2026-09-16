@@ -202,9 +202,8 @@ TrafficEntry *BusCollisionFindHit_8c02e2dc(void)
     return NULL;
 }
 
-/* Unused -- confirmed dead code kept for object parity with the original
- * binary (see docs/next_units.md's dead-functions section: real, separate,
- * compiled code, zero references anywhere in src/).
+/* Unused -- real, separately compiled code with zero references anywhere in
+ * src/, kept for object parity with the original binary.
  *
  * Resumes BusCollisionFindHit_8c02e2dc's scan from wherever
  * var_collisionScanCursor_8c228974 is already sitting, advancing past the

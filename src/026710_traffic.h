@@ -66,6 +66,9 @@ typedef struct {
     NJS_OBJECT *turnLampA_0x040;
     NJS_OBJECT *turnLampB_0x044;
     NJS_OBJECT *turnLampC_0x048;
+    /* BusState's bodyModels_0x04c[6] at the same offsets (sectionB.h), but
+     * VehPartsBind_8c02786c fills them only for typeCode 0x1a and nothing on
+     * the traffic side reads them back. */
     NJS_OBJECT *field_0x04c;
     NJS_OBJECT *field_0x050;
     NJS_OBJECT *field_0x054;
