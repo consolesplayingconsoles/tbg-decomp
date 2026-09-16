@@ -425,7 +425,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_segmentModels_8c1bc3f0', -1);
         $this->shouldWriteTo('_var_trafficModels_8c1bc3f4', -1);
 
-        $this->shouldCall('_TileStreamClearUnknownVar_8c02171c');
+        $this->shouldCall('_TileStreamClearSlots_8c02171c');
         $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
         $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
 
@@ -579,7 +579,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_segmentModels_8c1bc3f0', -1);
         $this->shouldWriteTo('_var_trafficModels_8c1bc3f4', -1);
 
-        $this->shouldCall('_TileStreamClearUnknownVar_8c02171c');
+        $this->shouldCall('_TileStreamClearSlots_8c02171c');
         $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
         $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
 
@@ -733,7 +733,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_segmentModels_8c1bc3f0', -1);
         $this->shouldWriteTo('_var_trafficModels_8c1bc3f4', -1);
 
-        $this->shouldCall('_TileStreamClearUnknownVar_8c02171c');
+        $this->shouldCall('_TileStreamClearSlots_8c02171c');
         $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
         $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
 
@@ -888,7 +888,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_segmentModels_8c1bc3f0', -1);
         $this->shouldWriteTo('_var_trafficModels_8c1bc3f4', -1);
 
-        $this->shouldCall('_TileStreamClearUnknownVar_8c02171c');
+        $this->shouldCall('_TileStreamClearSlots_8c02171c');
         $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
         $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
 

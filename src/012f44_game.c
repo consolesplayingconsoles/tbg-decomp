@@ -386,7 +386,7 @@ void GameInit_8c0134ec() {
     var_segmentModels_8c1bc3f0 = (LoadedModel *) -1;
     var_trafficModels_8c1bc3f4 = (LoadedModel *) -1;
 
-    TileStreamClearUnknownVar_8c02171c();
+    TileStreamClearSlots_8c02171c();
     ObjectsClearAssetRequestTable_8c029acc();
     ObjectsClearMessageAssets_8c02aa28();
 

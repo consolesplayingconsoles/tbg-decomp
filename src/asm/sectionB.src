@@ -164,7 +164,6 @@
           .EXPORT     _var_groundGridPrimary_8c1bb890 ; 028258
           .EXPORT     _var_8c1bb894 ; 02c884
           .EXPORT     _var_trafficSignalDefs_8c1bb8a0 ; 028258
-          .EXPORT     _var_8c1bb8a4 ; 02171c
           .EXPORT     _var_8c1bb8b8 ; 0129cc_pause
                                     ; 016d2c_course_menu
                                     ; 018644_file_menu
@@ -562,7 +561,6 @@
                                              ; 021b9c_tile_draw
           .EXPORT     _var_tileLayerIndexes_8c22650c ; 02171c
                                     ; 021b9c_tile_draw
-          .EXPORT     _var_8c22651c ; 02171c
           .EXPORT     _var_tileLayerSlots_8c226520 ; 02171c
                                     ; 021b9c_tile_draw
           .EXPORT     _var_currentTileRegionList_8c226534 ; 013ae8_route_load
@@ -929,9 +927,7 @@ _var_groundGridPrimary_8c1bb890:
 _var_8c1bb894:
           .RES.B      12
 _var_trafficSignalDefs_8c1bb8a0:
-          .RES.B      4
-_var_8c1bb8a4:
-          .RES.B      20
+          .RES.B      24
 _var_8c1bb8b8:
           .RES.B      4
 _var_8c1bb8bc:
@@ -1223,9 +1219,7 @@ _var_fogParam_8c226504:
 _var_fogParam_8c226508:
           .RES.B      4
 _var_tileLayerIndexes_8c22650c:
-          .RES.B      16
-_var_8c22651c:
-          .RES.B      4
+          .RES.B      20
 _var_tileLayerSlots_8c226520:
           .RES.B      20
 _var_currentTileRegionList_8c226534:

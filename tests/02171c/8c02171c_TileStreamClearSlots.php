@@ -9,10 +9,10 @@ return new class extends TestCase {
         $this->setSize('_var_tileLayerSlots_8c226520', 4);
     }
 
-    public function test_1(): void {
+    public function test_marks_slots_unallocated(): void {
         $this->resolveSymbols();
 
-        $this->call('_TileStreamClearUnknownVar_8c02171c');
+        $this->call('_TileStreamClearSlots_8c02171c');
 
         $this->shouldWriteLong($this->addressOf('_var_tileLayerSlots_8c226520'), 0xffffffff);
     }

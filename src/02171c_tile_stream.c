@@ -7,7 +7,7 @@
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 
-void TileStreamClearUnknownVar_8c02171c(void)
+void TileStreamClearSlots_8c02171c(void)
 {
     var_tileLayerSlots_8c226520[0] = (void *)-1;
 }
@@ -192,6 +192,6 @@ void TileStreamDrawTile_8c021b34(LoadedModel *slot)
     njTranslate(NULL, var_busState_8c1bb9d0.posX_0x2fc, var_busState_8c1bb9d0.posY_0x300, var_busState_8c1bb9d0.posZ_0x304);
     njSetTexture(slot->texlist);
     njCnkSimpleDrawObject(slot->njDest);
-    njControl3D(0x100);
+    njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
     njFogEnable();
 }

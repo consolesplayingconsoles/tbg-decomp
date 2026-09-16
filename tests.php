@@ -508,7 +508,7 @@ return [
         ],
         [
             "tests" => [
-                "tests/02171c/8c02171c_TileStreamClearUnknownVar.php",
+                "tests/02171c/8c02171c_TileStreamClearSlots.php",
                 "tests/02171c/8c021724_TileStreamTeardown.php",
                 "tests/02171c/8c02175a_TileStreamInit.php",
                 "tests/02171c/8c0217de_lookupTile.php",

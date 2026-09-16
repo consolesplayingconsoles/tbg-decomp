@@ -6,8 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        // int courseId_0x00; void *slots_0x04[19];
-        $this->setSize('_var_currentCourse_8c1bb868', 4 + 19 * 4);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50); // sizeof(CurrentCourse)
         $this->setSize('_var_tileLayerIndexes_8c22650c', 5 * 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 5 * 4);
         $this->setSize('_syMalloc', 4);
@@ -16,8 +15,7 @@ return new class extends TestCase {
     public function test_1(): void {
         $this->resolveSymbols();
 
-        // slots_0x04[14..18]
-        $slotsBase = $this->addressOf('_var_currentCourse_8c1bb868') + 4 + 14 * 4;
+        $slotsBase = $this->addressOf('_var_currentCourse_8c1bb868') + 0x3c; // tileLayers_0x3c
         $dims = [];
         for ($i = 0; $i < 5; $i++) {
             $dims[$i] = $this->alloc(8);
@@ -50,7 +48,7 @@ return new class extends TestCase {
     public function test_uses_each_layers_own_dims(): void {
         $this->resolveSymbols();
 
-        $slotsBase = $this->addressOf('_var_currentCourse_8c1bb868') + 4 + 14 * 4;
+        $slotsBase = $this->addressOf('_var_currentCourse_8c1bb868') + 0x3c;
         $dims = [];
         $sizes = [];
         for ($i = 0; $i < 5; $i++) {

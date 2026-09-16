@@ -1097,11 +1097,15 @@ extern int var_currentSegment_8c228708;
  * EventApplyFlags_8c02b292 */
 extern int var_selectedEventEntry_8c228478;
 extern void* var_currentSysResGroupInfo_8c225fb0;
-extern TileIndex *var_tileLayerIndexes_8c22650c[5]; /* copied from
-                                    * var_currentCourse_8c1bb868.tileLayers_0x3c by TileStreamInit_8c02175a; only
-                                    * the dims are read, the offset tables come from var_datFiles_8c18adb4 */
-extern LoadedModel *var_tileLayerSlots_8c226520[5]; /* per-layer tile grids, width * height slots each;
-                                                      * layers 0-3 hold texture+model pairs, layer 4 model only */
+/* Copied from var_currentCourse_8c1bb868.tileLayers_0x3c by
+ * TileStreamInit_8c02175a; only the dims are read, the offset tables come
+ * from var_datFiles_8c18adb4. */
+extern TileIndex *var_tileLayerIndexes_8c22650c[5];
+
+/* Per-layer tile grids, width * height slots each; layers 0-3 hold
+ * texture+model pairs, layer 4 model only. [0] is -1 while unallocated. */
+extern LoadedModel *var_tileLayerSlots_8c226520[5];
+
 extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
 extern int var_8c22640c;
 /* Which parts of a normal run still apply to the selected practice drill,

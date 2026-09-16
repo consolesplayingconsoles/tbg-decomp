@@ -9,8 +9,6 @@
           .IMPORT     _njReadBinary
           .IMPORT     _var_pvrDir_8c18ad4c
           .IMPORT     _AsqRequestTexlist_8c01181c
-          .IMPORT     _var_8c1bb8a4
-          .IMPORT     _var_8c22651c
           .IMPORT     _njReleaseTexture
           .IMPORT     _njControl3D
           .IMPORT     _njFogDisable
@@ -19,7 +17,7 @@
           .IMPORT     _njSetTexture
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _njFogEnable
-          .EXPORT     _TileStreamClearUnknownVar_8c02171c
+          .EXPORT     _TileStreamClearSlots_8c02171c
           .EXPORT     _TileStreamTeardown_8c021724
           .EXPORT     _TileStreamInit_8c02175a
           .EXPORT     _TileStreamLoad_8c021810
@@ -32,7 +30,7 @@
           .AENDI
 
           .SECTION     P, CODE, ALIGN=4
-_TileStreamClearUnknownVar_8c02171c:
+_TileStreamClearSlots_8c02171c:
           MOV.L       LP_GEN_62938+2,R3
           MOV         #-H'1,R2
           RTS
@@ -581,9 +579,9 @@ LP_GEN_62772:
           .DATA.L _var_pvrDir_8c18ad4c ; H'8C021B14
           .DATA.L _AsqRequestTexlist_8c01181c ; H'8C021B18
           .DATA.L _syFree ; H'8C021B1C
-          .DATA.L _var_8c1bb8a4 ; H'8C021B20
+          .DATA.L _var_currentCourse_8c1bb868+H'3C ; H'8C021B20 (tileLayers_0x3c[0])
           .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021B24
-          .DATA.L _var_8c22651c ; H'8C021B28
+          .DATA.L _var_tileLayerIndexes_8c22650c+H'10 ; H'8C021B28 (indexes[4])
           .DATA.L _var_tileLayerIndexes_8c22650c ; H'8C021B2C
           .DATA.L _njReleaseTexture ; H'8C021B30
 _TileStreamDrawTile_8c021b34:

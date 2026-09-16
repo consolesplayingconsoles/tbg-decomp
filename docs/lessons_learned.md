@@ -323,16 +323,17 @@ the 16-bit operands into `macl`) and the `tbg-decomp` Docker image rebuilt.
 
 `TileStreamInit_8c02175a` (`02171c`) reads a 5-pointer array Ghidra decompiled
 as a standalone global `var_8c1bb8a4`. The address `0x8c1bb8a4` is actually
-`var_currentCourse_8c1bb868 + 0x3c`, i.e. `slots_0x04[14]` inside the existing
-`CurrentCourse` struct -- Ghidra has no notion of the struct field here, since
-the instruction loads a plain absolute address from the literal pool, so it
-just names that address like any other global. A dual-object test caught it:
+`var_currentCourse_8c1bb868 + 0x3c`, i.e. `tileLayers_0x3c[0]` inside the
+existing `CurrentCourse` struct -- Ghidra has no notion of the struct field
+here, since the instruction loads a plain absolute address from the literal
+pool, so it just names that address like any other global. A dual-object test caught it:
 `setSize`-ing a fake `var_8c1bb8a4` gave the C object a plausible mock address
 that happened not to match the asm object's real relocation target, so only
 the `.src` side failed with an unrelated-looking garbage value. Fixed by
-indexing into the real struct (`var_currentCourse_8c1bb868.slots_0x04[14 +
-i]`) instead of declaring a new global. Worth checking whenever a Ghidra
-global's address falls inside an already-known struct's range.
+indexing into the real struct (`var_currentCourse_8c1bb868.tileLayers_0x3c[i]`)
+instead of declaring a new global, and the alias label has since been folded out
+of `sectionB.src`. Worth checking whenever a Ghidra global's address falls
+inside an already-known struct's range.
 
 ## Every call to an exported symbol is intercepted, even same-object ones
 

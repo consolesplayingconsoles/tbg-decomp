@@ -33,7 +33,7 @@ typedef struct {
  * =========
  */
 
-void TileStreamClearUnknownVar_8c02171c(void);
+void TileStreamClearSlots_8c02171c(void);
 void TileStreamTeardown_8c021724(void);
 void TileStreamInit_8c02175a(void);
 void TileStreamLoad_8c021810(void);

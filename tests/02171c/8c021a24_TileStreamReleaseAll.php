@@ -6,8 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     public function test_releases_loaded_and_skips_empty_slots(): void {
-        // int courseId_0x00; void *slots_0x04[19];
-        $this->setSize('_var_currentCourse_8c1bb868', 4 + 19 * 4);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50); // sizeof(CurrentCourse)
         $this->setSize('_var_tileLayerIndexes_8c22650c', 5 * 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 5 * 4);
         $this->setSize('_njReleaseTexture', 4);
@@ -17,15 +16,11 @@ return new class extends TestCase {
         $dims = $this->alloc(8);
         $this->initUint32($dims + 0, 1);
         $this->initUint32($dims + 4, 1);
-        $slot14 = $this->addressOf('_var_currentCourse_8c1bb868') + 4 + 14 * 4;
-        $this->initUint32($slot14, $dims);
-        // var_8c1bb8a4 aliases var_currentCourse_8c1bb868.slots_0x04[14].
-        $this->rellocate('_var_8c1bb8a4', $slot14);
+        $tileLayer0 = $this->addressOf('_var_currentCourse_8c1bb868') + 0x3c;
+        $this->initUint32($tileLayer0, $dims);
 
         $dimsBase = $this->addressOf('_var_tileLayerIndexes_8c22650c');
         $gridBase = $this->addressOf('_var_tileLayerSlots_8c226520');
-        // var_8c22651c aliases var_tileLayerIndexes_8c22650c[4].
-        $this->rellocate('_var_8c22651c', $dimsBase + 4 * 4);
 
         $grids = [];
         for ($layer = 0; $layer < 5; $layer++) {
@@ -66,12 +61,11 @@ return new class extends TestCase {
     /* Every real course gives all 5 layers the same grid dims, but the asm
      * strides each layer (0-3) by its own
      * var_tileLayerIndexes_8c22650c[layer]->width, and the model-only layer by
-     * var_tileLayerIndexes_8c22650c[4]->width -- confirmed by decompiling
-     * FUN_8c021a24. Give every layer a different width than the outer
-     * row/col bound (from courseIndex = tileLayers_0x3c[0]) to catch a
-     * collapse back to one shared width. */
+     * var_tileLayerIndexes_8c22650c[4]->width. Give every layer a different
+     * width than the outer row/col bound (from courseIndex =
+     * tileLayers_0x3c[0]) to catch a collapse back to one shared width. */
     public function test_uses_each_layers_own_width(): void {
-        $this->setSize('_var_currentCourse_8c1bb868', 4 + 19 * 4);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
         $this->setSize('_var_tileLayerIndexes_8c22650c', 5 * 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 5 * 4);
         $this->setSize('_njReleaseTexture', 4);
@@ -82,13 +76,11 @@ return new class extends TestCase {
         $courseDims = $this->alloc(8);
         $this->initUint32($courseDims + 0, 2);
         $this->initUint32($courseDims + 4, 2);
-        $slot14 = $this->addressOf('_var_currentCourse_8c1bb868') + 4 + 14 * 4;
-        $this->initUint32($slot14, $courseDims);
-        $this->rellocate('_var_8c1bb8a4', $slot14);
+        $tileLayer0 = $this->addressOf('_var_currentCourse_8c1bb868') + 0x3c;
+        $this->initUint32($tileLayer0, $courseDims);
 
         $dimsBase = $this->addressOf('_var_tileLayerIndexes_8c22650c');
         $gridBase = $this->addressOf('_var_tileLayerSlots_8c226520');
-        $this->rellocate('_var_8c22651c', $dimsBase + 4 * 4);
 
         // each layer gets its own width (3, 4, 5, 6, 7)
         $widths = [];
