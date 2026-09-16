@@ -18,7 +18,7 @@
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_demoBuf_8c1ba3c4
           .IMPORT     _var_vmGameBuf_8c1bc454
-          .IMPORT     _RgFreeResourceGroups_8c016108
+          .IMPORT     _ResgrpFreeAll_8c016108
           .IMPORT     _var_selectedVm_8c1ba34c
           .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _BupGetInfo_8c014bba
@@ -447,7 +447,7 @@ LP_GEN_42967:
           .DATA.L _syFree ; H'8C0163E0
           .DATA.L _var_demoBuf_8c1ba3c4 ; H'8C0163E4
           .DATA.L _var_vmGameBuf_8c1bc454 ; H'8C0163E8
-          .DATA.L _RgFreeResourceGroups_8c016108 ; H'8C0163EC
+          .DATA.L _ResgrpFreeAll_8c016108 ; H'8C0163EC
           .DATA.L _FileMenuFreeBuffers_8c0187d0 ; H'8C0163F0
           .DATA.L _VmMenuFreeAndClear_8c019504 ; H'8C0163F4
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C0163F8

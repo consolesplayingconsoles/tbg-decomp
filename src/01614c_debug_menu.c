@@ -177,7 +177,7 @@ void DebugMenuFreeSessionAssets_8c016182(void)
         syFree(var_vmGameBuf_8c1bc454);
         var_vmGameBuf_8c1bc454 = (void *)-1;
     }
-    RgFreeResourceGroups_8c016108();
+    ResgrpFreeAll_8c016108();
     FileMenuFreeBuffers_8c0187d0();
     VmMenuFreeAndClear_8c019504();
 }

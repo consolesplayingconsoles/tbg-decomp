@@ -50,7 +50,7 @@ return new class extends TestCase {
         $this->shouldCall('_syFree')->with(0x4000);
         $this->shouldWriteLong($var454, -1);
 
-        $this->shouldCall('_RgFreeResourceGroups_8c016108');
+        $this->shouldCall('_ResgrpFreeAll_8c016108');
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');
         $this->shouldCall('_VmMenuFreeAndClear_8c019504');
     }
@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_trafficModels_8c1bc3f4'));
         $this->shouldCall('_TileStreamTeardown_8c021724');
         $this->shouldCall('_RouteLoadFreeVehicleAssets_8c013b5a');
-        $this->shouldCall('_RgFreeResourceGroups_8c016108');
+        $this->shouldCall('_ResgrpFreeAll_8c016108');
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');
         $this->shouldCall('_VmMenuFreeAndClear_8c019504');
     }

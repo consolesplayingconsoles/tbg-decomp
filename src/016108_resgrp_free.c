@@ -1,4 +1,4 @@
-/* @unit Rg */
+/* @unit Resgrp */
 /* 8c016108 */
 #include <shinobi.h>
 #include "015ab8_title.h"
@@ -13,7 +13,7 @@
  */
 
 /* Matched */
-void RgFreeResourceGroups_8c016108()
+void ResgrpFreeAll_8c016108()
 {
     CourseMenuFreeResourceGroup_8c0185c4(&var_menuState_8c1bc7a8.resourceGroupA_0x00);
     CourseMenuFreeResourceGroup_8c0185c4(&var_menuState_8c1bc7a8.resourceGroupB_0x0c);
