@@ -1116,8 +1116,10 @@ extern int var_practiceLesson_8c22640c;
  * 8 = passengers and bus stops at all (02d968, 02d19c, 022464, and 023310's
  * blinker/mirror start). */
 extern int var_practiceRules_8c226410;
-extern int var_8c226414[6]; /* dialog id queue built by buildDialogQueue_8c01e992, -1 terminated */
-extern int var_8c22642c; /* lesson attempt counter, incremented on practice retry */
+extern int var_lessonDialogQueue_8c226414[6]; /* built by buildDialogQueue_8c01e992, -1 terminated */
+/* Practice drives finished since the lesson list was opened; still 0 means the
+ * player never drove, and the day does not advance. */
+extern int var_lessonAttempts_8c22642c;
 extern int *var_endingVoiceList_8c226430; /* selected ending voice-id list, set by selectEndingDialog_8c01f3c0 */
 extern int var_activeTrafficPreset_8c227e14;
 /* Traffic preset table: indexed by var_busState_8c1bb9d0.scenePresetIds_0x3bc's byte at

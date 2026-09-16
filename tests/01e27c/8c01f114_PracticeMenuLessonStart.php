@@ -13,13 +13,13 @@ return new class extends TestCase {
         $this->call('_PracticeMenuLessonStart_8c01f114')->with($task);
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 1);
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with($task, $this->addressOf('_FUN_8c01ebf2'));
+        $this->shouldCall('_TaskSetAction_8c014b3e')->with($task, $this->addressOf('_lessonMenuTask_8c01ebf2'));
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x44, 0);
 
         $this->shouldCall('_scrollTowardSelection_8c01ebc8');
-        $this->shouldWriteLongTo('_var_8c22642c', 0);
+        $this->shouldWriteLongTo('_var_lessonAttempts_8c22642c', 0);
         $this->shouldWriteByteTo('_var_award_8c1bb8f8', 0);
         $this->shouldCall('_buildDialogQueue_8c01e992');
         $this->shouldWriteLong($task + 0x08, 0);
@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
             $menuStateBase + 0x0c,
-            $this->addressOf('_init_8c044274')
+            $this->addressOf('_init_practice01ResourceGroup_8c044274')
         )->andReturn(1);
 
         $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
@@ -55,13 +55,13 @@ return new class extends TestCase {
         $this->call('_PracticeMenuLessonStart_8c01f114')->with($task);
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 1);
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with($task, $this->addressOf('_FUN_8c01ebf2'));
+        $this->shouldCall('_TaskSetAction_8c014b3e')->with($task, $this->addressOf('_lessonMenuTask_8c01ebf2'));
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x44, 0);
 
         $this->shouldCall('_scrollTowardSelection_8c01ebc8');
-        $this->shouldWriteLongTo('_var_8c22642c', 0);
+        $this->shouldWriteLongTo('_var_lessonAttempts_8c22642c', 0);
         $this->shouldWriteByteTo('_var_award_8c1bb8f8', 0);
         $this->shouldCall('_buildDialogQueue_8c01e992');
         $this->shouldWriteLong($task + 0x08, 0);
@@ -74,7 +74,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
             $menuStateBase + 0x0c,
-            $this->addressOf('_init_8c044274')
+            $this->addressOf('_init_practice01ResourceGroup_8c044274')
         )->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
@@ -104,9 +104,9 @@ return new class extends TestCase {
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_FadePushIn_8c022a9c', 4);
 
-        // var_8c226414[0] indexes init_instructorDialogs_8c044c08 for the
+        // var_lessonDialogQueue_8c226414[0] indexes init_instructorDialogs_8c044c08 for the
         // dialog's spriteNo_0x04 (InstructorLine+4).
-        $this->initUint32($this->addressOf('_var_8c226414'), 0);
+        $this->initUint32($this->addressOf('_var_lessonDialogQueue_8c226414'), 0);
         $dialog = $this->alloc(8);
         $this->initUint32($dialog + 4, 0x2a);
         $this->initUint32($this->addressOf('_init_instructorDialogs_8c044c08'), $dialog);

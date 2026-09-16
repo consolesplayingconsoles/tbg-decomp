@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
             $menuStateBase + 0x0c,
-            $this->addressOf('_init_8c044274')
+            $this->addressOf('_init_practice01ResourceGroup_8c044274')
         )->andReturn(1);
 
         $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
@@ -60,7 +60,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
             $menuStateBase + 0x0c,
-            $this->addressOf('_init_8c044274')
+            $this->addressOf('_init_practice01ResourceGroup_8c044274')
         )->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');

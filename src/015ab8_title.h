@@ -86,8 +86,8 @@ typedef MenuState;
 extern MenuState var_menuState_8c1bc7a8;
 extern ResourceGroupInfo init_titleResourceGroup_8c044254;
 extern ResourceGroupInfo init_mainMenuResourceGroup_8c044264;
-extern ResourceGroupInfo init_8c044274;
-extern ResourceGroupInfo init_8c044284;
+extern ResourceGroupInfo init_practice01ResourceGroup_8c044274;
+extern ResourceGroupInfo init_practice02ResourceGroup_8c044284;
 
 void TitlePushTitle_8c015fd6(Bool direct);
 

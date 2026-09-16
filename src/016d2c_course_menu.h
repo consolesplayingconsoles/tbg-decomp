@@ -55,7 +55,7 @@ enum {
     // Raised only in practice mode: 02b464_drive_points.c grades penalties
     // through adjust_8c02b464(msgSet, delta), where msgSet is a LOCAL id
     // (see PENALTY_MSG_* in 02b464_drive_points.c), not one of these. The
-    // practice results screen (01e27c_practice_menu.c) converts the run's
+    // practice lesson list (01e27c_practice_menu.c) converts the run's
     // single worst msgSet to one of these INSTR_* ids via
     // init_penaltyMsgSetInstr_8c045208[] and shows it as the lesson's
     // closing comment. Story/free-run results (01d7fc_results.c) never

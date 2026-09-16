@@ -12,7 +12,7 @@ return new class extends TestCase {
 
         $this->call('_buildDialogQueue_8c01e992');
 
-        $queue = $this->addressOf('_var_8c226414');
+        $queue = $this->addressOf('_var_lessonDialogQueue_8c226414');
         $this->shouldWriteLong($queue + 0, 0x18);
         $this->shouldWriteLong($queue + 4, -1);
     }
@@ -28,7 +28,7 @@ return new class extends TestCase {
 
         $this->call('_buildDialogQueue_8c01e992');
 
-        $queue = $this->addressOf('_var_8c226414');
+        $queue = $this->addressOf('_var_lessonDialogQueue_8c226414');
         // state1 (PERFECT, since 8c1bb8f4 == 0), no award, terminal CHOOSE
         $this->shouldWriteLong($queue + 0, 0x1b);
         $this->shouldWriteLong($queue + 4, 0x18);
@@ -45,7 +45,7 @@ return new class extends TestCase {
 
         $this->call('_buildDialogQueue_8c01e992');
 
-        $queue = $this->addressOf('_var_8c226414');
+        $queue = $this->addressOf('_var_lessonDialogQueue_8c226414');
         // gameMode == 0, so WARNING is also queued between TIPS and CHOOSE
         $this->shouldWriteLong($queue + 0, 0x16);
         $this->shouldWriteLong($queue + 4, 0x17);
@@ -64,7 +64,7 @@ return new class extends TestCase {
 
         $this->call('_buildDialogQueue_8c01e992');
 
-        $queue = $this->addressOf('_var_8c226414');
+        $queue = $this->addressOf('_var_lessonDialogQueue_8c226414');
         // days_0x00 >= 30, so FINAL_DAY replaces TIPS/WARNING
         $this->shouldWriteLong($queue + 0, 0x1a);
         $this->shouldWriteLong($queue + 4, 0x18);
@@ -83,7 +83,7 @@ return new class extends TestCase {
 
         $this->call('_buildDialogQueue_8c01e992');
 
-        $queue = $this->addressOf('_var_8c226414');
+        $queue = $this->addressOf('_var_lessonDialogQueue_8c226414');
         $this->shouldWriteLong($queue + 0, 0x1b);
         $this->shouldWriteLong($queue + 4, 0x19);
         $this->shouldWriteLong($queue + 8, 0x18);
@@ -103,7 +103,7 @@ return new class extends TestCase {
 
         $this->call('_buildDialogQueue_8c01e992');
 
-        $queue = $this->addressOf('_var_8c226414');
+        $queue = $this->addressOf('_var_lessonDialogQueue_8c226414');
         // init_8c045208[5] == 0x26 (private table, no direct addressOf needed)
         $this->shouldWriteLong($queue + 0, 0x26);
         $this->shouldWriteLong($queue + 4, 0x1c);
@@ -124,7 +124,7 @@ return new class extends TestCase {
 
         $this->call('_buildDialogQueue_8c01e992');
 
-        $queue = $this->addressOf('_var_8c226414');
+        $queue = $this->addressOf('_var_lessonDialogQueue_8c226414');
         // init_8c045208[5] == 0x26 (private table, no direct addressOf needed)
         $this->shouldWriteLong($queue + 0, 0x26);
         $this->shouldWriteLong($queue + 4, 0x1e);
@@ -142,6 +142,6 @@ return new class extends TestCase {
         $this->setSize('_var_penaltyCount_8c1bb8f4', 0x4);
         $this->setSize('_var_award_8c1bb8f8', 0x4);
         $this->setSize('_var_progress_8c1ba1cc', 0x4);
-        $this->setSize('_var_8c226414', 0x18);
+        $this->setSize('_var_lessonDialogQueue_8c226414', 0x18);
     }
 };

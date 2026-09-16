@@ -46,13 +46,13 @@ ResourceGroupInfo init_mainMenuResourceGroup_8c044264 = {
     "menu.pvm",
     3
 };
-ResourceGroupInfo init_8c044274 = {
+ResourceGroupInfo init_practice01ResourceGroup_8c044274 = {
     "practice01_parts.dat",
     "practice01.dat",
     "practice01.pvm",
     4
 };
-ResourceGroupInfo init_8c044284 = {
+ResourceGroupInfo init_practice02ResourceGroup_8c044284 = {
     "practice02_parts.dat",
     "practice02.dat",
     "practice02.pvm",

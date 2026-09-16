@@ -17,7 +17,7 @@ return new class extends TestCase {
         // Step 1: Install the description-reveal task action
         $this->shouldCall('_TaskSetAction_8c014b3e')->with(
             $task,
-            $this->addressOf('_FUN_8c01e27c')
+            $this->addressOf('_lessonDescriptionTask_8c01e27c')
         );
 
         // Step 2: Reset menuState's shared state field
@@ -33,7 +33,7 @@ return new class extends TestCase {
         // Step 5: Request the course's sys resource group
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
             $menuStateBase + 0x0c,
-            $this->addressOf('_init_8c044284')
+            $this->addressOf('_init_practice02ResourceGroup_8c044284')
         );
 
         // Step 6: Set unknown PVM boolean

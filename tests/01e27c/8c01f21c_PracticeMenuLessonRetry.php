@@ -18,7 +18,7 @@ return new class extends TestCase {
         $this->shouldCall('_scrollTowardSelection_8c01ebc8');
         $this->shouldWriteByteTo('_var_award_8c1bb8f8', 0);
 
-        $dialogQueue = $this->addressOf('_var_8c226414');
+        $dialogQueue = $this->addressOf('_var_lessonDialogQueue_8c226414');
         $this->shouldWriteLong($dialogQueue, 0x18);
         $this->shouldWriteLong($dialogQueue + 4, -1);
 
@@ -38,7 +38,7 @@ return new class extends TestCase {
         $this->shouldCall('_scrollTowardSelection_8c01ebc8');
         $this->shouldWriteByteTo('_var_award_8c1bb8f8', 0);
 
-        $this->shouldWriteLongTo('_var_8c22642c', 43);
+        $this->shouldWriteLongTo('_var_lessonAttempts_8c22642c', 43);
         $this->shouldCall('_buildDialogQueue_8c01e992');
 
         $this->expectCommonTail();
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bestScoreAddr, 20);
         $this->shouldWriteByteTo('_var_award_8c1bb8f8', 1);
 
-        $this->shouldWriteLongTo('_var_8c22642c', 43);
+        $this->shouldWriteLongTo('_var_lessonAttempts_8c22642c', 43);
         $this->shouldCall('_buildDialogQueue_8c01e992');
 
         $this->expectCommonTail();
@@ -106,7 +106,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            $this->addressOf('_FUN_8c01ebf2'),
+            $this->addressOf('_lessonMenuTask_8c01ebf2'),
             0xffffe4, // created_task
             0xffffe8, // created_state
             0
@@ -125,7 +125,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_currentSysResGroupInfo_8c225fb0', -1);
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
             $menuStateBase + 0x0c,
-            $this->addressOf('_init_8c044274')
+            $this->addressOf('_init_practice01ResourceGroup_8c044274')
         );
         $this->shouldCall('_CourseMenuRequestCommonResources_8c01852c');
         $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
@@ -155,13 +155,13 @@ return new class extends TestCase {
         $this->setSize('_AsqNop_8c011120', 4);
         $this->setSize('_RouteLoadResetPvmReady_8c014322', 4);
 
-        $this->initUint32($this->addressOf('_var_8c22642c'), 42);
+        $this->initUint32($this->addressOf('_var_lessonAttempts_8c22642c'), 42);
 
-        // var_8c226414[0] indexes init_instructorDialogs_8c044c08 for the
+        // var_lessonDialogQueue_8c226414[0] indexes init_instructorDialogs_8c044c08 for the
         // dialog's spriteNo_0x04 (InstructorLine+4). Every branch here
         // ends up with 0x18 (CHOOSE) as the first queued entry, since
         // buildDialogQueue_8c01e992 is mocked out (no real side effects).
-        $this->initUint32($this->addressOf('_var_8c226414'), 0x18);
+        $this->initUint32($this->addressOf('_var_lessonDialogQueue_8c226414'), 0x18);
         $this->setSize('_init_instructorDialogs_8c044c08', 66 * 4);
         $dialog = $this->alloc(8);
         $this->initUint32($dialog + 4, 0x2a);

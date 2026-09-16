@@ -22,8 +22,9 @@ bus along a predefined route with predefined passenger stop requests.
   - **Free run**: same courses, no cutscenes/events.
 - **Practice**: 11 runs teaching individual mechanics, each preceded by a
   slideshow guide. Runs take place on sections (segments) of the main route
-  maps. Hypothesis: these are the extra courseTable entries 27+
-  (`init_course27..47_`) -- unconfirmed.
+  maps. Lesson N loads courseId 27 + N (`lessonDescriptionTask_8c01e27c` hands
+  `var_practiceLesson_8c22640c + 0x1b` to `GamePushLoadingTask_8c013310`), so
+  they are `init_courseTable_8c043ca4` entries 27-37.
 
 ## Driving loop
 
@@ -131,10 +132,10 @@ a *local* id space (0-33, documented at `init_penaltyMsgGlyphs_8c04c35c` in that
 **not** an `INSTR_*` id. `msgSet` selects which HUD glyph banner is drawn
 in-drive (`init_penaltyMsgGlyphs_8c04c35c[msgSet]`, glyph ids for `drawMsgGlyphRow_8c02b2f0`
 in `02b2f0_drive_msg.c`), which is a third, unrelated id space again (glyph ids run
-past 63). The `INSTR_*` dialog is shown only once, after the run: in
-practice mode's results screen (`01e27c_practice_menu.c`), the run's single
-worst `msgSet` (`var_worstPenaltyMsgSet_8c1bb8ec`) is converted to an `INSTR_*` id via
-`init_penaltyMsgSetInstr_8c045208[]` and pushed as the lesson's closing
+past 63). The `INSTR_*` dialog is shown only once, after the run: returning to
+the practice lesson list (`01e27c_practice_menu.c`) queues it, with the run's
+single worst `msgSet` (`var_worstPenaltyMsgSet_8c1bb8ec`) converted to an
+`INSTR_*` id via `init_penaltyMsgSetInstr_8c045208[]` for the closing
 instructor comment. **Story and free-run results
 (`01d7fc_results.c`) never consult that table** -- those modes show only the
 pass/fail badge, no per-offense commentary. So every `INSTR_*` penalty
@@ -337,6 +338,3 @@ same holds for the bus-stop trio at 8c1bc424. Folding each into one symbol is a
 move-data job.
 
 
-
-- Practice runs = courseId 27+ is a player recollection, not verified in
-  code.

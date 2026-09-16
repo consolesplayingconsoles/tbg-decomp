@@ -12,7 +12,7 @@ return new class extends TestCase {
         $this->initMenuStateUint32(0x18, 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
     }
@@ -25,14 +25,14 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 1);
-        // Course 3's page range: init_8c0451b4[3..4] = {4, 6}
+        // Course 3's page range: init_lessonPageStarts_8c0451b4[3..4] = {4, 6}
         $this->shouldWriteLong($menuStateBase + 0x54, 4);
         $this->shouldWriteLong($menuStateBase + 0x5c, 4);
         $this->shouldWriteLong($menuStateBase + 0x58, 5);
@@ -50,7 +50,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
@@ -69,7 +69,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 2);
@@ -89,7 +89,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
@@ -109,7 +109,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0x4);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x5c, 5);
@@ -134,12 +134,12 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0x4);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 3);
         $this->shouldWriteLong($menuStateBase + 0x38, 0);
-        // "—ûK‚ð‚Í‚¶‚ß‚Ü‚·‚©H" (Shift-JIS bytes, matches const_8c03896c)
+        // "—ûK‚ð‚Í‚¶‚ß‚Ü‚·‚©H" (Shift-JIS bytes, matches const_confirmStartMsg_8c03896c)
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("\x97\xfb\x8f\x4b\x82\xf0\x82\xcd\x82\xb6\x82\xdf\x82\xdc\x82\xb7\x82\xa9\x81\x48");
         $this->shouldCall('_sdMidiPlay')->with(
             0x1234,
@@ -161,7 +161,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')->andReturn(0);
 
@@ -188,7 +188,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')->andReturn(1);
 
@@ -220,7 +220,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')->andReturn(2);
 
@@ -252,7 +252,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')->andReturn(0);
 
@@ -283,7 +283,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 5);
@@ -301,7 +301,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
@@ -326,7 +326,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
@@ -345,7 +345,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 6);
@@ -365,7 +365,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x68, 4);
@@ -385,7 +385,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x68, 11);
@@ -407,7 +407,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
@@ -426,7 +426,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
     }
 
     public function test_state_7_starts_loading_task(): void
@@ -439,7 +439,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 7);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0);
@@ -458,7 +458,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
     }
 
     public function test_state_8_installs_next_task(): void
@@ -470,7 +470,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $this->shouldCall('_practiceCancelReturn_8c01e920')->with($task);
     }
@@ -484,7 +484,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
@@ -504,7 +504,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
         $task = $this->alloc(0x20);
-        $this->call('_FUN_8c01e27c')->with($task);
+        $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
