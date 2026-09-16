@@ -341,8 +341,9 @@ typedef struct {
 } BusState;
 
 /* Per-course badge tier, ratcheted from var_award_8c1bb8f8 (driver points)
- * by ResultShowPassedRun_8c01e0b4. Doubles as a sprite index at one draw
- * site only, where the badge icons happen to sit at 0x18 - tier. */
+ * by ResultShowPassedRun_8c01e0b4. Doubles as a sprite index, with a
+ * different base per screen: the course menu's badges sit at 0x18 - tier,
+ * the results screen's at 0x1f - tier. */
 enum {
     AWARD_TIER_NONE   = 0,
     AWARD_TIER_BRONZE = 1,
@@ -940,8 +941,9 @@ extern int var_runPassed_8c2285c8;
  * role/owner unclear. */
 extern int var_8c2285cc;
 
-/* run completion percentage (0-100); read by ResultShowPassedRun_8c01e0b4
- * to pick the award tier and as the score's EXP component */
+/* Driver points left when the run ended, out of var_driverPointsMax_8c2285d4.
+ * ResultShowPassedRun_8c01e0b4 cuts the award tier at 70/80/90 and scores
+ * them at 10 a point. */
 extern int var_driverPoints_8c2285d0;
 
 /* The run's starting driver points (100, or 200 on the easiest difficulty

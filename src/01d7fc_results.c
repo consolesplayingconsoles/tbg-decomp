@@ -38,6 +38,8 @@ STATIC Uint16 init_courseClearScoreTable_8c0451a0[10] = {
  * ====================
  */
 
+/* Least significant digit first, walking left from x=464; digit n is
+ * sprite 0x1f + n. */
 STATIC void drawScoreDigits_8c01d7fc(int value, float y)
 {
     float x = 464.0f;
@@ -83,7 +85,8 @@ STATIC void resultsTask_8c01d8e0(void)
         }
         var_isFading_8c226568 = 0;
         var_menuState_8c1bc7a8.selected_0x38 = 0;
-        /* fallthrough -- state 0 re-enters the VMU-save entry state directly */
+        /* A failed run has no score to roll up: straight into the save flow. */
+        /* fallthrough */
     case 4: {
         int vmuStatus;
         int soundId;
@@ -93,17 +96,20 @@ STATIC void resultsTask_8c01d8e0(void)
         if (var_isFading_8c226568 != 0) {
             goto tail;
         }
+        /* 0x6c caches the status; state 5 falls back here when it changes. */
         var_menuState_8c1bc7a8.selectedVmuSlot_0x6c = vmuStatus;
-        if (vmuStatus == 4 || vmuStatus == 5 || vmuStatus == 6) {
-            ObjectsSwapMessageBoxFor_8c02aefc(vmuStatus == 4 ? MSG_CONFIRM_CREATE_FILE : MSG_CONFIRM_OVERWRITE);
+        if (vmuStatus == VMU_STATUS_SAVING_POSSIBLE || vmuStatus == VMU_STATUS_SAVE_EXISTS ||
+            vmuStatus == VMU_STATUS_SAVE_EXISTS_NO_SPACE) {
+            ObjectsSwapMessageBoxFor_8c02aefc(
+                vmuStatus == VMU_STATUS_SAVING_POSSIBLE ? MSG_CONFIRM_CREATE_FILE : MSG_CONFIRM_OVERWRITE);
             var_menuState_8c1bc7a8.state_0x18 = 8;
             soundId = 0;
         } else {
-            if (vmuStatus == 2) {
+            if (vmuStatus == VMU_STATUS_NOT_ENOUGH_SPACE) {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVE_NEED_3_BLOCKS);
-            } else if (vmuStatus == 1) {
+            } else if (vmuStatus == VMU_STATUS_NOT_AVAILABLE) {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_CANT_SAVE);
-            } else if (vmuStatus != 0) {
+            } else if (vmuStatus != VMU_STATUS_NOT_CONNECTED) {
                 FadePushIn_8c022a9c(10);
                 return;
             } else {
@@ -143,8 +149,8 @@ STATIC void resultsTask_8c01d8e0(void)
             }
             var_menuState_8c1bc7a8.state_0x18 = 3;
         }
-        /* Progressively reveals digit groups right-to-left as startTimer_0x64
-         * counts 1..7; anything outside that range (still 0) draws nothing. */
+        /* One more score row per tick of startTimer_0x64, top (course clear)
+         * down to bottom (total); 0 draws nothing. */
         switch (var_menuState_8c1bc7a8.startTimer_0x64) {
         case 7:
             drawScoreDigits_8c01d7fc(var_scoreTotal_8c226404, 312.0f);
@@ -173,6 +179,7 @@ STATIC void resultsTask_8c01d8e0(void)
 
     case 3:
         if (pressedA) {
+            /* Nothing to save: no VM picked, free run, or the last day done. */
             if (var_selectedVm_8c1ba34c == -1 || var_gameMode_8c1bb8fc != 0 ||
                 var_progress_8c1ba1cc.days_0x00 > 0x1e) {
                 var_menuState_8c1bc7a8.state_0x18 = 0xd;
@@ -261,7 +268,8 @@ STATIC void resultsTask_8c01d8e0(void)
             } else if (promptResult == 2) {
                 var_menuState_8c1bc7a8.state_0x18 = 0xd;
                 FadePushOut_8c022b60(10);
-            } else if (vmuStatus != 4 && vmuStatus != 5 && vmuStatus != 6) {
+            } else if (vmuStatus != VMU_STATUS_SAVING_POSSIBLE && vmuStatus != VMU_STATUS_SAVE_EXISTS &&
+                       vmuStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE) {
                 var_menuState_8c1bc7a8.state_0x18 = 4;
                 var_isFading_8c226568 = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
@@ -292,6 +300,7 @@ STATIC void resultsTask_8c01d8e0(void)
         }
         break;
     case 0xb:
+        /* No path here sets 0xb, so neither it nor 0xc ever runs. */
         if (!var_isFading_8c226568) {
             var_menuState_8c1bc7a8.state_0x18 = 0xc;
         }
@@ -377,9 +386,10 @@ void ResultShowPassedRun_8c01e0b4(void)
     } else if (var_route_8c18ad1c == ROUTE_WANGAN) {
         courseGroup = 0;
     } else {
-        /* var_route_8c18ad1c only ever holds the three ROUTE_* values, so
-         * this covers ROUTE_OME -- the original leaves the register unset
-         * for any other value. */
+        /* courses_0x44 and the course menu order the routes Wangan, Shinjuku,
+         * Ome, after init_courseTable_8c043ca4; ROUTE_* and the score table
+         * above are in Shinjuku, Wangan, Ome order. The original leaves the
+         * register unset for a route value outside the three. */
         courseGroup = 2;
     }
     courseIndex = courseGroup * 3 + var_timeOfDay_8c18ad20;
@@ -397,12 +407,12 @@ void ResultShowPassedRun_8c01e0b4(void)
         var_award_8c1bb8f8 = AWARD_TIER_GOLD;
     }
     if (var_progress_8c1ba1cc.courses_0x44[courseIndex].storyAward_0x03 < var_award_8c1bb8f8) {
-        if (var_award_8c1bb8f8 == 3) {
+        if (var_award_8c1bb8f8 == AWARD_TIER_GOLD) {
             var_scoreBadgeBonus_8c2263f8 = 200;
-        } else if (var_award_8c1bb8f8 == 2) {
+        } else if (var_award_8c1bb8f8 == AWARD_TIER_SILVER) {
             var_scoreBadgeBonus_8c2263f8 = 100;
-        } else if (var_award_8c1bb8f8 == 1) {
-            var_scoreBadgeBonus_8c2263f8 = 0x32;
+        } else if (var_award_8c1bb8f8 == AWARD_TIER_BRONZE) {
+            var_scoreBadgeBonus_8c2263f8 = 50;
         }
         var_progress_8c1ba1cc.courses_0x44[courseIndex].storyAward_0x03 = var_award_8c1bb8f8;
         if (var_progress_8c1ba1cc.courses_0x44[courseIndex].freeRunAward_0x04 < var_award_8c1bb8f8) {

@@ -238,14 +238,14 @@ return new class extends TestCase {
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
     }
 
-    public function test_state_9_field0_no_prompt_answer_and_vmu_free_returns_to_state_4(): void
+    public function test_state_9_field0_no_prompt_answer_and_vm_not_connected_returns_to_state_4(): void
     {
         $this->setup(9);
         $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 0); // not 4/5/6
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 0); // VMU_STATUS_NOT_CONNECTED
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1); // must be reset to 0
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x11223344); // handle 0
 
@@ -268,14 +268,14 @@ return new class extends TestCase {
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
     }
 
-    public function test_state_9_field0_no_prompt_answer_and_vmu_busy_stays_put(): void
+    public function test_state_9_field0_no_prompt_answer_and_save_still_possible_stays_put(): void
     {
         $this->setup(9);
         $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 4); // busy: writing
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 4); // VMU_STATUS_SAVING_POSSIBLE
 
         $this->call('_resultsTask_8c01d8e0');
 
@@ -392,11 +392,11 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
     }
 
-    public function test_state_0_first_run_starts_fanfare_with_first_time_fx(): void
+    public function test_state_0_fanfare_uses_fx6_when_run_not_succeeded(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0xffffffff); // -1: no VM selected
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 0); // first run
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 0); // passed run
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -412,11 +412,11 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_state_0_first_run_starts_fanfare_with_repeat_fx(): void
+    public function test_state_0_fanfare_uses_fx5_when_run_succeeded(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0xffffffff); // -1: no VM selected
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 0); // first run
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 0); // passed run
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -432,16 +432,16 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_state_0_repeat_run_falls_into_state_4_with_free_slot(): void
+    public function test_state_0_failed_run_falls_into_state_4_vm_not_connected(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // not the first run
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1); // must be reset to 0
         $this->initUint32($this->ms + 0x38, 5); // selected_0x38: garbage, must be reset
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 0); // free slot
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 0); // VMU_STATUS_NOT_CONNECTED
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -458,7 +458,7 @@ return new class extends TestCase {
         // case 4, entered by fallthrough:
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
 
-        $this->shouldWriteLong($this->ms + 0x6c, 0); // selectedVmuSlot_0x6c = vmuStatus
+        $this->shouldWriteLong($this->ms + 0x6c, 0); // selectedVmuSlot_0x6c caches the status
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ＶＭが接続されていません<E>セーブには３ブロック必要です");
 
@@ -469,14 +469,14 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_state_0_repeat_run_falls_into_state_4_with_slot_in_use(): void
+    public function test_state_0_failed_run_falls_into_state_4_vm_not_available(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // not the first run
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 1); // in use by this game
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 1); // VMU_STATUS_NOT_AVAILABLE
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -492,7 +492,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldWriteLong($this->ms + 0x6c, 1); // selectedVmuSlot_0x6c = vmuStatus
+        $this->shouldWriteLong($this->ms + 0x6c, 1); // selectedVmuSlot_0x6c caches the status
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("このＶＭはセーブできない状態です");
 
@@ -503,14 +503,14 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_state_0_repeat_run_falls_into_state_4_with_slot_in_use_by_other(): void
+    public function test_state_0_failed_run_falls_into_state_4_not_enough_space(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // not the first run
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2); // in use by another game
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2); // VMU_STATUS_NOT_ENOUGH_SPACE
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -526,7 +526,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldWriteLong($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c = vmuStatus
+        $this->shouldWriteLong($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c caches the status
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("空きブロックが不足しています<E>セーブには３ブロック必要です");
 
@@ -537,14 +537,14 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_state_0_repeat_run_falls_into_state_4_writing(): void
+    public function test_state_0_failed_run_falls_into_state_4_saving_possible(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // not the first run
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 4); // busy: writing
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 4); // VMU_STATUS_SAVING_POSSIBLE
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -560,7 +560,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldWriteLong($this->ms + 0x6c, 4); // selectedVmuSlot_0x6c = vmuStatus
+        $this->shouldWriteLong($this->ms + 0x6c, 4); // selectedVmuSlot_0x6c caches the status
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ファイルを作成します。<E>よろしいですか？");
 
@@ -571,14 +571,14 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_state_0_repeat_run_falls_into_state_4_slot_full(): void
+    public function test_state_0_failed_run_falls_into_state_4_save_exists(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // not the first run
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 5); // slot full
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 5); // VMU_STATUS_SAVE_EXISTS
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -594,7 +594,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldWriteLong($this->ms + 0x6c, 5); // selectedVmuSlot_0x6c = vmuStatus
+        $this->shouldWriteLong($this->ms + 0x6c, 5); // selectedVmuSlot_0x6c caches the status
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ファイルが上書きされます。<E>よろしいですか？");
 
@@ -605,14 +605,14 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_state_0_repeat_run_falls_into_state_4_vm_unusable(): void
+    public function test_state_0_failed_run_falls_into_state_4_save_exists_no_space(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // not the first run
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 6); // unusable
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 6); // VMU_STATUS_SAVE_EXISTS_NO_SPACE
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -628,7 +628,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldWriteLong($this->ms + 0x6c, 6); // selectedVmuSlot_0x6c = vmuStatus
+        $this->shouldWriteLong($this->ms + 0x6c, 6); // selectedVmuSlot_0x6c caches the status
 
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ファイルが上書きされます。<E>よろしいですか？");
 
@@ -639,14 +639,14 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_state_0_repeat_run_falls_into_state_4_other_status_just_fades_in(): void
+    public function test_state_0_failed_run_falls_into_state_4_proceed_without_saving(): void
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
-        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // not the first run
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 3); // unknown status
+        $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 3); // VMU_STATUS_PROCEED_WITHOUT_SAVING
 
         $this->call('_resultsTask_8c01d8e0');
 
@@ -661,7 +661,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldWriteLong($this->ms + 0x6c, 3); // selectedVmuSlot_0x6c = vmuStatus
+        $this->shouldWriteLong($this->ms + 0x6c, 3); // selectedVmuSlot_0x6c caches the status
 
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
@@ -1053,7 +1053,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2);
-        $this->initUint32($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c matches
+        $this->initUint32($this->ms + 0x6c, 2); // cached status still matches
 
         $this->call('_resultsTask_8c01d8e0');
 
@@ -1072,7 +1072,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2);
-        $this->initUint32($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c matches
+        $this->initUint32($this->ms + 0x6c, 2); // cached status still matches
 
         $this->call('_resultsTask_8c01d8e0');
 
@@ -1095,7 +1095,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 1);
-        $this->initUint32($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c: mismatched
+        $this->initUint32($this->ms + 0x6c, 2); // cached status: mismatched
 
         $this->call('_resultsTask_8c01d8e0');
 
