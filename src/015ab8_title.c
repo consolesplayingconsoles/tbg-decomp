@@ -386,7 +386,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             if (var_isFading_8c226568 == FALSE) {
                 if (init_8c03bd80 == FALSE) {
                     DebugMenuFreeSessionAssets_8c016182();
-                    FUN_8c0159ac();
+                    TxtStartAttractDemo_8c0159ac();
                 }
 
                 return;

@@ -28,7 +28,7 @@
           .IMPORT     _var_glyphTexnames_8c1bc78c
           .IMPORT     _var_glyphTexlists_8c1bc790
           .IMPORT     _var_fontResourceGroup_8c1bc794
-          .IMPORT     _var_8c1bc7a0
+          .IMPORT     _var_glyphSlotUsed_8c1bc7a0
           .IMPORT     _var_glyphBuffer_8c1bc7a4
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqResetQueues_8c011f6c
@@ -48,13 +48,13 @@
           .EXPORT     _TxtDestroyTextBox_8c015410
           .EXPORT     _TxtPrepareTextBoxLayout_8c01543a
           .EXPORT     _TxtDrawTextbox_8c0155e0
-          .EXPORT     _FUN_8c0159ac
+          .EXPORT     _TxtStartAttractDemo_8c0159ac
 
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _getGlyphIndex_8c015034
           .EXPORT     _unpackGlyph_8c015110
-          .EXPORT     _FUN_8c01594c
+          .EXPORT     _demoLoadTask_8c01594c
 
           .EXPORT     _const_system_8c035f74
           .EXPORT     _const_8c035f7c
@@ -657,7 +657,7 @@ LP_GEN_39385:
           .DATA.W H'1800
           .DATA.W H'1000
           .RES.W 1
-          .DATA.L _var_8c1bc7a0
+          .DATA.L _var_glyphSlotUsed_8c1bc7a0
           .DATA.L _syMalloc
           .DATA.L H'0000FFFF
           .DATA.L _var_glyphBuffer_8c1bc7a4
@@ -1008,7 +1008,7 @@ LP_GEN_86517:
           .DATA.L H'0000FFED
           .DATA.L _var_glyphTexlists_8c1bc790
           .DATA.L _njReleaseTexture
-          .DATA.L _var_8c1bc7a0
+          .DATA.L _var_glyphSlotUsed_8c1bc7a0
           .DATA.L _strlen
 
 LAB_8c015648:
@@ -1247,7 +1247,7 @@ LP_GEN_51911:
           .DATA.W H'0100 ; LP_GEN_51911+0
           .DATA.W H'0200
           .RES.W 1
-          .DATA.L _var_8c1bc7a0
+          .DATA.L _var_glyphSlotUsed_8c1bc7a0
           .DATA.L H'0000FFFF
           .DATA.L _var_glyphBuffer_8c1bc7a4
           .DATA.L _var_busFont_8c1ba1c8
@@ -1406,7 +1406,7 @@ LP_GEN_90770:
           .DATA.L _TxtDrawSprite_8c014f54
           .DATA.L H'0000FFFE
 
-_FUN_8c01594c:
+_demoLoadTask_8c01594c:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           ADD         #-16,R15
@@ -1456,7 +1456,7 @@ LAB_8c0159a4:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_FUN_8c0159ac:
+_TxtStartAttractDemo_8c0159ac:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           ADD         #-H'8,R15
@@ -1549,7 +1549,7 @@ LP_GEN_51554:
           .DATA.L _syFree
           .DATA.L _TaskFree_8c014b66
           .DATA.L _FUN_8c01328c
-          .DATA.L _FUN_8c01594c
+          .DATA.L _demoLoadTask_8c01594c
           .DATA.L _var_tasks_8c1ba3c8
           .DATA.L _TaskPush_8c014ae8
           .DATA.L _var_playMode_8c1bb8d0

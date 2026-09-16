@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_test01()
+    public function test_draws_every_part_of_one_sprite_entry()
     {
         $this->resolveSymbols();
 
@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->initUint32($res + 0x04, 0xcafe0002);
         $this->initUint32($res + 0x08, $titleDat);
 
-        $spriteLocal = $this->isAsmObject() ? 0xffffb8 : 0xffffb8;
+        $spriteLocal = 0xffffb8;
 
         $this->shouldWriteLong($spriteLocal + 6 * 4, 0xcafe0001);
         $this->shouldWriteLong($spriteLocal + 7 * 4, 0xcafe0002);
@@ -43,7 +43,7 @@ return new class extends TestCase {
         $this->initUint32($res + 0x04, 0xcafe0002);
         $this->initUint32($res + 0x08, $titleDat);
 
-        $spriteLocal = $this->isAsmObject() ? 0xffffb8 : 0xffffb8;
+        $spriteLocal = 0xffffb8;
 
         $this->shouldWriteLong($spriteLocal + 6 * 4, 0xcafe0001);
         $this->shouldWriteLong($spriteLocal + 7 * 4, 0xcafe0002);
@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->initUint32($res + 0x04, 0xcafe0002);
         $this->initUint32($res + 0x08, $titleDat);
 
-        $spriteLocal = $this->isAsmObject() ? 0xffffb8 : 0xffffb8;
+        $spriteLocal = 0xffffb8;
 
         $this->shouldWriteLong($spriteLocal + 6 * 4, 0xcafe0001);
         $this->shouldWriteLong($spriteLocal + 7 * 4, 0xcafe0002);
@@ -135,36 +135,6 @@ return new class extends TestCase {
             ->with($res, 1, 180.0, 0.0, -4.0)
             ->run();
     }
-
-    // // TODO: Resource needs to be offsetted.
-    // public function test_drawCharacter()
-    // {
-    //     $this->resolveSymbols();
-
-    //     $fontDat = $this->allocBytes(file_get_contents(__DIR__ . '/data/BUS_FONT.FFF'));
-    //     $res = $this->alloc(0xc);
-    //     $this->initUint32($res + 0x00, 0xcafe0001);
-    //     $this->initUint32($res + 0x04, 0xcafe0002);
-    //     $this->initUint32($res + 0x08, $fontDat);
-
-    //     $spriteLocal = 0xffffb8;
-
-    //     $this->shouldWriteLong($spriteLocal + 6 * 4, 0xcafe0001);
-    //     $this->shouldWriteLong($spriteLocal + 7 * 4, 0xcafe0002);
-    //     $this->shouldWriteLong($spriteLocal + 5 * 4, 0);
-    //     $this->shouldWriteFloat($spriteLocal + 3 * 4, 1.0);
-    //     $this->shouldWriteFloat($spriteLocal + 4 * 4, 1.0);
-
-    //     $this->shouldWriteFloat($spriteLocal + 0, 180.0);
-    //     $this->shouldWriteFloat($spriteLocal + 4, 90.0);
-    //     $this->shouldCall('_njDrawSprite2D')
-    //         ->with($spriteLocal, 0, -4.0, 32);
-
-    //     // TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
-    //     $this->singleCall('_TxtDrawSprite_8c014f54')
-    //         ->with($res, 2000, 180.0, 90.0, -4.0)
-    //         ->run();
-    // }
 
     /**
      * Allocates a string and returns its address.

@@ -1,4 +1,5 @@
 /* @unit Txt */
+/* 8c014f54 */
 #include <shinobi.h>
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
@@ -62,9 +63,9 @@
 #define GLYPH_ADVANCE_MIN GLYPH_WIDTH
 #endif
 
-/* =================
+/* ====================
  * Type Declarations
- * =================
+ * ====================
  */
 
 typedef struct {
@@ -87,9 +88,9 @@ typedef struct {
 } GlyphMetric;
 #endif
 
-/* ===================
+/* ====================
  * Initialized Globals
- * ===================
+ * ====================
  */
 
 #ifdef GAME_LANG_EN
@@ -212,6 +213,8 @@ STATIC ResourceGroupSpriteEntry init_contents_8c04413c[2] = {
     { -1, 0, 0 }
 };
 
+/* Five demos, listed four times over: the attract loop steps one entry per
+ * timeout and wraps at 20, so each demo comes round every fifth pass. */
 STATIC DemoEntry init_demos_8c044154[20] = {
     { "demo2.bin", 0x1E, 0x15 },
     { "demo6.bin", 0x0F, 0x06 },
@@ -239,13 +242,8 @@ STATIC DemoEntry init_demos_8c044154[20] = {
 };
 
 /* ====================
- * Forward Declarations
- * ====================
- */
-
-/* =========
  * Functions
- * =========
+ * ====================
  */
 
 void TxtDrawSprite_8c014f54(
@@ -260,7 +258,8 @@ void TxtDrawSprite_8c014f54(
     int i;
     NJS_SPRITE sprite;
 
-    // Handle BUS_FONT.FFF
+    /* 2000 means the font group, whose contents_0x08 is the sprite entry
+     * itself rather than a table of offsets to one. */
     if (texture_id == 2000) {
         sprite_entry =
             (ResourceGroupSpriteEntry *) resource_group->contents_0x08;
@@ -290,7 +289,9 @@ void TxtDrawSprite_8c014f54(
     }
 }
 
-/* This function is not used. */
+/* Unreferenced anywhere in the image. The interpolation cancels --
+ * start + steps * ((end - start) / steps) is end -- so it would only ever
+ * draw at (end_x, end_y). */
 STATIC void drawSpriteLerp_8c014ff6(
     float start_x,
     float start_y,
@@ -444,9 +445,9 @@ void TxtInit_8c01524c()
 
     LOG_INFO(("[TXT] Initializing text module\n"));
 
-    var_8c1bc7a0 = syMalloc(GLYPH_COUNT * sizeof(Sint16));
+    var_glyphSlotUsed_8c1bc7a0 = syMalloc(GLYPH_COUNT * sizeof(Sint16));
     for (i = 0; i < GLYPH_COUNT; i++) {
-        var_8c1bc7a0[i] = (Uint16) -1;
+        var_glyphSlotUsed_8c1bc7a0[i] = (Uint16) -1;
     }
 
     var_glyphBuffer_8c1bc7a4 = syMalloc(GLYPH_TEXTURE_SIZE * sizeof(Uint16));
@@ -468,14 +469,14 @@ void TxtDestroy_8c01529c()
          * free marker. Signed, every slot looks free, the textures leak, and
          * a later njLoadTexture at the same global index silently keeps the
          * old glyph. */
-        if ((Uint16) var_8c1bc7a0[i] < 0xffed) {
+        if ((Uint16) var_glyphSlotUsed_8c1bc7a0[i] < 0xffed) {
             njReleaseTexture(&var_glyphTexlists_8c1bc790[i]);
         }
     };
     syFree(var_glyphTexlists_8c1bc790);
     syFree(var_glyphTexnames_8c1bc78c);
     syFree(var_glyphBuffer_8c1bc7a4);
-    syFree(var_8c1bc7a0);
+    syFree(var_glyphSlotUsed_8c1bc7a0);
 }
 
 TextBox* TxtCreateTextBox_8c0152fc(
@@ -557,7 +558,7 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
                 njReleaseTexture(
                     &var_glyphTexlists_8c1bc790[box->tokens_0x2c[i]]
                 );
-                var_8c1bc7a0[box->tokens_0x2c[i]] = -1;
+                var_glyphSlotUsed_8c1bc7a0[box->tokens_0x2c[i]] = -1;
             }
         }
 
@@ -590,7 +591,7 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
     box->processed_tag_count_0x1e = 0;
     box->character_count_0x20 = character_count;
 
-    line_count = box->height_0x10 / 0x20;
+    line_count = box->height_0x10 / GLYPH_HEIGHT;
     for (i = 0; i < line_count; i++) {
         box->line_offsets_0x34[i] = 0.0f;
     }
@@ -625,7 +626,7 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
             current_line++;
         };
 
-        // BUG (kept, see tests/014f54_text/1543a_TxtPrepareTextBoxLayout.php
+        // BUG (kept, see tests/014f54_text/8c01543a_TxtPrepareTextBoxLayout.php
         // test_processExceedingLineBreaks): current_line can still equal
         // line_count here, writing one float past line_offsets_0x34. Applies
         // in GAME_LANG_EN too.
@@ -714,7 +715,7 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
                 int glyphIndex = 0;
 
                 while (glyphIndex < GLYPH_COUNT) {
-                    if (var_8c1bc7a0[glyphIndex] == -1) {
+                    if (var_glyphSlotUsed_8c1bc7a0[glyphIndex] == -1) {
                         NJS_TEXINFO texInfo;
 
                         unpackGlyph_8c015110(
@@ -746,7 +747,7 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
                         var_glyphTexlists_8c1bc790[glyphIndex].textures =
                             &var_glyphTexnames_8c1bc78c[glyphIndex];
                         var_glyphTexlists_8c1bc790[glyphIndex].nbTexture = 1;
-                        var_8c1bc7a0[glyphIndex] = glyphIndex;
+                        var_glyphSlotUsed_8c1bc7a0[glyphIndex] = glyphIndex;
                         box->tokens_0x2c[token_idx] = glyphIndex;
 
                         njLoadTexture(&var_glyphTexlists_8c1bc790[glyphIndex]);
@@ -757,7 +758,8 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
                     glyphIndex++;
                 }
 
-                // Glyph overflow (TODO: improve comment)
+                /* Every slot is resident: nothing left to load this glyph
+                 * into, so give up on the box. */
                 if (glyphIndex >= GLYPH_COUNT) {
                     return -1;
                 }
@@ -840,7 +842,9 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
     return 1;
 }
 
-STATIC void FUN_8c01594c(Task *task)
+/* Waits for the demo .bin AsqRequestDat to land, then unpacks its replay
+ * stream into var_demoBuffer_8c1bc828 and starts the course it names. */
+STATIC void demoLoadTask_8c01594c(Task *task)
 {
     void *local;
     if (!RouteLoadIsPvmReady_8c01432a()) {
@@ -859,15 +863,16 @@ STATIC void FUN_8c01594c(Task *task)
     FUN_8c01328c();
 }
 
-void FUN_8c0159ac()
+/* Takes the next of the 20 init_demos_8c044154 entries and requests it;
+ * demoLoadTask_8c01594c picks up from there. */
+void TxtStartAttractDemo_8c0159ac()
 {
     Task *created_task;
     void *created_state;
     TaskPush_8c014ae8(
-        var_tasks_8c1ba3c8, FUN_8c01594c, &created_task, &created_state, 0
+        var_tasks_8c1ba3c8, demoLoadTask_8c01594c, &created_task, &created_state, 0
     );
     created_task->field_0x08 = 0;
-    // created_task->field_0x0c = NULL;
     var_playMode_8c1bb8d0 = 2;
     var_8c1bb8d4 = 1;
     if (++var_demoIndex_8c1bb8d8 >= 20) {

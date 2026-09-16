@@ -5,17 +5,17 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_test01()
+    public function test_frees_the_glyph_tables()
     {
         $this->resolveSymbols();
 
         // TODO: calloc
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint16Array($var_8c1bc7a0, array_fill(0, 0x200, -18));
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
-        $this->initUint16($var_8c1bc7a0 + 0x000 * 2, -19);
-        $this->initUint16($var_8c1bc7a0 + 0x001 * 2, -20);
-        $this->initUint16($var_8c1bc7a0 + 0x199 * 2, -20);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint16Array($var_glyphSlotUsed_8c1bc7a0, array_fill(0, 0x200, -18));
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
+        $this->initUint16($var_glyphSlotUsed_8c1bc7a0 + 0x000 * 2, -19);
+        $this->initUint16($var_glyphSlotUsed_8c1bc7a0 + 0x001 * 2, -20);
+        $this->initUint16($var_glyphSlotUsed_8c1bc7a0 + 0x199 * 2, -20);
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 8);
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
 
@@ -28,7 +28,7 @@ return new class extends TestCase {
         $this->shouldCall('_syFree')->with($var_glyphTexlists_8c1bc790);
         $this->shouldCall('_syFree')->with(0xcafe0000);
         $this->shouldCall('_syFree')->with(0xcafe0001);
-        $this->shouldCall('_syFree')->with($var_8c1bc7a0);
+        $this->shouldCall('_syFree')->with($var_glyphSlotUsed_8c1bc7a0);
 
         $this->singleCall('_TxtDestroy_8c01529c')->run();
     }
@@ -38,7 +38,7 @@ return new class extends TestCase {
      * 0xffff. The compare is unsigned (the asm EXTU.W's before CMP/GE), so an
      * in-use slot is far below 0xffed and must be released.
      *
-     * test_test01 above only spans -18/-19/-20, the one neighbourhood where a
+     * test_frees_the_glyph_tables above only spans -18/-19/-20, the one neighbourhood where a
      * signed compare agrees with the unsigned one, so it passes either way.
      * Real glyph indices are what tell them apart.
      */
@@ -46,14 +46,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint16Array($var_8c1bc7a0, array_fill(0, 0x200, 0xffff));
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint16Array($var_glyphSlotUsed_8c1bc7a0, array_fill(0, 0x200, 0xffff));
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
 
         // Slots holding a loaded glyph, including both ends of the range
-        $this->initUint16($var_8c1bc7a0 + 0x000 * 2, 0x000);
-        $this->initUint16($var_8c1bc7a0 + 0x005 * 2, 0x005);
-        $this->initUint16($var_8c1bc7a0 + 0x1ff * 2, 0x1ff);
+        $this->initUint16($var_glyphSlotUsed_8c1bc7a0 + 0x000 * 2, 0x000);
+        $this->initUint16($var_glyphSlotUsed_8c1bc7a0 + 0x005 * 2, 0x005);
+        $this->initUint16($var_glyphSlotUsed_8c1bc7a0 + 0x1ff * 2, 0x1ff);
 
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 8);
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
@@ -67,7 +67,7 @@ return new class extends TestCase {
         $this->shouldCall('_syFree')->with($var_glyphTexlists_8c1bc790);
         $this->shouldCall('_syFree')->with(0xcafe0000);
         $this->shouldCall('_syFree')->with(0xcafe0001);
-        $this->shouldCall('_syFree')->with($var_8c1bc7a0);
+        $this->shouldCall('_syFree')->with($var_glyphSlotUsed_8c1bc7a0);
 
         $this->singleCall('_TxtDestroy_8c01529c')->run();
     }

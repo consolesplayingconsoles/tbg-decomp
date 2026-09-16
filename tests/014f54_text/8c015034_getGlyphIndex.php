@@ -411,46 +411,6 @@ return new class extends TestCase {
     // 
     public function test_code_e0a1() { $this->testGlyph(0xe0a1, 0x65, movn: 2); }
 
-    // public function test_1()
-    // {
-    //     // セ
-    //     $this->testGlyph(0x835a, 0x117);
-    // }
-
-    // public function test_2()
-    // {
-    //     // ー
-    //     $this->testGlyph(0x815b, 0x01b);
-    // }
-
-    // public function test_3()
-    // {
-    //     // ブ
-    //     $this->testGlyph(0x8375, 0x132);
-    // }
-
-    // public function test_5()
-    // {
-    //     // 可
-    //     $this->testGlyph(0x89c2, 0x2a4);
-    // }
-    // public function test_6()
-    // {
-    //     // 能
-    //     $this->testGlyph(0x945c, 0xa53);
-    // }
-
-    // public function test_7()
-    // {
-    //     // で
-    //     $this->testGlyph(0x82c5, 0x0d0);
-    // }
-
-    // public function test_8()
-    // {
-    //     // す
-    //     $this->testGlyph(0x82b7, 0x0c2);
-    // }
 
     protected function testGlyph(int $code, int $offset, int $movn = 1): void
     {

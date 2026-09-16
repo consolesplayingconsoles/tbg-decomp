@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_test01()
+    public function test_allocates_and_initialises_a_box()
     {
         $this->resolveSymbols();
 
@@ -13,10 +13,10 @@ return new class extends TestCase {
         $GLYPH_HEIGHT = 0x20;
         $WIDTH = 0x240;
         $HEIGHT = 0x40;
-        $GLYPH_COUNT = ($WIDTH / $GLYPH_WIDTH) * ($HEIGHT / $GLYPH_HEIGHT) + 0x28;
+        $MAX_CHARS = ($WIDTH / $GLYPH_WIDTH) * ($HEIGHT / $GLYPH_HEIGHT) + 0x28;
 
         $box = $this->alloc(0x3c);
-        $glyphIndexes = $this->alloc($GLYPH_COUNT * 2);
+        $glyphIndexes = $this->alloc($MAX_CHARS * 2);
         $this->shouldCall('_syMalloc')->with(0x3c)->andReturn($box);
 
         $this->shouldWriteLong($box + 0x00, 0x20);
@@ -31,7 +31,7 @@ return new class extends TestCase {
         $this->shouldWriteWord($box + 0x28, 0xbdef);
         $this->shouldWriteWord($box + 0x2a, 0xc631);
 
-        // max_chars = 0x28 + (width / GLYPH_WIDTH) * (height / GLYPH_HEIGHT);
+        // max_chars = 0x28 + (width / GLYPH_ADVANCE_MIN) * (height / GLYPH_HEIGHT);
         // width / GLYPH_WIDTH (24) is not a power of two, so it's a __divls call.
         // The asm object (matches the original binary) computes this twice here;
         // the C recompile only once.
@@ -39,7 +39,7 @@ return new class extends TestCase {
         if ($this->isAsmObject()) {
             $this->shouldCall('__divls');
         }
-        $this->shouldCall('_syMalloc')->with($GLYPH_COUNT * 2)->andReturn($glyphIndexes);
+        $this->shouldCall('_syMalloc')->with($MAX_CHARS * 2)->andReturn($glyphIndexes);
         $this->shouldWriteLong($box + 0x2c, $glyphIndexes);
         $this->shouldCall('_syMalloc')->with($HEIGHT * 4 / 32)->andReturn(0xbebacafe);
         $this->shouldWriteLong($box + 0x34, 0xbebacafe);
@@ -49,7 +49,7 @@ return new class extends TestCase {
         // max_chars from scratch on every iteration (width / GLYPH_WIDTH, times
         // height, then / GLYPH_HEIGHT -- two __divls calls each time), including
         // the final failing check.
-        for ($i = 0; $i < $GLYPH_COUNT; $i++) {
+        for ($i = 0; $i < $MAX_CHARS; $i++) {
             if ($this->isAsmObject()) {
                 $this->shouldCall('__divls');
                 $this->shouldCall('__divls');

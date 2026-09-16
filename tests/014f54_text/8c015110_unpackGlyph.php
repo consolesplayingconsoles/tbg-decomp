@@ -29,15 +29,6 @@ return new class extends TestCase {
             $len = $this->registers[0];
 
             // TODO: Really move to Simulator
-            // TODO: Expect correct move sources
-            // if (!$src->equals($menuState + 0x28)) {
-            //     throw new \Exception('Unexpected move source ' . $this->registers[2]->readable());
-            // }
-
-            // if (!$dst->equals($menuState + 0x20)) {
-            //     throw new \Exception('Unexpected move dest ' . $this->registers[1]->readable());
-            // }
-
             for ($i = 0; $i < $len->value; $i++) {
                 $this->memory->writeUInt8($dst->value + $i, $this->readUInt8($src->value + $i));
             }
@@ -141,15 +132,6 @@ return new class extends TestCase {
             $len = $this->registers[0];
 
             // TODO: Really move to Simulator
-            // TODO: Expect correct move sources
-            // if (!$src->equals($menuState + 0x28)) {
-            //     throw new \Exception('Unexpected move source ' . $this->registers[2]->readable());
-            // }
-
-            // if (!$dst->equals($menuState + 0x20)) {
-            //     throw new \Exception('Unexpected move dest ' . $this->registers[1]->readable());
-            // }
-
             for ($i = 0; $i < $len->value; $i++) {
                 $this->memory->writeUInt8($dst->value + $i, $this->readUInt8($src->value + $i));
             }

@@ -54,6 +54,6 @@ TextBox* TxtCreateTextBox_8c0152fc(
 void TxtDestroyTextBox_8c015410(TextBox *box);
 int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text);
 int TxtDrawTextbox_8c0155e0(TextBox *box, int limit);
-void FUN_8c0159ac();
+void TxtStartAttractDemo_8c0159ac();
 
 #endif /* _014F54_TEXT_H */

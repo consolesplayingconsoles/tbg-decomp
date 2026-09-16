@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                $this->addressOf('_FUN_8c01594c'),
+                $this->addressOf('_demoLoadTask_8c01594c'),
                 $createdTask,
                 0xfffff0,
                 0
@@ -55,7 +55,7 @@ return new class extends TestCase {
                 $this->addressOf('_RouteLoadSetPvmReady_8c014330')
             );
 
-        $this->singleCall('_FUN_8c0159ac')->with(0xbeba1337)->run();
+        $this->singleCall('_TxtStartAttractDemo_8c0159ac')->with(0xbeba1337)->run();
     }
 
     public function test_it_loops_demos()
@@ -73,7 +73,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                $this->addressOf('_FUN_8c01594c'),
+                $this->addressOf('_demoLoadTask_8c01594c'),
                 $createdTask,
                 0xfffff0,
                 0
@@ -108,7 +108,7 @@ return new class extends TestCase {
                 $this->addressOf('_RouteLoadSetPvmReady_8c014330')
             );
 
-        $this->singleCall('_FUN_8c0159ac')->with(0xbeba1337)->run();
+        $this->singleCall('_TxtStartAttractDemo_8c0159ac')->with(0xbeba1337)->run();
     }
 
     protected function resolveSymbols(): void

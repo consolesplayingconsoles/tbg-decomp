@@ -55,16 +55,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint16Array($var_8c1bc7a0, array_fill(0, 0x200, 0xffff));
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint16Array($var_glyphSlotUsed_8c1bc7a0, array_fill(0, 0x200, 0xffff));
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
 
         $var_glyphTexnames_8c1bc78c = $this->alloc(0x200 * 0x0c);
-        // $this->initUint16Array($var_glyphTexnames_8c1bc78c, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexnames_8c1bc78c'), $var_glyphTexnames_8c1bc78c);
 
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 0x8);
-        // $this->initUint16Array($var_glyphTexlists_8c1bc790, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
 
         $this->initUint32($this->addressOf('_var_busFont_8c1ba1c8'), 0xcafe0001);
@@ -82,7 +80,7 @@ return new class extends TestCase {
             "box" => $box,
             "var_glyphTexnames_8c1bc78c" => $var_glyphTexnames_8c1bc78c,
             "var_glyphTexlists_8c1bc790" => $var_glyphTexlists_8c1bc790,
-            "var_8c1bc7a0" => $var_8c1bc7a0,
+            "var_glyphSlotUsed_8c1bc7a0" => $var_glyphSlotUsed_8c1bc7a0,
             "glyphIndexes" => $glyphIndexes,
         ];
 
@@ -149,16 +147,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint16Array($var_8c1bc7a0, array_fill(0, 0x200, 0xffff));
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint16Array($var_glyphSlotUsed_8c1bc7a0, array_fill(0, 0x200, 0xffff));
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
 
         $var_glyphTexnames_8c1bc78c = $this->alloc(0x200 * 0x0c);
-        // $this->initUint16Array($var_glyphTexnames_8c1bc78c, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexnames_8c1bc78c'), $var_glyphTexnames_8c1bc78c);
 
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 0x8);
-        // $this->initUint16Array($var_glyphTexlists_8c1bc790, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
 
         $this->initUint32($this->addressOf('_var_busFont_8c1ba1c8'), 0xcafe0001);
@@ -176,7 +172,7 @@ return new class extends TestCase {
             "box" => $box,
             "var_glyphTexnames_8c1bc78c" => $var_glyphTexnames_8c1bc78c,
             "var_glyphTexlists_8c1bc790" => $var_glyphTexlists_8c1bc790,
-            "var_8c1bc7a0" => $var_8c1bc7a0,
+            "var_glyphSlotUsed_8c1bc7a0" => $var_glyphSlotUsed_8c1bc7a0,
             "glyphIndexes" => $glyphIndexes,
         ];
 
@@ -243,16 +239,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint16Array($var_8c1bc7a0, array_fill(0, 0x200, 0xffff));
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint16Array($var_glyphSlotUsed_8c1bc7a0, array_fill(0, 0x200, 0xffff));
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
 
         $var_glyphTexnames_8c1bc78c = $this->alloc(0x200 * 0x0c);
-        // $this->initUint16Array($var_glyphTexnames_8c1bc78c, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexnames_8c1bc78c'), $var_glyphTexnames_8c1bc78c);
 
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 0x8);
-        // $this->initUint16Array($var_glyphTexlists_8c1bc790, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
 
         $this->initUint32($this->addressOf('_var_busFont_8c1ba1c8'), 0xcafe0001);
@@ -270,7 +264,7 @@ return new class extends TestCase {
             "box" => $box,
             "var_glyphTexnames_8c1bc78c" => $var_glyphTexnames_8c1bc78c,
             "var_glyphTexlists_8c1bc790" => $var_glyphTexlists_8c1bc790,
-            "var_8c1bc7a0" => $var_8c1bc7a0,
+            "var_glyphSlotUsed_8c1bc7a0" => $var_glyphSlotUsed_8c1bc7a0,
             "glyphIndexes" => $glyphIndexes,
         ];
 
@@ -321,16 +315,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint16Array($var_8c1bc7a0, array_fill(0, 0x200, 0xffff));
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint16Array($var_glyphSlotUsed_8c1bc7a0, array_fill(0, 0x200, 0xffff));
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
 
         $var_glyphTexnames_8c1bc78c = $this->alloc(0x200 * 0x0c);
-        // $this->initUint16Array($var_glyphTexnames_8c1bc78c, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexnames_8c1bc78c'), $var_glyphTexnames_8c1bc78c);
 
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 0x8);
-        // $this->initUint16Array($var_glyphTexlists_8c1bc790, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
 
         $this->initUint32($this->addressOf('_var_busFont_8c1ba1c8'), 0xcafe0001);
@@ -348,7 +340,7 @@ return new class extends TestCase {
             "box" => $box,
             "var_glyphTexnames_8c1bc78c" => $var_glyphTexnames_8c1bc78c,
             "var_glyphTexlists_8c1bc790" => $var_glyphTexlists_8c1bc790,
-            "var_8c1bc7a0" => $var_8c1bc7a0,
+            "var_glyphSlotUsed_8c1bc7a0" => $var_glyphSlotUsed_8c1bc7a0,
             "glyphIndexes" => $glyphIndexes,
         ];
 
@@ -403,16 +395,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint16Array($var_8c1bc7a0, array_fill(0, 0x200, 0xffff));
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint16Array($var_glyphSlotUsed_8c1bc7a0, array_fill(0, 0x200, 0xffff));
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
 
         $var_glyphTexnames_8c1bc78c = $this->alloc(0x200 * 0x0c);
-        // $this->initUint16Array($var_glyphTexnames_8c1bc78c, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexnames_8c1bc78c'), $var_glyphTexnames_8c1bc78c);
 
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 0x8);
-        // $this->initUint16Array($var_glyphTexlists_8c1bc790, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
 
         $this->initUint32($this->addressOf('_var_busFont_8c1ba1c8'), 0xcafe0001);
@@ -431,7 +421,7 @@ return new class extends TestCase {
             "box" => $box,
             "var_glyphTexnames_8c1bc78c" => $var_glyphTexnames_8c1bc78c,
             "var_glyphTexlists_8c1bc790" => $var_glyphTexlists_8c1bc790,
-            "var_8c1bc7a0" => $var_8c1bc7a0,
+            "var_glyphSlotUsed_8c1bc7a0" => $var_glyphSlotUsed_8c1bc7a0,
             "glyphIndexes" => $glyphIndexes,
         ];
 
@@ -483,16 +473,14 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint16Array($var_8c1bc7a0, array_fill(0, 0x200, 0xffff));
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint16Array($var_glyphSlotUsed_8c1bc7a0, array_fill(0, 0x200, 0xffff));
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
 
         $var_glyphTexnames_8c1bc78c = $this->alloc(0x200 * 0x0c);
-        // $this->initUint16Array($var_glyphTexnames_8c1bc78c, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexnames_8c1bc78c'), $var_glyphTexnames_8c1bc78c);
 
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 0x8);
-        // $this->initUint16Array($var_glyphTexlists_8c1bc790, array_fill(0, 0x200, 0xffff));
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
 
         $this->initUint32($this->addressOf('_var_busFont_8c1ba1c8'), 0xcafe0001);
@@ -510,7 +498,7 @@ return new class extends TestCase {
             "box" => $box,
             "var_glyphTexnames_8c1bc78c" => $var_glyphTexnames_8c1bc78c,
             "var_glyphTexlists_8c1bc790" => $var_glyphTexlists_8c1bc790,
-            "var_8c1bc7a0" => $var_8c1bc7a0,
+            "var_glyphSlotUsed_8c1bc7a0" => $var_glyphSlotUsed_8c1bc7a0,
             "glyphIndexes" => $glyphIndexes,
         ];
 
@@ -570,7 +558,7 @@ return new class extends TestCase {
         $box,
         $var_glyphTexnames_8c1bc78c,
         $var_glyphTexlists_8c1bc790,
-        $var_8c1bc7a0,
+        $var_glyphSlotUsed_8c1bc7a0,
         $glyphIndexes,
     ) {
         $texInfoLocal = $this->isAsmObject() ? 0xffffa8 : 0xffffac;
@@ -602,7 +590,7 @@ return new class extends TestCase {
         );
 
         $this->shouldWriteWord(
-            $var_8c1bc7a0 + $glyphIndex * 0x2, $glyphIndex
+            $var_glyphSlotUsed_8c1bc7a0 + $glyphIndex * 0x2, $glyphIndex
         );
         $this->shouldWriteWord(
             $glyphIndexes + $tokenIndex * 0x2, $glyphIndex

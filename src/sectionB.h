@@ -578,7 +578,9 @@ extern Uint32 var_vibport_8c1ba354;
 extern NJS_TEXNAME *var_glyphTexnames_8c1bc78c;
 extern NJS_TEXLIST *var_glyphTexlists_8c1bc790;
 extern ResourceGroup var_fontResourceGroup_8c1bc794;
-extern Sint16 *var_8c1bc7a0;
+/* One entry per glyph texture slot: 0xffff free, otherwise the slot's own
+ * index. Parallel to var_glyphTexnames/var_glyphTexlists above. */
+extern Sint16 *var_glyphSlotUsed_8c1bc7a0;
 extern void *var_glyphBuffer_8c1bc7a4;
 
 extern MenuState var_menuState_8c1bc7a8;

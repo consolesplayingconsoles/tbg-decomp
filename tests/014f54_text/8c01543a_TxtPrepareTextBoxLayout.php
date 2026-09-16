@@ -17,9 +17,9 @@ return new class extends TestCase {
             $this->shouldCall('__divls');
         }
 
-        $GLYPH_COUNT = 0x28 + (0x240 / 0x18) * (0x40 / 0x20);
+        $MAX_CHARS = 0x28 + (0x240 / 0x18) * (0x40 / 0x20);
 
-        $glyphIndexes = $this->alloc($GLYPH_COUNT * 2);
+        $glyphIndexes = $this->alloc($MAX_CHARS * 2);
         $box = $this->alloc(0x3c);
         $this->initUint32($box + 0x0c, 0x240); // Width
         $this->initUint32($box + 0x10, 0x40); // Height
@@ -34,26 +34,26 @@ return new class extends TestCase {
 
         $text = $this->allocString('');
 
-        $var_8c1bc7a0 = $this->alloc(0x200 * 2);
-        $this->initUint32($this->addressOf('_var_8c1bc7a0'), $var_8c1bc7a0);
+        $var_glyphSlotUsed_8c1bc7a0 = $this->alloc(0x200 * 2);
+        $this->initUint32($this->addressOf('_var_glyphSlotUsed_8c1bc7a0'), $var_glyphSlotUsed_8c1bc7a0);
         $var_glyphTexlists_8c1bc790 = $this->alloc(0x200 * 8);
         $this->initUint32($this->addressOf('_var_glyphTexlists_8c1bc790'), $var_glyphTexlists_8c1bc790);
 
         $this->shouldCall('_njReleaseTexture')->with($var_glyphTexlists_8c1bc790 + 0 * 4);
-        $this->shouldWriteWord($var_8c1bc7a0 + 0 * 2, -1);
+        $this->shouldWriteWord($var_glyphSlotUsed_8c1bc7a0 + 0 * 2, -1);
 
         $this->shouldCall('_njReleaseTexture')->with($var_glyphTexlists_8c1bc790 + 42 * 8);
-        $this->shouldWriteWord($var_8c1bc7a0 + 42 * 2, -1);
+        $this->shouldWriteWord($var_glyphSlotUsed_8c1bc7a0 + 42 * 2, -1);
 
         $this->shouldCall('_njReleaseTexture')->with($var_glyphTexlists_8c1bc790 + 69 * 8);
-        $this->shouldWriteWord($var_8c1bc7a0 + 69 * 2, -1);
+        $this->shouldWriteWord($var_glyphSlotUsed_8c1bc7a0 + 69 * 2, -1);
 
         // available_characters = 0x28 + characters_per_line * (height / GLYPH_HEIGHT)
         // is computed as (width / GLYPH_WIDTH * height) / GLYPH_HEIGHT -- two
         // __divls calls (width / 24 isn't a power of two). In the asm object the
         // bound isn't hoisted: it's recomputed on every loop check, including the
         // final failing one. The C recompile hoists it (see the single call above).
-        for ($i = 0; $i < $GLYPH_COUNT; $i++) {
+        for ($i = 0; $i < $MAX_CHARS; $i++) {
             if ($this->isAsmObject()) {
                 $this->shouldCall('__divls');
                 $this->shouldCall('__divls');

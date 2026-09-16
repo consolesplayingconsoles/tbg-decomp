@@ -27,7 +27,7 @@
           .IMPORT     _VmMenuUpdateVmusStatus_8c019550
           .IMPORT     _VmMenuSwitchFromTask_8c019e44
           .IMPORT     _DebugMenuFreeSessionAssets_8c016182
-          .IMPORT     _FUN_8c0159ac
+          .IMPORT     _TxtStartAttractDemo_8c0159ac
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _CourseMenuRequestSysResgrp_8c018568
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
@@ -655,7 +655,7 @@ L48:
           .DATA.L     _var_8c1bb8c4 ; H'8c015f50
           .DATA.L     _VmMenuSwitchFromTask_8c019e44
           .DATA.L     _DebugMenuFreeSessionAssets_8c016182
-          .DATA.L     _FUN_8c0159ac
+          .DATA.L     _TxtStartAttractDemo_8c0159ac
 
 L49:                              
           MOV         R14,R4

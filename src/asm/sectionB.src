@@ -395,7 +395,7 @@
           .EXPORT     _var_glyphTexnames_8c1bc78c ; 014f54_text
           .EXPORT     _var_glyphTexlists_8c1bc790 ; 014f54_text
           .EXPORT     _var_fontResourceGroup_8c1bc794 ; 014f54_text
-          .EXPORT     _var_8c1bc7a0 ; 014f54_text
+          .EXPORT     _var_glyphSlotUsed_8c1bc7a0 ; 014f54_text
           .EXPORT     _var_glyphBuffer_8c1bc7a4 ; 014f54_text
           .EXPORT     _var_menuState_8c1bc7a8 ; 0129cc_pause
                                               ; 012f44_game
@@ -1065,7 +1065,7 @@ _var_glyphTexlists_8c1bc790:
           .RES.L      1
 _var_fontResourceGroup_8c1bc794:
           .RES.L      3
-_var_8c1bc7a0:
+_var_glyphSlotUsed_8c1bc7a0:
           .RES.B      4
 _var_glyphBuffer_8c1bc7a4:
           .RES.B      4

@@ -36,7 +36,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskFree_8c014b66')->with(0xbeba1337);
         $this->shouldCall('_FUN_8c01328c');
 
-        $this->singleCall('_FUN_8c01594c')
+        $this->singleCall('_demoLoadTask_8c01594c')
             ->with(0xbeba1337)
             ->run();
     }
@@ -45,7 +45,7 @@ return new class extends TestCase {
     {
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
 
-        $this->singleCall('_FUN_8c01594c')
+        $this->singleCall('_demoLoadTask_8c01594c')
             ->with()
             ->run();
     }
@@ -54,7 +54,6 @@ return new class extends TestCase {
     {
         // Functions
         $this->setSize('_RouteLoadIsPvmReady_8c01432a', 4);
-        // $this->setSize('_strlen', 4);
     }
 
     protected function isAsmObject(): bool
