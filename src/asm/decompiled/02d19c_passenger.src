@@ -1,5 +1,5 @@
 ; 8c02d19c
-          .IMPORT     _var_8c1bbfe4
+          .IMPORT     _var_pedestrianAssets_8c1bbfdc
           .IMPORT     _var_passengerSprite_8c2288d8
           .IMPORT     __quick_odd_mvn
           .IMPORT     _njDrawSprite3D
@@ -370,7 +370,7 @@ LAB_8c02d3c6:
           BRA         LAB_8c02d43c
           MOV.L       R2,@(H'4,R14)
 LP_GEN_53841:
-          .DATA.L _var_8c1bbfe4 ; H'8C02D3CC
+          .DATA.L _var_pedestrianAssets_8c1bbfdc+H'8 ; H'8C02D3CC (texlist_0x08)
           .DATA.L _var_passengerSprite_8c2288d8 ; H'8C02D3D0
           .DATA.L __quick_odd_mvn ; H'8C02D3D4
           .DATA.L _njDrawSprite3D ; H'8C02D3D8

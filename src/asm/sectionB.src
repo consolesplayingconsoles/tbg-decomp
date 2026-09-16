@@ -300,8 +300,8 @@
           .EXPORT     _var_pedestrianAssets_8c1bbfdc ; 012f44_game
                                                      ; 013ae8_route_load
                                                      ; 028258
-          .EXPORT     _var_8c1bbfe4 ; 02d06c
-                                    ; 02d19c
+                                                     ; 02d06c
+                                                     ; 02d19c
           .EXPORT     _var_routeModels_8c1bc3ec ; 012f44_game
                                                 ; 013ae8_route_load
                                                 ; 01614c_debug_menu
@@ -940,9 +940,7 @@ _var_routeModelSlots_8c1bbddc:
 _var_vehicleModelSlots_8c1bbf7c:
           .RES.B      96
 _var_pedestrianAssets_8c1bbfdc:
-          .RES.B      8
-_var_8c1bbfe4:
-          .RES.B      1032
+          .RES.B      1040
 _var_routeModels_8c1bc3ec:
           .RES.B      4
 _var_segmentModels_8c1bc3f0:

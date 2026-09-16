@@ -14,11 +14,6 @@ return new class extends TestCase {
         $this->setSize('_var_passengerSprite_8c2288d8', 0x20); // NJS_SPRITE
         $this->setSize('_var_pedestrianAssets_8c1bbfdc', 0x41 * 0x10); // ModelSlot[65]
 
-        $assets = $this->addressOf('_var_pedestrianAssets_8c1bbfdc');
-        // var_8c1bbfe4 coincides with &var_pedestrianAssets_8c1bbfdc[0].texlist_0x08
-        // (the asm reaches the same table through this separate label).
-        $this->rellocate('_var_8c1bbfe4', $assets + 8);
-
     }
 
     /**
