@@ -12,7 +12,7 @@
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _var_lineNodes_8c227d88
           .IMPORT     _var_lineSegments_8c227d84
-          .IMPORT     _FUN_8c0207fa
+          .IMPORT     _VecXZCross_8c0207fa
           .IMPORT     _var_crossingIntersectPoint_8c1bc458
           .IMPORT     _var_crossingIntersectPointZ_8c1bc45c
           .IMPORT     _IntersectSegments_8c0206f0
@@ -905,7 +905,7 @@ LP_GEN_56705:
           .DATA.L H'0000FFFF ; H'8C024004
           .DATA.L _var_lineSegments_8c227d84 ; H'8C024008
           .DATA.L H'43000000 ; H'8C02400C
-          .DATA.L _FUN_8c0207fa ; H'8C024010
+          .DATA.L _VecXZCross_8c0207fa ; H'8C024010
 LAB_8c024014:
           FLDI0       FR3
           FCMP/GT     FR4,FR3

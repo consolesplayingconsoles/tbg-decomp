@@ -9,7 +9,7 @@
 #include "02e51c_attr_query.h"             /* AttrQueryFindConvexPolygon_8c02e51c, AttrQueryRegionOccupied_8c02f08a */
 #include "02df3c_traffic_lookahead.h"             /* TrafficLookaheadInit_8c02df3c, TrafficLookaheadScan_8c02dfca */
 #include "02f0c8_traffic_path_scan.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanJunctionOccupied_8c02f28a */
-#include "0207d4.h"             /* FUN_8c0207d4, Point3f */
+#include "0207d4_vec_xz.h" /* VecXZDot_8c0207d4, PointXZ */
 #include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
 #include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsFUN_8c028984/98 */
 #include "013ae8_route_load.h"  /* var_timeOfDay_8c18ad20 */
@@ -102,15 +102,15 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
 
 /* TaskAction for a moving CPU vehicle, dispatched on driveState_0x2b4:
  *
- *   0/2 - normal driving (below). 2 additionally blends field_0x2c4's
- *         ground-snapped height back down to 2.0 while the entity is off
- *         its path centerline (FUN_8c0207d4 < 0.0), then reverts to
- *         driveState 0 once close enough or once field_0x2c4 already
- *         reached 2.0.
+ *   0/2 - normal driving (below). 2 additionally eases
+ *         projectDistance_0x2c4 (how far off its path point the entity
+ *         sits) back down to 2.0 while that point is behind it
+ *         (VecXZDot_8c0207d4 < 0.0), reverting to driveState 0 once it
+ *         gets there.
  *   1   - being pushed by a collision (speed_0x27c/dirX_0x29c/dirZ_0x2a0),
  *         same shape as TrafficDriveDecoration_8c02656a's push, gated on
  *         the same 3 ground probes plus CollisionFindTaskHit_8c02e400. Ends
- *         by ground-snapping field_0x2c4 and reverting to driveState 0.
+ *         by refreshing projectDistance_0x2c4 and reverting to driveState 0.
  *   3   - waiting for the entity's own spawn box (resolvedArgs_0x304[0], a
  *         fixed 0..8 window) to clear after a script reload before running
  *         the script for the first time.
@@ -355,7 +355,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                             brakeDist = TrafficComputeBlockedSpeed_8c026eaa(e, (TrafficEntry *)hitBox);
                         }
                     } else {
-                        /* Not at the target block yet: same ground-height
+                        /* Not at the target block yet: same path-offset
                          * refresh as the state==4 case above, but against
                          * the entity's *current* segment/distance rather
                          * than the target one -- Ghidra badly mishandles
@@ -476,10 +476,11 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             e->lookaheadCacheLen_0x4ec -= speed;
 
             if (e->driveState_0x2b4 == 2) {
-                float lateral = FUN_8c0207d4((Point3f *)&e->posX_0xf4,
-                                              (Point3f *)&e->frontPointX_0x100,
-                                              (Point3f *)&e->pathPointX_0x0ec);
-                if (lateral < 0.0f) {
+                float pathDot = VecXZDot_8c0207d4((NJS_POINT3 *)&e->posX_0xf4,
+                                                 (NJS_POINT3 *)&e->frontPointX_0x100,
+                                                 (PointXZ *)&e->pathPointX_0x0ec);
+                /* Path point is behind the entity. */
+                if (pathDot < 0.0f) {
                     if (e->projectDistance_0x2c4 <= 2.0f) {
                         e->projectDistance_0x2c4 = GeomDistanceXZ_8c02081c(&e->posX_0xf4, &e->pathPointX_0x0ec);
                         if (e->projectDistance_0x2c4 >= 2.0f) {

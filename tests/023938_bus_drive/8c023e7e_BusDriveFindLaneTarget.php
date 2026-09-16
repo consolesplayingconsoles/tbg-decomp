@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_var_crossingIntersectPoint_8c1bc458', 4);
         $this->setSize('_var_crossingIntersectPointZ_8c1bc45c', 4);
         $this->setSize('_IntersectSegments_8c0206f0', 4);
-        $this->setSize('_FUN_8c0207fa', 4);
+        $this->setSize('_VecXZCross_8c0207fa', 4);
         $this->setSize('_GeomDistanceXZ_8c02081c', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
@@ -60,20 +60,20 @@ return new class extends TestCase {
         $this->initUint16($nodes + $idx * 0xc + 0xa, $value);
     }
 
-    // FUN_8c0207fa's 3rd arg is the candidate point on our own stack, whose
+    // VecXZCross_8c0207fa's 3rd arg is the candidate point on our own stack, whose
     // address we can't predict -- verify params 1/2 and read back param 3's
     // pointee instead of asserting a literal address.
     private function shouldCallFun0207fa(int $base, float $candX, float $candZ, float $return): void
     {
-        $this->shouldCall('_FUN_8c0207fa')->do(function () use ($base, $candX, $candZ, $return) {
+        $this->shouldCall('_VecXZCross_8c0207fa')->do(function () use ($base, $candX, $candZ, $return) {
             if ($this->registers[4]->value !== $base + 0xf4) {
                 throw new RuntimeException(sprintf(
-                    'FUN_8c0207fa param1: expected %08x, got %08x', $base + 0xf4, $this->registers[4]->value,
+                    'VecXZCross_8c0207fa param1: expected %08x, got %08x', $base + 0xf4, $this->registers[4]->value,
                 ));
             }
             if ($this->registers[5]->value !== $base + 0xec) {
                 throw new RuntimeException(sprintf(
-                    'FUN_8c0207fa param2: expected %08x, got %08x', $base + 0xec, $this->registers[5]->value,
+                    'VecXZCross_8c0207fa param2: expected %08x, got %08x', $base + 0xec, $this->registers[5]->value,
                 ));
             }
             $candAddr = $this->registers[6]->value;
@@ -81,7 +81,7 @@ return new class extends TestCase {
             $z = unpack('f', pack('L', $this->memory->readUInt32($candAddr + 4)->value))[1];
             if ($x !== $candX || $z !== $candZ) {
                 throw new RuntimeException(sprintf(
-                    'FUN_8c0207fa param3: expected (%f, %f), got (%f, %f)', $candX, $candZ, $x, $z,
+                    'VecXZCross_8c0207fa param3: expected (%f, %f), got (%f, %f)', $candX, $candZ, $x, $z,
                 ));
             }
             $this->setFloatRegister(0, $return);

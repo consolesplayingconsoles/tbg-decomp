@@ -18,7 +18,7 @@
           .IMPORT     _TrafficSeekPathRecord_8c026fcc
           .IMPORT     _TrafficUpdateFrameFlags_8c026f7e
           .IMPORT     _TrafficRemainingPathDistance_8c026fb0
-          .IMPORT     _FUN_8c0207d4
+          .IMPORT     _VecXZDot_8c0207d4
           .IMPORT     _TrafficAdvanceOnPath_8c026ca2
           .IMPORT     _TrafficRunEntryScript_8c027012
           .IMPORT     _var_activeTrafficPreset_8c227e14
@@ -967,7 +967,7 @@ LP_GEN_37613:
           .DATA.W H'00F4 ; H'8C02629C
           .DATA.W H'02C4 ; H'8C02629E
           .DATA.L H'3CA3D70A ; H'8C0262A0
-          .DATA.L _FUN_8c0207d4 ; H'8C0262A4
+          .DATA.L _VecXZDot_8c0207d4 ; H'8C0262A4
 LAB_8c0262a8:
           MOV.W       LP_GEN_44316,R5
           MOV.W       LP_GEN_44316+2,R4

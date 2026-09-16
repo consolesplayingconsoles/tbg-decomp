@@ -8,7 +8,7 @@
 #include "0100bc_sound.h" /* var_midiHandles_8c0fcd28 */
 #include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
 #include "020b6c_ground_probe.h" /* GroundProbeInterpolateHeight_8c020f7e */
-#include "0207d4.h" /* FUN_8c0207fa, Point3f */
+#include "0207d4_vec_xz.h" /* VecXZCross_8c0207fa, PointXZ */
 #include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
 #include "023938_bus_drive.h"
 
@@ -297,9 +297,9 @@ void BusDriveFindLaneTarget_8c023e7e(void)
         cand[0] = remaining * segEnd->dx_0x0c + segEnd->x_0x04;
         cand[1] = remaining * segEnd->dz_0x10 + segEnd->z_0x08;
 
-        side = FUN_8c0207fa((Point3f *)&var_busState_8c1bb9d0.posX_0x0f4,
-                             (Point3f *)&var_busState_8c1bb9d0.laneTargetX_0x0ec,
-                             (Point3f *)cand);
+        side = VecXZCross_8c0207fa((NJS_POINT3 *)&var_busState_8c1bb9d0.posX_0x0f4,
+                                   (PointXZ *)&var_busState_8c1bb9d0.laneTargetX_0x0ec,
+                                   (PointXZ *)cand);
 
         if (var_busState_8c1bb9d0.laneTargetSearchSide_0x338 == 0) {
             if (side > 0.0f) {

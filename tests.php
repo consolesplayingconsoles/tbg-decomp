@@ -90,11 +90,12 @@ return [
         ],
         [
             'tests' => [
-                "tests/0207d4.php",
+                "tests/0207d4_vec_xz/8c0207d4_VecXZDot.php",
+                "tests/0207d4_vec_xz/8c0207fa_VecXZCross.php",
             ],
             'objects' => [
-                "build/output_test/src/asm/decompiled/0207d4.obj",
-                "build/output_test/src/0207d4.obj",
+                "build/output_test/src/asm/decompiled/0207d4_vec_xz.obj",
+                "build/output_test/src/0207d4_vec_xz.obj",
             ],
         ],
         [

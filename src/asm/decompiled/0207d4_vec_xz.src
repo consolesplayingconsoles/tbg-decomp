@@ -1,8 +1,8 @@
 ; 8c0207d4
-          .EXPORT     _FUN_8c0207d4
-          .EXPORT     _FUN_8c0207fa
+          .EXPORT     _VecXZDot_8c0207d4
+          .EXPORT     _VecXZCross_8c0207fa
           .SECTION    P,CODE,ALIGN=4
-_FUN_8c0207d4:                   ; function: FUN_8c0207d4
+_VecXZDot_8c0207d4:                   ; function: VecXZDot_8c0207d4
                                  ; frame size=0
           FMOV.S      @R5,FR6
           MOV         #8,R0
@@ -23,7 +23,7 @@ _FUN_8c0207d4:                   ; function: FUN_8c0207d4
           FMAC        FR0,FR6,FR7
           RTS
           FMOV.S      FR7,FR0
-_FUN_8c0207fa:                   ; function: FUN_8c0207fa
+_VecXZCross_8c0207fa:                   ; function: VecXZCross_8c0207fa
                                  ; frame size=0
           FMOV.S      @R6,FR8
           MOV         #8,R0

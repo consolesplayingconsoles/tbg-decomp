@@ -80,7 +80,7 @@ SRCS = \
 	src/020528.c \
 	src/020594.c \
 	src/0206f0_intersect.c \
-	src/0207d4.c \
+	src/0207d4_vec_xz.c \
 	src/02081c_geom.c \
 	src/020914_ground_query.c \
 	src/020b6c_ground_probe.c \

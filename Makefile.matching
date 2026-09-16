@@ -46,7 +46,7 @@ SRCS = \
 	src/020528.c \
 	src/asm/decompiled/020594.src \
 	src/asm/decompiled/0206f0_intersect.src \
-	src/asm/decompiled/0207d4.src \
+	src/asm/decompiled/0207d4_vec_xz.src \
 	src/asm/decompiled/02081c_geom.src \
 	src/asm/decompiled/020914_ground_query.src \
 	src/asm/decompiled/020b6c_ground_probe.src \
