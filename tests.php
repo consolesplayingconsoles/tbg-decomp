@@ -100,12 +100,12 @@ return [
         ],
         [
             'tests' => [
-                "tests/020594/8c020594_VehicleModelPlace.php",
-                "tests/020594/8c020676_unused.php",
+                "tests/020594_vehicle_model/8c020594_VehicleModelPlace.php",
+                "tests/020594_vehicle_model/8c020676_unused.php",
             ],
             'objects' => [
-                "build/output_test/src/asm/decompiled/020594.obj",
-                "build/output_test/src/020594.obj",
+                "build/output_test/src/asm/decompiled/020594_vehicle_model.obj",
+                "build/output_test/src/020594_vehicle_model.obj",
             ],
         ],
         [

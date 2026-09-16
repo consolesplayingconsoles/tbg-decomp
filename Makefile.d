@@ -335,14 +335,14 @@ $(OUTPUT_DIR)/src/020528.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8
 $(OUTPUT_DIR)/src/020528.obj: src/022464_fade.h src/028258_objects.h
 $(OUTPUT_DIR)/src/020528.obj: src/020914_ground_query.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/020528.obj: src/026710_traffic.h src/014f54_text.h src/020528.h
-$(OUTPUT_DIR)/src/020594.obj: src/includes.h src/serial_debug.h src/sectionB.h
-$(OUTPUT_DIR)/src/020594.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
-$(OUTPUT_DIR)/src/020594.obj: src/014b8c_backup.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/020594.obj: src/011120_asset_queues.h src/02171c_tile_stream.h
-$(OUTPUT_DIR)/src/020594.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8_title.h
-$(OUTPUT_DIR)/src/020594.obj: src/022464_fade.h src/028258_objects.h
-$(OUTPUT_DIR)/src/020594.obj: src/020914_ground_query.h src/023938_bus_drive.h
-$(OUTPUT_DIR)/src/020594.obj: src/026710_traffic.h src/014f54_text.h src/020594.h
+$(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/includes.h src/serial_debug.h src/sectionB.h
+$(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
+$(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/014b8c_backup.h src/013ae8_route_load.h
+$(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/011120_asset_queues.h src/02171c_tile_stream.h
+$(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8_title.h
+$(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/022464_fade.h src/028258_objects.h
+$(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/020914_ground_query.h src/023938_bus_drive.h
+$(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/026710_traffic.h src/014f54_text.h src/020594_vehicle_model.h
 $(OUTPUT_DIR)/src/0206f0_intersect.obj: src/0206f0_intersect.h
 $(OUTPUT_DIR)/src/0207d4_vec_xz.obj: src/0207d4_vec_xz.h
 $(OUTPUT_DIR)/src/02081c_geom.obj: src/02081c_geom.h
@@ -410,7 +410,7 @@ $(OUTPUT_DIR)/src/022bdc_bus.obj: src/02af78_event.h src/01bb48_vm_game.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/015ab8_title.h src/022464_fade.h src/028258_objects.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/020914_ground_query.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/026710_traffic.h src/014f54_text.h src/0100bc_sound.h
-$(OUTPUT_DIR)/src/022bdc_bus.obj: src/020594.h src/024280_bus_input.h src/02412c_bus_line.h src/02081c_geom.h
+$(OUTPUT_DIR)/src/022bdc_bus.obj: src/020594_vehicle_model.h src/024280_bus_input.h src/02412c_bus_line.h src/02081c_geom.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/024b4c_bus_render.h src/025870_demo.h src/027958_bus_draw.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/022bdc_bus.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/includes.h src/serial_debug.h src/sectionB.h
@@ -423,7 +423,7 @@ $(OUTPUT_DIR)/src/023310_bus_init.obj: src/028258_objects.h src/020914_ground_qu
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/023938_bus_drive.h src/026710_traffic.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/014f54_text.h src/02c884_bus_stop.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/020b6c_ground_probe.h src/023310_bus_init.h
-$(OUTPUT_DIR)/src/023310_bus_init.obj: src/02786c_vehicle_parts.h src/02e51c_attr_query.h src/020594.h
+$(OUTPUT_DIR)/src/023310_bus_init.obj: src/02786c_vehicle_parts.h src/02e51c_attr_query.h src/020594_vehicle_model.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/022bdc_bus.h
 $(OUTPUT_DIR)/src/023938_bus_drive.obj: src/includes.h src/serial_debug.h src/sectionB.h
 $(OUTPUT_DIR)/src/023938_bus_drive.obj: src/01614c_debug_menu.h src/014a9c_tasks.h
@@ -508,7 +508,7 @@ $(OUTPUT_DIR)/src/027958_bus_draw.obj: src/02af78_event.h src/01bb48_vm_game.h s
 $(OUTPUT_DIR)/src/027958_bus_draw.obj: src/022464_fade.h src/028258_objects.h
 $(OUTPUT_DIR)/src/027958_bus_draw.obj: src/020914_ground_query.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/027958_bus_draw.obj: src/026710_traffic.h src/014f54_text.h
-$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/020b6c_ground_probe.h src/020594.h src/0222dc_fadecmd.h
+$(OUTPUT_DIR)/src/027958_bus_draw.obj: src/020b6c_ground_probe.h src/020594_vehicle_model.h src/0222dc_fadecmd.h
 $(OUTPUT_DIR)/src/027958_bus_draw.obj: src/027958_bus_draw.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/011120_asset_queues.h src/serial_debug.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/014a9c_tasks.h src/013ae8_route_load.h

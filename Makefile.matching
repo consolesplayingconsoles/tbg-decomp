@@ -44,7 +44,7 @@ SRCS = \
 	src/asm/decompiled/01fa78.src \
 	src/asm/decompiled/020214.src \
 	src/020528.c \
-	src/asm/decompiled/020594.src \
+	src/asm/decompiled/020594_vehicle_model.src \
 	src/asm/decompiled/0206f0_intersect.src \
 	src/asm/decompiled/0207d4_vec_xz.src \
 	src/asm/decompiled/02081c_geom.src \

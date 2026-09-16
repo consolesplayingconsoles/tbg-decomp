@@ -7,7 +7,7 @@
 #include "026710_traffic.h"      /* TrafficEntry */
 #include "020914_ground_query.h" /* GroundQueryResult */
 #include "020b6c_ground_probe.h" /* GroundProbeTrackPolygonAtHeight_8c021290, GroundProbeInterpolateHeight_8c020f7e */
-#include "020594.h"              /* VehicleModelPlace_8c020594 */
+#include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */
 #include "0222dc_fadecmd.h"      /* FadeCmdPushCall2_8c022420 */
 #include "028258_objects.h"      /* TrafficSignal */
 #include "027958_bus_draw.h"

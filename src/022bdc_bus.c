@@ -6,7 +6,7 @@
 #include "013ae8_route_load.h"    /* CurrentCourse */
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, FUN_8c010c6e */
 #include "014a9c_tasks.h"         /* Task */
-#include "020594.h"               /* VehicleModelPlace_8c020594 */
+#include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */
 #include "023938_bus_drive.h"               /* BusDriveSampleGround_8c023938/023cba/023e7e */
 #include "024280_bus_input.h"               /* BusInputUpdate_8c0246b2/024280 */
 #include "02412c_bus_line.h"               /* BusLineAdvance_8c02412c */

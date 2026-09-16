@@ -4,7 +4,7 @@
 #include "serial_debug.h"
 
 #include "sectionB.h"
-#include "020594.h"
+#include "020594_vehicle_model.h"
 
 /* ====================
  * Forward Declarations
@@ -19,6 +19,7 @@ STATIC Float unused_8c020676(Float step, NJS_POINT3 *from, NJS_POINT3 *to,
  * ====================
  */
 
+/* See 020594_vehicle_model.h. */
 void VehicleModelPlace_8c020594(NJS_MATRIX *matrix, BusState *bus)
 {
     Float *m = *matrix;

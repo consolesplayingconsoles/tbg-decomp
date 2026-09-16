@@ -78,7 +78,7 @@ SRCS = \
 	src/01fa78.c \
 	src/020214.c \
 	src/020528.c \
-	src/020594.c \
+	src/020594_vehicle_model.c \
 	src/0206f0_intersect.c \
 	src/0207d4_vec_xz.c \
 	src/02081c_geom.c \

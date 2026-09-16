@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// Builds a bus/traffic-entity placement matrix: a rotation basis from the
-// bus's width_0x23c width and the height delta between posY_0x0f8 and
-// posHistory_0x100[0].y (also stashing the cos/sin as pitchCos_0x270/0x26c
-// for the camera bob elsewhere), a yaw from atan2f of two more history
-// points via njRotateZ, then the translation row from the bus's current
-// position.
+// Builds a bus/traffic-entity placement matrix: pitch from
+// posHistory_0x100[0].y minus posY_0x0f8 over width_0x23c (also stashed as
+// pitchCos_0x270/pitchSin_0x26c for the camera bob elsewhere), heading from
+// headingDirX_0x274/Z_0x278, roll from posHistory_0x100[3].y minus [2].y
+// over height_0x244 via atan2f+njRotateZ, then the translation row from the
+// bus's current position.
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
