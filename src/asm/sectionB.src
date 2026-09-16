@@ -782,22 +782,13 @@
           .EXPORT     _var_currentStopHeading_8c2288fc ; 02c884
           .EXPORT     _var_nextStopPoint_8c228900 ; 02c884
           .EXPORT     _var_nextStopArea_8c22890c ; 02c884
-          .EXPORT     _var_boardSpot2_8c228910 ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_boardSpot3_8c22891c ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_boardSpot1_8c228928 ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_exitSpot1_8c228934 ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_exitSpot2_8c228940 ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_exitSpot3_8c22894c ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_passengerActed_8c228958 ; 02d19c
-          .EXPORT     _var_passengersFadedOut_8c22895c ; 02d19c
                                     ; 02d968
-          .EXPORT     _var_passengerFadeColor_8c228960 ; 02d06c
                                     ; 02d19c
                                     ; 02d968
           .SECTION    B,DATA,ALIGN=4
@@ -1349,22 +1340,4 @@ _var_nextStopPoint_8c228900:
           .RES.B      12
 _var_nextStopArea_8c22890c:
           .RES.B      4
-_var_boardSpot2_8c228910:
-          .RES.B      12
-_var_boardSpot3_8c22891c:
-          .RES.B      12
-_var_boardSpot1_8c228928:
-          .RES.B      12
-_var_exitSpot1_8c228934:
-          .RES.B      12
-_var_exitSpot2_8c228940:
-          .RES.B      12
-_var_exitSpot3_8c22894c:
-          .RES.B      12
-_var_passengerActed_8c228958:
-          .RES.B      4
-_var_passengersFadedOut_8c22895c:
-          .RES.B      4
-_var_passengerFadeColor_8c228960:
-          .RES.B      20
           .END

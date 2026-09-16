@@ -9,22 +9,13 @@
           .IMPORT     _njSetTexture
           .IMPORT     _var_interiorNj_8c1bc43c
           .IMPORT     _njCnkSimpleDrawObject
-          .IMPORT     _var_passengersFadedOut_8c22895c
           .IMPORT     _sdMidiPlay
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_route_8c18ad1c
-          .IMPORT     _var_boardSpot1_8c228928
-          .IMPORT     _var_boardSpot2_8c228910
           .IMPORT     _AsqGetRandomInRangeB_8c0121be
-          .IMPORT     _var_boardSpot3_8c22891c
           .IMPORT     _AsqGetRandomInRangeA_8c012178
           .IMPORT     _var_stopSchedule_8c228718
-          .IMPORT     _var_passengerFadeColor_8c228960
-          .IMPORT     _var_passengerActed_8c228958
-          .IMPORT     _var_exitSpot1_8c228934
-          .IMPORT     _var_exitSpot2_8c228940
-          .IMPORT     _var_exitSpot3_8c22894c
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     __divls
@@ -57,10 +48,19 @@
           .EXPORT     _PassengerStopSceneTask_8c02d644
           .EXPORT     _PassengerSkipStopTask_8c02d8f0
           .EXPORT     _init_seatPositions_8c04c3e4 ; 02d19c.src, 02d968.src
+          .EXPORT     _var_boardSpot2_8c228910 ; 02d968.src
+          .EXPORT     _var_boardSpot3_8c22891c ; 02d968.src
+          .EXPORT     _var_boardSpot1_8c228928 ; 02d968.src
+          .EXPORT     _var_exitSpot1_8c228934 ; 02d968.src
+          .EXPORT     _var_exitSpot2_8c228940 ; 02d968.src
+          .EXPORT     _var_exitSpot3_8c22894c ; 02d968.src
+          .EXPORT     _var_passengersFadedOut_8c22895c ; 02d968.src
+          .EXPORT     _var_passengerFadeColor_8c228960 ; 02d06c.src, 02d968.src
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawPassengerSprite_8c02d19c
           .EXPORT     _drawInterior_8c02d1f4
           .EXPORT     _setCountUpStep_8c02d5d8
+          .EXPORT     _var_passengerActed_8c228958
           .AENDI
           .SECTION     P, CODE, ALIGN=4
 _drawPassengerSprite_8c02d19c:
@@ -1085,4 +1085,23 @@ _init_seatPositions_8c04c3e4:        ; from defines
           .DATA.B      H'71, H'3D, H'8A, H'3E, H'00, H'00, H'80, H'BE, H'CD, H'CC, H'4C, H'3F, H'E1, H'7A, H'94, H'BE
           .DATA.B      H'33, H'33, H'F3, H'3F, H'CD, H'CC, H'4C, H'BE, H'8F, H'C2, H'35, H'40, H'6F, H'12, H'83, H'BE
           .DATA.B      H'00, H'00, H'80, H'40
+          .SECTION    B,DATA,ALIGN=4
+_var_boardSpot2_8c228910:
+          .RES.B      12
+_var_boardSpot3_8c22891c:
+          .RES.B      12
+_var_boardSpot1_8c228928:
+          .RES.B      12
+_var_exitSpot1_8c228934:
+          .RES.B      12
+_var_exitSpot2_8c228940:
+          .RES.B      12
+_var_exitSpot3_8c22894c:
+          .RES.B      12
+_var_passengerActed_8c228958:
+          .RES.B      4
+_var_passengersFadedOut_8c22895c:
+          .RES.B      4
+_var_passengerFadeColor_8c228960:
+          .RES.B      20
           .END

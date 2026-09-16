@@ -10,15 +10,9 @@ return new class extends TestCase {
         $this->setSize('_FadeCmdPushCall1_8c0223ea', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
-        $this->setSize('_var_passengersFadedOut_8c22895c', 4);
-        $this->setSize('_var_passengerActed_8c228958', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 8 * 4);
-        $this->setSize('_var_boardSpot1_8c228928', 0xc);
-        $this->setSize('_var_boardSpot2_8c228910', 0xc);
-        $this->setSize('_var_boardSpot3_8c22891c', 0xc);
         $this->setSize('_var_stopSchedule_8c228718', 31 * 4);
-        $this->setSize('_var_passengerFadeColor_8c228960', 5 * 4);
     }
 
     private function f(float $v): int

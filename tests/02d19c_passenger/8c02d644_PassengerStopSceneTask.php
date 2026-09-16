@@ -19,9 +19,6 @@ return new class extends TestCase {
         $this->setSize('_SndPlayAdx_8c010cd6', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_passengersFadedOut_8c22895c', 4);
-        $this->setSize('_var_passengerActed_8c228958', 4);
-        $this->setSize('_var_passengerFadeColor_8c228960', 5 * 4);
         $this->setSize('_var_stopTaskGroup_8c2288f8', 4);
         $this->setSize('_var_cutsceneActive_8c1bb900', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);

@@ -27,6 +27,28 @@ STATIC void drawInterior_8c02d1f4(int arg0);
 STATIC void setCountUpStep_8c02d5d8(void);
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+NJS_POINT3 var_boardSpot2_8c228910;
+NJS_POINT3 var_boardSpot3_8c22891c;
+NJS_POINT3 var_boardSpot1_8c228928;
+NJS_POINT3 var_exitSpot1_8c228934;
+NJS_POINT3 var_exitSpot2_8c228940;
+NJS_POINT3 var_exitSpot3_8c22894c;
+
+int var_passengersFadedOut_8c22895c;
+
+float var_passengerFadeColor_8c228960[5];
+
+/* Set by any passenger task that advanced this frame; cleared by the
+ * scene task before it pumps the group, then read back to decide whether
+ * the stop is still in progress. Int, not float, despite sitting in the
+ * middle of the anchor-point float run. */
+STATIC int var_passengerActed_8c228958;
+
+/* ====================
  * Initialized Globals
  * ====================
  */

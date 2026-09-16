@@ -2,6 +2,7 @@
 
 #include <shinobi.h>
 #include "sectionB.h"
+#include "02d19c_passenger.h"
 
 /* ====================
  * Functions
