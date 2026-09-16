@@ -289,7 +289,7 @@ void BusStopSetup_8c02caba(void)
     }
 }
 
-/* Draws the stop marker (the "Foo" model, var_loadedFooNjm_8c1bc448) at the
+/* Draws the stop marker (the "Foo" model, var_fuuNjm_8c1bc448) at the
  * upcoming stop, facing its heading and animated by var_8c1bc44c. Installed
  * as a FadeCallback1 by BusStopUpdateArrival_8c02ce48 during the approach;
  * the callback arg is unused. */
@@ -302,8 +302,8 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
     njTranslate(&var_scratchMatrix_8c1bc46c, var_8c228900.x, var_8c228900.y, var_8c228908);
     njRotateY(&var_scratchMatrix_8c1bc46c, var_8c228714);
     njMultiMatrix(0, &var_scratchMatrix_8c1bc46c);
-    njSetTexture(var_8c1bc440);
-    njCnkSimpleDrawMotion(var_8c1bc444, var_loadedFooNjm_8c1bc448, frame);
+    njSetTexture(var_fuuTexlist_8c1bc440);
+    njCnkSimpleDrawMotion(var_fuuNj_8c1bc444, var_fuuNjm_8c1bc448, frame);
 }
 
 /* Per-frame bus-stop arrival state machine, called once per frame by
@@ -356,7 +356,7 @@ void BusStopUpdateArrival_8c02ce48(void)
         dz = var_8c228908 - var_busState_8c1bb9d0.posZ_0x0fc;
         distance = njSqrt(dx * dx + dz * dz);
         var_8c1bc44c += 1.0f;
-        if (var_8c1bc450 <= var_8c1bc44c) {
+        if (var_fuuLastFrame_8c1bc450 <= var_8c1bc44c) {
             var_8c1bc44c = 0.0f;
         }
         FadeCmdPushCall1_8c0223ea(0, drawStopMarker_8c02cd92, 0);

@@ -13,7 +13,7 @@ void DebugMenuDemoRecordTask_8c01677e(Task *task, void *state);
 typedef struct {
     int courseId_0x00;
     int startStopIndex_0x04;
-    int inputMapSel_0x08;
+    int driveMode_0x08;
 } DebugMenuCourseSel;
 
 /* States of saveMenuTask_8c01628c, the VISUAL_MEMORY entry's VMU picker: it

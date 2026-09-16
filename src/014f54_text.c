@@ -852,7 +852,7 @@ STATIC void demoLoadTask_8c01594c(Task *task)
     }
 
     var_currentCourse_8c1bb868.courseId_0x00 = var_demoBuf_8c1ba3c4[1];
-    var_inputMapSel_8c1bb8c8 = var_demoBuf_8c1ba3c4[2];
+    var_driveMode_8c1bb8c8 = var_demoBuf_8c1ba3c4[2];
     var_seed_8c157a64 = var_demoBuf_8c1ba3c4[3];
     local = var_demoBuffer_8c1bc828;
     ReplayCodecInit_8c02f320();
@@ -860,7 +860,7 @@ STATIC void demoLoadTask_8c01594c(Task *task)
     syFree(var_demoBuf_8c1ba3c4);
     var_demoBuf_8c1ba3c4 = (int *) -1;
     TaskFree_8c014b66(task);
-    FUN_8c01328c();
+    GameStartSelectedCourse_8c01328c();
 }
 
 /* Takes the next of the 20 init_demos_8c044154 entries and requests it;
@@ -874,7 +874,7 @@ void TxtStartAttractDemo_8c0159ac()
     );
     created_task->field_0x08 = 0;
     var_playMode_8c1bb8d0 = 2;
-    var_8c1bb8d4 = 1;
+    var_isAttractDemo_8c1bb8d4 = 1;
     if (++var_demoIndex_8c1bb8d8 >= 20) {
         var_demoIndex_8c1bb8d8 = 0;
     }

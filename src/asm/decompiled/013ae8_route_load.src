@@ -52,7 +52,7 @@
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _var_loadScreenActive_8c157a6c
           .IMPORT     _njReleaseTexture
-          .IMPORT     _FUN_8c01306e
+          .IMPORT     _GameEnterDrive_8c01306e
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     __modls
           .IMPORT     _njSetBackColor
@@ -1336,7 +1336,7 @@ LP_GEN_90737:
           .DATA.L _AsqFreeQueues_8c011f7e
           .DATA.L _var_loadScreenActive_8c157a6c
           .DATA.L _njReleaseTexture
-          .DATA.L _FUN_8c01306e
+          .DATA.L _GameEnterDrive_8c01306e
           .DATA.L _InputDispatchTask_8c012970
 
 LAB_8c0144b4:
@@ -1654,7 +1654,7 @@ LP_GEN_17698:
           .DATA.L _var_interiorTexlist_8c1bc438
           .DATA.L _njSetTexture
           .DATA.L _njLoadCacheTexture
-          .DATA.L _FUN_8c01306e
+          .DATA.L _GameEnterDrive_8c01306e
           .DATA.L _InputDispatchTask_8c012970
           .DATA.L H'C0A00000
           .DATA.L _TxtDrawSprite_8c014f54
@@ -1867,7 +1867,7 @@ LP_GEN_48435:
           .DATA.L _var_loadScreenActive_8c157a6c
           .DATA.L _njReleaseTexture
           .DATA.L _var_interiorTexlist_8c1bc438
-          .DATA.L _FUN_8c01306e
+          .DATA.L _GameEnterDrive_8c01306e
           .DATA.L _InputDispatchTask_8c012970
           .DATA.L H'C0A00000
           .DATA.L _TxtDrawSprite_8c014f54

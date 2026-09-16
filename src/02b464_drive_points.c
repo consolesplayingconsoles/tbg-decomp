@@ -413,7 +413,7 @@ STATIC void gradeSignals_8c02b8b8(void) {
      * of its own -- a one-shot "already graded this signal" latch. */
     int *graded = &var_8c2285c4[13];
 
-    if (var_inputMapSel_8c1bb8c8 == 0 && var_offCourseBits_8c228680 == 0 && var_headingVsRoad_8c22868c == 2) {
+    if (var_driveMode_8c1bb8c8 == 0 && var_offCourseBits_8c228680 == 0 && var_headingVsRoad_8c22868c == 2) {
         adjust_8c02b464(0x16, -50); /* -> INSTR_WRONG_WAY */
         armCooldowns_8c02b578(3);
     }
@@ -469,7 +469,7 @@ STATIC void gradeLaneUse_8c02b986(void) {
     if (var_8c2285c4[27] == var_prevLane_8c228684 || (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x40000) == 0
         || (var_busState_8c1bb9d0.junctionBRoadFlags_0x368 & 0x40000) == 0 || (var_8c2285c4[29] & 0x40000) == 0
         || (var_8c2285c4[30] & 0x40000) == 0) {
-        if (var_inputMapSel_8c1bb8c8 == 0) {
+        if (var_driveMode_8c1bb8c8 == 0) {
             if (var_laneA_8c228674 != var_laneC_8c22867c) {
                 cmpDir = (var_laneA_8c228674 >= var_laneC_8c22867c) ? 1 : 2;
             } else if (var_laneB_8c228678 != var_laneC_8c22867c) {
@@ -551,7 +551,7 @@ STATIC void gradeIntersection_8c02bb1c(void) {
         }
     }
 
-    if (var_inputMapSel_8c1bb8c8 == 0) {
+    if (var_driveMode_8c1bb8c8 == 0) {
         laneDelta = (var_8c2285c4[27] & ~1) - (var_prevLane_8c228684 & ~1);
         if ((laneDelta < 0 && var_playerBus_8c1bbd9c->signalSide_0x25c != 1)
             || (laneDelta >= 1 && var_playerBus_8c1bbd9c->signalSide_0x25c != 2)) {
@@ -704,7 +704,7 @@ STATIC void gradeFrame_8c02bcd8(void) {
         }
     }
 
-    if (var_inputMapSel_8c1bb8c8 == 0 && var_busState_8c1bb9d0.driveState_0x2b4 == 1) {
+    if (var_driveMode_8c1bb8c8 == 0 && var_busState_8c1bb9d0.driveState_0x2b4 == 1) {
         float t = var_busState_8c1bb9d0.speed_0x27c * (float)var_busState_8c1bb9d0.ang_0x258;
         if (t < -2000.0f || t > 2000.0f) {
             /* var_8c2285c4[38] (0x22865c, no export of its own) */
@@ -1053,7 +1053,7 @@ STATIC void taskCallback_8c02c072() {
             }
         } else if (var_8c2285c4[0] == 3) {
             if (var_8c2285c4[9] == 0) {
-                if (var_inputMapSel_8c1bb8c8 == 0) {
+                if (var_driveMode_8c1bb8c8 == 0) {
                     int diff = var_8c228714 - var_busState_8c1bb9d0.ang_0x250;
                     if ((diff < -0x71c && diff > -0xf8e3) || (diff > 0x71c && diff < 0xf8e3)) {
                         adjust_8c02b464(0x1b, -3); /* -> INSTR_BAD_STOP_POSITION_1 */

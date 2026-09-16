@@ -11,6 +11,12 @@
 #
 # NOT_MATCHING is the allowlist of exceptions -- units not yet data-matching,
 # where a diff is only logged. Drop a unit from this list once its data matches.
+#
+# 012f44_game's C and D bytes do match; what is left is one section-D relocation
+# whose addend is an offset into section B. The archived layout interleaves that
+# TU's extern and static bss (var_tex, fogTable, renderTexname, pauseSettle..,
+# gdErr) while SHC always emits every extern first and every static after, so no
+# declaration order reproduces it. Not fixable from C.
 set -e
 
 NOT_MATCHING="

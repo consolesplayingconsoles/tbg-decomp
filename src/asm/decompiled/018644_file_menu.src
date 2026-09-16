@@ -32,7 +32,7 @@
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_vmBusy_8c157a7c
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _var_8c1ba2e0
+          .IMPORT     _var_saveBuf_8c1ba2e0
           .IMPORT     _var_backupFileHeader_8c1ba2e4
           .IMPORT     _var_vmuIconFileBuf_8c1ba344
           .IMPORT     _var_backupFileImageBuf_8c1ba348
@@ -373,7 +373,7 @@ LP_GEN_28586:
           .DATA.L _var_vmBusy_8c157a7c ; H'8C018894
           .DATA.L _init_saveNames_8c044d50 ; H'8C018898
           .DATA.L _syMalloc ; H'8C01889C
-          .DATA.L _var_8c1ba2e0 ; H'8C0188A0
+          .DATA.L _var_saveBuf_8c1ba2e0 ; H'8C0188A0
           .DATA.L _var_saveBufCursor_8c225fe0 ; H'8C0188A4
           .DATA.L _var_saveLoadResult_8c226010 ; H'8C0188A8
           .DATA.L _syFree ; H'8C0188AC
@@ -1028,7 +1028,7 @@ LP_GEN_25093:
           .DATA.L _var_saveBufCursor_8c225fe0 ; H'8C018DB0
           .DATA.L _var_fileCards_8c226018 ; H'8C018DB4
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C018DB8
-          .DATA.L _var_8c1ba2e0 ; H'8C018DBC
+          .DATA.L _var_saveBuf_8c1ba2e0 ; H'8C018DBC
           .DATA.L H'43D18000 ; H'8C018DC0
           .DATA.L H'43360000 ; H'8C018DC4
           .DATA.L H'425C0000 ; H'8C018DC8
@@ -1374,7 +1374,7 @@ LP_GEN_98979:
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C019054
           .DATA.L _VmGameSetLcdSlot_8c01c8fc ; H'8C019058
           .DATA.L _var_saveBufCursor_8c225fe0 ; H'8C01905C
-          .DATA.L _var_8c1ba2e0 ; H'8C019060
+          .DATA.L _var_saveBuf_8c1ba2e0 ; H'8C019060
           .DATA.L _var_loadedSaveCount_8c22600c ; H'8C019064
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C019068
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01906C
@@ -1671,7 +1671,7 @@ LP_GEN_73468:
           .RES.W 1 ; H'8C01928A
           .DATA.L _var_saveSlot_8c1ba350 ; H'8C01928C
           .DATA.L _var_loadedSaveSlots_8c225fe4 ; H'8C019290
-          .DATA.L _var_8c1ba2e0 ; H'8C019294
+          .DATA.L _var_saveBuf_8c1ba2e0 ; H'8C019294
           .DATA.L _var_progress_8c1ba1cc ; H'8C019298
           .DATA.L _njMemCopy ; H'8C01929C
           .DATA.L _SystemMenuApplyLoadedProgress_8c01b19c ; H'8C0192A0

@@ -36,7 +36,7 @@
                                     ; 016d2c_course_menu
           .EXPORT     _var_8c1ba2cc ; 0129cc_pause
                                     ; 016d2c_course_menu
-          .EXPORT     _var_8c1ba2e0 ; 012f44_game
+          .EXPORT     _var_saveBuf_8c1ba2e0 ; 012f44_game
                                     ; 018644_file_menu
                                     ; 01b19c
           .EXPORT     _var_backupFileHeader_8c1ba2e4 ; 018644
@@ -179,9 +179,9 @@
           .EXPORT     _var_shouldShowFreeRunIntro_8c1bb8c0 ; 016d2c_course_menu
                                                            ; 019e98_main_menu
                                                            ; 02b464
-          .EXPORT     _var_8c1bb8c4 ; 012f44_game
+          .EXPORT     _var_titleActive_8c1bb8c4 ; 012f44_game
                                     ; 015ab8_title
-          .EXPORT     _var_inputMapSel_8c1bb8c8 ; 012504_input
+          .EXPORT     _var_driveMode_8c1bb8c8 ; 012504_input
                                                 ; 012f44_game
                                                 ; 014f54_text
                                                 ; 01614c_debug_menu
@@ -208,7 +208,7 @@
                                              ; 02c884
                                              ; 02d19c
                                              ; 02d968
-          .EXPORT     _var_8c1bb8d4 ; 012f44_game
+          .EXPORT     _var_isAttractDemo_8c1bb8d4 ; 012f44_game
                                     ; 014f54_text
                                     ; 01614c_debug_menu
           .EXPORT     _var_demoIndex_8c1bb8d8 ; 012f44_game
@@ -368,14 +368,14 @@
                                                     ; 02d968
           .EXPORT     _var_interiorNj_8c1bc43c ; 013ae8_route_load
                                                ; 02d19c
-          .EXPORT     _var_8c1bc440 ; 012f44_game
+          .EXPORT     _var_fuuTexlist_8c1bc440 ; 012f44_game
                                     ; 02c884
-          .EXPORT     _var_8c1bc444 ; 012f44_game
+          .EXPORT     _var_fuuNj_8c1bc444 ; 012f44_game
                                     ; 02c884
-          .EXPORT     _var_loadedFooNjm_8c1bc448 ; 012f44_game
+          .EXPORT     _var_fuuNjm_8c1bc448 ; 012f44_game
                                                  ; 02c884
           .EXPORT     _var_8c1bc44c ; 02c884
-          .EXPORT     _var_8c1bc450 ; 012f44_game
+          .EXPORT     _var_fuuLastFrame_8c1bc450 ; 012f44_game
                                     ; 02c884
           .EXPORT     _var_vmGameBuf_8c1bc454 ; 012f44_game
                                     ; 01614c_debug_menu
@@ -875,7 +875,7 @@ _var_8c1ba2b8:
           .RES.B      20
 _var_8c1ba2cc:
           .RES.B      20
-_var_8c1ba2e0:
+_var_saveBuf_8c1ba2e0:
           .RES.B      4
 _var_backupFileHeader_8c1ba2e4:
           .RES.B      96
@@ -933,15 +933,15 @@ _var_8c1bb8bc:
           .RES.B      4
 _var_shouldShowFreeRunIntro_8c1bb8c0:
           .RES.B      4
-_var_8c1bb8c4:
+_var_titleActive_8c1bb8c4:
           .RES.B      4
-_var_inputMapSel_8c1bb8c8:
+_var_driveMode_8c1bb8c8:
           .RES.B      4
 _var_pauseActive_8c1bb8cc:
           .RES.B      4
 _var_playMode_8c1bb8d0:
           .RES.B      4
-_var_8c1bb8d4:
+_var_isAttractDemo_8c1bb8d4:
           .RES.B      4
 _var_demoIndex_8c1bb8d8:
           .RES.B      4
@@ -1037,15 +1037,15 @@ _var_interiorTexlist_8c1bc438:
           .RES.B      4
 _var_interiorNj_8c1bc43c:
           .RES.B      4
-_var_8c1bc440:
+_var_fuuTexlist_8c1bc440:
           .RES.B      4
-_var_8c1bc444:
+_var_fuuNj_8c1bc444:
           .RES.B      4
-_var_loadedFooNjm_8c1bc448:
+_var_fuuNjm_8c1bc448:
           .RES.B      4
 _var_8c1bc44c:
           .RES.B      4
-_var_8c1bc450:
+_var_fuuLastFrame_8c1bc450:
           .RES.B      4
 _var_vmGameBuf_8c1bc454:
           .RES.B      4

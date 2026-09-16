@@ -164,8 +164,8 @@ STATIC void startVmLoad_8c018784(void)
     task->phase_0x08 = 0;
     task->counter_0x0c = 0;
     task->names_0x18 = init_saveNames_8c044d50;
-    var_8c1ba2e0 = syMalloc(0x3c00);
-    var_saveBufCursor_8c225fe0 = var_8c1ba2e0;
+    var_saveBuf_8c1ba2e0 = syMalloc(0x3c00);
+    var_saveBufCursor_8c225fe0 = var_saveBuf_8c1ba2e0;
     var_saveLoadResult_8c226010 = SAVE_LOAD_RUNNING;
 }
 
@@ -174,9 +174,9 @@ void FileMenuFreeBuffers_8c0187d0(void)
     LOG_DEBUG(("[FILE_MENU] FileMenuFreeBuffers_8c0187d0: freeing buffers\n"));
 
     // -1 marks a buffer as already freed.
-    if (var_8c1ba2e0 != (void *)-1) {
-        syFree(var_8c1ba2e0);
-        var_8c1ba2e0 = (void *)-1;
+    if (var_saveBuf_8c1ba2e0 != (void *)-1) {
+        syFree(var_saveBuf_8c1ba2e0);
+        var_saveBuf_8c1ba2e0 = (void *)-1;
     }
     if (var_vmuIconFileBuf_8c1ba344 != (void *)-1) {
         syFree(var_vmuIconFileBuf_8c1ba344);
@@ -438,12 +438,12 @@ STATIC void drawFileSelect_8c018d46(void)
     void *dst;
 
     if (var_fileCards_8c226018[0] == FILE_CARD_NEW) {
-        dst = var_8c1ba2e0;
+        dst = var_saveBuf_8c1ba2e0;
         if (var_menuState_8c1bc7a8.cursorCol_0x3c != 0) {
-            dst = (char *)var_8c1ba2e0 + (var_menuState_8c1bc7a8.cursorCol_0x3c - 1) * 0x600;
+            dst = (char *)var_saveBuf_8c1ba2e0 + (var_menuState_8c1bc7a8.cursorCol_0x3c - 1) * 0x600;
         }
     } else {
-        dst = (char *)var_8c1ba2e0 + var_menuState_8c1bc7a8.cursorCol_0x3c * 0x600;
+        dst = (char *)var_saveBuf_8c1ba2e0 + var_menuState_8c1bc7a8.cursorCol_0x3c * 0x600;
     }
     var_saveBufCursor_8c225fe0 = dst;
 
@@ -486,7 +486,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         } else if (var_saveLoadResult_8c226010 == SAVE_LOAD_DONE) {
             var_vmBusy_8c157a7c = 0;
             VmGameSetLcdSlot_8c01c8fc(0);
-            var_saveBufCursor_8c225fe0 = var_8c1ba2e0;
+            var_saveBufCursor_8c225fe0 = var_saveBuf_8c1ba2e0;
             for (i = 0; i < var_loadedSaveCount_8c22600c; i++) {
                 if (!FileMenuIsSaveValid_8c018804((int *)var_saveBufCursor_8c225fe0)) {
                     LOG_WARN(("[FILE_MENU] fileSelectTask_8c018e7e: save %d failed validation\n", i));
@@ -600,7 +600,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
                 while (var_loadedSaveSlots_8c225fe4[idx] != cardValue) {
                     idx++;
                 }
-                njMemCopy(&var_progress_8c1ba1cc, (char *)var_8c1ba2e0 + idx * 0x600, sizeof(PlayerProgress));
+                njMemCopy(&var_progress_8c1ba1cc, (char *)var_saveBuf_8c1ba2e0 + idx * 0x600, sizeof(PlayerProgress));
                 SystemMenuApplyLoadedProgress_8c01b19c();
                 var_saveSlot_8c1ba350 = cardValue;
                 FileMenuApplySoundSettings_8c0189fc();

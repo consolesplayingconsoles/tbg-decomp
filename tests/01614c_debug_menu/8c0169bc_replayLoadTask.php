@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->call('_replayLoadTask_8c0169bc')->with($task, 0);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldCall('_FUN_8c01328c');
+        $this->shouldCall('_GameStartSelectedCourse_8c01328c');
     }
 
     public function test_state0_not_connected_resets_and_returns_to_normal(): void
@@ -162,7 +162,7 @@ return new class extends TestCase {
         $this->shouldCall('_njPrint')->variadic(1)->with(0x40008, "NOW LOADING...(%03d%%)", 100);
         $this->shouldCall('_buStat')->with(0)->andReturn(0);
         $this->shouldWriteLongTo('_var_currentCourse_8c1bb868', 7);
-        $this->shouldWriteLongTo('_var_inputMapSel_8c1bb8c8', 3);
+        $this->shouldWriteLongTo('_var_driveMode_8c1bb8c8', 3);
         $this->shouldWriteLongTo('_var_seed_8c157a64', 0x1234);
         $this->shouldCall('_ReplayCodecInit_8c02f320');
         $this->shouldCall('_ReplayCodecUnpack_8c02fa14')
@@ -171,7 +171,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_demoBuf_8c1ba3c4', 0xffffffff);
         $this->shouldCall('_BupUnmount_8c014c46')->with(0);
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
-        $this->shouldCall('_FUN_8c01328c');
+        $this->shouldCall('_GameStartSelectedCourse_8c01328c');
     }
 
     public function test_installer_no_vmu_selected_resets_play_mode(): void
@@ -192,7 +192,7 @@ return new class extends TestCase {
         $this->call('_startReplayLoad_8c016b4c');
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 2);
-        $this->shouldWriteLongTo('_var_8c1bb8d4', 0);
+        $this->shouldWriteLongTo('_var_isAttractDemo_8c1bb8d4', 0);
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
@@ -227,18 +227,18 @@ return new class extends TestCase {
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c1bb8d4', 4);
+        $this->setSize('_var_isAttractDemo_8c1bb8d4', 4);
         $this->setSize('_var_tasks_8c1ba3c8', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_BupGetInfo_8c014bba', 4);
         $this->setSize('_BupMount_8c014c00', 4);
         $this->setSize('_BupLoad_8c014bc6', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
-        $this->setSize('_FUN_8c01328c', 4);
+        $this->setSize('_GameStartSelectedCourse_8c01328c', 4);
         $this->setSize('_var_demoBuf_8c1ba3c4', 4);
         $this->setSize('_var_demoBuffer_8c1bc828', 4);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_seed_8c157a64', 4);
         $this->setSize('_buStat', 4);
         $this->setSize('_syFree', 4);

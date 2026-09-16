@@ -526,7 +526,7 @@ return new class extends TestCase {
         $this->setSize('_var_vmBusy_8c157a7c', 4);
         $this->setSize('_var_saveBufCursor_8c225fe0', 4);
         $this->setSize('_var_loadedSaveSlots_8c225fe4', 0x28);
-        $this->setSize('_var_8c1ba2e0', 4);
+        $this->setSize('_var_saveBuf_8c1ba2e0', 4);
         $this->setSize('_var_saveSlot_8c1ba350', 4);
         $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_vmMountBusy_8c22606c', 4);
@@ -537,7 +537,7 @@ return new class extends TestCase {
         $this->ms = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($this->ms + 0x18, $state);
         $this->initUint32($this->addressOf('_var_saveLoadResult_8c226010'), $loadResult);
-        $this->initUint32($this->addressOf('_var_8c1ba2e0'), self::BASE);
+        $this->initUint32($this->addressOf('_var_saveBuf_8c1ba2e0'), self::BASE);
     }
 
     /* The two frame sprites drawn on the way out of states 0/1/2. */

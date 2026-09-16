@@ -31,7 +31,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($createdTask + 0x08, 0);
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 2);
-        $this->shouldWriteLongTo('_var_8c1bb8d4', 1);
+        $this->shouldWriteLongTo('_var_isAttractDemo_8c1bb8d4', 1);
         $this->shouldWriteLongTo('_var_demoIndex_8c1bb8d8', $nextDemo);
 
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(1, 0, 0, 0);
@@ -83,7 +83,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($createdTask + 0x08, 0);
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 2);
-        $this->shouldWriteLongTo('_var_8c1bb8d4', 1);
+        $this->shouldWriteLongTo('_var_isAttractDemo_8c1bb8d4', 1);
         $this->shouldWriteLongTo('_var_demoIndex_8c1bb8d8', $currentDemo + 1);
         $this->shouldWriteLongTo('_var_demoIndex_8c1bb8d8', $nextDemo);
 

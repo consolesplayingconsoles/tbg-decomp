@@ -439,7 +439,7 @@ return new class extends TestCase {
         $this->setSize('_FadeUpdate_8c022560', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_njDrawPolygon', 4);
-        $this->setSize('_init_8c03bf4c', 4);
+        $this->setSize('_init_pauseDimQuad_8c03bf4c', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndControlAdxtWithOutVol_8c0107d2', 4);
         $this->setSize('_pdVibMxStop', 4);

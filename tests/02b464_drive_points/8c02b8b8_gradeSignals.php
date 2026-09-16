@@ -18,7 +18,7 @@ return new class extends TestCase {
         $this->rellocate('_var_8c2285fc', $base + 0x38);
 
         $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_offCourseBits_8c228680', 4);
         $this->setSize('_var_headingVsRoad_8c22868c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
@@ -32,7 +32,7 @@ return new class extends TestCase {
         $signal0 = $base + 0x38;
         $graded = $base + 0x34;
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->initUint32($this->addressOf('_var_headingVsRoad_8c22868c'), 2);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0); // no signal id
@@ -54,7 +54,7 @@ return new class extends TestCase {
         $signal0 = $base + 0x38;
         $graded = $base + 0x34;
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1); // blocks the offense check
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1); // blocks the offense check
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->initUint32($this->addressOf('_var_headingVsRoad_8c22868c'), 2);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0);
@@ -74,7 +74,7 @@ return new class extends TestCase {
         $signal0 = $base + 0x38;
         $graded = $base + 0x34;
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->initUint32($this->addressOf('_var_headingVsRoad_8c22868c'), 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0); // signal gone
@@ -98,7 +98,7 @@ return new class extends TestCase {
         $signal0 = $base + 0x38;
         $graded = $base + 0x34;
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->initUint32($this->addressOf('_var_headingVsRoad_8c22868c'), 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0);
@@ -121,7 +121,7 @@ return new class extends TestCase {
         $signal0 = $base + 0x38;
         $graded = $base + 0x34;
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->initUint32($this->addressOf('_var_headingVsRoad_8c22868c'), 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0);

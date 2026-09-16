@@ -13,13 +13,18 @@ extern int var_pauseSettle_8c18ad04;
 extern int var_retirePhase_8c18ad08;
 extern int var_confirmChoice_8c18ad0c;
 extern int var_onRetire_8c18ad10;
-extern char init_8c03bf4c[];
+extern NJS_POLYGON_VTX init_pauseDimQuad_8c03bf4c[4];
 extern NJS_TEXLIST init_renderTexlist_8c03bf44;
 
 void GameTask_8c012f44();
-void FUN_8c01306e(void);
-void FUN_8c01328c();
-void GamePushLoadingTask_8c013310(int p1);
+/* Set up the driving scene; run at course entry and at every segment
+ * boundary, from 013ae8's load tasks. */
+void GameEnterDrive_8c01306e(void);
+/* Start a run on the course already staged in var_debugMenuCourseSel_8c1bc824
+ * (debug menu, demos, replays). GamePushLoadingTask_8c013310 is the retail
+ * path, taking the course id and the drive mode from saved progress instead. */
+void GameStartSelectedCourse_8c01328c();
+void GamePushLoadingTask_8c013310(int courseId);
 void GameInit_8c0134ec();
 int GameMain_8c01392e(void);
 void GameExit_8c0139d4(void);

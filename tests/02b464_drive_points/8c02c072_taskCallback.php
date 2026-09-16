@@ -131,8 +131,8 @@ return new class extends TestCase {
 
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_8c228714', 4);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
 
         // var_8c228714 is the upcoming stop's heading angle, not the segment
         // index var_nextStopSegment_8c228710 -- set them apart so a test

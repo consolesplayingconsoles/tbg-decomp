@@ -39,7 +39,7 @@
           .IMPORT     _FadeUpdatePlain_8c022910
           .IMPORT     _init_8c03bd80
           .IMPORT     _init_8c03bd84
-          .IMPORT     _init_8c03bf4c
+          .IMPORT     _init_pauseDimQuad_8c03bf4c
           .IMPORT     _SndUpdateAdxVolFade_8c010a40
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _var_peripherals_8c1ba35c
@@ -612,7 +612,7 @@ LP_GEN_43727:
           .DATA.L _var_progress_8c1ba1cc
           .DATA.L _var_markTexlist_8c1bc418
           .DATA.L H'BF8CCCCD
-          .DATA.L _init_8c03bf4c
+          .DATA.L _init_pauseDimQuad_8c03bf4c
           .DATA.L _njDrawPolygon
           .DATA.L _CourseMenuReturn_8c017ef2
           .DATA.L _var_practiceLesson_8c22640c

@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->setSize('_var_prevStopSegment_8c22870c', 4);
         $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
         $this->setSize('_var_8c1bc44c', 4);
-        $this->setSize('_var_8c1bc450', 4);
+        $this->setSize('_var_fuuLastFrame_8c1bc450', 4);
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
         $this->setSize('_njSqrt', 4);
 
@@ -28,9 +28,9 @@ return new class extends TestCase {
         $this->setSize('_var_8c228908', 4);
         $this->setSize('_var_8c228714', 4);
         $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
-        $this->setSize('_var_8c1bc440', 4);
-        $this->setSize('_var_8c1bc444', 4);
-        $this->setSize('_var_loadedFooNjm_8c1bc448', 4);
+        $this->setSize('_var_fuuTexlist_8c1bc440', 4);
+        $this->setSize('_var_fuuNj_8c1bc444', 4);
+        $this->setSize('_var_fuuNjm_8c1bc448', 4);
 
         // var_hudDriveMarkIcon_8c226450/8c226454 are accessed via displacement off the
         // already-imported var_hudMarkLatch_8c22643c (0x14/0x18 further in), not by their
@@ -219,7 +219,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 2.0))[1]);
-        $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
+        $this->initUint32($this->addressOf('_var_fuuLastFrame_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
         $this->initUint32($this->addressOf('_var_stopMinDistance_8c2285ec'), unpack('L', pack('f', 50.0))[1]);
         $this->initBusState(0, 0, 1.0); // moving -- distance conditions can't fire
 
@@ -233,7 +233,7 @@ return new class extends TestCase {
     }
 
     // State 2, anim frame wraps back to 0 once it reaches the loaded
-    // motion's frame limit (var_8c1bc450).
+    // motion's frame limit (var_fuuLastFrame_8c1bc450).
     public function test_state2_anim_wraps(): void
     {
         $this->resolveSymbols();
@@ -241,7 +241,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 9.0))[1]);
-        $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
+        $this->initUint32($this->addressOf('_var_fuuLastFrame_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
         $this->initUint32($this->addressOf('_var_stopMinDistance_8c2285ec'), unpack('L', pack('f', 50.0))[1]);
         $this->initBusState(0, 0, 1.0);
 
@@ -264,7 +264,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 0.0))[1]);
-        $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
+        $this->initUint32($this->addressOf('_var_fuuLastFrame_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
         $this->initUint32($this->addressOf('_var_stopMinDistance_8c2285ec'), unpack('L', pack('f', 50.0))[1]);
         $busBase = $this->initBusState(0, 0, 0.0); // stopped
 
@@ -290,7 +290,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 0.0))[1]);
-        $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
+        $this->initUint32($this->addressOf('_var_fuuLastFrame_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
         $this->initUint32($this->addressOf('_var_stopMinDistance_8c2285ec'), unpack('L', pack('f', 2.0))[1]);
         $busBase = $this->initBusState(0, 0, 0.0); // stopped
 
@@ -316,7 +316,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 7);
         $this->initUint32($this->addressOf('_var_8c1bc44c'), unpack('L', pack('f', 0.0))[1]);
-        $this->initUint32($this->addressOf('_var_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
+        $this->initUint32($this->addressOf('_var_fuuLastFrame_8c1bc450'), unpack('L', pack('f', 10.0))[1]);
         $this->initUint32($this->addressOf('_var_stopMinDistance_8c2285ec'), unpack('L', pack('f', 50.0))[1]);
         $busBase = $this->initBusState(0, 7, 5.0); // moving, markCueByte_0x3b4 low byte == nextStopSegment
 

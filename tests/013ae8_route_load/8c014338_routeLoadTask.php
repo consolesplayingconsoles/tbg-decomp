@@ -125,7 +125,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_loadScreenActive_8c157a6c'), 0);
         $this->shouldCall('_njReleaseTexture')->with(self::TLIST);
-        $this->shouldCall('_FUN_8c01306e');
+        $this->shouldCall('_GameEnterDrive_8c01306e');
         $this->shouldCall('_InputDispatchTask_8c012970');
     }
 
@@ -187,7 +187,7 @@ return new class extends TestCase {
             '_TxtDrawSprite_8c014f54' => 4,
             '_InputDispatchTask_8c012970' => 4,
             '_TaskFree_8c014b66' => 4,
-            '_FUN_8c01306e' => 4,
+            '_GameEnterDrive_8c01306e' => 4,
             '_TileStreamInit_8c02175a' => 4,
             '_TrafficRelocatePlacementTable_8c026da4' => 4,
             '_FUN_8c028de8' => 4,

@@ -74,7 +74,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_replayPackedSize_8c228ba4'), 0x99);
         $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x00, 7); // courseId
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 3);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 3);
         $this->initUint32($this->addressOf('_var_seed_8c157a64'), 0x1234);
 
         $malloc = $this->alloc(0x38); // 0x28 recorded + 0x10 header
@@ -126,7 +126,7 @@ return new class extends TestCase {
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->setSize('_var_demoBuf_8c1ba3c4', 4);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_seed_8c157a64', 4);
         $this->setSize('_syMalloc', 4);
         $this->setSize('_ReplayCodecInit_8c02f320', 4);

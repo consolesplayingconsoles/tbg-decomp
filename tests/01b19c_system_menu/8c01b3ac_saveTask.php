@@ -420,7 +420,7 @@ return new class extends TestCase {
         $this->resolveEagerPointers(txtDraw: false, swapBox: false, midi: true);
         $menuState = $this->menuStateBase();
         $this->stateEnter($menuState, 3, 0, 0, 0);
-        $this->initUint32($this->addressOf('_var_8c1ba2e0'), 0x8c500000);
+        $this->initUint32($this->addressOf('_var_saveBuf_8c1ba2e0'), 0x8c500000);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
         $this->expectVmStatusTop(0);
@@ -514,7 +514,7 @@ return new class extends TestCase {
         $this->stateEnter($menuState, 3, 1, 0, 0);
         $this->setSize('_var_backupFileHeader_8c1ba2e4', 0x60);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
-        $this->initUint32($this->addressOf('_var_8c1ba2e0'), 0x8c500000);
+        $this->initUint32($this->addressOf('_var_saveBuf_8c1ba2e0'), 0x8c500000);
         $this->initUint32($this->addressOf('_var_backupFileHeader_8c1ba2e4') + 0x58, 0x8c510000);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
@@ -540,7 +540,7 @@ return new class extends TestCase {
         $this->stateEnter($menuState, 3, 1, 0, 0);
         $this->setSize('_var_backupFileHeader_8c1ba2e4', 0x60);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
-        $this->initUint32($this->addressOf('_var_8c1ba2e0'), 0x8c500000);
+        $this->initUint32($this->addressOf('_var_saveBuf_8c1ba2e0'), 0x8c500000);
         $this->initUint32($this->addressOf('_var_backupFileHeader_8c1ba2e4') + 0x58, 0x8c510000);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);

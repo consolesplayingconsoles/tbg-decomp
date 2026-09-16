@@ -127,7 +127,7 @@ void BusInputCapMirrorTraffic_8c024280(void)
  * D-pad up/down forces the bus into gear 0 or reverse (5). */
 STATIC void debugGearOverride_8c0242ce(void)
 {
-    if (var_inputMapSel_8c1bb8c8 != 0) {
+    if (var_driveMode_8c1bb8c8 != 0) {
         return;
     }
 
@@ -429,7 +429,7 @@ void BusInputUpdate_8c0246b2(void)
      * doubles as the mirror-view selector -- toggling it sets mirror_0x268
      * between its 0/1/2 modes, gated by a var_8c2285c4[27] check against a
      * sentinel (0x10000000) or against var_8c228634[0]. */
-    if (var_inputMapSel_8c1bb8c8 != 0) {
+    if (var_driveMode_8c1bb8c8 != 0) {
         var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
         if (var_busState_8c1bb9d0.laneTargetSearchDone_0x334 != 0) {
             return;

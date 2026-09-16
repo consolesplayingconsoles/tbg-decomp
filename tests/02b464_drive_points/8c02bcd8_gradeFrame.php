@@ -26,7 +26,7 @@ return new class extends TestCase {
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->setSize('_var_prevLane_8c228684', 4);
         $this->setSize('_var_frameSpeed_8c22866c', 4);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
         $this->setSize('_var_padTriggerR_8c1ba374', 2);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
@@ -69,7 +69,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 0);
 
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1); // skip speed*ang check
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1); // skip speed*ang check
 
         $busPtr = $this->alloc(0x2b8);
         $this->initUint32($busPtr + 0x25c, 0);
@@ -340,7 +340,7 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2b4, 1); // driving
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0x27c, 100.0); // speed
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x258, 100); // ang

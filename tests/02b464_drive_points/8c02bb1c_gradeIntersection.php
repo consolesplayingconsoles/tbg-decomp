@@ -20,7 +20,7 @@ return new class extends TestCase {
         $this->setSize('_var_prevLane_8c228684', 4);
         $this->setSize('_var_prevLaneFlags_8c228688', 4);
         $this->setSize('_var_8c228634', 4);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
 
         return $base;
@@ -40,7 +40,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b4, 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0); // speed limit code 0 -> limit 0
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1); // skip lane check
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1); // skip lane check
         $this->initUint32($base + 0x50, 0); // var_8c2285fc[6], stopped-at-signal latch
     }
 
@@ -135,7 +135,7 @@ return new class extends TestCase {
     {
         $base = $this->resolveSymbols();
         $this->baseline($base);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0); // enable lane check
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0); // enable lane check
 
         $busState = $this->alloc(0x2b8);
         $this->initUint32($busState + 0x25c, 0); // turn signal not matching left (1)
@@ -157,7 +157,7 @@ return new class extends TestCase {
     {
         $base = $this->resolveSymbols();
         $this->baseline($base);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
 
         $busState = $this->alloc(0x2b8);
         $this->initUint32($busState + 0x25c, 1); // left signal matches laneDelta < 0

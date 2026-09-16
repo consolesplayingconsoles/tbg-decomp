@@ -5,11 +5,11 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // var_inputMapSel_8c1bb8c8 == 0 -> run inputTask_8c012504.
+    // var_driveMode_8c1bb8c8 == 0 -> run inputTask_8c012504.
     public function test_dispatches_to_inputTask_8c012504_when_flag_clear()
     {
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
 
         $this->call('_InputDispatchTask_8c012970');
 
@@ -17,11 +17,11 @@ return new class extends TestCase {
         $this->shouldCall('_inputTask_8c012504');
     }
 
-    // var_inputMapSel_8c1bb8c8 != 0 -> run inputTaskAlt_8c012718.
+    // var_driveMode_8c1bb8c8 != 0 -> run inputTaskAlt_8c012718.
     public function test_dispatches_to_inputTaskAlt_8c012718_when_flag_set()
     {
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
 
         $this->call('_InputDispatchTask_8c012970');
 

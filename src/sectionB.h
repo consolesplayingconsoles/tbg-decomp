@@ -382,7 +382,7 @@ typedef struct {
     char controlAndDisplayFlags_0xc7[9];
 
     /* 0xd0/0xd1 look like saved input deadzone
-     * thresholds (see applyThrottle_8c024320/FUN_8c024606) */
+     * thresholds (see applyThrottle_8c024320/applyBrakingSfx_8c024606) */
     char accelSensitivity_0xd0;
     char brakeSensitivity_0xd1;
     /* Never touched by any .c; padding between the sensitivity bytes and
@@ -427,7 +427,10 @@ extern int var_runEventFlags_8c1ba2b4;
 
 extern int var_8c1ba2b8[5]; // Maybe progress backup
 extern int var_8c1ba2cc[5]; // Maybe progress backup
-extern void* var_8c1ba2e0;
+/* Staging buffer for VMU save-file images: 018644_file_menu allocates 16
+ * 0x600-byte slots in it (one per VM file) and 01b19c one, for the file it is
+ * about to write. -1 when unallocated. */
+extern void* var_saveBuf_8c1ba2e0;
 extern BUS_BACKUPFILEHEADER var_backupFileHeader_8c1ba2e4; // 018644: analyzed backup file header
 extern void* var_vmuIconFileBuf_8c1ba344;
 extern void* var_backupFileImageBuf_8c1ba348;
@@ -457,9 +460,14 @@ extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into
 extern void *var_8c1bb894;
 extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
 extern int var_8c1bb8bc;
-extern int var_8c1bb8c4;
+/* The title screen is the screen on top. GameTask_8c012f44's soft reset
+ * re-pushes the title when it is clear, and quits to the BIOS when it is set. */
+extern int var_titleActive_8c1bb8c4;
 extern int var_pauseActive_8c1bb8cc;
-extern int var_8c1bb8d4;
+/* Which kind of PLAY_MODE_DEMO is running: 1 = the attract loop
+ * (TxtStartAttractDemo_8c0159ac), 0 = a VMU replay
+ * (startReplayLoad_8c016b4c). */
+extern int var_isAttractDemo_8c1bb8d4;
 extern int var_runSucceeded_8c1bb8dc;
 extern int var_firstClearOfCourse_8c1bb8e0; // course was unlocked
 extern int var_passengerCount_8c1bb8e4;
@@ -474,17 +482,19 @@ extern void* var_messageTextBoxB_8c1bc408; /* second half of the double-buffered
 extern int var_messageTextBoxIndex_8c1bc40c;   /* active index (0/1) into (&var_messageTextBoxA_8c1bc404)[idx] */
 extern NJS_MOTION* var_busDoorMotion_8c1bc410;
 extern void* var_busDoorShape_8c1bc414;
-extern void* var_8c1bc440;
-extern void* var_8c1bc444;
+/* fuu.pvm/.njd/.njm -- the animated stop marker drawn by
+ * drawStopMarker_8c02cd92 (02c884). Loaded by GameInit_8c0134ec. */
+extern void* var_fuuTexlist_8c1bc440;
+extern void* var_fuuNj_8c1bc444;
 /* Current "fuu" stop-marker animation frame, driven by
  * BusStopUpdateArrival_8c02ce48 (02c884): counts up by 1.0 per frame while
- * the bus approaches a stop, wrapping to 0 at var_8c1bc450. */
+ * the bus approaches a stop, wrapping to 0 at var_fuuLastFrame_8c1bc450. */
 extern float var_8c1bc44c;
-extern float var_8c1bc450;
+extern float var_fuuLastFrame_8c1bc450;
 /* Shared scratch matrix, rebuilt by each user before it reads it back
  * (01fa78, 023938, 024b4c, 02c884). */
 extern NJS_MATRIX var_scratchMatrix_8c1bc46c;
-extern NJS_POINT3 var_groundQueryPoint_8c1bc460; // scratch world point for ground-height queries, e.g. FUN_8c02840c
+extern NJS_POINT3 var_groundQueryPoint_8c1bc460; // scratch world point for ground-height queries, e.g. snapPointToGround_8c02840c
 extern void* var_vmGameBuf_8c1bc454;
 /* IntersectSegments_8c0206f0's intersection-point output, an XZ pair. The two
  * halves are exported separately but must stay adjacent -- callers pass
@@ -534,10 +544,14 @@ extern void *var_frontNj_8c1bc434;
 extern NJS_TEXLIST *var_frontTexlist_8c1bc430;
 extern int var_gameMode_8c1bb8fc;
 extern BACKUPINFO var_gBupInfo_8c1bc4ac[8];
-extern int var_inputMapSel_8c1bb8c8;
+/* The run's DRIVE MODE: 0 manual, 1 auto. Set from
+ * PlayerProgress.driveMode_0xc5 for a retail start, or from the debug row's
+ * DebugMenuCourseSel.driveMode_0x08 (1 on every *_AUTO row). Auto skips most
+ * of 02b464's driver-points grading. */
+extern int var_driveMode_8c1bb8c8;
 extern void *var_interiorNj_8c1bc43c;
 extern NJS_TEXLIST *var_interiorTexlist_8c1bc438;
-extern NJS_MOTION* var_loadedFooNjm_8c1bc448;
+extern NJS_MOTION* var_fuuNjm_8c1bc448;
 extern ResourceGroup var_loadingResourceGroup_8c1bc3f8;
 /* These three are one ResourceGroup (015ab8_title.h) at 8c1bc418: mark.pvm,
  * mark_parts.dat and mark.dat, the same triple 012f44_game.c loads into the
@@ -608,6 +622,8 @@ extern Uint32 var_lcdFrameDelay_8c226198;    // 01bb48: LCD anim step counter
 extern LcdFrame* var_lcdFramePtr_8c22619c; // 01bb48: current LCD anim frame ptr
 extern char var_defragBuf_8c2261a0[512]; // 01bb48: buDefragDisk work buffer
 extern int var_lcdSlot_8c2263a0;   // 01bb48
+/* Both only ever written, to -1, by GameInit_8c0134ec; nothing in the image
+ * reads either. */
 extern void* var_8c226434;
 extern void* var_8c226438;
 /* 01fa78_hud scratch; only the last word is live. HudReset_8c02018c zeroes
@@ -654,7 +670,7 @@ extern float var_fadeEasyLightDir_8c226538[3]; // 021b9c_tile_draw: easy-light d
 /* 0222dc: same deal, for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
 extern float var_fadeEasyLightIntensity_8c226544[2]; // [0..1]
 extern float var_fadeEasyLightColor_8c22654c[3]; // [2..4]
-extern NJS_CAMERA* var_fadeCamera_8c226558; // 022464: camera passed to njSetCamera by draw_8c022464
+extern NJS_CAMERA* var_fadeCamera_8c226558; // 022464: camera passed to njSetCamera by fadeDraw_8c022464
 extern int var_fadeArrivalVariant_8c22655c; // 022464: bus-stop-arrival overlay layout (0-2) drawn by FadeUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in FadeUpdate_8c022560 handles 0-2)
 extern int var_fadeArrivalGate_8c226560; // 022464: gates FadeUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
 extern FadeRequest var_fadeRequest_8c226564; // 022464: requested fade transition, consumed by FadeUpdate_8c022560
@@ -730,7 +746,7 @@ extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal
 extern int var_pedCrossingFlags_8c227e2c[128]; /* 64 8-byte entries, zeroed by clearPedCrossingFlags_8c02890c */
 extern int var_crossingOccupiedFlags_8c22802c[128]; /* 64 8-byte entries, zeroed by ObjectsFUN_8c028958 */
 /* 12-byte entries {active, unused, list*}; list is NULL-terminated, holes
- * marked -1. Read by FUN_8c028b74; var_pedGroupCount_8c228234 is the count. */
+ * marked -1. Read by drawPedestrians_8c028b74; var_pedGroupCount_8c228234 is the count. */
 extern void* var_pedGroups_8c228230;
 extern int var_pedGroupCount_8c228234; /* -1 sentinel means not yet loaded */
 /* 12-byte entries {float *first, float *last, float length}, indexed in

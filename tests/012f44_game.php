@@ -12,7 +12,7 @@ if (!function_exists('fdec')) {
 }
 
 return new class extends TestCase {
-    public function testFUN_8c01306e_DemoIsNot2()
+    public function test_GameEnterDrive_8c01306e_outsideDemo()
     {
         $var_fogParams_8c18ad28Ptr = $this->alloc(0x14);
         $this->initUint8($var_fogParams_8c18ad28Ptr + 0x08, 0x10);
@@ -81,7 +81,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
-            $this->addressOf('_task_8c012f9c'),
+            $this->addressOf('_runStartViewTask_8c012f9c'),
             0xffffe4,
             0xFFFFE8,
             0
@@ -92,10 +92,10 @@ return new class extends TestCase {
 
         $this->shouldCall('_FadeStartRunTransition_8c0228a2');
 
-        $this->singleCall('_FUN_8c01306e')->run();
+        $this->singleCall('_GameEnterDrive_8c01306e')->run();
     }
 
-    public function testFUN_8c01306e_DemoIs2_8c1bb8d4Is0()
+    public function test_GameEnterDrive_8c01306e_vmuReplay()
     {
         $var_fogParams_8c18ad28Ptr = $this->alloc(0x14);
         $this->initUint8($var_fogParams_8c18ad28Ptr + 0x08, 0x10);
@@ -109,8 +109,8 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_seed_8c157a64'), 0xcafe0001);
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2);
 
-        $var_8c1bb8d4Ptr = $this->allocRellocate('_var_8c1bb8d4', 4);
-        $this->initUint32($var_8c1bb8d4Ptr, 0);
+        $var_isAttractDemo_8c1bb8d4Ptr = $this->allocRellocate('_var_isAttractDemo_8c1bb8d4', 4);
+        $this->initUint32($var_isAttractDemo_8c1bb8d4Ptr, 0);
 
         $createdTask = $this->alloc(0x0c);
         $this->initUint32(0xffffe4, $createdTask);
@@ -156,7 +156,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
-            $this->addressOf('_task_8c012f9c'),
+            $this->addressOf('_runStartViewTask_8c012f9c'),
             0xffffe4,
             0xFFFFE8,
             0
@@ -166,10 +166,10 @@ return new class extends TestCase {
 
         $this->shouldCall('_FadeStartRunTransition_8c0228a2');
 
-        $this->singleCall('_FUN_8c01306e')->run();
+        $this->singleCall('_GameEnterDrive_8c01306e')->run();
     }
 
-    public function testFUN_8c01306e_DemoIs2_8c1bb8d4Is1()
+    public function test_GameEnterDrive_8c01306e_attractDemo()
     {
         $var_fogParams_8c18ad28Ptr = $this->alloc(0x14);
         $this->initUint8($var_fogParams_8c18ad28Ptr + 0x08, 0x10);
@@ -182,7 +182,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_seed_8c157a64'), 0xcafe0001);
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2);
-        $this->initUint32($this->addressOf('_var_8c1bb8d4'), 1);
+        $this->initUint32($this->addressOf('_var_isAttractDemo_8c1bb8d4'), 1);
 
         $createdTask = $this->alloc(0x0c);
         $createdTask2 = $this->alloc(0x0c);
@@ -252,7 +252,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
-                $this->addressOf('_task_8c012f9c'),
+                $this->addressOf('_runStartViewTask_8c012f9c'),
                 0xffffe4,
                 0xFFFFE8,
                 0
@@ -266,14 +266,13 @@ return new class extends TestCase {
 
         $this->shouldCall('_FadeStartRunTransition_8c0228a2');
 
-        $this->singleCall('_FUN_8c01306e')->run();
+        $this->singleCall('_GameEnterDrive_8c01306e')->run();
     }
 
-    ////// task_8c013388 //////
+    ////// bootTask_8c013388 //////
 
-    public function test_task_8c013388_field0x08Is0_PvmBoolIs0()
+    public function test_bootTask_8c013388_state0_latchClear()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $taskPtr = $this->alloc(0xc);
@@ -281,26 +280,25 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')
             ->andReturn(0);
 
-        $this->singleCall('_task_8c013388')
+        $this->singleCall('_bootTask_8c013388')
             ->with($taskPtr, 0)
             ->run();
     }
 
-    public function test_task_8c013388_field0x08Is0_PvmBoolIs1()
+    public function test_bootTask_8c013388_state0_latchSet()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $taskPtr = $this->alloc(0xc);
 
-        $var_loadedFooNjm_8c1bc448Ptr = $this->alloc(0x08);
-        $this->initUint32($this->addressOf('_var_loadedFooNjm_8c1bc448'), $var_loadedFooNjm_8c1bc448Ptr);
-        $this->initUint32($var_loadedFooNjm_8c1bc448Ptr + 4, 42);
+        $var_fuuNjm_8c1bc448Ptr = $this->alloc(0x08);
+        $this->initUint32($this->addressOf('_var_fuuNjm_8c1bc448'), $var_fuuNjm_8c1bc448Ptr);
+        $this->initUint32($var_fuuNjm_8c1bc448Ptr + 4, 42);
 
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
 
         $this->shouldWrite($taskPtr + 8, 1);
-        $this->shouldWriteTo('_var_8c1bc450', fdec(41));
+        $this->shouldWriteTo('_var_fuuLastFrame_8c1bc450', fdec(41));
 
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SOUND", "manatee.drv", $this->addressOf('_var_memblkSource_8c0fcd48'));
@@ -308,14 +306,13 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
 
-        $this->singleCall('_task_8c013388')
+        $this->singleCall('_bootTask_8c013388')
             ->with($taskPtr, 0)
             ->run();
     }
 
-    public function test_task_8c013388_field0x08Is1_PvmBoolIs0()
+    public function test_bootTask_8c013388_state1_latchClear()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $taskPtr = $this->alloc(0xc);
@@ -323,19 +320,17 @@ return new class extends TestCase {
 
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
-        $this->singleCall('_task_8c013388')
+        $this->singleCall('_bootTask_8c013388')
             ->with($taskPtr, 0)
             ->run();
     }
 
-    public function test_task_8c013388_field0x08Is1_PvmBoolIs1()
+    public function test_bootTask_8c013388_state1_latchSet()
     {
-        // FIXME
         $this->doNotRandomizeMemory();
 
         $taskPtr = $this->alloc(0xc);
         $this->initUint32($taskPtr + 8, 1);
-        //$var_lcdAnimActive_8c2260a8Ptr = $this->allocRellocate('_var_lcdAnimActive_8c2260a8', 4);
 
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
 
@@ -345,7 +340,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_lcdAnimActive_8c2260a8', 1);
         $this->shouldCall('_TitlePushTitle_8c015fd6');
 
-        $this->singleCall('_task_8c013388')
+        $this->singleCall('_bootTask_8c013388')
             ->with($taskPtr, 0)
             ->run();
     }
@@ -440,7 +435,7 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
         $this->shouldWriteTo('_var_resourceGroup_8c2263a8', -1);
-        $this->shouldWriteTo('_var_8c1ba2e0', -1);
+        $this->shouldWriteTo('_var_saveBuf_8c1ba2e0', -1);
         $this->shouldWriteTo('_var_backupFileImageBuf_8c1ba348', -1);
         $this->shouldWriteTo('_var_vmuIconFileBuf_8c1ba344', -1);
         $this->shouldWriteTo('_var_currentSysResGroupInfo_8c225fb0', -1);
@@ -449,7 +444,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_selectedVm_8c1ba34c', -1);
 
 
-        $this->shouldWriteTo('_var_8c1bb8c4', 0);
+        $this->shouldWriteTo('_var_titleActive_8c1bb8c4', 0);
         $this->shouldWriteTo('_var_demoIndex_8c1bb8d8', 100);
         $this->shouldWriteTo('_var_loadScreenActive_8c157a6c', 0);
 
@@ -459,13 +454,12 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(3);
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
 
-        // FIXME: Confusing var names
         $createdTaskPtr = $this->alloc(0x0c);
         $this->initUint32($createdTaskLocal, $createdTaskPtr);
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            $this->addressOf('_task_8c013388'),
+            $this->addressOf('_bootTask_8c013388'),
             $createdTaskLocal,
             $createdStateLocal,
             0
@@ -489,14 +483,14 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SYSTEM", "vm_danger.lcd", $this->addressOf('_var_lcdAnimDanger_8c2260b8'));
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SYSTEM", "now_loading.lcd", $this->addressOf('_var_lcdAnimLoading_8c2260c4'));
 
-        $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_8c1bc440'), 1, 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_8c1bc444'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_loadedFooNjm_8c1bc448'), 0);
+        $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_fuuTexlist_8c1bc440'), 1, 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_fuuNj_8c1bc444'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_fuuNjm_8c1bc448'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
         $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));;
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
@@ -537,7 +531,7 @@ return new class extends TestCase {
         $this->shouldCall('_njInitShape')->with($this->addressOf('_var_shapebuf_8c2f84a0'));
         $this->shouldCall('_syRtcInit');
 
-        // FIXME: Handle SInt8 -1, using & 0xff for now... 
+        // SndGetSoundMode_8c010924 returns Sint8; the DSL compares the raw byte.
         $this->shouldCall('_SndGetSoundMode_8c010924')->andReturn(-1 & 0xff);
         $this->shouldWriteByteTo('_var_soundMode_8c226070', -1 & 0xff);
         $this->shouldCall('_SndSetSoundMode_8c0108c0')->with(0);
@@ -594,7 +588,7 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
         $this->shouldWriteTo('_var_resourceGroup_8c2263a8', -1);
-        $this->shouldWriteTo('_var_8c1ba2e0', -1);
+        $this->shouldWriteTo('_var_saveBuf_8c1ba2e0', -1);
         $this->shouldWriteTo('_var_backupFileImageBuf_8c1ba348', -1);
         $this->shouldWriteTo('_var_vmuIconFileBuf_8c1ba344', -1);
         $this->shouldWriteTo('_var_currentSysResGroupInfo_8c225fb0', -1);
@@ -603,7 +597,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_selectedVm_8c1ba34c', -1);
 
 
-        $this->shouldWriteTo('_var_8c1bb8c4', 0);
+        $this->shouldWriteTo('_var_titleActive_8c1bb8c4', 0);
         $this->shouldWriteTo('_var_demoIndex_8c1bb8d8', 100);
         $this->shouldWriteTo('_var_loadScreenActive_8c157a6c', 0);
 
@@ -613,13 +607,12 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(3);
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
 
-        // FIXME: Confusing var names
         $createdTaskPtr = $this->alloc(0x0c);
         $this->initUint32($createdTaskLocal, $createdTaskPtr);
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            $this->addressOf('_task_8c013388'),
+            $this->addressOf('_bootTask_8c013388'),
             $createdTaskLocal,
             $createdStateLocal,
             0
@@ -643,14 +636,14 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SYSTEM", "vm_danger.lcd", $this->addressOf('_var_lcdAnimDanger_8c2260b8'));
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SYSTEM", "now_loading.lcd", $this->addressOf('_var_lcdAnimLoading_8c2260c4'));
 
-        $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_8c1bc440'), 1, 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_8c1bc444'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_loadedFooNjm_8c1bc448'), 0);
+        $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_fuuTexlist_8c1bc440'), 1, 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_fuuNj_8c1bc444'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_fuuNjm_8c1bc448'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
         $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));;
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
@@ -748,7 +741,7 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
         $this->shouldWriteTo('_var_resourceGroup_8c2263a8', -1);
-        $this->shouldWriteTo('_var_8c1ba2e0', -1);
+        $this->shouldWriteTo('_var_saveBuf_8c1ba2e0', -1);
         $this->shouldWriteTo('_var_backupFileImageBuf_8c1ba348', -1);
         $this->shouldWriteTo('_var_vmuIconFileBuf_8c1ba344', -1);
         $this->shouldWriteTo('_var_currentSysResGroupInfo_8c225fb0', -1);
@@ -757,7 +750,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_selectedVm_8c1ba34c', -1);
 
 
-        $this->shouldWriteTo('_var_8c1bb8c4', 0);
+        $this->shouldWriteTo('_var_titleActive_8c1bb8c4', 0);
         $this->shouldWriteTo('_var_demoIndex_8c1bb8d8', 100);
         $this->shouldWriteTo('_var_loadScreenActive_8c157a6c', 0);
 
@@ -767,13 +760,12 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(3);
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
 
-        // FIXME: Confusing var names
         $createdTaskPtr = $this->alloc(0x0c);
         $this->initUint32($createdTaskLocal, $createdTaskPtr);
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            $this->addressOf('_task_8c013388'),
+            $this->addressOf('_bootTask_8c013388'),
             $createdTaskLocal,
             $createdStateLocal,
             0
@@ -797,14 +789,14 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SYSTEM", "vm_danger.lcd", $this->addressOf('_var_lcdAnimDanger_8c2260b8'));
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SYSTEM", "now_loading.lcd", $this->addressOf('_var_lcdAnimLoading_8c2260c4'));
 
-        $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_8c1bc440'), 1, 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_8c1bc444'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_loadedFooNjm_8c1bc448'), 0);
+        $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_fuuTexlist_8c1bc440'), 1, 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_fuuNj_8c1bc444'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_fuuNjm_8c1bc448'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
         $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));;
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
@@ -846,7 +838,6 @@ return new class extends TestCase {
         $this->shouldCall('_njInitShape')->with($this->addressOf('_var_shapebuf_8c2f84a0'));
         $this->shouldCall('_syRtcInit');
 
-        // FIXME andReturn(-1) or andReturn(new SInt8(-1))?
         $this->shouldCall('_SndGetSoundMode_8c010924')->andReturn(-1 & 0xff);
         $this->shouldWriteByteTo('_var_soundMode_8c226070', -1 & 0xff);
         $this->shouldCall('_SndSetSoundMode_8c0108c0')->with(0);
@@ -903,7 +894,7 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x0 + 0, -1);
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0xc + 0, -1);
         $this->shouldWriteTo('_var_resourceGroup_8c2263a8', -1);
-        $this->shouldWriteTo('_var_8c1ba2e0', -1);
+        $this->shouldWriteTo('_var_saveBuf_8c1ba2e0', -1);
         $this->shouldWriteTo('_var_backupFileImageBuf_8c1ba348', -1);
         $this->shouldWriteTo('_var_vmuIconFileBuf_8c1ba344', -1);
         $this->shouldWriteTo('_var_currentSysResGroupInfo_8c225fb0', -1);
@@ -911,7 +902,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_vmGameBuf_8c1bc454', -1);
         $this->shouldWriteTo('_var_selectedVm_8c1ba34c', -1);
 
-        $this->shouldWriteTo('_var_8c1bb8c4', 0);
+        $this->shouldWriteTo('_var_titleActive_8c1bb8c4', 0);
         $this->shouldWriteTo('_var_demoIndex_8c1bb8d8', 100);
         $this->shouldWriteTo('_var_loadScreenActive_8c157a6c', 0);
 
@@ -921,13 +912,12 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(3);
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
 
-        // FIXME: Confusing var names
         $createdTaskPtr = $this->alloc(0x0c);
         $this->initUint32($createdTaskLocal, $createdTaskPtr);
 
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            $this->addressOf('_task_8c013388'),
+            $this->addressOf('_bootTask_8c013388'),
             $createdTaskLocal,
             $createdStateLocal,
             0
@@ -951,14 +941,14 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SYSTEM", "vm_danger.lcd", $this->addressOf('_var_lcdAnimDanger_8c2260b8'));
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SYSTEM", "now_loading.lcd", $this->addressOf('_var_lcdAnimLoading_8c2260c4'));
 
-        $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_8c1bc440'), 1, 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_8c1bc444'), 0);
-        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_loadedFooNjm_8c1bc448'), 0);
+        $this->shouldCall('_AsqRequestPvm_8c011ac0')->with("\\SYSTEM", "fuu.pvm", $this->addressOf('_var_fuuTexlist_8c1bc440'), 1, 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njd", $this->addressOf('_var_fuuNj_8c1bc444'), 0);
+        $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SYSTEM", "fuu.njm", $this->addressOf('_var_fuuNjm_8c1bc448'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
         $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));;
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
@@ -976,13 +966,13 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xbebacafe);
         $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
         $this->initUint32($this->addressOf('_var_queuesAreInitialized_8c157a60'), 0);
-        $this->initUint32($this->addressOf('_init_8c03bfa8'), 1);
+        $this->initUint32($this->addressOf('_init_drvStatPending_8c03bfa8'), 1);
         $this->initUint32($this->addressOf('_var_gdErr_8c18ad14'), 0);
 
         $this->shouldCall('_gdFsGetSysHn')->andReturn(0xbeba0001);
         // GDD_STAT_IDLE
         $this->shouldCall('_gdFsGetStat')->with(0xbeba0001)->andReturn(0);
-        $this->shouldWriteTo('_init_8c03bfa8', 0);
+        $this->shouldWriteTo('_init_drvStatPending_8c03bfa8', 0);
 
         // GDD_DRVSTAT_BUSY
         $this->shouldCall('_gdFsGetDrvStat')->andReturn(0x00);
@@ -1017,10 +1007,8 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_init_8c03bd80'), 1);
         $this->initUint32($this->addressOf('_init_8c03bd84'), 0);
-        // TODO: -1
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), -1 & 0xffffffff);
 
-        // FIXME: -1 & 0xffffffff
         $this->singleCall('_GameMain_8c01392e')->singleShouldReturn(-1 & 0xffffffff)->run();
     }
 
@@ -1038,62 +1026,15 @@ return new class extends TestCase {
 
         $this->shouldCall('_pdVibMxStop')->with(0xbebacafe);
 
-        // FIXME: -1 & 0xffffffff
         $this->singleCall('_GameMain_8c01392e')->singleShouldReturn(-1 & 0xffffffff)->run();
     }
 
-    // public function test_GameMain_8c01392e_0_0_0_idle_open_vib()
-    // {
-    //     $init_8c03bd80Ptr = $this->allocRellocate('_init_8c03bd80', 4);
-    //     $var_queuesAreInitialized_8c157a60Ptr = $this->allocRellocate('_var_queuesAreInitialized_8c157a60', 4);
-    //     $init_8c03bfa8Ptr = $this->allocRellocate('_init_8c03bfa8', 4);
-    //     $var_vibport_8c1ba354Ptr = $this->allocRellocate('_var_vibport_8c1ba354', 4);
-    //     $this->initUint32($var_vibport_8c1ba354Ptr, 0xbebacafe);
-
-    //     $var_tasks_8c1ba3c8Ptr = $this->allocRellocate('_var_tasks_8c1ba3c8', 4);
-
-    //     $this->shouldRead($init_8c03bd80Ptr, 0);
-    //     $this->shouldRead($var_queuesAreInitialized_8c157a60Ptr, 0);
-    //     $this->shouldRead($init_8c03bfa8Ptr, 0);
-
-    //     $this->shouldCall('_gdFsReqDrvStat')->andReturn(0);
-    //     $this->shouldWrite($init_8c03bfa8Ptr, 1);
-
-    //     // GDD_DRVSTAT_OPEN
-    //     $this->shouldCall('_gdFsGetDrvStat')->andReturn(0x06);
-
-    //     $this->shouldRead($var_vibport_8c1ba354Ptr, 0xbebacafe);
-    //     $this->shouldCall('_pdVibMxStop')->with(0xbebacafe);
-
-    //     // FIXME: -1 & 0xffffffff
-    //     $this->singleCall('_GameMain_8c01392e')->singleShouldReturn(-1 & 0xffffffff)->run();
-    // }
-
-    // public function test_GameMain_8c01392e_0_0_0_idle_open()
-    // {
-    //     $init_8c03bd80Ptr = $this->allocRellocate('_init_8c03bd80', 4);
-    //     $var_queuesAreInitialized_8c157a60Ptr = $this->allocRellocate('_var_queuesAreInitialized_8c157a60', 4);
-    //     $init_8c03bfa8Ptr = $this->allocRellocate('_init_8c03bfa8', 4);
-    //     $var_vibport_8c1ba354Ptr = $this->allocRellocate('_var_vibport_8c1ba354', 4);
-    //     $this->initUint32($var_vibport_8c1ba354Ptr, 0xbebacafe);
-
-    //     $var_tasks_8c1ba3c8Ptr = $this->allocRellocate('_var_tasks_8c1ba3c8', 4);
-
-    //     $this->shouldRead($init_8c03bd80Ptr, 0);
-    //     $this->shouldRead($var_queuesAreInitialized_8c157a60Ptr, 0);
-    //     $this->shouldRead($init_8c03bfa8Ptr, 0);
-        
-    //     $this->shouldCall('_gdFsReqDrvStat')->andReturn(0);
-    //     $this->shouldWrite($init_8c03bfa8Ptr, 1);
-
-    //     // GDD_DRVSTAT_OPEN
-    //     $this->shouldCall('_gdFsGetDrvStat')->andReturn(0x06);
-
-    //     $this->shouldRead($var_vibport_8c1ba354Ptr, -1);
-
-    //     // FIXME: -1 & 0xffffffff
-    //     $this->singleCall('_GameMain_8c01392e')->singleShouldReturn(-1 & 0xffffffff)->run();
-    // }
+    private function allocRellocate($name, $size)
+    {
+        $ptr = $this->alloc($size);
+        $this->rellocate($name, $ptr);
+        return $ptr;
+    }
 
     private function resolveNjUserMain()
     {
@@ -1109,12 +1050,5 @@ return new class extends TestCase {
         $this->setSize('_gdFsReqDrvStat', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
         $this->setSize('_pdVibMxStop', 4);
-    }
-
-    private function allocRellocate($name, $size)
-    {
-        $ptr = $this->alloc($size);
-        $this->rellocate($name, $ptr);
-        return $ptr;
     }
 };

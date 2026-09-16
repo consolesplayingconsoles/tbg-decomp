@@ -6,7 +6,7 @@
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _pdVibMxStop
           .IMPORT     _DebugMenuFreeSessionAssets_8c016182
-          .IMPORT     _var_8c1bb8c4
+          .IMPORT     _var_titleActive_8c1bb8c4
           .IMPORT     _init_8c03bd80
           .IMPORT     _init_8c03bd84
           .IMPORT     _TitlePushTitle_8c015fd6
@@ -40,7 +40,7 @@
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _PauseTask_8c012cbc
           .IMPORT     _DebugMenuDemoRecordTask_8c01677e
-          .IMPORT     _var_8c1bb8d4
+          .IMPORT     _var_isAttractDemo_8c1bb8d4
           .IMPORT     _PauseToggleTask_8c012d06
           .IMPORT     _DemoInputTask_8c016bf4
           .IMPORT     _DemoStartTour_8c025af4
@@ -61,7 +61,7 @@
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_debugMenuCourseSel_8c1bc824
           .IMPORT     _var_startStopIndex_8c228704
-          .IMPORT     _var_inputMapSel_8c1bb8c8
+          .IMPORT     _var_driveMode_8c1bb8c8
           .IMPORT     _AsqGetRandomA_8c012166
           .IMPORT     _var_demoShotId_8c227dd4
           .IMPORT     _init_demoFirstShot_8c0460b0
@@ -71,8 +71,8 @@
           .IMPORT     _var_savedCameraMode_8c227da0
           .IMPORT     _var_savedCameraCueState_8c227da8
           .IMPORT     _RouteLoadGetLatch_8c01432a
-          .IMPORT     _var_loadedFooNjm_8c1bc448
-          .IMPORT     _var_8c1bc450
+          .IMPORT     _var_fuuNjm_8c1bc448
+          .IMPORT     _var_fuuLastFrame_8c1bc450
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _var_memblkSource_8c0fcd48
           .IMPORT     _AsqRequestDat_8c011182
@@ -128,7 +128,7 @@
           .IMPORT     _var_interiorTexlist_8c1bc438
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_resourceGroup_8c2263a8
-          .IMPORT     _var_8c1ba2e0
+          .IMPORT     _var_saveBuf_8c1ba2e0
           .IMPORT     _var_backupFileImageBuf_8c1ba348
           .IMPORT     _var_vmuIconFileBuf_8c1ba344
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
@@ -153,9 +153,9 @@
           .IMPORT     _var_lcdAnimBus_8c2260ac
           .IMPORT     _var_lcdAnimDanger_8c2260b8
           .IMPORT     _var_lcdAnimLoading_8c2260c4
-          .IMPORT     _var_8c1bc440
+          .IMPORT     _var_fuuTexlist_8c1bc440
           .IMPORT     _AsqRequestNj_8c011492
-          .IMPORT     _var_8c1bc444
+          .IMPORT     _var_fuuNj_8c1bc444
           .IMPORT     _var_busDoorMotion_8c1bc410
           .IMPORT     _var_busDoorShape_8c1bc414
           .IMPORT     _gdFsEntryErrFuncAll
@@ -171,14 +171,14 @@
           .IMPORT     _PauseDemoEndTask_8c012d5a
           .IMPORT     _RouteLoadPushTask_8c0144fc
           .EXPORT     _GameTask_8c012f44
-          .EXPORT     _FUN_8c01306e
-          .EXPORT     _FUN_8c01328c
+          .EXPORT     _GameEnterDrive_8c01306e
+          .EXPORT     _GameStartSelectedCourse_8c01328c
           .EXPORT     _GamePushLoadingTask_8c013310
           .EXPORT     _GameInit_8c0134ec
           .EXPORT     _GameMain_8c01392e
           .EXPORT     _GameExit_8c0139d4
           .EXPORT     _init_renderTexlist_8c03bf44
-          .EXPORT     _init_8c03bf4c
+          .EXPORT     _init_pauseDimQuad_8c03bf4c
           .EXPORT     _var_tex_8c157af8 ; 013ae8_route_load.src, 014934_unused_load.c, 015ab8_title.c, 015ab8_title.src, 016d2c_course_menu.c, 016d2c_course_menu.src, 019e98_main_menu.c, 01c980.src, 01d290_album.src, 01d7fc.src, 01e27c.src, 01f3c0.src
           .EXPORT     _var_pauseSettle_8c18ad04 ; 0129cc_pause.src
           .EXPORT     _var_retirePhase_8c18ad08 ; 0129cc_pause.src
@@ -186,10 +186,10 @@
           .EXPORT     _var_onRetire_8c18ad10 ; 0129cc_pause.src
 
           .AIFDEF UNIT_TESTING
-          .EXPORT     _task_8c012f9c
-          .EXPORT     _task_8c013388
+          .EXPORT     _runStartViewTask_8c012f9c
+          .EXPORT     _bootTask_8c013388
           .EXPORT     _usrGdErrFunc_8c0134d6
-          .EXPORT     _init_8c03bfa8
+          .EXPORT     _init_drvStatPending_8c03bfa8
           .EXPORT     _var_fogTable_8c18aaf8
           .EXPORT     _var_renderTexname_8c18acf8
           .EXPORT     _var_gdErr_8c18ad14
@@ -243,7 +243,7 @@ LAB_8c012f96:
           LDS.L       @R15+,PR
           RTS
           NOP
-_task_8c012f9c:
+_runStartViewTask_8c012f9c:
           MOV.L       LP_GEN_99840+52,R3
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
@@ -317,7 +317,7 @@ LP_GEN_99840:
           .DATA.L _var_vibport_8c1ba354
           .DATA.L _pdVibMxStop
           .DATA.L _DebugMenuFreeSessionAssets_8c016182
-          .DATA.L _var_8c1bb8c4
+          .DATA.L _var_titleActive_8c1bb8c4
           .DATA.L _init_8c03bd80
           .DATA.L _init_8c03bd84
           .DATA.L _TitlePushTitle_8c015fd6
@@ -346,7 +346,7 @@ LAB_8c013064:
           MOV         #H'0,R4
           JMP         @R2
           MOV.L       @R15+,R14
-_FUN_8c01306e:
+_GameEnterDrive_8c01306e:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -506,7 +506,7 @@ LP_GEN_31464:
           .DATA.L _var_playMode_8c1bb8d0
           .DATA.L _PauseTask_8c012cbc
           .DATA.L _DebugMenuDemoRecordTask_8c01677e
-          .DATA.L _var_8c1bb8d4
+          .DATA.L _var_isAttractDemo_8c1bb8d4
           .DATA.L _PauseToggleTask_8c012d06
 
 LAB_8c0131e4:
@@ -597,7 +597,7 @@ LAB_8c013236:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FUN_8c01328c:
+_GameStartSelectedCourse_8c01328c:
           MOV.L       LP_GEN_38000+28,R3
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
@@ -731,7 +731,7 @@ LAB_8c01335a:
           MOV.L       @R15+,R13
           JMP         @R2
           MOV.L       @R15+,R14
-_task_8c013388:
+_bootTask_8c013388:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       R13,@-R15
@@ -767,16 +767,16 @@ LP_GEN_38000:
           .DATA.L _HudReset_8c02018c
           .DATA.L _StopSpawnInit_8c02d968
           .DATA.L _DriveCueInit_8c020528
-          .DATA.L _task_8c012f9c
+          .DATA.L _runStartViewTask_8c012f9c
           .DATA.L _FadeStartRunTransition_8c0228a2
           .DATA.L _var_currentCourse_8c1bb868
           .DATA.L _var_seed_8c157a64
           .DATA.L _var_debugMenuCourseSel_8c1bc824
           .DATA.L _var_startStopIndex_8c228704
-          .DATA.L _var_inputMapSel_8c1bb8c8
+          .DATA.L _var_driveMode_8c1bb8c8
           .DATA.L _AsqGetRandomA_8c012166
           .DATA.L _var_demoShotId_8c227dd4
-          .DATA.L _var_8c1bb8d4
+          .DATA.L _var_isAttractDemo_8c1bb8d4
           .DATA.L _init_demoFirstShot_8c0460b0
           .DATA.L _FileMenuResetNewGame_8c01895e
           .DATA.L _srand
@@ -909,9 +909,9 @@ _GameInit_8c0134ec:
 
 LP_GEN_65923:
           .DATA.L _RouteLoadGetLatch_8c01432a ; LP_GEN_65923+0
-          .DATA.L _var_loadedFooNjm_8c1bc448
+          .DATA.L _var_fuuNjm_8c1bc448
           .DATA.L H'4F800000
-          .DATA.L _var_8c1bc450
+          .DATA.L _var_fuuLastFrame_8c1bc450
           .DATA.L _AsqResetQueues_8c011f6c
           .DATA.L _var_memblkSource_8c0fcd48
           .DATA.L _const_8c03336c
@@ -1198,14 +1198,14 @@ LP_GEN_90231:
           .DATA.L _var_interiorTexlist_8c1bc438
           .DATA.L _var_menuState_8c1bc7a8
           .DATA.L _var_resourceGroup_8c2263a8
-          .DATA.L _var_8c1ba2e0
+          .DATA.L _var_saveBuf_8c1ba2e0
           .DATA.L _var_backupFileImageBuf_8c1ba348
           .DATA.L _var_vmuIconFileBuf_8c1ba344
           .DATA.L _var_currentSysResGroupInfo_8c225fb0
           .DATA.L _var_demoBuf_8c1ba3c4
           .DATA.L _var_vmGameBuf_8c1bc454
           .DATA.L _var_selectedVm_8c1ba34c
-          .DATA.L _var_8c1bb8c4
+          .DATA.L _var_titleActive_8c1bb8c4
           .DATA.L _var_demoIndex_8c1bb8d8
           .DATA.L _var_loadScreenActive_8c157a6c
           .DATA.L _VmGameResetLcdAnims_8c01c8dc
@@ -1454,7 +1454,7 @@ _GameExit_8c0139d4:
 LP_GEN_19861:
           .DATA.L     _VmGameSetLcdSlot_8c01c8fc ; LP_GEN_19861+0
           .DATA.L     _VmGameUpdateLcd_8c01c910
-          .DATA.L     _task_8c013388
+          .DATA.L     _bootTask_8c013388
           .DATA.L     _var_tasks_8c1ba3c8
           .DATA.L     _TaskPush_8c014ae8
           .DATA.L     _AsqInitQueues_8c011f36
@@ -1483,12 +1483,12 @@ LP_GEN_19861:
           .DATA.L     s_vm_danger_lcd_8c033408
           .DATA.L     _var_lcdAnimLoading_8c2260c4
           .DATA.L     s_now_loading_lcd_8c033418
-          .DATA.L     _var_8c1bc440
+          .DATA.L     _var_fuuTexlist_8c1bc440
           .DATA.L     s_fuu_pvm_8c033428
           .DATA.L     _AsqRequestNj_8c011492
-          .DATA.L     _var_8c1bc444
+          .DATA.L     _var_fuuNj_8c1bc444
           .DATA.L     s_fuu_njd_8c033430
-          .DATA.L     _var_loadedFooNjm_8c1bc448
+          .DATA.L     _var_fuuNjm_8c1bc448
           .DATA.L     s_fuu_njm_8c033438
           .DATA.L     _var_busDoorMotion_8c1bc410
           .DATA.L     s_3s_bus_m2_njm_8c03344c
@@ -1507,7 +1507,7 @@ LP_GEN_19861:
           .DATA.L     _init_8c03bd84
           .DATA.L     _pdVibMxStop
           .DATA.L     _var_queuesAreInitialized_8c157a60
-          .DATA.L     _init_8c03bfa8
+          .DATA.L     _init_drvStatPending_8c03bfa8
           .DATA.L     _gdFsReqDrvStat
           .DATA.L     _gdFsGetSysHn
           .DATA.L     _gdFsGetStat
@@ -1520,7 +1520,7 @@ LP_GEN_19861:
 _init_renderTexlist_8c03bf44:        ; from defines
           .DATA.L      _var_renderTexname_8c18acf8 ; ukn
           .DATA.B      H'01, H'00, H'00, H'00
-_init_8c03bf4c:        ; from defines
+_init_pauseDimQuad_8c03bf4c:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'D4, H'9B, H'5E, H'3F, H'00, H'00, H'00, H'7F
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'F0, H'43, H'D4, H'9B, H'5E, H'3F, H'00, H'00, H'00, H'7F
           .DATA.B      H'00, H'00, H'20, H'44, H'00, H'00, H'00, H'00, H'D4, H'9B, H'5E, H'3F, H'00, H'00, H'00, H'7F
@@ -1532,7 +1532,7 @@ _init_8c03bf8c:        ; from ghidra
           .DATA.L      _init_8c03bf8c
           .DATA.L      _const_8c033474 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
-_init_8c03bfa8:        ; from defines
+_init_drvStatPending_8c03bfa8:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00
           .SECTION    C,DATA,ALIGN=4
 _const_8c033364:
@@ -1614,9 +1614,6 @@ _s_DUMMY_8c03346c:
           .DATA.B     H'00
           .RES.B 2
 _const_8c033474:
-          .DATA.B H'00
-          .DATA.B H'00
-          .DATA.B H'00
           .DATA.B H'00
           .SECTION    B,DATA,ALIGN=4
 _var_tex_8c157af8:

@@ -30,11 +30,11 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c157ad4', 0);
     }
 
-    // param 1, var_inputMapSel_8c1bb8c8 == 0: queue inputTask_8c012504.
+    // param 1, var_driveMode_8c1bb8c8 == 0: queue inputTask_8c012504.
     public function test_installs_inputTask_8c012504_when_flag_clear()
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
 
         $this->call('_InputPushTask_8c0128cc')->with(1);
 
@@ -50,11 +50,11 @@ return new class extends TestCase {
         );
     }
 
-    // param 1, var_inputMapSel_8c1bb8c8 != 0: queue inputTaskAlt_8c012718.
+    // param 1, var_driveMode_8c1bb8c8 != 0: queue inputTaskAlt_8c012718.
     public function test_installs_inputTaskAlt_8c012718_when_flag_set()
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
 
         $this->call('_InputPushTask_8c0128cc')->with(1);
 
@@ -87,7 +87,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c157ae4', 4);
         $this->setSize('_var_8c157ae8', 4);
         $this->setSize('_var_8c157ad4', 0x10);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_PspTask_8c012324', 4);
     }
 };

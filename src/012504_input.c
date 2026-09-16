@@ -204,22 +204,22 @@ void InputPushTask_8c0128cc(int param)
         var_8c157ae8 = 0;
         var_8c157ad4[0] = 0;
     } else if (param == 1) {
-        if (var_inputMapSel_8c1bb8c8 == 0) {
+        if (var_driveMode_8c1bb8c8 == 0) {
             action = inputTask_8c012504;
         } else {
             action = inputTaskAlt_8c012718;
         }
         LOG_DEBUG(("[INPUT] InputPushTask_8c0128cc: queueing input handler (%s)\n",
-                   var_inputMapSel_8c1bb8c8 == 0 ? "inputTask_8c012504" : "inputTaskAlt_8c012718"));
+                   var_driveMode_8c1bb8c8 == 0 ? "inputTask_8c012504" : "inputTaskAlt_8c012718"));
         TaskPush_8c014ae8(var_tasks_8c1ba3c8, action,
                           &var_8c157a74, &created_state, 0);
     }
 }
 
-/* Tail call in asm; dispatches inputTask or Alt via var_inputMapSel_8c1bb8c8. */
+/* Tail call in asm; dispatches inputTask or Alt via var_driveMode_8c1bb8c8. */
 void InputDispatchTask_8c012970(void)
 {
-    if (var_inputMapSel_8c1bb8c8 == 0) {
+    if (var_driveMode_8c1bb8c8 == 0) {
         LOG_TRACE(("[INPUT] InputDispatchTask_8c012970: dispatch inputTask_8c012504\n"));
         inputTask_8c012504();
     } else {

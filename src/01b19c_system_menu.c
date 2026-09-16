@@ -288,7 +288,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             if (result == 1) {
                 /* confirmed -- kick off the VMU read */
                 BupLoad_8c014bc6(var_selectedVm_8c1ba34c,
-                                 init_saveNames_8c044d50[var_saveSlot_8c1ba350], var_8c1ba2e0);
+                                 init_saveNames_8c044d50[var_saveSlot_8c1ba350], var_saveBuf_8c1ba2e0);
                 var_vmBusy_8c157a7c = 1;
                 var_menuState_8c1bc7a8.subState_0x1c = SAVE_PHASE_IN_PROGRESS;
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOADING_NO_POWER_OFF);
@@ -308,7 +308,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 break;
             }
             if (buGetLastError(var_selectedVm_8c1ba34c) == 0) {
-                buAnalyzeBackupFileImage(&var_backupFileHeader_8c1ba2e4, var_8c1ba2e0);
+                buAnalyzeBackupFileImage(&var_backupFileHeader_8c1ba2e4, var_saveBuf_8c1ba2e0);
                 njMemCopy(&var_progress_8c1ba1cc, var_backupFileHeader_8c1ba2e4.save_data, 0xe8);
                 if (FileMenuIsSaveValid_8c018804((int *)&var_progress_8c1ba1cc) != 0) {
                     SystemMenuApplyLoadedProgress_8c01b19c();
@@ -460,7 +460,7 @@ void SystemMenuSwitchFromTask_8c01ba64(Task *task)
     TaskSetAction_8c014b3e(task, saveTask_8c01b3ac);
     var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_WAIT_PVM;
     var_menuState_8c1bc7a8.selected_0x38 = SAVE_MENU_LOAD;
-    var_8c1ba2e0 = syMalloc(0x600);
+    var_saveBuf_8c1ba2e0 = syMalloc(0x600);
     VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c,
                                    init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
     ObjectsSwapMessageBoxFor_8c02aefc("");

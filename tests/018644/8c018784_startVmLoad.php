@@ -12,7 +12,7 @@ return new class extends TestCase {
         $this->setSize('_var_tasks_8c1ba3c8', 4);
         $this->setSize('_var_vmBusy_8c157a7c', 4);
         $this->setSize('_init_saveNames_8c044d50', 0x2c); // char*[11]
-        $this->setSize('_var_8c1ba2e0', 4);
+        $this->setSize('_var_saveBuf_8c1ba2e0', 4);
         $this->setSize('_var_saveBufCursor_8c225fe0', 4);
         $this->setSize('_var_saveLoadResult_8c226010', 4);
         $this->setSize('_syMalloc', 4);
@@ -40,7 +40,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($createdTask + 0x0c, 0);
         $this->shouldWriteLong($createdTask + 0x18, $this->addressOf('_init_saveNames_8c044d50'));
         $this->shouldCall('_syMalloc')->with(0x3c00)->andReturn($buf);
-        $this->shouldWriteLong($this->addressOf('_var_8c1ba2e0'), $buf);
+        $this->shouldWriteLong($this->addressOf('_var_saveBuf_8c1ba2e0'), $buf);
         $this->shouldWriteLong($this->addressOf('_var_saveBufCursor_8c225fe0'), $buf);
         $this->shouldWriteLong($this->addressOf('_var_saveLoadResult_8c226010'), 0);
     }

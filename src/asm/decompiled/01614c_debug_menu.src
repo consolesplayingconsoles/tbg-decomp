@@ -35,14 +35,14 @@
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_playMode_8c1bb8d0
-          .IMPORT     _FUN_8c01328c
+          .IMPORT     _GameStartSelectedCourse_8c01328c
           .IMPORT     _var_replayPackedSize_8c228ba4
           .IMPORT     _BupSave_8c014bcc
-          .IMPORT     _var_inputMapSel_8c1bb8c8
+          .IMPORT     _var_driveMode_8c1bb8c8
           .IMPORT     _var_seed_8c157a64
           .IMPORT     _BupLoad_8c014bc6
           .IMPORT     _ObjectsRequestMessageAssets_8c02aa36
-          .IMPORT     _var_8c1bb8d4
+          .IMPORT     _var_isAttractDemo_8c1bb8d4
           .IMPORT     _ReplayCodecPack_8c02f934
           .IMPORT     _ReplayCodecUnpack_8c02fa14
           .IMPORT     _sdMidiStopAll
@@ -1039,7 +1039,7 @@ LP_GEN_94139:
           .DATA.L _var_demoCursor_8c225fa8 ; H'8C01687C
           .DATA.L _var_peripherals_8c1ba35c ; H'8C016880
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C016884
-          .DATA.L _FUN_8c01328c ; H'8C016888
+          .DATA.L _GameStartSelectedCourse_8c01328c ; H'8C016888
           .DATA.L _BupGetInfo_8c014bba ; H'8C01688C
           .DATA.L _var_demoBuf_8c1ba3c4 ; H'8C016890
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C016894
@@ -1290,7 +1290,7 @@ LP_GEN_65913:
           .DATA.L _ReplayCodecInit_8c02f320 ; H'8C016A8C
           .DATA.L _ReplayCodecPack_8c02f934 ; H'8C016A90
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C016A94
-          .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C016A98
+          .DATA.L _var_driveMode_8c1bb8c8 ; H'8C016A98
           .DATA.L _var_seed_8c157a64 ; H'8C016A9C
           .DATA.L _BupGetInfo_8c014bba ; H'8C016AA0
           .DATA.L _BupMount_8c014c00 ; H'8C016AA4
@@ -1427,7 +1427,7 @@ LP_GEN_41084:
           .DATA.L _njPrint ; H'8C016BAC
           .DATA.L _buStat ; H'8C016BB0
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C016BB4
-          .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C016BB8
+          .DATA.L _var_driveMode_8c1bb8c8 ; H'8C016BB8
           .DATA.L _var_seed_8c157a64 ; H'8C016BBC
           .DATA.L _var_demoBuffer_8c1bc828 ; H'8C016BC0
           .DATA.L _ReplayCodecInit_8c02f320 ; H'8C016BC4
@@ -1435,10 +1435,10 @@ LP_GEN_41084:
           .DATA.L _syFree ; H'8C016BCC
           .DATA.L _BupUnmount_8c014c46 ; H'8C016BD0
           .DATA.L _TaskFree_8c014b66 ; H'8C016BD4
-          .DATA.L _FUN_8c01328c ; H'8C016BD8
+          .DATA.L _GameStartSelectedCourse_8c01328c ; H'8C016BD8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C016BDC
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C016BE0
-          .DATA.L _var_8c1bb8d4 ; H'8C016BE4
+          .DATA.L _var_isAttractDemo_8c1bb8d4 ; H'8C016BE4
           .DATA.L _replayLoadTask_8c0169bc ; H'8C016BE8
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C016BEC
           .DATA.L _TaskPush_8c014ae8 ; H'8C016BF0

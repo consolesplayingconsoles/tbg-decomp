@@ -13,7 +13,7 @@
           .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _init_8c03bd80
-          .IMPORT     _var_8c1bb8c4
+          .IMPORT     _var_titleActive_8c1bb8c4
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_tasks_8c1ba3c8
@@ -652,7 +652,7 @@ L48:
           .DATA.L     _init_saveNames_8c044d50
           .DATA.L     _VmMenuUpdateVmusStatus_8c019550
           .DATA.L     _init_8c03bd80
-          .DATA.L     _var_8c1bb8c4 ; H'8c015f50
+          .DATA.L     _var_titleActive_8c1bb8c4 ; H'8c015f50
           .DATA.L     _VmMenuSwitchFromTask_8c019e44
           .DATA.L     _DebugMenuFreeSessionAssets_8c016182
           .DATA.L     _TxtStartAttractDemo_8c0159ac
@@ -758,7 +758,7 @@ _TitlePushTitle_8c015fd6:                   ; function: TitlePushTitle_8c015fd6
           MOV.L       L53+48,R14; _var_menuState_8c1bc7a8
           MOV         #100,R0
           MOV         #0,R3
-          MOV.L       L53+52,R1; _var_8c1bb8c4
+          MOV.L       L53+52,R1; _var_titleActive_8c1bb8c4
           MOV.L       R3,@(24,R14)
           MOV         R3,R2
           MOV.L       R3,@(R0,R14)
@@ -837,7 +837,7 @@ L53:
           .DATA.L     _njSetBackColor ; H'8c0160c0
           .DATA.L     _titleTask_8c015ab8
           .DATA.L     _var_menuState_8c1bc7a8
-          .DATA.L     _var_8c1bb8c4
+          .DATA.L     _var_titleActive_8c1bb8c4
           .DATA.L     _var_tex_8c157af8 ; H'8c0160d0
           .DATA.L     _njGarbageTexture
           .DATA.L     H'C0000000 ; -2.0

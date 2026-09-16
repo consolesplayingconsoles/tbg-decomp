@@ -19,7 +19,7 @@
 **Renamed vars (kept 8c<addr> suffix; sed'd across src+tests, incl. asm .src owners 012f44_game.src/014f54_text_pre_data.src and PHP `_var_...` strings): var_8c1bb8cc->var_pauseActive_8c1bb8cc, var_8c18ad04->var_pauseSettle_8c18ad04, var_8c18ad10->var_onRetire_8c18ad10, var_8c18ad08->var_retirePhase_8c18ad08, var_8c18ad0c->var_confirmChoice_8c18ad0c. Added private #defines in 0129cc.c: MARK_BASE/CONTINUE/RETIRE/CONFIRM_YES/CONFIRM_NO, MARK_Z_ARROW/MARK_Z_BASE, STICK_THRESHOLD, RETIRE_PHASE_IDLE/CONFIRM/FADING, CONFIRM_YES/CONFIRM_NO. Full suite still 284/284.**
 
 ## task_8c012cbc  DONE
-- pushTask_8c014ae8 action installed by routeLoadTask_8c014338 -> FUN_8c01306e -> pushTask_8c014ae8.
+- pushTask_8c014ae8 action installed by routeLoadTask_8c014338 -> GameEnterDrive_8c01306e -> pushTask_8c014ae8.
 - reset-requested guard (var_resetRequested_8c157a78 && !var_vmBusy_8c157a7c && !var_queuesAreInitialized_8c157a60)
   -> DebugMenuFreeSessionAssets_8c016182() + pushTitle_8c015fd6(1), return. Same guard reused verbatim in
   task_8c012d06/task_8c012d5a below.
@@ -46,8 +46,8 @@
   calling-convention artifact, unrelated to the memory-map fix).
 
 ## task_8c012d06  DONE
-- Installed by FUN_8c01306e (unit 012f44_game) in place of task_8c012cbc when
-  var_playMode_8c1bb8d0 == PLAY_MODE_DEMO (attract loop) and var_8c1bb8d4 == 0
+- Installed by GameEnterDrive_8c01306e (unit 012f44_game) in place of task_8c012cbc when
+  var_playMode_8c1bb8d0 == PLAY_MODE_DEMO (attract loop) and var_isAttractDemo_8c1bb8d4 == 0
   (the other branch installs task_8c012d5a instead). Different task list too:
   var_tasks_8c1ba3c8, not var_tasks_8c1ba5e8 (that one's still used as the arg
   to execTasks_8c014b42 inside the body though, same as task_8c012cbc).
@@ -70,7 +70,7 @@
   per the single ordered expectations queue.
 
 ## task_8c012d5a  DONE
-- Installed by FUN_8c01306e (unit 012f44_game) for PLAY_MODE_DEMO when var_8c1bb8d4 != 0
+- Installed by GameEnterDrive_8c01306e (unit 012f44_game) for PLAY_MODE_DEMO when var_isAttractDemo_8c1bb8d4 != 0
   (the ending sequence: attract loop plays out then returns to title). Unlike
   task_8c012d06 this one USES its task param -- takes `Task *task` (r4), reads
   task->field_0x08 (phase 0/1/2) and task->field_0x0c (frame counter). Ghidra
@@ -131,8 +131,8 @@
 - FadeUpdate_8c022560() takes NO arg (pushes all regs, never reads r4); Ghidra's arg spurious
 - peripheral: press=0x10 (bitmask), x1=0x1c, y1=0x1e (Sint16)
 - priorities: arrows -1.09f (BF8B851F), base -1.1f (BF8CCCCD)
-- init_8c03bf4c: njDrawPolygon vertex data, owned by 012f44_game
-- test needs setSize on every external fn + init_8c03bf4c for reloc resolution
+- init_pauseDimQuad_8c03bf4c: njDrawPolygon vertex data, owned by 012f44_game
+- test needs setSize on every external fn + init_pauseDimQuad_8c03bf4c for reloc resolution
 - press&4 deactivate branch writes var_pauseActive_8c1bb8cc=0 (NOT bb8b8; Ghidra puVar1 = bb8cc there)
 - draws always fall through to base 0x74 draw; every branch-N test must also declare the 0x74 draw + njDrawPolygon (single ordered expectation queue: writes AND calls interleaved, strict order)
 - to see the failing instruction: sh4objtest test <php> <obj.obj> -d  (suite/-c hides disasm)

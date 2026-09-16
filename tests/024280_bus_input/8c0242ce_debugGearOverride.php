@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // debugGearOverride_8c0242ce: STATIC, called from BusInputUpdate_8c0246b2 each frame.
-// Only acts in direct (non-mapped) steering mode (var_inputMapSel_8c1bb8c8
+// Only acts in direct (non-mapped) steering mode (var_driveMode_8c1bb8c8
 // == 0): the first peripheral's D-pad up (PDD_DGT_KU, 0x10) forces
 // BusState.gear_0x2f4 to 0, D-pad down (PDD_DGT_KD, 0x20) forces it to 5
 // (reverse). Neither pressed, or mapped-route mode active, leaves the gear
@@ -13,14 +13,14 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
     }
 
     private function setup(int $inputMapSel, int $press): int {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), $inputMapSel);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), $inputMapSel);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, $press);
         $gearAddr = $this->addressOf('_var_busState_8c1bb9d0') + 0x2f4;
         $this->initUint32($gearAddr, 3); // pre-existing gear, distinct from 0 and 5

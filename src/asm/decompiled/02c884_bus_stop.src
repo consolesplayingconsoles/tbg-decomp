@@ -45,18 +45,18 @@
           .IMPORT     _njTranslate
           .IMPORT     _njRotateY
           .IMPORT     _njMultiMatrix
-          .IMPORT     _var_8c1bc440
+          .IMPORT     _var_fuuTexlist_8c1bc440
           .IMPORT     _njSetTexture
           .IMPORT     _var_8c1bc44c
-          .IMPORT     _var_loadedFooNjm_8c1bc448
-          .IMPORT     _var_8c1bc444
+          .IMPORT     _var_fuuNjm_8c1bc448
+          .IMPORT     _var_fuuNj_8c1bc444
           .IMPORT     _njCnkSimpleDrawMotion
           .IMPORT     _var_hudMarkLatch_8c22643c
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_driveCueState_8c2264b8
           .IMPORT     _var_8c228908
           .IMPORT     _njSqrt
-          .IMPORT     _var_8c1bc450
+          .IMPORT     _var_fuuLastFrame_8c1bc450
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_fadeCompleteCallback_8c22656c
           .IMPORT     _DrivePointsRunComplete_8c02c586
@@ -786,11 +786,11 @@ LP_GEN_16762:
           .DATA.L _njTranslate ; H'8C02CE24
           .DATA.L _njRotateY ; H'8C02CE28
           .DATA.L _njMultiMatrix ; H'8C02CE2C
-          .DATA.L _var_8c1bc440 ; H'8C02CE30
+          .DATA.L _var_fuuTexlist_8c1bc440 ; H'8C02CE30
           .DATA.L _njSetTexture ; H'8C02CE34
           .DATA.L _var_8c1bc44c ; H'8C02CE38
-          .DATA.L _var_loadedFooNjm_8c1bc448 ; H'8C02CE3C
-          .DATA.L _var_8c1bc444 ; H'8C02CE40
+          .DATA.L _var_fuuNjm_8c1bc448 ; H'8C02CE3C
+          .DATA.L _var_fuuNj_8c1bc444 ; H'8C02CE40
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02CE44
 _BusStopUpdateArrival_8c02ce48:
           MOV.L       R14,@-R15
@@ -1053,7 +1053,7 @@ LP_GEN_27124:
           .DATA.L _var_8c228900 ; H'8C02D034
           .DATA.L _var_8c228908 ; H'8C02D038
           .DATA.L _njSqrt ; H'8C02D03C
-          .DATA.L _var_8c1bc450 ; H'8C02D040
+          .DATA.L _var_fuuLastFrame_8c1bc450 ; H'8C02D040
           .DATA.L _drawStopMarker_8c02cd92 ; H'8C02D044
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02D048
           .DATA.L H'40400000 ; H'8C02D04C

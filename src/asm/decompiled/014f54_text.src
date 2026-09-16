@@ -13,16 +13,16 @@
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _var_demoBuf_8c1ba3c4
           .IMPORT     _var_currentCourse_8c1bb868
-          .IMPORT     _var_inputMapSel_8c1bb8c8
+          .IMPORT     _var_driveMode_8c1bb8c8
           .IMPORT     _var_seed_8c157a64
           .IMPORT     _ReplayCodecInit_8c02f320
           .IMPORT     _ReplayCodecUnpack_8c02fa14
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _FUN_8c01328c
+          .IMPORT     _GameStartSelectedCourse_8c01328c
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _var_playMode_8c1bb8d0
-          .IMPORT     _var_8c1bb8d4
+          .IMPORT     _var_isAttractDemo_8c1bb8d4
           .IMPORT     _var_demoIndex_8c1bb8d8
           .IMPORT     _var_demoBuffer_8c1bc828
           .IMPORT     _var_glyphTexnames_8c1bc78c
@@ -1541,19 +1541,19 @@ LP_GEN_51554:
           .DATA.L _RouteLoadGetLatch_8c01432a ; LP_GEN_51554+0
           .DATA.L _var_demoBuf_8c1ba3c4
           .DATA.L _var_currentCourse_8c1bb868
-          .DATA.L _var_inputMapSel_8c1bb8c8
+          .DATA.L _var_driveMode_8c1bb8c8
           .DATA.L _var_seed_8c157a64
           .DATA.L _var_demoBuffer_8c1bc828
           .DATA.L _ReplayCodecInit_8c02f320
           .DATA.L _ReplayCodecUnpack_8c02fa14
           .DATA.L _syFree
           .DATA.L _TaskFree_8c014b66
-          .DATA.L _FUN_8c01328c
+          .DATA.L _GameStartSelectedCourse_8c01328c
           .DATA.L _demoLoadTask_8c01594c
           .DATA.L _var_tasks_8c1ba3c8
           .DATA.L _TaskPush_8c014ae8
           .DATA.L _var_playMode_8c1bb8d0
-          .DATA.L _var_8c1bb8d4
+          .DATA.L _var_isAttractDemo_8c1bb8d4
           .DATA.L _var_demoIndex_8c1bb8d8
           .DATA.L _AsqInitQueues_8c011f36
           .DATA.L _AsqResetQueues_8c011f6c

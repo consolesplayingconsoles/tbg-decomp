@@ -194,7 +194,7 @@ side" input pattern at `024280_bus_input.c:441-511`, suggested a "look both ways
 mechanic), but they are unrelated to the railway crossing. They drive
 `BusDriveFindLaneTarget_8c023e7e` (`023938_bus_drive.c`) -- the search for a lane-change
 target point via route-line-segment intersection (`IntersectSegments_8c0206f0`)
-in the mapped-route steering control scheme (`var_inputMapSel_8c1bb8c8 != 0`).
+in auto drive mode (`var_driveMode_8c1bb8c8 != 0`), which steers along the route line.
 "Crossing" there means a *route-line* crossing (two line segments
 intersecting), not the railway *level* crossing -- a coincidental name
 collision. Renamed to `laneTargetSearchDone_0x334`/`laneTargetSearchSide_0x338`

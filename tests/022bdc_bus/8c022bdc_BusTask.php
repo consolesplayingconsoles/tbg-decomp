@@ -23,7 +23,7 @@ if (!function_exists('fdec')) {
  * This test covers the simplest reachable path: driveState_0x2b4==0
  * (boarding), doorState_0x3c0==0 with no doors-open trigger (no state
  * change, no sdMidiPlay), speed_0x27c==0 (skips the BusDriveSampleGround_8c023938/023cba/
- * ground-query block), var_inputMapSel_8c1bb8c8==0 (skips the steering-
+ * ground-query block), var_driveMode_8c1bb8c8==0 (skips the steering-
  * smoothing block -- state 0 never reads steering itself), timeOfDay
  * neither DAY nor NIGHT (skips the blinker branch), gear!=5
  * and signalSide_0x25c==0 (sdMidiStop, not sdMidiPlay), and playMode != DEMO
@@ -43,7 +43,7 @@ return new class extends TestCase {
         $this->setSize('_var_peripherals_8c1ba35c', 0x28);
         $this->setSize('_BusInputUpdate_8c0246b2', 4);
         $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_BusDriveFindLaneTarget_8c023e7e', 4);
         $this->setSize('_BusLineAdvance_8c02412c', 4);
         $this->setSize('_njSin', 4);
@@ -93,7 +93,7 @@ return new class extends TestCase {
         $midiHandle1 = 0xcafe0900;
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 4, $midiHandle1);
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 0);
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
         $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $base);
@@ -117,7 +117,7 @@ return new class extends TestCase {
         // speed_0x27c == 0: the BusDriveSampleGround_8c023938/023cba + ground-query block is
         // skipped entirely.
 
-        // var_inputMapSel_8c1bb8c8 == 0: the steering-smoothing block is
+        // var_driveMode_8c1bb8c8 == 0: the steering-smoothing block is
         // skipped entirely.
 
         $this->shouldWriteLong($base + 0x070, 0);

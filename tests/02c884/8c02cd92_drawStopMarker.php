@@ -23,9 +23,9 @@ return new class extends TestCase {
         $this->setSize('_var_8c228908', 4);
         $this->setSize('_var_8c228714', 4);
         $this->setSize('_var_8c1bc44c', 4);
-        $this->setSize('_var_8c1bc440', 4);
-        $this->setSize('_var_8c1bc444', 4);
-        $this->setSize('_var_loadedFooNjm_8c1bc448', 4);
+        $this->setSize('_var_fuuTexlist_8c1bc440', 4);
+        $this->setSize('_var_fuuNj_8c1bc444', 4);
+        $this->setSize('_var_fuuNjm_8c1bc448', 4);
     }
 
     public function test_1(): void
@@ -43,9 +43,9 @@ return new class extends TestCase {
         $texlist = 0xcafe0001;
         $model = 0xcafe0002;
         $motion = 0xcafe0003;
-        $this->initUint32($this->addressOf('_var_8c1bc440'), $texlist);
-        $this->initUint32($this->addressOf('_var_8c1bc444'), $model);
-        $this->initUint32($this->addressOf('_var_loadedFooNjm_8c1bc448'), $motion);
+        $this->initUint32($this->addressOf('_var_fuuTexlist_8c1bc440'), $texlist);
+        $this->initUint32($this->addressOf('_var_fuuNj_8c1bc444'), $model);
+        $this->initUint32($this->addressOf('_var_fuuNjm_8c1bc448'), $motion);
 
         $mat = $this->addressOf('_var_scratchMatrix_8c1bc46c');
 

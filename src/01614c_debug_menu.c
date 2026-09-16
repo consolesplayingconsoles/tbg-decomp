@@ -396,7 +396,7 @@ void DebugMenuDemoRecordTask_8c01677e(Task *task, void *state)
 STATIC void startCourse_8c0167c0(void)
 {
     var_playMode_8c1bb8d0 = PLAY_MODE_NORMAL;
-    FUN_8c01328c();
+    GameStartSelectedCourse_8c01328c();
 }
 
 /* replay-save task installed by startReplaySave_8c016924; state machine driving the BupSave of the
@@ -497,7 +497,7 @@ STATIC void startReplaySave_8c016924(void)
 
     buf[0] = var_replayPackedSize_8c228ba4;
     buf[1] = var_currentCourse_8c1bb868.courseId_0x00;
-    buf[2] = var_inputMapSel_8c1bb8c8;
+    buf[2] = var_driveMode_8c1bb8c8;
     buf[3] = var_seed_8c157a64;
 
     task->active_0x08 = 1;
@@ -512,7 +512,7 @@ STATIC void replayLoadTask_8c0169bc(ReplayLoadTask *task, void *state)
 
     if (var_selectedVm_8c1ba34c == -1) {
         TaskFree_8c014b66((Task *)task);
-        FUN_8c01328c();
+        GameStartSelectedCourse_8c01328c();
         return;
     }
 
@@ -558,7 +558,7 @@ STATIC void replayLoadTask_8c0169bc(ReplayLoadTask *task, void *state)
             return;
         }
         var_currentCourse_8c1bb868.courseId_0x00 = var_demoBuf_8c1ba3c4[1];
-        var_inputMapSel_8c1bb8c8 = var_demoBuf_8c1ba3c4[2];
+        var_driveMode_8c1bb8c8 = var_demoBuf_8c1ba3c4[2];
         var_seed_8c157a64 = var_demoBuf_8c1ba3c4[3];
         dest = var_demoBuffer_8c1bc828;
         ReplayCodecInit_8c02f320();
@@ -567,7 +567,7 @@ STATIC void replayLoadTask_8c0169bc(ReplayLoadTask *task, void *state)
         var_demoBuf_8c1ba3c4 = (int *)-1;
         BupUnmount_8c014c46(var_selectedVm_8c1ba34c);
         TaskFree_8c014b66((Task *)task);
-        FUN_8c01328c();
+        GameStartSelectedCourse_8c01328c();
         return;
     }
     default:
@@ -587,7 +587,7 @@ STATIC void startReplayLoad_8c016b4c(void)
     }
 
     var_playMode_8c1bb8d0 = PLAY_MODE_DEMO;
-    var_8c1bb8d4 = 0;
+    var_isAttractDemo_8c1bb8d4 = 0;
 
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, replayLoadTask_8c0169bc, (Task **)&task, &state, 0);
     task->phase_0x08 = 0;

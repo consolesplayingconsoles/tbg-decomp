@@ -361,7 +361,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
 
             if (var_isFading_8c226568 == FALSE) {
                 if (!init_8c03bd80) {
-                    var_8c1bb8c4 = FALSE;
+                    var_titleActive_8c1bb8c4 = FALSE;
 
                     VmMenuSwitchFromTask_8c019e44(task);
                 }
@@ -419,7 +419,7 @@ void TitlePushTitle_8c015fd6 (Bool direct) {
     created_task->field_0x08 = direct;
     /* Marks the title as the screen on top: GameTask_8c012f44's soft reset
      * re-pushes the title only when it is not already here. */
-    var_8c1bb8c4 = 1;
+    var_titleActive_8c1bb8c4 = 1;
 
     njGarbageTexture(var_tex_8c157af8, 3072);
     ObjectsOpenTextbox_8c02ae3e(0x20, 0x178, -2.0, 0x240, 0x40, 0, 0, -1);

@@ -107,7 +107,7 @@ void BusTask_8c022bdc(Task *task, void *state)
             var_driveCueState_8c2264b8.nearStopLatch_0x0c = 1;
         }
 
-        if (var_inputMapSel_8c1bb8c8 == 0) {
+        if (var_driveMode_8c1bb8c8 == 0) {
             /* Direct (non-mapped) steering: move straight along the current
              * heading angle. */
             int steerAng = var_busState_8c1bb9d0.ang_0x258 + ang;
@@ -157,7 +157,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         var_busState_8c1bb9d0.posHistory_0x100[0].z += prevSpeed * var_busState_8c1bb9d0.dir_z2_0x2b0;
         var_busState_8c1bb9d0.speed_0x27c -= 0.1f;
         if (var_busState_8c1bb9d0.speed_0x27c <= 0.0f) {
-            if (var_inputMapSel_8c1bb8c8 != 0) {
+            if (var_driveMode_8c1bb8c8 != 0) {
                 var_busState_8c1bb9d0.laneOffset_0x2c4 =
                     GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.laneTargetX_0x0ec);
             }
@@ -258,7 +258,7 @@ void BusTask_8c022bdc(Task *task, void *state)
         }
     }
 
-    if (var_inputMapSel_8c1bb8c8 != 0) {
+    if (var_driveMode_8c1bb8c8 != 0) {
         /* Smooth ang_0x258 toward a target derived from targetHeadingAngle_0x254, at most
          * 0xb6 per frame, clamped to +-0x2aaa. */
         int target = var_busState_8c1bb9d0.targetHeadingAngle_0x254 - var_busState_8c1bb9d0.ang_0x250;

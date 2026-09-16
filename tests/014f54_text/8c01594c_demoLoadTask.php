@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
 
         $this->shouldWriteTo('_var_currentCourse_8c1bb868', 0xcafe0001);
-        $this->shouldWriteTo('_var_inputMapSel_8c1bb8c8', 0xcafe0002);
+        $this->shouldWriteTo('_var_driveMode_8c1bb8c8', 0xcafe0002);
         $this->shouldWriteTo('_var_seed_8c157a64', 0xcafe0003);
 
         $local1 = $this->isAsmObject() ? 0xffffe4 : 0xffffec;
@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->shouldCall('_syFree')->with($var_demoBuf_8c1ba3c4);
         $this->shouldWriteLongTo('_var_demoBuf_8c1ba3c4', -1);
         $this->shouldCall('_TaskFree_8c014b66')->with(0xbeba1337);
-        $this->shouldCall('_FUN_8c01328c');
+        $this->shouldCall('_GameStartSelectedCourse_8c01328c');
 
         $this->singleCall('_demoLoadTask_8c01594c')
             ->with(0xbeba1337)

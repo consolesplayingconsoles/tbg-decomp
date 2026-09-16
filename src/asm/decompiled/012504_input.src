@@ -20,7 +20,7 @@
           .IMPORT     _var_8c157ae4
           .IMPORT     _var_8c157ae8
           .IMPORT     _var_8c157ad4
-          .IMPORT     _var_inputMapSel_8c1bb8c8
+          .IMPORT     _var_driveMode_8c1bb8c8
           .IMPORT     _strcmp
           .IMPORT     _strcpy
           .EXPORT     _InputPushTask_8c0128cc
@@ -665,7 +665,7 @@ LAB_8c0129a4:
           RTS
           NOP
 LP_GEN_44279:
-          .DATA.L     _var_inputMapSel_8c1bb8c8
+          .DATA.L     _var_driveMode_8c1bb8c8
           .DATA.L     _var_8c157a74
           .DATA.L     _inputTask_8c012504
           .DATA.L     _inputTaskAlt_8c012718

@@ -184,7 +184,7 @@ STATIC int update_8c0129cc(void)
             /* Retire committed: hold the YES mark through the fade, then leave the drive. */
             if (var_isFading_8c226568 != 0) {
                 TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONFIRM_YES, 0.0f, 0.0f, MARK_Z_ARROW);
-                njDrawPolygon((NJS_POLYGON_VTX *)init_8c03bf4c, 4, 1);
+                njDrawPolygon(init_pauseDimQuad_8c03bf4c, 4, 1);
                 return 0;
             }
             var_runSucceeded_8c1bb8dc = 0;
@@ -208,7 +208,7 @@ STATIC int update_8c0129cc(void)
     }
 
     TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_BASE, 0.0f, 0.0f, MARK_Z_BASE);
-    njDrawPolygon((NJS_POLYGON_VTX *)init_8c03bf4c, 4, 1);
+    njDrawPolygon(init_pauseDimQuad_8c03bf4c, 4, 1);
     return 0;
 }
 
@@ -239,7 +239,7 @@ void PauseTask_8c012cbc()
 
 /*
  * TaskPush_8c014ae8 action for the PLAY_MODE_DEMO (attract loop) pause task,
- * used in place of PauseTask_8c012cbc when var_8c1bb8d4 == 0: instead of the full
+ * used in place of PauseTask_8c012cbc when var_isAttractDemo_8c1bb8d4 == 0: instead of the full
  * CONTINUE/RETIRE pause menu, Start just toggles var_pauseActive_8c1bb8cc,
  * and the rest of the frame's tasks only run while unpaused.
  */
@@ -269,7 +269,7 @@ void PauseToggleTask_8c012d06()
 
 /*
  * TaskPush_8c014ae8 action for the PLAY_MODE_DEMO ending sequence (installed
- * when var_8c1bb8d4 != 0): the attract loop plays out, then either Start
+ * when var_isAttractDemo_8c1bb8d4 != 0): the attract loop plays out, then either Start
  * (phase 1) or a ~0x708-frame timeout (phase 2) fades out and returns to the
  * title -- TitlePushTitle_8c015fd6(1) for the Start skip, (0) for the timeout.
  */

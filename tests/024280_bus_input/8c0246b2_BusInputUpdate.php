@@ -16,7 +16,7 @@ return new class extends TestCase {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
         $this->setSize('_var_vibport_8c1ba354', 4);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_8c2285c4', 4 * 40);
         $this->setSize('_var_8c228634', 4 * 3);
         $this->setSize('_VibStart_8c010f7a', 4);
@@ -50,7 +50,7 @@ return new class extends TestCase {
     ): array {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), $inputMapSel);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), $inputMapSel);
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xdeadbeef);
 
         $pad = $this->addressOf('_var_peripherals_8c1ba35c');

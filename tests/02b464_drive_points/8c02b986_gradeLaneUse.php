@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->setSize('_var_laneB_8c228678', 4);
         $this->setSize('_var_laneC_8c22867c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
+        $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_frameSpeed_8c22866c', 4);
 
         return $base;
@@ -29,7 +29,7 @@ return new class extends TestCase {
 
     // Makes var_8c22861c[5] (base+0x6c) equal var_prevLane_8c228684, which alone
     // makes the outer OR true (short-circuiting the rest) and sends the
-    // block into the var_inputMapSel_8c1bb8c8-gated timing logic instead
+    // block into the var_driveMode_8c1bb8c8-gated timing logic instead
     // of the flat penalty at the top of that block.
     private function matchSignalState(int $base): void
     {
@@ -50,7 +50,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 5);
         $this->initUint32($base + 0x2c, 3); // repeatCount, nonzero
         $this->matchSignalState($base);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1); // skip timing block
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1); // skip timing block
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
 
         $this->call('_gradeLaneUse_8c02b986');
@@ -65,7 +65,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 5);
         $this->initUint32($base + 0x2c, 0); // repeatCount
         $this->matchSignalState($base);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
 
         $this->call('_gradeLaneUse_8c02b986');
@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 5);
         $this->initUint32($base + 0x2c, 2); // repeatCount, already nonzero
         $this->matchSignalState($base);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
 
         $this->call('_gradeLaneUse_8c02b986');
@@ -124,7 +124,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x2c, 0);
         $this->matchSignalState($base);
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_laneA_8c228674'), 7);
         $this->initUint32($this->addressOf('_var_laneC_8c22867c'), 7); // == -> matches
         $this->initUint32($this->addressOf('_var_laneB_8c228678'), 7); // == -> matches
@@ -146,7 +146,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x2c, 0);
         $this->matchSignalState($base);
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_laneA_8c228674'), 3);
         $this->initUint32($this->addressOf('_var_laneC_8c22867c'), 7); // 674 < 67c -> cmpDir=2
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x34c), 0x40000000); // matches cmpDir==2 case
@@ -171,7 +171,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x2c, 0);
         $this->matchSignalState($base);
 
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 0);
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
         $this->initUint32($this->addressOf('_var_laneA_8c228674'), 3);
         $this->initUint32($this->addressOf('_var_laneC_8c22867c'), 7); // 674 < 67c -> cmpDir=2
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x34c), 0); // doesn't match -> threshold 0x3c
@@ -191,7 +191,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->initUint32($base + 0x2c, 0);
         $this->matchSignalState($base);
-        $this->initUint32($this->addressOf('_var_inputMapSel_8c1bb8c8'), 1); // skip timing block
+        $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1); // skip timing block
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving
         $this->initUint32($base + 0x44, 5); // var_8c2285fc[3]
 

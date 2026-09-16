@@ -548,7 +548,7 @@ STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
             AsqFreeQueues_8c011f7e();
             var_loadScreenActive_8c157a6c = 0;
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
-            FUN_8c01306e();
+            GameEnterDrive_8c01306e();
             InputDispatchTask_8c012970();
             return;
         }
@@ -618,7 +618,7 @@ STATIC void segmentReloadTask_8c014550(SegmentReloadTask *task, void *state)
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
             njSetTexture(var_interiorTexlist_8c1bc438);
             njLoadCacheTexture(var_interiorTexlist_8c1bc438);
-            FUN_8c01306e();
+            GameEnterDrive_8c01306e();
             InputDispatchTask_8c012970();
             return;
         }
@@ -718,7 +718,7 @@ void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state)
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
             njSetTexture(var_interiorTexlist_8c1bc438);
             njLoadCacheTexture(var_interiorTexlist_8c1bc438);
-            FUN_8c01306e();
+            GameEnterDrive_8c01306e();
             InputDispatchTask_8c012970();
             return;
         }

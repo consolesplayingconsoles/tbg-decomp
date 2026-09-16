@@ -1,5 +1,4 @@
 /* @unit Game */
-/* 8c012f44 */
 #include <shinobi.h>
 #include <njdef.h>
 #include "012f44_game.h"
@@ -30,33 +29,50 @@
 #include "02d968_stop_spawn.h"
 #include "0222dc_fadecmd.h" /* FadeCmdPushTileDrawTask_8c0222dc */
 
-// #define CACHE_BUFSIZE   0x20000
-// #define SHAPE_BUFSIZE   512
+/* ====================
+ * Compiler Definitions
+ * ====================
+ */
+
 #define RENDER_X        256
 #define RENDER_Y        512
 
-/* Declared and never used -- no reference anywhere in src/. */
-struct loadedNj {
-    void *field_0x00;
-    int *field_0x04;
-}
-typedef loadedNj;
+/* ==========================
+ * Non-initialized Globals
+ * ==========================
+ */
 
 NJS_TEXMEMLIST var_tex_8c157af8[TEX_NUM];
-STATIC NJS_TEXNAME    var_renderTexname_8c18acf8[1];
+STATIC NJS_FOG_TABLE var_fogTable_8c18aaf8;
+STATIC NJS_TEXNAME var_renderTexname_8c18acf8[1];
+
+int var_pauseSettle_8c18ad04;
+int var_retirePhase_8c18ad08;
+int var_confirmChoice_8c18ad0c;
+int var_onRetire_8c18ad10;
+
+STATIC int var_gdErr_8c18ad14;
+
+/* ======================
+ * Initialized Globals
+ * ======================
+ */
 
 /* The offscreen render target: one RGB565 texture over var_texbuf_8c277ca0 at
  * global index 999. 022464 renders the mirror view into it and blits it back
  * with njDrawTexture. */
 NJS_TEXLIST init_renderTexlist_8c03bf44 = {var_renderTexname_8c18acf8, 1};
-int init_8c03bf48 = 1;
-char init_8c03bf4c[] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD4, 0x9B, 0x5E, 0x3F, 0x00, 0x00, 0x00, 0x7F,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF0, 0x43, 0xD4, 0x9B, 0x5E, 0x3F, 0x00, 0x00, 0x00, 0x7F,
-    0x00, 0x00, 0x20, 0x44, 0x00, 0x00, 0x00, 0x00, 0xD4, 0x9B, 0x5E, 0x3F, 0x00, 0x00, 0x00, 0x7F,
-    0x00, 0x00, 0x20, 0x44, 0x00, 0x00, 0xF0, 0x43, 0xD4, 0x9B, 0x5E, 0x3F, 0x00, 0x00, 0x00, 0x7F
+
+/* Half-black full-screen quad njDrawPolygon'd behind the pause marks (0129cc). */
+NJS_POLYGON_VTX init_pauseDimQuad_8c03bf4c[4] = {
+    {   0.0f,   0.0f, 0.8695652484893799f, ARGB(0x7f, 0x00, 0x00, 0x00) },
+    {   0.0f, 480.0f, 0.8695652484893799f, ARGB(0x7f, 0x00, 0x00, 0x00) },
+    { 640.0f,   0.0f, 0.8695652484893799f, ARGB(0x7f, 0x00, 0x00, 0x00) },
+    { 640.0f, 480.0f, 0.8695652484893799f, ARGB(0x7f, 0x00, 0x00, 0x00) },
 };
-// Forward declaration
+
+/* Nothing reads it, and it points at itself. Probably a library stub the
+ * linker pulled in; kept so section D keeps its shape. */
 int init_8c03bf8c[7];
 int init_8c03bf8c[] = {
     0,
@@ -67,28 +83,27 @@ int init_8c03bf8c[] = {
     0,
     0,
 };
-int init_8c03bfa8 = 0;
 
-STATIC int var_gdErr_8c18ad14;
+/* GameMain_8c01392e's gdFsReqDrvStat request is in flight. */
+int init_drvStatPending_8c03bfa8 = 0;
 
-STATIC NJS_FOG_TABLE var_fogTable_8c18aaf8;
+/* ==========
+ * Functions
+ * ==========
+ */
 
-int var_pauseSettle_8c18ad04;
-int var_retirePhase_8c18ad08;
-int var_confirmChoice_8c18ad0c;
-int var_onRetire_8c18ad10;
-
-/* Matched :) */
 void GameTask_8c012f44()
 {
     if ((var_resetRequested_8c157a78 != 0) && (var_vmBusy_8c157a7c == 0)) {
         FUN_8c010ca6(0);
         sdMidiStopAll();
         if (var_vibport_8c1ba354 != -1) {
-        pdVibMxStop(var_vibport_8c1ba354);
+            pdVibMxStop(var_vibport_8c1ba354);
         }
         DebugMenuFreeSessionAssets_8c016182();
-        if (var_8c1bb8c4 != 0) {
+        /* Already on the title: quit instead, by arming the pair
+         * GameMain_8c01392e reads as "return -1". */
+        if (var_titleActive_8c1bb8c4 != 0) {
             init_8c03bd80 = 1;
             init_8c03bd84 = 0;
         } else {
@@ -97,15 +112,16 @@ void GameTask_8c012f44()
     }
 }
 
-/* Matched :) */
-STATIC void task_8c012f9c(Task *task, void* state) {
-    Bool r7;
-    Float speed_fr2;
+/* Tears down the view a run starts in: busInitPlaceBus_8c023310 opens on
+ * FADE_MIRROR_DOOR with FadeStartRunTransition_8c0228a2's arrival overlay up,
+ * and this drops both once the doors shut or the bus pulls away. */
+STATIC void runStartViewTask_8c012f9c(Task *task, void* state) {
+    Bool omeStart;
 
-    if (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE && var_route_8c18ad1c == 2 && var_currentSegment_8c228708 == 0) {
-        r7 = TRUE;
+    if (var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE && var_route_8c18ad1c == ROUTE_OME && var_currentSegment_8c228708 == 0) {
+        omeStart = TRUE;
     } else {
-        r7 = FALSE;
+        omeStart = FALSE;
     }
 
     if (var_busState_8c1bb9d0.speed_0x27c == 0) {
@@ -113,16 +129,15 @@ STATIC void task_8c012f9c(Task *task, void* state) {
             case 0:
                 if (var_busState_8c1bb9d0.doorState_0x3c0 == 0) {
                     var_fadeArrivalVariant_8c22655c = 0;
-                    if (r7 == FALSE) {
-                        var_busState_8c1bb9d0.mirror_0x268 = 2;
+                    if (omeStart == FALSE) {
+                        var_busState_8c1bb9d0.mirror_0x268 = FADE_MIRROR_RIGHT;
                     } else {
-                        var_busState_8c1bb9d0.mirror_0x268 = 0;
+                        var_busState_8c1bb9d0.mirror_0x268 = FADE_MIRROR_NONE;
                     }
 
-                    /* 8c012ff6 */
                     task->field_0x08 = 1;
                 } else {
-                    if (var_busState_8c1bb9d0.mirror_0x268 != 3) {
+                    if (var_busState_8c1bb9d0.mirror_0x268 != FADE_MIRROR_DOOR) {
                         var_fadeArrivalVariant_8c22655c = 0;
                         TaskFree_8c014b66(task);
                     }
@@ -131,16 +146,15 @@ STATIC void task_8c012f9c(Task *task, void* state) {
 
             case 1:
             default:
-                // Nothing...
                 break;
         }
     } else {
         var_fadeArrivalVariant_8c22655c = 0;
-        if (r7 == FALSE) {
+        if (omeStart == FALSE) {
             var_busState_8c1bb9d0.signalSide_0x25c = 0;
         }
 
-        var_busState_8c1bb9d0.mirror_0x268 = 0;
+        var_busState_8c1bb9d0.mirror_0x268 = FADE_MIRROR_NONE;
 
         TaskFree_8c014b66(task);
     }
@@ -148,12 +162,10 @@ STATIC void task_8c012f9c(Task *task, void* state) {
     njControl3D(0);
 }
 
-/** Tested */
-void FUN_8c01306e(void)
+void GameEnterDrive_8c01306e(void)
 {
     Task *created_task;
     void* created_state;
-    Task *tasks;
 
     njInitMatrix(var_matrix_8c2f8ca0, 16, 0);
     njSetBackColor(0,0,0);
@@ -184,7 +196,7 @@ void FUN_8c01306e(void)
         TaskPush_8c014ae8(var_tasks_8c1ba3c8, &PauseTask_8c012cbc, &created_task, &created_state, 0);
         TaskPush_8c014ae8(var_tasks_8c1ba5e8, &DebugMenuDemoRecordTask_8c01677e, &created_task, &created_state, 0);
     } else {
-        if (var_8c1bb8d4 == 0) {
+        if (var_isAttractDemo_8c1bb8d4 == 0) {
             TaskPush_8c014ae8(var_tasks_8c1ba3c8, &PauseToggleTask_8c012d06, &created_task, &created_state, 0);
         } else {
             TaskPush_8c014ae8(var_tasks_8c1ba3c8, &PauseDemoEndTask_8c012d5a, &created_task, &created_state, 0);
@@ -213,22 +225,21 @@ void FUN_8c01306e(void)
     HudReset_8c02018c();
     StopSpawnInit_8c02d968();
     DriveCueInit_8c020528();
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &task_8c012f9c, &created_task, &created_state, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &runStartViewTask_8c012f9c, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
     FadeStartRunTransition_8c0228a2();
 }
 
-/* Matched :) */
-void FUN_8c01328c() {
+void GameStartSelectedCourse_8c01328c() {
     Task *created_task;
     void* created_state;
   
     if (var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) {
         var_currentCourse_8c1bb868.courseId_0x00 = var_debugMenuCourseSel_8c1bc824->courseId_0x00;
         var_startStopIndex_8c228704 = var_debugMenuCourseSel_8c1bc824->startStopIndex_0x04;
-        var_inputMapSel_8c1bb8c8 = var_debugMenuCourseSel_8c1bc824->inputMapSel_0x08;
+        var_driveMode_8c1bb8c8 = var_debugMenuCourseSel_8c1bc824->driveMode_0x08;
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
-    } else if ((var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) && (var_8c1bb8d4 != 0)) {
+    } else if ((var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) && (var_isAttractDemo_8c1bb8d4 != 0)) {
         var_demoShotId_8c227dd4 = init_demoFirstShot_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
         FileMenuResetNewGame_8c01895e();
     } else {
@@ -245,7 +256,6 @@ void FUN_8c01328c() {
     RouteLoadPushTask_8c0144fc();
 }
 
-/* Matched :) */
 void GamePushLoadingTask_8c013310(int p1) {
     Task *created_task;
     void* created_state;
@@ -253,9 +263,9 @@ void GamePushLoadingTask_8c013310(int p1) {
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         var_currentCourse_8c1bb868.courseId_0x00 = p1;
         var_startStopIndex_8c228704 = 0;
-        var_inputMapSel_8c1bb8c8 = var_progress_8c1ba1cc.driveMode_0xc5;
+        var_driveMode_8c1bb8c8 = var_progress_8c1ba1cc.driveMode_0xc5;
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
-    } else if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO && var_8c1bb8d4 != 0) {
+    } else if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO && var_isAttractDemo_8c1bb8d4 != 0) {
         var_demoShotId_8c227dd4 = init_demoFirstShot_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
     } else {
         var_demoShotId_8c227dd4 = 0;
@@ -271,15 +281,15 @@ void GamePushLoadingTask_8c013310(int p1) {
     RouteLoadPushTask_8c0144fc();
 }
 
-/** Tested */
-STATIC void task_8c013388(Task *task, void *state) {
+/* Boot: wait for GameInit_8c0134ec's asset load, pull in the sound driver,
+ * then hand over to the title. */
+STATIC void bootTask_8c013388(Task *task, void *state) {
     switch (task->field_0x08) {
         case 0: {
-            /* 8c013440 */
             Bool b = RouteLoadGetLatch_8c01432a();
             if (b) {
                 task->field_0x08++;
-                var_8c1bc450 = (Float) var_loadedFooNjm_8c1bc448->nbFrame - 1;
+                var_fuuLastFrame_8c1bc450 = (Float) var_fuuNjm_8c1bc448->nbFrame - 1;
 
                 AsqResetQueues_8c011f6c();
                 AsqRequestDat_8c011182("\\SOUND", "manatee.drv", &var_memblkSource_8c0fcd48);
@@ -290,7 +300,6 @@ STATIC void task_8c013388(Task *task, void *state) {
             break;
         }
         case 1: {
-            /* 8c0133a0, 8c0134ce */
             if (RouteLoadGetLatch_8c01432a() != 0) {
                 AsqFreeQueues_8c011f7e();
                 TaskFree_8c014b66(task);
@@ -309,7 +318,6 @@ STATIC void task_8c013388(Task *task, void *state) {
             break;
         }
         default:
-            /* 8c0134a0 */
             break;
     }
 }
@@ -320,7 +328,6 @@ STATIC void usrGdErrFunc_8c0134d6(void *obj, Sint32 errcode) {
   }
 }
 
-/* Tested */
 void GameInit_8c0134ec() {
     NJS_TEXINFO info;
     Task *created_task;
@@ -330,13 +337,11 @@ void GameInit_8c0134ec() {
     scif_init(57600);
 #endif
 
-    /* 8c0134fc */
     njSetTextureMemorySize(0x100000);
 
     if (syCblCheckCable() == SYE_CBL_CABLE_VGA) {
         SbInitSystem_8c0149b0(NJD_RESOLUTION_VGA, NJD_FRAMEBUFFER_MODE_RGB565, 2);
     } else {
-        /* TODO: Test this block */
         SbInitSystem_8c0149b0(NJD_RESOLUTION_640x480_NTSCNI, NJD_FRAMEBUFFER_MODE_RGB565, 2);
         njSetAspect(1, 0.91);
     }
@@ -401,7 +406,7 @@ void GameInit_8c0134ec() {
     var_menuState_8c1bc7a8.resourceGroupA_0x00.tlist_0x00 = (void*) -1;
     var_menuState_8c1bc7a8.resourceGroupB_0x0c.tlist_0x00 = (void*) -1;
     var_resourceGroup_8c2263a8 = (ResourceGroup *) -1;
-    var_8c1ba2e0 = (void *) -1;
+    var_saveBuf_8c1ba2e0 = (void *) -1;
     var_backupFileImageBuf_8c1ba348 = (void *) -1;
     var_vmuIconFileBuf_8c1ba344 = (void *) -1;
     var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
@@ -409,9 +414,10 @@ void GameInit_8c0134ec() {
     var_vmGameBuf_8c1bc454 = (void *) -1;
     var_selectedVm_8c1ba34c = -1;
 
-    var_8c1bb8c4 = 0;
+    var_titleActive_8c1bb8c4 = 0;
 
-    // Set high index to trigger loop and ensure first demo runs
+    /* Past the end of init_demos_8c044154, so the first
+     * TxtStartAttractDemo_8c0159ac wraps to demo 0. */
     var_demoIndex_8c1bb8d8 = 100;
     var_loadScreenActive_8c157a6c = 0;
 
@@ -421,7 +427,7 @@ void GameInit_8c0134ec() {
     VmGameSetLcdSlot_8c01c8fc(3);
     VmGameUpdateLcd_8c01c910();
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, &task_8c013388, &created_task, &created_state, 0);
+    TaskPush_8c014ae8(var_tasks_8c1ba3c8, &bootTask_8c013388, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
 
     AsqInitQueues_8c011f36(16, 8, 0, 8);
@@ -441,9 +447,9 @@ void GameInit_8c0134ec() {
     AsqRequestDat_8c011182("\\SYSTEM", "vm_danger.lcd", &var_lcdAnimDanger_8c2260b8);
     AsqRequestDat_8c011182("\\SYSTEM", "now_loading.lcd", &var_lcdAnimLoading_8c2260c4);
 
-    AsqRequestPvm_8c011ac0("\\SYSTEM", "fuu.pvm", &var_8c1bc440, 1, 0);
-    AsqRequestNj_8c011492("\\SYSTEM", "fuu.njd", &var_8c1bc444, 0);
-    AsqRequestNj_8c011492("\\SYSTEM", "fuu.njm", &var_loadedFooNjm_8c1bc448, 0);
+    AsqRequestPvm_8c011ac0("\\SYSTEM", "fuu.pvm", &var_fuuTexlist_8c1bc440, 1, 0);
+    AsqRequestNj_8c011492("\\SYSTEM", "fuu.njd", &var_fuuNj_8c1bc444, 0);
+    AsqRequestNj_8c011492("\\SYSTEM", "fuu.njm", &var_fuuNjm_8c1bc448, 0);
 
     AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njm", &var_busDoorMotion_8c1bc410, 0);
     AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njs", &var_busDoorShape_8c1bc414, 0);
@@ -454,20 +460,17 @@ void GameInit_8c0134ec() {
     gdFsEntryErrFuncAll(&usrGdErrFunc_8c0134d6, (void *) 0);
 }
 
-/* TODO: Test */
 int GameMain_8c01392e(void) {
     GDFS gdfs;
     Sint32 stat;
 
     if (init_8c03bd80 != 0) {
-        /* 8c01393e */
         /* Hit on title screen, after fadein */
         if (init_8c03bd84 == 0) {
             if (var_vibport_8c1ba354 != -1) {
                 pdVibMxStop(var_vibport_8c1ba354);
             }
 
-            /* 8c0139be (shared) */
             return -1;
         }
 
@@ -475,28 +478,23 @@ int GameMain_8c01392e(void) {
         return 0;
     }
 
-    /* 8c013956 */
     /* Hit just before logo/menu */
     if (var_queuesAreInitialized_8c157a60 == 0) {
-        /* 8c01395e */
-        if (init_8c03bfa8 == 0) {
-            /* 8c013966 */
+        if (init_drvStatPending_8c03bfa8 == 0) {
             if (!gdFsReqDrvStat()) {
-                init_8c03bfa8 = 1;
+                init_drvStatPending_8c03bfa8 = 1;
             }
         } else {
             gdfs = gdFsGetSysHn();
             stat = gdFsGetStat(gdfs);
             if (stat != GDD_STAT_BUSY) {
-                init_8c03bfa8 = 0;
+                init_drvStatPending_8c03bfa8 = 0;
             }
         }
     }
 
-    /* 8c01398a */
     stat = gdFsGetDrvStat();
     if (stat == GDD_DRVSTAT_OPEN) {
-        /* 8c0139b2 */
         if (var_vibport_8c1ba354 != -1) {
             pdVibMxStop(var_vibport_8c1ba354);
         }
@@ -504,16 +502,12 @@ int GameMain_8c01392e(void) {
         return -1;
     }
 
-    /* 8c013994 */
     stat = gdFsGetDrvStat();
     if ((stat == GDD_DRVSTAT_OPEN) || (stat == GDD_DRVSTAT_BUSY)) {
-        /* 8c0139a4 */
         gdFsReqDrvStat();
     }
 
-    /* 8c0139aa */
     if (var_gdErr_8c18ad14 != 0) {
-        /* 8c0139b2 */
         if (var_vibport_8c1ba354 != -1) {
             pdVibMxStop(var_vibport_8c1ba354);
         }

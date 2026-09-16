@@ -5404,7 +5404,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
 }
 
 /* One-shot pedestrian-group setup for the current run, called from
- * FUN_8c01306e. Copies the route's pedestrian tables (loaded by
+ * GameEnterDrive_8c01306e. Copies the route's pedestrian tables (loaded by
  * loadRouteModels_8c014088 into var_currentCourse_8c1bb868's Hum fields) into
  * var_pedPaths_8c228238/var_pedGroupDefs_8c22823c/var_pedGroupLists_8c228240
  * and installs pedestriansTask_8c0293f6 to drive them every frame. No-op if
@@ -5544,7 +5544,7 @@ STATIC void routeBlinkerTask_8c029904(RouteBlinkerTask *task, NJS_MATRIX *state)
 }
 
 /* One-shot setup for the current run's route blinkers, called from
- * FUN_8c01306e. Resolves var_routeBlinkerNodes_8c228278 from the route model
+ * GameEnterDrive_8c01306e. Resolves var_routeBlinkerNodes_8c228278 from the route model
  * table (mirroring ObjectsInitPedestrianGroups_8c0296d6's sibling setup calls)
  * and installs routeBlinkerTask_8c029904 to draw them every frame. No-op if
  * the route's table is empty.

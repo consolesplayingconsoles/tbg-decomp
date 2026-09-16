@@ -83,7 +83,7 @@ return new class extends TestCase {
         $this->shouldCall('_njReleaseTexture')->with(self::TLIST);
         $this->shouldCall('_njSetTexture')->with($interior);
         $this->shouldCall('_njLoadCacheTexture')->with($interior);
-        $this->shouldCall('_FUN_8c01306e');
+        $this->shouldCall('_GameEnterDrive_8c01306e');
         $this->shouldCall('_InputDispatchTask_8c012970');
     }
 
@@ -144,7 +144,7 @@ return new class extends TestCase {
             '_TxtDrawSprite_8c014f54' => 4,
             '_InputDispatchTask_8c012970' => 4,
             '_TaskFree_8c014b66' => 4,
-            '_FUN_8c01306e' => 4,
+            '_GameEnterDrive_8c01306e' => 4,
             '_EventPickForSegment_8c02b170' => 4,
             '_TileStreamLoad_8c021810' => 4,
             '_TileStreamRequestUpload_8c02190a' => 4,

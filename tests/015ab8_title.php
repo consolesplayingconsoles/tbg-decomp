@@ -944,7 +944,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldReadSymbolOffset('_init_8c03bd80', 0, 0);
-        $this->shouldWriteSymbolOffset('_var_8c1bb8c4', 0, 0);
+        $this->shouldWriteSymbolOffset('_var_titleActive_8c1bb8c4', 0, 0);
         $this->shouldCall('_VmMenuSwitchFromTask_8c019e44')->with(0xbebacafe);
 
         $this->singleCall('_titleTask_8c015ab8')
