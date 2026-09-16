@@ -21,11 +21,7 @@
 #include "sectionB.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
-#include "serial_debug.h"
 #include "strings.h"
-
-// TODO:
-// - Review comments
 
 /* ====================
  * Compiler Definitions
@@ -64,9 +60,13 @@ char *DEBUG_courseConfirmStateNames[] = {
 #define CHANGE_CONFIRM_STATE(x) var_menuState_8c1bc7a8.state_0x18 = x
 #endif
 
-/* =================
+/* 3 rows x 5 columns; columns 0-1 are the side buttons, 2-4 the course grid. */
+#define COURSE_BUTTON_COUNT 15
+#define COURSE_COUNT 9
+
+/* ====================
  * Type Declarations
- * =================
+ * ====================
  */
 
 typedef struct {
@@ -124,20 +124,16 @@ enum {
     COURSE_CONFIRM_STATE_FADE_OUT_TO_COURSE_MENU = 7
 };
 
-/* =======================
- * Non-initialized Globals
- * =======================
- */
-
-/* Data defined after the functions so the shared "" literal is first seen in code
-   (swapMessageBoxFor("")) and lands at the head of the constant pool. */
-STATIC CourseMenuButton init_courseMenuButtons_8c04442c[15];
-STATIC ResourceGroupInfo init_courseResourceGroup_8c044d40;
-
 /* ====================
  * Forward Declarations
  * ====================
  */
+
+/* These two are defined after the functions, so that the shared "" literal is
+   first seen in code (ObjectsSwapMessageBoxFor_8c02aefc("")) and lands at the
+   head of the constant pool. */
+STATIC CourseMenuButton init_courseMenuButtons_8c04442c[COURSE_BUTTON_COUNT];
+STATIC ResourceGroupInfo init_courseResourceGroup_8c044d40;
 
 int CourseMenuRequestSysResgrp_8c018568(ResourceGroup* dds, ResourceGroupInfo* rg);
 STATIC void courseMenuConfirmInit_8c0184cc(Task *task);
@@ -148,9 +144,9 @@ InstructorLine *init_instructorDialogs_8c044c08[66];
 Uint8 init_courseVariants_8c044d10[30];
 Uint8 init_routeInfoTime_8c044d2e[3 * 3 * 2];
 
-/* =========
+/* ====================
  * Functions
- * =========
+ * ====================
  */
 
 /**
@@ -253,7 +249,8 @@ void CourseMenuDrawDateAndExp_8c016ee6()
     }
     drawInteger_8c016e6c(days, x, 82.0);
 
-    // Hmm...
+    /* The story runs through September; sprites 13 and 14 mark the two public
+       holidays in it, in place of the weekday glyph. */
     if (days == 15) {
         sprite_id = 13;
     } else if (days == 23) {
@@ -554,7 +551,7 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
 {
     int cur = 0;
 
-    // Default choose course
+    // Nothing to report
     if (var_8c1bb8b8 == 0) {
         var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_CHOOSE_COURSE;
         var_dialogQueue_8c225fbc[cur]   = -1;
@@ -569,7 +566,7 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
         return;
     }
 
-    // Special Success
+    // Yesterday was a practice run, not a course
     if (var_8c1bb8bc != 0) {
         var_dialogQueue_8c225fbc[cur++] = INSTR_GOOD_PRACTICE;
         var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_CHOOSE_COURSE;
@@ -577,7 +574,6 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
         return;
     }
 
-    // Result
     if (var_runSucceeded_8c1bb8dc == 0) {
         var_dialogQueue_8c225fbc[cur++] = INSTR_FAILURE_RETRY;
     } else {
@@ -593,7 +589,8 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
         var_dialogQueue_8c225fbc[cur++] = INSTR_COURSE_UNLOCKED;
     }
 
-    // Passenger letter received
+    // Every seventh day, one of the six letters at random -- and none at all if
+    // that one is already held.
     if (((var_progress_8c1ba1cc.days_0x00 + 1) % 7) == 0) {
         int r = AsqGetRandomInRangeB_8c0121be(6);
         if (var_progress_8c1ba1cc.letters_0x2c[r] == 0) {
@@ -621,8 +618,7 @@ STATIC void drawCourseButtons_8c017590()
         );
     }
 
-    // TODO: Extract length constant
-    for (i = 0; i < 15; i++) {
+    for (i = 0; i < COURSE_BUTTON_COUNT; i++) {
         CourseMenuButton *btn = &init_courseMenuButtons_8c04442c[i];
 
         if (btn->unlocked_0x04 == 0 || btn->spriteNo_0x10 == 0)
@@ -637,8 +633,7 @@ STATIC void drawCourseButtons_8c017590()
         );
     }
 
-    // TODO: Extract length constant
-    for (i = 0; i < 9; i++) {
+    for (i = 0; i < COURSE_COUNT; i++) {
         char spriteNo = var_gameMode_8c1bb8fc == 0
             ? var_progress_8c1ba1cc.courses_0x44[i].storyAward_0x03
             : var_progress_8c1ba1cc.courses_0x44[i].freeRunAward_0x04;
@@ -696,10 +691,9 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, 0x16, 0);
             }
 
-            // TODO: Rename to instructorDialogIndex
+            /* field_0x08 is this task's cursor into var_dialogQueue_8c225fbc. */
             task->field_0x08++;
 
-            // If we finished the last dialog
             if (var_dialogQueue_8c225fbc[task->field_0x08] == -1) {
                 CHANGE_STATE(COURSE_MENU_STATE_IDLE);
                 ObjectsSwapMessageBoxFor_8c02aefc("");
@@ -805,6 +799,12 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
     AsqGetRandomA_8c012166();
 }
 
+/*
+ * Free-run twin of courseMenuStoryMenuTask_8c017718. Differences: no run/dialog
+ * flags are set on selection, the main-menu row is fixed at 1 rather than taken
+ * from subState_0x1c, and the header (date/EXP and sprite 0x2b) is not drawn --
+ * the panel sprite is 9 instead of 10.
+ */
 STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
 {
     switch (var_menuState_8c1bc7a8.state_0x18) {
@@ -845,10 +845,9 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
                 sdMidiPlay(var_midiHandles_8c0fcd28[5], 1, 0x16, 0);
             }
 
-            // TODO: Rename to instructorDialogIndex
+            /* field_0x08 is this task's cursor into var_dialogQueue_8c225fbc. */
             task->field_0x08++;
 
-            // If we finished the last dialog
             if (var_dialogQueue_8c225fbc[task->field_0x08] == -1) {
                 CHANGE_STATE(COURSE_MENU_STATE_IDLE);
                 ObjectsSwapMessageBoxFor_8c02aefc("");
@@ -905,10 +904,6 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
             var_menuState_8c1bc7a8.courseId_0x50 =
                 init_courseMenuButtons_8c04442c[buttonIndex].courseId_0x18;
 
-            // var_runSucceeded_8c1bb8dc = 1;
-            // var_8c1bb8b8 = 0;
-            // var_8c1bb8bc = 1;
-
             init_courseMenuButtons_8c04442c[buttonIndex].onSelect_0x14(task);
             return;
         }
@@ -920,20 +915,15 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
             if (init_8c03bd80)
                 return;
 
-            // var_8c1bb8b8 = 0;
             MainMenuSwitchFromTask_8c01a09a(task, 1);
             return;
         }
     }
 
-    // CourseMenuDrawDateAndExp_8c016ee6();
     drawCourseButtons_8c017590();
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c, 9, 0.0, 0.0, -5.0
     );
-    // TxtDrawSprite_8c014f54(
-    //     &var_menuState_8c1bc7a8.resourceGroupA_0x00, 0x2b, 0.0, 0.0, -4.0
-    // );
     if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -5.0
@@ -968,7 +958,9 @@ STATIC void buildFreeRunMenuDialogFlow_8c017a20(void)
     var_shouldShowFreeRunIntro_8c1bb8c0 = 0;
 }
 
-STATIC void FUN_8c017d54(void)
+/* Park the cursor on the current button and rebuild the grid's flags from
+   PlayerProgress. Run on every entry to the screen, never per frame. */
+STATIC void refreshCourseGrid_8c017d54(void)
 {
     int enabled;
     int row;
@@ -981,12 +973,12 @@ STATIC void FUN_8c017d54(void)
     // Snap current cursor position to its target
     var_menuState_8c1bc7a8.pos.cursor.cursor_0x20 = var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28;
 
-    // Event and Album buttons: enabled in Story Mode, disabled in Free Run
+    // PROFILE FILE and ALBUM are story-mode only
     enabled = game_mode == 0 ? 1 : 0;
     init_courseMenuButtons_8c04442c[5].enabled_0x00 = enabled;
     init_courseMenuButtons_8c04442c[6].enabled_0x00 = enabled;
 
-    // Refresh the 3x3 grid of course buttons from PlayerProgress
+    /* Free run lights a course by new_0x01 rather than unlocked_0x00. */
     for (row = 0; row < 3; row++) {
         int col;
         for (col = 0; col < 3; col++) {
@@ -1019,7 +1011,7 @@ void CourseMenuSwitchFromTask_8c017e18(Task *task)
     task->field_0x08 = 0;
     var_menuTextboxCharLimit_8c225fb8 = 0;
     var_playMode_8c1bb8d0 = 0;
-    FUN_8c017d54();
+    refreshCourseGrid_8c017d54();
     njGarbageTexture(var_tex_8c157af8, 0xc00);
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
@@ -1095,7 +1087,7 @@ void CourseMenuReturn_8c017ef2(void)
     ObjectsSwapMessageBoxFor_8c02aefc("");
     var_playMode_8c1bb8d0 = 0;
 
-    FUN_8c017d54();
+    refreshCourseGrid_8c017d54();
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
 
@@ -1206,7 +1198,6 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_ROUTE_INFO_DISPLAY);
                 var_menuState_8c1bc7a8.logo_timer_0x68 = 0;
             }
-            // State 4 uses drawRouteInfo instead of epilogue rendering
             drawRouteInfo_8c018118();
             return;
         }
@@ -1219,7 +1210,6 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 SndStartAdxFadeOut_8c010bae(1);
                 FadePushOut_8c022b60(20);
             }
-            // State 5 uses drawRouteInfo instead of epilogue rendering
             drawRouteInfo_8c018118();
             return;
         }
@@ -1229,8 +1219,8 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 int i = 0;
                 int courseIndex = var_menuState_8c1bc7a8.courseId_0x50 / 3;
 
+                /* Hold until both ADX streams have finished fading out. */
                 if (init_8c03bd80 != 0) {
-                    // init is busy, just return early
                     return;
                 }
                 DebugMenuFreeSessionAssets_8c016182();
@@ -1248,7 +1238,8 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 var_worstPenaltyMsgSet_8c1bb8ec = 0x1d;
                 var_penaltyCount_8c1bb8f4 = 0;
 
-                // Copy progress data to two arrays (5 uint32 values each)
+                /* Snapshot the event and profile flag words, so the drive can
+                   tell which ones it raised itself. */
                 for (i = 0; i < 5; i++) {
                     var_8c1ba2b8[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i];
                     var_8c1ba2cc[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i + 5];
@@ -1260,7 +1251,6 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 GamePushLoadingTask_8c013310(var_menuState_8c1bc7a8.courseId_0x50);
                 return;
             }
-            // State 6 uses drawRouteInfo instead of epilogue rendering
             drawRouteInfo_8c018118();
             return;
         }
@@ -1268,7 +1258,6 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
         case COURSE_CONFIRM_STATE_FADE_OUT_TO_COURSE_MENU: {
             if (var_isFading_8c226568 == 0) {
                 if (init_8c03bd80 != 0) {
-                    // init is busy, just return early
                     return;
                 }
 
@@ -1277,11 +1266,11 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 CourseMenuSwitchFromTask_8c017e18(task);
                 return;
             }
-            break; // State 7 uses normal epilogue rendering
+            break;
         }
     }
 
-    // Epilogue rendering that runs every frame for this task
+    /* Reached only by the states that break; the ROUTE INFO ones return above. */
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.courseId_0x50 / 3,
@@ -1290,7 +1279,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
         -4.0
     );
 
-    // Confirm/cancel prompt (sprite id = field_0x38 + 2)
+    // Confirm/cancel prompt (sprite id = selected_0x38 + 2)
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         var_menuState_8c1bc7a8.selected_0x38 + 2,
@@ -1391,10 +1380,16 @@ void CourseMenuFreeResourceGroup_8c0185c4(ResourceGroup *res_group)
  * ===================
  */
 
- /*  0  1    2  3  4
-  *  5  6    7  8  9
-  * 10 11   12 13 14  */
-STATIC CourseMenuButton init_courseMenuButtons_8c04442c[15] = {
+ /*
+  * Cursor index is field_0x3c + field_0x40 * 5 (other screens park it here too).
+  * Columns 2-4 are the course grid, one row per route, one column per departure;
+  * courseId is 3 * the courses_0x44 index.
+  *
+  *   0 LESSON   1 SYSTEM    2  3  4
+  *   5 PROFILE  6 ALBUM     7  8  9
+  *  10 --      11 --       12 13 14
+  */
+STATIC CourseMenuButton init_courseMenuButtons_8c04442c[COURSE_BUTTON_COUNT] = {
     {   /* [0] */
         /* enabled  */ 1,
         /* unlocked */ 1,
@@ -1644,11 +1639,7 @@ STATIC InstructorLine init_seqFinalDay_8c0447f0[] = {
 
 STATIC InstructorLine init_seqLessonIntro_8c044808[] = {
     { MSG_SEQ_LESSON_INTRO_01, 0 },
-};
-
-// Unused?
-STATIC InstructorLine init_8c044810[] = {
-    { MSG_INIT_8C044810_01, 0 },
+    { MSG_SEQ_LESSON_INTRO_02, 0 },
     { "", 0 },
 };
 
@@ -1996,7 +1987,7 @@ Uint8 init_courseVariants_8c044d10[30] = {
     1, 0
 };
 
-// 3 courses -> 3 shifts -> hh, mm
+// 3 routes -> 3 departure slots -> hh, mm
 Uint8 init_routeInfoTime_8c044d2e[3 * 3 * 2] = {
     12, 28,
     16, 52,

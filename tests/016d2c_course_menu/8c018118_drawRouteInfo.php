@@ -3,7 +3,7 @@
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_draws_story_menu_hud_elements(): void
+    public function test_draws_route_info_panel(): void
     {
         $this->resolveSymbols();
 
@@ -14,7 +14,7 @@ return new class extends TestCase {
         $dayCount = 123;
         $row = 1;
         $column = 4;
-        $index = $row * 6 + ($column - 2) * 2; // mirrors in-game computation
+        $index = $row * 6 + ($column - 2) * 2; // route row, departure column
 
         $this->initUint32($progressBase + 0x00, $dayCount);
         $this->initUint32($menuBase + 0x3c, $column);

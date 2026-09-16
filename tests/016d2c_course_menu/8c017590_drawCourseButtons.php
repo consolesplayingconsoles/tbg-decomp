@@ -9,7 +9,8 @@ if (!function_exists('fdec')) {
 }
 
 return new Class extends TestCase {
-    public function test_mode_0()
+    /* Story mode: cursor visible, button sprites, award marks from storyAward_0x03. */
+    public function test_story_mode()
     {
         $this->resolveSymbols();
 
@@ -20,18 +21,18 @@ return new Class extends TestCase {
         $this->initMenuStateUint32(0x48, 1);
 
         $this->initCourseMenuButtons([[1, 21], [1, 32]]);
-        $this->initVarCourseSettings8c1ba1cc([[1, 0], [2, 0]]);
+        $this->initCourseAwards([[1, 0], [2, 0]]);
 
         $this->call('_drawCourseButtons_8c017590');
 
-        // Unknown sprite
+        // Cursor
         $this->shouldDrawSprite(0x18, 64.0, 42.0, -3.0);
 
-        // Unknown sprites: first loop
+        // Button sprites
         $this->shouldDrawSprite(21, 0.0, 0.0, -4.0);
         $this->shouldDrawSprite(32, 0.0, 0.0, -4.0);
 
-        // Unknown sprites: second loop
+        // Award marks (sprite 0x18 - tier) over the 3x3 course grid
         if (!$this->isAsmObject()) {
             $this->shouldCall('__divls');
             $this->shouldCall('__modls');
@@ -44,7 +45,8 @@ return new Class extends TestCase {
         $this->shouldDrawSprite(0x16, 333.0, 106.0, -3.5);
     }
 
-    public function test_mode_1_no_first_sprite()
+    /* Free run: cursor hidden, award marks from freeRunAward_0x04. */
+    public function test_free_run_mode_cursor_hidden()
     {
         $this->resolveSymbols();
 
@@ -55,18 +57,15 @@ return new Class extends TestCase {
         $this->initMenuStateUint32(0x48, 0);
 
         $this->initCourseMenuButtons([[1, 21], [1, 32]]);
-        $this->initVarCourseSettings8c1ba1cc([[0, 1], [0, 2]]);
+        $this->initCourseAwards([[0, 1], [0, 2]]);
 
         $this->call('_drawCourseButtons_8c017590');
 
-        // Unknown sprite
-        // $this->shouldDrawSprite(0x18, 64.0, 42.0, -3.0);
-
-        // Unknown sprites: first loop
+        // Button sprites
         $this->shouldDrawSprite(21, 0.0, 0.0, -4.0);
         $this->shouldDrawSprite(32, 0.0, 0.0, -4.0);
 
-        // Unknown sprites: second loop
+        // Award marks (sprite 0x18 - tier) over the 3x3 course grid
         if (!$this->isAsmObject()) {
             $this->shouldCall('__divls');
             $this->shouldCall('__modls');
@@ -92,7 +91,7 @@ return new Class extends TestCase {
         // First button: unlocked=1, sprite=0 (should skip)
         // Second button: unlocked=1, sprite=21 (should draw)
         $this->initCourseMenuButtons([[1, 0], [1, 21]]);
-        $this->initVarCourseSettings8c1ba1cc([[0, 0], [0, 0]]);
+        $this->initCourseAwards([[0, 0], [0, 0]]);
 
         $this->call('_drawCourseButtons_8c017590');
 
@@ -114,7 +113,7 @@ return new Class extends TestCase {
         // First button: unlocked=0, sprite=21 (should skip)
         // Second button: unlocked=1, sprite=32 (should draw)
         $this->initCourseMenuButtons([[0, 21], [1, 32]]);
-        $this->initVarCourseSettings8c1ba1cc([[0, 0], [0, 0]]);
+        $this->initCourseAwards([[0, 0], [0, 0]]);
 
         $this->call('_drawCourseButtons_8c017590');
 
@@ -135,7 +134,7 @@ return new Class extends TestCase {
 
         // Mix of locked/zero sprite buttons - all should skip
         $this->initCourseMenuButtons([[0, 0], [1, 0], [0, 21]]);
-        $this->initVarCourseSettings8c1ba1cc([[0, 0], [0, 0], [0, 0]]);
+        $this->initCourseAwards([[0, 0], [0, 0], [0, 0]]);
 
         $this->call('_drawCourseButtons_8c017590');
 
@@ -157,7 +156,8 @@ return new Class extends TestCase {
         }
     }
 
-    private function initVarCourseSettings8c1ba1cc(array $values)
+    /* Per course: [storyAward_0x03, freeRunAward_0x04]. */
+    private function initCourseAwards(array $values)
     {
         array_push($values, ...array_fill(0, 9 - count($values), [0, 0]));
 

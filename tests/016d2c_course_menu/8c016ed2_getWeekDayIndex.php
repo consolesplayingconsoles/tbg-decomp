@@ -12,7 +12,8 @@ if (!function_exists('fdec')) {
 }
 
 return new class extends TestCase {
-    public function test_1()
+    /* (days + 1) % 7. */
+    public function test_wraps()
     {
         $this->resolveSymbols();
 
@@ -22,7 +23,7 @@ return new class extends TestCase {
         $this->shouldReturn(6);
     }
 
-    public function test_2()
+    public function test_wraps_to_zero()
     {
         $this->resolveSymbols();
 

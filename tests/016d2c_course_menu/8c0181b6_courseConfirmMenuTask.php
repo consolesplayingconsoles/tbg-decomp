@@ -3,7 +3,7 @@
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_init_state_waits_for_ukn_pvm_bool(): void
+    public function test_init_state_waits_for_pvm_load(): void
     {
         $this->resolveSymbols();
 
@@ -487,8 +487,7 @@ return new class extends TestCase {
         }
 
         // Step 5: Update menuState.field_0x50 by adding lookup table value
-        // field_0x50 += init_courseVariants_8c044d10[days - 1]
-        // (Ghidra decompiled as PTR_PTR_8c044d0c + days + 3, which equals init_courseVariants_8c044d10 + days - 1)
+        // courseId_0x50 += init_courseVariants_8c044d10[days - 1]
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x50, 12 + 2); // write sum (14)
 
@@ -666,8 +665,7 @@ return new class extends TestCase {
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_init_8c03bd80', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
-        $this->setSize('_handleBinaryPrompt_8c016caa', 4); // decompiled alias
-        $this->setSize('_PromptHandleBinary_8c016caa', 4);    // original symbol name
+        $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('__divls', 4);
         $this->onCall('__divls', function () {
@@ -683,7 +681,6 @@ return new class extends TestCase {
         $this->setSize('_var_penaltyCount_8c1bb8f4', 4);
         $this->setSize('_var_8c1ba2b8', 0x14); // 5 uint32 values
         $this->setSize('_var_8c1ba2cc', 0x14); // 5 uint32 values
-        $this->setSize('_PTR_PTR_8c044d0c', 32); // Lookup table for days
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
         $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);
         $this->setSize('_var_dialogQueue_8c225fbc', 0x10); // Array of dialog queue

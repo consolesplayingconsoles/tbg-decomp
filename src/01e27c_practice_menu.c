@@ -473,10 +473,7 @@ STATIC void practiceCancelReturn_8c01e920(Task *task)
 }
 
 /* Fills var_lessonDialogQueue_8c226414 with init_instructorDialogs_8c044c08
- * indices, -1 terminated. The ids match 016d2c_course_menu's commented-out
- * lesson-mode range: 0x16 = TIPS, 0x17 = WARNING, 0x18 = CHOOSE,
- * 0x19 = SCORE_RECORD, 0x1a = FINAL_DAY, 0x1b = PERFECT, 0x1c = GOOD,
- * 0x1d = PASS, 0x1e = FAIL_MINOR, 0x1f = FAIL_MAJOR. */
+ * indices, -1 terminated. */
 STATIC void buildDialogQueue_8c01e992(void)
 {
     int i = 0;
@@ -489,16 +486,16 @@ STATIC void buildDialogQueue_8c01e992(void)
     if (var_gameMode_8c1bb8fc == 1 || var_8c1bb8b8 == 0 || var_8c1bb8bc == 0) {
         if (var_gameMode_8c1bb8fc != 1 && var_8c1bb8b8 == 0 && var_8c1bb8bc != 0) {
             if (var_progress_8c1ba1cc.days_0x00 < 0x1e) {
-                var_lessonDialogQueue_8c226414[i++] = 0x16;
-                if (var_gameMode_8c1bb8fc == 0) var_lessonDialogQueue_8c226414[i++] = 0x17;
+                var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_TIPS;
+                if (var_gameMode_8c1bb8fc == 0) var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_WARNING;
             } else {
-                var_lessonDialogQueue_8c226414[i++] = 0x1a;
+                var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_FINAL_DAY;
             }
 
-            var_lessonDialogQueue_8c226414[i++] = 0x18;
+            var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_CHOOSE;
             var_8c1bb8b8 = 1;
         } else {
-            var_lessonDialogQueue_8c226414[i++] = 0x18;
+            var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_CHOOSE;
         }
 
         var_lessonDialogQueue_8c226414[i] = -1;
@@ -506,19 +503,19 @@ STATIC void buildDialogQueue_8c01e992(void)
     }
 
     if (var_penaltyCount_8c1bb8f4 == 0) {
-        var_lessonDialogQueue_8c226414[i++] = 0x1b;
+        var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_PERFECT;
     } else {
         var_lessonDialogQueue_8c226414[i++] = (unsigned char)init_penaltyMsgSetInstr_8c045208[var_worstPenaltyMsgSet_8c1bb8ec];
 
         if (var_runSucceeded_8c1bb8dc == 0)
-            var_lessonDialogQueue_8c226414[i++] = (var_penaltyCount_8c1bb8f4 == 1) ? 0x1e : 0x1f;
+            var_lessonDialogQueue_8c226414[i++] = (var_penaltyCount_8c1bb8f4 == 1) ? INSTR_LESSON_FAIL_MINOR : INSTR_LESSON_FAIL_MAJOR;
         else
-            var_lessonDialogQueue_8c226414[i++] = (var_penaltyCount_8c1bb8f4 == 1) ? 0x1c : 0x1d;
+            var_lessonDialogQueue_8c226414[i++] = (var_penaltyCount_8c1bb8f4 == 1) ? INSTR_LESSON_GOOD : INSTR_LESSON_PASS;
     }
 
-    if (var_award_8c1bb8f8 != 0) var_lessonDialogQueue_8c226414[i++] = 0x19;
+    if (var_award_8c1bb8f8 != 0) var_lessonDialogQueue_8c226414[i++] = INSTR_SCORE_RECORD;
 
-    var_lessonDialogQueue_8c226414[i++] = 0x18;
+    var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_CHOOSE;
     var_lessonDialogQueue_8c226414[i] = -1;
 }
 
@@ -811,7 +808,7 @@ void PracticeMenuLessonRetry_8c01f21c(void)
     var_award_8c1bb8f8 = 0;
 
     if (var_8c1bb8bc == 0) {
-        var_lessonDialogQueue_8c226414[0] = 0x18;
+        var_lessonDialogQueue_8c226414[0] = INSTR_LESSON_CHOOSE;
         var_lessonDialogQueue_8c226414[1] = -1;
     } else {
         if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_practiceLesson_8c22640c] < var_8c2285c4[3]) {

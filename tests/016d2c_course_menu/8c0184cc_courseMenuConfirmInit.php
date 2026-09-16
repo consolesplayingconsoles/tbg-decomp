@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 return new class extends TestCase {
-    public function test_initializes_course_menu_task()
+    public function test_initializes_course_confirm_task()
     {
         $this->resolveSymbols();
 
@@ -44,7 +44,7 @@ return new class extends TestCase {
             $this->addressOf('_init_courseResourceGroup_8c044d40')
         );
 
-        // Step 7: Set unknown PVM boolean
+        // Step 7: Block the confirm task until the PVM load finishes
         $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
 
         // Step 8: Process asset queues

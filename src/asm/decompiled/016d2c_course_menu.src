@@ -99,7 +99,7 @@
           .EXPORT     _buildCourseMenuDialogFlow_8c017420
           .EXPORT     _drawCourseButtons_8c017590
           .EXPORT     _buildFreeRunMenuDialogFlow_8c017a20
-          .EXPORT     _FUN_8c017d54
+          .EXPORT     _refreshCourseGrid_8c017d54
           .EXPORT     _drawFixedInteger_8c01803e
           .EXPORT     _drawRouteInfo_8c018118
           .EXPORT     _courseConfirmMenuTask_8c0181b6
@@ -2278,7 +2278,7 @@ LP_GEN_85439:
           .DATA.L H'C0C00000 ; H'8C017D48
           .DATA.L H'C0E00000 ; H'8C017D4C
           .DATA.L _AsqGetRandomA_8c012166 ; H'8C017D50
-_FUN_8c017d54:
+_refreshCourseGrid_8c017d54:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -2432,7 +2432,7 @@ LAB_8c017e64:
           MOV.L       LP_GEN_67544+24,R3
           MOV.L       R13,@(H'8,R12)
           MOV.L       R13,@R3
-          BSR         _FUN_8c017d54
+          BSR         _refreshCourseGrid_8c017d54
           MOV.L       R13,@R2
           MOV.L       LP_GEN_67544+36,R3
           MOV.L       LP_GEN_67544+32,R4
@@ -2602,7 +2602,7 @@ LAB_8c017fb4:
           JSR         @R3
           NOP
           MOV.L       LP_GEN_56170+50,R2
-          BSR         _FUN_8c017d54
+          BSR         _refreshCourseGrid_8c017d54
           MOV.L       R14,@R2
           MOV.L       LP_GEN_56170+54,R2
           MOV         R14,R5
@@ -3647,7 +3647,6 @@ _init_seqFinalDay_8c0447f0:        ; aggressive search
 _init_seqLessonIntro_8c044808:        ; aggressive search
           .DATA.L      _const_8c036df0 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00
-_init_8c044810:        ; aggressive search
           .DATA.L      _const_8c036e30 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00
           .DATA.L      _const_8c03628c ; ukn

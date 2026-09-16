@@ -73,7 +73,7 @@
 
 #define MSG_SEQ_LESSON_INTRO_01 "今日は初日なので、全てのＬＥＳＳＯＮを<E>順番にやってもらうよ"
 
-#define MSG_INIT_8C044810_01 "合格ラインは７０点。決して難しい事では<E>ないので、落ち着いて慎重に進めていこう"
+#define MSG_SEQ_LESSON_INTRO_02 "合格ラインは７０点。決して難しい事では<E>ないので、落ち着いて慎重に進めていこう"
 
 #define MSG_SEQ_LESSON_COMPLETE_01 "おめでとう<E>これで全てのＬＥＳＳＯＮは終了だ"
 #define MSG_SEQ_LESSON_COMPLETE_02 "明日からは実際の街中にでて<E>実地研修を行うとしよう"

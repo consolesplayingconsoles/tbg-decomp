@@ -54,10 +54,11 @@ return new class extends TestCase {
         }
     }
 
-    private function initCursor(int $x, int $y)
+    /* Cursor column (0-4) and row (0-2); the button index is col + row * 5. */
+    private function initCursor(int $col, int $row)
     {
-        $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, $x);
-        $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x40, $y);
+        $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, $col);
+        $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x40, $row);
     }
 
     public function test_it_selects_an_option()
@@ -71,7 +72,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Practice option selected
         $this->initCursor(0, 0);
 
         // A button pressed
@@ -105,7 +105,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Course option selected
         $this->initCursor(2, 0);
 
         // A button pressed
@@ -139,7 +138,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(0, 1);
 
         // Up button pressed
@@ -171,7 +169,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(0, 0);
 
         // Up button pressed
@@ -209,7 +206,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(0, 0);
 
         // Down button pressed
@@ -241,7 +237,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(0, 1);
 
         // Down button pressed
@@ -279,7 +274,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(1, 0);
 
         // Left button pressed
@@ -311,7 +305,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(2, 2);
 
         // Left button pressed
@@ -352,7 +345,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(0, 0);
 
         // Right button pressed
@@ -384,7 +376,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(4, 2);
 
         // Right button pressed
@@ -425,7 +416,6 @@ return new class extends TestCase {
             $this->addressOf('_var_midiHandles_8c0fcd28'), 0xd1d1d1d1
         );
 
-        // Event option selected
         $this->initCursor(0, 1);
 
         // Up button pressed

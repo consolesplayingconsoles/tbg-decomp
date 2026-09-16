@@ -1107,7 +1107,7 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 0x4);
         $this->setSize('_CourseMenuSwitchFromTask_8c017e18', 0x4);
         $this->setSize('_buildCourseMenuDialogFlow_8c017420', 0x4);
-        $this->setSize('_FUN_8c017d54', 0x4);
+        $this->setSize('_refreshCourseGrid_8c017d54', 0x4);
         $this->setSize('_OptionSwitchToTopMenu_8c01b122', 0x4);
     }
 };

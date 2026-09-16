@@ -4,12 +4,13 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 return new class extends TestCase {
+    /* Story mode rebuilds the task stack with courseMenuStoryMenuTask. */
     public function test_story_mode(): void
     {
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
 
         $this->setSize('_var_menuState_8c1bc7a8', 0x80);
-        // First sequence is the second one (index 1)
+        // Queue head = dialog 1; its spriteNo_0x04 becomes instructorSprite_0x60.
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 1);
 
         $this->call('_CourseMenuReturn_8c017ef2');
@@ -57,7 +58,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 0);
 
-        $this->shouldCall('_FUN_8c017d54');
+        $this->shouldCall('_refreshCourseGrid_8c017d54');
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
@@ -79,15 +80,13 @@ return new class extends TestCase {
         );
     }
 
-    /*
-     * Returning from the practice screen in Free-Run mode (game_mode != 0).
-     */
+    /* Free run (var_gameMode_8c1bb8fc != 0) installs the free-run task instead. */
     public function test_free_run_mode(): void
     {
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 1);
 
         $this->setSize('_var_menuState_8c1bc7a8', 0x80);
-        // First sequence is the second one (index 1)
+        // Queue head = dialog 1; its spriteNo_0x04 becomes instructorSprite_0x60.
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 1);
 
         // Enter with a non-zero arg register so the missing `MOV #0,R4`
@@ -137,7 +136,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 0);
 
-        $this->shouldCall('_FUN_8c017d54');
+        $this->shouldCall('_refreshCourseGrid_8c017d54');
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(

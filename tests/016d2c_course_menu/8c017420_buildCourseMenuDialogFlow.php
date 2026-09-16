@@ -3,16 +3,17 @@
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    private const INSTR_INTRO_BRIEFING = 0;
-    private const INSTR_CHOOSE_COURSE = 6;
-    private const INSTR_SUCCESS_2 = 7;
+    /* Mirrors the INSTR_* enum in 016d2c_course_menu.h. */
+    private const INSTR_STORY_INTRO = 0;
+    private const INSTR_STORY_CHOOSE_COURSE = 6;
+    private const INSTR_GOOD_PRACTICE = 7;
     private const INSTR_SUCCESS = 8;
     private const INSTR_AWARD_BADGE_GOLD = 9;
     private const INSTR_AWARD_BADGE_SILVER = 10;
     private const INSTR_AWARD_BADGE_BRONZE = 11;
-    private const INSTR_FAILURE = 12;
+    private const INSTR_FAILURE_RETRY = 12;
     private const INSTR_COURSE_UNLOCKED = 13;
-    private const INSTR_PASSENGER_LETTER_RECEIVED = 14;
+    private const INSTR_PASSENGER_LETTER = 14;
 
     public function test_choose_course()
     {
@@ -22,7 +23,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bb8b8'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -35,12 +36,12 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 1);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
-        $this->shouldPushSequence(self::INSTR_INTRO_BRIEFING);
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_STORY_INTRO);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
-    public function test_success_2()
+    public function test_good_practice()
     {
         $this->setSize('_var_dialogQueue_8c225fbc', 4 * 4);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
@@ -50,8 +51,8 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
-        $this->shouldPushSequence(self::INSTR_SUCCESS_2);
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_GOOD_PRACTICE);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -74,7 +75,7 @@ return new class extends TestCase {
         $this->shouldPushSequence(self::INSTR_SUCCESS);
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc')->andReturn(0);
         $this->shouldCall('__modls');
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -102,8 +103,8 @@ return new class extends TestCase {
         $this->shouldWriteLong(
             $this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4 + 0, 1
         );
-        $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER_RECEIVED);
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -127,7 +128,7 @@ return new class extends TestCase {
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc')->andReturn(1);
         $this->shouldPushSequence(self::INSTR_COURSE_UNLOCKED);
         $this->shouldCall('__modls');
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -156,8 +157,8 @@ return new class extends TestCase {
         $this->shouldWriteLong(
             $this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4 + 0, 1
         );
-        $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER_RECEIVED);
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -176,10 +177,10 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
-        $this->shouldPushSequence(self::INSTR_FAILURE);
+        $this->shouldPushSequence(self::INSTR_FAILURE_RETRY);
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc')->andReturn(0);
         $this->shouldCall('__modls');
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -200,15 +201,15 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
-        $this->shouldPushSequence(self::INSTR_FAILURE);
+        $this->shouldPushSequence(self::INSTR_FAILURE_RETRY);
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc')->andReturn(0);
         $this->shouldCall('__modls');
         $this->shouldCall('_AsqGetRandomInRangeB_8c0121be')->andReturn(5);
         $this->shouldWriteLong(
             $this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4 + 0, 1
         );
-        $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER_RECEIVED);
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -227,11 +228,11 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
-        $this->shouldPushSequence(self::INSTR_FAILURE);
+        $this->shouldPushSequence(self::INSTR_FAILURE_RETRY);
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc')->andReturn(1);
         $this->shouldPushSequence(self::INSTR_COURSE_UNLOCKED);
         $this->shouldCall('__modls');
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -252,7 +253,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
-        $this->shouldPushSequence(self::INSTR_FAILURE);
+        $this->shouldPushSequence(self::INSTR_FAILURE_RETRY);
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc')->andReturn(1);
         $this->shouldPushSequence(self::INSTR_COURSE_UNLOCKED);
         $this->shouldCall('__modls');
@@ -260,8 +261,8 @@ return new class extends TestCase {
         $this->shouldWriteLong(
             $this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4 + 0, 1
         );
-        $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER_RECEIVED);
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 
@@ -441,10 +442,10 @@ return new class extends TestCase {
             $this->shouldWriteLong(
                 $this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4 + 0, 1
             );
-            $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER_RECEIVED);
+            $this->shouldPushSequence(self::INSTR_PASSENGER_LETTER);
         }
 
-        $this->shouldPushSequence(self::INSTR_CHOOSE_COURSE);
+        $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
         $this->shouldPushSequence(-1);
     }
 };

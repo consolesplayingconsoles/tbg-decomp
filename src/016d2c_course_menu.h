@@ -1,4 +1,5 @@
-/* 8c016d2c - Course Menu */
+/* 8c016d2c: COURSE SELECT screen, its confirm/ROUTE INFO sub-screen, and the
+ * instructor dialog machinery every menu shares. */
 #ifndef _COURSE_MENU_H
 #define _COURSE_MENU_H
 
@@ -19,7 +20,7 @@ enum {
     INSTR_SUCCESS_HIGH             = 2,
     INSTR_SUCCESS_NORMAL           = 3,
     INSTR_FAILURE_FINAL            = 4,
-    // INSTR_FREE_RUN_INTRO        = 5,
+    INSTR_FREE_RUN_INTRO        = 5,
     INSTR_STORY_CHOOSE_COURSE   = 6,
     INSTR_GOOD_PRACTICE         = 7,
     INSTR_SUCCESS               = 8,
@@ -32,24 +33,24 @@ enum {
     INSTR_COURSE_UNLOCKED       = 13,
     INSTR_PASSENGER_LETTER      = 14,
     INSTR_COURSE_LOCKED         = 15,
-    // INSTR_FORCE_PRACTICE        = 16,
-    // INSTR_FINAL_DAY             = 17,
+    INSTR_FORCE_PRACTICE        = 16,
+    INSTR_FINAL_DAY             = 17,
 
-    // --- Lesson Mode ---
-    // INSTR_LESSON_INTRO          = 18,
-    // INSTR_LESSON_COMPLETE       = 19,
-    // INSTR_LESSON_NEXT           = 20,
-    // INSTR_LESSON_RETRY          = 21,
-    // INSTR_LESSON_TIPS           = 22,
-    // INSTR_LESSON_WARNING        = 23,
-    // INSTR_LESSON_CHOOSE         = 24,
-    // INSTR_SCORE_RECORD          = 25,
-    // INSTR_LESSON_FINAL_DAY      = 26,
-    // INSTR_LESSON_PERFECT        = 27,
-    // INSTR_LESSON_GOOD           = 28,
-    // INSTR_LESSON_PASS           = 29,
-    // INSTR_LESSON_FAIL_MINOR     = 30,
-    // INSTR_LESSON_FAIL_MAJOR     = 31,
+    // --- Lesson Mode (01e27c_practice_menu builds the queue) ---
+    INSTR_LESSON_INTRO          = 18,
+    INSTR_LESSON_COMPLETE       = 19,
+    INSTR_LESSON_NEXT           = 20,
+    INSTR_LESSON_RETRY          = 21,
+    INSTR_LESSON_TIPS           = 22,
+    INSTR_LESSON_WARNING        = 23,
+    INSTR_LESSON_CHOOSE         = 24,
+    INSTR_SCORE_RECORD          = 25,
+    INSTR_LESSON_FINAL_DAY      = 26,
+    INSTR_LESSON_PERFECT        = 27,
+    INSTR_LESSON_GOOD           = 28,
+    INSTR_LESSON_PASS           = 29,
+    INSTR_LESSON_FAIL_MINOR     = 30,
+    INSTR_LESSON_FAIL_MAJOR     = 31,
 
     // --- Driving Mistakes / Penalties ---
     // Raised only in practice mode: 02b464_drive_points.c grades penalties
@@ -115,14 +116,7 @@ int CourseMenuBuildCourseUnlockList_8c0172dc(void);
 void CourseMenuApplyUnlocks_8c0173e6(void);
 void CourseMenuReturn_8c017ef2(void);
 
-/* =========================================
- * Future Improvements
- * =========================================
- *
- * 2. Decouple types: Move ResourceGroup/ResourceGroupInfo to a dedicated header
- * 3. Improve naming: Replace FUN_* names with descriptive identifiers
- * 4. Const-correctness: Add const qualifiers where appropriate
- */
+/* TODO: move ResourceGroup/ResourceGroupInfo out to a header of their own. */
 
 #endif /* _COURSE_MENU_H */
 

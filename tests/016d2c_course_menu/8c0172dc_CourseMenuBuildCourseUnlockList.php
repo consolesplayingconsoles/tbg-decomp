@@ -9,8 +9,8 @@ return new class extends TestCase {
     {
         $this->testCourse(
             course: 0,
-            unknown: 127,
-            score: 1_000_000,
+            days: 127,
+            exp: 1_000_000,
             writes: [-1]
         );
     }
@@ -18,154 +18,154 @@ return new class extends TestCase {
     public function test_course_1()
     {
         $this->testCourse(
-            course: 1, unknown: 8, score: 4000, writes: [1, -1],
+            course: 1, days: 8, exp: 4000, writes: [1, -1],
         );
     }
 
-    public function test_course_1_unknown_check()
+    public function test_course_1_day_check()
     {
         $this->testCourse(
-            course: 1, unknown: 3, score: 4000, writes: [-1],
+            course: 1, days: 3, exp: 4000, writes: [-1],
         );
     }
 
-    public function test_course_1_score_check()
+    public function test_course_1_exp_check()
     {
         $this->testCourse(
-            course: 1, unknown: 8, score: 3999, writes: [-1],
+            course: 1, days: 8, exp: 3999, writes: [-1],
         );
     }
 
     public function test_course_2()
     {
         $this->testCourse(
-            course: 2, unknown: 9, score: 5500, writes: [2, -1],
+            course: 2, days: 9, exp: 5500, writes: [2, -1],
         );
     }
 
-    public function test_course_2_unknown_check()
+    public function test_course_2_day_check()
     {
         $this->testCourse(
-            course: 2, unknown: 8, score: 5500, writes: [-1],
+            course: 2, days: 8, exp: 5500, writes: [-1],
         );
     }
 
-    public function test_course_2_score_check()
+    public function test_course_2_exp_check()
     {
         $this->testCourse(
-            course: 2, unknown: 9, score: 5499, writes: [-1],
+            course: 2, days: 9, exp: 5499, writes: [-1],
         );
     }
 
     public function test_course_3()
     {
         $this->testCourse(
-            course: 3, unknown: 5, score: 2000, writes: [3, -1],
+            course: 3, days: 5, exp: 2000, writes: [3, -1],
         );
     }
 
-    public function test_course_3_unknown_check()
+    public function test_course_3_day_check()
     {
         $this->testCourse(
-            course: 3, unknown: 4, score: 2000, writes: [-1],
+            course: 3, days: 4, exp: 2000, writes: [-1],
         );
     }
 
-    public function test_course_3_score_check()
+    public function test_course_3_exp_check()
     {
         $this->testCourse(
-            course: 3, unknown: 5, score: 1999, writes: [-1],
+            course: 3, days: 5, exp: 1999, writes: [-1],
         );
     }
 
     public function test_course_4()
     {
         $this->testCourse(
-            course: 4, unknown: 11, score: 8000, writes: [4, -1],
+            course: 4, days: 11, exp: 8000, writes: [4, -1],
         );
     }
 
-    public function test_course_4_unknown_check()
+    public function test_course_4_day_check()
     {
         $this->testCourse(
-            course: 4, unknown: 10, score: 8000, writes: [-1],
+            course: 4, days: 10, exp: 8000, writes: [-1],
         );
     }
 
-    public function test_course_4_score_check()
+    public function test_course_4_exp_check()
     {
         $this->testCourse(
-            course: 4, unknown: 11, score: 7999, writes: [-1],
+            course: 4, days: 11, exp: 7999, writes: [-1],
         );
     }
 
     public function test_course_5()
     {
         $this->testCourse(
-            course: 5, unknown: 13, score: 12000, writes: [5, -1],
+            course: 5, days: 13, exp: 12000, writes: [5, -1],
         );
     }
 
-    public function test_course_5_unknown_check()
+    public function test_course_5_day_check()
     {
         $this->testCourse(
-            course: 5, unknown: 12, score: 12000, writes: [-1],
+            course: 5, days: 12, exp: 12000, writes: [-1],
         );
     }
 
-    public function test_course_5_score_check()
+    public function test_course_5_exp_check()
     {
         $this->testCourse(
-            course: 5, unknown: 13, score: 11999, writes: [-1],
+            course: 5, days: 13, exp: 11999, writes: [-1],
         );
     }
 
     public function test_course_6()
     {
         $this->testCourse(
-            course: 6, unknown: 127, score: 1_000_000, writes: [-1],
+            course: 6, days: 127, exp: 1_000_000, writes: [-1],
         );
     }
 
     public function test_course_7()
     {
         $this->testCourse(
-            course: 7, unknown: 3, score: 500, writes: [7, -1],
+            course: 7, days: 3, exp: 500, writes: [7, -1],
         );
     }
 
-    public function test_course_7_unknown_check()
+    public function test_course_7_day_check()
     {
         $this->testCourse(
-            course: 7, unknown: 2, score: 500, writes: [-1],
+            course: 7, days: 2, exp: 500, writes: [-1],
         );
     }
 
-    public function test_course_7_score_check()
+    public function test_course_7_exp_check()
     {
         $this->testCourse(
-            course: 7, unknown: 3, score: 499, writes: [-1],
+            course: 7, days: 3, exp: 499, writes: [-1],
         );
     }
 
     public function test_course_8()
     {
         $this->testCourse(
-            course: 8, unknown: 6, score: 3000, writes: [8, -1],
+            course: 8, days: 6, exp: 3000, writes: [8, -1],
         );
     }
 
-    public function test_course_8_unknown_check()
+    public function test_course_8_day_check()
     {
         $this->testCourse(
-            course: 8, unknown: 5, score: 3000, writes: [-1],
+            course: 8, days: 5, exp: 3000, writes: [-1],
         );
     }
 
-    public function test_course_8_score_check()
+    public function test_course_8_exp_check()
     {
         $this->testCourse(
-            course: 8, unknown: 6, score: 2999, writes: [-1],
+            course: 8, days: 6, exp: 2999, writes: [-1],
         );
     }
 
@@ -174,10 +174,10 @@ return new class extends TestCase {
         // -- Arrange ------------------
         $this->resolveSymbols();
 
-        $this->initVarCourseSettings8c1ba1cc([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-        // Unknown check
+        $this->initCourseUnlockedFlags([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+        // days_0x00
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 127);
-        // Score check
+        // exp_0x90
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0x90, 1_000_000);
 
         // -- Act ----------------------
@@ -195,7 +195,7 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0xd2);
     }
 
-    private function initVarCourseSettings8c1ba1cc(array $values)
+    private function initCourseUnlockedFlags(array $values)
     {
         if (count($values) !== 9) {
             throw new \InvalidArgumentException('Expected exactly 9 values for _var_progress_8c1ba1cc.');
@@ -208,14 +208,14 @@ return new class extends TestCase {
 
     private function testCourse(
         int $course,
-        int $unknown,
-        int $score,
+        int $days,
+        int $exp,
         array $writes
     ) {
         // -- Arrange ------------------
         $this->resolveSymbols();
 
-        $this->initVarCourseSettings8c1ba1cc([
+        $this->initCourseUnlockedFlags([
             0,
             $course === 1 ? 0 : 1,
             $course === 2 ? 0 : 1,
@@ -226,10 +226,10 @@ return new class extends TestCase {
             $course === 7 ? 0 : 1,
             $course === 8 ? 0 : 1
         ]);
-        // Unknown check
-        $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), $unknown);
-        // Score check
-        $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0x90, $score);
+        // days_0x00
+        $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), $days);
+        // exp_0x90
+        $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0x90, $exp);
 
         // -- Act ----------------------
         $this->call('_CourseMenuBuildCourseUnlockList_8c0172dc');

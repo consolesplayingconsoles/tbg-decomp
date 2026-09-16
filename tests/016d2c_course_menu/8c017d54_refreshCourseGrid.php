@@ -5,11 +5,10 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     /**
      * Story mode:
-     *  - sets menuState flag at +0x72 to 1
-     *  - calls cursorOffTarget helper
-     *  - copies cursor target (x,y) from +0x28/+0x2C into current cursor at +0x20/+0x24
-     *  - enables non-course buttons [5] and [6]
-     *  - propagates PlayerProgress.courses[i].unlocked into CourseMenuButton[ row*5+2..4 ].unlocked
+     *  - sets cursorVisible_0x48
+     *  - calls cursorOffTarget to recompute the target, then snaps the cursor onto it
+     *  - enables the PROFILE FILE and ALBUM buttons [5] and [6]
+     *  - propagates courses_0x44[i].unlocked_0x00 into CourseMenuButton[row*5 + 2..4].unlocked_0x04
      */
     public function test_story_mode_initializes_buttons_and_cursor(): void {
         $this->resolveSymbols();
@@ -37,10 +36,10 @@ return new class extends TestCase {
         }
 
         // --- Invoke ---
-        $this->call('_FUN_8c017d54');
+        $this->call('_refreshCourseGrid_8c017d54');
 
         // --- Effects (ordered) ---
-        // 1) menuState flag write
+        // 1) cursorVisible_0x48
         $this->shouldWriteLong($menu + 0x48, 1);
 
         // 2) helper called to ensure cursor target is up-to-date
@@ -81,7 +80,8 @@ return new class extends TestCase {
     }
 
     /**
-     * Free Run mode mirrors Story but disables buttons [5] and [6].
+     * Free run disables buttons [5] and [6], and lights a course from
+     * courses_0x44[i].new_0x01 instead of unlocked_0x00.
      */
     public function test_free_run_mode_initializes_buttons_and_cursor(): void {
         $this->resolveSymbols();
@@ -98,16 +98,16 @@ return new class extends TestCase {
         $this->initUint32($menu + 0x20, 0);
         $this->initUint32($menu + 0x24, 0);
 
-        // Seed progress unlocked flags
+        // Seed the courses' new_0x01 flags
         $pp = $this->addressOf('_var_progress_8c1ba1cc');
         $baseCourses = $pp + 0x44;
-        $unlocked = [0,1,0, 1,0,1, 1,0,1];
+        $new = [0,1,0, 1,0,1, 1,0,1];
         for ($i = 0; $i < 9; $i++) {
-            $this->initUint8($baseCourses + $i * 8 + 1, $unlocked[$i]);
+            $this->initUint8($baseCourses + $i * 8 + 1, $new[$i]);
         }
 
         // --- Invoke ---
-        $this->call('_FUN_8c017d54');
+        $this->call('_refreshCourseGrid_8c017d54');
 
         // --- Effects (ordered) ---
         $this->shouldWriteLong($menu + 0x48, 1);
@@ -139,19 +139,16 @@ return new class extends TestCase {
         $this->shouldWriteLong($btns + 5 * 0x1C + 0x00, 0);
         $this->shouldWriteLong($btns + 6 * 0x1C + 0x00, 0);
 
-        // Propagate unlocked flags
+        // Propagate the new flags
         $map = [2,3,4, 7,8,9, 12,13,14];
         for ($i = 0; $i < 9; $i++) {
             $idx = $map[$i];
-            $this->shouldWriteLong($btns + $idx * 0x1C + 0x04, $unlocked[$i]);
+            $this->shouldWriteLong($btns + $idx * 0x1C + 0x04, $new[$i]);
         }
     }
 
     private function resolveSymbols(): void {
-        // Menu state must cover cursor pos/target and a flag at +0x72
         $this->setSize('_var_menuState_8c1bc7a8', 0x80);
-
-        // PlayerProgress blob ? we only need courses array starting at +0x44
         $this->setSize('_var_progress_8c1ba1cc', 0x200);
 
         // Game mode flag (0 = Story, !=0 = Free Run)

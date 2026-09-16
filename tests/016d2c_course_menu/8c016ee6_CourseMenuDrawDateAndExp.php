@@ -12,7 +12,8 @@ if (!function_exists('fdec')) {
 }
 
 return new class extends TestCase {
-    public function test_1()
+    /* Single-digit day: number at x=84, weekday glyph 6 + index. */
+    public function test_single_digit_day()
     {
         $this->resolveSymbols();
 
@@ -35,7 +36,8 @@ return new class extends TestCase {
         );
     }
 
-    public function test_2()
+    /* Two-digit day shifts the number to x=95. */
+    public function test_two_digit_day()
     {
         $this->resolveSymbols();
 
@@ -58,7 +60,8 @@ return new class extends TestCase {
         );
     }
 
-    public function test_3()
+    /* Day 15 draws holiday glyph 13 instead of the weekday. */
+    public function test_day_15_holiday_glyph()
     {
         $this->resolveSymbols();
 
@@ -80,7 +83,8 @@ return new class extends TestCase {
         );
     }
 
-    public function test_4()
+    /* Day 23 draws holiday glyph 14 instead of the weekday. */
+    public function test_day_23_holiday_glyph()
     {
         $this->resolveSymbols();
 
@@ -102,7 +106,8 @@ return new class extends TestCase {
         );
     }
 
-    public function test_5()
+    /* Day 24 is back to the weekday glyph. */
+    public function test_day_after_holiday()
     {
         $this->resolveSymbols();
 
