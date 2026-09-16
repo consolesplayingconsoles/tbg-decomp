@@ -14,8 +14,12 @@ extern char init_demoFirstShot_8c0460b0[];
 extern Sint32 init_signalGroupsWangan_8c04c980[];
 extern Sint32 init_signalGroupsShinjuku_8c04caec[];
 extern Sint32 init_signalGroupsOme_8c04cd38[];
-extern char init_8c04ce10[];
-extern char init_8c04df38[];
-extern char init_8c04e988[];
+/* Per-route route-line node tables (LineBusNode, 023938_bus_drive.h): the
+ * CourseConfig.lineNodes_0x24 value of every course on that route. Reach
+ * var_lineNodes_8c227d88 via BusInitStart_8c023610 (023310_bus_init) and are
+ * walked by BusDriveFindLaneTarget_8c023e7e (023938_bus_drive). */
+extern char init_lineNodesShinjuku_8c04ce10[];
+extern char init_lineNodesOme_8c04df38[];
+extern char init_lineNodesWangan_8c04e988[];
 
 #endif // _03BD80_SECTIOND_H

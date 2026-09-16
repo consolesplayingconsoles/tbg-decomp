@@ -1,9 +1,9 @@
 
-          .EXPORT     _init_8c04ce10 ; 013ae8_route_load.src
-          .EXPORT     _init_8c04df38 ; 013ae8_route_load.src
-          .EXPORT     _init_8c04e988 ; 013ae8_route_load.src
+          .EXPORT     _init_lineNodesShinjuku_8c04ce10 ; 013ae8_route_load.src
+          .EXPORT     _init_lineNodesOme_8c04df38 ; 013ae8_route_load.src
+          .EXPORT     _init_lineNodesWangan_8c04e988 ; 013ae8_route_load.src
           .SECTION    D,DATA,ALIGN=4
-_init_8c04ce10:        ; from ghidra
+_init_lineNodesShinjuku_8c04ce10:        ; from ghidra
           .DATA.B      H'F9, H'00, H'FF, H'FF, H'01, H'00, H'FF, H'FF, H'FF, H'FF, H'01, H'00, H'FF, H'FF, H'03, H'00
           .DATA.B      H'04, H'00, H'0F, H'01, H'FF, H'FF, H'04, H'00, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'01, H'00, H'FF, H'FF, H'05, H'00, H'FF, H'FF, H'10, H'01, H'05, H'00
@@ -279,7 +279,7 @@ _init_8c04ce10:        ; from ghidra
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
-_init_8c04df38:        ; from ghidra
+_init_lineNodesOme_8c04df38:        ; from ghidra
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'01, H'00, H'FF, H'FF, H'02, H'00, H'01, H'00, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'04, H'00, H'03, H'00, H'FF, H'FF, H'04, H'00, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
@@ -445,7 +445,7 @@ _init_8c04df38:        ; from ghidra
           .DATA.B      H'FF, H'FF, H'AF, H'00, H'B0, H'00, H'FF, H'FF, H'FF, H'FF, H'B0, H'00, H'FF, H'FF, H'B3, H'00
           .DATA.B      H'B4, H'00, H'FF, H'FF, H'FF, H'FF, H'B4, H'00, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF, H'FF
-_init_8c04e988:        ; from ghidra
+_init_lineNodesWangan_8c04e988:        ; from ghidra
           .DATA.B      H'FF, H'FF, H'FF, H'FF, H'0F, H'00, H'FF, H'FF, H'FF, H'FF, H'0F, H'00, H'FF, H'FF, H'1E, H'00
           .DATA.B      H'20, H'00, H'FF, H'FF, H'FF, H'FF, H'20, H'00, H'FF, H'FF, H'2A, H'00, H'2C, H'00, H'FF, H'FF
           .DATA.B      H'FF, H'FF, H'2C, H'00, H'FF, H'FF, H'32, H'00, H'35, H'00, H'FF, H'FF, H'FF, H'FF, H'35, H'00

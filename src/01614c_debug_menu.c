@@ -152,7 +152,7 @@ void DebugMenuFreeSessionAssets_8c016182(void)
 
         syFree(course->atariBus_0x04);
         syFree(course->lineBus_0x08);
-        /* ukn_0x0c is borrowed from the course config, not owned */
+        /* lineNodes_0x0c is borrowed from the course config, not owned */
         syFree(course->attrBus_0x10);
         syFree(course->attrMark_0x14);
         syFree(course->atariCpu_0x18);

@@ -88,7 +88,9 @@ typedef struct {
      * record's stopAreaId_0x02 (BusStopGetStopArea_8c02cd7a, 02c884); each slot
      * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
     void *lineBus_0x08;
-    void *ukn_0x0c;      /* not a filename: a table pointer copied from the config, and not owned */
+    /* not a filename: the route's LineBusNode table, borrowed from the config
+     * (not owned); becomes var_lineNodes_8c227d88 */
+    void *lineNodes_0x0c;
     void *attrBus_0x10;
     void *attrMark_0x14;
     void *atariCpu_0x18;
@@ -170,7 +172,9 @@ typedef struct {
      * CurrentCourse field of the same name. */
     char *atariBusFile_0x1c;
     char *lineBusFile_0x20;
-    void *ukn_0x24;      /* not a filename: copied straight into CurrentCourse.ukn_0x0c */
+    /* not a filename: the route's LineBusNode table, copied straight into
+     * CurrentCourse.lineNodes_0x0c */
+    void *lineNodes_0x24;
     char *attrBusFile_0x28;
     char *attrMarkFile_0x2c;
     char *atariCpuFile_0x30;

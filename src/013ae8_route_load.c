@@ -451,7 +451,7 @@ STATIC void loadRouteModels_8c014088(void)
 
     AsqRequestNj_8c011492(dir, config->atariBusFile_0x1c, &course->atariBus_0x04, 0);
     AsqRequestNj_8c011492(dir, config->lineBusFile_0x20, &course->lineBus_0x08, 0);
-    course->ukn_0x0c = config->ukn_0x24;
+    course->lineNodes_0x0c = config->lineNodes_0x24;
     AsqRequestNj_8c011492(dir, config->attrBusFile_0x28, &course->attrBus_0x10, 0);
     AsqRequestNj_8c011492(dir, config->attrMarkFile_0x2c, &course->attrMark_0x14, 0);
     AsqRequestNj_8c011492(dir, config->atariCpuFile_0x30, &course->atariCpu_0x18, 0);

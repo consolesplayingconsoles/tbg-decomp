@@ -690,7 +690,7 @@ extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
 extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
 /* The active course's route line: its segments (each a LinePoint list) and
  * the node table that links them. Copied from
- * var_currentCourse_8c1bb868.lineBus_0x08/ukn_0x0c by BusInitStart_8c023610,
+ * var_currentCourse_8c1bb868.lineBus_0x08/lineNodes_0x0c by BusInitStart_8c023610,
  * alongside var_activeGroundGrid_8c2264d4/var_activeAttrGrid_8c228b3c. */
 extern LineBusSegment *var_lineSegments_8c227d84;
 extern LineBusNode *var_lineNodes_8c227d88;
