@@ -7,11 +7,14 @@
 #include "sectionB.h"
 
 /* ====================
- * Type Declarations
+ * Compiler Definitions
  * ====================
  */
 
 #define CELL_SIZE 150.0f
+
+/* Max gap between the probe's y and a candidate polygon's first vertex. */
+#define HEIGHT_TOLERANCE 20.0f
 
 /* ====================
  * Functions
@@ -246,15 +249,11 @@ void GroundProbeInterpolateHeight_8c020f7e(GroundQueryResult *result, float *poi
     }
 }
 
-/* How far apart two overlapping road layers' first-vertex heights may be
- * and still be considered the same match -- H'41A00000. */
-#define HEIGHT_TOLERANCE 20.0f
-
 /* Same full cell search as GroundQueryFindPolygon_8c020914, except the cell size
  * comes from the grid itself (cellSizeX_0x08/cellSizeZ_0x0c) instead of the fixed
  * CELL_SIZE, and each candidate is additionally rejected when its first vertex's
  * height is too far from y -- this is how an elevated road is told apart from the
- * surface street beneath it. The height check runs before the containment test. */
+ * surface street beneath it. */
 void GroundProbeFindPolygonAtHeight_8c020fe4(float x, float y, float z, GroundQueryResult *out)
 {
     GroundGrid *grid = var_activeGroundGrid_8c2264d4;
@@ -360,21 +359,13 @@ void GroundProbeFindPolygonAtHeight_8c020fe4(float x, float y, float z, GroundQu
 }
 
 /* Height-filtered form of GroundProbeTrackPolygon_8c020b6c: re-tests *out's
- * previous polygon match first, exactly as GroundProbeTrackPolygon_8c020b6c
- * does, then falls back to a cell search shaped like
- * GroundProbeFindPolygonAtHeight_8c020fe4's -- grid-defined cell size, each
- * candidate rejected by the HEIGHT_TOLERANCE check on y first -- with
- * GroundProbeTrackPolygon_8c020b6c's extra step of skipping the polygon just
- * re-tested (by vertex-id pointer) so it isn't tried again in the fallback.
- *
- * y is not dead here: it drives the height filter directly, same as in
- * GroundProbeFindPolygonAtHeight_8c020fe4.
+ * previous match first, then falls back to
+ * GroundProbeFindPolygonAtHeight_8c020fe4's search, skipping the polygon just
+ * re-tested.
  *
  * spawnEntry_8c0272b8 (026710_traffic) installs this instead of
  * GroundProbeTrackPolygon_8c020b6c as a traffic entry's ground-query callback
- * when the entry's type code has bit 0x4000 set -- the elevated-road case,
- * where the height filter is what tells the elevated road apart from the
- * surface street beneath it. */
+ * when the entry's type code has bit 0x4000 set -- the elevated-road case. */
 void GroundProbeTrackPolygonAtHeight_8c021290(float x, float y, float z, GroundQueryResult *out)
 {
     GroundGrid *grid = var_activeGroundGrid_8c2264d4;
