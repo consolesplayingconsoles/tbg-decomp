@@ -71,12 +71,12 @@ SRCS = \
 	src/asm/decompiled/02b464_drive_points.src \
 	src/asm/decompiled/02c884_bus_stop.src \
 	src/asm/decompiled/02d06c_stop_draw.src \
+	src/asm/sectionB.src \
 	src/asm/decompiled/02d19c_passenger.src \
 	src/asm/decompiled/02d968_stop_spawn.src \
 	src/asm/decompiled/02df3c_traffic_lookahead.src \
 	src/asm/decompiled/02e2dc_bus_collision.src \
 	src/asm/decompiled/02e400_collision.src \
-	src/asm/sectionB.src \
 	src/asm/decompiled/02e51c_attr_query.src \
 	src/asm/decompiled/02f0c8_traffic_path_scan.src \
 	src/asm/decompiled/02f320_replay_codec.src \
