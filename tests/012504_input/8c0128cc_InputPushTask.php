@@ -30,8 +30,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_8c157ad4', 0);
     }
 
-    // param 1, var_driveMode_8c1bb8c8 == 0: queue inputTask_8c012504.
-    public function test_installs_inputTask_8c012504_when_flag_clear()
+    public function test_installs_the_manual_input_task()
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
@@ -43,15 +42,14 @@ return new class extends TestCase {
         $sp0 = 1024 * 1024 * 16 - 4;
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            $this->addressOf('_inputTask_8c012504'),
+            $this->addressOf('_inputManualTask_8c012504'),
             $this->addressOf('_var_8c157a74'),
             $sp0 - 16, // &created_state
             0
         );
     }
 
-    // param 1, var_driveMode_8c1bb8c8 != 0: queue inputTaskAlt_8c012718.
-    public function test_installs_inputTaskAlt_8c012718_when_flag_set()
+    public function test_installs_the_auto_input_task()
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
@@ -63,7 +61,7 @@ return new class extends TestCase {
         $sp0 = 1024 * 1024 * 16 - 4;
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            $this->addressOf('_inputTaskAlt_8c012718'),
+            $this->addressOf('_inputAutoTask_8c012718'),
             $this->addressOf('_var_8c157a74'),
             $sp0 - 16, // &created_state
             0

@@ -24,17 +24,17 @@
           .IMPORT     _strcmp
           .IMPORT     _strcpy
           .EXPORT     _InputPushTask_8c0128cc
-          .EXPORT     _InputSetName_8c012984
+          .EXPORT     _InputCheckColdBoot_8c012984
           .EXPORT     _InputDispatchTask_8c012970
 
           .AIFDEF UNIT_TESTING
-          .EXPORT     _inputTaskAlt_8c012718
-          .EXPORT     _inputTask_8c012504
-          .EXPORT     _var_name_8c157aec
+          .EXPORT     _inputAutoTask_8c012718
+          .EXPORT     _inputManualTask_8c012504
+          .EXPORT     _var_bootSentinel_8c157aec
           .EXPORT     _const_fortyFive_8c033358
           .AENDI
           .SECTION     P, CODE, ALIGN=4
-_inputTask_8c012504:
+_inputManualTask_8c012504:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -317,7 +317,7 @@ LP_GEN_43503:
 
           ; UNIT BOUNDARY?
 
-_inputTaskAlt_8c012718:
+_inputAutoTask_8c012718:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -636,13 +636,13 @@ _InputDispatchTask_8c012970:
           TST         R3,R3
           BF          LAB_8c01297e
           MOV         #H'0,R5
-          BRA         _inputTask_8c012504
+          BRA         _inputManualTask_8c012504
           MOV         R5,R4
 LAB_8c01297e:
           MOV         #H'0,R5
-          BRA         _inputTaskAlt_8c012718
+          BRA         _inputAutoTask_8c012718
           MOV         R5,R4
-_InputSetName_8c012984:
+_InputCheckColdBoot_8c012984:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_44279+24,R2
           MOV.L       LP_GEN_44279+20,R4
@@ -667,10 +667,10 @@ LAB_8c0129a4:
 LP_GEN_44279:
           .DATA.L     _var_driveMode_8c1bb8c8
           .DATA.L     _var_8c157a74
-          .DATA.L     _inputTask_8c012504
-          .DATA.L     _inputTaskAlt_8c012718
+          .DATA.L     _inputManualTask_8c012504
+          .DATA.L     _inputAutoTask_8c012718
           .DATA.L     _init_fortyFive_8c03bf40
-          .DATA.L     _var_name_8c157aec
+          .DATA.L     _var_bootSentinel_8c157aec
           .DATA.L     _strcmp
           .DATA.L     _strcpy
           .SECTION    D,DATA,ALIGN=4
@@ -682,6 +682,6 @@ _const_fortyFive_8c033358:
           .DATA.B     H'00
           .RES.W      1
           .SECTION    B,DATA,ALIGN=4
-_var_name_8c157aec:
+_var_bootSentinel_8c157aec:
           .RES.B      12
           .END

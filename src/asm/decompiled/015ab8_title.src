@@ -34,7 +34,7 @@
           .IMPORT     _RouteLoadSetLatch_8c014330
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _SndProc_8c010cd6
-          .IMPORT     _InputSetName_8c012984
+          .IMPORT     _InputCheckColdBoot_8c012984
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _InputPushTask_8c0128cc
           .AIFDEF UNIT_TESTING
@@ -475,7 +475,7 @@ L37:
           .DATA.L     _VmMenuMountVms_8c01940e
           .DATA.L     H'FF000000
           .DATA.L     _njSetBackColor
-          .DATA.L     _InputSetName_8c012984 ; H'8c015de0
+          .DATA.L     _InputCheckColdBoot_8c012984 ; H'8c015de0
           .DATA.L     _init_saveNames_8c044d50
           .DATA.L     _VmMenuUpdateVmusStatus_8c019550
           .DATA.L     _var_midiHandles_8c0fcd28

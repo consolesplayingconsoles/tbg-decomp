@@ -287,7 +287,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->shouldCall('_InputSetName_8c012984')->andReturn(0);
+        $this->shouldCall('_InputCheckColdBoot_8c012984')->andReturn(0);
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0a);
@@ -304,7 +304,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->shouldCall('_InputSetName_8c012984')->andReturn(1);
+        $this->shouldCall('_InputCheckColdBoot_8c012984')->andReturn(1);
 
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3)
@@ -326,7 +326,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->shouldCall('_InputSetName_8c012984')->andReturn(1);
+        $this->shouldCall('_InputCheckColdBoot_8c012984')->andReturn(1);
 
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3)

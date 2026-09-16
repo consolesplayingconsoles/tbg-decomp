@@ -89,7 +89,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
         $this->shouldWriteLong($bus + 0x080, 1);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -103,7 +103,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2ec, 0);
         $this->shouldWriteLong($bus + 0x2e0, 1);
         $this->shouldCall('_VibStart_8c010f7a')->with(0);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -114,7 +114,7 @@ return new class extends TestCase {
         $this->call('_BusInputUpdate_8c0246b2');
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -130,7 +130,7 @@ return new class extends TestCase {
         $this->shouldCall('_applyBrakingSfx_8c024606');
         $this->shouldWriteLong($bus + 0x080, 1);
         $this->shouldWriteLong($bus + 0x2ec, 6);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -144,7 +144,7 @@ return new class extends TestCase {
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
         $this->shouldWriteLong($bus + 0x2ec, 11);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -163,7 +163,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2ec, 0);
         $this->shouldWriteLong($bus + 0x2e0, 0);
         $this->shouldCall('_pdVibMxStop')->with(5);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -181,7 +181,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2ec, 32);
         $this->shouldWriteLong($bus + 0x2ec, 0);
         $this->shouldWriteLong($bus + 0x2e0, 0);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -201,7 +201,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2e0, 2);
         $this->shouldWriteLong($bus + 0x2ec, 0);
         $this->shouldWriteLong($bus + 0x2f0, 0);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -220,7 +220,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2ec, 32);
         $this->shouldWriteLong($bus + 0x2ec, 0);
         $this->shouldWriteLong($bus + 0x2e0, 0);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
 
         $this->forceStop();
     }
@@ -276,7 +276,7 @@ return new class extends TestCase {
         // speed_0x27c == 0.0 (the mocked call doesn't touch it): the mode-2
         // tail runs debugGearOverride and, since idleFrameCounter_0x2ec (10) < 30, just
         // increments it.
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
         $this->shouldWriteLong($bus + 0x2ec, 11);
 
         $this->forceStop();
@@ -295,7 +295,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_8c2285c4') + 0x80, 0);
         $this->shouldCall('_applyThrottle_8c024320');
         $this->shouldWriteFloat($this->addressOf('_var_8c2285c4') + 0x90, 0.0);
-        $this->shouldCall('_debugGearOverride_8c0242ce');
+        $this->shouldCall('_updateGearSelector_8c0242ce');
         $this->shouldWriteLong($bus + 0x2e0, 1);
         $this->shouldWriteLong($bus + 0x2ec, 0);
         $this->shouldCall('_VibStart_8c010f7a')->with(0);

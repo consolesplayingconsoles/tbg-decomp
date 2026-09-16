@@ -167,10 +167,10 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
 
         case TITLE_STATE_0X06_ADX_FADE_OUT: {
             if (var_isFading_8c226568 == FALSE) {
-                /* InputSetName_8c012984 only returns 1 the first time it
+                /* InputCheckColdBoot_8c012984 only returns 1 the first time it
                  * runs after a cold boot, so the no-save warning shows once
                  * per power-on. */
-                if (InputSetName_8c012984() != FALSE && VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3) == FALSE) {
+                if (InputCheckColdBoot_8c012984() != FALSE && VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3) == FALSE) {
                     var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X07_VMU_WARNING_FADE_IN;
                     LOG_DEBUG(("[TITLE] State changed: 0X07_VMU_WARNING_FADE_IN\n"));
                     FadePushIn_8c022a9c(10);

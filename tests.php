@@ -227,11 +227,11 @@ return [
             ],
         [
             "tests" => [
-                "tests/012504_input/8c012504_task.php",
-                "tests/012504_input/8c012718_inputTaskAlt.php",
+                "tests/012504_input/8c012504_inputManualTask.php",
+                "tests/012504_input/8c012718_inputAutoTask.php",
                 "tests/012504_input/8c0128cc_InputPushTask.php",
                 "tests/012504_input/8c012970_InputDispatchTask.php",
-                "tests/012504_input/8c012984_InputSetName.php",
+                "tests/012504_input/8c012984_InputCheckColdBoot.php",
             ],
             "objects" => [
                 "build/output_test/src/asm/decompiled/012504_input.obj",
@@ -968,7 +968,7 @@ return [
         [
             "tests" => [
                 "tests/024280_bus_input/8c024280_BusInputCapMirrorTraffic.php",
-                "tests/024280_bus_input/8c0242ce_debugGearOverride.php",
+                "tests/024280_bus_input/8c0242ce_updateGearSelector.php",
                 "tests/024280_bus_input/8c024320_applyThrottle.php",
                 "tests/024280_bus_input/8c024530_applyBraking.php",
                 "tests/024280_bus_input/8c024606_applyBrakingSfx.php",

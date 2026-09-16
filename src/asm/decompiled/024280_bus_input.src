@@ -25,7 +25,7 @@
           .EXPORT     _BusInputUpdate_8c0246b2
           .AIFDEF UNIT_TESTING
           .EXPORT     _applyThrottle_8c024320
-          .EXPORT     _debugGearOverride_8c0242ce
+          .EXPORT     _updateGearSelector_8c0242ce
           .EXPORT     _applyBraking_8c024530
           .EXPORT     _applyBrakingSfx_8c024606
           .AENDI
@@ -75,7 +75,7 @@ LAB_8c0242c4:
           BF          LAB_8c02429c
           RTS
           NOP
-_debugGearOverride_8c0242ce:
+_updateGearSelector_8c0242ce:
           MOV.L       LP_GEN_37903+26,R2
           MOV.L       @R2,R3
           TST         R3,R3
@@ -693,7 +693,7 @@ LAB_8c024794:
           JSR         @R1
           NOP
 LAB_8c0247ac:
-          BSR         _debugGearOverride_8c0242ce
+          BSR         _updateGearSelector_8c0242ce
           NOP
           BRA         LAB_8c024918
           NOP
@@ -860,7 +860,7 @@ LAB_8c0248e2:
           FMOV.S      @(R0,R14),FR2
           FCMP/EQ     FR3,FR2
           BF          LAB_8c024914
-          BSR         _debugGearOverride_8c0242ce
+          BSR         _updateGearSelector_8c0242ce
           NOP
           MOV.W       LP_GEN_83961+6,R0
           MOV         #H'1e,R3

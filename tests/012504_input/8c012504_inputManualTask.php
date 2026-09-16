@@ -16,7 +16,7 @@ return new class extends TestCase {
         $this->initUint32($per + 0x04, 0xf06fe);   // support bits (irrelevant for this path)
         $this->initUint32($per + 0x30, $info);
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -38,7 +38,7 @@ return new class extends TestCase {
         $this->initUint32($per + 0x04, 0); // support & 0xF06FE = 0 -> matches neither type
         $this->initUint32($per + 0x30, $info);
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -65,7 +65,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -77,7 +77,6 @@ return new class extends TestCase {
         $this->shouldWriteLong($buf + 0x10, 0);
         $this->shouldWriteLongTo('_var_activeCtrlType_8c157a70', 0xf06fe);
 
-        // TODO: test full behavior instead of stopping early
         $this->forceStop();
     }
 
@@ -108,7 +107,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -147,13 +146,12 @@ return new class extends TestCase {
         $this->initUint32($per + 0x30, $info);
 
         // init_btnRemap_8c03be80 all zeros -> loops produce no writes.
-        // Sega mandatory reset combo: Start + A + B + X + Y.
         $this->initUint32($per + 0x08, 0x0606); // on: A|B|X|Y held
         $this->initUint32($per + 0x10, 0x0008); // press: Start pressed
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -191,7 +189,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -224,7 +222,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -236,7 +234,6 @@ return new class extends TestCase {
         $this->shouldWriteLong($buf + 0x10, 0);
         $this->shouldWriteLongTo('_var_activeCtrlType_8c157a70', 0x700fe);
 
-        // TODO: test full behavior instead of stopping early
         $this->forceStop();
     }
 
@@ -244,7 +241,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->setupRacingInitTable();
-        $this->setupRacingState(timerRaw: 0, mode: 0);
+        $this->setupRacingState(speedRaw: 0, gear: 0);
 
         $per = $this->alloc(0x34);
         $info = $this->alloc(0x4);
@@ -252,7 +249,7 @@ return new class extends TestCase {
         $this->initUint32($info, 1);
         $this->initUint32($per + 0x04, 0x700fe);
         $this->initUint16($per + 0x18, 0);
-        // l = 0 -> peripherals[0].l < 0x81, special-XOR path gated off.
+        // l = 0 is below the 0x81 brake threshold, so the gear selector is off.
         $this->initUint16($per + 0x1a, 0);
         $this->initUint16($per + 0x1c, 0);
         $this->initUint32($per + 0x30, $info);
@@ -269,7 +266,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -287,7 +284,7 @@ return new class extends TestCase {
         // press-loop: only pair 0 matches.
         $this->shouldWriteLong($buf + 0x10, 0x0100);
 
-        // press & 0x200 == 0 -> reset-combo branch; press & 8 == 0 -> no reset.
+        // No TY in press, so the reset-combo branch is taken instead.
         $this->forceStop();
     }
 
@@ -295,7 +292,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->setupRacingInitTable();
-        $this->setupRacingState(timerRaw: 0, mode: 0);
+        $this->setupRacingState(speedRaw: 0, gear: 0);
 
         $per = $this->alloc(0x34);
         $info = $this->alloc(0x4);
@@ -307,13 +304,12 @@ return new class extends TestCase {
         $this->initUint16($per + 0x1c, 0);
         $this->initUint32($per + 0x30, $info);
 
-        // Racing reset combo: Start + A + B (no X/Y on a wheel).
         $this->initUint32($per + 0x08, 0x0006); // on: A|B held
         $this->initUint32($per + 0x10, 0x0008); // press: Start pressed
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -330,31 +326,28 @@ return new class extends TestCase {
         $this->forceStop();
     }
 
-    public function test_racing_paddle_shift_remaps_to_dpad_up()
+    public function test_racing_gear_select_leaves_reverse()
     {
-        // mode 5: press ^ 0x210 remaps TY -> D-pad Up.
-        $this->racingPaddleShift(mode: 5, finalPress: 0x0010);
+        $this->racingGearSelect(gear: 5, finalPress: 0x0010);
     }
 
-    public function test_racing_paddle_shift_remaps_to_dpad_down()
+    public function test_racing_gear_select_enters_reverse()
     {
-        // mode 0: press ^ 0x220 remaps TY -> D-pad Down.
-        $this->racingPaddleShift(mode: 0, finalPress: 0x0020);
+        $this->racingGearSelect(gear: 0, finalPress: 0x0020);
     }
 
-    public function test_racing_paddle_shift_no_remap_for_other_mode()
+    public function test_racing_gear_select_ignores_other_gears()
     {
-        // Mode 3: gate passes but no remap -> press stays 0x200.
-        $this->racingPaddleShift(mode: 3, finalPress: null);
+        $this->racingGearSelect(gear: 3, finalPress: null);
     }
 
-    // Exercises paddle-shift remap with brake at threshold (0x81) and timer=0.
-    // finalPress=null means mode is neither 5 nor 0 (no remap).
-    private function racingPaddleShift(int $mode, ?int $finalPress): void
+    // The gear selector's gate: standstill, brake exactly at the 0x81
+    // threshold. finalPress null = a gear the selector ignores.
+    private function racingGearSelect(int $gear, ?int $finalPress): void
     {
         $this->resolveSymbols();
         $this->setupRacingInitTable();
-        $this->setupRacingState(timerRaw: 0, mode: $mode);
+        $this->setupRacingState(speedRaw: 0, gear: $gear);
 
         $per = $this->alloc(0x34);
         $info = $this->alloc(0x4);
@@ -376,7 +369,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -391,7 +384,7 @@ return new class extends TestCase {
         // press-loop translates physical bit 0x1 to logical TY (0x200).
         $this->shouldWriteLong($buf + 0x10, 0x0200);
         if ($finalPress !== null) {
-            // XOR remap rewrites press to the D-pad bit.
+            // Y is swallowed and reissued as the D-pad bit.
             $this->shouldWriteLong($buf + 0x10, $finalPress);
         }
 
@@ -455,7 +448,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTask_8c012504');
+        $this->call('_inputManualTask_8c012504');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -505,12 +498,12 @@ return new class extends TestCase {
         $this->initUint32Array($base, array_fill(0, 10, 0));
     }
 
-    // timerRaw: raw bits of float _var_8c1bbc4c (0 == 0.0f).
-    private function setupRacingState(int $timerRaw, int $mode): void
+    // speedRaw: the raw bits of BusState.speed_0x27c, a float (0 == 0.0f).
+    private function setupRacingState(int $speedRaw, int $gear): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), $timerRaw);
-        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2f4), $mode);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), $speedRaw);
+        $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2f4), $gear);
     }
 
     private function oddMvn(): Closure

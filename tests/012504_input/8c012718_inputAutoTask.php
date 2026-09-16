@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-/* Twin of inputTask_8c012504: alt tables, no paddle-shift remap. */
+/* Twin of inputManualTask_8c012504: alt tables, no paddle-shift remap. */
 return new class extends TestCase {
     public function test_not_controller_type()
     {
@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->initUint32($per + 0x04, 0xf06fe);   // support bits (irrelevant for this path)
         $this->initUint32($per + 0x30, $info);
 
-        $this->call('_inputTaskAlt_8c012718');
+        $this->call('_inputAutoTask_8c012718');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->initUint32($per + 0x04, 0); // support & 0xF06FE = 0 -> matches neither type
         $this->initUint32($per + 0x30, $info);
 
-        $this->call('_inputTaskAlt_8c012718');
+        $this->call('_inputAutoTask_8c012718');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -77,7 +77,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTaskAlt_8c012718');
+        $this->call('_inputAutoTask_8c012718');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -115,13 +115,12 @@ return new class extends TestCase {
         $this->initUint32($per + 0x30, $info);
 
         // init_btnRemapAlt_8c03beb8 all zeros -> loops produce no writes.
-        // Sega mandatory reset combo: Start + A + B + X + Y.
         $this->initUint32($per + 0x08, 0x0606); // on: A|B|X|Y held
         $this->initUint32($per + 0x10, 0x0008); // press: Start pressed
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTaskAlt_8c012718');
+        $this->call('_inputAutoTask_8c012718');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -159,7 +158,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTaskAlt_8c012718');
+        $this->call('_inputAutoTask_8c012718');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -203,7 +202,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTaskAlt_8c012718');
+        $this->call('_inputAutoTask_8c012718');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -240,13 +239,12 @@ return new class extends TestCase {
         $this->initUint16($per + 0x1c, 0);
         $this->initUint32($per + 0x30, $info);
 
-        // Racing reset combo: Start + A + B (no X/Y on a wheel).
         $this->initUint32($per + 0x08, 0x0006); // on: A|B held
         $this->initUint32($per + 0x10, 0x0008); // press: Start pressed
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTaskAlt_8c012718');
+        $this->call('_inputAutoTask_8c012718');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);
@@ -320,7 +318,7 @@ return new class extends TestCase {
 
         $buf = $this->addressOf('_var_peripherals_8c1ba35c');
 
-        $this->call('_inputTaskAlt_8c012718');
+        $this->call('_inputAutoTask_8c012718');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')->with(0)->andReturn($per);

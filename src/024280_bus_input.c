@@ -123,9 +123,10 @@ void BusInputCapMirrorTraffic_8c024280(void)
     }
 }
 
-/* Debug gear override: in direct (non-mapped) steering mode, controller 0's
- * D-pad up/down forces the bus into gear 0 or reverse (5). */
-STATIC void debugGearOverride_8c0242ce(void)
+/* Forward/reverse selector, manual transmission only: D-pad up puts the bus in
+ * gear 0, down in reverse (5). The racing controller reaches it through
+ * inputManualTask_8c012504's Y-button remap. */
+STATIC void updateGearSelector_8c0242ce(void)
 {
     if (var_driveMode_8c1bb8c8 != 0) {
         return;
@@ -311,7 +312,7 @@ void BusInputUpdate_8c0246b2(void)
             var_busState_8c1bb9d0.engineState_0x2e0 = 1;
             VibStart_8c010f7a(0);
         }
-        debugGearOverride_8c0242ce();
+        updateGearSelector_8c0242ce();
         break;
 
     case 1: { /* starting -- the 30-frame crank before the engine runs */
@@ -341,7 +342,7 @@ void BusInputUpdate_8c0246b2(void)
                 }
             }
         }
-        debugGearOverride_8c0242ce();
+        updateGearSelector_8c0242ce();
         break;
     }
 
@@ -405,7 +406,7 @@ void BusInputUpdate_8c0246b2(void)
         }
 
         if (var_busState_8c1bb9d0.speed_0x27c == 0.0f) {
-            debugGearOverride_8c0242ce();
+            updateGearSelector_8c0242ce();
             if (var_busState_8c1bb9d0.idleFrameCounter_0x2ec >= 30) {
                 var_busState_8c1bb9d0.engineState_0x2e0 = 1;
                 var_busState_8c1bb9d0.idleFrameCounter_0x2ec = 0;
