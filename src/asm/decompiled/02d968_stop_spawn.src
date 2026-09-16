@@ -6,7 +6,7 @@
           .IMPORT     _PassengerStopSceneTask_8c02d644
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _PassengerSkipStopTask_8c02d8f0
-          .IMPORT     _var_8c2285c4
+          .IMPORT     _var_runPhase_8c2285c4
           .IMPORT     _var_interiorTexlist_8c1bc438
           .IMPORT     _njSetTexture
           .IMPORT     _njLoadCacheTexture
@@ -309,7 +309,7 @@ LP_GEN_52173:
           .DATA.L _PassengerStopSceneTask_8c02d644 ; H'8C02DB68
           .DATA.L _TaskPush_8c014ae8 ; H'8C02DB6C
           .DATA.L _PassengerSkipStopTask_8c02d8f0 ; H'8C02DB70
-          .DATA.L _var_8c2285c4 ; H'8C02DB74
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02DB74
           .DATA.L _var_interiorTexlist_8c1bc438 ; H'8C02DB78
           .DATA.L _njSetTexture ; H'8C02DB7C
           .DATA.L _njLoadCacheTexture ; H'8C02DB80

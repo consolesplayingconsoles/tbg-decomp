@@ -12,7 +12,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_8c2285c4', 4);
+        $this->setSize('_var_runPhase_8c2285c4', 4);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_activeAttrGrid_8c228b3c', 4);
@@ -49,13 +49,13 @@ return new class extends TestCase {
         $this->initUint32($addr, unpack('L', pack('f', $value))[1]);
     }
 
-    // While traffic is disabled (var_8c2285c4[0] == 0), the function is a
+    // Before the run starts (var_runPhase_8c2285c4 == 0) the function is a
     // pure no-op: no ground-grid selection, no demo-entry bookkeeping, no
     // record processing, no lighting/task-group calls.
-    public function test_disabledIsNoOp(): void {
+    public function test_noOpBeforeTheRunStarts(): void {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 0);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 0);
 
         $task = $this->makeTask(0, 0, 0);
 
@@ -67,10 +67,10 @@ return new class extends TestCase {
     // Run under way, field_0x0c == 0 and no demo pending (bits 8-15 of
     // busState.scenePresetIds_0x3bc clear): arms field_0x0c = 2. The
     // record's script dword is 0, so the record block is skipped entirely.
-    public function test_enabled_armsWaitingState_noRecord(): void {
+    public function test_driving_armsWaitingState_noRecord(): void {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 1);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 1);
 
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $this->initUint32($course + 0x18, 0x11110000); // atariCpu_0x18
@@ -102,7 +102,7 @@ return new class extends TestCase {
     public function test_demoSwitch_refreshesScriptCursor(): void {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 1);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 1);
 
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $this->initUint32($course + 0x18, 0);
@@ -142,7 +142,7 @@ return new class extends TestCase {
     public function test_record_counterNotYetPastThreshold(): void {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 1);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 1);
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $this->initUint32($course + 0x18, 0);
         $this->initUint32($course + 0x20, 0);
@@ -172,7 +172,7 @@ return new class extends TestCase {
     public function test_record_thresholdPassed_spawnsViaSpawnEntry(): void {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 1);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 1);
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $this->initUint32($course + 0x18, 0);
         $this->initUint32($course + 0x20, 0);
@@ -207,7 +207,7 @@ return new class extends TestCase {
     public function test_record_thresholdPassed_shortcutSkipsSpawnCall(): void {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 1);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 1);
         $course = $this->addressOf('_var_currentCourse_8c1bb868');
         $this->initUint32($course + 0x18, 0);
         $this->initUint32($course + 0x20, 0);

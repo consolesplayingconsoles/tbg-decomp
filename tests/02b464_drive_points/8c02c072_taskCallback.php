@@ -7,14 +7,17 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): int
     {
-        $this->setSize('_var_8c2285c4', 0xa0);
-        $base = $this->addressOf('_var_8c2285c4');
+        // taskCallback's asm reaches every run-state global by displacement
+        // off var_runPhase_8c2285c4, so they need their real relative offsets
+        // here too.
+        $base = $this->alloc(0xa0);
+        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
+        $this->rellocate('_var_runPassed_8c2285c8', $base + 0x04);
+        $this->rellocate('_var_driveEndHold_8c2285cc', $base + 0x08);
+        $this->rellocate('_var_driverPoints_8c2285d0', $base + 0x0c);
+        $this->rellocate('_var_stopArrivalGrade_8c2285e8', $base + 0x24);
         $this->rellocate('_var_8c22861c', $base + 0x58);
         $this->rellocate('_var_8c228634', $base + 0x70);
-        // var_driverPoints_8c2285d0 is var_8c2285c4[3] (see the .c comment on
-        // adjust_8c02b464); taskCallback's asm reads it via the R14+0xc
-        // offset, not the aliased name, so it must land on that same slot.
-        $this->rellocate('_var_driverPoints_8c2285d0', $base + 0x0c);
 
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
@@ -127,7 +130,7 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $this->baselineMsgQueue();
         $this->initUint32($base + 0x00, 3); // phase 3
-        $this->initUint32($base + 0x24, 0); // var_8c2285c4[9] -- arrival quality grade
+        $this->initUint32($base + 0x24, 0); // var_stopArrivalGrade_8c2285e8
 
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_nextStopHeading_8c228714', 4);

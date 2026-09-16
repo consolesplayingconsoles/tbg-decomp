@@ -18,7 +18,7 @@
           .IMPORT     _njCos
           .IMPORT     _BusInputCapMirrorTraffic_8c024280
           .IMPORT     _GeomDistanceXZ_8c02081c
-          .IMPORT     _var_8c2285c4
+          .IMPORT     _var_runPhase_8c2285c4
           .IMPORT     _SndUpdateEngine_8c010c6e
           .IMPORT     _BusDriveSampleGround_8c023938
           .IMPORT     _BusDriveApplyGround_8c023cba
@@ -465,7 +465,7 @@ LP_GEN_93321:
           .DATA.L H'3DCCCCCD ; H'8C022F20
           .DATA.L _var_driveMode_8c1bb8c8 ; H'8C022F24
           .DATA.L _GeomDistanceXZ_8c02081c ; H'8C022F28
-          .DATA.L _var_8c2285c4 ; H'8C022F2C
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C022F2C
           .DATA.L H'3CA3D70A ; H'8C022F30
 LAB_8c022f34:
           FADD        FR4,FR2

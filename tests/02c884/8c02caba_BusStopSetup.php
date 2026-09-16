@@ -42,20 +42,15 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0xd2);
         $this->setSize('_var_practiceRules_8c226410', 4);
 
-        // var_8c2285c4/c8/driverPoints_d0/8c2285d4/d8/dc are adjacent globals
-        // in the real binary (see src/asm/sectionB.src); some accesses in
-        // this function land on them via offset arithmetic from one another
+        // var_runPhase_8c2285c4 through var_runClock_8c2285dc are adjacent
+        // globals in the real binary (see src/asm/sectionB.src); some accesses
+        // in this function land on them via offset arithmetic from one another
         // rather than by their own relocation, so they must sit at their
         // real relative offsets here too.
-        $this->setSize('_var_8c2285c4', 4);
-        $this->setSize('_var_runPassed_8c2285c8', 8);
-        $this->setSize('_var_driverPoints_8c2285d0', 4);
-        $this->setSize('_var_driverPointsMax_8c2285d4', 4);
-        $this->setSize('_var_scheduleTime_8c2285d8', 4);
-        $this->setSize('_var_runClock_8c2285dc', 8);
         $timerBlock = $this->alloc(0x20);
-        $this->rellocate('_var_8c2285c4', $timerBlock + 0x00);
+        $this->rellocate('_var_runPhase_8c2285c4', $timerBlock + 0x00);
         $this->rellocate('_var_runPassed_8c2285c8', $timerBlock + 0x04);
+        $this->rellocate('_var_driveEndHold_8c2285cc', $timerBlock + 0x08);
         $this->rellocate('_var_driverPoints_8c2285d0', $timerBlock + 0x0c);
         $this->rellocate('_var_driverPointsMax_8c2285d4', $timerBlock + 0x10);
         $this->rellocate('_var_scheduleTime_8c2285d8', $timerBlock + 0x14);

@@ -18,7 +18,7 @@ return new class extends TestCase {
         $this->setSize('_VibStart_8c010f7a', 4);
         $this->setSize('_VibUpdate_8c010fae', 4);
         $this->setSize('_SndPlayAdx_8c010cd6', 4);
-        $this->setSize('_var_8c2285c4', 4);
+        $this->setSize('_var_runPhase_8c2285c4', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_vibport_8c1ba354', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
@@ -56,8 +56,8 @@ return new class extends TestCase {
 
     private function initInactiveWorld(): void
     {
-        // var_8c2285c4[0] < 3 (task stays alive)
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 0);
+        // run phase < 3 (task stays alive)
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 0);
         // No vibration cue at the end unless a test wants one.
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xffffffff);
         $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xc7, 0);
@@ -85,7 +85,7 @@ return new class extends TestCase {
     public function test_frees_task_when_drive_ending(): void
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 3);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 3);
 
         $task = $this->alloc(4);
 

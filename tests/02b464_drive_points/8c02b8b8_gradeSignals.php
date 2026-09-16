@@ -5,16 +5,15 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // var_8c2285c4 is the base of a large scratch region this unit
-    // addresses partly through their own exported names (var_8c2285fc
-    // etc.) and partly through raw var_8c2285c4[N] offsets, depending on
-    // which the original compiler had loaded in a register at that point.
-    // Both paths must resolve to the same address here, like the real ROM.
+    // The run-state globals are adjacent in section B and the archived asm
+    // reaches most of them by displacement off var_runPhase_8c2285c4 rather
+    // than by their own relocation, so they need their real relative offsets
+    // here too.
     private function resolveSymbols(): int
     {
-        $this->setSize('_var_8c2285c4', 0x80);
-        $base = $this->addressOf('_var_8c2285c4');
-
+        $base = $this->alloc(0x80);
+        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
+        $this->rellocate('_var_stopLineGraded_8c2285f8', $base + 0x34);
         $this->rellocate('_var_8c2285fc', $base + 0x38);
 
         $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);

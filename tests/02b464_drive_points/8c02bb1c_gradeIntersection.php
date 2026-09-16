@@ -5,14 +5,16 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // var_8c2285c4 is a large scratch region this unit addresses through
-    // raw var_8c2285c4[N] offsets in this function (register reuse in the
-    // original compile), rather than through the individually-exported
-    // names that alias the same bytes elsewhere in the unit.
+    // The archived asm reaches every run-state global in this function by
+    // displacement off var_runPhase_8c2285c4 (register reuse in the original
+    // compile), so they need their real relative offsets here too.
     private function resolveSymbols(): int
     {
-        $this->setSize('_var_8c2285c4', 0x80);
-        $base = $this->addressOf('_var_8c2285c4');
+        $base = $this->alloc(0x80);
+        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
+        $this->rellocate('_var_speedingCountdown_8c2285f4', $base + 0x30);
+        $this->rellocate('_var_8c2285fc', $base + 0x38);
+        $this->rellocate('_var_8c22861c', $base + 0x58);
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);
@@ -59,7 +61,7 @@ return new class extends TestCase {
         $this->shouldCall('_adjust_8c02b464')->with(0x13, 0xffffffb0); // -80
         $this->shouldCall('_armCooldowns_8c02b578')->with(5);
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
     }
 
     public function test_moving_skips_stale_signal_penalty(): void
@@ -71,7 +73,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b4, 0xff000000);
         $this->initUint32($base + 0x3c, 7);
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving, so also over the (zero) speed limit
-        $this->initUint32($base + 0x30, 5); // var_8c2285c4[12], stays positive after decrement
+        $this->initUint32($base + 0x30, 5); // var_speedingCountdown_8c2285f4, stays positive after decrement
 
         $this->call('_gradeIntersection_8c02bb1c');
 
@@ -84,7 +86,7 @@ return new class extends TestCase {
     {
         $base = $this->resolveSymbols();
         $this->baseline($base);
-        $this->initUint32($base + 0x30, 5); // var_8c2285c4[12], nonzero
+        $this->initUint32($base + 0x30, 5); // var_speedingCountdown_8c2285f4, nonzero
 
         $this->call('_gradeIntersection_8c02bb1c');
 
@@ -148,7 +150,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
 
         $this->shouldCall('_adjust_8c02b464')->with(0xf, 0xfffffff8); // -8
     }
@@ -168,7 +170,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
     }
 
     public function test_input_map_sel_skips_lane_check(): void
@@ -187,7 +189,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
     }
 
     public function test_stopping_at_signal_arms_latch(): void
@@ -199,7 +201,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
 
         $this->shouldWriteLong($base + 0x50, 1);
     }
@@ -215,7 +217,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
 
         $this->shouldWriteLong($base + 0x50, 0);
     }
@@ -231,7 +233,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12] speed-limit reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
 
         $this->shouldCall('_adjust_8c02b464')->with(0xf, 0xfffffff8); // -8
         $this->shouldWriteLong($base + 0x50, 0);

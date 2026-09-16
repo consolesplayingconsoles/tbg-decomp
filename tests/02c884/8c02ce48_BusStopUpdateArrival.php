@@ -44,22 +44,24 @@ return new class extends TestCase {
         $this->setSize('_var_hudDriveMarkIcon_8c226450', 4);
         $this->setSize('_var_hudBlinkTimer_8c226454', 4);
 
-        // var_8c2285c4 through var_instructionBonusPending_8c228640 are ALL one contiguous scratch
-        // region in the real binary (see src/asm/sectionB.src -- there is no
-        // gap between any of these labels), and this function reaches most
-        // of them via displacement off var_8c2285c4 rather than by their own
-        // relocation, so they must sit at their real relative offsets here
-        // too (see the note above about rellocate() and 8c02caba_BusStopSetup.php
-        // for the same pattern on a smaller slice of this same region).
-        $this->setSize('_var_8c2285c4', 4);
+        // var_runPhase_8c2285c4 through var_instructionBonusPending_8c228640 are ALL one
+        // contiguous scratch region in the real binary (see
+        // src/asm/sectionB.src -- there is no gap between any of these
+        // labels), and this function reaches most of them via displacement off
+        // var_runPhase_8c2285c4 rather than by their own relocation, so they
+        // must sit at their real relative offsets here too (see the note above
+        // about rellocate() and 8c02caba_BusStopSetup.php for the same pattern
+        // on a smaller slice of this same region).
+        $this->setSize('_var_runPhase_8c2285c4', 4);
         $this->setSize('_var_runPassed_8c2285c8', 4);
-        $this->setSize('_var_8c2285cc', 4);
+        $this->setSize('_var_driveEndHold_8c2285cc', 4);
         $this->setSize('_var_driverPoints_8c2285d0', 4);
         $this->setSize('_var_driverPointsMax_8c2285d4', 4);
         $this->setSize('_var_scheduleTime_8c2285d8', 4);
-        $this->setSize('_var_runClock_8c2285dc', 8); // covers 8c2285dc and the unnamed 8c2285e0
+        $this->setSize('_var_runClock_8c2285dc', 4);
+        $this->setSize('_var_clockCatchUpStep_8c2285e0', 4);
         $this->setSize('_var_stopPhase_8c2285e4', 4);
-        $this->setSize('_var_8c2285e8', 4);
+        $this->setSize('_var_stopArrivalGrade_8c2285e8', 4);
         $this->setSize('_var_stopMinDistance_8c2285ec', 4);
         $this->alloc(0x44); // gap: 8c2285f0..8c228633 (unused by this function)
         $this->setSize('_var_8c228634', 4);
@@ -276,8 +278,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_stopMinDistance_8c2285ec'), 2.0);
         $this->shouldWriteLong($busBase + 0x2b4, 3); // driveState_0x2b4
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
-        $this->shouldWriteLongTo('_var_8c2285c4', 3);
-        $this->shouldWriteLongTo('_var_8c2285e8', 0);
+        $this->shouldWriteLongTo('_var_runPhase_8c2285c4', 3);
+        $this->shouldWriteLongTo('_var_stopArrivalGrade_8c2285e8', 0);
     }
 
     // State 2, still far by direct distance but the running minimum has
@@ -302,8 +304,8 @@ return new class extends TestCase {
         // 10.0 is not < running minimum 2.0, so no minimum update.
         $this->shouldWriteLong($busBase + 0x2b4, 3);
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
-        $this->shouldWriteLongTo('_var_8c2285c4', 3);
-        $this->shouldWriteLongTo('_var_8c2285e8', 0);
+        $this->shouldWriteLongTo('_var_runPhase_8c2285c4', 3);
+        $this->shouldWriteLongTo('_var_stopArrivalGrade_8c2285e8', 0);
     }
 
     // State 2, the bus reaches the stop segment outright while still moving
@@ -328,8 +330,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_stopMinDistance_8c2285ec'), 20.0);
         $this->shouldWriteLong($busBase + 0x2b4, 4); // driveState_0x2b4
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
-        $this->shouldWriteLongTo('_var_8c2285c4', 3);
-        $this->shouldWriteLongTo('_var_8c2285e8', 2);
+        $this->shouldWriteLongTo('_var_runPhase_8c2285c4', 3);
+        $this->shouldWriteLongTo('_var_stopArrivalGrade_8c2285e8', 2);
     }
 
     // State 3 -- fully idle, waits for something external.
@@ -368,9 +370,9 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($busBase + 0x2b4, 4); // driveState_0x2b4
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
-        $this->shouldWriteLongTo('_var_8c2285e8', 0);
-        $this->shouldWriteLongTo('_var_8c2285c4', 4);
-        $this->shouldWriteLongTo('_var_8c2285cc', 0x1e);
+        $this->shouldWriteLongTo('_var_stopArrivalGrade_8c2285e8', 0);
+        $this->shouldWriteLongTo('_var_runPhase_8c2285c4', 4);
+        $this->shouldWriteLongTo('_var_driveEndHold_8c2285cc', 0x1e);
         $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_DrivePointsOnFadeDriveEnd_8c02c784'));
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
@@ -390,9 +392,9 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($busBase + 0x2b4, 4);
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 3);
-        $this->shouldWriteLongTo('_var_8c2285e8', 0);
-        $this->shouldWriteLongTo('_var_8c2285c4', 4);
-        $this->shouldWriteLongTo('_var_8c2285cc', 0x1e);
+        $this->shouldWriteLongTo('_var_stopArrivalGrade_8c2285e8', 0);
+        $this->shouldWriteLongTo('_var_runPhase_8c2285c4', 4);
+        $this->shouldWriteLongTo('_var_driveEndHold_8c2285cc', 0x1e);
         $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_DrivePointsOnFadeDriveEnd_8c02c784'));
         $this->shouldCall('_DrivePointsRunComplete_8c02c586')->with()->andReturn(1);
         $this->shouldWriteLongTo('_var_runPassed_8c2285c8', 1);

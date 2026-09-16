@@ -367,21 +367,21 @@ void BusStopUpdateArrival_8c02ce48(void)
             (var_stopMinDistance_8c2285ec < 3.0f && var_busState_8c1bb9d0.speed_0x27c == 0.0f)) {
             var_busState_8c1bb9d0.driveState_0x2b4 = 3;
             var_stopPhase_8c2285e4 = 3;
-            var_8c2285c4[0] = 3;
-            var_8c2285e8 = 0;
+            var_runPhase_8c2285c4 = 3;
+            var_stopArrivalGrade_8c2285e8 = 0;
         } else if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff) == var_nextStopSegment_8c228710) {
             var_busState_8c1bb9d0.driveState_0x2b4 = 4;
             var_stopPhase_8c2285e4 = 3;
-            var_8c2285c4[0] = 3;
-            var_8c2285e8 = 2;
+            var_runPhase_8c2285c4 = 3;
+            var_stopArrivalGrade_8c2285e8 = 2;
         }
     } else if (var_stopPhase_8c2285e4 == 4) {
         if ((var_busState_8c1bb9d0.markDriveFlags_0x3b0 & 0xff000000) != 0) {
             var_busState_8c1bb9d0.driveState_0x2b4 = 4;
             var_stopPhase_8c2285e4 = 3;
-            var_8c2285e8 = 0;
-            var_8c2285c4[0] = 4;
-            var_8c2285cc = 0x1e;
+            var_stopArrivalGrade_8c2285e8 = 0;
+            var_runPhase_8c2285c4 = 4;
+            var_driveEndHold_8c2285cc = 0x1e;
             var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
             if (0 < var_driverPoints_8c2285d0 && DrivePointsRunComplete_8c02c586() != 0) {
                 var_runPassed_8c2285c8 = 1;

@@ -5,7 +5,7 @@
           .IMPORT     _FadeCmdPushCall2_8c022420
           .IMPORT     _var_busSimpleLightDir_8c227db8
           .IMPORT     _njCnkSetSimpleLight
-          .IMPORT     _var_8c2285c4
+          .IMPORT     _var_runPhase_8c2285c4
           .IMPORT     _FadeCmdPushCall1_8c0223ea
           .IMPORT     _var_trafficSignalTasks_8c227e20
           .IMPORT     _TaskExecGroup_8c014b42
@@ -583,7 +583,7 @@ LP_GEN_65253:
           .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C028488
           .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C02848C
           .DATA.L _njCnkSetSimpleLight ; H'8C028490
-          .DATA.L _var_8c2285c4 ; H'8C028494
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C028494
           .DATA.L _setTrafficSignalLightCallback_8c0283d4 ; H'8C028498
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02849C
           .DATA.L _var_trafficSignalTasks_8c227e20 ; H'8C0284A0
@@ -2738,7 +2738,7 @@ LP_GEN_26341:
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C02949C
           .DATA.L _TaskFreeGroup_8c014ab4 ; H'8C0294A0
           .DATA.L _syFree ; H'8C0294A4
-          .DATA.L _var_8c2285c4 ; H'8C0294A8
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C0294A8
           .DATA.L _var_currentCourse_8c1bb868+H'28 ; H'8C0294AC (atariHum_0x28)
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0294B0
           .DATA.L H'00FF0000 ; H'8C0294B4
@@ -5010,7 +5010,7 @@ LP_GEN_23851:
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C02A690
           .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C02A694
           .DATA.L _njCnkSetSimpleLightColor ; H'8C02A698
-          .DATA.L _var_8c2285c4 ; H'8C02A69C
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02A69C
           .DATA.L _setSimpleLightCallback_8c02a5d0 ; H'8C02A6A0
           .DATA.L _var_tasks_8c1bb448 ; H'8C02A6A4
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C02A6A8

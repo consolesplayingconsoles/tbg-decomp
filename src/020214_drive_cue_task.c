@@ -21,7 +21,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
     (void)state;
 
-    if (var_8c2285c4[0] >= 3) {
+    if (var_runPhase_8c2285c4 >= 3) {
         TaskFree_8c014b66(task);
         return;
     }

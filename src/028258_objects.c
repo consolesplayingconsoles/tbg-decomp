@@ -4560,7 +4560,7 @@ STATIC void setTrafficSignalLightCallback_8c0283d4(int arg0)
 /* Installed as a TaskAction; the task/state args are unused. */
 STATIC void execTrafficSignalGroupTask_8c0283e8(Task *task, void *state)
 {
-    if (var_8c2285c4[0] != 0) {
+    if (var_runPhase_8c2285c4 != 0) {
         FadeCmdPushCall1_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
         TaskExecGroup_8c014b42(var_trafficSignalTasks_8c227e20);
     }
@@ -5292,7 +5292,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     int layer;
     FadeCallback1 fn;
 
-    if (var_8c2285c4[0] == 0) {
+    if (var_runPhase_8c2285c4 == 0) {
         return;
     }
 
@@ -6170,13 +6170,13 @@ STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
     njCnkSetSimpleLightColor(var_fadeLightColor_8c2264f8[0], var_fadeLightColor_8c2264f8[1], var_fadeLightColor_8c2264f8[2]);
 }
 /* TaskAction spawned once after the table is fully processed, installed by
- * ObjectsPushTasks_8c02a6ac. Once the run is under way (var_8c2285c4[0], the
- * run phase), pushes setSimpleLightCallback_8c02a5d0 as a draw callback on both
+ * ObjectsPushTasks_8c02a6ac. Once the run is under way, pushes
+ * setSimpleLightCallback_8c02a5d0 as a draw callback on both
  * fade layers, then runs the row tasks just spawned into var_tasks_8c1bb448 to
  * completion. */
 STATIC void execRowTaskGroupTask_8c02a60e(void)
 {
-    if (var_8c2285c4[0] != 0) {
+    if (var_runPhase_8c2285c4 != 0) {
         FadeCmdPushCall1_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
         FadeCmdPushCall1_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
         TaskExecGroup_8c014b42(var_tasks_8c1bb448);

@@ -2,7 +2,7 @@
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_driveMsgQueue_8c228564
           .IMPORT     _var_penaltyCount_8c1bb8f4
-          .IMPORT     _var_8c2285c4
+          .IMPORT     _var_runPhase_8c2285c4
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_midiHandles_8c0fcd28
@@ -244,7 +244,7 @@ LP_GEN_45010:
           .DATA.L _var_driveMsgQueue_8c228564 ; H'8C02B550
           .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C02B554
           .DATA.L _var_progress_8c1ba1cc+H'C4 ; H'8C02B558 (difficulty_0xc4)
-          .DATA.L _var_8c2285c4 ; H'8C02B55C
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02B55C
           .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C02B560
           .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C02B564
           .DATA.L _var_midiHandles_8c0fcd28 + 20 ; H'8C02B568
@@ -743,7 +743,7 @@ LP_GEN_71333:
           .DATA.L H'00020000 ; H'8C02B938
           .DATA.L _var_driveMode_8c1bb8c8 ; H'8C02B93C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02B940
-          .DATA.L _var_8c2285c4 ; H'8C02B944
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02B944
           .DATA.L _var_frameSpeed_8c22866c ; H'8C02B948
           .DATA.L _var_8c2285fc ; H'8C02B94C
           .DATA.L _ObjectsGetTrafficSignalFrame_8c028900 ; H'8C02B950
@@ -849,7 +849,7 @@ LP_GEN_63579:
           .DATA.W H'0358 ; H'8C02BA06
           .DATA.L H'0F000000 ; H'8C02BA08
           .DATA.L _ObjectsGetTrafficSignalFrame_8c028900 ; H'8C02BA0C
-          .DATA.L _var_8c2285c4 ; H'8C02BA10
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02BA10
           .DATA.L _var_headingVsRoad_8c22868c ; H'8C02BA14
           .DATA.L _var_offCourseBits_8c228680 ; H'8C02BA18
           .DATA.L _var_prevLane_8c228684 ; H'8C02BA1C
@@ -1109,7 +1109,7 @@ LP_GEN_46467:
           .DATA.W H'025C ; H'8C02BC0A
           .DATA.L H'0F000000 ; H'8C02BC0C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02BC10
-          .DATA.L _var_8c2285c4 ; H'8C02BC14
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02BC14
           .DATA.L _var_frameSpeed_8c22866c ; H'8C02BC18
           .DATA.L H'FF000000 ; H'8C02BC1C
           .DATA.L _ObjectsGetTrafficSignalFrame_8c028900 ; H'8C02BC20
@@ -1244,7 +1244,7 @@ LP_GEN_44318:
           .DATA.L H'80000000 ; H'8C02BD28
           .DATA.L _var_frameSpeed_8c22866c ; H'8C02BD2C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02BD30
-          .DATA.L _var_8c2285c4 ; H'8C02BD34
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02BD34
           .DATA.L _var_prevLane_8c228684 ; H'8C02BD38
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02BD3C
 LAB_8c02bd40:
@@ -1728,7 +1728,7 @@ LP_GEN_85160:
           .DATA.L __modls ; H'8C02C0D0
           .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C02C0D4
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02C0D8
-          .DATA.L _var_8c2285c4 ; H'8C02C0DC
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02C0DC
 LAB_8c02c0e0:
           MOV.W       LP_GEN_77677,R0
           MOV.L       LP_GEN_77677+16,R5
@@ -2236,7 +2236,7 @@ LP_GEN_93947:
           .DATA.L _taskCallback_8c02c072 ; H'8C02C4CC
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02C4D0
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C4D4
-          .DATA.L _var_8c2285c4 ; H'8C02C4D8
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C02C4D8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C4DC
           .DATA.L _var_practiceRules_8c226410 ; H'8C02C4E0
 LAB_8c02c4e4:

@@ -810,8 +810,8 @@ void PracticeMenuLessonRetry_8c01f21c(void)
         var_lessonDialogQueue_8c226414[0] = INSTR_LESSON_CHOOSE;
         var_lessonDialogQueue_8c226414[1] = -1;
     } else {
-        if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_practiceLesson_8c22640c] < var_8c2285c4[3]) {
-            var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_practiceLesson_8c22640c] = var_8c2285c4[3];
+        if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_practiceLesson_8c22640c] < var_driverPoints_8c2285d0) {
+            var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_practiceLesson_8c22640c] = var_driverPoints_8c2285d0;
             var_award_8c1bb8f8 = 1;
         }
 

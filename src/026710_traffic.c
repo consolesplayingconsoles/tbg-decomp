@@ -844,7 +844,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
 /* Per-frame TaskAction driving the traffic subsystem: pushed once (with no
  * extra state -- its own TrafficUpdateTask struct doubles as the state, see
  * counter_0x08/presetState_0x0c/queuedItem_0x18 below) into var_tasks_8c1ba5e8.
- * No-ops until the run is under way (var_8c2285c4[0], the run phase).
+ * No-ops until the run is under way.
  *
  * Selects the CPU-vehicle collision/attribute meshes as the active
  * ground-query grid for the GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e queries run while
@@ -888,7 +888,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
 
     (void)state;
 
-    if (var_8c2285c4[0] == 0) {
+    if (var_runPhase_8c2285c4 == 0) {
         return;
     }
 

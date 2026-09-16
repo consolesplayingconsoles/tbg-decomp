@@ -216,20 +216,17 @@ STATIC void adjust_8c02b464(int msgSet, int delta) {
         return;
     }
 
-    /* var_8c2285c4[3]/[4] are var_driverPoints_8c2285d0/var_driverPointsMax_8c2285d4 (see
-     * sectionB.h) -- this TU addresses them via var_8c2285c4, like
-     * 013ae8_route_load.c and 01e27c_practice_menu.c do. */
-    var_8c2285c4[3] = var_8c2285c4[3] + delta;
+    var_driverPoints_8c2285d0 = var_driverPoints_8c2285d0 + delta;
 
     if (delta < var_worstPenaltyDelta_8c1bb8f0) {
         var_worstPenaltyDelta_8c1bb8f0 = delta;
         var_worstPenaltyMsgSet_8c1bb8ec = msgSet;
     }
 
-    if (var_8c2285c4[3] < 0) {
-        var_8c2285c4[3] = 0;
-    } else if (var_8c2285c4[4] < var_8c2285c4[3]) {
-        var_8c2285c4[3] = var_8c2285c4[4];
+    if (var_driverPoints_8c2285d0 < 0) {
+        var_driverPoints_8c2285d0 = 0;
+    } else if (var_driverPointsMax_8c2285d4 < var_driverPoints_8c2285d0) {
+        var_driverPoints_8c2285d0 = var_driverPointsMax_8c2285d4;
     }
 
     if (msgSet != -1) {
@@ -409,9 +406,6 @@ STATIC void gradeOffCourse_8c02b886(void) {
  * player stopped and the bus not driving through it grades another. */
 STATIC void gradeSignals_8c02b8b8(void) {
     int signalId;
-    /* var_8c2285c4[13] (0x2285f8, right before var_8c2285fc) has no export
-     * of its own -- a one-shot "already graded this signal" latch. */
-    int *graded = &var_8c2285c4[13];
 
     if (var_driveMode_8c1bb8c8 == 0 && var_offCourseBits_8c228680 == 0 && var_headingVsRoad_8c22868c == 2) {
         adjust_8c02b464(0x16, -50); /* -> INSTR_WRONG_WAY */
@@ -425,50 +419,49 @@ STATIC void gradeSignals_8c02b8b8(void) {
             }
             armCooldowns_8c02b578(3);
         }
-        *graded = 0;
+        var_stopLineGraded_8c2285f8 = 0;
         var_8c2285fc[0] = 0;
     } else {
         signalId = var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xfff;
         var_8c2285fc[0] = signalId;
         var_8c2285fc[1] = signalId;
-        if (*graded == 0 && var_frameSpeed_8c22866c == 0.0f
+        if (var_stopLineGraded_8c2285f8 == 0 && var_frameSpeed_8c22866c == 0.0f
             && ObjectsGetTrafficSignalFrame_8c028900(var_8c2285fc[0]) == 0) {
             adjust_8c02b464(0x11, -5); /* -> INSTR_BAD_STOP_LINE */
-            *graded = 1;
+            var_stopLineGraded_8c2285f8 = 1;
         }
     }
 }
 
-/* Grades a wrong-lane penalty, escalating on repeats
- * via a counter (var_8c2285c4[11], 0x2285f0); grades a further one
- * when var_8c22861c[5]/var_8c228634[1]/[2] and the junctionARoadFlags_0x34c/
- * junctionBRoadFlags_0x368 turn-signal bits (0x40000) don't all agree; and
- * grades a third, timeout-based one (var_8c2285fc[3]/[4], via
- * var_8c2285c4[17]/[18]) when the player's signal duration exceeds a
- * threshold picked from junctionARoadFlags_0x34c's turn-direction bits. */
+/* Grades a wrong-lane penalty, escalating on repeats via
+ * var_wrongLaneCount_8c2285f0; grades a further one when var_8c22861c[5]/
+ * var_8c228634[1]/[2] and the junctionARoadFlags_0x34c/junctionBRoadFlags_0x368
+ * turn-signal bits (0x40000) don't all agree; and grades a third,
+ * timeout-based one (var_8c2285fc[3]/[4]) when the player's signal duration
+ * exceeds a threshold picked from junctionARoadFlags_0x34c's turn-direction
+ * bits. */
 STATIC void gradeLaneUse_8c02b986(void) {
     /* 1 if the checked side is >= var_laneC_8c22867c, 2 if it's less -- mirrors
      * which of the two comparisons below ran (the other is short-circuited
      * whenever the first is an exact match). */
     int cmpDir;
     int threshold;
-    int *repeatCount = &var_8c2285c4[11]; /* 0x2285f0, no export of its own */
 
     if (var_headingVsRoad_8c22868c == 0 || var_offCourseBits_8c228680 == 0) {
-        *repeatCount = 0;
+        var_wrongLaneCount_8c2285f0 = 0;
     } else {
-        if (*repeatCount == 0) {
+        if (var_wrongLaneCount_8c2285f0 == 0) {
             adjust_8c02b464(0xb, -10); /* -> INSTR_WRONG_LANE */
         } else {
             adjust_8c02b464(0xc, -50); /* -> INSTR_WRONG_LANE */
         }
-        *repeatCount = *repeatCount + 1;
+        var_wrongLaneCount_8c2285f0 = var_wrongLaneCount_8c2285f0 + 1;
         armCooldowns_8c02b578(4);
     }
 
-    if (var_8c2285c4[27] == var_prevLane_8c228684 || (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x40000) == 0
-        || (var_busState_8c1bb9d0.junctionBRoadFlags_0x368 & 0x40000) == 0 || (var_8c2285c4[29] & 0x40000) == 0
-        || (var_8c2285c4[30] & 0x40000) == 0) {
+    if (var_8c22861c[5] == var_prevLane_8c228684 || (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x40000) == 0
+        || (var_busState_8c1bb9d0.junctionBRoadFlags_0x368 & 0x40000) == 0 || (var_8c228634[1] & 0x40000) == 0
+        || (var_8c228634[2] & 0x40000) == 0) {
         if (var_driveMode_8c1bb8c8 == 0) {
             if (var_laneA_8c228674 != var_laneC_8c22867c) {
                 cmpDir = (var_laneA_8c228674 >= var_laneC_8c22867c) ? 1 : 2;
@@ -479,10 +472,10 @@ STATIC void gradeLaneUse_8c02b986(void) {
             }
 
             if (cmpDir == 0) {
-                var_8c2285c4[17] = 0;
-                var_8c2285c4[18] = 0;
+                var_8c2285fc[3] = 0;
+                var_8c2285fc[4] = 0;
             } else {
-                if (var_8c2285c4[18] == 0) {
+                if (var_8c2285fc[4] == 0) {
                     if ((cmpDir == 2 && (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xc0000000) == 0x40000000)
                         || (cmpDir == 1 && (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xc0000000) == 0x80000000)) {
                         threshold = 0xd2;
@@ -492,14 +485,14 @@ STATIC void gradeLaneUse_8c02b986(void) {
                 } else {
                     threshold = 0x78;
                 }
-                if (threshold < var_8c2285c4[17]) {
-                    var_8c2285c4[17] = 0;
-                    if (var_8c2285c4[18] == 0) {
+                if (threshold < var_8c2285fc[3]) {
+                    var_8c2285fc[3] = 0;
+                    if (var_8c2285fc[4] == 0) {
                         adjust_8c02b464(0xd, -10); /* -> INSTR_LANE_STRADDLE */
                     } else {
                         adjust_8c02b464(0xe, -20); /* -> INSTR_LANE_STRADDLE */
                     }
-                    var_8c2285c4[18] = var_8c2285c4[18] + 1;
+                    var_8c2285fc[4] = var_8c2285fc[4] + 1;
                 }
             }
         }
@@ -509,27 +502,27 @@ STATIC void gradeLaneUse_8c02b986(void) {
     }
 
     if (var_frameSpeed_8c22866c != 0.0f) {
-        var_8c2285c4[17] = var_8c2285c4[17] + 1;
+        var_8c2285fc[3] = var_8c2285fc[3] + 1;
     }
 }
 
 /* Grades three unrelated driver-points penalties: a stale traffic signal
- * (busState junctionARoadFlags2_0x358/0x3b4, var_8c2285c4[15] i.e. var_8c2285fc[1], and
- * ObjectsGetTrafficSignalFrame_8c028900); speeding above a per-signal
- * limit derived from busState junctionARoadFlags_0x34c, tracked via var_8c2285c4[12]
- * (0x2285f4, no export of its own); and a lane-change without the turn
- * signal armed (var_8c2285c4[27] i.e. var_8c22861c[5] vs var_prevLane_8c228684,
- * var_playerBus_8c1bbd9c->signalSide_0x25c, var_prevLaneFlags_8c228688/var_8c228634[0]). The tail
- * tracks whether the bus is stopped at a signal (var_8c2285c4[20], i.e.
- * var_8c2285fc[6]) and, once it moves off with the wrong turn signal for
- * the lane taken, grades a fourth. */
+ * (busState junctionARoadFlags2_0x358/0x3b4, var_8c2285fc[1] and
+ * ObjectsGetTrafficSignalFrame_8c028900); speeding above a per-signal limit
+ * derived from busState junctionARoadFlags_0x34c, paced by
+ * var_speedingCountdown_8c2285f4; and a lane-change without the turn signal
+ * armed (var_8c22861c[5] vs var_prevLane_8c228684,
+ * var_playerBus_8c1bbd9c->signalSide_0x25c, var_prevLaneFlags_8c228688/
+ * var_8c228634[0]). The tail latches that the bus is inside a junction
+ * (var_8c2285fc[6]) and, once it leaves with the wrong turn signal for the turn
+ * taken, grades a fourth. */
 STATIC void gradeIntersection_8c02bb1c(void) {
     int laneDelta;
     float speedLimit;
 
     if ((var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000) == 0
         && (var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff000000) != 0
-        && ObjectsGetTrafficSignalFrame_8c028900(var_8c2285c4[15] & 0xffff) == 0
+        && ObjectsGetTrafficSignalFrame_8c028900(var_8c2285fc[1] & 0xffff) == 0
         && var_frameSpeed_8c22866c == 0.0f) {
         adjust_8c02b464(0x13, -80); /* -> INSTR_BLOCK_INTERSECTION */
         armCooldowns_8c02b578(5);
@@ -538,11 +531,11 @@ STATIC void gradeIntersection_8c02bb1c(void) {
     speedLimit = (float)(((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xf00000) >> 0x14) * 10) * 1000.0f
                  / 108000.0f;
     if (var_frameSpeed_8c22866c <= speedLimit + 0.055555556f) {
-        var_8c2285c4[12] = 0; /* 0x2285f4, no export of its own */
+        var_speedingCountdown_8c2285f4 = 0;
     } else {
-        var_8c2285c4[12] = var_8c2285c4[12] - 1;
-        if (var_8c2285c4[12] < 0) {
-            var_8c2285c4[12] = 0x78;
+        var_speedingCountdown_8c2285f4 = var_speedingCountdown_8c2285f4 - 1;
+        if (var_speedingCountdown_8c2285f4 < 0) {
+            var_speedingCountdown_8c2285f4 = 0x78;
             if (speedLimit + 0.18518518f <= var_frameSpeed_8c22866c) {
                 adjust_8c02b464(10, -30); /* -> INSTR_SPEEDING_MAJOR */
             } else {
@@ -552,7 +545,7 @@ STATIC void gradeIntersection_8c02bb1c(void) {
     }
 
     if (var_driveMode_8c1bb8c8 == 0) {
-        laneDelta = (var_8c2285c4[27] & ~1) - (var_prevLane_8c228684 & ~1);
+        laneDelta = (var_8c22861c[5] & ~1) - (var_prevLane_8c228684 & ~1);
         if ((laneDelta < 0 && var_playerBus_8c1bbd9c->signalSide_0x25c != 1)
             || (laneDelta >= 1 && var_playerBus_8c1bbd9c->signalSide_0x25c != 2)) {
             if ((var_prevLaneFlags_8c228688 & 0xf000000) != 0 && (var_8c228634[0] & 0xf000000) != 0) {
@@ -561,13 +554,13 @@ STATIC void gradeIntersection_8c02bb1c(void) {
         }
     }
 
-    if (var_8c2285c4[20] == 0) { /* 0x228614, i.e. var_8c2285fc[6] */
+    if (var_8c2285fc[6] == 0) { /* 0x228614, i.e. var_8c2285fc[6] */
         if ((var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000) != 0) {
-            var_8c2285c4[20] = 1;
+            var_8c2285fc[6] = 1;
         }
         return;
     }
-    if (var_8c2285c4[20] != 1) {
+    if (var_8c2285fc[6] != 1) {
         return;
     }
     if ((var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000) != 0) {
@@ -576,22 +569,22 @@ STATIC void gradeIntersection_8c02bb1c(void) {
 
     if ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xc0000000) == 0x40000000) {
         if (var_busState_8c1bb9d0.signalSide_0x25c == 1) {
-            var_8c2285c4[20] = 0;
+            var_8c2285fc[6] = 0;
             return;
         }
     } else {
         if ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xc0000000) != 0x80000000) {
-            var_8c2285c4[20] = 0;
+            var_8c2285fc[6] = 0;
             return;
         }
         if (var_busState_8c1bb9d0.signalSide_0x25c == 2) {
-            var_8c2285c4[20] = 0;
+            var_8c2285fc[6] = 0;
             return;
         }
     }
 
     adjust_8c02b464(0xf, -8); /* -> INSTR_NO_SIGNAL */
-    var_8c2285c4[20] = 0;
+    var_8c2285fc[6] = 0;
 }
 
 /* Per-frame grading tick, called once per drive frame (from taskCallback_8c02c072):
@@ -663,58 +656,51 @@ STATIC void gradeFrame_8c02bcd8(void) {
         }
     }
 
-    /* var_8c2285c4[34] is var_firstUpshift_8c22864c (see sectionB.h -- exported
-     * for 024280, but read here only via this index, not that name): set on the
-     * upshift out of gear 0, consumed and cleared here. [33]/[35] (0x228648/
-     * 0x228650) have no export of their own: a right-trigger-held-too-long
-     * latch and its repeat counter. */
-    if (var_8c2285c4[33] == 0) {
-        if (var_8c2285c4[34] != 0) {
+    /* applyThrottle_8c024320 (024280) sets var_firstUpshift_8c22864c on the
+     * upshift out of gear 0; it is consumed and cleared here. */
+    if (var_fullThrottleLatch_8c228648 == 0) {
+        if (var_firstUpshift_8c22864c != 0) {
             if (var_padTriggerR_8c1ba374 > 0xfe) {
-                var_8c2285c4[33] = 1;
-                var_8c2285c4[35] = 0;
+                var_fullThrottleLatch_8c228648 = 1;
+                var_fullThrottleFrames_8c228650 = 0;
             }
-            var_8c2285c4[34] = 0;
+            var_firstUpshift_8c22864c = 0;
         }
-    } else if (var_8c2285c4[33] == 1) {
+    } else if (var_fullThrottleLatch_8c228648 == 1) {
         if (var_padTriggerR_8c1ba374 < 0xff) {
-            var_8c2285c4[33] = 0;
+            var_fullThrottleLatch_8c228648 = 0;
         } else {
-            var_8c2285c4[35] = var_8c2285c4[35] + 1;
-            if (var_8c2285c4[35] > 0xe) {
-                var_8c2285c4[33] = 0;
+            var_fullThrottleFrames_8c228650 = var_fullThrottleFrames_8c228650 + 1;
+            if (var_fullThrottleFrames_8c228650 > 0xe) {
+                var_fullThrottleLatch_8c228648 = 0;
                 adjust_8c02b464(0x17, -5); /* -> INSTR_RAPID_ACCEL */
             }
         }
     }
 
-    /* var_8c2285c4[36]/[37] (0x228654/0x228658, no export of their own) --
-     * applyBraking_8c024530's running brake average (024280) and a cooldown
-     * so one long stab is only docked every 60 frames. */
-    if (var_8c2285c4[37] != 0) {
-        var_8c2285c4[37] = var_8c2285c4[37] - 1;
+    /* var_brakeAverage_8c228654 is applyBraking_8c024530's running brake
+     * average (024280); the cooldown keeps one long stab from being docked
+     * more than once every 60 frames. */
+    if (var_hardBrakeCooldown_8c228658 != 0) {
+        var_hardBrakeCooldown_8c228658 = var_hardBrakeCooldown_8c228658 - 1;
     }
-    {
-        float *timer654 = (float *)&var_8c2285c4[36];
-        if (*timer654 > 0.01f && var_8c2285c4[37] == 0) {
-            adjust_8c02b464(0x18, -5); /* -> INSTR_HARD_BRAKE */
-            *timer654 = 0.0f;
-            var_8c2285c4[37] = 0x3c;
-            VibStart_8c010f7a(3);
-        }
+    if (var_brakeAverage_8c228654 > 0.01f && var_hardBrakeCooldown_8c228658 == 0) {
+        adjust_8c02b464(0x18, -5); /* -> INSTR_HARD_BRAKE */
+        var_brakeAverage_8c228654 = 0.0f;
+        var_hardBrakeCooldown_8c228658 = 0x3c;
+        VibStart_8c010f7a(3);
     }
 
     if (var_driveMode_8c1bb8c8 == 0 && var_busState_8c1bb9d0.driveState_0x2b4 == 1) {
         float t = var_busState_8c1bb9d0.speed_0x27c * (float)var_busState_8c1bb9d0.ang_0x258;
         if (t < -2000.0f || t > 2000.0f) {
-            /* var_8c2285c4[38] (0x22865c, no export of its own) */
-            var_8c2285c4[38] = var_8c2285c4[38] - 1;
-            if (var_8c2285c4[38] < 0) {
+            var_swerveCountdown_8c22865c = var_swerveCountdown_8c22865c - 1;
+            if (var_swerveCountdown_8c22865c < 0) {
                 adjust_8c02b464(0x19, -5); /* -> INSTR_SWERVING */
-                var_8c2285c4[38] = 0x3c;
+                var_swerveCountdown_8c22865c = 0x3c;
             }
         } else {
-            var_8c2285c4[38] = 0;
+            var_swerveCountdown_8c22865c = 0;
         }
     }
 
@@ -742,9 +728,9 @@ STATIC void gradeFrame_8c02bcd8(void) {
     if ((var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 1) != 1)
         || var_stopPhase_8c2285e4 == 0
         || var_driveCueState_8c2264b8.nearStopLatch_0x0c != 0) {
-        if (var_8c2285c4[31] != 0) {
+        if (var_instructionBonusPending_8c228640 != 0) {
             adjust_8c02b464(0x1e, 20); /* -> INSTR_UKN_49 */
-            var_8c2285c4[31] = 0;
+            var_instructionBonusPending_8c228640 = 0;
         }
     } else {
         adjust_8c02b464(0x20, -5); /* -> INSTR_ANNOUNCEMENT */
@@ -929,9 +915,9 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
 }
 
 /* Master per-frame drive task, installed by DrivePointsReset_8c02c46a (via
- * TaskPush). var_8c2285c4[0] (no export of its own) is the phase: 0 idle,
- * 2 actively driving, 3 a "drive ending, still grading a couple of last
- * checks" phase, 4 a fixed hold while fading out, 5 done.
+ * TaskPush). var_runPhase_8c2285c4 is the phase: 0 idle, 2 actively driving,
+ * 3 a "drive ending, still grading a couple of last checks" phase, 4 a fixed
+ * hold while fading out, 5 done.
  *
  * Phase 2: snapshots turn-signal/lane state for this frame, runs the bump
  * handler, then all the misc offense graders in 02b464 each on their own
@@ -940,14 +926,14 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
  * zero, moves to phase 4 and picks the fade-complete callback for what
  * happens next (a course drive vs. a free-run/practice one).
  *
- * Phase 3: grades a couple of drive-ending-specific checks (var_8c2285c4[9],
- * no export of its own, a 0/1/2 quality grade set elsewhere), then moves to
- * phase 4, picking one of three fade-complete callbacks depending on mode
- * and whether the run still needs another stop (DrivePointsRunComplete_8c02c586).
+ * Phase 3: grades how the stop ended (var_stopArrivalGrade_8c2285e8, set by
+ * BusStopUpdateArrival_8c02ce48), then moves to phase 4, picking one of three
+ * fade-complete callbacks depending on mode and whether the run still needs
+ * another stop (DrivePointsRunComplete_8c02c586).
  *
- * Phase 4: counts down a fixed hold (var_8c2285c4[2], no export of its
- * own); once elapsed and the music has finished fading, stops all sound/
- * vibration, moves to phase 5, and requests the fade-in transition.
+ * Phase 4: counts var_driveEndHold_8c2285cc down; once elapsed and the music
+ * has finished fading, stops all sound/vibration, moves to phase 5, and
+ * requests the fade-in transition.
  *
  * Phases 2 and 3 end by requesting an ADX volume fade-out; every phase
  * except 0 ticks the driver-comment message queue's reveal/hold timers and
@@ -955,8 +941,8 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
 STATIC void taskCallback_8c02c072() {
     int i;
 
-    if (var_8c2285c4[0] != 0) {
-        if (var_8c2285c4[0] == 2) {
+    if (var_runPhase_8c2285c4 != 0) {
+        if (var_runPhase_8c2285c4 == 2) {
             unsigned int flags;
             int vib;
             int laneAlias;
@@ -1039,8 +1025,8 @@ STATIC void taskCallback_8c02c072() {
 
             if (var_driverPoints_8c2285d0 == 0) {
                 var_busState_8c1bb9d0.driveState_0x2b4 = 4;
-                var_8c2285c4[0] = 4;
-                var_8c2285c4[2] = 0x1e;
+                var_runPhase_8c2285c4 = 4;
+                var_driveEndHold_8c2285cc = 0x1e;
                 var_messageBoxActive_8c22847c = 1;
                 if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                     var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
@@ -1051,8 +1037,8 @@ STATIC void taskCallback_8c02c072() {
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
             }
-        } else if (var_8c2285c4[0] == 3) {
-            if (var_8c2285c4[9] == 0) {
+        } else if (var_runPhase_8c2285c4 == 3) {
+            if (var_stopArrivalGrade_8c2285e8 == 0) {
                 if (var_driveMode_8c1bb8c8 == 0) {
                     int diff = var_nextStopHeading_8c228714 - var_busState_8c1bb9d0.ang_0x250;
                     if ((diff < -0x71c && diff > -0xf8e3) || (diff > 0x71c && diff < 0xf8e3)) {
@@ -1062,14 +1048,14 @@ STATIC void taskCallback_8c02c072() {
                 if (var_busState_8c1bb9d0.signalSide_0x25c != 1 || var_8c22861c[0] < 0x3c) {
                     adjust_8c02b464(0xf, -8); /* -> INSTR_NO_SIGNAL */
                 }
-            } else if (var_8c2285c4[9] == 1) {
+            } else if (var_stopArrivalGrade_8c2285e8 == 1) {
                 adjust_8c02b464(0x1c, -10); /* -> INSTR_BAD_STOP_POSITION_1 */
-            } else if (var_8c2285c4[9] == 2) {
+            } else if (var_stopArrivalGrade_8c2285e8 == 2) {
                 adjust_8c02b464(0x1a, -20); /* -> INSTR_MISSED_STOP */
             }
 
-            var_8c2285c4[0] = 4;
-            var_8c2285c4[2] = 0x1e;
+            var_runPhase_8c2285c4 = 4;
+            var_driveEndHold_8c2285cc = 0x1e;
             var_messageBoxActive_8c22847c = 1;
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
@@ -1080,20 +1066,20 @@ STATIC void taskCallback_8c02c072() {
             }
 
             if (var_driverPoints_8c2285d0 > 0 && DrivePointsRunComplete_8c02c586() != 0) {
-                var_8c2285c4[1] = 1;
+                var_runPassed_8c2285c8 = 1;
             }
 
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);
         } else {
-            if (var_8c2285c4[0] == 4) {
-                var_8c2285c4[2] = var_8c2285c4[2] - 1;
-                if (var_8c2285c4[2] < 0 && init_adxPlaying_8c03bd80 == 0) {
+            if (var_runPhase_8c2285c4 == 4) {
+                var_driveEndHold_8c2285cc = var_driveEndHold_8c2285cc - 1;
+                if (var_driveEndHold_8c2285cc < 0 && init_adxPlaying_8c03bd80 == 0) {
                     sdMidiStopAll();
                     if (var_vibport_8c1ba354 != -1) {
                         pdVibMxStop(var_vibport_8c1ba354);
                     }
-                    var_8c2285c4[0] = 5;
+                    var_runPhase_8c2285c4 = 5;
                     var_fadeRequest_8c226564 = FADE_REQUEST_IN;
                     BusRenderSaveCameraState_8c024b4c();
                 } else {
@@ -1119,7 +1105,7 @@ STATIC void taskCallback_8c02c072() {
 }
 
 /* Starts a drive: installs taskCallback_8c02c072 (phase 0, idle -- it goes
- * active once something else sets var_8c2285c4[0] to 2) and resets this
+ * active once something else sets var_runPhase_8c2285c4 to 2) and resets this
  * unit's whole scratch scoring/state region for a fresh run. */
 void DrivePointsReset_8c02c46a(void) {
     Task *created_task;
@@ -1128,8 +1114,8 @@ void DrivePointsReset_8c02c46a(void) {
 
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, (void *)taskCallback_8c02c072, &created_task, &created_state, 0);
 
-    var_8c2285c4[0] = 0;
-    var_8c2285c4[1] = 0;
+    var_runPhase_8c2285c4 = 0;
+    var_runPassed_8c2285c8 = 0;
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 4) != 4) {
         var_stopPhase_8c2285e4 = 4;
@@ -1137,9 +1123,9 @@ void DrivePointsReset_8c02c46a(void) {
         var_stopPhase_8c2285e4 = 1;
     }
 
-    var_8c2285c4[11] = 0;
-    var_8c2285c4[12] = 0;
-    var_8c2285c4[13] = 0;
+    var_wrongLaneCount_8c2285f0 = 0;
+    var_speedingCountdown_8c2285f4 = 0;
+    var_stopLineGraded_8c2285f8 = 0;
     var_8c2285fc[0] = 0;
     var_8c2285fc[2] = 0;
     var_8c2285fc[3] = 0;
@@ -1155,11 +1141,11 @@ void DrivePointsReset_8c02c46a(void) {
     var_8c228634[0] = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000;
     var_8c228634[1] = var_busState_8c1bb9d0.junctionARoadFlags_0x34c;
     var_8c228634[2] = var_busState_8c1bb9d0.junctionBRoadFlags_0x368;
-    var_8c2285c4[31] = 0; /* var_instructionBonusPending_8c228640, see taskCallback_8c02c072 */
-    var_8c2285c4[34] = 0; /* var_firstUpshift_8c22864c */
-    *(float *)&var_8c2285c4[36] = 0.0f; /* applyBraking_8c024530's brake average */
-    var_8c2285c4[37] = 0;
-    var_8c2285c4[38] = 0;
+    var_instructionBonusPending_8c228640 = 0;
+    var_firstUpshift_8c22864c = 0;
+    var_brakeAverage_8c228654 = 0.0f;
+    var_hardBrakeCooldown_8c228658 = 0;
+    var_swerveCountdown_8c22865c = 0;
     var_cooldownCollision_8c228690 = 0;
     var_cooldownOffCourse_8c228694 = 0;
     var_cooldownSignal_8c228698 = 0;

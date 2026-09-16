@@ -55,12 +55,8 @@ return new class extends TestCase {
         $bestScoreAddr = $progressBase + 0x98 + 3 * 4;
         $this->initUint32($bestScoreAddr, 10);
 
-        $candidateScoreAddr = $this->addressOf('_var_8c2285c4') + 3 * 4;
+        $candidateScoreAddr = $this->addressOf('_var_driverPoints_8c2285d0');
         $this->initUint32($candidateScoreAddr, 20);
-
-        // The archived asm still imports var_driverPoints_8c2285d0 under its own
-        // name; alias it onto the cell the C reads via var_8c2285c4[3].
-        $this->rellocate('_var_driverPoints_8c2285d0', $candidateScoreAddr);
 
         $this->call('_PracticeMenuLessonRetry_8c01f21c');
 

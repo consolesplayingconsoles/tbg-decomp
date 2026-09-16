@@ -5,14 +5,17 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // var_8c2285c4 is a large scratch region this unit addresses through
-    // raw var_8c2285c4[N] offsets in this function (register reuse in the
-    // original compile), rather than through the individually-exported
-    // names that alias the same bytes elsewhere in the unit.
+    // The archived asm reaches every run-state global in this function by
+    // displacement off var_runPhase_8c2285c4 (register reuse in the original
+    // compile), so they need their real relative offsets here too.
     private function resolveSymbols(): int
     {
-        $this->setSize('_var_8c2285c4', 0x80);
-        $base = $this->addressOf('_var_8c2285c4');
+        $base = $this->alloc(0x80);
+        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
+        $this->rellocate('_var_wrongLaneCount_8c2285f0', $base + 0x2c);
+        $this->rellocate('_var_8c2285fc', $base + 0x38);
+        $this->rellocate('_var_8c22861c', $base + 0x58);
+        $this->rellocate('_var_8c228634', $base + 0x70);
 
         $this->setSize('_var_headingVsRoad_8c22868c', 4);
         $this->setSize('_var_offCourseBits_8c228680', 4);

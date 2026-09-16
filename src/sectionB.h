@@ -823,15 +823,16 @@ extern EventEntry* var_routeEvents_8c22851c;
 extern int var_eventCandidates_8c228520[];
 extern int var_eventCandidateCount_8c228560;
 
-/* [0] compared against var_prevLaneFlags_8c228688's 0xf000000 bits in gradeIntersection_8c02bb1c
- * (02b464), addressed directly; [1]/[2] (0x228638/0x22863c) are the same
- * two ints but addressed only via var_8c2285c4[29]/[30] -- no code
- * reaches them through this symbol. Role unclear. */
+/* [0] is junctionARoadFlags2_0x358 masked with 0xf000000, refreshed by
+ * taskCallback_8c02c072 (02b464) in step with var_8c22861c[5];
+ * var_prevLaneFlags_8c228688 is the previous frame's copy. [1]/[2] are the raw
+ * junctionARoadFlags_0x34c / junctionBRoadFlags_0x368, stored after the graders
+ * have run, so gradeLaneUse_8c02b986 sees last frame's 0x40000 turn-signal bit
+ * in them and this frame's in busState. */
 extern int var_8c228634[3];
 /* Latched when the bus leaves a stop with a drive-mark instruction on screen
  * (var_hudDriveMarkIcon_8c226450 != -1); gradeFrame_8c02bcd8 (02b464) spends it
- * on a +20 msgSet-0x1e award. Reached there only via var_8c2285c4[31] -- no
- * code uses this symbol. */
+ * on a +20 msgSet-0x1e award. */
 extern int var_instructionBonusPending_8c228640;
 
 /* PDS_PERIPHERAL.r of var_peripherals_8c1ba35c[0] -- the throttle trigger --
@@ -843,20 +844,21 @@ extern unsigned short var_padTriggerR_8c1ba374;
  * addressed directly (see var_padTriggerR_8c1ba374 above for .r). */
 extern unsigned short var_padTriggerL_8c1ba376;
 
-/* [0]/[1] a duplicated traffic-signal id (gradeSignals_8c02b8b8, 02b464), addressed
- * both directly and via var_8c2285c4[14]/[15]; [3]/[4] a threshold/counter
- * pair graded by gradeLaneUse_8c02b986 (via var_8c2285c4[17]/[18] there); [6] a
- * driving-state latch toggled by gradeIntersection_8c02bb1c. [0] cleared to ready by
- * armCooldowns_8c02b578 (types 1-3). Other slots unclear.
- *
- * var_8c2285c4[11]/[12]/[13] (0x2285f0/f4/f8, just before this array) have
- * no export of their own; [13] is a one-shot "already graded" latch read
- * by gradeSignals_8c02b8b8. */
+/* [0]/[1] both take the current traffic-signal id from gradeSignals_8c02b8b8
+ * (02b464); [0] is cleared when the signal goes out of range, [1] keeps the
+ * last one and is what gradeIntersection_8c02bb1c reads. [3] counts moving
+ * frames since the bus's lane probes last agreed and [4] how many lane-straddle
+ * penalties have landed (both raise the threshold gradeLaneUse_8c02b986 grades
+ * against). [6] latches that the bus is inside a junction; when it leaves,
+ * gradeIntersection_8c02bb1c grades the turn signal against the turn taken.
+ * Other slots unclear. */
 extern int var_8c2285fc[8];
 
-/* [5] (0x228630) compared against var_prevLane_8c228684 in gradeLaneUse_8c02b986/gradeIntersection_8c02bb1c
- * (02b464), addressed only via var_8c2285c4[27] -- no code reaches it
- * through this symbol. Other slots unclear. */
+/* [5] (0x228630) is the bus's lane, junctionARoadFlags2_0x358 masked with
+ * 0xf0000001, refreshed by taskCallback_8c02c072 (02b464) only on frames where
+ * the A and B road probes agree. var_prevLane_8c228684 is the previous frame's
+ * copy, and the difference is what the lane-change graders read. Other slots
+ * unclear. */
 extern int var_8c22861c[6];
 
 /* Bitflags set by busDriveDecelerate_8c023bea (023938_bus_drive); bits
@@ -925,26 +927,57 @@ typedef struct {
 } DriveMsgSlot;
 extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
-/* [0] is the run phase, stepped by taskCallback_8c02c072 (02b464): 0 = not
- * driving, 2 = driving and being graded, 3 = at the stop, 4 = wrapping up,
- * 5 = done. Several units gate their per-frame work on it.
+/* The original compiler kept this symbol in a base register and reached the
+ * neighbouring drive-scratch globals by displacement, so the archived .src
+ * imports this one name for most of the block.
  *
- * The rest of the array is the base address the drive units reach the whole
- * run-state block through -- see the per-slot notes on the symbols above. */
-extern int var_8c2285c4[];
+ * The run phase, stepped by taskCallback_8c02c072 (02b464): 0 = not driving,
+ * 2 = driving and being graded, 3 = at the stop, 4 = wrapping up, 5 = done.
+ * Several units gate their per-frame work on it. */
+extern int var_runPhase_8c2285c4;
 
-/* var_8c2285c4[34] (0x22864c), addressed directly by applyThrottle_8c024320:
- * set to 1 on the upshift out of gear 0, arming gradeFrame_8c02bcd8's
- * rapid-acceleration penalty (02b464), which clears it. */
+/* Set to 1 on the upshift out of gear 0 by applyThrottle_8c024320 (024280),
+ * arming gradeFrame_8c02bcd8's rapid-acceleration penalty (02b464), which
+ * clears it. */
 extern int var_firstUpshift_8c22864c;
 
-/* Set by BusStopUpdateArrival_8c02ce48 (02c884) when a drive ends with points
- * left and every owed stop served. Never cleared. DriveMsgDraw_8c02b388
- * (02b2f0) is its only reader. */
+/* gradeFrame_8c02bcd8's rapid-acceleration penalty: the latch is armed by an
+ * upshift taken with the .r trigger past 0xfe (var_firstUpshift_8c22864c) and
+ * disarmed as soon as the trigger eases off; the frame count docks
+ * INSTR_RAPID_ACCEL once the trigger stays there past 14 frames. */
+extern int var_fullThrottleLatch_8c228648;
+extern int var_fullThrottleFrames_8c228650;
+
+/* Running average of applyBraking_8c024530's per-frame brake amount
+ * (avg = (avg + amount) / 2, reset to 0 on any non-braking frame).
+ * gradeFrame_8c02bcd8 docks INSTR_HARD_BRAKE once it passes 0.01, then sets the
+ * cooldown to 60 frames so one long stab is only docked once. */
+extern float var_brakeAverage_8c228654;
+extern int var_hardBrakeCooldown_8c228658;
+
+/* Frames left before gradeFrame_8c02bcd8 docks INSTR_SWERVING again; reloaded
+ * to 60 on each dock and zeroed whenever speed * steering angle comes back
+ * inside +/-2000. */
+extern int var_swerveCountdown_8c22865c;
+
+/* Counts frames the bus has been moving, reset at a standstill by
+ * BusInputUpdate_8c0246b2 (024280) and read nowhere in the image -- a dead
+ * store. Its neighbours are all gradeFrame_8c02bcd8 scoring inputs, so it
+ * looks like a dropped scoring rule. */
+extern int var_8c228644;
+
+/* Set when a drive ends with points left and every owed stop served -- by
+ * BusStopUpdateArrival_8c02ce48 (02c884) on a finished stop, and by
+ * taskCallback_8c02c072 (02b464) on the phase-3 wrap-up. Cleared for the next
+ * drive by DrivePointsReset_8c02c46a. DriveMsgDraw_8c02b388 (02b2f0) is its
+ * only reader. */
 extern int var_runPassed_8c2285c8;
-/* Set to 0x1e by BusStopUpdateArrival_8c02ce48 (02c884) on stop completion and
- * read nowhere in the image -- a dead store. */
-extern int var_8c2285cc;
+/* Frames left in run phase 4, the hold between the last grade and the fade-in:
+ * loaded with 0x1e (1s) by whichever of BusStopUpdateArrival_8c02ce48 (02c884)
+ * or taskCallback_8c02c072 (02b464) steps the phase to 4, counted down by
+ * taskCallback_8c02c072, which moves to phase 5 once it goes negative and the
+ * music has finished fading. */
+extern int var_driveEndHold_8c2285cc;
 
 /* Driver points left when the run ended, out of var_driverPointsMax_8c2285d4.
  * ResultShowPassedRun_8c01e0b4 cuts the award tier at 70/80/90 and scores
@@ -966,18 +999,38 @@ extern int var_driverPointsMax_8c2285d4;
  * to 0 and the clock counts down to a hard TIME_MANAGEMENT failure. */
 extern int var_scheduleTime_8c2285d8;
 extern int var_runClock_8c2285dc;
+/* Frames added to var_runClock_8c2285dc each frame of the bus-stop scene,
+ * winding it up to var_scheduleTime_8c2285d8 so the HUD clock reaches the
+ * departure time as the scene ends: a fifth of what is left while that is at
+ * least 50, then a flat 10 (setCountUpStep_8c02d5d8, 02d19c). */
+extern int var_clockCatchUpStep_8c2285e0;
 
 /* Bus-stop arrival state machine driven by BusStopUpdateArrival_8c02ce48
  * (02c884): 0 = cruising, 1 = departed-previous-stop wait, 2 = approaching
  * (mirror-view draw enabled -- gates pedestriansTask_8c0293f6's
  * StopDrawWaitingPassengers_8c02d06c registration), 3 = stopped/waiting, 4 = finishing. */
 extern int var_stopPhase_8c2285e4;
-/* Set to 0 or 2 by BusStopUpdateArrival_8c02ce48 depending on how the approach
- * (state 2) ended, and read nowhere in the image -- a dead store. */
-extern int var_8c2285e8;
+/* How the approach ended, written by BusStopUpdateArrival_8c02ce48 (02c884)
+ * and graded once by taskCallback_8c02c072's phase 3 (02b464): 0 = pulled up
+ * at the marker (graded on heading and turn signal), 2 = drove past the stop
+ * segment (INSTR_MISSED_STOP, -20). Phase 3 also handles a 1
+ * (INSTR_BAD_STOP_POSITION_1, -10) that nothing in the image ever writes. */
+extern int var_stopArrivalGrade_8c2285e8;
 /* Running minimum distance-to-stop while approaching (state 2), reset to
  * 9999.0 on arming. */
 extern float var_stopMinDistance_8c2285ec;
+
+/* Three per-offense counters of gradeSignals_8c02b8b8 / gradeLaneUse_8c02b986 /
+ * gradeIntersection_8c02bb1c (02b464), all cleared by DrivePointsReset_8c02c46a.
+ * wrongLaneCount counts frames off-course, and escalates INSTR_WRONG_LANE from
+ * -10 to -50 after the first. speedingCountdown is reloaded to 120 on each
+ * speeding dock and zeroed the moment the bus is back under the limit, so a
+ * sustained overspeed costs points every 4s. stopLineGraded is the one-shot
+ * "this signal already cost a stop-line penalty" latch, cleared when the
+ * signal goes out of range. */
+extern int var_wrongLaneCount_8c2285f0;
+extern int var_speedingCountdown_8c2285f4;
+extern int var_stopLineGraded_8c2285f8;
 
 /* per-segment "has an active stop" flag, one word each, indexed by a segment
  * record's candidate-list entry byte (see BusStopGetSegment_8c02cd6a, 02c884) */

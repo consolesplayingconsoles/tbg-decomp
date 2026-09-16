@@ -19,14 +19,14 @@ return new class extends TestCase {
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceRules_8c226410', 4);
-        $this->setSize('_var_8c2285c4', 4 * 32);
+        $this->setSize('_var_runPhase_8c2285c4', 4);
         // Loaded into R12 unconditionally at function entry by the asm
         // object even though this test's path never uses it.
         $this->setSize('_var_exitSpot1_8c228934', 12);
     }
 
     // playMode == 1 (demo) and bit 3 of var_practiceRules_8c226410 clear: pushes the
-    // "return to demo" task and sets var_8c2285c4[0] = 2, without doing
+    // "return to demo" task and sets var_runPhase_8c2285c4 = 2, without doing
     // any of the normal course-start spawning.
     public function test_demoModeEarlyReturn(): void {
         $this->resolveSymbols();
@@ -50,7 +50,7 @@ return new class extends TestCase {
             })
             ->andReturn(1);
 
-        $this->shouldWriteLongTo('_var_8c2285c4', 2);
+        $this->shouldWriteLongTo('_var_runPhase_8c2285c4', 2);
 
         $this->forceStop();
     }

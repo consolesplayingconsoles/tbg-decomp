@@ -4,7 +4,7 @@
           .IMPORT     __modls
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _var_busStopTexlist_8c1bc424
-          .IMPORT     _var_8c2285c4
+          .IMPORT     _var_runPhase_8c2285c4
           .IMPORT     _njDrawPolygon
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_hudMarkLatch_8c22643c
@@ -293,7 +293,7 @@ LAB_8c01fc6c:
           BRA         LAB_8c01fcbe
           NOP
 LP_GEN_37481:
-          .DATA.L _var_8c2285c4 ; H'8C01FC7C
+          .DATA.L _var_runPhase_8c2285c4 ; H'8C01FC7C
           .DATA.L _njDrawPolygon ; H'8C01FC80
           .DATA.L H'BF9AE148 ; H'8C01FC84
           .DATA.L _var_busState_8c1bb9d0 ; H'8C01FC88

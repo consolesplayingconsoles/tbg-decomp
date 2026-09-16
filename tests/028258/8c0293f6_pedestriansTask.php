@@ -104,10 +104,10 @@ return new class extends TestCase {
     /** Common gate + ground-grid + demo-entry preconditions that never change. */
     private function setupCommon(int $groupCount = 0): void
     {
-        $this->setSize('_var_8c2285c4', 0x14);
+        $this->setSize('_var_runPhase_8c2285c4', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 1);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 1);
 
         $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x28, 0x11111111); // atariHum_0x28
 
@@ -160,10 +160,10 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_crosswalkTableEnd_8c228244', $this->addressOf('_var_crosswalkTable_8c228248'));
     }
 
-    public function test_gate_disabled_skips_everything()
+    public function test_skips_everything_before_the_run_starts()
     {
-        $this->setSize('_var_8c2285c4', 0x14);
-        $this->initUint32($this->addressOf('_var_8c2285c4'), 0);
+        $this->setSize('_var_runPhase_8c2285c4', 4);
+        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 0);
 
         $task = $this->alloc(0x20);
 

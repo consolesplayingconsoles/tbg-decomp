@@ -7,9 +7,11 @@ use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention;
  * _drawHud_8c01fbac(int arg0): the in-drive HUD render. arg0 is the driver-
  * comment message code hudUpdateTask_8c01ff48 stages through the fade-command queue.
  * var_hudDriveMarkIcon_8c226450/454/458/var_engineRpm_8c226468/8c226478 all alias into the
- * var_hudMarkLatch_8c22643c scratch block, and var_driverPointsMax_8c2285d4/d8/dc/mirrorViewLevel_8c2285e4
- * all alias into var_8c2285c4 -- see hudUpdateTask_8c01ff48's test for the same
- * aliasing and 02b464_drive_points for the var_8c2285c4 convention.
+ * var_hudMarkLatch_8c22643c scratch block -- see hudUpdateTask_8c01ff48's test
+ * for the same aliasing. The run-state globals from var_runPhase_8c2285c4 on
+ * are adjacent in section B and the original reaches most of them by
+ * displacement off that one base, so they need their real relative offsets here
+ * too.
  * init_pointsMeterFill_8c045334/374/3b4/414 were local (unexported) labels in the .src
  * object; gated .EXPORTs under .AIFDEF UNIT_TESTING were added so tests can
  * see them, matching init_fadeQuad_8c0455a8's convention in 022464_fade.
@@ -27,8 +29,9 @@ return new class extends TestCase {
         $this->rellocate('_var_engineRpm_8c226468', $base + 0x2c);
         $this->rellocate('_var_tachoNeedleVerts_8c226478', $base + 0x3c);
 
-        $this->setSize('_var_8c2285c4', 0x80);
-        $dp = $this->addressOf('_var_8c2285c4');
+        $dp = $this->alloc(0x80);
+        $this->rellocate('_var_runPhase_8c2285c4', $dp + 0x00);
+        $this->rellocate('_var_driverPoints_8c2285d0', $dp + 0x0c);
         $this->rellocate('_var_driverPointsMax_8c2285d4', $dp + 0x10);
         $this->rellocate('_var_scheduleTime_8c2285d8', $dp + 0x14);
         $this->rellocate('_var_runClock_8c2285dc', $dp + 0x18);
@@ -39,7 +42,6 @@ return new class extends TestCase {
         $this->setSize('_var_markTexlist_8c1bc418', 4);
         $this->setSize('_var_busStopTexlist_8c1bc424', 4);
         $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
-        $this->setSize('_var_driverPoints_8c2285d0', 4);
 
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_njUnitMatrix', 4);

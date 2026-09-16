@@ -13,7 +13,7 @@ return new class extends TestCase {
     public function test_refunds_driver_points_then_installs_task(): void
     {
         $this->resolveSizes();
-        $points = $this->addressOf('_var_8c2285c4');
+        $points = $this->addressOf('_var_runPhase_8c2285c4');
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc4, 0);
         $this->initUint32($points + 0x0c, 10);
         $this->initUint32($points + 0x10, 100);
@@ -24,11 +24,11 @@ return new class extends TestCase {
         $this->expectInstallAndBind();
     }
 
-    /** The refund clamps to var_driverPointsMax_8c2285d4 (var_8c2285c4[4]). */
+    /** The refund clamps to var_driverPointsMax_8c2285d4. */
     public function test_clamps_refund_to_the_run_maximum(): void
     {
         $this->resolveSizes();
-        $points = $this->addressOf('_var_8c2285c4');
+        $points = $this->addressOf('_var_runPhase_8c2285c4');
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc4, 0);
         $this->initUint32($points + 0x0c, 90);
         $this->initUint32($points + 0x10, 100);
@@ -88,7 +88,6 @@ return new class extends TestCase {
         foreach ([
             '_var_progress_8c1ba1cc' => 0xd2,
             '_var_playMode_8c1bb8d0' => 4,
-            '_var_8c2285c4' => 0x14,
             '_var_loadScreenActive_8c157a6c' => 4,
             '_var_loadingResourceGroup_8c1bc3f8' => 0x0c,
             '_var_tasks_8c1ba3c8' => 4,
@@ -101,5 +100,12 @@ return new class extends TestCase {
         ] as $sym => $size) {
             $this->setSize($sym, $size);
         }
+
+        // The original reaches the two point globals by displacement off
+        // var_runPhase_8c2285c4, so they need their real relative offsets here.
+        $runState = $this->alloc(0x14);
+        $this->rellocate('_var_runPhase_8c2285c4', $runState + 0x00);
+        $this->rellocate('_var_driverPoints_8c2285d0', $runState + 0x0c);
+        $this->rellocate('_var_driverPointsMax_8c2285d4', $runState + 0x10);
     }
 };

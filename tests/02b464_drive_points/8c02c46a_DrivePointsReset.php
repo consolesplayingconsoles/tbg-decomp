@@ -7,12 +7,24 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     public function test_resets_state_and_installs_task(): void
     {
-        $this->setSize('_var_8c2285c4', 0xa0);
-        $base = $this->addressOf('_var_8c2285c4');
+        // The archived asm reaches most of the run-state globals by
+        // displacement off var_runPhase_8c2285c4, so they need their real
+        // relative offsets here too.
+        $base = $this->alloc(0xa0);
+        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
+        $this->rellocate('_var_runPassed_8c2285c8', $base + 0x04);
         $this->rellocate('_var_stopPhase_8c2285e4', $base + 0x20);
+        $this->rellocate('_var_wrongLaneCount_8c2285f0', $base + 0x2c);
+        $this->rellocate('_var_speedingCountdown_8c2285f4', $base + 0x30);
+        $this->rellocate('_var_stopLineGraded_8c2285f8', $base + 0x34);
         $this->rellocate('_var_8c2285fc', $base + 0x38);
         $this->rellocate('_var_8c22861c', $base + 0x58);
         $this->rellocate('_var_8c228634', $base + 0x70);
+        $this->rellocate('_var_instructionBonusPending_8c228640', $base + 0x7c);
+        $this->rellocate('_var_firstUpshift_8c22864c', $base + 0x88);
+        $this->rellocate('_var_brakeAverage_8c228654', $base + 0x90);
+        $this->rellocate('_var_hardBrakeCooldown_8c228658', $base + 0x94);
+        $this->rellocate('_var_swerveCountdown_8c22865c', $base + 0x98);
 
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
@@ -50,13 +62,13 @@ return new class extends TestCase {
             )
             ->andReturn(1);
 
-        $this->shouldWriteLong($base + 0x00, 0); // var_8c2285c4[0] phase
-        $this->shouldWriteLong($base + 0x04, 0); // var_8c2285c4[1]
+        $this->shouldWriteLong($base + 0x00, 0); // var_runPhase_8c2285c4
+        $this->shouldWriteLong($base + 0x04, 0); // var_runPassed_8c2285c8
         $this->shouldWriteLong($base + 0x20, 1); // var_stopPhase_8c2285e4 (playMode != 1 -> 1)
 
-        $this->shouldWriteLong($base + 0x2c, 0); // var_8c2285c4[11]
-        $this->shouldWriteLong($base + 0x30, 0); // var_8c2285c4[12]
-        $this->shouldWriteLong($base + 0x34, 0); // var_8c2285c4[13]
+        $this->shouldWriteLong($base + 0x2c, 0); // var_wrongLaneCount_8c2285f0
+        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4
+        $this->shouldWriteLong($base + 0x34, 0); // var_stopLineGraded_8c2285f8
 
         $this->shouldWriteLong($base + 0x38, 0); // var_8c2285fc[0]
         $this->shouldWriteLong($base + 0x40, 0); // var_8c2285fc[2]
@@ -75,11 +87,11 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x74, 0); // var_8c228634[1]
         $this->shouldWriteLong($base + 0x78, 0); // var_8c228634[2]
 
-        $this->shouldWriteLong($base + 0x7c, 0); // var_8c2285c4[31] i.e. var_instructionBonusPending_8c228640
-        $this->shouldWriteLong($base + 0x88, 0); // var_8c2285c4[34] i.e. var_firstUpshift_8c22864c
-        $this->shouldWriteFloat($base + 0x90, 0.0); // var_8c2285c4[36] float
-        $this->shouldWriteLong($base + 0x94, 0); // var_8c2285c4[37]
-        $this->shouldWriteLong($base + 0x98, 0); // var_8c2285c4[38]
+        $this->shouldWriteLong($base + 0x7c, 0); // var_instructionBonusPending_8c228640
+        $this->shouldWriteLong($base + 0x88, 0); // var_firstUpshift_8c22864c
+        $this->shouldWriteFloat($base + 0x90, 0.0); // var_brakeAverage_8c228654
+        $this->shouldWriteLong($base + 0x94, 0); // var_hardBrakeCooldown_8c228658
+        $this->shouldWriteLong($base + 0x98, 0); // var_swerveCountdown_8c22865c
 
         $this->shouldWriteLong($this->addressOf('_var_cooldownCollision_8c228690'), 0);
         $this->shouldWriteLong($this->addressOf('_var_cooldownOffCourse_8c228694'), 0);
