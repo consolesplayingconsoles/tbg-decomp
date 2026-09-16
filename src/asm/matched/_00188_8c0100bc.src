@@ -1,7 +1,7 @@
           .IMPORT     _sdMidiSetVol
           .IMPORT     _var_uknVol_8c0fcd50
           .IMPORT     _const127init_vol_8c03bd90
-          .IMPORT     _var_engineRpm_8c226468
+          .IMPORT     _var_hudState_8c22643c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     __divls
           .EXPORT     _initUknVol_8c0100bc
@@ -67,7 +67,7 @@ _initUknVol_8c0100bc:             ; function: initUknVol_8c0100bc
           FMOV.S      FR3,@(R0,R4)
 _midiSetVol_8c010128:            ; function: midiSetVol_8c010128
                                  ; frame size=32
-          MOV.L       L3+28,R3; _var_engineRpm_8c226468
+          MOV.L       L3+28,R3; _var_hudState_8c22643c+H'2C
           MOVA        L3+36,R0
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
@@ -189,7 +189,7 @@ L3:
           .DATA.L     H'453B8000
           .DATA.L     __divls
           .DATA.L     H'4573C000
-          .DATA.L     _var_engineRpm_8c226468
+          .DATA.L     _var_hudState_8c22643c + H'2C
           .DATA.L     _var_midiHandles_8c0fcd28
           .DATA.L     H'C2FE0000
           .DATA.L     _sdMidiSetVol

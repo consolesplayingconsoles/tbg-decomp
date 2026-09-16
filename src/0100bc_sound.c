@@ -138,7 +138,7 @@ STATIC void initEngineVol_8c0100bc() {
 
 /* sdMidiSetVol takes a Sint8, hence the -127 on every level below. */
 STATIC void updateEngineVol_8c010128() {
-    int rpm = var_engineRpm_8c226468;
+    int rpm = var_hudState_8c22643c.engineRpm_0x2c;
 
     if ((var_engineSound_8c0fcd50.activeFlags_0x00 & 2) == 2) {
         if (rpm >= 10.f && rpm < 3000.f) {
@@ -179,7 +179,7 @@ STATIC void updateEngineVol_8c010128() {
  * 10 < rpm < 4000. */
 STATIC void updateEnginePitch_8c01023c()
 {
-    int rpm = var_engineRpm_8c226468;
+    int rpm = var_hudState_8c22643c.engineRpm_0x2c;
 
     if (rpm > 10.f && rpm < 3000.f) {
         sdMidiSetPitch(
@@ -210,7 +210,7 @@ STATIC void updateEnginePitch_8c01023c()
 STATIC void updateEngineVoices_8c0102d8()
 {
     int engineState = var_busState_8c1bb9d0.engineState_0x2e0;
-    int rpm = var_engineRpm_8c226468;
+    int rpm = var_hudState_8c22643c.engineRpm_0x2c;
 
     if ((var_engineSound_8c0fcd50.activeFlags_0x00 & 1) != 1 && engineState == 1) {
         sdMidiSetPitch(var_midiHandles_8c0fcd28[6], -200, 0);

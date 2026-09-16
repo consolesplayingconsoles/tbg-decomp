@@ -7,7 +7,7 @@
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _njDrawPolygon
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _var_hudMarkLatch_8c22643c
+          .IMPORT     _var_hudState_8c22643c
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_markTexlist_8c1bc418
           .IMPORT     _var_scratchMatrix_8c1bc46c
@@ -297,7 +297,7 @@ LP_GEN_37481:
           .DATA.L H'BF9AE148 ; H'8C01FC84
           .DATA.L _var_busState_8c1bb9d0 ; H'8C01FC88
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01FC8C
-          .DATA.L _var_hudMarkLatch_8c22643c ; H'8C01FC90
+          .DATA.L _var_hudState_8c22643c ; H'8C01FC90
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C01FC94
           .DATA.L _var_hudMark_8c2264a8 ; H'8C01FC98
           .DATA.L _var_markTexlist_8c1bc418 ; H'8C01FC9C
@@ -738,7 +738,7 @@ LP_GEN_64387:
           .DATA.W H'00B4 ; H'8C01FFFE
           .DATA.L _var_busState_8c1bb9d0 ; H'8C020000
           .DATA.L _var_hudMark_8c2264a8 ; H'8C020004
-          .DATA.L _var_hudMarkLatch_8c22643c ; H'8C020008
+          .DATA.L _var_hudState_8c22643c ; H'8C020008
           .DATA.L H'00030000 ; H'8C02000C
           .DATA.L H'00020000 ; H'8C020010
           .DATA.L H'00010000 ; H'8C020014
@@ -994,7 +994,7 @@ LP_GEN_28448:
           .DATA.L _hudUpdateTask_8c01ff48 ; H'8C0201FC
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C020200
           .DATA.L _TaskPush_8c014ae8 ; H'8C020204
-          .DATA.L _var_hudMarkLatch_8c22643c ; H'8C020208
+          .DATA.L _var_hudState_8c22643c ; H'8C020208
           .DATA.L _var_tachoNeedleVerts_8c226478 ; H'8C02020C
           .DATA.L H'FFFF0000 ; H'8C020210
           .SECTION    D, DATA, ALIGN=4

@@ -48,7 +48,7 @@
           .IMPORT     _var_fuuNjm_8c1bc448
           .IMPORT     _var_fuuNj_8c1bc444
           .IMPORT     _njCnkSimpleDrawMotion
-          .IMPORT     _var_hudMarkLatch_8c22643c
+          .IMPORT     _var_hudState_8c22643c
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_driveCueState_8c2264b8
           .IMPORT     _njSqrt
@@ -895,7 +895,7 @@ LAB_8c02ceea:
           MOV.L       @R15+,R14
 LP_GEN_52477:
           .DATA.W H'03B4 ; H'8C02CF06
-          .DATA.L _var_hudMarkLatch_8c22643c ; H'8C02CF08
+          .DATA.L _var_hudState_8c22643c ; H'8C02CF08
           .DATA.L _var_fuuFrame_8c1bc44c ; H'8C02CF0C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02CF10
           .DATA.L _var_runState_8c2285c4 ; H'8C02CF14

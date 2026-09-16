@@ -19,7 +19,7 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
-        $this->setSize('_var_hudDriveMarkIcon_8c226450', 4);
+        $this->setSize('_var_hudState_8c22643c', 0x3c);
         $this->setSize('_BusStopUpdateArrival_8c02ce48', 4);
         $this->setSize('_VibStart_8c010f7a', 4);
 
@@ -82,7 +82,7 @@ return new class extends TestCase {
 
         $this->initUint32($base + 0x18, 0); // var_runState_8c2285c4.runClock_0x18
         $this->initUint32($base + 0x14, 0); // var_runState_8c2285c4.scheduleTime_0x14
-        $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), -1);
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x14, -1);
 
         return $busPtr;
     }
@@ -491,7 +491,7 @@ return new class extends TestCase {
 
         $this->initUint32($base + 0x18, 29); // var_runState_8c2285c4.runClock_0x18 -> increments to 30
         $this->initUint32($base + 0x14, 0); // var_runState_8c2285c4.scheduleTime_0x14 (0 < 30)
-        $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), 1); // != -1
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x14, 1); // != -1
 
         $this->call('_gradeFrame_8c02bcd8');
 

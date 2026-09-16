@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), 2);
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(9.9));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(9.9));
 
         $this->singleCall('_updateEngineVol_8c010128')->run();
     }
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), fdec(3000.0));
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(9.9));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(9.9));
 
         $this->singleCall('_updateEngineVol_8c010128')->run();
     }
@@ -46,7 +46,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(2000.5));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(2000.5));
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), 2);
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x08, 50);
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x18, fdec(0.048846155));
@@ -67,7 +67,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(3010.0));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(3010.0));
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), 2);
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x0c, 50);
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x1c, fdec(0.042333334));
@@ -90,7 +90,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), 4);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 6 * 4, 0xcafe0006);
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(2100.0));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(2100.0));
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x20, fdec(0.032564103));
 
         $this->shouldCall('_sdMidiSetVol')
@@ -109,7 +109,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), 4);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 6 * 4, 0xcafe0006);
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(2000.0));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(2000.0));
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x20, fdec(0.032564103));
 
         $this->shouldCall('_sdMidiSetVol')
@@ -143,7 +143,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 6 * 4, 0xcafe0006);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28') + 7 * 4, 0xcafe0007);
         
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(2000.0));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(2000.0));
 
         $this->shouldCall('_sdMidiSetVol')
             ->with(
@@ -174,7 +174,7 @@ return new class extends TestCase {
 
     protected function resolveSymbols()
     {
-        $this->setSize('_var_engineRpm_8c226468', 4);
+        $this->setSize('_var_hudState_8c22643c', 0x3c);
 
         // Functions
         $this->setSize('_sdMidiSetVol', 4);

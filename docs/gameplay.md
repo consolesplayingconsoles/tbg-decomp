@@ -99,7 +99,7 @@ bus along a predefined route with predefined passenger stop requests.
   Not all five are blinkers: bit 0 is the brake lamp and bits 3/4 the night
   running lights, both forced on elsewhere. The tick SFX plays on the first
   frame of each signal.
-- `HudMarkLatchState.driveMarkLatched_0x10` (`01fa78_hud.c`) is unrelated to
+- `HudState.driveMarkLatched_0x10` (`01fa78_hud.c`) is unrelated to
   the driver's signalling: it is a one-shot latch over
   `markDriveFlags_0x3b0`'s low 3 bits, which are not lamp bits at all.
   `BusTask_8c022bdc` fills `markDriveFlags_0x3b0` every frame from the
@@ -243,12 +243,12 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
   decompiled here).
 - **HUD indicator.** `drawHud_8c01fbac` (`01fa78_hud.c`) draws a sprite
   from `var_busStopTexlist_8c1bc424` at a fixed screen slot, blinking per
-  `var_hudBlinkTimer_8c226454`'s timer, whose meaning depends on
+  `var_hudState_8c22643c.blinkTimer_0x18`'s timer, whose meaning depends on
   `var_stopPhase_8c2285e4`: icon `0x1f` during phase 2 (approaching the next
   active stop) is shown unconditionally while blinking -- this is the HUD
   upcoming-stop indicator. Phase 1 (just departed) instead shows icon
-  `0x1e`, but only while `var_hudDriveMarkIcon_8c226450 != -1`; phase 0/4 (cruising) draws
-  `var_hudDriveMarkIcon_8c226450` itself, which is not a stop icon:
+  `0x1e`, but only while `var_hudState_8c22643c.driveMarkIcon_0x14 != -1`;
+  phase 0/4 (cruising) draws that field itself, which is not a stop icon:
   `hudUpdateTask_8c01ff48` is its only write site outside
   `HudReset_8c02018c`, latching `markDriveFlags_0x3b0`'s low 3 bits as a
   sprite id (`marker + 0x1f`). Those bits come from the attribute grid under

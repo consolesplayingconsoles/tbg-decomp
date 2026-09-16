@@ -11,7 +11,7 @@ if (!function_exists('fdec')) {
 }
 
 return new class extends TestCase {
-    /* These three leave var_engineRpm_8c226468 uninitialized and lean on it
+    /* These three leave var_hudState_8c22643c.engineRpm_0x2c uninitialized and lean on it
      * reading back as zero -- they should set it instead. */
     public function test_engineOffNothingPlays()
     {
@@ -70,7 +70,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), 0xf8);
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x14, 128);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0), 0);
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(400.1));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(400.1));
 
         $this->shouldCall('_sdMidiSetPitch')
             ->with(0xcafe0007, 0, 0);
@@ -91,7 +91,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), 0b10);
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x14, 128);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0), 0);
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(399.9));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(399.9));
 
         $this->shouldWriteLongTo('_var_engineSound_8c0fcd50', 0);
 
@@ -105,7 +105,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50'), 0b010);
         $this->initUint32($this->addressOf('_var_engineSound_8c0fcd50') + 0x14, 128);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0), 0);
-        $this->initUint32($this->addressOf('_var_engineRpm_8c226468'), fdec(2100.1));
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x2c, fdec(2100.1));
 
         $this->shouldCall('_sdMidiSetPitch')
             ->with(0xcafe0006, 0, 0);
@@ -121,7 +121,7 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_engineRpm_8c226468', 4);
+        $this->setSize('_var_hudState_8c22643c', 0x3c);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         // Functions

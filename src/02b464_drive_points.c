@@ -751,7 +751,8 @@ STATIC void gradeFrame_8c02bcd8(void) {
         }
     } else {
         var_runState_8c2285c4.runClock_0x18 = var_runState_8c2285c4.runClock_0x18 + 1;
-        if (var_hudDriveMarkIcon_8c226450 != -1 && var_runState_8c2285c4.scheduleTime_0x14 < var_runState_8c2285c4.runClock_0x18
+        if (var_hudState_8c22643c.driveMarkIcon_0x14 != -1
+            && var_runState_8c2285c4.scheduleTime_0x14 < var_runState_8c2285c4.runClock_0x18
             && var_runState_8c2285c4.runClock_0x18 % 30 == 0) {
             adjust_8c02b464(-1, -1);
             return;

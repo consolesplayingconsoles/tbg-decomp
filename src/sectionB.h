@@ -238,8 +238,8 @@ typedef struct {
     int lightFadeGate_0x2dc;
     /* 0 = off, 1 = starting (30-frame crank, idles at 500 rpm), 2 = running.
      * Driven by BusInputUpdate_8c0246b2 (024280); drawHud_8c01fbac (01fa78)
-     * eases var_engineRpm_8c226468 toward 0 / 500 / targetRpm_0x2e8
-     * accordingly. */
+     * eases var_hudState_8c22643c.engineRpm_0x2c toward 0 / 500 /
+     * targetRpm_0x2e8 accordingly. */
     int engineState_0x2e0;
     /* Throttle ramp phase in BAM; njSin of it times 6000 gives
      * targetRpm_0x2e8. Wound up at the current gear's accelRate_0x00 and
@@ -615,35 +615,54 @@ extern int var_lcdSlot_8c2263a0;   // 01bb48
  * reads either. */
 extern void* var_8c226434;
 extern void* var_8c226438;
-/* 01fa78_hud scratch; only the last word is live. HudReset_8c02018c zeroes
- * field_0x00/0x04 and nothing reads them back, and field_0x08/0x0c are never
- * touched at all. */
-typedef struct {
-    int field_0x00;
-    int field_0x04;
-    int field_0x08;
-    int field_0x0c;
-    int driveMarkLatched_0x10;
-} HudMarkLatchState;
-extern HudMarkLatchState var_hudMarkLatch_8c22643c; // 01fa78
-/* HUD sprite id for the map's drive instruction under the bus
- * (markDriveFlags_0x3b0's low 3 bits, + 0x1f), latched by
- * hudUpdateTask_8c01ff48 (01fa78_hud) and only ever -1 before the run's first
- * marked cell. 02b464 and 02c884 read it as "the bus has passed one". */
-extern int var_hudDriveMarkIcon_8c226450;
-/* Free-running frame counter gating the blink of that HUD slot; reset by
- * hudUpdateTask_8c01ff48 on a new instruction and by
- * BusStopUpdateArrival_8c02ce48 (02c884) on a stop-phase change. */
-extern int var_hudBlinkTimer_8c226454;
-/* Driver-points meter fill, ramped toward var_runState_8c2285c4.driverPoints_0x0c over 20
- * frames (01fa78_hud). field_0x0c is seeded to 1.0f and never read. */
+/* Driver-points meter fill, ramped toward
+ * var_runState_8c2285c4.driverPoints_0x0c over 20 frames (01fa78_hud).
+ * field_0x0c is seeded to 1.0f and never read. */
 typedef struct {
     float displayedValue_0x00;
     float lastSample_0x04;
     float rampStep_0x08;
     float field_0x0c;
 } DriverPointsMeterState;
-extern DriverPointsMeterState var_pointsMeter_8c226458; // 01fa78
+
+/* The HUD's per-frame state. The whole 60-byte block is one object: every
+ * field is reached as a constant displacement off a single base register, and
+ * the next address (var_tachoNeedleVerts_8c226478) is loaded as its own. */
+typedef struct {
+    /* HudReset_8c02018c zeroes field_0x00/0x04 and nothing reads them back;
+     * field_0x08/0x0c are never touched at all. */
+    int field_0x00;
+    int field_0x04;
+    int field_0x08;
+    int field_0x0c;
+    int driveMarkLatched_0x10;
+
+    /* HUD sprite id for the map's drive instruction under the bus
+     * (markDriveFlags_0x3b0's low 3 bits, + 0x1f), latched by
+     * hudUpdateTask_8c01ff48 (01fa78_hud) and only ever -1 before the run's
+     * first marked cell. 02b464 and 02c884 read it as "the bus has passed
+     * one". */
+    int driveMarkIcon_0x14;
+
+    /* Free-running frame counter gating the blink of that HUD slot; reset by
+     * hudUpdateTask_8c01ff48 on a new instruction and by
+     * BusStopUpdateArrival_8c02ce48 (02c884) on a stop-phase change. */
+    int blinkTimer_0x18;
+
+    DriverPointsMeterState pointsMeter_0x1c;
+
+    float engineRpm_0x2c;
+
+    /* Written (zeroed) by HudReset_8c02018c (01fa78_hud), never read. */
+    int field_0x30;
+
+    /* Gear-message / lane-change-message latch for hudUpdateTask_8c01ff48
+     * (01fa78): set once the corresponding driver-comment popup has been
+     * staged, cleared when the bus-state bit returns to 0. */
+    int gearLatch_0x34;
+    int laneLatch_0x38;
+} HudState;
+extern HudState var_hudState_8c22643c; // 01fa78
 extern HudVertex var_tachoNeedleVerts_8c226478[3]; // 01fa78
 extern HudMarkState var_hudMark_8c2264a8; // 01fa78
 extern DriveCueState var_driveCueState_8c2264b8;
@@ -1005,8 +1024,8 @@ typedef struct {
     int field_0x70[3];
 
     /* Latched when the bus leaves a stop with a drive-mark instruction on screen
-     * (var_hudDriveMarkIcon_8c226450 != -1); gradeFrame_8c02bcd8 (02b464) spends it
-     * on a +20 msgSet-0x1e award. */
+     * (var_hudState_8c22643c.driveMarkIcon_0x14 != -1); gradeFrame_8c02bcd8
+     * (02b464) spends it on a +20 msgSet-0x1e award. */
     int instructionBonusPending_0x7c;
 
     /* Counts frames the bus has been moving, reset at a standstill by
@@ -1214,13 +1233,6 @@ extern char *var_settingValues_8c226074;
 extern int var_musicTestDigits_8c226078[2];
 extern int var_sfxTestDigits_8c226080[2];
 extern int var_voiceTestDigits_8c226088[4];
-extern float var_engineRpm_8c226468;
-extern int var_8c22646c; // written (zeroed) by HudReset_8c02018c (01fa78_hud), never read
-/* Gear-message / lane-change-message latch for hudUpdateTask_8c01ff48
- * (01fa78): set once the corresponding driver-comment popup has been staged,
- * cleared when the bus-state bit returns to 0. */
-extern int var_gearLatch_8c226470;
-extern int var_laneLatch_8c226474;
 extern int var_vmuStatus_8c226048[9];
 /* RESULTS screen score category totals, drawn digit-by-digit by
  * drawScoreDigits_8c01d7fc (01d7fc). */

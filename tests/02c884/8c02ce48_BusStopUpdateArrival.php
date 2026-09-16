@@ -31,18 +31,7 @@ return new class extends TestCase {
         $this->setSize('_var_fuuNj_8c1bc444', 4);
         $this->setSize('_var_fuuNjm_8c1bc448', 4);
 
-        // var_hudDriveMarkIcon_8c226450/8c226454 are accessed via displacement off the
-        // already-imported var_hudMarkLatch_8c22643c (0x14/0x18 further in), not by their
-        // own relocation -- see src/asm/sectionB.src for the real layout.
-        // rellocate() only takes effect the *first* time a name is resolved,
-        // so a symbol already registered by setSize() can't be moved
-        // afterwards; instead, size each symbol (and any gap between them)
-        // to its real width so plain sequential allocation reproduces the
-        // real relative layout on its own.
-        $this->setSize('_var_hudMarkLatch_8c22643c', 4);
-        $this->alloc(0x10); // gap: 8c226440..8c22644f (unused by this function)
-        $this->setSize('_var_hudDriveMarkIcon_8c226450', 4);
-        $this->setSize('_var_hudBlinkTimer_8c226454', 4);
+        $this->setSize('_var_hudState_8c22643c', 0x3c);
 
         $this->setSize('_var_runState_8c2285c4', 0x9c);
 
@@ -110,7 +99,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 2);
         $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x28, 9999.0);
-        $this->shouldWriteLongTo('_var_hudBlinkTimer_8c226454', 0);
+        $this->shouldWriteLong($this->addressOf('_var_hudState_8c22643c') + 0x18, 0);
         $this->shouldCall('_pickWaitingPassengers_8c02c8ae')->with();
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 0.0);
     }
@@ -129,7 +118,7 @@ return new class extends TestCase {
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 1);
-        $this->shouldWriteLongTo('_var_hudBlinkTimer_8c226454', 0);
+        $this->shouldWriteLong($this->addressOf('_var_hudState_8c22643c') + 0x18, 0);
     }
 
     // State 0, high byte set but matches neither segment -- no-op.
@@ -156,13 +145,13 @@ return new class extends TestCase {
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
     }
 
-    // State 1, low byte set, var_hudDriveMarkIcon_8c226450 armed (!= -1) -- flags var_runState_8c2285c4.instructionBonusPending_0x7c.
+    // State 1, low byte set, var_hudState_8c22643c.driveMarkIcon_0x14 armed (!= -1) -- flags var_runState_8c2285c4.instructionBonusPending_0x7c.
     public function test_state1_departs_armed(): void
     {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 1);
-        $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), 3);
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x14, 3);
         $this->initBusState(0, 1, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
@@ -173,13 +162,13 @@ return new class extends TestCase {
         $this->shouldCall('_advanceStopSegment_8c02ccae')->with();
     }
 
-    // State 1, low byte set, var_hudDriveMarkIcon_8c226450 unarmed (-1) -- var_runState_8c2285c4.instructionBonusPending_0x7c untouched.
+    // State 1, low byte set, var_hudState_8c22643c.driveMarkIcon_0x14 unarmed (-1) -- var_runState_8c2285c4.instructionBonusPending_0x7c untouched.
     public function test_state1_departs_unarmed(): void
     {
         $this->resolveSymbols();
 
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 1);
-        $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), -1);
+        $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x14, -1);
         $this->initBusState(0, 1, 0.0);
 
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();

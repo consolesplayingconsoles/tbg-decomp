@@ -6,15 +6,11 @@ return new class extends TestCase {
     private function setup(): int
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
-        $this->setSize('_var_hudMarkLatch_8c22643c', 0x6c);
-        $base = $this->addressOf('_var_hudMarkLatch_8c22643c');
-        $this->rellocate('_var_hudDriveMarkIcon_8c226450', $base + 0x14);
-        $this->rellocate('_var_hudBlinkTimer_8c226454', $base + 0x18);
-        $this->rellocate('_var_pointsMeter_8c226458', $base + 0x1c);
-        $this->rellocate('_var_engineRpm_8c226468', $base + 0x2c);
-        $this->rellocate('_var_8c22646c', $base + 0x30);
-        $this->rellocate('_var_gearLatch_8c226470', $base + 0x34);
-        $this->rellocate('_var_laneLatch_8c226474', $base + 0x38);
+        // var_tachoNeedleVerts_8c226478 is its own object, but it follows
+        // var_hudState_8c22643c in section B and the assertions below reach it
+        // off that base, so the two are allocated adjacent here.
+        $base = $this->alloc(0x6c);
+        $this->rellocate('_var_hudState_8c22643c', $base);
         $this->rellocate('_var_tachoNeedleVerts_8c226478', $base + 0x3c);
 
         $this->setSize('_var_hudMark_8c2264a8', 0x10);
@@ -43,7 +39,7 @@ return new class extends TestCase {
         $this->call('_hudUpdateTask_8c01ff48');
 
         $this->shouldWriteSymbolOffset('_var_hudMark_8c2264a8', 0x04, 0); // out-of-window: no comment digit
-        $this->shouldWriteSymbolOffset('_var_hudMarkLatch_8c22643c', 0x18, 1); // var_hudBlinkTimer_8c226454 += 1
+        $this->shouldWriteSymbolOffset('_var_hudState_8c22643c', 0x18, 1); // var_hudState_8c22643c.blinkTimer_0x18 += 1
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawHud_8c01fbac'), 0);
     }
 
@@ -54,11 +50,11 @@ return new class extends TestCase {
 
         $this->call('_hudUpdateTask_8c01ff48');
 
-        $this->shouldWriteSymbolOffset('_var_hudMarkLatch_8c22643c', 0x14, 3 + 0x1f); // var_hudDriveMarkIcon_8c226450
-        $this->shouldWriteSymbolOffset('_var_hudMarkLatch_8c22643c', 0x10, 1); // flag
-        $this->shouldWriteSymbolOffset('_var_hudMarkLatch_8c22643c', 0x18, 0); // var_hudBlinkTimer_8c226454 reset
+        $this->shouldWriteSymbolOffset('_var_hudState_8c22643c', 0x14, 3 + 0x1f); // var_hudState_8c22643c.driveMarkIcon_0x14
+        $this->shouldWriteSymbolOffset('_var_hudState_8c22643c', 0x10, 1); // flag
+        $this->shouldWriteSymbolOffset('_var_hudState_8c22643c', 0x18, 0); // var_hudState_8c22643c.blinkTimer_0x18 reset
         $this->shouldWriteSymbolOffset('_var_hudMark_8c2264a8', 0x04, 0); // out-of-window: no comment digit
-        $this->shouldWriteSymbolOffset('_var_hudMarkLatch_8c22643c', 0x18, 1); // var_hudBlinkTimer_8c226454 += 1 (later, ends at 1)
+        $this->shouldWriteSymbolOffset('_var_hudState_8c22643c', 0x18, 1); // var_hudState_8c22643c.blinkTimer_0x18 += 1 (later, ends at 1)
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_drawHud_8c01fbac'), 0);
     }
 };

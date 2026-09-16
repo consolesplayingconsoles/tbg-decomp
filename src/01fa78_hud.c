@@ -134,18 +134,24 @@ STATIC void drawHud_8c01fbac(int arg0) {
     /* One screen slot, three meanings, picked by var_runState_8c2285c4.stopPhase_0x20:
      * cruising shows the map's drive instruction, phase 1 a fixed
      * signal-reminder icon, phase 2 the next-stop icon. All blink on
-     * var_hudBlinkTimer_8c226454 -- hidden 2 frames in every 8 for the first
-     * 60, solid after. */
+     * var_hudState_8c22643c.blinkTimer_0x18 -- hidden 2 frames in every 8 for
+     * the first 60, solid after. */
     if (var_runState_8c2285c4.stopPhase_0x20 == 0 || var_runState_8c2285c4.stopPhase_0x20 == 4) {
-        if (var_hudDriveMarkIcon_8c226450 != -1 && (60 < (Sint32)var_hudBlinkTimer_8c226454 || (var_hudBlinkTimer_8c226454 & 6) != 0)) {
-            TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, var_hudDriveMarkIcon_8c226450, 0.0f, 0.0f, -1.2f);
+        if (var_hudState_8c22643c.driveMarkIcon_0x14 != -1
+            && (60 < (Sint32)var_hudState_8c22643c.blinkTimer_0x18
+                || (var_hudState_8c22643c.blinkTimer_0x18 & 6) != 0)) {
+            TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424,
+                var_hudState_8c22643c.driveMarkIcon_0x14, 0.0f, 0.0f, -1.2f);
         }
     } else if (var_runState_8c2285c4.stopPhase_0x20 == 1) {
-        if (var_hudDriveMarkIcon_8c226450 != -1 && (60 < (Sint32)var_hudBlinkTimer_8c226454 || (var_hudBlinkTimer_8c226454 & 6) != 0)) {
+        if (var_hudState_8c22643c.driveMarkIcon_0x14 != -1
+            && (60 < (Sint32)var_hudState_8c22643c.blinkTimer_0x18
+                || (var_hudState_8c22643c.blinkTimer_0x18 & 6) != 0)) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x1e, 0.0f, 0.0f, -1.2f);
         }
     } else if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
-        if (60 < (Sint32)var_hudBlinkTimer_8c226454 || (var_hudBlinkTimer_8c226454 & 6) != 0) {
+        if (60 < (Sint32)var_hudState_8c22643c.blinkTimer_0x18
+            || (var_hudState_8c22643c.blinkTimer_0x18 & 6) != 0) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x1f, 0.0f, 0.0f, -1.2f);
         }
     }
@@ -154,7 +160,8 @@ STATIC void drawHud_8c01fbac(int arg0) {
      * quad -- init_pointsMeterFill_8c045334's own vertex 0/1 (x=38.0) is the fixed left
      * edge; a second, narrower quad trails 16px behind, clamped to the
      * same left edge. */
-    barWidth = (var_pointsMeter_8c226458.displayedValue_0x00 * 202.0f) / (float)var_runState_8c2285c4.driverPointsMax_0x10 + 38.0f;
+    barWidth = (var_hudState_8c22643c.pointsMeter_0x1c.displayedValue_0x00 * 202.0f)
+        / (float)var_runState_8c2285c4.driverPointsMax_0x10 + 38.0f;
     barWidthInner = barWidth - 16.0f;
     if (barWidthInner < 38.0f) {
         barWidthInner = 38.0f;
@@ -177,40 +184,40 @@ STATIC void drawHud_8c01fbac(int arg0) {
      * frame, clamped on overshoot. */
     switch (var_busState_8c1bb9d0.engineState_0x2e0) {
     case 0:
-        if (var_engineRpm_8c226468 > 0.0f) {
-            var_engineRpm_8c226468 -= 200.0f;
-            if (var_engineRpm_8c226468 < 0.0f) {
-                var_engineRpm_8c226468 = 0.0f;
+        if (var_hudState_8c22643c.engineRpm_0x2c > 0.0f) {
+            var_hudState_8c22643c.engineRpm_0x2c -= 200.0f;
+            if (var_hudState_8c22643c.engineRpm_0x2c < 0.0f) {
+                var_hudState_8c22643c.engineRpm_0x2c = 0.0f;
             }
         }
         break;
 
     case 1:
-        if (var_engineRpm_8c226468 > 500.0f) {
-            var_engineRpm_8c226468 -= 200.0f;
-            if (var_engineRpm_8c226468 >= 500.0f) break;
-            var_engineRpm_8c226468 = 500.0f;
+        if (var_hudState_8c22643c.engineRpm_0x2c > 500.0f) {
+            var_hudState_8c22643c.engineRpm_0x2c -= 200.0f;
+            if (var_hudState_8c22643c.engineRpm_0x2c >= 500.0f) break;
+            var_hudState_8c22643c.engineRpm_0x2c = 500.0f;
         } else {
-            var_engineRpm_8c226468 += 200.0f;
-            if (var_engineRpm_8c226468 <= 500.0f) break;
-            var_engineRpm_8c226468 = 500.0f;
+            var_hudState_8c22643c.engineRpm_0x2c += 200.0f;
+            if (var_hudState_8c22643c.engineRpm_0x2c <= 500.0f) break;
+            var_hudState_8c22643c.engineRpm_0x2c = 500.0f;
         }
         break;
 
     case 2: {
         float target = var_busState_8c1bb9d0.targetRpm_0x2e8;
         if (target > 500.0f) {
-            if (target < var_engineRpm_8c226468) {
-                var_engineRpm_8c226468 -= 200.0f;
-                if (target <= var_engineRpm_8c226468) break;
+            if (target < var_hudState_8c22643c.engineRpm_0x2c) {
+                var_hudState_8c22643c.engineRpm_0x2c -= 200.0f;
+                if (target <= var_hudState_8c22643c.engineRpm_0x2c) break;
             } else {
-                var_engineRpm_8c226468 += 200.0f;
-                if (var_engineRpm_8c226468 <= target) break;
+                var_hudState_8c22643c.engineRpm_0x2c += 200.0f;
+                if (var_hudState_8c22643c.engineRpm_0x2c <= target) break;
             }
-            var_engineRpm_8c226468 = target;
+            var_hudState_8c22643c.engineRpm_0x2c = target;
             break;
         }
-        var_engineRpm_8c226468 = 500.0f;
+        var_hudState_8c22643c.engineRpm_0x2c = 500.0f;
         break;
     }
 
@@ -220,7 +227,7 @@ STATIC void drawHud_8c01fbac(int arg0) {
 
     njUnitMatrix(&var_scratchMatrix_8c1bc46c);
     njTranslate(&var_scratchMatrix_8c1bc46c, 320.0f, 436.0f, 0.0f);
-    angle = ((Sint32)var_engineRpm_8c226468 * 32768) / 6000;
+    angle = ((Sint32)var_hudState_8c22643c.engineRpm_0x2c * 32768) / 6000;
     njRotateZ(&var_scratchMatrix_8c1bc46c, angle);
     njCalcPoint(&var_scratchMatrix_8c1bc46c, (NJS_POINT3 *)&init_tachoNeedle_8c045414[0], (NJS_POINT3 *)&var_tachoNeedleVerts_8c226478[0]);
     njCalcPoint(&var_scratchMatrix_8c1bc46c, (NJS_POINT3 *)&init_tachoNeedle_8c045414[12], (NJS_POINT3 *)&var_tachoNeedleVerts_8c226478[1]);
@@ -275,14 +282,14 @@ STATIC void hudUpdateTask_8c01ff48() {
     unsigned int lane;
     int messageArg = 0;
 
-    if (var_hudMarkLatch_8c22643c.driveMarkLatched_0x10 == 0) {
+    if (var_hudState_8c22643c.driveMarkLatched_0x10 == 0) {
         if (driveMark != 0) {
-            var_hudDriveMarkIcon_8c226450 = driveMark + 0x1f;
-            var_hudMarkLatch_8c22643c.driveMarkLatched_0x10 = 1;
-            var_hudBlinkTimer_8c226454 = 0;
+            var_hudState_8c22643c.driveMarkIcon_0x14 = driveMark + 0x1f;
+            var_hudState_8c22643c.driveMarkLatched_0x10 = 1;
+            var_hudState_8c22643c.blinkTimer_0x18 = 0;
         }
     } else if (driveMark == 0) {
-        var_hudMarkLatch_8c22643c.driveMarkLatched_0x10 = 0;
+        var_hudState_8c22643c.driveMarkLatched_0x10 = 0;
     }
 
     wiper = var_busState_8c1bb9d0.markDriveFlags_0x3b0 & 0x30000;
@@ -297,7 +304,7 @@ STATIC void hudUpdateTask_8c01ff48() {
     }
 
     gear = var_busState_8c1bb9d0.markDriveFlags_0x3b0 & 0xc0000;
-    if (var_gearLatch_8c226470 == 0 && gear != 0) {
+    if (var_hudState_8c22643c.gearLatch_0x34 == 0 && gear != 0) {
         /* A fresh gear change hides the headlight and lane-change marks
          * for this frame; they only show once the latch clears again. */
         if (gear == 0x40000) {
@@ -305,10 +312,10 @@ STATIC void hudUpdateTask_8c01ff48() {
         } else if (gear == 0x80000) {
             showMark_8c01fa78(0x1d, 0xb4);
         }
-        var_gearLatch_8c226470 = 1;
+        var_hudState_8c22643c.gearLatch_0x34 = 1;
     } else {
-        if (var_gearLatch_8c226470 != 0 && gear == 0) {
-            var_gearLatch_8c226470 = 0;
+        if (var_hudState_8c22643c.gearLatch_0x34 != 0 && gear == 0) {
+            var_hudState_8c22643c.gearLatch_0x34 = 0;
         }
 
         if ((var_busState_8c1bb9d0.markDriveFlags_0x3b0 & 0x100) != 0) {
@@ -316,14 +323,14 @@ STATIC void hudUpdateTask_8c01ff48() {
         }
 
         lane = var_busState_8c1bb9d0.markAudioCue_0x3b8 & 0xff0000;
-        if (var_laneLatch_8c226474 == 0) {
+        if (var_hudState_8c22643c.laneLatch_0x38 == 0) {
             if (lane != 0) {
                 showMark_8c01fa78((short)(lane >> 0x10) + 0x1e, 0x78);
-                var_laneLatch_8c226474 = 1;
+                var_hudState_8c22643c.laneLatch_0x38 = 1;
                 var_hudMark_8c2264a8.blinkCounter_0x0c = 0;
             }
         } else if (lane == 0) {
-            var_laneLatch_8c226474 = 0;
+            var_hudState_8c22643c.laneLatch_0x38 = 0;
         }
     }
 
@@ -368,19 +375,23 @@ STATIC void hudUpdateTask_8c01ff48() {
     if (var_hudMark_8c2264a8.displayTimer_0x08 != 0) {
         var_hudMark_8c2264a8.displayTimer_0x08 -= 1;
     }
-    var_hudBlinkTimer_8c226454 += 1;
+    var_hudState_8c22643c.blinkTimer_0x18 += 1;
 
     {
         float driverPointsF = (float)var_runState_8c2285c4.driverPoints_0x0c;
-        if (driverPointsF != var_pointsMeter_8c226458.displayedValue_0x00) {
-            if (driverPointsF != var_pointsMeter_8c226458.lastSample_0x04) {
-                var_pointsMeter_8c226458.rampStep_0x08 = (driverPointsF - var_pointsMeter_8c226458.lastSample_0x04) / 20.0f;
-                var_pointsMeter_8c226458.lastSample_0x04 = driverPointsF;
+        if (driverPointsF != var_hudState_8c22643c.pointsMeter_0x1c.displayedValue_0x00) {
+            if (driverPointsF != var_hudState_8c22643c.pointsMeter_0x1c.lastSample_0x04) {
+                var_hudState_8c22643c.pointsMeter_0x1c.rampStep_0x08 =
+                    (driverPointsF - var_hudState_8c22643c.pointsMeter_0x1c.lastSample_0x04) / 20.0f;
+                var_hudState_8c22643c.pointsMeter_0x1c.lastSample_0x04 = driverPointsF;
             }
-            var_pointsMeter_8c226458.displayedValue_0x00 += var_pointsMeter_8c226458.rampStep_0x08;
-            if ((var_pointsMeter_8c226458.rampStep_0x08 > 0.0f && driverPointsF < var_pointsMeter_8c226458.displayedValue_0x00) ||
-                (var_pointsMeter_8c226458.rampStep_0x08 < 0.0f && var_pointsMeter_8c226458.displayedValue_0x00 < driverPointsF)) {
-                var_pointsMeter_8c226458.displayedValue_0x00 = driverPointsF;
+            var_hudState_8c22643c.pointsMeter_0x1c.displayedValue_0x00 +=
+                var_hudState_8c22643c.pointsMeter_0x1c.rampStep_0x08;
+            if ((var_hudState_8c22643c.pointsMeter_0x1c.rampStep_0x08 > 0.0f
+                    && driverPointsF < var_hudState_8c22643c.pointsMeter_0x1c.displayedValue_0x00)
+                || (var_hudState_8c22643c.pointsMeter_0x1c.rampStep_0x08 < 0.0f
+                    && var_hudState_8c22643c.pointsMeter_0x1c.displayedValue_0x00 < driverPointsF)) {
+                var_hudState_8c22643c.pointsMeter_0x1c.displayedValue_0x00 = driverPointsF;
             }
         }
     }
@@ -396,20 +407,20 @@ void HudReset_8c02018c(void) {
 
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, hudUpdateTask_8c01ff48, &createdTask, &createdState, 0);
 
-    var_hudMarkLatch_8c22643c.field_0x00 = 0;
-    var_hudMarkLatch_8c22643c.field_0x04 = 0;
-    var_hudMarkLatch_8c22643c.driveMarkLatched_0x10 = 0;
-    var_hudDriveMarkIcon_8c226450 = -1;
-    var_hudBlinkTimer_8c226454 = 0;
+    var_hudState_8c22643c.field_0x00 = 0;
+    var_hudState_8c22643c.field_0x04 = 0;
+    var_hudState_8c22643c.driveMarkLatched_0x10 = 0;
+    var_hudState_8c22643c.driveMarkIcon_0x14 = -1;
+    var_hudState_8c22643c.blinkTimer_0x18 = 0;
 
-    var_pointsMeter_8c226458.lastSample_0x04 = (float)var_runState_8c2285c4.driverPoints_0x0c;
-    var_pointsMeter_8c226458.displayedValue_0x00 = (float)var_runState_8c2285c4.driverPoints_0x0c;
-    var_pointsMeter_8c226458.field_0x0c = 1.0f;
+    var_hudState_8c22643c.pointsMeter_0x1c.lastSample_0x04 = (float)var_runState_8c2285c4.driverPoints_0x0c;
+    var_hudState_8c22643c.pointsMeter_0x1c.displayedValue_0x00 = (float)var_runState_8c2285c4.driverPoints_0x0c;
+    var_hudState_8c22643c.pointsMeter_0x1c.field_0x0c = 1.0f;
 
-    var_engineRpm_8c226468 = 0.0f;
-    var_8c22646c = 0;
-    var_gearLatch_8c226470 = 0;
-    var_laneLatch_8c226474 = 0;
+    var_hudState_8c22643c.engineRpm_0x2c = 0.0f;
+    var_hudState_8c22643c.field_0x30 = 0;
+    var_hudState_8c22643c.gearLatch_0x34 = 0;
+    var_hudState_8c22643c.laneLatch_0x38 = 0;
 
     var_tachoNeedleVerts_8c226478[0].color = 0xffff0000;
     var_tachoNeedleVerts_8c226478[1].color = 0xffff0000;

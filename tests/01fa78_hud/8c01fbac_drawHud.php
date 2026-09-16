@@ -6,9 +6,8 @@ use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention;
 /*
  * _drawHud_8c01fbac(int arg0): the in-drive HUD render. arg0 is the driver-
  * comment message code hudUpdateTask_8c01ff48 stages through the fade-command queue.
- * var_hudDriveMarkIcon_8c226450/454/458/var_engineRpm_8c226468/8c226478 all alias into the
- * var_hudMarkLatch_8c22643c scratch block -- see hudUpdateTask_8c01ff48's test
- * for the same aliasing.
+ * var_tachoNeedleVerts_8c226478 follows the var_hudState_8c22643c block in
+ * section B -- see hudUpdateTask_8c01ff48's test for the same adjacency.
  * init_pointsMeterFill_8c045334/374/3b4/414 were local (unexported) labels in the .src
  * object; gated .EXPORTs under .AIFDEF UNIT_TESTING were added so tests can
  * see them, matching init_fadeQuad_8c0455a8's convention in 022464_fade.
@@ -18,12 +17,11 @@ return new class extends TestCase {
     private function setup(): array
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
-        $this->setSize('_var_hudMarkLatch_8c22643c', 0x6c);
-        $base = $this->addressOf('_var_hudMarkLatch_8c22643c');
-        $this->rellocate('_var_hudDriveMarkIcon_8c226450', $base + 0x14);
-        $this->rellocate('_var_hudBlinkTimer_8c226454', $base + 0x18);
-        $this->rellocate('_var_pointsMeter_8c226458', $base + 0x1c);
-        $this->rellocate('_var_engineRpm_8c226468', $base + 0x2c);
+        // var_tachoNeedleVerts_8c226478 is its own object, but it follows
+        // var_hudState_8c22643c in section B and the assertions below reach it
+        // off that base, so the two are allocated adjacent here.
+        $base = $this->alloc(0x6c);
+        $this->rellocate('_var_hudState_8c22643c', $base);
         $this->rellocate('_var_tachoNeedleVerts_8c226478', $base + 0x3c);
 
         $runState = $this->setSize('_var_runState_8c2285c4', 0x9c);
@@ -169,11 +167,11 @@ return new class extends TestCase {
         $this->initUint32($popup + 0x08, 1);    // displayTimer_0x08 (gate for markSpriteId_0x00)
 
         // Next-stop icon: mirror level 0, armed, blink window open.
-        $this->initUint32($base + 0x14, 5);  // var_hudDriveMarkIcon_8c226450
-        $this->initUint32($base + 0x18, 61); // var_hudBlinkTimer_8c226454 (> 60)
+        $this->initUint32($base + 0x14, 5);  // var_hudState_8c22643c.driveMarkIcon_0x14
+        $this->initUint32($base + 0x18, 61); // var_hudState_8c22643c.blinkTimer_0x18 (> 60)
 
         // Driver-points meter: (50.0 * 202.0) / 100 + 38.0 = 139.0, inner = 123.0.
-        $this->initUint32($base + 0x1c, unpack('L', pack('f', 50.0))[1]); // var_pointsMeter_8c226458.displayedValue_0x00
+        $this->initUint32($base + 0x1c, unpack('L', pack('f', 50.0))[1]); // var_hudState_8c22643c.pointsMeter_0x1c.displayedValue_0x00
         $this->initUint32($runState + 0x10, 100); // var_runState_8c2285c4.driverPointsMax_0x10 (divisor)
 
         // Both turn-signal bits set.
@@ -181,7 +179,7 @@ return new class extends TestCase {
 
         // Needle: mode 0 (relax toward 0), starts above 0.
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0, 0);
-        $this->initUint32($base + 0x2c, unpack('L', pack('f', 300.0))[1]); // var_engineRpm_8c226468
+        $this->initUint32($base + 0x2c, unpack('L', pack('f', 300.0))[1]); // var_hudState_8c22643c.engineRpm_0x2c
 
         // Speed readout: 5.0 * 108000.0 / 1000.0 = 540.0 -> 540.
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x27c, unpack('L', pack('f', 5.0))[1]);
@@ -230,8 +228,8 @@ return new class extends TestCase {
         [$base, $runState] = $this->setup();
 
         $this->initUint32($runState + 0x20, 1); // var_runState_8c2285c4.stopPhase_0x20
-        $this->initUint32($base + 0x14, 5);  // var_hudDriveMarkIcon_8c226450 (armed)
-        $this->initUint32($base + 0x18, 61); // var_hudBlinkTimer_8c226454 (> 60)
+        $this->initUint32($base + 0x14, 5);  // var_hudState_8c22643c.driveMarkIcon_0x14 (armed)
+        $this->initUint32($base + 0x18, 61); // var_hudState_8c22643c.blinkTimer_0x18 (> 60)
         $this->initUint32($runState + 0x10, 100);  // var_runState_8c2285c4.driverPointsMax_0x10 (avoid div-by-zero)
 
         $this->call('_drawHud_8c01fbac')->with(0);
@@ -247,7 +245,7 @@ return new class extends TestCase {
         [$base, $runState] = $this->setup();
 
         $this->initUint32($runState + 0x20, 2); // var_runState_8c2285c4.stopPhase_0x20
-        $this->initUint32($base + 0x18, 61); // var_hudBlinkTimer_8c226454 (> 60) -- level 2 ignores var_hudDriveMarkIcon_8c226450
+        $this->initUint32($base + 0x18, 61); // var_hudState_8c22643c.blinkTimer_0x18 (> 60) -- level 2 ignores var_hudState_8c22643c.driveMarkIcon_0x14
         $this->initUint32($runState + 0x10, 100);  // var_runState_8c2285c4.driverPointsMax_0x10
 
         $this->call('_drawHud_8c01fbac')->with(0);
@@ -263,8 +261,8 @@ return new class extends TestCase {
         [$base, $runState] = $this->setup();
 
         $this->initUint32($runState + 0x20, 0); // var_runState_8c2285c4.stopPhase_0x20
-        $this->initUint32($base + 0x14, 5);  // var_hudDriveMarkIcon_8c226450 (armed)
-        $this->initUint32($base + 0x18, 0);  // var_hudBlinkTimer_8c226454 (blink window closed, bits 1/2 clear)
+        $this->initUint32($base + 0x14, 5);  // var_hudState_8c22643c.driveMarkIcon_0x14 (armed)
+        $this->initUint32($base + 0x18, 0);  // var_hudState_8c22643c.blinkTimer_0x18 (blink window closed, bits 1/2 clear)
         $this->initUint32($runState + 0x10, 100);  // var_runState_8c2285c4.driverPointsMax_0x10
 
         $this->call('_drawHud_8c01fbac')->with(0);
@@ -278,7 +276,7 @@ return new class extends TestCase {
 
         $this->initUint32($runState + 0x10, 100); // var_runState_8c2285c4.driverPointsMax_0x10
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2e0, 1); // needle mode 1
-        $this->initUint32($base + 0x2c, unpack('L', pack('f', 100.0))[1]); // var_engineRpm_8c226468 < 500
+        $this->initUint32($base + 0x2c, unpack('L', pack('f', 100.0))[1]); // var_hudState_8c22643c.engineRpm_0x2c < 500
 
         $this->call('_drawHud_8c01fbac')->with(0);
 

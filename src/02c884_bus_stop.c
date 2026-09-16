@@ -334,18 +334,18 @@ void BusStopUpdateArrival_8c02ce48(void)
             if (crossedSegment == var_nextStopSegment_8c228710) {
                 var_runState_8c2285c4.stopPhase_0x20 = 2;
                 var_runState_8c2285c4.stopMinDistance_0x28 = 9999.0f;
-                var_hudBlinkTimer_8c226454 = 0;
+                var_hudState_8c22643c.blinkTimer_0x18 = 0;
                 pickWaitingPassengers_8c02c8ae();
                 var_fuuFrame_8c1bc44c = 0.0f;
             } else if (crossedSegment == var_prevStopSegment_8c22870c) {
                 var_runState_8c2285c4.stopPhase_0x20 = 1;
-                var_hudBlinkTimer_8c226454 = 0;
+                var_hudState_8c22643c.blinkTimer_0x18 = 0;
             }
         }
     } else if (var_runState_8c2285c4.stopPhase_0x20 == 1) {
         if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff) != 0) {
             var_runState_8c2285c4.stopPhase_0x20 = 0;
-            if (var_hudDriveMarkIcon_8c226450 != -1) {
+            if (var_hudState_8c22643c.driveMarkIcon_0x14 != -1) {
                 var_runState_8c2285c4.instructionBonusPending_0x7c = 1;
             }
             var_driveCueState_8c2264b8.nearStopLatch_0x0c = 0;
