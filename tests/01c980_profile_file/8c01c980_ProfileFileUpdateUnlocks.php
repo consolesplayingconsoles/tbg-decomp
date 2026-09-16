@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 /*
  * ProfileFileUpdateUnlocks_8c01c980: refreshes the 55-slot PROFILE FILE
  * unlock grid (var_profileUnlocked_8c2263b4) by scanning each slot's 0xff-terminated
- * progress-flag list (init_profileUnlockFlags_8c044ffc) via EventHasProgressFlagAlt_8c02aff0
+ * progress-flag list (init_profileUnlockFlags_8c044ffc) via EventHasProfileProgressFlag_8c02aff0
  * -- any flag testing true unlocks the slot and stops the scan early.
  * Tallies the unlocked count into var_profileUnlockedCount_8c2263a4.
  */
@@ -75,7 +75,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_profileUnlockedCount_8c2263a4', 4);
         $this->setSize('_var_profileUnlocked_8c2263b4', 56);
-        $this->setSize('_EventHasProgressFlagAlt_8c02aff0', 4);
+        $this->setSize('_EventHasProfileProgressFlag_8c02aff0', 4);
     }
 
     /**
@@ -98,7 +98,7 @@ return new class extends TestCase {
             $hit = false;
             foreach ($flags as $flag) {
                 $isHit = $hitFlag !== null && $flag === $hitFlag;
-                $this->shouldCall('_EventHasProgressFlagAlt_8c02aff0')
+                $this->shouldCall('_EventHasProfileProgressFlag_8c02aff0')
                     ->with($flag)
                     ->andReturn($isHit ? 1 : 0);
                 if ($isHit) {

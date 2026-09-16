@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_resourceGroup_8c2263a8', 0x0c);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
-        $this->setSize('_EventHasProgressFlagAlt_8c02aff0', 4);
+        $this->setSize('_EventHasProfileProgressFlag_8c02aff0', 4);
     }
 
     private function selectSlot(int $row, int $col): void
@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->setSelectedOption(0);
 
         foreach ([0x32, 0x33, 0x7c, 0x34, 0x7d, 0x35, 0x7e, 0x3b] as $flag) {
-            $this->shouldCall('_EventHasProgressFlagAlt_8c02aff0')->with($flag)->andReturn(0);
+            $this->shouldCall('_EventHasProfileProgressFlag_8c02aff0')->with($flag)->andReturn(0);
         }
 
         $this->expectNavOptionsAndFrame(0);
@@ -61,7 +61,7 @@ return new class extends TestCase {
 
         foreach ($flags as $i => $flag) {
             $isHit = $hits[$i] ?? false;
-            $this->shouldCall('_EventHasProgressFlagAlt_8c02aff0')->with($flag)->andReturn($isHit ? 1 : 0);
+            $this->shouldCall('_EventHasProfileProgressFlag_8c02aff0')->with($flag)->andReturn($isHit ? 1 : 0);
             if ($isHit) {
                 $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
                     $resGroup, 9,
@@ -101,7 +101,7 @@ return new class extends TestCase {
         $x = 96.0;
         $y = 267.0;
         foreach ($flags as $i => $flag) {
-            $this->shouldCall('_EventHasProgressFlagAlt_8c02aff0')->with($flag)->andReturn(1);
+            $this->shouldCall('_EventHasProfileProgressFlag_8c02aff0')->with($flag)->andReturn(1);
             $this->shouldCall('_TxtDrawSprite_8c014f54')->with($resGroup, 9, $x, $y, -2.0);
             $x += 38.0;
             if ($x > 515.0) {
@@ -128,7 +128,7 @@ return new class extends TestCase {
         $this->setSelectedOption(4);
 
         foreach ([0x32, 0x33, 0x7c, 0x34, 0x7d, 0x35, 0x7e, 0x3b] as $flag) {
-            $this->shouldCall('_EventHasProgressFlagAlt_8c02aff0')->with($flag)->andReturn(0);
+            $this->shouldCall('_EventHasProfileProgressFlag_8c02aff0')->with($flag)->andReturn(0);
         }
 
         $this->expectNavOptionsAndFrame(4);

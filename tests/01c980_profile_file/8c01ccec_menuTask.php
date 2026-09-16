@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
         $this->setSize('_var_profileUnlockedCount_8c2263a4', 4);
         $this->setSize('_var_profileUnlocked_8c2263b4', 56);
-        $this->setSize('_EventHasProgressFlagAlt_8c02aff0', 4);
+        $this->setSize('_EventHasProfileProgressFlag_8c02aff0', 4);
         $this->setSize('__divls', 4);
         $this->setSize('__modls', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);

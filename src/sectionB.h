@@ -364,7 +364,7 @@ typedef struct {
     int days_0x00;
 
     /* unlock-flag bitsets set together by setProgressFlag_8c02af78
-     * and tested individually by hasProgressFlag_8c02afbe/EventHasProgressFlagAlt_8c02aff0 */
+     * and tested individually by hasEventProgressFlag_8c02afbe/EventHasProfileProgressFlag_8c02aff0 */
     int eventProgressFlags_0x04[5];
     int profileProgressFlags_0x18[5];
 

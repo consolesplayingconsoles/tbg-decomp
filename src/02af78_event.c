@@ -2229,7 +2229,7 @@ STATIC EventEntry init_omeEvents_8c04b920[] = {
  * ====================
  */
 
-/* Marks progress flag in both paired bitsets of the progress struct */
+/* Sets the bit in both bitsets; the two testers below read them apart. */
 STATIC void setProgressFlag_8c02af78(int index)
 {
     int word = index >> 5;
@@ -2239,8 +2239,7 @@ STATIC void setProgressFlag_8c02af78(int index)
     var_progress_8c1ba1cc.profileProgressFlags_0x18[word] |= mask;
 }
 
-/* Tests progress flag in the eventProgressFlags_0x04 bitset */
-STATIC int hasProgressFlag_8c02afbe(int index)
+STATIC int hasEventProgressFlag_8c02afbe(int index)
 {
     int word = index >> 5;
     int mask = 1 << (index & 0x1f);
@@ -2248,8 +2247,7 @@ STATIC int hasProgressFlag_8c02afbe(int index)
     return var_progress_8c1ba1cc.eventProgressFlags_0x04[word] & mask;
 }
 
-/* Tests progress flag in the profileProgressFlags_0x18 bitset */
-int EventHasProgressFlagAlt_8c02aff0(int index)
+int EventHasProfileProgressFlag_8c02aff0(int index)
 {
     int word = index >> 5;
     int mask = 1 << (index & 0x1f);
@@ -2327,14 +2325,14 @@ void EventScanCandidates_8c02b03c(void)
             }
 
             if ((code & EVENT_CODE_MODE) == EVENT_MODE_FORBID_PROGRESS) {
-                if (hasProgressFlag_8c02afbe(code & EVENT_CODE_FLAG) != 0) {
+                if (hasEventProgressFlag_8c02afbe(code & EVENT_CODE_FLAG) != 0) {
                     break;
                 }
                 continue;
             }
 
             if ((code & EVENT_CODE_MODE) == EVENT_MODE_REQUIRE_PROGRESS &&
-                hasProgressFlag_8c02afbe(code & EVENT_CODE_FLAG) == 0) {
+                hasEventProgressFlag_8c02afbe(code & EVENT_CODE_FLAG) == 0) {
                 break;
             }
         }

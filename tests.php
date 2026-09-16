@@ -275,8 +275,8 @@ return [
         [
             "tests" => [
                 "tests/02af78_event/8c02af78_setProgressFlag.php",
-                "tests/02af78_event/8c02afbe_hasProgressFlag.php",
-                "tests/02af78_event/8c02aff0_hasProgressFlagAlt.php",
+                "tests/02af78_event/8c02afbe_hasEventProgressFlag.php",
+                "tests/02af78_event/8c02aff0_EventHasProfileProgressFlag.php",
                 "tests/02af78_event/8c02b022_setRunEventFlag.php",
                 "tests/02af78_event/8c02b030_hasRunEventFlag.php",
                 "tests/02af78_event/8c02b03c_EventScanCandidates.php",

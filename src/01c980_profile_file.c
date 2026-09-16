@@ -349,7 +349,7 @@ void ProfileFileUpdateUnlocks_8c01c980(void)
         Uint8 *flags;
 
         for (flags = init_profileUnlockFlags_8c044ffc[i]; *flags != 0xff; flags++) {
-            if (!EventHasProgressFlagAlt_8c02aff0(*flags))
+            if (!EventHasProfileProgressFlag_8c02aff0(*flags))
                 continue;
 
             var_profileUnlocked_8c2263b4[i] = 1;
@@ -421,7 +421,7 @@ STATIC void drawEpisodeChecklist_8c01cac8(void)
     ];
 
     while (*flags != 0xff) {
-        if (EventHasProgressFlagAlt_8c02aff0(*flags)) {
+        if (EventHasProfileProgressFlag_8c02aff0(*flags)) {
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 9, x, y, -2.0f

@@ -11,7 +11,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * contains the current PlayerProgress.days_0x00 value (packed as 5-bit
  * slots), and whose conditions_0x08 (packed 10-bit {mode:2,flag:8} codes,
  * mode 0 = must-not-have, mode 1 = must-have, tested via
- * hasProgressFlag_8c02afbe) are all satisfied. Matching entries' table index
+ * hasEventProgressFlag_8c02afbe) are all satisfied. Matching entries' table index
  * is appended to var_eventCandidates_8c228520, counted by var_eventCandidateCount_8c228560. Always resets
  * var_eventCandidateCount_8c228560 to 0 first; does nothing else during PLAY_MODE_PRACTICE.
  */
@@ -172,7 +172,7 @@ return new class extends TestCase {
 
         $this->shouldResetAtStart();
         $this->shouldWriteLongTo('_var_routeEvents_8c22851c', $this->addressOf('_init_shinjukuEvents_8c04b1f0'));
-        $this->shouldCall('_hasProgressFlag_8c02afbe')->with(3)->andReturn(1);
+        $this->shouldCall('_hasEventProgressFlag_8c02afbe')->with(3)->andReturn(1);
     }
 
     public function test_adds_candidate_when_forbidden_flag_is_not_set(): void
@@ -192,7 +192,7 @@ return new class extends TestCase {
 
         $this->shouldResetAtStart();
         $this->shouldWriteLongTo('_var_routeEvents_8c22851c', $this->addressOf('_init_shinjukuEvents_8c04b1f0'));
-        $this->shouldCall('_hasProgressFlag_8c02afbe')->with(3)->andReturn(0);
+        $this->shouldCall('_hasEventProgressFlag_8c02afbe')->with(3)->andReturn(0);
         $this->shouldWriteLong($this->addressOf('_var_eventCandidates_8c228520'), 0);
         $this->shouldWriteLongTo('_var_eventCandidateCount_8c228560', 1);
     }
@@ -214,7 +214,7 @@ return new class extends TestCase {
 
         $this->shouldResetAtStart();
         $this->shouldWriteLongTo('_var_routeEvents_8c22851c', $this->addressOf('_init_shinjukuEvents_8c04b1f0'));
-        $this->shouldCall('_hasProgressFlag_8c02afbe')->with(3)->andReturn(0);
+        $this->shouldCall('_hasEventProgressFlag_8c02afbe')->with(3)->andReturn(0);
     }
 
     public function test_adds_candidate_when_required_flag_is_present(): void
@@ -234,7 +234,7 @@ return new class extends TestCase {
 
         $this->shouldResetAtStart();
         $this->shouldWriteLongTo('_var_routeEvents_8c22851c', $this->addressOf('_init_shinjukuEvents_8c04b1f0'));
-        $this->shouldCall('_hasProgressFlag_8c02afbe')->with(3)->andReturn(1);
+        $this->shouldCall('_hasEventProgressFlag_8c02afbe')->with(3)->andReturn(1);
         $this->shouldWriteLong($this->addressOf('_var_eventCandidates_8c228520'), 0);
         $this->shouldWriteLongTo('_var_eventCandidateCount_8c228560', 1);
     }

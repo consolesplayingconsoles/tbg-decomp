@@ -48,8 +48,8 @@ ones did before them.
 **Found in:** `02af78_event` (2026-07-12)
 
 A function that calls another function decompiled earlier *in the same
-`.c`/`.src` file* (e.g. `scanUnlockCandidates_8c02b03c` calling
-`hasProgressFlag_8c02afbe`, both in `02af78_event.c`) does **not** execute the
+`.c`/`.src` file* (e.g. `EventScanCandidates_8c02b03c` calling
+`hasEventProgressFlag_8c02afbe`, both in `02af78_event.c`) does **not** execute the
 callee for real during a unit test, even though both end up in the same
 object file. The test harness still intercepts the `BSR`/call and requires
 an explicit `shouldCall(...)->andReturn(...)` expectation, exactly as for a
@@ -128,7 +128,7 @@ exists.
 
 The dead-bytes pattern itself also shows up verbatim in the *original*
 `.src` asm (built by the same-era SHC compiler -- confirmed present in
-`02af78_event.src`'s `_scanUnlockCandidates_8c02b03c`/`_pickUnlockCandidate_8c02b170`).
+`02af78_event.src`'s `_EventScanCandidates_8c02b03c`/`_EventPickForSegment_8c02b170`).
 There, restructuring is never an option regardless of sh4objtest version --
 the archived asm must stay byte-identical to the real game binary -- so the
 coverage tags below are the only fix.
