@@ -3,9 +3,14 @@
 #include <shinobi.h>
 #include "015ab8_title.h"
 #include "016d2c_course_menu.h"
-#include "016108.h"
+#include "016108_resgrp_free.h"
 #include "028258_objects.h" /* ObjectsFreeTextboxes_8c02af32 */
 #include "sectionB.h"
+
+/* ====================
+ * Functions
+ * ====================
+ */
 
 /* Matched */
 void RgFreeResourceGroups_8c016108()
@@ -15,5 +20,7 @@ void RgFreeResourceGroups_8c016108()
     CourseMenuFreeResourceGroup_8c0185c4(&var_resourceGroup_8c2263a8);
 
     ObjectsFreeTextboxes_8c02af32();
+    /* Forget which \SYSTEM group is resident, so the next
+     * CourseMenuRequestSysResgrp_8c018568 reloads instead of no-opping. */
     var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
 }

@@ -25,7 +25,7 @@ SRCS = \
 	src/014b8c_backup.c \
 	src/asm/decompiled/014f54_text.src \
 	src/asm/decompiled/015ab8_title.src \
-	src/016108.c \
+	src/016108_resgrp_free.c \
 	src/asm/decompiled/01614c_debug_menu.src \
 	src/asm/decompiled/016bf4_demo_input.src \
 	src/asm/decompiled/016c58_prompt.src \

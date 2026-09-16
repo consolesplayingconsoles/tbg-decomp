@@ -10,7 +10,7 @@
 #include "014a9c_tasks.h"
 #include "014b8c_backup.h"
 #include "014f54_text.h"
-#include "016108.h"
+#include "016108_resgrp_free.h"
 #include "016d2c_course_menu.h"
 #include "018644_file_menu.h"
 #include "02171c_tile_stream.h"
