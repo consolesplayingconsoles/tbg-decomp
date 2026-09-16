@@ -849,7 +849,7 @@ STATIC void beginDriveEnd_8c02c738(void) {
     Task *created_task;
     void *created_state;
 
-    FUN_8c01614c();
+    DebugMenuFreeDriveTasks_8c01614c();
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *)driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
     FadePushIn_8c022a9c(10);

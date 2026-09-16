@@ -86,7 +86,7 @@
           .IMPORT     _PracticeMenuLessonRetry_8c01f21c
           .IMPORT     _var_markTexlist_8c1bc418
           .IMPORT     _TxtDrawSprite_8c014f54
-          .IMPORT     _FUN_8c01614c
+          .IMPORT     _DebugMenuFreeDriveTasks_8c01614c
           .IMPORT     _FadePushIn_8c022a9c
           .IMPORT     _var_driverPoints_8c2285d0
           .IMPORT     _ResultShowPassedRun_8c01e0b4
@@ -2680,7 +2680,7 @@ LP_GEN_25024:
           .DATA.L _var_markTexlist_8c1bc418 ; H'8C02C85C
           .DATA.L H'C0400000 ; H'8C02C860
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C02C864
-          .DATA.L _FUN_8c01614c ; H'8C02C868
+          .DATA.L _DebugMenuFreeDriveTasks_8c01614c ; H'8C02C868
           .DATA.L _driveEndFadeTask_8c02c69a ; H'8C02C86C
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C870
           .DATA.L _FadePushIn_8c022a9c ; H'8C02C874

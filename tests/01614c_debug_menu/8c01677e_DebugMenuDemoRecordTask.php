@@ -10,7 +10,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * _var_demoCursor_8c225fa8, advancing it by one 8-byte ReplayInput record.
  *
  * Guard (both must hold, else no-op):
- *   _var_busDriveState_8c1bbc84 > 0                                           (bus is driving)
+ *   _var_busState_8c1bb9d0.driveState_0x2b4 > 0                 (bus is driving)
  *   cursor < &_var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY]  (still inside buffer)
  */
 return new class extends TestCase {
@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_demoCursor_8c225fa8', $record + 8);
     }
 
-    public function test_noop_when_count_zero(): void
+    public function test_noop_when_not_driving(): void
     {
         $this->resolveSymbols();
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_frees_the_four_task_groups()
+    public function test_frees_the_in_drive_task_groups()
     {
-        $this->call('_FUN_8c01614c');
+        $this->call('_DebugMenuFreeDriveTasks_8c01614c');
 
         $this->shouldCall('_ObjectsFreePedestrianGroups_8c0297da');
         $this->shouldCall('_ObjectsFreeTrafficSignals_8c0288be');

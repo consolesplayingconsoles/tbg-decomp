@@ -39,8 +39,8 @@ return new class extends TestCase {
         $this->setSize('_var_debugMenuCourseSel_8c1bc824', 4);
         $this->setSize('_njPrintC', 4);
         $this->setSize('_AsqGetRandomA_8c012166', 4);
-        // referenced only as an init_debugMenuEntries_8c04429c function pointer, never called;
-        // FUN_8c0167c0/startReplayLoad_8c016b4c need no faking, they're real functions in this unit
+        // the only foreign entry in init_debugMenuEntries_8c04429c; the rest are
+        // real functions in this unit and need no faking
         $this->setSize('_ObjectsRequestMessageAssets_8c02aa36', 4);
     }
 

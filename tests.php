@@ -348,15 +348,15 @@ return [
         ],
         [
             "tests" => [
-                "tests/01614c_debug_menu/8c01614c_FUN.php",
+                "tests/01614c_debug_menu/8c01614c_DebugMenuFreeDriveTasks.php",
                 "tests/01614c_debug_menu/8c016182_DebugMenuFreeSessionAssets.php",
                 "tests/01614c_debug_menu/8c01628c_saveMenuTask.php",
                 "tests/01614c_debug_menu/8c016636_openSaveMenu.php",
                 "tests/01614c_debug_menu/8c01666a_listMenuTask.php",
                 "tests/01614c_debug_menu/8c01673a_DebugMenuOpen.php",
-                "tests/01614c_debug_menu/8c016770_FUN.php",
+                "tests/01614c_debug_menu/8c016770_DebugMenuResetDemoCursor.php",
                 "tests/01614c_debug_menu/8c01677e_DebugMenuDemoRecordTask.php",
-                "tests/01614c_debug_menu/8c0167c0_FUN.php",
+                "tests/01614c_debug_menu/8c0167c0_startCourse.php",
                 "tests/01614c_debug_menu/8c0167ca_replaySaveTask.php",
                 "tests/01614c_debug_menu/8c016924_startReplaySave.php",
                 "tests/01614c_debug_menu/8c0169bc_replayLoadTask.php",

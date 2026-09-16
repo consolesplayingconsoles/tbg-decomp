@@ -69,11 +69,11 @@
           .IMPORT     _CourseMenuReturn_8c017ef2
           .EXPORT     _DebugMenuDemoRecordTask_8c01677e
           .EXPORT     _DebugMenuFreeSessionAssets_8c016182
-          .EXPORT     _FUN_8c01614c
-          .EXPORT     _FUN_8c016770
+          .EXPORT     _DebugMenuFreeDriveTasks_8c01614c
+          .EXPORT     _DebugMenuResetDemoCursor_8c016770
           .EXPORT     _DebugMenuOpen_8c01673a
           .AIFDEF UNIT_TESTING
-          .EXPORT     _FUN_8c0167c0
+          .EXPORT     _startCourse_8c0167c0
           .EXPORT     _startReplayLoad_8c016b4c
           .EXPORT     _openSaveMenu_8c016636
           .EXPORT     _saveMenuTask_8c01628c
@@ -115,7 +115,7 @@
           .EXPORT     _const_8c036274
           .EXPORT     _const_8c03627c
           .SECTION    P, CODE, ALIGN=4
-_FUN_8c01614c:
+_DebugMenuFreeDriveTasks_8c01614c:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           MOV.L       LP_GEN_42967+2,R3
@@ -166,7 +166,7 @@ LAB_8c0161a6:
           MOV.L       LP_GEN_42967+50,R3
           JSR         @R3
           NOP
-          BSR         _FUN_8c01614c
+          BSR         _DebugMenuFreeDriveTasks_8c01614c
           NOP
           MOV.L       LP_GEN_42967+14,R3
           MOV.L       LP_GEN_42967+54,R4
@@ -913,7 +913,7 @@ _DebugMenuOpen_8c01673a:
           LDS.L       @R15+,PR
           RTS
           NOP
-_FUN_8c016770:
+_DebugMenuResetDemoCursor_8c016770:
           MOV.L       LP_GEN_94139+76,R1
           MOV         #H'0,R2
           MOV.L       LP_GEN_94139+72,R3
@@ -958,7 +958,7 @@ LAB_8c0167a2:
 LAB_8c0167bc:
           RTS
           NOP
-_FUN_8c0167c0:
+_startCourse_8c0167c0:
           MOV.L       LP_GEN_94139+100,R3
           MOV         #H'0,R2
           MOV.L       LP_GEN_94139+96,R1
@@ -1458,46 +1458,46 @@ _init_debugMenuEntries_8c04429c:        ; from defines
           .DATA.L      _ObjectsRequestMessageAssets_8c02aa36 ; ukn
           .DATA.B      H'02, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c03619c ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00, H'0A, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c0361a8 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00, H'0A, H'00, H'00, H'00, H'01, H'00, H'00, H'00
           .DATA.L      _const_8c0361b8 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'09, H'00, H'00, H'00, H'14, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c0361c8 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'0C, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c0361dc ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'0F, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c0361ec ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'09, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'01, H'00, H'00, H'00
           .DATA.L      _const_8c0361c8 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'0C, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'01, H'00, H'00, H'00
           .DATA.L      _const_8c036200 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'0F, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'01, H'00, H'00, H'00
           .DATA.L      _const_8c036218 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'12, H'00, H'00, H'00, H'0A, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c036224 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'12, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'01, H'00, H'00, H'00
           .DATA.L      _const_8c036234 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'06, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c036244 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'18, H'00, H'00, H'00, H'11, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c036250 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'06, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'01, H'00, H'00, H'00
           .DATA.L      _const_8c036264 ; ukn
-          .DATA.L      _FUN_8c0167c0 ; ukn
+          .DATA.L      _startCourse_8c0167c0 ; ukn
           .DATA.B      H'18, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'01, H'00, H'00, H'00
           .DATA.L      _const_8c036274 ; ukn
           .DATA.L      _startReplayLoad_8c016b4c ; ukn

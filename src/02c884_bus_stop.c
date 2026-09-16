@@ -12,7 +12,7 @@
 #include "020b6c_ground_probe.h"
 #include "02fb50_sh4nlfzn.h" /* rand */
 #include "02af78_event.h" /* EventScanCandidates_8c02b03c */
-#include "01614c_debug_menu.h" /* FUN_8c016770 */
+#include "01614c_debug_menu.h" /* DebugMenuResetDemoCursor_8c016770 */
 #include "02c884_bus_stop.h" /* BusStopGetSegment_8c02cd6a */
 #include "0222dc_fadecmd.h" /* FadeCmdPushCall1_8c0223ea */
 #include "0100bc_sound.h" /* SndStartAdxFadeOut_8c010bae */
@@ -258,7 +258,7 @@ void BusStopSetup_8c02caba(void)
         }
     }
 
-    FUN_8c016770();
+    DebugMenuResetDemoCursor_8c016770();
 
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         var_activeTrafficPreset_8c227e14 = 0;

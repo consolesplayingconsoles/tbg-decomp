@@ -541,7 +541,7 @@ return new class extends TestCase {
         $this->setSize('_VmMenuUpdateVmusStatus_8c019550', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x40);
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
-        $this->setSize('_var_vmuStatus_8c226048', 0x28);   // 9 ints, indexed [0..8]
+        $this->setSize('_var_vmuStatus_8c226048', 0x24);   // 9 ints, indexed [0..8]
         $this->setSize('_njPrint', 4);
         $this->setSize('_njPrintC', 4);
         $this->setSize('_njPrintD', 4);

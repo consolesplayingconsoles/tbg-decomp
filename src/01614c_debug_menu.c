@@ -27,17 +27,16 @@
  * ====================
  */
 
-/* one row of the debug menu listMenuTask_8c01666a lists/selects from */
+/* one row of init_debugMenuEntries_8c04429c */
 typedef struct {
     const char *name_0x00;
     void (*func_0x04)(void);
     DebugMenuCourseSel courseSel_0x08;
 } DebugMenuEntry;
 
-/* Task private state for replaySaveTask_8c0167ca: active_0x08 gates whether
- * there's a save in flight at all (set 0 by startReplaySave_8c016924 to skip
- * straight to freeing the task), phase_0x0c the BupSave stage (0-3) round-tripped
- * through Task's void* field_0x0c. */
+/* Task, with replaySaveTask_8c0167ca's private fields named. Clearing
+ * active_0x08 makes the next tick free the task and leave; phase_0x0c is the
+ * BupSave stage (0-3). */
 typedef struct {
     TaskAction action;
     void *state;
@@ -49,8 +48,8 @@ typedef struct {
     int field_0x1c;
 } ReplaySaveTask;
 
-/* Task private state for replayLoadTask_8c0169bc: phase_0x08 IS the BupLoad
- * stage (0-3); field_0x0c is unused. */
+/* Task, with replayLoadTask_8c0169bc's private fields named. phase_0x08 is
+ * the BupLoad stage (0-3) -- 0x08, not 0x0c as in ReplaySaveTask. */
 typedef struct {
     TaskAction action;
     void *state;
@@ -69,7 +68,7 @@ typedef struct {
 
 char const_replayFileName_8c036160[] = "BUS_REPLAY";
 
-/* saveNames for VmMenuUpdateVmusStatus; scanned until a pointer to "" (terminator). */
+/* saveNames for VmMenuUpdateVmusStatus_8c019550; scanned until a pointer to "". */
 char *init_replaySaveNames_8c044294[2] = { const_replayFileName_8c036160, "" };
 
 /* ====================
@@ -77,10 +76,8 @@ char *init_replaySaveNames_8c044294[2] = { const_replayFileName_8c036160, "" };
  * ====================
  */
 
-void DebugMenuOpen_8c01673a(void);
-
 /* referenced by init_debugMenuEntries_8c04429c below; defined further down this file */
-STATIC void FUN_8c0167c0(void);
+STATIC void startCourse_8c0167c0(void);
 STATIC void openSaveMenu_8c016636(void);
 STATIC void startReplayLoad_8c016b4c(void);
 
@@ -89,28 +86,29 @@ STATIC void startReplayLoad_8c016b4c(void);
  * ====================
  */
 
-/* debug menu listMenuTask_8c01666a lists/selects from; scanned until a "" (terminator) name */
+/* listMenuTask_8c01666a's rows; scanned until a "" name */
 DebugMenuEntry init_debugMenuEntries_8c04429c[] = {
-    { "SHINJYUKU_EVENT",       ObjectsRequestMessageAssets_8c02aa36,             {0,  0, 0} },
-    { "WANGAN_EVENT",          ObjectsRequestMessageAssets_8c02aa36,             {1,  0, 0} },
-    { "OUME_EVENT",            ObjectsRequestMessageAssets_8c02aa36,             {2,  0, 0} },
-    { "WANGAN_DAY",            FUN_8c0167c0,             {0, 10, 0} },
-    { "WANGAN_DAY_AUTO",       FUN_8c0167c0,             {0, 10, 1} },
-    { "SHINJYUKU_DAY",         FUN_8c0167c0,             {9, 20, 0} },
-    { "SHINJYUKU_EVENING",     FUN_8c0167c0,             {12, 0, 0} },
-    { "SHINJYUKU_NIGHT",       FUN_8c0167c0,             {15, 0, 0} },
-    { "SHINJYUKU_DAY_AUTO",    FUN_8c0167c0,             {9,  0, 1} },
-    { "SHINJYUKU_EVENING",     FUN_8c0167c0,             {12, 0, 1} },
-    { "SHINJYUKU_NIGHT_AUTO",  FUN_8c0167c0,             {15, 0, 1} },
-    { "OUME_DAY",              FUN_8c0167c0,             {18, 10, 0} },
-    { "OUME_DAY_AUTO",         FUN_8c0167c0,             {18, 0, 1} },
-    { "WANGAN_NIGHT",          FUN_8c0167c0,             {6,  0, 0} },
-    { "OUME_NIGHT",            FUN_8c0167c0,             {24, 17, 0} },
-    { "WANGAN_NIGHT_AUTO",     FUN_8c0167c0,             {6,  0, 1} },
-    { "OUME_NIGHT_AUTO",       FUN_8c0167c0,             {24, 0, 1} },
-    { "REPLAY",                startReplayLoad_8c016b4c, {0,  0, 0} },
-    { "VISUAL_MEMORY",         openSaveMenu_8c016636,    {0,  0, 0} },
-    { "",                      NULL,                     {0,  0, 0} },
+    { "SHINJYUKU_EVENT",      ObjectsRequestMessageAssets_8c02aa36, { 0,  0, 0} },
+    { "WANGAN_EVENT",         ObjectsRequestMessageAssets_8c02aa36, { 1,  0, 0} },
+    { "OUME_EVENT",           ObjectsRequestMessageAssets_8c02aa36, { 2,  0, 0} },
+    { "WANGAN_DAY",           startCourse_8c0167c0,                 { 0, 10, 0} },
+    { "WANGAN_DAY_AUTO",      startCourse_8c0167c0,                 { 0, 10, 1} },
+    { "SHINJYUKU_DAY",        startCourse_8c0167c0,                 { 9, 20, 0} },
+    { "SHINJYUKU_EVENING",    startCourse_8c0167c0,                 {12,  0, 0} },
+    { "SHINJYUKU_NIGHT",      startCourse_8c0167c0,                 {15,  0, 0} },
+    { "SHINJYUKU_DAY_AUTO",   startCourse_8c0167c0,                 { 9,  0, 1} },
+    /* label is a copy of entry 6's; by its values the row is SHINJYUKU_EVENING_AUTO */
+    { "SHINJYUKU_EVENING",    startCourse_8c0167c0,                 {12,  0, 1} },
+    { "SHINJYUKU_NIGHT_AUTO", startCourse_8c0167c0,                 {15,  0, 1} },
+    { "OUME_DAY",             startCourse_8c0167c0,                 {18, 10, 0} },
+    { "OUME_DAY_AUTO",        startCourse_8c0167c0,                 {18,  0, 1} },
+    { "WANGAN_NIGHT",         startCourse_8c0167c0,                 { 6,  0, 0} },
+    { "OUME_NIGHT",           startCourse_8c0167c0,                 {24, 17, 0} },
+    { "WANGAN_NIGHT_AUTO",    startCourse_8c0167c0,                 { 6,  0, 1} },
+    { "OUME_NIGHT_AUTO",      startCourse_8c0167c0,                 {24,  0, 1} },
+    { "REPLAY",               startReplayLoad_8c016b4c,             { 0,  0, 0} },
+    { "VISUAL_MEMORY",        openSaveMenu_8c016636,                { 0,  0, 0} },
+    { "",                     NULL,                                 { 0,  0, 0} },
 };
 
 /* ====================
@@ -118,7 +116,7 @@ DebugMenuEntry init_debugMenuEntries_8c04429c[] = {
  * ====================
  */
 
-void FUN_8c01614c(void)
+void DebugMenuFreeDriveTasks_8c01614c(void)
 {
     ObjectsFreePedestrianGroups_8c0297da();
     ObjectsFreeTrafficSignals_8c0288be();
@@ -139,7 +137,7 @@ void DebugMenuFreeSessionAssets_8c016182(void)
         pdVibMxStop(var_vibport_8c1ba354);
     }
     VibClear_8c010fbe();
-    FUN_8c01614c();
+    DebugMenuFreeDriveTasks_8c01614c();
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
     ObjectsFreeMessageAssets_8c02adee();
     ObjectsFreeAssetRequests_8c029cfe();
@@ -209,31 +207,31 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
     case DEBUG_SAVE_MENU_SELECT:
         VmMenuUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e);
         for (i = 0; i < 8; i++) {
-            if (var_vmuStatus_8c226048[i] != 0) {
+            if (var_vmuStatus_8c226048[i] != VMU_STATUS_NOT_CONNECTED) {
                 njPrintD(NJM_LOCATION(15, i * 2 + 8), i, 1);
             }
         }
         njPrintC(NJM_LOCATION(15, 24), "NO SAVING");
-        if (var_vmuStatus_8c226048[selectedVmu] == 0) {
+        if (var_vmuStatus_8c226048[selectedVmu] == VMU_STATUS_NOT_CONNECTED) {
             /* selected slot vanished: snap forward to first present slot */
-            for (selectedVmu = 0; var_vmuStatus_8c226048[selectedVmu] == 0; selectedVmu++) {
+            for (selectedVmu = 0; var_vmuStatus_8c226048[selectedVmu] == VMU_STATUS_NOT_CONNECTED; selectedVmu++) {
             }
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_KU) {
             do {                                 /* prev present slot, wrapping */
                 selectedVmu--;
-                if (var_vmuStatus_8c226048[selectedVmu] != 0) break;
+                if (var_vmuStatus_8c226048[selectedVmu] != VMU_STATUS_NOT_CONNECTED) break;
             } while (selectedVmu > -1);
             if (selectedVmu < 0) {
-                for (selectedVmu = 8; var_vmuStatus_8c226048[selectedVmu] == 0; selectedVmu--) {
+                for (selectedVmu = 8; var_vmuStatus_8c226048[selectedVmu] == VMU_STATUS_NOT_CONNECTED; selectedVmu--) {
                 }
             }
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_KD) {
             do {                                 /* next present slot, wrapping */
                 selectedVmu++;
-                if (var_vmuStatus_8c226048[selectedVmu] != 0) break;
+                if (var_vmuStatus_8c226048[selectedVmu] != VMU_STATUS_NOT_CONNECTED) break;
             } while (selectedVmu < 9);
             if (selectedVmu > 8) {
-                for (selectedVmu = 0; var_vmuStatus_8c226048[selectedVmu] == 0; selectedVmu++) {
+                for (selectedVmu = 0; var_vmuStatus_8c226048[selectedVmu] == VMU_STATUS_NOT_CONNECTED; selectedVmu++) {
                 }
             }
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
@@ -264,7 +262,7 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
         break;
     case DEBUG_SAVE_MENU_CONFIRM:
         if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-            state->state_0x00 = DEBUG_SAVE_MENU_EXIT;  /* A: exit the save flow */
+            state->state_0x00 = DEBUG_SAVE_MENU_EXIT;  /* A: keep this drive */
             var_selectedVm_8c1ba34c = state->port_0x08;
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
             state->state_0x00 = DEBUG_SAVE_MENU_SELECT; /* B: back to VMU selection */
@@ -280,8 +278,8 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
         break;
     case DEBUG_SAVE_MENU_NO_SAVING:
         if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-            state->state_0x00 = DEBUG_SAVE_MENU_EXIT;  /* A: confirm no save, exit */
-            var_selectedVm_8c1ba34c = -1;        /* -1: nothing saved */
+            state->state_0x00 = DEBUG_SAVE_MENU_EXIT;  /* A */
+            var_selectedVm_8c1ba34c = -1;        /* -1: no drive */
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
             state->state_0x00 = DEBUG_SAVE_MENU_SELECT; /* B: back to VMU selection */
             state->selectedVmu_0x04 = 0;
@@ -364,9 +362,8 @@ STATIC void listMenuTask_8c01666a(Task *task)
     AsqGetRandomA_8c012166();
 }
 
-/* Kept public though only saveMenuTask_8c01628c calls it today: a debug-menu entry
- * point, not a private helper. Do NOT make STATIC -- see KEEP_PUBLIC in
- * scripts/check_private_decls.py. */
+/* Only saveMenuTask_8c01628c calls it today, but it is an entry point, not a
+ * private helper -- do NOT make STATIC (KEEP_PUBLIC in check_private_decls.py). */
 void DebugMenuOpen_8c01673a(void)
 {
     Task *task;
@@ -378,7 +375,7 @@ void DebugMenuOpen_8c01673a(void)
     task->field_0x08 = 0;
 }
 
-void FUN_8c016770(void)
+void DebugMenuResetDemoCursor_8c016770(void)
 {
     var_demoCursor_8c225fa8 = var_demoBuffer_8c1bc828;
     var_demoPrevOn_8c225fac = 0;
@@ -396,7 +393,7 @@ void DebugMenuDemoRecordTask_8c01677e(Task *task, void *state)
     }
 }
 
-STATIC void FUN_8c0167c0(void)
+STATIC void startCourse_8c0167c0(void)
 {
     var_playMode_8c1bb8d0 = PLAY_MODE_NORMAL;
     FUN_8c01328c();
@@ -438,7 +435,7 @@ STATIC void replaySaveTask_8c0167ca(ReplaySaveTask *task, void *state)
     case 2: {
         Uint32 nblock;
 
-        nblock = ((var_replayPackedSize_8c228ba4 + 0x10) >> 9) + 1;
+        nblock = ((var_replayPackedSize_8c228ba4 + 0x10) >> 9) + 1;   /* 512-byte blocks, header included */
         BupSave_8c014bcc(var_selectedVm_8c1ba34c, "BUS_REPLAY", var_demoBuf_8c1ba3c4, nblock);
         task->phase_0x0c = 3;
         /* fallthrough */
@@ -464,8 +461,10 @@ STATIC void replaySaveTask_8c0167ca(ReplaySaveTask *task, void *state)
     }
 }
 
-/* installs replaySaveTask_8c0167ca; packs the recorded demo buffer (course/seed/inputs) into a
- * freshly malloc'd blob for BupSave, or skips saving if there's nothing to save. */
+/* Installs replaySaveTask_8c0167ca and packs the recording for it: a 0x10-byte
+ * header (packed size, courseId, inputMapSel, seed) followed by the LZW-packed
+ * inputs. Nothing in the shipped build reaches this -- the debug menu's
+ * VISUAL_MEMORY entry only picks the drive, it never saves. */
 STATIC void startReplaySave_8c016924(void)
 {
     ReplaySaveTask *task;
@@ -477,6 +476,7 @@ STATIC void startReplaySave_8c016924(void)
 
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, replaySaveTask_8c0167ca, (Task **)&task, &state, 0);
 
+    /* no drive picked, or the recording ran the buffer out */
     if (var_selectedVm_8c1ba34c == -1 ||
         var_demoCursor_8c225fa8 >= &var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY]) {
         task->active_0x08 = 0;
@@ -484,6 +484,8 @@ STATIC void startReplaySave_8c016924(void)
     }
 
     recordedBytes = (Uint32)((char *)var_demoCursor_8c225fa8 - (char *)var_demoBuffer_8c1bc828);
+    /* the header is counted into the source length too, so the pack reads 0x10
+     * bytes past the recording */
     size = recordedBytes + 0x10;
 
     buf = syMalloc(size);
