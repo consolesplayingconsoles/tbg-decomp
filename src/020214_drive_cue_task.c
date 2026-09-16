@@ -21,7 +21,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
     (void)state;
 
-    if (var_runPhase_8c2285c4 >= 3) {
+    if (var_runState_8c2285c4.runPhase_0x00 >= 3) {
         TaskFree_8c014b66(task);
         return;
     }
@@ -124,7 +124,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
         if (var_prevStopSegment_8c22870c == var_nextStopSegment_8c228710) {
             var_driveCueState_8c2264b8.stopAnnounceState_0x08 = 2;
-            if (var_stopPhase_8c2285e4 != 0) {
+            if (var_runState_8c2285c4.stopPhase_0x20 != 0) {
                 var_driveCueState_8c2264b8.stopAnnounceTimer_0x10 = AsqGetRandomInRangeB_8c0121be(60) + 120;
             } else {
                 var_driveCueState_8c2264b8.stopAnnounceTimer_0x10 = 30;

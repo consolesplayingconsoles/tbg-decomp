@@ -639,9 +639,9 @@ void RouteLoadPushSegmentReloadTask_8c01468e(void)
     /* Below hard, and in practice, each segment boundary refunds 30 driver
      * points. */
     if (var_progress_8c1ba1cc.difficulty_0xc4 < 2 || var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
-        var_driverPoints_8c2285d0 += 0x1e;
-        if (var_driverPointsMax_8c2285d4 < var_driverPoints_8c2285d0) {
-            var_driverPoints_8c2285d0 = var_driverPointsMax_8c2285d4;
+        var_runState_8c2285c4.driverPoints_0x0c += 0x1e;
+        if (var_runState_8c2285c4.driverPointsMax_0x10 < var_runState_8c2285c4.driverPoints_0x0c) {
+            var_runState_8c2285c4.driverPoints_0x0c = var_runState_8c2285c4.driverPointsMax_0x10;
         }
     }
 

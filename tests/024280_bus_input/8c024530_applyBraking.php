@@ -11,7 +11,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 // drops under the next-lower gear's top speed (init_gears_8c045638[gear-1].
 // upshiftSpeed_0x08), downshifts one gear. Then derives targetRpm_0x2e8/rpmRampAngle_0x2e4
 // from the (possibly new) gear's table entry via asinf, and updates
-// var_brakeAverage_8c228654's running average with the brake amount.
+// var_runState_8c2285c4.brakeAverage_0x90's running average with the brake amount.
 //
 // asinf's return is mocked to 0.0 throughout: sh4objtest has no FPU
 // register accessor, so the real argument (ratio/6000) is asserted via
@@ -23,11 +23,7 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
         $this->setSize('_var_padTriggerL_8c1ba376', 2);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
-        // var_brakeAverage_8c228654 sits 0x90 into the run-state block the
-        // original addresses off var_runPhase_8c2285c4.
-        $runState = $this->alloc(4 * 40);
-        $this->rellocate('_var_runPhase_8c2285c4', $runState + 0x00);
-        $this->rellocate('_var_brakeAverage_8c228654', $runState + 0x90);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_asinf', 4);
     }
 
@@ -42,7 +38,7 @@ return new class extends TestCase {
         $this->initUint32($bus + 0x2f4, $gear);
         $this->initUint16($this->addressOf('_var_padTriggerL_8c1ba376'), $trigger);
         $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xd1, $prevDeadzone);
-        $this->initFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, $smoothedBrake);
+        $this->initFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, $smoothedBrake);
         return $bus;
     }
 
@@ -57,8 +53,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($bus + 0x2e8, 2221.71435546875);
         $this->shouldCall('_asinf')->with(2221.71435546875 / 6000.0)->andReturn(0.0);
         $this->shouldWriteLong($bus + 0x2e4, 0);
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0020000000949949026);
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0010000000474974513);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0020000000949949026);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0010000000474974513);
     }
 
     // Gear 2 with baseline braking: new speed (0.048) drops below gear 1's
@@ -74,8 +70,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($bus + 0x2e8, 1110.857177734375);
         $this->shouldCall('_asinf')->with(1110.857177734375 / 6000.0)->andReturn(0.0);
         $this->shouldWriteLong($bus + 0x2e4, 0);
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0020000000949949026);
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0010000000474974513);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0020000000949949026);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0010000000474974513);
     }
 
     // Gear 1 with a high enough speed after braking: stays above gear 0's
@@ -89,8 +85,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($bus + 0x2e8, 3425.14306640625);
         $this->shouldCall('_asinf')->with(3425.14306640625 / 6000.0)->andReturn(0.0);
         $this->shouldWriteLong($bus + 0x2e4, 0);
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0020000000949949026);
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0010000000474974513);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0020000000949949026);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0010000000474974513);
     }
 
     // Trigger held all the way down (full delta) and a very low starting
@@ -108,7 +104,7 @@ return new class extends TestCase {
         $this->shouldCall('_asinf')->with(0.0)->andReturn(0.0);
         $this->shouldWriteLong($bus + 0x2e4, 0);
         // The running average is also a raw store followed by the halved one.
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0020208333153277636);
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0010104166576638818);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0020208333153277636);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0010104166576638818);
     }
 };

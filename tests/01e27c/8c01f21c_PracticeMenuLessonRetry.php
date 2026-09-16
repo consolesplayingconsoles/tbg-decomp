@@ -55,7 +55,7 @@ return new class extends TestCase {
         $bestScoreAddr = $progressBase + 0x98 + 3 * 4;
         $this->initUint32($bestScoreAddr, 10);
 
-        $candidateScoreAddr = $this->addressOf('_var_driverPoints_8c2285d0');
+        $candidateScoreAddr = $this->addressOf('_var_runState_8c2285c4') + 0x0c;
         $this->initUint32($candidateScoreAddr, 20);
 
         $this->call('_PracticeMenuLessonRetry_8c01f21c');
@@ -136,6 +136,7 @@ return new class extends TestCase {
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_tex_8c157af8', 4);
         $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
         $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);

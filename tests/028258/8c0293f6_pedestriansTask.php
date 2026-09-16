@@ -104,10 +104,10 @@ return new class extends TestCase {
     /** Common gate + ground-grid + demo-entry preconditions that never change. */
     private function setupCommon(int $groupCount = 0): void
     {
-        $this->setSize('_var_runPhase_8c2285c4', 4);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 1);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4'), 1);
 
         $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x28, 0x11111111); // atariHum_0x28
 
@@ -162,8 +162,8 @@ return new class extends TestCase {
 
     public function test_skips_everything_before_the_run_starts()
     {
-        $this->setSize('_var_runPhase_8c2285c4', 4);
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 0);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4'), 0);
 
         $task = $this->alloc(0x20);
 
@@ -188,7 +188,7 @@ return new class extends TestCase {
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
 
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
     }
 
     // NOTE: the "commit a newly-signalled demo entry" branch
@@ -207,7 +207,7 @@ return new class extends TestCase {
         $task = $this->makeTask(0, 1);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // PLAY_MODE_NORMAL
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -229,7 +229,7 @@ return new class extends TestCase {
         $task = $this->makeTask(0, 1);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 2);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 2);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -262,7 +262,7 @@ return new class extends TestCase {
         $state = $this->alloc(4);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -302,7 +302,7 @@ return new class extends TestCase {
         $this->makeEmptyPaths(1);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -326,7 +326,7 @@ return new class extends TestCase {
         $this->makeGroupList(0, 0);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -351,7 +351,7 @@ return new class extends TestCase {
         $subtasks = 0x30000000;
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -392,7 +392,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_pedPaths_8c228238'), $paths);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -434,7 +434,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_pedPaths_8c228238'), $paths);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 
@@ -492,7 +492,7 @@ return new class extends TestCase {
         $state1 = $this->alloc(4);
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
 
         $this->call('_pedestriansTask_8c0293f6')->with($task);
 

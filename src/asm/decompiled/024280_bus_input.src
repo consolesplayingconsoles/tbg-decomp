@@ -8,10 +8,9 @@
           .IMPORT     _sdMidiPlay
           .IMPORT     _njSin
           .IMPORT     _var_cameraMode_8c227d9c
-          .IMPORT     _var_firstUpshift_8c22864c
+          .IMPORT     _var_runState_8c2285c4
           .IMPORT     _asinf
           .IMPORT     _var_padTriggerL_8c1ba376
-          .IMPORT     _var_runPhase_8c2285c4
           .IMPORT     _var_brakePressPeak_8c227d8c
           .IMPORT     __divls
           .IMPORT     _var_peripherals_8c1ba35c
@@ -275,7 +274,7 @@ LP_GEN_79582:
           .DATA.L _var_busState_8c1bb9d0+H'2E4 ; H'8C02445C (rpmRampAngle_0x2e4)
           .DATA.L _njSin ; H'8C024460
           .DATA.L _var_cameraMode_8c227d9c ; H'8C024464
-          .DATA.L _var_firstUpshift_8c22864c ; H'8C024468
+          .DATA.L _var_runState_8c2285c4 + H'88 ; H'8C024468
           .DATA.L H'3F25ED09 ; H'8C02446C
 LAB_8c024470:
           MOV.L       LP_GEN_22782+6,R1
@@ -537,7 +536,7 @@ LP_GEN_12192:
           .DATA.L _asinf ; H'8C024670
           .DATA.L H'47800000 ; H'8C024674
           .DATA.L H'40C90FD8 ; H'8C024678
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02467C
+          .DATA.L _var_runState_8c2285c4 ; H'8C02467C
           .DATA.L _var_brakePressPeak_8c227d8c ; H'8C024680
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C024684
           .DATA.L _sdMidiPlay ; H'8C024688
@@ -670,7 +669,7 @@ LP_GEN_30719:
           .DATA.W H'02EC ; H'8C024778
           .DATA.W H'0080 ; H'8C02477A
           .DATA.L __divls ; H'8C02477C
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C024780
+          .DATA.L _var_runState_8c2285c4 ; H'8C024780
           .DATA.L _var_peripherals_8c1ba35c ; H'8C024784
           .DATA.L _var_busState_8c1bb9d0 ; H'8C024788
           .DATA.L _var_progress_8c1ba1cc ; H'8C02478C

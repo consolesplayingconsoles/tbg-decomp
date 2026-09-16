@@ -28,7 +28,7 @@ return new class extends TestCase {
         $this->setSize('_var_padTriggerR_8c1ba374', 2);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
-        $this->setSize('_var_firstUpshift_8c22864c', 4);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_midiHandles_8c0fcd28', 4 * 8);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_njSin', 4);
@@ -53,7 +53,7 @@ return new class extends TestCase {
         $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), $trigger);
         $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xd0, $deadzone);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), $mirrorLevel);
-        $this->initUint32($this->addressOf('_var_firstUpshift_8c22864c'), 0xdeadbeef);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x88, 0xdeadbeef);
 
         $bus = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($bus + 0x2f4, $gear);
@@ -154,7 +154,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($bus + 0x2e4, 0);
     }
 
-    // Accelerating out of gear 0 specifically: var_firstUpshift_8c22864c is set to 1 on
+    // Accelerating out of gear 0 specifically: var_runState_8c2285c4.firstUpshift_0x88 is set to 1 on
     // the first upshift out of gear 0.
     public function test_accelerating_upshiftFromGearZero_setsFirstShiftFlag(): void {
         $bus = $this->setup(200, 50, 0, 0.0, 0);
@@ -166,7 +166,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($bus + 0x2e8, 5400.0);
         $this->shouldWriteFloat($bus + 0x27c, 0.11666665971279144);
         $this->shouldCall('_sdMidiPlay')->with(0xcafe0900, 1, 0x26, 0);
-        $this->shouldWriteLong($this->addressOf('_var_firstUpshift_8c22864c'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x88, 1);
         $this->shouldWriteLong($bus + 0x2f4, 1);
         $this->shouldWriteFloat($bus + 0x2e8, 2700.0);
         $this->shouldCall('_asinf')->with(2700.0 / 6000.0)->andReturn(0.0);

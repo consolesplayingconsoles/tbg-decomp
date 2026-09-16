@@ -9,7 +9,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_runPassed_8c2285c8', 4);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_markTexlist_8c1bc418', 4);
         $this->setSize('_njSetTexture', 4);
         $this->setSize('_njQuadTextureStart', 4);
@@ -31,13 +31,13 @@ return new class extends TestCase {
         $this->initUint32($base + 0x14, $holdFrames);
     }
 
-    // var_runPassed_8c2285c8 != 0: the run is over and passed, so this just
+    // var_runState_8c2285c4.runPassed_0x04 != 0: the run is over and passed, so this just
     // draws the run-passed mark and returns -- none of the HUD's own nj*
     // calls or drawMsgGlyphRow_8c02b2f0 happen.
     public function test_runPassed_drawsMarkSpriteOnly(): void {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_runPassed_8c2285c8'), 1);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x04, 1);
 
         $this->call('_DriveMsgDraw_8c02b388')->with(0);
 
@@ -48,14 +48,14 @@ return new class extends TestCase {
         );
     }
 
-    // var_runPassed_8c2285c8 == 0: draws the HUD normally. Slots 0 and 2 are active
+    // var_runState_8c2285c4.runPassed_0x04 == 0: draws the HUD normally. Slots 0 and 2 are active
     // (holdFrames != 0); 1 and 3 are idle and skipped. Each active slot's
     // row is drawn 32.0 apart starting at y=192.0, regardless of which
     // slots are skipped in between.
     public function test_normalDraw_drawsActiveSlotsOnly(): void {
         $this->resolveSymbols();
 
-        $this->initUint32($this->addressOf('_var_runPassed_8c2285c8'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x04, 0);
 
         $texlist = $this->alloc(4);
         $this->initUint32($this->addressOf('_var_markTexlist_8c1bc418'), $texlist);

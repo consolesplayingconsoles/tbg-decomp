@@ -117,12 +117,12 @@ void PassengerSeatedTask_8c02d5ca(Task *task, void *state)
  * at least 50 frames, then a flat 10 to close the last stretch. */
 STATIC void setCountUpStep_8c02d5d8(void)
 {
-    int remaining = var_scheduleTime_8c2285d8 - var_runClock_8c2285dc;
+    int remaining = var_runState_8c2285c4.scheduleTime_0x14 - var_runState_8c2285c4.runClock_0x18;
 
     if (remaining >= 0x32) {
-        var_clockCatchUpStep_8c2285e0 = remaining / 5;
+        var_runState_8c2285c4.clockCatchUpStep_0x1c = remaining / 5;
     } else {
-        var_clockCatchUpStep_8c2285e0 = 0xa;
+        var_runState_8c2285c4.clockCatchUpStep_0x1c = 0xa;
     }
 }
 
@@ -337,7 +337,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
         if (var_isFading_8c226568 == 0) {
             state->phase_0x00 = 1;
         }
-        var_runClock_8c2285dc++;
+        var_runState_8c2285c4.runClock_0x18++;
         execGroup = TRUE;
         break;
 
@@ -378,7 +378,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
             var_passengerActed_8c228958 = 0;
             TaskExecGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
             if (var_passengerActed_8c228958 != 0) {
-                var_runClock_8c2285dc++;
+                var_runState_8c2285c4.runClock_0x18++;
                 if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
                     continue;
                 }
@@ -386,14 +386,14 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
             }
 
             if (var_cutsceneActive_8c1bb900 == 0 || var_playMode_8c1bb8d0 != PLAY_MODE_NORMAL) {
-                var_runPhase_8c2285c4 = 2;
+                var_runState_8c2285c4.runPhase_0x00 = 2;
                 state->phase_0x00 = 5;
                 setCountUpStep_8c02d5d8();
             } else {
                 state->phase_0x00 = 2;
                 var_fadeRequest_8c226564 = FADE_REQUEST_IN;
             }
-            var_runClock_8c2285dc++;
+            var_runState_8c2285c4.runClock_0x18++;
             break;
         }
         break;
@@ -417,7 +417,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
 
     case 4:
         if (RouteLoadGetLatch_8c01432a() != 0 && var_isFading_8c226568 == 0) {
-            var_runPhase_8c2285c4 = 2;
+            var_runState_8c2285c4.runPhase_0x00 = 2;
             state->phase_0x00 = 5;
             setCountUpStep_8c02d5d8();
         }
@@ -425,7 +425,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
         break;
 
     case 5:
-        if (var_runClock_8c2285dc >= var_scheduleTime_8c2285d8) {
+        if (var_runState_8c2285c4.runClock_0x18 >= var_runState_8c2285c4.scheduleTime_0x14) {
             BusStopFreeTaskGroup_8c02ca96();
             njReleaseTexture(var_interiorTexlist_8c1bc438);
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
@@ -472,9 +472,9 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
             return;
         }
 
-        var_runClock_8c2285dc += var_clockCatchUpStep_8c2285e0;
-        if (var_runClock_8c2285dc >= var_scheduleTime_8c2285d8) {
-            var_runClock_8c2285dc = var_scheduleTime_8c2285d8;
+        var_runState_8c2285c4.runClock_0x18 += var_runState_8c2285c4.clockCatchUpStep_0x1c;
+        if (var_runState_8c2285c4.runClock_0x18 >= var_runState_8c2285c4.scheduleTime_0x14) {
+            var_runState_8c2285c4.runClock_0x18 = var_runState_8c2285c4.scheduleTime_0x14;
         }
         if (var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 6, 0);

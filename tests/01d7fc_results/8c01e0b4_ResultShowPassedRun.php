@@ -9,6 +9,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
     }
 
     public function test_zero_score_no_bonuses(): void
@@ -17,7 +18,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->initUint32($this->addressOf('_var_firstClearOfCourse_8c1bb8e0'), 0);
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0);
         // ROUTE_SHINJUKU
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 0);
         // TIME_OF_DAY_DAY
@@ -57,7 +58,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->initUint32($this->addressOf('_var_firstClearOfCourse_8c1bb8e0'), 1);
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0x5a); // 90 -> top award tier
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0x5a); // 90 -> top award tier
         // ROUTE_WANGAN
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1);
         // TIME_OF_DAY_EVENING
@@ -98,7 +99,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->initUint32($this->addressOf('_var_firstClearOfCourse_8c1bb8e0'), 0);
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0x46); // 70 -> low award tier
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0x46); // 70 -> low award tier
         // ROUTE_OME
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 2);
         // TIME_OF_DAY_NIGHT
@@ -135,7 +136,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->initUint32($this->addressOf('_var_firstClearOfCourse_8c1bb8e0'), 0);
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0x50); // 80 -> mid award tier
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0x50); // 80 -> mid award tier
         // ROUTE_SHINJUKU
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 0);
         // TIME_OF_DAY_DAY

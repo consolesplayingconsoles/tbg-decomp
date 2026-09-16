@@ -18,7 +18,7 @@ return new class extends TestCase {
         $this->setSize('_VibStart_8c010f7a', 4);
         $this->setSize('_VibUpdate_8c010fae', 4);
         $this->setSize('_SndPlayAdx_8c010cd6', 4);
-        $this->setSize('_var_runPhase_8c2285c4', 4);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_vibport_8c1ba354', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
@@ -29,7 +29,6 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_practiceLesson_8c22640c', 4);
-        $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
@@ -57,7 +56,7 @@ return new class extends TestCase {
     private function initInactiveWorld(): void
     {
         // run phase < 3 (task stays alive)
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4'), 0);
         // No vibration cue at the end unless a test wants one.
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xffffffff);
         $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xc7, 0);
@@ -69,7 +68,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // PLAY_MODE_NORMAL
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 0);
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), 0);
 
         $midi = $this->addressOf('_var_midiHandles_8c0fcd28');
@@ -85,7 +84,7 @@ return new class extends TestCase {
     public function test_frees_task_when_drive_ending(): void
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 3);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4'), 3);
 
         $task = $this->alloc(4);
 
@@ -361,7 +360,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1); // ROUTE_WANGAN
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 5); // same: reached
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // -> stopAnnounceTimer_0x10=30
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0); // -> stopAnnounceTimer_0x10=30
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
@@ -382,7 +381,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1); // ROUTE_WANGAN
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 5); // reached
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1); // -> random hold
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 1); // -> random hold
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);

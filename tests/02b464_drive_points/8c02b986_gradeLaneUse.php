@@ -5,17 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // The archived asm reaches every run-state global in this function by
-    // displacement off var_runPhase_8c2285c4 (register reuse in the original
-    // compile), so they need their real relative offsets here too.
     private function resolveSymbols(): int
     {
-        $base = $this->alloc(0x80);
-        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
-        $this->rellocate('_var_wrongLaneCount_8c2285f0', $base + 0x2c);
-        $this->rellocate('_var_8c2285fc', $base + 0x38);
-        $this->rellocate('_var_8c22861c', $base + 0x58);
-        $this->rellocate('_var_8c228634', $base + 0x70);
+        $base = $this->setSize('_var_runState_8c2285c4', 0x9c);
 
         $this->setSize('_var_headingVsRoad_8c22868c', 4);
         $this->setSize('_var_offCourseBits_8c228680', 4);
@@ -30,7 +22,7 @@ return new class extends TestCase {
         return $base;
     }
 
-    // Makes var_8c22861c[5] (base+0x6c) equal var_prevLane_8c228684, which alone
+    // Makes var_runState_8c2285c4.field_0x58[5] (base+0x6c) equal var_prevLane_8c228684, which alone
     // makes the outer OR true (short-circuiting the rest) and sends the
     // block into the var_driveMode_8c1bb8c8-gated timing logic instead
     // of the flat penalty at the top of that block.
@@ -102,14 +94,14 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->initUint32($base + 0x2c, 0);
 
-        // All five OR terms false: var_8c22861c[5] != var_prevLane_8c228684, and
+        // All five OR terms false: var_runState_8c2285c4.field_0x58[5] != var_prevLane_8c228684, and
         // each 0x40000 bit present.
-        $this->initUint32($base + 0x6c, 5); // var_8c22861c[5]
+        $this->initUint32($base + 0x6c, 5); // var_runState_8c2285c4.field_0x58[5]
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 6);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x34c), 0x40000);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x368), 0x40000);
-        $this->initUint32($base + 0x74, 0x40000); // var_8c228634[1]
-        $this->initUint32($base + 0x78, 0x40000); // var_8c228634[2]
+        $this->initUint32($base + 0x74, 0x40000); // var_runState_8c2285c4.field_0x70[1]
+        $this->initUint32($base + 0x78, 0x40000); // var_runState_8c2285c4.field_0x70[2]
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
 
         $this->call('_gradeLaneUse_8c02b986');
@@ -137,8 +129,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + 0x2c, 0);
 
-        $this->shouldWriteLong($base + 0x44, 0); // var_8c2285fc[3]
-        $this->shouldWriteLong($base + 0x48, 0); // var_8c2285fc[4]
+        $this->shouldWriteLong($base + 0x44, 0); // var_runState_8c2285c4.field_0x38[3]
+        $this->shouldWriteLong($base + 0x48, 0); // var_runState_8c2285c4.field_0x38[4]
     }
 
     public function test_signal_duration_over_threshold_applies_penalty(): void
@@ -153,8 +145,8 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_laneA_8c228674'), 3);
         $this->initUint32($this->addressOf('_var_laneC_8c22867c'), 7); // 674 < 67c -> cmpDir=2
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x34c), 0x40000000); // matches cmpDir==2 case
-        $this->initUint32($base + 0x48, 0); // var_8c2285fc[4] == 0 -> threshold 0xd2
-        $this->initUint32($base + 0x44, 0xd3); // var_8c2285fc[3] > threshold
+        $this->initUint32($base + 0x48, 0); // var_runState_8c2285c4.field_0x38[4] == 0 -> threshold 0xd2
+        $this->initUint32($base + 0x44, 0xd3); // var_runState_8c2285c4.field_0x38[3] > threshold
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
 
         $this->call('_gradeLaneUse_8c02b986');
@@ -196,7 +188,7 @@ return new class extends TestCase {
         $this->matchSignalState($base);
         $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1); // skip timing block
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving
-        $this->initUint32($base + 0x44, 5); // var_8c2285fc[3]
+        $this->initUint32($base + 0x44, 5); // var_runState_8c2285c4.field_0x38[3]
 
         $this->call('_gradeLaneUse_8c02b986');
 

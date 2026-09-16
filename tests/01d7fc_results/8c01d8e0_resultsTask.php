@@ -47,11 +47,14 @@ return new class extends TestCase {
             '_var_gameMode_8c1bb8fc', '_var_vmBusy_8c157a7c', '_var_backupFileImageBuf_8c1ba348',
             '_var_tasks_8c1ba3c8', '_var_tex_8c157af8', '_var_vmuIconFileBuf_8c1ba344',
             '_var_timeOfDay_8c18ad20', '_var_route_8c18ad1c', '_var_firstClearOfCourse_8c1bb8e0',
-            '_var_driverPoints_8c2285d0', '_var_passengerCount_8c1bb8e4', '_var_eventCount_8c1bb8e8',
+            '_var_passengerCount_8c1bb8e4', '_var_eventCount_8c1bb8e8',
         ] as $sym) {
             $this->setSize($sym, 4);
             $this->initUint32($this->addressOf($sym), 0);
         }
+
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0); // driverPoints_0x0c
 
         $this->ms = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($this->ms + 0x18, $state); // state_0x18

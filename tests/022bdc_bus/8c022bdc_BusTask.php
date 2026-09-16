@@ -63,7 +63,7 @@ return new class extends TestCase {
         $this->setSize('_BusRenderUpdateCamera_8c025078', 4);
         $this->setSize('_DemoUpdateCamera_8c025906', 4);
         $this->setSize('_BusRenderUpdateMirrorCamera_8c025604', 4);
-        $this->setSize('_var_runPhase_8c2285c4', 4);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
     }
 
     public function test_boarding_no_trigger(): void

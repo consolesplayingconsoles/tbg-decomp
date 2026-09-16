@@ -68,7 +68,7 @@
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _var_firstClearOfCourse_8c1bb8e0
-          .IMPORT     _var_driverPoints_8c2285d0
+          .IMPORT     _var_runState_8c2285c4
           .IMPORT     _var_passengerCount_8c1bb8e4
           .IMPORT     _var_eventCount_8c1bb8e8
           .IMPORT     _EndingStart_8c01f954
@@ -1310,7 +1310,7 @@ LP_GEN_76652:
           .DATA.L _init_courseClearScoreTable_8c0451a0 ; H'8C01E198
           .DATA.L _var_scoreFirstClearBonus_8c2263f0 ; H'8C01E19C
           .DATA.L _var_firstClearOfCourse_8c1bb8e0 ; H'8C01E1A0
-          .DATA.L _var_driverPoints_8c2285d0 ; H'8C01E1A4
+          .DATA.L _var_runState_8c2285c4 + H'C ; H'8C01E1A4
           .DATA.L _var_scoreDriverPointsBonus_8c2263f4 ; H'8C01E1A8
           .DATA.L _var_award_8c1bb8f8 ; H'8C01E1AC
           .DATA.L _var_scoreBadgeBonus_8c2263f8 ; H'8C01E1B0

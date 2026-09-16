@@ -131,20 +131,20 @@ STATIC void drawHud_8c01fbac(int arg0) {
         TxtDrawSprite_8c014f54(&var_markTexlist_8c1bc418, arg0, 0.0f, 0.0f, -1.21f);
     }
 
-    /* One screen slot, three meanings, picked by var_stopPhase_8c2285e4:
+    /* One screen slot, three meanings, picked by var_runState_8c2285c4.stopPhase_0x20:
      * cruising shows the map's drive instruction, phase 1 a fixed
      * signal-reminder icon, phase 2 the next-stop icon. All blink on
      * var_hudBlinkTimer_8c226454 -- hidden 2 frames in every 8 for the first
      * 60, solid after. */
-    if (var_stopPhase_8c2285e4 == 0 || var_stopPhase_8c2285e4 == 4) {
+    if (var_runState_8c2285c4.stopPhase_0x20 == 0 || var_runState_8c2285c4.stopPhase_0x20 == 4) {
         if (var_hudDriveMarkIcon_8c226450 != -1 && (60 < (Sint32)var_hudBlinkTimer_8c226454 || (var_hudBlinkTimer_8c226454 & 6) != 0)) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, var_hudDriveMarkIcon_8c226450, 0.0f, 0.0f, -1.2f);
         }
-    } else if (var_stopPhase_8c2285e4 == 1) {
+    } else if (var_runState_8c2285c4.stopPhase_0x20 == 1) {
         if (var_hudDriveMarkIcon_8c226450 != -1 && (60 < (Sint32)var_hudBlinkTimer_8c226454 || (var_hudBlinkTimer_8c226454 & 6) != 0)) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x1e, 0.0f, 0.0f, -1.2f);
         }
-    } else if (var_stopPhase_8c2285e4 == 2) {
+    } else if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
         if (60 < (Sint32)var_hudBlinkTimer_8c226454 || (var_hudBlinkTimer_8c226454 & 6) != 0) {
             TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x1f, 0.0f, 0.0f, -1.2f);
         }
@@ -154,7 +154,7 @@ STATIC void drawHud_8c01fbac(int arg0) {
      * quad -- init_pointsMeterFill_8c045334's own vertex 0/1 (x=38.0) is the fixed left
      * edge; a second, narrower quad trails 16px behind, clamped to the
      * same left edge. */
-    barWidth = (var_pointsMeter_8c226458.displayedValue_0x00 * 202.0f) / (float)var_driverPointsMax_8c2285d4 + 38.0f;
+    barWidth = (var_pointsMeter_8c226458.displayedValue_0x00 * 202.0f) / (float)var_runState_8c2285c4.driverPointsMax_0x10 + 38.0f;
     barWidthInner = barWidth - 16.0f;
     if (barWidthInner < 38.0f) {
         barWidthInner = 38.0f;
@@ -257,8 +257,8 @@ STATIC void drawSpeedAndTimers_8c01fe84(Sint32 speed) {
     TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, tens, 308.0f, 420.0f, -1.21f);
 
     /* Timetable slot above, run clock below, each in its own digit set. */
-    drawTimeDigits_8c01fa80(var_scheduleTime_8c2285d8, 402.0f, 10);
-    drawTimeDigits_8c01fa80(var_runClock_8c2285dc, 423.0f, 20);
+    drawTimeDigits_8c01fa80(var_runState_8c2285c4.scheduleTime_0x14, 402.0f, 10);
+    drawTimeDigits_8c01fa80(var_runState_8c2285c4.runClock_0x18, 423.0f, 20);
 
     TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x24, 0.0f, 0.0f, -1.23f);
 }
@@ -371,7 +371,7 @@ STATIC void hudUpdateTask_8c01ff48() {
     var_hudBlinkTimer_8c226454 += 1;
 
     {
-        float driverPointsF = (float)var_driverPoints_8c2285d0;
+        float driverPointsF = (float)var_runState_8c2285c4.driverPoints_0x0c;
         if (driverPointsF != var_pointsMeter_8c226458.displayedValue_0x00) {
             if (driverPointsF != var_pointsMeter_8c226458.lastSample_0x04) {
                 var_pointsMeter_8c226458.rampStep_0x08 = (driverPointsF - var_pointsMeter_8c226458.lastSample_0x04) / 20.0f;
@@ -402,8 +402,8 @@ void HudReset_8c02018c(void) {
     var_hudDriveMarkIcon_8c226450 = -1;
     var_hudBlinkTimer_8c226454 = 0;
 
-    var_pointsMeter_8c226458.lastSample_0x04 = (float)var_driverPoints_8c2285d0;
-    var_pointsMeter_8c226458.displayedValue_0x00 = (float)var_driverPoints_8c2285d0;
+    var_pointsMeter_8c226458.lastSample_0x04 = (float)var_runState_8c2285c4.driverPoints_0x0c;
+    var_pointsMeter_8c226458.displayedValue_0x00 = (float)var_runState_8c2285c4.driverPoints_0x0c;
     var_pointsMeter_8c226458.field_0x0c = 1.0f;
 
     var_engineRpm_8c226468 = 0.0f;

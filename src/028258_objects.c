@@ -4560,7 +4560,7 @@ STATIC void setTrafficSignalLightCallback_8c0283d4(int arg0)
 /* Installed as a TaskAction; the task/state args are unused. */
 STATIC void execTrafficSignalGroupTask_8c0283e8(Task *task, void *state)
 {
-    if (var_runPhase_8c2285c4 != 0) {
+    if (var_runState_8c2285c4.runPhase_0x00 != 0) {
         FadeCmdPushCall1_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
         TaskExecGroup_8c014b42(var_trafficSignalTasks_8c227e20);
     }
@@ -5292,7 +5292,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     int layer;
     FadeCallback1 fn;
 
-    if (var_runPhase_8c2285c4 == 0) {
+    if (var_runState_8c2285c4.runPhase_0x00 == 0) {
         return;
     }
 
@@ -5398,7 +5398,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     layer = !isDemo;
     FadeCmdPushCall1_8c0223ea(layer, fn, layer);
 
-    if (var_stopPhase_8c2285e4 == 2) {
+    if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
         FadeCmdPushCall1_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
         FadeCmdPushCall1_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
     }
@@ -6176,7 +6176,7 @@ STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
  * completion. */
 STATIC void execRowTaskGroupTask_8c02a60e(void)
 {
-    if (var_runPhase_8c2285c4 != 0) {
+    if (var_runState_8c2285c4.runPhase_0x00 != 0) {
         FadeCmdPushCall1_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
         FadeCmdPushCall1_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
         TaskExecGroup_8c014b42(var_tasks_8c1bb448);

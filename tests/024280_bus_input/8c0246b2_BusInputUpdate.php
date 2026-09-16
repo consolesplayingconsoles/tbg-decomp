@@ -17,15 +17,7 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
         $this->setSize('_var_vibport_8c1ba354', 4);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
-        // The run-state globals are adjacent in section B and the original
-        // reaches most of them by displacement off var_runPhase_8c2285c4, so
-        // they need their real relative offsets here too.
-        $runState = $this->alloc(4 * 40);
-        $this->rellocate('_var_runPhase_8c2285c4', $runState + 0x00);
-        $this->rellocate('_var_8c22861c', $runState + 0x58);
-        $this->rellocate('_var_8c228634', $runState + 0x70);
-        $this->rellocate('_var_8c228644', $runState + 0x80);
-        $this->rellocate('_var_brakeAverage_8c228654', $runState + 0x90);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_VibStart_8c010f7a', 4);
         $this->setSize('_pdVibMxStop', 4);
         $this->setSize('__divls', 4);
@@ -77,7 +69,7 @@ return new class extends TestCase {
                                               // tail doesn't call debugGearOverride
         $this->initFloat($bus + 0x2e8, 0.0);
         $this->initUint32($bus + 0x258, 0); // ang_0x258, centered
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4') + 0x80, 0); // var_8c228644
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x80, 0); // var_runState_8c2285c4.field_0x80
 
         return ['bus' => $bus, 'pad' => $pad];
     }
@@ -237,7 +229,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
-        $this->shouldWriteLong($this->addressOf('_var_runPhase_8c2285c4') + 0x80, 1); // var_8c228644 += 1 (speed != 0)
+        $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x80, 1); // var_runState_8c2285c4.field_0x80 += 1 (speed != 0)
         $this->shouldCall('_applyBraking_8c024530');
         $this->shouldWriteLong($bus + 0x080, 1);
         // speed_0x27c != 0.0 (untouched by the mocked call): resets idleFrameCounter_0x2ec.
@@ -254,9 +246,9 @@ return new class extends TestCase {
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
-        $this->shouldWriteLong($this->addressOf('_var_runPhase_8c2285c4') + 0x80, 1);
+        $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x80, 1);
         $this->shouldCall('_applyThrottle_8c024320');
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0);
         $this->shouldWriteLong($bus + 0x2ec, 0);
 
         $this->forceStop();
@@ -272,9 +264,9 @@ return new class extends TestCase {
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
-        $this->shouldWriteLong($this->addressOf('_var_runPhase_8c2285c4') + 0x80, 0);
+        $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x80, 0);
         $this->shouldCall('_applyThrottle_8c024320');
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0);
         // speed_0x27c == 0.0 (the mocked call doesn't touch it): the mode-2
         // tail runs debugGearOverride and, since idleFrameCounter_0x2ec (10) < 30, just
         // increments it.
@@ -294,9 +286,9 @@ return new class extends TestCase {
 
         $this->shouldCall('_applyBrakingSfx_8c024606');
 
-        $this->shouldWriteLong($this->addressOf('_var_runPhase_8c2285c4') + 0x80, 0);
+        $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x80, 0);
         $this->shouldCall('_applyThrottle_8c024320');
-        $this->shouldWriteFloat($this->addressOf('_var_runPhase_8c2285c4') + 0x90, 0.0);
+        $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x90, 0.0);
         $this->shouldCall('_updateGearSelector_8c0242ce');
         $this->shouldWriteLong($bus + 0x2e0, 1);
         $this->shouldWriteLong($bus + 0x2ec, 0);
@@ -408,7 +400,7 @@ return new class extends TestCase {
         ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0);
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x25c, 0);
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4') + 0x6c, 0); // var_8c22861c[5], != the 0x10000000 sentinel
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x6c, 0); // var_runState_8c2285c4.field_0x58[5], != the 0x10000000 sentinel
 
         $this->call('_BusInputUpdate_8c0246b2');
 
@@ -424,7 +416,7 @@ return new class extends TestCase {
         ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0);
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x25c, 0);
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4') + 0x6c, 0x10000000);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x6c, 0x10000000);
 
         $this->call('_BusInputUpdate_8c0246b2');
 
@@ -454,8 +446,8 @@ return new class extends TestCase {
         ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0);
         $this->initUint32($pad + 0x10, 0x2);
         $this->initUint32($bus + 0x25c, 0);
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4') + 0x6c, 4); // var_8c22861c[5], != var_8c228634[0] << 4
-        $this->initUint32($this->addressOf('_var_8c228634'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x6c, 4); // var_runState_8c2285c4.field_0x58[5], != var_runState_8c2285c4.field_0x70[0] << 4
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x70, 0);
 
         $this->call('_BusInputUpdate_8c0246b2');
 
@@ -502,7 +494,7 @@ return new class extends TestCase {
         ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0, driveMode: 1);
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x25c, 0);
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4') + 0x6c, 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x6c, 0);
 
         $this->call('_BusInputUpdate_8c0246b2');
 

@@ -2,7 +2,7 @@
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_driveMsgQueue_8c228564
           .IMPORT     _var_penaltyCount_8c1bb8f4
-          .IMPORT     _var_runPhase_8c2285c4
+          .IMPORT     _var_runState_8c2285c4
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_midiHandles_8c0fcd28
@@ -13,7 +13,6 @@
           .IMPORT     _var_cooldownSignal_8c228698
           .IMPORT     _var_cooldownLane_8c22869c
           .IMPORT     _var_cooldownIntersection_8c2286a0
-          .IMPORT     _var_8c2285fc
           .IMPORT     _BusDriveStop_8c023bce
           .IMPORT     _var_playerBus_8c1bbd9c
           .IMPORT     _var_bumpSpeed_8c228670
@@ -35,20 +34,15 @@
           .IMPORT     _var_laneC_8c22867c
           .IMPORT     _var_laneB_8c228678
           .IMPORT     _var_prevLaneFlags_8c228688
-          .IMPORT     _var_8c228634
           .IMPORT     _var_padTriggerR_8c1ba374
           .IMPORT     _BusStopUpdateArrival_8c02ce48
           .IMPORT     _var_practiceRules_8c226410
-          .IMPORT     _var_stopPhase_8c2285e4
           .IMPORT     _var_driveCueState_8c2264b8
           .IMPORT     _var_hudDriveMarkIcon_8c226450
-          .IMPORT     _var_scheduleTime_8c2285d8
-          .IMPORT     _var_runClock_8c2285dc
           .IMPORT     __modls
           .IMPORT     _var_fadeCompleteCallback_8c22656c
           .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _var_nextStopHeading_8c228714
-          .IMPORT     _var_8c22861c
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _sdMidiStopAll
@@ -87,7 +81,6 @@
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _DebugMenuFreeDriveTasks_8c01614c
           .IMPORT     _FadePushIn_8c022a9c
-          .IMPORT     _var_driverPoints_8c2285d0
           .IMPORT     _ResultShowPassedRun_8c01e0b4
           .IMPORT     _var_menuState_8c1bc7a8
           .EXPORT     _DrivePointsReset_8c02c46a
@@ -244,7 +237,7 @@ LP_GEN_45010:
           .DATA.L _var_driveMsgQueue_8c228564 ; H'8C02B550
           .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C02B554
           .DATA.L _var_progress_8c1ba1cc+H'C4 ; H'8C02B558 (difficulty_0xc4)
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02B55C
+          .DATA.L _var_runState_8c2285c4 ; H'8C02B55C
           .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C02B560
           .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C02B564
           .DATA.L _var_midiHandles_8c0fcd28 + 20 ; H'8C02B568
@@ -375,7 +368,7 @@ LP_GEN_34364:
           .DATA.L _var_cooldownSignal_8c228698 ; H'8C02B658
           .DATA.L _var_cooldownLane_8c22869c ; H'8C02B65C
           .DATA.L _var_cooldownIntersection_8c2286a0 ; H'8C02B660
-          .DATA.L _var_8c2285fc ; H'8C02B664
+          .DATA.L _var_runState_8c2285c4 + H'38 ; H'8C02B664
           .DATA.L _BusDriveStop_8c023bce ; H'8C02B668
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02B66C
           .DATA.L H'3E99999A ; H'8C02B670
@@ -743,9 +736,9 @@ LP_GEN_71333:
           .DATA.L H'00020000 ; H'8C02B938
           .DATA.L _var_driveMode_8c1bb8c8 ; H'8C02B93C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02B940
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02B944
+          .DATA.L _var_runState_8c2285c4 ; H'8C02B944
           .DATA.L _var_frameSpeed_8c22866c ; H'8C02B948
-          .DATA.L _var_8c2285fc ; H'8C02B94C
+          .DATA.L _var_runState_8c2285c4 + H'38 ; H'8C02B94C
           .DATA.L _ObjectsGetTrafficSignalFrame_8c028900 ; H'8C02B950
 LAB_8c02b954:
           MOV.L       @(H'38,R14),R13
@@ -849,7 +842,7 @@ LP_GEN_63579:
           .DATA.W H'0358 ; H'8C02BA06
           .DATA.L H'0F000000 ; H'8C02BA08
           .DATA.L _ObjectsGetTrafficSignalFrame_8c028900 ; H'8C02BA0C
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02BA10
+          .DATA.L _var_runState_8c2285c4 ; H'8C02BA10
           .DATA.L _var_headingVsRoad_8c22868c ; H'8C02BA14
           .DATA.L _var_offCourseBits_8c228680 ; H'8C02BA18
           .DATA.L _var_prevLane_8c228684 ; H'8C02BA1C
@@ -1109,7 +1102,7 @@ LP_GEN_46467:
           .DATA.W H'025C ; H'8C02BC0A
           .DATA.L H'0F000000 ; H'8C02BC0C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02BC10
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02BC14
+          .DATA.L _var_runState_8c2285c4 ; H'8C02BC14
           .DATA.L _var_frameSpeed_8c22866c ; H'8C02BC18
           .DATA.L H'FF000000 ; H'8C02BC1C
           .DATA.L _ObjectsGetTrafficSignalFrame_8c028900 ; H'8C02BC20
@@ -1122,7 +1115,7 @@ LP_GEN_46467:
           .DATA.L _var_prevLane_8c228684 ; H'8C02BC3C
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02BC40
           .DATA.L _var_prevLaneFlags_8c228688 ; H'8C02BC44
-          .DATA.L _var_8c228634 ; H'8C02BC48
+          .DATA.L _var_runState_8c2285c4 + H'70 ; H'8C02BC48
 LAB_8c02bc4c:
           CMP/PL      R6
           BF          LAB_8c02bc6c
@@ -1238,13 +1231,13 @@ LP_GEN_44318:
           .DATA.W H'0358 ; H'8C02BD14
           .DATA.W H'034C ; H'8C02BD16
           .DATA.L H'0F000000 ; H'8C02BD18
-          .DATA.L _var_8c228634 ; H'8C02BD1C
+          .DATA.L _var_runState_8c2285c4 + H'70 ; H'8C02BD1C
           .DATA.L H'C0000000 ; H'8C02BD20
           .DATA.L H'40000000 ; H'8C02BD24
           .DATA.L H'80000000 ; H'8C02BD28
           .DATA.L _var_frameSpeed_8c22866c ; H'8C02BD2C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02BD30
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02BD34
+          .DATA.L _var_runState_8c2285c4 ; H'8C02BD34
           .DATA.L _var_prevLane_8c228684 ; H'8C02BD38
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02BD3C
 LAB_8c02bd40:
@@ -1586,7 +1579,7 @@ LP_GEN_59291:
           .DATA.L _BusStopUpdateArrival_8c02ce48 ; H'8C02BFB8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02BFBC
           .DATA.L _var_practiceRules_8c226410 ; H'8C02BFC0
-          .DATA.L _var_stopPhase_8c2285e4 ; H'8C02BFC4
+          .DATA.L _var_runState_8c2285c4 + H'20 ; H'8C02BFC4
           .DATA.L _var_driveCueState_8c2264b8+H'C ; H'8C02BFC8 (nearStopLatch_0x0c)
 LAB_8c02bfcc:
           MOV         #H'7c,R0
@@ -1723,12 +1716,12 @@ LP_GEN_85160:
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C0BC
           .DATA.L _var_practiceRules_8c226410 ; H'8C02C0C0
           .DATA.L _var_hudDriveMarkIcon_8c226450 ; H'8C02C0C4
-          .DATA.L _var_scheduleTime_8c2285d8 ; H'8C02C0C8
-          .DATA.L _var_runClock_8c2285dc ; H'8C02C0CC
+          .DATA.L _var_runState_8c2285c4 + H'14 ; H'8C02C0C8
+          .DATA.L _var_runState_8c2285c4 + H'18 ; H'8C02C0CC
           .DATA.L __modls ; H'8C02C0D0
           .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C02C0D4
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02C0D8
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02C0DC
+          .DATA.L _var_runState_8c2285c4 ; H'8C02C0DC
 LAB_8c02c0e0:
           MOV.W       LP_GEN_77677,R0
           MOV.L       LP_GEN_77677+16,R5
@@ -2095,7 +2088,7 @@ LP_GEN_30870:
           .DATA.L _var_nextStopHeading_8c228714 ; H'8C02C3A0
           .DATA.L H'FFFF071D ; H'8C02C3A4
           .DATA.L H'0000F8E3 ; H'8C02C3A8
-          .DATA.L _var_8c22861c ; H'8C02C3AC
+          .DATA.L _var_runState_8c2285c4 + H'58 ; H'8C02C3AC
           .DATA.L _var_messageBoxActive_8c22847c ; H'8C02C3B0
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C3B4
           .DATA.L _onFadeRunFailed_8c02c76a ; H'8C02C3B8
@@ -2236,7 +2229,7 @@ LP_GEN_93947:
           .DATA.L _taskCallback_8c02c072 ; H'8C02C4CC
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02C4D0
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C4D4
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02C4D8
+          .DATA.L _var_runState_8c2285c4 ; H'8C02C4D8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C4DC
           .DATA.L _var_practiceRules_8c226410 ; H'8C02C4E0
 LAB_8c02c4e4:
@@ -2683,7 +2676,7 @@ LP_GEN_25024:
           .DATA.L _driveEndFadeTask_8c02c69a ; H'8C02C86C
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C870
           .DATA.L _FadePushIn_8c022a9c ; H'8C02C874
-          .DATA.L _var_driverPoints_8c2285d0 ; H'8C02C878
+          .DATA.L _var_runState_8c2285c4 + H'C ; H'8C02C878
           .DATA.L _var_practiceLesson_8c22640c ; H'8C02C87C
           .DATA.L _var_menuState_8c1bc7a8 + H'38 ; H'8C02C880
           .SECTION    D, DATA, ALIGN=4

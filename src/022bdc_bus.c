@@ -163,7 +163,7 @@ void BusTask_8c022bdc(Task *task, void *state)
             }
             /* Below run phase 3 the run is still going, so resume driving;
              * from 3 on it is over and the bus stays put. */
-            var_busState_8c1bb9d0.driveState_0x2b4 = (var_runPhase_8c2285c4 < 3) ? 1 : 3;
+            var_busState_8c1bb9d0.driveState_0x2b4 = (var_runState_8c2285c4.runPhase_0x00 < 3) ? 1 : 3;
             var_busState_8c1bb9d0.speed_0x27c = 0.0f;
         }
     } else if (var_busState_8c1bb9d0.driveState_0x2b4 == 4) {

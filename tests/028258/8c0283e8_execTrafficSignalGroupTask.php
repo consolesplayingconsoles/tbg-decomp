@@ -7,16 +7,16 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     public function test_does_nothing_before_the_run_starts()
     {
-        $this->setSize('_var_runPhase_8c2285c4', 4);
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 0);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4'), 0);
 
         $this->call('_execTrafficSignalGroupTask_8c0283e8')->with(0, 0);
     }
 
     public function test_pushes_light_fade_and_execs_group_once_driving()
     {
-        $this->setSize('_var_runPhase_8c2285c4', 4);
-        $this->initUint32($this->addressOf('_var_runPhase_8c2285c4'), 1);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4'), 1);
 
         $tasks = $this->addressOf('_var_trafficSignalTasks_8c227e20');
         $this->initUint32($tasks, 0xdeadbeef);

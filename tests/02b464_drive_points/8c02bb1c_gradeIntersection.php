@@ -5,23 +5,15 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // The archived asm reaches every run-state global in this function by
-    // displacement off var_runPhase_8c2285c4 (register reuse in the original
-    // compile), so they need their real relative offsets here too.
     private function resolveSymbols(): int
     {
-        $base = $this->alloc(0x80);
-        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
-        $this->rellocate('_var_speedingCountdown_8c2285f4', $base + 0x30);
-        $this->rellocate('_var_8c2285fc', $base + 0x38);
-        $this->rellocate('_var_8c22861c', $base + 0x58);
+        $base = $this->setSize('_var_runState_8c2285c4', 0x9c);
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);
         $this->setSize('_var_frameSpeed_8c22866c', 4); // unused placeholder, see initFloat below
         $this->setSize('_var_prevLane_8c228684', 4);
         $this->setSize('_var_prevLaneFlags_8c228688', 4);
-        $this->setSize('_var_8c228634', 4);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
 
@@ -43,7 +35,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0); // speed limit code 0 -> limit 0
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
         $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1); // skip lane check
-        $this->initUint32($base + 0x50, 0); // var_8c2285fc[6], stopped-at-signal latch
+        $this->initUint32($base + 0x50, 0); // var_runState_8c2285c4.field_0x38[6], stopped-at-signal latch
     }
 
     public function test_stale_signal_applies_penalty(): void
@@ -53,7 +45,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x358, 0); // not driving through
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b4, 0xff000000);
-        $this->initUint32($base + 0x3c, 7); // var_8c2285fc[1], signal id
+        $this->initUint32($base + 0x3c, 7); // var_runState_8c2285c4.field_0x38[1], signal id
 
         $this->call('_gradeIntersection_8c02bb1c');
 
@@ -61,7 +53,7 @@ return new class extends TestCase {
         $this->shouldCall('_adjust_8c02b464')->with(0x13, 0xffffffb0); // -80
         $this->shouldCall('_armCooldowns_8c02b578')->with(5);
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_runState_8c2285c4.speedingCountdown_0x30 reset
     }
 
     public function test_moving_skips_stale_signal_penalty(): void
@@ -73,7 +65,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3b4, 0xff000000);
         $this->initUint32($base + 0x3c, 7);
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving, so also over the (zero) speed limit
-        $this->initUint32($base + 0x30, 5); // var_speedingCountdown_8c2285f4, stays positive after decrement
+        $this->initUint32($base + 0x30, 5); // var_runState_8c2285c4.speedingCountdown_0x30, stays positive after decrement
 
         $this->call('_gradeIntersection_8c02bb1c');
 
@@ -86,7 +78,7 @@ return new class extends TestCase {
     {
         $base = $this->resolveSymbols();
         $this->baseline($base);
-        $this->initUint32($base + 0x30, 5); // var_speedingCountdown_8c2285f4, nonzero
+        $this->initUint32($base + 0x30, 5); // var_runState_8c2285c4.speedingCountdown_0x30, nonzero
 
         $this->call('_gradeIntersection_8c02bb1c');
 
@@ -143,14 +135,14 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x25c, 0); // turn signal not matching left (1)
         $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busState);
 
-        $this->initUint32($base + 0x6c, 4); // var_8c22861c[5]
+        $this->initUint32($base + 0x6c, 4); // var_runState_8c2285c4.field_0x58[5]
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta = 4-10 < 0
         $this->initUint32($this->addressOf('_var_prevLaneFlags_8c228688'), 0xf000000);
-        $this->initUint32($this->addressOf('_var_8c228634'), 0xf000000);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x70, 0xf000000);
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_runState_8c2285c4.speedingCountdown_0x30 reset
 
         $this->shouldCall('_adjust_8c02b464')->with(0xf, 0xfffffff8); // -8
     }
@@ -170,7 +162,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_runState_8c2285c4.speedingCountdown_0x30 reset
     }
 
     public function test_input_map_sel_skips_lane_check(): void
@@ -185,23 +177,23 @@ return new class extends TestCase {
         $this->initUint32($base + 0x6c, 4);
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10);
         $this->initUint32($this->addressOf('_var_prevLaneFlags_8c228688'), 0xf000000);
-        $this->initUint32($this->addressOf('_var_8c228634'), 0xf000000);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x70, 0xf000000);
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_runState_8c2285c4.speedingCountdown_0x30 reset
     }
 
     public function test_stopping_at_signal_arms_latch(): void
     {
         $base = $this->resolveSymbols();
         $this->baseline($base);
-        $this->initUint32($base + 0x50, 0); // var_8c2285fc[6] not armed
+        $this->initUint32($base + 0x50, 0); // var_runState_8c2285c4.field_0x38[6] not armed
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x358, 0xf000000); // driving through signal
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_runState_8c2285c4.speedingCountdown_0x30 reset
 
         $this->shouldWriteLong($base + 0x50, 1);
     }
@@ -217,7 +209,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_runState_8c2285c4.speedingCountdown_0x30 reset
 
         $this->shouldWriteLong($base + 0x50, 0);
     }
@@ -233,7 +225,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldWriteLong($base + 0x30, 0); // var_speedingCountdown_8c2285f4 reset
+        $this->shouldWriteLong($base + 0x30, 0); // var_runState_8c2285c4.speedingCountdown_0x30 reset
 
         $this->shouldCall('_adjust_8c02b464')->with(0xf, 0xfffffff8); // -8
         $this->shouldWriteLong($base + 0x50, 0);

@@ -5,16 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // The run-state globals are adjacent in section B and the archived asm
-    // reaches most of them by displacement off var_runPhase_8c2285c4 rather
-    // than by their own relocation, so they need their real relative offsets
-    // here too.
     private function resolveSymbols(): int
     {
-        $base = $this->alloc(0x80);
-        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
-        $this->rellocate('_var_stopLineGraded_8c2285f8', $base + 0x34);
-        $this->rellocate('_var_8c2285fc', $base + 0x38);
+        $base = $this->setSize('_var_runState_8c2285c4', 0x9c);
 
         $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);

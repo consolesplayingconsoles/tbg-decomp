@@ -174,8 +174,8 @@ STATIC void applyBraking_8c024530(void)
 
     /* Running average of brakeAmount; gradeFrame_8c02bcd8 (02b464) docks
      * INSTR_HARD_BRAKE once it passes 0.01. */
-    var_brakeAverage_8c228654 += brakeAmount;
-    var_brakeAverage_8c228654 /= 2.0f;
+    var_runState_8c2285c4.brakeAverage_0x90 += brakeAmount;
+    var_runState_8c2285c4.brakeAverage_0x90 /= 2.0f;
 }
 
 /* Throttle handler: while the .r trigger is pushed past its deadzone and at
@@ -226,7 +226,7 @@ STATIC void applyThrottle_8c024320(void)
 
         if (gear == 0) {
             /* Arms gradeFrame_8c02bcd8's rapid-acceleration check (02b464). */
-            var_firstUpshift_8c22864c = 1;
+            var_runState_8c2285c4.firstUpshift_0x88 = 1;
         }
         var_busState_8c1bb9d0.gear_0x2f4 = gear + 1;
     } else {
@@ -382,12 +382,12 @@ void BusInputUpdate_8c0246b2(void)
             var_busState_8c1bb9d0.targetRpm_0x2e8 =
                 -(var_busState_8c1bb9d0.speed_0x27c * 16384.0f);
         } else {
-            /* var_8c228644 counts frames under way and nothing reads it
+            /* var_runState_8c2285c4.field_0x80 counts frames under way and nothing reads it
              * back -- a dead store. */
             if (var_busState_8c1bb9d0.speed_0x27c == 0.0f) {
-                var_8c228644 = 0;
+                var_runState_8c2285c4.field_0x80 = 0;
             } else {
-                var_8c228644 += 1;
+                var_runState_8c2285c4.field_0x80 += 1;
             }
 
             if (brakeTrigger > brakeDeadzone) {
@@ -397,7 +397,7 @@ void BusInputUpdate_8c0246b2(void)
                 applyThrottle_8c024320();
                 /* Not braking: applyBraking_8c024530's running average
                  * decays straight to 0 rather than halving. */
-                var_brakeAverage_8c228654 = 0.0f;
+                var_runState_8c2285c4.brakeAverage_0x90 = 0.0f;
             }
         }
 
@@ -424,8 +424,8 @@ void BusInputUpdate_8c0246b2(void)
     /* press bits 0x400/0x2 = left/right turn-signal buttons; signalSide_0x25c
      * is the driver's latched signal intent (0 off, 1 left, 2 right) and
      * doubles as the mirror-view selector -- toggling it sets mirror_0x268
-     * between its 0/1/2 modes, gated by a var_8c22861c[5] check against a
-     * sentinel (0x10000000) or against var_8c228634[0]. */
+     * between its 0/1/2 modes, gated by a var_runState_8c2285c4.field_0x58[5] check against a
+     * sentinel (0x10000000) or against var_runState_8c2285c4.field_0x70[0]. */
     if (var_driveMode_8c1bb8c8 != 0) {
         var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
         if (var_busState_8c1bb9d0.laneTargetSearchDone_0x334 != 0) {
@@ -436,7 +436,7 @@ void BusInputUpdate_8c0246b2(void)
             switch (var_busState_8c1bb9d0.signalSide_0x25c) {
             case 0:
                 var_busState_8c1bb9d0.signalSide_0x25c = 1;
-                if (var_8c22861c[5] != 0x10000000) {
+                if (var_runState_8c2285c4.field_0x58[5] != 0x10000000) {
                     var_busState_8c1bb9d0.mirror_0x268 = 1;
                 }
                 break;
@@ -454,7 +454,7 @@ void BusInputUpdate_8c0246b2(void)
             switch (var_busState_8c1bb9d0.signalSide_0x25c) {
             case 0:
                 var_busState_8c1bb9d0.signalSide_0x25c = 2;
-                if ((var_8c22861c[5] & ~1) != (var_8c228634[0] << 4)) {
+                if ((var_runState_8c2285c4.field_0x58[5] & ~1) != (var_runState_8c2285c4.field_0x70[0] << 4)) {
                     var_busState_8c1bb9d0.mirror_0x268 = 2;
                 }
                 break;
@@ -479,7 +479,7 @@ void BusInputUpdate_8c0246b2(void)
         switch (var_busState_8c1bb9d0.signalSide_0x25c) {
         case 0:
             var_busState_8c1bb9d0.signalSide_0x25c = 1;
-            if (var_8c22861c[5] != 0x10000000) {
+            if (var_runState_8c2285c4.field_0x58[5] != 0x10000000) {
                 var_busState_8c1bb9d0.mirror_0x268 = 1;
             }
             break;
@@ -495,7 +495,7 @@ void BusInputUpdate_8c0246b2(void)
         switch (var_busState_8c1bb9d0.signalSide_0x25c) {
         case 0:
             var_busState_8c1bb9d0.signalSide_0x25c = 2;
-            if ((var_8c22861c[5] & ~1) != (var_8c228634[0] << 4)) {
+            if ((var_runState_8c2285c4.field_0x58[5] & ~1) != (var_runState_8c2285c4.field_0x70[0] << 4)) {
                 var_busState_8c1bb9d0.mirror_0x268 = 2;
             }
             break;

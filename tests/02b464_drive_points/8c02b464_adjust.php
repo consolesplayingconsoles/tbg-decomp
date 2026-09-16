@@ -10,23 +10,18 @@ return new class extends TestCase {
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20); // 8 x SDMIDI
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60); // 4 x DriveMsgSlot
-        // The archived asm reaches both point globals by displacement off
-        // var_runPhase_8c2285c4, so they need their real relative offsets here.
-        $runState = $this->alloc(0x14);
-        $this->rellocate('_var_runPhase_8c2285c4', $runState + 0x00);
-        $this->rellocate('_var_driverPoints_8c2285d0', $runState + 0x0c);
-        $this->rellocate('_var_driverPointsMax_8c2285d4', $runState + 0x10);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
     }
 
     private function pointsAddr(): int
     {
-        return $this->addressOf('_var_runPhase_8c2285c4') + 0xc;
+        return $this->addressOf('_var_runState_8c2285c4') + 0xc;
     }
 
     private function maxAddr(): int
     {
-        return $this->addressOf('_var_runPhase_8c2285c4') + 0x10;
+        return $this->addressOf('_var_runState_8c2285c4') + 0x10;
     }
 
     private function difficultyAddr(): int

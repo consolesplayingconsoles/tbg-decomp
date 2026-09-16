@@ -70,7 +70,7 @@ void DriveMsgDraw_8c02b388(int unused)
     int i;
     float y;
 
-    if (var_runPassed_8c2285c8 != 0) {
+    if (var_runState_8c2285c4.runPassed_0x04 != 0) {
         /* &var_markTexlist_8c1bc418 is the mark ResourceGroup's own address,
          * not a cast of its value -- see sectionB.h. */
         TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418,

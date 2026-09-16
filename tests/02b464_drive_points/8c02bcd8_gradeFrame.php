@@ -5,24 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // The archived asm reaches most of the run-state globals by displacement
-    // off var_runPhase_8c2285c4 rather than by their own relocation, so they
-    // need their real relative offsets here too.
     private function resolveSymbols(): int
     {
-        $base = $this->alloc(0xa0);
-        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
-        $this->rellocate('_var_scheduleTime_8c2285d8', $base + 0x14);
-        $this->rellocate('_var_runClock_8c2285dc', $base + 0x18);
-        $this->rellocate('_var_8c2285fc', $base + 0x38);
-        $this->rellocate('_var_8c22861c', $base + 0x58);
-        $this->rellocate('_var_instructionBonusPending_8c228640', $base + 0x7c);
-        $this->rellocate('_var_fullThrottleLatch_8c228648', $base + 0x84);
-        $this->rellocate('_var_firstUpshift_8c22864c', $base + 0x88);
-        $this->rellocate('_var_fullThrottleFrames_8c228650', $base + 0x8c);
-        $this->rellocate('_var_brakeAverage_8c228654', $base + 0x90);
-        $this->rellocate('_var_hardBrakeCooldown_8c228658', $base + 0x94);
-        $this->rellocate('_var_swerveCountdown_8c22865c', $base + 0x98);
+        $base = $this->setSize('_var_runState_8c2285c4', 0x9c);
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
@@ -33,7 +18,6 @@ return new class extends TestCase {
         $this->setSize('_var_padTriggerR_8c1ba374', 2);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceRules_8c226410', 4);
-        $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
         $this->setSize('_var_hudDriveMarkIcon_8c226450', 4);
         $this->setSize('_BusStopUpdateArrival_8c02ce48', 4);
@@ -62,12 +46,12 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x3c0, 0); // bus_substate
         $this->initUint32($busState + 0x3c4, 0);
 
-        $this->initUint32($base + 0x58, 0); // var_8c22861c[0]
-        $this->initUint32($base + 0x5c, 1); // var_8c22861c[1] armed -- skip idle timer branch
-        $this->initUint32($base + 0x60, 0); // var_8c22861c[2]
-        $this->initUint32($base + 0x64, 0); // var_8c22861c[3] sig state
-        $this->initUint32($base + 0x68, 0); // var_8c22861c[4]
-        $this->initUint32($base + 0x6c, 0); // var_8c22861c[5]
+        $this->initUint32($base + 0x58, 0); // var_runState_8c2285c4.field_0x58[0]
+        $this->initUint32($base + 0x5c, 1); // var_runState_8c2285c4.field_0x58[1] armed -- skip idle timer branch
+        $this->initUint32($base + 0x60, 0); // var_runState_8c2285c4.field_0x58[2]
+        $this->initUint32($base + 0x64, 0); // var_runState_8c2285c4.field_0x58[3] sig state
+        $this->initUint32($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4]
+        $this->initUint32($base + 0x6c, 0); // var_runState_8c2285c4.field_0x58[5]
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 0);
 
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
@@ -78,26 +62,26 @@ return new class extends TestCase {
         $this->initUint32($busPtr + 0x268, 0);
         $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busPtr);
 
-        $this->initUint32($base + 0x84, 0); // var_fullThrottleLatch_8c228648
-        $this->initUint32($base + 0x88, 0); // var_firstUpshift_8c22864c, the "armed" flag
-        $this->initUint32($base + 0x8c, 0); // var_fullThrottleFrames_8c228650
-        $this->initUint32($base + 0x94, 0); // var_hardBrakeCooldown_8c228658
-        $this->initFloat($base + 0x90, 0.0); // var_brakeAverage_8c228654
-        $this->initUint32($base + 0x98, 0); // var_swerveCountdown_8c22865c
-        $this->initUint32($base + 0x7c, 0); // var_instructionBonusPending_8c228640
+        $this->initUint32($base + 0x84, 0); // var_runState_8c2285c4.fullThrottleLatch_0x84
+        $this->initUint32($base + 0x88, 0); // var_runState_8c2285c4.firstUpshift_0x88, the "armed" flag
+        $this->initUint32($base + 0x8c, 0); // var_runState_8c2285c4.fullThrottleFrames_0x8c
+        $this->initUint32($base + 0x94, 0); // var_runState_8c2285c4.hardBrakeCooldown_0x94
+        $this->initFloat($base + 0x90, 0.0); // var_runState_8c2285c4.brakeAverage_0x90
+        $this->initUint32($base + 0x98, 0); // var_runState_8c2285c4.swerveCountdown_0x98
+        $this->initUint32($base + 0x7c, 0); // var_runState_8c2285c4.instructionBonusPending_0x7c
 
         $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0);
 
-        $this->initUint32($base + 0x54, 0); // var_8c2285fc[7]
-        $this->initUint32($base + 0x4c, 0); // var_8c2285fc[5]
+        $this->initUint32($base + 0x54, 0); // var_runState_8c2285c4.field_0x38[7]
+        $this->initUint32($base + 0x4c, 0); // var_runState_8c2285c4.field_0x38[5]
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 1);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 1);
         $this->initUint32(($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c), 0);
 
-        $this->initUint32($base + 0x18, 0); // var_runClock_8c2285dc
-        $this->initUint32($base + 0x14, 0); // var_scheduleTime_8c2285d8
+        $this->initUint32($base + 0x18, 0); // var_runState_8c2285c4.runClock_0x18
+        $this->initUint32($base + 0x14, 0); // var_runState_8c2285c4.scheduleTime_0x14
         $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), -1);
 
         return $busPtr;
@@ -108,7 +92,7 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x6c, 4); // var_8c22861c[5]
+        $this->initUint32($base + 0x6c, 4); // var_runState_8c2285c4.field_0x58[5]
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta = 4-10 < 0
         $this->initUint32($busPtr + 0x25c, 1); // left signal on
 
@@ -116,14 +100,14 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($busPtr + 0x25c, 0);
         $this->shouldWriteLong($busPtr + 0x268, 0);
-        $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4], hold-timer no-op reset
-        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], signalSide_0x25c-unchanged counter
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4], hold-timer no-op reset
+        $this->shouldWriteLong($base + 0x58, 1); // var_runState_8c2285c4.field_0x58[0], signalSide_0x25c-unchanged counter
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
         $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong(($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c), 1);
-        $this->shouldWriteLong($base + 0x18, 1); // var_runClock_8c2285dc incremented
+        $this->shouldWriteLong($base + 0x18, 1); // var_runState_8c2285c4.runClock_0x18 incremented
     }
 
     public function test_lane_signal_untouched_when_delta_negative_and_right_signal_on(): void
@@ -137,14 +121,14 @@ return new class extends TestCase {
 
         $this->call('_gradeFrame_8c02bcd8');
 
-        $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4], hold-timer no-op reset
-        $this->shouldWriteLong($base + 0x58, 1); // var_8c22861c[0], signalSide_0x25c-unchanged counter
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4], hold-timer no-op reset
+        $this->shouldWriteLong($base + 0x58, 1); // var_runState_8c2285c4.field_0x58[0], signalSide_0x25c-unchanged counter
 
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
 
         $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong(($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c), 1);
-        $this->shouldWriteLong($base + 0x18, 1); // var_runClock_8c2285dc incremented
+        $this->shouldWriteLong($base + 0x18, 1); // var_runState_8c2285c4.runClock_0x18 incremented
     }
 
     // sigState 1 -> (turning) -> 2 -> (still turning, stopped) -> 5
@@ -153,14 +137,14 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x64, 1); // var_8c22861c[3] sig state = 1
+        $this->initUint32($base + 0x64, 1); // var_runState_8c2285c4.field_0x58[3] sig state = 1
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x10000000); // turning left
 
         $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x64, 2); // sigState -> 2 (still turning)
         $this->shouldWriteLong($base + 0x64, 5); // sigState -> 5 (turning, stopped)
-        $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4] hold-timer reset
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] hold-timer reset
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
@@ -176,13 +160,13 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x64, 2); // var_8c22861c[3] sig state = 2
+        $this->initUint32($base + 0x64, 2); // var_runState_8c2285c4.field_0x58[3] sig state = 2
 
         $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldCall('_adjust_8c02b464')->with(0x14, 0xffffffe2); // -30
         $this->shouldWriteLong($base + 0x64, 1); // sigState -> 1
-        $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4] hold-timer reset
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] hold-timer reset
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
@@ -192,19 +176,19 @@ return new class extends TestCase {
     }
 
     // sigState 2, still turning and moving: no state change, hold timer
-    // skipped this frame (var_8c22861c[4] reset only).
+    // skipped this frame (var_runState_8c2285c4.field_0x58[4] reset only).
     public function test_turn_signal_state_2_still_turning_while_moving(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x64, 2); // var_8c22861c[3] sig state = 2
+        $this->initUint32($base + 0x64, 2); // var_runState_8c2285c4.field_0x58[3] sig state = 2
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x10000000); // still turning
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving
 
         $this->call('_gradeFrame_8c02bcd8');
 
-        $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4] reset (skipHoldTimer path)
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] reset (skipHoldTimer path)
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
@@ -220,12 +204,12 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x64, 5); // var_8c22861c[3] sig state = 5
+        $this->initUint32($base + 0x64, 5); // var_runState_8c2285c4.field_0x58[3] sig state = 5
 
         $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x64, 1); // sigState -> 1
-        $this->shouldWriteLong($base + 0x68, 0); // var_8c22861c[4] hold-timer reset
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] hold-timer reset
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
@@ -234,7 +218,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Hold-timer counter (var_8c22861c[4]) expires while
+    // Hold-timer counter (var_runState_8c2285c4.field_0x58[4]) expires while
     // busState.junctionARoadFlags_0x34c shows a lane change in progress: flat
     // penalty and the counter reloads to 0x78.
     public function test_hold_timer_expiry_applies_penalty(): void
@@ -243,7 +227,7 @@ return new class extends TestCase {
         $busPtr = $this->baseline($base);
 
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x20000000); // junctionARoadFlags_0x34c
-        $this->initUint32($base + 0x68, 0); // var_8c22861c[4] decrements to -1
+        $this->initUint32($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] decrements to -1
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -265,8 +249,8 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x84, 1); // var_fullThrottleLatch_8c228648 already armed
-        $this->initUint32($base + 0x8c, 0xe); // var_fullThrottleFrames_8c228650, one away from tripping
+        $this->initUint32($base + 0x84, 1); // var_runState_8c2285c4.fullThrottleLatch_0x84 already armed
+        $this->initUint32($base + 0x8c, 0xe); // var_runState_8c2285c4.fullThrottleFrames_0x8c, one away from tripping
         $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0xff); // held at max
 
         $this->call('_gradeFrame_8c02bcd8');
@@ -284,23 +268,23 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Right-trigger newly armed (var_firstUpshift_8c22864c set elsewhere) and already
+    // Right-trigger newly armed (var_runState_8c2285c4.firstUpshift_0x88 set elsewhere) and already
     // held past the threshold: arms the latch immediately.
     public function test_right_trigger_newly_armed_and_already_held(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x88, 1); // var_firstUpshift_8c22864c, armed
+        $this->initUint32($base + 0x88, 1); // var_runState_8c2285c4.firstUpshift_0x88, armed
         $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0xff); // held at max
 
         $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
 
-        $this->shouldWriteLong($base + 0x84, 1); // var_fullThrottleLatch_8c228648 armed
-        $this->shouldWriteLong($base + 0x8c, 0); // var_fullThrottleFrames_8c228650 reset
-        $this->shouldWriteLong($base + 0x88, 0); // var_firstUpshift_8c22864c cleared
+        $this->shouldWriteLong($base + 0x84, 1); // var_runState_8c2285c4.fullThrottleLatch_0x84 armed
+        $this->shouldWriteLong($base + 0x8c, 0); // var_runState_8c2285c4.fullThrottleFrames_0x8c reset
+        $this->shouldWriteLong($base + 0x88, 0); // var_runState_8c2285c4.firstUpshift_0x88 cleared
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_BusStopUpdateArrival_8c02ce48');
@@ -316,8 +300,8 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initFloat($base + 0x90, 0.5); // var_brakeAverage_8c228654 > 0.01
-        $this->initUint32($base + 0x94, 0); // var_hardBrakeCooldown_8c228658 already expired
+        $this->initFloat($base + 0x90, 0.5); // var_runState_8c2285c4.brakeAverage_0x90 > 0.01
+        $this->initUint32($base + 0x94, 0); // var_runState_8c2285c4.hardBrakeCooldown_0x94 already expired
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -346,7 +330,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2b4, 1); // driving
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0x27c, 100.0); // speed
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x258, 100); // ang
-        $this->initUint32($base + 0x98, 0); // var_swerveCountdown_8c22865c decrements to -1
+        $this->initUint32($base + 0x98, 0); // var_runState_8c2285c4.swerveCountdown_0x98 decrements to -1
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -369,15 +353,15 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x5c, 0); // var_8c22861c[1] not yet armed
-        $this->initUint32($base + 0x60, 0x709); // var_8c22861c[2] one away from tripping
+        $this->initUint32($base + 0x5c, 0); // var_runState_8c2285c4.field_0x58[1] not yet armed
+        $this->initUint32($base + 0x60, 0x709); // var_runState_8c2285c4.field_0x58[2] one away from tripping
 
         $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
 
-        $this->shouldWriteLong($base + 0x60, 0x70a); // var_8c22861c[2] incremented past threshold
+        $this->shouldWriteLong($base + 0x60, 0x70a); // var_runState_8c2285c4.field_0x58[2] incremented past threshold
         $this->shouldCall('_adjust_8c02b464')->with(0x13, 0xffffffb0); // -80
         $this->shouldWriteLong($base + 0x60, 0);
 
@@ -387,13 +371,13 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Idle timeout armed once the bus first moves (var_8c22861c[1] latches).
+    // Idle timeout armed once the bus first moves (var_runState_8c2285c4.field_0x58[1] latches).
     public function test_idle_timeout_arms_on_first_movement(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x5c, 0); // var_8c22861c[1] not yet armed
+        $this->initUint32($base + 0x5c, 0); // var_runState_8c2285c4.field_0x58[1] not yet armed
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving
 
         $this->call('_gradeFrame_8c02bcd8');
@@ -408,14 +392,14 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Message-box just closed (var_instructionBonusPending_8c228640 is set): a small positive award.
+    // Message-box just closed (var_runState_8c2285c4.instructionBonusPending_0x7c is set): a small positive award.
     public function test_messagebox_closed_awards_points(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x7c, 1); // var_instructionBonusPending_8c228640
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // route into the if-branch
+        $this->initUint32($base + 0x7c, 1); // var_runState_8c2285c4.instructionBonusPending_0x7c
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0); // route into the if-branch
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -435,7 +419,7 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // route messagebox branch away
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0); // route messagebox branch away
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x3c0, 2); // bus_substate
         $this->initFloat($this->addressOf('_var_busState_8c1bb9d0') + 0x27c, 1.0); // moving
 
@@ -461,7 +445,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0); // bit 0 clear -> messagebox branch too
-        $this->initUint32($base + 0x18, 0); // var_runClock_8c2285dc decrements to -1
+        $this->initUint32($base + 0x18, 0); // var_runState_8c2285c4.runClock_0x18 decrements to -1
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -494,19 +478,19 @@ return new class extends TestCase {
         $this->shouldCall('_adjust_8c02b464')->with(0x20, 0xfffffffb); // -5
         $this->shouldWriteLong(($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c), 1);
 
-        $this->shouldWriteLong($base + 0x18, 1); // var_runClock_8c2285dc incremented (bit 1 set -> else branch)
+        $this->shouldWriteLong($base + 0x18, 1); // var_runState_8c2285c4.runClock_0x18 incremented (bit 1 set -> else branch)
     }
 
-    // Not a course run (playMode != 1): var_runClock_8c2285dc just increments, and
-    // once past var_scheduleTime_8c2285d8 and a multiple of some divisor, a silent
+    // Not a course run (playMode != 1): var_runState_8c2285c4.runClock_0x18 just increments, and
+    // once past var_runState_8c2285c4.scheduleTime_0x14 and a multiple of some divisor, a silent
     // (msgSet -1) adjustment fires via __modls.
     public function test_run_progress_probe_modls_divisor(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x18, 29); // var_runClock_8c2285dc -> increments to 30
-        $this->initUint32($base + 0x14, 0); // var_scheduleTime_8c2285d8 (0 < 30)
+        $this->initUint32($base + 0x18, 29); // var_runState_8c2285c4.runClock_0x18 -> increments to 30
+        $this->initUint32($base + 0x14, 0); // var_runState_8c2285c4.scheduleTime_0x14 (0 < 30)
         $this->initUint32($this->addressOf('_var_hudDriveMarkIcon_8c226450'), 1); // != -1
 
         $this->call('_gradeFrame_8c02bcd8');

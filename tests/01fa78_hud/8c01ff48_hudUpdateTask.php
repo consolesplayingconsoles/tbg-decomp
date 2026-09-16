@@ -18,6 +18,7 @@ return new class extends TestCase {
         $this->rellocate('_var_tachoNeedleVerts_8c226478', $base + 0x3c);
 
         $this->setSize('_var_hudMark_8c2264a8', 0x10);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
 
         // Zero the whole scratch region and bus state by default; each test
         // overrides only the bits it cares about.
@@ -30,7 +31,7 @@ return new class extends TestCase {
         for ($off = 0; $off < 0x10; $off += 4) {
             $this->initUint32($this->addressOf('_var_hudMark_8c2264a8') + $off, 0);
         }
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0);
 
         return $base;
     }

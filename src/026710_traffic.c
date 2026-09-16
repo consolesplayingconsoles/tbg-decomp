@@ -888,7 +888,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
 
     (void)state;
 
-    if (var_runPhase_8c2285c4 == 0) {
+    if (var_runState_8c2285c4.runPhase_0x00 == 0) {
         return;
     }
 

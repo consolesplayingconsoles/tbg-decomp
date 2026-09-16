@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_driverPoints_8c2285d0', 4);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_menuState_8c1bc7a8', 0x3c);
         $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_runReportPending_8c1bb8b8', 4);
@@ -22,7 +22,7 @@ return new class extends TestCase {
     public function test_threshold_not_met_and_no_points_reloads_route(): void
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 1);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 1);
 
         $this->call('_DrivePointsOnFadeDriveEnd_8c02c784');
 
@@ -41,7 +41,7 @@ return new class extends TestCase {
     public function test_no_points_at_all_skips_teardown_and_waits_for_fade(): void
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 7);
 
         $this->call('_DrivePointsOnFadeDriveEnd_8c02c784');
@@ -61,7 +61,7 @@ return new class extends TestCase {
     public function test_points_earned_goes_straight_to_practice_retry(): void
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 5);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 5);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $this->call('_DrivePointsOnFadeDriveEnd_8c02c784');

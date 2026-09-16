@@ -380,7 +380,7 @@ void ResultShowPassedRun_8c01e0b4(void)
     } else {
         var_scoreFirstClearBonus_8c2263f0 = 100;
     }
-    var_scoreDriverPointsBonus_8c2263f4 = var_driverPoints_8c2285d0 * 10;
+    var_scoreDriverPointsBonus_8c2263f4 = var_runState_8c2285c4.driverPoints_0x0c * 10;
     if (var_route_8c18ad1c == ROUTE_SHINJUKU) {
         courseGroup = 1;
     } else if (var_route_8c18ad1c == ROUTE_WANGAN) {
@@ -393,9 +393,9 @@ void ResultShowPassedRun_8c01e0b4(void)
         courseGroup = 2;
     }
     courseIndex = courseGroup * 3 + var_timeOfDay_8c18ad20;
-    if (var_driverPoints_8c2285d0 < 0x5a) {
-        if (var_driverPoints_8c2285d0 < 0x50) {
-            if (var_driverPoints_8c2285d0 < 0x46) {
+    if (var_runState_8c2285c4.driverPoints_0x0c < 0x5a) {
+        if (var_runState_8c2285c4.driverPoints_0x0c < 0x50) {
+            if (var_runState_8c2285c4.driverPoints_0x0c < 0x46) {
                 var_award_8c1bb8f8 = AWARD_TIER_NONE;
             } else {
                 var_award_8c1bb8f8 = AWARD_TIER_BRONZE;

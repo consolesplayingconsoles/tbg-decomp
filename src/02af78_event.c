@@ -2360,7 +2360,7 @@ void EventPickForSegment_8c02b170(void)
     int candidates[5];
 
     if (!(var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL && var_gameMode_8c1bb8fc == 0 &&
-          var_runClock_8c2285dc <= var_scheduleTime_8c2285d8)) {
+          var_runState_8c2285c4.runClock_0x18 <= var_runState_8c2285c4.scheduleTime_0x14)) {
         var_cutsceneActive_8c1bb900 = 0;
         LOG_DEBUG(("[EVENT] skipped picking for segment (guard not open)\n"));
         return;

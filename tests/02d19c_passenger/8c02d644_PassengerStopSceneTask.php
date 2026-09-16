@@ -28,13 +28,7 @@ return new class extends TestCase {
         $this->setSize('_var_fadeRequest_8c226564', 4);
         $this->setSize('_var_fadeArrivalGate_8c226560', 4);
         $this->setSize('_var_messageBoxActive_8c22847c', 4);
-        // The original reaches the clock globals by displacement off
-        // var_runPhase_8c2285c4, so they need their real relative offsets here.
-        $runState = $this->alloc(8 * 4);
-        $this->rellocate('_var_runPhase_8c2285c4', $runState + 0x00);
-        $this->rellocate('_var_scheduleTime_8c2285d8', $runState + 0x14);
-        $this->rellocate('_var_runClock_8c2285dc', $runState + 0x18);
-        $this->rellocate('_var_clockCatchUpStep_8c2285e0', $runState + 0x1c);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_interiorTexlist_8c1bc438', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_route_8c18ad1c', 4);
@@ -85,7 +79,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $group = $this->alloc(0x20);
         $this->initUint32($this->addressOf('_var_stopTaskGroup_8c2288f8'), $group);
-        $base = $this->addressOf('_var_runPhase_8c2285c4');
+        $base = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($base + 6 * 4, 5);
 
         $state = $this->makeState(0, 0);
@@ -105,7 +99,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $group = $this->alloc(0x20);
         $this->initUint32($this->addressOf('_var_stopTaskGroup_8c2288f8'), $group);
-        $base = $this->addressOf('_var_runPhase_8c2285c4');
+        $base = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($base + 6 * 4, 0);
 
         $state = $this->makeState(0, 0);
@@ -130,7 +124,7 @@ return new class extends TestCase {
 
         $group = $this->alloc(0x20);
         $this->initUint32($this->addressOf('_var_stopTaskGroup_8c2288f8'), $group);
-        $base = $this->addressOf('_var_runPhase_8c2285c4');
+        $base = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($base + 6 * 4, 0);
 
         $state = $this->makeState(1, 0);
@@ -160,7 +154,7 @@ return new class extends TestCase {
 
         $group = $this->alloc(0x20);
         $this->initUint32($this->addressOf('_var_stopTaskGroup_8c2288f8'), $group);
-        $base = $this->addressOf('_var_runPhase_8c2285c4');
+        $base = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($base + 6 * 4, 0);
 
         $state = $this->makeState(1, 0);
@@ -241,7 +235,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $group = $this->alloc(0x20);
         $this->initUint32($this->addressOf('_var_stopTaskGroup_8c2288f8'), $group);
-        $base = $this->addressOf('_var_runPhase_8c2285c4');
+        $base = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($base + 6 * 4, 0);
 
         $state = $this->makeState(4, 0);
@@ -265,10 +259,10 @@ return new class extends TestCase {
         $group = $this->alloc(0x20);
         $this->initUint32($this->addressOf('_var_stopTaskGroup_8c2288f8'), $group);
 
-        $base = $this->addressOf('_var_runPhase_8c2285c4');
-        $this->initUint32($base + 5 * 4, 100); // var_scheduleTime_8c2285d8
-        $this->initUint32($base + 6 * 4, 10);  // var_runClock_8c2285dc
-        $this->initUint32($base + 7 * 4, 5);   // var_clockCatchUpStep_8c2285e0
+        $base = $this->addressOf('_var_runState_8c2285c4');
+        $this->initUint32($base + 5 * 4, 100); // var_runState_8c2285c4.scheduleTime_0x14
+        $this->initUint32($base + 6 * 4, 10);  // var_runState_8c2285c4.runClock_0x18
+        $this->initUint32($base + 7 * 4, 5);   // var_runState_8c2285c4.clockCatchUpStep_0x1c
 
         $midi = $this->addressOf('_var_midiHandles_8c0fcd28');
         $this->initUint32($midi, 0x9999);
@@ -290,7 +284,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1); // PRACTICE
 
-        $base = $this->addressOf('_var_runPhase_8c2285c4');
+        $base = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($base + 5 * 4, 10);
         $this->initUint32($base + 6 * 4, 10); // clock has reached the schedule -> teardown
 
@@ -324,7 +318,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_currentSegment_8c228708'), 0);
         $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 1);
 
-        $base = $this->addressOf('_var_runPhase_8c2285c4');
+        $base = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($base + 5 * 4, 10);
         $this->initUint32($base + 6 * 4, 10);
 

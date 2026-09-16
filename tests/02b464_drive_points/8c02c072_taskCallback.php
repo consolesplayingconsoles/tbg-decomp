@@ -7,17 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): int
     {
-        // taskCallback's asm reaches every run-state global by displacement
-        // off var_runPhase_8c2285c4, so they need their real relative offsets
-        // here too.
-        $base = $this->alloc(0xa0);
-        $this->rellocate('_var_runPhase_8c2285c4', $base + 0x00);
-        $this->rellocate('_var_runPassed_8c2285c8', $base + 0x04);
-        $this->rellocate('_var_driveEndHold_8c2285cc', $base + 0x08);
-        $this->rellocate('_var_driverPoints_8c2285d0', $base + 0x0c);
-        $this->rellocate('_var_stopArrivalGrade_8c2285e8', $base + 0x24);
-        $this->rellocate('_var_8c22861c', $base + 0x58);
-        $this->rellocate('_var_8c228634', $base + 0x70);
+        $base = $this->setSize('_var_runState_8c2285c4', 0x9c);
 
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
@@ -86,8 +76,8 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x374, 1); // != junctionARoadFlags2_0x358 alias -> skip the lane-alias re-latch
         $this->initUint32($busState + 0x390, 0);
 
-        $this->initUint32($base + 0x6c, 0); // var_8c22861c[5]
-        $this->initUint32($base + 0x70, 0); // var_8c228634[0]
+        $this->initUint32($base + 0x6c, 0); // var_runState_8c2285c4.field_0x58[5]
+        $this->initUint32($base + 0x70, 0); // var_runState_8c2285c4.field_0x70[0]
 
         $this->initUint32($this->addressOf('_var_wallHitBits_8c228660'), 0); // no bump flags -> no vibration
         $this->initUint32($this->addressOf('_var_cooldownCollision_8c228690'), 5); // cooldowns all still active -> no graders fire
@@ -96,15 +86,15 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_cooldownLane_8c22869c'), 5);
         $this->initUint32($this->addressOf('_var_cooldownIntersection_8c2286a0'), 5);
 
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 50); // still > 0 -> stays in phase 2
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 50); // still > 0 -> stays in phase 2
 
         $this->call('_taskCallback_8c02c072');
 
         $this->shouldWriteFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
         $this->shouldWriteLong($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->shouldWriteLong($this->addressOf('_var_headingVsRoad_8c22868c'), 0); // junctionBAttr1_0x36c high bit set -> skip grading
-        $this->shouldWriteLong($this->addressOf('_var_prevLane_8c228684'), 0); // var_8c22861c[5]
-        $this->shouldWriteLong($this->addressOf('_var_prevLaneFlags_8c228688'), 0); // var_8c228634[0]
+        $this->shouldWriteLong($this->addressOf('_var_prevLane_8c228684'), 0); // var_runState_8c2285c4.field_0x58[5]
+        $this->shouldWriteLong($this->addressOf('_var_prevLaneFlags_8c228688'), 0); // var_runState_8c2285c4.field_0x70[0]
         $this->shouldWriteLong($this->addressOf('_var_laneA_8c228674'), 0);
         $this->shouldWriteLong($this->addressOf('_var_laneB_8c228678'), 1);
         $this->shouldWriteLong($this->addressOf('_var_laneC_8c22867c'), 0);
@@ -116,10 +106,10 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_cooldownCollision_8c228690'), 4);
         $this->shouldCall('_gradeFrame_8c02bcd8')->andReturn(0);
 
-        $this->shouldWriteLong($base + 0x74, 0); // var_8c228634[1]
-        $this->shouldWriteLong($base + 0x78, 0); // var_8c228634[2]
+        $this->shouldWriteLong($base + 0x74, 0); // var_runState_8c2285c4.field_0x70[1]
+        $this->shouldWriteLong($base + 0x78, 0); // var_runState_8c2285c4.field_0x70[2]
 
-        // var_driverPoints_8c2285d0 stays > 0 here, so the phase-4 handoff
+        // var_runState_8c2285c4.driverPoints_0x0c stays > 0 here, so the phase-4 handoff
         // (and its SndStartAdxFadeOut pair) does NOT fire -- goes straight
         // to the tail's message-queue tick and fade-command push.
         $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_DriveMsgDraw_8c02b388'), 0);
@@ -130,7 +120,7 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $this->baselineMsgQueue();
         $this->initUint32($base + 0x00, 3); // phase 3
-        $this->initUint32($base + 0x24, 0); // var_stopArrivalGrade_8c2285e8
+        $this->initUint32($base + 0x24, 0); // var_runState_8c2285c4.stopArrivalGrade_0x24
 
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_nextStopHeading_8c228714', 4);
@@ -146,10 +136,10 @@ return new class extends TestCase {
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($busState + 0x250, 0); // ang_0x250
         $this->initUint32($busState + 0x25c, 1); // skip the -8 stop-precision adjust
-        $this->initUint32($base + 0x58, 0x3c); // var_8c22861c[0]
+        $this->initUint32($base + 0x58, 0x3c); // var_runState_8c2285c4.field_0x58[0]
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0); // skip DrivePointsRunComplete_8c02c586 gate
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0); // skip DrivePointsRunComplete_8c02c586 gate
 
         $this->call('_taskCallback_8c02c072');
 

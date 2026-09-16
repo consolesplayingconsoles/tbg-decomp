@@ -13,7 +13,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * var_selectedEventEntry_8c228478 and sets var_cutsceneActive_8c1bb900 = 1;
  * otherwise (or if skipped) sets var_cutsceneActive_8c1bb900 = 0. Skipped
  * entirely outside PLAY_MODE_NORMAL, while var_gameMode_8c1bb8fc != 0, or
- * while var_runClock_8c2285dc > var_scheduleTime_8c2285d8.
+ * while var_runState_8c2285c4.runClock_0x18 > var_runState_8c2285c4.scheduleTime_0x14.
  */
 return new class extends TestCase {
     const ENTRY_SIZE = 0x10;
@@ -24,8 +24,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
-        $this->setSize('_var_runClock_8c2285dc', 4);
-        $this->setSize('_var_scheduleTime_8c2285d8', 4);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_eventCandidates_8c228520', 0x40);
         $this->setSize('_var_routeEvents_8c22851c', 4);
         $this->setSize('_var_currentSegment_8c228708', 4);
@@ -39,8 +38,8 @@ return new class extends TestCase {
     {
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // PLAY_MODE_NORMAL
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
-        $this->initUint32($this->addressOf('_var_runClock_8c2285dc'), 1);
-        $this->initUint32($this->addressOf('_var_scheduleTime_8c2285d8'), 1);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x18, 1);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x14, 1);
     }
 
     private function initEntry(int $table, int $index, int $segmentId, int $conditions): void
@@ -95,8 +94,8 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initGuardsOpen();
-        $this->initUint32($this->addressOf('_var_runClock_8c2285dc'), 2);
-        $this->initUint32($this->addressOf('_var_scheduleTime_8c2285d8'), 1);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x18, 2);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x14, 1);
 
         $this->call('_EventPickForSegment_8c02b170');
 

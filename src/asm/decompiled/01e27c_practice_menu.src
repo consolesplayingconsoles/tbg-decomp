@@ -57,7 +57,7 @@
           .IMPORT     _init_instructorDialogs_8c044c08
           .IMPORT     _var_tex_8c157af8
           .IMPORT     _njGarbageTexture
-          .IMPORT     _var_driverPoints_8c2285d0
+          .IMPORT     _var_runState_8c2285c4
           .IMPORT     _InputPushTask_8c0128cc
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tasks_8c1ba3c8
@@ -2114,7 +2114,7 @@ LP_GEN_80134:
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01F284
           .DATA.L _var_practiceLesson_8c22640c ; H'8C01F288
           .DATA.L _var_progress_8c1ba1cc+H'98 ; H'8C01F28C (practiceLessonBestScores_0x98)
-          .DATA.L _var_driverPoints_8c2285d0 ; H'8C01F290
+          .DATA.L _var_runState_8c2285c4 + H'C ; H'8C01F290
           .DATA.L _var_lessonAttempts_8c22642c ; H'8C01F294
 LAB_8c01f298:
           MOV         #H'18,R0

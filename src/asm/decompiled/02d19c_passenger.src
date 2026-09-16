@@ -26,7 +26,7 @@
           .IMPORT     _var_exitSpot2_8c228940
           .IMPORT     _var_exitSpot3_8c22894c
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _var_runPhase_8c2285c4
+          .IMPORT     _var_runState_8c2285c4
           .IMPORT     __divls
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _StopDrawLightBegin_8c02d0fc
@@ -668,7 +668,7 @@ LP_GEN_80933:
           .DATA.L _var_exitSpot3_8c22894c ; H'8C02D630
           .DATA.L _TaskFree_8c014b66 ; H'8C02D634
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02D638
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02D63C
+          .DATA.L _var_runState_8c2285c4 ; H'8C02D63C
           .DATA.L __divls ; H'8C02D640
 _PassengerStopSceneTask_8c02d644:
           MOV.L       R14,@-R15
@@ -901,7 +901,7 @@ LAB_8c02d7c0:
 LP_GEN_70221:
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02D7E4
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02D7E8
-          .DATA.L _var_runPhase_8c2285c4 ; H'8C02D7EC
+          .DATA.L _var_runState_8c2285c4 ; H'8C02D7EC
           .DATA.L _drawInterior_8c02d1f4 ; H'8C02D7F0
           .DATA.L _StopDrawLightBegin_8c02d0fc ; H'8C02D7F4
           .DATA.L _var_isFading_8c226568 ; H'8C02D7F8

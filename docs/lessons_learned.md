@@ -889,3 +889,26 @@ needs clearing inside the loop that already walks the array.
 giving the archived object a zero-length D section that SHC never emits for a
 TU with no initialized data. Delete the directive; the matching build is
 unchanged, since a zero-length section contributes no bytes.
+
+## Our own section B cannot tell you where an object begins and ends
+
+The archives were disassembled from a linked binary, where a literal pool word
+is just an address; the disassembler names it against whatever symbol table we
+supply. Because `sectionB.src` had a label on every 4 bytes of
+`0x2285c4..0x228660`, a folded single-field access -- `base + H'c` -- was
+rendered as `.IMPORT _var_8c2285d0`, and 39 fields of one struct looked like 39
+independent globals with their own `.RES.B` runs. Commit `91d6aa3` acted on that
+reading and split the object across 47 files.
+
+The evidence that settles it is displacement, not labels. Collect every constant
+offset each TU reaches off a pool entry holding the candidate base: the object
+spans the union, and ends at the first address a TU loads as its own base. Here
+the union was gapless from `+0x00` to `+0x98`, and `wallHitBits_8c228660` is
+loaded as a base by three TUs -- so the object is exactly 156 bytes. A gapless
+union over dozens of words cannot come from independent globals, since SHC has
+no way to know two unrelated externs are adjacent.
+
+Three encodings carry those offsets, and missing one shrinks the object:
+`@(H'd,Rn)` reaches only `+0..+60`; `MOV #H'xx,R0` with `@(R0,Rn)` holds a
+*constant* in R0, not a variable index; and past `+127` the constant comes from
+a `.DATA.W` pool entry via `MOV.W <pool>,R0`.

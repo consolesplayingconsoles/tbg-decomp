@@ -41,7 +41,8 @@ return new class extends TestCase {
         $this->rellocate('_var_laneLatch_8c226474', $base + 0x38);
         $this->rellocate('_var_tachoNeedleVerts_8c226478', $base + 0x3c);
 
-        $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 42);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 42);
 
         $this->call('_HudReset_8c02018c');
 

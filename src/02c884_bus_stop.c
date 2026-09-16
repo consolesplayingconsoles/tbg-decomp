@@ -54,12 +54,12 @@ CourseSegment *BusStopGetSegment_8c02cd6a(int segmentIndex)
 }
 
 /* Advances prevStopSegment to the just-armed stop and reloads the
- * event-gate threshold (var_scheduleTime_8c2285d8) from the course's per-segment gate
+ * event-gate threshold (var_runState_8c2285c4.scheduleTime_0x14) from the course's per-segment gate
  * table (courseConfig's ukn_0x0c). */
 STATIC void advanceStopSegment_8c02ccae(void)
 {
     var_prevStopSegment_8c22870c++;
-    var_scheduleTime_8c2285d8 = ((int *)var_currentCourseConfig_8c18ad18->ukn_0x0c)[var_prevStopSegment_8c22870c];
+    var_runState_8c2285c4.scheduleTime_0x14 = ((int *)var_currentCourseConfig_8c18ad18->ukn_0x0c)[var_prevStopSegment_8c22870c];
 }
 
 StopAreaRecord *BusStopGetStopArea_8c02cd7a(int segmentIndex)
@@ -203,8 +203,8 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
  * (courseConfig's [randomStopCountMin_0x14, randomStopCountMax_0x18) range)
  * is reached. Finishes by priming the next/prev stop segment and the
  * upcoming stop's passengers, and resetting a couple of run-scoped
- * timers/thresholds (var_driverPoints_8c2285d0/var_driverPointsMax_8c2285d4,
- * var_scheduleTime_8c2285d8/var_runClock_8c2285dc) based on the difficulty setting
+ * timers/thresholds (var_runState_8c2285c4.driverPoints_0x0c/var_runState_8c2285c4.driverPointsMax_0x10,
+ * var_runState_8c2285c4.scheduleTime_0x14/var_runState_8c2285c4.runClock_0x18) based on the difficulty setting
  * and play mode. */
 void BusStopSetup_8c02caba(void)
 {
@@ -275,17 +275,17 @@ void BusStopSetup_8c02caba(void)
     advanceStopSegment_8c02ccae();
 
     if (var_progress_8c1ba1cc.difficulty_0xc4 < 1 && var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
-        var_driverPointsMax_8c2285d4 = 200;
+        var_runState_8c2285c4.driverPointsMax_0x10 = 200;
     } else {
-        var_driverPointsMax_8c2285d4 = 100;
+        var_runState_8c2285c4.driverPointsMax_0x10 = 100;
     }
-    var_driverPoints_8c2285d0 = var_driverPointsMax_8c2285d4;
+    var_runState_8c2285c4.driverPoints_0x0c = var_runState_8c2285c4.driverPointsMax_0x10;
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 2) != 2) {
-        var_runClock_8c2285dc = var_scheduleTime_8c2285d8;
-        var_scheduleTime_8c2285d8 = 0;
+        var_runState_8c2285c4.runClock_0x18 = var_runState_8c2285c4.scheduleTime_0x14;
+        var_runState_8c2285c4.scheduleTime_0x14 = 0;
     } else {
-        var_runClock_8c2285dc = var_scheduleTime_8c2285d8 - 0x1c2;
+        var_runState_8c2285c4.runClock_0x18 = var_runState_8c2285c4.scheduleTime_0x14 - 0x1c2;
     }
 }
 
@@ -328,30 +328,30 @@ void BusStopUpdateArrival_8c02ce48(void)
     float distance;
     float dx, dz;
 
-    if (var_stopPhase_8c2285e4 == 0) {
+    if (var_runState_8c2285c4.stopPhase_0x20 == 0) {
         if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff00) != 0) {
             crossedSegment = (var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff00) >> 8;
             if (crossedSegment == var_nextStopSegment_8c228710) {
-                var_stopPhase_8c2285e4 = 2;
-                var_stopMinDistance_8c2285ec = 9999.0f;
+                var_runState_8c2285c4.stopPhase_0x20 = 2;
+                var_runState_8c2285c4.stopMinDistance_0x28 = 9999.0f;
                 var_hudBlinkTimer_8c226454 = 0;
                 pickWaitingPassengers_8c02c8ae();
                 var_fuuFrame_8c1bc44c = 0.0f;
             } else if (crossedSegment == var_prevStopSegment_8c22870c) {
-                var_stopPhase_8c2285e4 = 1;
+                var_runState_8c2285c4.stopPhase_0x20 = 1;
                 var_hudBlinkTimer_8c226454 = 0;
             }
         }
-    } else if (var_stopPhase_8c2285e4 == 1) {
+    } else if (var_runState_8c2285c4.stopPhase_0x20 == 1) {
         if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff) != 0) {
-            var_stopPhase_8c2285e4 = 0;
+            var_runState_8c2285c4.stopPhase_0x20 = 0;
             if (var_hudDriveMarkIcon_8c226450 != -1) {
-                var_instructionBonusPending_8c228640 = 1;
+                var_runState_8c2285c4.instructionBonusPending_0x7c = 1;
             }
             var_driveCueState_8c2264b8.nearStopLatch_0x0c = 0;
             advanceStopSegment_8c02ccae();
         }
-    } else if (var_stopPhase_8c2285e4 == 2) {
+    } else if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
         dx = var_nextStopPoint_8c228900.x - var_busState_8c1bb9d0.posX_0x0f4;
         dz = var_nextStopPoint_8c228900.z - var_busState_8c1bb9d0.posZ_0x0fc;
         distance = njSqrt(dx * dx + dz * dz);
@@ -360,31 +360,31 @@ void BusStopUpdateArrival_8c02ce48(void)
             var_fuuFrame_8c1bc44c = 0.0f;
         }
         FadeCmdPushCall1_8c0223ea(0, drawStopMarker_8c02cd92, 0);
-        if (distance < var_stopMinDistance_8c2285ec) {
-            var_stopMinDistance_8c2285ec = distance;
+        if (distance < var_runState_8c2285c4.stopMinDistance_0x28) {
+            var_runState_8c2285c4.stopMinDistance_0x28 = distance;
         }
         if ((distance < 3.0f && var_busState_8c1bb9d0.speed_0x27c == 0.0f) ||
-            (var_stopMinDistance_8c2285ec < 3.0f && var_busState_8c1bb9d0.speed_0x27c == 0.0f)) {
+            (var_runState_8c2285c4.stopMinDistance_0x28 < 3.0f && var_busState_8c1bb9d0.speed_0x27c == 0.0f)) {
             var_busState_8c1bb9d0.driveState_0x2b4 = 3;
-            var_stopPhase_8c2285e4 = 3;
-            var_runPhase_8c2285c4 = 3;
-            var_stopArrivalGrade_8c2285e8 = 0;
+            var_runState_8c2285c4.stopPhase_0x20 = 3;
+            var_runState_8c2285c4.runPhase_0x00 = 3;
+            var_runState_8c2285c4.stopArrivalGrade_0x24 = 0;
         } else if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff) == var_nextStopSegment_8c228710) {
             var_busState_8c1bb9d0.driveState_0x2b4 = 4;
-            var_stopPhase_8c2285e4 = 3;
-            var_runPhase_8c2285c4 = 3;
-            var_stopArrivalGrade_8c2285e8 = 2;
+            var_runState_8c2285c4.stopPhase_0x20 = 3;
+            var_runState_8c2285c4.runPhase_0x00 = 3;
+            var_runState_8c2285c4.stopArrivalGrade_0x24 = 2;
         }
-    } else if (var_stopPhase_8c2285e4 == 4) {
+    } else if (var_runState_8c2285c4.stopPhase_0x20 == 4) {
         if ((var_busState_8c1bb9d0.markDriveFlags_0x3b0 & 0xff000000) != 0) {
             var_busState_8c1bb9d0.driveState_0x2b4 = 4;
-            var_stopPhase_8c2285e4 = 3;
-            var_stopArrivalGrade_8c2285e8 = 0;
-            var_runPhase_8c2285c4 = 4;
-            var_driveEndHold_8c2285cc = 0x1e;
+            var_runState_8c2285c4.stopPhase_0x20 = 3;
+            var_runState_8c2285c4.stopArrivalGrade_0x24 = 0;
+            var_runState_8c2285c4.runPhase_0x00 = 4;
+            var_runState_8c2285c4.driveEndHold_0x08 = 0x1e;
             var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
-            if (0 < var_driverPoints_8c2285d0 && DrivePointsRunComplete_8c02c586() != 0) {
-                var_runPassed_8c2285c8 = 1;
+            if (0 < var_runState_8c2285c4.driverPoints_0x0c && DrivePointsRunComplete_8c02c586() != 0) {
+                var_runState_8c2285c4.runPassed_0x04 = 1;
             }
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);

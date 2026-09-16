@@ -13,7 +13,7 @@ return new class extends TestCase {
     public function test_refunds_driver_points_then_installs_task(): void
     {
         $this->resolveSizes();
-        $points = $this->addressOf('_var_runPhase_8c2285c4');
+        $points = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc4, 0);
         $this->initUint32($points + 0x0c, 10);
         $this->initUint32($points + 0x10, 100);
@@ -24,11 +24,11 @@ return new class extends TestCase {
         $this->expectInstallAndBind();
     }
 
-    /** The refund clamps to var_driverPointsMax_8c2285d4. */
+    /** The refund clamps to var_runState_8c2285c4.driverPointsMax_0x10. */
     public function test_clamps_refund_to_the_run_maximum(): void
     {
         $this->resolveSizes();
-        $points = $this->addressOf('_var_runPhase_8c2285c4');
+        $points = $this->addressOf('_var_runState_8c2285c4');
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc4, 0);
         $this->initUint32($points + 0x0c, 90);
         $this->initUint32($points + 0x10, 100);
@@ -101,11 +101,6 @@ return new class extends TestCase {
             $this->setSize($sym, $size);
         }
 
-        // The original reaches the two point globals by displacement off
-        // var_runPhase_8c2285c4, so they need their real relative offsets here.
-        $runState = $this->alloc(0x14);
-        $this->rellocate('_var_runPhase_8c2285c4', $runState + 0x00);
-        $this->rellocate('_var_driverPoints_8c2285d0', $runState + 0x0c);
-        $this->rellocate('_var_driverPointsMax_8c2285d4', $runState + 0x10);
+        $this->setSize('_var_runState_8c2285c4', 0x9c);
     }
 };
