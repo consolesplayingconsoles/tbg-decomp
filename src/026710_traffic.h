@@ -155,7 +155,7 @@ typedef struct {
      * to BusDrawPlaceEntity_8c027c3c. All 4 slots are float; previously typed
      * as 2 Uint32 fields plus 8 bytes of padding -- see that function. */
     float field_0x280[4];
-    float field_0x290;
+    float accelRate_0x290;
     Uint8 padding_0x294[0x8];
     /* Same offset/role as BusState.dir_x_0x29c/dir_z_0x2a0 (its collision
      * knockback direction): applied to posX_0xf4/frontPointX_0x100 (front) and
@@ -221,7 +221,7 @@ typedef struct {
     Uint32 yieldExitSignalId_0x438;
     Uint8 padding_0x43c[0xc];
     Uint32 signalWaitState_0x448;
-    /* Unreferenced. init_8c0460bc gives the 0x448 family one arg word where
+    /* Unreferenced. init_scriptOpWords_8c0460bc gives the 0x448 family one arg word where
      * the 0x458/0x468 families get two, so this is probably just matching
      * their width. */
     Uint32 field_0x44c;

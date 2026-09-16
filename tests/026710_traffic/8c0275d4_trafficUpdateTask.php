@@ -64,8 +64,8 @@ return new class extends TestCase {
         // No writes, no calls -- reaching the epilogue directly.
     }
 
-    // Enabled, field_0x0c == 0 and no demo pending (bits 8-15 of
-    // var_scenePresetIds_8c1bbd8c clear): arms field_0x0c = 2. The
+    // Run under way, field_0x0c == 0 and no demo pending (bits 8-15 of
+    // busState.scenePresetIds_0x3bc clear): arms field_0x0c = 2. The
     // record's script dword is 0, so the record block is skipped entirely.
     public function test_enabled_armsWaitingState_noRecord(): void {
         $this->resolveSymbols();

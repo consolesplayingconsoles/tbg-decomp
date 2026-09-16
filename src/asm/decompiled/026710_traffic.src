@@ -178,7 +178,7 @@ LP_GEN_49807:
           .DATA.W H'0300 ; H'8C0267CC
           .RES.W 1 ; H'8C0267CE
           .DATA.L _var_cpuPathBlocks_8c227e1c ; H'8C0267D0
-          .DATA.L _init_8c0460bc ; H'8C0267D4
+          .DATA.L _init_scriptOpWords_8c0460bc ; H'8C0267D4
 LAB_8c0267d8:
           MOV.W       LP_GEN_58523,R0
           MOV         R13,R14
@@ -450,7 +450,7 @@ LP_GEN_59685:
           .DATA.L H'C0000000 ; H'8C0269EC
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C0269F0
           .DATA.L _GroundProbeInterpolateHeight_8c020f7e ; H'8C0269F4
-          .DATA.L _init_8c0460c8 ; H'8C0269F8
+          .DATA.L _init_variantDims_8c0460c8 ; H'8C0269F8
 LAB_8c0269fc:
           MOV.L       LP_GEN_22736+32,R2
           MOV.W       LP_GEN_22736,R0
@@ -654,7 +654,7 @@ LP_GEN_22736:
           .DATA.L _njCos ; H'8C026B80
           .DATA.L _njSin ; H'8C026B84
           .DATA.L H'47800000 ; H'8C026B88
-          .DATA.L _init_8c0461c8 ; H'8C026B8C
+          .DATA.L _init_variantAccel_8c0461c8 ; H'8C026B8C
           .DATA.L H'461C3C00 ; H'8C026B90
           .DATA.L _AsqGetRandomA_8c012166 ; H'8C026B94
           .DATA.L H'4F800000 ; H'8C026B98
@@ -1011,7 +1011,7 @@ LP_GEN_70087:
           .DATA.L _BusStopGetSegment_8c02cd6a ; H'8C026E44
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C026E48
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C026E4C
-          .DATA.L _init_8c0460bc ; H'8C026E50
+          .DATA.L _init_scriptOpWords_8c0460bc ; H'8C026E50
 LAB_8c026e54:
           CMP/EQ      #H'5,R0
           BF          LAB_8c026e62
@@ -2006,7 +2006,7 @@ LP_GEN_41074:
           .DATA.L H'BF000000 ; H'8C0275AC
           .DATA.L H'4F800000 ; H'8C0275B0
           .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C0275B4
-          .DATA.L _init_8c04622c ; H'8C0275B8
+          .DATA.L _init_variantBodyType_8c04622c ; H'8C0275B8
           .DATA.L _var_trafficModels_8c1bc3f4 ; H'8C0275BC
           .DATA.L _VehPartsBind_8c02786c ; H'8C0275C0
           .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C0275C4
@@ -2329,10 +2329,10 @@ LP_GEN_74201:
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C027864
           .DATA.L _TaskPush_8c014ae8 ; H'8C027868
           .SECTION    D, DATA, ALIGN=4
-_init_8c0460bc:        ; from defines
+_init_scriptOpWords_8c0460bc:        ; from defines
           .DATA.B      H'01
           .DATA.B      H'03, H'03, H'03, H'03, H'02, H'03, H'02, H'04, H'01, H'04, H'00
-_init_8c0460c8:        ; from defines
+_init_variantDims_8c0460c8:        ; from defines
           .DATA.B      H'48, H'E1, H'1A, H'40
 _init_8c0460cc:        ; from ghidra
           .DATA.B      H'8F, H'C2, H'D5, H'3F
@@ -2355,7 +2355,7 @@ _init_8c0460d4:        ; from ghidra
           .DATA.B      H'00, H'00, H'00, H'41, H'33, H'33, H'33, H'40, H'EC, H'51, H'D8, H'3F, H'A4, H'70, H'3D, H'3F
           .DATA.B      H'A4, H'70, H'7D, H'40, H'66, H'66, H'26, H'40, H'3D, H'0A, H'D7, H'3F, H'00, H'00, H'80, H'3F
           .DATA.B      H'99, H'99, H'79, H'40
-_init_8c0461c8:        ; from defines
+_init_variantAccel_8c0461c8:        ; from defines
           .DATA.B      H'0A, H'D7, H'23, H'3C, H'0A, H'D7, H'23, H'3C, H'6F, H'12, H'83, H'3B, H'42, H'60, H'E5, H'3B
           .DATA.B      H'42, H'60, H'E5, H'3B, H'42, H'60, H'E5, H'3B, H'42, H'60, H'E5, H'3B, H'6F, H'12, H'03, H'3B
           .DATA.B      H'6F, H'12, H'03, H'3B, H'6F, H'12, H'83, H'3B, H'6F, H'12, H'03, H'3B, H'6F, H'12, H'03, H'3B
@@ -2364,6 +2364,6 @@ _init_dayMasks_8c046208:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'80, H'00, H'00, H'00, H'00, H'00, H'01, H'00, H'40, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'08, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'02, H'00, H'00
-_init_8c04622c:        ; from defines
+_init_variantBodyType_8c04622c:        ; from defines
           .DATA.B      H'00, H'00, H'01, H'02, H'02, H'02, H'03, H'04, H'04, H'05, H'06, H'06, H'07, H'08, H'09, H'0A
           .END

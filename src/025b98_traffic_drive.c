@@ -459,7 +459,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                         speed -= 0.02f;
                     }
                 } else if (speed < laneLimit) {
-                    speed += e->field_0x290;
+                    speed += e->accelRate_0x290;
                     if (speed > laneLimit) {
                         speed = laneLimit;
                     }

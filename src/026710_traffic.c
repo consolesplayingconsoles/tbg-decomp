@@ -47,19 +47,17 @@ typedef struct {
  */
 
 /* Opcode word lengths for TrafficRunEntryScript_8c027012, indexed by opcode. */
-STATIC Uint8 init_8c0460bc[] = {
+STATIC Uint8 init_scriptOpWords_8c0460bc[] = {
     0x01, 0x03, 0x03, 0x03, 0x03, 0x02, 0x03, 0x02, 0x04, 0x01, 0x04, 0x00,
 };
 
 /* Per-variant body dimensions, indexed by the 0..15 variant index: one record
- * of {width, height, groundOffset, length}. Ghidra split the first record's
- * leading three floats into separate symbols because the code addresses each
- * field directly, and the .src still carries those labels -- but only
- * init_8c0460c8 is a real symbol ("from defines"; the others are marked "from
- * ghidra"), and the table is one contiguous 0x100 block ending exactly where
- * init_8c0461c8 begins. Grouped by record here, unlike the .src's layout.
- * Paired variants share dimensions. */
-STATIC float init_8c0460c8[16][4] = {
+ * of {width, height, groundOffset, length}. Paired variants share dimensions.
+ * Ghidra split the first record's leading three floats into separate symbols
+ * (the .src still carries those labels, marked "from ghidra"); the table is one
+ * contiguous 0x100 block ending exactly where init_variantAccel_8c0461c8
+ * begins. Grouped by record here, unlike the .src's layout. */
+STATIC float init_variantDims_8c0460c8[16][4] = {
     { 2.42f, 1.67f, 0.65f, 3.0500002f }, /* 2do0 */
     { 2.42f, 1.67f, 0.65f, 3.0500002f }, /* 2do1 */
     { 2.2f,  1.73f, 0.76f, 3.04f      }, /* 4wd  */
@@ -78,7 +76,9 @@ STATIC float init_8c0460c8[16][4] = {
     { 2.6f,  1.68f, 1.0f,  3.8999999f }, /* kyu  */
 };
 
-STATIC float init_8c0461c8[] = {
+/* Per-variant speed-up rate, the per-frame increment
+ * TrafficDriveVehicle_8c025b98 adds while a vehicle closes on its lane limit. */
+STATIC float init_variantAccel_8c0461c8[] = {
     0.01f, 0.01f, 0.004f, 0.007f,
     0.007f, 0.007f, 0.007f, 0.002f,
     0.002f, 0.004f, 0.002f, 0.002f,
@@ -91,7 +91,9 @@ STATIC Uint32 init_dayMasks_8c046208[3][3] = {
     { 0x00000000, 0x00000000, 0x00000200 },
 };
 
-STATIC Uint8 init_8c04622c[] = {
+/* Variant index -> body type, which picks the vehicle's shadow model out of
+ * var_trafficModels_8c1bc3f4. */
+STATIC Uint8 init_variantBodyType_8c04622c[] = {
     0x00, 0x00, 0x01, 0x02, 0x02, 0x02, 0x03, 0x04, 0x04, 0x05, 0x06, 0x06, 0x07, 0x08, 0x09, 0x0A,
 };
 
@@ -106,7 +108,7 @@ void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script)
     Uint16 *ip;
 
     out = entry->resolvedArgs_0x304;
-    for (ip = (Uint16 *)((Uint8 *)script + 2); *ip != 9; ip += init_8c0460bc[*ip]) {
+    for (ip = (Uint16 *)((Uint8 *)script + 2); *ip != 9; ip += init_scriptOpWords_8c0460bc[*ip]) {
         if (*ip == 1) {
             *out = var_cpuPathBlocks_8c227e1c[ip[1]];
             out++;
@@ -209,7 +211,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
                                     (GroundQueryResult *)groundBuf);
     GroundProbeInterpolateHeight_8c020f7e((GroundQueryResult *)groundBuf, &e->posX_0xf4);
 
-    dims = init_8c0460c8[variantIdx];
+    dims = init_variantDims_8c0460c8[variantIdx];
     e->width_0x23c = dims[0];
     e->length_0x240 = dims[3];
     e->height_0x244 = dims[1];
@@ -258,7 +260,7 @@ STATIC void initEntryState_8c026748(TrafficEntry *entry, int *scriptIp)
         for (i = 1; i < 4; i++) {
             e->field_0x280[i] = 0;
         }
-        e->field_0x290 = init_8c0461c8[variantIdx];
+        e->accelRate_0x290 = init_variantAccel_8c0461c8[variantIdx];
         e->followSpeedCap_0x418 = 9999.0f;
         e->obstacleLimitActive_0x424 = 0;
         e->curveLimitActive_0x428 = 0;
@@ -506,7 +508,7 @@ void TrafficMarkSignalIdsInUse_8c026dcc(int maxId)
     table = (void **)var_currentCourse_8c1bb868.macCpu1_0x24;
     for (; *typeIds != 0xff; typeIds++) {
         for (rec = (TrafficPlacement *)table[*typeIds]; rec->script_0x04 != NULL; rec++) {
-            for (ip = rec->script_0x04; *ip != 9; ip += init_8c0460bc[*ip]) {
+            for (ip = rec->script_0x04; *ip != 9; ip += init_scriptOpWords_8c0460bc[*ip]) {
                 if (*ip == 5) {
                     var_trafficSignalFrames_8c227e24[ip[1]] = 1;
                 }
@@ -673,7 +675,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
             initEntryState_8c026748(entry, (int *)&ip);
             break;
         } else {
-            /* Unreachable with well-formed scripts: init_8c0460bc only
+            /* Unreachable with well-formed scripts: init_scriptOpWords_8c0460bc only
              * defines lengths for opcodes 0-10. Preserved as real asm
              * behavior -- an unrecognized opcode leaves the cursor
              * untouched and loops forever. */
@@ -703,7 +705,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
  * typeCode's low 12 bits then index a pair of consecutive
  * var_routeModelSlots_8c1bbddc entries (front/rear texlist+model, entry+4/
  * 0x8/0xc/0x10); halved, they give the variant index at entry+0x2e0, used to
- * resolve the variant's body-type animation data (init_8c04622c ->
+ * resolve the variant's body-type animation data (init_variantBodyType_8c04622c ->
  * var_trafficModels_8c1bc3f4, entry+0x14). An unloaded model slot
  * (texlist_0x08 == -1) frees the task and skips the rest of the setup below
  * -- real asm behavior: it still returns 1, same as a completed spawn.
@@ -807,7 +809,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         e->texlistSmall_0x08 = var_routeModelSlots_8c1bbddc[typeCode + 1].texlist_0x08;
         e->modelSmall_0x10 = var_routeModelSlots_8c1bbddc[typeCode + 1].nj_0x0c;
 
-        bodyTypeIdx = init_8c04622c[variantIdx];
+        bodyTypeIdx = init_variantBodyType_8c04622c[variantIdx];
         e->shadowModel_0x14 = var_trafficModels_8c1bc3f4[bodyTypeIdx].njDest;
 
         VehPartsBind_8c02786c(e, typeCode);
@@ -842,7 +844,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
 /* Per-frame TaskAction driving the traffic subsystem: pushed once (with no
  * extra state -- its own TrafficUpdateTask struct doubles as the state, see
  * counter_0x08/presetState_0x0c/queuedItem_0x18 below) into var_tasks_8c1ba5e8.
- * No-ops entirely while traffic is disabled (var_8c2285c4[0] == 0).
+ * No-ops until the run is under way (var_8c2285c4[0], the run phase).
  *
  * Selects the CPU-vehicle collision/attribute meshes as the active
  * ground-query grid for the GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e queries run while

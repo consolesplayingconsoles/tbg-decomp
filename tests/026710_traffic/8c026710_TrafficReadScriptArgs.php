@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // TrafficReadScriptArgs_8c026710 walks a stage script (an array of ushort
 // words) starting 2 bytes in, decoding one instruction at a time. Each
-// instruction's word count comes from init_8c0460bc, indexed by the
+// instruction's word count comes from init_scriptOpWords_8c0460bc, indexed by the
 // instruction's own opcode word. Opcode 1 additionally resolves its operand
 // (the instruction's second word) through the var_cpuPathBlocks_8c227e1c pointer table and
 // appends the resolved value to entry+0x304. Opcode 9 terminates the scan and

@@ -20,7 +20,7 @@ if (!function_exists('fdec')) {
 // records terminated by a len==0 record) to the entry's starting distance
 // (entry+0x2e8), resolves world position/heading from the current record,
 // looks up ground height, fills in the vehicle's dimension/animation state
-// from its variant table (entry+0x2e0 indexes init_8c0460c8/cc/d0/d4, a
+// from its variant table (entry+0x2e0 indexes init_variantDims_8c0460c8/cc/d0/d4, a
 // 16-row x4-float table), and pushes its driving task via TrafficLookaheadInit_8c02df3c.
 
 return new class extends TestCase {

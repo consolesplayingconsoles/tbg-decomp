@@ -105,7 +105,7 @@ return new class extends TestCase {
         $entry = $this->alloc(0x520);
         $this->setModelSlot(0x1c, 0x11110000, 0x22220000);
         $this->setModelSlot(0x1d, 0x33330000, 0x44440000);
-        $trafficModelTable = $this->setTrafficModel(0x09, 0x55550000); // init_8c04622c[0xe]==9
+        $trafficModelTable = $this->setTrafficModel(0x09, 0x55550000); // init_variantBodyType_8c04622c[0xe]==9
         $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 0x77);
 
         $script = $this->alloc(2);
@@ -151,7 +151,7 @@ return new class extends TestCase {
         $entry = $this->alloc(0x520);
         $this->setModelSlot(0x14, 0x66660000, 0x77770000);
         $this->setModelSlot(0x15, 0x88880000, 0x99990000);
-        $this->setTrafficModel(0x06, 0xaaaa0000); // init_8c04622c[0xa]==6
+        $this->setTrafficModel(0x06, 0xaaaa0000); // init_variantBodyType_8c04622c[0xa]==6
         $this->initUint32($this->addressOf('_var_activeTrafficPreset_8c227e14'), 0x88);
 
         $script = $this->alloc(2);
