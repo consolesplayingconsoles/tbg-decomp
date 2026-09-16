@@ -9,11 +9,11 @@ return new class extends TestCase {
 
     private int $ms;
 
-    /* NEW FILE column present, first page: cards drawn from the base image, BACK
-     * disabled (page 0), NEXT disabled (no 4th card). */
-    public function test_new_file_first_page(): void
+    /* NEW FILE card present, not scrolled: cards drawn from the base image, left
+     * arrow greyed (offset 0), right arrow greyed (no 4th card). */
+    public function test_new_file_not_scrolled(): void
     {
-        $cards = [0 => 0xa, 1 => 1, 2 => 2];   // NEW FILE card, then two saves; slot 3 stays 0xb
+        $cards = [0 => 0xa, 1 => 1, 2 => 2];   // NEW FILE card, then two saves; card 3 stays 0xb
         $this->setup($cards, 0, 0);
 
         $this->call('_drawFileSelect_8c018d46');
@@ -25,11 +25,11 @@ return new class extends TestCase {
         $this->expectChrome(0, 0, 0xb);
     }
 
-    /* No NEW FILE column, scrolled to page 1: save index = page, BACK enabled,
-     * NEXT enabled (a card exists at page+3). */
-    public function test_saves_only_page_one(): void
+    /* No NEW FILE card, scrolled by one: image index = scroll offset, both arrows
+     * lit (a card exists at offset+3). */
+    public function test_saves_only_scrolled(): void
     {
-        $cards = [1, 2, 3, 4, 5, 6];   // save indices; slots 6..11 stay 0xb
+        $cards = [1, 2, 3, 4, 5, 6];   // VMU file indices; cards 6..11 stay 0xb
         $this->setup($cards, 1, 2);
 
         $this->call('_drawFileSelect_8c018d46');
@@ -41,11 +41,11 @@ return new class extends TestCase {
         $this->expectChrome(2, 1, 5);
     }
 
-    /* NEW FILE column present, scrolled: save index = page - 1 (the NEW FILE card
+    /* NEW FILE card present, scrolled: image index = offset - 1 (the NEW FILE card
      * is not backed by a save image). */
     public function test_new_file_scrolled(): void
     {
-        $cards = [0 => 0xa, 1 => 1, 2 => 2, 3 => 3, 4 => 4];   // slot 5 stays 0xb
+        $cards = [0 => 0xa, 1 => 1, 2 => 2, 3 => 3, 4 => 4];   // card 5 stays 0xb
         $this->setup($cards, 2, 1);
 
         $this->call('_drawFileSelect_8c018d46');
@@ -68,13 +68,13 @@ return new class extends TestCase {
         $this->expectChrome(0, 0, 0xb);
     }
 
-    private function setup(array $cards, int $page, int $selected): void
+    private function setup(array $cards, int $scroll, int $selected): void
     {
         $this->doNotRandomizeMemory();
-        $this->setSize('_var_8c226018', 0x30);
+        $this->setSize('_var_fileCards_8c226018', 0x30);
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
 
-        $c = $this->addressOf('_var_8c226018');
+        $c = $this->addressOf('_var_fileCards_8c226018');
         $full = array_fill(0, 12, 0xb);
         foreach ($cards as $i => $v) {
             $full[$i] = $v;
@@ -84,8 +84,8 @@ return new class extends TestCase {
         }
 
         $this->ms = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->initUint32($this->ms + 0x38, $selected);   // selected_0x38 (cursor column)
-        $this->initUint32($this->ms + 0x3c, $page);        // field_0x3c (page offset)
+        $this->initUint32($this->ms + 0x38, $selected);   // selected_0x38 (cursor column, 0-2)
+        $this->initUint32($this->ms + 0x3c, $scroll);      // field_0x3c (leftmost card)
         $this->initUint32($this->addressOf('_var_8c1ba2e0'), self::BASE);
     }
 
@@ -94,12 +94,12 @@ return new class extends TestCase {
         $this->shouldCall('_drawFileCard_8c018b4c')->with($card, $x);
     }
 
-    /* cursor sprite, BACK/NEXT arrows, then the three static frame sprites. */
-    private function expectChrome(int $selected, int $page, int $nextCard): void
+    /* cursor sprite, left/right arrows, then the three static frame sprites. */
+    private function expectChrome(int $selected, int $scroll, int $nextCard): void
     {
         $b = $this->ms + 0xc;
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, 0x2f, 182.0 * $selected + 45.0, 0.0, -3.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, $page != 0 ? 0x16 : 0x15, 0.0, 0.0, -3.0);
+        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, $scroll != 0 ? 0x16 : 0x15, 0.0, 0.0, -3.0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, $nextCard == 0xb ? 0x17 : 0x18, 0.0, 0.0, -3.0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, 0x14, 0.0, 0.0, -4.0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.3);

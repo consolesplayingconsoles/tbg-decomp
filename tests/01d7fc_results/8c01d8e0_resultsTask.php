@@ -40,7 +40,7 @@ return new class extends TestCase {
         }
 
         foreach ([
-            '_var_selectedVm_8c1ba34c', '_var_isFading_8c226568', '_var_8c1ba350',
+            '_var_selectedVm_8c1ba34c', '_var_isFading_8c226568', '_var_saveSlot_8c1ba350',
             '_var_runSucceeded_8c1bb8dc', '_var_award_8c1bb8f8',
             '_var_scoreTotal_8c226404', '_var_scoreEventBonus_8c226400', '_var_scorePassengerBonus_8c2263fc', '_var_scoreBadgeBonus_8c2263f8',
             '_var_scoreDriverPointsBonus_8c2263f4', '_var_scoreFirstClearBonus_8c2263f0', '_var_scoreCourseClearBonus_8c2263ec',
@@ -186,7 +186,7 @@ return new class extends TestCase {
         $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -218,7 +218,7 @@ return new class extends TestCase {
         $this->setup(9);
         $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -243,7 +243,7 @@ return new class extends TestCase {
         $this->setup(9);
         $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 0); // VMU_STATUS_NOT_CONNECTED
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1); // must be reset to 0
@@ -273,7 +273,7 @@ return new class extends TestCase {
         $this->setup(9);
         $this->initUint32($this->ms + 0x1c, 0); // subState_0x1c
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 4); // VMU_STATUS_SAVING_POSSIBLE
 
@@ -382,7 +382,7 @@ return new class extends TestCase {
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -436,7 +436,7 @@ return new class extends TestCase {
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1); // must be reset to 0
@@ -473,7 +473,7 @@ return new class extends TestCase {
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 1); // VMU_STATUS_NOT_AVAILABLE
@@ -507,7 +507,7 @@ return new class extends TestCase {
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2); // VMU_STATUS_NOT_ENOUGH_SPACE
@@ -541,7 +541,7 @@ return new class extends TestCase {
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 4); // VMU_STATUS_SAVING_POSSIBLE
@@ -575,7 +575,7 @@ return new class extends TestCase {
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 5); // VMU_STATUS_SAVE_EXISTS_NO_SPACE
@@ -609,7 +609,7 @@ return new class extends TestCase {
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 6); // VMU_STATUS_SAVE_EXISTS
@@ -643,7 +643,7 @@ return new class extends TestCase {
     {
         $this->setup(0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 3); // VMU_STATUS_PROCEED_WITHOUT_SAVING
@@ -1034,7 +1034,7 @@ return new class extends TestCase {
         $this->setup(5);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -1050,7 +1050,7 @@ return new class extends TestCase {
     {
         $this->setup(5);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2);
         $this->initUint32($this->ms + 0x6c, 2); // cached status still matches
@@ -1069,7 +1069,7 @@ return new class extends TestCase {
         $this->setup(5);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 4); // press & PDD_DGT_TA
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 2);
         $this->initUint32($this->ms + 0x6c, 2); // cached status still matches
@@ -1092,7 +1092,7 @@ return new class extends TestCase {
     {
         $this->setup(5);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 1);
         $this->initUint32($this->ms + 0x6c, 2); // cached status: mismatched
@@ -1113,7 +1113,7 @@ return new class extends TestCase {
         $this->setup(5);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -1132,7 +1132,7 @@ return new class extends TestCase {
     {
         $this->setup(6);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x11223344);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -1156,7 +1156,7 @@ return new class extends TestCase {
     {
         $this->setup(6);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -1178,7 +1178,7 @@ return new class extends TestCase {
     {
         $this->setup(6);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
 
         $this->call('_resultsTask_8c01d8e0');

@@ -1,4 +1,4 @@
-/* 8c018644: FILE SELECT save-file load task */
+/* 8c018644: FILE SELECT screen, plus the PlayerProgress reset helpers OPTION shares. */
 #ifndef _018644_FILE_MENU_H
 #define _018644_FILE_MENU_H
 
@@ -6,8 +6,8 @@
 
 void FileMenuFreeBuffers_8c0187d0(void);
 int FileMenuIsSaveValid_8c018804(int *save);
-void FileMenuResetControlDefaults_8c018862(void);
-void FileMenuResetViewDefaults_8c0188bc(void);
+void FileMenuResetSettingDefaults_8c018862(void);
+void FileMenuResetKeyConfigDefaults_8c0188bc(void);
 void FileMenuResetSoundDefaults_8c0188dc(void);
 void FileMenuResetProgress_8c01890a(void);
 void FileMenuResetNewGame_8c01895e(void);

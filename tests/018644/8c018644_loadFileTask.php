@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    /* State 0: first file is missing on the VMU -> request it and advance to state 1. */
-    public function test_state0_missing_file_loads_and_goes_state1(): void
+    /* Phase 0: the file is on the card (BUD_ERR_OK) -> request it and wait in phase 1. */
+    public function test_phase0_existing_file_loads_and_waits(): void
     {
         $this->setupExterns();
 
@@ -28,15 +28,15 @@ return new class extends TestCase {
 
         $this->shouldCall('_buIsExistFile')->with(0, $name0)->andReturn(0);
         $this->shouldCall('_BupLoad_8c014bc6')->with(0, $name0, $buf);
-        $this->shouldWriteLongTo('_var_8c225fe4', 5);
+        $this->shouldWriteLongTo('_var_loadedSaveSlots_8c225fe4', 5);
         $this->shouldWriteLongTo('_var_loadedSaveCount_8c22600c', 1);
         $this->shouldWriteLong($task + 0x18, $names + 4);
         $this->shouldWriteLong($task + 0x08, 1);
         $this->shouldWriteLong($task + 0x0c, 6);
     }
 
-    /* State 0: an already-present file (err -0xfb) is skipped; the next missing one loads. */
-    public function test_state0_skips_present_then_loads_next(): void
+    /* Phase 0: an absent file (BUD_ERR_FILE_NOT_FOUND) is skipped; the next present one loads. */
+    public function test_phase0_skips_absent_then_loads_next(): void
     {
         $this->setupExterns();
 
@@ -58,19 +58,19 @@ return new class extends TestCase {
 
         $this->call('_loadFileTask_8c018644')->with($task);
 
-        $this->shouldCall('_buIsExistFile')->with(0, $name0)->andReturn(-0xfb);
+        $this->shouldCall('_buIsExistFile')->with(0, $name0)->andReturn(-0xfb); // BUD_ERR_FILE_NOT_FOUND
         $this->shouldWriteLong($task + 0x0c, 6);
         $this->shouldCall('_buIsExistFile')->with(0, $name1)->andReturn(0);
         $this->shouldCall('_BupLoad_8c014bc6')->with(0, $name1, $buf);
-        $this->shouldWriteLongTo('_var_8c225fe4', 6);
+        $this->shouldWriteLongTo('_var_loadedSaveSlots_8c225fe4', 6);
         $this->shouldWriteLongTo('_var_loadedSaveCount_8c22600c', 1);
         $this->shouldWriteLong($task + 0x18, $names + 8);
         $this->shouldWriteLong($task + 0x08, 1);
         $this->shouldWriteLong($task + 0x0c, 7);
     }
 
-    /* State 0: an unexpected buIsExistFile error frees the task and reports failure (2). */
-    public function test_state0_error_frees_task(): void
+    /* Phase 0: an unexpected buIsExistFile error frees the task and reports failure (2). */
+    public function test_phase0_error_frees_task(): void
     {
         $this->setupExterns();
 
@@ -92,8 +92,8 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_saveLoadResult_8c226010', 2);
     }
 
-    /* State 0: empty list terminator -> all files present, report success (1). */
-    public function test_state0_list_end_frees_task_success(): void
+    /* Phase 0: the empty-string terminator ends the scan -> free the task, report success (1). */
+    public function test_phase0_list_end_frees_task_success(): void
     {
         $this->setupExterns();
 
@@ -110,8 +110,8 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_saveLoadResult_8c226010', 1);
     }
 
-    /* Unknown state -> dispatch falls through with no side effects. */
-    public function test_unknown_state_noop(): void
+    /* Unknown phase -> dispatch falls through with no side effects. */
+    public function test_unknown_phase_noop(): void
     {
         $this->setupExterns();
 
@@ -121,8 +121,8 @@ return new class extends TestCase {
         $this->call('_loadFileTask_8c018644')->with($task);
     }
 
-    /* State 1: drive still busy (buStat != 0) -> no-op. */
-    public function test_state1_busy_noop(): void
+    /* Phase 1: drive still busy (buStat != BUD_STAT_READY) -> no-op. */
+    public function test_phase1_busy_noop(): void
     {
         $this->setupExterns();
 
@@ -134,8 +134,8 @@ return new class extends TestCase {
         $this->shouldCall('_buStat')->with(0)->andReturn(1);
     }
 
-    /* State 1: drive ready but last op errored -> free task and report failure (2). */
-    public function test_state1_error_frees_task(): void
+    /* Phase 1: drive ready but last op errored -> free task and report failure (2). */
+    public function test_phase1_error_frees_task(): void
     {
         $this->setupExterns();
 
@@ -150,8 +150,8 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_saveLoadResult_8c226010', 2);
     }
 
-    /* State 1: load complete -> analyze image, copy header, advance buffer, back to state 0. */
-    public function test_state1_success_analyzes_and_resets(): void
+    /* Phase 1: load complete -> analyze image, keep just the payload, advance buffer, back to phase 0. */
+    public function test_phase1_success_analyzes_and_resets(): void
     {
         $this->setupExterns();
 
@@ -186,7 +186,7 @@ return new class extends TestCase {
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->setSize('_var_saveBufCursor_8c225fe0', 4);
-        $this->setSize('_var_8c225fe4', 0x28);
+        $this->setSize('_var_loadedSaveSlots_8c225fe4', 0x28);
         $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_saveLoadResult_8c226010', 4);
         $this->setSize('_var_backupFileImageBuf_8c1ba348', 4);

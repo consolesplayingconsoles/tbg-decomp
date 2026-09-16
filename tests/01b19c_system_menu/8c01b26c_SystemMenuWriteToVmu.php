@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->initUint32($icon, 0x8c400000);
         $this->initUint16($header + 0x54, 0);        // visual_type (memset is mocked)
         $this->initUint32($saveNames + 2 * 4, 0x8c440000);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 2);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 2);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 1);
 
         $this->call('_SystemMenuWriteToVmu_8c01b26c');

@@ -20,7 +20,7 @@
           .IMPORT     _var_backupFileImageBuf_8c1ba348
           .IMPORT     _syMalloc
           .IMPORT     _buMakeBackupFileImage
-          .IMPORT     _var_8c1ba350
+          .IMPORT     _var_saveSlot_8c1ba350
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _var_selectedVm_8c1ba34c
           .IMPORT     _BupSave_8c014bcc
@@ -336,7 +336,7 @@ LP_GEN_27906:
           .DATA.L _var_backupFileImageBuf_8c1ba348 ; H'8C01B38C
           .DATA.L _syMalloc ; H'8C01B390
           .DATA.L _buMakeBackupFileImage ; H'8C01B394
-          .DATA.L _var_8c1ba350 ; H'8C01B398
+          .DATA.L _var_saveSlot_8c1ba350 ; H'8C01B398
           .DATA.L _init_saveNames_8c044d50 ; H'8C01B39C
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01B3A0
           .DATA.L _BupSave_8c014bcc ; H'8C01B3A4
@@ -595,7 +595,7 @@ LP_GEN_91278:
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01B568
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01B56C
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01B570
-          .DATA.L _var_8c1ba350 ; H'8C01B574
+          .DATA.L _var_saveSlot_8c1ba350 ; H'8C01B574
           .DATA.L _init_saveNames_8c044d50 ; H'8C01B578
           .DATA.L _VmMenuUpdateVmuStatus_8c01967c ; H'8C01B57C
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01B580
@@ -778,7 +778,7 @@ LP_GEN_26888:
           .DATA.L _FadePushOut_8c022b60 ; H'8C01B6F0
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C01B6F4
           .DATA.L _var_8c1ba2e0 ; H'8C01B6F8
-          .DATA.L _var_8c1ba350 ; H'8C01B6FC
+          .DATA.L _var_saveSlot_8c1ba350 ; H'8C01B6FC
           .DATA.L _init_saveNames_8c044d50 ; H'8C01B700
           .DATA.L _BupLoad_8c014bc6 ; H'8C01B704
           .DATA.L _var_vmBusy_8c157a7c ; H'8C01B708
@@ -1267,7 +1267,7 @@ LP_GEN_62205:
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01BAF8
           .DATA.L _syMalloc ; H'8C01BAFC
           .DATA.L _var_8c1ba2e0 ; H'8C01BB00
-          .DATA.L _var_8c1ba350 ; H'8C01BB04
+          .DATA.L _var_saveSlot_8c1ba350 ; H'8C01BB04
           .DATA.L _init_saveNames_8c044d50 ; H'8C01BB08
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01BB0C
           .DATA.L _VmMenuUpdateVmuStatus_8c01967c ; H'8C01BB10

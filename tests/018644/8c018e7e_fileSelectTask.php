@@ -42,7 +42,7 @@ return new class extends TestCase {
         $this->expectFrame();
     }
 
-    /* Load done (1) but an image fails validation: free, error box, back to WAIT (1). */
+    /* Load done (1) but an image fails validation: free, error box, LOAD_ERROR (1). */
     public function test_state0_invalid_save(): void
     {
         $this->setup(0, 1);
@@ -60,7 +60,7 @@ return new class extends TestCase {
         $this->expectFrame();
     }
 
-    /* Loader reported an error (2): free, error box, WAIT (1), reset the VMU LCD. */
+    /* Loader reported an error (2): free, error box, LOAD_ERROR (1), reset the VMU LCD. */
     public function test_state0_error(): void
     {
         $this->setup(0, 2);
@@ -77,7 +77,7 @@ return new class extends TestCase {
 
     /* ---- state 1: waiting for the player to acknowledge an error box ---- */
 
-    /* A pressed: silence music, start the fade, advance to fading-out (2). */
+    /* A pressed: confirm blip, start the fade, advance to fading-out (2). */
     public function test_state1_confirm(): void
     {
         $this->setup(1, 0);
@@ -91,7 +91,7 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
     }
 
-    /* No input: just keep the error box and frame on screen. */
+    /* No input: keep the error box and frame on screen. */
     public function test_state1_idle(): void
     {
         $this->setup(1, 0);
@@ -136,11 +136,11 @@ return new class extends TestCase {
 
     /* ---- state 3: card navigation / selection ---- */
 
-    /* Left within the page: play the move blip and step the cursor left. */
+    /* Left with the cursor off column 0: play the move blip and step it left. */
     public function test_state3_left_column(): void
     {
         $this->setup(3, 0);
-        $this->cursor(2, 1);          // page 2, column 1
+        $this->cursor(2, 1);          // leftmost card 2, cursor column 1
         $this->setPress(0x40);        // PDD_DGT_KL
         $this->midi(0x777);
 
@@ -151,8 +151,8 @@ return new class extends TestCase {
         $this->expectDraw();
     }
 
-    /* Left at column 0 with earlier pages: scroll the page back. */
-    public function test_state3_left_page(): void
+    /* Left at column 0 with cards to the left: scroll one card back. */
+    public function test_state3_left_scroll(): void
     {
         $this->setup(3, 0);
         $this->cursor(2, 0);
@@ -166,7 +166,7 @@ return new class extends TestCase {
         $this->expectDraw();
     }
 
-    /* Left at the very first card: nothing to move, just redraw. */
+    /* Left at the very first card: nothing to move, redraw only. */
     public function test_state3_left_edge(): void
     {
         $this->setup(3, 0);
@@ -178,12 +178,12 @@ return new class extends TestCase {
         $this->expectDraw();
     }
 
-    /* Right from the last column with a card at page+3: scroll the page forward. */
+    /* Right from the last column with a card at offset+3: scroll one card forward. */
     public function test_state3_right_scroll(): void
     {
         $this->setup(3, 0);
         $this->cursor(1, 2);
-        $this->card(1 + 3, 5);        // var_8c226018[page+3] is a real save
+        $this->card(1 + 3, 5);        // var_fileCards_8c226018[offset+3] is a real save
         $this->setPress(0x80);        // PDD_DGT_KR
         $this->midi(0x777);
 
@@ -194,7 +194,7 @@ return new class extends TestCase {
         $this->expectDraw();
     }
 
-    /* Right within the page onto an existing card: step the cursor right. */
+    /* Right onto an existing card within the three visible columns: step the cursor right. */
     public function test_state3_right_column(): void
     {
         $this->setup(3, 0);
@@ -210,7 +210,7 @@ return new class extends TestCase {
         $this->expectDraw();
     }
 
-    /* Right onto an empty slot (0xb): nothing to move, just redraw. */
+    /* Right onto an empty slot (0xb): nothing to move, redraw only. */
     public function test_state3_right_edge(): void
     {
         $this->setup(3, 0);
@@ -244,7 +244,7 @@ return new class extends TestCase {
     {
         $this->setup(3, 0);
         $this->cursor(0, 0);
-        $this->card(0, 0xa);          // var_8c226018[page+selected] == NEW FILE
+        $this->card(0, 0xa);          // var_fileCards_8c226018[offset+selected] == NEW FILE
         $this->setPress(0x4);         // PDD_DGT_TA
         $this->midi(0x777);
 
@@ -289,13 +289,14 @@ return new class extends TestCase {
 
     /* ---- state 4: confirmation prompt ("new file?" / "this file?") ---- */
 
-    /* A on the NEW FILE prompt: reset to a new game, pick a free slot, start loading (5). */
+    /* A on the NEW FILE prompt: reset to a new game, pick the lowest free VMU file index,
+     * fade out (5). */
     public function test_state4_confirm_new(): void
     {
         $this->setup(4, 0);
         $this->cursor(0, 0);
         $this->card(0, 0xa);
-        $this->initUint32($this->addressOf('_var_8c226014'), 1);   // only the NEW FILE card
+        $this->initUint32($this->addressOf('_var_fileCardCount_8c226014'), 1);   // only the NEW FILE card
         $this->setPress(0x4);   // PDD_DGT_TA
         $this->midi(0x777);
 
@@ -303,17 +304,17 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x18, 5);
         $this->shouldCall('_FileMenuResetNewGame_8c01895e');
-        $this->shouldWriteLong($this->addressOf('_var_8c1ba350'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->expectConfirmTail();
     }
 
-    /* A on a save prompt: locate its image, load it into progress, start loading (5). */
+    /* A on a save prompt: locate its image, copy it into PlayerProgress, fade out (5). */
     public function test_state4_confirm_file(): void
     {
         $this->setup(4, 0);
         $this->cursor(0, 0);
         $this->card(0, 5);
-        $this->initUint32($this->addressOf('_var_8c225fe4'), 5);   // save 5 is image index 0
+        $this->initUint32($this->addressOf('_var_loadedSaveSlots_8c225fe4'), 5);   // VMU file 5 was loaded first
         $this->setPress(0x4);   // PDD_DGT_TA
         $this->midi(0x777);
 
@@ -323,7 +324,7 @@ return new class extends TestCase {
         $this->shouldCall('_njMemCopy')
             ->with($this->addressOf('_var_progress_8c1ba1cc'), self::BASE, 0xe8);
         $this->shouldCall('_SystemMenuApplyLoadedProgress_8c01b19c');
-        $this->shouldWriteLong($this->addressOf('_var_8c1ba350'), 5);
+        $this->shouldWriteLong($this->addressOf('_var_saveSlot_8c1ba350'), 5);
         $this->shouldCall('_FileMenuApplySoundSettings_8c0189fc');
         $this->expectConfirmTail();
     }
@@ -358,7 +359,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
     }
 
-    /* ---- state 5: waiting for the load fade to finish, then mount ---- */
+    /* ---- state 5: waiting for the confirm fade, then unmounting ---- */
 
     /* Still fading: just keep redrawing. */
     public function test_state5_fading(): void
@@ -371,8 +372,8 @@ return new class extends TestCase {
         $this->expectDraw();
     }
 
-    /* Fade done: free buffers, unmount the VMU, advance to 6. */
-    public function test_state5_mount(): void
+    /* Fade done: free buffers, unmount the VMUs, advance to 6. */
+    public function test_state5_unmount(): void
     {
         $this->setup(5, 0);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
@@ -384,9 +385,9 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->ms + 0x18, 6);
     }
 
-    /* ---- state 6: waiting on the mount before switching to the main menu ---- */
+    /* ---- state 6: waiting on the unmount before switching to the main menu ---- */
 
-    /* Mount pending (var_vmMountBusy_8c22606c set): do nothing this frame. */
+    /* Unmount pending (var_vmMountBusy_8c22606c set): do nothing this frame. */
     public function test_state6_pending(): void
     {
         $this->setup(6, 0);
@@ -395,8 +396,8 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e');
     }
 
-    /* Mounted, but a route load is still in flight (init_8c03bd80): keep waiting. */
-    public function test_state6_route_busy(): void
+    /* Unmounted, but an ADX stream is still playing out (init_8c03bd80): keep waiting. */
+    public function test_state6_adx_busy(): void
     {
         $this->setup(6, 0);
         $this->initUint32($this->addressOf('_var_vmMountBusy_8c22606c'), 0);
@@ -405,7 +406,7 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e');
     }
 
-    /* Ready: reset the resource group and hand off to the main menu. */
+    /* Ready: invalidate the system resource group and hand off to the main menu. */
     public function test_state6_go(): void
     {
         $task = $this->alloc(0x20);
@@ -479,15 +480,15 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
     }
 
-    private function cursor(int $page, int $selected): void
+    private function cursor(int $scroll, int $selected): void
     {
-        $this->initUint32($this->ms + 0x3c, $page);
+        $this->initUint32($this->ms + 0x3c, $scroll);
         $this->initUint32($this->ms + 0x38, $selected);
     }
 
     private function card(int $index, int $value): void
     {
-        $this->initUint32($this->addressOf('_var_8c226018') + $index * 4, $value);
+        $this->initUint32($this->addressOf('_var_fileCards_8c226018') + $index * 4, $value);
     }
 
     private function midi(int $handle): void
@@ -517,16 +518,16 @@ return new class extends TestCase {
         /* external data */
         $this->setSize('_var_peripherals_8c1ba35c', 0x68);
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
-        $this->setSize('_var_8c226018', 0x30);
+        $this->setSize('_var_fileCards_8c226018', 0x30);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_saveLoadResult_8c226010', 4);
-        $this->setSize('_var_8c226014', 4);
+        $this->setSize('_var_fileCardCount_8c226014', 4);
         $this->setSize('_var_vmBusy_8c157a7c', 4);
         $this->setSize('_var_saveBufCursor_8c225fe0', 4);
-        $this->setSize('_var_8c225fe4', 0x28);
+        $this->setSize('_var_loadedSaveSlots_8c225fe4', 0x28);
         $this->setSize('_var_8c1ba2e0', 4);
-        $this->setSize('_var_8c1ba350', 4);
+        $this->setSize('_var_saveSlot_8c1ba350', 4);
         $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_vmMountBusy_8c22606c', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);

@@ -52,7 +52,7 @@ return new class extends TestCase {
     {
         $this->setSize('_init_saveNames_8c044d50', 0x2c);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0x8c440000);
-        $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
+        $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), $vmStatus);
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x8c440000, 3);

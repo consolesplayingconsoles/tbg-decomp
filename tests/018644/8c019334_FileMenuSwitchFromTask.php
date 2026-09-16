@@ -8,10 +8,10 @@ return new class extends TestCase {
     private int $ms;
 
     /*
-     * Selected VMU mid-operation (status 5): show the "load in progress" box,
-     * light the VMS LCD, and kick off the streaming load.
+     * The card already holds saves (SAVE_EXISTS_NO_SPACE): show the "loading,
+     * don't power off" box, light the VMS LCD, and kick off the streaming load.
      */
-    public function test_load_in_progress_status5(): void
+    public function test_save_exists_no_space_loads(): void
     {
         $task = $this->alloc(0x20);
         $this->setup(5);
@@ -29,8 +29,8 @@ return new class extends TestCase {
         $this->tail();
     }
 
-    /* Same path, reached via status 6. */
-    public function test_load_in_progress_status6(): void
+    /* Same path, reached via SAVE_EXISTS. */
+    public function test_save_exists_loads(): void
     {
         $task = $this->alloc(0x20);
         $this->setup(6);
@@ -48,7 +48,7 @@ return new class extends TestCase {
         $this->tail();
     }
 
-    /* VMU idle (any other status): just build the card list and start at READY (3). */
+    /* No save on the card: build the card list straight away and start at READY (3). */
     public function test_build_file_list(): void
     {
         $task = $this->alloc(0x20);

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    /* Non-negative sound mode is cached as-is; 0xd4..0xd6 reset to 9/5/9. */
+    /* AUDIO screen DEFAULT: cache the hardware sound mode, MUSIC/SFX/VOICE volumes back to 9/5/9. */
     public function test_positive_sound_mode(): void
     {
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);

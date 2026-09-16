@@ -58,7 +58,7 @@
                                                ; 01b19c
                                                ; 01d7fc
                                                ; 01f3c0
-          .EXPORT     _var_8c1ba350 ; 018644_file_menu
+          .EXPORT     _var_saveSlot_8c1ba350 ; 018644_file_menu
                                     ; 01b19c
                                     ; 01d7fc
           .EXPORT     _var_vibport_8c1ba354 ; 012324_peripheral_support
@@ -444,14 +444,14 @@
           .EXPORT     _var_coursesToUnlock_8c225fd4 ; 016d2c_course_menu
           .EXPORT     _var_saveBufCursor_8c225fe0 ; 018644
                                     ; 018644_file_menu
-          .EXPORT     _var_8c225fe4 ; 018644
+          .EXPORT     _var_loadedSaveSlots_8c225fe4 ; 018644
                                     ; 018644_file_menu
           .EXPORT     _var_loadedSaveCount_8c22600c ; 018644
                                     ; 018644_file_menu
           .EXPORT     _var_saveLoadResult_8c226010 ; 018644
                                     ; 018644_file_menu
-          .EXPORT     _var_8c226014 ; 018644_file_menu
-          .EXPORT     _var_8c226018 ; 018644_file_menu
+          .EXPORT     _var_fileCardCount_8c226014 ; 018644_file_menu
+          .EXPORT     _var_fileCards_8c226018 ; 018644_file_menu
           .EXPORT     _var_vmuStatus_8c226048 ; 01614c_debug_menu
                                               ; 018644_file_menu
                                               ; 0193c8_vm_menu
@@ -885,7 +885,7 @@ _var_backupFileImageBuf_8c1ba348:
           .RES.B      4
 _var_selectedVm_8c1ba34c:
           .RES.B      4
-_var_8c1ba350:
+_var_saveSlot_8c1ba350:
           .RES.B      4
 _var_vibport_8c1ba354:
           .RES.B      4
@@ -1091,15 +1091,15 @@ _var_coursesToUnlock_8c225fd4:
           .RES.B      12
 _var_saveBufCursor_8c225fe0:
           .RES.B      4
-_var_8c225fe4:
+_var_loadedSaveSlots_8c225fe4:
           .RES.B      40
 _var_loadedSaveCount_8c22600c:
           .RES.B      4
 _var_saveLoadResult_8c226010:
           .RES.B      4
-_var_8c226014:
+_var_fileCardCount_8c226014:
           .RES.B      4
-_var_8c226018:
+_var_fileCards_8c226018:
           .RES.B      48
 _var_vmuStatus_8c226048:
           .RES.B      36

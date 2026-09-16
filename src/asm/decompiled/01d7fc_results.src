@@ -7,7 +7,7 @@
           .IMPORT     _var_selectedVm_8c1ba34c
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _ObjectsSwapMessageBoxFor_8c02aefc
-          .IMPORT     _var_8c1ba350
+          .IMPORT     _var_saveSlot_8c1ba350
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _VmMenuUpdateVmuStatus_8c01967c
@@ -263,7 +263,7 @@ LP_GEN_44131:
           .DATA.L _var_isFading_8c226568 ; H'8C01D94C
           .DATA.L _ObjectsSwapMessageBoxFor_8c02aefc ; H'8C01D950
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01D954
-          .DATA.L _var_8c1ba350 ; H'8C01D958
+          .DATA.L _var_saveSlot_8c1ba350 ; H'8C01D958
           .DATA.L _init_saveNames_8c044d50 ; H'8C01D95C
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01D960
           .DATA.W H'0044 ; H'8C01D964
@@ -688,7 +688,7 @@ LAB_8c01dc80:
 LP_GEN_38701:
           .DATA.W H'00FF ; H'8C01DC84
           .RES.W 1 ; H'8C01DC86
-          .DATA.L _var_8c1ba350 ; H'8C01DC88
+          .DATA.L _var_saveSlot_8c1ba350 ; H'8C01DC88
           .DATA.L _init_saveNames_8c044d50 ; H'8C01DC8C
           .DATA.L _VmMenuUpdateVmuStatus_8c01967c ; H'8C01DC90
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01DC94

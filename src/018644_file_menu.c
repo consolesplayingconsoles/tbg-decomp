@@ -30,17 +30,21 @@ char *DEBUG_fileMenuStateNames[] = {
     "READY",
     "CONFIRM",
     "CONFIRM_FADE_OUT",
-    "MOUNTING",
+    "UNMOUNT_TO_MAIN",
     "CANCEL_FADE_OUT",
-    "UNMOUNTING",
+    "UNMOUNT_TO_VM",
 };
 #endif
 
 #define CHANGE_STATE(x) var_menuState_8c1bc7a8.state_0x18 = x; LOG_DEBUG(("[FILE_MENU] State changed: %s\n", DEBUG_fileMenuStateNames[x]))
 
-/* =================
+/* Card slots hold a VMU file index 0-9, or one of these. */
+#define FILE_CARD_NEW   0xa
+#define FILE_CARD_EMPTY 0xb
+
+/* ====================
  * Type Declarations
- * =================
+ * ====================
  */
 
 enum FILE_MENU_STATE {
@@ -50,9 +54,16 @@ enum FILE_MENU_STATE {
     FILE_MENU_STATE_READY = 3,
     FILE_MENU_STATE_CONFIRM = 4,
     FILE_MENU_STATE_CONFIRM_FADE_OUT = 5,
-    FILE_MENU_STATE_MOUNTING = 6,
+    FILE_MENU_STATE_UNMOUNT_TO_MAIN = 6,
     FILE_MENU_STATE_CANCEL_FADE_OUT = 7,
-    FILE_MENU_STATE_UNMOUNTING = 8,
+    /* Nothing ever sets this one. */
+    FILE_MENU_STATE_UNMOUNT_TO_VM = 8,
+};
+
+enum SAVE_LOAD_RESULT {
+    SAVE_LOAD_RUNNING = 0,
+    SAVE_LOAD_DONE = 1,
+    SAVE_LOAD_FAILED = 2,
 };
 
 typedef struct {
@@ -91,13 +102,13 @@ STATIC void loadFileTask_8c018644(LoadFileTask *task)
 
                     LOG_WARN(("[FILE_MENU] enumeration failed for \"%s\" (err=%d)\n", *name, err));
                     TaskFree_8c014b66((Task *)task);
-                    var_saveLoadResult_8c226010 = 2;
+                    var_saveLoadResult_8c226010 = SAVE_LOAD_FAILED;
                     return;
                 }
 
                 LOG_DEBUG(("[FILE_MENU] requesting load for \"%s\"\n", *name));
                 BupLoad_8c014bc6(var_selectedVm_8c1ba34c, *name, var_saveBufCursor_8c225fe0);
-                var_8c225fe4[var_loadedSaveCount_8c22600c] = task->counter_0x0c;
+                var_loadedSaveSlots_8c225fe4[var_loadedSaveCount_8c22600c] = task->counter_0x0c;
                 var_loadedSaveCount_8c22600c++;
                 task->names_0x18 = ++name;
                 task->phase_0x08 = 1;
@@ -107,7 +118,7 @@ STATIC void loadFileTask_8c018644(LoadFileTask *task)
 
             LOG_DEBUG(("[FILE_MENU] all files loaded (%d)\n", var_loadedSaveCount_8c22600c));
             TaskFree_8c014b66((Task *)task);
-            var_saveLoadResult_8c226010 = 1;
+            var_saveLoadResult_8c226010 = SAVE_LOAD_DONE;
 
             return;
         }
@@ -120,11 +131,12 @@ STATIC void loadFileTask_8c018644(LoadFileTask *task)
             if (buGetLastError(var_selectedVm_8c1ba34c) != BUD_ERR_OK) {
                 LOG_WARN(("[FILE_MENU] load failed\n"));
                 TaskFree_8c014b66((Task *)task);
-                var_saveLoadResult_8c226010 = 2;
+                var_saveLoadResult_8c226010 = SAVE_LOAD_FAILED;
                 return;
             }
 
-            // Extract PlayerProgress from the backup file image in-place
+            // Shrink the raw backup image down to its payload; the bounce
+            // buffer is needed because source and destination overlap.
             var_backupFileImageBuf_8c1ba348 = syMalloc(sizeof(PlayerProgress));
             buAnalyzeBackupFileImage(&var_backupFileHeader_8c1ba2e4, var_saveBufCursor_8c225fe0);
             njMemCopy(var_backupFileImageBuf_8c1ba348, var_backupFileHeader_8c1ba2e4.save_data, sizeof(PlayerProgress));
@@ -154,7 +166,7 @@ STATIC void startVmLoad_8c018784(void)
     task->names_0x18 = init_saveNames_8c044d50;
     var_8c1ba2e0 = syMalloc(0x3c00);
     var_saveBufCursor_8c225fe0 = var_8c1ba2e0;
-    var_saveLoadResult_8c226010 = 0;
+    var_saveLoadResult_8c226010 = SAVE_LOAD_RUNNING;
 }
 
 void FileMenuFreeBuffers_8c0187d0(void)
@@ -172,7 +184,11 @@ void FileMenuFreeBuffers_8c0187d0(void)
     }
 }
 
-/* Returns 1 if a freshly loaded save looks sane. */
+/*
+ * Returns 1 if a freshly loaded save looks sane: PlayerProgress read through
+ * an int*, so save[0] is days_0x00, save+0x11 the nine courses_0x44 records
+ * and save[0x24] exp_0x90.
+ */
 int FileMenuIsSaveValid_8c018804(int *save)
 {
     unsigned char *base;
@@ -196,9 +212,9 @@ int FileMenuIsSaveValid_8c018804(int *save)
     return 0;
 }
 
-void FileMenuResetControlDefaults_8c018862(void)
+void FileMenuResetSettingDefaults_8c018862(void)
 {
-    LOG_DEBUG(("[FILE_MENU] FileMenuResetControlDefaults_8c018862\n"));
+    LOG_DEBUG(("[FILE_MENU] FileMenuResetSettingDefaults_8c018862\n"));
 
     var_progress_8c1ba1cc.difficulty_0xc4 = 1;
     var_progress_8c1ba1cc.driveMode_0xc5 = 0;
@@ -207,9 +223,9 @@ void FileMenuResetControlDefaults_8c018862(void)
     var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[1] = 0;
 }
 
-void FileMenuResetViewDefaults_8c0188bc(void)
+void FileMenuResetKeyConfigDefaults_8c0188bc(void)
 {
-    LOG_DEBUG(("[FILE_MENU] FileMenuResetViewDefaults_8c0188bc\n"));
+    LOG_DEBUG(("[FILE_MENU] FileMenuResetKeyConfigDefaults_8c0188bc\n"));
 
     var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[5] = 0;
     var_progress_8c1ba1cc.controlAndDisplayFlags_0xc7[6] = 0;
@@ -285,8 +301,8 @@ void FileMenuResetOptionDefaults_8c0189d2(void)
 {
     LOG_DEBUG(("[FILE_MENU] FileMenuResetOptionDefaults_8c0189d2\n"));
 
-    FileMenuResetControlDefaults_8c018862();
-    FileMenuResetViewDefaults_8c0188bc();
+    FileMenuResetSettingDefaults_8c018862();
+    FileMenuResetKeyConfigDefaults_8c0188bc();
     FileMenuResetSoundDefaults_8c0188dc();
 }
 
@@ -304,24 +320,24 @@ STATIC void buildFileList_8c018a22(void)
     int dst;
     int i;
 
-    var_8c226014 = 0;
+    var_fileCardCount_8c226014 = 0;
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVING_POSSIBLE ||
         (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS &&
          var_loadedSaveCount_8c22600c < 10)) {
-        var_8c226018[0] = 10; // NEW FILE card
-        var_8c226014 = 1;
+        var_fileCards_8c226018[0] = FILE_CARD_NEW;
+        var_fileCardCount_8c226014 = 1;
     }
-    dst = var_8c226014;
+    dst = var_fileCardCount_8c226014;
     for (i = 0; i < var_loadedSaveCount_8c22600c; i++) {
-        var_8c226018[dst] = var_8c225fe4[i];
+        var_fileCards_8c226018[dst] = var_loadedSaveSlots_8c225fe4[i];
         dst++;
     }
     for (i = dst; i < 12; i++) {
-        var_8c226018[i] = 0xb; // empty slot
+        var_fileCards_8c226018[i] = FILE_CARD_EMPTY;
     }
-    var_8c226014 += var_loadedSaveCount_8c22600c;
+    var_fileCardCount_8c226014 += var_loadedSaveCount_8c22600c;
 
-    LOG_DEBUG(("[FILE_MENU] buildFileList_8c018a22: built file list (%d cards)\n", var_8c226014));
+    LOG_DEBUG(("[FILE_MENU] buildFileList_8c018a22: built file list (%d cards)\n", var_fileCardCount_8c226014));
 }
 
 /* Draws value right to left from (x, y). */
@@ -339,7 +355,13 @@ STATIC void drawNumber_8c018aa2(int value, float x, float y)
     } while (value /= 10);
 }
 
-/* Draws the save at var_saveBufCursor_8c225fe0, then advances it to the next image. */
+/*
+ * Draws the save at var_saveBufCursor_8c225fe0, then advances it to the next
+ * image. The award grid below is buggy in the original: every counter is
+ * decremented even on the branch that did not match, so the first silver or
+ * bronze sends the gold count negative and the rest of the grid floods with
+ * gold marks.
+ */
 STATIC void drawFileCard_8c018b4c(int kind, float x)
 {
     PlayerProgress *save;
@@ -350,7 +372,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
     float y;
     float xoff;
 
-    if (kind == 0xa) {
+    if (kind == FILE_CARD_NEW) {
         TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x13, x, 0.0, -4.0);
         return;
     }
@@ -415,7 +437,7 @@ STATIC void drawFileSelect_8c018d46(void)
     float x;
     void *dst;
 
-    if (var_8c226018[0] == 0xa) {
+    if (var_fileCards_8c226018[0] == FILE_CARD_NEW) {
         dst = var_8c1ba2e0;
         if (var_menuState_8c1bc7a8.field_0x3c != 0) {
             dst = (char *)var_8c1ba2e0 + (var_menuState_8c1bc7a8.field_0x3c - 1) * 0x600;
@@ -427,9 +449,9 @@ STATIC void drawFileSelect_8c018d46(void)
 
     x = 55.0;
     for (i = var_menuState_8c1bc7a8.field_0x3c;
-         x <= 419.0 && var_8c226018[i] != 0xb;
+         x <= 419.0 && var_fileCards_8c226018[i] != FILE_CARD_EMPTY;
          i++) {
-        drawFileCard_8c018b4c(var_8c226018[i], x);
+        drawFileCard_8c018b4c(var_fileCards_8c226018[i], x);
         x += 182.0;
     }
 
@@ -444,7 +466,7 @@ STATIC void drawFileSelect_8c018d46(void)
 
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-        var_8c226018[var_menuState_8c1bc7a8.field_0x3c + 3] == 0xb ? 0x17 : 0x18,
+        var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c + 3] == FILE_CARD_EMPTY ? 0x17 : 0x18,
         0.0, 0.0, -3.0);
 
     TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x14, 0.0, 0.0, -4.0);
@@ -459,9 +481,9 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
     case FILE_MENU_STATE_LOADING:
-        if (var_saveLoadResult_8c226010 == 0) {
+        if (var_saveLoadResult_8c226010 == SAVE_LOAD_RUNNING) {
             ObjectsMenuTextboxText_8c02af1c(0xff);
-        } else if (var_saveLoadResult_8c226010 == 1) {
+        } else if (var_saveLoadResult_8c226010 == SAVE_LOAD_DONE) {
             var_vmBusy_8c157a7c = 0;
             VmGameSetLcdSlot_8c01c8fc(0);
             var_saveBufCursor_8c225fe0 = var_8c1ba2e0;
@@ -479,7 +501,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
                 buildFileList_8c018a22();
                 CHANGE_STATE(FILE_MENU_STATE_READY);
             }
-        } else if (var_saveLoadResult_8c226010 == 2) {
+        } else if (var_saveLoadResult_8c226010 == SAVE_LOAD_FAILED) {
             LOG_WARN(("[FILE_MENU] fileSelectTask_8c018e7e: file load failed\n"));
             var_vmBusy_8c157a7c = 0;
             FileMenuFreeBuffers_8c0187d0();
@@ -524,12 +546,12 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             }
         } else if (press & PDD_DGT_KR) {
             if (var_menuState_8c1bc7a8.selected_0x38 >= 2) {
-                if (var_8c226018[var_menuState_8c1bc7a8.field_0x3c + 3] != 0xb) {
+                if (var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c + 3] != FILE_CARD_EMPTY) {
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                     var_menuState_8c1bc7a8.field_0x3c++;
                 }
-            } else if (var_8c226018[var_menuState_8c1bc7a8.field_0x3c +
-                                    var_menuState_8c1bc7a8.selected_0x38 + 1] != 0xb) {
+            } else if (var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c +
+                                    var_menuState_8c1bc7a8.selected_0x38 + 1] != FILE_CARD_EMPTY) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                 var_menuState_8c1bc7a8.selected_0x38++;
             }
@@ -539,8 +561,8 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             FadePushOut_8c022b60(10);
         } else if (press & PDD_DGT_TA) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-            if (var_8c226018[var_menuState_8c1bc7a8.field_0x3c +
-                             var_menuState_8c1bc7a8.selected_0x38] == 0xa) {
+            if (var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c +
+                             var_menuState_8c1bc7a8.selected_0x38] == FILE_CARD_NEW) {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_NEW_FILE);
             } else {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_FILE);
@@ -556,29 +578,31 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             int cardValue;
 
             CHANGE_STATE(FILE_MENU_STATE_CONFIRM_FADE_OUT);
-            cardValue = var_8c226018[var_menuState_8c1bc7a8.field_0x3c +
+            cardValue = var_fileCards_8c226018[var_menuState_8c1bc7a8.field_0x3c +
                                      var_menuState_8c1bc7a8.selected_0x38];
-            if (cardValue == 0xa) {
+            if (cardValue == FILE_CARD_NEW) {
                 int slot = 0;
                 int idx = 1;
 
                 LOG_DEBUG(("[FILE_MENU] fileSelectTask_8c018e7e: creating new file\n"));
                 FileMenuResetNewGame_8c01895e();
-                while (idx < var_8c226014 && var_8c226018[idx] == slot) {
+                /* The cards after the NEW FILE one are the VMU file indices in
+                 * order, so the first gap is the lowest free index. */
+                while (idx < var_fileCardCount_8c226014 && var_fileCards_8c226018[idx] == slot) {
                     slot++;
                     idx++;
                 }
-                var_8c1ba350 = slot;
+                var_saveSlot_8c1ba350 = slot;
             } else {
                 int idx = 0;
 
                 LOG_DEBUG(("[FILE_MENU] fileSelectTask_8c018e7e: loading file (slot %d)\n", cardValue));
-                while (var_8c225fe4[idx] != cardValue) {
+                while (var_loadedSaveSlots_8c225fe4[idx] != cardValue) {
                     idx++;
                 }
                 njMemCopy(&var_progress_8c1ba1cc, (char *)var_8c1ba2e0 + idx * 0x600, sizeof(PlayerProgress));
                 SystemMenuApplyLoadedProgress_8c01b19c();
-                var_8c1ba350 = cardValue;
+                var_saveSlot_8c1ba350 = cardValue;
                 FileMenuApplySoundSettings_8c0189fc();
             }
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -601,10 +625,10 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         }
         FileMenuFreeBuffers_8c0187d0();
         VmMenuUnmountVms_8c0194de();
-        CHANGE_STATE(FILE_MENU_STATE_MOUNTING);
+        CHANGE_STATE(FILE_MENU_STATE_UNMOUNT_TO_MAIN);
         break;
 
-    case FILE_MENU_STATE_MOUNTING:
+    case FILE_MENU_STATE_UNMOUNT_TO_MAIN:
         if (var_vmMountBusy_8c22606c != 0 || init_8c03bd80 != 0) {
             break;
         }
@@ -621,7 +645,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         VmMenuSwitchFromTask_8c019e44(task);
         return;
 
-    case FILE_MENU_STATE_UNMOUNTING:
+    case FILE_MENU_STATE_UNMOUNT_TO_VM:
         if (var_vmMountBusy_8c22606c != 0) {
             break;
         }
@@ -634,9 +658,8 @@ void FileMenuSwitchFromTask_8c019334(Task *task)
 {
     TaskSetAction_8c014b3e(task, fileSelectTask_8c018e7e);
     var_loadedSaveCount_8c22600c = 0;
-    // VMU status 5/6 means there are saves to load before the list can be shown.
-    if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 5 ||
-        var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == 6) {
+    if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS_NO_SPACE ||
+        var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS) {
         CHANGE_STATE(FILE_MENU_STATE_LOADING);
         ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOADING_NO_POWER_OFF);
         VmGameSetLcdSlot_8c01c8fc(1);

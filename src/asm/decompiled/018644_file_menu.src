@@ -37,7 +37,7 @@
           .IMPORT     _var_vmuIconFileBuf_8c1ba344
           .IMPORT     _var_backupFileImageBuf_8c1ba348
           .IMPORT     _var_selectedVm_8c1ba34c
-          .IMPORT     _var_8c1ba350
+          .IMPORT     _var_saveSlot_8c1ba350
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _var_8c1bb8b8
@@ -45,11 +45,11 @@
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _var_saveBufCursor_8c225fe0
-          .IMPORT     _var_8c225fe4
+          .IMPORT     _var_loadedSaveSlots_8c225fe4
           .IMPORT     _var_loadedSaveCount_8c22600c
           .IMPORT     _var_saveLoadResult_8c226010
-          .IMPORT     _var_8c226014
-          .IMPORT     _var_8c226018
+          .IMPORT     _var_fileCardCount_8c226014
+          .IMPORT     _var_fileCards_8c226018
           .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _var_vmMountBusy_8c22606c
           .IMPORT     _var_soundMode_8c226070
@@ -65,8 +65,8 @@
           .AENDI
           .EXPORT     _FileMenuFreeBuffers_8c0187d0
           .EXPORT     _FileMenuIsSaveValid_8c018804
-          .EXPORT     _FileMenuResetControlDefaults_8c018862
-          .EXPORT     _FileMenuResetViewDefaults_8c0188bc
+          .EXPORT     _FileMenuResetSettingDefaults_8c018862
+          .EXPORT     _FileMenuResetKeyConfigDefaults_8c0188bc
           .EXPORT     _FileMenuResetSoundDefaults_8c0188dc
           .EXPORT     _FileMenuResetProgress_8c01890a
           .EXPORT     _FileMenuResetNewGame_8c01895e
@@ -214,7 +214,7 @@ LP_GEN_13769:
           .DATA.L _var_loadedSaveCount_8c22600c ; H'8C018748
           .DATA.L _buIsExistFile ; H'8C01874C
           .DATA.L _BupLoad_8c014bc6 ; H'8C018750
-          .DATA.L _var_8c225fe4 ; H'8C018754
+          .DATA.L _var_loadedSaveSlots_8c225fe4 ; H'8C018754
           .DATA.L _TaskFree_8c014b66 ; H'8C018758
           .DATA.L _var_saveLoadResult_8c226010 ; H'8C01875C
           .DATA.L _buStat ; H'8C018760
@@ -346,7 +346,7 @@ LAB_8c01885c:
           MOV         #H'1,R0
           RTS
           NOP
-_FileMenuResetControlDefaults_8c018862:
+_FileMenuResetSettingDefaults_8c018862:
           MOV.W       LP_GEN_28586+4,R0
           MOV         #H'1,R3
           MOV.L       LP_GEN_28586+56,R4
@@ -380,7 +380,7 @@ LP_GEN_28586:
           .DATA.L _var_vmuIconFileBuf_8c1ba344 ; H'8C0188B0
           .DATA.L H'0001869F ; H'8C0188B4
           .DATA.L _var_progress_8c1ba1cc ; H'8C0188B8
-_FileMenuResetViewDefaults_8c0188bc:
+_FileMenuResetKeyConfigDefaults_8c0188bc:
           MOV.W       LP_GEN_30274,R0
           MOV         #H'0,R5
           MOV.L       LP_GEN_30274+8,R4
@@ -532,9 +532,9 @@ LAB_8c0189be:
           NOP
 _FileMenuResetOptionDefaults_8c0189d2:
           STS.L       PR,@-R15
-          BSR         _FileMenuResetControlDefaults_8c018862
+          BSR         _FileMenuResetSettingDefaults_8c018862
           NOP
-          BSR         _FileMenuResetViewDefaults_8c0188bc
+          BSR         _FileMenuResetKeyConfigDefaults_8c0188bc
           NOP
           BRA         _FileMenuResetSoundDefaults_8c0188dc
           LDS.L       @R15+,PR
@@ -700,12 +700,12 @@ LP_GEN_23929:
           .DATA.L _var_progress_8c1ba1cc ; H'8C018B10
           .DATA.L _SndSetAdxVol_8c010972 ; H'8C018B14
           .DATA.L _SndSetMidiVolAndInitStruct_8c0109f4 ; H'8C018B18
-          .DATA.L _var_8c226014 ; H'8C018B1C
-          .DATA.L _var_8c226018 ; H'8C018B20
+          .DATA.L _var_fileCardCount_8c226014 ; H'8C018B1C
+          .DATA.L _var_fileCards_8c226018 ; H'8C018B20
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C018B24
           .DATA.L _var_vmuStatus_8c226048 ; H'8C018B28
           .DATA.L _var_loadedSaveCount_8c22600c ; H'8C018B2C
-          .DATA.L _var_8c225fe4 ; H'8C018B30
+          .DATA.L _var_loadedSaveSlots_8c225fe4 ; H'8C018B30
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C018B34
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C018B38
           .DATA.L H'C0800000 ; H'8C018B3C
@@ -1026,7 +1026,7 @@ LP_GEN_25093:
           .DATA.L H'42DA0000 ; H'8C018DA8
           .DATA.L H'43978000 ; H'8C018DAC
           .DATA.L _var_saveBufCursor_8c225fe0 ; H'8C018DB0
-          .DATA.L _var_8c226018 ; H'8C018DB4
+          .DATA.L _var_fileCards_8c226018 ; H'8C018DB4
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C018DB8
           .DATA.L _var_8c1ba2e0 ; H'8C018DBC
           .DATA.L H'43D18000 ; H'8C018DC0
@@ -1218,7 +1218,7 @@ LAB_8c018f04:
           BRA         LAB_8c018fc4
           NOP
 LP_GEN_84467:
-          .DATA.L _var_8c226018 ; H'8C018F1C
+          .DATA.L _var_fileCards_8c226018 ; H'8C018F1C
           .DATA.L H'C0400000 ; H'8C018F20
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C018F24
           .DATA.L H'42340000 ; H'8C018F28
@@ -1528,7 +1528,7 @@ LP_GEN_53993:
           .DATA.L _FadePushOut_8c022b60 ; H'8C01917C
           .DATA.L _const_8c037e78 ; H'8C019180
           .DATA.L _const_8c037ea8 ; H'8C019184
-          .DATA.L _var_8c226014 ; H'8C019188
+          .DATA.L _var_fileCardCount_8c226014 ; H'8C019188
 LAB_8c01918c:
           MOV         R4,R0
           SHLL2       R0
@@ -1669,8 +1669,8 @@ LP_GEN_73468:
           .DATA.W H'00E8 ; H'8C019286
           .DATA.W H'00FF ; H'8C019288
           .RES.W 1 ; H'8C01928A
-          .DATA.L _var_8c1ba350 ; H'8C01928C
-          .DATA.L _var_8c225fe4 ; H'8C019290
+          .DATA.L _var_saveSlot_8c1ba350 ; H'8C01928C
+          .DATA.L _var_loadedSaveSlots_8c225fe4 ; H'8C019290
           .DATA.L _var_8c1ba2e0 ; H'8C019294
           .DATA.L _var_progress_8c1ba1cc ; H'8C019298
           .DATA.L _njMemCopy ; H'8C01929C

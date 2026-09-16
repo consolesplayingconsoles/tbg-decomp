@@ -71,7 +71,7 @@ STATIC void resultsTask_8c01d8e0(void)
     switch (var_menuState_8c1bc7a8.state_0x18) {
     case 0:
         if (var_selectedVm_8c1ba34c != -1) {
-            VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_8c1ba350], 3);
+            VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
         }
         if (RouteLoadIsPvmReady_8c01432a() != 0) {
             return;
@@ -91,7 +91,7 @@ STATIC void resultsTask_8c01d8e0(void)
         int vmuStatus;
         int soundId;
 
-        VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_8c1ba350], 3);
+        VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
         vmuStatus = var_vmuStatus_8c226048[var_selectedVm_8c1ba34c];
         if (var_isFading_8c226568 != 0) {
             goto tail;
@@ -204,7 +204,7 @@ STATIC void resultsTask_8c01d8e0(void)
     case 5: {
         int textboxActive;
 
-        VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_8c1ba350], 3);
+        VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
         if (!var_isFading_8c226568) {
             if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == var_menuState_8c1bc7a8.selectedVmuSlot_0x6c) {
                 if (pressedA) {
@@ -225,7 +225,7 @@ STATIC void resultsTask_8c01d8e0(void)
     case 6: {
         int promptResult;
 
-        VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_8c1ba350], 3);
+        VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
         promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.selected_0x38);
         if (promptResult == 1) {
             var_menuState_8c1bc7a8.state_0x18 = 0xd;
@@ -254,7 +254,7 @@ STATIC void resultsTask_8c01d8e0(void)
         int vmuStatus;
 
         if (var_menuState_8c1bc7a8.subState_0x1c == 0) {
-            VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_8c1ba350], 3);
+            VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
             vmuStatus = var_vmuStatus_8c226048[var_selectedVm_8c1ba34c];
             promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.selected_0x38);
             if (promptResult == 1) {

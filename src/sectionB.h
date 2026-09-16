@@ -431,7 +431,7 @@ extern void* var_8c1ba2e0;
 extern BUS_BACKUPFILEHEADER var_backupFileHeader_8c1ba2e4; // 018644: analyzed backup file header
 extern void* var_vmuIconFileBuf_8c1ba344;
 extern void* var_backupFileImageBuf_8c1ba348;
-extern int var_8c1ba350;        // 018644: selected save slot / new-file index
+extern int var_saveSlot_8c1ba350;        // 018644: chosen VMU file index, i.e. into init_saveNames_8c044d50
 extern TrafficSignalDef *var_trafficSignalDefs_8c1bb8a0; // 028258: signal table, terminated by type_0x00 == 0
 extern void* var_groundGridFallback_8c1bb86c;
 
@@ -588,11 +588,11 @@ extern ReplayInput var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY];
 extern ReplayInput *var_demoCursor_8c225fa8;
 extern Uint32 var_demoPrevOn_8c225fac;
 extern void* var_saveBufCursor_8c225fe0;      // 018644: BupLoad dest buffer, advances 0x600 per file
-extern int var_8c225fe4[10];    // 018644
+extern int var_loadedSaveSlots_8c225fe4[10];    // 018644: VMU file index of each loaded save, in load order
 extern int var_loadedSaveCount_8c22600c;        // 018644
 extern int var_saveLoadResult_8c226010;        // 018644: load result (1 = done, 2 = error)
-extern int var_8c226014;        // 018644: FILE SELECT leading NEW-FILE card count (0 or 1)
-extern int var_8c226018[12];    // 018644: FILE SELECT card list (0xa=NEW FILE, 0xb=empty)
+extern int var_fileCardCount_8c226014;        // 018644: FILE SELECT cards in use
+extern int var_fileCards_8c226018[12];    // 018644: FILE SELECT card list; VMU file index, or 0xa=NEW FILE / 0xb=empty
 
 extern int var_vmMountBusy_8c22606c;
 extern char var_vmsComment_8c226098[16]; // 01b19c: VMS file comment, "9/<day> EXP <points>"

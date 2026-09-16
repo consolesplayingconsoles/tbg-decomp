@@ -141,7 +141,7 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     var_backupFileImageBuf_8c1ba348 = syMalloc(size << 9);
     buMakeBackupFileImage(var_backupFileImageBuf_8c1ba348, &var_backupFileHeader_8c1ba2e4);
     BupSave_8c014bcc(var_selectedVm_8c1ba34c,
-                     init_saveNames_8c044d50[var_8c1ba350], var_backupFileImageBuf_8c1ba348, 3);
+                     init_saveNames_8c044d50[var_saveSlot_8c1ba350], var_backupFileImageBuf_8c1ba348, 3);
     var_vmBusy_8c157a7c = 1;
 }
 
@@ -157,7 +157,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             vmStatus = VMU_STATUS_PROCEED_WITHOUT_SAVING;
         } else {
             VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c,
-                                           init_saveNames_8c044d50[var_8c1ba350], 3);
+                                           init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
             vmStatus = var_vmuStatus_8c226048[var_selectedVm_8c1ba34c];
         }
     }
@@ -288,7 +288,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             if (result == 1) {
                 /* confirmed -- kick off the VMU read */
                 BupLoad_8c014bc6(var_selectedVm_8c1ba34c,
-                                 init_saveNames_8c044d50[var_8c1ba350], var_8c1ba2e0);
+                                 init_saveNames_8c044d50[var_saveSlot_8c1ba350], var_8c1ba2e0);
                 var_vmBusy_8c157a7c = 1;
                 var_menuState_8c1bc7a8.subState_0x1c = SAVE_PHASE_IN_PROGRESS;
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOADING_NO_POWER_OFF);
@@ -462,7 +462,7 @@ void SystemMenuSwitchFromTask_8c01ba64(Task *task)
     var_menuState_8c1bc7a8.selected_0x38 = SAVE_MENU_LOAD;
     var_8c1ba2e0 = syMalloc(0x600);
     VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c,
-                                   init_saveNames_8c044d50[var_8c1ba350], 3);
+                                   init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
     ObjectsSwapMessageBoxFor_8c02aefc("");
     FadePushIn_8c022a9c(10);
     AsqInitQueues_8c011f36(8, 0, 0, 8);

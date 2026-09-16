@@ -118,7 +118,7 @@ STATIC void settingTask_8c01a148(Task *task)
                 if (m->selected_0x38 < 5) {
                     CHANGE_STATE(OPTION_STATE_EDIT);           /* toggle row -> edit */
                 } else if (m->selected_0x38 == 5) {
-                    FileMenuResetControlDefaults_8c018862();   /* DEFAULT: no phase change */
+                    FileMenuResetSettingDefaults_8c018862();   /* DEFAULT: no phase change */
                 } else {
                     CHANGE_STATE(OPTION_STATE_FADE_OUT);       /* RETURN -> fade out */
                     FadePushOut_8c022b60(10);
@@ -300,7 +300,7 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
                 if (m->selected_0x38 < 3) {
                     CHANGE_STATE(m->selected_0x38 + 2);
                 } else if (m->selected_0x38 == 3) {
-                    FileMenuResetViewDefaults_8c0188bc();
+                    FileMenuResetKeyConfigDefaults_8c0188bc();
                 } else {
                     CHANGE_STATE(KEY_CONFIG_FADE_OUT);
                     FadePushOut_8c022b60(10);

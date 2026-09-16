@@ -5,7 +5,7 @@
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _FileMenuResetControlDefaults_8c018862
+          .IMPORT     _FileMenuResetSettingDefaults_8c018862
           .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _TaskSetAction_8c014b3e
@@ -13,7 +13,7 @@
           .IMPORT     _njDrawPolygon
           .IMPORT     _var_activeCtrlType_8c157a70
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _FileMenuResetViewDefaults_8c0188bc
+          .IMPORT     _FileMenuResetKeyConfigDefaults_8c0188bc
           .IMPORT     __modls
           .IMPORT     __divls
           .IMPORT     _sdMidiStop
@@ -201,7 +201,7 @@ LP_GEN_11111:
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01A258
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01A25C
           .DATA.L _var_isFading_8c226568 ; H'8C01A260
-          .DATA.L _FileMenuResetControlDefaults_8c018862 ; H'8C01A264
+          .DATA.L _FileMenuResetSettingDefaults_8c018862 ; H'8C01A264
           .DATA.L _FadePushOut_8c022b60 ; H'8C01A268
           .DATA.L _init_settingOptionCounts_8c044de0 ; H'8C01A26C
 LAB_8c01a270:
@@ -698,7 +698,7 @@ LP_GEN_91649:
           .DATA.L _var_progress_8c1ba1cc ; H'8C01A624
           .DATA.L _var_isFading_8c226568 ; H'8C01A628
           .DATA.L _var_peripherals_8c1ba35c ; H'8C01A62C
-          .DATA.L _FileMenuResetViewDefaults_8c0188bc ; H'8C01A630
+          .DATA.L _FileMenuResetKeyConfigDefaults_8c0188bc ; H'8C01A630
           .DATA.L _FadePushOut_8c022b60 ; H'8C01A634
 LAB_8c01a638:
           BSR         _keyConfigEditExit_8c01a4b4
