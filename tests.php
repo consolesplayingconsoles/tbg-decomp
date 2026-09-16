@@ -524,8 +524,8 @@ return [
         ],
         [
             "tests" => [
-                "tests/0222dc_fadecmd/8c0222dc_FUN.php",
-                "tests/0222dc_fadecmd/8c02239c_FUN.php",
+                "tests/0222dc_fadecmd/8c0222dc_FadeCmdPushTileDrawTask.php",
+                "tests/0222dc_fadecmd/8c02239c_FadeCmdResetQueues.php",
                 "tests/0222dc_fadecmd/8c0223ea_FadeCmdPushCall1.php",
                 "tests/0222dc_fadecmd/8c022420_FadeCmdPushCall2.php",
             ],

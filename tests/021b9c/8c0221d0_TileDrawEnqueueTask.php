@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * TileDrawEnqueueTask_8c0221d0(Task *task, void *state): the TaskAction pushed by
- * FUN_8c0222dc (0222dc_fadecmd). Computes the two fade light directions by
+ * TileDrawEnqueueTask_8c0221d0(Task *task, void *state): the TaskAction
+ * FadeCmdPushTileDrawTask_8c0222dc installs. Computes the two fade light directions by
  * broadcasting one scalar CourseSceneParams component into a 3-vector and
  * transforming it with njCalcVector under whichever camera is current (as
  * coded -- reads dir1_0x48[0]/dir2_0x68[0] three times each rather than

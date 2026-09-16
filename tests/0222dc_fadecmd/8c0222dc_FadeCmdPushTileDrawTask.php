@@ -43,7 +43,7 @@ return new class extends TestCase {
         }
         $this->initUint32($this->addressOf('_var_sceneParams_8c18ad24'), $sceneParams);
 
-        $this->call('_FUN_8c0222dc');
+        $this->call('_FadeCmdPushTileDrawTask_8c0222dc');
 
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(

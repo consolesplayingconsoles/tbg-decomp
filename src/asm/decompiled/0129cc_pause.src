@@ -33,7 +33,7 @@
           .IMPORT     _var_vmBusy_8c157a7c
           .IMPORT     _var_queuesAreInitialized_8c157a60
           .IMPORT     _TitlePushTitle_8c015fd6
-          .IMPORT     _FUN_8c02239c
+          .IMPORT     _FadeCmdResetQueues_8c02239c
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _FadeUpdatePlain_8c022910
@@ -622,7 +622,7 @@ LP_GEN_43727:
           .DATA.L _var_vmBusy_8c157a7c
           .DATA.L _var_queuesAreInitialized_8c157a60
           .DATA.L _TitlePushTitle_8c015fd6
-          .DATA.L _FUN_8c02239c
+          .DATA.L _FadeCmdResetQueues_8c02239c
           .DATA.L _var_tasks_8c1ba5e8
           .DATA.L _TaskExecGroup_8c014b42
           .DATA.L _FadeUpdate_8c022560
@@ -745,7 +745,7 @@ LP_GEN_94405:
           .DATA.W     H'0708 ; LP_GEN_94405+0
           .DATA.L     _FadePushOut_8c022b60
           .DATA.L     _TitlePushTitle_8c015fd6
-          .DATA.L     _FUN_8c02239c
+          .DATA.L     _FadeCmdResetQueues_8c02239c
           .DATA.L     _var_tasks_8c1ba5e8
           .DATA.L     _TaskExecGroup_8c014b42
           .DATA.L     _FadeUpdatePlain_8c022910

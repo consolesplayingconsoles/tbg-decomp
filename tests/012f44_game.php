@@ -72,7 +72,7 @@ return new class extends TestCase {
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_TrafficInit_8c02769e');
-        $this->shouldCall('_FUN_8c0222dc');
+        $this->shouldCall('_FadeCmdPushTileDrawTask_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');
@@ -147,7 +147,7 @@ return new class extends TestCase {
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_TrafficInit_8c02769e');
-        $this->shouldCall('_FUN_8c0222dc');
+        $this->shouldCall('_FadeCmdPushTileDrawTask_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');
@@ -242,7 +242,7 @@ return new class extends TestCase {
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_TrafficInit_8c02769e');
-        $this->shouldCall('_FUN_8c0222dc');
+        $this->shouldCall('_FadeCmdPushTileDrawTask_8c0222dc');
         $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
         $this->shouldCall('_DrivePointsReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');

@@ -13,7 +13,10 @@
  * ==========
  */
 
-void FUN_8c0222dc(void)
+/* Run-start setup for the tile draw pass. The two latched lighting records
+ * split by 021b9c's lighting mode: rec1_0x54 into njCnkSetEasyLight*,
+ * rec2_0x74 into njCnkSetSimpleLight*. */
+void FadeCmdPushTileDrawTask_8c0222dc(void)
 {
     Task *task;
     LoadedModel *state;
@@ -35,7 +38,9 @@ void FUN_8c0222dc(void)
     var_fadeLightColor_8c2264f8[2] = var_sceneParams_8c18ad24->rec2_0x74[4];
 }
 
-void FUN_8c02239c(void)
+/* Runs at the top of each frame's draw pass, before the var_tasks_8c1ba5e8
+ * tasks refill the queues. */
+void FadeCmdResetQueues_8c02239c(void)
 {
     int i;
 

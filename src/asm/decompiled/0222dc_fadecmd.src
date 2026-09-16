@@ -10,12 +10,12 @@
           .IMPORT     _TileDrawEnqueueTask_8c0221d0
           .IMPORT     _var_fadeDrawCommandCount_8c226570
           .IMPORT     _var_fadeDrawCommands_8c22657c
-          .EXPORT     _FUN_8c0222dc
-          .EXPORT     _FUN_8c02239c
+          .EXPORT     _FadeCmdPushTileDrawTask_8c0222dc
+          .EXPORT     _FadeCmdResetQueues_8c02239c
           .EXPORT     _FadeCmdPushCall1_8c0223ea
           .EXPORT     _FadeCmdPushCall2_8c022420
           .SECTION     P, CODE, ALIGN=4
-_FUN_8c0222dc:
+_FadeCmdPushTileDrawTask_8c0222dc:
           STS.L       PR,@-R15
           ADD         #-H'8,R15
           MOV         #H'8,R3
@@ -104,7 +104,7 @@ LP_GEN_22999:
           .DATA.L _var_fadeEasyLightColor_8c22654c ; H'8C022390
           .DATA.L _var_fadeLightIntensity_8c2264f0 ; H'8C022394
           .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C022398
-_FUN_8c02239c:
+_FadeCmdResetQueues_8c02239c:
           MOV.L       LP_GEN_14297+4,R7
           MOV         #H'0,R5
           MOV         R7,R6

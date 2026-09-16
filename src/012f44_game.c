@@ -28,6 +28,7 @@
 #include "023310_bus_init.h"
 #include "025870_demo.h"
 #include "02d968_stop_spawn.h"
+#include "0222dc_fadecmd.h" /* FadeCmdPushTileDrawTask_8c0222dc */
 
 // #define CACHE_BUFSIZE   0x20000
 // #define SHAPE_BUFSIZE   512
@@ -206,7 +207,7 @@ void FUN_8c01306e(void)
 
     ObjectsInitPedestrianGroups_8c0296d6();
     TrafficInit_8c02769e();
-    FUN_8c0222dc();
+    FadeCmdPushTileDrawTask_8c0222dc();
     ObjectsPushTasks_8c02a6ac();
     DrivePointsReset_8c02c46a();
     HudReset_8c02018c();

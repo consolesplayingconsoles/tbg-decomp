@@ -191,7 +191,7 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
     njControl3D(0x100);
 }
 
-/* Task setup callback pushed by FUN_8c0222dc (0222dc_fadecmd): computes the
+/* The TaskAction FadeCmdPushTileDrawTask_8c0222dc installs: computes the
  * two fade light directions (broadcasting one scalar CourseSceneParams
  * component into a vector, then transforming it by whichever camera is
  * current -- as coded, not obviously intentional but preserved), then

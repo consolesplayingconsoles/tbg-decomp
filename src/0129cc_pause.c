@@ -215,8 +215,8 @@ STATIC int update_8c0129cc(void)
 /*
  * TaskPush_8c014ae8 action for the pause menu: resets to the title if a
  * reset was requested with the asset queues idle, otherwise runs
- * update_8c0129cc and, the frame it just opened, resets the render-command
- * list and runs the rest of the task list so the paused frame still draws.
+ * update_8c0129cc and, the frame it just opened, runs the rest of the task
+ * list so the paused frame still draws.
  */
 void PauseTask_8c012cbc()
 {
@@ -231,7 +231,7 @@ void PauseTask_8c012cbc()
     }
 
     if (update_8c0129cc() != 0) {
-        FUN_8c02239c();
+        FadeCmdResetQueues_8c02239c();
         TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
         FadeUpdate_8c022560();
     }
@@ -260,7 +260,7 @@ void PauseToggleTask_8c012d06()
     }
 
     if (var_pauseActive_8c1bb8cc == 0) {
-        FUN_8c02239c();
+        FadeCmdResetQueues_8c02239c();
         TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
     }
 
@@ -322,7 +322,7 @@ void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
         return;
     }
 
-    FUN_8c02239c();
+    FadeCmdResetQueues_8c02239c();
     TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
     FadeUpdatePlain_8c022910();
     TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO, 0.0f, 0.0f, MARK_Z_BASE);

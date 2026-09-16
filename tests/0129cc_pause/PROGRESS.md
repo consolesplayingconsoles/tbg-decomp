@@ -24,7 +24,7 @@
   -> DebugMenuFreeSessionAssets_8c016182() + pushTitle_8c015fd6(1), return. Same guard reused verbatim in
   task_8c012d06/task_8c012d5a below.
 - else: call FUN_8c0129cc() (the pause menu); if it just opened (returns 1), reset the
-  render-command list (FUN_8c02239c, unit 0222dc -- new minimal header) and run the rest
+  render-command list (FadeCmdResetQueues_8c02239c, unit 0222dc -- new minimal header) and run the rest
   of the frame's tasks (execTasks_8c014b42(var_tasks_8c1ba5e8)) so the paused frame still draws,
   then FadeUpdate_8c022560() (unowned no-arg fn, already in 022464.h).
 - No params read (Ghidra shows void(void) even though it's called as a TaskAction);
@@ -54,7 +54,7 @@
 - Same reset-requested guard verbatim, reused a third time.
 - No full pause menu here: Start (PDD_DGT_ST) just toggles var_pauseActive_8c1bb8cc
   (XOR 1), no FUN_8c0129cc call at all. Frame's remaining tasks
-  (FUN_8c02239c render-list reset + execTasks_8c014b42) only run while
+  (FadeCmdResetQueues_8c02239c render-list reset + execTasks_8c014b42) only run while
   var_pauseActive_8c1bb8cc == 0 (i.e. right after toggling on, tasks are
   skipped for that frame; right after toggling off, they run immediately).
   FadeUpdatePlain_8c022910 (owned by 022464, header already existed for FadeUpdate_8c022560 --
@@ -87,7 +87,7 @@
   (reset pending -> do nothing), DebugMenuFreeSessionAssets_8c016182() + pushTitle_8c015fd6(1) for
   phase 1 (Start skip) / (0) for phase 2 (timeout). While still fading: counter++
   and fall to draw.
-- Draw tail (all non-returning paths): FUN_8c02239c + execTasks(var_tasks_8c1ba5e8)
+- Draw tail (all non-returning paths): FadeCmdResetQueues_8c02239c + execTasks(var_tasks_8c1ba5e8)
   + FadeUpdatePlain_8c022910, drawSprite mark 0x7b @ z=-1.1 (MARK_Z_BASE), and mark 0x7c too
   when counter & 0x18 (LP_GEN_94405: H'0708 threshold, H'BF8CCCCD priority).
 - Wrote the whole function on a Ghidra-trust guess and validated against the
