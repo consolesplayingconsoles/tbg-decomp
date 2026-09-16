@@ -594,7 +594,7 @@ STATIC void gradeIntersection_8c02bb1c(void) {
     var_8c2285c4[20] = 0;
 }
 
-/* Per-frame grading tick, called once per drive frame (from FUN_8c02c46a):
+/* Per-frame grading tick, called once per drive frame (from taskCallback_8c02c072):
  * clears the player's lane-change turn signal once the lane change is done;
  * tracks the turn-signal-held-too-long state machine (var_8c22861c[3]/[4]);
  * grades penalties for holding the accelerator maxed out too long, for a
@@ -1054,7 +1054,7 @@ STATIC void taskCallback_8c02c072() {
         } else if (var_8c2285c4[0] == 3) {
             if (var_8c2285c4[9] == 0) {
                 if (var_driveMode_8c1bb8c8 == 0) {
-                    int diff = var_8c228714 - var_busState_8c1bb9d0.ang_0x250;
+                    int diff = var_nextStopHeading_8c228714 - var_busState_8c1bb9d0.ang_0x250;
                     if ((diff < -0x71c && diff > -0xf8e3) || (diff > 0x71c && diff < 0xf8e3)) {
                         adjust_8c02b464(0x1b, -3); /* -> INSTR_BAD_STOP_POSITION_1 */
                     }
@@ -1155,9 +1155,9 @@ void DrivePointsReset_8c02c46a(void) {
     var_8c228634[0] = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000;
     var_8c228634[1] = var_busState_8c1bb9d0.junctionARoadFlags_0x34c;
     var_8c228634[2] = var_busState_8c1bb9d0.junctionBRoadFlags_0x368;
-    var_8c2285c4[31] = 0; /* var_8c228640, see taskCallback_8c02c072 */
+    var_8c2285c4[31] = 0; /* var_instructionBonusPending_8c228640, see taskCallback_8c02c072 */
     var_8c2285c4[34] = 0; /* var_firstUpshift_8c22864c */
-    *(float *)&var_8c2285c4[36] = 0.0f; /* DAT_8c228654 */
+    *(float *)&var_8c2285c4[36] = 0.0f; /* applyBraking_8c024530's brake average */
     var_8c2285c4[37] = 0;
     var_8c2285c4[38] = 0;
     var_cooldownCollision_8c228690 = 0;

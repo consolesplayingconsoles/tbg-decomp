@@ -8,7 +8,7 @@ return new class extends TestCase {
     // var_8c2285c4 is the base of a large scratch region this unit
     // addresses partly through their own exported names (var_8c2285fc,
     // var_8c22861c) and partly through raw var_8c2285c4[N] offsets --
-    // var_8c228640/[N=31], and the totally unnamed [33]/[35]/[36]/[37]/[38]
+    // var_instructionBonusPending_8c228640/[N=31], and the totally unnamed [33]/[35]/[36]/[37]/[38]
     // (0x228648/50/54/58/5c) -- depending on which the original compiler
     // had loaded in a register at that point. Both paths must resolve to
     // the same address here, like the real ROM.
@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x94, 0); // var_8c2285c4[37]
         $this->initFloat($base + 0x90, 0.0); // var_8c2285c4[36]
         $this->initUint32($base + 0x98, 0); // var_8c2285c4[38]
-        $this->initUint32($base + 0x7c, 0); // var_8c2285c4[31] i.e. var_8c228640
+        $this->initUint32($base + 0x7c, 0); // var_8c2285c4[31] i.e. var_instructionBonusPending_8c228640
 
         $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0);
 
@@ -232,15 +232,15 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Hold-timer counter (var_8c22861c[4]) expires while the aliased signal
-    // bits (var_8c1bbd1c) show a lane change in progress: flat penalty and
-    // the counter reloads to 0x78.
+    // Hold-timer counter (var_8c22861c[4]) expires while
+    // busState.junctionARoadFlags_0x34c shows a lane change in progress: flat
+    // penalty and the counter reloads to 0x78.
     public function test_hold_timer_expiry_applies_penalty(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x20000000); // var_8c1bbd1c alias
+        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x20000000); // junctionARoadFlags_0x34c
         $this->initUint32($base + 0x68, 0); // var_8c22861c[4] decrements to -1
 
         $this->call('_gradeFrame_8c02bcd8');
@@ -406,13 +406,13 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Message-box just closed (var_8c228640 is set): a small positive award.
+    // Message-box just closed (var_instructionBonusPending_8c228640 is set): a small positive award.
     public function test_messagebox_closed_awards_points(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x7c, 1); // var_8c2285c4[31] i.e. var_8c228640
+        $this->initUint32($base + 0x7c, 1); // var_8c2285c4[31] i.e. var_instructionBonusPending_8c228640
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0); // route into the if-branch
 
         $this->call('_gradeFrame_8c02bcd8');
