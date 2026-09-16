@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * ProfileFilePushTask_8c01d1c4: installs ProfileFileMenuTask_8c01ccec,
+ * ProfileFilePushTask_8c01d1c4: installs menuTask_8c01ccec,
  * resets the grid cursor to slot (0,0), refreshes unlock flags, and kicks
  * off the async load of the overview page's resource group.
  */
@@ -60,7 +60,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
-            $this->menu(0x0c), $this->addressOf('_init_8c0450d8')
+            $this->menu(0x0c), $this->addressOf('_init_profileResgrps_8c0450d8')
         );
         $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(

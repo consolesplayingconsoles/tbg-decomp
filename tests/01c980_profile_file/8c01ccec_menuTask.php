@@ -5,8 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * ProfileFileMenuTask_8c01ccec: per-frame PROFILE FILE task. Incremental
- * coverage -- states still marked TODO in the C aren't tested here yet.
+ * menuTask_8c01ccec: per-frame PROFILE FILE task, one test per state.
  */
 return new class extends TestCase {
     const STATE = 0x18;
@@ -420,7 +419,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
     }
 
-    public function test_page_load_completes_selected_zero_plays_low_jingle(): void
+    public function test_page_load_completes_jump_option_plays_track_8(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 5);
@@ -436,7 +435,7 @@ return new class extends TestCase {
         $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
     }
 
-    public function test_page_load_completes_selected_one_plays_other_jingle(): void
+    public function test_page_load_completes_step_option_plays_track_7(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 5);
@@ -485,7 +484,7 @@ return new class extends TestCase {
         $this->expectDrawChecklistTail();
     }
 
-    public function test_page_view_confirm_selected_under_four_exits_fade_out(): void
+    public function test_page_view_confirm_nav_option_fades_out_to_new_page(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 7);
@@ -499,7 +498,7 @@ return new class extends TestCase {
         $this->expectDrawChecklistTail();
     }
 
-    public function test_page_view_confirm_selected_four_or_more_returns_to_grid(): void
+    public function test_page_view_confirm_exit_option_returns_to_grid(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 7);
@@ -607,12 +606,12 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(0x68), 3);
     }
 
-    public function test_page_advance_delay_prev_no_unlocked_just_updates_page(): void
+    public function test_page_advance_delay_jump_prev_no_unlocked_just_updates_page(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
         $this->initUint32($this->menu(0x68), 3);
-        $this->initUint32($this->menu(0x38), 0); // selected: prev
+        $this->initUint32($this->menu(0x38), 0); // PAGE_OPTION_JUMP_PREV
         $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 0);
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
@@ -620,13 +619,13 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_prev_finds_immediately_unlocked_slot(): void
+    public function test_page_advance_delay_jump_prev_finds_immediately_unlocked_slot(): void
     {
         $this->resolveSymbols();
         $this->useDivMod();
         $this->initUint32($this->menu(self::STATE), 9);
         $this->initUint32($this->menu(0x68), 3);
-        $this->initUint32($this->menu(0x38), 0); // selected: prev
+        $this->initUint32($this->menu(0x38), 0); // PAGE_OPTION_JUMP_PREV
         $this->setCursorPos(2, 5); // slot 25
         $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 1);
         $unlocked = array_fill(0, 55, 0);
@@ -642,13 +641,13 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_prev_wraps_around_to_last_slot(): void
+    public function test_page_advance_delay_jump_prev_wraps_around_to_last_slot(): void
     {
         $this->resolveSymbols();
         $this->useDivMod();
         $this->initUint32($this->menu(self::STATE), 9);
         $this->initUint32($this->menu(0x68), 3);
-        $this->initUint32($this->menu(0x38), 0); // selected: prev
+        $this->initUint32($this->menu(0x38), 0); // PAGE_OPTION_JUMP_PREV
         $this->setCursorPos(0, 0); // slot 0
         $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 1);
         $unlocked = array_fill(0, 55, 0);
@@ -664,7 +663,7 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_selected_one_moves_col_back(): void
+    public function test_page_advance_delay_prev_moves_col_back(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
@@ -678,7 +677,7 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_selected_one_wraps_col_and_row(): void
+    public function test_page_advance_delay_prev_wraps_col_and_row(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
@@ -694,7 +693,7 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_selected_one_wraps_past_first_row(): void
+    public function test_page_advance_delay_prev_wraps_past_first_row(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
@@ -712,7 +711,7 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_selected_two_moves_col_forward(): void
+    public function test_page_advance_delay_next_moves_col_forward(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
@@ -726,7 +725,7 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_selected_two_wraps_row_under_five(): void
+    public function test_page_advance_delay_next_wraps_row_under_five(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
@@ -742,7 +741,7 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_selected_two_wraps_row_five_or_more(): void
+    public function test_page_advance_delay_next_wraps_row_five_or_more(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
@@ -758,12 +757,12 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_next_no_unlocked_just_updates_page(): void
+    public function test_page_advance_delay_jump_next_no_unlocked_just_updates_page(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 9);
         $this->initUint32($this->menu(0x68), 3);
-        $this->initUint32($this->menu(0x38), 3); // selected: next
+        $this->initUint32($this->menu(0x38), 3); // PAGE_OPTION_JUMP_NEXT
         $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 0);
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
@@ -771,13 +770,13 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_next_finds_immediately_unlocked_slot(): void
+    public function test_page_advance_delay_jump_next_finds_immediately_unlocked_slot(): void
     {
         $this->resolveSymbols();
         $this->useDivMod();
         $this->initUint32($this->menu(self::STATE), 9);
         $this->initUint32($this->menu(0x68), 3);
-        $this->initUint32($this->menu(0x38), 3); // selected: next
+        $this->initUint32($this->menu(0x38), 3); // PAGE_OPTION_JUMP_NEXT
         $this->setCursorPos(2, 5); // slot 25
         $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 1);
         $unlocked = array_fill(0, 55, 0);
@@ -793,13 +792,13 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_page_advance_delay_next_wraps_around_to_first_slot(): void
+    public function test_page_advance_delay_jump_next_wraps_around_to_first_slot(): void
     {
         $this->resolveSymbols();
         $this->useDivMod();
         $this->initUint32($this->menu(self::STATE), 9);
         $this->initUint32($this->menu(0x68), 3);
-        $this->initUint32($this->menu(0x38), 3); // selected: next
+        $this->initUint32($this->menu(0x38), 3); // PAGE_OPTION_JUMP_NEXT
         $this->setCursorPos(5, 4); // slot 54 (last)
         $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 1);
         $unlocked = array_fill(0, 55, 0);
@@ -815,7 +814,7 @@ return new class extends TestCase {
         $this->shouldCall('_updatePageLoad_8c01cbec');
     }
 
-    public function test_exit_to_course_menu_still_fading_draws_nothing(): void
+    public function test_exit_to_course_menu_still_fading_draws_frame_only(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 11);
@@ -839,7 +838,7 @@ return new class extends TestCase {
         $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }
 
-    public function test_default_state_draws_nothing(): void
+    public function test_default_state_draws_frame_only(): void
     {
         $this->resolveSymbols();
         $this->initUint32($this->menu(self::STATE), 0xff);

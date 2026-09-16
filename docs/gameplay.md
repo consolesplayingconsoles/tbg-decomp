@@ -17,9 +17,10 @@ bus along a predefined route with predefined passenger stop requests.
     with a checkbox grid of seen events). This is NOT `01d290_album`: the
     album is a separate screen holding six passenger letters in a 3x2 grid
     (`letters_0x2c`), one handed out at random every seventh day by
-    `016d2c_course_menu`. The event menu's owning unit is
-    `01c980_profile_file` -- see `next_units.md` #1 for the shallow
-    analysis and its confirmed link to `02af78_event`'s progress flags.
+    `016d2c_course_menu`. The event menu is `01c980_profile_file`: 55 slots
+    (5 full rows of 10 plus a 5-wide row 5), each unlocked by any one of a
+    list of `02af78_event` progress flags, each row's bio art in its own
+    `prof0N.pvm`.
   - **Free run**: same courses, no cutscenes/events.
 - **Practice**: 11 runs teaching individual mechanics, each preceded by a
   slideshow guide. Runs take place on sections (segments) of the main route

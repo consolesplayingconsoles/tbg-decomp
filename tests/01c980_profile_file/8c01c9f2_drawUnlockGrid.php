@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * ProfileFileDrawUnlockGrid_8c01c9f2: draws a lock icon (sprite 2) over
- * every still-locked slot in the 55-slot grid, then the row-selection
- * highlight (sprite 3) and a background overlay (sprite 1).
+ * drawUnlockGrid_8c01c9f2: draws a lock icon (sprite 2) over every
+ * still-locked slot in the 55-slot grid, then the cell cursor (sprite 3)
+ * and a background overlay (sprite 1).
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -62,7 +62,7 @@ return new class extends TestCase {
         );
     }
 
-    private function expectHighlightAndOverlay(float $cursorX, float $cursorY): void
+    private function expectCursorAndOverlay(float $cursorX, float $cursorY): void
     {
         $resGroup = $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c;
 
@@ -81,7 +81,7 @@ return new class extends TestCase {
         $this->initUnlocked(array_fill(0, 55, 1));
         $this->initCursor(1.0, 2.0);
 
-        $this->expectHighlightAndOverlay(1.0, 2.0);
+        $this->expectCursorAndOverlay(1.0, 2.0);
 
         $this->singleCall('_drawUnlockGrid_8c01c9f2')->run();
     }
@@ -95,7 +95,7 @@ return new class extends TestCase {
         for ($i = 0; $i < 55; $i++) {
             $this->expectLockIcon($i);
         }
-        $this->expectHighlightAndOverlay(3.0, 4.0);
+        $this->expectCursorAndOverlay(3.0, 4.0);
 
         $this->singleCall('_drawUnlockGrid_8c01c9f2')->run();
     }
@@ -113,7 +113,7 @@ return new class extends TestCase {
         $this->expectLockIcon(0);
         $this->expectLockIcon(12);
         $this->expectLockIcon(54);
-        $this->expectHighlightAndOverlay(0.0, 0.0);
+        $this->expectCursorAndOverlay(0.0, 0.0);
 
         $this->singleCall('_drawUnlockGrid_8c01c9f2')->run();
     }

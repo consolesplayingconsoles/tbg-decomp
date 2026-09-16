@@ -5,10 +5,10 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * ProfileFileUpdatePageLoad_8c01cbec: if the selected row's resgrp is
- * already the active sys resgrp, the load finished -- play the confirm
- * jingle and move to state 6. Otherwise kick off a fresh async load of
- * that row's resgrp and move to state 5.
+ * updatePageLoad_8c01cbec: if the selected row's resgrp is already the
+ * active sys resgrp there is nothing to load -- jingle and fade the page
+ * in (STATE_PAGE_FADE_IN, 6). Otherwise request the resgrp and park in
+ * STATE_PAGE_LOAD (5).
  */
 return new class extends TestCase {
     const RESGROUP_INFO_SIZE = 0x10; // sizeof(ResourceGroupInfo)
@@ -34,10 +34,10 @@ return new class extends TestCase {
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
     }
 
-    // Address that init_8c045148[$row] resolves to (&init_8c0450d8[row + 1]).
+    // Address that init_rowResgrps_8c045148[$row] resolves to (&init_profileResgrps_8c0450d8[row + 1]).
     private function pageResgrpInfo(int $row): int
     {
-        return $this->addressOf('_init_8c0450d8') + (($row + 1) * self::RESGROUP_INFO_SIZE);
+        return $this->addressOf('_init_profileResgrps_8c0450d8') + (($row + 1) * self::RESGROUP_INFO_SIZE);
     }
 
     private function selectRow(int $row): void
@@ -50,11 +50,11 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, $value);
     }
 
-    public function test_page_already_loaded_confirms_with_low_jingle(): void
+    public function test_page_already_loaded_jump_option_plays_track_8(): void
     {
         $this->resolveSymbols();
         $this->selectRow(2);
-        $this->setSelected(0);
+        $this->setSelected(0); // PAGE_OPTION_JUMP_PREV
         $this->initUint32(
             $this->addressOf('_var_currentSysResGroupInfo_8c225fb0'),
             $this->pageResgrpInfo(2)
@@ -69,11 +69,11 @@ return new class extends TestCase {
         $this->singleCall('_updatePageLoad_8c01cbec')->run();
     }
 
-    public function test_page_already_loaded_selected_one_or_two_plays_other_jingle(): void
+    public function test_page_already_loaded_step_option_plays_track_7(): void
     {
         $this->resolveSymbols();
         $this->selectRow(2);
-        $this->setSelected(1);
+        $this->setSelected(1); // PAGE_OPTION_PREV
         $this->initUint32(
             $this->addressOf('_var_currentSysResGroupInfo_8c225fb0'),
             $this->pageResgrpInfo(2)

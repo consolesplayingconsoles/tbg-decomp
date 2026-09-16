@@ -53,9 +53,9 @@ enum STATE {
     STATE_EXIT_TO_COURSE_MENU
 };
 
-/* selected_0x38: the episode-checklist page's 5-option prompt (drawn as
- * sprites 5-8 plus the back arrow, sprite 11). PAGE_OPTION_JUMP_PREV/NEXT
- * jump to the previous/next unlocked slot; PREV/NEXT just step one slot. */
+/* selected_0x38 on a bio page. JUMP_PREV/JUMP_NEXT seek the previous/next
+ * unlocked slot; PREV/NEXT step one slot. Options 0-3 draw sprite 5+option
+ * alongside sprite 10; EXIT draws sprite 11 instead. */
 enum PAGE_OPTION {
     PAGE_OPTION_JUMP_PREV,
     PAGE_OPTION_PREV,
@@ -72,246 +72,246 @@ enum PAGE_OPTION {
 /* One entry per PROFILE FILE grid slot; each list is a 0xff-terminated
  * set of progress-flag ids (see 02af78_event.c's ACTION_SET_PROGRESS) --
  * any set flag unlocks that slot. Declared in original physical/address
- * order so layout matches; init_profileUnlockFlags_8c044ffc below indexes
- * them by grid slot. */
-STATIC Uint8 init_8c044ea0[] = {
+ * order, which is not grid-slot order -- the NN in each name is the grid
+ * slot init_profileUnlockFlags_8c044ffc binds it to. */
+STATIC Uint8 init_slotFlags00_8c044ea0[] = {
     0x32, 0x33, 0x7c, 0x34, 0x7d, 0x35, 0x7e, 0x3b,
     0xff,
 };
-STATIC Uint8 init_8c044ea9[] = {
+STATIC Uint8 init_slotFlags01_8c044ea9[] = {
     0x32, 0x33, 0x34, 0x35, 0x3b, 0xff,
 };
-STATIC Uint8 init_8c044eaf[] = {
+STATIC Uint8 init_slotFlags02_8c044eaf[] = {
     0x36, 0x37, 0x38, 0x3a, 0x3b, 0x8e, 0x8f, 0xff,
 };
-STATIC Uint8 init_8c044eb7[] = {
+STATIC Uint8 init_slotFlags03_8c044eb7[] = {
     0x39, 0x36, 0x37, 0x38, 0xff,
 };
-STATIC Uint8 init_8c044ebc[] = {
+STATIC Uint8 init_slotFlags04_8c044ebc[] = {
     0x3c, 0x3d, 0x3e, 0xff,
 };
-STATIC Uint8 init_8c044ec0[] = {
+STATIC Uint8 init_slotFlags05_8c044ec0[] = {
     0x3c, 0x3d, 0x3e, 0xff,
 };
-STATIC Uint8 init_8c044ec4[] = {
+STATIC Uint8 init_slotFlags06_8c044ec4[] = {
     0x3c, 0x3d, 0x3e, 0xff,
 };
-STATIC Uint8 init_8c044ec8[] = {
+STATIC Uint8 init_slotFlags54_8c044ec8[] = {
     0x3f, 0x71, 0x5b, 0x82, 0x83, 0x5c, 0x45, 0x84,
     0x80, 0x91, 0x81, 0x28, 0x8d, 0x10, 0x11, 0x5e,
     0x27, 0xff,
 };
-STATIC Uint8 init_8c044eda[] = {
+STATIC Uint8 init_slotFlags52_8c044eda[] = {
     0x40, 0x41, 0x73, 0x85, 0x12, 0x42, 0x4d, 0x74,
     0x13, 0x1e, 0x1c, 0x29, 0x43, 0x4e, 0x44, 0x45,
     0x86, 0x72, 0x14, 0x20, 0x21, 0x60, 0x5c, 0x4f,
     0x2a, 0x87, 0x15, 0x1f, 0x10, 0x11, 0x61, 0x5e,
     0x92, 0x8f, 0x2b, 0x27, 0xff,
 };
-STATIC Uint8 init_8c044eff[] = {
+STATIC Uint8 init_slotFlags53_8c044eff[] = {
     0x40, 0x41, 0x73, 0x85, 0x12, 0x42, 0x4d, 0x74,
     0x13, 0x1e, 0x1c, 0x29, 0x43, 0x4e, 0x44, 0x45,
     0x86, 0x72, 0x14, 0x20, 0x21, 0x60, 0x5c, 0x4f,
     0x2a, 0x87, 0x15, 0x1f, 0x10, 0x11, 0x61, 0x5e,
     0x92, 0x8f, 0x2b, 0x27, 0xff,
 };
-STATIC Uint8 init_8c044f24[] = {
+STATIC Uint8 init_slotFlags07_8c044f24[] = {
     0x46, 0x47, 0x48, 0xff,
 };
-STATIC Uint8 init_8c044f28[] = {
+STATIC Uint8 init_slotFlags08_8c044f28[] = {
     0x46, 0x47, 0x48, 0xff,
 };
-STATIC Uint8 init_8c044f2c[] = {
+STATIC Uint8 init_slotFlags09_8c044f2c[] = {
     0x46, 0x47, 0x48, 0xff,
 };
-STATIC Uint8 init_8c044f30[] = {
+STATIC Uint8 init_slotFlags11_8c044f30[] = {
     0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0xff,
 };
-STATIC Uint8 init_8c044f37[] = {
+STATIC Uint8 init_slotFlags12_8c044f37[] = {
     0x50, 0x53, 0x55, 0xff,
 };
-STATIC Uint8 init_8c044f3b[] = {
+STATIC Uint8 init_slotFlags13_8c044f3b[] = {
     0x51, 0x5b, 0x56, 0x54, 0x55, 0xff,
 };
-STATIC Uint8 init_8c044f41[] = {
+STATIC Uint8 init_slotFlags14_8c044f41[] = {
     0x52, 0x55, 0xff,
 };
-STATIC Uint8 init_8c044f44[] = {
+STATIC Uint8 init_slotFlags15_8c044f44[] = {
     0x58, 0x57, 0x5a, 0xff,
 };
-STATIC Uint8 init_8c044f48[] = {
+STATIC Uint8 init_slotFlags16_8c044f48[] = {
     0x58, 0x57, 0x5a, 0xff,
 };
-STATIC Uint8 init_8c044f4c[] = {
+STATIC Uint8 init_slotFlags10_8c044f4c[] = {
     0x49, 0x4a, 0x4b, 0x4c, 0xff,
 };
-STATIC Uint8 init_8c044f51[] = {
+STATIC Uint8 init_slotFlags17_8c044f51[] = {
     0x00, 0x01, 0x02, 0x03, 0xff,
 };
-STATIC Uint8 init_8c044f56[] = {
+STATIC Uint8 init_slotFlags18_8c044f56[] = {
     0x00, 0x01, 0x02, 0x03, 0xff,
 };
-STATIC Uint8 init_8c044f5b[] = {
+STATIC Uint8 init_slotFlags19_8c044f5b[] = {
     0x04, 0x05, 0x06, 0xff,
 };
-STATIC Uint8 init_8c044f5f[] = {
+STATIC Uint8 init_slotFlags20_8c044f5f[] = {
     0x04, 0x05, 0x06, 0xff,
 };
-STATIC Uint8 init_8c044f63[] = {
+STATIC Uint8 init_slotFlags21_8c044f63[] = {
     0x07, 0x08, 0x0d, 0x09, 0x0a, 0x0f, 0x24, 0xff,
 };
-STATIC Uint8 init_8c044f6b[] = {
+STATIC Uint8 init_slotFlags22_8c044f6b[] = {
     0x07, 0x08, 0x0d, 0x09, 0x0a, 0x0f, 0x24, 0xff,
 };
-STATIC Uint8 init_8c044f73[] = {
+STATIC Uint8 init_slotFlags23_8c044f73[] = {
     0x0b, 0x0c, 0x0d, 0x0e, 0x24, 0xff,
 };
-STATIC Uint8 init_8c044f79[] = {
+STATIC Uint8 init_slotFlags24_8c044f79[] = {
     0x0b, 0x0c, 0x0d, 0xff,
 };
-STATIC Uint8 init_8c044f7d[] = {
+STATIC Uint8 init_slotFlags25_8c044f7d[] = {
     0x16, 0x17, 0x18, 0x19, 0xff,
 };
-STATIC Uint8 init_8c044f82[] = {
+STATIC Uint8 init_slotFlags26_8c044f82[] = {
     0x16, 0x17, 0x18, 0x19, 0xff,
 };
-STATIC Uint8 init_8c044f87[] = {
+STATIC Uint8 init_slotFlags30_8c044f87[] = {
     0x1c, 0x25, 0x1d, 0x26, 0x27, 0xff,
 };
-STATIC Uint8 init_8c044f8d[] = {
+STATIC Uint8 init_slotFlags31_8c044f8d[] = {
     0x1c, 0x25, 0x1d, 0x26, 0xff,
 };
-STATIC Uint8 init_8c044f92[] = {
+STATIC Uint8 init_slotFlags27_8c044f92[] = {
     0x1a, 0x22, 0x1b, 0xff,
 };
-STATIC Uint8 init_8c044f96[] = {
+STATIC Uint8 init_slotFlags28_8c044f96[] = {
     0x1a, 0x22, 0x1b, 0xff,
 };
-STATIC Uint8 init_8c044f9a[] = {
+STATIC Uint8 init_slotFlags29_8c044f9a[] = {
     0x1a, 0x22, 0x1b, 0xff,
 };
-STATIC Uint8 init_8c044f9e[] = {
+STATIC Uint8 init_slotFlags32_8c044f9e[] = {
     0x2c, 0x22, 0xff,
 };
-STATIC Uint8 init_8c044fa1[] = {
+STATIC Uint8 init_slotFlags33_8c044fa1[] = {
     0x2c, 0x22, 0xff,
 };
-STATIC Uint8 init_8c044fa4[] = {
+STATIC Uint8 init_slotFlags34_8c044fa4[] = {
     0x64, 0x65, 0x8e, 0x66, 0x68, 0x8f, 0xff,
 };
-STATIC Uint8 init_8c044fab[] = {
+STATIC Uint8 init_slotFlags35_8c044fab[] = {
     0x64, 0x65, 0x66, 0x68, 0xff,
 };
-STATIC Uint8 init_8c044fb0[] = {
+STATIC Uint8 init_slotFlags36_8c044fb0[] = {
     0x64, 0x65, 0x66, 0x68, 0xff,
 };
-STATIC Uint8 init_8c044fb5[] = {
+STATIC Uint8 init_slotFlags43_8c044fb5[] = {
     0x6e, 0x6f, 0x67, 0x70, 0xff,
 };
-STATIC Uint8 init_8c044fba[] = {
+STATIC Uint8 init_slotFlags44_8c044fba[] = {
     0x6e, 0x7f, 0x83, 0x8c, 0x6f, 0x80, 0x81, 0x8d,
     0x67, 0x70, 0xff,
 };
-STATIC Uint8 init_8c044fc5[] = {
+STATIC Uint8 init_slotFlags37_8c044fc5[] = {
     0x69, 0x6a, 0x6b, 0xff,
 };
-STATIC Uint8 init_8c044fc9[] = {
+STATIC Uint8 init_slotFlags38_8c044fc9[] = {
     0x69, 0x6a, 0x6b, 0xff,
 };
-STATIC Uint8 init_8c044fcd[] = {
+STATIC Uint8 init_slotFlags39_8c044fcd[] = {
     0x6c, 0x6d, 0xff,
 };
-STATIC Uint8 init_8c044fd0[] = {
+STATIC Uint8 init_slotFlags40_8c044fd0[] = {
     0x6c, 0x6d, 0xff,
 };
-STATIC Uint8 init_8c044fd3[] = {
+STATIC Uint8 init_slotFlags41_8c044fd3[] = {
     0x6c, 0x6d, 0xff,
 };
-STATIC Uint8 init_8c044fd6[] = {
+STATIC Uint8 init_slotFlags42_8c044fd6[] = {
     0x6c, 0x6d, 0xff,
 };
-STATIC Uint8 init_8c044fd9[] = {
+STATIC Uint8 init_slotFlags45_8c044fd9[] = {
     0x75, 0x76, 0x77, 0x78, 0xff,
 };
-STATIC Uint8 init_8c044fde[] = {
+STATIC Uint8 init_slotFlags46_8c044fde[] = {
     0x75, 0x76, 0x77, 0x78, 0xff,
 };
-STATIC Uint8 init_8c044fe3[] = {
+STATIC Uint8 init_slotFlags47_8c044fe3[] = {
     0x75, 0x76, 0x77, 0x78, 0xff,
 };
-STATIC Uint8 init_8c044fe8[] = {
+STATIC Uint8 init_slotFlags48_8c044fe8[] = {
     0x75, 0x76, 0x77, 0x78, 0xff,
 };
-STATIC Uint8 init_8c044fed[] = {
+STATIC Uint8 init_slotFlags49_8c044fed[] = {
     0x79, 0x7a, 0x7b, 0xff,
 };
-STATIC Uint8 init_8c044ff1[] = {
+STATIC Uint8 init_slotFlags50_8c044ff1[] = {
     0x79, 0x7a, 0x7b, 0xff,
 };
-STATIC Uint8 init_8c044ff5[] = {
+STATIC Uint8 init_slotFlags51_8c044ff5[] = {
     0x88, 0x89, 0x8a, 0x8b, 0xff,
 };
 
 Uint8 *init_profileUnlockFlags_8c044ffc[PROFILE_COUNT] = {
-    init_8c044ea0,
-    init_8c044ea9,
-    init_8c044eaf,
-    init_8c044eb7,
-    init_8c044ebc,
-    init_8c044ec0,
-    init_8c044ec4,
-    init_8c044f24,
-    init_8c044f28,
-    init_8c044f2c,
-    init_8c044f4c,
-    init_8c044f30,
-    init_8c044f37,
-    init_8c044f3b,
-    init_8c044f41,
-    init_8c044f44,
-    init_8c044f48,
-    init_8c044f51,
-    init_8c044f56,
-    init_8c044f5b,
-    init_8c044f5f,
-    init_8c044f63,
-    init_8c044f6b,
-    init_8c044f73,
-    init_8c044f79,
-    init_8c044f7d,
-    init_8c044f82,
-    init_8c044f92,
-    init_8c044f96,
-    init_8c044f9a,
-    init_8c044f87,
-    init_8c044f8d,
-    init_8c044f9e,
-    init_8c044fa1,
-    init_8c044fa4,
-    init_8c044fab,
-    init_8c044fb0,
-    init_8c044fc5,
-    init_8c044fc9,
-    init_8c044fcd,
-    init_8c044fd0,
-    init_8c044fd3,
-    init_8c044fd6,
-    init_8c044fb5,
-    init_8c044fba,
-    init_8c044fd9,
-    init_8c044fde,
-    init_8c044fe3,
-    init_8c044fe8,
-    init_8c044fed,
-    init_8c044ff1,
-    init_8c044ff5,
-    init_8c044eda,
-    init_8c044eff,
-    init_8c044ec8,
+    init_slotFlags00_8c044ea0,
+    init_slotFlags01_8c044ea9,
+    init_slotFlags02_8c044eaf,
+    init_slotFlags03_8c044eb7,
+    init_slotFlags04_8c044ebc,
+    init_slotFlags05_8c044ec0,
+    init_slotFlags06_8c044ec4,
+    init_slotFlags07_8c044f24,
+    init_slotFlags08_8c044f28,
+    init_slotFlags09_8c044f2c,
+    init_slotFlags10_8c044f4c,
+    init_slotFlags11_8c044f30,
+    init_slotFlags12_8c044f37,
+    init_slotFlags13_8c044f3b,
+    init_slotFlags14_8c044f41,
+    init_slotFlags15_8c044f44,
+    init_slotFlags16_8c044f48,
+    init_slotFlags17_8c044f51,
+    init_slotFlags18_8c044f56,
+    init_slotFlags19_8c044f5b,
+    init_slotFlags20_8c044f5f,
+    init_slotFlags21_8c044f63,
+    init_slotFlags22_8c044f6b,
+    init_slotFlags23_8c044f73,
+    init_slotFlags24_8c044f79,
+    init_slotFlags25_8c044f7d,
+    init_slotFlags26_8c044f82,
+    init_slotFlags27_8c044f92,
+    init_slotFlags28_8c044f96,
+    init_slotFlags29_8c044f9a,
+    init_slotFlags30_8c044f87,
+    init_slotFlags31_8c044f8d,
+    init_slotFlags32_8c044f9e,
+    init_slotFlags33_8c044fa1,
+    init_slotFlags34_8c044fa4,
+    init_slotFlags35_8c044fab,
+    init_slotFlags36_8c044fb0,
+    init_slotFlags37_8c044fc5,
+    init_slotFlags38_8c044fc9,
+    init_slotFlags39_8c044fcd,
+    init_slotFlags40_8c044fd0,
+    init_slotFlags41_8c044fd3,
+    init_slotFlags42_8c044fd6,
+    init_slotFlags43_8c044fb5,
+    init_slotFlags44_8c044fba,
+    init_slotFlags45_8c044fd9,
+    init_slotFlags46_8c044fde,
+    init_slotFlags47_8c044fe3,
+    init_slotFlags48_8c044fe8,
+    init_slotFlags49_8c044fed,
+    init_slotFlags50_8c044ff1,
+    init_slotFlags51_8c044ff5,
+    init_slotFlags52_8c044eda,
+    init_slotFlags53_8c044eff,
+    init_slotFlags54_8c044ec8,
 };
 
-/* Overview page (record 0) + one page per selected grid row (records 1-6). */
-ResourceGroupInfo init_8c0450d8[7] = {
+/* [0] is the grid screen itself; [1..6] are the bio pages, one per grid row. */
+ResourceGroupInfo init_profileResgrps_8c0450d8[7] = {
     {"prof01_parts.dat", "prof01.dat", "prof01.pvm", 2},
     {"prof02_parts.dat", "prof02.dat", "prof02.pvm", 4},
     {"prof03_parts.dat", "prof03.dat", "prof03.pvm", 4},
@@ -321,14 +321,14 @@ ResourceGroupInfo init_8c0450d8[7] = {
     {"prof07_parts.dat", "prof07.dat", "prof07.pvm", 4},
 };
 
-/* Indexed by selected grid row (0-5). */
-ResourceGroupInfo *init_8c045148[6] = {
-    &init_8c0450d8[1],
-    &init_8c0450d8[2],
-    &init_8c0450d8[3],
-    &init_8c0450d8[4],
-    &init_8c0450d8[5],
-    &init_8c0450d8[6],
+/* Bio page for a grid row: &init_profileResgrps_8c0450d8[row + 1]. */
+ResourceGroupInfo *init_rowResgrps_8c045148[6] = {
+    &init_profileResgrps_8c0450d8[1],
+    &init_profileResgrps_8c0450d8[2],
+    &init_profileResgrps_8c0450d8[3],
+    &init_profileResgrps_8c0450d8[4],
+    &init_profileResgrps_8c0450d8[5],
+    &init_profileResgrps_8c0450d8[6],
 };
 
 /* ====================
@@ -337,8 +337,9 @@ ResourceGroupInfo *init_8c045148[6] = {
  */
 
 /* Refreshes the 55-slot unlock grid: a slot unlocks once any progress flag
- * in its init_profileUnlockFlags_8c044ffc list is set. Also tallies the unlocked count into
- * var_profileUnlockedCount_8c2263a4 (saved to the VMU as var_progress_8c1ba1cc.profileUnlockedCount_0x8c). */
+ * in its list is set. Tallies the unlocked count into
+ * var_profileUnlockedCount_8c2263a4, which 01b19c_system_menu copies into
+ * the save record. */
 void ProfileFileUpdateUnlocks_8c01c980(void)
 {
     int i;
@@ -364,10 +365,9 @@ void ProfileFileUpdateUnlocks_8c01c980(void)
 }
 
 /* Draws the 55-slot unlock grid: a lock icon (sprite 2) over every slot
- * still marked locked in var_profileUnlocked_8c2263b4, laid out 10 columns
- * by 6 rows (row = slot/10, col = slot%10). Also draws the row-selection
- * highlight (sprite 3) at the menu's cursor position and a background
- * overlay (sprite 1). */
+ * still marked locked in var_profileUnlocked_8c2263b4 (row = slot/10,
+ * col = slot%10), the cell cursor (sprite 3) at its interpolated screen
+ * position, and a background overlay (sprite 1). */
 STATIC void drawUnlockGrid_8c01c9f2(void)
 {
     int i;
@@ -404,11 +404,10 @@ STATIC void drawUnlockGrid_8c01c9f2(void)
     );
 }
 
-/* Draws the selected slot's episode checklist: walks the same flag list as
- * ProfileFileUpdateUnlocks_8c01c980 for the currently selected grid slot
- * (var_menuState_8c1bc7a8's col/row scratch fields), putting a checkmark
- * (sprite 9) per flag currently set, wrapping to a new line every 11
- * columns. */
+/* Draws the selected slot's episode checklist: walks that slot's flag list,
+ * putting a checkmark (sprite 9) per flag currently set and wrapping every
+ * 12 columns. The slot's bio art -- sprite = grid column, out of the row's
+ * page resgrp -- is drawn only if at least one episode has been seen. */
 STATIC void drawEpisodeChecklist_8c01cac8(void)
 {
     Uint8 *flags;
@@ -473,15 +472,13 @@ STATIC void drawEpisodeChecklist_8c01cac8(void)
     );
 }
 
-/* Drives the selected page's resource-group swap: if the selected row's
- * resgrp (init_8c045148[field_0x40]) is already the active sys resgrp
- * (previous request has completed), the load is done -- play the confirm
- * jingle and move to state 6. Otherwise kick off a fresh async load of that
- * row's resgrp and move to state 5 (loading), to be polled again next
- * frame. */
+/* Drives the bio page's resource-group swap. If the selected row's resgrp is
+ * already the active sys resgrp there is nothing to load: jingle (only for a
+ * nav option, not EXIT) and fade the page in. Otherwise kick off a fresh
+ * async load and park in STATE_PAGE_LOAD, polled again next frame. */
 STATIC void updatePageLoad_8c01cbec(void)
 {
-    ResourceGroupInfo *pageResgrpInfo = init_8c045148[var_menuState_8c1bc7a8.field_0x40];
+    ResourceGroupInfo *pageResgrpInfo = init_rowResgrps_8c045148[var_menuState_8c1bc7a8.field_0x40];
 
     if (var_currentSysResGroupInfo_8c225fb0 == pageResgrpInfo) {
         switch (var_menuState_8c1bc7a8.selected_0x38) {
@@ -536,7 +533,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
         case STATE_GRID_IDLE: {
             Bool moved = FALSE;
 
-            /* Grid is 10 cols x 5 rows, plus a 5-wide row 6 (55 slots total). */
+            /* 5 full rows of 10, plus a 5-wide row 5 -- 55 slots. */
             if (press & PDD_DGT_KU) {
                 if (--var_menuState_8c1bc7a8.field_0x40 < 0) {
                     var_menuState_8c1bc7a8.field_0x40 =
@@ -677,13 +674,13 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                 case PAGE_OPTION_JUMP_PREV:
                     /* Search backward for the previous unlocked slot. */
                     if (var_profileUnlockedCount_8c2263a4 != 0) {
-                        int slot = var_menuState_8c1bc7a8.field_0x40 * 10
+                        int slot = var_menuState_8c1bc7a8.field_0x40 * ROW_LENGTH
                             + var_menuState_8c1bc7a8.field_0x3c;
                         do {
-                            if (--slot < 0) slot = 0x36;
+                            if (--slot < 0) slot = PROFILE_COUNT - 1;
                         } while (!var_profileUnlocked_8c2263b4[slot]);
-                        var_menuState_8c1bc7a8.field_0x3c = slot % 10;
-                        var_menuState_8c1bc7a8.field_0x40 = slot / 10;
+                        var_menuState_8c1bc7a8.field_0x3c = slot % ROW_LENGTH;
+                        var_menuState_8c1bc7a8.field_0x40 = slot / ROW_LENGTH;
                     }
                     break;
 
@@ -718,13 +715,13 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                         break;
 
                     /* Search forward for the next unlocked slot. */
-                    slot = var_menuState_8c1bc7a8.field_0x40 * 10
+                    slot = var_menuState_8c1bc7a8.field_0x40 * ROW_LENGTH
                         + var_menuState_8c1bc7a8.field_0x3c;
                     do {
-                        if (++slot > 0x36) slot = 0;
+                        if (++slot > PROFILE_COUNT - 1) slot = 0;
                     } while (!var_profileUnlocked_8c2263b4[slot]);
-                    var_menuState_8c1bc7a8.field_0x3c = slot % 10;
-                    var_menuState_8c1bc7a8.field_0x40 = slot / 10;
+                    var_menuState_8c1bc7a8.field_0x3c = slot % ROW_LENGTH;
+                    var_menuState_8c1bc7a8.field_0x40 = slot / ROW_LENGTH;
                     break;
                 }
             }
@@ -748,7 +745,8 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
         case STATE_EXIT_TO_COURSE_MENU:
             if (var_isFading_8c226568)
                 break;
-            /* Reset the grid cursor for the next visit. */
+            /* col/row are shared with the course menu, whose cursor reads
+             * field_0x3c + field_0x40 * 5: (0, 1) is its PROFILE FILE button. */
             var_menuState_8c1bc7a8.field_0x3c = 0;
             var_menuState_8c1bc7a8.field_0x40 = 1;
             var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = 0.0f;
@@ -786,7 +784,7 @@ void ProfileFilePushTask_8c01d1c4(Task *task)
     njGarbageTexture(var_tex_8c157af8, 0xc00);
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
-    CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_8c0450d8[0]);
+    CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_profileResgrps_8c0450d8[0]);
     RouteLoadSetPvmReady_8c014330();
     AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
 }
