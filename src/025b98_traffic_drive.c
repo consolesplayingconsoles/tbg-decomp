@@ -11,7 +11,7 @@
 #include "02f0c8_traffic_path_scan.h"             /* TrafficPathScanBuild_8c02f0c8, TrafficPathScanJunctionOccupied_8c02f28a */
 #include "0207d4_vec_xz.h" /* VecXZDot_8c0207d4, PointXZ */
 #include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
-#include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsMarkCrossingOccupied_8c028984/98 */
+#include "028258_objects.h"     /* ObjectsGetTrafficSignalFrame_8c028900, ObjectsMarkCrossingOccupied_8c028984, ObjectsIsPedCrossing_8c028998 */
 #include "013ae8_route_load.h"  /* var_timeOfDay_8c18ad20 */
 #include "sectionB.h"           /* var_activeTrafficPreset_8c227e14, var_busState_8c1bb9d0, ... */
 
@@ -121,7 +121,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  *
  * Normal driving (0/2) first resolves a junction under the entity's own
  * position (entry->junctionQueryFn_0x2cc, one of AttrQueryFindConvexPolygon_8c02e51c/eab4) to get a signal
- * id (signalId_0x410) and refreshes an obstacle-braking distance (fVar8) by
+ * id (signalId_0x410) and refreshes an obstacle-braking distance (brakeDist) by
  * scanning ahead with TrafficLookaheadScan_8c02dfca over a lookahead of
  * speed_0x27c*36.0 + lookaheadMargin_0x41c (+5.0 once already braking, to stop the
  * candidate flapping in and out of range every frame). It then walks a
@@ -132,7 +132,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
  * changes (signalWaitState_0x448/0x458+0x498/0x468), each armed by
  * TrafficRunEntryScript_8c027012's opcodes 5/6/7 and torn down once the
  * entity leaves the block that armed it -- before picking the frame's
- * actual speed limit as the smallest of: the obstacle distance (fVar8,
+ * actual speed limit as the smallest of: the obstacle distance (brakeDist,
  * converted to a speed via /108000*3000), a curve/lane-offset limit
  * (min of laneOffsetRatio_0x414/0x418), and a signal-stop limit (only computed once
  * flagged by the light logic above, via TrafficRemainingPathDistance_8c026fb0).
