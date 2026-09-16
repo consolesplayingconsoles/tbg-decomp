@@ -68,8 +68,8 @@ STATIC void updateVmsComment_8c01b206(void);
 
 void SystemMenuApplyLoadedProgress_8c01b19c(void)
 {
-    var_8c1bb8b8 = var_progress_8c1ba1cc.introDialogQueued_0xd8;
-    var_8c1bb8bc = var_progress_8c1ba1cc.introDialogPending_0xdc;
+    var_runReportPending_8c1bb8b8 = var_progress_8c1ba1cc.runReportPending_0xd8;
+    var_runWasPractice_8c1bb8bc = var_progress_8c1ba1cc.runWasPractice_0xdc;
     var_runSucceeded_8c1bb8dc = var_progress_8c1ba1cc.runSucceeded_0xe0;
     var_award_8c1bb8f8 = var_progress_8c1ba1cc.award_0xe4;
 }
@@ -115,8 +115,8 @@ void SystemMenuWriteToVmu_8c01b26c(void)
 {
     int size;
 
-    var_progress_8c1ba1cc.introDialogQueued_0xd8 = var_8c1bb8b8;
-    var_progress_8c1ba1cc.introDialogPending_0xdc = var_8c1bb8bc;
+    var_progress_8c1ba1cc.runReportPending_0xd8 = var_runReportPending_8c1bb8b8;
+    var_progress_8c1ba1cc.runWasPractice_0xdc = var_runWasPractice_8c1bb8bc;
     var_progress_8c1ba1cc.runSucceeded_0xe0 = var_runSucceeded_8c1bb8dc;
     var_progress_8c1ba1cc.award_0xe4 = var_award_8c1bb8f8;
     ProfileFileUpdateUnlocks_8c01c980();

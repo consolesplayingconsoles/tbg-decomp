@@ -436,7 +436,7 @@ return new class extends TestCase {
         $this->call('_lessonMenuTask_8c01ebf2')->with($task, 0);
 
         $this->shouldWriteLong($this->addressOf('_var_practiceLesson_8c22640c'), 7);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->shouldCall('_practiceCancelReturn_8c01e920')->with($task);
     }
 
@@ -484,8 +484,8 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_lessonMenuTask_8c01ebf2')->with($task, 0);
 
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x3c, 0);
@@ -517,8 +517,8 @@ return new class extends TestCase {
         // separate stores, both consumed off the same expectation queue.
         $this->shouldWriteLong($progressBase + 0x90, 100030);
         $this->shouldWriteLong($progressBase + 0x90, 99999);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x3c, 0);
@@ -542,8 +542,8 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_lessonMenuTask_8c01ebf2')->with($task, 0);
 
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x3c, 0);
@@ -660,11 +660,11 @@ return new class extends TestCase {
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_var_practiceLesson_8c22640c', 4);
-        $this->setSize('_var_8c1bb8bc', 4);
+        $this->setSize('_var_runWasPractice_8c1bb8bc', 4);
         $this->setSize('_init_8c03bd80', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
         $this->setSize('_var_lessonAttempts_8c22642c', 4);
-        $this->setSize('_var_8c1bb8b8', 4);
+        $this->setSize('_var_runReportPending_8c1bb8b8', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_CourseMenuBuildCourseUnlockList_8c0172dc', 4);

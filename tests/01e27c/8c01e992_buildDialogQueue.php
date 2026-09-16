@@ -21,8 +21,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_penaltyCount_8c1bb8f4'), 0);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
@@ -39,8 +39,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 0x10);
 
         $this->call('_buildDialogQueue_8c01e992');
@@ -50,7 +50,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($queue + 0, 0x16);
         $this->shouldWriteLong($queue + 4, 0x17);
         $this->shouldWriteLong($queue + 8, 0x18);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->shouldWriteLong($queue + 12, -1);
     }
 
@@ -58,8 +58,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 0x1e);
 
         $this->call('_buildDialogQueue_8c01e992');
@@ -68,7 +68,7 @@ return new class extends TestCase {
         // days_0x00 >= 30, so FINAL_DAY replaces TIPS/WARNING
         $this->shouldWriteLong($queue + 0, 0x1a);
         $this->shouldWriteLong($queue + 4, 0x18);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->shouldWriteLong($queue + 8, -1);
     }
 
@@ -76,8 +76,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_penaltyCount_8c1bb8f4'), 0);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 1);
 
@@ -94,8 +94,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_penaltyCount_8c1bb8f4'), 1);
         $this->initUint32($this->addressOf('_var_worstPenaltyMsgSet_8c1bb8ec'), 5);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
@@ -115,8 +115,8 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_penaltyCount_8c1bb8f4'), 1);
         $this->initUint32($this->addressOf('_var_worstPenaltyMsgSet_8c1bb8ec'), 5);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
@@ -135,8 +135,8 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_gameMode_8c1bb8fc', 0x4);
-        $this->setSize('_var_8c1bb8b8', 0x4);
-        $this->setSize('_var_8c1bb8bc', 0x4);
+        $this->setSize('_var_runReportPending_8c1bb8b8', 0x4);
+        $this->setSize('_var_runWasPractice_8c1bb8bc', 0x4);
         $this->setSize('_var_runSucceeded_8c1bb8dc', 0x4);
         $this->setSize('_var_worstPenaltyMsgSet_8c1bb8ec', 0x4);
         $this->setSize('_var_penaltyCount_8c1bb8f4', 0x4);

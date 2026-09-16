@@ -835,7 +835,7 @@ STATIC void driveEndFadeTask_8c02c69a(Task *task, void *state) {
             return;
         }
         var_shouldShowFreeRunIntro_8c1bb8c0 = 0;
-        var_8c1bb8bc = 0;
+        var_runWasPractice_8c1bb8bc = 0;
         CourseMenuReturn_8c017ef2();
         return;
     }
@@ -862,8 +862,8 @@ STATIC void beginDriveEnd_8c02c738(void) {
 STATIC void onFadeRunFailed_8c02c76a(void) {
     var_progress_8c1ba1cc.days_0x00 = var_progress_8c1ba1cc.days_0x00 + 1;
     var_runSucceeded_8c1bb8dc = 0;
-    var_8c1bb8b8 = 1;
-    var_8c1bb8bc = 0;
+    var_runReportPending_8c1bb8b8 = 1;
+    var_runWasPractice_8c1bb8bc = 0;
     beginDriveEnd_8c02c738();
 }
 
@@ -886,8 +886,8 @@ STATIC void onFadeStopEnded_8c02c624(void) {
         return;
     }
 
-    var_8c1bb8b8 = 1;
-    var_8c1bb8bc = 0;
+    var_runReportPending_8c1bb8b8 = 1;
+    var_runWasPractice_8c1bb8bc = 0;
     DebugMenuFreeSessionAssets_8c016182();
 
     if (var_gameMode_8c1bb8fc == 0) {
@@ -914,8 +914,8 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
     }
 
     var_menuState_8c1bc7a8.selected_0x38 = var_practiceLesson_8c22640c;
-    var_8c1bb8b8 = 1;
-    var_8c1bb8bc = 1;
+    var_runReportPending_8c1bb8b8 = 1;
+    var_runWasPractice_8c1bb8bc = 1;
 
     if (var_driverPoints_8c2285d0 < 1) {
         var_runSucceeded_8c1bb8dc = 0;

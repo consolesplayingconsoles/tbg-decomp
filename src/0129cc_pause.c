@@ -21,7 +21,7 @@
  */
 
 /* marks from var_markTexlist_8c1bc418 */
-#define MARK_BASE          0x74 /* dimmed panel, drawn every frame */
+#define MARK_BASE          0x74
 #define MARK_CONTINUE      0x75
 #define MARK_RETIRE        0x7a
 #define MARK_CONFIRM_YES   0x76
@@ -30,7 +30,7 @@
 #define MARK_Z_ARROW       -1.09f
 #define MARK_Z_BASE        -1.1f
 
-/* p->x1/y1 analog thresholds mirroring the digital dpad bits */
+/* the stick deflection that counts as a dpad press */
 #define STICK_THRESHOLD    0x40
 
 #define RETIRE_PHASE_IDLE      0
@@ -53,34 +53,37 @@ char *DEBUG_retirePhaseNames[] = {
     LOG_DEBUG(("[PAUSE] Retire phase changed: %s\n", DEBUG_retirePhaseNames[x]))
 
 /* PauseDemoEndTask_8c012d5a: demo ending marks and phases (see phase_0x08) */
-#define MARK_DEMO          0x7b /* drawn every frame */
-#define MARK_DEMO_BLINK    0x7c /* blinks on counter & 0x18 */
+#define MARK_DEMO          0x7b
+#define MARK_DEMO_BLINK    0x7c
 
 #define DEMO_END_PLAYING   0
 #define DEMO_END_SKIPPED   1
 #define DEMO_END_TIMED_OUT 2
 
-#define DEMO_END_TIMEOUT   0x708 /* frames before the timeout fade */
+#define DEMO_END_TIMEOUT   0x708 /* 1800 frames, 30s */
+
+/* =========
+ * Functions
+ * =========
+ */
 
 /*
  * Pause menu (Start during a drive): CONTINUE / RETIRE, RETIRE guarded by a
- * YES/NO confirm. Returns 1 the frame it opens (nothing drawn yet), 0 while up.
+ * YES/NO confirm. Returns nonzero while closed -- the caller takes that as
+ * leave for the rest of the frame's tasks to run.
  *
  * njDrawPolygon draws the dimmed backdrop quad behind the marks.
  *
- * State vars:
- *   var_pauseActive_8c1bb8cc    0 idle, 1 menu up
- *   var_pauseSettle_8c18ad04    externally-set transition gate (1->2)
- *   var_onRetire_8c18ad10       cursor: 0 CONTINUE, 1 RETIRE
- *   var_retirePhase_8c18ad08    RETIRE_PHASE_*
- *   var_confirmChoice_8c18ad0c  CONFIRM_YES / CONFIRM_NO (default NO)
+ * var_onRetire_8c18ad10 is the cursor: 0 CONTINUE, 1 RETIRE. The confirm
+ * always opens on NO.
  */
 STATIC int update_8c0129cc(void)
 {
     PDS_PERIPHERAL *p;
     int i;
 
-    /* Idle until opened (Start / no controller connected), unless suppressed. */
+    /* Start opens the menu -- so does losing the controller. A message box on
+       screen blocks it. */
     if (!var_pauseActive_8c1bb8cc) {
         if (((var_peripheral_8c1ba358->press & PDD_DGT_ST) != 0 || var_activeCtrlType_8c157a70 == -1)
             && var_messageBoxActive_8c22847c == 0) {
@@ -97,7 +100,8 @@ STATIC int update_8c0129cc(void)
         return 1;
     }
 
-    /* One-frame settle before input is read. */
+    /* Dead: nothing in the image ever stores a nonzero here, and opening the
+       menu clears it. Kept because it is in the original. */
     if (var_pauseSettle_8c18ad04 != 0) {
         if (var_pauseSettle_8c18ad04 == 1) {
             var_pauseSettle_8c18ad04 = 2;
@@ -188,8 +192,8 @@ STATIC int update_8c0129cc(void)
                 return 0;
             }
             var_runSucceeded_8c1bb8dc = 0;
-            var_8c1bb8b8 = 0;
-            var_8c1bb8bc = 0;
+            var_runReportPending_8c1bb8b8 = 0;
+            var_runWasPractice_8c1bb8bc = 0;
             DebugMenuFreeSessionAssets_8c016182();
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_menuState_8c1bc7a8.selected_0x38 = var_practiceLesson_8c22640c;
@@ -198,8 +202,8 @@ STATIC int update_8c0129cc(void)
                 return 0;
             }
             for (i = 0; i < 5; i++) {
-                var_progress_8c1ba1cc.eventProgressFlags_0x04[i] = var_8c1ba2b8[i];
-                var_progress_8c1ba1cc.profileProgressFlags_0x18[i] = var_8c1ba2cc[i];
+                var_progress_8c1ba1cc.eventProgressFlags_0x04[i] = var_eventFlagsSnapshot_8c1ba2b8[i];
+                var_progress_8c1ba1cc.profileProgressFlags_0x18[i] = var_profileFlagsSnapshot_8c1ba2cc[i];
             }
             CourseMenuReturn_8c017ef2();
             LOG_INFO(("[PAUSE] update_8c0129cc: retire complete, leaving drive (course menu)\n"));
@@ -213,10 +217,8 @@ STATIC int update_8c0129cc(void)
 }
 
 /*
- * TaskPush_8c014ae8 action for the pause menu: resets to the title if a
- * reset was requested with the asset queues idle, otherwise runs
- * update_8c0129cc and, the frame it just opened, runs the rest of the task
- * list so the paused frame still draws.
+ * TaskPush_8c014ae8 action for a normal drive: soft-reset check first, then
+ * the pause menu, and the rest of the frame's tasks only while it is closed.
  */
 void PauseTask_8c012cbc()
 {
@@ -238,10 +240,9 @@ void PauseTask_8c012cbc()
 }
 
 /*
- * TaskPush_8c014ae8 action for the PLAY_MODE_DEMO (attract loop) pause task,
- * used in place of PauseTask_8c012cbc when var_isAttractDemo_8c1bb8d4 == 0: instead of the full
- * CONTINUE/RETIRE pause menu, Start just toggles var_pauseActive_8c1bb8cc,
- * and the rest of the frame's tasks only run while unpaused.
+ * TaskPush_8c014ae8 action for VMU replay playback (PLAY_MODE_DEMO with
+ * var_isAttractDemo_8c1bb8d4 == 0). No CONTINUE/RETIRE menu -- Start only
+ * freezes the replay.
  */
 void PauseToggleTask_8c012d06()
 {
@@ -268,10 +269,10 @@ void PauseToggleTask_8c012d06()
 }
 
 /*
- * TaskPush_8c014ae8 action for the PLAY_MODE_DEMO ending sequence (installed
- * when var_isAttractDemo_8c1bb8d4 != 0): the attract loop plays out, then either Start
- * (phase 1) or a ~0x708-frame timeout (phase 2) fades out and returns to the
- * title -- TitlePushTitle_8c015fd6(1) for the Start skip, (0) for the timeout.
+ * TaskPush_8c014ae8 action for the attract loop (PLAY_MODE_DEMO with
+ * var_isAttractDemo_8c1bb8d4 != 0): plays out until Start or the timeout, then
+ * fades back to the title -- skipping the FortyFive logo when Start ended it,
+ * replaying it on a timeout.
  */
 void PauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
 {

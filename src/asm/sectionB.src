@@ -32,9 +32,9 @@
           .EXPORT     _var_accelSensitivity_8c1ba29c ; 024280
           .EXPORT     _var_brakeSensitivity_8c1ba29d ; 024280
           .EXPORT     _var_runEventFlags_8c1ba2b4 ; 02af78_event
-          .EXPORT     _var_8c1ba2b8 ; 0129cc_pause
+          .EXPORT     _var_eventFlagsSnapshot_8c1ba2b8 ; 0129cc_pause
                                     ; 016d2c_course_menu
-          .EXPORT     _var_8c1ba2cc ; 0129cc_pause
+          .EXPORT     _var_profileFlagsSnapshot_8c1ba2cc ; 0129cc_pause
                                     ; 016d2c_course_menu
           .EXPORT     _var_saveBuf_8c1ba2e0 ; 012f44_game
                                     ; 018644_file_menu
@@ -164,13 +164,13 @@
           .EXPORT     _var_groundGridPrimary_8c1bb890 ; 028258
           .EXPORT     _var_8c1bb894 ; 02c884
           .EXPORT     _var_trafficSignalDefs_8c1bb8a0 ; 028258
-          .EXPORT     _var_8c1bb8b8 ; 0129cc_pause
+          .EXPORT     _var_runReportPending_8c1bb8b8 ; 0129cc_pause
                                     ; 016d2c_course_menu
                                     ; 018644_file_menu
                                     ; 01b19c
                                     ; 01e27c
                                     ; 02b464
-          .EXPORT     _var_8c1bb8bc ; 0129cc_pause
+          .EXPORT     _var_runWasPractice_8c1bb8bc ; 0129cc_pause
                                     ; 016d2c_course_menu
                                     ; 018644_file_menu
                                     ; 01b19c
@@ -871,9 +871,9 @@ _var_brakeSensitivity_8c1ba29d:
           .RES.B      23
 _var_runEventFlags_8c1ba2b4:
           .RES.B      4
-_var_8c1ba2b8:
+_var_eventFlagsSnapshot_8c1ba2b8:
           .RES.B      20
-_var_8c1ba2cc:
+_var_profileFlagsSnapshot_8c1ba2cc:
           .RES.B      20
 _var_saveBuf_8c1ba2e0:
           .RES.B      4
@@ -927,9 +927,9 @@ _var_8c1bb894:
           .RES.B      12
 _var_trafficSignalDefs_8c1bb8a0:
           .RES.B      24
-_var_8c1bb8b8:
+_var_runReportPending_8c1bb8b8:
           .RES.B      4
-_var_8c1bb8bc:
+_var_runWasPractice_8c1bb8bc:
           .RES.B      4
 _var_shouldShowFreeRunIntro_8c1bb8c0:
           .RES.B      4

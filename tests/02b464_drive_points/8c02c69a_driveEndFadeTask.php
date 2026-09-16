@@ -11,7 +11,7 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
         $this->setSize('_var_shouldShowFreeRunIntro_8c1bb8c0', 4);
-        $this->setSize('_var_8c1bb8bc', 4);
+        $this->setSize('_var_runWasPractice_8c1bb8bc', 4);
         $this->setSize('_var_markTexlist_8c1bc418', 4);
     }
 
@@ -77,7 +77,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_shouldShowFreeRunIntro_8c1bb8c0'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }
 };

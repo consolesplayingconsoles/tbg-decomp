@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     public function test_reset_requested_with_queues_idle_returns_to_title()
     {
-        $this->setup(resetRequested: 1, unk157a7c: 0, queuesInitialized: 0);
+        $this->setup(resetRequested: 1, vmBusy: 0, queuesInitialized: 0);
 
         $this->call('_PauseToggleTask_8c012d06');
 
@@ -15,9 +15,9 @@ return new class extends TestCase {
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
     }
 
-    public function test_reset_requested_but_unk157a7c_set_runs_normally()
+    public function test_reset_requested_but_vm_busy_runs_normally()
     {
-        $this->setup(resetRequested: 1, unk157a7c: 1, queuesInitialized: 0, pauseActive: 1);
+        $this->setup(resetRequested: 1, vmBusy: 1, queuesInitialized: 0, pauseActive: 1);
 
         $this->call('_PauseToggleTask_8c012d06');
 
@@ -26,7 +26,7 @@ return new class extends TestCase {
 
     public function test_reset_requested_but_queues_not_idle_runs_normally()
     {
-        $this->setup(resetRequested: 1, unk157a7c: 0, queuesInitialized: 1, pauseActive: 1);
+        $this->setup(resetRequested: 1, vmBusy: 0, queuesInitialized: 1, pauseActive: 1);
 
         $this->call('_PauseToggleTask_8c012d06');
 
@@ -77,7 +77,7 @@ return new class extends TestCase {
 
     private function setup(
         int $resetRequested = 0,
-        int $unk157a7c = 0,
+        int $vmBusy = 0,
         int $queuesInitialized = 0,
         int $press = 0,
         int $pauseActive = 0,
@@ -94,7 +94,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripheral_8c1ba358'), $periph);
 
         $this->initUint32($this->addressOf('_var_resetRequested_8c157a78'), $resetRequested);
-        $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), $unk157a7c);
+        $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), $vmBusy);
         $this->initUint32($this->addressOf('_var_queuesAreInitialized_8c157a60'), $queuesInitialized);
         $this->initUint32($this->addressOf('_var_pauseActive_8c1bb8cc'), $pauseActive);
     }

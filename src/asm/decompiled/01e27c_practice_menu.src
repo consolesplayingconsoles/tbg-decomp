@@ -37,8 +37,8 @@
           .IMPORT     _CourseMenuDrawDateAndExp_8c016ee6
           .IMPORT     _njUserClipping
           .IMPORT     _init_practice01ResourceGroup_8c044274
-          .IMPORT     _var_8c1bb8b8
-          .IMPORT     _var_8c1bb8bc
+          .IMPORT     _var_runReportPending_8c1bb8b8
+          .IMPORT     _var_runWasPractice_8c1bb8bc
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _var_award_8c1bb8f8
@@ -1250,8 +1250,8 @@ LP_GEN_88702:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01EB7C
           .DATA.L _FadePushIn_8c022a9c ; H'8C01EB80
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01EB84
-          .DATA.L _var_8c1bb8b8 ; H'8C01EB88
-          .DATA.L _var_8c1bb8bc ; H'8C01EB8C
+          .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C01EB88
+          .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C01EB8C
           .DATA.L _var_progress_8c1ba1cc ; H'8C01EB90
           .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C01EB94
           .DATA.L _init_penaltyMsgSetInstr_8c045208 ; H'8C01EB98
@@ -1560,7 +1560,7 @@ LP_GEN_52292:
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01EDDC
           .DATA.L _var_progress_8c1ba1cc ; H'8C01EDE0
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01EDE4
-          .DATA.L _var_8c1bb8bc ; H'8C01EDE8
+          .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C01EDE8
           .DATA.L _var_isFading_8c226568 ; H'8C01EDEC
           .DATA.L _ObjectsSwapMessageBoxFor_8c02aefc ; H'8C01EDF0
           .DATA.L _sdMidiPlay ; H'8C01EDF4
@@ -1725,7 +1725,7 @@ LP_GEN_95699:
           .DATA.L _var_practiceLesson_8c22640c ; H'8C01EF40
           .DATA.L _init_8c03bd80 ; H'8C01EF44
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01EF48
-          .DATA.L _var_8c1bb8b8 ; H'8C01EF4C
+          .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C01EF4C
           .DATA.L _var_lessonAttempts_8c22642c ; H'8C01EF50
           .DATA.L H'0001869F ; H'8C01EF54
           .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01EF58
@@ -2112,7 +2112,7 @@ LP_GEN_80134:
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01F274
           .DATA.L _var_award_8c1bb8f8 ; H'8C01F278
           .DATA.L _var_lessonDialogQueue_8c226414 ; H'8C01F27C
-          .DATA.L _var_8c1bb8bc ; H'8C01F280
+          .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C01F280
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01F284
           .DATA.L _var_practiceLesson_8c22640c ; H'8C01F288
           .DATA.L _var_8c1ba264 ; H'8C01F28C

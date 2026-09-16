@@ -10,8 +10,8 @@ return new class extends TestCase {
         $this->setSize('_var_driverPoints_8c2285d0', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x3c);
         $this->setSize('_var_practiceLesson_8c22640c', 4);
-        $this->setSize('_var_8c1bb8b8', 4);
-        $this->setSize('_var_8c1bb8bc', 4);
+        $this->setSize('_var_runReportPending_8c1bb8b8', 4);
+        $this->setSize('_var_runWasPractice_8c1bb8bc', 4);
         $this->setSize('_var_runSucceeded_8c1bb8dc', 4);
         $this->setSize('_var_tasks_8c1bb448', 4);
         $this->setSize('_var_tasks_8c1bac28', 4);
@@ -51,8 +51,8 @@ return new class extends TestCase {
         $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(0);
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 7); // selected_0x38
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->shouldCall('_beginDriveEnd_8c02c738')->andReturn(0);
@@ -69,8 +69,8 @@ return new class extends TestCase {
         $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(1);
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 3);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_PracticeMenuLessonRetry_8c01f21c');

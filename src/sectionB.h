@@ -397,10 +397,12 @@ typedef struct {
     char voiceVolume_0xd6;
     char reserved_0xd7; // padding
 
-    /* mirrored to/from var_8c1bb8b8/bc/dc/var_award_8c1bb8f8 by 01b19c_system_menu
-     * on load (see SystemMenuApplyLoadedProgress_8c01b19c) and save (SystemMenuWriteToVmu_8c01b26c) */
-    int introDialogQueued_0xd8;
-    int introDialogPending_0xdc;
+    /* mirrored to/from var_runReportPending_8c1bb8b8 / var_runWasPractice_8c1bb8bc
+     * / var_runSucceeded_8c1bb8dc / var_award_8c1bb8f8 by 01b19c_system_menu on
+     * load (SystemMenuApplyLoadedProgress_8c01b19c) and save
+     * (SystemMenuWriteToVmu_8c01b26c) */
+    int runReportPending_0xd8;
+    int runWasPractice_0xdc;
     int runSucceeded_0xe0;
     char award_0xe4;
     char reserved_0xe5[3]; // padding
@@ -425,8 +427,11 @@ extern int var_exp_8c1ba25c; // EXP shown on the VMU icon status line (see 01b19
 /* single-word bitset, set/tested by setRunEventFlag_8c02b022/hasRunEventFlag_8c02b030; role unclear */
 extern int var_runEventFlags_8c1ba2b4;
 
-extern int var_8c1ba2b8[5]; // Maybe progress backup
-extern int var_8c1ba2cc[5]; // Maybe progress backup
+/* PlayerProgress.eventProgressFlags_0x04 / profileProgressFlags_0x18 as they
+ * stood when the drive started, so retiring from the pause menu can roll back
+ * whatever the abandoned drive raised. */
+extern int var_eventFlagsSnapshot_8c1ba2b8[5];
+extern int var_profileFlagsSnapshot_8c1ba2cc[5];
 /* Staging buffer for VMU save-file images: 018644_file_menu allocates 16
  * 0x600-byte slots in it (one per VM file) and 01b19c one, for the file it is
  * about to write. -1 when unallocated. */
@@ -458,8 +463,17 @@ extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into
  * The symbol itself reserves 12 bytes; only the leading 4 (the table
  * pointer) are used by pickWaitingPassengers_8c02c8ae. */
 extern void *var_8c1bb894;
-extern int var_8c1bb8b8; // Maybe courseMenuHasResult or courseMenuHasDialog
-extern int var_8c1bb8bc;
+/*
+ * The pair the course and practice menus read on arrival to pick their opening
+ * dialog: pending says a day was consumed and there is something to announce,
+ * practice says the day went on a lesson rather than a course run.
+ * Course menu: nothing pending -> "choose a course"; pending + practice -> the
+ * "good practice" line; pending + course -> the run's result. Practice menu:
+ * pending + practice -> the lesson result; not pending + practice -> the
+ * one-time tips, which the course menu arms by setting practice on the way out.
+ */
+extern int var_runReportPending_8c1bb8b8;
+extern int var_runWasPractice_8c1bb8bc;
 /* The title screen is the screen on top. GameTask_8c012f44's soft reset
  * re-pushes the title when it is clear, and quits to the BIOS when it is set. */
 extern int var_titleActive_8c1bb8c4;

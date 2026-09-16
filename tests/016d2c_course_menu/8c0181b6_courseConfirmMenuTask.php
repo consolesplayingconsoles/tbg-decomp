@@ -474,14 +474,14 @@ return new class extends TestCase {
 
         // Step 4: Copy progress data to two pointer arrays (5 uint32 values each)
         for ($i = 0; $i < 5; $i++) {
-            // Copy from progress->eventProgressFlags_0x04 to var_8c1ba2b8
+            // Copy from progress->eventProgressFlags_0x04 to var_eventFlagsSnapshot_8c1ba2b8
             $this->shouldWriteLong(
-                $this->addressOf('_var_8c1ba2b8') + $i * 4,
+                $this->addressOf('_var_eventFlagsSnapshot_8c1ba2b8') + $i * 4,
                 0x1000 + $i
             );
-            // Copy from progress->eventProgressFlags_0x04 + 0x14 to var_8c1ba2cc
+            // Copy from progress->eventProgressFlags_0x04 + 0x14 to var_profileFlagsSnapshot_8c1ba2cc
             $this->shouldWriteLong(
-                $this->addressOf('_var_8c1ba2cc') + $i * 4,
+                $this->addressOf('_var_profileFlagsSnapshot_8c1ba2cc') + $i * 4,
                 0x2000 + $i
             );
         }
@@ -548,11 +548,11 @@ return new class extends TestCase {
         // Step 4: Copy progress data to two arrays (5 uint32 values each)
         for ($i = 0; $i < 5; $i++) {
             $this->shouldWriteLong(
-                $this->addressOf('_var_8c1ba2b8') + $i * 4,
+                $this->addressOf('_var_eventFlagsSnapshot_8c1ba2b8') + $i * 4,
                 0x1000 + $i
             );
             $this->shouldWriteLong(
-                $this->addressOf('_var_8c1ba2cc') + $i * 4,
+                $this->addressOf('_var_profileFlagsSnapshot_8c1ba2cc') + $i * 4,
                 0x2000 + $i
             );
         }
@@ -679,8 +679,8 @@ return new class extends TestCase {
         $this->setSize('_var_worstPenaltyMsgSet_8c1bb8ec', 4);
         $this->setSize('_var_worstPenaltyDelta_8c1bb8f0', 4);
         $this->setSize('_var_penaltyCount_8c1bb8f4', 4);
-        $this->setSize('_var_8c1ba2b8', 0x14); // 5 uint32 values
-        $this->setSize('_var_8c1ba2cc', 0x14); // 5 uint32 values
+        $this->setSize('_var_eventFlagsSnapshot_8c1ba2b8', 0x14); // 5 uint32 values
+        $this->setSize('_var_profileFlagsSnapshot_8c1ba2cc', 0x14); // 5 uint32 values
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
         $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);
         $this->setSize('_var_dialogQueue_8c225fbc', 0x10); // Array of dialog queue

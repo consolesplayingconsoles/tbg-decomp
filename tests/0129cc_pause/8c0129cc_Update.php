@@ -5,17 +5,16 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    public function test_inactive_without_activation_returns_1()
+    public function test_closed_without_start_returns_1()
     {
         $this->setup(press: 0, ctrl: 0);
 
         $this->call('_update_8c0129cc');
 
-        // (press&8)==0 && ctrl!=-1 -> no activation, just returns 1.
         $this->shouldReturn(1);
     }
 
-    public function test_activates_and_returns_1()
+    public function test_start_opens_the_menu()
     {
         $this->setup(press: 8, ctrl: 0, vibport: -1);
 
@@ -29,13 +28,12 @@ return new class extends TestCase {
         $this->shouldReturn(1);
     }
 
-    public function test_activates_and_stops_vibration()
+    public function test_opening_stops_the_vibration_motor()
     {
         $this->setup(press: 8, ctrl: 0, vibport: 3);
 
         $this->call('_update_8c0129cc');
 
-        // vibport != -1 -> also stop the vibration motor.
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_pauseSettle_8c18ad04'), 0);
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
@@ -45,9 +43,9 @@ return new class extends TestCase {
         $this->shouldReturn(1);
     }
 
-    public function test_ad04_pending_advances_to_2()
+    public function test_settle_gate_advances_to_2()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad04: 1);
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 1);
 
         $this->call('_update_8c0129cc');
 
@@ -55,18 +53,18 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad04_settled_returns_0()
+    public function test_settle_gate_holds_at_2()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad04: 2);
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 2);
 
         $this->call('_update_8c0129cc');
 
         $this->shouldReturn(0);
     }
 
-    public function test_press_start_deactivates_and_base_draws()
+    public function test_start_closes_the_menu()
     {
-        $this->setup(press: 8, ctrl: 0, bb8cc: 1, ad04: 0);
+        $this->setup(press: 8, ctrl: 0, pauseActive: 1, settle: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
@@ -79,14 +77,13 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad10_init_press4_deactivates_and_draws_75()
+    public function test_continue_a_resumes_the_drive()
     {
-        $this->setup(press: 4, ctrl: 0, bb8cc: 1, ad04: 0);
+        $this->setup(press: 4, ctrl: 0, pauseActive: 1, settle: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad10==0, press&4 -> stop clip, replay midi, draw steer sprite 0x75.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 0);
         $this->shouldCall('_SndControlAdxtWithOutVol_8c0107d2')->with(0);
@@ -97,14 +94,13 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad10_init_steer_engages_and_draws_75()
+    public function test_continue_down_moves_to_retire()
     {
-        $this->setup(press: 0x20, ctrl: 0, bb8cc: 1, ad04: 0);
+        $this->setup(press: 0x20, ctrl: 0, pauseActive: 1, settle: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad10==0, press&0x20 -> engage steering, draw sprite 0x75.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 1);
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
@@ -116,14 +112,13 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad10_init_steer_engages_on_y1_tilt()
+    public function test_continue_stick_down_moves_to_retire()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad04: 0, y1: 0x41);
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 0, y1: 0x41);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad10==0, y1 > 0x40 -> engage steering, draw sprite 0x75.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 1);
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
@@ -135,14 +130,13 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad10_init_idle_just_draws_75()
+    public function test_continue_idle_draws_its_mark()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad04: 0);
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad10==0, no input -> no state change, just draw 0x75 then base.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x75, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
@@ -150,14 +144,13 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_zero_press4_advances_to_1_and_draws_7a()
+    public function test_retire_a_opens_the_confirm()
     {
-        $this->setup(press: 4, ctrl: 0, bb8cc: 1, ad04: 0, ad10: 1, ad08: 0);
+        $this->setup(press: 4, ctrl: 0, pauseActive: 1, settle: 0, onRetire: 1, retirePhase: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad10!=0, ad08==0, press&4 -> ad08=1, replay midi, draw 0x7a.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 1);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
@@ -167,27 +160,9 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_zero_press10_disengages_and_draws_7a()
+    public function test_retire_up_moves_back_to_continue()
     {
-        $this->setup(press: 0x10, ctrl: 0, bb8cc: 1, ad04: 0, ad10: 1, ad08: 0);
-        $mark = $this->addressOf('_var_markTexlist_8c1bc418');
-
-        $this->call('_update_8c0129cc');
-
-        // ad10!=0, ad08==0, press&0x10 -> ad10=0, midi(1,3,0), draw 0x7a.
-        $this->shouldCall('_FadeUpdate_8c022560');
-        $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
-        $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
-        $this->shouldCall('_njDrawPolygon');
-        $this->shouldReturn(0);
-    }
-
-    public function test_ad08_zero_disengages_on_y1_tilt()
-    {
-        // y1 = -0x41 (0xffbf as u16) < -0x40.
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad04: 0, ad10: 1, ad08: 0, y1: 0xffbf);
+        $this->setup(press: 0x10, ctrl: 0, pauseActive: 1, settle: 0, onRetire: 1, retirePhase: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
@@ -201,14 +176,30 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_zero_idle_just_draws_7a()
+    public function test_retire_stick_up_moves_back_to_continue()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad04: 0, ad10: 1, ad08: 0);
+        // y1 is a Sint16: 0xffbf is -0x41.
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 0, onRetire: 1, retirePhase: 0, y1: 0xffbf);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad10!=0, ad08==0, no input -> no state change, just draw 0x7a then base.
+        $this->shouldCall('_FadeUpdate_8c022560');
+        $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
+        $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
+        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
+        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
+        $this->shouldCall('_njDrawPolygon');
+        $this->shouldReturn(0);
+    }
+
+    public function test_retire_idle_draws_its_mark()
+    {
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 0, onRetire: 1, retirePhase: 0);
+        $mark = $this->addressOf('_var_markTexlist_8c1bc418');
+
+        $this->call('_update_8c0129cc');
+
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
@@ -216,14 +207,14 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_one_press2_resets_and_draws_7a()
+    public function test_confirm_b_cancels_back_to_retire()
     {
-        $this->setup(press: 2, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1);
+        $this->setup(press: 2, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad08==1, press&2 -> ad08=0, draw 0x7a, then midi(1,1,0).
+        // The RETIRE mark is drawn before the cancel sound, not after.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
@@ -233,14 +224,14 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_one_ad0c0_press4_fades_to_2()
+    public function test_confirm_yes_a_commits_and_fades_out()
     {
-        $this->setup(press: 4, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1, ad0c: 0);
+        $this->setup(press: 4, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad08==1, !press&2, ad0c==0, press&4 -> ad08=2, fadeout(10), midi(1,0,0), no arrow draw.
+        // Committing draws no arrow mark this frame.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 2);
         $this->shouldCall('_FadePushOut_8c022b60')->with(10);
@@ -250,27 +241,9 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_one_ad0c0_press80_toggles_right_draws_76()
+    public function test_confirm_yes_right_selects_no()
     {
-        $this->setup(press: 0x80, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1, ad0c: 0);
-        $mark = $this->addressOf('_var_markTexlist_8c1bc418');
-
-        $this->call('_update_8c0129cc');
-
-        // ad0c==0, press&0x80 -> ad0c=1, midi(1,3,0), draw 0x76.
-        $this->shouldCall('_FadeUpdate_8c022560');
-        $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 1);
-        $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
-        $this->shouldCall('_njDrawPolygon');
-        $this->shouldReturn(0);
-    }
-
-    public function test_ad08_one_ad0c0_x1_toggles_right_draws_76()
-    {
-        // x1 = 0x41 > 0x40.
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1, ad0c: 0, x1: 0x41);
+        $this->setup(press: 0x80, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
@@ -284,14 +257,29 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_one_ad0c0_idle_draws_76()
+    public function test_confirm_yes_stick_right_selects_no()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1, ad0c: 0);
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 0, x1: 0x41);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad0c==0, no toggle input -> just draw 0x76.
+        $this->shouldCall('_FadeUpdate_8c022560');
+        $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 1);
+        $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
+        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
+        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
+        $this->shouldCall('_njDrawPolygon');
+        $this->shouldReturn(0);
+    }
+
+    public function test_confirm_yes_idle_draws_its_mark()
+    {
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 0);
+        $mark = $this->addressOf('_var_markTexlist_8c1bc418');
+
+        $this->call('_update_8c0129cc');
+
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
@@ -299,14 +287,13 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_one_ad0c1_press4_resets_draws_77()
+    public function test_confirm_no_a_cancels_back_to_retire()
     {
-        $this->setup(press: 4, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1, ad0c: 1);
+        $this->setup(press: 4, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad0c!=0, press&4 -> ad08=0, midi(1,0,0), draw 0x77.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
@@ -316,27 +303,9 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_one_ad0c1_press40_toggles_left_draws_77()
+    public function test_confirm_no_left_selects_yes()
     {
-        $this->setup(press: 0x40, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1, ad0c: 1);
-        $mark = $this->addressOf('_var_markTexlist_8c1bc418');
-
-        $this->call('_update_8c0129cc');
-
-        // ad0c!=0, !press&4, press&0x40 -> ad0c=0, midi(1,3,0), draw 0x77.
-        $this->shouldCall('_FadeUpdate_8c022560');
-        $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 0);
-        $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x77, 0.0, 0.0, -1.09);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
-        $this->shouldCall('_njDrawPolygon');
-        $this->shouldReturn(0);
-    }
-
-    public function test_ad08_one_ad0c1_x1_toggles_left_draws_77()
-    {
-        // x1 = -0x41 (0xffbf as u16) < -0x40.
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1, ad0c: 1, x1: 0xffbf);
+        $this->setup(press: 0x40, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
@@ -350,14 +319,29 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_one_ad0c1_idle_draws_77()
+    public function test_confirm_no_stick_left_selects_yes()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 1, ad0c: 1);
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 1, x1: 0xffbf);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad0c!=0, no toggle input -> just draw 0x77.
+        $this->shouldCall('_FadeUpdate_8c022560');
+        $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 0);
+        $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 3, 0);
+        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x77, 0.0, 0.0, -1.09);
+        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
+        $this->shouldCall('_njDrawPolygon');
+        $this->shouldReturn(0);
+    }
+
+    public function test_confirm_no_idle_draws_its_mark()
+    {
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 1);
+        $mark = $this->addressOf('_var_markTexlist_8c1bc418');
+
+        $this->call('_update_8c0129cc');
+
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x77, 0.0, 0.0, -1.09);
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x74, 0.0, 0.0, -1.1);
@@ -365,43 +349,42 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_two_fading_draws_76_only()
+    public function test_fading_holds_the_yes_mark()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 2, isFading: 1);
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 2, isFading: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
         $this->call('_update_8c0129cc');
 
-        // ad08==2, isFading -> draw 0x76 and njDrawPolygon, skip base 0x74 draw.
+        // The base mark is skipped on this path.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
         $this->shouldCall('_njDrawPolygon');
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_two_practice_commits_menu_selection()
+    public function test_retire_from_practice_reopens_the_lesson_list()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 2, isFading: 0, playMode: 1);
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 2, isFading: 0, playMode: 1);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 0x2b);
 
         $this->call('_update_8c0129cc');
 
-        // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==PRACTICE -> menuState.selected = var_practiceLesson_8c22640c, PracticeMenuLessonRetry_8c01f21c.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 0x2b);
-        $this->shouldCall($this->practiceLessonRetrySymbol());
+        $this->shouldCall('_PracticeMenuLessonRetry_8c01f21c');
         $this->shouldReturn(0);
     }
 
-    public function test_ad08_two_normal_copies_progress_and_opens_course_menu()
+    public function test_retire_rolls_back_progress_and_returns_to_the_course_menu()
     {
-        $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 2, isFading: 0, playMode: 0);
-        $b8 = $this->addressOf('_var_8c1ba2b8');
-        $cc = $this->addressOf('_var_8c1ba2cc');
+        $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 2, isFading: 0, playMode: 0);
+        $b8 = $this->addressOf('_var_eventFlagsSnapshot_8c1ba2b8');
+        $cc = $this->addressOf('_var_profileFlagsSnapshot_8c1ba2cc');
         $prog = $this->addressOf('_var_progress_8c1ba1cc');
         for ($i = 0; $i < 5; $i++) {
             $this->initUint32($b8 + $i * 4, 0x100 + $i);
@@ -410,14 +393,12 @@ return new class extends TestCase {
 
         $this->call('_update_8c0129cc');
 
-        // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==NORMAL -> copy backups into progress, CourseMenuFUN.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         for ($i = 0; $i < 5; $i++) {
-            // eventProgressFlags_0x04[i] = var_8c1ba2b8[i]; profileProgressFlags_0x18[i] = var_8c1ba2cc[i].
             $this->shouldWriteLong($prog + 0x04 + $i * 4, 0x100 + $i);
             $this->shouldWriteLong($prog + 0x18 + $i * 4, 0x200 + $i);
         }
@@ -425,16 +406,7 @@ return new class extends TestCase {
         $this->shouldReturn(0);
     }
 
-    // The archived asm here still calls 01e27c_practice_menu's pre-rename
-    // symbol; only that unit's own object was renamed.
-    private function practiceLessonRetrySymbol(): string
-    {
-        return str_contains($this->objectFile, '/asm/')
-            ? '_PracticeMenuLessonRetry_8c01f21c'
-            : '_PracticeMenuLessonRetry_8c01f21c';
-    }
-
-    private function setup(int $press, int $ctrl, int $vibport = 0, int $bb8cc = 0, int $ad04 = 0, int $ad10 = 0, int $y1 = 0, int $ad08 = 0, int $ad0c = 0, int $x1 = 0, int $isFading = 0, int $playMode = 0): void
+    private function setup(int $press, int $ctrl, int $vibport = 0, int $pauseActive = 0, int $settle = 0, int $onRetire = 0, int $y1 = 0, int $retirePhase = 0, int $confirmChoice = 0, int $x1 = 0, int $isFading = 0, int $playMode = 0): void
     {
         $this->setSize('_FadeUpdate_8c022560', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
@@ -446,20 +418,20 @@ return new class extends TestCase {
         $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
-        $this->setSize($this->practiceLessonRetrySymbol(), 4);
+        $this->setSize('_PracticeMenuLessonRetry_8c01f21c', 4);
 
         $this->setSize('_var_runSucceeded_8c1bb8dc', 4);
-        $this->setSize('_var_8c1bb8bc', 4);
+        $this->setSize('_var_runWasPractice_8c1bb8bc', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x80);
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
-        $this->setSize('_var_8c1ba2b8', 0x14);
-        $this->setSize('_var_8c1ba2cc', 0x14);
+        $this->setSize('_var_eventFlagsSnapshot_8c1ba2b8', 0x14);
+        $this->setSize('_var_profileFlagsSnapshot_8c1ba2cc', 0x14);
 
         $this->setSize('_var_pauseActive_8c1bb8cc', 4);
-        $this->setSize('_var_8c1bb8b8', 4);
+        $this->setSize('_var_runReportPending_8c1bb8b8', 4);
         $this->setSize('_var_pauseSettle_8c18ad04', 4);
         $this->setSize('_var_retirePhase_8c18ad08', 4);
         $this->setSize('_var_confirmChoice_8c18ad0c', 4);
@@ -471,11 +443,11 @@ return new class extends TestCase {
         $this->initUint16($periph + 0x1e, $y1);
         $this->initUint32($this->addressOf('_var_peripheral_8c1ba358'), $periph);
 
-        $this->initUint32($this->addressOf('_var_pauseActive_8c1bb8cc'), $bb8cc);
-        $this->initUint32($this->addressOf('_var_pauseSettle_8c18ad04'), $ad04);
-        $this->initUint32($this->addressOf('_var_onRetire_8c18ad10'), $ad10);
-        $this->initUint32($this->addressOf('_var_retirePhase_8c18ad08'), $ad08);
-        $this->initUint32($this->addressOf('_var_confirmChoice_8c18ad0c'), $ad0c);
+        $this->initUint32($this->addressOf('_var_pauseActive_8c1bb8cc'), $pauseActive);
+        $this->initUint32($this->addressOf('_var_pauseSettle_8c18ad04'), $settle);
+        $this->initUint32($this->addressOf('_var_onRetire_8c18ad10'), $onRetire);
+        $this->initUint32($this->addressOf('_var_retirePhase_8c18ad08'), $retirePhase);
+        $this->initUint32($this->addressOf('_var_confirmChoice_8c18ad0c'), $confirmChoice);
         $this->initUint32($this->addressOf('_var_activeCtrlType_8c157a70'), $ctrl);
         $this->initUint32($this->addressOf('_var_messageBoxActive_8c22847c'), 0);
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), $vibport);

@@ -9,7 +9,7 @@ return new class extends TestCase {
     public function test_no_prior_result_queues_choose_only()
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
 
         $this->call('_PracticeMenuLessonRetry_8c01f21c');
 
@@ -28,7 +28,7 @@ return new class extends TestCase {
     public function test_prior_result_but_no_improvement_rebuilds_queue()
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_PracticeMenuLessonRetry_8c01f21c');
@@ -47,7 +47,7 @@ return new class extends TestCase {
     public function test_prior_result_improves_best_score_sets_award()
     {
         $this->resolveSymbols();
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 

@@ -73,8 +73,8 @@
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _BusStopUpdateStopHeadings_8c02ccc6
           .IMPORT     _RouteLoadPushSegmentReloadTask_8c01468e
-          .IMPORT     _var_8c1bb8b8
-          .IMPORT     _var_8c1bb8bc
+          .IMPORT     _var_runReportPending_8c1bb8b8
+          .IMPORT     _var_runWasPractice_8c1bb8bc
           .IMPORT     _DebugMenuFreeSessionAssets_8c016182
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_progress_8c1ba1cc
@@ -2664,8 +2664,8 @@ LP_GEN_25024:
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C02C81C
           .DATA.L _BusStopUpdateStopHeadings_8c02ccc6 ; H'8C02C820
           .DATA.L _RouteLoadPushSegmentReloadTask_8c01468e ; H'8C02C824
-          .DATA.L _var_8c1bb8b8 ; H'8C02C828
-          .DATA.L _var_8c1bb8bc ; H'8C02C82C
+          .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C02C828
+          .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C02C82C
           .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C02C830
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C02C834
           .DATA.L _var_progress_8c1ba1cc ; H'8C02C838

@@ -35,6 +35,10 @@ names/types directly. Tools are deferred — fetch schemas with ToolSearch
   showing the old name: `batch_delete_labels` the old one to promote the new.
 - Struct fields get auto-renamed to Hungarian on create (`child` -> `pChild`).
   Refer to them by the stored name, or `offset:N`, when modifying.
+- Literal pools decompile as `PTR_FUN_*` garbage while the whole image is one
+  writable `ram` block. Splitting it into code and bss blocks, with Write off on
+  the code one, clears most of it across a unit at a stroke -- far more effective
+  than retyping individual pool slots.
 
 ## Common tools
 

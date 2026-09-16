@@ -11,8 +11,8 @@ return new class extends TestCase {
         $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
-        $this->setSize('_var_8c1bb8b8', 4);
-        $this->setSize('_var_8c1bb8bc', 4);
+        $this->setSize('_var_runReportPending_8c1bb8b8', 4);
+        $this->setSize('_var_runWasPractice_8c1bb8bc', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
         $this->setSize('_var_progress_8c1ba1cc', 4);
         $this->setSize('_var_runSucceeded_8c1bb8dc', 4);
@@ -56,8 +56,8 @@ return new class extends TestCase {
 
         $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(1);
 
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_progress_8c1ba1cc'), 6);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);

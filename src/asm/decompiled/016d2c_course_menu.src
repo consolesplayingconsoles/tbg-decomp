@@ -24,8 +24,8 @@
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _var_coursesToUnlock_8c225fd4
-          .IMPORT     _var_8c1bb8b8
-          .IMPORT     _var_8c1bb8bc
+          .IMPORT     _var_runReportPending_8c1bb8b8
+          .IMPORT     _var_runWasPractice_8c1bb8bc
           .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _var_award_8c1bb8f8
           .IMPORT     _AsqGetRandomInRangeB_8c0121be
@@ -66,8 +66,8 @@
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_penaltyCount_8c1bb8f4
-          .IMPORT     _var_8c1ba2cc
-          .IMPORT     _var_8c1ba2b8
+          .IMPORT     _var_profileFlagsSnapshot_8c1ba2cc
+          .IMPORT     _var_eventFlagsSnapshot_8c1ba2b8
           .IMPORT     _GamePushLoadingTask_8c013310
           .IMPORT     _AsqRequestDat_8c011182
           .IMPORT     _AsqRequestPvm_8c011ac0
@@ -1154,8 +1154,8 @@ LP_GEN_89119:
           .DATA.L _var_progress_8c1ba1cc + H'90 ; H'8C01749C
           .DATA.L _var_coursesToUnlock_8c225fd4 ; H'8C0174A0
           .DATA.L _var_progress_8c1ba1cc ; H'8C0174A4
-          .DATA.L _var_8c1bb8b8 ; H'8C0174A8
-          .DATA.L _var_8c1bb8bc ; H'8C0174AC
+          .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C0174A8
+          .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C0174AC
 LAB_8c0174b0:
           MOV.L       LP_GEN_78741+2,R5
           MOV.L       @R5,R3
@@ -1917,8 +1917,8 @@ LP_GEN_86103:
           .DATA.L _FadePushOut_8c022b60 ; H'8C017A68
           .DATA.L _var_currentSysResGroupInfo_8c225fb0 ; H'8C017A6C
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C017A70
-          .DATA.L _var_8c1bb8b8 ; H'8C017A74
-          .DATA.L _var_8c1bb8bc ; H'8C017A78
+          .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C017A74
+          .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C017A78
           .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C017A7C
           .DATA.L H'C0A00000 ; H'8C017A80
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C017A84
@@ -3056,8 +3056,8 @@ LP_GEN_82242:
           .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C0183B4
           .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C0183B8
           .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C0183BC
-          .DATA.L _var_8c1ba2cc ; H'8C0183C0
-          .DATA.L _var_8c1ba2b8 ; H'8C0183C4
+          .DATA.L _var_profileFlagsSnapshot_8c1ba2cc ; H'8C0183C0
+          .DATA.L _var_eventFlagsSnapshot_8c1ba2b8 ; H'8C0183C4
 LAB_8c0183c8:
           MOV         R5,R3
           ADD         #H'4,R3

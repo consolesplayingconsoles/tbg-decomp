@@ -444,14 +444,12 @@ return new Class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0); // fade finished
         $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
 
-        // (Epilogue inputs would be irrelevant?this path returns early)
-
         $task = $this->alloc(0x10);
 
         $this->call('_courseMenuFreeRunMenuTask_8c017ada')->with($task, 0);
 
-        // Writes and call in order, then return (no epilogue rendering)
-        // $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
+        // Returns before the epilogue rendering. Unlike the story task, this
+        // one leaves var_runReportPending_8c1bb8b8 alone.
         $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with($task);
     }
 

@@ -266,8 +266,8 @@ void FileMenuResetProgress_8c01890a(void)
     var_progress_8c1ba1cc.courses_0x44[0].unlocked_0x00 = 1;
     var_progress_8c1ba1cc.courses_0x44[6].unlocked_0x00 = 1;
     var_progress_8c1ba1cc.exp_0x90 = 0;
-    var_8c1bb8b8 = 1;
-    var_8c1bb8bc = 0;
+    var_runReportPending_8c1bb8b8 = 1;
+    var_runWasPractice_8c1bb8bc = 0;
 }
 
 /* FileMenuResetProgress_8c01890a, plus the fields only a new game clears. */

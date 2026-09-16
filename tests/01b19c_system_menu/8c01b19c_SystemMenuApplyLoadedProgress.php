@@ -15,8 +15,8 @@ return new class extends TestCase {
 
         $this->call('_SystemMenuApplyLoadedProgress_8c01b19c');
 
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0x11111111);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0x22222222);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0x11111111);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0x22222222);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0x33333333);
         $this->shouldWriteByte($this->addressOf('_var_award_8c1bb8f8'), 0x44);
     }
@@ -31,8 +31,8 @@ return new class extends TestCase {
 
         $this->call('_SystemMenuApplyLoadedProgress_8c01b19c');
 
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteByte($this->addressOf('_var_award_8c1bb8f8'), 0xff);
     }

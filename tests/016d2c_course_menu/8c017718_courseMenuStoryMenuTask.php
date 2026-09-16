@@ -505,8 +505,8 @@ return new Class extends TestCase {
 
         // Flip globals
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
 
         $this->shouldCall('_SystemMenuSwitchFromTask_8c01ba64')->with($task);
     }
@@ -544,8 +544,8 @@ return new Class extends TestCase {
 
         // Flip globals
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
 
         // Indirect callback invoked with task
         $this->shouldCall('_courseMenuConfirmInit_8c0184cc')->with($task);
@@ -609,7 +609,7 @@ return new Class extends TestCase {
         $this->call('_courseMenuStoryMenuTask_8c017718')->with($task, 0);
 
         // Writes and call in order, then return (no epilogue rendering)
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
         $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with($task);
     }
 

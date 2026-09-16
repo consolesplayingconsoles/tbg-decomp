@@ -478,13 +478,12 @@ STATIC void buildDialogQueue_8c01e992(void)
 {
     int i = 0;
 
-    /* A result is only reported when var_8c1bb8b8 and var_8c1bb8bc are both
-     * set, which is what returning from a practice drive leaves behind; free
-     * run (var_gameMode_8c1bb8fc == 1) never reports one. Anything else just
-     * asks for a lesson, with the tips/warning or final-day preamble the
-     * first time round. */
-    if (var_gameMode_8c1bb8fc == 1 || var_8c1bb8b8 == 0 || var_8c1bb8bc == 0) {
-        if (var_gameMode_8c1bb8fc != 1 && var_8c1bb8b8 == 0 && var_8c1bb8bc != 0) {
+    /* Only a practice drive leaves both flags set, and only then is a result
+     * reported -- free run (var_gameMode_8c1bb8fc == 1) never reports one.
+     * Arriving straight from the course menu (nothing pending, practice set)
+     * gets the tips/warning, or the final-day preamble from day 30. */
+    if (var_gameMode_8c1bb8fc == 1 || var_runReportPending_8c1bb8b8 == 0 || var_runWasPractice_8c1bb8bc == 0) {
+        if (var_gameMode_8c1bb8fc != 1 && var_runReportPending_8c1bb8b8 == 0 && var_runWasPractice_8c1bb8bc != 0) {
             if (var_progress_8c1ba1cc.days_0x00 < 0x1e) {
                 var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_TIPS;
                 if (var_gameMode_8c1bb8fc == 0) var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_WARNING;
@@ -493,7 +492,7 @@ STATIC void buildDialogQueue_8c01e992(void)
             }
 
             var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_CHOOSE;
-            var_8c1bb8b8 = 1;
+            var_runReportPending_8c1bb8b8 = 1;
         } else {
             var_lessonDialogQueue_8c226414[i++] = INSTR_LESSON_CHOOSE;
         }
@@ -660,7 +659,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
         case LESSON_STATE_CANCEL_FADE_OUT:
             if (var_isFading_8c226568 == 0) {
                 var_practiceLesson_8c22640c = var_menuState_8c1bc7a8.selected_0x38;
-                var_8c1bb8bc = 0;
+                var_runWasPractice_8c1bb8bc = 0;
                 practiceCancelReturn_8c01e920(task);
                 return;
             }
@@ -672,16 +671,16 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 
                 if (var_gameMode_8c1bb8fc == 0) {
                     if (var_lessonAttempts_8c22642c == 0) {
-                        var_8c1bb8b8 = 0;
+                        var_runReportPending_8c1bb8b8 = 0;
                     } else {
                         var_progress_8c1ba1cc.days_0x00++;
                         var_progress_8c1ba1cc.exp_0x90 += 0x32;
                         if (var_progress_8c1ba1cc.exp_0x90 > 99999) {
                             var_progress_8c1ba1cc.exp_0x90 = 99999;
                         }
-                        var_8c1bb8b8 = 1;
+                        var_runReportPending_8c1bb8b8 = 1;
                     }
-                    var_8c1bb8bc = 1;
+                    var_runWasPractice_8c1bb8bc = 1;
                 }
 
                 var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
@@ -807,7 +806,7 @@ void PracticeMenuLessonRetry_8c01f21c(void)
     scrollTowardSelection_8c01ebc8();
     var_award_8c1bb8f8 = 0;
 
-    if (var_8c1bb8bc == 0) {
+    if (var_runWasPractice_8c1bb8bc == 0) {
         var_lessonDialogQueue_8c226414[0] = INSTR_LESSON_CHOOSE;
         var_lessonDialogQueue_8c226414[1] = -1;
     } else {

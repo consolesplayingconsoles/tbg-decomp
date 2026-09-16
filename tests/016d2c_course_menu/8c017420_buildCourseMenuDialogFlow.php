@@ -20,7 +20,7 @@ return new class extends TestCase {
         $this->setSize('_var_dialogQueue_8c225fbc', 4 * 4);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 0);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
         $this->shouldPushSequence(self::INSTR_STORY_CHOOSE_COURSE);
@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->setSize('_var_dialogQueue_8c225fbc', 4 * 4);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 1);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
@@ -46,9 +46,9 @@ return new class extends TestCase {
         $this->setSize('_var_dialogQueue_8c225fbc', 4 * 4);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
         $this->shouldPushSequence(self::INSTR_GOOD_PRACTICE);
@@ -65,9 +65,9 @@ return new class extends TestCase {
             $this->setRegister(0, $this->getRegister(1)->mod($this->getRegister(0)));
         });
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
@@ -88,10 +88,10 @@ return new class extends TestCase {
             $this->setRegister(0, $this->getRegister(1)->mod($this->getRegister(0)));
         });
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 6);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
@@ -117,9 +117,9 @@ return new class extends TestCase {
             $this->setRegister(0, $this->getRegister(1)->mod($this->getRegister(0)));
         });
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
@@ -141,10 +141,10 @@ return new class extends TestCase {
             $this->setRegister(0, $this->getRegister(1)->mod($this->getRegister(0)));
         });
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 6);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0);
 
@@ -171,9 +171,9 @@ return new class extends TestCase {
             $this->setRegister(0, $this->getRegister(1)->mod($this->getRegister(0)));
         });
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
@@ -194,10 +194,10 @@ return new class extends TestCase {
         });
         $this->setSize('_AsqGetRandomInRangeB_8c0121be', 4);
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 6);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
@@ -222,9 +222,9 @@ return new class extends TestCase {
             $this->setRegister(0, $this->getRegister(1)->mod($this->getRegister(0)));
         });
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
@@ -246,10 +246,10 @@ return new class extends TestCase {
         });
         $this->setSize('_AsqGetRandomInRangeB_8c0121be', 4);
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, 6);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
 
         $this->call('_buildCourseMenuDialogFlow_8c017420');
@@ -418,10 +418,10 @@ return new class extends TestCase {
             $this->setRegister(0, $this->getRegister(1)->mod($this->getRegister(0)));
         });
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 1);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0, $letter ? 6 : 0);
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0x2c + 5 * 4, 0);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), $award);
 

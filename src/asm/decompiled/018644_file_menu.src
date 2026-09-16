@@ -40,8 +40,8 @@
           .IMPORT     _var_saveSlot_8c1ba350
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_tasks_8c1ba3c8
-          .IMPORT     _var_8c1bb8b8
-          .IMPORT     _var_8c1bb8bc
+          .IMPORT     _var_runReportPending_8c1bb8b8
+          .IMPORT     _var_runWasPractice_8c1bb8bc
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _var_saveBufCursor_8c225fe0
@@ -546,8 +546,8 @@ LP_GEN_30274:
           .DATA.L _var_progress_8c1ba1cc ; H'8C0189E8
           .DATA.L _SndGetSoundMode_8c010924 ; H'8C0189EC
           .DATA.L _var_soundMode_8c226070 ; H'8C0189F0
-          .DATA.L _var_8c1bb8b8 ; H'8C0189F4
-          .DATA.L _var_8c1bb8bc ; H'8C0189F8
+          .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C0189F4
+          .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C0189F8
 _FileMenuApplySoundSettings_8c0189fc:
           MOV.L       R14,@-R15
           MOV         #H'0,R5

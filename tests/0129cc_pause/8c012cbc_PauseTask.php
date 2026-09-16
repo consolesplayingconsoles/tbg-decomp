@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     public function test_reset_requested_with_queues_idle_returns_to_title()
     {
-        $this->setup(resetRequested: 1, unk157a7c: 0, queuesInitialized: 0);
+        $this->setup(resetRequested: 1, vmBusy: 0, queuesInitialized: 0);
 
         $this->call('_PauseTask_8c012cbc');
 
@@ -15,9 +15,9 @@ return new class extends TestCase {
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
     }
 
-    public function test_reset_requested_but_unk157a7c_set_runs_menu_instead()
+    public function test_reset_requested_but_vm_busy_runs_the_menu_instead()
     {
-        $this->setup(resetRequested: 1, unk157a7c: 1, queuesInitialized: 0);
+        $this->setup(resetRequested: 1, vmBusy: 1, queuesInitialized: 0);
 
         $this->call('_PauseTask_8c012cbc');
 
@@ -26,14 +26,14 @@ return new class extends TestCase {
 
     public function test_reset_requested_but_queues_not_idle_runs_menu_instead()
     {
-        $this->setup(resetRequested: 1, unk157a7c: 0, queuesInitialized: 1);
+        $this->setup(resetRequested: 1, vmBusy: 0, queuesInitialized: 1);
 
         $this->call('_PauseTask_8c012cbc');
 
         $this->shouldCall('_update_8c0129cc')->andReturn(0);
     }
 
-    public function test_menu_still_closed_does_nothing_further()
+    public function test_menu_up_runs_nothing_further()
     {
         $this->setup();
 
@@ -42,7 +42,7 @@ return new class extends TestCase {
         $this->shouldCall('_update_8c0129cc')->andReturn(0);
     }
 
-    public function test_menu_just_opened_resets_render_list_and_runs_tasks()
+    public function test_menu_closed_runs_the_rest_of_the_frame()
     {
         $this->setup();
 
@@ -56,7 +56,7 @@ return new class extends TestCase {
 
     private function setup(
         int $resetRequested = 0,
-        int $unk157a7c = 0,
+        int $vmBusy = 0,
         int $queuesInitialized = 0,
     ): void {
         $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
@@ -67,7 +67,7 @@ return new class extends TestCase {
         $this->setSize('_var_tasks_8c1ba5e8', 4);
 
         $this->initUint32($this->addressOf('_var_resetRequested_8c157a78'), $resetRequested);
-        $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), $unk157a7c);
+        $this->initUint32($this->addressOf('_var_vmBusy_8c157a7c'), $vmBusy);
         $this->initUint32($this->addressOf('_var_queuesAreInitialized_8c157a60'), $queuesInitialized);
     }
 };

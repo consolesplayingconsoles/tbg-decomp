@@ -10,8 +10,8 @@ return new class extends TestCase {
     {
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
         $base = $this->addressOf('_var_progress_8c1ba1cc');
-        $g1 = $this->addressOf('_var_8c1bb8b8');
-        $g2 = $this->addressOf('_var_8c1bb8bc');
+        $g1 = $this->addressOf('_var_runReportPending_8c1bb8b8');
+        $g2 = $this->addressOf('_var_runWasPractice_8c1bb8bc');
 
         $this->call('_FileMenuResetProgress_8c01890a');
 

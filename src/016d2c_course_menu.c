@@ -552,7 +552,7 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
     int cur = 0;
 
     // Nothing to report
-    if (var_8c1bb8b8 == 0) {
+    if (var_runReportPending_8c1bb8b8 == 0) {
         var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_CHOOSE_COURSE;
         var_dialogQueue_8c225fbc[cur]   = -1;
         return;
@@ -567,7 +567,7 @@ STATIC void buildCourseMenuDialogFlow_8c017420(void)
     }
 
     // Yesterday was a practice run, not a course
-    if (var_8c1bb8bc != 0) {
+    if (var_runWasPractice_8c1bb8bc != 0) {
         var_dialogQueue_8c225fbc[cur++] = INSTR_GOOD_PRACTICE;
         var_dialogQueue_8c225fbc[cur++] = INSTR_STORY_CHOOSE_COURSE;
         var_dialogQueue_8c225fbc[cur]   = -1;
@@ -751,8 +751,8 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 init_courseMenuButtons_8c04442c[buttonIndex].courseId_0x18;
 
             var_runSucceeded_8c1bb8dc = 1;
-            var_8c1bb8b8 = 0;
-            var_8c1bb8bc = 1;
+            var_runReportPending_8c1bb8b8 = 0;
+            var_runWasPractice_8c1bb8bc = 1;
 
             init_courseMenuButtons_8c04442c[buttonIndex].onSelect_0x14(task);
             return;
@@ -765,7 +765,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
             if (init_8c03bd80)
                 return;
 
-            var_8c1bb8b8 = 0;
+            var_runReportPending_8c1bb8b8 = 0;
             MainMenuSwitchFromTask_8c01a09a(task, var_menuState_8c1bc7a8.subState_0x1c);
             return;
         }
@@ -1238,11 +1238,11 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 var_worstPenaltyMsgSet_8c1bb8ec = 0x1d;
                 var_penaltyCount_8c1bb8f4 = 0;
 
-                /* Snapshot the event and profile flag words, so the drive can
-                   tell which ones it raised itself. */
+                /* Snapshot the progress flag words; retiring from the pause
+                   menu restores them. */
                 for (i = 0; i < 5; i++) {
-                    var_8c1ba2b8[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i];
-                    var_8c1ba2cc[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i + 5];
+                    var_eventFlagsSnapshot_8c1ba2b8[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i];
+                    var_profileFlagsSnapshot_8c1ba2cc[i] = ((int*)(&var_progress_8c1ba1cc.eventProgressFlags_0x04))[i + 5];
                 }
 
                 var_menuState_8c1bc7a8.courseId_0x50 += 

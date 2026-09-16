@@ -33,8 +33,8 @@ return new class extends TestCase {
         $saveNames = $this->addressOf('_init_saveNames_8c044d50');
         $icon = $this->addressOf('_var_vmuIconFileBuf_8c1ba344');
 
-        $this->initUint32($this->addressOf('_var_8c1bb8b8'), 0x11111111);
-        $this->initUint32($this->addressOf('_var_8c1bb8bc'), 0x22222222);
+        $this->initUint32($this->addressOf('_var_runReportPending_8c1bb8b8'), 0x11111111);
+        $this->initUint32($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0x22222222);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0x33333333);
         $this->initUint32($this->addressOf('_var_award_8c1bb8f8'), 0x44);
         $this->initUint32($this->addressOf('_var_profileUnlockedCount_8c2263a4'), 0x55555555);

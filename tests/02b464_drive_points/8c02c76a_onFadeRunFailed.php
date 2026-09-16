@@ -9,8 +9,8 @@ return new class extends TestCase {
     {
         $this->setSize('_var_progress_8c1ba1cc', 4);
         $this->setSize('_var_runSucceeded_8c1bb8dc', 4);
-        $this->setSize('_var_8c1bb8b8', 4);
-        $this->setSize('_var_8c1bb8bc', 4);
+        $this->setSize('_var_runReportPending_8c1bb8b8', 4);
+        $this->setSize('_var_runWasPractice_8c1bb8bc', 4);
 
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc'), 5); // days_0x00
 
@@ -18,8 +18,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_progress_8c1ba1cc'), 6);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 1);
-        $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
+        $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
 
         // beginDriveEnd_8c02c738 is a same-object callee with its own dependencies
         // not set up here; mock rather than let it really execute.
