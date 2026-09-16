@@ -435,7 +435,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_FUN_8c01ebf2')->with($task, 0);
 
-        $this->shouldWriteLong($this->addressOf('_var_8c22640c'), 7);
+        $this->shouldWriteLong($this->addressOf('_var_practiceLesson_8c22640c'), 7);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8bc'), 0);
         $this->shouldCall('_practiceCancelReturn_8c01e920')->with($task);
     }
@@ -659,7 +659,7 @@ return new class extends TestCase {
         $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
-        $this->setSize('_var_8c22640c', 4);
+        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_8c1bb8bc', 4);
         $this->setSize('_init_8c03bd80', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);

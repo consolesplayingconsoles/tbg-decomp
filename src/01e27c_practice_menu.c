@@ -75,7 +75,7 @@ STATIC char init_8c0451b4[] = {
     0, 2, 3, 4, 6, 9, 12, 15, 17, 19, 24, 25
 };
 /* Per-drill rule mask (-> var_practiceRules_8c226410, see sectionB.h),
- * indexed by var_8c22640c. Drills 0-6 turn everything but the driving off;
+ * indexed by var_practiceLesson_8c22640c. Drills 0-6 turn everything but the driving off;
  * 8-10 are full runs. */
 STATIC Uint32 init_practiceRules_8c0451c0[] = { 0, 0, 0, 0, 0, 0, 0, 6, 0xf, 0xf, 0xf };
 STATIC char init_8c0451ec[] = { 0x10, 0x0a, 0x14, 0x11, 0x12, 0x14, 0x15, 0x13, 0x13, 0x1b, 0x09, 0x00 };
@@ -118,9 +118,9 @@ STATIC void FUN_8c01e27c(Task *task)
 
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = STATE_DESCRIPTION_FADE_IN;
-            var_menuState_8c1bc7a8.field_0x54 = init_8c0451b4[var_8c22640c];
+            var_menuState_8c1bc7a8.field_0x54 = init_8c0451b4[var_practiceLesson_8c22640c];
             var_menuState_8c1bc7a8.field_0x5c = var_menuState_8c1bc7a8.field_0x54;
-            var_menuState_8c1bc7a8.field_0x58 = init_8c0451b4[var_8c22640c + 1] - 1;
+            var_menuState_8c1bc7a8.field_0x58 = init_8c0451b4[var_practiceLesson_8c22640c + 1] - 1;
             SndProc_8c010cd6(0, 0xd);
             FadePushIn_8c022a9c(10);
             break;
@@ -227,7 +227,7 @@ STATIC void FUN_8c01e27c(Task *task)
 
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-                var_8c22640c + 0x19,
+                var_practiceLesson_8c22640c + 0x19,
                 0.0f, 0.0f, -4.5f
             );
             break;
@@ -240,7 +240,7 @@ STATIC void FUN_8c01e27c(Task *task)
 
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-                var_8c22640c + 0x19,
+                var_practiceLesson_8c22640c + 0x19,
                 0.0f, 0.0f, -4.5f
             );
             break;
@@ -253,14 +253,14 @@ STATIC void FUN_8c01e27c(Task *task)
                 var_worstPenaltyDelta_8c1bb8f0 = 0;
                 var_worstPenaltyMsgSet_8c1bb8ec = 0x1d;
                 var_penaltyCount_8c1bb8f4 = 0;
-                var_practiceRules_8c226410 = init_practiceRules_8c0451c0[var_8c22640c];
-                GamePushLoadingTask_8c013310(var_8c22640c + 0x1b);
+                var_practiceRules_8c226410 = init_practiceRules_8c0451c0[var_practiceLesson_8c22640c];
+                GamePushLoadingTask_8c013310(var_practiceLesson_8c22640c + 0x1b);
                 break;
             }
 
             TxtDrawSprite_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-                var_8c22640c + 0x19,
+                var_practiceLesson_8c22640c + 0x19,
                 0.0f, 0.0f, -4.5f
             );
             break;
@@ -302,7 +302,7 @@ STATIC void initDescriptionReveal_8c01e576(Task *task)
 }
 
 /* Post-cancel re-entry: shows the same lesson's practice-guide text again,
- * scrollable (field_0x40, window of 4 rows out of init_8c0451ec[var_8c22640c]),
+ * scrollable (field_0x40, window of 4 rows out of init_8c0451ec[var_practiceLesson_8c22640c]),
  * then either backs out to the full guide reveal (initDescriptionReveal_8c01e576)
  * or restarts the lesson directly, skipping the confirm prompt. */
 STATIC void showLesson_8c01e63c(Task *task)
@@ -336,7 +336,7 @@ STATIC void showLesson_8c01e63c(Task *task)
                 FadePushOut_8c022b60(10);
             } else if (!(var_peripherals_8c1ba35c[0].press & 0x10)) {
                 if (var_peripherals_8c1ba35c[0].press & 0x20) {
-                    if (var_menuState_8c1bc7a8.field_0x40 + 3 < (signed char)init_8c0451ec[var_8c22640c])
+                    if (var_menuState_8c1bc7a8.field_0x40 + 3 < (signed char)init_8c0451ec[var_practiceLesson_8c22640c])
                         var_menuState_8c1bc7a8.field_0x40++;
                     else
                         var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_VIEW_END;
@@ -370,7 +370,7 @@ STATIC void showLesson_8c01e63c(Task *task)
 
         case SHOW_LESSON_STATE_FADE_OUT_START:
             if (var_isFading_8c226568 == 0) {
-                var_menuState_8c1bc7a8.selected_0x38 = var_8c22640c;
+                var_menuState_8c1bc7a8.selected_0x38 = var_practiceLesson_8c22640c;
                 PracticeMenuLessonStart_8c01f114(task);
                 return;
             }
@@ -382,14 +382,14 @@ STATIC void showLesson_8c01e63c(Task *task)
 
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-        var_8c22640c + 0x1c,
+        var_practiceLesson_8c22640c + 0x1c,
         0.0f, 0.0f, -4.0f
     );
 
     njUserClipping(2, init_8c0451f8);
     TxtDrawSprite_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
-        var_8c22640c + 0x27,
+        var_practiceLesson_8c22640c + 0x27,
         65.0f, 195.0f - (float)var_menuState_8c1bc7a8.field_0x40 * 24.0f, -4.0f
     );
     njUserClipping(0, init_8c0451f8);
@@ -401,7 +401,7 @@ STATIC void showLesson_8c01e63c(Task *task)
             0.0f, 0.0f, -4.5f
         );
 
-    if (var_menuState_8c1bc7a8.field_0x40 + 3 != (signed char)init_8c0451ec[var_8c22640c])
+    if (var_menuState_8c1bc7a8.field_0x40 + 3 != (signed char)init_8c0451ec[var_practiceLesson_8c22640c])
         TxtDrawSprite_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x19,
@@ -657,7 +657,7 @@ STATIC void FUN_8c01ebf2(Task *task, void *state)
 
         case LESSON_STATE_CANCEL_FADE_OUT:
             if (var_isFading_8c226568 == 0) {
-                var_8c22640c = var_menuState_8c1bc7a8.selected_0x38;
+                var_practiceLesson_8c22640c = var_menuState_8c1bc7a8.selected_0x38;
                 var_8c1bb8bc = 0;
                 practiceCancelReturn_8c01e920(task);
                 return;
@@ -809,8 +809,8 @@ void PracticeMenuLessonRetry_8c01f21c(void)
         var_8c226414[0] = 0x18;
         var_8c226414[1] = -1;
     } else {
-        if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_8c22640c] < var_8c2285c4[3]) {
-            var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_8c22640c] = var_8c2285c4[3];
+        if (var_runSucceeded_8c1bb8dc != 0 && var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_practiceLesson_8c22640c] < var_8c2285c4[3]) {
+            var_progress_8c1ba1cc.practiceLessonBestScores_0x98[var_practiceLesson_8c22640c] = var_8c2285c4[3];
             var_award_8c1bb8f8 = 1;
         }
 

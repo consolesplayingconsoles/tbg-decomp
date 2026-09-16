@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x3b4 + 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_prevStopSegment_8c22870c', 4);
-        $this->setSize('_var_8c2264c4', 4);
+        $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
         $this->setSize('_var_8c1bc44c', 4);
         $this->setSize('_var_8c1bc450', 4);
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
@@ -190,7 +190,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 0);
         $this->shouldWriteLongTo('_var_8c228640', 1);
-        $this->shouldWriteLongTo('_var_8c2264c4', 0);
+        $this->shouldWriteLong($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c, 0);
         $this->shouldCall('_advanceStopSegment_8c02ccae')->with();
     }
 
@@ -206,7 +206,7 @@ return new class extends TestCase {
         $this->call('_BusStopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLongTo('_var_stopPhase_8c2285e4', 0);
-        $this->shouldWriteLongTo('_var_8c2264c4', 0);
+        $this->shouldWriteLong($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c, 0);
         $this->shouldCall('_advanceStopSegment_8c02ccae')->with();
     }
 

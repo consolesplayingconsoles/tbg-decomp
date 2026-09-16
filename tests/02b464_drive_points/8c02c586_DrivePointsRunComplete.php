@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceRules_8c226410', 4);
-        $this->setSize('_var_8c22640c', 4);
+        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
     }
@@ -29,7 +29,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 4);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 7);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 7);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 2);
 
         $this->call('_DrivePointsRunComplete_8c02c586');
@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 4);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 7);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 7);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 1);
 
         $this->call('_DrivePointsRunComplete_8c02c586');
@@ -53,7 +53,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 4);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 10);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 10);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 4);
 
         $this->call('_DrivePointsRunComplete_8c02c586');

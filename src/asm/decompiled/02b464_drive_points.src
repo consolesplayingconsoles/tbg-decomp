@@ -41,7 +41,7 @@
           .IMPORT     _BusStopUpdateArrival_8c02ce48
           .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _var_stopPhase_8c2285e4
-          .IMPORT     _var_8c2264c4
+          .IMPORT     _var_driveCueState_8c2264b8
           .IMPORT     _var_8c226450
           .IMPORT     _var_8c2285d8
           .IMPORT     _var_8c2285dc
@@ -63,7 +63,7 @@
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _var_route_8c18ad1c
-          .IMPORT     _var_8c22640c
+          .IMPORT     _var_practiceLesson_8c22640c
           .IMPORT     _var_nextStopSegment_8c228710
           .IMPORT     _ObjectsFreePedestrianGroups_8c0297da
           .IMPORT     _ObjectsFreeTrafficSignals_8c0288be
@@ -1588,7 +1588,7 @@ LP_GEN_59291:
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02BFBC
           .DATA.L _var_practiceRules_8c226410 ; H'8C02BFC0
           .DATA.L _var_stopPhase_8c2285e4 ; H'8C02BFC4
-          .DATA.L _var_8c2264c4 ; H'8C02BFC8
+          .DATA.L _var_driveCueState_8c2264b8+H'C ; H'8C02BFC8 (nearStopLatch_0x0c)
 LAB_8c02bfcc:
           MOV         #H'7c,R0
           MOV.L       @(R0,R14),R1
@@ -2386,7 +2386,7 @@ LP_GEN_23130:
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C600
           .DATA.L _var_route_8c18ad1c ; H'8C02C604
           .DATA.L _var_practiceRules_8c226410 ; H'8C02C608
-          .DATA.L _var_8c22640c ; H'8C02C60C
+          .DATA.L _var_practiceLesson_8c22640c ; H'8C02C60C
 LAB_8c02c610:
           MOV         R5,R4
 LAB_8c02c612:
@@ -2685,7 +2685,7 @@ LP_GEN_25024:
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C870
           .DATA.L _FadePushIn_8c022a9c ; H'8C02C874
           .DATA.L _var_driverPoints_8c2285d0 ; H'8C02C878
-          .DATA.L _var_8c22640c ; H'8C02C87C
+          .DATA.L _var_practiceLesson_8c22640c ; H'8C02C87C
           .DATA.L _var_menuState_8c1bc7a8 + H'38 ; H'8C02C880
           .SECTION    D, DATA, ALIGN=4
 _init_8c04bef0:        ; from ghidra

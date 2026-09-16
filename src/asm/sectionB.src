@@ -28,7 +28,7 @@
                                     ; 02c884
           .EXPORT     _var_8c1ba291
           .EXPORT     _var_8c1ba292
-          .EXPORT     _var_8c1ba293 ; 020214
+          .EXPORT     _var_vibrationSetting_8c1ba293 ; 020214
           .EXPORT     _var_accelSensitivity_8c1ba29c ; 024280
           .EXPORT     _var_brakeSensitivity_8c1ba29d ; 024280
           .EXPORT     _var_runEventFlags_8c1ba2b4 ; 02af78_event
@@ -498,7 +498,7 @@
           .EXPORT     _var_scoreEventBonus_8c226400 ; 01d7fc
           .EXPORT     _var_scoreTotal_8c226404 ; 01d7fc
           .EXPORT     _var_runFailed_8c226408 ; 01d7fc
-          .EXPORT     _var_8c22640c ; 0129cc_pause
+          .EXPORT     _var_practiceLesson_8c22640c ; 0129cc_pause
                                     ; 01e27c
                                     ; 020214
                                     ; 02b464
@@ -528,10 +528,9 @@
           .EXPORT     _var_8c2264a8 ; 01fa78
           .EXPORT     _var_driveCueState_8c2264b8 ; 020214
                                     ; 022bdc
-          .EXPORT     _var_8c2264bc ; 020214
-          .EXPORT     _var_8c2264c4 ; 02b464
+                                    ; 025b98
+                                    ; 02b464
                                     ; 02c884
-          .EXPORT     _var_8c2264d0 ; 025b98
           .EXPORT     _var_activeGroundGrid_8c2264d4 ; 020914
                                     ; 020b6c
                                     ; 022bdc
@@ -864,7 +863,7 @@ _var_8c1ba291:
           .RES.B      1
 _var_8c1ba292:
           .RES.B      1
-_var_8c1ba293:
+_var_vibrationSetting_8c1ba293:
           .RES.B      9
 _var_accelSensitivity_8c1ba29c:
           .RES.B      1
@@ -1160,7 +1159,7 @@ _var_scoreTotal_8c226404:
           .RES.B      4
 _var_runFailed_8c226408:
           .RES.B      4
-_var_8c22640c:
+_var_practiceLesson_8c22640c:
           .RES.B      4
 _var_practiceRules_8c226410:
           .RES.B      4
@@ -1195,13 +1194,7 @@ _var_8c226478:
 _var_8c2264a8:
           .RES.B      16
 _var_driveCueState_8c2264b8:
-          .RES.B      4
-_var_8c2264bc:
-          .RES.B      8
-_var_8c2264c4:
-          .RES.B      12
-_var_8c2264d0:
-          .RES.B      4
+          .RES.B      28
 _var_activeGroundGrid_8c2264d4:
           .RES.B      4
 _var_fadeLightDir0_8c2264d8:

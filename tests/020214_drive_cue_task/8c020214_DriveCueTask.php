@@ -5,9 +5,8 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _DriveCueTask_8c020214(Task*, void*): ambient driving-cue task, see 020214.h. The
- * struct at var_driveCueState_8c2264b8 is aliased by var_8c2264bc (its own idleChimeTimer_0x04,
- * separately imported) -- both are rellocate()'d onto the same allocation.
+ * _DriveCueTask_8c020214(Task*, void*): ambient driving-cue task, see
+ * 020214_drive_cue_task.h.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -22,20 +21,18 @@ return new class extends TestCase {
         $this->setSize('_var_8c2285c4', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_vibport_8c1ba354', 4);
-        $this->setSize('_var_8c1ba293', 1);
+        $this->setSize('_var_vibrationSetting_8c1ba293', 1);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_prevStopSegment_8c22870c', 4);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceRules_8c226410', 4);
-        $this->setSize('_var_8c22640c', 4);
+        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_stopPhase_8c2285e4', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
-        $struct = $this->alloc(0x1c);
-        $this->rellocate('_var_driveCueState_8c2264b8', $struct);
-        $this->rellocate('_var_8c2264bc', $struct + 0x04);
+        $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
     }
 
     private function struct(): int
@@ -63,7 +60,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c2285c4'), 0);
         // No vibration cue at the end unless a test wants one.
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 0xffffffff);
-        $this->initUint8($this->addressOf('_var_8c1ba293'), 0);
+        $this->initUint8($this->addressOf('_var_vibrationSetting_8c1ba293'), 0);
         // Mirror-view marker chime off by default.
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 0);
@@ -71,7 +68,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 0); // ROUTE_SHINJUKU
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0); // PLAY_MODE_NORMAL
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 0);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 0);
         $this->initUint32($this->addressOf('_var_stopPhase_8c2285e4'), 0);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), 0);
 
@@ -102,9 +99,9 @@ return new class extends TestCase {
     // ------------------------------------------------------------------
 
     /**
-     * firstChimeArmed_0x18 != 0 -- armed by TrafficDriveVehicle_8c025b98
-     * (through var_8c2264d0, its own export on that word) when a CPU vehicle
-     * sits stopped at a junction, and cleared again below every call.
+     * firstChimeArmed_0x18 != 0 -- armed by TrafficDriveVehicle_8c025b98 when
+     * a CPU vehicle sits stopped at a junction, and cleared again below
+     * every call.
      */
     public function test_state0_plays_first_chime_when_firstChimeArmed_0x18_set(): void
     {
@@ -147,12 +144,12 @@ return new class extends TestCase {
         $this->initInactiveWorld();
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x27c), $this->f32(1.0)); // above threshold
         $this->initStruct(0, 0, 4, 1, 0, 0, 0);
-        $this->initUint32($this->struct() + 0x04, 5); // var_8c2264bc alias: still > 0 after decrement
+        $this->initUint32($this->struct() + 0x04, 5); // idleChimeTimer_0x04: still > 0 after decrement
 
         $task = $this->alloc(4);
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
 
-        $this->shouldWriteLong($this->struct() + 0x04, 4); // var_8c2264bc decrement, 5 -> 4
+        $this->shouldWriteLong($this->struct() + 0x04, 4); // idleChimeTimer_0x04 decrement, 5 -> 4
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
@@ -169,7 +166,7 @@ return new class extends TestCase {
         $task = $this->alloc(4);
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
 
-        $this->shouldWriteLong($this->struct() + 0x04, -1); // var_8c2264bc decrement, 0 -> -1
+        $this->shouldWriteLong($this->struct() + 0x04, -1); // idleChimeTimer_0x04 decrement, 0 -> -1
 
         $this->shouldCall('_AsqGetRandomB_8c0121a8')->andReturn(4); // even
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 0x3c, 0);
@@ -192,7 +189,7 @@ return new class extends TestCase {
         $task = $this->alloc(4);
         $this->call('_DriveCueTask_8c020214')->with($task, 0);
 
-        $this->shouldWriteLong($this->struct() + 0x04, -1); // var_8c2264bc decrement, 0 -> -1
+        $this->shouldWriteLong($this->struct() + 0x04, -1); // idleChimeTimer_0x04 decrement, 0 -> -1
 
         $this->shouldCall('_AsqGetRandomB_8c0121a8')->andReturn(5); // odd
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 0x3b, 0);
@@ -328,7 +325,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initInactiveWorld();
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1); // PLAY_MODE_PRACTICE
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3); // neither 8 nor 9 -> local0 = 0
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3); // neither 8 nor 9 -> local0 = 0
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 9);
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
@@ -425,7 +422,7 @@ return new class extends TestCase {
         $this->initInactiveWorld();
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 2); // ROUTE_OME
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1); // PLAY_MODE_PRACTICE
-        $this->initUint32($this->addressOf('_var_8c22640c'), 9); // -> local0 = 10
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 9); // -> local0 = 10
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 9);
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
@@ -446,7 +443,7 @@ return new class extends TestCase {
         $this->initInactiveWorld();
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 2); // ROUTE_OME
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1); // PLAY_MODE_PRACTICE
-        $this->initUint32($this->addressOf('_var_8c22640c'), 8); // -> local0 = 6
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 8); // -> local0 = 6
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 5);
         $this->initUint32($this->addressOf('_var_nextStopSegment_8c228710'), 9);
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
@@ -610,7 +607,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initInactiveWorld();
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 7);
-        $this->initUint8($this->addressOf('_var_8c1ba293'), 0);
+        $this->initUint8($this->addressOf('_var_vibrationSetting_8c1ba293'), 0);
         $this->initStruct(4, 0, 4, 0, 0, 0, 0);
 
         $task = $this->alloc(4);
@@ -640,7 +637,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initInactiveWorld();
         $this->initUint32($this->addressOf('_var_vibport_8c1ba354'), 7);
-        $this->initUint8($this->addressOf('_var_8c1ba293'), 1);
+        $this->initUint8($this->addressOf('_var_vibrationSetting_8c1ba293'), 1);
         $this->initStruct(4, 0, 4, 0, 0, 0, 0);
 
         $task = $this->alloc(4);

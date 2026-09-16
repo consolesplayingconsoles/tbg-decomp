@@ -49,7 +49,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_8c1bb8bc'), 1);
         $this->initUint32($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $progressBase = $this->addressOf('_var_progress_8c1ba1cc');
         $bestScoreAddr = $progressBase + 0x98 + 3 * 4;
@@ -61,7 +61,7 @@ return new class extends TestCase {
         // The archived asm still imports these under their pre-simplification
         // names; alias them onto the same cells the C reads via
         // var_progress_8c1ba1cc.practiceLessonBestScores_0x98[]/var_8c2285c4[3].
-        // var_8c1ba264 is indexed directly by var_8c22640c in the asm, so
+        // var_8c1ba264 is indexed directly by var_practiceLesson_8c22640c in the asm, so
         // it aliases the array base (practiceLessonBestScores_0x98[0]), not the [3] cell.
         $this->rellocate('_var_8c1ba264', $progressBase + 0x98);
         $this->rellocate('_var_driverPoints_8c2285d0', $candidateScoreAddr);

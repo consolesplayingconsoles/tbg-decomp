@@ -22,7 +22,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->initMenuStateUint32(0x18, 0);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
         $this->call('_FUN_8c01e27c')->with($task);
@@ -323,7 +323,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 5);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
         $this->call('_FUN_8c01e27c')->with($task);
@@ -342,7 +342,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 5);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
         $this->call('_FUN_8c01e27c')->with($task);
@@ -362,7 +362,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 6);
         $this->initMenuStateUint32(0x68, 3);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
         $this->call('_FUN_8c01e27c')->with($task);
@@ -382,7 +382,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 6);
         $this->initMenuStateUint32(0x68, 10);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
         $this->call('_FUN_8c01e27c')->with($task);
@@ -404,7 +404,7 @@ return new class extends TestCase {
 
         $this->initMenuStateUint32(0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $task = $this->alloc(0x20);
         $this->call('_FUN_8c01e27c')->with($task);
@@ -436,7 +436,7 @@ return new class extends TestCase {
         $this->initMenuStateUint32(0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initUint32($this->addressOf('_init_8c03bd80'), 0);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 7);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 7);
 
         $task = $this->alloc(0x20);
         $this->call('_FUN_8c01e27c')->with($task);
@@ -528,7 +528,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
-        $this->setSize('_var_8c22640c', 4);
+        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_init_8c03bd80', 4);

@@ -741,14 +741,14 @@ STATIC void gradeFrame_8c02bcd8(void) {
 
     if ((var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 1) != 1)
         || var_stopPhase_8c2285e4 == 0
-        || var_8c2264c4 != 0) {
+        || var_driveCueState_8c2264b8.nearStopLatch_0x0c != 0) {
         if (var_8c2285c4[31] != 0) {
             adjust_8c02b464(0x1e, 20); /* -> INSTR_UKN_49 */
             var_8c2285c4[31] = 0;
         }
     } else {
         adjust_8c02b464(0x20, -5); /* -> INSTR_ANNOUNCEMENT */
-        var_8c2264c4 = 1;
+        var_driveCueState_8c2264b8.nearStopLatch_0x0c = 1;
     }
 
     if (var_busState_8c1bb9d0.doorState_0x3c0 == 2 && var_busState_8c1bb9d0.speed_0x27c != 0.0f) {
@@ -785,11 +785,11 @@ int DrivePointsRunComplete_8c02c586(void) {
         if ((var_practiceRules_8c226410 & 4) != 4) {
             return 1;
         }
-        if (var_8c22640c == 7) {
+        if (var_practiceLesson_8c22640c == 7) {
             threshold = 2;
-        } else if (var_8c22640c == 8) {
+        } else if (var_practiceLesson_8c22640c == 8) {
             threshold = 1;
-        } else if (var_8c22640c == 9 || var_8c22640c == 10) {
+        } else if (var_practiceLesson_8c22640c == 9 || var_practiceLesson_8c22640c == 10) {
             threshold = 4;
         }
     } else if (var_route_8c18ad1c == 1) {
@@ -913,7 +913,7 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
         return;
     }
 
-    var_menuState_8c1bc7a8.selected_0x38 = var_8c22640c;
+    var_menuState_8c1bc7a8.selected_0x38 = var_practiceLesson_8c22640c;
     var_8c1bb8b8 = 1;
     var_8c1bb8bc = 1;
 

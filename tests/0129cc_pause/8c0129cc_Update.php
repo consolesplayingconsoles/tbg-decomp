@@ -382,11 +382,11 @@ return new class extends TestCase {
     public function test_ad08_two_practice_commits_menu_selection()
     {
         $this->setup(press: 0, ctrl: 0, bb8cc: 1, ad10: 1, ad08: 2, isFading: 0, playMode: 1);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 0x2b);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 0x2b);
 
         $this->call('_update_8c0129cc');
 
-        // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==PRACTICE -> menuState.selected = var_8c22640c, PracticeMenuLessonRetry_8c01f21c.
+        // isFading==0 -> reset flags + DebugMenuFreeSessionAssets_8c016182; playMode==PRACTICE -> menuState.selected = var_practiceLesson_8c22640c, PracticeMenuLessonRetry_8c01f21c.
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_8c1bb8b8'), 0);
@@ -452,7 +452,7 @@ return new class extends TestCase {
         $this->setSize('_var_8c1bb8bc', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_8c22640c', 4);
+        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x80);
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
         $this->setSize('_var_8c1ba2b8', 0x14);

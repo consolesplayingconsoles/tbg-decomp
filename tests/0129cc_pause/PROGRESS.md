@@ -10,7 +10,7 @@
 - [x] branch: ad08==0 (sprite 0x7a): press&4 -> ad08=1/midi(1,0,0) | (press&0x10||y1<-0x40) -> ad10=0/midi(1,3,0) | idle
 - [x] branch: ad08==1 (sprite 0x76/0x77/0x7a): press&2 -> ad08=0/draw0x7a/midi(1,1,0) | ad0c==0{press&4 -> ad08=2/fadeout(10)/midi(1,0,0) no draw | (press&0x80||x1>0x40) toggle ad0c=1/draw0x76} | ad0c!=0{press&4 -> ad08=0/midi(1,0,0) | (press&0x40||x1<-0x40) toggle ad0c=0 | draw0x77}
 - [x] branch: ad08==2 isFading==0, playMode!=PRACTICE: reset bb8dc/b8/bc=0, DebugMenuFreeSessionAssets_8c016182(), copy var_8c1ba2b8->progress.field_0x04[5] & var_8c1ba2cc->progress.field_0x18[5], CourseMenuFUN_8c017ef2(), return 0
-- [x] branch: ad08==2 isFading==0, playMode==PRACTICE: ...DebugMenuFreeSessionAssets_8c016182(), menuState.selected_0x38 = var_8c22640c, PracticeMenuLessonRetry_8c01f21c(), return 0
+- [x] branch: ad08==2 isFading==0, playMode==PRACTICE: ...DebugMenuFreeSessionAssets_8c016182(), menuState.selected_0x38 = var_practiceLesson_8c22640c, PracticeMenuLessonRetry_8c01f21c(), return 0
 - [x] branch: ad08==2 isFading!=0: draw 0x76 + njDrawPolygon, return 0 (skips base draw)
 
 **FUN_8c0129cc DONE -- c.obj coverage 100%, 24 tests.**
@@ -138,5 +138,5 @@
 - to see the failing instruction: sh4objtest test <php> <obj.obj> -d  (suite/-c hides disasm)
 - Ghidra PTR-name aliases (resolved via LP_GEN_43727 pool @asm:600): FUN_8c012de0=DebugMenuFreeSessionAssets_8c016182 (01614c_debug_menu.h); FUN_8c012e10=PracticeMenuLessonRetry_8c01f21c (01e27c.h); DAT_8c012e0c=var_menuState_8c1bc7a8.selected_0x38 (015ab8_title.h)
 - ad04>=5 progress-commit block in Ghidra is DEAD (ad04 maxes at 2 in that branch); real reachable copy lives in ad08==2 path
-- new externs added: var_8c22640c (int, sectionB.h), PracticeMenuLessonRetry_8c01f21c (01e27c.h); DebugMenuFreeSessionAssets_8c016182/CourseMenuFUN_8c017ef2/menuState/isFading/playMode/progress already had headers
+- new externs added: var_practiceLesson_8c22640c (int, sectionB.h), PracticeMenuLessonRetry_8c01f21c (01e27c.h); DebugMenuFreeSessionAssets_8c016182/CourseMenuFUN_8c017ef2/menuState/isFading/playMode/progress already had headers
 - ad08==2 isFading!=0 draws 0x76 at FR14=-1.09 (same arrow priority), then njDrawPolygon, returns WITHOUT base 0x74 draw

@@ -38,6 +38,13 @@ typedef struct {
     Uint32 color;
 } DrawVertex8c226478;
 
+/* Ambient drive-cue state, owned by 020214_drive_cue_task (see its .h).
+ * Three fields are written from outside that unit: BusTask_8c022bdc (022bdc)
+ * sets nearStopLatch_0x0c on the first A press of a drive and
+ * BusStopUpdateArrival_8c02ce48 (02c884) clears it on a stop-heading
+ * transition; gradeFrame_8c02bcd8 (02b464) also sets it when it docks points
+ * for a missing announcement; TrafficDriveVehicle_8c025b98 (025b98) sets
+ * firstChimeArmed_0x18 when a CPU vehicle sits stopped at a junction. */
 typedef struct {
     int idleChimeState_0x00;
     int idleChimeTimer_0x04;
@@ -407,10 +414,10 @@ typedef struct {
  * driver-points reset value.
  */
 extern char var_8c1ba290[5];
-/* Sits at var_8c1ba290[3] (the VIBRATION toggle byte) -- exported as its own
- * symbol and read that way by DriveCueTask_8c020214 (020214) to gate an end-of-frame
- * VibStop_8c010fae call, not through the array. */
-extern char var_8c1ba293;
+/* var_8c1ba290[3], the VIBRATION toggle, with its own export.
+ * DriveCueTask_8c020214 reads it that way to stop the pad rumbling once the
+ * setting is turned off mid-drive. */
+extern char var_vibrationSetting_8c1ba293;
 
 extern int var_exp_8c1ba25c; // EXP shown on the VMU icon status line (see 01b19c_system_menu)
 
@@ -632,18 +639,6 @@ extern DriverPointsMeterState var_8c226458; // 01fa78
 extern DrawVertex8c226478 var_8c226478[3]; // 01fa78
 extern HudMarkState var_8c2264a8; // 01fa78
 extern DriveCueState var_driveCueState_8c2264b8;
-/* A second .EXPORT on DriveCueState's idleChimeTimer_0x04 (base+0x4).
- * DriveCueTask_8c020214 (020214) reaches the same word both ways: through
- * this symbol as the idle-chime countdown, through the struct as its state
- * machine's per-state timer (never live at once). */
-extern int var_8c2264bc;
-/* A second .EXPORT on DriveCueState's nearStopLatch_0x0c (base+0xc): the
- * one-shot latch BusTask_8c022bdc (022bdc) sets on the first A press while
- * driving, gating whether DriveCueTask_8c020214 (020214)'s first
- * announcement chime has fired yet, and BusStopUpdateArrival_8c02ce48
- * (02c884) clears on a stop-heading transition. 022bdc's own asm goes
- * through the struct base, so that unit's C does too. */
-extern int var_8c2264c4;
 extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
 extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c_tile_draw: simple-light direction, fade layer 1 (mirror side)
@@ -937,12 +932,6 @@ extern int var_firstUpshift_8c22864c;
 
 extern void *var_8c1bb878;
 extern void *var_8c1bb888;
-/* A second .EXPORT on DriveCueState's firstChimeArmed_0x18 (base+0x18):
- * TrafficDriveVehicle_8c025b98 (025b98) sets it when a CPU vehicle sits
- * stopped at a junction, arming DriveCueTask_8c020214 (020214)'s one-shot
- * chime on the next frame. */
-extern Sint32 var_8c2264d0;
-
 /* Set by BusStopUpdateArrival_8c02ce48 (02c884) when a drive ends with points
  * left and every owed stop served. Never cleared. DriveMsgDraw_8c02b388
  * (02b2f0) is its only reader. */
@@ -1107,7 +1096,10 @@ extern TileIndex *var_tileLayerIndexes_8c22650c[5];
 extern LoadedModel *var_tileLayerSlots_8c226520[5];
 
 extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
-extern int var_8c22640c;
+/* Selected PRACTICE lesson, 0-10 (01e27c_practice_menu): indexes
+ * init_practiceRules_8c0451c0, the description-page table, and
+ * var_progress_8c1ba1cc.practiceLessonBestScores_0x98. */
+extern int var_practiceLesson_8c22640c;
 /* Which parts of a normal run still apply to the selected practice drill,
  * from init_practiceRules_8c0451c0 (01e27c). A set bit keeps the normal
  * behaviour; a clear one takes the drill shortcut, and every reader pairs it

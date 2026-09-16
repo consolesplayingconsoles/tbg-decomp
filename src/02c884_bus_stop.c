@@ -348,7 +348,7 @@ void BusStopUpdateArrival_8c02ce48(void)
             if (var_8c226450 != -1) {
                 var_8c228640 = 1;
             }
-            var_8c2264c4 = 0;
+            var_driveCueState_8c2264b8.nearStopLatch_0x0c = 0;
             advanceStopSegment_8c02ccae();
         }
     } else if (var_stopPhase_8c2285e4 == 2) {

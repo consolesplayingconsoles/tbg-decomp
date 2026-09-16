@@ -42,7 +42,7 @@ return new class extends TestCase {
         $this->initUint32($menuState + 0x0c, 0x11111111); // resourceGroupB_0x0c
         $this->initUint32($menuState + 0x00, 0x22222222); // resourceGroupA_0x00
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 5);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 5);
         $this->initUint8($this->addressOf('_init_8c0451ec') + 5, 10);
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
 
@@ -231,7 +231,7 @@ return new class extends TestCase {
         $this->initUint32($menuState + 0x18, 4); // SHOW_LESSON_STATE_FADE_OUT_BACK
         $this->initUint32($menuState + 0x40, 0);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 5);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 5);
         $this->initUint8($this->addressOf('_init_8c0451ec') + 5, 10);
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
         $this->initUint32($menuState + 0x0c, 0x11111111);
@@ -275,12 +275,12 @@ return new class extends TestCase {
         $menuState = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->initUint32($menuState + 0x18, 5); // SHOW_LESSON_STATE_FADE_OUT_START
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 5);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 5);
 
         $task = $this->alloc(0x20);
         $this->call('_showLesson_8c01e63c')->with($task);
 
-        $this->shouldWriteLong($menuState + 0x38, 5); // selected_0x38 = var_8c22640c
+        $this->shouldWriteLong($menuState + 0x38, 5); // selected_0x38 = var_practiceLesson_8c22640c
         $this->shouldCall('_PracticeMenuLessonStart_8c01f114')->with($task);
     }
 
@@ -291,7 +291,7 @@ return new class extends TestCase {
         $this->initUint32($menuState + 0x18, 5); // SHOW_LESSON_STATE_FADE_OUT_START
         $this->initUint32($menuState + 0x40, 0);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 5);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 5);
         $this->initUint8($this->addressOf('_init_8c0451ec') + 5, 10);
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
         $this->initUint32($menuState + 0x0c, 0x11111111);
@@ -323,7 +323,7 @@ return new class extends TestCase {
         $this->initUint32($menuState + 0x00, 0x22222222);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, $press);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 5);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 5);
         $this->initUint8($this->addressOf('_init_8c0451ec') + 5, 10);
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 0);
 
@@ -400,7 +400,7 @@ return new class extends TestCase {
         $this->setSize('_init_8c03bd80', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
-        $this->setSize('_var_8c22640c', 4);
+        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_njUserClipping', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);

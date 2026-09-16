@@ -7,22 +7,17 @@
 #include "011120_asset_queues.h" /* AsqGetRandomB_8c0121a8, AsqGetRandomInRangeB_8c0121be */
 #include "010e90.h" /* VibStart_8c010f7a, VibStop_8c010fae */
 #include "0100bc_sound.h" /* SndProc_8c010cd6, var_midiHandles_8c0fcd28 */
-#include "020214.h"
+#include "020214_drive_cue_task.h"
 
 /* ====================
  * Functions
  * ====================
  */
 
-/* See 020214.h. */
+/* See 020214_drive_cue_task.h. */
 void DriveCueTask_8c020214(Task *task, void *state)
 {
-    /* Mirrors R4, which the asm's stopAnnounceState_0x08 dispatch and the final
-     * "near stop marker" check both read: seeded from nearStopLatch_0x0c right
-     * before the switch below (a delay-slot load, so it runs no matter which
-     * case is taken), then updated only by case 0/2's own sdMidiPlay calls or
-     * by the final block's own route/segment match. */
-    int nearFlag;
+    int atCueSegment;
 
     (void)state;
 
@@ -33,16 +28,14 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
     switch (var_driveCueState_8c2264b8.idleChimeState_0x00) {
     case 0:
-        /* firstChimeArmed_0x18 is cleared below on every call, so this fires
-         * only when TrafficDriveVehicle_8c025b98 armed it since the last
-         * frame -- it writes the same word through its own export on it,
-         * var_8c2264d0. */
+        /* Cleared below on every call, so this fires only when
+         * TrafficDriveVehicle_8c025b98 armed it since the last frame. */
         if (var_driveCueState_8c2264b8.firstChimeArmed_0x18 != 0) {
             sdMidiPlay(var_midiHandles_8c0fcd28[3], 1, AsqGetRandomInRangeB_8c0121be(6) + 9, 0);
             var_driveCueState_8c2264b8.idleChimeTimer_0x04 = (AsqGetRandomInRangeB_8c0121be(3) + 2) * 30;
             var_driveCueState_8c2264b8.idleChimeState_0x00 = 1;
         } else if (var_busState_8c1bb9d0.speed_0x27c > 0.09259258955717087f) {
-            if (--var_8c2264bc < 0) {
+            if (--var_driveCueState_8c2264b8.idleChimeTimer_0x04 < 0) {
                 int r = AsqGetRandomB_8c0121a8();
                 if ((r & 1) == 0) {
                     sdMidiPlay(var_midiHandles_8c0fcd28[3], 1, 0x3c, 0);
@@ -71,15 +64,9 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
     var_driveCueState_8c2264b8.firstChimeArmed_0x18 = 0;
 
-    /* SH4 quirk: the asm's dispatch on stopAnnounceState_0x08 loads nearStopLatch_0x0c
-     * into R4 in the delay slot of its first branch test, so it runs regardless
-     * of which case is taken -- nearFlag always becomes nearStopLatch_0x0c's
-     * value here, before the switch even runs. */
-    nearFlag = var_driveCueState_8c2264b8.nearStopLatch_0x0c;
-
     switch (var_driveCueState_8c2264b8.stopAnnounceState_0x08) {
     case 0:
-        if (nearFlag == 0) {
+        if (var_driveCueState_8c2264b8.nearStopLatch_0x0c == 0) {
             break;
         }
 
@@ -98,7 +85,6 @@ void DriveCueTask_8c020214(Task *task, void *state)
             }
 
             sdMidiPlay(var_midiHandles_8c0fcd28[2], 1, soundId, 0);
-            nearFlag = (int)var_midiHandles_8c0fcd28[2];
             var_driveCueState_8c2264b8.stopAnnounceState_0x08 = 1;
             var_driveCueState_8c2264b8.stopAnnounceTimer_0x10 = 0;
         }
@@ -114,9 +100,9 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
         local0 = 0;
         if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
-            if (var_8c22640c == 8) {
+            if (var_practiceLesson_8c22640c == 8) {
                 local0 = 6;
-            } else if (var_8c22640c == 9) {
+            } else if (var_practiceLesson_8c22640c == 9) {
                 local0 = 10;
             }
         }
@@ -155,15 +141,13 @@ void DriveCueTask_8c020214(Task *task, void *state)
         }
 
         sdMidiPlay(var_midiHandles_8c0fcd28[4], 1, 0x1a, 0);
-        nearFlag = (int)var_midiHandles_8c0fcd28[4];
         var_driveCueState_8c2264b8.stopAnnounceState_0x08 = 3;
         break;
 
     case 3:
-        /* Restarts the whole jingle sequence once the A-press latch
-         * (nearStopLatch_0x0c) has been consumed/reset elsewhere (02c884) and not
-         * yet re-armed by 022bdc. */
-        if (nearFlag == 0) {
+        /* Re-arms the sequence for the next stop: 02c884 clears the latch on
+         * a stop-heading transition. */
+        if (var_driveCueState_8c2264b8.nearStopLatch_0x0c == 0) {
             var_driveCueState_8c2264b8.stopAnnounceState_0x08 = 0;
         }
         break;
@@ -172,11 +156,10 @@ void DriveCueTask_8c020214(Task *task, void *state)
         break;
     }
 
-    /* Unconditional reset (a delay slot that runs either way): discards
-     * whatever the switch above left in nearFlag. The camera's mirror-view
-     * level below gates whether the check runs at all; a route/segment
-     * match is the only way nearFlag becomes 1. */
-    nearFlag = 0;
+    /* Fixed, hand-authored segment lists, unrelated to the run's actual
+     * active stops -- this cue fires at the same handful of route locations
+     * every run, and only from a third-person camera. */
+    atCueSegment = 0;
     if (var_cameraMode_8c227d9c >= 2) {
         int prevSeg = var_prevStopSegment_8c22870c;
 
@@ -184,12 +167,12 @@ void DriveCueTask_8c020214(Task *task, void *state)
         case ROUTE_SHINJUKU:
             if (prevSeg == 4 || prevSeg == 5 || prevSeg == 10 ||
                 prevSeg == 21 || prevSeg == 22 || prevSeg == 23) {
-                nearFlag = 1;
+                atCueSegment = 1;
             }
             break;
         case ROUTE_WANGAN:
             if (prevSeg == 10 || prevSeg == 11 || prevSeg == 16) {
-                nearFlag = 1;
+                atCueSegment = 1;
             }
             break;
         case ROUTE_OME:
@@ -198,7 +181,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
         }
     }
 
-    if (nearFlag != 0) {
+    if (atCueSegment != 0) {
         if (var_driveCueState_8c2264b8.nearStopChimeLatch_0x14 == 0) {
             int r = AsqGetRandomB_8c0121a8();
             int soundId = (r & 1) == 0 ? 0x12 : 0x11;
@@ -210,7 +193,7 @@ void DriveCueTask_8c020214(Task *task, void *state)
         var_driveCueState_8c2264b8.nearStopChimeLatch_0x14 = 0;
     }
 
-    if (var_vibport_8c1ba354 != (Uint32)-1 && var_8c1ba293 == 0) {
+    if (var_vibport_8c1ba354 != (Uint32)-1 && var_vibrationSetting_8c1ba293 == 0) {
         VibStop_8c010fae(var_vibport_8c1ba354);
     }
 }

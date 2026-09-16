@@ -319,15 +319,15 @@ $(OUTPUT_DIR)/src/01fa78.obj: src/011120_asset_queues.h src/serial_debug.h
 $(OUTPUT_DIR)/src/01fa78.obj: src/02171c_tile_stream.h src/02af78_event.h
 $(OUTPUT_DIR)/src/01fa78.obj: src/01bb48_vm_game.h src/020914_ground_query.h
 $(OUTPUT_DIR)/src/01fa78.obj: src/023938_bus_drive.h src/026710_traffic.h src/includes.h
-$(OUTPUT_DIR)/src/020214.obj: src/sectionB.h src/01614c_debug_menu.h src/014a9c_tasks.h
-$(OUTPUT_DIR)/src/020214.obj: src/014b8c_backup.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/020214.obj: src/011120_asset_queues.h src/serial_debug.h
-$(OUTPUT_DIR)/src/020214.obj: src/02171c_tile_stream.h src/02af78_event.h
-$(OUTPUT_DIR)/src/020214.obj: src/01bb48_vm_game.h src/015ab8_title.h src/022464_fade.h
-$(OUTPUT_DIR)/src/020214.obj: src/028258_objects.h src/020914_ground_query.h
-$(OUTPUT_DIR)/src/020214.obj: src/023938_bus_drive.h src/026710_traffic.h src/014f54_text.h
-$(OUTPUT_DIR)/src/020214.obj: src/010e90.h src/0100bc_sound.h src/020214.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/014a9c_tasks.h src/020214.h src/sectionB.h
+$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/sectionB.h src/01614c_debug_menu.h src/014a9c_tasks.h
+$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/014b8c_backup.h src/013ae8_route_load.h
+$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/011120_asset_queues.h src/serial_debug.h
+$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/02171c_tile_stream.h src/02af78_event.h
+$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/01bb48_vm_game.h src/015ab8_title.h src/022464_fade.h
+$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/028258_objects.h src/020914_ground_query.h
+$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/023938_bus_drive.h src/026710_traffic.h src/014f54_text.h
+$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/010e90.h src/0100bc_sound.h src/020214_drive_cue_task.h
+$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/014a9c_tasks.h src/020214_drive_cue_task.h src/sectionB.h
 $(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/01614c_debug_menu.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/013ae8_route_load.h src/011120_asset_queues.h
 $(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/serial_debug.h src/02171c_tile_stream.h

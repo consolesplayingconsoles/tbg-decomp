@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_driverPoints_8c2285d0', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x3c);
-        $this->setSize('_var_8c22640c', 4);
+        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_8c1bb8b8', 4);
         $this->setSize('_var_8c1bb8bc', 4);
         $this->setSize('_var_runSucceeded_8c1bb8dc', 4);
@@ -42,7 +42,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 0);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 7);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 7);
 
         $this->call('_DrivePointsOnFadeDriveEnd_8c02c784');
 
@@ -62,7 +62,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_driverPoints_8c2285d0'), 5);
-        $this->initUint32($this->addressOf('_var_8c22640c'), 3);
+        $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
         $this->call('_DrivePointsOnFadeDriveEnd_8c02c784');
 

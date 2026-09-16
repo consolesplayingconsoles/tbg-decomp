@@ -252,15 +252,16 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
   a signal reminder (phase 1, gated on the signal still being on), and the
   next-stop indicator (phase 2) as the bus moves through the stop cycle.
 - **The chime.** Two independent chime systems live in `DriveCueTask_8c020214`
-  (`020214.c`), operating on `DriveCueState var_driveCueState_8c2264b8` (`sectionB.h`):
+  (`020214_drive_cue_task.c`), operating on `DriveCueState var_driveCueState_8c2264b8` (`sectionB.h`):
   - `stopAnnounceState_0x08`/`stopAnnounceTimer_0x10` is the **driver's own
-    stop announcement** -- confirmed player-initiated: armed by
-    `nearStopLatch_0x0c`, documented at that field in `sectionB.h` as set by
-    `BusTask_8c022bdc` "when the A button is first pressed while driving".
-    Its state machine plays a route-specific door-chime cue, then (after 60
-    frames) an actual spoken stop-name announcement via `SndProc_8c010cd6`.
-    This is the mechanic the `ANNOUNCEMENT` penalty grades ("failing to
-    announce the next stop") -- names already accurate, no change made.
+    stop announcement**, armed by `nearStopLatch_0x0c`, which
+    `BusTask_8c022bdc` sets on the first A press of a drive. Its state
+    machine plays a route-specific door-chime cue, then (after 60 frames) an
+    actual spoken stop-name announcement via `SndProc_8c010cd6`. This is the
+    mechanic the `ANNOUNCEMENT` penalty grades ("failing to announce the
+    next stop"). Not purely player-initiated, though: `gradeFrame_8c02bcd8`
+    (`02b464`) sets the same latch right after docking that penalty, so the
+    announcement plays anyway once the game has charged you for missing it.
   - `idleChimeState_0x00`/`idleChimeTimer_0x04` is an unrelated ambient
     chime played periodically while driving (gated on `var_busState_8c1bb9d0.speed_0x27c`, a
     steering-related threshold, with a random ~2-5s repeat), not tied to

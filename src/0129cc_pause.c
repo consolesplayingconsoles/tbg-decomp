@@ -192,7 +192,7 @@ STATIC int update_8c0129cc(void)
             var_8c1bb8bc = 0;
             DebugMenuFreeSessionAssets_8c016182();
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
-                var_menuState_8c1bc7a8.selected_0x38 = var_8c22640c;
+                var_menuState_8c1bc7a8.selected_0x38 = var_practiceLesson_8c22640c;
                 PracticeMenuLessonRetry_8c01f21c();
                 LOG_INFO(("[PAUSE] update_8c0129cc: retire complete, leaving drive (practice)\n"));
                 return 0;
