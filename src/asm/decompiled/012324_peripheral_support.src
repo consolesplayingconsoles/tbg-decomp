@@ -5,7 +5,7 @@
           .IMPORT     _pdGetPeripheral
           .IMPORT     _var_activeCtrlType_8c157a70
           .IMPORT     __quick_odd_mvn
-          .IMPORT     _const_peripheral_8c033318
+          .IMPORT     _const_peripheralZero_8c033318
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _VmGameUpdateLcd_8c01c910
           .IMPORT     _SndUpdateAdxVolFade_8c010a40
@@ -256,7 +256,7 @@ LP_GEN_88452:
           .DATA.W H'0606
           .DATA.L H'000000F0
           .DATA.L _var_resetRequested_8c157a78
-          .DATA.L _const_peripheral_8c033318
+          .DATA.L _const_peripheralZero_8c033318
           .DATA.L __quick_odd_mvn
           .DATA.L _var_vibport_8c1ba354
           .DATA.L _var_keyRepeat_8c157ad4

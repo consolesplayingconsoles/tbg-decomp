@@ -18,7 +18,8 @@
  * - a chime at a fixed list of per-route segments, third-person camera only
  *   (nearStopChimeLatch_0x14).
  *
- * It also stops the pad rumble when the VIBRATION setting is off. */
+ * It is also what advances rumble playback, while the VIBRATION setting is
+ * on. */
 void DriveCueTask_8c020214(Task *task, void *state);
 
 #endif // _020214_DRIVE_CUE_TASK_H

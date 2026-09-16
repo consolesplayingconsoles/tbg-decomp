@@ -417,9 +417,8 @@ typedef struct {
  * driver-points reset value.
  */
 extern char var_8c1ba290[5];
-/* var_8c1ba290[3], the VIBRATION toggle, with its own export.
- * DriveCueTask_8c020214 reads it that way to stop the pad rumbling once the
- * setting is turned off mid-drive. */
+/* var_8c1ba290[3], the VIBRATION toggle, with its own export. 0 is on:
+ * DriveCueTask_8c020214 ticks rumble playback only while it reads 0. */
 extern char var_vibrationSetting_8c1ba293;
 
 extern int var_exp_8c1ba25c; // EXP shown on the VMU icon status line (see 01b19c_system_menu)
@@ -857,9 +856,9 @@ extern int var_8c228634[3];
  * reaches it through this symbol. */
 extern int var_8c228640;
 
-/* PDS_PERIPHERAL.r (see 010e90.h) of var_peripherals_8c1ba35c[0] -- the
- * throttle trigger -- addressed directly by this symbol rather than through
- * the array/field form. */
+/* PDS_PERIPHERAL.r of var_peripherals_8c1ba35c[0] -- the throttle trigger --
+ * addressed directly by this symbol rather than through the array/field
+ * form. */
 extern unsigned short var_padTriggerR_8c1ba374;
 
 /* PDS_PERIPHERAL.l of var_peripherals_8c1ba35c[0] -- the brake trigger --

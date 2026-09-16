@@ -6,7 +6,7 @@
 #include "02b464_drive_points.h"
 #include "0100bc_sound.h"
 #include "sectionB.h"
-#include "010e90.h"
+#include "010e90_vibration.h"
 #include "02e400_collision.h"
 #include "02e2dc_bus_collision.h"
 #include "023938_bus_drive.h"

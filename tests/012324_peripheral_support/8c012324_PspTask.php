@@ -569,7 +569,7 @@ return new class extends TestCase {
     public function test_unsupported_controller()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_const_peripheral_8c033318', 0x34);
+        $this->setSize('_const_peripheralZero_8c033318', 0x34);
         $this->setSize('_var_activeCtrlType_8c157a70', 4);
 
         $per = $this->alloc(0x34);
@@ -622,9 +622,9 @@ return new class extends TestCase {
     public function test_repeat_stays_idle_with_no_direction()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_const_peripheral_8c033318', 0x34);
+        $this->setSize('_const_peripheralZero_8c033318', 0x34);
         $this->initUint32Array(
-            $this->addressOf('_const_peripheral_8c033318'),
+            $this->addressOf('_const_peripheralZero_8c033318'),
             array_fill(0, 0x34 / 4, 0),
         );
         $this->setSize('_var_activeCtrlType_8c157a70', 4);
@@ -678,9 +678,9 @@ return new class extends TestCase {
     public function test_repeat_arms_on_the_first_direction()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_const_peripheral_8c033318', 0x34);
+        $this->setSize('_const_peripheralZero_8c033318', 0x34);
         $this->initUint32Array(
-            $this->addressOf('_const_peripheral_8c033318'),
+            $this->addressOf('_const_peripheralZero_8c033318'),
             array_fill(0, 0x34 / 4, 0),
         );
         $this->setSize('_var_activeCtrlType_8c157a70', 4);
@@ -740,9 +740,9 @@ return new class extends TestCase {
     public function test_repeat_disarms_when_the_direction_is_released()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_const_peripheral_8c033318', 0x34);
+        $this->setSize('_const_peripheralZero_8c033318', 0x34);
         $this->initUint32Array(
-            $this->addressOf('_const_peripheral_8c033318'),
+            $this->addressOf('_const_peripheralZero_8c033318'),
             array_fill(0, 0x34 / 4, 0),
         );
         $this->setSize('_var_activeCtrlType_8c157a70', 4);
@@ -799,9 +799,9 @@ return new class extends TestCase {
     public function test_repeat_just_counts_below_the_period()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_const_peripheral_8c033318', 0x34);
+        $this->setSize('_const_peripheralZero_8c033318', 0x34);
         $this->initUint32Array(
-            $this->addressOf('_const_peripheral_8c033318'),
+            $this->addressOf('_const_peripheralZero_8c033318'),
             array_fill(0, 0x34 / 4, 0),
         );
         $this->setSize('_var_activeCtrlType_8c157a70', 4);
@@ -862,9 +862,9 @@ return new class extends TestCase {
     public function test_repeat_fires_and_drops_to_the_short_period()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_const_peripheral_8c033318', 0x34);
+        $this->setSize('_const_peripheralZero_8c033318', 0x34);
         $this->initUint32Array(
-            $this->addressOf('_const_peripheral_8c033318'),
+            $this->addressOf('_const_peripheralZero_8c033318'),
             array_fill(0, 0x34 / 4, 0),
         );
         $this->setSize('_var_activeCtrlType_8c157a70', 4);
@@ -928,9 +928,9 @@ return new class extends TestCase {
     public function test_repeat_ramps_to_every_frame_after_30()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_const_peripheral_8c033318', 0x34);
+        $this->setSize('_const_peripheralZero_8c033318', 0x34);
         $this->initUint32Array(
-            $this->addressOf('_const_peripheral_8c033318'),
+            $this->addressOf('_const_peripheralZero_8c033318'),
             array_fill(0, 0x34 / 4, 0),
         );
         $this->setSize('_var_activeCtrlType_8c157a70', 4);

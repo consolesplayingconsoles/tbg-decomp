@@ -2,7 +2,7 @@
 #include <shinobi.h>
 #include "01614c_debug_menu.h"
 #include "0100bc_sound.h"
-#include "010e90.h"
+#include "010e90_vibration.h"
 #include "011120_asset_queues.h"
 #include "012504_input.h"
 #include "012f44_game.h"

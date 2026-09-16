@@ -16,7 +16,7 @@ return new class extends TestCase {
         $this->setSize('_AsqGetRandomInRangeB_8c0121be', 4);
         $this->setSize('_AsqGetRandomB_8c0121a8', 4);
         $this->setSize('_VibStart_8c010f7a', 4);
-        $this->setSize('_VibStop_8c010fae', 4);
+        $this->setSize('_VibUpdate_8c010fae', 4);
         $this->setSize('_SndProc_8c010cd6', 4);
         $this->setSize('_var_8c2285c4', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
@@ -615,7 +615,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
-        $this->shouldCall('_VibStop_8c010fae')->with(7);
+        $this->shouldCall('_VibUpdate_8c010fae')->with(7);
     }
 
     public function test_vibstop_skipped_when_port_unset(): void

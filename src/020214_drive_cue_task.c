@@ -5,7 +5,7 @@
 #include "014a9c_tasks.h"
 #include "013ae8_route_load.h" /* enum ROUTE */
 #include "011120_asset_queues.h" /* AsqGetRandomB_8c0121a8, AsqGetRandomInRangeB_8c0121be */
-#include "010e90.h" /* VibStart_8c010f7a, VibStop_8c010fae */
+#include "010e90_vibration.h" /* VibStart_8c010f7a, VibUpdate_8c010fae */
 #include "0100bc_sound.h" /* SndProc_8c010cd6, var_midiHandles_8c0fcd28 */
 #include "020214_drive_cue_task.h"
 
@@ -194,6 +194,6 @@ void DriveCueTask_8c020214(Task *task, void *state)
     }
 
     if (var_vibport_8c1ba354 != (Uint32)-1 && var_vibrationSetting_8c1ba293 == 0) {
-        VibStop_8c010fae(var_vibport_8c1ba354);
+        VibUpdate_8c010fae(var_vibport_8c1ba354);
     }
 }

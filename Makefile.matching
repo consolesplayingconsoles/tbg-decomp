@@ -11,7 +11,7 @@ SRCS = \
 	src/asm/010000.src \
 	src/010080_main.c \
 	src/asm/decompiled/0100bc_sound.src \
-	src/010e90.c \
+	src/010e90_vibration.c \
 	src/asm/decompiled/010fe8_heap.src \
 	src/asm/decompiled/011120_asset_queues.src \
 	src/asm/decompiled/012324_peripheral_support.src \

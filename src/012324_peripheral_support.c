@@ -1,6 +1,6 @@
 /* @unit Psp */
 #include <shinobi.h>
-#include "010e90.h"
+#include "010e90_vibration.h"
 #include "011120_asset_queues.h"
 #include "012324_peripheral_support.h"
 #include "012504_input.h"
@@ -115,7 +115,7 @@ void PspTask_8c012324()
         }
     }
     else {
-        *var_peripherals_8c1ba35c = const_peripheral_8c033318;
+        *var_peripherals_8c1ba35c = const_peripheralZero_8c033318;
         var_vibport_8c1ba354 = -1;
         var_activeCtrlType_8c157a70 = -1;
     }

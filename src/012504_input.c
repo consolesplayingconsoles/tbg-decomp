@@ -1,6 +1,6 @@
 /* @unit Input */
 #include <shinobi.h>
-#include "010e90.h"
+#include "010e90_vibration.h"
 #include "011120_asset_queues.h"
 #include "012324_peripheral_support.h"
 #include "014a9c_tasks.h"
@@ -48,7 +48,7 @@ STATIC void inputManualTask_8c012504(void)
         (support != BT_CONTROLLER && support != BT_RACING)
     ) {
         LOG_TRACE(("[INPUT] inputManualTask_8c012504: no supported controller on port 0\n"));
-        *var_peripherals_8c1ba35c = const_peripheral_8c033318;
+        *var_peripherals_8c1ba35c = const_peripheralZero_8c033318;
         var_vibport_8c1ba354 = -1;
         var_activeCtrlType_8c157a70 = -1;
         VmGameUpdateLcd_8c01c910();
@@ -146,7 +146,7 @@ STATIC void inputAutoTask_8c012718(void)
         (support != BT_CONTROLLER && support != BT_RACING)
     ) {
         LOG_TRACE(("[INPUT] inputAutoTask_8c012718: no supported controller on port 0\n"));
-        *var_peripherals_8c1ba35c = const_peripheral_8c033318;
+        *var_peripherals_8c1ba35c = const_peripheralZero_8c033318;
         var_vibport_8c1ba354 = -1;
         var_activeCtrlType_8c157a70 = -1;
         VmGameUpdateLcd_8c01c910();

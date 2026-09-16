@@ -345,7 +345,7 @@ return new class extends TestCase {
         $this->setSize('_var_activeCtrlType_8c157a70', 4);
         $this->setSize('_VmGameUpdateLcd_8c01c910', 4);
         $this->initUint32Array(
-            $this->addressOf('_const_peripheral_8c033318'),
+            $this->addressOf('_const_peripheralZero_8c033318'),
             array_fill(0, 0x34 / 4, 0),
         );
     }

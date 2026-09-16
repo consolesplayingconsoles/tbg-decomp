@@ -45,7 +45,7 @@ SHC_DEFINE_ARG = -define=$(subst $(space),$(comma),$(SHC_DEFINES))
 SRCS = \
 	src/010080_main.c \
 	src/0100bc_sound.c \
-	src/010e90.c \
+	src/010e90_vibration.c \
 	src/010fe8_heap.c \
 	src/011120_asset_queues.c \
 	src/012324_peripheral_support.c \

@@ -8,7 +8,7 @@
           .IMPORT     _init_btnRemapManual_8c03be80
           .IMPORT     _init_btnRemapWheelManual_8c03bef0
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _const_peripheral_8c033318
+          .IMPORT     _const_peripheralZero_8c033318
           .IMPORT     __quick_odd_mvn
           .IMPORT     _VmGameUpdateLcd_8c01c910
           .IMPORT     _init_btnRemapAuto_8c03beb8
@@ -311,7 +311,7 @@ LP_GEN_43503:
           .DATA.L _var_busState_8c1bb9d0+H'27C ; (speed_0x27c)
           .DATA.L _var_busState_8c1bb9d0+H'2F4 ; (gear_0x2f4)
           .DATA.L _var_resetRequested_8c157a78
-          .DATA.L _const_peripheral_8c033318
+          .DATA.L _const_peripheralZero_8c033318
           .DATA.L __quick_odd_mvn
           .DATA.L _VmGameUpdateLcd_8c01c910
 
@@ -588,7 +588,7 @@ LAB_8c0128e6:
 LP_GEN_17272:
           .DATA.W H'0100 ; LP_GEN_17272+0
           .DATA.L _var_resetRequested_8c157a78
-          .DATA.L _const_peripheral_8c033318
+          .DATA.L _const_peripheralZero_8c033318
           .DATA.L __quick_odd_mvn
           .DATA.L _var_activeCtrlType_8c157a70
           .DATA.L _VmGameUpdateLcd_8c01c910
