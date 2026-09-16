@@ -161,9 +161,9 @@ void BusTask_8c022bdc(Task *task, void *state)
                 var_busState_8c1bb9d0.laneOffset_0x2c4 =
                     GeomDistanceXZ_8c02081c(&var_busState_8c1bb9d0.posX_0x0f4, &var_busState_8c1bb9d0.laneTargetX_0x0ec);
             }
-            /* var_8c2285c4[0] is the run phase (see gradeStopPhase_8c02c0f0's
-             * comment in 02b464): below 3 the run is still going, so resume
-             * driving; from 3 on it is over and the bus stays put. */
+            /* Below run phase 3 the run is still going, so resume driving;
+             * from 3 on it is over and the bus stays put (see var_8c2285c4 in
+             * sectionB.h). */
             var_busState_8c1bb9d0.driveState_0x2b4 = (var_8c2285c4[0] < 3) ? 1 : 3;
             var_busState_8c1bb9d0.speed_0x27c = 0.0f;
         }
