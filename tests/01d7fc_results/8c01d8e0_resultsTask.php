@@ -578,7 +578,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 5); // VMU_STATUS_SAVE_EXISTS
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 5); // VMU_STATUS_SAVE_EXISTS_NO_SPACE
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
         $this->call('_resultsTask_8c01d8e0');
@@ -612,7 +612,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_init_saveNames_8c044d50'), 0);
         $this->initUint32($this->addressOf('_var_runFailed_8c226408'), 1); // failed run
-        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 6); // VMU_STATUS_SAVE_EXISTS_NO_SPACE
+        $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), 6); // VMU_STATUS_SAVE_EXISTS
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x55667788);
 
         $this->call('_resultsTask_8c01d8e0');

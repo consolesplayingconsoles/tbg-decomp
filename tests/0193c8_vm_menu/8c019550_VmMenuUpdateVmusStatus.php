@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 return new class extends TestCase {
-    public function test_fetchVmus()
+    public function test_updatesEveryDriveStatus()
     {
         $this->resolveSymbols();
 
@@ -31,12 +31,12 @@ return new class extends TestCase {
                 'free_user_blocks' => 1,
                 'connect'          => 0xbabe0002,
                 'work'             => 1,
-            ], [ // Save data exists
+            ], [ // Save exists, no room to spare
                 'ready'            => 1,
                 'free_user_blocks' => 1,
                 'connect'          => 0xbabe0003,
                 'work'             => 1,
-            ], [ // Save data exists 2
+            ], [ // Save exists, room to spare
                 'ready'            => 1,
                 'free_user_blocks' => 4,
                 'connect'          => 0xbabe0004,
@@ -70,12 +70,12 @@ return new class extends TestCase {
 
         $this->shouldCall('_BupGetInfo_8c014bba')->with(3)->andReturn($bupAddresses[3]);
         $this->shouldCall('_buIsExistFile')->with(3, "TOKYOBUS.001")->andReturn(0); // BUD_ERR_OK
-        $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + 3 * 4, 5); // Save data exists
+        $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + 3 * 4, 5); // VMU_STATUS_SAVE_EXISTS_NO_SPACE
 
         $this->shouldCall('_BupGetInfo_8c014bba')->with(4)->andReturn($bupAddresses[4]);
         $this->shouldCall('_buIsExistFile')->with(4, "TOKYOBUS.001")->andReturn(0xffffff05); // BUD_ERR_FILE_NOT_FOUND
         $this->shouldCall('_buIsExistFile')->with(4, "TOKYOBUS.002")->andReturn(0); // BUD_ERR_OK
-        $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + 4 * 4, 6); // Save data exists 2
+        $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + 4 * 4, 6); // VMU_STATUS_SAVE_EXISTS
 
         $this->shouldCall('_BupGetInfo_8c014bba')->with(5)->andReturn($bupAddresses[5]);
         $this->shouldCall('_buIsExistFile')->with(5, "TOKYOBUS.001")->andReturn(0xffffff03); // BUD_ERR_UNFORMAT
@@ -106,7 +106,7 @@ return new class extends TestCase {
             ->run();
     }
 
-    public function test_fetchVmusNotEnoughSpace()
+    public function test_updatesEveryDriveWithoutEnoughSpace()
     {
         $this->resolveSymbols();
 

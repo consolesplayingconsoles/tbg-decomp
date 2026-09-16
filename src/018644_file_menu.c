@@ -306,7 +306,7 @@ STATIC void buildFileList_8c018a22(void)
 
     var_8c226014 = 0;
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVING_POSSIBLE ||
-        (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS_NO_SPACE &&
+        (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS &&
          var_loadedSaveCount_8c22600c < 10)) {
         var_8c226018[0] = 10; // NEW FILE card
         var_8c226014 = 1;

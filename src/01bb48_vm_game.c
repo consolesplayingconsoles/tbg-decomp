@@ -376,8 +376,8 @@ STATIC void selectSlot_8c01bf2a(int slot)
             case VMU_STATUS_SAVING_POSSIBLE:
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_QUIZ_NONE);
                 break;
-            case VMU_STATUS_SAVE_EXISTS:
             case VMU_STATUS_SAVE_EXISTS_NO_SPACE:
+            case VMU_STATUS_SAVE_EXISTS:
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_QUIZ_EXISTS);
                 break;
             default:
@@ -581,9 +581,9 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                         ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_DL_QUIZ);
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                     } else if (
-                        var_vmuStatus_8c226048[slot] == VMU_STATUS_SAVE_EXISTS
+                        var_vmuStatus_8c226048[slot] == VMU_STATUS_SAVE_EXISTS_NO_SPACE
                         || var_vmuStatus_8c226048[slot] ==
-                            VMU_STATUS_SAVE_EXISTS_NO_SPACE
+                            VMU_STATUS_SAVE_EXISTS
                     ) {
                         m->state_0x18 = STATE_EXP_LOAD;
                         ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_ADD_POINTS);

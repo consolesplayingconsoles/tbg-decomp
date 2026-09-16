@@ -12,7 +12,8 @@ if (!function_exists('fdec')) {
 }
 
 return new class extends TestCase {
-    public function test_A()
+    /* Slots 0 and 6 unconnected: their icons (0x08, 0x0e) are skipped. */
+    public function test_omits_unconnected_slots()
     {
         $this->resolveSymbols();
 
@@ -77,7 +78,8 @@ return new class extends TestCase {
         $this->singleCall('_drawVmMenu_8c0197c0')->run();
     }
 
-    public function test_B()
+    /* Same with only slot 2 unconnected (icon 0x0a). */
+    public function test_omits_unconnected_slots_other_pattern()
     {
         $this->resolveSymbols();
 

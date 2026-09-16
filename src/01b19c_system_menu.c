@@ -199,8 +199,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         switch (var_menuState_8c1bc7a8.selected_0x38) {
         case SAVE_MENU_LOAD:
             switch (vmStatus) {
-            case VMU_STATUS_SAVE_EXISTS:
             case VMU_STATUS_SAVE_EXISTS_NO_SPACE:
+            case VMU_STATUS_SAVE_EXISTS:
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_LOAD;
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_LOAD);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -233,8 +233,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_SAVE;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 break;
-            case VMU_STATUS_SAVE_EXISTS:
             case VMU_STATUS_SAVE_EXISTS_NO_SPACE:
+            case VMU_STATUS_SAVE_EXISTS:
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM_OVERWRITE);
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_SAVE;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -297,8 +297,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                 /* cancelled */
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
                 ObjectsSwapMessageBoxFor_8c02aefc("");
-            } else if (vmStatus != VMU_STATUS_SAVE_EXISTS &&
-                       vmStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE) {
+            } else if (vmStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE &&
+                       vmStatus != VMU_STATUS_SAVE_EXISTS) {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_LOAD_NO_TARGET);
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             }
@@ -369,8 +369,8 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
                                        var_menuState_8c1bc7a8.field_0x3c + 2,
                                        228.0f, 266.0f, -4.0f);
             } else if (vmStatus != VMU_STATUS_SAVING_POSSIBLE &&
-                       vmStatus != VMU_STATUS_SAVE_EXISTS &&
-                       vmStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE) {
+                       vmStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE &&
+                       vmStatus != VMU_STATUS_SAVE_EXISTS) {
                 ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVE_CANT);
                 var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             }

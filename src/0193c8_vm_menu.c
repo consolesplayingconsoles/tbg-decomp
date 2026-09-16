@@ -40,8 +40,8 @@ char *DEBUG_vmuStatusNames[] = {
     "NOT_ENOUGH_SPACE",
     "PROCEED_WITHOUT_SAVING",
     "SAVING_POSSIBLE",
-    "SAVE_EXISTS",
-    "SAVE_EXISTS_NO_SPACE"
+    "SAVE_EXISTS_NO_SPACE",
+    "SAVE_EXISTS"
 };
 
 int intArrayChecksum(int *arr, int size) {
@@ -77,18 +77,12 @@ enum VM_MENU_STATE {
 };
 
 
-
-/* =======================
- * Non-initialized Globals
- * =======================
- */
-
-
 /* ===================
  * Initialized Globals
-   ===================
+ * ===================
  */
 
+/* Scanned in order; the empty string ends the list. */
 char* init_saveNames_8c044d50[11] = {
     "TOKYOBUS.001",
     "TOKYOBUS.002",
@@ -103,6 +97,8 @@ char* init_saveNames_8c044d50[11] = {
     ""
 };
 
+/* Cursor rest positions: drives 0-3 on the top row, 4-7 on the bottom
+ * alongside slot 8, the PROCEED WITHOUT SAVING option. */
 NJS_POINT2 init_vmIconsPositions_8c044d7c[9] = {
     {185.0f, 98.0f},
     {255.0f, 98.0f},
@@ -115,6 +111,7 @@ NJS_POINT2 init_vmIconsPositions_8c044d7c[9] = {
     {430.0f, 194.0f}
 };
 
+/* Textbox line for the highlighted slot, indexed by VMU_STATUS. */
 char* init_vmuStatusMessages_8c044dc4[7] = {
     NULL,
     MSG_CANNOT_USE,
@@ -127,7 +124,7 @@ char* init_vmuStatusMessages_8c044dc4[7] = {
 
 /* =========
  * Functions
-   =========
+ * =========
  */
 
 /* Tested */
@@ -211,6 +208,8 @@ void VmMenuFreeAndClear_8c019504(void)
 }
 
 /* Tested */
+/* Refresh every drive's VMU_STATUS against saveNames and a `blocks` budget,
+ * returning how many drives could be saved to or loaded from. */
 int VmMenuUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
 {
     int drive;
@@ -220,7 +219,6 @@ int VmMenuUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
 #endif
     for (drive = 0; drive < 8; drive++) {
         int i;
-        char** saveName;
         const BACKUPINFO *bupInfo = BupGetInfo_8c014bba(drive);
 
         if (!bupInfo->Connect) {
@@ -241,8 +239,8 @@ int VmMenuUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
             switch (buIsExistFile(drive, saveNames[i])) {
                 case BUD_ERR_OK:
                     var_vmuStatus_8c226048[drive] = (bupInfo->DiskInfo.free_user_blocks < blocks)
-                        ? VMU_STATUS_SAVE_EXISTS
-                        : VMU_STATUS_SAVE_EXISTS_NO_SPACE;
+                        ? VMU_STATUS_SAVE_EXISTS_NO_SPACE
+                        : VMU_STATUS_SAVE_EXISTS;
                     count++;
                     break;
 
@@ -273,7 +271,7 @@ int VmMenuUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
         }
     }
 
-    var_vmuStatus_8c226048[8] = VMU_STATUS_PROCEED_WITHOUT_SAVING; // Proceed without saving
+    var_vmuStatus_8c226048[8] = VMU_STATUS_PROCEED_WITHOUT_SAVING;
 
 #ifdef SERIAL_DEBUG
     if (checksum != intArrayChecksum(var_vmuStatus_8c226048, 9)) {
@@ -310,8 +308,8 @@ void VmMenuUpdateVmuStatus_8c01967c(Sint32 drive, char* saveName, Uint16 blocks)
     switch (buIsExistFile(drive, saveName)) {
         case BUD_ERR_OK:
             var_vmuStatus_8c226048[drive] = (bupInfo->DiskInfo.free_user_blocks < blocks)
-                ? VMU_STATUS_SAVE_EXISTS
-                : VMU_STATUS_SAVE_EXISTS_NO_SPACE;
+                ? VMU_STATUS_SAVE_EXISTS_NO_SPACE
+                : VMU_STATUS_SAVE_EXISTS;
             break;
 
         case BUD_ERR_UNFORMAT:
@@ -324,7 +322,7 @@ void VmMenuUpdateVmuStatus_8c01967c(Sint32 drive, char* saveName, Uint16 blocks)
 
         default:
             if (bupInfo->DiskInfo.free_user_blocks < blocks) {
-                var_vmuStatus_8c226048[drive] = VMU_STATUS_NOT_ENOUGH_SPACE; 
+                var_vmuStatus_8c226048[drive] = VMU_STATUS_NOT_ENOUGH_SPACE;
             } else {
                 var_vmuStatus_8c226048[drive] = VMU_STATUS_SAVING_POSSIBLE;
             }
@@ -436,7 +434,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             if (VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)) {
                 CHANGE_STATE(VM_MENU_STATE_FADE_IN);
 
-                // Skip empty slots
+                // Start on the first connected drive
                 for (slot = 0; var_vmuStatus_8c226048[slot] == VMU_STATUS_NOT_CONNECTED; slot++);
                 initCursorLerp_8c019788(slot);
 
@@ -518,6 +516,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                                 if (slot < 0) slot = 3;
                             }
 
+                            // The original emits the search twice; this pass never runs.
                             while (!var_vmuStatus_8c226048[slot]) {
                                 if (--slot < 0) slot = 3;
                             }
@@ -532,8 +531,8 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                     int status = var_vmuStatus_8c226048[slot];
                     if (
                         status == VMU_STATUS_SAVING_POSSIBLE
-                        || status == VMU_STATUS_SAVE_EXISTS
-                        || status == VMU_STATUS_SAVE_EXISTS_NO_SPACE)
+                        || status == VMU_STATUS_SAVE_EXISTS_NO_SPACE
+                        || status == VMU_STATUS_SAVE_EXISTS)
                     {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                         ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM);
@@ -645,7 +644,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
         // VM Warning
         case VM_MENU_STATE_VM_WARNING: {
-            int substate = task->field_0x08;
+            // task->field_0x08 is this screen's own sub-phase.
             switch (task->field_0x08) {
                 // Idle
                 case 0: {
@@ -680,7 +679,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                         var_menuState_8c1bc7a8.logo_timer_0x68 = 10;
                         CHANGE_STATE(VM_MENU_STATE_INIT);
                         return;
-                    } 
+                    }
                     break;
                 }
 
@@ -731,6 +730,8 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             if (var_isFading_8c226568) {
                 break;
             }
+            // Bits 0 and 4 stay set while the two ADX streams are still
+            // playing; hold the screen until both fade-outs have finished.
             if (init_8c03bd80) return;
             MainMenuSwitchFromTask_8c01a09a(task, 0);
             return;

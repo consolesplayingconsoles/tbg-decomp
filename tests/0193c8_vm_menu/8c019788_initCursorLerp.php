@@ -12,7 +12,7 @@ if (!function_exists('fdec')) {
 }
 
 return new class extends TestCase {
-    public function test_A()
+    public function test_aims_the_cursor_at_the_drive_slot()
     {
         $this->resolveSymbols();
 

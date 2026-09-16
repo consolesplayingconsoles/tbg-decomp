@@ -37,7 +37,7 @@ return new class extends TestCase {
         $drive = random_int(0, 7);
         $saveName = $this->allocString('TOKYOBUS.003');
 
-        // Not connected
+        // Not mounted
         $bupInfoData = [
             'ready'            => 1,
             'free_user_blocks' => 1,
@@ -61,7 +61,7 @@ return new class extends TestCase {
         $drive = random_int(0, 7);
         $saveName = $this->allocString('TOKYOBUS.003');
 
-        // Not connected
+        // Not ready
         $bupInfoData = [
             'ready'            => 0,
             'free_user_blocks' => 1,
@@ -110,7 +110,7 @@ return new class extends TestCase {
         $drive = random_int(0, 7);
         $saveName = $this->allocString('TOKYOBUS.003');
 
-        // Save exists
+        // Unformatted card
         $bupInfoData = [
             'ready'            => 1,
             'free_user_blocks' => 1,
@@ -135,7 +135,7 @@ return new class extends TestCase {
         $drive = random_int(0, 7);
         $saveName = $this->allocString('TOKYOBUS.003');
 
-        // Save exists
+        // Card busy
         $bupInfoData = [
             'ready'            => 1,
             'free_user_blocks' => 1,
@@ -179,9 +179,4 @@ return new class extends TestCase {
         $this->initUint16($address + 0x50, $info['work']);
         return $address;
     }
-
-    // private function isAsmObject(): bool
-    // {
-    //     return str_contains($this->objectFile, '/asm/');
-    // }
 };

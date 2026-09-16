@@ -98,8 +98,8 @@ STATIC void resultsTask_8c01d8e0(void)
         }
         /* 0x6c caches the status; state 5 falls back here when it changes. */
         var_menuState_8c1bc7a8.selectedVmuSlot_0x6c = vmuStatus;
-        if (vmuStatus == VMU_STATUS_SAVING_POSSIBLE || vmuStatus == VMU_STATUS_SAVE_EXISTS ||
-            vmuStatus == VMU_STATUS_SAVE_EXISTS_NO_SPACE) {
+        if (vmuStatus == VMU_STATUS_SAVING_POSSIBLE || vmuStatus == VMU_STATUS_SAVE_EXISTS_NO_SPACE ||
+            vmuStatus == VMU_STATUS_SAVE_EXISTS) {
             ObjectsSwapMessageBoxFor_8c02aefc(
                 vmuStatus == VMU_STATUS_SAVING_POSSIBLE ? MSG_CONFIRM_CREATE_FILE : MSG_CONFIRM_OVERWRITE);
             var_menuState_8c1bc7a8.state_0x18 = 8;
@@ -268,8 +268,8 @@ STATIC void resultsTask_8c01d8e0(void)
             } else if (promptResult == 2) {
                 var_menuState_8c1bc7a8.state_0x18 = 0xd;
                 FadePushOut_8c022b60(10);
-            } else if (vmuStatus != VMU_STATUS_SAVING_POSSIBLE && vmuStatus != VMU_STATUS_SAVE_EXISTS &&
-                       vmuStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE) {
+            } else if (vmuStatus != VMU_STATUS_SAVING_POSSIBLE && vmuStatus != VMU_STATUS_SAVE_EXISTS_NO_SPACE &&
+                       vmuStatus != VMU_STATUS_SAVE_EXISTS) {
                 var_menuState_8c1bc7a8.state_0x18 = 4;
                 var_isFading_8c226568 = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
