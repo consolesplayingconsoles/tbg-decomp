@@ -8111,8 +8111,9 @@ CourseConfig *init_courseTable_8c043ca4[] = {
 /* Traffic-vehicle models. 3s_ = model (njd), 3t_ = texture (pvm);
  * body codes: 2do 2-door, 4wd, sed sedan, tax taxi, tor truck, kto,
  * dan dump, wag wagon, bus, pat patrol/police, kyu ambulance.
- * _l/_s = large/small LOD, _sn = night texture (see init_8c043ecc). */
-/* nj/pvm route model pairs; pvm slot is the shared empty string */
+ * _l/_s = large/small LOD, _sn = night texture (see
+ * init_routeModelFilesNight_8c043ecc). The pvm slot is the shared empty
+ * string throughout. */
 ModelFiles init_trafficModelFiles_8c043d64[] = {
     { "3s_2do_x.njd", "" },
     { "3s_4wd_x.njd", "" },
@@ -8128,10 +8129,10 @@ ModelFiles init_trafficModelFiles_8c043d64[] = {
     { "", "" },
 };
 
-/* Per-model njd/pvm filename tables selected by loadRouteModels /
- * syncRouteModelAssets; njd/pvm names interleaved, indexed slot*2.
- * dc4 is the day set, ecc the night set (var_timeOfDay_8c18ad20 == 2). */
-char *init_8c043dc4[] = {
+/* One njd/pvm pair per var_routeModelSlots_8c1bbddc slot, interleaved and
+ * indexed slot*2. The night set differs only in the small-LOD textures
+ * (_s -> _sn). */
+char *init_routeModelFilesDay_8c043dc4[] = {
     "3s_2do0_l.njd", "3t_2do0_l.pvm",
     "3s_2do0_s.njd", "3t_2do0_s.pvm",
     "3s_2do1_l.njd", "3t_2do1_l.pvm",
@@ -8167,7 +8168,7 @@ char *init_8c043dc4[] = {
     "", "",
 };
 
-char *init_8c043ecc[] = {
+char *init_routeModelFilesNight_8c043ecc[] = {
     "3s_2do0_l.njd", "3t_2do0_l.pvm",
     "3s_2do0_sn.njd", "3t_2do0_sn.pvm",
     "3s_2do1_l.njd", "3t_2do1_l.pvm",
@@ -8203,8 +8204,9 @@ char *init_8c043ecc[] = {
     "", "",
 };
 
-/* demo-mode fixed model list: model 0x1a, then terminator */
-Sint8 init_8c043fd4[] = { 0x1a, -1, 0, 0 };
+/* The whole traffic-model set a cutscene segment gets: slot 0x1a, the
+ * large-LOD city bus. */
+Sint8 init_cutsceneRouteModels_8c043fd4[] = { 0x1a, -1, 0, 0 };
 
 /* one pvm filename per var_pedestrianAssets_8c1bbfdc slot (MOV/FAA/FAB/FAC pedestrian billboard textures) */
 char *init_pedestrianPvmNames_8c043fd8[] = {
@@ -8276,7 +8278,7 @@ char *init_pedestrianPvmNames_8c043fd8[] = {
 };
 
 /* nj/pvm pairs requested at the tail of loadRouteModels (traffic signals). */
-ModelFiles init_8c0440dc[6] = {
+ModelFiles init_signalModelFiles_8c0440dc[6] = {
     { "signal00.njd", "signal00.pvm" },
     { "signal03.njd", "signal03.pvm" },
     { "signal02.njd", "signal02.pvm" },
@@ -8285,6 +8287,6 @@ ModelFiles init_8c0440dc[6] = {
     { "", "" },
 };
 
-/* Lives in this TU's section D by address; referenced only by 01b19c
- * (backup file layout). */
-Sint8 init_8c04410c[] = { 0x29, 0x05, 0x0e, 0x49, 0x05, 0x31, 0x1a, 0x0d, 0x03, 0x2a, 0x00, 0x28, 0x09, 0x20, 0x00, 0x00 };
+/* Lives in this TU's section D by address; its one consumer is 01b19c's
+ * SystemMenuWriteToVmu_8c01b26c. */
+Sint8 init_bupGameName_8c04410c[] = { 0x29, 0x05, 0x0e, 0x49, 0x05, 0x31, 0x1a, 0x0d, 0x03, 0x2a, 0x00, 0x28, 0x09, 0x20, 0x00, 0x00 };

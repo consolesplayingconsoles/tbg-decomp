@@ -276,7 +276,7 @@ STATIC void task_8c013388(Task *task, void *state) {
     switch (task->field_0x08) {
         case 0: {
             /* 8c013440 */
-            Bool b = RouteLoadIsPvmReady_8c01432a();
+            Bool b = RouteLoadGetLatch_8c01432a();
             if (b) {
                 task->field_0x08++;
                 var_8c1bc450 = (Float) var_loadedFooNjm_8c1bc448->nbFrame - 1;
@@ -284,14 +284,14 @@ STATIC void task_8c013388(Task *task, void *state) {
                 AsqResetQueues_8c011f6c();
                 AsqRequestDat_8c011182("\\SOUND", "manatee.drv", &var_memblkSource_8c0fcd48);
                 AsqRequestDat_8c011182("\\SOUND", "bus.mlt", &var_memblkSource_8c0fcd4c);
-                RouteLoadResetPvmReady_8c014322();
-                AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadSetPvmReady_8c014330);
+                RouteLoadClearLatch_8c014322();
+                AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadSetLatch_8c014330);
             }
             break;
         }
         case 1: {
             /* 8c0133a0, 8c0134ce */
-            if (RouteLoadIsPvmReady_8c01432a() != 0) {
+            if (RouteLoadGetLatch_8c01432a() != 0) {
                 AsqFreeQueues_8c011f7e();
                 TaskFree_8c014b66(task);
                 SndInitSoundMidiAdx_8c010e18("\\SOUND");
@@ -448,8 +448,8 @@ void GameInit_8c0134ec() {
     AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njm", &var_busDoorMotion_8c1bc410, 0);
     AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njs", &var_busDoorShape_8c1bc414, 0);
 
-    RouteLoadResetPvmReady_8c014322();
-    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadSetPvmReady_8c014330);
+    RouteLoadClearLatch_8c014322();
+    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadSetLatch_8c014330);
     var_gdErr_8c18ad14 = 0;
     gdFsEntryErrFuncAll(&usrGdErrFunc_8c0134d6, (void *) 0);
 }

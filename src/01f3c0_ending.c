@@ -241,7 +241,7 @@ STATIC void creditsTask_8c01f658(void)
 {
     switch (var_menuState_8c1bc7a8.state_0x18) {
     case ENDING_TASK_STATE_WAIT_PVM:
-        if (RouteLoadIsPvmReady_8c01432a() != 0) {
+        if (RouteLoadGetLatch_8c01432a() != 0) {
             return;
         }
         AsqFreeQueues_8c011f7e();
@@ -387,6 +387,6 @@ void EndingStart_8c01f954(void)
         &init_endingResourceGroup_8c045324);
     CourseMenuRequestCommonResources_8c01852c();
 
-    RouteLoadSetPvmReady_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
+    RouteLoadSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
 }

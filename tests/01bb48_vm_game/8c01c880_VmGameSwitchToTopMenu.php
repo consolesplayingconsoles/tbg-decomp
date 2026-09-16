@@ -27,10 +27,10 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestDat_8c011182')
             ->with('\\SYSTEM', 'PDAQUIZ.bin', $this->addressOf('_var_vmGameBuf_8c1bc454'))
             ->andReturn(0);
-        $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
+        $this->shouldCall('_RouteLoadSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')
             ->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0,
-                   $this->addressOf('_RouteLoadResetPvmReady_8c014322'));
+                   $this->addressOf('_RouteLoadClearLatch_8c014322'));
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')
             ->with("")
             ->andReturn(0);
@@ -44,10 +44,10 @@ return new class extends TestCase {
         $this->setSize('_AsqResetQueues_8c011f6c', 4);
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
         $this->setSize('_AsqRequestDat_8c011182', 4);
-        $this->setSize('_RouteLoadSetPvmReady_8c014330', 4);
+        $this->setSize('_RouteLoadSetLatch_8c014330', 4);
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
         $this->setSize('_AsqNop_8c011120', 4);
-        $this->setSize('_RouteLoadResetPvmReady_8c014322', 4);
+        $this->setSize('_RouteLoadClearLatch_8c014322', 4);
         $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
     }
 };

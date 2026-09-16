@@ -18,7 +18,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->seedState(0);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
 
         // Returns early, no draw / no selected write.
         $this->singleCall('_albumMenuTask_8c01d300')->with(0xbebacafe, 0)->run();
@@ -29,7 +29,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->seedState(0);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->m(0x18), 1);
         $this->shouldCall('_SndProc_8c010cd6')->with(0, 0x10);
@@ -458,7 +458,7 @@ return new class extends TestCase {
         // Functions
         $this->setSize('_TxtDrawSprite_8c014f54', 0x4);
         $this->setSize('_sdMidiPlay', 0x4);
-        $this->setSize('_RouteLoadIsPvmReady_8c01432a', 0x4);
+        $this->setSize('_RouteLoadGetLatch_8c01432a', 0x4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 0x4);
         $this->setSize('_SndProc_8c010cd6', 0x4);
         $this->setSize('_FadePushIn_8c022a9c', 0x4);

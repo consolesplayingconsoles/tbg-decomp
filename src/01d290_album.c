@@ -115,7 +115,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case ALBUM_STATE_INIT: {
-            if (RouteLoadIsPvmReady_8c01432a()) {
+            if (RouteLoadGetLatch_8c01432a()) {
                 return;
             }
             AsqFreeQueues_8c011f7e();
@@ -333,6 +333,6 @@ void AlbumSwitchFromTask_8c01d6e2(Task *task)
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         &init_albumResourceGroup_8c045160
     );
-    RouteLoadSetPvmReady_8c014330();
-    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadResetPvmReady_8c014322);
+    RouteLoadSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadClearLatch_8c014322);
 }

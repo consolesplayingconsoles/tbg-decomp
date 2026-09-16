@@ -118,7 +118,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
 {
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case STATE_INIT:
-            if (RouteLoadIsPvmReady_8c01432a()) break;
+            if (RouteLoadGetLatch_8c01432a()) break;
 
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = STATE_DESCRIPTION_FADE_IN;
@@ -301,8 +301,8 @@ STATIC void initDescriptionReveal_8c01e576(Task *task)
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_practice02ResourceGroup_8c044284);
-    RouteLoadSetPvmReady_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
+    RouteLoadSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
 }
 
 /* The selected lesson's guide text, scrolled a row at a time through a 4-row
@@ -313,7 +313,7 @@ STATIC void showLesson_8c01e63c(Task *task)
 {
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case SHOW_LESSON_STATE_INIT:
-            if (RouteLoadIsPvmReady_8c01432a()) return;
+            if (RouteLoadGetLatch_8c01432a()) return;
 
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_FADE_IN;
@@ -459,8 +459,8 @@ STATIC void practiceCancelReturn_8c01e920(Task *task)
     AsqResetQueues_8c011f6c();
 
     if (CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_practice01ResourceGroup_8c044274)) {
-        RouteLoadSetPvmReady_8c014330();
-        AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
+        RouteLoadSetLatch_8c014330();
+        AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
         var_menuState_8c1bc7a8.state_0x18 = SHOW_LESSON_STATE_INIT;
         return;
     }
@@ -558,7 +558,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case LESSON_STATE_INIT:
-            if (RouteLoadIsPvmReady_8c01432a()) return;
+            if (RouteLoadGetLatch_8c01432a()) return;
 
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_DIALOG_FADE_IN;
@@ -783,8 +783,8 @@ void PracticeMenuLessonStart_8c01f114(Task *task)
     AsqResetQueues_8c011f6c();
 
     if (CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_practice01ResourceGroup_8c044274)) {
-        RouteLoadSetPvmReady_8c014330();
-        AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
+        RouteLoadSetLatch_8c014330();
+        AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
         var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_INIT;
         return;
     }
@@ -839,6 +839,6 @@ void PracticeMenuLessonRetry_8c01f21c(void)
     var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
     CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_practice01ResourceGroup_8c044274);
     CourseMenuRequestCommonResources_8c01852c();
-    RouteLoadSetPvmReady_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
+    RouteLoadSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
 }

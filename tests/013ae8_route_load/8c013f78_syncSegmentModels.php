@@ -7,13 +7,14 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private const STRIDE = 0x2c;
 
-    public function test_empty_entry_calls_hook_and_clears_pair_id()
+    public function test_empty_segment_requests_no_objects_and_marks_no_tile_regions()
     {
         [$entry] = $this->setup(1, 0);
 
         $this->call('_syncSegmentModels_8c013f78');
 
-        // ukn_0x1c is 0; then no pairs -> var_currentTileRegionList_8c226534 becomes -1.
+        // sceneObjectList_0x1c is 0, and with no tileRegionList_0x0c the
+        // current list is marked -1.
         $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
@@ -39,17 +40,17 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
 
-    public function test_requests_nj_pvm_pairs()
+    public function test_requests_the_segments_model_files()
     {
         [$entry] = $this->setup(1, 0);
 
-        $pairs = $this->alloc(0x10);
-        $this->initUint32($entry + 0x28, $pairs);
+        $modelFiles = $this->alloc(0x10);
+        $this->initUint32($entry + 0x28, $modelFiles);
 
         $this->call('_syncSegmentModels_8c013f78');
 
         $this->shouldCall('_AsqRequestModels_8c012030')
-            ->with($this->addressOf('_var_commonDir_8c18ad6c'), $pairs, 0x10)
+            ->with($this->addressOf('_var_commonDir_8c18ad6c'), $modelFiles, 0x10)
             ->andReturn(0x8c990000);
         $this->shouldWriteLong($this->addressOf('_var_segmentModels_8c1bc3f0'), 0x8c990000);
 
@@ -57,10 +58,9 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
 
-    public function test_non_demo_syncs_entry_models()
+    public function test_syncs_the_segments_own_models_when_no_cutscene()
     {
         [$entry] = $this->setup(1, 0);
-        // bb900 == 0 -> normal (non-demo) model path.
 
         $models = 0x8cab0000;
         $this->initUint32($entry + 0x10, $models);
@@ -74,27 +74,27 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
     }
 
-    public function test_demo_uses_fixed_list_and_runs_tail()
+    public function test_cutscene_substitutes_its_own_model_set()
     {
         [$entry] = $this->setup(1, 1, 0);
-        // bb900 != 0, demo inactive -> demo branch.
 
         $models = 0x8cab0000;
         $this->initUint32($entry + 0x10, $models);
 
         $this->call('_syncSegmentModels_8c013f78');
 
-        // The entry list is still latched, but the fixed demo list is synced.
+        // routeModelIndexes is still latched to the segment's list, but the
+        // cutscene's set is what actually gets synced.
         $this->shouldWriteLong($this->addressOf('_var_routeModelIndexes_8c18adb0'), $models);
         $this->shouldCall('_syncRouteModelAssets_8c013c34')
-            ->with($this->addressOf('_init_8c043fd4'));
+            ->with($this->addressOf('_init_cutsceneRouteModels_8c043fd4'));
 
         $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
         $this->shouldCall('_ObjectsRequestMessageAssets_8c02aa36');
     }
 
-    public function test_reconciles_second_table()
+    public function test_reconciles_pedestrian_assets()
     {
         [$entry] = $this->setup(1, 0);
 
@@ -117,7 +117,7 @@ return new class extends TestCase {
         for ($i = 0; $i < 4; $i++) {
             $this->initUint32($names + $i * 4, 0x8cd00000 + $i);
         }
-        $this->initUint32($entry + 0x0c, 0x21);   // pair id, non-zero
+        $this->initUint32($entry + 0x0c, 0x21);   // tileRegionList_0x0c, non-null
         $this->initUint32($entry + 0x20, $names);
 
         $this->call('_syncSegmentModels_8c013f78');
@@ -135,10 +135,11 @@ return new class extends TestCase {
     }
 
     /**
-     * Seed var_currentCourseConfig_8c18ad18 so var_currentSegment_8c228708 selects entry $index (zeroed), and set
-     * the demo-gating globals. Returns [entryAddr, arrayBase].
+     * Seed var_currentCourseConfig_8c18ad18 so var_currentSegment_8c228708 selects
+     * entry $index (zeroed), and set the two globals gating the cutscene branch.
+     * Returns [entryAddr, arrayBase].
      */
-    private function setup(int $index, int $bb900, int $demo = 0): array
+    private function setup(int $index, int $cutsceneActive, int $playMode = 0): array
     {
         $this->setSize('_var_currentSegment_8c228708', 4);
         $this->setSize('_var_cutsceneActive_8c1bb900', 4);
@@ -153,7 +154,7 @@ return new class extends TestCase {
         $this->setSize('_ObjectsStartAssetRequests_8c029ad4', 4);
         $this->setSize('_ObjectsRequestMessageAssets_8c02aa36', 4);
 
-        $holder = $this->alloc(0x10);
+        $config = $this->alloc(0x10);
         $array = $this->alloc(8 * self::STRIDE);
         $entry = $array + $index * self::STRIDE;
 
@@ -162,11 +163,11 @@ return new class extends TestCase {
             $this->initUint32($entry + $off, 0);
         }
 
-        $this->initUint32($this->addressOf('_var_currentCourseConfig_8c18ad18'), $holder);
-        $this->initUint32($holder + 8, $array);
+        $this->initUint32($this->addressOf('_var_currentCourseConfig_8c18ad18'), $config);
+        $this->initUint32($config + 8, $array);
         $this->initUint32($this->addressOf('_var_currentSegment_8c228708'), $index);
-        $this->initUint32($this->addressOf('_var_cutsceneActive_8c1bb900'), $bb900);
-        $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), $demo);
+        $this->initUint32($this->addressOf('_var_cutsceneActive_8c1bb900'), $cutsceneActive);
+        $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), $playMode);
 
         return [$entry, $array];
     }

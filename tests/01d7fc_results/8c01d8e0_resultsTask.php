@@ -19,7 +19,7 @@ return new class extends TestCase {
         foreach ([
             '_TxtDrawSprite_8c014f54', '_ObjectsMenuTextboxText_8c02af1c',
             '_ObjectsSwapMessageBoxFor_8c02aefc', '_VmMenuUpdateVmuStatus_8c01967c',
-            '_RouteLoadIsPvmReady_8c01432a', '_AsqFreeQueues_8c011f7e',
+            '_RouteLoadGetLatch_8c01432a', '_AsqFreeQueues_8c011f7e',
             '_SndMidiResetFxAndPlay_8c010846', '_sdMidiPlay',
             '_FadePushOut_8c022b60', '_PromptHandleBinary_8c016caa',
             '_FadePushIn_8c022a9c', '_FileMenuResetProgress_8c01890a',
@@ -33,7 +33,7 @@ return new class extends TestCase {
             '_AsqInitQueues_8c011f36', '_AsqResetQueues_8c011f6c',
             '_CourseMenuRequestSysResgrp_8c018568',
             '_CourseMenuRequestCommonResources_8c01852c', '_AsqRequestDat_8c011182',
-            '_RouteLoadSetPvmReady_8c014330', '_RouteLoadResetPvmReady_8c014322',
+            '_RouteLoadSetLatch_8c014330', '_RouteLoadClearLatch_8c014322',
             '_AsqNop_8c011120', '_AsqProcessQueues_8c011fe0', '_EndingStart_8c01f954',
         ] as $fn) {
             $this->setSize($fn, 4);
@@ -375,7 +375,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_state_0_vm_selected_updates_vmu_status_then_waits_for_pvm(): void
@@ -389,7 +389,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_state_0_fanfare_uses_fx6_when_run_not_succeeded(): void
@@ -401,7 +401,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
@@ -421,7 +421,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
@@ -448,7 +448,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
@@ -483,7 +483,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
@@ -517,7 +517,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
@@ -551,7 +551,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
@@ -585,7 +585,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
@@ -619,7 +619,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
@@ -652,7 +652,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0, 3);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 

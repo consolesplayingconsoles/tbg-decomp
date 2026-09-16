@@ -73,7 +73,7 @@ STATIC void resultsTask_8c01d8e0(void)
         if (var_selectedVm_8c1ba34c != -1) {
             VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c, init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
         }
-        if (RouteLoadIsPvmReady_8c01432a() != 0) {
+        if (RouteLoadGetLatch_8c01432a() != 0) {
             return;
         }
         AsqFreeQueues_8c011f7e();
@@ -360,8 +360,8 @@ STATIC void startResultsTask_8c01df8e(void)
     CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_titleResourceGroup_8c044254);
     CourseMenuRequestCommonResources_8c01852c();
     AsqRequestDat_8c011182("\\SYSTEM", "bus_mem.VMI", &var_vmuIconFileBuf_8c1ba344);
-    RouteLoadSetPvmReady_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
+    RouteLoadSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
 }
 
 void ResultShowPassedRun_8c01e0b4(void)

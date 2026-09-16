@@ -397,7 +397,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
 
     switch (m->state_0x18) {
     case STATE_INIT:
-        if (RouteLoadIsPvmReady_8c01432a())
+        if (RouteLoadGetLatch_8c01432a())
             return;
 
         m->state_0x18 = STATE_MENU_FADE_IN;
@@ -930,9 +930,9 @@ void VmGameSwitchToTopMenu_8c01c880(Task *task)
         &var_resourceGroup_8c2263a8, &init_vmGameResgrp_8c044e90
     );
     AsqRequestDat_8c011182("\\SYSTEM", "PDAQUIZ.bin", &var_vmGameBuf_8c1bc454);
-    RouteLoadSetPvmReady_8c014330();
+    RouteLoadSetLatch_8c014330();
     AsqProcessQueues_8c011fe0(
-        AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322
+        AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322
     );
 
     ObjectsSwapMessageBoxFor_8c02aefc("");

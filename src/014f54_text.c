@@ -847,7 +847,7 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
 STATIC void demoLoadTask_8c01594c(Task *task)
 {
     void *local;
-    if (!RouteLoadIsPvmReady_8c01432a()) {
+    if (!RouteLoadGetLatch_8c01432a()) {
         return;
     }
 
@@ -889,7 +889,7 @@ void TxtStartAttractDemo_8c0159ac()
         init_demos_8c044154[var_demoIndex_8c1bb8d8].trafficPresetId_0x04;
     var_activePedPreset_8c22822c =
         init_demos_8c044154[var_demoIndex_8c1bb8d8].pedPresetId_0x08;
-    RouteLoadResetPvmReady_8c014322();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadSetPvmReady_8c014330);
+    RouteLoadClearLatch_8c014322();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadSetLatch_8c014330);
     return;
 }

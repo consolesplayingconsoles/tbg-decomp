@@ -329,9 +329,9 @@ pointer's value (`ptr`) was meant.
 **Was listed here, now resolved -- `(ResourceGroup *)&var_markTexlist_8c1bc418`
 is correct.** `var_markTexlist_8c1bc418`, `var_markPartsDat_8c1bc41c` and
 `var_markDat_8c1bc420` (`sectionB.h`) are byte-contiguous and exactly
-`sizeof(ResourceGroup)` -- and `013ae8_route_load.c:143` / `012f44_game.c:425-426`
-fill them from `mark.pvm`, `mark_parts.dat` and `mark.dat`, the same
-pvm/`_parts.dat`/`.dat` triple that `012f44_game.c:430-432` loads into the
+`sizeof(ResourceGroup)` -- and `requestVehicleAssets_8c013ae8` /
+`GameInit_8c0134ec` fill them from `mark.pvm`, `mark_parts.dat` and `mark.dat`,
+the same pvm/`_parts.dat`/`.dat` triple `GameInit_8c0134ec` loads into the
 *declared* `ResourceGroup var_loadingResourceGroup_8c1bc3f8`'s
 `tlist_0x00`/`tanim_0x04`/`contents_0x08`. So `tanim_0x04` reading
 `var_markPartsDat_8c1bc41c` is what a real group does too, which was the last

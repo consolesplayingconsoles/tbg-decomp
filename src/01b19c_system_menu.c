@@ -128,7 +128,7 @@ void SystemMenuWriteToVmu_8c01b26c(void)
     njMemCopy(&var_backupFileHeader_8c1ba2e4, var_vmsComment_8c226098, 0x10);
     /* "Tokyo Bus Guide data" */
     strcpy(var_backupFileHeader_8c1ba2e4.btr_comment, STR_TITLE_DATA);
-    njMemCopy(var_backupFileHeader_8c1ba2e4.game_name, init_8c04410c, 0x10);
+    njMemCopy(var_backupFileHeader_8c1ba2e4.game_name, init_bupGameName_8c04410c, 0x10);
     var_backupFileHeader_8c1ba2e4.icon_palette = var_vmuIconFileBuf_8c1ba344;
     var_backupFileHeader_8c1ba2e4.icon_data = (char *)var_vmuIconFileBuf_8c1ba344 + 0x20;
     var_backupFileHeader_8c1ba2e4.icon_num = 1;
@@ -164,7 +164,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
     case SAVE_STATE_WAIT_PVM:
-        if (RouteLoadIsPvmReady_8c01432a() != 0) {
+        if (RouteLoadGetLatch_8c01432a() != 0) {
             return;
         }
         AsqFreeQueues_8c011f7e();
@@ -468,6 +468,6 @@ void SystemMenuSwitchFromTask_8c01ba64(Task *task)
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     AsqRequestDat_8c011182("\\SYSTEM", "bus_mem.VMI", &var_vmuIconFileBuf_8c1ba344);
-    RouteLoadSetPvmReady_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadResetPvmReady_8c014322);
+    RouteLoadSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
 }

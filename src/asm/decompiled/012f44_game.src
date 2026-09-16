@@ -70,15 +70,15 @@
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_savedCameraMode_8c227da0
           .IMPORT     _var_savedCameraCueState_8c227da8
-          .IMPORT     _RouteLoadIsPvmReady_8c01432a
+          .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _var_loadedFooNjm_8c1bc448
           .IMPORT     _var_8c1bc450
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _var_memblkSource_8c0fcd48
           .IMPORT     _AsqRequestDat_8c011182
           .IMPORT     _var_memblkSource_8c0fcd4c
-          .IMPORT     _RouteLoadResetPvmReady_8c014322
-          .IMPORT     _RouteLoadSetPvmReady_8c014330
+          .IMPORT     _RouteLoadClearLatch_8c014322
+          .IMPORT     _RouteLoadSetLatch_8c014330
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _AsqFreeQueues_8c011f7e
@@ -908,7 +908,7 @@ _GameInit_8c0134ec:
           NOP
 
 LP_GEN_65923:
-          .DATA.L _RouteLoadIsPvmReady_8c01432a ; LP_GEN_65923+0
+          .DATA.L _RouteLoadGetLatch_8c01432a ; LP_GEN_65923+0
           .DATA.L _var_loadedFooNjm_8c1bc448
           .DATA.L H'4F800000
           .DATA.L _var_8c1bc450
@@ -918,8 +918,8 @@ LP_GEN_65923:
           .DATA.L _AsqRequestDat_8c011182
           .DATA.L _var_memblkSource_8c0fcd4c
           .DATA.L _const_8c033378
-          .DATA.L _RouteLoadResetPvmReady_8c014322
-          .DATA.L _RouteLoadSetPvmReady_8c014330
+          .DATA.L _RouteLoadClearLatch_8c014322
+          .DATA.L _RouteLoadSetLatch_8c014330
           .DATA.L _AsqNop_8c011120
           .DATA.L _AsqProcessQueues_8c011fe0
           .DATA.L _AsqFreeQueues_8c011f7e
@@ -1495,8 +1495,8 @@ LP_GEN_19861:
           .DATA.L     s_SD_COMMON_8c033440
           .DATA.L     _var_busDoorShape_8c1bc414
           .DATA.L     s_3s_bus_m2_njs_8c03345c
-          .DATA.L     _RouteLoadResetPvmReady_8c014322
-          .DATA.L     _RouteLoadSetPvmReady_8c014330
+          .DATA.L     _RouteLoadClearLatch_8c014322
+          .DATA.L     _RouteLoadSetLatch_8c014330
           .DATA.L     _AsqNop_8c011120
           .DATA.L     _AsqProcessQueues_8c011fe0
           .DATA.L     _var_gdErr_8c18ad14

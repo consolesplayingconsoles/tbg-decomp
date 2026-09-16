@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private const STRIDE = 0x2c;
 
-    public function test_frees_pairs_and_hands_off_when_both_flags_set()
+    public function test_frees_models_and_releases_tiles_when_both_set()
     {
         $entry = $this->setup(2, 1, 1);
         $this->call('_freeSegmentModels_8c013f22');
@@ -15,31 +15,32 @@ return new class extends TestCase {
         $this->shouldCall('_TileStreamReleaseAll_8c021a24');
     }
 
-    public function test_only_frees_pairs_when_handoff_flag_clear()
+    public function test_only_frees_models_when_segment_has_no_tile_regions()
     {
         $this->setup(0, 1, 0);
         $this->call('_freeSegmentModels_8c013f22');
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_segmentModels_8c1bc3f0'));
     }
 
-    public function test_only_hands_off_when_free_flag_clear()
+    public function test_only_releases_tiles_when_segment_has_no_model_files()
     {
         $this->setup(0, 0, 1);
         $this->call('_freeSegmentModels_8c013f22');
         $this->shouldCall('_TileStreamReleaseAll_8c021a24');
     }
 
-    public function test_does_nothing_when_both_flags_clear()
+    public function test_does_nothing_when_segment_has_neither()
     {
         $this->setup(0, 0, 0);
         $this->call('_freeSegmentModels_8c013f22');
     }
 
     /**
-     * Seed the entry array so var_currentSegment_8c228708 selects entry $index, whose ukn_0x28
-     * (gates the pair free) and ukn_0x0c (gates the handoff) hold $f28 / $f0c.
+     * Seed the segment array so var_currentSegment_8c228708 selects entry $index,
+     * with modelFiles_0x28 = $modelFiles (gates the model free) and
+     * tileRegionList_0x0c = $tileRegions (gates the tile release).
      */
-    private function setup(int $index, int $f28, int $f0c): int
+    private function setup(int $index, int $modelFiles, int $tileRegions): int
     {
         // _var_currentCourseConfig_8c18ad18 is defined in the C object; the other two are imported.
         $this->setSize('_var_currentSegment_8c228708', 4);
@@ -47,17 +48,17 @@ return new class extends TestCase {
         $this->setSize('_AsqFreeModels_8c0120fe', 4);
         $this->setSize('_TileStreamReleaseAll_8c021a24', 4);
 
-        $holder = $this->alloc(0x10);
+        $config = $this->alloc(0x10);
         $array = $this->alloc(4 * self::STRIDE);
         $entry = $array + $index * self::STRIDE;
 
-        // var_currentCourseConfig_8c18ad18 -> holder; holder+8 -> entry array base.
-        $this->initUint32($this->addressOf('_var_currentCourseConfig_8c18ad18'), $holder);
-        $this->initUint32($holder + 8, $array);
+        // var_currentCourseConfig_8c18ad18 -> config; config->segments_0x08 -> the array.
+        $this->initUint32($this->addressOf('_var_currentCourseConfig_8c18ad18'), $config);
+        $this->initUint32($config + 8, $array);
         $this->initUint32($this->addressOf('_var_currentSegment_8c228708'), $index);
 
-        $this->initUint32($entry + 0x28, $f28);
-        $this->initUint32($entry + 0xc, $f0c);
+        $this->initUint32($entry + 0x28, $modelFiles);
+        $this->initUint32($entry + 0xc, $tileRegions);
 
         return $entry;
     }

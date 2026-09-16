@@ -26,9 +26,8 @@ typedef enum {
     ROUTE_LOAD_STATE_DONE      = 4,
 } RouteLoadState;
 
-/* Task private state for routeLoadTask_8c014338/RouteLoadUnusedTask_8c014784:
- * stage_0x08 the ROUTE_LOAD_STATE_* stage, frame_0x0c the loading-animation
- * frame counter round-tripped through Task's void* field_0x0c. */
+/* Task private state for routeLoadTask_8c014338 and
+ * RouteLoadUnusedTask_8c014784; frame_0x0c drives the loading animation. */
 typedef struct {
     TaskAction action;
     void *state;
@@ -181,8 +180,8 @@ typedef struct {
 
 extern CourseConfig *var_currentCourseConfig_8c18ad18;
 
-/* 16-byte game_name / VMS sort key baked into the backup file header. */
-extern Sint8 init_8c04410c[16];
+/* BUP_HEADER.game_name -- the VMS sort key, not text. */
+extern Sint8 init_bupGameName_8c04410c[16];
 
 extern char var_pvrDir_8c18ad4c[0x20];
 extern char var_commonDir_8c18ad6c[0x20];
@@ -195,16 +194,15 @@ extern void *var_datFiles_8c18adb4[4]; /* one per texel layer, freed after TileS
  */
 
 void RouteLoadPushTask_8c0144fc(void);
-void RouteLoadPushTask_8c0144fc(void);
 void RouteLoadPushSegmentReloadTask_8c01468e(void);
-void RouteLoadSetPvmReady_8c014330(void);
-void RouteLoadResetPvmReady_8c014322(void);
+void RouteLoadSetLatch_8c014330(void);
+void RouteLoadClearLatch_8c014322(void);
 void RouteLoadFreeVehicleAssets_8c013b5a(void);
 void RouteLoadClearModelSlots_8c013bbc(ModelSlot *slots, int count);
 void RouteLoadStartRouteModelLoadPass_8c013d78(void);
 void RouteLoadFreeAllRouteModels_8c013dae(void);
 void RouteLoadFreePedestrianAssets_8c013ee4(void);
-int RouteLoadIsPvmReady_8c01432a(void);
+int RouteLoadGetLatch_8c01432a(void);
 void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state);
 
 #endif // _013AE8_ROUTE_LOAD_H

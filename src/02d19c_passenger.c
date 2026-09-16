@@ -417,7 +417,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
         break;
 
     case 4:
-        if (RouteLoadIsPvmReady_8c01432a() != 0 && var_isFading_8c226568 == 0) {
+        if (RouteLoadGetLatch_8c01432a() != 0 && var_isFading_8c226568 == 0) {
             var_8c2285c4[0] = 2;
             state->phase_0x00 = 5;
             setCountUpStep_8c02d5d8();

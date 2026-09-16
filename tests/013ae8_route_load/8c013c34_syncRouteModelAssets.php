@@ -24,7 +24,7 @@ return new class extends TestCase {
         // slot 10: loaded and still requested -> kept untouched.
         $this->initUint32($base + 10 * 0x10 + 0x8, 0x8c600000);
 
-        // slot 3 maps to init_8c043dc4 entries 6/7 ("3s_2do1_s.njd" / .pvm).
+        // slot 3 is init_routeModelFilesDay_8c043dc4 entries 6/7.
 
         // Request list: keep 10, load 3, terminate.
         $models = $this->alloc(3);
@@ -60,7 +60,7 @@ return new class extends TestCase {
         $basedir = $this->addressOf('_var_commonDir_8c18ad6c');
         $this->seedAllUnloaded($base);
 
-        // Mode 2 selects init_8c043ecc; slot 1 maps to entries 2/3.
+        // TIME_OF_DAY_NIGHT selects init_routeModelFilesNight_8c043ecc; slot 1 is entries 2/3.
         $this->initUint32($this->addressOf('_var_timeOfDay_8c18ad20'), 2);
 
         // Load slot 1 only.

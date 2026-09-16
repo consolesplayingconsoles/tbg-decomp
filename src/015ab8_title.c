@@ -80,7 +80,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case TITLE_STATE_0X00_INIT: {
-            if (RouteLoadIsPvmReady_8c01432a() == FALSE) {
+            if (RouteLoadGetLatch_8c01432a() == FALSE) {
                 AsqFreeQueues_8c011f7e();
                 VmMenuMountVms_8c01940e();
 
@@ -428,6 +428,6 @@ void TitlePushTitle_8c015fd6 (Bool direct) {
     var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
     CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_titleResourceGroup_8c044254);
     CourseMenuRequestCommonResources_8c01852c();
-    RouteLoadSetPvmReady_8c014330();
-    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadResetPvmReady_8c014322);
+    RouteLoadSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadClearLatch_8c014322);
 }

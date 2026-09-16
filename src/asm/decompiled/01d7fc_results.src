@@ -11,7 +11,7 @@
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _VmMenuUpdateVmuStatus_8c01967c
-          .IMPORT     _RouteLoadIsPvmReady_8c01432a
+          .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _var_runFailed_8c226408
           .IMPORT     _var_runSucceeded_8c1bb8dc
@@ -61,8 +61,8 @@
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
           .IMPORT     _var_vmuIconFileBuf_8c1ba344
           .IMPORT     _AsqRequestDat_8c011182
-          .IMPORT     _RouteLoadSetPvmReady_8c014330
-          .IMPORT     _RouteLoadResetPvmReady_8c014322
+          .IMPORT     _RouteLoadSetLatch_8c014330
+          .IMPORT     _RouteLoadClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _var_timeOfDay_8c18ad20
@@ -538,7 +538,7 @@ LAB_8c01db36:
           NOP
 LP_GEN_73625:
           .DATA.L _VmMenuUpdateVmuStatus_8c01967c ; H'8C01DB48
-          .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C01DB4C
+          .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01DB4C
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01DB50
           .DATA.L _var_runFailed_8c226408 ; H'8C01DB54
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C01DB58
@@ -1178,8 +1178,8 @@ LP_GEN_43538:
           .DATA.L _const_8c038960 ; H'8C01E098
           .DATA.L _const_8c038958 ; H'8C01E09C
           .DATA.L _AsqRequestDat_8c011182 ; H'8C01E0A0
-          .DATA.L _RouteLoadSetPvmReady_8c014330 ; H'8C01E0A4
-          .DATA.L _RouteLoadResetPvmReady_8c014322 ; H'8C01E0A8
+          .DATA.L _RouteLoadSetLatch_8c014330 ; H'8C01E0A4
+          .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C01E0A8
           .DATA.L _AsqNop_8c011120 ; H'8C01E0AC
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01E0B0
 _ResultShowPassedRun_8c01e0b4:

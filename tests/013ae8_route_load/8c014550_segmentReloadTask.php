@@ -8,51 +8,51 @@ return new class extends TestCase {
     /** value at var_loadingResourceGroup_8c1bc3f8.tlist_0x00, passed to the nj texture calls */
     private const TLIST = 0x8c500000;
 
-    /** State 0: build the interior queue, start the pass, draw. */
+    /** State 0: arm the segment's cutscene, sync its assets, start the pass, draw. */
     public function test_state0_starts_pass(): void
     {
         $this->resolveSizes();
         $task = $this->makeTask(0, 0);
 
-        $this->call('_unknownSegmentReloadTask_8c014550')->with($task, 0);
+        $this->call('_segmentReloadTask_8c014550')->with($task, 0);
 
         $this->shouldCall('_EventPickForSegment_8c02b170');
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_syncSegmentModels_8c013f78');
-        $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
+        $this->shouldCall('_RouteLoadClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             $this->addressOf('_TileStreamLoad_8c021810'),
             $this->addressOf('_TileStreamRequestUpload_8c02190a'),
             0,
-            $this->addressOf('_RouteLoadSetPvmReady_8c014330'),
+            $this->addressOf('_RouteLoadSetLatch_8c014330'),
         );
         $this->shouldWriteLong($task + 0x08, 1);
 
         $this->expectLoadingAnimation($task);
     }
 
-    /** State 1, pvm not ready: only the loading animation runs. */
+    /** State 1, latch clear: only the loading animation runs. */
     public function test_state1_waits_and_draws(): void
     {
         $this->resolveSizes();
         $task = $this->makeTask(1, 0);
 
-        $this->call('_unknownSegmentReloadTask_8c014550')->with($task, 0);
+        $this->call('_segmentReloadTask_8c014550')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->expectLoadingAnimation($task);
     }
 
-    /** State 1, pvm ready: advance, no drawing. */
+    /** State 1, latch set: advance, no drawing. */
     public function test_state1_advances_when_ready(): void
     {
         $this->resolveSizes();
         $task = $this->makeTask(1, 0);
 
-        $this->call('_unknownSegmentReloadTask_8c014550')->with($task, 0);
+        $this->call('_segmentReloadTask_8c014550')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
         $this->shouldWriteLong($task + 0x08, 2);
     }
 
@@ -62,7 +62,7 @@ return new class extends TestCase {
         $this->resolveSizes();
         $task = $this->makeTask(2, 0);
 
-        $this->call('_unknownSegmentReloadTask_8c014550')->with($task, 0);
+        $this->call('_segmentReloadTask_8c014550')->with($task, 0);
 
         $this->shouldWriteLong($task + 0x08, 3);
     }
@@ -75,7 +75,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_interiorTexlist_8c1bc438'), $interior);
         $task = $this->makeTask(3, 0);
 
-        $this->call('_unknownSegmentReloadTask_8c014550')->with($task, 0);
+        $this->call('_segmentReloadTask_8c014550')->with($task, 0);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
@@ -93,7 +93,7 @@ return new class extends TestCase {
         $this->resolveSizes();
         $task = $this->makeTask(4, 0);
 
-        $this->call('_unknownSegmentReloadTask_8c014550')->with($task, 0);
+        $this->call('_segmentReloadTask_8c014550')->with($task, 0);
 
         $this->expectLoadingAnimation($task);
     }

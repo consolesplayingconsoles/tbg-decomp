@@ -22,7 +22,6 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestNj_8c011492')->with(
             $basedir, "syanai.njd", $this->addressOf('_var_interiorNj_8c1bc43c'), 0
         );
-        // attr H'80000000 (Ghidra misreads this as 0)
         $this->shouldCall('_AsqRequestPvm_8c011ac0')->with(
             $basedir, "syanai.pvm", $this->addressOf('_var_interiorTexlist_8c1bc438'), 0x40, 0x80000000
         );

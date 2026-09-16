@@ -47,13 +47,13 @@ return new class extends TestCase {
             $this->addressOf('_init_mainMenuResourceGroup_8c044264'),
         )->andReturn(1);
 
-        $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
+        $this->shouldCall('_RouteLoadSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
             0,
             0,
-            $this->addressOf('_RouteLoadResetPvmReady_8c014322'),
+            $this->addressOf('_RouteLoadClearLatch_8c014322'),
         );
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0);
     }
@@ -133,13 +133,13 @@ return new class extends TestCase {
             $this->addressOf('_init_mainMenuResourceGroup_8c044264'),
         )->andReturn(1);
 
-        $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
+        $this->shouldCall('_RouteLoadSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
             0,
             0,
-            $this->addressOf('_RouteLoadResetPvmReady_8c014322'),
+            $this->addressOf('_RouteLoadClearLatch_8c014322'),
         );
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0);
     }

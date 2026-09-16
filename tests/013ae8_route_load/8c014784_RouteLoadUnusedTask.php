@@ -20,18 +20,18 @@ return new class extends TestCase {
         $this->shouldCall('_njSetTexture')->with(self::TLIST);
         $this->shouldCall('_njLoadCacheTexture')->with(self::TLIST);
         $this->shouldCall('_loadRouteModels_8c014088');
-        $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
+        $this->shouldCall('_RouteLoadClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0, 0, 0,
-            $this->addressOf('_RouteLoadSetPvmReady_8c014330'),
+            $this->addressOf('_RouteLoadSetLatch_8c014330'),
         );
         $this->shouldWriteLong($task + 0x08, 1);
 
         $this->expectLoadingAnimation($task);
     }
 
-    /** State 1, pvm not ready yet: only the loading animation runs. */
+    /** State 1, latch clear: only the loading animation runs. */
     public function test_state1_waits_and_draws(): void
     {
         $this->resolveSizes();
@@ -39,26 +39,26 @@ return new class extends TestCase {
 
         $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->expectLoadingAnimation($task);
     }
 
-    /** State 1, pvm ready: run the post-load setup, start the second pass, draw.
+    /** State 1, latch set: run the post-load setup, start the second pass, draw.
      *  Unlike routeLoadTask_8c014338, AsqProcessQueues gets 0 for the second arg. */
     public function test_state1_runs_post_load(): void
     {
         $this->resolveSizes();
 
         $base = $this->addressOf('_var_currentCourse_8c1bb868');
-        $this->initUint32($base + 0x24, 0x8cd00008);   // slots_0x04[8]
-        $this->initUint32($base + 0x30, 0x8cd0000b);   // slots_0x04[11]
-        $this->initUint32($base + 0x34, 0x8cd0000c);   // slots_0x04[12]
+        $this->initUint32($base + 0x24, 0x8cd00008);   // macCpu1_0x24
+        $this->initUint32($base + 0x30, 0x8cd0000b);   // macHumG0_0x30
+        $this->initUint32($base + 0x34, 0x8cd0000c);   // macHumM0_0x34
 
         $task = $this->makeTask(1, 0);
 
         $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
         $this->shouldCall('_TileStreamInit_8c02175a');
         $this->shouldCall('_TrafficRelocatePlacementTable_8c026da4')->with(0x8cd00008);
         $this->shouldCall('_FUN_8c028de8')->with(0x8cd0000b);
@@ -67,20 +67,20 @@ return new class extends TestCase {
         $this->shouldCall('_EventPickForSegment_8c02b170');
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_syncSegmentModels_8c013f78');
-        $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
+        $this->shouldCall('_RouteLoadClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
             $this->addressOf('_TileStreamRequestUpload_8c02190a'),
             0,
-            $this->addressOf('_RouteLoadSetPvmReady_8c014330'),
+            $this->addressOf('_RouteLoadSetLatch_8c014330'),
         );
         $this->shouldWriteLong($task + 0x08, 2);
 
         $this->expectLoadingAnimation($task);
     }
 
-    /** State 2, pvm ready: advance to the idle state, no drawing. */
+    /** State 2, latch set: advance to the idle state, no drawing. */
     public function test_state2_advances_when_ready(): void
     {
         $this->resolveSizes();
@@ -88,11 +88,11 @@ return new class extends TestCase {
 
         $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
         $this->shouldWriteLong($task + 0x08, 3);
     }
 
-    /** State 2, pvm not ready: keep drawing the loading animation. */
+    /** State 2, latch clear: keep drawing the loading animation. */
     public function test_state2_waits_and_draws(): void
     {
         $this->resolveSizes();
@@ -100,7 +100,7 @@ return new class extends TestCase {
 
         $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->expectLoadingAnimation($task);
     }
 

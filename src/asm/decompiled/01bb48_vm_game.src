@@ -26,7 +26,7 @@
           .IMPORT     _ObjectsSwapMessageBoxFor_8c02aefc
           .IMPORT     _VmMenuUpdateVmusStatus_8c019550
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _RouteLoadIsPvmReady_8c01432a
+          .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _PromptHandleMultiple_8c016c58
           .IMPORT     _var_peripherals_8c1ba35c
@@ -53,8 +53,8 @@
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _CourseMenuRequestSysResgrp_8c018568
           .IMPORT     _AsqRequestDat_8c011182
-          .IMPORT     _RouteLoadSetPvmReady_8c014330
-          .IMPORT     _RouteLoadResetPvmReady_8c014322
+          .IMPORT     _RouteLoadSetLatch_8c014330
+          .IMPORT     _RouteLoadClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _var_lcdAnimBus_8c2260ac
@@ -1083,7 +1083,7 @@ LAB_8c01c276:
           BRA         LAB_8c01c2bc
           MOV.L       R3,@R15
 LP_GEN_76857:
-          .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C01C284
+          .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01C284
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01C288
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01C28C
           .DATA.L _PromptHandleMultiple_8c016c58 ; H'8C01C290
@@ -1967,8 +1967,8 @@ LP_GEN_73212:
           .DATA.L _const_8c038660 ; H'8C01C944
           .DATA.L _const_8c038658 ; H'8C01C948
           .DATA.L _AsqRequestDat_8c011182 ; H'8C01C94C
-          .DATA.L _RouteLoadSetPvmReady_8c014330 ; H'8C01C950
-          .DATA.L _RouteLoadResetPvmReady_8c014322 ; H'8C01C954
+          .DATA.L _RouteLoadSetLatch_8c014330 ; H'8C01C950
+          .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C01C954
           .DATA.L _AsqNop_8c011120 ; H'8C01C958
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01C95C
           .DATA.L _const_8c03867c ; H'8C01C960

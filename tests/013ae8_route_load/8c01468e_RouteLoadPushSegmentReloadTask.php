@@ -9,39 +9,39 @@ return new class extends TestCase {
     /** value at var_loadingResourceGroup_8c1bc3f8.tlist_0x00, bound by the texture calls */
     private const TLIST = 0x8c500000;
 
-    /** Outside a demo (flag < 2): bump the fade counter, no clamp needed. */
-    public function test_bumps_counter_then_installs_task(): void
+    /** Below the hardest difficulty: the segment boundary refunds 30 driver points. */
+    public function test_refunds_driver_points_then_installs_task(): void
     {
         $this->resolveSizes();
-        $counter = $this->addressOf('_var_8c2285c4');
+        $points = $this->addressOf('_var_8c2285c4');
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc4, 0);
-        $this->initUint32($counter + 0x0c, 10);
-        $this->initUint32($counter + 0x10, 100);
+        $this->initUint32($points + 0x0c, 10);
+        $this->initUint32($points + 0x10, 100);
 
         $this->call('_RouteLoadPushSegmentReloadTask_8c01468e');
 
-        $this->shouldWriteLong($counter + 0x0c, 40);
+        $this->shouldWriteLong($points + 0x0c, 40);
         $this->expectInstallAndBind();
     }
 
-    /** Bumping past the cap clamps the counter to var_8c2285c4[4]. */
-    public function test_clamps_counter_to_cap(): void
+    /** The refund clamps to var_driverPointsMax_8c2285d4 (var_8c2285c4[4]). */
+    public function test_clamps_refund_to_the_run_maximum(): void
     {
         $this->resolveSizes();
-        $counter = $this->addressOf('_var_8c2285c4');
+        $points = $this->addressOf('_var_8c2285c4');
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc4, 0);
-        $this->initUint32($counter + 0x0c, 90);
-        $this->initUint32($counter + 0x10, 100);
+        $this->initUint32($points + 0x0c, 90);
+        $this->initUint32($points + 0x10, 100);
 
         $this->call('_RouteLoadPushSegmentReloadTask_8c01468e');
 
-        $this->shouldWriteLong($counter + 0x0c, 120);
-        $this->shouldWriteLong($counter + 0x0c, 100);
+        $this->shouldWriteLong($points + 0x0c, 120);
+        $this->shouldWriteLong($points + 0x0c, 100);
         $this->expectInstallAndBind();
     }
 
-    /** During a demo (flag >= 2, not the demo-active value): skip the counter. */
-    public function test_skips_counter_during_demo(): void
+    /** Hardest difficulty outside practice: no refund. */
+    public function test_no_refund_on_the_hardest_difficulty(): void
     {
         $this->resolveSizes();
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc4, 5);
@@ -52,7 +52,7 @@ return new class extends TestCase {
         $this->expectInstallAndBind();
     }
 
-    /** Common tail: install unknownSegmentReloadTask_8c014550, prime the queues, rebind the texture. */
+    /** Common tail: install segmentReloadTask_8c014550, prime the queues, rebind the texture. */
     private function expectInstallAndBind(): void
     {
         $this->initUint32($this->addressOf('_var_loadingResourceGroup_8c1bc3f8'), self::TLIST);
@@ -64,7 +64,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                $this->addressOf('_unknownSegmentReloadTask_8c014550'),
+                $this->addressOf('_segmentReloadTask_8c014550'),
                 0xffffec,
                 0xfffff0,
                 0,
@@ -101,10 +101,5 @@ return new class extends TestCase {
         ] as $sym => $size) {
             $this->setSize($sym, $size);
         }
-    }
-
-    protected function isAsmObject(): bool
-    {
-        return str_contains($this->objectFile, '/asm/');
     }
 };

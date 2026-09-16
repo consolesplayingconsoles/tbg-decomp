@@ -11,7 +11,7 @@ return new class extends TestCase {
         $this->setSize('_TaskExecGroup_8c014b42', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_ObjectsStartMessageBox_8c02ad8c', 4);
-        $this->setSize('_RouteLoadIsPvmReady_8c01432a', 4);
+        $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
         $this->setSize('_BusStopFreeTaskGroup_8c02ca96', 4);
         $this->setSize('_njReleaseTexture', 4);
         $this->setSize('_BusRenderRestoreCameraState_8c024b86', 4);
@@ -223,7 +223,7 @@ return new class extends TestCase {
         $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->expectTaskExecGroup($group);
         $this->expectRegisterFadeOverlay();
     }
@@ -243,7 +243,7 @@ return new class extends TestCase {
         $this->call('_PassengerStopSceneTask_8c02d644')->with(0, $state);
 
         $this->expectFrameCallbacks();
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
         $this->shouldWriteLong($base + 0, 2);
         $this->shouldWriteLong($state + 0, 5);
         $this->shouldCall('_setCountUpStep_8c02d5d8');

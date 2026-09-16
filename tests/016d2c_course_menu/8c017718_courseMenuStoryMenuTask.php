@@ -11,7 +11,7 @@ return new Class extends TestCase {
 
         $this->call('_courseMenuStoryMenuTask_8c017718');
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_init_state_advances()
@@ -22,7 +22,7 @@ return new Class extends TestCase {
 
         $this->call('_courseMenuStoryMenuTask_8c017718');
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
         $this->shouldCall('_FUN_8c010d8a');

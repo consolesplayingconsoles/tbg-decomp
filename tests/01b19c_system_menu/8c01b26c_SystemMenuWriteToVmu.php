@@ -59,7 +59,7 @@ return new class extends TestCase {
         $this->shouldCall('_memset')->with($header, 0, 0x60);
         $this->shouldCall('_njMemCopy')->with($header, $this->addressOf('_var_vmsComment_8c226098'), 0x10);
         $this->expectStrcpy($header + 0x12, "東京バス案内　データ");
-        $this->shouldCall('_njMemCopy')->with($header + 0x34, $this->addressOf('_init_8c04410c'), 0x10);
+        $this->shouldCall('_njMemCopy')->with($header + 0x34, $this->addressOf('_init_bupGameName_8c04410c'), 0x10);
         $this->shouldWriteLong($header + 0x44, 0x8c400000);       // icon_palette
         $this->shouldWriteLong($header + 0x48, 0x8c400020);       // icon_data
         $this->shouldWriteWord($header + 0x4c, 1);                // icon_num

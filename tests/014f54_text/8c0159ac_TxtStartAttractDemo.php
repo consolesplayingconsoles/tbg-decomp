@@ -45,14 +45,14 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0x08);
         $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0x04);
 
-        $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
+        $this->shouldCall('_RouteLoadClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')
             ->with(
                 $this->addressOf('_AsqNop_8c011120'),
                 0,
                 0,
                 0,
-                $this->addressOf('_RouteLoadSetPvmReady_8c014330')
+                $this->addressOf('_RouteLoadSetLatch_8c014330')
             );
 
         $this->singleCall('_TxtStartAttractDemo_8c0159ac')->with(0xbeba1337)->run();
@@ -98,14 +98,14 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0x1e);
         $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0x15);
 
-        $this->shouldCall('_RouteLoadResetPvmReady_8c014322');
+        $this->shouldCall('_RouteLoadClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')
             ->with(
                 $this->addressOf('_AsqNop_8c011120'),
                 0,
                 0,
                 0,
-                $this->addressOf('_RouteLoadSetPvmReady_8c014330')
+                $this->addressOf('_RouteLoadSetLatch_8c014330')
             );
 
         $this->singleCall('_TxtStartAttractDemo_8c0159ac')->with(0xbeba1337)->run();
@@ -114,7 +114,7 @@ return new class extends TestCase {
     protected function resolveSymbols(): void
     {
         // Functions
-        $this->setSize('_RouteLoadIsPvmReady_8c01432a', 4);
+        $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
     }
 
     protected function isAsmObject(): bool

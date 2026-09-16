@@ -14,7 +14,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_showLesson_8c01e63c')->with($task);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_init_frees_queues_and_fades_in_when_pvm_ready()
@@ -26,7 +26,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_showLesson_8c01e63c')->with($task);
 
-        $this->shouldCall('_RouteLoadIsPvmReady_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($menuState + 0x18, 1);
         $this->shouldCall('_SndProc_8c010cd6')->with(0, 0xd);
@@ -388,7 +388,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
-        $this->setSize('_RouteLoadIsPvmReady_8c01432a', 4);
+        $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_SndProc_8c010cd6', 4);
         $this->setSize('_FadePushIn_8c022a9c', 4);

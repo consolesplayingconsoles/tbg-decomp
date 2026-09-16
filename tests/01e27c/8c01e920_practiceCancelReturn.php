@@ -28,13 +28,13 @@ return new class extends TestCase {
             $this->addressOf('_init_practice01ResourceGroup_8c044274')
         )->andReturn(1);
 
-        $this->shouldCall('_RouteLoadSetPvmReady_8c014330');
+        $this->shouldCall('_RouteLoadSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
             0,
             0,
-            $this->addressOf('_RouteLoadResetPvmReady_8c014322')
+            $this->addressOf('_RouteLoadClearLatch_8c014322')
         );
 
         $this->shouldWriteLong($menuStateBase + 0x18, 0);
@@ -76,10 +76,10 @@ return new class extends TestCase {
         $this->setSize('_AsqInitQueues_8c011f36', 4);
         $this->setSize('_AsqResetQueues_8c011f6c', 4);
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
-        $this->setSize('_RouteLoadSetPvmReady_8c014330', 4);
+        $this->setSize('_RouteLoadSetLatch_8c014330', 4);
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
         $this->setSize('_AsqNop_8c011120', 4);
-        $this->setSize('_RouteLoadResetPvmReady_8c014322', 4);
+        $this->setSize('_RouteLoadClearLatch_8c014322', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_FadePushIn_8c022a9c', 4);
     }

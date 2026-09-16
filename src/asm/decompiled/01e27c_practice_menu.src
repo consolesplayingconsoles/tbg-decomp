@@ -6,7 +6,7 @@
           .IMPORT     _init_8c03bd80
           .IMPORT     _var_practiceLesson_8c22640c
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _RouteLoadIsPvmReady_8c01432a
+          .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _SndProc_8c010cd6
           .IMPORT     _FadePushIn_8c022a9c
@@ -29,8 +29,8 @@
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _init_practice02ResourceGroup_8c044284
           .IMPORT     _CourseMenuRequestSysResgrp_8c018568
-          .IMPORT     _RouteLoadSetPvmReady_8c014330
-          .IMPORT     _RouteLoadResetPvmReady_8c014322
+          .IMPORT     _RouteLoadSetLatch_8c014330
+          .IMPORT     _RouteLoadClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _var_gameMode_8c1bb8fc
@@ -240,7 +240,7 @@ LP_GEN_72974:
           .DATA.L H'C0900000 ; H'8C01E38C
           .DATA.L _var_practiceLesson_8c22640c ; H'8C01E390
           .DATA.L _var_isFading_8c226568 ; H'8C01E394
-          .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C01E398
+          .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01E398
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01E39C
           .DATA.L _init_lessonPageStarts_8c0451b4 ; H'8C01E3A0
           .DATA.L _SndProc_8c010cd6 ; H'8C01E3A4
@@ -558,8 +558,8 @@ LP_GEN_38636:
           .DATA.L _init_practice02ResourceGroup_8c044284 ; H'8C01E620
           .DATA.L _var_menuState_8c1bc7a8 + H'0C ; H'8C01E624
           .DATA.L _CourseMenuRequestSysResgrp_8c018568 ; H'8C01E628
-          .DATA.L _RouteLoadSetPvmReady_8c014330 ; H'8C01E62C
-          .DATA.L _RouteLoadResetPvmReady_8c014322 ; H'8C01E630
+          .DATA.L _RouteLoadSetLatch_8c014330 ; H'8C01E62C
+          .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C01E630
           .DATA.L _AsqNop_8c011120 ; H'8C01E634
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01E638
 _showLesson_8c01e63c:
@@ -760,7 +760,7 @@ LP_GEN_92116:
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01E7A0
           .DATA.L _sdMidiPlay ; H'8C01E7A4
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01E7A8
-          .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C01E7AC
+          .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01E7AC
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01E7B0
           .DATA.L _SndProc_8c010cd6 ; H'8C01E7B4
           .DATA.L _FadePushIn_8c022a9c ; H'8C01E7B8
@@ -1243,8 +1243,8 @@ LP_GEN_88702:
           .DATA.L _AsqResetQueues_8c011f6c ; H'8C01EB60
           .DATA.L _init_practice01ResourceGroup_8c044274 ; H'8C01EB64
           .DATA.L _CourseMenuRequestSysResgrp_8c018568 ; H'8C01EB68
-          .DATA.L _RouteLoadSetPvmReady_8c014330 ; H'8C01EB6C
-          .DATA.L _RouteLoadResetPvmReady_8c014322 ; H'8C01EB70
+          .DATA.L _RouteLoadSetLatch_8c014330 ; H'8C01EB6C
+          .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C01EB70
           .DATA.L _AsqNop_8c011120 ; H'8C01EB74
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01EB78
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01EB7C
@@ -1566,7 +1566,7 @@ LP_GEN_52292:
           .DATA.L _sdMidiPlay ; H'8C01EDF4
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01EDF8
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01EDFC
-          .DATA.L _RouteLoadIsPvmReady_8c01432a ; H'8C01EE00
+          .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01EE00
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01EE04
           .DATA.L _FUN_8c010d8a ; H'8C01EE08
           .DATA.L _SndProc_8c010cd6 ; H'8C01EE0C
@@ -2055,8 +2055,8 @@ LP_GEN_22524:
           .DATA.L _AsqResetQueues_8c011f6c ; H'8C01F1F8
           .DATA.L _init_practice01ResourceGroup_8c044274 ; H'8C01F1FC
           .DATA.L _CourseMenuRequestSysResgrp_8c018568 ; H'8C01F200
-          .DATA.L _RouteLoadSetPvmReady_8c014330 ; H'8C01F204
-          .DATA.L _RouteLoadResetPvmReady_8c014322 ; H'8C01F208
+          .DATA.L _RouteLoadSetLatch_8c014330 ; H'8C01F204
+          .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C01F208
           .DATA.L _AsqNop_8c011120 ; H'8C01F20C
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01F210
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01F214
@@ -2242,8 +2242,8 @@ LP_GEN_37649:
           .DATA.L _init_practice01ResourceGroup_8c044274 ; H'8C01F3A4
           .DATA.L _CourseMenuRequestSysResgrp_8c018568 ; H'8C01F3A8
           .DATA.L _CourseMenuRequestCommonResources_8c01852c ; H'8C01F3AC
-          .DATA.L _RouteLoadSetPvmReady_8c014330 ; H'8C01F3B0
-          .DATA.L _RouteLoadResetPvmReady_8c014322 ; H'8C01F3B4
+          .DATA.L _RouteLoadSetLatch_8c014330 ; H'8C01F3B0
+          .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C01F3B4
           .DATA.L _AsqNop_8c011120 ; H'8C01F3B8
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01F3BC
           .SECTION    C, DATA, ALIGN=4

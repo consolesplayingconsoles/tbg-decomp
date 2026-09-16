@@ -10,7 +10,7 @@
           .IMPORT     _njSetTextureInfo
           .IMPORT     _njSetTextureName
           .IMPORT     _njLoadTexture
-          .IMPORT     _RouteLoadIsPvmReady_8c01432a
+          .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _var_demoBuf_8c1ba3c4
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_inputMapSel_8c1bb8c8
@@ -35,8 +35,8 @@
           .IMPORT     _AsqRequestDat_8c011182
           .IMPORT     _var_activeTrafficPreset_8c227e14
           .IMPORT     _var_activePedPreset_8c22822c
-          .IMPORT     _RouteLoadResetPvmReady_8c014322
-          .IMPORT     _RouteLoadSetPvmReady_8c014330
+          .IMPORT     _RouteLoadClearLatch_8c014322
+          .IMPORT     _RouteLoadSetLatch_8c014330
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _njDrawSprite2D
@@ -1538,7 +1538,7 @@ LAB_8c0159ec
           MOV.L       @R15+,R14
 
 LP_GEN_51554:
-          .DATA.L _RouteLoadIsPvmReady_8c01432a ; LP_GEN_51554+0
+          .DATA.L _RouteLoadGetLatch_8c01432a ; LP_GEN_51554+0
           .DATA.L _var_demoBuf_8c1ba3c4
           .DATA.L _var_currentCourse_8c1bb868
           .DATA.L _var_inputMapSel_8c1bb8c8
@@ -1562,8 +1562,8 @@ LP_GEN_51554:
           .DATA.L _AsqRequestDat_8c011182
           .DATA.L _var_activeTrafficPreset_8c227e14
           .DATA.L _var_activePedPreset_8c22822c
-          .DATA.L _RouteLoadResetPvmReady_8c014322
-          .DATA.L _RouteLoadSetPvmReady_8c014330
+          .DATA.L _RouteLoadClearLatch_8c014322
+          .DATA.L _RouteLoadSetLatch_8c014330
           .DATA.L _AsqNop_8c011120
           .DATA.L _AsqProcessQueues_8c011fe0
           .SECTION    C,DATA,ALIGN=4
