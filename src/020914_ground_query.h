@@ -31,8 +31,9 @@ typedef struct {
 } GroundGrid;
 
 /* Ground-polygon match written by GroundQueryFindPolygon_8c020914 and consumed
- * by GroundProbeInterpolateHeight_8c020f7e (020b6c_ground_probe.h), which interpolates the point's height from it.
- * count_0x0c is the hit/miss flag: the only field cleared on a miss. */
+ * by GroundProbeInterpolateHeight_8c020f7e (020b6c_ground_probe.h), which
+ * interpolates the point's height from it. A miss zeroes count_0x0c and
+ * vertexIds_0x08 only, leaving the other two fields stale. */
 typedef struct {
     int attr_0x00;          /* polygon attribute word, sign bit stripped */
     int *polyIdSlot_0x04;   /* the matching entry in the grid cell's polygon list */

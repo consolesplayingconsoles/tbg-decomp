@@ -6,7 +6,7 @@
 #include "sectionB.h"
 
 /* ====================
- * Type Declarations
+ * Compiler Definitions
  * ====================
  */
 
@@ -17,11 +17,7 @@
  * ====================
  */
 
-/* Looks up the ground polygon under world point (x, z) -- y is unused -- in
- * the grid currently selected by var_activeGroundGrid_8c2264d4, writing the
- * match (or a zeroed count on miss) to *out.
- *
- * Each candidate is tested one of two ways, chosen by the sign of its attr:
+/* Each candidate is tested one of two ways, chosen by the sign of its attr:
  * a cross-product walk for convex polygons, or a winding-angle sum in BAMS
  * (inside when it exceeds half a turn) for concave ones. */
 void GroundQueryFindPolygon_8c020914(float x, float y, float z, GroundQueryResult *out)
