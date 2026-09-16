@@ -19,8 +19,6 @@ return new class extends TestCase {
         $this->setSize('_GeomQuadOverlap_8c020842', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
-        $this->setSize('_var_collisionScanCursor_8c228974', 4);
-        $this->setSize('_var_collisionSelfBox_8c228978', 96);
         $this->setSize('_var_collisionCandidateBox_8c2289d8', 96);
     }
 

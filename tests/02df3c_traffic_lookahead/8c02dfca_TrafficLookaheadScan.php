@@ -20,7 +20,6 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
-        $this->setSize('_var_collisionScanCursor_8c228974', 4);
 
         // The asm reads these separately-exported globals instead of
         // var_busState_8c1bb9d0's fields directly, but they're the same

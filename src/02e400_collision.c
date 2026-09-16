@@ -7,6 +7,22 @@
 #include "02e400_collision.h"
 #include "sectionB.h"
 
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+Task *var_collisionScanCursor_8c228974;
+
+NJS_BOX var_collisionSelfBox_8c228978;
+
+NJS_BOX var_collisionCandidateBox_8c2289d8;
+
+/* pending collision candidates, written and scanned once per frame. */
+void *var_collisionQueue_8c228a38[64];
+
+Sint32 var_collisionQueueCount_8c228b38;
+
 /* ====================
  * Functions
  * ====================

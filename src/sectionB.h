@@ -1247,20 +1247,4 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-/* CollisionFindTaskHit_8c02e400 (02e400) and BusCollisionFindHit_8c02e2dc (02e2dc): cursor
- * into var_tasks_8c1bac28 during its scan, left pointing at the terminating
- * (action == 0) slot on exit. */
-extern Task *var_collisionScanCursor_8c228974;
-/* CollisionFindTaskHit_8c02e400/BusCollisionFindHit_8c02e2dc scratch: world-space oriented
- * bounding box, njCalcPoints'd from the entry/bus passed in (self) and from
- * the current candidate task respectively. */
-extern NJS_BOX var_collisionSelfBox_8c228978;
-extern NJS_BOX var_collisionCandidateBox_8c2289d8;
-/* CollisionQueueAdd_8c02e48e/CollisionQueueTest_8c02e4ac: fixed 64-slot queue of
- * pending collision candidates, written and scanned once per frame. */
-extern void *var_collisionQueue_8c228a38[64];
-/* CollisionQueueReset_8c02e486/CollisionQueueAdd_8c02e48e/CollisionQueueTest_8c02e4ac:
- * element count of the fixed 64-slot queue at var_collisionQueue_8c228a38. */
-extern Sint32 var_collisionQueueCount_8c228b38;
-
 #endif // _0FCD20_SECTIONB_H

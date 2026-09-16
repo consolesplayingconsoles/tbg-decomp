@@ -8,6 +8,7 @@
 #include "sectionB.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
+#include "02e400_collision.h"
 
 /* ====================
  * Initialized Globals

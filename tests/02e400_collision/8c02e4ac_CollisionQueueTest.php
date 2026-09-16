@@ -13,9 +13,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_njCollisionCheckBS', 4);
-        $this->setSize('_var_collisionSelfBox_8c228978', 96);
-        $this->setSize('_var_collisionQueueCount_8c228b38', 4);
-        $this->setSize('_var_collisionQueue_8c228a38', 256);
     }
 
     private function setQueue(array $entries): void {

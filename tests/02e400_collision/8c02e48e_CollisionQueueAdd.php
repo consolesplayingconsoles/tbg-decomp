@@ -10,8 +10,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_collisionQueueCount_8c228b38', 4);
-        $this->setSize('_var_collisionQueue_8c228a38', 256);
     }
 
     public function test_appendsAtZero(): void {

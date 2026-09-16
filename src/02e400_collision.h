@@ -4,6 +4,20 @@
 #include "014a9c_tasks.h"
 #include "026710_traffic.h" /* TrafficEntry */
 
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+extern Task *var_collisionScanCursor_8c228974;
+extern NJS_BOX var_collisionSelfBox_8c228978;
+extern NJS_BOX var_collisionCandidateBox_8c2289d8;
+
+/* ====================
+ * Functions
+ * ====================
+ */
+
 /* Reports which other traffic entry `entry` is currently overlapping, or
  * NULL. Leaves entry's own world-space box in var_collisionSelfBox_8c228978,
  * which CollisionQueueTest_8c02e4ac below then tests against. */

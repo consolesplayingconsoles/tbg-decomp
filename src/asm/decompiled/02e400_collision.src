@@ -1,18 +1,16 @@
 ; 8c02e400
           .IMPORT     _init_variantBoxes_8c04c940
           .IMPORT     _njCalcPoints
-          .IMPORT     _var_collisionSelfBox_8c228978
-          .IMPORT     _var_collisionScanCursor_8c228974
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _njCollisionCheckBB
-          .IMPORT     _var_collisionCandidateBox_8c2289d8
-          .IMPORT     _var_collisionQueueCount_8c228b38
-          .IMPORT     _var_collisionQueue_8c228a38
           .IMPORT     _njCollisionCheckBS
           .EXPORT     _CollisionFindTaskHit_8c02e400
           .EXPORT     _CollisionQueueReset_8c02e486
           .EXPORT     _CollisionQueueAdd_8c02e48e
           .EXPORT     _CollisionQueueTest_8c02e4ac
+          .EXPORT     _var_collisionScanCursor_8c228974 ; 02df3c
+          .EXPORT     _var_collisionSelfBox_8c228978 ; 02e2dc
+          .EXPORT     _var_collisionCandidateBox_8c2289d8 ; 02e2dc
           .SECTION     P, CODE, ALIGN=4
 _CollisionFindTaskHit_8c02e400:
           MOV.L       R14,@-R15
@@ -160,4 +158,15 @@ LP_GEN_17818:
           .DATA.L _var_collisionQueueCount_8c228b38 ; H'8C02E510
           .DATA.L _var_collisionQueue_8c228a38 ; H'8C02E514
           .DATA.L _njCollisionCheckBS ; H'8C02E518
+          .SECTION    B,DATA,ALIGN=4
+_var_collisionScanCursor_8c228974:
+          .RES.B      4
+_var_collisionSelfBox_8c228978:
+          .RES.B      96
+_var_collisionCandidateBox_8c2289d8:
+          .RES.B      96
+_var_collisionQueue_8c228a38:
+          .RES.B      256
+_var_collisionQueueCount_8c228b38:
+          .RES.B      4
           .END
