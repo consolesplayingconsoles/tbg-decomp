@@ -805,6 +805,16 @@ Scope every substitution by the accessing variable's type, then re-read the
 whole file. The tests do not reliably catch it: a wrongly renamed field of the
 same type and offset still passes.
 
+The same collision misleads *reasoning*, not just sed. `CourseConfig.ukn_0x24`
+and `CurrentCourse.macCpu1_0x24` share the offset spelling, so a naming pass
+tried to name the first from what the second is used for -- the three per-route
+tables it holds would have been called traffic preset tables. They are
+`LineBusNode` tables: `loadRouteModels_8c014088` assigns
+`course->lineNodes_0x0c = config->lineNodes_0x24`, moving the value to a
+*different* offset, and `macCpu1_0x24` is filled a line later from an entirely
+separate file field. Follow the assignment, never the matching suffix; the sizes
+confirmed it independently, all three being exact multiples of `sizeof(LineBusNode)`.
+
 ## A hand-written string constant is usually a literal pool; inline it
 
 `025870_demo`'s 28 place names started life as hand-written `Uint8` byte
