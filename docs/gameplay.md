@@ -200,7 +200,7 @@ intersecting), not the railway *level* crossing -- a coincidental name
 collision. Renamed to `laneTargetSearchDone_0x334`/`laneTargetSearchSide_0x338`
 to remove the trap.
 
-The score bar itself is `var_driverPoints_8c2285d0`, driven by
+The score bar itself is `var_runState_8c2285c4.driverPoints_0x0c`, driven by
 `02b464_drive_points.c`; it also feeds the end-of-run badge tier (see
 `AWARD_TIER_*`).
 
@@ -237,14 +237,14 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
   (`02c884_bus_stop.c`) draws a `fuu.njd`/`fuu.pvm` model (its own animation
   loop) at the upcoming active stop's position/heading, but only while
   `BusStopUpdateArrival_8c02ce48`'s state machine is in its approach phase
-  (`var_stopPhase_8c2285e4 == 2`) -- i.e. only for a stop that was flagged
+  (`var_runState_8c2285c4.stopPhase_0x20 == 2`) -- i.e. only for a stop that was flagged
   active. This is very likely the world-space marker the player remembers;
   its actual on-screen color is not confirmed from code (no texture data
   decompiled here).
 - **HUD indicator.** `drawHud_8c01fbac` (`01fa78_hud.c`) draws a sprite
   from `var_busStopTexlist_8c1bc424` at a fixed screen slot, blinking per
   `var_hudState_8c22643c.blinkTimer_0x18`'s timer, whose meaning depends on
-  `var_stopPhase_8c2285e4`: icon `0x1f` during phase 2 (approaching the next
+  `var_runState_8c2285c4.stopPhase_0x20`: icon `0x1f` during phase 2 (approaching the next
   active stop) is shown unconditionally while blinking -- this is the HUD
   upcoming-stop indicator. Phase 1 (just departed) instead shows icon
   `0x1e`, but only while `var_hudState_8c22643c.driveMarkIcon_0x14 != -1`;
