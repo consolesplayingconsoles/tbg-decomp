@@ -1,0 +1,39 @@
+/* @unit UnusedLoad */
+/* 8c014934 */
+#include <shinobi.h>
+#include "012f44_game.h"
+#include "013ae8_route_load.h"
+#include "014a9c_tasks.h"
+#include "014934_unused_load.h"
+#include "011120_asset_queues.h"
+#include "sectionB.h"
+
+/* ====================
+ * Functions
+ * ====================
+ */
+
+/* See 014934_unused_load.h. */
+void UnusedLoadPushTask_8c014934()
+{
+    RouteLoadTask *task;
+    void *state;
+
+    njSetBackColor(0xff418dff, 0xff418dff, 0xff418dff);
+    var_loadScreenActive_8c157a6c = 1;
+
+    TaskPush_8c014ae8(
+        var_tasks_8c1ba3c8,
+        (void *) &RouteLoadUnusedTask_8c014784,
+        (Task **) &task,
+        &state,
+        0
+    );
+    task->stage_0x08 = ROUTE_LOAD_STATE_INIT;
+    task->frame_0x0c = 0;
+
+    njGarbageTexture(var_tex_8c157af8, 0xc00);
+
+    /* Half the dat/nj queue budget RouteLoadPushTask_8c0144fc asks for. */
+    AsqInitQueues_8c011f36(0x20, 0x400, 0x400, 0x40);
+}

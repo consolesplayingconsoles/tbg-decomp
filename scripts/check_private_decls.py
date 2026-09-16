@@ -60,14 +60,14 @@ def strip_comments(text):
 
 # Functions we deliberately keep public even though nothing currently references
 # them across units (so the object-level check would call them private):
-#   - heap* : 
-#   - FUN_8c014934 : unused
+#   - heap* :
+#   - UnusedLoadPushTask_8c014934 : unused
 #   - DebugMenuOpen_8c01673a : unused debug-menu entry point
 KEEP_PUBLIC = {
     # unused general-purpose heap API
     "HeapInit_8c010fe8", "HeapAlloc_8c01102a", "HeapFree_8c0110c4",
     # unused
-    "FUN_8c014934",
+    "UnusedLoadPushTask_8c014934",
     # unused debug-menu entry point
     "DebugMenuOpen_8c01673a",
 }

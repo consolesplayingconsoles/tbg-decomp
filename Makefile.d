@@ -79,14 +79,14 @@ $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/sectionB.h src/01614c_debug_menu.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/01bb48_vm_game.h src/022464_fade.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/023938_bus_drive.h src/includes.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/013ae8_route_load.data.inc
-$(OUTPUT_DIR)/src/014934.obj: src/012f44_game.h src/014a9c_tasks.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/014934.obj: src/011120_asset_queues.h src/serial_debug.h
-$(OUTPUT_DIR)/src/014934.obj: src/02171c_tile_stream.h src/014934.h src/sectionB.h
-$(OUTPUT_DIR)/src/014934.obj: src/01614c_debug_menu.h src/014b8c_backup.h
-$(OUTPUT_DIR)/src/014934.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8_title.h
-$(OUTPUT_DIR)/src/014934.obj: src/022464_fade.h src/028258_objects.h
-$(OUTPUT_DIR)/src/014934.obj: src/020914_ground_query.h src/023938_bus_drive.h
-$(OUTPUT_DIR)/src/014934.obj: src/026710_traffic.h src/014f54_text.h
+$(OUTPUT_DIR)/src/014934_unused_load.obj: src/012f44_game.h src/014a9c_tasks.h src/013ae8_route_load.h
+$(OUTPUT_DIR)/src/014934_unused_load.obj: src/011120_asset_queues.h src/serial_debug.h
+$(OUTPUT_DIR)/src/014934_unused_load.obj: src/02171c_tile_stream.h src/014934_unused_load.h src/sectionB.h
+$(OUTPUT_DIR)/src/014934_unused_load.obj: src/01614c_debug_menu.h src/014b8c_backup.h
+$(OUTPUT_DIR)/src/014934_unused_load.obj: src/02af78_event.h src/01bb48_vm_game.h src/015ab8_title.h
+$(OUTPUT_DIR)/src/014934_unused_load.obj: src/022464_fade.h src/028258_objects.h
+$(OUTPUT_DIR)/src/014934_unused_load.obj: src/020914_ground_query.h src/023938_bus_drive.h
+$(OUTPUT_DIR)/src/014934_unused_load.obj: src/026710_traffic.h src/014f54_text.h
 $(OUTPUT_DIR)/src/0149b0_sbinit.obj: src/includes.h src/serial_debug.h src/0149b0_sbinit.h
 $(OUTPUT_DIR)/src/014a9c_tasks.obj: src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/014b8c_backup.obj: src/014b8c_backup.h src/sectionB.h

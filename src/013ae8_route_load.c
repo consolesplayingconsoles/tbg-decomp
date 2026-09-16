@@ -657,7 +657,8 @@ void RouteLoadPushSegmentReloadTask_8c01468e(void)
 }
 
 /* Like routeLoadTask_8c014338, but on completion binds the interior texture and
- * hands off to the input task (as unknownSegmentReloadTask_8c014550 does). */
+ * hands off to the input task (as unknownSegmentReloadTask_8c014550 does).
+ * Pushed only by UnusedLoadPushTask_8c014934, which nothing calls. */
 void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state)
 {
     int frame;
