@@ -75,10 +75,6 @@ return new class extends TestCase {
             $this->initUint32($base + $off, 0);
         }
 
-        // Real memory has var_busWorldMatrix_8c1bba54 immediately after
-        // var_busState_8c1bb9d0 (base+0x84); mirror that layout instead of
-        // allocating it separately (see 8c023610_BusInitStart.php).
-
         // driveState_0x2b4/doorState_0x3c0/doorRequest_0x3c4/speed_0x27c/
         // gear_0x2f4/signalSide_0x25c/ang_0x258/posX_0x0f4/posHistory_0x100[0].x
         // are all already 0 from the zero-fill above.

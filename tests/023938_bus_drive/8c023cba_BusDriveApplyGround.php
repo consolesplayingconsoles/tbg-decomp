@@ -11,7 +11,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
  * dir_z2_0x2b0) from the 10 corner ground-probe results BusDriveSampleGround_8c023938 fills
  * into groundSamples_0x190, then always averages two pairs of those probes'
  * interpolated heights into posY_0x0f8/posHistory_0x100[0].y and fans those
- * out to the lane-offset posHistory entries. Called by FUN_8c023610
+ * out to the lane-offset posHistory entries. Called by BusInitStart_8c023610
  * (023310_bus_init) and BusTask_8c022bdc (022bdc) once per frame while
  * driving.
  */
