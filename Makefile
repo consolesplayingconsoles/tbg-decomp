@@ -1,4 +1,4 @@
-MAKEFLAGS += --no-builtin-rules -j$(shell nproc)
+MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
 
 ASMSH_FLAGS=-debug -cpu=sh4 -endian=little -sjis
