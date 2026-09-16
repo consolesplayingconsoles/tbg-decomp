@@ -183,8 +183,8 @@ return [
         ],
         [
             "tests" => [
-                "tests/019e98_main_menu/19e98_MainMenuTask.php",
-                "tests/019e98_main_menu/1a09a_switchToMainMenuTask.php",
+                "tests/019e98_main_menu/8c019e98_MainMenuTask.php",
+                "tests/019e98_main_menu/8c01a09a_switchToMainMenuTask.php",
             ],
             "objects" => [
                 "build/output_test/src/asm/decompiled/019e98_main_menu.obj",
