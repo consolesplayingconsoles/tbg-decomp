@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
  * _DriveCueTask_8c020214(Task*, void*): ambient driving-cue task, see 020214.h. The
- * struct at var_8c2264b8 is aliased by var_8c2264bc (its own idleChimeTimer_0x04,
+ * struct at var_driveCueState_8c2264b8 is aliased by var_8c2264bc (its own idleChimeTimer_0x04,
  * separately imported) -- both are rellocate()'d onto the same allocation.
  */
 return new class extends TestCase {
@@ -34,13 +34,13 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $struct = $this->alloc(0x1c);
-        $this->rellocate('_var_8c2264b8', $struct);
+        $this->rellocate('_var_driveCueState_8c2264b8', $struct);
         $this->rellocate('_var_8c2264bc', $struct + 0x04);
     }
 
     private function struct(): int
     {
-        return $this->addressOf('_var_8c2264b8');
+        return $this->addressOf('_var_driveCueState_8c2264b8');
     }
 
     /** Sets up the struct's fields (idleChimeState_0x00 and stopAnnounceState_0x08's dispatch
@@ -102,9 +102,9 @@ return new class extends TestCase {
     // ------------------------------------------------------------------
 
     /**
-     * firstChimeArmed_0x18 != 0 -- dead in real gameplay (it's reset to 0 every call
-     * below and never written anywhere else), but the branch is real code
-     * that a test can still drive directly.
+     * firstChimeArmed_0x18 != 0 -- armed by TrafficDriveVehicle_8c025b98
+     * (through var_8c2264d0, its own export on that word) when a CPU vehicle
+     * sits stopped at a junction, and cleared again below every call.
      */
     public function test_state0_plays_first_chime_when_firstChimeArmed_0x18_set(): void
     {

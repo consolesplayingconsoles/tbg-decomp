@@ -8,7 +8,7 @@ return new class extends TestCase {
     public function testOnlyRunsWhen8c1bb8d0IsNot2() {
         $this->shouldReadSymbolOffset('_var_playMode_8c1bb8d0', 0, 2);
 
-        $this->singleCall('_FUN_8c020528')
+        $this->singleCall('_DriveCueInit_8c020528')
             ->run();
     }
 
@@ -19,14 +19,14 @@ return new class extends TestCase {
         $this->rellocate('_var_tasks_8c1ba5e8', $tasksPtr);
 
         $actionPtr = $this->alloc(4);
-        $this->rellocate('_FUN_8c020214', $actionPtr);
+        $this->rellocate('_DriveCueTask_8c020214', $actionPtr);
 
         // TODO: Implement a way to expect local vars (stack) as parameters
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with($tasksPtr, $actionPtr, 0xFFFFEB, 0xFFFFEF, 0);
 
         $structPtr = $this->alloc(0x1c);
-        $this->rellocate('_var_8c2264b8', $structPtr);
+        $this->rellocate('_var_driveCueState_8c2264b8', $structPtr);
 
         $this->shouldWrite($structPtr, 0);
 
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->shouldWrite($structPtr + 0x14, 0);
         $this->shouldWrite($structPtr + 0x18, 0);
 
-        $this->singleCall('_FUN_8c020528')
+        $this->singleCall('_DriveCueInit_8c020528')
             ->run();
     }
 };

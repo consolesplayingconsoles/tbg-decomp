@@ -10,7 +10,7 @@
           .IMPORT     _var_busDoorLastFrame_8c227db4
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _BusInputUpdate_8c0246b2
-          .IMPORT     _var_8c2264b8
+          .IMPORT     _var_driveCueState_8c2264b8
           .IMPORT     _var_inputMapSel_8c1bb8c8
           .IMPORT     _BusDriveFindLaneTarget_8c023e7e
           .IMPORT     _BusLineAdvance_8c02412c
@@ -314,7 +314,7 @@ LP_GEN_73202:
           .DATA.W H'02BC ; H'8C022DF2
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C022DF4
           .DATA.L _BusInputUpdate_8c0246b2 ; H'8C022DF8
-          .DATA.L _var_8c2264b8 ; H'8C022DFC
+          .DATA.L _var_driveCueState_8c2264b8 ; H'8C022DFC
           .DATA.L _var_inputMapSel_8c1bb8c8 ; H'8C022E00
           .DATA.L _BusDriveFindLaneTarget_8c023e7e ; H'8C022E04
           .DATA.L _BusLineAdvance_8c02412c ; H'8C022E08

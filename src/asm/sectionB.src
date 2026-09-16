@@ -526,7 +526,7 @@
           .EXPORT     _var_laneLatch_8c226474 ; 01fa78
           .EXPORT     _var_8c226478 ; 01fa78
           .EXPORT     _var_8c2264a8 ; 01fa78
-          .EXPORT     _var_8c2264b8 ; 020214
+          .EXPORT     _var_driveCueState_8c2264b8 ; 020214
                                     ; 022bdc
           .EXPORT     _var_8c2264bc ; 020214
           .EXPORT     _var_8c2264c4 ; 02b464
@@ -1194,7 +1194,7 @@ _var_8c226478:
           .RES.B      48
 _var_8c2264a8:
           .RES.B      16
-_var_8c2264b8:
+_var_driveCueState_8c2264b8:
           .RES.B      4
 _var_8c2264bc:
           .RES.B      8

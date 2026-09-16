@@ -631,20 +631,18 @@ typedef struct {
 extern DriverPointsMeterState var_8c226458; // 01fa78
 extern DrawVertex8c226478 var_8c226478[3]; // 01fa78
 extern HudMarkState var_8c2264a8; // 01fa78
-extern DriveCueState var_8c2264b8;
-/* Sits at var_8c2264b8's base+0x4 (its idleChimeTimer_0x04) -- a standalone countdown
- * used only by DriveCueTask_8c020214 (020214)'s firstChimeArmed_0x18-armed idle-chime branch,
- * separately from idleChimeTimer_0x04's OTHER role as that same struct's per-state
- * timer in its main state machine (the two roles are never live at once). */
+extern DriveCueState var_driveCueState_8c2264b8;
+/* A second .EXPORT on DriveCueState's idleChimeTimer_0x04 (base+0x4).
+ * DriveCueTask_8c020214 (020214) reaches the same word both ways: through
+ * this symbol as the idle-chime countdown, through the struct as its state
+ * machine's per-state timer (never live at once). */
 extern int var_8c2264bc;
-/* Sits at var_8c2264b8's base+0xc (its nearStopLatch_0x0c) -- a one-shot latch set by
- * BusTask_8c022bdc (022bdc) when the A button is first pressed while driving,
- * gating whether DriveCueTask_8c020214 (020214)'s first announcement chime has fired
- * yet. Reset to 0 by BusStopUpdateArrival_8c02ce48 (02c884) on a stop-heading
- * transition. Exported as its own symbol and addressed that way by that
- * caller, not through the struct -- coincidentally adjacent, not that
- * struct's field per se (but 022bdc's own asm does access it via the struct
- * base, so this unit uses var_8c2264b8.nearStopLatch_0x0c). */
+/* A second .EXPORT on DriveCueState's nearStopLatch_0x0c (base+0xc): the
+ * one-shot latch BusTask_8c022bdc (022bdc) sets on the first A press while
+ * driving, gating whether DriveCueTask_8c020214 (020214)'s first
+ * announcement chime has fired yet, and BusStopUpdateArrival_8c02ce48
+ * (02c884) clears on a stop-heading transition. 022bdc's own asm goes
+ * through the struct base, so that unit's C does too. */
 extern int var_8c2264c4;
 extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
@@ -939,8 +937,10 @@ extern int var_firstUpshift_8c22864c;
 
 extern void *var_8c1bb878;
 extern void *var_8c1bb888;
-/* Set to 1 by TrafficDriveVehicle_8c025b98 (025b98) on a stopped-at-junction
- * hit; never read there. Role/other consumers unclear. */
+/* A second .EXPORT on DriveCueState's firstChimeArmed_0x18 (base+0x18):
+ * TrafficDriveVehicle_8c025b98 (025b98) sets it when a CPU vehicle sits
+ * stopped at a junction, arming DriveCueTask_8c020214 (020214)'s one-shot
+ * chime on the next frame. */
 extern Sint32 var_8c2264d0;
 
 /* Set by BusStopUpdateArrival_8c02ce48 (02c884) when a drive ends with points

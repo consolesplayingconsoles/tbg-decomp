@@ -42,7 +42,7 @@ return new class extends TestCase {
         $this->setSize('_var_busDoorLastFrame_8c227db4', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x28);
         $this->setSize('_BusInputUpdate_8c0246b2', 4);
-        $this->setSize('_var_8c2264b8', 0x1c);
+        $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
         $this->setSize('_var_inputMapSel_8c1bb8c8', 4);
         $this->setSize('_BusDriveFindLaneTarget_8c023e7e', 4);
         $this->setSize('_BusLineAdvance_8c02412c', 4);

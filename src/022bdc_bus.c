@@ -100,12 +100,12 @@ void BusTask_8c022bdc(Task *task, void *state)
 
         BusInputUpdate_8c0246b2();
 
-        /* One-shot A-button latch, seen through var_8c2264b8's struct base
+        /* One-shot A-button latch, seen through var_driveCueState_8c2264b8's struct base
          * (coincidentally aliases the separately-imported var_8c2264c4 used
          * by other units -- see sectionB.h). */
-        if (var_8c2264b8.nearStopLatch_0x0c == 0 &&
+        if (var_driveCueState_8c2264b8.nearStopLatch_0x0c == 0 &&
             (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
-            var_8c2264b8.nearStopLatch_0x0c = 1;
+            var_driveCueState_8c2264b8.nearStopLatch_0x0c = 1;
         }
 
         if (var_inputMapSel_8c1bb8c8 == 0) {

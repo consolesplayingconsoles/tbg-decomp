@@ -56,7 +56,7 @@
           .IMPORT     _DrivePointsReset_8c02c46a
           .IMPORT     _HudReset_8c02018c
           .IMPORT     _StopSpawnInit_8c02d968
-          .IMPORT     _FUN_8c020528
+          .IMPORT     _DriveCueInit_8c020528
           .IMPORT     _FadeStartRunTransition_8c0228a2
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_debugMenuCourseSel_8c1bc824
@@ -766,7 +766,7 @@ LP_GEN_38000:
           .DATA.L _DrivePointsReset_8c02c46a
           .DATA.L _HudReset_8c02018c
           .DATA.L _StopSpawnInit_8c02d968
-          .DATA.L _FUN_8c020528
+          .DATA.L _DriveCueInit_8c020528
           .DATA.L _task_8c012f9c
           .DATA.L _FadeStartRunTransition_8c0228a2
           .DATA.L _var_currentCourse_8c1bb868

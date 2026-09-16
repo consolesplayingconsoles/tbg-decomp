@@ -252,7 +252,7 @@ data, so it does not fit the request role. Its purpose is still unconfirmed.
   a signal reminder (phase 1, gated on the signal still being on), and the
   next-stop indicator (phase 2) as the bus moves through the stop cycle.
 - **The chime.** Two independent chime systems live in `DriveCueTask_8c020214`
-  (`020214.c`), operating on `DriveCueState var_8c2264b8` (`sectionB.h`):
+  (`020214.c`), operating on `DriveCueState var_driveCueState_8c2264b8` (`sectionB.h`):
   - `stopAnnounceState_0x08`/`stopAnnounceTimer_0x10` is the **driver's own
     stop announcement** -- confirmed player-initiated: armed by
     `nearStopLatch_0x0c`, documented at that field in `sectionB.h` as set by
