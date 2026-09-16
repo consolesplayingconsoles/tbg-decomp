@@ -32,7 +32,7 @@
           .EXPORT     _albumDrawGrid_8c01d290
           .EXPORT     _albumMenuTask_8c01d300
           .EXPORT     _init_albumResourceGroup_8c045160
-          .EXPORT     _init_8c045170
+          .EXPORT     _init_slotCursorPos_8c045170
           .AENDI
           .SECTION     P, CODE, ALIGN=4
 _albumDrawGrid_8c01d290:
@@ -493,7 +493,7 @@ LAB_8c01d596:
           NOP
 LP_GEN_25803:
           .DATA.W H'270F ; H'8C01D5E6
-          .DATA.L _init_8c045170 ; H'8C01D5E8
+          .DATA.L _init_slotCursorPos_8c045170 ; H'8C01D5E8
           .DATA.L H'40C00000 ; H'8C01D5EC
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01D5F0
           .DATA.L _sdMidiPlay ; H'8C01D5F4
@@ -688,7 +688,7 @@ LP_GEN_43132:
           .DATA.L _albumMenuTask_8c01d300 ; H'8C01D768
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01D76C
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01D770
-          .DATA.L _init_8c045170 ; H'8C01D774
+          .DATA.L _init_slotCursorPos_8c045170 ; H'8C01D774
           .DATA.L _var_progress_8c1ba1cc ; H'8C01D778
 LAB_8c01d77c:
           MOV         #H'1,R3
@@ -767,7 +767,7 @@ _init_albumResourceGroup_8c045160:        ; from defines
           .DATA.L      _const_8c0387e4
           .DATA.L      _const_8c0387f0
           .DATA.L      H'06
-_init_8c045170:        ; from defines
+_init_slotCursorPos_8c045170:        ; from defines
           .DATA.L      H'43130000
           .DATA.L      H'43260000
           .DATA.L      H'43978000

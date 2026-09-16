@@ -14,7 +14,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
 
-        // First received letter is slot 2 at init_8c045170[2] = (100, 200).
+        // First received letter is slot 2 at init_slotCursorPos_8c045170[2] = (100, 200).
         $this->seedLetters([0, 0, 1, 0, 0, 1]);
         $this->seedCursorTarget(2, 100.0, 200.0);
 
@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->expectResourceSetup();
     }
 
-    public function test_no_letters_leaves_task_pending_flag_clear(): void
+    public function test_no_letters_leaves_task_flag_clear(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
@@ -72,7 +72,7 @@ return new class extends TestCase {
 
     private function seedCursorTarget(int $slot, float $x, float $y): void
     {
-        $base = $this->addressOf('_init_8c045170') + $slot * 8;
+        $base = $this->addressOf('_init_slotCursorPos_8c045170') + $slot * 8;
         $this->initUint32($base + 0, fdec($x));
         $this->initUint32($base + 4, fdec($y));
     }

@@ -65,7 +65,7 @@ STATIC ResourceGroupInfo init_albumResourceGroup_8c045160 = {
     6
 };
 
-STATIC NJS_POINT2 init_8c045170[6] = {
+STATIC NJS_POINT2 init_slotCursorPos_8c045170[6] = {
     { 147.0, 166.0 },
     { 303.0, 166.0 },
     { 455.0, 166.0 },
@@ -75,25 +75,18 @@ STATIC NJS_POINT2 init_8c045170[6] = {
 };
 
 
-/* ====================
- * Forward Declarations
- * ====================
- */
-
-STATIC void albumDrawGrid_8c01d290(void);
-
 /* =========
  * Functions
  * =========
  */
 
-/* Draws the received-letter icons over the album grid, then the grid frame. */
+/* One icon per received letter, then the page they sit on -- drawn last, but
+ * furthest back. */
 STATIC void albumDrawGrid_8c01d290(void)
 {
     int i;
     int spriteNo = 1;
 
-    /* State 5 (viewing a letter) hides the grid. */
     if (var_menuState_8c1bc7a8.state_0x18 == ALBUM_STATE_VIEWING) {
         return;
     }
@@ -160,8 +153,8 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
             if (slot < 3) {
                 /* Top row (slots 0..2) */
                 if (press & PDD_DGT_KD) {
-                    /* Move to the received letter in the bottom row whose
-                     * column is closest to the one below us. */
+                    /* Nearest received letter in the bottom row by column,
+                     * ties to the leftmost; none there, stay put. */
                     int target = slot + 3;
                     int i;
                     for (i = 3; i < 6; i++) {
@@ -192,8 +185,8 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
             } else {
                 /* Bottom row (slots 3..5) */
                 if (press & PDD_DGT_KU) {
-                    /* Move to the received letter in the top row whose column
-                     * is closest to the one above us. */
+                    /* Nearest received letter in the top row by column, ties
+                     * to the leftmost; none there, stay put. */
                     int target = slot - 3;
                     int i;
                     for (i = 0; i < 3; i++) {
@@ -224,14 +217,14 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
             }
 
             if (slot != var_menuState_8c1bc7a8.selected_0x38) {
-                /* Selection moved: lerp the cursor to the new slot. */
+                /* Glide the cursor onto the new slot over 6 frames. */
                 CHANGE_STATE(ALBUM_STATE_ANIMATING);
-                var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.x = init_8c045170[slot].x;
-                var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.y = init_8c045170[slot].y;
+                var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.x = init_slotCursorPos_8c045170[slot].x;
+                var_menuState_8c1bc7a8.pos.cursor.cursorTarget_0x28.y = init_slotCursorPos_8c045170[slot].y;
                 var_menuState_8c1bc7a8.cursorVelocity_0x30.x =
-                    (init_8c045170[slot].x - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x) / 6.0;
+                    (init_slotCursorPos_8c045170[slot].x - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x) / 6.0;
                 var_menuState_8c1bc7a8.cursorVelocity_0x30.y =
-                    (init_8c045170[slot].y - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y) / 6.0;
+                    (init_slotCursorPos_8c045170[slot].y - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y) / 6.0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
             } else if (press & PDD_DGT_TA) {
                 /* Open the selected letter. */
@@ -291,6 +284,8 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                     return;
                 }
                 LOG_DEBUG(("[ALBUM] albumMenuTask_8c01d300: fade-out complete, switching screen\n"));
+                /* Course-menu cursor column/row: button 1*5 + 1 is the
+                 * album's own button, so it is selected on return. */
                 var_menuState_8c1bc7a8.field_0x3c = 1;
                 var_menuState_8c1bc7a8.field_0x40 = 1;
                 var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = 0.0;
@@ -306,8 +301,8 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
     var_menuState_8c1bc7a8.selected_0x38 = slot;
 }
 
-/* Album task entry: reset to INIT, park the cursor on the first received
- * letter, then request the album's resource group. */
+/* Reset to INIT, park the cursor on the first received letter, then request
+ * the album's resource group. */
 void AlbumSwitchFromTask_8c01d6e2(Task *task)
 {
     int i;
@@ -319,14 +314,15 @@ void AlbumSwitchFromTask_8c01d6e2(Task *task)
 
     for (i = 0; i < 6; i++) {
         if (var_progress_8c1ba1cc.letters_0x2c[i]) {
-            var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = init_8c045170[i].x;
-            var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y = init_8c045170[i].y;
+            var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = init_slotCursorPos_8c045170[i].x;
+            var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y = init_slotCursorPos_8c045170[i].y;
             var_menuState_8c1bc7a8.selected_0x38 = i;
             break;
         }
     }
 
-    /* field_0x08 tells FADE_IN whether a letter is available (-> IDLE vs DIALOG). */
+    /* FADE_IN reads field_0x08: with no letters at all it goes to DIALOG
+     * instead of the grid. */
     task->field_0x08 = i < 6;
 
     CourseMenuFreeResourceGroup_8c0185c4(&var_menuState_8c1bc7a8.resourceGroupA_0x00);

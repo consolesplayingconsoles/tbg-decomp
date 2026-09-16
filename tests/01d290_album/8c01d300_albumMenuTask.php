@@ -54,7 +54,7 @@ return new class extends TestCase {
         $this->singleCall('_albumMenuTask_8c01d300')->with(0xbebacafe, 0)->run();
     }
 
-    public function test_fade_in_with_pending_goes_to_idle()
+    public function test_fade_in_with_letters_goes_to_idle()
     {
         $this->resolveSymbols();
         $this->seedState(1);
@@ -72,7 +72,7 @@ return new class extends TestCase {
         $this->singleCall('_albumMenuTask_8c01d300')->with($task, 0)->run();
     }
 
-    public function test_fade_in_without_pending_goes_to_dialog()
+    public function test_fade_in_without_letters_goes_to_dialog()
     {
         $this->resolveSymbols();
         $this->seedState(1);
@@ -152,7 +152,7 @@ return new class extends TestCase {
         $this->seedPress(0x80); // KR
         $this->seedLetters([0, 1, 0, 0, 0, 0]);
         $this->seedCursor(0.0, 0.0);
-        // init_8c045170[1] = (60, 66)
+        // init_slotCursorPos_8c045170[1] = (60, 66)
         $this->seedCursorTarget(1, 60.0, 66.0);
 
         $this->shouldWriteLong($this->m(0x18), 4);
@@ -177,7 +177,7 @@ return new class extends TestCase {
         // Bottom row letters at slots 3 and 5; both 1 away from target col 4 -> pick 3.
         $this->seedLetters([0, 0, 0, 1, 0, 1]);
         $this->seedCursor(0.0, 0.0);
-        // init_8c045170[3] = (300, 180)
+        // init_slotCursorPos_8c045170[3] = (300, 180)
         $this->seedCursorTarget(3, 300.0, 180.0);
 
         $this->shouldWriteLong($this->m(0x18), 4);
@@ -202,7 +202,7 @@ return new class extends TestCase {
         // Top row letters at slots 0 and 2; both 1 away from target col 1 -> pick 0.
         $this->seedLetters([1, 0, 1, 0, 1, 0]);
         $this->seedCursor(0.0, 0.0);
-        // init_8c045170[0] = (6, 12)
+        // init_slotCursorPos_8c045170[0] = (6, 12)
         $this->seedCursorTarget(0, 6.0, 12.0);
 
         $this->shouldWriteLong($this->m(0x18), 4);
@@ -343,7 +343,7 @@ return new class extends TestCase {
         $this->singleCall('_albumMenuTask_8c01d300')->with(0xbebacafe, 0)->run();
     }
 
-    public function test_fade_out_waits_for_resource_release()
+    public function test_fade_out_waits_while_sound_flag_set()
     {
         $this->resolveSymbols();
         $this->seedState(6);
@@ -417,7 +417,7 @@ return new class extends TestCase {
 
     private function seedCursorTarget(int $slot, float $x, float $y): void
     {
-        $base = $this->addressOf('_init_8c045170') + $slot * 8;
+        $base = $this->addressOf('_init_slotCursorPos_8c045170') + $slot * 8;
         $this->initUint32($base + 0, fdec($x));
         $this->initUint32($base + 4, fdec($y));
     }

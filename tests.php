@@ -249,9 +249,9 @@ return [
         ],
         [
             "tests" => [
-                "tests/01d290_album/1d290_AlbumDrawGrid.php",
-                "tests/01d290_album/1d300_AlbumMenuTask.php",
-                "tests/01d290_album/1d6e2_AlbumSwitchFromTask.php",
+                "tests/01d290_album/8c01d290_albumDrawGrid.php",
+                "tests/01d290_album/8c01d300_albumMenuTask.php",
+                "tests/01d290_album/8c01d6e2_AlbumSwitchFromTask.php",
             ],
             "objects" => [
                 "build/output_test/src/asm/decompiled/01d290_album.obj",
