@@ -228,7 +228,7 @@ segment's waiting passengers are spawned only when it is flagged active
 player's side "someone is waiting" and "the stop is due" are the same
 thing, even though the true cause is this precomputed flag, not a live
 request. `StopAreaRecord.ukn_0x00` (a per-route physical stop-location
-record, `var_stopAreaTable_8c1bb870`, `02c884_bus_stop.h`) was checked as a
+record: the course's `lineBus_0x08` table, `02c884_bus_stop.h`) was checked as a
 candidate for a live per-stop request flag; no reader or writer exists in
 decompiled code, and unlike `var_8c2286a4` (a per-run scratch array reset
 every course) it belongs to a table that reads as static per-route load

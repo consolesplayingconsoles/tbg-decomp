@@ -25,16 +25,16 @@ return new class extends TestCase {
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
 
         $point = $this->addressOf('_var_groundQueryPoint_8c1bc460');
         $this->initUint32($point + 0x0, fdec(1.0)); // x
         $this->initUint32($point + 0x4, fdec(2.0)); // y
         $this->initUint32($point + 0x8, fdec(3.0)); // z
 
-        $primaryGrid = $this->addressOf('_var_groundGridPrimary_8c1bb890');
-        $fallbackGrid = $this->addressOf('_var_groundGridFallback_8c1bb86c');
-        $this->initUint32($primaryGrid, 0x11111111);
-        $this->initUint32($fallbackGrid, 0x22222222);
+        $course = $this->addressOf('_var_currentCourse_8c1bb868');
+        $this->initUint32($course + 0x28, 0x11111111); // atariHum_0x28
+        $this->initUint32($course + 0x04, 0x22222222); // atariBus_0x04
 
         $this->call('_snapPointToGround_8c02840c');
 
@@ -62,16 +62,16 @@ return new class extends TestCase {
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
 
         $point = $this->addressOf('_var_groundQueryPoint_8c1bc460');
         $this->initUint32($point + 0x0, fdec(1.0)); // x
         $this->initUint32($point + 0x4, fdec(2.0)); // y
         $this->initUint32($point + 0x8, fdec(3.0)); // z
 
-        $primaryGrid = $this->addressOf('_var_groundGridPrimary_8c1bb890');
-        $fallbackGrid = $this->addressOf('_var_groundGridFallback_8c1bb86c');
-        $this->initUint32($primaryGrid, 0x11111111);
-        $this->initUint32($fallbackGrid, 0x22222222);
+        $course = $this->addressOf('_var_currentCourse_8c1bb868');
+        $this->initUint32($course + 0x28, 0x11111111); // atariHum_0x28
+        $this->initUint32($course + 0x04, 0x22222222); // atariBus_0x04
 
         $this->call('_snapPointToGround_8c02840c');
 

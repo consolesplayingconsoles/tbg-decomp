@@ -2,11 +2,10 @@
           .IMPORT     _GeomDistanceXZ_8c02081c
           .IMPORT     _TrafficLookaheadScan_8c02dfca
           .IMPORT     _var_playerBus_8c1bbd9c
-          .IMPORT     _var_8c1bb878
+          .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeAttrGrid_8c228b3c
           .IMPORT     _AttrQueryFindConvexPolygon_8c02e51c
           .IMPORT     _var_driveCueState_8c2264b8
-          .IMPORT     _var_8c1bb888
           .IMPORT     _ObjectsGetTrafficSignalFrame_8c028900
           .IMPORT     _TrafficPathScanJunctionOccupied_8c02f28a
           .IMPORT     _ObjectsFUN_8c028998
@@ -299,12 +298,12 @@ LP_GEN_24120:
           .DATA.L H'40A00000 ; H'8C025D8C
           .DATA.L _TrafficLookaheadScan_8c02dfca ; H'8C025D90
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C025D94
-          .DATA.L _var_8c1bb878 ; H'8C025D98
+          .DATA.L _var_currentCourse_8c1bb868+H'10 ; H'8C025D98 (attrBus_0x10)
           .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C025D9C
           .DATA.L _AttrQueryFindConvexPolygon_8c02e51c ; H'8C025DA0
           .DATA.L H'0F000000 ; H'8C025DA4
           .DATA.L _var_driveCueState_8c2264b8+H'18 ; H'8C025DA8 (firstChimeArmed_0x18)
-          .DATA.L _var_8c1bb888 ; H'8C025DAC
+          .DATA.L _var_currentCourse_8c1bb868+H'20 ; H'8C025DAC (attrCpu_0x20)
 LAB_8c025db0:
           MOV.W       LP_GEN_90300,R0
           MOV         #H'10,R3

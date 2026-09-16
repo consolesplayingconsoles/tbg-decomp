@@ -10,8 +10,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * collects the segment's candidate stop spots (segment record's list at +8)
  * whose var_8c2286a4 active-stop flag is set into a scratch list, then
  * randomly picks 1-16 of them without replacement into var_waitingPassengers_8c228798,
- * positioned along the picked stop's spawn-area strip (var_8c1bb894 entry
- * selected by the segment record's field_0x06) with per-passenger jitter --
+ * positioned along the picked stop's spawn-area strip (the course's lineHum_0x2c
+ * table entry selected by the segment record's field_0x06) with per-passenger jitter --
  * except on ROUTE_OME, which skips the jitter.
  */
 return new class extends TestCase {
@@ -19,12 +19,11 @@ return new class extends TestCase {
     {
         $this->setSize('_var_waitingPassengerCount_8c228794', 4);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
-        $this->setSize('_var_groundGridFallback_8c1bb86c', 4);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
         $this->setSize('_var_8c228900', 0xc);
         $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_8c2286a4', 96);
-        $this->setSize('_var_8c1bb894', 4);
         $this->setSize('_var_8c22890c', 4);
         $this->setSize('_var_waitingPassengers_8c228798', 0x140);
 
@@ -69,8 +68,7 @@ return new class extends TestCase {
         $this->initFloat($point + 0x4, 6.0);
         $this->initFloat($point + 0x8, 7.0);
 
-        $fallbackGrid = $this->addressOf('_var_groundGridFallback_8c1bb86c');
-        $this->initUint32($fallbackGrid, 0x22222222);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, 0x22222222); // atariBus_0x04
 
         $nextSeg = $this->addressOf('_var_nextStopSegment_8c228710');
         $this->initUint32($nextSeg, 3);
@@ -125,8 +123,7 @@ return new class extends TestCase {
         $this->initFloat($point + 0x4, 6.0);
         $this->initFloat($point + 0x8, 7.0);
 
-        $fallbackGrid = $this->addressOf('_var_groundGridFallback_8c1bb86c');
-        $this->initUint32($fallbackGrid, 0x22222222);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, 0x22222222); // atariBus_0x04
 
         $nextSeg = $this->addressOf('_var_nextStopSegment_8c228710');
         $this->initUint32($nextSeg, 3);
@@ -158,11 +155,11 @@ return new class extends TestCase {
         $this->initFloat($area + 0xc, 1.0);
         $this->initFloat($area + 0x10, 2.0);
 
-        // var_8c1bb894 holds a pointer to a table of 12-byte records;
+        // lineHum_0x2c holds a pointer to a table of 12-byte records;
         // record[0]'s field_0x00 is the spawn-area pointer.
         $recordsTable = $this->alloc(12);
         $this->initUint32($recordsTable, $area);
-        $this->initUint32($this->addressOf('_var_8c1bb894'), $recordsTable);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x2c, $recordsTable); // lineHum_0x2c
 
         $candidates = $this->alloc(0x40);
 
@@ -230,8 +227,7 @@ return new class extends TestCase {
         $this->initFloat($point + 0x4, 6.0);
         $this->initFloat($point + 0x8, 7.0);
 
-        $fallbackGrid = $this->addressOf('_var_groundGridFallback_8c1bb86c');
-        $this->initUint32($fallbackGrid, 0x22222222);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, 0x22222222); // atariBus_0x04
 
         $nextSeg = $this->addressOf('_var_nextStopSegment_8c228710');
         $this->initUint32($nextSeg, 3);
@@ -259,7 +255,7 @@ return new class extends TestCase {
 
         $recordsTable = $this->alloc(12);
         $this->initUint32($recordsTable, $area);
-        $this->initUint32($this->addressOf('_var_8c1bb894'), $recordsTable);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x2c, $recordsTable); // lineHum_0x2c
 
         $candidates = $this->alloc(0x40);
 
@@ -337,8 +333,7 @@ return new class extends TestCase {
         $this->initFloat($point + 0x4, 6.0);
         $this->initFloat($point + 0x8, 7.0);
 
-        $fallbackGrid = $this->addressOf('_var_groundGridFallback_8c1bb86c');
-        $this->initUint32($fallbackGrid, 0x22222222);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, 0x22222222); // atariBus_0x04
 
         $nextSeg = $this->addressOf('_var_nextStopSegment_8c228710');
         $this->initUint32($nextSeg, 3);
@@ -368,7 +363,7 @@ return new class extends TestCase {
 
         $recordsTable = $this->alloc(12);
         $this->initUint32($recordsTable, $area);
-        $this->initUint32($this->addressOf('_var_8c1bb894'), $recordsTable);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x2c, $recordsTable); // lineHum_0x2c
 
         $candidates = $this->alloc(0x40);
 

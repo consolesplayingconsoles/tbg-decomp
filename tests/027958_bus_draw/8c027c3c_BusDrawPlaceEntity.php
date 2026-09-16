@@ -29,8 +29,7 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
-        $this->setSize('_var_groundGridFallback_8c1bb86c', 4);
-        $this->setSize('_var_groundGridCpu_8c1bb880', 4);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
         $this->setSize('_FadeCmdPushCall2_8c022420', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_VehicleModelPlace_8c020594', 4);
@@ -310,8 +309,8 @@ return new class extends TestCase {
 
         $busGrid = $this->alloc(4);
         $cpuGrid = $this->alloc(4);
-        $this->initUint32($this->addressOf('_var_groundGridFallback_8c1bb86c'), $busGrid);
-        $this->initUint32($this->addressOf('_var_groundGridCpu_8c1bb880'), $cpuGrid);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, $busGrid); // atariBus_0x04
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x18, $cpuGrid); // atariCpu_0x18
 
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 

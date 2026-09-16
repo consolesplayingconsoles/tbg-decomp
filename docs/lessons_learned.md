@@ -596,16 +596,17 @@ Never register a test in `tests.php` for a function whose body is not live.
 **Found in:** `026710_traffic` (2026-08-28)
 
 `TrafficMarkSignalIdsInUse_8c026dcc` reads a standalone Ghidra global `PTR_PTR_8c1bb88c`, and
-`sectionB.src` happens to have an unexported 4-byte gap at exactly that
-address (between `var_8c1bb888`'s 8-byte reservation and
-`var_groundGridPrimary_8c1bb890`) -- a plausible-looking match for the
-"invented base+offset global" pattern. It was the wrong base: the
-dual-object test's `.src` object failed with `Trying to read from
-unresolved relocation _var_currentCourse_8c1bb868` once `var_8c1bb888` was
-wired up and resolvable, proving the real read targets a completely
-different, already-known struct 0x24 bytes in -- `var_currentCourse_8c1bb868
-.macCpu1_0x24` (`CurrentCourse`, `013ae8_route_load.h`), whose asset-file
-field doubles as a per-scene-object-type table pointer once loaded and
+`sectionB.src` then had an unexported 4-byte gap at exactly that address
+(between the reservation for `var_8c1bb888` and the one for
+`var_groundGridPrimary_8c1bb890`, both since folded away) -- a
+plausible-looking match for the "invented base+offset global" pattern. It
+was the wrong base: the dual-object test's `.src` object failed with
+`Trying to read from unresolved relocation _var_currentCourse_8c1bb868`
+once `var_8c1bb888` was wired up and resolvable, proving the real read
+targets a completely different, already-known struct 0x24 bytes in --
+`var_currentCourse_8c1bb868.macCpu1_0x24` (`CurrentCourse`,
+`013ae8_route_load.h`), whose asset-file field doubles as a
+per-scene-object-type table pointer once loaded and
 `TrafficRelocatePlacementTable_8c026da4`-relocated.
 
 **Fix:** an address falling inside a plausible-looking gap is only a

@@ -56,7 +56,8 @@ return new class extends TestCase {
         // Table with no entries: first entry's type terminates immediately.
         $table = $this->alloc(0xe * 4);
         $this->initUint32($table + 0x00, 0);
-        $this->initUint32($this->addressOf('_var_trafficSignalDefs_8c1bb8a0'), $table);
+        $course = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($course + 0x38, $table); // macSignal_0x38
 
         $flags = $this->alloc(4);
         $this->initUint32($flags, 0);
@@ -82,7 +83,8 @@ return new class extends TestCase {
         $this->initUint32($table + 0x04, 2); // id
         $this->initUint32($table + 0x08, 0); // linked id
         $this->initUint32($table + 0xe * 4, 0); // terminator
-        $this->initUint32($this->addressOf('_var_trafficSignalDefs_8c1bb8a0'), $table);
+        $course = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($course + 0x38, $table); // macSignal_0x38
 
         $flags = $this->alloc(3 * 4);
         $this->initUint32($flags + 0x00, 0);
@@ -109,7 +111,8 @@ return new class extends TestCase {
         $this->initUint32($table + 0x04, 1); // id
         $this->initUint32($table + 0x08, 0); // linked id
         $this->initUint32($table + 0xe * 4, 0); // terminator
-        $this->initUint32($this->addressOf('_var_trafficSignalDefs_8c1bb8a0'), $table);
+        $course = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($course + 0x38, $table); // macSignal_0x38
 
         $flags = $this->alloc(2 * 4);
         $this->initUint32($flags + 0x00, 0);
@@ -163,7 +166,8 @@ return new class extends TestCase {
         $this->initUint32($e1 + 0x30, 20); // durations[1]
         $this->initUint32($e1 + 0x34, 30); // durations[2]
         $this->initUint32($table + 2 * 0xe * 4, 0); // terminator
-        $this->initUint32($this->addressOf('_var_trafficSignalDefs_8c1bb8a0'), $table);
+        $course = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($course + 0x38, $table); // macSignal_0x38
 
         $flags = $this->alloc(4 * 4);
         for ($i = 0; $i < 4; $i++) {
@@ -266,7 +270,8 @@ return new class extends TestCase {
         $this->initUint32($e1 + 0x30, 20);
         $this->initUint32($e1 + 0x34, 30);
         $this->initUint32($table + 2 * 0xe * 4, 0);
-        $this->initUint32($this->addressOf('_var_trafficSignalDefs_8c1bb8a0'), $table);
+        $course = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($course + 0x38, $table); // macSignal_0x38
 
         $flags = $this->alloc(4 * 4);
         for ($i = 0; $i < 4; $i++) {
@@ -378,7 +383,8 @@ return new class extends TestCase {
         $this->initUint32($e1 + 0x30, 20);
         $this->initUint32($e1 + 0x34, 30);
         $this->initUint32($table + 2 * 0xe * 4, 0);
-        $this->initUint32($this->addressOf('_var_trafficSignalDefs_8c1bb8a0'), $table);
+        $course = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($course + 0x38, $table); // macSignal_0x38
 
         $flags = $this->alloc(4 * 4);
         for ($i = 0; $i < 4; $i++) {
@@ -620,7 +626,8 @@ return new class extends TestCase {
         $this->initUint32($eB + 0x04, 2);
         $this->initUint32($eB + 0x08, 0);
         $this->initUint32($table + 2 * 0xe * 4, 0);
-        $this->initUint32($this->addressOf('_var_trafficSignalDefs_8c1bb8a0'), $table);
+        $course = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($course + 0x38, $table); // macSignal_0x38
 
         $flags = $this->alloc(3 * 4);
         for ($i = 0; $i < 3; $i++) {
@@ -712,7 +719,8 @@ return new class extends TestCase {
         $this->initUint32($eB + 0x04, 2);
         $this->initUint32($eB + 0x08, 0);
         $this->initUint32($table + 2 * 0xe * 4, 0);
-        $this->initUint32($this->addressOf('_var_trafficSignalDefs_8c1bb8a0'), $table);
+        $course = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($course + 0x38, $table); // macSignal_0x38
 
         $flags = $this->alloc(3 * 4);
         for ($i = 0; $i < 3; $i++) {

@@ -34,7 +34,7 @@ typedef struct TrafficSignal {
     struct TrafficSignal *attachedTo_0xd0;
 } TrafficSignal;
 
-/* One entry of the var_trafficSignalDefs_8c1bb8a0 table, terminated by a zero
+/* One entry of the course's macSignal_0x38 table, terminated by a zero
  * type_0x00. A type-1 entry is a signal head in its own right, running its own
  * lamp cycle; types 2/3/4 are attachments naming the type-1 entry they hang off.
  * Each rot/pos pair is only applied when its position is non-zero. */

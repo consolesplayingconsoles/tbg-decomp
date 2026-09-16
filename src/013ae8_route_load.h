@@ -84,6 +84,9 @@ typedef struct {
 typedef struct {
     int courseId_0x00;
     void *atariBus_0x04;
+    /* also the base of an 8-byte-stride stop-area table, indexed by a segment
+     * record's stopAreaId_0x02 (BusStopGetStopArea_8c02cd7a, 02c884); each slot
+     * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
     void *lineBus_0x08;
     void *ukn_0x0c;      /* not a filename: a table pointer copied from the config, and not owned */
     void *attrBus_0x10;
@@ -96,10 +99,14 @@ typedef struct {
      * CourseSegment.sceneObjectTypeIds_0x14 entry (see TrafficMarkSignalIdsInUse_8c026dcc, 026710) */
     void *macCpu1_0x24;
     void *atariHum_0x28;
-    void *lineHum_0x2c;  /* the one asset kept as a model rather than a texlist */
+    /* the one asset kept as a model rather than a texlist; also the base of a
+     * 12-byte-stride stop spawn-area table, indexed by a segment record's
+     * ukn_0x06 (pickWaitingPassengers_8c02c8ae, 02c884), whose records start
+     * with a spawn-area pointer. */
+    void *lineHum_0x2c;
     void *macHumG0_0x30;
     void *macHumM0_0x34;
-    void *macSignal_0x38;
+    void *macSignal_0x38; /* 028258 reads it as a TrafficSignalDef table, terminated by type_0x00 == 0 */
     /* road_x, machi_x (town), uv_x, shadow_x -- Ome splits uv into uv1/uv2,
      * Shinjuku and Wangan repeat shadow_x for the model-only 5th layer.
      * Consumed by TileStreamInit_8c02175a. */

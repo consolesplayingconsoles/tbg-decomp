@@ -139,19 +139,9 @@ return new class extends TestCase {
         $this->shouldWriteLong(0x30004000 + 0x08, $count);
         $this->shouldWriteLong(0x30004000 + 0x0c, 0);
 
-        // The real asm reads these grids as offsets from
-        // var_currentCourse_8c1bb868's own address (a linker coincidence of
-        // adjacent layout: they're CurrentCourse's atariBus_0x04 and
-        // atariHum_0x28 fields under a separate name). Reserve the whole
-        // struct and pin the two grid symbols at their real relative
-        // offsets so the test mirrors that layout.
-        $courseAddr = $this->setSize('_var_currentCourse_8c1bb868', 0x64);
-        $this->rellocate('_var_groundGridFallback_8c1bb86c', $courseAddr + 0x04);
-        $this->rellocate('_var_groundGridPrimary_8c1bb890', $courseAddr + 0x28);
-        $primaryGrid = $this->addressOf('_var_groundGridPrimary_8c1bb890');
-        $fallbackGrid = $this->addressOf('_var_groundGridFallback_8c1bb86c');
-        $this->initUint32($primaryGrid, 0x11111111);
-        $this->initUint32($fallbackGrid, 0x22222222);
+        $courseAddr = $this->setSize('_var_currentCourse_8c1bb868', 0x50);
+        $this->initUint32($courseAddr + 0x28, 0x11111111); // atariHum_0x28
+        $this->initUint32($courseAddr + 0x04, 0x22222222); // atariBus_0x04
         $fallbackHeight = 99.0;
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x0f8), fdec8c029920($fallbackHeight));
 

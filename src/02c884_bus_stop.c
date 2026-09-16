@@ -65,7 +65,7 @@ STATIC void advanceStopSegment_8c02ccae(void)
 StopAreaRecord *BusStopGetStopArea_8c02cd7a(int segmentIndex)
 {
     CourseSegment *seg = BusStopGetSegment_8c02cd6a(segmentIndex);
-    return *(StopAreaRecord **)((char *)var_stopAreaTable_8c1bb870 + seg->stopAreaId_0x02 * 8);
+    return *(StopAreaRecord **)((char *)var_currentCourse_8c1bb868.lineBus_0x08 + seg->stopAreaId_0x02 * 8);
 }
 
 /* The same njArcTan2 angle is stored twice in different forms: var_8c2288fc
@@ -110,7 +110,7 @@ void BusStopFreeTaskGroup_8c02ca96(void)
  * snaps its ground position, collects the segment's candidate stop spots that
  * have an active-stop flag (var_8c2286a4) into a scratch list, then randomly
  * picks 1-16 of them without replacement into var_waitingPassengers_8c228798, positioned along
- * the stop's spawn-area strip (var_8c1bb894) with per-passenger jitter --
+ * the stop's spawn-area strip (the course's lineHum_0x2c table) with per-passenger jitter --
  * except on ROUTE_OME, which skips the jitter. */
 STATIC void pickWaitingPassengers_8c02c8ae(void)
 {
@@ -127,7 +127,7 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
     float counter;
 
     var_waitingPassengerCount_8c228794 = 0;
-    var_activeGroundGrid_8c2264d4 = var_groundGridFallback_8c1bb86c;
+    var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
 
     GroundQueryFindPolygon_8c020914(var_8c228900.x, var_8c228900.y, var_8c228900.z, &ground);
     GroundProbeInterpolateHeight_8c020f7e(&ground, (float *)&var_8c228900);
@@ -148,7 +148,7 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
         }
 
         if (candidateCount != 0) {
-            var_8c22890c = *(char **)((char *)var_8c1bb894 + seg->ukn_0x06 * 0xc);
+            var_8c22890c = *(char **)((char *)var_currentCourse_8c1bb868.lineHum_0x2c + seg->ukn_0x06 * 0xc);
 
             var_waitingPassengerCount_8c228794 = AsqGetRandomInRangeA_8c012178(candidateCount) + 1;
             if (var_waitingPassengerCount_8c228794 > MAX_WAITING) {

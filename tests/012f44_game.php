@@ -351,6 +351,7 @@ return new class extends TestCase {
     {
         // Resolutions/Bindings
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
 
         /* Stack locals */
         $infoLocal = 0xffffbc;
@@ -411,7 +412,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
-        $this->shouldWriteTo('_var_groundGridFallback_8c1bb86c', -1);
+        $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
@@ -503,6 +504,7 @@ return new class extends TestCase {
     {
         // Resolutions/Bindings
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
 
         /* Stack locals */
         $infoLocal = 0xffffbc;
@@ -564,7 +566,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
-        $this->shouldWriteTo('_var_groundGridFallback_8c1bb86c', -1);
+        $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
@@ -656,6 +658,7 @@ return new class extends TestCase {
     {
         // Resolutions/Bindings
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
 
         /* Stack locals */
         $infoLocal = 0xffffbc;
@@ -717,7 +720,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
-        $this->shouldWriteTo('_var_groundGridFallback_8c1bb86c', -1);
+        $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
@@ -809,6 +812,7 @@ return new class extends TestCase {
     {
         // Resolutions/Bindings
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
 
         /* Stack locals */
         $infoLocal = 0xffffbc;
@@ -870,7 +874,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
-        $this->shouldWriteTo('_var_groundGridFallback_8c1bb86c', -1);
+        $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
         $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);

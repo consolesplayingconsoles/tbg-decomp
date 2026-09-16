@@ -286,7 +286,7 @@ void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float accel)
             /* An entity being pushed out of a collision is probed against the
              * bus grid instead of its own. */
             if (entity->driveState_0x2b4 == 1) {
-                var_activeGroundGrid_8c2264d4 = var_groundGridFallback_8c1bb86c;
+                var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
             }
 
             probe(entity->probeSideAX_0x118, entity->probeSideAY_0x11c,
@@ -303,7 +303,7 @@ void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float accel)
             GroundProbeInterpolateHeight_8c020f7e(probeC, &entity->frontPointX_0x100);
 
             if (entity->driveState_0x2b4 == 1) {
-                var_activeGroundGrid_8c2264d4 = var_groundGridCpu_8c1bb880;
+                var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariCpu_0x18;
             }
 
             VehicleModelPlace_8c020594(&entity->worldMatrix_0x84, (BusState *)entity);

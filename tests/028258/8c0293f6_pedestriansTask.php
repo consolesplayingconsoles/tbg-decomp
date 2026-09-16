@@ -102,14 +102,14 @@ return new class extends TestCase {
     }
 
     /** Common gate + ground-grid + demo-entry preconditions that never change. */
-    private function setupCommon(int $groupCount = 0): array
+    private function setupCommon(int $groupCount = 0): void
     {
         $this->setSize('_var_8c2285c4', 0x14);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
         $this->initUint32($this->addressOf('_var_8c2285c4'), 1);
 
-        $grid = $this->addressOf('_var_groundGridPrimary_8c1bb890');
-        $this->initUint32($grid, 0x11111111);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x28, 0x11111111); // atariHum_0x28
 
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x3bc), 0);
 
@@ -129,8 +129,6 @@ return new class extends TestCase {
         // space (they're merely adjacent in real memory, not overlapping).
         $this->setSize('_var_crosswalkTable_8c228248', 0x20);
         $this->setSize('_var_crosswalkTableEnd_8c228244', 4);
-
-        return ['grid' => $grid];
     }
 
     /** Mocks the two njCalcPoint calls and asserts their scratch-point writes. */

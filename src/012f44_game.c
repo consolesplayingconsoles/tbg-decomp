@@ -382,7 +382,7 @@ void GameInit_8c0134ec() {
     TaskClear_8c014a9c(var_tasks_8c1bac28, 0x40);
     TaskClear_8c014a9c(var_tasks_8c1bb448, 0x20);
 
-    var_groundGridFallback_8c1bb86c = (void *) -1;
+    var_currentCourse_8c1bb868.atariBus_0x04 = (void *) -1;
 
     RouteLoadClearModelSlots_8c013bbc(var_routeModelSlots_8c1bbddc, 0x20);
     RouteLoadClearModelSlots_8c013bbc(var_pedestrianAssets_8c1bbfdc, 0x41);

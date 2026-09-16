@@ -4566,22 +4566,21 @@ STATIC void execTrafficSignalGroupTask_8c0283e8(Task *task, void *state)
     }
 }
 
-/* Recomputes var_groundQueryPoint_8c1bc460.y from the ground polygon under its (x, z),
- * trying the var_groundGridPrimary_8c1bb890 grid first and falling back to var_groundGridFallback_8c1bb86c. */
+/* Recomputes var_groundQueryPoint_8c1bc460.y from the ground polygon under its (x, z). */
 STATIC void snapPointToGround_8c02840c(void)
 {
     GroundQueryResult result;
 
-    var_activeGroundGrid_8c2264d4 = var_groundGridPrimary_8c1bb890;
+    var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariHum_0x28;
     GroundQueryFindPolygon_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
     if (result.count_0x0c == 0) {
-        var_activeGroundGrid_8c2264d4 = var_groundGridFallback_8c1bb86c;
+        var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
         GroundQueryFindPolygon_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
     }
     GroundProbeInterpolateHeight_8c020f7e(&result, (float *)&var_groundQueryPoint_8c1bc460);
 }
 
-/* Spawns a task per entry of the var_trafficSignalDefs_8c1bb8a0 table (see
+/* Spawns a task per entry of the course's macSignal_0x38 table (see
  * TrafficSignalDef): first every type-1 entry, then the 2/3/4 attachments, which
  * search the tasks already pushed for the id they name. The task state's
  * tlist_0xb4/model_0xb8 are a var_routeModels_8c1bc3ec pair; the draw callbacks
@@ -4600,7 +4599,7 @@ void ObjectsInitTrafficSignals_8c02845a(void)
     NJS_OBJECT *frame;
 
     maxId = 0;
-    for (def = var_trafficSignalDefs_8c1bb8a0; def->type_0x00 != 0; def++) {
+    for (def = var_currentCourse_8c1bb868.macSignal_0x38; def->type_0x00 != 0; def++) {
         if (maxId < def->id_0x04) {
             maxId = def->id_0x04;
         }
@@ -4610,7 +4609,7 @@ void ObjectsInitTrafficSignals_8c02845a(void)
     var_trafficSignalStates_8c227e28 = syMalloc(allocSize);
     TrafficMarkSignalIdsInUse_8c026dcc(maxId);
 
-    for (def = var_trafficSignalDefs_8c1bb8a0; def->type_0x00 != 0; def++) {
+    for (def = var_currentCourse_8c1bb868.macSignal_0x38; def->type_0x00 != 0; def++) {
         if (def->type_0x00 != 1) {
             var_trafficSignalFrames_8c227e24[def->linkedId_0x08] = 1;
         }
@@ -4634,7 +4633,7 @@ void ObjectsInitTrafficSignals_8c02845a(void)
      * type 2/3/4 branch still writes through whatever it last pointed at. */
     linked = (TrafficSignal *)&var_groundQueryPoint_8c1bc460;
 
-    for (def = var_trafficSignalDefs_8c1bb8a0; def->type_0x00 != 0; def++) {
+    for (def = var_currentCourse_8c1bb868.macSignal_0x38; def->type_0x00 != 0; def++) {
         if (var_trafficSignalFrames_8c227e24[def->id_0x04] == 0 || def->type_0x00 != 1) {
             continue;
         }
@@ -4684,7 +4683,7 @@ void ObjectsInitTrafficSignals_8c02845a(void)
         var_trafficSignalStates_8c227e28[state->id_0x00] = state;
     }
 
-    for (def = var_trafficSignalDefs_8c1bb8a0; def->type_0x00 != 0; def++) {
+    for (def = var_currentCourse_8c1bb868.macSignal_0x38; def->type_0x00 != 0; def++) {
         if (var_trafficSignalFrames_8c227e24[def->id_0x04] == 0 || def->type_0x00 == 1) {
             continue;
         }
@@ -5295,7 +5294,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
         return;
     }
 
-    var_activeGroundGrid_8c2264d4 = var_groundGridPrimary_8c1bb890;
+    var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariHum_0x28;
 
     presetField = var_busState_8c1bb9d0.scenePresetIds_0x3bc & 0xff0000;
     if (task->debounce_0x0c == 0) {
@@ -5593,10 +5592,10 @@ void ObjectsInitBlinkers_8c029920(void)
         var_groundQueryPoint_8c1bc460.x = p->x_0x00;
         var_groundQueryPoint_8c1bc460.z = p->z_0x04;
 
-        var_activeGroundGrid_8c2264d4 = var_groundGridPrimary_8c1bb890;
+        var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariHum_0x28;
         GroundQueryFindPolygon_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
         if (result.count_0x0c == 0) {
-            var_activeGroundGrid_8c2264d4 = var_groundGridFallback_8c1bb86c;
+            var_activeGroundGrid_8c2264d4 = var_currentCourse_8c1bb868.atariBus_0x04;
             GroundQueryFindPolygon_8c020914(var_groundQueryPoint_8c1bc460.x, var_groundQueryPoint_8c1bc460.y, var_groundQueryPoint_8c1bc460.z, &result);
             if (result.count_0x0c != 0) {
                 GroundProbeInterpolateHeight_8c020f7e(&result, (float *)&var_groundQueryPoint_8c1bc460);

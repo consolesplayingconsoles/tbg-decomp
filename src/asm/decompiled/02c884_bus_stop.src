@@ -3,7 +3,7 @@
           .IMPORT     _var_passengerSprite_8c2288d8
           .IMPORT     _init_pedestrianTexAnims_8c04623c
           .IMPORT     _var_waitingPassengerCount_8c228794
-          .IMPORT     _var_groundGridFallback_8c1bb86c
+          .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_8c228900
           .IMPORT     _GroundQueryFindPolygon_8c020914
@@ -12,7 +12,6 @@
           .IMPORT     _syMalloc
           .IMPORT     _var_8c2286a4
           .IMPORT     _var_8c22890c
-          .IMPORT     _var_8c1bb894
           .IMPORT     _AsqGetRandomInRangeA_8c012178
           .IMPORT     _var_waitingPassengers_8c228798
           .IMPORT     _var_route_8c18ad1c
@@ -39,7 +38,6 @@
           .IMPORT     _atan2f
           .IMPORT     _var_8c2288fc
           .IMPORT     _var_8c228714
-          .IMPORT     _var_stopAreaTable_8c1bb870
           .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njTranslate
@@ -432,7 +430,7 @@ LP_GEN_58192:
           .DATA.L _var_passengerSprite_8c2288d8 ; H'8C02CB20
           .DATA.L _init_pedestrianTexAnims_8c04623c ; H'8C02CB24
           .DATA.L _var_waitingPassengerCount_8c228794 ; H'8C02CB28
-          .DATA.L _var_groundGridFallback_8c1bb86c ; H'8C02CB2C
+          .DATA.L _var_currentCourse_8c1bb868+H'4 ; H'8C02CB2C (atariBus_0x04)
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C02CB30
           .DATA.L _var_8c228900 ; H'8C02CB34
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C02CB38
@@ -441,7 +439,7 @@ LP_GEN_58192:
           .DATA.L _syMalloc ; H'8C02CB44
           .DATA.L _var_8c2286a4 ; H'8C02CB48
           .DATA.L _var_8c22890c ; H'8C02CB4C
-          .DATA.L _var_8c1bb894 ; H'8C02CB50
+          .DATA.L _var_currentCourse_8c1bb868+H'2C ; H'8C02CB50 (lineHum_0x2c)
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02CB54
           .DATA.L H'47000000 ; H'8C02CB58
           .DATA.L H'BF000000 ; H'8C02CB5C
@@ -780,7 +778,7 @@ LP_GEN_16762:
           .DATA.L _var_8c228900 ; H'8C02CE0C
           .DATA.L _var_8c228714 ; H'8C02CE10
           .DATA.L H'FFFF0000 ; H'8C02CE14
-          .DATA.L _var_stopAreaTable_8c1bb870 ; H'8C02CE18
+          .DATA.L _var_currentCourse_8c1bb868+H'8 ; H'8C02CE18 (lineBus_0x08)
           .DATA.L _var_scratchMatrix_8c1bc46c ; H'8C02CE1C
           .DATA.L _njUnitMatrix ; H'8C02CE20
           .DATA.L _njTranslate ; H'8C02CE24

@@ -141,19 +141,11 @@
                                                   ; 02171c
                                                   ; 022bdc
                                                   ; 023310
+                                                  ; 025b98
                                                   ; 026710
+                                                  ; 027958_bus_draw
                                                   ; 028258
-          .EXPORT     _var_groundGridFallback_8c1bb86c ; 012f44_game
-                                    ; 027958_bus_draw
-                                    ; 028258
-                                    ; 02c884
-          .EXPORT     _var_stopAreaTable_8c1bb870 ; 02c884
-          .EXPORT     _var_8c1bb878 ; 025b98
-          .EXPORT     _var_groundGridCpu_8c1bb880 ; 027958_bus_draw
-          .EXPORT     _var_8c1bb888 ; 025b98
-          .EXPORT     _var_groundGridPrimary_8c1bb890 ; 028258
-          .EXPORT     _var_8c1bb894 ; 02c884
-          .EXPORT     _var_trafficSignalDefs_8c1bb8a0 ; 028258
+                                                  ; 02c884
           .EXPORT     _var_runReportPending_8c1bb8b8 ; 0129cc_pause
                                     ; 016d2c_course_menu
                                     ; 018644_file_menu
@@ -878,23 +870,7 @@ _var_tasks_8c1bac28:
 _var_tasks_8c1bb448:
           .RES.B      1056
 _var_currentCourse_8c1bb868:
-          .RES.B      4
-_var_groundGridFallback_8c1bb86c:
-          .RES.B      4
-_var_stopAreaTable_8c1bb870:
-          .RES.B      8
-_var_8c1bb878:
-          .RES.B      8
-_var_groundGridCpu_8c1bb880:
-          .RES.B      8
-_var_8c1bb888:
-          .RES.B      8
-_var_groundGridPrimary_8c1bb890:
-          .RES.B      4
-_var_8c1bb894:
-          .RES.B      12
-_var_trafficSignalDefs_8c1bb8a0:
-          .RES.B      24
+          .RES.B      80
 _var_runReportPending_8c1bb8b8:
           .RES.B      4
 _var_runWasPractice_8c1bb8bc:

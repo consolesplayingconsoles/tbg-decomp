@@ -108,7 +108,6 @@
           .IMPORT     _njSetTextureName
           .IMPORT     _njSetRenderWidth
           .IMPORT     _njLoadTexture
-          .IMPORT     _var_groundGridFallback_8c1bb86c
           .IMPORT     _var_routeModelSlots_8c1bbddc
           .IMPORT     _RouteLoadClearModelSlots_8c013bbc
           .IMPORT     _var_pedestrianAssets_8c1bbfdc
@@ -1178,7 +1177,7 @@ LP_GEN_90231:
           .DATA.L _var_tasks_8c1ba808
           .DATA.L _var_tasks_8c1bac28
           .DATA.L _var_tasks_8c1bb448
-          .DATA.L _var_groundGridFallback_8c1bb86c
+          .DATA.L _var_currentCourse_8c1bb868+H'4 ; (atariBus_0x04)
           .DATA.L _var_routeModelSlots_8c1bbddc
           .DATA.L _RouteLoadClearModelSlots_8c013bbc
           .DATA.L _var_pedestrianAssets_8c1bbfdc

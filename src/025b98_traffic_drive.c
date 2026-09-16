@@ -220,10 +220,9 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                 e->busAheadFlag_0x2d4 = ahead->busAheadFlag_0x2d4;
                 if (e->busAheadFlag_0x2d4 != 0) {
                     /* Junction/collision query at the candidate's own
-                     * position, on the fallback attribute grid -- role of
-                     * var_activeAttrGrid_8c228b3c/var_8c1bb878/var_8c1bb888 beyond this
-                     * swap not otherwise established. */
-                    var_activeAttrGrid_8c228b3c = var_8c1bb878;
+                     * position, swapped onto the bus attribute grid; why
+                     * that grid is not established. */
+                    var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrBus_0x10;
                     {
                         void *junction = AttrQueryFindConvexPolygon_8c02e51c(
                             ahead->posX_0xf4,
@@ -238,7 +237,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                             }
                         }
                     }
-                    var_activeAttrGrid_8c228b3c = var_8c1bb888;
+                    var_activeAttrGrid_8c228b3c = var_currentCourse_8c1bb868.attrCpu_0x20;
                 }
             }
         }

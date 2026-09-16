@@ -9,7 +9,7 @@
 #include "01bb48_vm_game.h" /* LcdAnim */
 #include "02171c_tile_stream.h" /* TileIndex, TileRect */
 #include "022464_fade.h" /* FadePhase, FadeRequest, FadeMirrorSelect */
-#include "028258_objects.h" /* TrafficSignal, TrafficSignalDef */
+#include "028258_objects.h" /* TrafficSignal */
 #include "020914_ground_query.h" /* GroundQueryResult */
 #include "023938_bus_drive.h" /* LineBusSegment, LineBusNode */
 #include "026710_traffic.h" /* PathRecord */
@@ -439,29 +439,6 @@ extern BUS_BACKUPFILEHEADER var_backupFileHeader_8c1ba2e4; // 018644: analyzed b
 extern void* var_vmuIconFileBuf_8c1ba344;
 extern void* var_backupFileImageBuf_8c1ba348;
 extern int var_saveSlot_8c1ba350;        // 018644: chosen VMU file index, i.e. into init_saveNames_8c044d50
-extern TrafficSignalDef *var_trafficSignalDefs_8c1bb8a0; // 028258: signal table, terminated by type_0x00 == 0
-extern void* var_groundGridFallback_8c1bb86c;
-
-/* base of an 8-byte-stride table of stop-area records, indexed by a segment
- * record's stopAreaId_0x02 (BusStopGetStopArea_8c02cd7a, 02c884); each slot
- * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
-extern void *var_stopAreaTable_8c1bb870;
-
-/* var_currentCourse_8c1bb868.atariCpu_0x18 under its own symbol -- the CPU
- * collision grid traffic normally probes against. var_groundGridFallback_8c1bb86c
- * above is the same trick on .atariBus_0x04 and var_groundGridPrimary_8c1bb890
- * below on .atariHum_0x28, so neither of those names says which grid it is
- * either; folding all three into the struct is a move-data job. */
-extern void* var_groundGridCpu_8c1bb880;
-
-extern void* var_groundGridPrimary_8c1bb890; // ground query grid, selected into var_activeGroundGrid_8c2264d4
-
-/* pointer to a table of 12-byte stop spawn-area records, indexed by a
- * segment record's field_0x06 (BusStopGetSegment_8c02cd6a, 02c884); a record's field_0x00
- * is a spawn-area pointer (see var_8c22890c below), the rest is unknown.
- * The symbol itself reserves 12 bytes; only the leading 4 (the table
- * pointer) are used by pickWaitingPassengers_8c02c8ae. */
-extern void *var_8c1bb894;
 /*
  * The pair the course and practice menus read on arrival to pick their opening
  * dialog: pending says a day was consumed and there is something to announce,
@@ -954,8 +931,6 @@ extern int var_8c2285c4[];
  * rapid-acceleration penalty (02b464), which clears it. */
 extern int var_firstUpshift_8c22864c;
 
-extern void *var_8c1bb878;
-extern void *var_8c1bb888;
 /* Set by BusStopUpdateArrival_8c02ce48 (02c884) when a drive ends with points
  * left and every owed stop served. Never cleared. DriveMsgDraw_8c02b388
  * (02b2f0) is its only reader. */
@@ -1049,9 +1024,9 @@ extern NJS_POINT3 var_8c228900;
  * symbol, used by drawStopMarker_8c02cd92 (02c884). */
 extern float var_8c228908;
 
-/* Spawn-area record for the upcoming stop's segment (var_8c1bb894 entry
- * selected by its segment record's field_0x06). Laid out as StopAreaRecord
- * (02c884_bus_stop.h), which pickWaitingPassengers_8c02c8ae casts it to;
+/* Spawn-area record for the upcoming stop's segment (the course's lineHum_0x2c
+ * table, selected by its segment record's field_0x06). Laid out as
+ * StopAreaRecord (02c884_bus_stop.h), which pickWaitingPassengers_8c02c8ae casts it to;
  * typed char* here to keep sectionB.h free of that include. */
 extern char *var_8c22890c;
 

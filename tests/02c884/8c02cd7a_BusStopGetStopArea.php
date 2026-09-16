@@ -7,12 +7,12 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 /*
  * _BusStopGetStopArea_8c02cd7a(int segmentIndex): looks up the segment
  * record (BusStopGetSegment_8c02cd6a), then returns the StopAreaRecord*
- * stored at var_stopAreaTable_8c1bb870[stopAreaId_0x02] (8-byte stride).
+ * stored at the course's lineBus_0x08 table[stopAreaId_0x02] (8-byte stride).
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_stopAreaTable_8c1bb870', 4);
+        $this->setSize('_var_currentCourse_8c1bb868', 0x50);
 
         // _BusStopGetSegment_8c02cd6a is same-object -- mock with
         // shouldCall() directly, no setSize().
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $record = $this->alloc(0x14);
         $this->initUint32($table + 3 * 8, $record);
 
-        $this->initUint32($this->addressOf('_var_stopAreaTable_8c1bb870'), $table);
+        $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x08, $table); // lineBus_0x08
 
         $this->call('_BusStopGetStopArea_8c02cd7a')->with(5);
 

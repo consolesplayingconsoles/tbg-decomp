@@ -29,7 +29,7 @@ void BusStopUpdateStopHeadings_8c02ccc6(void);
 CourseSegment *BusStopGetSegment_8c02cd6a(int segmentIndex);
 
 /* Returns the stop-area record for segmentIndex's segment
- * (var_stopAreaTable_8c1bb870, selected by the segment's stopAreaId_0x02). */
+ * (the course's lineBus_0x08 table, selected by the segment's stopAreaId_0x02). */
 StopAreaRecord *BusStopGetStopArea_8c02cd7a(int segmentIndex);
 
 /* Per-frame arrival state machine, driven by 02b464_drive_points. Phases run
