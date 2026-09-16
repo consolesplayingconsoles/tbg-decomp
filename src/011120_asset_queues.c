@@ -1272,6 +1272,9 @@ void AsqApplyButtonConfig_8c0121e8() {
         }
     }
 
+    /* The == 0 arm is subsumed by != 1. The original's branch structure (asm
+     * at 8c01229e) has its else arm fall into the case-0 block, which is what
+     * this reproduces; the neighbouring 0xcf test keeps a distinct case 2. */
     if (var_progress_8c1ba1cc.btnConfigWheelManual_0xce == 0 || var_progress_8c1ba1cc.btnConfigWheelManual_0xce != 1) {
         init_btnRemapWheelManual_8c03bef0[0].physical_0x00 = PDD_DGT_KD;
         init_btnRemapWheelManual_8c03bef0[1].physical_0x00 = PDD_DGT_KU;
