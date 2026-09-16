@@ -45,10 +45,6 @@ enum ENDING_TASK_STATE {
  * ====================
  */
 
-STATIC const char const_endingPartsName_8c039f4c[20] = "ending_parts.dat";
-STATIC const char const_endingDatName_8c039f60[12] = "ending.dat";
-STATIC const char const_endingPvmName_8c039f6c[12] = "ending.pvm";
-
 /* One voice id per dialog page, walked by instructorDialogTask_8c016f98 via
  * voiceCuePtr_0x18 and terminated by 0. The four tiers line up with
  * init_instructorDialogs_8c044c08 entries INSTR_SUCCESS_PERFECT ..
@@ -72,13 +68,13 @@ STATIC int init_endingVoicesFailure_8c045278[] = {
 /* Head and tail of one credit roll: laid out back to back in the original
  * binary (1 + 37 pointers, no gap), and scrollCreditsText_8c01f50e indexes
  * across the pair from the head as a single 38-entry table. */
-STATIC const char *const init_endingCreditsHead_8c04528c[] = {
+STATIC const char *init_endingCreditsHead_8c04528c[] = {
     MSG_ENDING_CREDITS_01,
 };
 
 /* Terminated by an empty string (originally a pointer to a 4-byte zeroed
  * buffer), not a null pointer. */
-STATIC const char *const init_endingCreditsTail_8c045290[] = {
+STATIC const char *init_endingCreditsTail_8c045290[] = {
     MSG_ENDING_CREDITS_02, MSG_ENDING_CREDITS_03, MSG_ENDING_CREDITS_04, MSG_ENDING_CREDITS_05,
     MSG_ENDING_CREDITS_06, MSG_ENDING_CREDITS_07, MSG_ENDING_CREDITS_08, MSG_ENDING_CREDITS_09,
     MSG_ENDING_CREDITS_10, MSG_ENDING_CREDITS_11, MSG_ENDING_CREDITS_12, MSG_ENDING_CREDITS_13,
@@ -92,9 +88,9 @@ STATIC const char *const init_endingCreditsTail_8c045290[] = {
 };
 
 STATIC ResourceGroupInfo init_endingResourceGroup_8c045324 = {
-    (char *)const_endingPartsName_8c039f4c,
-    (char *)const_endingDatName_8c039f60,
-    (char *)const_endingPvmName_8c039f6c,
+    "ending_parts.dat",
+    "ending.dat",
+    "ending.pvm",
     4,
 };
 

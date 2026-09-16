@@ -405,12 +405,22 @@ STATIC unpackGlyph_8c015110(
     Uint8 *font,
     Sint16 *dest
 ) {
-    Uint8 unpacked[UNPACKED_GLYPH_SIZE] = {0};
-    Sint16 mapped[GLYPH_TEXTURE_SIZE] = {0};
+    /* No `= {0}`: SHC implements that as a zeroed section C template the
+     * original object doesn't carry. unpacked needs no clearing anyway --
+     * the unpack loop writes every byte. */
+    Uint8 unpacked[UNPACKED_GLYPH_SIZE];
+    Sint16 mapped[GLYPH_TEXTURE_SIZE];
 
     size_t offset = getGlyphIndex_8c015034(char_code) * PACKED_GLYPH_SIZE;
     size_t i;
     size_t j;
+
+    /* Clearing dest is dead work -- njTwiddledTexture rewrites all of it --
+     * but the original does it. */
+    for (i = 0; i < GLYPH_TEXTURE_SIZE; i++) {
+        dest[i] = 0;
+        mapped[i] = 0;
+    }
 
     for (i = 0; i < PACKED_GLYPH_SIZE; i++) {
         Uint8 byte = font[offset + i];

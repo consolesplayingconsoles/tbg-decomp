@@ -19,36 +19,16 @@ return new class extends TestCase {
             0xcaf3,
         ]);
 
-        $srcLocal = $this->isAsmObject() ? 0xfff4dc : 0xfff4e4;
-
-        // TODO: Move implementation to Simulator
-        // TODO: Handle calling conventions for expectations in Simulator
-        $mvn = function () {
-            $src = $this->registers[2];
-            $dst = $this->registers[1];
-            $len = $this->registers[0];
-
-            // TODO: Really move to Simulator
-            for ($i = 0; $i < $len->value; $i++) {
-                $this->memory->writeUInt8($dst->value + $i, $this->readUInt8($src->value + $i));
-            }
-        };
-
-        if (!$this->isAsmObject()) {
-            $this->shouldCall('__slow_mvn')->do($mvn);
-            $this->shouldCall('__slow_mvn')->do($mvn);
-        }
+        $srcLocal = $this->isAsmObject() ? 0xfff4dc : 0xfff4e0;
 
         // ƒZ
         $this->shouldCall('_getGlyphIndex_8c015034')
             ->with(0x835a)
             ->andReturn(0x117);
 
-        if ($this->isAsmObject()) {
-            for ($i = 0; $i < 0x400; $i++) {
-                $this->shouldWriteWord($texture + $i * 2, 0);
-                $this->shouldWriteWord($srcLocal + $i * 2, 0);
-            }
+        for ($i = 0; $i < 0x400; $i++) {
+            $this->shouldWriteWord($texture + $i * 2, 0);
+            $this->shouldWriteWord($srcLocal + $i * 2, 0);
         }
 
         if ($this->isAsmObject()) {
@@ -122,25 +102,7 @@ return new class extends TestCase {
             0xcaf3,
         ]);
 
-        $srcLocal = $this->isAsmObject() ? 0xfff4dc : 0xfff4e4;
-
-        // TODO: Move implementation to Simulator
-        // TODO: Handle calling conventions for expectations in Simulator
-        $mvn = function () {
-            $src = $this->registers[2];
-            $dst = $this->registers[1];
-            $len = $this->registers[0];
-
-            // TODO: Really move to Simulator
-            for ($i = 0; $i < $len->value; $i++) {
-                $this->memory->writeUInt8($dst->value + $i, $this->readUInt8($src->value + $i));
-            }
-        };
-
-        if (!$this->isAsmObject()) {
-            $this->shouldCall('__slow_mvn')->do($mvn);
-            $this->shouldCall('__slow_mvn')->do($mvn);
-        }
+        $srcLocal = $this->isAsmObject() ? 0xfff4dc : 0xfff4e0;
 
         // ˆŸ
         $this->shouldCall('_getGlyphIndex_8c015034')
@@ -148,11 +110,9 @@ return new class extends TestCase {
             ->andReturn(0x1c5);
 
 
-        if ($this->isAsmObject()) {
-            for ($i = 0; $i < 0x400; $i++) {
-                $this->shouldWriteWord($texture + $i * 2, 0);
-                $this->shouldWriteWord($srcLocal + $i * 2, 0);
-            }
+        for ($i = 0; $i < 0x400; $i++) {
+            $this->shouldWriteWord($texture + $i * 2, 0);
+            $this->shouldWriteWord($srcLocal + $i * 2, 0);
         }
 
         if ($this->isAsmObject()) {

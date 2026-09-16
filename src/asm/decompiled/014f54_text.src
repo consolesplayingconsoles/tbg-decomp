@@ -1636,7 +1636,7 @@ _const_8c035fac:        ; from ghidra
           ;.SDATA      "demo5.bin"
           ;.DATA.B     H'00
           ;.RES.B      2
-          .DATA.B      H'64, H'65, H'6D, H'6F, H'35, H'2E, H'62, H'69, H'6E, H'00, H'00, H'00
+          .DATA.B      H'64, H'65, H'6D, H'6F, H'35, H'2E, H'62, H'69, H'6E, H'00
           .SECTION     D,DATA,ALIGN=4
 _init_tanim_8c044128:        ; from defines
           .DATA.B      H'18, H'00

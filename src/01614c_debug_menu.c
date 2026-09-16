@@ -66,10 +66,8 @@ typedef struct {
  * ====================
  */
 
-char const_replayFileName_8c036160[] = "BUS_REPLAY";
-
 /* saveNames for VmMenuUpdateVmusStatus_8c019550; scanned until a pointer to "". */
-char *init_replaySaveNames_8c044294[2] = { const_replayFileName_8c036160, "" };
+char *init_replaySaveNames_8c044294[2] = { "BUS_REPLAY", "" };
 
 /* ====================
  * Forward Declarations

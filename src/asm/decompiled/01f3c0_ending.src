@@ -1427,7 +1427,7 @@ _const_endingPvmName_8c039f6c:        ; aggressive search
           ;.SDATA      "ending.pvm"
           ;.DATA.B     H'00
           ;.RES.B      1
-          .DATA.B      H'65, H'6E, H'64, H'69, H'6E, H'67, H'2E, H'70, H'76, H'6D, H'00, H'00
+          .DATA.B      H'65, H'6E, H'64, H'69, H'6E, H'67, H'2E, H'70, H'76, H'6D, H'00
           .SECTION    D, DATA, ALIGN=4
 _init_endingVoicesPerfect_8c04522c:        ; from defines
           .DATA.B      H'1A, H'05, H'00, H'00, H'1B, H'05, H'00, H'00, H'1C, H'05, H'00, H'00, H'1D, H'05, H'00, H'00

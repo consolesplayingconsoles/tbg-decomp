@@ -752,5 +752,4 @@ LP_GEN_94405:
           .DATA.L     H'BF8CCCCD
           .DATA.L     _var_markTexlist_8c1bc418
           .DATA.L     _TxtDrawSprite_8c014f54
-          .SECTION    D,DATA,ALIGN=4
           .END

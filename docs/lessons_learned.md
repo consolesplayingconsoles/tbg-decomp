@@ -867,3 +867,25 @@ There is no way to derive the length without naming the literal twice, so
 where a sized array is genuinely needed the count stays written down. The
 better escape is usually not to need one: inline the literals and let the
 compiler lay the pool out, as `025870_demo` now does.
+
+## `const` on the array, not just the pointee, moves a pointer table out of D
+
+`STATIC const char *const tbl[]` lands in section C; `STATIC const char *tbl[]`
+lands in D. The archive puts `01f3c0_ending`'s two credit-roll tables in D, so
+the outer `const` -- added for tidiness -- moved 152 bytes into the wrong
+section and took the strings they point at with them.
+
+## An `= {0}` on a local aggregate costs a zeroed section C template
+
+SHC implements the initializer by memcpy-ing a zero-filled constant onto the
+stack, so `Uint8 buf[768] = {0}` puts 768 zero bytes in section C.
+`014f54_text`'s `unpackGlyph_8c015110` had two, 2816 bytes the original object
+does not have -- it zeroes with a runtime loop instead. Clear what actually
+needs clearing inside the loop that already walks the array.
+
+## An empty `.SECTION D` in the archive is a disassembler artifact
+
+`0129cc_pause.src` declared `.SECTION D,DATA,ALIGN=4` with nothing under it,
+giving the archived object a zero-length D section that SHC never emits for a
+TU with no initialized data. Delete the directive; the matching build is
+unchanged, since a zero-length section contributes no bytes.
