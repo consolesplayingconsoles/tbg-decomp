@@ -12,7 +12,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_prevStopSegment_8c22870c', 4);
         $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_currentCourseConfig_8c18ad18', 4);
     }

@@ -28,6 +28,7 @@
 #include "025870_demo.h"
 #include "02d968_stop_spawn.h"
 #include "0222dc_fadecmd.h" /* FadeCmdPushTileDrawTask_8c0222dc */
+#include "02c884_bus_stop.h"
 
 /* ====================
  * Compiler Definitions

@@ -13,7 +13,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_stopTaskGroup_8c2288f8', 4);
         $this->setSize('_TaskFreeGroup_8c014ab4', 4);
         $this->setSize('_syFree', 4);
     }

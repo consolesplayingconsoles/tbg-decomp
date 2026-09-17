@@ -17,12 +17,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_currentSegment_8c228708', 4);
-        $this->setSize('_var_nextStopSegment_8c228710', 4);
-        $this->setSize('_var_segmentHasStop_8c2286a4', 24 * 4);
-        $this->setSize('_var_currentStopHeading_8c2288fc', 4);
-        $this->setSize('_var_nextStopPoint_8c228900', 0xc);
-        $this->setSize('_var_nextStopHeading_8c228714', 4);
         $this->setSize('_atan2f', 4);
 
         // _BusStopGetStopArea_8c02cd7a is same-object -- mock with shouldCall() directly,

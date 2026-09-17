@@ -17,15 +17,9 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_waitingPassengerCount_8c228794', 4);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
-        $this->setSize('_var_nextStopPoint_8c228900', 0xc);
-        $this->setSize('_var_nextStopSegment_8c228710', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
-        $this->setSize('_var_segmentHasStop_8c2286a4', 96);
-        $this->setSize('_var_nextStopArea_8c22890c', 4);
-        $this->setSize('_var_waitingPassengers_8c228798', 0x140);
 
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);

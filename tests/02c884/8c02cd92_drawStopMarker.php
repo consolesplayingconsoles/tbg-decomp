@@ -19,8 +19,6 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
-        $this->setSize('_var_nextStopPoint_8c228900', 0xc);
-        $this->setSize('_var_nextStopHeading_8c228714', 4);
         $this->setSize('_var_fuuFrame_8c1bc44c', 4);
         $this->setSize('_var_fuuTexlist_8c1bc440', 4);
         $this->setSize('_var_fuuNj_8c1bc444', 4);

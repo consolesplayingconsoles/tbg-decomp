@@ -19,8 +19,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_stopSchedule_8c228718', self::SLOT_COUNT * 4);
-        $this->setSize('_var_passengerSprite_8c2288d8', 0x20);
         $this->setSize('_init_pedestrianTexAnims_8c04623c', 8);
     }
 

@@ -27,6 +27,46 @@
                            sizeof(var_waitingPassengers_8c228798[0])))
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+/* per-segment "has an active stop" flag, one word each, indexed by a segment
+ * record's candidate-list entry byte (see BusStopGetSegment_8c02cd6a, 02c884) */
+STATIC int var_segmentHasStop_8c2286a4[24];
+
+int var_startStopIndex_8c228704;
+
+int var_currentSegment_8c228708;
+
+int var_prevStopSegment_8c22870c; // segment index of the previous stop
+int var_nextStopSegment_8c228710; // segment index of the upcoming stop
+
+int var_nextStopHeading_8c228714;
+
+int var_stopSchedule_8c228718[31];
+
+int var_waitingPassengerCount_8c228794;
+
+WaitingPassengerSlot var_waitingPassengers_8c228798[16];
+
+NJS_SPRITE var_passengerSprite_8c2288d8;
+
+void* var_stopTaskGroup_8c2288f8;
+
+/* Same computation as var_nextStopHeading_8c228714, but masked to unsigned 16
+ * bits instead of sign-extended. */
+STATIC int var_currentStopHeading_8c2288fc;
+
+/* scratch ground-query point for the upcoming stop, snapped to ground by
+ * pickWaitingPassengers_8c02c8ae; x/z (only) also set by
+ * BusStopUpdateStopHeadings_8c02ccc6 ahead of that ground snap */
+STATIC NJS_POINT3 var_nextStopPoint_8c228900;
+
+/* Spawn-area record for the upcoming stop's segment (the course's lineHum_0x2c
+ * table, selected by its segment record's ukn_0x06). */
+STATIC StopAreaRecord *var_nextStopArea_8c22890c;
+/* ====================
  * Functions
  * ====================
  */
@@ -148,14 +188,14 @@ STATIC void pickWaitingPassengers_8c02c8ae(void)
         }
 
         if (candidateCount != 0) {
-            var_nextStopArea_8c22890c = *(char **)((char *)var_currentCourse_8c1bb868.lineHum_0x2c + seg->ukn_0x06 * 0xc);
+            var_nextStopArea_8c22890c = *(StopAreaRecord **)((char *)var_currentCourse_8c1bb868.lineHum_0x2c + seg->ukn_0x06 * 0xc);
 
             var_waitingPassengerCount_8c228794 = AsqGetRandomInRangeA_8c012178(candidateCount) + 1;
             if (var_waitingPassengerCount_8c228794 > MAX_WAITING) {
                 var_waitingPassengerCount_8c228794 = MAX_WAITING;
             }
 
-            area = (StopAreaRecord *)var_nextStopArea_8c22890c;
+            area = var_nextStopArea_8c22890c;
             x0 = area->x_0x04;
             z0 = area->z_0x08;
             dx = area->dx_0x0c;

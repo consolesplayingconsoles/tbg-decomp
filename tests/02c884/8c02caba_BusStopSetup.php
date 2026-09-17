@@ -24,10 +24,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_segmentHasStop_8c2286a4', 96);
-        $this->setSize('_var_startStopIndex_8c228704', 4);
-        $this->setSize('_var_nextStopSegment_8c228710', 4);
-        $this->setSize('_var_prevStopSegment_8c22870c', 4);
 
         $this->setSize('_var_eventCandidates_8c228520', 0x40);
         $this->setSize('_var_eventCandidateCount_8c228560', 4);

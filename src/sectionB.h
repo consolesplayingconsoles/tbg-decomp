@@ -1061,65 +1061,7 @@ typedef struct {
 } RunState;
 extern RunState var_runState_8c2285c4;
 
-/* per-segment "has an active stop" flag, one word each, indexed by a segment
- * record's candidate-list entry byte (see BusStopGetSegment_8c02cd6a, 02c884) */
-extern int var_segmentHasStop_8c2286a4[24];
-
-/* index of the stop the run starts from: 0 for a normal course start, or the
- * debug menu's per-entry startStopIndex_0x04 to begin partway along the route */
-extern int var_startStopIndex_8c228704;
-
-extern int var_prevStopSegment_8c22870c; // segment index of the previous stop
-extern int var_nextStopSegment_8c228710; // segment index of the upcoming stop
-
-/* upcoming stop's heading angle (njArcTan2 of its stop-area record's
- * direction vector, see NinjaApi.h), sign-extended from the low 16 bits by
- * BusStopUpdateStopHeadings_8c02ccc6 */
-extern int var_nextStopHeading_8c228714;
-
-/* number of slots filled in var_waitingPassengers_8c228798 by pickWaitingPassengers_8c02c8ae
- * (0-16); read by 02d06c/02d968 to spawn that many passenger tasks. */
-extern int var_waitingPassengerCount_8c228794;
-
-/* one waiting passenger picked for the upcoming stop by
- * pickWaitingPassengers_8c02c8ae */
-typedef struct {
-    void *spot_0x00;  // chosen candidate-stop entry (segment record's list at +8)
-    NJS_POINT3 pos_0x04; // world position; y filled in by the ground snap
-    float index_0x10; // 0, 1, 2, ... in pick order
-} WaitingPassengerSlot;
-extern WaitingPassengerSlot var_waitingPassengers_8c228798[16];
-
-/* fixed 31-slot table of scripted/special waiting-passenger schedule entries,
- * one per fixed stop position along the route; -1 = unused. Read by
- * StopSpawnInit_8c02d968 to spawn each slot's passenger task. */
-extern int var_stopSchedule_8c228718[31];
-
-/* The one NJS_SPRITE every passenger is drawn through, waiting at the stop
- * (02d06c) or inside the bus (02d19c). Only sx/sy/ang/tanim are reset up
- * front; p and tlist are set per draw. */
-extern NJS_SPRITE var_passengerSprite_8c2288d8;
-
-/* Same computation as var_nextStopHeading_8c228714, but masked to unsigned 16
- * bits instead of sign-extended. */
-extern int var_currentStopHeading_8c2288fc;
-
-/* scratch ground-query point for the upcoming stop, snapped to ground by
- * pickWaitingPassengers_8c02c8ae; x/z (only) also set by
- * BusStopUpdateStopHeadings_8c02ccc6 ahead of that ground snap */
-extern NJS_POINT3 var_nextStopPoint_8c228900;
-
-/* Spawn-area record for the upcoming stop's segment (the course's lineHum_0x2c
- * table, selected by its segment record's field_0x06). Laid out as
- * StopAreaRecord (02c884_bus_stop.h), which pickWaitingPassengers_8c02c8ae casts it to;
- * typed char* here to keep sectionB.h free of that include. */
-extern char *var_nextStopArea_8c22890c;
-
-/* Task group for the bus-stop subsystem's waiting-passenger/departure tasks
- * (see StopSpawnInit_8c02d968); -1 means not currently allocated. */
-extern void* var_stopTaskGroup_8c2288f8;
 extern Sint8 var_coursesToUnlock_8c225fd4[];
-extern int var_currentSegment_8c228708;
 
 /* table index (into the EventEntry array pointed to by var_routeEvents_8c22851c)
  * chosen by EventPickForSegment_8c02b170, consumed by

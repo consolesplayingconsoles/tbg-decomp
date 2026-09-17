@@ -5,6 +5,7 @@
 #include "sectionB.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
+#include "02c884_bus_stop.h"
 
 /* ====================
  * Compiler Definitions

@@ -13,8 +13,6 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3b4 + 4);
-        $this->setSize('_var_nextStopSegment_8c228710', 4);
-        $this->setSize('_var_prevStopSegment_8c22870c', 4);
         $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
         $this->setSize('_var_fuuFrame_8c1bc44c', 4);
         $this->setSize('_var_fuuLastFrame_8c1bc450', 4);
@@ -24,8 +22,6 @@ return new class extends TestCase {
         // Referenced only inside drawStopMarker_8c02cd92's body, which is
         // never actually invoked by this function (only its address is
         // taken), but the object's own relocations still need resolving.
-        $this->setSize('_var_nextStopPoint_8c228900', 0xc);
-        $this->setSize('_var_nextStopHeading_8c228714', 4);
         $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_fuuTexlist_8c1bc440', 4);
         $this->setSize('_var_fuuNj_8c1bc444', 4);

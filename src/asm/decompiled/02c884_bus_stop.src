@@ -1,23 +1,14 @@
 ; 8c02c884
-          .IMPORT     _var_stopSchedule_8c228718
-          .IMPORT     _var_passengerSprite_8c2288d8
           .IMPORT     _init_pedestrianTexAnims_8c04623c
-          .IMPORT     _var_waitingPassengerCount_8c228794
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeGroundGrid_8c2264d4
-          .IMPORT     _var_nextStopPoint_8c228900
           .IMPORT     _GroundQueryFindPolygon_8c020914
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
-          .IMPORT     _var_nextStopSegment_8c228710
           .IMPORT     _syMalloc
-          .IMPORT     _var_segmentHasStop_8c2286a4
-          .IMPORT     _var_nextStopArea_8c22890c
           .IMPORT     _AsqGetRandomInRangeA_8c012178
-          .IMPORT     _var_waitingPassengers_8c228798
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _rand
           .IMPORT     _syFree
-          .IMPORT     _var_stopTaskGroup_8c2288f8
           .IMPORT     _TaskFreeGroup_8c014ab4
           .IMPORT     _var_currentCourseConfig_8c18ad18
           .IMPORT     _EventScanCandidates_8c02b03c
@@ -28,15 +19,10 @@
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_activeTrafficPreset_8c227e14
           .IMPORT     _var_activePedPreset_8c22822c
-          .IMPORT     _var_startStopIndex_8c228704
-          .IMPORT     _var_prevStopSegment_8c22870c
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_practiceRules_8c226410
-          .IMPORT     _var_currentSegment_8c228708
           .IMPORT     _atan2f
-          .IMPORT     _var_currentStopHeading_8c2288fc
-          .IMPORT     _var_nextStopHeading_8c228714
           .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njTranslate
@@ -64,11 +50,25 @@
           .EXPORT     _BusStopGetSegment_8c02cd6a
           .EXPORT     _BusStopGetStopArea_8c02cd7a
           .EXPORT     _BusStopUpdateArrival_8c02ce48
+          .EXPORT     _var_startStopIndex_8c228704 ; 012f44_game
+          .EXPORT     _var_currentSegment_8c228708 ; 012f44_game, 013ae8, 023310, 026710, 02af78, 02d19c, 02d968
+          .EXPORT     _var_prevStopSegment_8c22870c ; 020214
+          .EXPORT     _var_nextStopSegment_8c228710 ; 020214, 02b464
+          .EXPORT     _var_nextStopHeading_8c228714 ; 02b464
+          .EXPORT     _var_stopSchedule_8c228718 ; 02d19c, 02d968
+          .EXPORT     _var_waitingPassengerCount_8c228794 ; 02d06c, 02d968
+          .EXPORT     _var_waitingPassengers_8c228798 ; 02d06c, 02d968
+          .EXPORT     _var_passengerSprite_8c2288d8 ; 02d06c, 02d19c
+          .EXPORT     _var_stopTaskGroup_8c2288f8 ; 012f44_game, 02d19c, 02d968
           .AIFDEF UNIT_TESTING
           .EXPORT     _resetStopState_8c02c884
           .EXPORT     _pickWaitingPassengers_8c02c8ae
           .EXPORT     _advanceStopSegment_8c02ccae
           .EXPORT     _drawStopMarker_8c02cd92
+          .EXPORT     _var_segmentHasStop_8c2286a4
+          .EXPORT     _var_currentStopHeading_8c2288fc
+          .EXPORT     _var_nextStopPoint_8c228900
+          .EXPORT     _var_nextStopArea_8c22890c
           .AENDI
           .SECTION     P, CODE, ALIGN=4
 _resetStopState_8c02c884:
@@ -1060,4 +1060,33 @@ LP_GEN_27124:
           .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C02D060
           .DATA.L _DrivePointsRunComplete_8c02c586 ; H'8C02D064
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C02D068
+          .SECTION    B,DATA,ALIGN=4
+_var_segmentHasStop_8c2286a4:
+          .RES.B      96
+_var_startStopIndex_8c228704:
+          .RES.B      4
+_var_currentSegment_8c228708:
+          .RES.B      4
+_var_prevStopSegment_8c22870c:
+          .RES.B      4
+_var_nextStopSegment_8c228710:
+          .RES.B      4
+_var_nextStopHeading_8c228714:
+          .RES.B      4
+_var_stopSchedule_8c228718:
+          .RES.B      124
+_var_waitingPassengerCount_8c228794:
+          .RES.B      4
+_var_waitingPassengers_8c228798:
+          .RES.B      320
+_var_passengerSprite_8c2288d8:
+          .RES.B      32
+_var_stopTaskGroup_8c2288f8:
+          .RES.B      4
+_var_currentStopHeading_8c2288fc:
+          .RES.B      4
+_var_nextStopPoint_8c228900:
+          .RES.B      12
+_var_nextStopArea_8c22890c:
+          .RES.B      4
           .END

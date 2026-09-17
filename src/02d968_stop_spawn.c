@@ -7,6 +7,7 @@
 #include "014a9c_tasks.h"
 #include "02d19c_passenger.h"
 #include "025870_demo.h"
+#include "02c884_bus_stop.h"
 
 /* ====================
  * Compiler Definitions
