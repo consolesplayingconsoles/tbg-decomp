@@ -16,11 +16,11 @@
           .IMPORT     _BusDriveStop_8c023bce
           .IMPORT     _var_playerBus_8c1bbd9c
           .IMPORT     _var_bumpSpeed_8c228670
-          .IMPORT     _var_8c228668
+          .IMPORT     _var_hitVehicle_8c228668
           .IMPORT     _VibStart_8c010f7a
           .IMPORT     _var_frameSpeed_8c22866c
           .IMPORT     _CollisionQueueTest_8c02e4ac
-          .IMPORT     _var_8c228664
+          .IMPORT     _var_hitCandidate_8c228664
           .IMPORT     _BusCollisionFindHit_8c02e2dc
           .IMPORT     _njSqrt
           .IMPORT     _var_wallHitBits_8c228660
@@ -373,7 +373,7 @@ LP_GEN_34364:
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02B66C
           .DATA.L H'3E99999A ; H'8C02B670
           .DATA.L _var_bumpSpeed_8c228670 ; H'8C02B674
-          .DATA.L _var_8c228668 ; H'8C02B678
+          .DATA.L _var_hitVehicle_8c228668 ; H'8C02B678
           .DATA.L H'3E0E38E4 ; H'8C02B67C
           .DATA.L H'3E8E38E4 ; H'8C02B680
           .DATA.L _VibStart_8c010f7a ; H'8C02B684
@@ -598,11 +598,11 @@ LP_GEN_48273:
           .DATA.W H'02E4 ; H'8C02B820
           .DATA.W H'019C ; H'8C02B822
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02B824
-          .DATA.L _var_8c228664 ; H'8C02B828
+          .DATA.L _var_hitCandidate_8c228664 ; H'8C02B828
           .DATA.L _BusCollisionFindHit_8c02e2dc ; H'8C02B82C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02B830
           .DATA.L _sdMidiPlay ; H'8C02B834
-          .DATA.L _var_8c228668 ; H'8C02B838
+          .DATA.L _var_hitVehicle_8c228668 ; H'8C02B838
           .DATA.L _var_bumpSpeed_8c228670 ; H'8C02B83C
           .DATA.L _njSqrt ; H'8C02B840
           .DATA.L _var_frameSpeed_8c22866c ; H'8C02B844

@@ -860,8 +860,8 @@ extern int var_wallHitBits_8c228660;
 /* Both written by handleBump_8c02b6d4 (02b464) with
  * BusCollisionFindHit_8c02e2dc's result, and read nowhere -- dead stores
  * kept for parity with the original. */
-extern BusState *var_8c228664;
-extern BusState *var_8c228668;
+extern BusState *var_hitCandidate_8c228664;
+extern BusState *var_hitVehicle_8c228668;
 
 /* The bus's speed this frame, snapshotted by taskCallback_8c02c072 (02b464)
  * before the graders run so they all see one value. */

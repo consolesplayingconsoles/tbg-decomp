@@ -696,6 +696,7 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                     ; 02b464
           .EXPORT     _var_runState_8c2285c4 ; 013ae8_route_load
+                                    ; 01e27c
                                     ; 01fa78
                                     ; 020214
                                     ; 022bdc
@@ -706,31 +707,11 @@
                                     ; 02c884
                                     ; 02d19c
                                     ; 02d968
-                                    ; 02b464
-                                    ; 02c884
-                                    ; 02c884
-                                    ; 01e27c
-                                    ; 01fa78
-                                    ; 02b464
-                                    ; 02c884
-                                    ; 02b464
-                                    ; 02c884
-                                    ; 02b464
-                                    ; 02c884
-                                    ; 02d19c
-                                    ; 028258
-                                    ; 02b464
-                                    ; 02c884
-                                    ; 02c884
-                                    ; 02c884
-                                    ; 02c884
-                                    ; 02b464
-                                    ; 02b464
           .EXPORT     _var_wallHitBits_8c228660 ; 022bdc
                                     ; 023938
                                     ; 02b464
-          .EXPORT     _var_8c228664 ; 02b464
-          .EXPORT     _var_8c228668 ; 02b464
+          .EXPORT     _var_hitCandidate_8c228664 ; 02b464
+          .EXPORT     _var_hitVehicle_8c228668 ; 02b464
           .EXPORT     _var_frameSpeed_8c22866c ; 02b464
           .EXPORT     _var_bumpSpeed_8c228670 ; 02b464
           .EXPORT     _var_laneA_8c228674 ; 02b464
@@ -745,38 +726,6 @@
           .EXPORT     _var_cooldownSignal_8c228698 ; 02b464
           .EXPORT     _var_cooldownLane_8c22869c ; 02b464
           .EXPORT     _var_cooldownIntersection_8c2286a0 ; 02b464
-                                    ; 02c884
-                                                   ; 013ae8_route_load
-                                                   ; 023310
-                                                   ; 026710
-                                                   ; 02af78_event
-                                                   ; 02c884
-                                                   ; 02d19c
-                                                   ; 02d968
-                                    ; 02c884
-                                    ; 02b464
-                                    ; 02c884
-                                    ; 02c884
-                                    ; 02d19c
-                                    ; 02d968
-                                    ; 02d06c
-                                    ; 02d968
-                                    ; 02d06c
-                                    ; 02d968
-                                    ; 02d06c
-                                    ; 02d19c
-                                    ; 02c884
-                                    ; 02d19c
-                                    ; 02d968
-                                    ; 02d968
-                                    ; 02d968
-                                    ; 02d968
-                                    ; 02d968
-                                    ; 02d968
-                                    ; 02d968
-                                    ; 02d968
-                                    ; 02d19c
-                                    ; 02d968
           .SECTION    B,DATA,ALIGN=4
 _var_busFont_8c1ba1c8:
           .RES.B      4
@@ -1266,9 +1215,9 @@ _var_runState_8c2285c4:
           .RES.B      156
 _var_wallHitBits_8c228660:
           .RES.B      4
-_var_8c228664:
+_var_hitCandidate_8c228664:
           .RES.B      4
-_var_8c228668:
+_var_hitVehicle_8c228668:
           .RES.B      4
 _var_frameSpeed_8c22866c:
           .RES.B      4

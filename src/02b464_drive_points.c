@@ -296,16 +296,16 @@ STATIC void handleBump_8c02b6d4(void) {
     }
 
     other = BusCollisionFindHit_8c02e2dc();
-    /* var_8c228664 and var_8c228668 are written here and read nowhere, in
+    /* var_hitCandidate_8c228664 and var_hitVehicle_8c228668 are written here and read nowhere, in
      * this unit or any other. Kept as-is. */
-    var_8c228664 = (BusState *)other;
+    var_hitCandidate_8c228664 = (BusState *)other;
     if (other == NULL) {
         return;
     }
 
     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x13, 0);
 
-    var_8c228668 = (BusState *)other;
+    var_hitVehicle_8c228668 = (BusState *)other;
     var_bumpSpeed_8c228670 = other->speed_0x27c;
     dx = other->posX_0xf4 - var_playerBus_8c1bbd9c->posX_0x0f4;
     dz = other->posZ_0xfc - var_playerBus_8c1bbd9c->posZ_0x0fc;

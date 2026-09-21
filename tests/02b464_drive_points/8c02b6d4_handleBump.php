@@ -14,8 +14,8 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
-        $this->setSize('_var_8c228664', 4);
-        $this->setSize('_var_8c228668', 4);
+        $this->setSize('_var_hitCandidate_8c228664', 4);
+        $this->setSize('_var_hitVehicle_8c228668', 4);
         $this->setSize('_var_frameSpeed_8c22866c', 4);
         $this->setSize('_var_bumpSpeed_8c228670', 4);
         $this->setSize('_var_cooldownCollision_8c228690', 4);
@@ -75,7 +75,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_CollisionQueueTest_8c02e4ac')->andReturn(0);
         $this->shouldCall('_BusCollisionFindHit_8c02e2dc')->andReturn(0);
-        $this->shouldWriteLongTo('_var_8c228664', 0);
+        $this->shouldWriteLongTo('_var_hitCandidate_8c228664', 0);
     }
 
     public function test_bump_knocks_both_apart_and_grades_penalty_by_speed(): void
@@ -102,9 +102,9 @@ return new class extends TestCase {
 
         $this->shouldCall('_CollisionQueueTest_8c02e4ac')->andReturn(0);
         $this->shouldCall('_BusCollisionFindHit_8c02e2dc')->andReturn($other);
-        $this->shouldWriteLongTo('_var_8c228664', $other);
+        $this->shouldWriteLongTo('_var_hitCandidate_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
-        $this->shouldWriteLongTo('_var_8c228668', $other);
+        $this->shouldWriteLongTo('_var_hitVehicle_8c228668', $other);
         $this->shouldWriteFloat($this->addressOf('_var_bumpSpeed_8c228670'), 2.5);
         $this->shouldCall('_njSqrt')->with(25.0)->andReturn(5.0); // dx*dx+dz*dz = 3^2+4^2
         $this->shouldWriteLong($other + 0x2b4, 1);
@@ -149,9 +149,9 @@ return new class extends TestCase {
 
         $this->shouldCall('_CollisionQueueTest_8c02e4ac')->andReturn(0);
         $this->shouldCall('_BusCollisionFindHit_8c02e2dc')->andReturn($other);
-        $this->shouldWriteLongTo('_var_8c228664', $other);
+        $this->shouldWriteLongTo('_var_hitCandidate_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
-        $this->shouldWriteLongTo('_var_8c228668', $other);
+        $this->shouldWriteLongTo('_var_hitVehicle_8c228668', $other);
         $this->shouldWriteFloat($this->addressOf('_var_bumpSpeed_8c228670'), 2.5);
         $this->shouldCall('_njSqrt')->with(25.0)->andReturn(5.0);
         $this->shouldWriteLong($other + 0x2b4, 1);
@@ -193,9 +193,9 @@ return new class extends TestCase {
 
         $this->shouldCall('_CollisionQueueTest_8c02e4ac')->andReturn(0);
         $this->shouldCall('_BusCollisionFindHit_8c02e2dc')->andReturn($other);
-        $this->shouldWriteLongTo('_var_8c228664', $other);
+        $this->shouldWriteLongTo('_var_hitCandidate_8c228664', $other);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0x13, 0);
-        $this->shouldWriteLongTo('_var_8c228668', $other);
+        $this->shouldWriteLongTo('_var_hitVehicle_8c228668', $other);
         $this->shouldWriteFloat($this->addressOf('_var_bumpSpeed_8c228670'), 2.5);
         $this->shouldCall('_njSqrt')->with(25.0)->andReturn(5.0);
         $this->shouldWriteLong($other + 0x2b4, 1);
