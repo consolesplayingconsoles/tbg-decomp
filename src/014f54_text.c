@@ -364,6 +364,16 @@ void TxtDestroy_8c01529c()
 
     LOG_INFO(("[TXT] Destroying text module\n"));
 
+    /* Torn down already: the tables below are freed memory, and the release loop would
+     * decide what to free from whatever now lives there, taking other people's textures
+     * with it. The original could be called twice safely only because its release never
+     * fired; now that it does, this guard is what keeps that true. */
+    if (var_8c1bc7a0 == NULL) {
+        /* TEMPORARY (2026-09-23): does the double teardown this guard exists for happen? */
+        LOG_INFO(("[TXT] teardown called again, guard held\n"));
+        return;
+    }
+
     for (i = 0; i < GLYPH_COUNT; i++) {
         /* In use = glyph index (0..0x1ff), free = 0xffff: release every loaded glyph.
          * The original compares unsigned (EXTU.W, CMP/GE #0xffed); as Sint16 `< -19`
@@ -376,6 +386,10 @@ void TxtDestroy_8c01529c()
     syFree(var_glyphTexnames_8c1bc78c);
     syFree(var_glyphBuffer_8c1bc7a4);
     syFree(var_8c1bc7a0);
+    var_glyphTexlists_8c1bc790 = NULL;
+    var_glyphTexnames_8c1bc78c = NULL;
+    var_glyphBuffer_8c1bc7a4 = NULL;
+    var_8c1bc7a0 = NULL;
 }
 
 /**

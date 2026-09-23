@@ -944,6 +944,21 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
 
                     njSetPvmTextureList(texlist, texname, filename, pvm->count_0x0c);
                     njLoadTexturePvmMemory((Uint8*) var_queueBuffer_8c157a84, texlist);
+                    /* TEMPORARY (2026-09-23): does mark.pvm's fourth texture load? Only
+                     * that one: a route load streams hundreds of PVMs and logging each of
+                     * them over serial is slow enough to look like a hang. */
+                    if (pvm->filename[0] == 'm' && pvm->filename[1] == 'a'
+                        && pvm->filename[2] == 'r' && pvm->filename[3] == 'k') {
+                        int t;
+                        LOG_INFO(("[PVM] %s: asked %d, list says %d\n", pvm->filename,
+                                  pvm->count_0x0c, (int) texlist->nbTexture));
+                        for (t = 0; t < pvm->count_0x0c; t++) {
+                            int *m = (int *) texlist->textures[t].texaddr;
+                            LOG_INFO(("[PVM]   tex %d: mem %08x  %08x %08x %08x %08x %08x %08x\n",
+                                      t, (int) m, m ? m[0] : 0, m ? m[1] : 0, m ? m[2] : 0,
+                                      m ? m[3] : 0, m ? m[4] : 0, m ? m[5] : 0));
+                        }
+                    }
 
                     if (var_queueBuffer_8c157a84 != var_texbuf_8c277ca0) {
                         syFree(var_queueBuffer_8c157a84);
@@ -990,6 +1005,21 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
 
                     njSetPvmTextureList(texlist, texname, filename, pvm->count_0x0c);
                     njLoadTexturePvmMemory((Uint8*) var_queueBuffer_8c157a84, texlist);
+                    /* TEMPORARY (2026-09-23): does mark.pvm's fourth texture load? Only
+                     * that one: a route load streams hundreds of PVMs and logging each of
+                     * them over serial is slow enough to look like a hang. */
+                    if (pvm->filename[0] == 'm' && pvm->filename[1] == 'a'
+                        && pvm->filename[2] == 'r' && pvm->filename[3] == 'k') {
+                        int t;
+                        LOG_INFO(("[PVM] %s: asked %d, list says %d\n", pvm->filename,
+                                  pvm->count_0x0c, (int) texlist->nbTexture));
+                        for (t = 0; t < pvm->count_0x0c; t++) {
+                            int *m = (int *) texlist->textures[t].texaddr;
+                            LOG_INFO(("[PVM]   tex %d: mem %08x  %08x %08x %08x %08x %08x %08x\n",
+                                      t, (int) m, m ? m[0] : 0, m ? m[1] : 0, m ? m[2] : 0,
+                                      m ? m[3] : 0, m ? m[4] : 0, m ? m[5] : 0));
+                        }
+                    }
 
                     if (var_queueBuffer_8c157a84 != var_texbuf_8c277ca0) {
                         /* TODO: Test this path */
