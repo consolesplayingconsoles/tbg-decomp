@@ -947,8 +947,10 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                     /* TEMPORARY (2026-09-23): does mark.pvm's fourth texture load? Only
                      * that one: a route load streams hundreds of PVMs and logging each of
                      * them over serial is slow enough to look like a hang. */
-                    if (pvm->filename[0] == 'm' && pvm->filename[1] == 'a'
-                        && pvm->filename[2] == 'r' && pvm->filename[3] == 'k') {
+                    if ((pvm->filename[0] == 'm' && pvm->filename[1] == 'a'
+                         && pvm->filename[2] == 'r' && pvm->filename[3] == 'k')
+                        || (pvm->filename[0] == 'p' && pvm->filename[1] == 'r'
+                            && pvm->filename[2] == 'a')) {
                         int t;
                         LOG_INFO(("[PVM] %s: asked %d, list says %d\n", pvm->filename,
                                   pvm->count_0x0c, (int) texlist->nbTexture));
@@ -1008,8 +1010,10 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                     /* TEMPORARY (2026-09-23): does mark.pvm's fourth texture load? Only
                      * that one: a route load streams hundreds of PVMs and logging each of
                      * them over serial is slow enough to look like a hang. */
-                    if (pvm->filename[0] == 'm' && pvm->filename[1] == 'a'
-                        && pvm->filename[2] == 'r' && pvm->filename[3] == 'k') {
+                    if ((pvm->filename[0] == 'm' && pvm->filename[1] == 'a'
+                         && pvm->filename[2] == 'r' && pvm->filename[3] == 'k')
+                        || (pvm->filename[0] == 'p' && pvm->filename[1] == 'r'
+                            && pvm->filename[2] == 'a')) {
                         int t;
                         LOG_INFO(("[PVM] %s: asked %d, list says %d\n", pvm->filename,
                                   pvm->count_0x0c, (int) texlist->nbTexture));

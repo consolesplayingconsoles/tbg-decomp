@@ -469,6 +469,15 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
     int line_count;
     const int characters_per_line = box->width_0x0c / GLYPH_WIDTH;
 
+    /* The module may have been torn down since the last box was drawn. Nothing on this
+     * path checks, and the tables below are dereferenced unconditionally: before the
+     * teardown guard those pointers merely dangled, so reads hit stale-but-mapped heap
+     * and text kept working by luck. Now they are NULL, and reading from address 0 means
+     * no glyph ever matches -1, so nothing is drawn at all. Bring the module back. */
+    if (var_8c1bc7a0 == NULL) {
+        TxtInit_8c01524c();
+    }
+
     // Check if the box already contains characters
     if (*box->tokens_0x2c != (Uint16) -1) {
         int i;
@@ -560,10 +569,16 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
 
 int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
 {
+    /* Same as the layout path: the module can be down by the time a box is drawn, and
+     * the glyph tables below are used without a check. */
     int token_idx = 0;
     int token_limit = 0;
     int row = 0;
     int col = 0;
+
+    if (var_8c1bc7a0 == NULL) {
+        TxtInit_8c01524c();
+    }
 
     if (box->text_0x38 == NULL || !*box->text_0x38) {
         return 0;
