@@ -8,7 +8,7 @@
 void DebugMenuOpen_8c01673a(void);
 void DebugMenuDemoRecordTask_8c01677e(Task *task, void *state);
 
-/* course-start params: tail of a DebugMenuEntry, handed to 012f44_game.c's
+/* course-start params: tail of a DebugMenuEntry, handed to 0129cc_game.c's
  * course start through var_debugMenuCourseSel_8c1bc824. */
 typedef struct {
     int courseId_0x00;

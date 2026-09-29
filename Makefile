@@ -48,10 +48,8 @@ SRCS = \
 	src/010e90_vibration.c \
 	src/010fe8_heap.c \
 	src/011120_asset_queues.c \
-	src/012324_peripheral_support.c \
-	src/012504_input.c \
-	src/0129cc_pause.c \
-	src/012f44_game.c \
+	src/012324_input.c \
+	src/0129cc_game.c \
 	src/013ae8_route_load.c \
 	src/014934_unused_load.c \
 	src/0149b0_sbinit.c \
@@ -102,8 +100,8 @@ SRCS = \
 	src/028258_objects.c \
 	src/02af78_event.c \
 	src/02b2f0_drive_msg.c \
-	src/02b464_drive_points.c \
 	src/asm/sectionB.src \
+	src/02b464_drive_points.c \
 	src/02c884_bus_stop.c \
 	src/02d06c_stop_draw.c \
 	src/02d19c_passenger.c \

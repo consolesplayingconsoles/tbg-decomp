@@ -2,8 +2,8 @@
 
 #include <shinobi.h>
 #include <sg_sd.h>
-#include "012504_input.h"
-#include "012f44_game.h"
+#include "012324_input.h"
+#include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
 #include "014f54_text.h"

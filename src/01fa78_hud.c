@@ -6,6 +6,7 @@
 #include "014f54_text.h"
 #include "0222dc_fadecmd.h"
 #include "028258_objects.h"
+#include "02b464_drive_points.h"
 #include "sectionB.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"

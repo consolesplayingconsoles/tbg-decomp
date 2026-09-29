@@ -200,7 +200,7 @@ STATIC DemoShot init_demoShotsOme_8c045ee4[] = {
     {0, {1992.0f, 12.0f, 797.0f}, MSG_DEMO_SHOT_OME_22},
 };
 
-/* Public: referenced by 012f44_game.c/012f44_game.src. */
+/* Public: referenced by 0129cc_game.c/0129cc_game.src. */
 char init_demoFirstShot_8c0460b0[] = {
     0x06, 0x13, 0x33, 0x00, 0x0A, 0x14, 0x1D, 0x25,
     0x00, 0x0E, 0x00, 0x00,
@@ -283,7 +283,7 @@ void DemoUpdateCamera_8c025906(void)
  * Phase 0 waits for that cue to change, cuts to the shot and types its place
  * name into the textbox, then phase 1 waits for the cue to clear. The first
  * frame is the exception: var_demoShotRearm_8c227e10 makes it cut to the shot
- * 012f44_game.c pre-seeded in var_demoShotId_8c227dd4 instead of waiting.
+ * 0129cc_game.c pre-seeded in var_demoShotId_8c227dd4 instead of waiting.
  *
  * Every call then advances the caption's reveal counter -- one glyph per two
  * frames -- and re-queues the bus draw for the next frame. */

@@ -1,4 +1,4 @@
-/* 8c012f44 */
+/* 8c0129cc */
 #ifndef _GAME_H
 #define _GAME_H
 
@@ -9,11 +9,6 @@
 
 extern NJS_TEXMEMLIST var_tex_8c157af8[TEX_NUM];
 
-extern int var_pauseSettle_8c18ad04;
-extern int var_retirePhase_8c18ad08;
-extern int var_confirmChoice_8c18ad0c;
-extern int var_onRetire_8c18ad10;
-extern NJS_POLYGON_VTX init_pauseDimQuad_8c03bf4c[4];
 extern NJS_TEXLIST init_renderTexlist_8c03bf44;
 
 void GameTask_8c012f44();

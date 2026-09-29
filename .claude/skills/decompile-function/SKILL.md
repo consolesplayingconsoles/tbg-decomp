@@ -189,7 +189,7 @@ Keep each path small enough to test quickly. If one path is taking too long, spl
 
   SHC requires consistent types within the TU and otherwise reports `2136 (E) Type mismatch`.
 
-  For a `TaskAction` callback that ignores its `(task, state)` arguments, use empty parentheses `()`, following `PspTask_8c012324`. Only name the parameter when the function uses it.
+  For a `TaskAction` callback that ignores its `(task, state)` arguments, use empty parentheses `()`, following `inputMenuTask_8c012324`. Only name the parameter when the function uses it.
 
   The installation site uses `void *`, so the arity does not need to match there.
 

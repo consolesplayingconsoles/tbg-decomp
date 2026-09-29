@@ -92,7 +92,7 @@ AdxFadeState var_adxFade_8c157a34;
 
 /* SND_ADX_* bitset of the streams currently playing. Menus poll it as a plain
  * "sound still running" flag before tearing their screen down; the
- * reset path in GameTask_8c012f44 and PauseDemoEndTask_8c012d5a instead stores
+ * reset path in GameTask_8c012f44 and pauseDemoEndTask_8c012d5a instead stores
  * 1 here with init_soundOk_8c03bd84 at 0, the pair GameMain_8c01392e reads as
  * "quit". */
 int init_adxPlaying_8c03bd80 = 0;

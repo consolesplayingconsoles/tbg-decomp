@@ -63,7 +63,7 @@ class LiveSdataTest(unittest.TestCase):
         self.assertEqual(second_bytes, list(b"common.dat") + [0, 0])
 
     def test_live_sdata_with_trailing_comment(self):
-        # e.g. src/asm/decompiled/012f44_game.src: `.SDATA "..." ; H'8c033364`
+        # e.g. src/asm/decompiled/0129cc_game.src: `.SDATA "..." ; H'8c033364`
         path = write_src(
             "          .SECTION    D, DATA, ALIGN=4\n"
             "_init_8c033364:\n"

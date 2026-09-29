@@ -25,7 +25,7 @@
           .EXPORT     _DemoBoardingCamera_8c025870
           .EXPORT     _DemoUpdateCamera_8c025906
           .EXPORT     _DemoStartTour_8c025af4
-          .EXPORT     _init_demoFirstShot_8c0460b0 ; 012f44_game.c, 012f44_game.src
+          .EXPORT     _init_demoFirstShot_8c0460b0 ; 0129cc_game.c, 0129cc_game.src
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _applyShotPosition_8c0258ba

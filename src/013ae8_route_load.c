@@ -1,8 +1,8 @@
 /* @unit RouteLoad */
 #include <shinobi.h>
 #include "011120_asset_queues.h"
-#include "012504_input.h"
-#include "012f44_game.h"
+#include "012324_input.h"
+#include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
 #include "014f54_text.h"
@@ -11,6 +11,7 @@
 #include "028258_objects.h"
 #include "02af78_event.h"
 #include "02c884_bus_stop.h"
+#include "02b464_drive_points.h"
 #include "sectionD.h"
 #include "sectionB.h"
 #include "includes.h" /* STATIC */

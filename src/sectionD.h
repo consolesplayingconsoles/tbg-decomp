@@ -7,7 +7,7 @@
 
 /* Per-course opening shot for the attract-mode tour, indexed by
  * courseId_0x00 - 0x26 and seeded into var_demoShotId_8c227dd4 by
- * 012f44_game.c. Defined in 025870_demo.c. */
+ * 0129cc_game.c. Defined in 025870_demo.c. */
 extern char init_demoFirstShot_8c0460b0[];
 /* Per-route tables selected by TrafficInit_8c02769e (026710) into
  * var_signalGroups_8c228b40; consumed by TrafficPathScanJunctionOccupied_8c02f28a (02f0c8_traffic_path_scan). */

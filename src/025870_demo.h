@@ -21,7 +21,7 @@ void DemoUpdateCamera_8c025906(void);
 
 /* Starts the attract-mode camera tour: selects this route's shot table into
  * var_demoShots_8c227e0c, pushes demoShotTask_8c0259e8 and opens the caption
- * textbox. Called by 012f44_game.c only in PLAY_MODE_DEMO, which is the whole
+ * textbox. Called by 0129cc_game.c only in PLAY_MODE_DEMO, which is the whole
  * tour's entry point. The tour is a sequence of camera cues painted along the
  * route, not one shot per bus stop -- most cues are unnamed framings, and
  * several in a row can sit at one spot to cut between angles. */

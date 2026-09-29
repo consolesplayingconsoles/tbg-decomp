@@ -5,6 +5,7 @@
 
 #include "02b2f0_drive_msg.h"
 #include "014f54_text.h"        /* TxtDrawSprite_8c014f54 */
+#include "02b464_drive_points.h"
 #include "sectionB.h"           /* var_driveMsgQueue_8c228564, DriveMsgSlot, ... */
 
 /* ====================
@@ -12,7 +13,7 @@
  * ====================
  */
 
-/* Banner glyphs and 0129cc_pause.c's MARK_* sprites share
+/* Banner glyphs and 0129cc_game.c's MARK_* sprites share
  * var_markTexlist_8c1bc418: a 16x16 grid of 32x32 cells, an id's low nibble
  * picking the column and the high nibble the row. What 0x78 depicts is
  * unverified. */

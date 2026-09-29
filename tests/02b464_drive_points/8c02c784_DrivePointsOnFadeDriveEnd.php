@@ -7,7 +7,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_menuState_8c1bc7a8', 0x3c);
         $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_runReportPending_8c1bb8b8', 4);

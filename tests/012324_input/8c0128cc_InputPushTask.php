@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    // param 0: install the peripheral-support task and clear its auto-fire state.
-    public function test_installs_peripheral_support_task()
+    // param 0: install the menu input task and clear its stick and repeat state.
+    public function test_installs_menu_input_task()
     {
         $this->resolveSymbols();
 
@@ -20,7 +20,7 @@ return new class extends TestCase {
         $sp0 = 1024 * 1024 * 16 - 4;
         $this->shouldCall('_TaskPush_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
-            $this->addressOf('_PspTask_8c012324'),
+            $this->addressOf('_inputMenuTask_8c012324'),
             $this->addressOf('_var_pushedTask_8c157a74'),
             $sp0 - 16, // &created_state (stack local; InputPushTask_8c0128cc's only local, sole word pushed just above TaskPush's stack arg)
             0
@@ -37,7 +37,7 @@ return new class extends TestCase {
 
         $this->call('_InputPushTask_8c0128cc')->with(1);
 
-        // See test_installs_peripheral_support_task for the &created_state
+        // See test_installs_menu_input_task for the &created_state
         // derivation -- same frame layout regardless of branch taken.
         $sp0 = 1024 * 1024 * 16 - 4;
         $this->shouldCall('_TaskPush_8c014ae8')->with(
@@ -56,7 +56,7 @@ return new class extends TestCase {
 
         $this->call('_InputPushTask_8c0128cc')->with(1);
 
-        // See test_installs_peripheral_support_task for the &created_state
+        // See test_installs_menu_input_task for the &created_state
         // derivation -- same frame layout regardless of branch taken.
         $sp0 = 1024 * 1024 * 16 - 4;
         $this->shouldCall('_TaskPush_8c014ae8')->with(
@@ -82,10 +82,6 @@ return new class extends TestCase {
     {
         $this->setSize('_var_tasks_8c1ba3c8', 4);
         $this->setSize('_var_pushedTask_8c157a74', 4);
-        $this->setSize('_var_stickLatchX_8c157ae4', 4);
-        $this->setSize('_var_stickLatchY_8c157ae8', 4);
-        $this->setSize('_var_keyRepeat_8c157ad4', 0x10);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
-        $this->setSize('_PspTask_8c012324', 4);
     }
 };

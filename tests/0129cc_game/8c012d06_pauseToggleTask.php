@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $this->setup(resetRequested: 1, vmBusy: 0, queuesInitialized: 0);
 
-        $this->call('_PauseToggleTask_8c012d06');
+        $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
@@ -19,7 +19,7 @@ return new class extends TestCase {
     {
         $this->setup(resetRequested: 1, vmBusy: 1, queuesInitialized: 0, pauseActive: 1);
 
-        $this->call('_PauseToggleTask_8c012d06');
+        $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldCall('_FadeUpdatePlain_8c022910');
     }
@@ -28,7 +28,7 @@ return new class extends TestCase {
     {
         $this->setup(resetRequested: 1, vmBusy: 0, queuesInitialized: 1, pauseActive: 1);
 
-        $this->call('_PauseToggleTask_8c012d06');
+        $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldCall('_FadeUpdatePlain_8c022910');
     }
@@ -37,7 +37,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 8, pauseActive: 0);
 
-        $this->call('_PauseToggleTask_8c012d06');
+        $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 1);
         $this->shouldCall('_FadeUpdatePlain_8c022910');
@@ -47,7 +47,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 8, pauseActive: 1);
 
-        $this->call('_PauseToggleTask_8c012d06');
+        $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
         $this->shouldCall('_FadeCmdResetQueues_8c02239c');
@@ -59,7 +59,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 0, pauseActive: 0);
 
-        $this->call('_PauseToggleTask_8c012d06');
+        $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldCall('_FadeCmdResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
@@ -70,7 +70,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 0, pauseActive: 1);
 
-        $this->call('_PauseToggleTask_8c012d06');
+        $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldCall('_FadeUpdatePlain_8c022910');
     }

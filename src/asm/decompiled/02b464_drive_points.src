@@ -2,38 +2,20 @@
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_driveMsgQueue_8c228564
           .IMPORT     _var_penaltyCount_8c1bb8f4
-          .IMPORT     _var_runState_8c2285c4
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     __quick_evn_mvn
-          .IMPORT     _var_cooldownCollision_8c228690
-          .IMPORT     _var_cooldownOffCourse_8c228694
-          .IMPORT     _var_cooldownSignal_8c228698
-          .IMPORT     _var_cooldownLane_8c22869c
-          .IMPORT     _var_cooldownIntersection_8c2286a0
           .IMPORT     _BusDriveStop_8c023bce
           .IMPORT     _var_playerBus_8c1bbd9c
-          .IMPORT     _var_bumpSpeed_8c228670
-          .IMPORT     _var_hitVehicle_8c228668
           .IMPORT     _VibStart_8c010f7a
-          .IMPORT     _var_frameSpeed_8c22866c
           .IMPORT     _CollisionQueueTest_8c02e4ac
-          .IMPORT     _var_hitCandidate_8c228664
           .IMPORT     _BusCollisionFindHit_8c02e2dc
           .IMPORT     _njSqrt
-          .IMPORT     _var_wallHitBits_8c228660
-          .IMPORT     _var_offCourseBits_8c228680
-          .IMPORT     _var_headingVsRoad_8c22868c
           .IMPORT     _var_driveMode_8c1bb8c8
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _ObjectsGetTrafficSignalFrame_8c028900
-          .IMPORT     _var_prevLane_8c228684
-          .IMPORT     _var_laneA_8c228674
-          .IMPORT     _var_laneC_8c22867c
-          .IMPORT     _var_laneB_8c228678
-          .IMPORT     _var_prevLaneFlags_8c228688
           .IMPORT     _var_padTriggerR_8c1ba374
           .IMPORT     _BusStopUpdateArrival_8c02ce48
           .IMPORT     _var_practiceRules_8c226410
@@ -86,6 +68,8 @@
           .EXPORT     _DrivePointsReset_8c02c46a
           .EXPORT     _DrivePointsRunComplete_8c02c586
           .EXPORT     _DrivePointsOnFadeDriveEnd_8c02c784
+          .EXPORT     _var_runState_8c2285c4 ; 013ae8_route_load
+          .EXPORT     _var_wallHitBits_8c228660 ; 022bdc
           .AIFDEF UNIT_TESTING
           .EXPORT     _adjust_8c02b464
           .EXPORT     _armCooldowns_8c02b578
@@ -2834,4 +2818,41 @@ _init_penaltyMsgGlyphs_8c04c35c:        ; from defines
           .DATA.L      _init_8c04c2f0
           .DATA.L      _init_8c04c308
           .DATA.L      _init_8c04c330
+          .SECTION    B,DATA,ALIGN=4
+_var_runState_8c2285c4:
+          .RES.B      156
+_var_wallHitBits_8c228660:
+          .RES.B      4
+_var_hitCandidate_8c228664:
+          .RES.B      4
+_var_hitVehicle_8c228668:
+          .RES.B      4
+_var_frameSpeed_8c22866c:
+          .RES.B      4
+_var_bumpSpeed_8c228670:
+          .RES.B      4
+_var_laneA_8c228674:
+          .RES.B      4
+_var_laneB_8c228678:
+          .RES.B      4
+_var_laneC_8c22867c:
+          .RES.B      4
+_var_offCourseBits_8c228680:
+          .RES.B      4
+_var_prevLane_8c228684:
+          .RES.B      4
+_var_prevLaneFlags_8c228688:
+          .RES.B      4
+_var_headingVsRoad_8c22868c:
+          .RES.B      4
+_var_cooldownCollision_8c228690:
+          .RES.B      4
+_var_cooldownOffCourse_8c228694:
+          .RES.B      4
+_var_cooldownSignal_8c228698:
+          .RES.B      4
+_var_cooldownLane_8c22869c:
+          .RES.B      4
+_var_cooldownIntersection_8c2286a0:
+          .RES.B      4
           .END

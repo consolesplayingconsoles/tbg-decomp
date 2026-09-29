@@ -7,31 +7,17 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): int
     {
-        $base = $this->setSize('_var_runState_8c2285c4', 0x9c);
+        $base = $this->addressOf('_var_runState_8c2285c4');
 
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_var_messageBoxActive_8c22847c', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
-        $this->setSize('_var_wallHitBits_8c228660', 4);
-        $this->setSize('_var_offCourseBits_8c228680', 4);
-        $this->setSize('_var_headingVsRoad_8c22868c', 4);
-        $this->setSize('_var_prevLaneFlags_8c228688', 4);
-        $this->setSize('_var_laneA_8c228674', 4);
-        $this->setSize('_var_laneB_8c228678', 4);
-        $this->setSize('_var_laneC_8c22867c', 4);
-        $this->setSize('_var_prevLane_8c228684', 4);
-        $this->setSize('_var_cooldownCollision_8c228690', 4);
-        $this->setSize('_var_cooldownOffCourse_8c228694', 4);
-        $this->setSize('_var_cooldownSignal_8c228698', 4);
-        $this->setSize('_var_cooldownLane_8c22869c', 4);
-        $this->setSize('_var_cooldownIntersection_8c2286a0', 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_var_vibport_8c1ba354', 4);
         $this->setSize('_var_fadeRequest_8c226564', 4);
         $this->setSize('_DriveMsgDraw_8c02b388', 4);
-        $this->setSize('_var_frameSpeed_8c22866c', 4);
 
         return $base;
     }

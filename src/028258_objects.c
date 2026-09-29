@@ -16,6 +16,7 @@
 #include "02af78_event.h" /* EventApplyFlags_8c02b292 */
 #include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
 #include "02fb50_sh4nlfzn.h" /* rand */
+#include "02b464_drive_points.h"
 #include "sectionB.h" /* var_trafficSignalFrames_8c227e24, var_busState_8c1bb9d0, ground query globals,
                         * var_pedGroups_8c228230, var_pedPaths_8c228238,
                         * var_pedestrianAssets_8c1bbfdc, AsqGetRandomA_8c012166,
@@ -6476,7 +6477,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
 /* Starts the event message-box display: applies the message-text relocation
  * fixup, spawns the message task with the selected event's slide table,
  * opens the on-screen textbox (ObjectsOpenTextbox_8c02ae3e), and marks the event-message
- * flag so the pause menu stays suppressed (see update_8c0129cc) while it
+ * flag so the pause menu stays suppressed (see pauseUpdate_8c0129cc) while it
  * runs. Also counts the shown event toward the run's completion bonus. */
 void ObjectsStartMessageBox_8c02ad8c(void)
 {

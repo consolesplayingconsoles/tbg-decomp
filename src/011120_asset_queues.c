@@ -114,7 +114,7 @@ STATIC int var_texlistQueueCount_8c157a68;
 int var_loadScreenActive_8c157a6c;
 
 /* PDS_PERIPHERAL.support of port 0 masked with BT_CONTROLLER: either
-   BT_CONTROLLER or BT_RACING (012504_input.h), or -1 for no usable pad. */
+   BT_CONTROLLER or BT_RACING (012324_input.h), or -1 for no usable pad. */
 int var_activeCtrlType_8c157a70;
 /* TaskPush_8c014ae8 needs somewhere to report the task it made;
    InputPushTask_8c0128cc gives it this, and nothing ever reads it back. */

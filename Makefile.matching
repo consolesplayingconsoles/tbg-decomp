@@ -14,10 +14,8 @@ SRCS = \
 	src/010e90_vibration.c \
 	src/asm/decompiled/010fe8_heap.src \
 	src/asm/decompiled/011120_asset_queues.src \
-	src/asm/decompiled/012324_peripheral_support.src \
-	src/asm/decompiled/012504_input.src \
-	src/asm/decompiled/0129cc_pause.src \
-	src/asm/decompiled/012f44_game.src \
+	src/asm/decompiled/012324_input.src \
+	src/asm/decompiled/0129cc_game.src \
 	src/asm/decompiled/013ae8_route_load.src \
 	src/014934_unused_load.c \
 	src/0149b0_sbinit.c \
@@ -68,8 +66,8 @@ SRCS = \
 	src/asm/decompiled/028258_objects.src \
 	src/asm/decompiled/02af78_event.src \
 	src/asm/decompiled/02b2f0_drive_msg.src \
-	src/asm/decompiled/02b464_drive_points.src \
 	src/asm/sectionB.src \
+	src/asm/decompiled/02b464_drive_points.src \
 	src/asm/decompiled/02c884_bus_stop.src \
 	src/asm/decompiled/02d06c_stop_draw.src \
 	src/asm/decompiled/02d19c_passenger.src \

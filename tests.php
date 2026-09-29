@@ -33,15 +33,6 @@ return [
         ],
         [
             'tests' => [
-                "tests/012324_peripheral_support/8c012324_PspTask.php",
-            ],
-            'objects' => [
-                "build/output_test/src/asm/decompiled/012324_peripheral_support.obj",
-                "build/output_test/src/012324_peripheral_support.obj",
-            ],
-        ],
-        [
-            'tests' => [
                 "tests/014f54_text/8c014f54_TxtDrawSprite.php",
                 "tests/014f54_text/8c015034_getGlyphIndex.php",
                 "tests/014f54_text/8c015110_unpackGlyph.php",
@@ -143,11 +134,15 @@ return [
         ],
         [
             'tests' => [
-                "tests/012f44_game.php",
+                "tests/0129cc_game/8c0129cc_pauseUpdate.php",
+                "tests/0129cc_game/8c012cbc_pauseTask.php",
+                "tests/0129cc_game/8c012d06_pauseToggleTask.php",
+                "tests/0129cc_game/8c012d5a_pauseDemoEndTask.php",
+                "tests/0129cc_game/game.php",
             ],
             'objects' => [
-                "build/output_test/src/asm/decompiled/012f44_game.obj",
-                "build/output_test/src/012f44_game.obj",
+                "build/output_test/src/asm/decompiled/0129cc_game.obj",
+                "build/output_test/src/0129cc_game.obj",
             ],
         ],
         [
@@ -241,15 +236,16 @@ return [
             ],
         [
             "tests" => [
-                "tests/012504_input/8c012504_inputManualTask.php",
-                "tests/012504_input/8c012718_inputAutoTask.php",
-                "tests/012504_input/8c0128cc_InputPushTask.php",
-                "tests/012504_input/8c012970_InputDispatchTask.php",
-                "tests/012504_input/8c012984_InputCheckColdBoot.php",
+                "tests/012324_input/8c012324_inputMenuTask.php",
+                "tests/012324_input/8c012504_inputManualTask.php",
+                "tests/012324_input/8c012718_inputAutoTask.php",
+                "tests/012324_input/8c0128cc_InputPushTask.php",
+                "tests/012324_input/8c012970_InputDispatchTask.php",
+                "tests/012324_input/8c012984_InputCheckColdBoot.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/012504_input.obj",
-                "build/output_test/src/012504_input.obj",
+                "build/output_test/src/asm/decompiled/012324_input.obj",
+                "build/output_test/src/012324_input.obj",
             ]
         ],
         [
@@ -346,18 +342,6 @@ return [
             "objects" => [
                 "build/output_test/src/asm/decompiled/013ae8_route_load.obj",
                 "build/output_test/src/013ae8_route_load.obj",
-            ]
-        ],
-        [
-            "tests" => [
-                "tests/0129cc_pause/8c0129cc_Update.php",
-                "tests/0129cc_pause/8c012cbc_PauseTask.php",
-                "tests/0129cc_pause/8c012d06_PauseToggleTask.php",
-                "tests/0129cc_pause/8c012d5a_PauseDemoEndTask.php",
-            ],
-            "objects" => [
-                "build/output_test/src/asm/decompiled/0129cc_pause.obj",
-                "build/output_test/src/0129cc_pause.obj",
             ]
         ],
         [

@@ -14,11 +14,6 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
-        $this->setSize('_var_hitCandidate_8c228664', 4);
-        $this->setSize('_var_hitVehicle_8c228668', 4);
-        $this->setSize('_var_frameSpeed_8c22866c', 4);
-        $this->setSize('_var_bumpSpeed_8c228670', 4);
-        $this->setSize('_var_cooldownCollision_8c228690', 4);
         $this->setSize('_njSqrt', 4);
     }
 

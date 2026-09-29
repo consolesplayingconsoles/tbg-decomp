@@ -27,7 +27,7 @@ return new class extends TestCase {
         // Keep the key-repeat block from running.
         $this->initUint32($this->addressOf('_var_keyRepeat_8c157ad4'), 2);
 
-        $this->call('_PspTask_8c012324');
+        $this->call('_inputMenuTask_8c012324');
 
         $this->shouldWriteLongTo('_var_resetRequested_8c157a78', 0);
         $this->shouldCall('_pdGetPeripheral')
@@ -112,7 +112,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')
+        $this->singleCall('_inputMenuTask_8c012324')
             ->run();
     }
 
@@ -169,7 +169,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')
+        $this->singleCall('_inputMenuTask_8c012324')
             ->run();
     }
 
@@ -227,7 +227,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')
+        $this->singleCall('_inputMenuTask_8c012324')
             ->run();
     }
 
@@ -285,7 +285,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')
+        $this->singleCall('_inputMenuTask_8c012324')
             ->run();
     }
 
@@ -342,7 +342,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')
+        $this->singleCall('_inputMenuTask_8c012324')
             ->run();
     }
 
@@ -400,7 +400,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')
+        $this->singleCall('_inputMenuTask_8c012324')
             ->run();
     }
 
@@ -456,7 +456,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')
+        $this->singleCall('_inputMenuTask_8c012324')
             ->run();
     }
 
@@ -508,7 +508,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')
+        $this->singleCall('_inputMenuTask_8c012324')
             ->run();
     }
 
@@ -563,7 +563,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')->run();
+        $this->singleCall('_inputMenuTask_8c012324')->run();
     }
 
     public function test_unsupported_controller()
@@ -616,7 +616,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')->run();
+        $this->singleCall('_inputMenuTask_8c012324')->run();
     }
 
     public function test_repeat_stays_idle_with_no_direction()
@@ -672,7 +672,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')->run();
+        $this->singleCall('_inputMenuTask_8c012324')->run();
     }
 
     public function test_repeat_arms_on_the_first_direction()
@@ -734,7 +734,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')->run();
+        $this->singleCall('_inputMenuTask_8c012324')->run();
     }
 
     public function test_repeat_disarms_when_the_direction_is_released()
@@ -793,7 +793,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')->run();
+        $this->singleCall('_inputMenuTask_8c012324')->run();
     }
 
     public function test_repeat_just_counts_below_the_period()
@@ -856,7 +856,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')->run();
+        $this->singleCall('_inputMenuTask_8c012324')->run();
     }
 
     public function test_repeat_fires_and_drops_to_the_short_period()
@@ -922,7 +922,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')->run();
+        $this->singleCall('_inputMenuTask_8c012324')->run();
     }
 
     public function test_repeat_ramps_to_every_frame_after_30()
@@ -986,7 +986,7 @@ return new class extends TestCase {
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
 
-        $this->singleCall('_PspTask_8c012324')->run();
+        $this->singleCall('_inputMenuTask_8c012324')->run();
     }
 
     private function initUint32Array(int $address, array $values): void

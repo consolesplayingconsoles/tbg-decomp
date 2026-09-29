@@ -1,6 +1,6 @@
 ---
 name: move-data
-description: Moves global data ownership between pre-data asm files and unit files (C or decompiled asm), including exports/imports, section B allocations, and test visibility gating. Use when relocating variables between groups like 012f44_game/013ae8/0149b0, fixing undefined extern symbols after moves, or converting private globals to STATIC/AIFDEF UNIT_TESTING patterns.
+description: Moves global data ownership between pre-data asm files and unit files (C or decompiled asm), including exports/imports, section B allocations, and test visibility gating. Use when relocating variables between groups like 0129cc_game/013ae8/0149b0, fixing undefined extern symbols after moves, or converting private globals to STATIC/AIFDEF UNIT_TESTING patterns.
 ---
 
 # Move Data Ownership

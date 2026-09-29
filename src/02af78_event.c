@@ -2,6 +2,7 @@
 #include <shinobi.h>
 
 #include "02af78_event.h"
+#include "02b464_drive_points.h"
 #include "sectionB.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"

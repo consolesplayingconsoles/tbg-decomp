@@ -10,7 +10,6 @@ return new class extends TestCase {
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20); // 8 x SDMIDI
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_driveMsgQueue_8c228564', 0x60); // 4 x DriveMsgSlot
-        $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
     }
 

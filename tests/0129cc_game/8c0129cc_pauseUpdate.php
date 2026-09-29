@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 0, ctrl: 0);
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldReturn(1);
     }
@@ -18,7 +18,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 8, ctrl: 0, vibport: -1);
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_pauseSettle_8c18ad04'), 0);
@@ -32,7 +32,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 8, ctrl: 0, vibport: 3);
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 1);
         $this->shouldWriteLong($this->addressOf('_var_pauseSettle_8c18ad04'), 0);
@@ -47,7 +47,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 1);
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldWriteLong($this->addressOf('_var_pauseSettle_8c18ad04'), 2);
         $this->shouldReturn(0);
@@ -57,7 +57,7 @@ return new class extends TestCase {
     {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 2);
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldReturn(0);
     }
@@ -67,7 +67,7 @@ return new class extends TestCase {
         $this->setup(press: 8, ctrl: 0, pauseActive: 1, settle: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 0);
@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->setup(press: 4, ctrl: 0, pauseActive: 1, settle: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_pauseActive_8c1bb8cc'), 0);
@@ -99,7 +99,7 @@ return new class extends TestCase {
         $this->setup(press: 0x20, ctrl: 0, pauseActive: 1, settle: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 1);
@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 0, y1: 0x41);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 1);
@@ -135,7 +135,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x75, 0.0, 0.0, -1.09);
@@ -149,7 +149,7 @@ return new class extends TestCase {
         $this->setup(press: 4, ctrl: 0, pauseActive: 1, settle: 0, onRetire: 1, retirePhase: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 1);
@@ -165,7 +165,7 @@ return new class extends TestCase {
         $this->setup(press: 0x10, ctrl: 0, pauseActive: 1, settle: 0, onRetire: 1, retirePhase: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
@@ -182,7 +182,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 0, onRetire: 1, retirePhase: 0, y1: 0xffbf);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_onRetire_8c18ad10'), 0);
@@ -198,7 +198,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, settle: 0, onRetire: 1, retirePhase: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7a, 0.0, 0.0, -1.09);
@@ -212,7 +212,7 @@ return new class extends TestCase {
         $this->setup(press: 2, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         // The RETIRE mark is drawn before the cancel sound, not after.
         $this->shouldCall('_FadeUpdate_8c022560');
@@ -229,7 +229,7 @@ return new class extends TestCase {
         $this->setup(press: 4, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         // Committing draws no arrow mark this frame.
         $this->shouldCall('_FadeUpdate_8c022560');
@@ -246,7 +246,7 @@ return new class extends TestCase {
         $this->setup(press: 0x80, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 1);
@@ -262,7 +262,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 0, x1: 0x41);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 1);
@@ -278,7 +278,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 0);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x76, 0.0, 0.0, -1.09);
@@ -292,7 +292,7 @@ return new class extends TestCase {
         $this->setup(press: 4, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_retirePhase_8c18ad08'), 0);
@@ -308,7 +308,7 @@ return new class extends TestCase {
         $this->setup(press: 0x40, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 0);
@@ -324,7 +324,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 1, x1: 0xffbf);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_confirmChoice_8c18ad0c'), 0);
@@ -340,7 +340,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 1, confirmChoice: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x77, 0.0, 0.0, -1.09);
@@ -354,7 +354,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 2, isFading: 1);
         $mark = $this->addressOf('_var_markTexlist_8c1bc418');
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         // The base mark is skipped on this path.
         $this->shouldCall('_FadeUpdate_8c022560');
@@ -368,7 +368,7 @@ return new class extends TestCase {
         $this->setup(press: 0, ctrl: 0, pauseActive: 1, onRetire: 1, retirePhase: 2, isFading: 0, playMode: 1);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 0x2b);
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
@@ -391,7 +391,7 @@ return new class extends TestCase {
             $this->initUint32($cc + $i * 4, 0x200 + $i);
         }
 
-        $this->call('_update_8c0129cc');
+        $this->call('_pauseUpdate_8c0129cc');
 
         $this->shouldCall('_FadeUpdate_8c022560');
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
@@ -411,7 +411,6 @@ return new class extends TestCase {
         $this->setSize('_FadeUpdate_8c022560', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_njDrawPolygon', 4);
-        $this->setSize('_init_pauseDimQuad_8c03bf4c', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndSetPaused_8c0107d2', 4);
         $this->setSize('_pdVibMxStop', 4);
@@ -432,10 +431,6 @@ return new class extends TestCase {
 
         $this->setSize('_var_pauseActive_8c1bb8cc', 4);
         $this->setSize('_var_runReportPending_8c1bb8b8', 4);
-        $this->setSize('_var_pauseSettle_8c18ad04', 4);
-        $this->setSize('_var_retirePhase_8c18ad08', 4);
-        $this->setSize('_var_confirmChoice_8c18ad0c', 4);
-        $this->setSize('_var_onRetire_8c18ad10', 4);
 
         $periph = $this->alloc(0x34);
         $this->initUint32($periph + 0x10, $press);

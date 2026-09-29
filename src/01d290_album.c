@@ -1,7 +1,7 @@
 /* @unit Album */
 #include <shinobi.h>
 #include <sg_sd.h>
-#include "012f44_game.h"
+#include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
 #include "014a9c_tasks.h"

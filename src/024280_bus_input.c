@@ -9,6 +9,7 @@
 #include "026710_traffic.h"       /* TrafficEntry */
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28 */
 #include "024280_bus_input.h"
+#include "02b464_drive_points.h"
 
 /* ====================
  * Compiler Definitions

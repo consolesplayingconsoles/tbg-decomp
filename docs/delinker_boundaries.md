@@ -57,7 +57,7 @@ Suspects surviving all three tests, strongest first:
 | `02b2f0_drive_msg` + `02b464_drive_points` | 2 | 1 -- `var_driveMsgQueue_8c228564` |
 | `022bdc_bus` + `023310_bus_init` | 1 | 1 -- `var_busDoorLastFrame_8c227db4` |
 | `025b98_traffic_drive` + `026710_traffic` | 2 | 0 |
-| `012324_peripheral_support` + `012504_input` | 1 | 0 |
+| `012324_peripheral_support` + `012504_input` (merged as `012324_input`) | 1 | 0 |
 
 Eliminated by contiguity, i.e. small TUs whose sole consumer is far away:
 `016bf4_demo_input` (4 units from `012f44_game`), `02412c_bus_line` (2 from
@@ -67,11 +67,17 @@ Eliminated by contiguity, i.e. small TUs whose sole consumer is far away:
 section at all, which is also why `013ae8_route_load` uses data that links
 nowhere near `013ae8`'s own.
 
+`0129cc_pause` + `012f44_game` (merged as `0129cc_game`) were found by layout
+instead: pause had no data object of its own, while its private D
+(`init_pauseDimQuad`) and bss (`pauseSettle`..`onRetire`) sat in the middle
+of game's D and B runs. Pause links first, so as separate TUs all of its data
+would precede game's.
+
 ## `02d968_stop_spawn`: the case in detail
 
 - One function, 253 lines, **zero** private bss, one D blob.
 - Calls all five of `02d19c`'s public functions -- and is the only file that does.
-- `02d19c` calls back into it; the sole outside entry is one call from `012f44_game`.
+- `02d19c` calls back into it; the sole outside entry is one call from `0129cc_game`.
 - Initialises `02d19c`'s spot vars with literals, then transforms them by the bus matrix.
 - Their D blobs are exactly adjacent: `init_seatPositions` is 248 bytes and the
   gap to `init_passengerVoiceVariant` is 248.

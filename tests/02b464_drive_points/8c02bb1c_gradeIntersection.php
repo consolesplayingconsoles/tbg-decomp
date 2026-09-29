@@ -7,13 +7,10 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): int
     {
-        $base = $this->setSize('_var_runState_8c2285c4', 0x9c);
+        $base = $this->addressOf('_var_runState_8c2285c4');
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);
-        $this->setSize('_var_frameSpeed_8c22866c', 4); // unused placeholder, see initFloat below
-        $this->setSize('_var_prevLane_8c228684', 4);
-        $this->setSize('_var_prevLaneFlags_8c228688', 4);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
 

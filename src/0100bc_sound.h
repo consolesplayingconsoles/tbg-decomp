@@ -12,7 +12,7 @@
 
 /* Nonzero while an ADX stream is playing (bit0 music, bit4 voice); menus poll
  * it before tearing their screen down. GameTask_8c012f44 and
- * PauseDemoEndTask_8c012d5a also store 1 here with init_soundOk_8c03bd84 at 0,
+ * pauseDemoEndTask_8c012d5a also store 1 here with init_soundOk_8c03bd84 at 0,
  * which is how GameMain_8c01392e is told to quit. */
 extern int init_adxPlaying_8c03bd80;
 /* Cleared when the ADX layer gives up on the disc. */

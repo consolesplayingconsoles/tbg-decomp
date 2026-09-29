@@ -4,7 +4,7 @@
 #include <sg_sd.h>
 #include "0100bc_sound.h"
 #include "011120_asset_queues.h"
-#include "012504_input.h"
+#include "012324_input.h"
 #include "014f54_text.h"
 #include "015ab8_title.h"
 #include "018644_file_menu.h"

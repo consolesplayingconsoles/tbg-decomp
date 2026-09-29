@@ -29,7 +29,7 @@ return new class extends TestCase {
         $this->setSize('_TxtDrawTextbox_8c0155e0', 4);
 
         // var_messageTextBoxA/B are consecutive words in the real binary and
-        // are external to this unit (defined in 012f44_game.c) -- force the
+        // are external to this unit (defined in 0129cc_game.c) -- force the
         // same adjacency here since the linker doesn't place separately
         // declared symbols next to each other by default.
         $mbBase = $this->addressOf('_var_messageTextBoxA_8c1bc404');

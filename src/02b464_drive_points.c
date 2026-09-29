@@ -198,6 +198,62 @@ STATIC int *init_penaltyMsgGlyphs_8c04c35c[] = {
     /* 0x20 */ init_8c04c308, init_8c04c330,
 };
 
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+RunState var_runState_8c2285c4;
+
+int var_wallHitBits_8c228660;
+
+/* Both written by handleBump_8c02b6d4 (02b464) with
+ * BusCollisionFindHit_8c02e2dc's result, and read nowhere -- dead stores
+ * kept for parity with the original. */
+BusState *var_hitCandidate_8c228664;
+BusState *var_hitVehicle_8c228668;
+
+/* The bus's speed this frame, snapshotted by taskCallback_8c02c072 (02b464)
+ * before the graders run so they all see one value. */
+float var_frameSpeed_8c22866c;
+
+/* The bumped vehicle's speed_0x27c, saved before handleBump_8c02b6d4
+ * overwrites it, then given to the player as rebound speed. */
+float var_bumpSpeed_8c228670;
+
+/* One frame's driving state, all snapshotted together by
+ * taskCallback_8c02c072 (02b464) before the graders run.
+ *
+ * laneA/B/C are junctionARoadFlags2_0x358 / junctionBRoadFlags2_0x374 /
+ * junctionCRoadFlags2_0x390 masked with 0xf0000001 -- the bus's three
+ * road-probe lanes. prevLane/prevLaneFlags are last frame's, kept in
+ * var_runState_8c2285c4.field_0x58[5]/var_runState_8c2285c4.field_0x70[0] between frames. offCourseBits is the
+ * larger of junction A's and B's 0x30000 bits: 0x30000 is the severe case
+ * gradeOffCourseSevere_8c02b864 grades, 0x20000 and below go to
+ * gradeOffCourse_8c02b886. headingVsRoad is 0 when there is no road data,
+ * 1 when the bus points along the road and 2 when it points against it --
+ * 2 is what gradeSignals_8c02b8b8 reads as wrong-way. */
+int var_laneA_8c228674;
+int var_laneB_8c228678;
+int var_laneC_8c22867c;
+int var_offCourseBits_8c228680;
+int var_prevLane_8c228684;
+int var_prevLaneFlags_8c228688;
+int var_headingVsRoad_8c22868c;
+
+/* One cooldown per offense category, armed by armCooldowns_8c02b578 (02b464)
+ * to 0x96 frames for collision and signal, 0xd2 for the rest, and counted
+ * down by taskCallback_8c02c072. They are not independent: the graders run
+ * in a chain where each is gated on the cooldown the category above it
+ * arms, so a collision silences every lesser offense for 150 frames. A
+ * negative value means expired. */
+int var_cooldownCollision_8c228690;
+int var_cooldownOffCourse_8c228694;
+int var_cooldownSignal_8c228698;
+int var_cooldownLane_8c22869c;
+int var_cooldownIntersection_8c2286a0;
+
+
 /* ====================
  * Functions
  * ====================

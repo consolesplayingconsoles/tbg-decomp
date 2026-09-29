@@ -16,6 +16,7 @@
 #include "02df3c_traffic_lookahead.h"
 #include "02e51c_attr_query.h"
 #include "02f0c8_traffic_path_scan.h"
+#include "02b464_drive_points.h"
 #include "sectionB.h"
 #include "sectionD.h"
 #include "includes.h" /* STATIC */

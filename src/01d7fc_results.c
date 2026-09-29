@@ -4,8 +4,8 @@
 #include "01d7fc_results.h"
 #include "0100bc_sound.h"
 #include "011120_asset_queues.h"
-#include "012504_input.h"
-#include "012f44_game.h"
+#include "012324_input.h"
+#include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "014b8c_backup.h"
 #include "014f54_text.h"
@@ -19,6 +19,7 @@
 #include "01bb48_vm_game.h"
 #include "01f3c0_ending.h"
 #include "028258_objects.h"
+#include "02b464_drive_points.h"
 #include "sectionB.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"

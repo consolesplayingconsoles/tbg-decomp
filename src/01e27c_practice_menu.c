@@ -3,7 +3,7 @@
 
 #include "01e27c_practice_menu.h"
 #include "011120_asset_queues.h"
-#include "012f44_game.h"
+#include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
 #include "01614c_debug_menu.h"
@@ -12,6 +12,7 @@
 #include "01f3c0_ending.h"
 #include "028258_objects.h"
 #include "0100bc_sound.h"
+#include "02b464_drive_points.h"
 #include "sectionB.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"

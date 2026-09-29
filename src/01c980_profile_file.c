@@ -11,7 +11,7 @@
 #include "013ae8_route_load.h"
 #include "022464_fade.h"
 #include "0100bc_sound.h"
-#include "012f44_game.h"
+#include "0129cc_game.h"
 #include "016c58_prompt.h"
 #include "01614c_debug_menu.h"
 
