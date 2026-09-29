@@ -8,6 +8,7 @@
 #include "028258_objects.h"
 #include "02b464_drive_points.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 

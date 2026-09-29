@@ -4,7 +4,7 @@
 
 #include <shinobi.h>
 
-#include "sectionB.h" /* BusState */
+#include "1ba1c8_globals.h" /* BusState */
 
 /* Builds a vehicle's world matrix from its ground probes: pitch from the
  * forward probe station's height minus the body's over width_0x23c (their

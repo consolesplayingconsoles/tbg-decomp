@@ -2,6 +2,7 @@
 /* 8c016bf4 */
 #include <shinobi.h>
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "016bf4_demo_input.h"
 
 void DemoInputTask_8c016bf4()

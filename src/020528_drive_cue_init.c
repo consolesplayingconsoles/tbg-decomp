@@ -2,6 +2,7 @@
 #include "014a9c_tasks.h"
 #include "020214_drive_cue_task.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "020528_drive_cue_init.h"
 
 /* ====================

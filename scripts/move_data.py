@@ -32,6 +32,7 @@ from pathlib import Path
 
 IMPORT_RE = re.compile(r'^\s*\.IMPORT\s+(_[A-Za-z0-9_]+)')
 EXPORT_RE = re.compile(r'^\s*\.EXPORT\s+(_[A-Za-z0-9_]+)')
+CONTINUATION_RE = re.compile(r'^\s+;')
 SECTION_RE = re.compile(r'^\s*\.SECTION\s+(\w+)')
 END_RE = re.compile(r'^\s*\.END\b')
 LABEL_RE = re.compile(r'^(_[A-Za-z0-9_]+):')
@@ -86,6 +87,9 @@ class SrcFile:
                 self.items.append(['import', mi.group(1), line])
             elif me:
                 self.items.append(['export', me.group(1), line])
+            elif CONTINUATION_RE.match(line) and self.items and self.items[-1][0] == 'export':
+                # an export's consumer list spills onto indented comment lines
+                self.items[-1][2] += '\n' + line
             else:
                 self.items.append(['raw', None, line])
             i += 1

@@ -15,8 +15,7 @@ return new class extends TestCase {
     private function setupCachedRows(): void
     {
         // var_nightLightIntensityStep_8c1bbda0[2], var_nightLightIntensityOff_8c1bbda8[2], var_nightLightIntensityOn_8c1bbdb0[2], var_nightLightColorStep_8c1bbdb8[3],
-        // var_nightLightColorOff_8c1bbdc4[3], var_nightLightColorOn_8c1bbdd0[3] -- and the two linker-coincidence
-        // aliases into var_nightLightIntensityOn_8c1bbdb0[1]/var_nightLightIntensityOff_8c1bbda8[1].
+        // var_nightLightColorOff_8c1bbdc4[3], var_nightLightColorOn_8c1bbdd0[3].
         $this->setSize('_var_nightLightIntensityStep_8c1bbda0', 8);
         $this->setSize('_var_nightLightIntensityOff_8c1bbda8', 8);
         $this->setSize('_var_nightLightIntensityOn_8c1bbdb0', 8);
@@ -30,9 +29,6 @@ return new class extends TestCase {
         $db8 = $this->addressOf('_var_nightLightColorStep_8c1bbdb8');
         $dc4 = $this->addressOf('_var_nightLightColorOff_8c1bbdc4');
         $dd0 = $this->addressOf('_var_nightLightColorOn_8c1bbdd0');
-
-        $this->rellocate('_var_nightLightIntensityOn1_8c1bbdb4', $db0 + 4);
-        $this->rellocate('_var_nightLightIntensityOff1_8c1bbdac', $da8 + 4);
 
         // Per-frame delta: (row2 - row1) / 20.
         $this->initUint32($da0 + 0x0, fdec(1.0));

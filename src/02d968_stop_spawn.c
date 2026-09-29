@@ -4,6 +4,7 @@
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "014a9c_tasks.h"
 #include "02d19c_passenger.h"
 #include "025870_demo.h"

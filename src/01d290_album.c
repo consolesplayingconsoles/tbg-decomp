@@ -15,6 +15,7 @@
 #include "022464_fade.h"
 #include "sectionD.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "01d290_album.h"
 
 /* ====================

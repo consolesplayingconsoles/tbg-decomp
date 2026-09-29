@@ -4,6 +4,7 @@
 
 #include "includes.h" /* STATIC */
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "026710_traffic.h"      /* TrafficEntry */
 #include "020914_ground_query.h" /* GroundQueryResult */
 #include "020b6c_ground_probe.h" /* GroundProbeTrackPolygonAtHeight_8c021290, GroundProbeInterpolateHeight_8c020f7e */
@@ -362,7 +363,7 @@ void BusDrawFadeLights_8c028022(BusState *bus)
         bus->lightCoeffRow_0x0c4[0] += var_nightLightIntensityStep_8c1bbda0[0];
         if (bus->lightCoeffRow_0x0c4[0] >= var_nightLightIntensityOn_8c1bbdb0[0]) {
             bus->lightCoeffRow_0x0c4[0] = var_nightLightIntensityOn_8c1bbdb0[0];
-            bus->lightCoeffRow_0x0c4[1] = var_nightLightIntensityOn1_8c1bbdb4;
+            bus->lightCoeffRow_0x0c4[1] = var_nightLightIntensityOn_8c1bbdb0[1];
             bus->lightCoeffRow_0x0c4[2] = var_nightLightColorOn_8c1bbdd0[0];
             bus->lightCoeffRow_0x0c4[3] = var_nightLightColorOn_8c1bbdd0[1];
             bus->lightCoeffRow_0x0c4[4] = var_nightLightColorOn_8c1bbdd0[2];
@@ -385,7 +386,7 @@ void BusDrawFadeLights_8c028022(BusState *bus)
         bus->lightCoeffRow_0x0c4[0] -= var_nightLightIntensityStep_8c1bbda0[0];
         if (bus->lightCoeffRow_0x0c4[0] <= var_nightLightIntensityOff_8c1bbda8[0]) {
             bus->lightCoeffRow_0x0c4[0] = var_nightLightIntensityOff_8c1bbda8[0];
-            bus->lightCoeffRow_0x0c4[1] = var_nightLightIntensityOff1_8c1bbdac;
+            bus->lightCoeffRow_0x0c4[1] = var_nightLightIntensityOff_8c1bbda8[1];
             bus->lightCoeffRow_0x0c4[2] = var_nightLightColorOff_8c1bbdc4[0];
             bus->lightCoeffRow_0x0c4[3] = var_nightLightColorOff_8c1bbdc4[1];
             bus->lightCoeffRow_0x0c4[4] = var_nightLightColorOff_8c1bbdc4[2];

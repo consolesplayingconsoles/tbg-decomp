@@ -58,7 +58,7 @@ def strip_comments(text):
     return "\n".join(TRAILING_COMMENT.sub("", line) for line in text.splitlines())
 
 
-# Functions we deliberately keep public even though nothing currently references
+# Symbols we deliberately keep public even though nothing currently references
 # them across units (so the object-level check would call them private):
 #   - heap* :
 #   - UnusedLoadPushTask_8c014934 : unused
@@ -70,6 +70,10 @@ KEEP_PUBLIC = {
     "UnusedLoadPushTask_8c014934",
     # unused debug-menu entry point
     "DebugMenuOpen_8c01673a",
+    # unreferenced global the original placed by declaring it in its header: SHC
+    # lays B out by first declaration, so only a header declaration puts it
+    # between var_cabinCamera_8c1bb984 and var_busState_8c1bb9d0
+    "var_8c1bb9c4",
 }
 
 # SDK-mirrored / infra names (scif_*, BupExit, main, serialprintf, ...) whose

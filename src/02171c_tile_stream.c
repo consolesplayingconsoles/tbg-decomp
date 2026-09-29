@@ -1,6 +1,7 @@
 /* @unit TileStream */
 #include <shinobi.h>
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "013ae8_route_load.h"
 #include "011120_asset_queues.h"
 #include "02171c_tile_stream.h"

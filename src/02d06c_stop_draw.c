@@ -2,6 +2,7 @@
 
 #include <shinobi.h>
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "02d19c_passenger.h"
 #include "02c884_bus_stop.h"
 

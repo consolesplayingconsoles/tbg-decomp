@@ -5,7 +5,7 @@
 
 #include "02e51c_attr_query.h"
 #include "026710_traffic.h"  /* TrafficEntry */
-#include "sectionB.h"        /* var_tasks_8c1bac28, var_busState_8c1bb9d0 */
+#include "1ba1c8_globals.h"
 
 /* ====================
  * Type Declarations

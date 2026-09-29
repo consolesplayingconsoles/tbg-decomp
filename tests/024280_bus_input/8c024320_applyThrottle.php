@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // applyThrottle_8c024320: STATIC, called from BusInputUpdate_8c0246b2 each frame while driving.
-// While the .r trigger (var_padTriggerR_8c1ba374) clears its saved deadzone
+// While the .r trigger (var_peripherals_8c1ba35c[0].r) clears its saved deadzone
 // (accelSensitivity_0xd0) and the scaled step it asks for is at least where the
 // engine already sits (BusState.rpmRampAngle_0x2e4), ramps that angle toward the
 // step by init_gears_8c045638[gear].accelRate_0x00,
@@ -25,7 +25,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
-        $this->setSize('_var_padTriggerR_8c1ba374', 2);
+        $this->setSize('_var_peripherals_8c1ba35c', 0x1c);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_runState_8c2285c4', 0x9c);
@@ -50,7 +50,7 @@ return new class extends TestCase {
         int $mirrorLevel = 0
     ): int {
         $this->resolveSymbols();
-        $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), $trigger);
+        $this->initUint16($this->addressOf('_var_peripherals_8c1ba35c') + 0x18, $trigger);
         $this->initUint8($this->addressOf('_var_progress_8c1ba1cc') + 0xd0, $deadzone);
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), $mirrorLevel);
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x88, 0xdeadbeef);

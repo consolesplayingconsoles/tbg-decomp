@@ -3,6 +3,7 @@
 #include "includes.h" /* STATIC */
 #include <njdef.h>
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "0129cc_game.h"
 #include "022464_fade.h"
 

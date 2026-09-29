@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_BusTask_8c022bdc', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
-        $this->setSize('_var_vehicleModelSlots_8c1bbf7c', 0x60);
+        $this->setSize('_var_routeModelSlots_8c1bbddc', 0x200);
         $this->setSize('_var_trafficModels_8c1bc3f4', 4);
         $this->setSize('_VehPartsBind_8c02786c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
@@ -93,7 +93,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busDoorMotion_8c1bc410'), $timeStruct);
         $this->initUint32($timeStruct + 4, $rawTimeBits);
 
-        $vehParts = $this->addressOf('_var_vehicleModelSlots_8c1bbf7c');
+        $vehParts = $this->addressOf('_var_routeModelSlots_8c1bbddc') + 26 * 0x10;
         $vpField4 = 0xcafe0500;
         $vpField8 = 0xcafe0600;
         $this->initUint32($vehParts + 0x08, $vpField4);

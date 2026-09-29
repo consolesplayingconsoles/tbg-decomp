@@ -5,6 +5,7 @@
 
 #include "serial_debug.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "027958_bus_draw.h"
 #include "0222dc_fadecmd.h"
 #include "024b4c_bus_render.h"

@@ -66,7 +66,7 @@ typedef struct {
     NJS_OBJECT *turnLampA_0x040;
     NJS_OBJECT *turnLampB_0x044;
     NJS_OBJECT *turnLampC_0x048;
-    /* BusState's bodyModels_0x04c[6] at the same offsets (sectionB.h), but
+    /* BusState's bodyModels_0x04c[6] at the same offsets (1ba1c8_globals.h), but
      * VehPartsBind_8c02786c fills them only for typeCode 0x1a and nothing on
      * the traffic side reads them back. */
     NJS_OBJECT *field_0x04c;
@@ -80,8 +80,8 @@ typedef struct {
     Uint32 field_0x064;
     Uint32 field_0x068;
     Uint32 field_0x06c;
-    /* Same animation angles as BusState's at these offsets (sectionB.h). */
-    /* Same animation angles as BusState's at these offsets (sectionB.h). */
+    /* Same animation angles as BusState's at these offsets (1ba1c8_globals.h). */
+    /* Same animation angles as BusState's at these offsets (1ba1c8_globals.h). */
     Uint32 distanceTraveled_0x070;
     Uint32 steerAngle_0x074;
     Uint32 pitchAngle_0x078;

@@ -53,6 +53,7 @@ SRCS = \
 	src/013ae8_route_load.c \
 	src/014934_unused_load.c \
 	src/0149b0_sbinit.c \
+	src/1ba1c8_globals.c \
 	src/014a9c_tasks.c \
 	src/014b8c_backup.c \
 	src/014f54_text.c \

@@ -7,6 +7,7 @@
 #include "021b9c_tile_draw.h"
 #include "022464_fade.h" /* FadeDrawCommand, FadeCallback1, FadeCallback2 */
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 
 /* ==========
  * Functions

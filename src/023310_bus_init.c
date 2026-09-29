@@ -4,6 +4,7 @@
 #include "serial_debug.h"
 
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "013ae8_route_load.h" /* CourseSceneParams, CourseSegment */
 #include "02c884_bus_stop.h"   /* StopAreaRecord, BusStopGetStopArea_8c02cd7a */
 #include "020914_ground_query.h"
@@ -150,8 +151,8 @@ void BusInitStart_8c023610(void)
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &BusTask_8c022bdc, &created_task, &created_state, 0);
 
     var_playerBus_8c1bbd9c = &var_busState_8c1bb9d0;
-    var_busState_8c1bb9d0.texlistLarge_0x004 = (int)var_vehicleModelSlots_8c1bbf7c[0].texlist_0x08;
-    var_busState_8c1bb9d0.modelLarge_0x00c = (int)var_vehicleModelSlots_8c1bbf7c[0].nj_0x0c;
+    var_busState_8c1bb9d0.texlistLarge_0x004 = (int)var_routeModelSlots_8c1bbddc[26].texlist_0x08;
+    var_busState_8c1bb9d0.modelLarge_0x00c = (int)var_routeModelSlots_8c1bbddc[26].nj_0x0c;
     var_busState_8c1bb9d0.shadowModel_0x014 = *(int *)((char *)var_trafficModels_8c1bc3f4 + 0x44);
     VehPartsBind_8c02786c(&var_busState_8c1bb9d0, 0x1a);
 

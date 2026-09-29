@@ -3,7 +3,10 @@
 
 Goal is functional equivalence, so section P (code, incl. literal pools) may differ;
 C (const), D (init data) and B (bss) should match when the objects are meant to be
-equivalent. Two things are normalised so faithful pointers don't look like diffs:
+equivalent. Each data section's layout is checked too: its size, and the offset of
+every symbol exported by both objects (one exported by only one side is a difference)
+-- B has no bytes, so for bss that is the whole check.
+Two things are normalised so faithful pointers don't look like diffs:
   * relocated 4-byte slots are masked out before the byte compare (the assembler
     stores addends in the reloc entry, the compiler stores them in-place);
   * relocations are compared as an ordered list of (TARGET, address). TARGET is the
@@ -19,7 +22,7 @@ different order will (correctly) report a difference.
 Usage: scripts/dcdiff.py <a.obj> <b.obj>
 Env:   SH4OBJTEST=path/to/sh4objtest   (default: sh4objtest)
 """
-import os, re, subprocess, sys
+import json, os, re, subprocess, sys
 
 SH4OBJTEST = os.environ.get("SH4OBJTEST", "sh4objtest")
 SEC = re.compile(r"^Section \d+: (\w)\s+\[")
@@ -78,10 +81,37 @@ def inspect(obj):
     return secs
 
 
+def layout(obj):
+    """{section letter: (size, {exported symbol: offset})} from inspect's JSON."""
+    txt = subprocess.run([SH4OBJTEST, "inspect", obj, "--format=json"],
+                         capture_output=True, text=True, check=True).stdout
+    doc = json.loads(txt[txt.index("{"):])   # skip any WARN line ahead of the JSON
+    return {sec["name"]: (sec["length"], {e["name"]: e["offset"] for e in sec.get("exports", [])})
+            for sec in doc["sections"]}
+
+
+def layout_msgs(la, lb):
+    (sa, ea), (sb, eb) = la, lb
+    msgs = []
+    if sa != sb:
+        msgs.append(f"size differs (0x{sa:x} vs 0x{sb:x})")
+    moved = [n for n in sorted(ea.keys() & eb.keys(), key=ea.get) if ea[n] != eb[n]]
+    if moved:
+        n = moved[0]
+        msgs.append(f"{len(moved)} symbol offset(s) differ; first {n}: 0x{ea[n]:x} vs 0x{eb[n]:x}")
+    for mine, theirs, side in ((ea, eb, sys.argv[1]), (eb, ea, sys.argv[2])):
+        only = sorted(mine.keys() - theirs.keys(), key=mine.get)
+        if only:
+            msgs.append(f"{len(only)} symbol(s) exported only by {side}: "
+                        + ", ".join(only[:5]) + (", ..." if len(only) > 5 else ""))
+    return msgs
+
+
 def main():
     if len(sys.argv) != 3:
         sys.exit(__doc__)
     a, b = inspect(sys.argv[1]), inspect(sys.argv[2])
+    la, lb = layout(sys.argv[1]), layout(sys.argv[2])
     diffs = 0
     for letter in sorted(set(a) | set(b)):
         tag = "code, differences expected" if letter == "P" else None
@@ -107,11 +137,15 @@ def main():
             first = f"{aa[i] if i < len(aa) else None} vs {ab[i] if i < len(ab) else None}"
             msgs.append(f"{sum(x != y for x, y in zip(aa, ab)) + abs(len(aa) - len(ab))} "
                         f"reloc address(es) differ; first at #{i}: {first}")
+        if letter != "P":
+            msgs += layout_msgs(la[letter], lb[letter])
         if msgs:
             print(f"[{letter}] " + "; ".join(msgs) + (f"  ({tag})" if tag else ""))
             diffs += letter != "P" and bool(msgs)
         else:
-            print(f"[{letter}] match ({len(ba)} bytes, {len(ta)} relocs)")
+            size = la[letter][0] if letter in la else len(ba)
+            syms = len(la[letter][1]) if letter in la else 0
+            print(f"[{letter}] match ({size} bytes, {len(ta)} relocs, {syms} symbols)")
     print("\nMATCH" if diffs == 0 else f"\n{diffs} section(s) differ")
     sys.exit(1 if diffs else 0)
 

@@ -6,6 +6,7 @@
 #include "02b464_drive_points.h"
 #include "0100bc_sound.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "010e90_vibration.h"
 #include "02e400_collision.h"
 #include "02e2dc_bus_collision.h"
@@ -716,14 +717,14 @@ STATIC void gradeFrame_8c02bcd8(void) {
      * upshift out of gear 0; it is consumed and cleared here. */
     if (var_runState_8c2285c4.fullThrottleLatch_0x84 == 0) {
         if (var_runState_8c2285c4.firstUpshift_0x88 != 0) {
-            if (var_padTriggerR_8c1ba374 > 0xfe) {
+            if (var_peripherals_8c1ba35c[0].r > 0xfe) {
                 var_runState_8c2285c4.fullThrottleLatch_0x84 = 1;
                 var_runState_8c2285c4.fullThrottleFrames_0x8c = 0;
             }
             var_runState_8c2285c4.firstUpshift_0x88 = 0;
         }
     } else if (var_runState_8c2285c4.fullThrottleLatch_0x84 == 1) {
-        if (var_padTriggerR_8c1ba374 < 0xff) {
+        if (var_peripherals_8c1ba35c[0].r < 0xff) {
             var_runState_8c2285c4.fullThrottleLatch_0x84 = 0;
         } else {
             var_runState_8c2285c4.fullThrottleFrames_0x8c = var_runState_8c2285c4.fullThrottleFrames_0x8c + 1;

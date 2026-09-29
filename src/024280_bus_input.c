@@ -5,6 +5,7 @@
 
 #include "serial_debug.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "014a9c_tasks.h"         /* Task */
 #include "026710_traffic.h"       /* TrafficEntry */
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28 */
@@ -151,7 +152,7 @@ STATIC void applyBraking_8c024530(void)
     int angle;
 
     prevDeadzone = var_progress_8c1ba1cc.brakeSensitivity_0xd1;
-    delta = (float)((int)var_padTriggerL_8c1ba376 - (int)prevDeadzone);
+    delta = (float)((int)var_peripherals_8c1ba35c[0].l - (int)prevDeadzone);
 
     brakeAmount = 0.002f + (var_busState_8c1bb9d0.speed_0x27c / 48.0f) *
         (delta / (255.0f - prevDeadzone)) * (delta / (255.0f - prevDeadzone));
@@ -192,7 +193,7 @@ STATIC void applyThrottle_8c024320(void)
     int step;
     int gear;
 
-    trigger = var_padTriggerR_8c1ba374;
+    trigger = var_peripherals_8c1ba35c[0].r;
     deadzone = var_progress_8c1ba1cc.accelSensitivity_0xd0;
     delta = (float)((int)trigger - (int)deadzone);
     step = (int)((delta / (255.0f - deadzone)) * 16384.0f);
@@ -261,7 +262,7 @@ STATIC void applyBrakingSfx_8c024606(void)
     Uint16 trigger;
     Uint8 prevDeadzone;
 
-    trigger = var_padTriggerL_8c1ba376;
+    trigger = var_peripherals_8c1ba35c[0].l;
     prevDeadzone = var_progress_8c1ba1cc.brakeSensitivity_0xd1;
 
     if (trigger > prevDeadzone) {

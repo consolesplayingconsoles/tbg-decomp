@@ -5,7 +5,7 @@
 #include "026710_traffic.h" /* TrafficEntry */
 #include "02e2dc_bus_collision.h"
 #include "02e400_collision.h"
-#include "sectionB.h"
+#include "1ba1c8_globals.h"
 
 /* =======================
  * Non-initialized Globals

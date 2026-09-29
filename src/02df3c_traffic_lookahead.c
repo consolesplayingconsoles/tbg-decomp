@@ -5,7 +5,7 @@
 #include "014a9c_tasks.h"       /* Task, TaskAction */
 #include "026710_traffic.h"     /* TrafficEntry, PathRecord */
 #include "02df3c_traffic_lookahead.h"
-#include "sectionB.h"           /* var_busState_8c1bb9d0, var_playerBus_8c1bbd9c, var_tasks_8c1bac28 */
+#include "1ba1c8_globals.h"
 #include "02e400_collision.h"
 
 /* ====================

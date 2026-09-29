@@ -4,7 +4,6 @@
 
 #include <shinobi.h>
 #include "026710_traffic.h" /* TrafficEntry */
-#include "sectionB.h"
 
 /* Table of 16 pointers, each to a 0x60-byte block of 8 NJS_POINT3 -- a
  * per-variant oriented bounding box in local space, indexed by a traffic

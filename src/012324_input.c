@@ -5,7 +5,7 @@
 #include "012324_input.h"
 #include "014a9c_tasks.h"
 #include "01bb48_vm_game.h"
-#include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 

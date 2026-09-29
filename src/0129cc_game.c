@@ -10,6 +10,7 @@
 #include "028258_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "sectionD.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "includes.h"
 #include "serial_debug.h"
 #include "014a9c_tasks.h"

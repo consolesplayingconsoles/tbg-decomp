@@ -7,6 +7,7 @@
 #include "011120_asset_queues.h"
 #include "014f54_text.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "02f320_replay_codec.h"

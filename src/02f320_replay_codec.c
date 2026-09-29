@@ -2,7 +2,6 @@
 #include <shinobi.h>
 #include "includes.h" /* STATIC */
 #include "02f320_replay_codec.h"
-#include "sectionB.h"
 
 /* =======================
  * Non-initialized Globals

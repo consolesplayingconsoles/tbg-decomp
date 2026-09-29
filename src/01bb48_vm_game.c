@@ -15,6 +15,7 @@
 #include "028258_objects.h"
 #include "02fb50_sh4nlfzn_post_data.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "strings.h"
 
 /* =================

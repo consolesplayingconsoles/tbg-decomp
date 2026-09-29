@@ -5,6 +5,7 @@
 
 #include <sg_sd.h>
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "0100bc_sound.h" /* var_midiHandles_8c0fcd28 */
 #include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
 #include "020b6c_ground_probe.h" /* GroundProbeInterpolateHeight_8c020f7e */

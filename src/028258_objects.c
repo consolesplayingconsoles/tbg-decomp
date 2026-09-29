@@ -18,6 +18,7 @@
 #include "02fb50_sh4nlfzn.h" /* rand */
 #include "02b464_drive_points.h"
 #include "sectionB.h" /* var_trafficSignalFrames_8c227e24, var_busState_8c1bb9d0, ground query globals,
+#include "1ba1c8_globals.h"
                         * var_pedGroups_8c228230, var_pedPaths_8c228238,
                         * var_pedestrianAssets_8c1bbfdc, AsqGetRandomA_8c012166,
                         * var_eventSlides_8c228480, MessageAssetEntry, var_messageAssets_8c228484,

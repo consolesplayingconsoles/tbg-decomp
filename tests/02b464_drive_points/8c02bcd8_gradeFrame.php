@@ -13,7 +13,7 @@ return new class extends TestCase {
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
-        $this->setSize('_var_padTriggerR_8c1ba374', 2);
+        $this->setSize('_var_peripherals_8c1ba35c', 0x1c);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
@@ -68,7 +68,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x98, 0); // var_runState_8c2285c4.swerveCountdown_0x98
         $this->initUint32($base + 0x7c, 0); // var_runState_8c2285c4.instructionBonusPending_0x7c
 
-        $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0);
+        $this->initUint16($this->addressOf('_var_peripherals_8c1ba35c') + 0x18, 0);
 
         $this->initUint32($base + 0x54, 0); // var_runState_8c2285c4.field_0x38[7]
         $this->initUint32($base + 0x4c, 0); // var_runState_8c2285c4.field_0x38[5]
@@ -249,7 +249,7 @@ return new class extends TestCase {
 
         $this->initUint32($base + 0x84, 1); // var_runState_8c2285c4.fullThrottleLatch_0x84 already armed
         $this->initUint32($base + 0x8c, 0xe); // var_runState_8c2285c4.fullThrottleFrames_0x8c, one away from tripping
-        $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0xff); // held at max
+        $this->initUint16($this->addressOf('_var_peripherals_8c1ba35c') + 0x18, 0xff); // held at max
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -274,7 +274,7 @@ return new class extends TestCase {
         $busPtr = $this->baseline($base);
 
         $this->initUint32($base + 0x88, 1); // var_runState_8c2285c4.firstUpshift_0x88, armed
-        $this->initUint16($this->addressOf('_var_padTriggerR_8c1ba374'), 0xff); // held at max
+        $this->initUint16($this->addressOf('_var_peripherals_8c1ba35c') + 0x18, 0xff); // held at max
 
         $this->call('_gradeFrame_8c02bcd8');
 

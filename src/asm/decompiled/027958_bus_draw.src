@@ -20,10 +20,8 @@
           .IMPORT     _var_nightLightIntensityStep_8c1bbda0
           .IMPORT     _var_nightLightColorStep_8c1bbdb8
           .IMPORT     _var_nightLightIntensityOn_8c1bbdb0
-          .IMPORT     _var_nightLightIntensityOn1_8c1bbdb4
           .IMPORT     _var_nightLightColorOn_8c1bbdd0
           .IMPORT     _var_nightLightIntensityOff_8c1bbda8
-          .IMPORT     _var_nightLightIntensityOff1_8c1bbdac
           .IMPORT     _var_nightLightColorOff_8c1bbdc4
           .IMPORT     _GroundProbeTrackPolygonAtHeight_8c021290
           .EXPORT     _BusDrawUpdateModels_8c027958
@@ -1112,10 +1110,10 @@ LP_GEN_22864:
           .DATA.W H'02D8 ; H'8C028190
           .DATA.W H'02DC ; H'8C028192
           .DATA.L _var_nightLightIntensityOn_8c1bbdb0 ; H'8C028194
-          .DATA.L _var_nightLightIntensityOn1_8c1bbdb4 ; H'8C028198
+          .DATA.L _var_nightLightIntensityOn_8c1bbdb0+H'04 ; H'8C028198 ([1])
           .DATA.L _var_nightLightColorOn_8c1bbdd0 ; H'8C02819C
           .DATA.L _var_nightLightIntensityOff_8c1bbda8 ; H'8C0281A0
-          .DATA.L _var_nightLightIntensityOff1_8c1bbdac ; H'8C0281A4
+          .DATA.L _var_nightLightIntensityOff_8c1bbda8+H'04 ; H'8C0281A4 ([1])
           .DATA.L _var_nightLightColorOff_8c1bbdc4 ; H'8C0281A8
 _BusDrawSignal_8c0281ac:
           MOV.L       R14,@-R15

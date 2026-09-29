@@ -2,7 +2,7 @@
 #ifndef _027958_BUS_DRAW_H
 #define _027958_BUS_DRAW_H
 
-#include "sectionB.h"       /* BusState */
+#include "1ba1c8_globals.h" /* BusState */
 #include "026710_traffic.h" /* TrafficEntry */
 
 /* Pushes one frame of animation state onto a vehicle's model nodes: wheel spin
@@ -20,7 +20,7 @@ void BusDrawUpdateModels_8c027958(BusState *bus);
  * TrafficDriveVehicle_8c025b98 (025b98) with a CPU vehicle, each frame at
  * night. Forces blinker_0x080's two running-light bits on, then crossfades
  * lightCoeffRow_0x0c4 between the two CourseSceneParams rows 026710 cached
- * (var_nightLightIntensityOff_8c1bbda8 and ...On_8c1bbdb0, sectionB.h) over 20
+ * (var_nightLightIntensityOff_8c1bbda8 and ...On_8c1bbdb0, 1ba1c8_globals.h) over 20
  * frames. lightFadeGate_0x2dc drives the direction: it is attribute word [1]
  * of the CPU-grid polygon under the vehicle, so the fade follows the road. */
 void BusDrawFadeLights_8c028022(BusState *bus);

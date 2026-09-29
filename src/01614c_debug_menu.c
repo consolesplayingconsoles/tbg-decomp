@@ -19,6 +19,7 @@
 #include "02f320_replay_codec.h"
 #include "0193c8_vm_menu.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 

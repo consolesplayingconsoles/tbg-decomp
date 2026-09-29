@@ -5,6 +5,7 @@
 #include "includes.h" /* STATIC */
 #include "strings.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
 #include "0222dc_fadecmd.h"
@@ -18,7 +19,7 @@
  */
 
 /* The camera cue authored onto the road, sharing its word with the HUD's
- * driving instructions -- see var_busState_8c1bb9d0.markDriveFlags_0x3b0 (sectionB.h). */
+ * driving instructions -- see var_busState_8c1bb9d0.markDriveFlags_0x3b0 (1ba1c8_globals.h). */
 #define DEMO_CUE_MASK  0xff000000
 #define DEMO_CUE_SHIFT 24
 

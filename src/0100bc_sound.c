@@ -4,6 +4,7 @@
 #include <cri_adxt.h>
 #include "0100bc_sound.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include <cri_adxf.h>
 #include <string.h>
 #include "includes.h" /* STATIC */

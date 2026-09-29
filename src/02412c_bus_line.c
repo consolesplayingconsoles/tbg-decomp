@@ -4,6 +4,7 @@
 
 #include "includes.h" /* TWO_PI */
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "023938_bus_drive.h" /* LinePoint, LineBusSegment, LineBusNode */
 #include "02412c_bus_line.h"
 

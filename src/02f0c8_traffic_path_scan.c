@@ -4,7 +4,7 @@
 #include "014a9c_tasks.h"
 #include "026710_traffic.h"
 #include "02f0c8_traffic_path_scan.h"
-#include "sectionB.h"
+#include "1ba1c8_globals.h"
 
 /* =======================
  * Non-initialized Globals

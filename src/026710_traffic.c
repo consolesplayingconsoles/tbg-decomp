@@ -18,6 +18,7 @@
 #include "02f0c8_traffic_path_scan.h"
 #include "02b464_drive_points.h"
 #include "sectionB.h"
+#include "1ba1c8_globals.h"
 #include "sectionD.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
