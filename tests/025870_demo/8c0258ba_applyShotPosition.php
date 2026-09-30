@@ -27,15 +27,12 @@ return new class extends TestCase {
     {
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_demoShotPos_8c227e00', 0xc);
         $this->setSize('_njCalcPoint', 4);
 
         // Pulled in by other not-yet-decompiled functions sharing this
         // object's literal pool.
         $this->setSize('_var_cabinCamera_8c1bb984', 0x40);
         $this->setSize('_var_camera_8c1bb904', 0x40);
-        $this->setSize('_var_demoShots_8c227e0c', 4);
-        $this->setSize('_var_demoShotRearm_8c227e10', 4);
         $this->setSize('_var_demoShotId_8c227dd4', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);

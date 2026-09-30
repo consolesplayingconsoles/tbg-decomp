@@ -1,7 +1,4 @@
-; 8c227e00
-          .EXPORT     _var_demoShotPos_8c227e00 ; 025870_demo
-          .EXPORT     _var_demoShots_8c227e0c ; 025870_demo
-          .EXPORT     _var_demoShotRearm_8c227e10 ; 025870_demo
+; 8c227e14
           .EXPORT     _var_activeTrafficPreset_8c227e14 ; 014f54_text
                                                    ; 025b98
                                                    ; 026710
@@ -62,12 +59,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_demoShotPos_8c227e00:
-          .RES.B      12
-_var_demoShots_8c227e0c:
-          .RES.B      4
-_var_demoShotRearm_8c227e10:
-          .RES.B      4
 _var_activeTrafficPreset_8c227e14:
           .RES.B      4
 _var_trafficPresetTable_8c227e18:

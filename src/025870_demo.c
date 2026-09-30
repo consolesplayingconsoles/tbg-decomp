@@ -51,6 +51,25 @@ typedef struct {
 } DemoShotState;
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+/* The current demo shot's pos_0x04, copied here by demoShotTask_8c0259e8.
+ * Read as a world point for camera mode 5 and as a bus-space offset for 6
+ * and 7; the first two are resolved once by applyShotPosition_8c0258ba, mode
+ * 7 every frame by DemoUpdateCamera_8c025906. */
+STATIC NJS_POINT3 var_demoShotPos_8c227e00;
+/* This route's attract-mode camera tour: a DemoShot[], one of
+ * init_demoShotsShinjuku_8c045674/...Wangan_8c045b60/...Ome_8c045ee4, selected
+ * by DemoStartTour_8c025af4 from var_route_8c18ad1c and indexed by the stop
+ * marker in var_busState_8c1bb9d0.markDriveFlags_0x3b0. */
+STATIC int *var_demoShots_8c227e0c;
+/* Makes demoShotTask_8c0259e8 cut to var_demoShotId_8c227dd4's shot on its
+ * first frame instead of waiting for the marker to change. */
+STATIC int var_demoShotRearm_8c227e10;
+
+/* ====================
  * Initialized Globals
  * ====================
  */

@@ -1,6 +1,6 @@
-/* 8c227e00: undecompiled data section */
-#ifndef _227E00_SECTIONB_H
-#define _227E00_SECTIONB_H
+/* 8c227e14: undecompiled data section */
+#ifndef _227E14_SECTIONB_H
+#define _227E14_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -18,19 +18,6 @@
  * =================
  */
 
-/* The current demo shot's pos_0x04, copied here by demoShotTask_8c0259e8
- * (025870_demo). Read as a world point for camera mode 5 and as a bus-space
- * offset for 6 and 7; the first two are resolved once by
- * applyShotPosition_8c0258ba, mode 7 every frame by DemoUpdateCamera_8c025906. */
-extern NJS_POINT3 var_demoShotPos_8c227e00;
-/* This route's attract-mode camera tour: a DemoShot[] (025870_demo.c), one of
- * init_demoShotsShinjuku_8c045674/...Wangan_8c045b60/...Ome_8c045ee4, selected
- * by DemoStartTour_8c025af4 from var_route_8c18ad1c and indexed by the stop
- * marker in var_busState_8c1bb9d0.markDriveFlags_0x3b0. */
-extern int *var_demoShots_8c227e0c;
-/* Makes demoShotTask_8c0259e8 cut to var_demoShotId_8c227dd4's shot on its
- * first frame instead of waiting for the marker to change. */
-extern int var_demoShotRearm_8c227e10;
 extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by SignalInit_8c02845a */
 extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by SignalGetFrame_8c028900 */
 extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */
@@ -152,4 +139,4 @@ extern Sint32 *var_trafficPresetTable_8c227e18;
 extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
 
-#endif // _227E00_SECTIONB_H
+#endif // _227E14_SECTIONB_H
