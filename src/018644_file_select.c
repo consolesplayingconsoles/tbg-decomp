@@ -115,7 +115,7 @@ STATIC void loadFileTask_8c018644(LoadFileTask *task)
                     }
 
                     LOG_WARN(("[FILE_SELECT] enumeration failed for \"%s\" (err=%d)\n", *name, err));
-                    TaskFree_8c014b66((Task *)task);
+                    TaskKill_8c014b66((Task *)task);
                     var_saveLoadResult_8c226010 = SAVE_LOAD_FAILED;
                     return;
                 }
@@ -131,7 +131,7 @@ STATIC void loadFileTask_8c018644(LoadFileTask *task)
             }
 
             LOG_DEBUG(("[FILE_SELECT] all files loaded (%d)\n", var_loadedSaveCount_8c22600c));
-            TaskFree_8c014b66((Task *)task);
+            TaskKill_8c014b66((Task *)task);
             var_saveLoadResult_8c226010 = SAVE_LOAD_DONE;
 
             return;
@@ -144,7 +144,7 @@ STATIC void loadFileTask_8c018644(LoadFileTask *task)
 
             if (buGetLastError(var_selectedVm_8c1ba34c) != BUD_ERR_OK) {
                 LOG_WARN(("[FILE_SELECT] load failed\n"));
-                TaskFree_8c014b66((Task *)task);
+                TaskKill_8c014b66((Task *)task);
                 var_saveLoadResult_8c226010 = SAVE_LOAD_FAILED;
                 return;
             }
@@ -173,7 +173,7 @@ STATIC void startVmLoad_8c018784(void)
 
     LOG_DEBUG(("[FILE_SELECT] startVmLoad_8c018784: starting VMU load\n"));
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *)loadFileTask_8c018644, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *)loadFileTask_8c018644, (Task **)&task, &state, 0);
     var_vmBusy_8c157a7c = 1;
     task->phase_0x08 = 0;
     task->counter_0x0c = 0;
@@ -670,7 +670,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
 
 void FileSelectSwitchFromTask_8c019334(Task *task)
 {
-    TaskSetAction_8c014b3e(task, fileSelectTask_8c018e7e);
+    TaskSwitch_8c014b3e(task, fileSelectTask_8c018e7e);
     var_loadedSaveCount_8c22600c = 0;
     if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS_NO_SPACE ||
         var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == VMU_STATUS_SAVE_EXISTS) {

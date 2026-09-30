@@ -136,7 +136,7 @@ void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script)
  * (opcodes 0 and 10 in the caller, TrafficRunEntryScript_8c027012): walks
  * the path to the entry's starting distance, resolves its position and
  * heading, fills in the vehicle's dimension/animation state from its
- * variant table, and pushes its driving task. entry+0x2f8 holds the
+ * variant table, and spawns its driving task. entry+0x2f8 holds the
  * script's own base pointer, so
  * *entry->0x2f8 is the script's header word: 10 marks a fixed-angle static
  * decoration (traffic light, sign, ...) rather than a path-following
@@ -727,7 +727,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
  *
  * For a moving vehicle (*script != 10), the script's block-relative args are
  * resolved (TrafficReadScriptArgs_8c026710), then TrafficPathScanBuild_8c02f0c8 gets a chance
- * to reject the entry outright (TaskFree, return 0 -- this is the only path
+ * to reject the entry outright (TaskKill, return 0 -- this is the only path
  * that actually reports failure after allocation); on acceptance, the
  * entry's start progress and a small random per-entry path-origin jitter
  * (entry+0x2ec/0x2f0) are recorded.
@@ -736,7 +736,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
  * runs any remaining per-type setup, and the entry's script is run once
  * (TrafficRunEntryScript_8c027012) before its path/heading are derived for
  * the first frame. Returns 1 on every completed spawn (day-mask skip and
- * unloaded model slot included), 0 only when TaskPush itself fails or
+ * unloaded model slot included), 0 only when TaskSpawn itself fails or
  * TrafficPathScanBuild_8c02f0c8 rejects the entry.
  */
 STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *script)
@@ -762,13 +762,13 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
     }
 
     if (*script == 10) {
-        if (!TaskPush_8c014ae8(var_tasks_8c1bac28, TrafficDriveDecoration_8c02656a, &task, &entryVoid, 0x514)) {
+        if (!TaskSpawn_8c014ae8(var_tasks_8c1bac28, TrafficDriveDecoration_8c02656a, &task, &entryVoid, 0x514)) {
             return 0;
         }
         e = (TrafficEntry *)entryVoid;
         e->isDecoration_0x2e4 = 1;
     } else {
-        if (!TaskPush_8c014ae8(var_tasks_8c1bac28, TrafficDriveVehicle_8c025b98, &task, &entryVoid, 0x514)) {
+        if (!TaskSpawn_8c014ae8(var_tasks_8c1bac28, TrafficDriveVehicle_8c025b98, &task, &entryVoid, 0x514)) {
             return 0;
         }
         e = (TrafficEntry *)entryVoid;
@@ -793,7 +793,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         /* Real asm quirk: an unloaded model slot still frees the just-
          * allocated task, but falls through to the same "success" return
          * as a completed spawn -- it does not report failure here. */
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
     } else {
         e->extraLightFlags_0x510 = 0;
         if ((typeCode == 0x14 || typeCode == 0x16) && (AsqGetRandomA_8c012166() & 1) != 0) {
@@ -804,7 +804,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
             TrafficReadScriptArgs_8c026710(e, script);
 
             if (TrafficPathScanBuild_8c02f0c8(task, e, e->resolvedArgs_0x304[0], 0, progress, 8.0f) != 0) {
-                TaskFree_8c014b66(task);
+                TaskKill_8c014b66(task);
                 return 0;
             }
 
@@ -856,7 +856,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
     njCnkSetEasyLight(dir[0], dir[1], dir[2]);
 }
 
-/* Per-frame TaskAction driving the traffic subsystem: pushed once (with no
+/* Per-frame TaskAction driving the traffic subsystem: spawned once (with no
  * extra state -- its own TrafficUpdateTask struct doubles as the state, see
  * counter_0x08/presetState_0x0c/queuedItem_0x18 below) into var_tasks_8c1ba5e8.
  * No-ops until the run is under way.
@@ -891,8 +891,8 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * the cursor to the next record (+0xc) and resets the counter.
  *
  * Finally re-applies the two fixed light directions (applyTrafficLighting_8c02756a,
- * one RenderPushCall1 per draw layer) and runs every vehicle task pushed
- * above to completion (TaskExecGroup_8c014b42 on var_tasks_8c1bac28).
+ * one RenderPushCall1 per draw layer) and runs every vehicle task spawned
+ * above to completion (TaskRunGroup_8c014b42 on var_tasks_8c1bac28).
  */
 STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
 {
@@ -942,7 +942,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
 
     RenderPushCall1_8c0223ea(0, applyTrafficLighting_8c02756a, 0);
     RenderPushCall1_8c0223ea(1, applyTrafficLighting_8c02756a, 1);
-    TaskExecGroup_8c014b42(var_tasks_8c1bac28);
+    TaskRunGroup_8c014b42(var_tasks_8c1bac28);
 }
 
 /* Reading this needs var_trafficPresetTable_8c227e18 typed as the
@@ -950,7 +950,7 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
  * invented PTR_PTR_8c1bb88c global -- its address is
  * var_currentCourse_8c1bb868 + 0x24 -- and var_signalGroups_8c228b40 as Sint32*.
  *
- * Pushes the entry point for trafficUpdateTask_8c0275d4 into var_tasks_8c1ba5e8,
+ * Spawns trafficUpdateTask_8c0275d4 into var_tasks_8c1ba5e8,
  * caching two per-course table pointers (route path array, per-preset script
  * table) and, when time of day is night, a copy of two adjacent
  * CourseSceneParams.rec0_0x0c rows plus their per-20-frame deltas -- consumed
@@ -992,7 +992,7 @@ void TrafficInit_8c02769e(void)
         var_nightLightColorStep_8c1bbdb8[2] = (var_nightLightColorOn_8c1bbdd0[2] - var_nightLightColorOff_8c1bbdc4[2]) / 20.0f;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, trafficUpdateTask_8c0275d4, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, trafficUpdateTask_8c0275d4, (Task **)&task, &state, 0);
     task->queuedItem_0x18 = (TrafficPlacement *)var_trafficPresetTable_8c227e18[var_activeTrafficPreset_8c227e14];
     task->counter_0x08 = 0;
     task->presetState_0x0c = 1;

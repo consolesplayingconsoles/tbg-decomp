@@ -4,7 +4,7 @@
 
 #include "014a9c_tasks.h" /* Task */
 
-/* Per-frame player-bus dispatcher, pushed as a task's action by
+/* Per-frame player-bus dispatcher, spawned as a task's action by
  * BusInitStart_8c023610 (023310_bus_init). */
 void BusTask_8c022bdc(Task *task, void *state);
 

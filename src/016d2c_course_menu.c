@@ -292,7 +292,7 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
 
             if (!*(state->dialog_0x04->text_0x00)) {
                 var_instructorDialogActive_8c225fb4 = 0;
-                TaskFree_8c014b66((void *) task);
+                TaskKill_8c014b66((void *) task);
                 return;
             }
 
@@ -370,7 +370,7 @@ void CourseMenuPushDialogTask_8c0170c6(int dialog_index, int *p2)
     InstructorDialogTask *task;
     InstructorDialogState *state;
 
-    TaskPush_8c014ae8(
+    TaskSpawn_8c014ae8(
         var_tasks_8c1ba3c8,
         &instructorDialogTask_8c016f98,
         &task,
@@ -1011,10 +1011,10 @@ void CourseMenuSwitchFromTask_8c017e18(Task *task)
     LOG_INFO(("[COURSE_MENU] Initializing course menu (mode=%d)\n", var_gameMode_8c1bb8fc));
 
     if (var_gameMode_8c1bb8fc == 0) {
-        TaskSetAction_8c014b3e(task, courseMenuStoryMenuTask_8c017718);
+        TaskSwitch_8c014b3e(task, courseMenuStoryMenuTask_8c017718);
         buildCourseMenuDialogFlow_8c017420();
     } else {
-        TaskSetAction_8c014b3e(task, courseMenuFreeRunMenuTask_8c017ada);
+        TaskSwitch_8c014b3e(task, courseMenuFreeRunMenuTask_8c017ada);
         buildFreeRunMenuDialogFlow_8c017a20();
     }
 
@@ -1059,7 +1059,7 @@ void CourseMenuReturn_8c017ef2(void)
 
     InputPushTask_8c0128cc(0);
 
-    TaskPush_8c014ae8(
+    TaskSpawn_8c014ae8(
         var_tasks_8c1ba3c8,
         &GameTask_8c012f44,
         &createdTask,
@@ -1068,7 +1068,7 @@ void CourseMenuReturn_8c017ef2(void)
     );
 
     if (var_gameMode_8c1bb8fc == 0) {
-        TaskPush_8c014ae8(
+        TaskSpawn_8c014ae8(
             var_tasks_8c1ba3c8,
             &courseMenuStoryMenuTask_8c017718,
             &createdTask,
@@ -1077,7 +1077,7 @@ void CourseMenuReturn_8c017ef2(void)
         );
         buildCourseMenuDialogFlow_8c017420();
     } else {
-        TaskPush_8c014ae8(
+        TaskSpawn_8c014ae8(
             var_tasks_8c1ba3c8,
             &courseMenuFreeRunMenuTask_8c017ada,
             &createdTask,
@@ -1317,7 +1317,7 @@ STATIC void courseMenuConfirmInit_8c0184cc(Task *task)
     LOG_INFO(("[COURSE_MENU] Initializing course confirmation menu\n"));
 
     njGarbageTexture(var_tex_8c157af8, 0xc00);
-    TaskSetAction_8c014b3e(task, courseConfirmMenuTask_8c0181b6);
+    TaskSwitch_8c014b3e(task, courseConfirmMenuTask_8c0181b6);
     CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_INIT);
     var_menuState_8c1bc7a8.selected_0x38 = 0;
     AsqInitQueues_8c011f36(8, 0, 0, 8);

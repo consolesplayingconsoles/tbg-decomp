@@ -61,7 +61,7 @@ return new class extends TestCase {
         $createdState = $this->alloc(0x1c);
 
         $this->shouldWriteLong($this->addressOf('_var_loadScreenActive_8c157a6c'), 1);
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_segmentReloadTask_8c014550'),

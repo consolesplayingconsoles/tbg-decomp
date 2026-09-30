@@ -8,8 +8,8 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_RenderPushCall1_8c0223ea', 4);
-        $this->setSize('_TaskExecGroup_8c014b42', 4);
-        $this->setSize('_TaskFree_8c014b66', 4);
+        $this->setSize('_TaskRunGroup_8c014b42', 4);
+        $this->setSize('_TaskKill_8c014b66', 4);
         $this->setSize('_MessageBoxStart_8c02ad8c', 4);
         $this->setSize('_RouteGetLatch_8c01432a', 4);
         $this->setSize('_StopFreeTaskGroup_8c02ca96', 4);
@@ -58,9 +58,9 @@ return new class extends TestCase {
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
     }
 
-    private function expectTaskExecGroup(int $group): void
+    private function expectTaskRunGroup(int $group): void
     {
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($group);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($group);
     }
 
     private function expectRegisterFadeOverlay(): void
@@ -85,7 +85,7 @@ return new class extends TestCase {
 
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($base + 6 * 4, 6);
-        $this->expectTaskExecGroup($group);
+        $this->expectTaskRunGroup($group);
         $this->expectRegisterFadeOverlay();
     }
 
@@ -106,7 +106,7 @@ return new class extends TestCase {
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($state + 0, 1);
         $this->shouldWriteLong($base + 6 * 4, 1);
-        $this->expectTaskExecGroup($group);
+        $this->expectTaskRunGroup($group);
         $this->expectRegisterFadeOverlay();
     }
 
@@ -132,8 +132,8 @@ return new class extends TestCase {
         $this->shouldWriteFloat($mat, 1.0 - 0.06666667014360428);
         $this->shouldWriteLongTo('_var_passengersFadedOut_8c22895c', 0);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 0);
-        $this->expectTaskExecGroup($group);
-        // var_passengerActed_8c228958 not touched by the mocked TaskExecGroup -> stays 0 -> "nothing happened" path
+        $this->expectTaskRunGroup($group);
+        // var_passengerActed_8c228958 not touched by the mocked TaskRunGroup -> stays 0 -> "nothing happened" path
         $this->shouldWriteLong($state + 0, 2);
         $this->shouldWriteLongTo('_var_fadeRequest_8c226564', 2); // FADE_REQUEST_IN
         $this->shouldWriteLong($base + 6 * 4, 1);
@@ -164,7 +164,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_passengersFadedOut_8c22895c', 1);
         $this->shouldWriteLong($state + 4, 1); // sub-phase advances
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 0);
-        $this->expectTaskExecGroup($group);
+        $this->expectTaskRunGroup($group);
         $this->shouldWriteLong($base + 0, 2);
         $this->shouldWriteLong($state + 0, 5);
         $this->shouldCall('_setCountUpStep_8c02d5d8');
@@ -189,7 +189,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_fadeRequest_8c226564', 1); // FADE_REQUEST_OUT
         $this->shouldWriteLongTo('_var_arrivalOverlayGate_8c226560', 0);
         $this->shouldCall('_MessageBoxStart_8c02ad8c');
-        $this->expectTaskExecGroup($group);
+        $this->expectTaskRunGroup($group);
         $this->expectRegisterFadeOverlay();
     }
 
@@ -221,7 +221,7 @@ return new class extends TestCase {
 
         $this->expectFrameCallbacks();
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
-        $this->expectTaskExecGroup($group);
+        $this->expectTaskRunGroup($group);
         $this->expectRegisterFadeOverlay();
     }
 
@@ -244,7 +244,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0, 2);
         $this->shouldWriteLong($state + 0, 5);
         $this->shouldCall('_setCountUpStep_8c02d5d8');
-        $this->expectTaskExecGroup($group);
+        $this->expectTaskRunGroup($group);
         $this->expectRegisterFadeOverlay();
     }
 
@@ -271,7 +271,7 @@ return new class extends TestCase {
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($base + 6 * 4, 15);
         $this->shouldCall('_sdMidiPlay')->with(0x9999, 1, 6, 0);
-        $this->expectTaskExecGroup($group);
+        $this->expectTaskRunGroup($group);
         $this->expectRegisterFadeOverlay();
     }
 
@@ -303,7 +303,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($busState + 0x2b4, 1);
         $this->shouldWriteLong($busState + 0x25c, 2); // playMode==PRACTICE -> always 2
         $this->shouldWriteLongTo('_var_arrivalOverlayVariant_8c22655c', 2);
-        $this->shouldCall('_TaskFree_8c014b66')->with($task);
+        $this->shouldCall('_TaskKill_8c014b66')->with($task);
     }
 
     public function test_case5_done_tears_down_normal_mode_ome_segment0(): void
@@ -336,7 +336,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($busState + 0x25c, 1); // !PRACTICE && OME && segment==0
         $this->shouldWriteLongTo('_var_arrivalOverlayVariant_8c22655c', 2);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 1 + 5); // OME offset = 5
-        $this->shouldCall('_TaskFree_8c014b66')->with($task);
+        $this->shouldCall('_TaskKill_8c014b66')->with($task);
     }
 
     public function test_default_phase_registers_overlay_only(): void

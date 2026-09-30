@@ -21,7 +21,7 @@ return new class extends TestCase {
 
         $this->call('_startVmLoad_8c018784');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_loadFileTask_8c018644'),

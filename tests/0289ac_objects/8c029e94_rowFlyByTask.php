@@ -23,7 +23,7 @@ return new class extends TestCase {
     const SLOTS = 0x20;
 
     /**
-     * rowFlyByTask_8c029e94's stack slots for TaskPush's created_task /
+     * rowFlyByTask_8c029e94's stack slots for TaskSpawn's created_task /
      * create_state out-params. Unlike most functions in this unit, the two
      * objects happen to lay these out identically.
      */
@@ -72,7 +72,7 @@ return new class extends TestCase {
         [$taskLocal, $stateLocal] = $this->outParams();
 
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0xffffffff);
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_flyByModelTask_8c029e68'),
@@ -124,7 +124,7 @@ return new class extends TestCase {
         [$taskLocal, $stateLocal] = $this->outParams();
 
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0xffffffff);
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_flyByModelTask_8c029e68'),
@@ -148,7 +148,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0x10);
     }
 
-    public function test_lapsed_taskpush_failure_still_rearms(): void
+    public function test_lapsed_taskspawn_failure_still_rearms(): void
     {
         $task = $this->alloc(0x20);
         $this->initUint32($task + self::TASK_FIELD_08, 0);
@@ -159,7 +159,7 @@ return new class extends TestCase {
         [$taskLocal, $stateLocal] = $this->outParams();
 
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0xffffffff);
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_flyByModelTask_8c029e68'),

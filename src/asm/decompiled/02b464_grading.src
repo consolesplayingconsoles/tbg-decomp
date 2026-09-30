@@ -36,13 +36,13 @@
           .IMPORT     _DriveMsgDraw_8c02b388
           .IMPORT     _RenderPushCall1_8c0223ea
           .IMPORT     _var_tasks_8c1ba5e8
-          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _var_practiceLesson_8c22640c
           .IMPORT     _var_nextStopSegment_8c228710
           .IMPORT     _ObjectsFreePedestrianGroups_8c0297da
           .IMPORT     _SignalFree_8c0288be
-          .IMPORT     _TaskFreeGroup_8c014ab4
+          .IMPORT     _TaskKillGroup_8c014ab4
           .IMPORT     _var_tasks_8c1bb448
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_tasks_8c1ba3c8
@@ -2212,7 +2212,7 @@ LP_GEN_93947:
           .DATA.L _RenderPushCall1_8c0223ea ; H'8C02C4C8
           .DATA.L _taskCallback_8c02c072 ; H'8C02C4CC
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02C4D0
-          .DATA.L _TaskPush_8c014ae8 ; H'8C02C4D4
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C02C4D4
           .DATA.L _var_runState_8c2285c4 ; H'8C02C4D8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C4DC
           .DATA.L _var_practiceRules_8c226410 ; H'8C02C4E0
@@ -2633,7 +2633,7 @@ LP_GEN_25024:
           .DATA.L _var_nextStopSegment_8c228710 ; H'8C02C800
           .DATA.L _ObjectsFreePedestrianGroups_8c0297da ; H'8C02C804
           .DATA.L _SignalFree_8c0288be ; H'8C02C808
-          .DATA.L _TaskFreeGroup_8c014ab4 ; H'8C02C80C
+          .DATA.L _TaskKillGroup_8c014ab4 ; H'8C02C80C
           .DATA.L _var_tasks_8c1bb448 ; H'8C02C810
           .DATA.L _var_tasks_8c1bac28 ; H'8C02C814
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02C818
@@ -2658,7 +2658,7 @@ LP_GEN_25024:
           .DATA.L _SpriteDraw_8c014f54 ; H'8C02C864
           .DATA.L _ReplayMenuFreeDriveTasks_8c01614c ; H'8C02C868
           .DATA.L _driveEndFadeTask_8c02c69a ; H'8C02C86C
-          .DATA.L _TaskPush_8c014ae8 ; H'8C02C870
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C02C870
           .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C02C874
           .DATA.L _var_runState_8c2285c4 + H'C ; H'8C02C878
           .DATA.L _var_practiceLesson_8c22640c ; H'8C02C87C

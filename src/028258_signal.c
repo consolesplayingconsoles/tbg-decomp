@@ -106,7 +106,7 @@ STATIC void execTrafficSignalGroupTask_8c0283e8(Task *task, void *state)
 {
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
         RenderPushCall1_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
-        TaskExecGroup_8c014b42(var_trafficSignalTasks_8c227e20);
+        TaskRunGroup_8c014b42(var_trafficSignalTasks_8c227e20);
     }
 }
 
@@ -126,7 +126,7 @@ STATIC void snapPointToGround_8c02840c(void)
 
 /* Spawns a task per entry of the course's macSignal_0x38 table (see
  * TrafficSignalDef): first every type-1 entry, then the 2/3/4 attachments, which
- * search the tasks already pushed for the id they name. The task state's
+ * search the tasks already spawned for the id they name. The task state's
  * tlist_0xb4/model_0xb8 are a var_routeModels_8c1bc3ec pair; the draw callbacks
  * in 027958_bus_draw feed them to njSetTexture and njCnkSimpleDrawObject. */
 void SignalInit_8c02845a(void)
@@ -171,7 +171,7 @@ void SignalInit_8c02845a(void)
     }
 
     var_trafficSignalTasks_8c227e20 = syMalloc((count + 1) * 0x20);
-    TaskClear_8c014a9c(var_trafficSignalTasks_8c227e20, count);
+    TaskInitGroup_8c014a9c(var_trafficSignalTasks_8c227e20, count);
 
     /* Carried across both loops: if the link search below finds no match, the
      * type 2/3/4 branch still writes through whatever it last pointed at. */
@@ -182,7 +182,7 @@ void SignalInit_8c02845a(void)
             continue;
         }
 
-        TaskPush_8c014ae8(var_trafficSignalTasks_8c227e20, &trafficSignalTask_8c028258,
+        TaskSpawn_8c014ae8(var_trafficSignalTasks_8c227e20, &trafficSignalTask_8c028258,
                           &task, (void **)&state, 0xd4);
         state->id_0x00 = def->id_0x04;
         state->counter_0x04 = def->linkedId_0x08;
@@ -232,7 +232,7 @@ void SignalInit_8c02845a(void)
             continue;
         }
 
-        TaskPush_8c014ae8(var_trafficSignalTasks_8c227e20, &linkedTrafficSignalTask_8c02833c,
+        TaskSpawn_8c014ae8(var_trafficSignalTasks_8c227e20, &linkedTrafficSignalTask_8c02833c,
                           &task, (void **)&state, 0xd4);
         for (slot = var_trafficSignalTasks_8c227e20; slot->action != NULL; slot++) {
             if (slot->action == (TaskAction)-1 || slot == task) {
@@ -269,7 +269,7 @@ void SignalInit_8c02845a(void)
         }
         var_trafficSignalFrames_8c227e24[state->id_0x00] = state->frame_0x0c;
     }
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &execTrafficSignalGroupTask_8c0283e8, &task, (void **)&state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &execTrafficSignalGroupTask_8c0283e8, &task, (void **)&state, 0);
 }
 
 TrafficSignal *SignalGet_8c0288b2(int index)
@@ -280,7 +280,7 @@ TrafficSignal *SignalGet_8c0288b2(int index)
 void SignalFree_8c0288be(void)
 {
     if (var_trafficSignalTasks_8c227e20 != (void *)-1) {
-        TaskFreeGroup_8c014ab4(var_trafficSignalTasks_8c227e20);
+        TaskKillGroup_8c014ab4(var_trafficSignalTasks_8c227e20);
         syFree(var_trafficSignalTasks_8c227e20);
         var_trafficSignalTasks_8c227e20 = (void *)-1;
     }

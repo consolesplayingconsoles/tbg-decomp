@@ -72,12 +72,12 @@ void StopSpawnInit_8c02d968(void)
     SegMatchEntry tmp;
 
     if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 8) != 8) {
-        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &PassengerSkipStopTask_8c02d8f0, &task, (void **)&state, 0);
+        TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &PassengerSkipStopTask_8c02d8f0, &task, (void **)&state, 0);
         var_runState_8c2285c4.runPhase_0x00 = 2;
         return;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &PassengerStopSceneTask_8c02d644, &task, (void **)&rawState, 8);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &PassengerStopSceneTask_8c02d644, &task, (void **)&rawState, 8);
     rawState->phase_0x00 = 0;
     rawState->subPhase_0x04 = 0;
 
@@ -162,11 +162,11 @@ void StopSpawnInit_8c02d968(void)
     }
 
     var_stopTaskGroup_8c2288f8 = (void *)syMalloc((var_waitingPassengerCount_8c228794 + n + 1) * sizeof(Task));
-    TaskClear_8c014a9c(var_stopTaskGroup_8c2288f8, var_waitingPassengerCount_8c228794 + n);
+    TaskInitGroup_8c014a9c(var_stopTaskGroup_8c2288f8, var_waitingPassengerCount_8c228794 + n);
 
     /* Spawn a task for every already-picked waiting passenger. */
     for (i = 0; i < var_waitingPassengerCount_8c228794; i++) {
-        TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &PassengerBoardTask_8c02d21c, &task,
+        TaskSpawn_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &PassengerBoardTask_8c02d21c, &task,
                            (void **)&state, sizeof(StopScheduleState));
         state->entry_0x00 = var_waitingPassengers_8c228798[i].spot_0x00;
         state->state_0x04 = 1;
@@ -199,7 +199,7 @@ void StopSpawnInit_8c02d968(void)
             matched[count].index_0x04 = i;
             count++;
         } else {
-            TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &PassengerSeatedTask_8c02d5ca, &task,
+            TaskSpawn_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &PassengerSeatedTask_8c02d5ca, &task,
                                (void **)&state, sizeof(StopScheduleState));
             state->entry_0x00 = scriptEntry;
             state->pos_0x08.x = init_seatPositions_8c04c3e4[i].x;
@@ -229,7 +229,7 @@ void StopSpawnInit_8c02d968(void)
      * shuffled order (init_seatPositions_8c04c3e4[i]) while slotIndex_0x24
      * keeps the original schedule slot. */
     for (i = 0; i < count; i++) {
-        TaskPush_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &PassengerExitTask_8c02d46c, &task,
+        TaskSpawn_8c014ae8((Task *)var_stopTaskGroup_8c2288f8, &PassengerExitTask_8c02d46c, &task,
                            (void **)&state, sizeof(StopScheduleState));
         state->entry_0x00 = matched[i].entry_0x00;
         state->state_0x04 = 0;

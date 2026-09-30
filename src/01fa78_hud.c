@@ -147,7 +147,7 @@ STATIC void drawTimeDigits_8c01fa80(int frames, float y, int spriteBase) {
  * instruction/next-stop slot, the driver-points meter, the two blinker
  * indicators, the tachometer needle, and the speed readout plus the two
  * clocks drawn by the drawSpeedAndTimers_8c01fe84 tail. Installed both as a
- * DrawCallback1 and as a TaskPush_8c014ae8 action, so it must keep this
+ * DrawCallback1 and as a TaskSpawn_8c014ae8 action, so it must keep this
  * exact signature. */
 STATIC void drawHud_8c01fbac(int arg0) {
     float barWidth, barWidthInner;
@@ -442,7 +442,7 @@ void HudReset_8c02018c(void) {
     Task *createdTask;
     void *createdState;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, hudUpdateTask_8c01ff48, &createdTask, &createdState, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, hudUpdateTask_8c01ff48, &createdTask, &createdState, 0);
 
     var_hudState_8c22643c.field_0x00 = 0;
     var_hudState_8c22643c.field_0x04 = 0;

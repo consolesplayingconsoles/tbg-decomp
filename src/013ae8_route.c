@@ -549,7 +549,7 @@ STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
         }
 
         case ROUTE_LOAD_STATE_DONE: {
-            TaskFree_8c014b66((Task *) task);
+            TaskKill_8c014b66((Task *) task);
             AsqFreeQueues_8c011f7e();
             var_loadScreenActive_8c157a6c = 0;
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
@@ -571,12 +571,12 @@ void RoutePushTask_8c0144fc(void)
     RouteLoadTask *task;
     void *state;
 
-    LOG_DEBUG(("[ROUTE] pushing routeLoadTask_8c014338\n"));
+    LOG_DEBUG(("[ROUTE] spawning routeLoadTask_8c014338\n"));
 
     njSetBackColor(0xff418dff, 0xff418dff, 0xff418dff);
     var_loadScreenActive_8c157a6c = 1;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *) routeLoadTask_8c014338, (Task **) &task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *) routeLoadTask_8c014338, (Task **) &task, &state, 0);
     CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_INIT);
     task->frame_0x0c = 0;
 
@@ -617,7 +617,7 @@ STATIC void segmentReloadTask_8c014550(SegmentReloadTask *task, void *state)
         }
 
         case SEGMENT_RELOAD_STATE_DONE: {
-            TaskFree_8c014b66((Task *) task);
+            TaskKill_8c014b66((Task *) task);
             AsqFreeQueues_8c011f7e();
             var_loadScreenActive_8c157a6c = 0;
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
@@ -650,10 +650,10 @@ void RoutePushSegmentReloadTask_8c01468e(void)
         }
     }
 
-    LOG_DEBUG(("[ROUTE] pushing segmentReloadTask_8c014550\n"));
+    LOG_DEBUG(("[ROUTE] spawning segmentReloadTask_8c014550\n"));
 
     var_loadScreenActive_8c157a6c = 1;
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *) segmentReloadTask_8c014550, (Task **) &task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *) segmentReloadTask_8c014550, (Task **) &task, &state, 0);
     CHANGE_SEGMENT_RELOAD_STATE(task, SEGMENT_RELOAD_STATE_POST_LOAD);
     task->frame_0x0c = 0;
     freeSegmentModels_8c013f22();
@@ -667,7 +667,7 @@ void RoutePushSegmentReloadTask_8c01468e(void)
 
 /* Like routeLoadTask_8c014338, but on completion binds the interior texture and
  * hands off to the input task (as segmentReloadTask_8c014550 does).
- * Pushed only by UnusedLoadPushTask_8c014934, which nothing calls. */
+ * Spawned only by UnusedLoadPushTask_8c014934, which nothing calls. */
 void RouteUnusedTask_8c014784(RouteLoadTask *task, void *state)
 {
     int frame;
@@ -716,7 +716,7 @@ void RouteUnusedTask_8c014784(RouteLoadTask *task, void *state)
         }
 
         case ROUTE_LOAD_STATE_DONE: {
-            TaskFree_8c014b66((Task *) task);
+            TaskKill_8c014b66((Task *) task);
             AsqFreeQueues_8c011f7e();
             var_loadScreenActive_8c157a6c = 0;
             njReleaseTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);

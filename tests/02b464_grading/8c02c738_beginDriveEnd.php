@@ -16,12 +16,12 @@ return new class extends TestCase {
 
         $this->shouldCall('_ReplayMenuFreeDriveTasks_8c01614c');
         // beginDriveEnd_8c02c738 has an empty stack frame of its own beyond the two
-        // TaskPush out-params (created_task, created_state), pushed right
+        // TaskSpawn out-params (created_task, created_state), pushed right
         // after the STS.L PR/ADD #-8,R15 prologue -- so their addresses are
         // the initial test stack pointer (16MiB-4, see sh4objtest's Run)
         // minus 12 and 8 respectively. Same layout in both objects.
         $sp0 = 1024 * 1024 * 16 - 4;
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_driveEndFadeTask_8c02c69a'),
@@ -30,7 +30,7 @@ return new class extends TestCase {
                 0
             )
             ->do(function () use ($task) {
-                // TaskPush itself allocates the real Task and writes it
+                // TaskSpawn itself allocates the real Task and writes it
                 // through R6 (created_task's address, $sp0-12 above).
                 $this->writeUInt32($this->getRegister(6)->value, 0, U32::of($task));
             })

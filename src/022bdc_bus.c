@@ -39,7 +39,7 @@ typedef void *(*GroundQueryFn)(float x, float y, float z, void *out);
 
 /* Per-frame player-bus dispatcher: advances the boarding/departure door
  * timer, the driving/knockback/braking state machine, steering, ground/
- * junction queries used by other systems, blinkers, and the camera. Pushed
+ * junction queries used by other systems, blinkers, and the camera. Spawned
  * as the run's task action by BusInitStart_8c023610 (023310_bus_init). */
 void BusTask_8c022bdc(Task *task, void *state)
 {

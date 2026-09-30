@@ -23,7 +23,7 @@ return new class extends TestCase {
 
         $this->call('_CourseMenuSwitchFromTask_8c017e18')->with($task);
 
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+        $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_courseMenuFreeRunMenuTask_8c017ada')
         );
         $this->shouldCall('_buildFreeRunMenuDialogFlow_8c017a20');
@@ -68,7 +68,7 @@ return new class extends TestCase {
 
         $this->call('_CourseMenuSwitchFromTask_8c017e18')->with($task);
 
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+        $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_courseMenuFreeRunMenuTask_8c017ada')
         );
         $this->shouldCall('_buildFreeRunMenuDialogFlow_8c017a20');
@@ -109,7 +109,7 @@ return new class extends TestCase {
 
         $this->call('_CourseMenuSwitchFromTask_8c017e18')->with($task);
 
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+        $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_courseMenuStoryMenuTask_8c017718')
         );
         $this->shouldCall('_buildCourseMenuDialogFlow_8c017420');
@@ -155,7 +155,7 @@ return new class extends TestCase {
 
         $this->call('_CourseMenuSwitchFromTask_8c017e18')->with($task);
 
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+        $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_courseMenuStoryMenuTask_8c017718')
         );
         $this->shouldCall('_buildCourseMenuDialogFlow_8c017420');

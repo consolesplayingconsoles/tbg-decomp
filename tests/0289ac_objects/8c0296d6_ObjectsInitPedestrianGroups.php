@@ -85,7 +85,7 @@ return new class extends TestCase {
 
         $taskLocal = 0xffffe4;
         $stateLocal = 0xffffe8;
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
             $this->addressOf('_pedestriansTask_8c0293f6'),
             $taskLocal,
@@ -145,7 +145,7 @@ return new class extends TestCase {
 
         $taskLocal = 0xffffe4;
         $stateLocal = 0xffffe8;
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
             $this->addressOf('_pedestriansTask_8c0293f6'),
             $taskLocal,

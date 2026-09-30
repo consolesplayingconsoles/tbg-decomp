@@ -18,7 +18,7 @@ return new class extends TestCase {
         $createdTaskLocal = 0xffffe8;
         $createdStateLocal = 0xffffec;
         $this->shouldCall('_InputPushTask_8c0128cc');
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_GameTask_8c012f44'),
             $createdTaskLocal,
@@ -27,7 +27,7 @@ return new class extends TestCase {
         );
 
         $createdTask = $this->alloc(0xc);
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_courseMenuStoryMenuTask_8c017718'),
             $createdTaskLocal,
@@ -96,7 +96,7 @@ return new class extends TestCase {
         $createdTaskLocal = 0xffffe8;
         $createdStateLocal = 0xffffec;
         $this->shouldCall('_InputPushTask_8c0128cc')->with(0);
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_GameTask_8c012f44'),
             $createdTaskLocal,
@@ -105,7 +105,7 @@ return new class extends TestCase {
         );
 
         $createdTask = $this->alloc(0xc);
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_courseMenuFreeRunMenuTask_8c017ada'),
             $createdTaskLocal,

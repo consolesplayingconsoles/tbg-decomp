@@ -3,7 +3,7 @@
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
-    private function taskPushCheck(int $tasksAddr, int $actionAddr): callable
+    private function taskSpawnCheck(int $tasksAddr, int $actionAddr): callable
     {
         return function () use ($tasksAddr, $actionAddr) {
             $r4 = $this->registers[4]->value;
@@ -11,7 +11,7 @@ return new class extends TestCase {
             $allocSize = $this->memory->readUInt32($this->registers[15]->value)->value;
             if ($r4 !== $tasksAddr || $r5 !== $actionAddr || $allocSize !== 0) {
                 throw new \Exception(sprintf(
-                    "Unexpected TaskPush args: tasks=0x%x action=0x%x allocSize=%d",
+                    "Unexpected TaskSpawn args: tasks=0x%x action=0x%x allocSize=%d",
                     $r4, $r5, $allocSize
                 ));
             }
@@ -30,7 +30,7 @@ return new class extends TestCase {
 
         $this->call('_HudReset_8c02018c');
 
-        $this->shouldCall('_TaskPush_8c014ae8')->do($this->taskPushCheck(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->do($this->taskSpawnCheck(
             $this->addressOf('_var_tasks_8c1ba5e8'),
             $this->addressOf('_hudUpdateTask_8c01ff48'),
         ));

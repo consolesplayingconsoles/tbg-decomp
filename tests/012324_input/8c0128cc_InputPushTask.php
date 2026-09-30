@@ -13,16 +13,16 @@ return new class extends TestCase {
         $this->call('_InputPushTask_8c0128cc')->with(0);
 
         // InputPushTask_8c0128cc's frame holds a single local (created_state),
-        // pushed just above TaskPush's 0 stack arg; its address is the initial
+        // pushed just above TaskSpawn's 0 stack arg; its address is the initial
         // test stack pointer (16MiB-4, see sh4objtest's Run) minus 16. Same
         // layout in both objects, and int param goes in R4 so it adds no
         // stack args of its own.
         $sp0 = 1024 * 1024 * 16 - 4;
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_inputMenuTask_8c012324'),
             $this->addressOf('_var_pushedTask_8c157a74'),
-            $sp0 - 16, // &created_state (stack local; InputPushTask_8c0128cc's only local, sole word pushed just above TaskPush's stack arg)
+            $sp0 - 16, // &created_state (stack local; InputPushTask_8c0128cc's only local, sole word pushed just above TaskSpawn's stack arg)
             0
         );
         $this->shouldWriteLongTo('_var_stickLatchX_8c157ae4', 0);
@@ -40,7 +40,7 @@ return new class extends TestCase {
         // See test_installs_menu_input_task for the &created_state
         // derivation -- same frame layout regardless of branch taken.
         $sp0 = 1024 * 1024 * 16 - 4;
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_inputManualTask_8c012504'),
             $this->addressOf('_var_pushedTask_8c157a74'),
@@ -59,7 +59,7 @@ return new class extends TestCase {
         // See test_installs_menu_input_task for the &created_state
         // derivation -- same frame layout regardless of branch taken.
         $sp0 = 1024 * 1024 * 16 - 4;
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_inputAutoTask_8c012718'),
             $this->addressOf('_var_pushedTask_8c157a74'),
@@ -73,7 +73,7 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
         // Prologue loads this before the branch, so relocation must resolve.
-        $this->setSize('_TaskPush_8c014ae8', 4);
+        $this->setSize('_TaskSpawn_8c014ae8', 4);
 
         $this->call('_InputPushTask_8c0128cc')->with(2);
     }

@@ -308,7 +308,7 @@ void AlbumSwitchFromTask_8c01d6e2(Task *task)
 
     LOG_DEBUG(("[ALBUM] AlbumSwitchFromTask_8c01d6e2: install album task\n"));
 
-    TaskSetAction_8c014b3e(task, albumMenuTask_8c01d300);
+    TaskSwitch_8c014b3e(task, albumMenuTask_8c01d300);
     CHANGE_STATE(ALBUM_STATE_INIT);
 
     for (i = 0; i < 6; i++) {

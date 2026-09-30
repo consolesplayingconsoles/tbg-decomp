@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // trafficUpdateTask_8c0275d4 is a hidden (never directly called) TaskAction
 // -- its address is only taken via a .DATA.L pool entry and passed to
-// TaskPush_8c014ae8, pushed with no extra state, so its own Task struct
+// TaskSpawn_8c014ae8, spawned with no extra state, so its own Task struct
 // doubles as the state. See the function's header comment in
 // 026710_traffic.c for the full field/branch breakdown.
 
@@ -19,7 +19,7 @@ return new class extends TestCase {
         $this->setSize('_SignalClearCrossingOccupied_8c028958', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_RenderPushCall1_8c0223ea', 4);
-        $this->setSize('_TaskExecGroup_8c014b42', 4);
+        $this->setSize('_TaskRunGroup_8c014b42', 4);
         $this->setSize('_var_tasks_8c1bac28', 4);
     }
 
@@ -90,7 +90,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
     // field_0x0c != 0 and a *different* demo id is now pending: latches the
@@ -131,7 +131,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
     // A record with a nonzero script whose counter (field_0x08) has not yet
@@ -160,7 +160,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
     // Counter passes the threshold and field_0x0c == 1 with a zero progress
@@ -195,7 +195,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
     // Counter passes the threshold, field_0x0c != 1, and the record's own
@@ -230,6 +230,6 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
         $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 };

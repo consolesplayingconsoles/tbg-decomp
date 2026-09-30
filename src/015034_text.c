@@ -811,7 +811,7 @@ STATIC void demoLoadTask_8c01594c(Task *task)
     ReplayCodecUnpack_8c02fa14(&var_demoBuf_8c1ba3c4[4], &local, var_demoBuf_8c1ba3c4[0]);
     syFree(var_demoBuf_8c1ba3c4);
     var_demoBuf_8c1ba3c4 = (int *) -1;
-    TaskFree_8c014b66(task);
+    TaskKill_8c014b66(task);
     GameStartSelectedCourse_8c01328c();
 }
 
@@ -821,7 +821,7 @@ void TxtStartAttractDemo_8c0159ac()
 {
     Task *created_task;
     void *created_state;
-    TaskPush_8c014ae8(
+    TaskSpawn_8c014ae8(
         var_tasks_8c1ba3c8, demoLoadTask_8c01594c, &created_task, &created_state, 0
     );
     created_task->field_0x08 = 0;

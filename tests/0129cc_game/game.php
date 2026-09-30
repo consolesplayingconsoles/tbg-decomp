@@ -37,10 +37,10 @@ return new class extends TestCase {
         $this->shouldCall('_njSetCheapShadowMode')->with(0x80);
         $this->shouldCall('_njSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
 
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
         // njRandomSeed
         $this->shouldCall('_srand')->with(0xcafe0001);
@@ -49,13 +49,13 @@ return new class extends TestCase {
         
         $this->shouldCall('_InputPushTask_8c0128cc')->with(1);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_pauseTask_8c012cbc'),
                 0xffffe4, 0xFFFFE8, 0
             );
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_ReplayMenuDemoRecordTask_8c01677e'),
@@ -79,7 +79,7 @@ return new class extends TestCase {
         $this->shouldCall('_StopSpawnInit_8c02d968');
         $this->shouldCall('_DriveCueInit_8c020528');
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
             $this->addressOf('_runStartViewTask_8c012f9c'),
             0xffffe4,
@@ -123,10 +123,10 @@ return new class extends TestCase {
         $this->shouldCall('_njSetCheapShadowMode')->with(0x80);
         $this->shouldCall('_njSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
 
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
         // njRandomSeed
         $this->shouldCall('_srand')->with(0xcafe0001);
@@ -135,8 +135,8 @@ return new class extends TestCase {
         
         $this->shouldCall('_InputPushTask_8c0128cc')->with(1);
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with($this->addressOf('_var_tasks_8c1ba3c8'), $this->addressOf('_pauseToggleTask_8c012d06'), 0xffffe4, 0xFFFFE8, 0);
-        $this->shouldCall('_TaskPush_8c014ae8')->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_ReplayMenuDemoPlayTask_8c016bf4'), 0xffffe4, 0xFFFFE8, 0);
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with($this->addressOf('_var_tasks_8c1ba3c8'), $this->addressOf('_pauseToggleTask_8c012d06'), 0xffffe4, 0xFFFFE8, 0);
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_ReplayMenuDemoPlayTask_8c016bf4'), 0xffffe4, 0xFFFFE8, 0);
         $this->shouldCall('_DemoStartTour_8c025af4');
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
@@ -154,7 +154,7 @@ return new class extends TestCase {
         $this->shouldCall('_StopSpawnInit_8c02d968');
         $this->shouldCall('_DriveCueInit_8c020528');
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
             $this->addressOf('_runStartViewTask_8c012f9c'),
             0xffffe4,
@@ -195,10 +195,10 @@ return new class extends TestCase {
         $this->shouldCall('_njSetCheapShadowMode')->with(0x80);
         $this->shouldCall('_njSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
 
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
         // njRandomSeed
         $this->shouldCall('_srand')->with(0xcafe0001);
@@ -207,7 +207,7 @@ return new class extends TestCase {
         
         $this->shouldCall('_InputPushTask_8c0128cc')->with(1);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_pauseDemoEndTask_8c012d5a'),
@@ -223,7 +223,7 @@ return new class extends TestCase {
         $this->shouldWrite($createdTask + 0x08, 0);
         $this->shouldWrite($createdTask + 0x0c, 0);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_ReplayMenuDemoPlayTask_8c016bf4'),
@@ -249,7 +249,7 @@ return new class extends TestCase {
         $this->shouldCall('_StopSpawnInit_8c02d968');
         $this->shouldCall('_DriveCueInit_8c020528');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_runStartViewTask_8c012f9c'),
@@ -335,7 +335,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
-        $this->shouldCall('_TaskFree_8c014b66')->with($taskPtr);
+        $this->shouldCall('_TaskKill_8c014b66')->with($taskPtr);
         $this->shouldCall('_SndInit_8c010e18');
         $this->shouldWriteTo('_var_lcdAnimActive_8c2260a8', 1);
         $this->shouldCall('_TitlePushTitle_8c015fd6');
@@ -406,11 +406,11 @@ return new class extends TestCase {
         $this->shouldCall('_njSetRenderWidth')->with(256);
         $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
 
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
         $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
@@ -458,7 +458,7 @@ return new class extends TestCase {
         $createdTaskPtr = $this->alloc(0x0c);
         $this->initUint32($createdTaskLocal, $createdTaskPtr);
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_bootTask_8c013388'),
             $createdTaskLocal,
@@ -560,11 +560,11 @@ return new class extends TestCase {
         $this->shouldCall('_njSetRenderWidth')->with(256);
         $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
 
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
         $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
@@ -612,7 +612,7 @@ return new class extends TestCase {
         $createdTaskPtr = $this->alloc(0x0c);
         $this->initUint32($createdTaskLocal, $createdTaskPtr);
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_bootTask_8c013388'),
             $createdTaskLocal,
@@ -714,11 +714,11 @@ return new class extends TestCase {
         $this->shouldCall('_njSetRenderWidth')->with(256);
         $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
 
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
         $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
@@ -766,7 +766,7 @@ return new class extends TestCase {
         $createdTaskPtr = $this->alloc(0x0c);
         $this->initUint32($createdTaskLocal, $createdTaskPtr);
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_bootTask_8c013388'),
             $createdTaskLocal,
@@ -868,11 +868,11 @@ return new class extends TestCase {
         $this->shouldCall('_njSetRenderWidth')->with(256);
         $this->shouldCall('_njLoadTexture')->with($this->addressOf('_init_renderTexlist_8c03bf44'));
 
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba3c8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bac28'), 0x40);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($this->addressOf('_var_tasks_8c1bb448'), 0x20);
 
         $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
@@ -919,7 +919,7 @@ return new class extends TestCase {
         $createdTaskPtr = $this->alloc(0x0c);
         $this->initUint32($createdTaskLocal, $createdTaskPtr);
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_bootTask_8c013388'),
             $createdTaskLocal,
@@ -988,7 +988,7 @@ return new class extends TestCase {
         
         $this->shouldReadFrom('_var_gdErr_8c18ad14', 0);
         
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba3c8'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba3c8'));
 
         $this->singleCall('_GameMain_8c01392e')->singleShouldReturn(0)->run();
     }
@@ -1000,7 +1000,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
         $this->initUint32($this->addressOf('_init_soundOk_8c03bd84'), 1);
 
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba3c8'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba3c8'));
 
         $this->singleCall('_GameMain_8c01392e')->singleShouldReturn(0)->run();
     }
@@ -1052,7 +1052,7 @@ return new class extends TestCase {
         $this->setSize('_gdFsGetStat', 4);
         $this->setSize('_gdFsGetDrvStat', 4);
         $this->setSize('_gdFsReqDrvStat', 4);
-        $this->setSize('_TaskExecGroup_8c014b42', 4);
+        $this->setSize('_TaskRunGroup_8c014b42', 4);
         $this->setSize('_pdVibMxStop', 4);
     }
 };

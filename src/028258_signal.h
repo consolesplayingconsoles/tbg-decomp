@@ -5,7 +5,7 @@
 #include <shinobi.h>
 #include "014a9c_tasks.h" /* Task */
 
-/* Task state for both object kinds; exactly the 0xd4 TaskPush_8c014ae8 asks for.
+/* Task state for both object kinds; exactly the 0xd4 TaskSpawn_8c014ae8 asks for.
  *
  * A type 1 object is a signal head: `frame_0x0c` cycles 0->1->2->0, holding each
  * for `durations_0x08[frame]` frames, and is published to

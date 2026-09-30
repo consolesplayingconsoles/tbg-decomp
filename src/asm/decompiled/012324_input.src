@@ -14,7 +14,7 @@
           .IMPORT     _VmGameUpdateLcd_8c01c910
           .IMPORT     _init_btnRemapAuto_8c03beb8
           .IMPORT     _init_btnRemapWheelAuto_8c03bf18
-          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _var_pushedTask_8c157a74
           .IMPORT     _var_driveMode_8c1bb8c8
@@ -844,7 +844,7 @@ LP_GEN_17272:
           .DATA.L __quick_odd_mvn
           .DATA.L _var_activeCtrlType_8c157a70
           .DATA.L _VmGameUpdateLcd_8c01c910
-          .DATA.L _TaskPush_8c014ae8
+          .DATA.L _TaskSpawn_8c014ae8
           .DATA.L _var_tasks_8c1ba3c8
           .DATA.L _var_pushedTask_8c157a74
           .DATA.L _inputMenuTask_8c012324

@@ -15,7 +15,7 @@ return new class extends TestCase {
 
         $task = 0xbebacafe;
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_taskUnmountVms_8c01946a'),
             $createdTask,

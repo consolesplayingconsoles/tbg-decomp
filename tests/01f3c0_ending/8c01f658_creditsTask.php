@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * creditsTask_8c01f658(void): per-frame ending state machine (TaskPush
+ * creditsTask_8c01f658(void): per-frame ending state machine (TaskSpawn
  * callback). See ENDING_TASK_STATE in the unit for the 8 states.
  */
 return new class extends TestCase {

@@ -309,7 +309,7 @@ STATIC int pauseUpdate_8c0129cc(void)
 }
 
 /*
- * TaskPush_8c014ae8 action for a normal drive: soft-reset check first, then
+ * TaskSpawn_8c014ae8 action for a normal drive: soft-reset check first, then
  * the pause menu, and the rest of the frame's tasks only while it is closed.
  */
 STATIC void pauseTask_8c012cbc()
@@ -326,13 +326,13 @@ STATIC void pauseTask_8c012cbc()
 
     if (pauseUpdate_8c0129cc() != 0) {
         RenderResetQueues_8c02239c();
-        TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
+        TaskRunGroup_8c014b42(var_tasks_8c1ba5e8);
         RenderUpdate_8c022560();
     }
 }
 
 /*
- * TaskPush_8c014ae8 action for VMU replay playback (PLAY_MODE_DEMO with
+ * TaskSpawn_8c014ae8 action for VMU replay playback (PLAY_MODE_DEMO with
  * var_isAttractDemo_8c1bb8d4 == 0). No CONTINUE/RETIRE menu -- Start only
  * freezes the replay.
  */
@@ -354,14 +354,14 @@ STATIC void pauseToggleTask_8c012d06()
 
     if (var_pauseActive_8c1bb8cc == 0) {
         RenderResetQueues_8c02239c();
-        TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
+        TaskRunGroup_8c014b42(var_tasks_8c1ba5e8);
     }
 
     RenderUpdatePlain_8c022910();
 }
 
 /*
- * TaskPush_8c014ae8 action for the attract loop (PLAY_MODE_DEMO with
+ * TaskSpawn_8c014ae8 action for the attract loop (PLAY_MODE_DEMO with
  * var_isAttractDemo_8c1bb8d4 != 0): plays out until Start or the timeout, then
  * fades back to the title -- skipping the FortyFive logo when Start ended it,
  * replaying it on a timeout.
@@ -416,7 +416,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
     }
 
     RenderResetQueues_8c02239c();
-    TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
+    TaskRunGroup_8c014b42(var_tasks_8c1ba5e8);
     RenderUpdatePlain_8c022910();
     SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO, 0.0f, 0.0f, MARK_Z_BASE);
     if ((task->counter_0x0c & 0x18) != 0) {
@@ -472,7 +472,7 @@ STATIC void runStartViewTask_8c012f9c(Task *task, void* state) {
                 } else {
                     if (var_busState_8c1bb9d0.mirror_0x268 != MIRROR_DOOR) {
                         var_arrivalOverlayVariant_8c22655c = 0;
-                        TaskFree_8c014b66(task);
+                        TaskKill_8c014b66(task);
                     }
                 }
                 break;
@@ -489,7 +489,7 @@ STATIC void runStartViewTask_8c012f9c(Task *task, void* state) {
 
         var_busState_8c1bb9d0.mirror_0x268 = MIRROR_NONE;
 
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
     }
 
     njControl3D(0);
@@ -514,10 +514,10 @@ void GameEnterDrive_8c01306e(void)
     njSetCheapShadowMode(0x80);
     njSetFogTable(var_fogTable_8c18aaf8);
 
-    TaskClear_8c014a9c(var_tasks_8c1ba5e8, 0x10);
-    TaskClear_8c014a9c(var_tasks_8c1ba808, 0x20);
-    TaskClear_8c014a9c(var_tasks_8c1bac28, 0x40);
-    TaskClear_8c014a9c(var_tasks_8c1bb448, 0x20);
+    TaskInitGroup_8c014a9c(var_tasks_8c1ba5e8, 0x10);
+    TaskInitGroup_8c014a9c(var_tasks_8c1ba808, 0x20);
+    TaskInitGroup_8c014a9c(var_tasks_8c1bac28, 0x40);
+    TaskInitGroup_8c014a9c(var_tasks_8c1bb448, 0x20);
 
     njRandomSeed(var_seed_8c157a64);
     AsqSetSeedA_8c012160(var_seed_8c157a64);
@@ -526,17 +526,17 @@ void GameEnterDrive_8c01306e(void)
     InputPushTask_8c0128cc(1);
 
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
-        TaskPush_8c014ae8(var_tasks_8c1ba3c8, &pauseTask_8c012cbc, &created_task, &created_state, 0);
-        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &ReplayMenuDemoRecordTask_8c01677e, &created_task, &created_state, 0);
+        TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &pauseTask_8c012cbc, &created_task, &created_state, 0);
+        TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &ReplayMenuDemoRecordTask_8c01677e, &created_task, &created_state, 0);
     } else {
         if (var_isAttractDemo_8c1bb8d4 == 0) {
-            TaskPush_8c014ae8(var_tasks_8c1ba3c8, &pauseToggleTask_8c012d06, &created_task, &created_state, 0);
+            TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &pauseToggleTask_8c012d06, &created_task, &created_state, 0);
         } else {
-            TaskPush_8c014ae8(var_tasks_8c1ba3c8, &pauseDemoEndTask_8c012d5a, &created_task, &created_state, 0);
+            TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &pauseDemoEndTask_8c012d5a, &created_task, &created_state, 0);
             created_task->field_0x08 = 0;
             created_task->field_0x0c = (void*) 0;
         }
-        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &ReplayMenuDemoPlayTask_8c016bf4, &created_task, &created_state, 0);
+        TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &ReplayMenuDemoPlayTask_8c016bf4, &created_task, &created_state, 0);
         DemoStartTour_8c025af4();
     }
 
@@ -558,7 +558,7 @@ void GameEnterDrive_8c01306e(void)
     HudReset_8c02018c();
     StopSpawnInit_8c02d968();
     DriveCueInit_8c020528();
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &runStartViewTask_8c012f9c, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &runStartViewTask_8c012f9c, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
     RenderStartRunFade_8c0228a2();
 }
@@ -635,7 +635,7 @@ STATIC void bootTask_8c013388(Task *task, void *state) {
         case 1: {
             if (RouteGetLatch_8c01432a() != 0) {
                 AsqFreeQueues_8c011f7e();
-                TaskFree_8c014b66(task);
+                TaskKill_8c014b66(task);
                 SndInit_8c010e18("\\SOUND");
                 var_lcdAnimActive_8c2260a8 = 1;
 #ifdef DEBUG_MENU
@@ -709,11 +709,11 @@ void GameInit_8c0134ec() {
     njSetRenderWidth(256);
     njLoadTexture(&init_renderTexlist_8c03bf44);
 
-    TaskClear_8c014a9c(var_tasks_8c1ba3c8, 0x10);
-    TaskClear_8c014a9c(var_tasks_8c1ba5e8, 0x10);
-    TaskClear_8c014a9c(var_tasks_8c1ba808, 0x20);
-    TaskClear_8c014a9c(var_tasks_8c1bac28, 0x40);
-    TaskClear_8c014a9c(var_tasks_8c1bb448, 0x20);
+    TaskInitGroup_8c014a9c(var_tasks_8c1ba3c8, 0x10);
+    TaskInitGroup_8c014a9c(var_tasks_8c1ba5e8, 0x10);
+    TaskInitGroup_8c014a9c(var_tasks_8c1ba808, 0x20);
+    TaskInitGroup_8c014a9c(var_tasks_8c1bac28, 0x40);
+    TaskInitGroup_8c014a9c(var_tasks_8c1bb448, 0x20);
 
     var_currentCourse_8c1bb868.atariBus_0x04 = (void *) -1;
 
@@ -760,7 +760,7 @@ void GameInit_8c0134ec() {
     VmGameSetLcdSlot_8c01c8fc(3);
     VmGameUpdateLcd_8c01c910();
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, &bootTask_8c013388, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &bootTask_8c013388, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
 
     AsqInitQueues_8c011f36(16, 8, 0, 8);
@@ -807,7 +807,7 @@ int GameMain_8c01392e(void) {
             return -1;
         }
 
-        TaskExecGroup_8c014b42(var_tasks_8c1ba3c8);
+        TaskRunGroup_8c014b42(var_tasks_8c1ba3c8);
         return 0;
     }
 
@@ -848,7 +848,7 @@ int GameMain_8c01392e(void) {
         return -1;
     };
 
-    TaskExecGroup_8c014b42(var_tasks_8c1ba3c8);
+    TaskRunGroup_8c014b42(var_tasks_8c1ba3c8);
     return 0;
 }
 

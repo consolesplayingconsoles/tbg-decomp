@@ -17,7 +17,7 @@ return new class extends TestCase {
     }
 
     /**
-     * SignalInit_8c02845a's stack slots for TaskPush's created_task / create_state
+     * SignalInit_8c02845a's stack slots for TaskSpawn's created_task / create_state
      * out-params. The two objects lay the frame out differently.
      */
     private function outParams(): array
@@ -25,8 +25,8 @@ return new class extends TestCase {
         return $this->isAsmObject() ? [0xffffcc, 0xffffc8] : [0xffffd0, 0xffffcc];
     }
 
-    /** Fills in TaskPush's two out-params. */
-    private function fillTaskPush(int $task, int $state): Closure
+    /** Fills in TaskSpawn's two out-params. */
+    private function fillTaskSpawn(int $task, int $state): Closure
     {
         return function ($params) use ($task, $state) {
             $this->memory->writeUInt32($params[2], U32::of($task));
@@ -136,8 +136,8 @@ return new class extends TestCase {
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalTasks_8c227e20'), $group);
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 1);
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba5e8'),
             $this->addressOf('_execTrafficSignalGroupTask_8c0283e8'),
             $taskLocal,
@@ -204,12 +204,12 @@ return new class extends TestCase {
 
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalTasks_8c227e20'), $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 1);
 
         // The out-params are stack locals whose addresses differ per object, so
         // read them out of R6/R7 ($this is the simulator inside do()).
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $group,
                 $this->addressOf('_trafficSignalTask_8c028258'),
@@ -217,7 +217,7 @@ return new class extends TestCase {
                 $stateLocal,
                 0xd4,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
 
         $this->shouldWriteLong($state + 0x00 * 4, 1);          // id
         $this->shouldWriteLong($state + 0x01 * 4, 5);          // linked id
@@ -241,7 +241,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($flags + 1 * 4, 0);
         $this->shouldWriteLong($slots + 1 * 4, $state);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execTrafficSignalGroupTask_8c0283e8'),
@@ -249,7 +249,7 @@ return new class extends TestCase {
                 $stateLocal,
                 0,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
     }
 
     public function test_spawns_traffic_signal_with_matrix_a()
@@ -312,10 +312,10 @@ return new class extends TestCase {
 
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalTasks_8c227e20'), $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 1);
 
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $group,
                 $this->addressOf('_trafficSignalTask_8c028258'),
@@ -323,7 +323,7 @@ return new class extends TestCase {
                 $stateLocal,
                 0xd4,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
 
         $this->shouldWriteLong($state + 0x00 * 4, 1);
         $this->shouldWriteLong($state + 0x01 * 4, 5);
@@ -354,7 +354,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($flags + 1 * 4, 0);
         $this->shouldWriteLong($slots + 1 * 4, $state);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execTrafficSignalGroupTask_8c0283e8'),
@@ -362,7 +362,7 @@ return new class extends TestCase {
                 $stateLocal,
                 0,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
     }
 
     public function test_spawns_traffic_signal_with_matrix_b_and_advances_frame()
@@ -424,10 +424,10 @@ return new class extends TestCase {
 
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalTasks_8c227e20'), $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 1);
 
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $group,
                 $this->addressOf('_trafficSignalTask_8c028258'),
@@ -435,7 +435,7 @@ return new class extends TestCase {
                 $stateLocal,
                 0xd4,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
 
         $this->shouldWriteLong($state + 0x00 * 4, 1);
         $this->shouldWriteLong($state + 0x01 * 4, 25);
@@ -468,7 +468,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($flags + 1 * 4, 1);
         $this->shouldWriteLong($slots + 1 * 4, $state);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execTrafficSignalGroupTask_8c0283e8'),
@@ -476,7 +476,7 @@ return new class extends TestCase {
                 $stateLocal,
                 0,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
     }
 
     public function test_spawns_linked_object_of_type_2()
@@ -503,7 +503,7 @@ return new class extends TestCase {
     {
         [$flags, $slots, $objC, $c1c] = $this->seedLinkedObjectFixture();
 
-        // Slot 0 is free (-1) and slot 1 is the task just pushed; the search has
+        // Slot 0 is free (-1) and slot 1 is the task just spawned; the search has
         // to walk past both to reach the match in slot 2.
         $group = $this->alloc(4 * 0x20);
         $task = $group + 0x20;
@@ -523,7 +523,7 @@ return new class extends TestCase {
 
         $this->expectLinkedPrologue($flags, $slots, $group);
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $group,
                 $this->addressOf('_linkedTrafficSignalTask_8c02833c'),
@@ -531,11 +531,11 @@ return new class extends TestCase {
                 $stateLocal,
                 0xd4,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
 
         $this->shouldWriteLong($state + 0x34 * 4, $linked); // search hit, past both skips
         $this->expectLinkedBody($state, $linked, $objC, $c1c, $flags, 0);
-        $this->expectGroupTaskPush($task, $state);
+        $this->expectGroupTaskSpawn($task, $state);
     }
 
     public function test_link_search_without_a_match_keeps_the_last_slot_it_examined()
@@ -560,7 +560,7 @@ return new class extends TestCase {
 
         $this->expectLinkedPrologue($flags, $slots, $group);
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $group,
                 $this->addressOf('_linkedTrafficSignalTask_8c02833c'),
@@ -568,11 +568,11 @@ return new class extends TestCase {
                 $stateLocal,
                 0xd4,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
 
         // No attachedTo write: that only happens on the matching break.
         $this->expectLinkedBody($state, $other, $objC, $c1c, $flags, 0);
-        $this->expectGroupTaskPush($task, $state);
+        $this->expectGroupTaskSpawn($task, $state);
     }
 
     public function test_link_search_that_skips_every_slot_writes_through_the_carried_pointer()
@@ -595,7 +595,7 @@ return new class extends TestCase {
 
         $this->expectLinkedPrologue($flags, $slots, $group);
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $group,
                 $this->addressOf('_linkedTrafficSignalTask_8c02833c'),
@@ -603,10 +603,10 @@ return new class extends TestCase {
                 $stateLocal,
                 0xd4,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
 
         $this->expectLinkedBody($state, $carried, $objC, $c1c, $flags, 0);
-        $this->expectGroupTaskPush($task, $state);
+        $this->expectGroupTaskSpawn($task, $state);
     }
 
     /**
@@ -649,7 +649,7 @@ return new class extends TestCase {
         return [$flags, $slots, $objC, $c1c, $carried];
     }
 
-    /** Allocation and marking effects up to the linked-object TaskPush. */
+    /** Allocation and marking effects up to the linked-object TaskSpawn. */
     private function expectLinkedPrologue(int $flags, int $slots, int $group): void
     {
         $this->shouldCall('_syMalloc')->with(0xc)->andReturn($flags);
@@ -660,7 +660,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($flags + 1 * 4, 1);
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalTasks_8c227e20'), $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 1);
     }
 
     /** Type 2 state fill and back-link, whichever object the search left latched. */
@@ -683,10 +683,10 @@ return new class extends TestCase {
     }
 
     /** The group task installed once both spawn loops finish. */
-    private function expectGroupTaskPush(int $task, int $state): void
+    private function expectGroupTaskSpawn(int $task, int $state): void
     {
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execTrafficSignalGroupTask_8c0283e8'),
@@ -694,7 +694,7 @@ return new class extends TestCase {
                 $stateLocal,
                 0,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
     }
 
     /**
@@ -763,10 +763,10 @@ return new class extends TestCase {
 
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalTasks_8c227e20'), $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 1);
 
         [$taskLocal, $stateLocal] = $this->outParams();
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $group,
                 $this->addressOf('_linkedTrafficSignalTask_8c02833c'),
@@ -774,7 +774,7 @@ return new class extends TestCase {
                 $stateLocal,
                 0xd4,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
 
         $this->shouldWriteLong($state + 0x34 * 4, $linked); // search hit
         $this->shouldWriteLong($state + 0x00 * 4, 1);
@@ -788,7 +788,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x03 * 4, $frame);
         $this->shouldWriteLong($flags + 1 * 4, $frame);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execTrafficSignalGroupTask_8c0283e8'),
@@ -796,6 +796,6 @@ return new class extends TestCase {
                 $stateLocal,
                 0,
             )
-            ->do($this->fillTaskPush($task, $state));
+            ->do($this->fillTaskSpawn($task, $state));
     }
 };

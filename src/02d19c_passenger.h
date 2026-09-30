@@ -5,7 +5,7 @@
 
 #include "014a9c_tasks.h"
 
-/* TaskPush_8c014ae8 state, exactly the 0x38 bytes all three spawn paths
+/* TaskSpawn_8c014ae8 state, exactly the 0x38 bytes all three spawn paths
  * (PassengerBoardTask_8c02d21c, PassengerSeatedTask_8c02d5ca, PassengerExitTask_8c02d46c) ask for. The three
  * callbacks agree on every field's type. */
 typedef struct {
@@ -31,7 +31,7 @@ typedef struct {
 } SeatPos;
 extern SeatPos init_seatPositions_8c04c3e4[31];
 
-/* TaskPush_8c014ae8 state for PassengerStopSceneTask_8c02d644, exactly the
+/* TaskSpawn_8c014ae8 state for PassengerStopSceneTask_8c02d644, exactly the
  * 8 bytes StopSpawnInit_8c02d968 asks for -- a private 2-int layout distinct
  * from StopScheduleState above. */
 typedef struct {

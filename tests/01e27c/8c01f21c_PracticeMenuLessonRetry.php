@@ -88,7 +88,7 @@ return new class extends TestCase {
             $this->memory->writeUInt32($params[2], U32::of($createdTask));
         };
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_GameTask_8c012f44'),
             0xffffe4, // created_task
@@ -96,7 +96,7 @@ return new class extends TestCase {
             0
         )->do($writeCreatedTask);
 
-        $this->shouldCall('_TaskPush_8c014ae8')->with(
+        $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_lessonMenuTask_8c01ebf2'),
             0xffffe4, // created_task
@@ -133,7 +133,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_InputPushTask_8c0128cc', 4);
-        $this->setSize('_TaskPush_8c014ae8', 4);
+        $this->setSize('_TaskSpawn_8c014ae8', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_var_runState_8c2285c4', 0x9c);

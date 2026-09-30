@@ -466,7 +466,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
  * icon data at +0x20. */
 void SystemMenuSwitchFromTask_8c01ba64(Task *task)
 {
-    TaskSetAction_8c014b3e(task, saveTask_8c01b3ac);
+    TaskSwitch_8c014b3e(task, saveTask_8c01b3ac);
     var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_WAIT_PVM;
     var_menuState_8c1bc7a8.selected_0x38 = SAVE_MENU_LOAD;
     var_saveBuf_8c1ba2e0 = syMalloc(0x600);

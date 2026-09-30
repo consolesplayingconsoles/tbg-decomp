@@ -22,7 +22,7 @@
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_penaltyCount_8c1bb8f4
           .IMPORT     _GamePushLoadingTask_8c013310
-          .IMPORT     _TaskSetAction_8c014b3e
+          .IMPORT     _TaskSwitch_8c014b3e
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _init_practice02ResourceGroup_8c044284
@@ -57,7 +57,7 @@
           .IMPORT     _InputPushTask_8c0128cc
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tasks_8c1ba3c8
-          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     _MessageBoxOpenTextbox_8c02ae3e
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _CourseMenuRequestCommonResources_8c01852c
@@ -557,7 +557,7 @@ LP_GEN_38636:
           .DATA.L _var_practiceRules_8c226410 ; H'8C01E604
           .DATA.L _GamePushLoadingTask_8c013310 ; H'8C01E608
           .DATA.L _lessonDescriptionTask_8c01e27c ; H'8C01E60C
-          .DATA.L _TaskSetAction_8c014b3e ; H'8C01E610
+          .DATA.L _TaskSwitch_8c014b3e ; H'8C01E610
           .DATA.L _var_menuState_8c1bc7a8 + H'18 ; H'8C01E614
           .DATA.L _AsqInitQueues_8c011f36 ; H'8C01E618
           .DATA.L _AsqResetQueues_8c011f6c ; H'8C01E61C
@@ -1241,7 +1241,7 @@ LAB_8c01eb08:
           MOV.L       @R15+,R14
 LP_GEN_88702:
           .DATA.L _showLesson_8c01e63c ; H'8C01EB48
-          .DATA.L _TaskSetAction_8c014b3e ; H'8C01EB4C
+          .DATA.L _TaskSwitch_8c014b3e ; H'8C01EB4C
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01EB50
           .DATA.L _const_emptyMsg_8c038984 ; H'8C01EB54
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C01EB58
@@ -2048,7 +2048,7 @@ LP_GEN_22524:
           .DATA.W H'0C00 ; H'8C01F1C6
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C01F1C8
           .DATA.L _lessonMenuTask_8c01ebf2 ; H'8C01F1CC
-          .DATA.L _TaskSetAction_8c014b3e ; H'8C01F1D0
+          .DATA.L _TaskSwitch_8c014b3e ; H'8C01F1D0
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01F1D4
           .DATA.L _var_lessonAttempts_8c22642c ; H'8C01F1D8
           .DATA.L _var_award_8c1bb8f8 ; H'8C01F1DC
@@ -2232,7 +2232,7 @@ LP_GEN_37649:
           .DATA.L _InputPushTask_8c0128cc ; H'8C01F368
           .DATA.L _GameTask_8c012f44 ; H'8C01F36C
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01F370
-          .DATA.L _TaskPush_8c014ae8 ; H'8C01F374
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C01F374
           .DATA.L _lessonMenuTask_8c01ebf2 ; H'8C01F378
           .DATA.L _init_instructorDialogs_8c044c08 ; H'8C01F37C
           .DATA.L _var_tex_8c157af8 ; H'8C01F380

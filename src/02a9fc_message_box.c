@@ -52,7 +52,7 @@ typedef enum {
     MSGBOX_STAGE_DRAW
 } MsgBoxStage;
 
-/* messageBoxTask_8c02ab7a's TaskPush_8c014ae8 state, exactly the 0x1c it asks
+/* messageBoxTask_8c02ab7a's TaskSpawn_8c014ae8 state, exactly the 0x1c it asks
  * for (see tests/02a9fc_message_box/8c02ab7a_messageBoxTask.php's ST_* offsets). */
 typedef struct {
     int phase_0x00;
@@ -3916,7 +3916,7 @@ void MessageBoxRequestAssets_8c02aa36(void)
         }
     }
 }
-/* TaskAction pushed by MessageBoxStart_8c02ad8c to drive the event
+/* TaskAction spawned by MessageBoxStart_8c02ad8c to drive the event
  * message box: swaps in each line, waits (or fast-forwards on held A),
  * advances through the current slide's lines then to the next slide, and
  * finally requests the fade-out/cleanup once the last slide ends. */
@@ -3979,7 +3979,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
     case 5:
         if (!var_isFading_8c226568) {
             MessageBoxFreeAssets_8c02adee();
-            TaskFree_8c014b66(task);
+            TaskKill_8c014b66(task);
             EventApplyFlags_8c02b292();
             RouteStartModelLoadPass_8c013d78();
             var_fadeRequest_8c226564 = FADE_REQUEST_OUT;
@@ -4044,7 +4044,7 @@ void MessageBoxStart_8c02ad8c(void)
     MessageBoxState *state;
 
     relocateMessageText_8c02a9fc(var_messageTextDat_8c228518);
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, &messageBoxTask_8c02ab7a, &task, (void **)&state, 0x1c);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &messageBoxTask_8c02ab7a, &task, (void **)&state, 0x1c);
     state->slide_0x10 = var_eventSlides_8c228480[var_selectedEventEntry_8c228478];
     MessageBoxOpenTextbox_8c02ae3e(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
     state->phase_0x00 = 0;

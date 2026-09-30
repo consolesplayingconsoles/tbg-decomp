@@ -185,8 +185,8 @@ typedef struct {
     Uint32 masks_0x20[1];              /* stepCount_0x08 entries */
 } DatBlob;
 
-/* Shared TaskPush_8c014ae8 state for every row-type task ObjectsPushTasks_8c02a6ac
- * spawns -- it pushes sizeof(RowTaskState) (0x7c) for all of them: -- rowFlyByTask_8c029e94/flyByModelTask_8c029e68,
+/* Shared TaskSpawn_8c014ae8 state for every row-type task ObjectsPushTasks_8c02a6ac
+ * spawns -- it spawns all of them with sizeof(RowTaskState) (0x7c): -- rowFlyByTask_8c029e94/flyByModelTask_8c029e68,
  * rowDatTask_8c029fcc, rowModelTask_8c02a08a, rowMotionModelTask_8c02a120,
  * rowSimpleModelTask_8c02a1f0, rowMaterialModelTask_8c02a27c and
  * fumiCrossingTask_8c02a4f8. Each row type only touches the subset of fields
@@ -1110,7 +1110,7 @@ STATIC void pedestrianTask_8c028e00(Task *task, PedestrianState *ped)
 STATIC void pedStaticObjectTask_8c02903e() {}
 
 /* Per-frame driver for one pedestrian-group slot's spawn list, installed via
- * TaskPush_8c014ae8 by pedestriansTask_8c0293f6. Each call consumes one
+ * TaskSpawn_8c014ae8 by pedestriansTask_8c0293f6. Each call consumes one
  * PedGroupSpawnSpec entry from the group's spec list (task->spec_0x1c),
  * spawning either a walking pedestrian (pedestrianTask_8c028e00) or a static
  * sprite object (pedStaticObjectTask_8c02903e) into the group's own subtask
@@ -1135,9 +1135,9 @@ STATIC void pedGroupTask_8c029078(PedGroupTask *task)
 
     if (group->wanted_0x04 == 0) {
         group->active_0x00 = 0;
-        TaskFreeGroup_8c014ab4(task->subTasks_0x18);
+        TaskKillGroup_8c014ab4(task->subTasks_0x18);
         syFree(task->subTasks_0x18);
-        TaskFree_8c014b66((Task *)task);
+        TaskKill_8c014b66((Task *)task);
         return;
     }
 
@@ -1148,10 +1148,10 @@ STATIC void pedGroupTask_8c029078(PedGroupTask *task)
         if (spec->flX_0x04 == 0.0f || spec->flX_0x04 <= path->flLength_0x08) {
             /* Faithful to the original: an unrecognised nKind falls into the
              * sprite setup below with subTask/state still uninitialised. Only a
-             * failed TaskPush skips it. */
+             * failed TaskSpawn skips it. */
             pushFailed = 0;
             if (spec->nKind_0x02 == 0 || spec->nKind_0x02 == 1) {
-                if (TaskPush_8c014ae8(task->subTasks_0x18, pedestrianTask_8c028e00,
+                if (TaskSpawn_8c014ae8(task->subTasks_0x18, pedestrianTask_8c028e00,
                         &subTask, (void **)&state, sizeof(PedestrianState))) {
                     radius = task->radius_0x10;
                     state->flBaseX_0x20 = ((float)rand() / 32768.0f) * radius * 2.0f - radius;
@@ -1216,7 +1216,7 @@ STATIC void pedGroupTask_8c029078(PedGroupTask *task)
                     pushFailed = 1;
                 }
             } else if (spec->nKind_0x02 == 2) {
-                if (TaskPush_8c014ae8(task->subTasks_0x18, pedStaticObjectTask_8c02903e,
+                if (TaskSpawn_8c014ae8(task->subTasks_0x18, pedStaticObjectTask_8c02903e,
                         &subTask, (void **)&state, sizeof(PedestrianState))) {
                     state->flBaseX_0x20 = 0.0f;
                     state->flBaseZ_0x24 = 0.0f;
@@ -1240,7 +1240,7 @@ STATIC void pedGroupTask_8c029078(PedGroupTask *task)
                 state->sprite_0x00.ang = 0;
 
                 if (var_pedestrianAssets_8c1bbfdc[state->nKindId_0x38].texlist_0x08 == (NJS_TEXLIST *)-1) {
-                    TaskFree_8c014b66(subTask);
+                    TaskKill_8c014b66(subTask);
                 } else {
                     state->sprite_0x00.tlist = var_pedestrianAssets_8c1bbfdc[state->nKindId_0x38].texlist_0x08;
                     state->sprite_0x00.tanim = init_pedestrianTexAnims_8c04623c;
@@ -1251,7 +1251,7 @@ STATIC void pedGroupTask_8c029078(PedGroupTask *task)
         task->spec_0x1c = spec + 1;
     }
 
-    TaskExecGroup_8c014b42(task->subTasks_0x18);
+    TaskRunGroup_8c014b42(task->subTasks_0x18);
 }
 
 /* Per-frame driver for every pedestrian group: syncs var_pedGroups_8c228230's
@@ -1310,16 +1310,16 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
             group = &groups[pageListIndex];
 
             if (group->active_0x00 == 0) {
-                /* One slot over PED_GROUP_SLOTS: TaskClear_8c014a9c terminates
+                /* One slot over PED_GROUP_SLOTS: TaskInitGroup_8c014a9c terminates
                  * the array with a NULL action past the slots it frees. */
                 subtasks = syMalloc((PED_GROUP_SLOTS + 1) * sizeof(Task));
                 if (subtasks == NULL) {
                     break;
                 }
                 group->list_0x08 = subtasks;
-                TaskClear_8c014a9c(subtasks, PED_GROUP_SLOTS);
+                TaskInitGroup_8c014a9c(subtasks, PED_GROUP_SLOTS);
 
-                if (!TaskPush_8c014ae8(var_tasks_8c1ba808, pedGroupTask_8c029078,
+                if (!TaskSpawn_8c014ae8(var_tasks_8c1ba808, pedGroupTask_8c029078,
                         (Task **)&subTask, &state, 0)) {
                     syFree(subtasks);
                     break;
@@ -1373,7 +1373,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
         }
     }
 
-    TaskExecGroup_8c014b42(var_tasks_8c1ba808);
+    TaskRunGroup_8c014b42(var_tasks_8c1ba808);
 
     isDemo = var_playMode_8c1bb8d0 == PLAY_MODE_DEMO;
     if (isDemo) {
@@ -1431,7 +1431,7 @@ void ObjectsInitPedestrianGroups_8c0296d6(void)
         groups[i].active_0x00 = 0;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, pedestriansTask_8c0293f6, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, pedestriansTask_8c0293f6, (Task **)&task, &state, 0);
     task->lastPreset_0x08 = -1;
     task->debounce_0x0c = 1;
 }
@@ -1453,7 +1453,7 @@ void ObjectsFreePedestrianGroups_8c0297da(void)
     groups = (PedGroupEntry *)var_pedGroups_8c228230;
     for (i = 0; i < var_pedGroupCount_8c228234; i++) {
         if (groups[i].active_0x00 != 0) {
-            TaskFreeGroup_8c014ab4(groups[i].list_0x08);
+            TaskKillGroup_8c014ab4(groups[i].list_0x08);
             syFree(groups[i].list_0x08);
         }
     }
@@ -1570,7 +1570,7 @@ void ObjectsInitBlinkers_8c029920(void)
         return;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &routeBlinkerTask_8c029904, (Task **)&task,
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &routeBlinkerTask_8c029904, (Task **)&task,
                        (void **)&matrices, count * sizeof(NJS_MATRIX));
     task->count_0x08 = count;
     task->blinkCounter_0x0c = 0;
@@ -1753,7 +1753,7 @@ STATIC void flyByModelTask_8c029e68(Task *task, RowTaskState *state)
 {
     state->frame_0x58 = state->frame_0x58 + 1.0f;
     if (state->frameLimit_0x5c <= state->frame_0x58) {
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
         return;
     }
     RenderPushCall1_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
@@ -1768,7 +1768,7 @@ STATIC void rowFlyByTask_8c029e94(Task *task, RowTaskState *state)
     int idx;
 
     if (--task->field_0x08 < 0) {
-        if (TaskPush_8c014ae8(var_tasks_8c1bb448, &flyByModelTask_8c029e68, &newTask,
+        if (TaskSpawn_8c014ae8(var_tasks_8c1bb448, &flyByModelTask_8c029e68, &newTask,
                 (void **)&newState, sizeof(RowTaskState))) {
             do {
                 idx = AsqGetRandomInRangeA_8c012178(0xd) * 2 + 1;
@@ -1914,7 +1914,7 @@ STATIC void rowMotionModelTask_8c02a120(Task *task, RowTaskState *state)
             return;
         }
         if (task->field_0x0c == 0) {
-            TaskFree_8c014b66(task);
+            TaskKill_8c014b66(task);
             return;
         }
         state->frame_0x58 = 0.0f;
@@ -2166,7 +2166,7 @@ STATIC void execRowTaskGroupTask_8c02a60e(void)
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
         RenderPushCall1_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
         RenderPushCall1_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
-        TaskExecGroup_8c014b42(var_tasks_8c1bb448);
+        TaskRunGroup_8c014b42(var_tasks_8c1bb448);
     }
 }
 /* For each {type, dataPtr} row in the in-flight table (var_assetRequestTable_8c228408, filled by
@@ -2196,16 +2196,16 @@ void ObjectsPushTasks_8c02a6ac(void)
         void *dat = row->dat_0x08;
 
         if (type == 0) {
-            TaskPush_8c014ae8(var_tasks_8c1bb448, &rowFlyByTask_8c029e94, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowFlyByTask_8c029e94, &task, (void **)&state, sizeof(RowTaskState));
             state->dat_0x48 = dat;
             state->frameLimit_0x5c = (float)*(Uint32 *)((Uint8 *)dat + 4) - 1.0f;
             task->field_0x08 = 0;
         } else if (type == 1) {
-            TaskPush_8c014ae8(var_tasks_8c1bb448, &rowDatTask_8c029fcc, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowDatTask_8c029fcc, &task, (void **)&state, sizeof(RowTaskState));
             initDatBlob_8c029f42((DatBlob *)dat, pvm, nj);
             state->dat_0x48 = dat;
         } else if (type == 2) {
-            TaskPush_8c014ae8(var_tasks_8c1bb448, &rowModelTask_8c02a08a, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowModelTask_8c02a08a, &task, (void **)&state, sizeof(RowTaskState));
             state->phase_0x54 = 0;
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
@@ -2214,7 +2214,7 @@ void ObjectsPushTasks_8c02a6ac(void)
             state->fogEnable_0x78 = row->fogEnable_0x16;
             state->control3DEnable_0x79 = row->control3DEnable_0x17;
         } else if (type == 3) {
-            TaskPush_8c014ae8(var_tasks_8c1bb448, &rowMotionModelTask_8c02a120, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowMotionModelTask_8c02a120, &task, (void **)&state, sizeof(RowTaskState));
             state->phase_0x54 = 0;
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
@@ -2226,12 +2226,12 @@ void ObjectsPushTasks_8c02a6ac(void)
             state->fogEnable_0x78 = row->fogEnable_0x16;
             state->control3DEnable_0x79 = row->control3DEnable_0x17;
         } else if (type == 4) {
-            TaskPush_8c014ae8(var_tasks_8c1bb448, &rowSimpleModelTask_8c02a1f0, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowSimpleModelTask_8c02a1f0, &task, (void **)&state, sizeof(RowTaskState));
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
             task->field_0x08 = (int)row->taskFlag_0x15;
         } else if (type == 5) {
-            TaskPush_8c014ae8(var_tasks_8c1bb448, &rowMaterialModelTask_8c02a27c, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowMaterialModelTask_8c02a27c, &task, (void **)&state, sizeof(RowTaskState));
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
             state->pos_0x4c = row->pos_0x0c;
@@ -2244,7 +2244,7 @@ void ObjectsPushTasks_8c02a6ac(void)
             /* Bug-for-bug: passes state itself (its stale value from the
              * previous row), not &state, as the create_state out-param --
              * matches the archived asm exactly. */
-            TaskPush_8c014ae8(var_tasks_8c1bb448, &fumiCrossingTask_8c02a4f8, &task, (void **)state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &fumiCrossingTask_8c02a4f8, &task, (void **)state, sizeof(RowTaskState));
             state->phase_0x54 = 0;
             state->frame_0x58 = 0.0f;
             state->frameLimit_0x5c = (float)*(Uint32 *)((Uint8 *)var_fumiCloseMotion_8c228414 + 4) - 1.0f;
@@ -2259,5 +2259,5 @@ void ObjectsPushTasks_8c02a6ac(void)
         rowIndex++;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &execRowTaskGroupTask_8c02a60e, &task, (void **)&state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &execRowTaskGroupTask_8c02a60e, &task, (void **)&state, 0);
 }

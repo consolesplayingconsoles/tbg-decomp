@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->call('_CourseMenuPushDialogTask_8c0170c6')
             ->with(65, 0xcafe0002);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_instructorDialogTask_8c016f98'),

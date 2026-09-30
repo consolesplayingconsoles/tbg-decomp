@@ -30,7 +30,7 @@
           .IMPORT     _InputPushTask_8c0128cc
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tasks_8c1ba3c8
-          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     _var_tex_8c157af8
           .IMPORT     _njGarbageTexture
           .IMPORT     _MessageBoxOpenTextbox_8c02ae3e
@@ -878,7 +878,7 @@ LP_GEN_38893:
           .DATA.L _InputPushTask_8c0128cc ; H'8C01FA24
           .DATA.L _GameTask_8c012f44 ; H'8C01FA28
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01FA2C
-          .DATA.L _TaskPush_8c014ae8 ; H'8C01FA30
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C01FA30
           .DATA.L _creditsTask_8c01f658 ; H'8C01FA34
           .DATA.L _var_tex_8c157af8 ; H'8C01FA38
           .DATA.L _njGarbageTexture ; H'8C01FA3C

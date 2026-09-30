@@ -893,13 +893,13 @@ STATIC void driveEndFadeTask_8c02c69a(Task *task, void *state) {
 }
 
 /* Starts the drive-end fade-out flow: begins fading music/session, then
- * pushes driveEndFadeTask_8c02c69a to poll the fade and route onward once it's done. */
+ * spawns driveEndFadeTask_8c02c69a to poll the fade and route onward once it's done. */
 STATIC void beginDriveEnd_8c02c738(void) {
     Task *created_task;
     void *created_state;
 
     ReplayMenuFreeDriveTasks_8c01614c();
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *)driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *)driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
     RenderPushFadeIn_8c022a9c(10);
 }
@@ -926,10 +926,10 @@ STATIC void onFadeStopEnded_8c02c624(void) {
     if (GradeRunComplete_8c02c586() == 0) {
         ObjectsFreePedestrianGroups_8c0297da();
         SignalFree_8c0288be();
-        TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
-        TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
-        TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
-        TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
+        TaskKillGroup_8c014ab4(var_tasks_8c1bb448);
+        TaskKillGroup_8c014ab4(var_tasks_8c1bac28);
+        TaskKillGroup_8c014ab4(var_tasks_8c1ba5e8);
+        TaskKillGroup_8c014ab4(var_tasks_8c1ba3c8);
         StopUpdateHeadings_8c02ccc6();
         RoutePushSegmentReloadTask_8c01468e();
         return;
@@ -953,10 +953,10 @@ void GradeOnFadeDriveEnd_8c02c784(void) {
     if (GradeRunComplete_8c02c586() == 0 && var_runState_8c2285c4.driverPoints_0x0c > 0) {
         ObjectsFreePedestrianGroups_8c0297da();
         SignalFree_8c0288be();
-        TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
-        TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
-        TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
-        TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
+        TaskKillGroup_8c014ab4(var_tasks_8c1bb448);
+        TaskKillGroup_8c014ab4(var_tasks_8c1bac28);
+        TaskKillGroup_8c014ab4(var_tasks_8c1ba5e8);
+        TaskKillGroup_8c014ab4(var_tasks_8c1ba3c8);
         StopUpdateHeadings_8c02ccc6();
         RoutePushSegmentReloadTask_8c01468e();
         return;
@@ -978,7 +978,7 @@ void GradeOnFadeDriveEnd_8c02c784(void) {
 }
 
 /* Master per-frame drive task, installed by GradeReset_8c02c46a (via
- * TaskPush). var_runState_8c2285c4.runPhase_0x00 is the phase: 0 idle, 2 actively driving,
+ * TaskSpawn). var_runState_8c2285c4.runPhase_0x00 is the phase: 0 idle, 2 actively driving,
  * 3 a "drive ending, still grading a couple of last checks" phase, 4 a fixed
  * hold while fading out, 5 done.
  *
@@ -1175,7 +1175,7 @@ void GradeReset_8c02c46a(void) {
     void *created_state;
     int i;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, (void *)taskCallback_8c02c072, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (void *)taskCallback_8c02c072, &created_task, &created_state, 0);
 
     var_runState_8c2285c4.runPhase_0x00 = 0;
     var_runState_8c2285c4.runPassed_0x04 = 0;

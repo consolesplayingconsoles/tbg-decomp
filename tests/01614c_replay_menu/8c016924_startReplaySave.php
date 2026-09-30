@@ -22,7 +22,7 @@ return new class extends TestCase {
 
         $this->call('_startReplaySave_8c016924');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_replaySaveTask_8c0167ca'),
@@ -47,7 +47,7 @@ return new class extends TestCase {
 
         $this->call('_startReplaySave_8c016924');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_replaySaveTask_8c0167ca'),
@@ -81,7 +81,7 @@ return new class extends TestCase {
 
         $this->call('_startReplaySave_8c016924');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_replaySaveTask_8c0167ca'),

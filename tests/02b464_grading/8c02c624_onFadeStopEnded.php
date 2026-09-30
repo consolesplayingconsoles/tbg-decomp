@@ -35,10 +35,10 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsFreePedestrianGroups_8c0297da');
         $this->shouldCall('_SignalFree_8c0288be');
-        $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bb448'));
-        $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bac28'));
-        $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba5e8'));
-        $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
+        $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bb448'));
+        $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bac28'));
+        $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba5e8'));
+        $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
         $this->shouldCall('_StopUpdateHeadings_8c02ccc6');
         $this->shouldCall('_RoutePushSegmentReloadTask_8c01468e');
     }

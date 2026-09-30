@@ -131,10 +131,10 @@ void ReplayMenuFreeDriveTasks_8c01614c(void)
     ObjectsFreePedestrianGroups_8c0297da();
     SignalFree_8c0288be();
     StopFreeTaskGroup_8c02ca96();
-    TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
-    TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
-    TaskFreeGroup_8c014ab4(var_tasks_8c1ba808);
-    TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
+    TaskKillGroup_8c014ab4(var_tasks_8c1bb448);
+    TaskKillGroup_8c014ab4(var_tasks_8c1bac28);
+    TaskKillGroup_8c014ab4(var_tasks_8c1ba808);
+    TaskKillGroup_8c014ab4(var_tasks_8c1ba5e8);
 }
 
 void ReplayMenuFreeSessionAssets_8c016182(void)
@@ -148,7 +148,7 @@ void ReplayMenuFreeSessionAssets_8c016182(void)
     }
     VibClear_8c010fbe();
     ReplayMenuFreeDriveTasks_8c01614c();
-    TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
+    TaskKillGroup_8c014ab4(var_tasks_8c1ba3c8);
     MessageBoxFreeAssets_8c02adee();
     ObjectsFreeAssetRequests_8c029cfe();
     RouteFreePedestrianAssets_8c013ee4();
@@ -319,7 +319,7 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
         }
         break;
     case REPLAY_SAVE_MENU_EXIT:
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
         ReplayMenuOpen_8c01673a();
         return;               /* no epilogue write -- task is freed */
     }
@@ -332,7 +332,7 @@ STATIC void openSaveMenu_8c016636(void)
     SaveMenuState *state;
 
     njSetBackColor(0, 0, 0xc060);
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, saveMenuTask_8c01628c, &task, (void **)&state, 0x14);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, saveMenuTask_8c01628c, &task, (void **)&state, 0x14);
     state->state_0x00 = REPLAY_SAVE_MENU_INIT;
     state->frameCounter_0x0c = 0;
 }
@@ -345,7 +345,7 @@ STATIC void listMenuTask_8c01666a(Task *task)
     cursor = task->field_0x08;
 
     if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
         var_replayMenuCourseSel_8c1bc824 = &init_replayMenuEntries_8c04429c[cursor].courseSel_0x08;
         init_replayMenuEntries_8c04429c[cursor].func_0x04();
         return;
@@ -381,7 +381,7 @@ void ReplayMenuOpen_8c01673a(void)
 
     njSetBackColor(0, 0, 0);
     InputPushTask_8c0128cc(0);
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, listMenuTask_8c01666a, &task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, listMenuTask_8c01666a, &task, &state, 0);
     task->field_0x08 = 0;
 }
 
@@ -416,7 +416,7 @@ STATIC void replaySaveTask_8c0167ca(ReplaySaveTask *task, void *state)
     const BACKUPINFO *info;
 
     if (task->active_0x08 == 0) {
-        TaskFree_8c014b66((Task *)task);
+        TaskKill_8c014b66((Task *)task);
         CourseMenuReturn_8c017ef2();
         return;
     }
@@ -462,7 +462,7 @@ STATIC void replaySaveTask_8c0167ca(ReplaySaveTask *task, void *state)
         syFree(var_demoBuf_8c1ba3c4);
         var_demoBuf_8c1ba3c4 = (int *)-1;
         BupUnmount_8c014c46(var_selectedVm_8c1ba34c);
-        TaskFree_8c014b66((Task *)task);
+        TaskKill_8c014b66((Task *)task);
         CourseMenuReturn_8c017ef2();
         return;
     }
@@ -484,7 +484,7 @@ STATIC void startReplaySave_8c016924(void)
     int *buf;
     void *dest;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, replaySaveTask_8c0167ca, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, replaySaveTask_8c0167ca, (Task **)&task, &state, 0);
 
     /* no drive picked, or the recording ran the buffer out */
     if (var_selectedVm_8c1ba34c == -1 ||
@@ -521,7 +521,7 @@ STATIC void replayLoadTask_8c0169bc(ReplayLoadTask *task, void *state)
     const BACKUPINFO *info;
 
     if (var_selectedVm_8c1ba34c == -1) {
-        TaskFree_8c014b66((Task *)task);
+        TaskKill_8c014b66((Task *)task);
         GameStartSelectedCourse_8c01328c();
         return;
     }
@@ -576,7 +576,7 @@ STATIC void replayLoadTask_8c0169bc(ReplayLoadTask *task, void *state)
         syFree(var_demoBuf_8c1ba3c4);
         var_demoBuf_8c1ba3c4 = (int *)-1;
         BupUnmount_8c014c46(var_selectedVm_8c1ba34c);
-        TaskFree_8c014b66((Task *)task);
+        TaskKill_8c014b66((Task *)task);
         GameStartSelectedCourse_8c01328c();
         return;
     }
@@ -599,7 +599,7 @@ STATIC void startReplayLoad_8c016b4c(void)
     var_playMode_8c1bb8d0 = PLAY_MODE_DEMO;
     var_isAttractDemo_8c1bb8d4 = 0;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, replayLoadTask_8c0169bc, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, replayLoadTask_8c0169bc, (Task **)&task, &state, 0);
     task->phase_0x08 = 0;
 }
 

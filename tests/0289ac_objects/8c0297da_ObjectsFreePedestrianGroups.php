@@ -37,7 +37,7 @@ return new class extends TestCase {
 
         $this->call('_ObjectsFreePedestrianGroups_8c0297da');
 
-        $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($subTasksA);
+        $this->shouldCall('_TaskKillGroup_8c014ab4')->with($subTasksA);
         $this->shouldCall('_syFree')->with($subTasksA);
         $this->shouldCall('_syFree')->with($groups);
         $this->shouldWriteLong($this->addressOf('_var_pedGroups_8c228230'), -1);

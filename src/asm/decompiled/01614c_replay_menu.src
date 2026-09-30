@@ -1,5 +1,5 @@
 ; 8c01614c
-          .IMPORT     _TaskFreeGroup_8c014ab4
+          .IMPORT     _TaskKillGroup_8c014ab4
           .IMPORT     _var_tasks_8c1bb448
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_tasks_8c1ba808
@@ -24,8 +24,8 @@
           .IMPORT     _BupGetInfo_8c014bba
           .IMPORT     _BupMount_8c014c00
           .IMPORT     _BupUnmount_8c014c46
-          .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _TaskKill_8c014b66
+          .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     _AsqGetRandomA_8c012166
           .IMPORT     _InputPushTask_8c0128cc
           .IMPORT     _var_busState_8c1bb9d0
@@ -423,7 +423,7 @@ LP_GEN_42967:
           .DATA.L _ObjectsFreePedestrianGroups_8c0297da ; H'8C01637C
           .DATA.L _SignalFree_8c0288be ; H'8C016380
           .DATA.L _StopFreeTaskGroup_8c02ca96 ; H'8C016384
-          .DATA.L _TaskFreeGroup_8c014ab4 ; H'8C016388
+          .DATA.L _TaskKillGroup_8c014ab4 ; H'8C016388
           .DATA.L _var_tasks_8c1bb448 ; H'8C01638C
           .DATA.L _var_tasks_8c1bac28 ; H'8C016390
           .DATA.L _var_tasks_8c1ba808 ; H'8C016394
@@ -1017,12 +1017,12 @@ LAB_8c01681e:
 LP_GEN_94139:
           .DATA.L _VmSelectUpdateAllStatus_8c019550 ; H'8C016824
           .DATA.L _const_8c036120 ; H'8C016828
-          .DATA.L _TaskFree_8c014b66 ; H'8C01682C
+          .DATA.L _TaskKill_8c014b66 ; H'8C01682C
           .DATA.L H'0000C060 ; H'8C016830
           .DATA.L _njSetBackColor ; H'8C016834
           .DATA.L _saveMenuTask_8c01628c ; H'8C016838
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01683C
-          .DATA.L _TaskPush_8c014ae8 ; H'8C016840
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C016840
           .DATA.L _init_replayMenuEntries_8c04429c ; H'8C016844
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C016848
           .DATA.L _var_replayMenuCourseSel_8c1bc824 ; H'8C01684C
@@ -1277,11 +1277,11 @@ LP_GEN_65913:
           .DATA.L _buStat ; H'8C016A54
           .DATA.L _syFree ; H'8C016A58
           .DATA.L _BupUnmount_8c014c46 ; H'8C016A5C
-          .DATA.L _TaskFree_8c014b66 ; H'8C016A60
+          .DATA.L _TaskKill_8c014b66 ; H'8C016A60
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C016A64
           .DATA.L _replaySaveTask_8c0167ca ; H'8C016A68
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C016A6C
-          .DATA.L _TaskPush_8c014ae8 ; H'8C016A70
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C016A70
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C016A74
           .DATA.L _var_demoCursor_8c225fa8 ; H'8C016A78
           .DATA.L _var_demoCursor_8c225fa8 ; H'8C016A7C
@@ -1435,14 +1435,14 @@ LP_GEN_41084:
           .DATA.L _ReplayCodecUnpack_8c02fa14 ; H'8C016BC8
           .DATA.L _syFree ; H'8C016BCC
           .DATA.L _BupUnmount_8c014c46 ; H'8C016BD0
-          .DATA.L _TaskFree_8c014b66 ; H'8C016BD4
+          .DATA.L _TaskKill_8c014b66 ; H'8C016BD4
           .DATA.L _GameStartSelectedCourse_8c01328c ; H'8C016BD8
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C016BDC
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C016BE0
           .DATA.L _var_isAttractDemo_8c1bb8d4 ; H'8C016BE4
           .DATA.L _replayLoadTask_8c0169bc ; H'8C016BE8
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C016BEC
-          .DATA.L _TaskPush_8c014ae8 ; H'8C016BF0
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C016BF0
 ; TU boundary removed: the delinker split 016bf4_demo_input off here,
 ; but it is the playback half of ReplayMenuDemoRecordTask_8c01677e and
 ; its data sits inside this unit's B.

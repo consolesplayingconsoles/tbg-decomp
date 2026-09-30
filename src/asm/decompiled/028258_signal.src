@@ -6,23 +6,23 @@
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _RenderPushCall1_8c0223ea
-          .IMPORT     _TaskExecGroup_8c014b42
+          .IMPORT     _TaskRunGroup_8c014b42
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_groundQueryPoint_8c1bc460
           .IMPORT     _GroundQueryFindPolygon_8c020914
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _syMalloc
           .IMPORT     _TrafficMarkSignalIdsInUse_8c026dcc
-          .IMPORT     _TaskClear_8c014a9c
+          .IMPORT     _TaskInitGroup_8c014a9c
           .IMPORT     _var_routeModels_8c1bc3ec
-          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     __quick_odd_mvn
           .IMPORT     _njUnitMatrix
           .IMPORT     _njTranslate
           .IMPORT     _njRotateY
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _syFree
-          .IMPORT     _TaskFreeGroup_8c014ab4
+          .IMPORT     _TaskKillGroup_8c014ab4
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _BusDrawSignal_8c0281ac
           .IMPORT     _BusDrawSignalAttachment_8c028206
@@ -360,7 +360,7 @@ LP_GEN_65253:
           .DATA.L _setTrafficSignalLightCallback_8c0283d4 ; H'8C028498
           .DATA.L _RenderPushCall1_8c0223ea ; H'8C02849C
           .DATA.L _var_trafficSignalTasks_8c227e20 ; H'8C0284A0
-          .DATA.L _TaskExecGroup_8c014b42 ; H'8C0284A4
+          .DATA.L _TaskRunGroup_8c014b42 ; H'8C0284A4
           .DATA.L _var_currentCourse_8c1bb868+H'28 ; H'8C0284A8 (atariHum_0x28)
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0284AC
           .DATA.L _var_groundQueryPoint_8c1bc460 ; H'8C0284B0
@@ -463,7 +463,7 @@ LP_GEN_52240:
           .DATA.L _TrafficMarkSignalIdsInUse_8c026dcc ; H'8C02856C
           .DATA.L _var_currentCourse_8c1bb868+H'38 ; H'8C028570 (macSignal_0x38)
           .DATA.L _var_trafficSignalTasks_8c227e20 ; H'8C028574
-          .DATA.L _TaskClear_8c014a9c ; H'8C028578
+          .DATA.L _TaskInitGroup_8c014a9c ; H'8C028578
           .DATA.L H'43B40000 ; H'8C02857C
           .DATA.L H'47800000 ; H'8C028580
           .DATA.L _var_routeModels_8c1bc3ec ; H'8C028584
@@ -637,7 +637,7 @@ LP_GEN_92174:
           .DATA.W H'00B8 ; H'8C0286CC
           .RES.W 1 ; H'8C0286CE
           .DATA.L _trafficSignalTask_8c028258 ; H'8C0286D0
-          .DATA.L _TaskPush_8c014ae8 ; H'8C0286D4
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C0286D4
           .DATA.L __quick_odd_mvn ; H'8C0286D8
           .DATA.L _njUnitMatrix ; H'8C0286DC
           .DATA.L _njTranslate ; H'8C0286E0
@@ -799,7 +799,7 @@ LP_GEN_58642:
           .DATA.L _var_trafficSignalStates_8c227e28 ; H'8C028800
           .DATA.L _var_currentCourse_8c1bb868+H'38 ; H'8C028804 (macSignal_0x38)
           .DATA.L _linkedTrafficSignalTask_8c02833c ; H'8C028808
-          .DATA.L _TaskPush_8c014ae8 ; H'8C02880C
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C02880C
 LAB_8c028810:
           MOV.W       LP_GEN_38963,R0
           MOV.L       @(H'10,R4),R3
@@ -967,11 +967,11 @@ LP_GEN_38963:
           .DATA.W H'0200 ; H'8C028932
           .DATA.L _execTrafficSignalGroupTask_8c0283e8 ; H'8C028934
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C028938
-          .DATA.L _TaskPush_8c014ae8 ; H'8C02893C
+          .DATA.L _TaskSpawn_8c014ae8 ; H'8C02893C
           .DATA.L _var_trafficSignalStates_8c227e28 ; H'8C028940
           .DATA.L _syFree ; H'8C028944
           .DATA.L _var_trafficSignalTasks_8c227e20 ; H'8C028948
-          .DATA.L _TaskFreeGroup_8c014ab4 ; H'8C02894C
+          .DATA.L _TaskKillGroup_8c014ab4 ; H'8C02894C
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C028950
           .DATA.L _var_pedCrossingFlags_8c227e2c ; H'8C028954
 _SignalClearCrossingOccupied_8c028958:

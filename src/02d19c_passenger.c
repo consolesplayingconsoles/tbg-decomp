@@ -320,7 +320,7 @@ void PassengerExitTask_8c02d46c(Task *task, StopScheduleState *state)
 
     case 9:
         if (var_passengersFadedOut_8c22895c != 0) {
-            TaskFree_8c014b66(task);
+            TaskKill_8c014b66(task);
             return;
         }
         layer = 1;
@@ -399,7 +399,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
             }
 
             var_passengerActed_8c228958 = 0;
-            TaskExecGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
+            TaskRunGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
             if (var_passengerActed_8c228958 != 0) {
                 var_runState_8c2285c4.runClock_0x18++;
                 if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
@@ -491,7 +491,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
                 SndPlayAdx_8c010cd6(0, var_timeOfDay_8c18ad20 + soundOffset);
             }
 
-            TaskFree_8c014b66(task);
+            TaskKill_8c014b66(task);
             return;
         }
 
@@ -510,7 +510,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
     }
 
     if (execGroup) {
-        TaskExecGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
+        TaskRunGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
     }
     RenderPushCall1_8c0223ea(1, StopDrawLightEnd_8c02d146, 0);
     RenderPushCall1_8c0223ea(2, StopDrawLightEnd_8c02d146, 0);
@@ -528,6 +528,6 @@ void PassengerSkipStopTask_8c02d8f0(Task *task, void *state)
         var_cameraMode_8c227d9c = 2;
         var_cameraCueState_8c227da4 = 0;
         BusCameraApplyMode_8c024f32();
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
     }
 }

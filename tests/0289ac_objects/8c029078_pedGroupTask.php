@@ -79,9 +79,9 @@ return new class extends TestCase {
         $this->call('_pedGroupTask_8c029078')->with($task);
 
         $this->shouldWriteLong($groups + self::OFF_GRP_ACTIVE, 0);
-        $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($subTasks);
+        $this->shouldCall('_TaskKillGroup_8c014ab4')->with($subTasks);
         $this->shouldCall('_syFree')->with($subTasks);
-        $this->shouldCall('_TaskFree_8c014b66')->with($task);
+        $this->shouldCall('_TaskKill_8c014b66')->with($task);
     }
 
     public function test_sentinel_spec_skips_straight_to_exec_group()
@@ -93,7 +93,7 @@ return new class extends TestCase {
 
         $this->call('_pedGroupTask_8c029078')->with($task);
 
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
     public function test_distance_beyond_path_length_skips_and_advances()
@@ -107,10 +107,10 @@ return new class extends TestCase {
         $this->call('_pedGroupTask_8c029078')->with($task);
 
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
-    public function test_task_push_failure_advances_without_spawning()
+    public function test_task_spawn_failure_advances_without_spawning()
     {
         $this->makeGroup(1);
         $this->makePath(100.0);
@@ -120,9 +120,9 @@ return new class extends TestCase {
 
         $this->call('_pedGroupTask_8c029078')->with($task);
 
-        $this->shouldCall('_TaskPush_8c014ae8')->andReturn(0);
+        $this->shouldCall('_TaskSpawn_8c014ae8')->andReturn(0);
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
     public function test_spawns_static_sprite_object()
@@ -142,7 +142,7 @@ return new class extends TestCase {
 
         $this->call('_pedGroupTask_8c029078')->with($task);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->do(function () use ($subTask, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($subTask));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state));
@@ -169,13 +169,13 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x1c, $this->addressOf('_init_pedestrianTexAnims_8c04623c')); // sprite.pTanim
 
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
-    /** Mocks TaskPush and returns the pushed subTask/state pair. */
+    /** Mocks TaskSpawn and returns the spawned subTask/state pair. */
     private function pushWalkingPedestrian(int $subTask, int $state): void
     {
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->do(function () use ($subTask, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($subTask));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state));
@@ -259,7 +259,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($state + 0x0c, 0.015);
         $this->shouldWriteFloat($state + 0x10, 0.015);
         $this->shouldWriteLong($state + 0x14, 0);
-        $this->shouldCall('_TaskFree_8c014b66')
+        $this->shouldCall('_TaskKill_8c014b66')
             ->with($subTask)
             ->do(function () use ($state) {
                 $tlist = $this->memory->readUInt32($state + 0x18)->value;
@@ -273,7 +273,7 @@ return new class extends TestCase {
             });
 
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
     public function test_position_search_spans_multiple_segments_and_wraps()
@@ -329,7 +329,7 @@ return new class extends TestCase {
 
         $this->assertPedestrianEpilogue($state, 3, $texlist);
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
     public function test_backtrack_forward_skips_blocked_node_to_predecessor()
@@ -380,7 +380,7 @@ return new class extends TestCase {
 
         $this->assertPedestrianEpilogue($state, 3, $texlist);
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
     public function test_backtrack_reverse_skips_blocked_node_to_successor()
@@ -440,7 +440,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x1c, $this->addressOf('_init_pedestrianTexAnims_8c04623c'));
 
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
     public function test_random_placement_when_flx_is_zero()
@@ -486,7 +486,7 @@ return new class extends TestCase {
 
         $this->assertPedestrianEpilogue($state, 3, $texlist);
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
     public function test_spawns_walking_pedestrian_single_segment_path()
@@ -525,7 +525,7 @@ return new class extends TestCase {
 
         $this->call('_pedGroupTask_8c029078')->with($task);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->do(function () use ($subTask, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($subTask));
                 $this->memory->writeUInt32($this->getRegister(7)->value, U32::of($state));
@@ -563,7 +563,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x1c, $this->addressOf('_init_pedestrianTexAnims_8c04623c'));
 
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 
     /** Rounds a PHP double to the single-precision value the SH4 FPU holds. */
@@ -632,6 +632,6 @@ return new class extends TestCase {
 
         $this->assertPedestrianEpilogue($state, 3, $texlist);
         $this->shouldWriteLong($task + self::OFF_SPEC, $spec + self::SPEC_SIZE);
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($subTasks);
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($subTasks);
     }
 };

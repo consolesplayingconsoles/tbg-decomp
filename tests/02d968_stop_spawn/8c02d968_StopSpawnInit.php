@@ -14,7 +14,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_TaskPush_8c014ae8', 4);
+        $this->setSize('_TaskSpawn_8c014ae8', 4);
         $this->setSize('_PassengerSkipStopTask_8c02d8f0', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->setSize('_var_exitSpot1_8c228934', 12);
     }
 
-    // playMode == 1 (demo) and bit 3 of var_practiceRules_8c226410 clear: pushes the
+    // playMode == 1 (demo) and bit 3 of var_practiceRules_8c226410 clear: spawns the
     // "return to demo" task and sets var_runState_8c2285c4.runPhase_0x00 = 2, without doing
     // any of the normal course-start spawning.
     public function test_demoModeEarlyReturn(): void {
@@ -39,7 +39,7 @@ return new class extends TestCase {
 
         $this->call('_StopSpawnInit_8c02d968');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_PassengerSkipStopTask_8c02d8f0'),
@@ -64,7 +64,7 @@ return new class extends TestCase {
     }
 
     // Not demo mode, no waiting passengers and no scripted schedule slots in
-    // use: exercises the main task push, the interior texture/camera setup
+    // use: exercises the main task spawn, the interior texture/camera setup
     // calls, the route-dependent anchor-point branch (all six interior
     // points plus both njCalcPoint transforms), and the (empty) spawn
     // loops. $route selects ROUTE_SHINJUKU (0)/ROUTE_WANGAN (1) vs
@@ -72,7 +72,7 @@ return new class extends TestCase {
     // var_boardSpot1_8c228928/910/91c/934/940/94c order. A null $pts (for a route
     // value with no dispatch arm) skips the whole anchor-point block.
     private function runEmptyScheduleRoute(int $route, ?array $pts): void {
-        $this->setSize('_TaskPush_8c014ae8', 4);
+        $this->setSize('_TaskSpawn_8c014ae8', 4);
         $this->setSize('_PassengerStopSceneTask_8c02d644', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
@@ -95,7 +95,7 @@ return new class extends TestCase {
         $this->setSize('_var_stopSchedule_8c228718', 31 * 4);
         $this->setSize('_var_waitingPassengerCount_8c228794', 4);
         $this->setSize('_syMalloc', 4);
-        $this->setSize('_TaskClear_8c014a9c', 4);
+        $this->setSize('_TaskInitGroup_8c014a9c', 4);
         $this->setSize('_var_stopTaskGroup_8c2288f8', 4);
         $this->setSize('_syFree', 4);
         $this->setSize('_rand', 4);
@@ -128,7 +128,7 @@ return new class extends TestCase {
         $this->call('_StopSpawnInit_8c02d968');
 
         $mainTask = $this->alloc(0x20);
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_PassengerStopSceneTask_8c02d644'))
             ->do(function () use ($mainTask, $mainState) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
@@ -178,7 +178,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_syMalloc')->with(0x20)->andReturn($group);
         $this->shouldWriteLongTo('_var_stopTaskGroup_8c2288f8', $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 0);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 0);
 
         $this->shouldCall('_syMalloc')->with(0xf8)->andReturn($matchedBuf);
         $this->shouldCall('_syFree')->with($matchedBuf);
@@ -229,7 +229,7 @@ return new class extends TestCase {
     // schedule slots: exercises the PassengerBoardTask_8c02d21c spawn loop's per-iteration
     // field writes and rand()-derived random offsets.
     public function test_oneWaitingPassenger(): void {
-        $this->setSize('_TaskPush_8c014ae8', 4);
+        $this->setSize('_TaskSpawn_8c014ae8', 4);
         $this->setSize('_PassengerStopSceneTask_8c02d644', 4);
         $this->setSize('_PassengerBoardTask_8c02d21c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
@@ -255,7 +255,7 @@ return new class extends TestCase {
         $this->setSize('_var_waitingPassengers_8c228798', 20);
         $this->setSize('_var_passengerCount_8c1bb8e4', 4);
         $this->setSize('_syMalloc', 4);
-        $this->setSize('_TaskClear_8c014a9c', 4);
+        $this->setSize('_TaskInitGroup_8c014a9c', 4);
         $this->setSize('_var_stopTaskGroup_8c2288f8', 4);
         $this->setSize('_syFree', 4);
         $this->setSize('_rand', 4);
@@ -293,7 +293,7 @@ return new class extends TestCase {
 
         $this->call('_StopSpawnInit_8c02d968');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_PassengerStopSceneTask_8c02d644'))
             ->do(function () use ($mainTask, $mainState) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
@@ -316,7 +316,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_syMalloc')->with((1 + 0 + 1) * 0x20)->andReturn($group);
         $this->shouldWriteLongTo('_var_stopTaskGroup_8c2288f8', $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 1);
 
         // init_passengerVoiceVariant_8c04c4dc[2] == 0x02 -> 0x02 + 0x32 = 0x34.
         $rand1 = 1000;
@@ -324,7 +324,7 @@ return new class extends TestCase {
         $expectRandX = $this->f32(((float)$rand1 / 32768.0) * 0.2);
         $expectRandZ = $this->f32(((float)$rand2 / 32768.0) * 0.2);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with($group, $this->addressOf('_PassengerBoardTask_8c02d21c'))
             ->do(function () use ($task, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task));
@@ -360,7 +360,7 @@ return new class extends TestCase {
     }
 
     private function commonSpawnLoopSymbols(): void {
-        $this->setSize('_TaskPush_8c014ae8', 4);
+        $this->setSize('_TaskSpawn_8c014ae8', 4);
         $this->setSize('_PassengerStopSceneTask_8c02d644', 4);
         $this->setSize('_PassengerSeatedTask_8c02d5ca', 4);
         $this->setSize('_PassengerBoardTask_8c02d21c', 4);
@@ -388,7 +388,7 @@ return new class extends TestCase {
         $this->setSize('_var_waitingPassengers_8c228798', 4);
         $this->setSize('_var_passengerCount_8c1bb8e4', 4);
         $this->setSize('_syMalloc', 4);
-        $this->setSize('_TaskClear_8c014a9c', 4);
+        $this->setSize('_TaskInitGroup_8c014a9c', 4);
         $this->setSize('_var_stopTaskGroup_8c2288f8', 4);
         $this->setSize('_syFree', 4);
         $this->setSize('_rand', 4);
@@ -445,7 +445,7 @@ return new class extends TestCase {
 
         $this->call('_StopSpawnInit_8c02d968');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_PassengerStopSceneTask_8c02d644'))
             ->do(function () use ($mainTask, $mainState) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
@@ -469,11 +469,11 @@ return new class extends TestCase {
         // n = 1 used schedule slot -> group sized for (0 + 1 + 1) * 0x20.
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($group);
         $this->shouldWriteLongTo('_var_stopTaskGroup_8c2288f8', $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 1);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 1);
 
         $this->shouldCall('_syMalloc')->with(0xf8)->andReturn($matchedBuf);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with($group, $this->addressOf('_PassengerSeatedTask_8c02d5ca'))
             ->do(function () use ($task, $state) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task));
@@ -496,7 +496,7 @@ return new class extends TestCase {
     // Simulates the __quick_evn_mvn 3-word-struct-copy runtime helper
     // (dest R1, src R2, byte count R0 -- see docs/lessons_learned.md), so
     // the Fisher-Yates shuffle below actually reorders the matched buffer
-    // and the final PassengerExitTask_8c02d46c pushes can be asserted against the real
+    // and the final PassengerExitTask_8c02d46c spawns can be asserted against the real
     // post-shuffle contents.
     private function simulateQuickEvnMvn(): void {
         $this->shouldCall('__quick_evn_mvn')->do(function () {
@@ -516,7 +516,7 @@ return new class extends TestCase {
     // matched[i] = matched[randIdx]; matched[randIdx] = tmp), then spawned
     // via PassengerExitTask_8c02d46c in the shuffled order. randIdx is forced to 0 both
     // iterations, which reverses the two-element buffer -- so the spawn
-    // loop's position-0 push must carry the ORIGINALLY-second slot and
+    // loop's position-0 spawn must carry the ORIGINALLY-second slot and
     // vice versa, proving the shuffle (not just the field writes) is
     // correct. Exercises the previously UNVERIFIED shuffle and
     // shuffled-spawn field write order: ref_0x00, field_0x04 (= 0),
@@ -575,7 +575,7 @@ return new class extends TestCase {
 
         $this->call('_StopSpawnInit_8c02d968');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_PassengerStopSceneTask_8c02d644'))
             ->do(function () use ($mainTask, $mainState) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($mainTask));
@@ -599,7 +599,7 @@ return new class extends TestCase {
         // n = 2 used schedule slots -> group sized for (0 + 2 + 1) * 0x20.
         $this->shouldCall('_syMalloc')->with(0x60)->andReturn($group);
         $this->shouldWriteLongTo('_var_stopTaskGroup_8c2288f8', $group);
-        $this->shouldCall('_TaskClear_8c014a9c')->with($group, 2);
+        $this->shouldCall('_TaskInitGroup_8c014a9c')->with($group, 2);
 
         $this->shouldCall('_syMalloc')->with(0xf8)->andReturn($matchedBuf);
 
@@ -628,7 +628,7 @@ return new class extends TestCase {
         // happened, not just that the field writes look plausible.
         $rand0x = 100;
         $rand0z = 200;
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with($group, $this->addressOf('_PassengerExitTask_8c02d46c'))
             ->do(function () use ($task0, $state0) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task0));
@@ -655,7 +655,7 @@ return new class extends TestCase {
 
         $rand1x = 300;
         $rand1z = 400;
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with($group, $this->addressOf('_PassengerExitTask_8c02d46c'))
             ->do(function () use ($task1, $state1) {
                 $this->memory->writeUInt32($this->getRegister(6)->value, U32::of($task1));

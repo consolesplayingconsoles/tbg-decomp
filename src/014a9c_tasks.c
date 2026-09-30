@@ -3,7 +3,7 @@
 #include "shinobi.h"
 #include "014a9c_tasks.h"
 
-void TaskClear_8c014a9c(Task *tasks, Sint32 count)
+void TaskInitGroup_8c014a9c(Task *tasks, Sint32 count)
 {
   Sint32 i;
   for (i = 0; i < count; ++i)
@@ -16,7 +16,7 @@ void TaskClear_8c014a9c(Task *tasks, Sint32 count)
   return;
 }
 
-void TaskFreeGroup_8c014ab4(Task *tasks)
+void TaskKillGroup_8c014ab4(Task *tasks)
 {
   for (; tasks->action != NULL; tasks++) {
     if (tasks->action != (TaskAction) -1) {
@@ -28,7 +28,7 @@ void TaskFreeGroup_8c014ab4(Task *tasks)
   }
 }
 
-int TaskPush_8c014ae8(Task *tasks, void *action, Task **created_task, void **create_state, size_t alloc_size)
+int TaskSpawn_8c014ae8(Task *tasks, void *action, Task **created_task, void **create_state, size_t alloc_size)
 {
   void *state;
 
@@ -53,12 +53,12 @@ int TaskPush_8c014ae8(Task *tasks, void *action, Task **created_task, void **cre
   return 1;
 }
 
-void TaskSetAction_8c014b3e(Task *task, TaskAction action)
+void TaskSwitch_8c014b3e(Task *task, TaskAction action)
 {
   task->action = action;
 }
 
-void TaskExecGroup_8c014b42(Task task[]) {
+void TaskRunGroup_8c014b42(Task task[]) {
     for (; task->action != NULL; task++) {
         if (task->action != (TaskAction) -1) {
             task->action(task, task->state);
@@ -66,7 +66,7 @@ void TaskExecGroup_8c014b42(Task task[]) {
     }
 }
 
-void TaskFree_8c014b66(Task *task)
+void TaskKill_8c014b66(Task *task)
 {
   if (task->state != NULL) {
     syFree(task->state);

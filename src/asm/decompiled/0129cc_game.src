@@ -15,7 +15,7 @@
           .IMPORT     _var_currentSegment_8c228708
           .IMPORT     _var_arrivalOverlayVariant_8c22655c
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _TaskFree_8c014b66
+          .IMPORT     _TaskKill_8c014b66
           .IMPORT     _njControl3D
           .IMPORT     _var_matrix_8c2f8ca0
           .IMPORT     _njInitMatrix
@@ -27,7 +27,7 @@
           .IMPORT     _njSetCheapShadowMode
           .IMPORT     _njSetFogTable
           .IMPORT     _var_tasks_8c1ba5e8
-          .IMPORT     _TaskClear_8c014a9c
+          .IMPORT     _TaskInitGroup_8c014a9c
           .IMPORT     _var_tasks_8c1ba808
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_tasks_8c1bb448
@@ -36,7 +36,7 @@
           .IMPORT     _AsqSetSeedA_8c012160
           .IMPORT     _AsqSetSeedB_8c0121a2
           .IMPORT     _InputPushTask_8c0128cc
-          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _ReplayMenuDemoRecordTask_8c01677e
           .IMPORT     _var_isAttractDemo_8c1bb8d4
@@ -161,7 +161,7 @@
           .IMPORT     _gdFsGetSysHn
           .IMPORT     _gdFsGetStat
           .IMPORT     _gdFsGetDrvStat
-          .IMPORT     _TaskExecGroup_8c014b42
+          .IMPORT     _TaskRunGroup_8c014b42
           .IMPORT     _njExitTexture
           .IMPORT     _SbExitSystem_8c014a24
           .IMPORT     _syBtExit
@@ -792,7 +792,7 @@ LP_GEN_43727:
           .DATA.L _TitlePushTitle_8c015fd6
           .DATA.L _RenderResetQueues_8c02239c
           .DATA.L _var_tasks_8c1ba5e8
-          .DATA.L _TaskExecGroup_8c014b42
+          .DATA.L _TaskRunGroup_8c014b42
           .DATA.L _RenderUpdate_8c022560
           .DATA.L _var_pauseActive_8c1bb8cc
           .DATA.L _var_peripheral_8c1ba358
@@ -915,7 +915,7 @@ LP_GEN_94405:
           .DATA.L     _TitlePushTitle_8c015fd6
           .DATA.L     _RenderResetQueues_8c02239c
           .DATA.L     _var_tasks_8c1ba5e8
-          .DATA.L     _TaskExecGroup_8c014b42
+          .DATA.L     _TaskRunGroup_8c014b42
           .DATA.L     _RenderUpdatePlain_8c022910
           .DATA.L     H'BF8CCCCD
           .DATA.L     _var_markTexlist_8c1bc418
@@ -1207,7 +1207,7 @@ LP_GEN_31464:
           .DATA.W H'0268
           .DATA.W H'0080
           .RES.W 1
-          .DATA.L _TaskFree_8c014b66
+          .DATA.L _TaskKill_8c014b66
           .DATA.L _njControl3D
           .DATA.L _var_matrix_8c2f8ca0
           .DATA.L _njInitMatrix
@@ -1220,7 +1220,7 @@ LP_GEN_31464:
           .DATA.L _njSetCheapShadowMode
           .DATA.L _njSetFogTable
           .DATA.L _var_tasks_8c1ba5e8
-          .DATA.L _TaskClear_8c014a9c
+          .DATA.L _TaskInitGroup_8c014a9c
           .DATA.L _var_tasks_8c1ba808
           .DATA.L _var_tasks_8c1bac28
           .DATA.L _var_tasks_8c1bb448
@@ -1229,7 +1229,7 @@ LP_GEN_31464:
           .DATA.L _AsqSetSeedA_8c012160
           .DATA.L _AsqSetSeedB_8c0121a2
           .DATA.L _InputPushTask_8c0128cc
-          .DATA.L _TaskPush_8c014ae8
+          .DATA.L _TaskSpawn_8c014ae8
           .DATA.L _var_tasks_8c1ba3c8
           .DATA.L _var_playMode_8c1bb8d0
           .DATA.L _pauseTask_8c012cbc
@@ -1651,7 +1651,7 @@ LP_GEN_65923:
           .DATA.L _AsqNop_8c011120
           .DATA.L _AsqProcessQueues_8c011fe0
           .DATA.L _AsqFreeQueues_8c011f7e
-          .DATA.L _TaskFree_8c014b66
+          .DATA.L _TaskKill_8c014b66
           .DATA.L _SndInit_8c010e18
           .DATA.L _var_lcdAnimActive_8c2260a8
           .DATA.L _TitlePushTitle_8c015fd6
@@ -1900,7 +1900,7 @@ LP_GEN_90231:
           .DATA.L _njSetRenderWidth
           .DATA.L _init_renderTexlist_8c03bf44
           .DATA.L _njLoadTexture
-          .DATA.L _TaskClear_8c014a9c
+          .DATA.L _TaskInitGroup_8c014a9c
           .DATA.L _var_tasks_8c1ba3c8
           .DATA.L _var_tasks_8c1ba5e8
           .DATA.L _var_tasks_8c1ba808
@@ -2184,7 +2184,7 @@ LP_GEN_19861:
           .DATA.L     _VmGameUpdateLcd_8c01c910
           .DATA.L     _bootTask_8c013388
           .DATA.L     _var_tasks_8c1ba3c8
-          .DATA.L     _TaskPush_8c014ae8
+          .DATA.L     _TaskSpawn_8c014ae8
           .DATA.L     _AsqInitQueues_8c011f36
           .DATA.L     _AsqResetQueues_8c011f6c
           .DATA.L     _AsqRequestDat_8c011182
@@ -2240,7 +2240,7 @@ LP_GEN_19861:
           .DATA.L     _gdFsGetSysHn
           .DATA.L     _gdFsGetStat
           .DATA.L     _gdFsGetDrvStat
-          .DATA.L     _TaskExecGroup_8c014b42
+          .DATA.L     _TaskRunGroup_8c014b42
           .DATA.L     _njExitTexture
           .DATA.L     _SbExitSystem_8c014a24
           .DATA.L     _syBtExit

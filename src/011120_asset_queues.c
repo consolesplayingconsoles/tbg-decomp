@@ -46,7 +46,7 @@ typedef struct {
 /* This and the TaskLoadQueued* structs below are Task (014a9c_tasks.h) with
    its generic fields named for one loader: field_0x08 is the phase,
    field_0x0c the open GDFS handle, queuedItem_0x18 the queue cursor.
-   TaskPush_8c014ae8 only ever hands out a plain Task. */
+   TaskSpawn_8c014ae8 only ever hands out a plain Task. */
 typedef struct {
     TaskAction action;
     void *state;
@@ -116,7 +116,7 @@ int var_loadScreenActive_8c157a6c;
 /* PDS_PERIPHERAL.support of port 0 masked with BT_CONTROLLER: either
    BT_CONTROLLER or BT_RACING (012324_input.h), or -1 for no usable pad. */
 int var_activeCtrlType_8c157a70;
-/* TaskPush_8c014ae8 needs somewhere to report the task it made;
+/* TaskSpawn_8c014ae8 needs somewhere to report the task it made;
    InputPushTask_8c0128cc gives it this, and nothing ever reads it back. */
 Task *var_pushedTask_8c157a74;
 int var_resetRequested_8c157a78;
@@ -306,7 +306,7 @@ STATIC void taskLoadQueuedDats_8c0111b4(TaskLoadQueuedDats* task, void* state) {
                 /* return */;
             } else {
                 var_datQueueIsIdle_8c157a98 = 1;
-                TaskFree_8c014b66((Task*) task);
+                TaskKill_8c014b66((Task*) task);
                 /* return; */
             }
             break;
@@ -377,7 +377,7 @@ STATIC int sortAndLoadDatQueue_8c011310() {
 
     syFree(temp);
 
-    if (!TaskPush_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedDats_8c0111b4, &created_task, &created_state, 0)) {
+    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedDats_8c0111b4, &created_task, &created_state, 0)) {
         return 0;
     }
 
@@ -530,7 +530,7 @@ STATIC void taskLoadQueuedNjs_8c0114cc(TaskLoadQueuedNjs* task, void* state) {
                 var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
             } else {
                 var_njQueueIsIdle_8c157aa8 = 1;
-                TaskFree_8c014b66((Task*) task);
+                TaskKill_8c014b66((Task*) task);
             }
 
             break;
@@ -624,7 +624,7 @@ STATIC int sortAndLoadNjQueue_8c0116b6() {
 
     syFree(temp);
 
-    if (!TaskPush_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedNjs_8c0114cc, &created_task, &created_state, 0)) {
+    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedNjs_8c0114cc, &created_task, &created_state, 0)) {
         return 0;
     }
 
@@ -760,7 +760,7 @@ STATIC void taskLoadQueuedTexlists_8c01183e(Task *task, void *state) {
         var_texlistQueueCount_8c157a68++;
         if (item >= var_texlistQueueRear_8c157ab0) {
             var_texlistQueueIsIdle_8c157ab8 = 1;
-            TaskFree_8c014b66(task);
+            TaskKill_8c014b66(task);
             return;
         }
 
@@ -780,7 +780,7 @@ STATIC int loadTexlistQueue_8c0119f8() {
     }
 
     var_texlistQueueIsIdle_8c157ab8 = 0;
-    if (!TaskPush_8c014ae8(var_tasks_8c1ba3c8, taskLoadQueuedTexlists_8c01183e, &created_task, &created_state, 0)) {
+    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, taskLoadQueuedTexlists_8c01183e, &created_task, &created_state, 0)) {
         return 0;
     }
 
@@ -914,7 +914,7 @@ STATIC void taskLoadQueuedPvms_8c011b00(TaskLoadQueuedPvms* task, void* state) {
                 var_queueBaseDir_8c157a80 = init_dataEmpty_8c03be7c;
             } else {
                 var_pvmQueueIsIdle_8c157ac8 = 1;
-                TaskFree_8c014b66((Task*) task);
+                TaskKill_8c014b66((Task*) task);
             }
 
             break;
@@ -1018,7 +1018,7 @@ STATIC int sortAndLoadPvmQueue_8c011d24() {
 
     syFree(temp);
 
-    if (!TaskPush_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedPvms_8c011b00, &created_task, &created_state, 0)) {
+    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedPvms_8c011b00, &created_task, &created_state, 0)) {
         return 0;
     }
 
@@ -1095,7 +1095,7 @@ STATIC void taskProcessQueues_8c011e80(Task *task, TaskProcessQueuesState *state
 
         case QUEUE_TEXLIST: {
             if (texlistQueueIsIdle_8c011a42()) {
-                TaskFree_8c014b66(task);
+                TaskKill_8c014b66(task);
                 if (state->afterTexlistCallback_0x14) {
                     state->afterTexlistCallback_0x14();
                 }
@@ -1151,7 +1151,7 @@ void AsqProcessQueues_8c011fe0(void *func, void *afterDatCallback, void *afterNj
     Task* created_task;
     TaskProcessQueuesState* created_state;
 
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, &taskProcessQueues_8c011e80, &created_task, (void**) &created_state, 0x18);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskProcessQueues_8c011e80, &created_task, (void**) &created_state, 0x18);
     created_state->queue_0x00 = QUEUE_DAT;
     created_state->afterDatCallback_0x08 = afterDatCallback;
     created_state->afterNjCallback_0x0c = afterNjCallback;

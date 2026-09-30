@@ -51,7 +51,7 @@ STATIC void driveCueTask_8c020214(Task *task, void *state)
     (void)state;
 
     if (var_runState_8c2285c4.runPhase_0x00 >= 3) {
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
         return;
     }
 
@@ -234,7 +234,7 @@ void DriveCueInit_8c020528()
     void* created_state;
 
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
-        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &driveCueTask_8c020214, &created_task, &created_state, 0);
+        TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &driveCueTask_8c020214, &created_task, &created_state, 0);
         var_driveCueState_8c2264b8.idleChimeState_0x00 = 0;
         var_driveCueState_8c2264b8.idleChimeTimer_0x04 = AsqGetRandomInRangeB_8c0121be(300) + 150;
         var_driveCueState_8c2264b8.stopAnnounceState_0x08 = 3;

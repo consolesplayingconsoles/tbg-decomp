@@ -312,7 +312,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
 
 STATIC void initDescriptionReveal_8c01e576(Task *task)
 {
-    TaskSetAction_8c014b3e(task, lessonDescriptionTask_8c01e27c);
+    TaskSwitch_8c014b3e(task, lessonDescriptionTask_8c01e27c);
     var_menuState_8c1bc7a8.state_0x18 = STATE_INIT;
 
     AsqInitQueues_8c011f36(8, 0, 0, 8);
@@ -468,7 +468,7 @@ STATIC void showLesson_8c01e63c(Task *task)
  * now. */
 STATIC void practiceCancelReturn_8c01e920(Task *task)
 {
-    TaskSetAction_8c014b3e(task, showLesson_8c01e63c);
+    TaskSwitch_8c014b3e(task, showLesson_8c01e63c);
     var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
     MessageBoxSwapFor_8c02aefc(const_emptyMsg_8c038984);
 
@@ -783,7 +783,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 void PracticeMenuLessonStart_8c01f114(Task *task)
 {
     var_playMode_8c1bb8d0 = PLAY_MODE_PRACTICE;
-    TaskSetAction_8c014b3e(task, lessonMenuTask_8c01ebf2);
+    TaskSwitch_8c014b3e(task, lessonMenuTask_8c01ebf2);
     var_menuState_8c1bc7a8.scrollTopRow_0x44 = 0;
     scrollTowardSelection_8c01ebc8();
     var_lessonAttempts_8c22642c = 0;
@@ -812,7 +812,7 @@ void PracticeMenuLessonStart_8c01f114(Task *task)
 
 /* Re-entry after a practice drive ends, whether retired from the pause menu
  * or run to the end (02b464). Records the score if it beat the lesson's best,
- * then opens the lesson list again -- pushing its own tasks, since the drive's
+ * then opens the lesson list again -- spawning its own tasks, since the drive's
  * task groups are gone by now. */
 void PracticeMenuLessonRetry_8c01f21c(void)
 {
@@ -838,8 +838,8 @@ void PracticeMenuLessonRetry_8c01f21c(void)
 
     var_playMode_8c1bb8d0 = PLAY_MODE_PRACTICE;
     InputPushTask_8c0128cc(0);
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, GameTask_8c012f44, &created_task, &created_state, 0);
-    TaskPush_8c014ae8(var_tasks_8c1ba3c8, lessonMenuTask_8c01ebf2, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, GameTask_8c012f44, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, lessonMenuTask_8c01ebf2, &created_task, &created_state, 0);
 
     var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_INIT;
     var_menuState_8c1bc7a8.instructorSprite_0x60 =

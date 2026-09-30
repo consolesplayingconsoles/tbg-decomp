@@ -41,7 +41,7 @@ typedef struct {
     char *name_0x10;
 } DemoShot;
 
-/* demoShotTask_8c0259e8's TaskPush_8c014ae8 state, exactly the 0xc it
+/* demoShotTask_8c0259e8's TaskSpawn_8c014ae8 state, exactly the 0xc it
  * asks for. */
 typedef struct {
     int phase_0x00;
@@ -377,7 +377,7 @@ void DemoStartTour_8c025af4(void)
         break;
     }
 
-    TaskPush_8c014ae8(var_tasks_8c1ba5e8, &demoShotTask_8c0259e8, &task, (void **)&state, 0xc);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &demoShotTask_8c0259e8, &task, (void **)&state, 0xc);
     state->phase_0x00 = 0;
 
     MessageBoxOpenTextbox_8c02ae3e(0x20, 0x180, -1.0f, 0x023E, 0x40, 0, 0, -1);

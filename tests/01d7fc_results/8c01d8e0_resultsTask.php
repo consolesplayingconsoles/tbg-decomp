@@ -29,7 +29,7 @@ return new class extends TestCase {
             '_CourseMenuBuildCourseUnlockList_8c0172dc',
             '_CourseMenuApplyUnlocks_8c0173e6', '_TitlePushTitle_8c015fd6',
             '_njSetBackColor', '_InputPushTask_8c0128cc', '_GameTask_8c012f44',
-            '_TaskPush_8c014ae8', '_njGarbageTexture', '_MessageBoxOpenTextbox_8c02ae3e',
+            '_TaskSpawn_8c014ae8', '_njGarbageTexture', '_MessageBoxOpenTextbox_8c02ae3e',
             '_AsqInitQueues_8c011f36', '_AsqResetQueues_8c011f6c',
             '_CourseMenuRequestSysResgrp_8c018568',
             '_CourseMenuRequestCommonResources_8c01852c', '_AsqRequestDat_8c011182',

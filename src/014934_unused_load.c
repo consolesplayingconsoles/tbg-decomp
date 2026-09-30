@@ -22,7 +22,7 @@ void UnusedLoadPushTask_8c014934()
     njSetBackColor(0xff418dff, 0xff418dff, 0xff418dff);
     var_loadScreenActive_8c157a6c = 1;
 
-    TaskPush_8c014ae8(
+    TaskSpawn_8c014ae8(
         var_tasks_8c1ba3c8,
         (void *) &RouteUnusedTask_8c014784,
         (Task **) &task,

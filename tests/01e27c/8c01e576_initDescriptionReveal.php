@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->call('_initDescriptionReveal_8c01e576')->with($task);
 
         // Step 1: Install the description-reveal task action
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+        $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task,
             $this->addressOf('_lessonDescriptionTask_8c01e27c')
         );

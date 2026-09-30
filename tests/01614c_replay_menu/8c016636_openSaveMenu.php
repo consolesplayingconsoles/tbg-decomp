@@ -16,7 +16,7 @@ return new class extends TestCase {
         $this->call('_openSaveMenu_8c016636');
 
         $this->shouldCall('_njSetBackColor')->with(0, 0, 0xc060);
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
                 $this->addressOf('_saveMenuTask_8c01628c'),

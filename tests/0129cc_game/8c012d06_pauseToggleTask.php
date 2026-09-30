@@ -51,7 +51,7 @@ return new class extends TestCase {
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
         $this->shouldCall('_RenderResetQueues_8c02239c');
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_RenderUpdatePlain_8c022910');
     }
 
@@ -62,7 +62,7 @@ return new class extends TestCase {
         $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldCall('_RenderResetQueues_8c02239c');
-        $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
+        $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_RenderUpdatePlain_8c022910');
     }
 
@@ -85,7 +85,7 @@ return new class extends TestCase {
         $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_TitlePushTitle_8c015fd6', 4);
         $this->setSize('_RenderResetQueues_8c02239c', 4);
-        $this->setSize('_TaskExecGroup_8c014b42', 4);
+        $this->setSize('_TaskRunGroup_8c014b42', 4);
         $this->setSize('_RenderUpdatePlain_8c022910', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
 

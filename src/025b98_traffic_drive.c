@@ -2,7 +2,7 @@
 #include <shinobi.h>
 
 #include "025b98_traffic_drive.h"
-#include "014a9c_tasks.h"       /* Task, TaskFree_8c014b66 */
+#include "014a9c_tasks.h"       /* Task, TaskKill_8c014b66 */
 #include "026710_traffic.h"     /* TrafficEntry, TrafficUpdateHeading_8c026bc4 */
 #include "027958_bus_draw.h"    /* BusDrawPlaceEntity_8c027c3c, BusDrawFadeLights_8c028022 */
 #include "02e400_collision.h"   /* CollisionFindTaskHit_8c02e400 */
@@ -94,7 +94,7 @@ void TrafficDriveDecoration_8c02656a(Task *task, TrafficEntry *e)
     e->busDistance_0x490 = njSqrt(dx * dx + dz * dz);
 
     if (e->busDistance_0x490 > 200.0f && e->spawnPresetId_0x2f4 != var_activeTrafficPreset_8c227e14) {
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
         return;
     }
 
@@ -514,7 +514,7 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
                      * unconditionally despawns the entity, skipping the
                      * ring-buffer/blinker/render bookkeeping below,
                      * regardless of distance to the player. */
-                    TaskFree_8c014b66(task);
+                    TaskKill_8c014b66(task);
                     return;
                 }
                 TrafficAdvanceOnPath_8c026ca2(0.0f, e);
@@ -600,6 +600,6 @@ void TrafficDriveVehicle_8c025b98(Task *task, TrafficEntry *e)
             BusDrawPlaceEntity_8c027c3c(e, accel);
             return;
         }
-        TaskFree_8c014b66(task);
+        TaskKill_8c014b66(task);
     }
 }

@@ -38,9 +38,9 @@ return new class extends TestCase {
     }
 
     /**
-     * ObjectsPushTasks_8c02a6ac's stack slots for TaskPush's created_task /
+     * ObjectsPushTasks_8c02a6ac's stack slots for TaskSpawn's created_task /
      * create_state out-params (a single pair of locals reused across every
-     * row and the closing TaskPush call). The two objects lay the frame out
+     * row and the closing TaskSpawn call). The two objects lay the frame out
      * differently.
      */
     private function outParams(): array
@@ -86,20 +86,20 @@ return new class extends TestCase {
     {
         // A distinct case from test_sentinel_table_is_a_noop: here the table
         // pointer itself is valid, just with zero rows -- the loop body never
-        // runs, but the closing TaskPush must still fire.
+        // runs, but the closing TaskSpawn must still fire.
         $table = $this->makeTable([]);
         $this->initUint32($this->addressOf('_var_assetRequestTable_8c228408'), $table);
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
-    public function test_unmatched_row_type_advances_without_a_task_push(): void
+    public function test_unmatched_row_type_advances_without_a_task_spawn(): void
     {
         // Verified against the asm: the compare chain has no default/else --
         // an unmatched type (99) falls straight to rowIndex++ with no
-        // TaskPush at all, and the following real row (type 4) must still
+        // TaskSpawn at all, and the following real row (type 4) must still
         // read its own slot, not the skipped row's.
         $table = $this->makeTable([99, 4]);
         $this->initUint32($this->addressOf('_var_assetRequestTable_8c228408'), $table);
@@ -118,7 +118,7 @@ return new class extends TestCase {
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowSimpleModelTask_8c02a1f0'),
@@ -134,7 +134,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state1 + self::ST_10, $pvm1);
         $this->shouldWriteLong($state1 + self::ST_11, $nj1);
         $this->shouldWriteLong($task1 + self::TASK_FIELD_08, 0);
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
     public function test_type_0_spawns_from_dat_handle(): void
@@ -155,7 +155,7 @@ return new class extends TestCase {
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowFlyByTask_8c029e94'),
@@ -172,7 +172,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($state + self::ST_17, 4.0);
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execRowTaskGroupTask_8c02a60e'),
@@ -207,7 +207,7 @@ return new class extends TestCase {
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowDatTask_8c029fcc'),
@@ -222,7 +222,7 @@ return new class extends TestCase {
             ->andReturn(1);
         $this->shouldCall('_initDatBlob_8c029f42')->with($dat, $pvm, $nj);
         $this->shouldWriteLong($state + self::ST_12, $dat);
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
     public function test_type_2_seeds_pvm_nj_and_attr_bytes(): void
@@ -247,7 +247,7 @@ return new class extends TestCase {
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowModelTask_8c02a08a'),
@@ -267,7 +267,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + self::TASK_FIELD_0C, 0x22);
         $this->shouldWriteByte($state + self::ST_78, 0x33);
         $this->shouldWriteByte($state + self::ST_79, 0x44);
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
     public function test_type_3_seeds_pvm_nj_dat_and_attr_bytes(): void
@@ -294,7 +294,7 @@ return new class extends TestCase {
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowMotionModelTask_8c02a120'),
@@ -317,7 +317,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + self::TASK_FIELD_0C, 0x22);
         $this->shouldWriteByte($state + self::ST_78, 0x33);
         $this->shouldWriteByte($state + self::ST_79, 0x44);
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
     public function test_type_4_seeds_pvm_and_nj(): void
@@ -339,7 +339,7 @@ return new class extends TestCase {
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowSimpleModelTask_8c02a1f0'),
@@ -355,7 +355,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + self::ST_10, $pvm);
         $this->shouldWriteLong($state + self::ST_11, $nj);
         $this->shouldWriteLong($task + self::TASK_FIELD_08, 0x22);
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
     public function test_type_5_seeds_pvm_nj_and_copies_extra(): void
@@ -381,7 +381,7 @@ return new class extends TestCase {
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_rowMaterialModelTask_8c02a27c'),
@@ -404,11 +404,11 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x74, 0); // ST_1D
         $this->shouldWriteLong($state + 0x70, 0); // ST_1C
         $this->shouldWriteLong($state + 0x6c, 0); // ST_1B
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
     /**
-     * Type 6's TaskPush call passes `state` itself (its stale value left
+     * Type 6's TaskSpawn call passes `state` itself (its stale value left
      * over from the previous row), not `&state`, as the create_state
      * out-param -- a bug-for-bug match of the archived asm (Ghidra shows
      * `local_30` instead of `&local_30` here, unlike every other case). Since
@@ -454,7 +454,7 @@ return new class extends TestCase {
         [$taskLocal, $stateLocal] = $this->outParams();
 
         // Row 0 (type 4): establishes `state` = state0 for real.
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->do(function () use ($task0, $state0) {
                 $this->memory->writeUInt32($this->registers[6]->value, U32::of($task0));
                 $this->memory->writeUInt32($this->registers[7]->value, U32::of($state0));
@@ -465,9 +465,9 @@ return new class extends TestCase {
         $this->shouldWriteLong($task0 + self::TASK_FIELD_08, 0);
 
         // Row 1 (type 6): create_state == state0 (the stale value), so the
-        // mocked TaskPush "writes back" the new state pointer into *state0
+        // mocked TaskSpawn "writes back" the new state pointer into *state0
         // -- but the C local `state` itself is left unchanged at state0.
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1bb448'),
                 $this->addressOf('_fumiCrossingTask_8c02a4f8'),
@@ -490,7 +490,7 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_fumiLampNodes_8c228434', $lamp);
         $this->shouldCall('_resolveObjectGrandchildren_8c02a322')
             ->with($this->addressOf('_var_fumiLampNodes_8c228434'));
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
     public function test_multiple_rows_advance_the_row_index(): void
@@ -518,7 +518,7 @@ return new class extends TestCase {
 
         $this->call('_ObjectsPushTasks_8c02a6ac');
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->do(function () use ($task0, $state0) {
                 $this->memory->writeUInt32($this->registers[6]->value, U32::of($task0));
                 $this->memory->writeUInt32($this->registers[7]->value, U32::of($state0));
@@ -528,7 +528,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state0 + self::ST_11, $nj0);
         $this->shouldWriteLong($task0 + self::TASK_FIELD_08, 0);
 
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->do(function () use ($task1, $state1) {
                 $this->memory->writeUInt32($this->registers[6]->value, U32::of($task1));
                 $this->memory->writeUInt32($this->registers[7]->value, U32::of($state1));
@@ -538,17 +538,17 @@ return new class extends TestCase {
         $this->shouldWriteLong($state1 + self::ST_11, $nj1);
         $this->shouldWriteLong($task1 + self::TASK_FIELD_08, 0);
 
-        $this->mockCloseTaskPush();
+        $this->mockCloseTaskSpawn();
     }
 
-    /** Expects the final "table drained" TaskPush and lets it succeed harmlessly. */
-    private function mockCloseTaskPush(): void
+    /** Expects the final "table drained" TaskSpawn and lets it succeed harmlessly. */
+    private function mockCloseTaskSpawn(): void
     {
         [$taskLocal, $stateLocal] = $this->outParams();
 
         $closeTask = $this->alloc(0x20);
         $closeState = $this->alloc(4);
-        $this->shouldCall('_TaskPush_8c014ae8')
+        $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
                 $this->addressOf('_execRowTaskGroupTask_8c02a60e'),

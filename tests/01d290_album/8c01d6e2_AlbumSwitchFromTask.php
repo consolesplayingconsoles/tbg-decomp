@@ -21,7 +21,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_AlbumSwitchFromTask_8c01d6e2')->with($task);
 
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+        $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task,
             $this->addressOf('_albumMenuTask_8c01d300'),
         );
@@ -44,7 +44,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_AlbumSwitchFromTask_8c01d6e2')->with($task);
 
-        $this->shouldCall('_TaskSetAction_8c014b3e')->with(
+        $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task,
             $this->addressOf('_albumMenuTask_8c01d300'),
         );

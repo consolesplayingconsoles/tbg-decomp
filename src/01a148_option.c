@@ -215,7 +215,7 @@ STATIC void settingTask_8c01a148(Task *task)
 /* Switch to the SETTING screen: install its task, reset to the fade-in phase. */
 STATIC void switchToSetting_8c01a3c0(Task *task)
 {
-    TaskSetAction_8c014b3e(task, settingTask_8c01a148);
+    TaskSwitch_8c014b3e(task, settingTask_8c01a148);
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
     RenderPushFadeIn_8c022a9c(10);
@@ -438,7 +438,7 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 /* Switch to the KEY CONFIGURE screen: install its task, reset to the fade-in phase. */
 STATIC void switchToKeyConfig_8c01a89c(Task *task)
 {
-    TaskSetAction_8c014b3e(task, keyConfigTask_8c01a50c);
+    TaskSwitch_8c014b3e(task, keyConfigTask_8c01a50c);
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
     RenderPushFadeIn_8c022a9c(10);
@@ -729,7 +729,7 @@ STATIC void audioTask_8c01ab08(Task *task)
  */
 STATIC void switchToAudio_8c01afd8(Task *task)
 {
-    TaskSetAction_8c014b3e(task, audioTask_8c01ab08);
+    TaskSwitch_8c014b3e(task, audioTask_8c01ab08);
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
     var_musicTestDigits_8c226078[1] = 0;
@@ -815,7 +815,7 @@ STATIC void topMenuTask_8c01b00a(Task *task)
  */
 void OptionSwitchToTopMenu_8c01b122(Task *task, int row)
 {
-    TaskSetAction_8c014b3e(task, topMenuTask_8c01b00a);
+    TaskSwitch_8c014b3e(task, topMenuTask_8c01b00a);
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = row;
     var_settingValues_8c226074 = &var_progress_8c1ba1cc.difficulty_0xc4;
