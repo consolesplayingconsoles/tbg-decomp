@@ -10,11 +10,11 @@ walks instead of indexes, casts compensating for a wrong global type, spill temp
 gotos. This pass rewrites that into the idiom the rest of the codebase uses, one function
 at a time, without changing what the code does.
 
-This pass edits code. That makes it different from `comment-pass`, which cannot break a
+This pass edits code. That makes it different from `unit-pass`, which cannot break a
 build: here the unit's tests are not a final sanity check, they are the thing that makes
 each step safe. Run them per function, not per unit.
 
-Comments are out of scope -- `comment-pass` owns those.
+Comments are out of scope -- `unit-pass` owns those.
 
 ## Before you start
 

@@ -50,6 +50,7 @@ Makefile.test                # Test-object build; units auto-discovered
 .claude/skills/move-data/    # Skill: migrate data ownership between files
 .claude/skills/add-serial-logging/  # Skill: add LOG_* serial debug logging to a unit
 .claude/skills/code-shape-pass/ # Skill: idiomize a decompiled unit's code shape
+.claude/skills/unit-pass/       # Skill: review a unit's names, trim its comments
 docs/setup.md                # One-time environment setup
 ```
 
@@ -180,4 +181,5 @@ under `tests/<addr>/`, and register it in the matching group in `tests.php`
 - **Moving data between files** → `.claude/skills/move-data/SKILL.md`
 - **Adding serial debug logging** → `.claude/skills/add-serial-logging/SKILL.md`
 - **Reshaping decompiled code** → `.claude/skills/code-shape-pass/SKILL.md`
+- **Reviewing names and trimming comments** → `.claude/skills/unit-pass/SKILL.md`
 - **Environment setup** → `docs/setup.md`
