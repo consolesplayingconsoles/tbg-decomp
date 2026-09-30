@@ -1,20 +1,4 @@
 ; 8c024b4c
-          .IMPORT     _var_cameraMode_8c227d9c
-          .IMPORT     _var_savedCameraMode_8c227da0
-          .IMPORT     _var_cameraCueState_8c227da4
-          .IMPORT     _var_savedCameraCueState_8c227da8
-          .IMPORT     _var_cameraHeightFrom_8c227dd8
-          .IMPORT     _var_savedCameraHeightFrom_8c227ddc
-          .IMPORT     _var_cameraHeightTo_8c227de0
-          .IMPORT     _var_savedCameraHeightTo_8c227de4
-          .IMPORT     _var_cameraHeightDelta_8c227de8
-          .IMPORT     _var_savedCameraHeightDelta_8c227dec
-          .IMPORT     _var_cameraHeight_8c227df0
-          .IMPORT     _var_savedCameraHeight_8c227df4
-          .IMPORT     _var_cameraHeightPhase_8c227df8
-          .IMPORT     _var_savedCameraHeightPhase_8c227dfc
-          .IMPORT     _var_busSimpleLightDir_8c227db8
-          .IMPORT     _var_mirrorLightDir_8c227dc4
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _njCnkSetSimpleLightIntensity
@@ -25,7 +9,6 @@
           .IMPORT     _var_busDoorShape_8c1bc414
           .IMPORT     _var_busDoorMotion_8c1bc410
           .IMPORT     _njCnkSimpleDrawShapeMotion
-          .IMPORT     _var_busDoorFrame_8c227db0
           .IMPORT     _njControl3D
           .IMPORT     _njCnkModDrawObject
           .IMPORT     _var_frontTexlist_8c1bc430
@@ -42,18 +25,15 @@
           .IMPORT     _var_camera_8c1bb904
           .IMPORT     _njTranslateCameraPosition
           .IMPORT     _njPointCameraInterest
-          .IMPORT     _var_cameraCueBusy_8c227dac
           .IMPORT     _njSin
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _njInitCamera
           .IMPORT     _njSetCameraAngle
-          .IMPORT     _var_farClipDepth_8c227dd0
           .IMPORT     _njSetCameraDepth
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _njSetMatrix
           .IMPORT     _atan2f
           .IMPORT     _njRollCameraInterest
-          .IMPORT     _var_fixedCameraTarget_8c227d90
           .IMPORT     _njSetCamera
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _njCalcVector
@@ -65,10 +45,41 @@
           .EXPORT     _BusRenderUpdateCamera_8c025078
           .EXPORT     _BusRenderUpdateMirrorCamera_8c025604
           .EXPORT     _BusRenderDrawBusModel_8c024bb8
+          .EXPORT     _var_fixedCameraTarget_8c227d90
+          .EXPORT     _var_cameraMode_8c227d9c ; 020214_drive_cue
+                                               ; 023310_bus_init
+                                               ; 024280_bus_input
+                                               ; 025870_demo
+                                               ; 0289ac_objects
+                                               ; 02d19c_passenger
+          .EXPORT     _var_savedCameraMode_8c227da0 ; 0129cc_game
+          .EXPORT     _var_cameraCueState_8c227da4 ; 02d19c_passenger
+          .EXPORT     _var_savedCameraCueState_8c227da8 ; 0129cc_game
+          .EXPORT     _var_cameraCueBusy_8c227dac ; 023310_bus_init
+          .EXPORT     _var_busDoorFrame_8c227db0 ; 022bdc_bus
+          .EXPORT     _var_busDoorLastFrame_8c227db4 ; 022bdc_bus
+                                                     ; 023310_bus_init
+          .EXPORT     _var_busSimpleLightDir_8c227db8 ; 026710_traffic
+                                                      ; 028258_traffic_signal
+                                                      ; 02d19c_passenger
+          .EXPORT     _var_mirrorLightDir_8c227dc4 ; 026710_traffic
+          .EXPORT     _var_farClipDepth_8c227dd0 ; 013ae8_route_load
+          .EXPORT     _var_demoShotId_8c227dd4 ; 0129cc_game
+                                               ; 025870_demo
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawFrontBusModel_8c024cc8
           .EXPORT     _positionCamera_8c024d6c
+          .EXPORT     _var_cameraHeightFrom_8c227dd8
+          .EXPORT     _var_savedCameraHeightFrom_8c227ddc
+          .EXPORT     _var_cameraHeightTo_8c227de0
+          .EXPORT     _var_savedCameraHeightTo_8c227de4
+          .EXPORT     _var_cameraHeightDelta_8c227de8
+          .EXPORT     _var_savedCameraHeightDelta_8c227dec
+          .EXPORT     _var_cameraHeight_8c227df0
+          .EXPORT     _var_savedCameraHeight_8c227df4
+          .EXPORT     _var_cameraHeightPhase_8c227df8
+          .EXPORT     _var_savedCameraHeightPhase_8c227dfc
           .AENDI
 
           .SECTION     P, CODE, ALIGN=4
@@ -1695,4 +1706,49 @@ LP_GEN_86833:
           .DATA.L _njCalcVector ; H'8C025864
           .DATA.L _BusRenderDrawBusModel_8c024bb8 ; H'8C025868
           .DATA.L _RenderPushCall1_8c0223ea ; H'8C02586C
+          .SECTION    B,DATA,ALIGN=4
+_var_fixedCameraTarget_8c227d90:
+          .RES.B      12
+_var_cameraMode_8c227d9c:
+          .RES.B      4
+_var_savedCameraMode_8c227da0:
+          .RES.B      4
+_var_cameraCueState_8c227da4:
+          .RES.B      4
+_var_savedCameraCueState_8c227da8:
+          .RES.B      4
+_var_cameraCueBusy_8c227dac:
+          .RES.B      4
+_var_busDoorFrame_8c227db0:
+          .RES.B      4
+_var_busDoorLastFrame_8c227db4:
+          .RES.B      4
+_var_busSimpleLightDir_8c227db8:
+          .RES.B      12
+_var_mirrorLightDir_8c227dc4:
+          .RES.B      12
+_var_farClipDepth_8c227dd0:
+          .RES.B      4
+_var_demoShotId_8c227dd4:
+          .RES.B      4
+_var_cameraHeightFrom_8c227dd8:
+          .RES.B      4
+_var_savedCameraHeightFrom_8c227ddc:
+          .RES.B      4
+_var_cameraHeightTo_8c227de0:
+          .RES.B      4
+_var_savedCameraHeightTo_8c227de4:
+          .RES.B      4
+_var_cameraHeightDelta_8c227de8:
+          .RES.B      4
+_var_savedCameraHeightDelta_8c227dec:
+          .RES.B      4
+_var_cameraHeight_8c227df0:
+          .RES.B      4
+_var_savedCameraHeight_8c227df4:
+          .RES.B      4
+_var_cameraHeightPhase_8c227df8:
+          .RES.B      4
+_var_savedCameraHeightPhase_8c227dfc:
+          .RES.B      4
           .END

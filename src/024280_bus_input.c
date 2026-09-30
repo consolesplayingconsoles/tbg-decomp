@@ -4,6 +4,7 @@
 #include "includes.h" /* TWO_PI, STATIC */
 
 #include "serial_debug.h"
+#include "024b4c_bus_render.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "014a9c_tasks.h"         /* Task */

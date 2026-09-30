@@ -10,6 +10,7 @@
 #include "026710_traffic.h" /* TrafficMarkSignalIdsInUse_8c026dcc */
 #include "027958_bus_draw.h" /* BusDrawSignal_8c0281ac */
 #include "02b464_drive_points.h" /* var_runState_8c2285c4 */
+#include "024b4c_bus_render.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */

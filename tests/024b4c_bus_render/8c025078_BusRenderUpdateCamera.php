@@ -31,25 +31,12 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_cameraMode_8c227d9c', 4);
-        $this->setSize('_var_savedCameraMode_8c227da0', 4);
-        $this->setSize('_var_cameraCueState_8c227da4', 4);
-        $this->setSize('_var_savedCameraCueState_8c227da8', 4);
-        $this->setSize('_var_cameraCueBusy_8c227dac', 4);
-        $this->setSize('_var_cameraHeightFrom_8c227dd8', 4);
-        $this->setSize('_var_cameraHeightTo_8c227de0', 4);
-        $this->setSize('_var_cameraHeightDelta_8c227de8', 4);
-        $this->setSize('_var_cameraHeight_8c227df0', 4);
-        $this->setSize('_var_cameraHeightPhase_8c227df8', 4);
-        $this->setSize('_var_fixedCameraTarget_8c227d90', 0xc);
         $this->setSize('_var_camera_8c1bb904', 0x40);
         $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_var_farClipDepth_8c227dd0', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
-        $this->setSize('_var_busSimpleLightDir_8c227db8', 0xc);
 
         $this->setSize('_njInitCamera', 4);
         $this->setSize('_njSetCameraAngle', 4);

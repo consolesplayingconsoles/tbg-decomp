@@ -1,6 +1,6 @@
-/* 8c227d90: undecompiled data section */
-#ifndef _227D90_SECTIONB_H
-#define _227D90_SECTIONB_H
+/* 8c227e00: undecompiled data section */
+#ifndef _227E00_SECTIONB_H
+#define _227E00_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -18,44 +18,6 @@
  * =================
  */
 
-/* Fixed camera-interest point for BusRenderUpdateCamera_8c025078's
- * var_cameraMode_8c227d9c==4 mode. */
-extern float var_fixedCameraTarget_8c227d90[3];
-extern int var_cameraMode_8c227d9c;
-extern Uint32 var_savedCameraMode_8c227da0;
-extern int var_cameraCueState_8c227da4; /* 02d19c/024b4c: shifted into var_savedCameraCueState_8c227da8 each frame alongside var_cameraMode_8c227d9c->var_savedCameraMode_8c227da0 */
-extern int var_savedCameraCueState_8c227da8;
-extern int var_cameraCueBusy_8c227dac; /* zeroed alongside var_cameraMode_8c227d9c by busInitPlaceBus_8c023310 for a normal run */
-/* Door-timer counter driven by BusTask_8c022bdc (022bdc): counts up by 0.5/frame
- * while boarding (doorState_0x3c0==1), capped at var_busDoorLastFrame_8c227db4, then counts
- * back down by 0.5/frame once departing (doorState_0x3c0==3) until it hits 0. */
-extern float var_busDoorFrame_8c227db0;
-/* var_busDoorMotion_8c1bc410->nbFrame - 1.0, set by BusInitStart_8c023610, read by BusTask_8c022bdc
- * (022bdc). */
-extern float var_busDoorLastFrame_8c227db4;
-extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by BusRenderUpdateCamera_8c025078
-extern float var_mirrorLightDir_8c227dc4[3];
-/* Which attract-mode shot is showing, so demoShotTask_8c0259e8 only cuts on a
- * change. 0129cc_game.c pre-seeds it with the course's opening shot from
- * init_demoFirstShot_8c0460b0 (sectionD.h). */
-extern int var_demoShotId_8c227dd4;
-/* Five prev/current float pairs, each shifted (dd8->ddc, de0->de4, de8->dec,
- * df0->df4, df8->dfc) every frame by BusRenderSaveCameraState_8c024b4c (024b4c). */
-extern float var_cameraHeightFrom_8c227dd8;
-extern float var_savedCameraHeightFrom_8c227ddc;
-extern float var_cameraHeightTo_8c227de0;
-extern float var_savedCameraHeightTo_8c227de4;
-extern float var_cameraHeightDelta_8c227de8;
-extern float var_savedCameraHeightDelta_8c227dec;
-/* The chase camera's height above the bus, passed to
- * positionCamera_8c024d6c (024b4c) as its dyOffset. 5.0 near / 18.0 far by
- * default; scripted cues ramp it to another value and back. */
-extern float var_cameraHeight_8c227df0;
-extern float var_savedCameraHeight_8c227df4;
-/* BusRenderUpdateCamera_8c025078's quarter-sine ease-angle accumulator
- * (BAMS units, 0 to 0x4000) -- a real int (MOV.L/ADD/CMP/GE), not float. */
-extern Sint32 var_cameraHeightPhase_8c227df8;
-extern Sint32 var_savedCameraHeightPhase_8c227dfc;
 /* The current demo shot's pos_0x04, copied here by demoShotTask_8c0259e8
  * (025870_demo). Read as a world point for camera mode 5 and as a bus-space
  * offset for 6 and 7; the first two are resolved once by
@@ -189,6 +151,5 @@ extern Sint32 *var_trafficPresetTable_8c227e18;
  * indexes it by a script argument to resolve a traffic entry's path. */
 extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
-extern float var_farClipDepth_8c227dd0;
 
-#endif // _227D90_SECTIONB_H
+#endif // _227E00_SECTIONB_H

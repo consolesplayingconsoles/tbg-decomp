@@ -11,6 +11,42 @@
 #include "024b4c_bus_render.h"
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+float var_fixedCameraTarget_8c227d90[3];
+int var_cameraMode_8c227d9c;
+Uint32 var_savedCameraMode_8c227da0;
+int var_cameraCueState_8c227da4;
+int var_savedCameraCueState_8c227da8;
+int var_cameraCueBusy_8c227dac;
+float var_busDoorFrame_8c227db0;
+float var_busDoorLastFrame_8c227db4;
+float var_busSimpleLightDir_8c227db8[3];
+float var_mirrorLightDir_8c227dc4[3];
+float var_farClipDepth_8c227dd0;
+int var_demoShotId_8c227dd4;
+
+/* Five prev/current float pairs, each shifted (dd8->ddc, de0->de4, de8->dec,
+ * df0->df4, df8->dfc) every frame by BusRenderSaveCameraState_8c024b4c. */
+STATIC float var_cameraHeightFrom_8c227dd8;
+STATIC float var_savedCameraHeightFrom_8c227ddc;
+STATIC float var_cameraHeightTo_8c227de0;
+STATIC float var_savedCameraHeightTo_8c227de4;
+STATIC float var_cameraHeightDelta_8c227de8;
+STATIC float var_savedCameraHeightDelta_8c227dec;
+/* The chase camera's height above the bus, passed to
+ * positionCamera_8c024d6c as its dyOffset. 5.0 near / 18.0 far by
+ * default; scripted cues ramp it to another value and back. */
+STATIC float var_cameraHeight_8c227df0;
+STATIC float var_savedCameraHeight_8c227df4;
+/* BusRenderUpdateCamera_8c025078's quarter-sine ease-angle accumulator
+ * (BAMS units, 0 to 0x4000) -- a real int (MOV.L/ADD/CMP/GE), not float. */
+STATIC Sint32 var_cameraHeightPhase_8c227df8;
+STATIC Sint32 var_savedCameraHeightPhase_8c227dfc;
+
+/* ====================
  * Forward Declarations
  * ====================
  */

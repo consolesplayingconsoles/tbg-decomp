@@ -14,10 +14,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_cameraMode_8c227d9c', 4);
-        $this->setSize('_var_cameraCueState_8c227da4', 4);
-        $this->setSize('_var_cameraHeightTo_8c227de0', 4);
-        $this->setSize('_var_cameraHeight_8c227df0', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
     }
 

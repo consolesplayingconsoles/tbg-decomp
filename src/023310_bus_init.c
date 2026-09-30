@@ -3,6 +3,7 @@
 #include "includes.h" /* TWO_PI, STATIC */
 #include "serial_debug.h"
 
+#include "024b4c_bus_render.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "01e27c_practice_menu.h" /* var_practiceRules_8c226410 */

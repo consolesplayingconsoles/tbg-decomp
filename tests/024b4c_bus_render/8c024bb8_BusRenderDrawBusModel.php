@@ -15,12 +15,9 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_busSimpleLightDir_8c227db8', 0xc);
-        $this->setSize('_var_mirrorLightDir_8c227dc4', 0xc);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_busDoorMotion_8c1bc410', 4);
         $this->setSize('_var_busDoorShape_8c1bc414', 4);
-        $this->setSize('_var_busDoorFrame_8c227db0', 4);
         $this->setSize('_BusDrawUpdateModels_8c027958', 4);
         $this->setSize('_njCnkSetSimpleLight', 4);
         $this->setSize('_njCnkSetSimpleLightIntensity', 4);

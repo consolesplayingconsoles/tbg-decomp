@@ -20,6 +20,7 @@
 #include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
 #include "02fb50_sh4nlfzn.h" /* rand */
 #include "02b464_drive_points.h"
+#include "024b4c_bus_render.h"
 #include "sectionB.h" /* var_trafficSignalFrames_8c227e24, var_busState_8c1bb9d0, ground query globals,
                         * var_pedGroups_8c228230, var_pedPaths_8c228238,
                         * var_pedestrianAssets_8c1bbfdc, AsqGetRandomA_8c012166,

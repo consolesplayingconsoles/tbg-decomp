@@ -18,20 +18,6 @@ if (!function_exists('fdec')) {
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_cameraMode_8c227d9c', 4);
-        $this->setSize('_var_savedCameraMode_8c227da0', 4);
-        $this->setSize('_var_cameraCueState_8c227da4', 4);
-        $this->setSize('_var_savedCameraCueState_8c227da8', 4);
-        $this->setSize('_var_cameraHeightFrom_8c227dd8', 4);
-        $this->setSize('_var_savedCameraHeightFrom_8c227ddc', 4);
-        $this->setSize('_var_cameraHeightTo_8c227de0', 4);
-        $this->setSize('_var_savedCameraHeightTo_8c227de4', 4);
-        $this->setSize('_var_cameraHeightDelta_8c227de8', 4);
-        $this->setSize('_var_savedCameraHeightDelta_8c227dec', 4);
-        $this->setSize('_var_cameraHeight_8c227df0', 4);
-        $this->setSize('_var_savedCameraHeight_8c227df4', 4);
-        $this->setSize('_var_cameraHeightPhase_8c227df8', 4);
-        $this->setSize('_var_savedCameraHeightPhase_8c227dfc', 4);
     }
 
     public function test(): void

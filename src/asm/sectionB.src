@@ -1,44 +1,4 @@
-; 8c227d90
-          .EXPORT     _var_fixedCameraTarget_8c227d90 ; 024b4c
-          .EXPORT     _var_cameraMode_8c227d9c ; 020214
-                                    ; 023310
-                                    ; 024280
-                                    ; 024b4c
-                                    ; 025870_demo
-                                    ; 028258
-                                    ; 02d19c
-          .EXPORT     _var_savedCameraMode_8c227da0 ; 0129cc_game
-                                    ; 024b4c
-          .EXPORT     _var_cameraCueState_8c227da4 ; 024b4c
-                                    ; 02d19c
-          .EXPORT     _var_savedCameraCueState_8c227da8 ; 0129cc_game
-                                    ; 024b4c
-          .EXPORT     _var_cameraCueBusy_8c227dac ; 023310
-                                    ; 024b4c
-          .EXPORT     _var_busDoorFrame_8c227db0 ; 022bdc
-                                    ; 024b4c
-          .EXPORT     _var_busDoorLastFrame_8c227db4 ; 022bdc
-                                    ; 023310
-          .EXPORT     _var_busSimpleLightDir_8c227db8 ; 024b4c
-                                    ; 026710
-                                    ; 028258
-                                    ; 02d19c
-          .EXPORT     _var_mirrorLightDir_8c227dc4 ; 024b4c
-                                    ; 026710
-          .EXPORT     _var_farClipDepth_8c227dd0 ; 013ae8_route_load
-                                             ; 024b4c
-          .EXPORT     _var_demoShotId_8c227dd4 ; 0129cc_game
-                                    ; 025870_demo
-          .EXPORT     _var_cameraHeightFrom_8c227dd8 ; 024b4c
-          .EXPORT     _var_savedCameraHeightFrom_8c227ddc ; 024b4c
-          .EXPORT     _var_cameraHeightTo_8c227de0 ; 024b4c
-          .EXPORT     _var_savedCameraHeightTo_8c227de4 ; 024b4c
-          .EXPORT     _var_cameraHeightDelta_8c227de8 ; 024b4c
-          .EXPORT     _var_savedCameraHeightDelta_8c227dec ; 024b4c
-          .EXPORT     _var_cameraHeight_8c227df0 ; 024b4c
-          .EXPORT     _var_savedCameraHeight_8c227df4 ; 024b4c
-          .EXPORT     _var_cameraHeightPhase_8c227df8 ; 024b4c
-          .EXPORT     _var_savedCameraHeightPhase_8c227dfc ; 024b4c
+; 8c227e00
           .EXPORT     _var_demoShotPos_8c227e00 ; 025870_demo
           .EXPORT     _var_demoShots_8c227e0c ; 025870_demo
           .EXPORT     _var_demoShotRearm_8c227e10 ; 025870_demo
@@ -102,50 +62,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_fixedCameraTarget_8c227d90:
-          .RES.B      12
-_var_cameraMode_8c227d9c:
-          .RES.B      4
-_var_savedCameraMode_8c227da0:
-          .RES.B      4
-_var_cameraCueState_8c227da4:
-          .RES.B      4
-_var_savedCameraCueState_8c227da8:
-          .RES.B      4
-_var_cameraCueBusy_8c227dac:
-          .RES.B      4
-_var_busDoorFrame_8c227db0:
-          .RES.B      4
-_var_busDoorLastFrame_8c227db4:
-          .RES.B      4
-_var_busSimpleLightDir_8c227db8:
-          .RES.B      12
-_var_mirrorLightDir_8c227dc4:
-          .RES.B      12
-_var_farClipDepth_8c227dd0:
-          .RES.B      4
-_var_demoShotId_8c227dd4:
-          .RES.B      4
-_var_cameraHeightFrom_8c227dd8:
-          .RES.B      4
-_var_savedCameraHeightFrom_8c227ddc:
-          .RES.B      4
-_var_cameraHeightTo_8c227de0:
-          .RES.B      4
-_var_savedCameraHeightTo_8c227de4:
-          .RES.B      4
-_var_cameraHeightDelta_8c227de8:
-          .RES.B      4
-_var_savedCameraHeightDelta_8c227dec:
-          .RES.B      4
-_var_cameraHeight_8c227df0:
-          .RES.B      4
-_var_savedCameraHeight_8c227df4:
-          .RES.B      4
-_var_cameraHeightPhase_8c227df8:
-          .RES.B      4
-_var_savedCameraHeightPhase_8c227dfc:
-          .RES.B      4
 _var_demoShotPos_8c227e00:
           .RES.B      12
 _var_demoShots_8c227e0c:

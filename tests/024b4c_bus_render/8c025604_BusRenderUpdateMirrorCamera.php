@@ -28,7 +28,6 @@ return new class extends TestCase {
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_mirrorCamera_8c1bb944', 0x40);
-        $this->setSize('_var_mirrorLightDir_8c227dc4', 0xc);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
 
         $this->setSize('_njInitCamera', 4);
