@@ -189,7 +189,7 @@ void ReplayMenuFreeSessionAssets_8c016182(void)
         syFree(var_vmGameBuf_8c1bc454);
         var_vmGameBuf_8c1bc454 = (void *)-1;
     }
-    ResgrpFreeAll_8c016108();
+    ResGroupFreeAll_8c016108();
     FileSelectFreeBuffers_8c0187d0();
     VmSelectFreeAndClear_8c019504();
 }
