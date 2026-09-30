@@ -274,7 +274,7 @@ typedef struct {
 } BusState;
 
 /* Per-course badge tier, ratcheted from var_award_8c1bb8f8 (driver points)
- * by ResultShowPassedRun_8c01e0b4. Doubles as a sprite index, with a
+ * by ResultsShowPassedRun_8c01e0b4. Doubles as a sprite index, with a
  * different base per screen: the course menu's badges sit at 0x18 - tier,
  * the results screen's at 0x1f - tier. */
 enum {

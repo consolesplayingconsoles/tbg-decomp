@@ -25,7 +25,7 @@ typedef struct {
     int driveEndHold_0x08;
 
     /* Driver points left when the run ended, out of driverPointsMax_0x10.
-     * ResultShowPassedRun_8c01e0b4 cuts the award tier at 70/80/90 and scores
+     * ResultsShowPassedRun_8c01e0b4 cuts the award tier at 70/80/90 and scores
      * them at 10 a point. */
     int driverPoints_0x0c;
 

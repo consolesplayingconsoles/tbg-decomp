@@ -348,7 +348,7 @@ STATIC void creditsTask_8c01f658(void)
         if (var_selectedVm_8c1ba34c == -1) {
             TitlePushTitle_8c015fd6(0);
         } else {
-            ResultShowFailedRun_8c01e24e();
+            ResultsShowFailedRun_8c01e24e();
         }
         return;
     }

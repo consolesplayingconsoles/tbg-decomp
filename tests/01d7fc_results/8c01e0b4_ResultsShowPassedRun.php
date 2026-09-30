@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->initUint8($progress + self::COURSE3 + 3, 0); // storyAward_0x03
         $this->initUint32($progress + 0x90, 100); // exp_0x90
 
-        $this->call('_ResultShowPassedRun_8c01e0b4');
+        $this->call('_ResultsShowPassedRun_8c01e0b4');
 
         $this->shouldWriteLong($this->addressOf('_var_scoreCourseClearBonus_8c2263ec'), 0);
         $this->shouldWriteLong($this->addressOf('_var_scoreFirstClearBonus_8c2263f0'), 0);
@@ -72,7 +72,7 @@ return new class extends TestCase {
         $this->initUint8($progress + $course1 + 4, 0); // freeRunAward_0x04
         $this->initUint32($progress + 0x90, 1000); // exp_0x90
 
-        $this->call('_ResultShowPassedRun_8c01e0b4');
+        $this->call('_ResultsShowPassedRun_8c01e0b4');
 
         // ushort[route*3+tod] = ushort[4] of init_courseClearScoreTable_8c0451a0 (0x118 = 280)
         $this->shouldWriteLong($this->addressOf('_var_scoreCourseClearBonus_8c2263ec'), 280);
@@ -113,7 +113,7 @@ return new class extends TestCase {
         $this->initUint8($progress + $course8 + 4, 0); // freeRunAward_0x04
         $this->initUint32($progress + 0x90, 0); // exp_0x90
 
-        $this->call('_ResultShowPassedRun_8c01e0b4');
+        $this->call('_ResultsShowPassedRun_8c01e0b4');
 
         $this->shouldWriteLong($this->addressOf('_var_scoreCourseClearBonus_8c2263ec'), 0);
         $this->shouldWriteLong($this->addressOf('_var_scoreFirstClearBonus_8c2263f0'), 0);
@@ -150,7 +150,7 @@ return new class extends TestCase {
         $this->initUint8($progress + self::COURSE3 + 4, 5); // freeRunAward_0x04, already above the award
         $this->initUint32($progress + 0x90, 99500); // exp_0x90, close to the cap
 
-        $this->call('_ResultShowPassedRun_8c01e0b4');
+        $this->call('_ResultsShowPassedRun_8c01e0b4');
 
         $this->shouldWriteLong($this->addressOf('_var_scoreCourseClearBonus_8c2263ec'), 0);
         $this->shouldWriteLong($this->addressOf('_var_scoreFirstClearBonus_8c2263f0'), 0);

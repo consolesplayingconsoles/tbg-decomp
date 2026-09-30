@@ -43,7 +43,7 @@
           .IMPORT     _RouteClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
-          .IMPORT     _ResultShowFailedRun_8c01e24e
+          .IMPORT     _ResultsShowFailedRun_8c01e24e
           .AIFDEF UNIT_TESTING
           .EXPORT     _selectEndingDialog_8c01f3c0
           .EXPORT     _updateEndingOverlay_8c01f42c
@@ -770,7 +770,7 @@ LP_GEN_28976:
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01F940
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01F944
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01F948
-          .DATA.L _ResultShowFailedRun_8c01e24e ; H'8C01F94C
+          .DATA.L _ResultsShowFailedRun_8c01e24e ; H'8C01F94C
           .DATA.L _TitlePushTitle_8c015fd6 ; H'8C01F950
 _EndingStart_8c01f954:
           MOV.L       R14,@-R15

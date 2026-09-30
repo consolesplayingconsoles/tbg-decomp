@@ -1,4 +1,4 @@
-/* @unit Result */
+/* @unit Results */
 #include <shinobi.h>
 
 #include "01d7fc_results.h"
@@ -41,7 +41,7 @@ STATIC int var_scoreBadgeBonus_8c2263f8;
 STATIC int var_scorePassengerBonus_8c2263fc;
 STATIC int var_scoreEventBonus_8c226400;
 STATIC int var_scoreTotal_8c226404;
-/* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
+/* set by ResultsShowFailedRun_8c01e24e, cleared by ResultsShowPassedRun_8c01e0b4 */
 STATIC int var_runFailed_8c226408;
 
 /* ====================
@@ -384,7 +384,7 @@ STATIC void startResultsTask_8c01df8e(void)
     AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteClearLatch_8c014322);
 }
 
-void ResultShowPassedRun_8c01e0b4(void)
+void ResultsShowPassedRun_8c01e0b4(void)
 {
     int courseGroup;
     int courseIndex;
@@ -454,7 +454,7 @@ void ResultShowPassedRun_8c01e0b4(void)
     startResultsTask_8c01df8e();
 }
 
-void ResultShowFailedRun_8c01e24e(void)
+void ResultsShowFailedRun_8c01e24e(void)
 {
     var_runFailed_8c226408 = 1;
     startResultsTask_8c01df8e();

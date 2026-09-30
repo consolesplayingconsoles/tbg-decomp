@@ -61,7 +61,7 @@ return new class extends TestCase {
         $this->call('_driveEndFadeTask_8c02c69a')->with($task, 0);
 
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
-        $this->shouldCall('_ResultShowPassedRun_8c01e0b4');
+        $this->shouldCall('_ResultsShowPassedRun_8c01e0b4');
     }
 
     public function test_phase_2_not_fading_course_mode_returns_to_menu(): void

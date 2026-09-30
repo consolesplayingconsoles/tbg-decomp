@@ -61,6 +61,6 @@ return new class extends TestCase {
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_progress_8c1ba1cc'), 6);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
-        $this->shouldCall('_ResultShowPassedRun_8c01e0b4');
+        $this->shouldCall('_ResultsShowPassedRun_8c01e0b4');
     }
 };

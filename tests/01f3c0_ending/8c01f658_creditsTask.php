@@ -45,7 +45,7 @@ return new class extends TestCase {
         $this->setSize('_TxtPrepareTextBoxLayout_8c01543a', 4);
         $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_TitlePushTitle_8c015fd6', 4);
-        $this->setSize('_ResultShowFailedRun_8c01e24e', 4);
+        $this->setSize('_ResultsShowFailedRun_8c01e24e', 4);
     }
 
     private function setState(int $state): int
@@ -403,6 +403,6 @@ return new class extends TestCase {
         $this->call('_creditsTask_8c01f658');
 
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
-        $this->shouldCall('_ResultShowFailedRun_8c01e24e');
+        $this->shouldCall('_ResultsShowFailedRun_8c01e24e');
     }
 };

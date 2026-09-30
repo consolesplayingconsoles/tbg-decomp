@@ -272,8 +272,8 @@ return [
                 "tests/01d7fc_results/8c01d7fc_drawScoreDigits.php",
                 "tests/01d7fc_results/8c01d864_drawTextboxSprite.php",
                 "tests/01d7fc_results/8c01df8e_startResultsTask.php",
-                "tests/01d7fc_results/8c01e0b4_ResultShowPassedRun.php",
-                "tests/01d7fc_results/8c01e24e_ResultShowFailedRun.php",
+                "tests/01d7fc_results/8c01e0b4_ResultsShowPassedRun.php",
+                "tests/01d7fc_results/8c01e24e_ResultsShowFailedRun.php",
                 "tests/01d7fc_results/8c01d8e0_resultsTask.php",
             ],
             "objects" => [

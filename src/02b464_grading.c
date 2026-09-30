@@ -880,7 +880,7 @@ STATIC void driveEndFadeTask_8c02c69a(Task *task, void *state) {
             return;
         }
         if (var_gameMode_8c1bb8fc == 0) {
-            ResultShowPassedRun_8c01e0b4();
+            ResultsShowPassedRun_8c01e0b4();
             return;
         }
         var_shouldShowFreeRunIntro_8c1bb8c0 = 0;
@@ -942,7 +942,7 @@ STATIC void onFadeStopEnded_8c02c624(void) {
     if (var_gameMode_8c1bb8fc == 0) {
         var_progress_8c1ba1cc.days_0x00 = var_progress_8c1ba1cc.days_0x00 + 1;
         var_runSucceeded_8c1bb8dc = 1;
-        ResultShowPassedRun_8c01e0b4();
+        ResultsShowPassedRun_8c01e0b4();
         return;
     }
 
