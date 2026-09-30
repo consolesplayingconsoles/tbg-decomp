@@ -41,7 +41,6 @@ return new class extends TestCase {
     // Opcode 9 (end) with no prior spawn (opcode 0) this run: reports
     // failure and does not touch the cursor field at all.
     public function test_endWithoutSpawnReturnsZero(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script = $this->makeScript([9]);
@@ -63,7 +62,6 @@ return new class extends TestCase {
     // entry spawned earlier in this same run) and halts with the cursor
     // parked at the (unconsumed) opcode 9 word.
     public function test_spawnThenEndReturnsOneAndAdvancesCursor(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script0 = $this->makeScript([0]);
@@ -91,7 +89,6 @@ return new class extends TestCase {
     // now succeeds (spawned this run, by opcode 1 itself) and halts with
     // the cursor parked at the (unconsumed) opcode 9 word.
     public function test_opcode1AdvancesBlockAndMarksSpawned(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $block1 = $this->alloc(4);
@@ -117,7 +114,6 @@ return new class extends TestCase {
     // written back pointing at the still-unprocessed opcode 1 word, and no
     // entry fields from the opcode-1 handler are touched.
     public function test_opcode1AfterSpawnYieldsWithoutConsuming(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script0 = $this->makeScript([0]);
@@ -140,7 +136,6 @@ return new class extends TestCase {
     // Opcodes 2/3 both configure the 0x42c/0x430/0x434/0x438 family, using
     // 0x430 to record which of the two ran.
     public function test_opcode2ConfiguresFields(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script = $this->makeScript([2, 0x1234, 0x5678, 9]);
@@ -157,7 +152,6 @@ return new class extends TestCase {
     }
 
     public function test_opcode3ConfiguresFieldsWithFlagSet(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script = $this->makeScript([3, 0x1234, 0x5678, 9]);
@@ -175,7 +169,6 @@ return new class extends TestCase {
 
     // Opcode 4 is a pure 3-word skip: no entry field is touched.
     public function test_opcode4Skips(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script = $this->makeScript([4, 0xaaaa, 0xbbbb, 9]);
@@ -187,7 +180,6 @@ return new class extends TestCase {
     }
 
     public function test_opcode5ConfiguresFields(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script = $this->makeScript([5, 0x2222, 9]);
@@ -204,7 +196,6 @@ return new class extends TestCase {
     }
 
     public function test_opcode6ConfiguresFields(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script = $this->makeScript([6, 0x3333, 0x4444, 9]);
@@ -222,7 +213,6 @@ return new class extends TestCase {
     }
 
     public function test_opcode7ConfiguresFields(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script = $this->makeScript([7, 0x5555, 9]);
@@ -242,7 +232,6 @@ return new class extends TestCase {
     // var_cpuPathBlocks_8c227e1c -- the same array TrafficReadScriptArgs_8c026710 indexes
     // for opcode 1.
     public function test_opcode8ConfiguresFieldsAndResolvesArg(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $resolved = $this->alloc(4 * 4);
@@ -273,7 +262,6 @@ return new class extends TestCase {
     // up parked at the *last* argument word (the angle) rather than past it
     // -- a genuine original-game quirk, preserved as-is.
     public function test_opcode10PlacesDecoration(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $this->allocEntry();
 
         $script = $this->makeScript([10, 100, 200, 0x4000]);

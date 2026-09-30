@@ -45,6 +45,20 @@ typedef struct {
 } TrafficUpdateTask;
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+int var_activeTrafficPreset_8c227e14;
+/* Traffic preset table: indexed by var_busState_8c1bb9d0.scenePresetIds_0x3bc's byte at
+ * bits 8-15, yielding that preset's record run in the course's *_MAC_CPU1.DAT;
+ * read by trafficUpdateTask_8c0275d4. */
+STATIC Sint32 *var_trafficPresetTable_8c227e18;
+/* Course CPU path-block table (== CurrentCourse.lineCpu_0x1c), indexed by a
+ * script argument to resolve a traffic entry's path. */
+STATIC PathRecord **var_cpuPathBlocks_8c227e1c;
+
+/* ====================
  * Initialized Globals
  * ====================
  */

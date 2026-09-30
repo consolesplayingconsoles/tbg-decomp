@@ -1,10 +1,4 @@
-; 8c227e14
-          .EXPORT     _var_activeTrafficPreset_8c227e14 ; 014f54_text
-                                                   ; 025b98
-                                                   ; 026710
-                                                   ; 02c884
-          .EXPORT     _var_trafficPresetTable_8c227e18 ; 026710
-          .EXPORT     _var_cpuPathBlocks_8c227e1c ; 026710
+; 8c227e20
           .EXPORT     _var_trafficSignalTasks_8c227e20 ; 0129cc_game
                                     ; 028258
           .EXPORT     _var_trafficSignalFrames_8c227e24 ; 0129cc_game
@@ -59,12 +53,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_activeTrafficPreset_8c227e14:
-          .RES.B      4
-_var_trafficPresetTable_8c227e18:
-          .RES.B      4
-_var_cpuPathBlocks_8c227e1c:
-          .RES.B      4
 _var_trafficSignalTasks_8c227e20:
           .RES.B      4
 _var_trafficSignalFrames_8c227e24:

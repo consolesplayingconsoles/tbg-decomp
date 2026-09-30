@@ -17,9 +17,6 @@ return new class extends TestCase {
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
-        $this->setSize('_var_trafficPresetTable_8c227e18', 4);
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
-        $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_var_signalGroups_8c228b40', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);

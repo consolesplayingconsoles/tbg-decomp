@@ -8,6 +8,7 @@
 #include "014a9c_tasks.h"
 #include "011120_asset_queues.h"
 #include "015034_text.h"
+#include "026710_traffic.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */

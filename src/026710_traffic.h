@@ -267,6 +267,8 @@ typedef struct {
     Uint32 extraLightFlags_0x510;
 } TrafficEntry;
 
+extern int var_activeTrafficPreset_8c227e14;
+
 void TrafficReadScriptArgs_8c026710(TrafficEntry *entry, Uint16 *script);
 void TrafficUpdateHeading_8c026bc4(float unused, TrafficEntry *entry);
 Sint32 TrafficAdvanceOnPath_8c026ca2(float unused, TrafficEntry *entry);

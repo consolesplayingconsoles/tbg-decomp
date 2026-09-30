@@ -3,6 +3,7 @@
 #include <shinobi.h>
 #include "includes.h" /* STATIC */
 
+#include "026710_traffic.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "01fa78_hud.h" /* var_hudState_8c22643c */

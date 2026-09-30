@@ -14,7 +14,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     public function test_emptyScriptWritesOnlyTerminator(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $entry = $this->alloc(0x310);
         $script = $this->alloc(4);
 
@@ -28,7 +27,6 @@ return new class extends TestCase {
     }
 
     public function test_skipsNonPushOpcodeThenResolvesPush(): void {
-        $this->setSize('_var_cpuPathBlocks_8c227e1c', 4);
         $entry = $this->alloc(0x310);
         $script = $this->alloc(12);
 

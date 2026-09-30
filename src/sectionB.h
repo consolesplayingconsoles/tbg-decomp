@@ -1,13 +1,12 @@
-/* 8c227e14: undecompiled data section */
-#ifndef _227E14_SECTIONB_H
-#define _227E14_SECTIONB_H
+/* 8c227e20: undecompiled data section */
+#ifndef _227E20_SECTIONB_H
+#define _227E20_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
 #include "028258_traffic_signal.h" /* TrafficSignal */
-#include "026710_traffic.h" /* PathRecord */
 #include "011120_asset_queues.h"
 #include "014a9c_tasks.h"
 #include "014b8c_backup.h"
@@ -129,14 +128,6 @@ extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
  * chosen by EventPickForSegment_8c02b170, consumed by
  * EventApplyFlags_8c02b292 */
 extern int var_selectedEventEntry_8c228478;
-extern int var_activeTrafficPreset_8c227e14;
-/* Traffic preset table: indexed by var_busState_8c1bb9d0.scenePresetIds_0x3bc's byte at
- * bits 8-15, yielding that preset's record run in the course's *_MAC_CPU1.DAT;
- * read by trafficUpdateTask_8c0275d4 (026710). */
-extern Sint32 *var_trafficPresetTable_8c227e18;
-/* Course CPU path-block table (== CurrentCourse.lineCpu_0x1c); 026710_traffic
- * indexes it by a script argument to resolve a traffic entry's path. */
-extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
 
-#endif // _227E14_SECTIONB_H
+#endif // _227E20_SECTIONB_H
