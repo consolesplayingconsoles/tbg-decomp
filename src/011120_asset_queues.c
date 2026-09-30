@@ -38,6 +38,13 @@
 typedef struct {
     char *basedir;
     char *filename;
+    void **dest;
+    int loaded_0x0c;
+} QueuedDat;
+
+typedef struct {
+    char *basedir;
+    char *filename;
     void **dest_0x08;
     void **dest_0x0c;
     int loaded_0x10;
