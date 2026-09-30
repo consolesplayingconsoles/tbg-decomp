@@ -30,8 +30,6 @@ return new class extends TestCase {
         $this->setSize('_var_practiceRules_8c226410', 4);
         $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-
-        $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
     }
 
     private function struct(): int

@@ -1,6 +1,6 @@
-/* 8c2264b8: undecompiled data section */
-#ifndef _2264B8_SECTIONB_H
-#define _2264B8_SECTIONB_H
+/* 8c2264d4: undecompiled data section */
+#ifndef _2264D4_SECTIONB_H
+#define _2264D4_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -22,24 +22,6 @@
  * =================
  */
 
-/* Ambient drive-cue state, owned by 020214_drive_cue (see driveCueTask_8c020214).
- * Three fields are written from outside that unit: BusTask_8c022bdc (022bdc)
- * sets nearStopLatch_0x0c on the first A press of a drive and
- * BusStopUpdateArrival_8c02ce48 (02c884) clears it on a stop-heading
- * transition; gradeFrame_8c02bcd8 (02b464) also sets it when it docks points
- * for a missing announcement; TrafficDriveVehicle_8c025b98 (025b98) sets
- * firstChimeArmed_0x18 when a CPU vehicle sits stopped at a junction. */
-typedef struct {
-    int idleChimeState_0x00;
-    int idleChimeTimer_0x04;
-    int stopAnnounceState_0x08;
-    int nearStopLatch_0x0c;
-    int stopAnnounceTimer_0x10;
-    int nearStopChimeLatch_0x14;
-    int firstChimeArmed_0x18;
-} DriveCueState;
-
-extern DriveCueState var_driveCueState_8c2264b8;
 extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
 extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c_tile_draw: simple-light direction, fade layer 1 (mirror side)
@@ -258,4 +240,4 @@ extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 
-#endif // _2264B8_SECTIONB_H
+#endif // _2264D4_SECTIONB_H

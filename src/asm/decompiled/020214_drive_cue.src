@@ -3,7 +3,6 @@
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_prevStopSegment_8c22870c
-          .IMPORT     _var_driveCueState_8c2264b8
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _var_busState_8c1bb9d0
@@ -25,6 +24,10 @@
           .AIFDEF UNIT_TESTING
           .EXPORT     _driveCueTask_8c020214
           .AENDI
+          .EXPORT     _var_driveCueState_8c2264b8 ; 022bdc
+                                    ; 025b98
+                                    ; 02b464
+                                    ; 02c884
           .SECTION     P, CODE, ALIGN=4
 _driveCueTask_8c020214:
           MOV.L       R14,@-R15
@@ -496,4 +499,7 @@ L1:
           .DATA.L     _TaskPush_8c014ae8 ; H'8C020588
           .DATA.L     _var_driveCueState_8c2264b8 ; H'8C02058C
           .DATA.L     _AsqGetRandomInRangeB_8c0121be ; H'8C020590
+          .SECTION    B,DATA,ALIGN=4
+_var_driveCueState_8c2264b8:
+          .RES.B      28
           .END

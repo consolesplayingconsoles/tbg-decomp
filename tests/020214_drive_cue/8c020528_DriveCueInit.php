@@ -9,7 +9,6 @@ return new class extends TestCase {
     {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
-        $this->setSize('_var_driveCueState_8c2264b8', 0x1c);
     }
 
     public function test_skipped_in_demo_playback(): void

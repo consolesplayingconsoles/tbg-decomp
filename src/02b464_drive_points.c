@@ -8,6 +8,7 @@
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "01fa78_hud.h" /* var_hudState_8c22643c */
+#include "020214_drive_cue.h" /* var_driveCueState_8c2264b8 */
 #include "010e90_vibration.h"
 #include "02e400_collision.h"
 #include "02e2dc_bus_collision.h"

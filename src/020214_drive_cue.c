@@ -15,6 +15,13 @@
 #include "02b464_drive_points.h"
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+DriveCueState var_driveCueState_8c2264b8;
+
+/* ====================
  * Functions
  * ====================
  */

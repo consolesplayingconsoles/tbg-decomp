@@ -6,6 +6,7 @@
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "01fa78_hud.h" /* var_hudState_8c22643c */
+#include "020214_drive_cue.h" /* var_driveCueState_8c2264b8 */
 #include "01e27c_practice_menu.h" /* var_practiceRules_8c226410 */
 #include "028258_objects.h"
 #include "013ae8_route_load.h" /* enum ROUTE */
