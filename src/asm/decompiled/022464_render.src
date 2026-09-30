@@ -1,6 +1,6 @@
 ; 8c022464
-          .IMPORT     _var_fadeDrawCommandCount_8c226570
-          .IMPORT     _var_fadeDrawCommands_8c22657c
+          .IMPORT     _var_drawCommandCount_8c226570
+          .IMPORT     _var_drawCommands_8c22657c
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkModDrawObject
           .IMPORT     _njMultiMatrix
@@ -10,11 +10,11 @@
           .IMPORT     _njCnkEasyDrawObject
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _njUserClipping
-          .IMPORT     _var_fadeArrivalGate_8c226560
+          .IMPORT     _var_arrivalOverlayGate_8c226560
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _njDrawTexture
           .IMPORT     _njSetScreen
-          .IMPORT     _var_fadeArrivalVariant_8c22655c
+          .IMPORT     _var_arrivalOverlayVariant_8c22655c
           .IMPORT     _njControl3D
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_mirrorCamera_8c1bb944
@@ -36,23 +36,23 @@
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _njSetBackColor
-          .EXPORT     _FadeResetQueues_8c02239c
-          .EXPORT     _FadePushCall1_8c0223ea
-          .EXPORT     _FadePushCall2_8c022420
+          .EXPORT     _RenderResetQueues_8c02239c
+          .EXPORT     _RenderPushCall1_8c0223ea
+          .EXPORT     _RenderPushCall2_8c022420
           .AIFDEF UNIT_TESTING
-          .EXPORT     _fadeDraw_8c022464
+          .EXPORT     _drawLayer_8c022464
           .AENDI
-          .EXPORT     _FadeUpdate_8c022560
-          .EXPORT     _FadeStartRunTransition_8c0228a2
-          .EXPORT     _FadeUpdatePlain_8c022910
+          .EXPORT     _RenderUpdate_8c022560
+          .EXPORT     _RenderStartRunFade_8c0228a2
+          .EXPORT     _RenderUpdatePlain_8c022910
           .AIFDEF UNIT_TESTING
           .EXPORT     _fadeInTask_8c022a54
           .AENDI
-          .EXPORT     _FadePushIn_8c022a9c
+          .EXPORT     _RenderPushFadeIn_8c022a9c
           .AIFDEF UNIT_TESTING
           .EXPORT     _fadeOutTask_8c022ad0
           .AENDI
-          .EXPORT     _FadePushOut_8c022b60
+          .EXPORT     _RenderPushFadeOut_8c022b60
           .EXPORT     _var_drawCamera_8c226558 ; 021b9c_tile_draw
                                                ; 028258_objects
 
@@ -74,8 +74,8 @@
 
           .SECTION     P, CODE, ALIGN=4
 ; TU boundary moved: the delinker split 0222dc_fadecmd off at 0222dc; the
-; real boundary is 02239c. These only touch fadeDraw_8c022464's queues.
-_FadeResetQueues_8c02239c:
+; real boundary is 02239c. These only touch drawLayer_8c022464's queues.
+_RenderResetQueues_8c02239c:
           MOV.L       LP_GEN_14297+4,R7
           MOV         #H'0,R5
           MOV         R7,R6
@@ -117,7 +117,7 @@ LAB_8c0223a6:
 LAB_8c0223e6:
           RTS
           MOV.L       @R15+,R14
-_FadePushCall1_8c0223ea:
+_RenderPushCall1_8c0223ea:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       LP_GEN_14297+4,R3
@@ -146,7 +146,7 @@ _FadePushCall1_8c0223ea:
 LAB_8c02241c:
           RTS
           MOV.L       @R15+,R14
-_FadePushCall2_8c022420:
+_RenderPushCall2_8c022420:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       LP_GEN_14297+4,R3
@@ -179,9 +179,9 @@ LAB_8c022454:
 LP_GEN_14297:
           .DATA.W H'0080 ; H'8C022458
           .RES.W 1 ; H'8C02245A
-          .DATA.L _var_fadeDrawCommandCount_8c226570 ; H'8C02245C
-          .DATA.L _var_fadeDrawCommands_8c22657c ; H'8C022460
-_fadeDraw_8c022464:
+          .DATA.L _var_drawCommandCount_8c226570 ; H'8C02245C
+          .DATA.L _var_drawCommands_8c22657c ; H'8C022460
+_drawLayer_8c022464:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       R13,@-R15
@@ -300,8 +300,8 @@ LAB_8c022520:
           MOV.L       @R15+,R14
 LP_GEN_25565:
           .RES.W 1 ; H'8C022532
-          .DATA.L _var_fadeDrawCommandCount_8c226570 ; H'8C022534
-          .DATA.L _var_fadeDrawCommands_8c22657c ; H'8C022538
+          .DATA.L _var_drawCommandCount_8c226570 ; H'8C022534
+          .DATA.L _var_drawCommands_8c22657c ; H'8C022538
           .DATA.L _var_drawCamera_8c226558 ; H'8C02253C
           .DATA.L _njSetCamera ; H'8C022540
           .DATA.L _njCnkModDrawObject ; H'8C022544
@@ -311,7 +311,7 @@ LP_GEN_25565:
           .DATA.L _njCnkDrawObject ; H'8C022554
           .DATA.L _njCnkEasyDrawObject ; H'8C022558
           .DATA.L _njCnkSimpleDrawObject ; H'8C02255C
-_FadeUpdate_8c022560:
+_RenderUpdate_8c022560:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -372,7 +372,7 @@ LAB_8c0225b0:
           NOP
           MOV.L       LP_GEN_55916+56,R3
           MOV.L       R3,@R11
-          BSR         _fadeDraw_8c022464
+          BSR         _drawLayer_8c022464
           MOV         #H'1,R4
           MOV.L       LP_GEN_55916+64,R3
           MOV.L       LP_GEN_55916+60,R4
@@ -448,13 +448,13 @@ LP_GEN_55916:
           .DATA.W H'0100 ; H'8C022656
           .DATA.L _init_clipLayer2_8c045598 ; H'8C022658
           .DATA.L _njUserClipping ; H'8C02265C
-          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C022660
+          .DATA.L _var_arrivalOverlayGate_8c226560 ; H'8C022660
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C022664
           .DATA.L H'BF95C28F ; H'8C022668
           .DATA.L _njDrawTexture ; H'8C02266C
           .DATA.L _var_drawCamera_8c226558 ; H'8C022670
           .DATA.L _njSetScreen ; H'8C022674
-          .DATA.L _var_fadeArrivalVariant_8c22655c ; H'8C022678
+          .DATA.L _var_arrivalOverlayVariant_8c22655c ; H'8C022678
           .DATA.L _njControl3D ; H'8C02267C
           .DATA.L _init_clipMirrorView_8c045578 ; H'8C022680
           .DATA.L _var_busState_8c1bb9d0+H'268 ; H'8C022684 (mirror_0x268)
@@ -482,7 +482,7 @@ LAB_8c0226b4:
           NOP
           MOV.L       LP_GEN_42584+16,R3
           MOV.L       R3,@R11
-          BSR         _fadeDraw_8c022464
+          BSR         _drawLayer_8c022464
           MOV         #H'1,R4
           MOV.L       LP_GEN_42584+24,R3
           MOV.L       LP_GEN_42584+20,R4
@@ -499,7 +499,7 @@ LAB_8c0226b4:
           NOP
           MOV.L       LP_GEN_42584+36,R3
           MOV.L       R3,@R11
-          BSR         _fadeDraw_8c022464
+          BSR         _drawLayer_8c022464
           MOV         #H'2,R4
           MOV         R9,R5
           JSR         @R14
@@ -514,7 +514,7 @@ LAB_8c0226b4:
           MOV         #H'4,R5
           MOV.L       LP_GEN_42584+48,R3
           MOV.L       R3,@R11
-          BSR         _fadeDraw_8c022464
+          BSR         _drawLayer_8c022464
           MOV         #H'0,R4
           MOV         R9,R5
           JSR         @R14
@@ -540,7 +540,7 @@ LAB_8c022726:
           NOP
           MOV.L       LP_GEN_42584+16,R3
           MOV.L       R3,@R11
-          BSR         _fadeDraw_8c022464
+          BSR         _drawLayer_8c022464
           MOV         #H'1,R4
           MOV.L       LP_GEN_42584+24,R3
           MOV.L       LP_GEN_42584+20,R4
@@ -569,7 +569,7 @@ LAB_8c022726:
 LAB_8c022772:
           MOV.L       LP_GEN_42584+48,R3
           MOV.L       R3,@R11
-          BSR         _fadeDraw_8c022464
+          BSR         _drawLayer_8c022464
           MOV         #H'0,R4
 LAB_8c02277a:
           MOV         R9,R5
@@ -713,7 +713,7 @@ LAB_8c02288c:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FadeStartRunTransition_8c0228a2:
+_RenderStartRunFade_8c0228a2:
           MOV.L       LP_GEN_82363+40,R2
           MOV         #H'0,R5
           MOV.L       LP_GEN_82363+36,R6
@@ -749,17 +749,17 @@ LP_GEN_82363:
           .DATA.L H'04400000 ; H'8C0228DC
           .DATA.L H'01000000 ; H'8C0228E0
           .DATA.L H'00044000 ; H'8C0228E4
-          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C0228E8
+          .DATA.L _var_arrivalOverlayGate_8c226560 ; H'8C0228E8
           .DATA.L H'00FF0000 ; H'8C0228EC
           .DATA.L _init_fadeQuad_8c0455a8 ; H'8C0228F0
           .DATA.L _njDrawPolygon ; H'8C0228F4
           .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C0228F8
-          .DATA.L _var_fadeArrivalVariant_8c22655c ; H'8C0228FC
+          .DATA.L _var_arrivalOverlayVariant_8c22655c ; H'8C0228FC
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C022900
           .DATA.L _var_practiceRules_8c226410 ; H'8C022904
           .DATA.L _var_fadePhase_8c227d7c ; H'8C022908
           .DATA.L _var_isFading_8c226568 ; H'8C02290C
-_FadeUpdatePlain_8c022910:
+_RenderUpdatePlain_8c022910:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_60768+8,R2
           MOV.L       R13,@-R15
@@ -784,7 +784,7 @@ _FadeUpdatePlain_8c022910:
           MOV.L       LP_GEN_60768+36,R3
           MOV.L       LP_GEN_60768+32,R2
           MOV.L       R2,@R3
-          BSR         _fadeDraw_8c022464
+          BSR         _drawLayer_8c022464
           MOV         #H'0,R4
 LAB_8c022944:
           MOV.L       LP_GEN_60768+48,R5
@@ -845,7 +845,7 @@ LP_GEN_60768:
           .DATA.W H'0100 ; H'8C0229A8
           .RES.W 1 ; H'8C0229AA
           .DATA.L _var_fadeCompleteCallback_8c22656c ; H'8C0229AC
-          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C0229B0
+          .DATA.L _var_arrivalOverlayGate_8c226560 ; H'8C0229B0
           .DATA.L _njControl3D ; H'8C0229B4
           .DATA.L _init_clipMirrorView_8c045578 ; H'8C0229B8
           .DATA.L _njUserClipping ; H'8C0229BC
@@ -956,7 +956,7 @@ LAB_8c022a8e:
           MOV.L       LP_GEN_18675+44,R2
           JMP         @R2
           MOV.L       @R15+,R14
-_FadePushIn_8c022a9c:
+_RenderPushFadeIn_8c022a9c:
           STS.L       PR,@-R15
           ADD         #-H'c,R15
           MOV         #H'0,R3
@@ -1060,7 +1060,7 @@ LAB_8c022b3c:
           MOV.L       @R15+,R13
           JMP         @R2
           MOV.L       @R15+,R14
-_FadePushOut_8c022b60:
+_RenderPushFadeOut_8c022b60:
           STS.L       PR,@-R15
           ADD         #-H'c,R15
           MOV         #H'0,R3
@@ -1093,7 +1093,7 @@ LP_GEN_18675:
           .DATA.L H'00044000 ; H'8C022B98
           .DATA.L H'01000000 ; H'8C022B9C
           .DATA.L _var_isFading_8c226568 ; H'8C022BA0
-          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C022BA4
+          .DATA.L _var_arrivalOverlayGate_8c226560 ; H'8C022BA4
           .DATA.L H'00FF0000 ; H'8C022BA8
           .DATA.L _init_fadeQuad_8c0455a8 ; H'8C022BAC
           .DATA.L _njDrawPolygon ; H'8C022BB0

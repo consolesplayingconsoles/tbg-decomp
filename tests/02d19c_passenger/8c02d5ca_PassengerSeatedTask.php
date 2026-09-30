@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_FadePushCall1_8c0223ea', 4);
+        $this->setSize('_RenderPushCall1_8c0223ea', 4);
     }
 
     public function test_registers_draw_callback_on_layer2(): void
@@ -19,6 +19,6 @@ return new class extends TestCase {
 
         $this->call('_PassengerSeatedTask_8c02d5ca')->with($task, $state);
 
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
     }
 };

@@ -49,7 +49,7 @@ SRCS = \
 	src/asm/decompiled/020b6c_ground_probe.src \
 	src/asm/decompiled/02171c_tile_stream.src \
 	src/asm/decompiled/021b9c_tile_draw.src \
-	src/asm/decompiled/022464_fade.src \
+	src/asm/decompiled/022464_render.src \
 	src/asm/decompiled/022bdc_bus.src \
 	src/asm/decompiled/023310_bus_init.src \
 	src/asm/decompiled/023938_bus_drive.src \

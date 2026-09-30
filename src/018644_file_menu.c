@@ -13,7 +13,7 @@
 #include "028258_objects.h"
 #include "01bb48_vm_game.h"
 #include "01b19c_system_menu.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
@@ -532,7 +532,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         if (press & PDD_DGT_TA) {
             CHANGE_STATE(FILE_MENU_STATE_ERROR_FADE_OUT);
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-            FadePushOut_8c022b60(10);
+            RenderPushFadeOut_8c022b60(10);
             return;
         }
         ObjectsMenuTextboxText_8c02af1c(0xff);
@@ -573,7 +573,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         } else if (press & PDD_DGT_TB) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             CHANGE_STATE(FILE_MENU_STATE_CANCEL_FADE_OUT);
-            FadePushOut_8c022b60(10);
+            RenderPushFadeOut_8c022b60(10);
         } else if (press & PDD_DGT_TA) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             if (var_fileCards_8c226018[var_menuState_8c1bc7a8.cursorCol_0x3c +
@@ -623,7 +623,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);
-            FadePushOut_8c022b60(10);
+            RenderPushFadeOut_8c022b60(10);
         } else if (press & PDD_DGT_TB) {
             CHANGE_STATE(FILE_MENU_STATE_READY);
             ObjectsSwapMessageBoxFor_8c02aefc("");
@@ -686,5 +686,5 @@ void FileMenuSwitchFromTask_8c019334(Task *task)
     }
     var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
-    FadePushIn_8c022a9c(10);
+    RenderPushFadeIn_8c022a9c(10);
 }

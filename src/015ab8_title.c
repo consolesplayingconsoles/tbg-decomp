@@ -15,7 +15,7 @@
 #include "011120_asset_queues.h"
 #include "016d2c_course_menu.h"
 #include "01614c_replay_menu.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 #include "028258_objects.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
@@ -95,14 +95,14 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                     var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X01_FORTYFIVE_FADE_IN;
                     LOG_DEBUG(("[TITLE] State changed: 0X01_FORTYFIVE_FADE_IN\n"));
 
-                    FadePushIn_8c022a9c(20);
+                    RenderPushFadeIn_8c022a9c(20);
 
                     njSetBackColor(0xff000000, 0xff000000, 0xff000000);
                 } else {
                     var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X0D_TITLE_FADE_IN_DIRECT;
                     LOG_DEBUG(("[TITLE] State changed: 0X0D_TITLE_FADE_IN_DIRECT\n"));
 
-                    FadePushIn_8c022a9c(10);
+                    RenderPushFadeIn_8c022a9c(10);
 
                     njSetBackColor(0xffffffff, 0xffffffff, 0xffffffff);
                 }
@@ -127,7 +127,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             if (++var_menuState_8c1bc7a8.timer_0x68 > 30) {
                 var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X03_FORTYFIVE_FADE_OUT;
                 LOG_DEBUG(("[TITLE] State changed: 0X03_FORTYFIVE_FADE_OUT\n"));
-                FadePushOut_8c022b60(20);
+                RenderPushFadeOut_8c022b60(20);
             }
 
             TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0, 0.0, 0.0, -5.0);
@@ -139,7 +139,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             if (var_isFading_8c226568 == FALSE) {
                 var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X04_ADX_FADE_IN;
                 LOG_DEBUG(("[TITLE] State changed: 0X04_ADX_FADE_IN\n"));
-                FadePushIn_8c022a9c(20);
+                RenderPushFadeIn_8c022a9c(20);
                 return;
             }
 
@@ -164,7 +164,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             if (++var_menuState_8c1bc7a8.timer_0x68 > 30) {
                 var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X06_ADX_FADE_OUT;
                 LOG_DEBUG(("[TITLE] State changed: 0X06_ADX_FADE_OUT\n"));
-                FadePushOut_8c022b60(20);
+                RenderPushFadeOut_8c022b60(20);
             }
 
             TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 3, 0.0, 0.0, -5.0);
@@ -180,14 +180,14 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 if (InputCheckColdBoot_8c012984() != FALSE && VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3) == FALSE) {
                     var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X07_VMU_WARNING_FADE_IN;
                     LOG_DEBUG(("[TITLE] State changed: 0X07_VMU_WARNING_FADE_IN\n"));
-                    FadePushIn_8c022a9c(10);
+                    RenderPushFadeIn_8c022a9c(10);
                     return;
                 }
 
                 var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X0A_TITLE_FADE_IN;
                 LOG_DEBUG(("[TITLE] State changed: 0X0A_TITLE_FADE_IN\n"));
 
-                FadePushIn_8c022a9c(10);
+                RenderPushFadeIn_8c022a9c(10);
                 return;
             } 
 
@@ -216,7 +216,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X09_VMU_WARNING_FADE_OUT;
                 LOG_DEBUG(("[TITLE] State changed: 0X09_VMU_WARNING_FADE_OUT\n"));
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             }
 
             TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 17, 0.0, 0.0, -5.0);
@@ -228,7 +228,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             if (var_isFading_8c226568 == FALSE) {
                 var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X0A_TITLE_FADE_IN;
                 LOG_DEBUG(("[TITLE] State changed: 0X0A_TITLE_FADE_IN\n"));
-                FadePushIn_8c022a9c(10);
+                RenderPushFadeIn_8c022a9c(10);
                 return;
             }
 
@@ -331,7 +331,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                     SndStartAdxFadeOut_8c010bae(0);
                     SndStartAdxFadeOut_8c010bae(1);
 
-                    FadePushOut_8c022b60(60);
+                    RenderPushFadeOut_8c022b60(60);
                 }
             }
 
@@ -349,7 +349,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             if (++var_menuState_8c1bc7a8.timer_0x68 > 10) {
                 var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X10_START_PRESSED_FADE_OUT;
                 LOG_DEBUG(("[TITLE] State changed: 0X10_START_PRESSED_FADE_OUT\n"));
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             }
 
             TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);

@@ -11,7 +11,7 @@
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
 #include "021b9c_tile_draw.h"
-#include "022464_fade.h" /* FadeRequest, var_fadeRequest_8c226564, var_fadeArrivalGate_8c226560 */
+#include "022464_render.h" /* FadeRequest, var_fadeRequest_8c226564, var_arrivalOverlayGate_8c226560 */
 #include "027958_bus_draw.h" /* BusDrawSignal_8c0281ac */
 #include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02af78_event.h" /* EventApplyFlags_8c02b292 */
@@ -4510,7 +4510,7 @@ STATIC void trafficSignalTask_8c028258(Task *task, TrafficSignal *obj)
         dz = var_busState_8c1bb9d0.posZ_0x304 - obj->posA_0x1c.z;
         dist = njSqrt(dx * dx + dz * dz);
         if (dist < 200.0f) {
-            FadePushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxA_0x34);
+            RenderPushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxA_0x34);
             obj->drawA_0xc8 = 1;
         }
     }
@@ -4520,7 +4520,7 @@ STATIC void trafficSignalTask_8c028258(Task *task, TrafficSignal *obj)
         dz = var_busState_8c1bb9d0.posZ_0x304 - obj->posB_0x28.z;
         dist = njSqrt(dx * dx + dz * dz);
         if (dist < 200.0f) {
-            FadePushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxB_0x74);
+            RenderPushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxB_0x74);
             obj->drawB_0xcc = 1;
         }
     }
@@ -4547,14 +4547,14 @@ STATIC void linkedTrafficSignalTask_8c02833c(Task *task, TrafficSignal *obj)
     var_trafficSignalFrames_8c227e24[obj->id_0x00] = obj->frame_0x0c;
 
     if (linked->drawA_0xc8 != 0) {
-        FadePushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxA_0x34);
+        RenderPushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxA_0x34);
     }
     if (linked->drawB_0xcc != 0) {
-        FadePushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxB_0x74);
+        RenderPushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxB_0x74);
     }
 }
 
-/* Installed as a FadeCallback1; the callback arg is unused. */
+/* Installed as a DrawCallback1; the callback arg is unused. */
 STATIC void setTrafficSignalLightCallback_8c0283d4(int arg0)
 {
     njCnkSetSimpleLight(var_busSimpleLightDir_8c227db8[0], var_busSimpleLightDir_8c227db8[1], var_busSimpleLightDir_8c227db8[2]);
@@ -4564,7 +4564,7 @@ STATIC void setTrafficSignalLightCallback_8c0283d4(int arg0)
 STATIC void execTrafficSignalGroupTask_8c0283e8(Task *task, void *state)
 {
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
-        FadePushCall1_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
+        RenderPushCall1_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
         TaskExecGroup_8c014b42(var_trafficSignalTasks_8c227e20);
     }
 }
@@ -4904,7 +4904,7 @@ STATIC void drawPedestriansMirror_8c028a38(int arg0)
  * camera and the direction its path segment runs (flStepX_0x0c/flStepZ_0x10
  * of pPathNode_0x4c); every pedestrian on a segment shares that angle, so
  * the bucket is cached per frame keyed by the node pointer.
- * Installed as a FadeCallback1; the callback arg is unused. */
+ * Installed as a DrawCallback1; the callback arg is unused. */
 STATIC void drawPedestrians_8c028b74(int arg0)
 {
     PedGroupEntry *groups = (PedGroupEntry *)var_pedGroups_8c228230;
@@ -5293,7 +5293,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     int i;
     Bool isDemo;
     int layer;
-    FadeCallback1 fn;
+    DrawCallback1 fn;
 
     if (var_runState_8c2285c4.runPhase_0x00 == 0) {
         return;
@@ -5395,15 +5395,15 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     if (isDemo) {
         fn = drawPedestrians_8c028b74;
     } else {
-        FadePushCall1_8c0223ea(0, drawPedestrians_8c028b74, 0);
+        RenderPushCall1_8c0223ea(0, drawPedestrians_8c028b74, 0);
         fn = drawPedestriansMirror_8c028a38;
     }
     layer = !isDemo;
-    FadePushCall1_8c0223ea(layer, fn, layer);
+    RenderPushCall1_8c0223ea(layer, fn, layer);
 
     if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
-        FadePushCall1_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
-        FadePushCall1_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
+        RenderPushCall1_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
+        RenderPushCall1_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
     }
 }
 
@@ -5544,7 +5544,7 @@ STATIC void drawBlinkers_8c029878(int taskArg, int matricesArg)
 STATIC void routeBlinkerTask_8c029904(RouteBlinkerTask *task, NJS_MATRIX *state)
 {
     task->blinkCounter_0x0c++;
-    FadePushCall2_8c022420(0, drawBlinkers_8c029878, (int)task, (int)state);
+    RenderPushCall2_8c022420(0, drawBlinkers_8c029878, (int)task, (int)state);
 }
 
 /* One-shot setup for the current run's route blinkers, called from
@@ -5753,7 +5753,7 @@ void ObjectsFreeAssetRequests_8c029cfe(void)
 
     var_assetRequestTable_8c228408 = (int *)-1;
 }
-/* FadeCallback1 draw callback for the fly-by model spawned by flyByModelTask_8c029e68;
+/* DrawCallback1 draw callback for the fly-by model spawned by flyByModelTask_8c029e68;
  * state is the spawned task's state array (texlist at 0x40, model at 0x44,
  * motion at 0x48, current frame at 0x58, per rowFlyByTask_8c029e94/flyByModelTask_8c029e68). */
 STATIC void drawFlyByModel_8c029e46(int state)
@@ -5772,7 +5772,7 @@ STATIC void flyByModelTask_8c029e68(Task *task, RowTaskState *state)
         TaskFree_8c014b66(task);
         return;
     }
-    FadePushCall1_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
+    RenderPushCall1_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
 }
 /* TaskAction for a type-0 row, installed by ObjectsPushTasks_8c02a6ac. Counts
  * down task->field_0x08; once it lapses, spawns a fly-by task (flyByModelTask_8c029e68)
@@ -5798,7 +5798,7 @@ STATIC void rowFlyByTask_8c029e94(Task *task, RowTaskState *state)
         task->field_0x08 = AsqGetRandomInRangeA_8c012178(0x30) + 0x10;
     }
 }
-/* FadeCallback1 draw callback for a type-1 row task; state is the spawned
+/* DrawCallback1 draw callback for a type-1 row task; state is the spawned
  * task's state (see RowTaskState), with the DatBlob at RowTaskState::dat_0x48. */
 STATIC void drawDatModel_8c029f2a(int state)
 {
@@ -5859,10 +5859,10 @@ STATIC int advanceDatBlob_8c029f54(DatBlob *dat)
 STATIC void rowDatTask_8c029fcc(Task *task, RowTaskState *state)
 {
     advanceDatBlob_8c029f54((DatBlob *)state->dat_0x48);
-    FadePushCall1_8c0223ea(0, drawDatModel_8c029f2a, (int)state);
-    FadePushCall1_8c0223ea(1, drawDatModel_8c029f2a, (int)state);
+    RenderPushCall1_8c0223ea(0, drawDatModel_8c029f2a, (int)state);
+    RenderPushCall1_8c0223ea(1, drawDatModel_8c029f2a, (int)state);
 }
-/* FadeCallback1 draw callback for a type-2 row task; state is the spawned
+/* DrawCallback1 draw callback for a type-2 row task; state is the spawned
  * task's state array. Draws the {texlist, model} pair at offset 0x40/0x44,
  * with fog and njControl3D left toggled off for the draw when the row's
  * flags at 0x78/0x79 are clear. */
@@ -5891,11 +5891,11 @@ STATIC void rowModelTask_8c02a08a(Task *task, RowTaskState *state)
             state->phase_0x54 = state->phase_0x54 + 1;
         }
     } else if (state->phase_0x54 == 1) {
-        FadePushCall1_8c0223ea(0, drawRowModel_8c02a048, (int)state);
-        FadePushCall1_8c0223ea(1, drawRowModel_8c02a048, (int)state);
+        RenderPushCall1_8c0223ea(0, drawRowModel_8c02a048, (int)state);
+        RenderPushCall1_8c0223ea(1, drawRowModel_8c02a048, (int)state);
     }
 }
-/* FadeCallback1 draw callback for a type-3 row task; state is the spawned
+/* DrawCallback1 draw callback for a type-3 row task; state is the spawned
  * task's state array, laid out like drawFlyByModel_8c029e46's (texlist 0x40,
  * model 0x44, motion 0x48, current frame 0x58) with drawRowModel_8c02a048's
  * fog/njControl3D toggles (flags at 0x78/0x79). */
@@ -5926,7 +5926,7 @@ STATIC void rowMotionModelTask_8c02a120(Task *task, RowTaskState *state)
     } else if (state->phase_0x54 == 1) {
         state->frame_0x58 = state->frame_0x58 + 1.0f;
         if (state->frame_0x58 < state->frameLimit_0x5c) {
-            FadePushCall1_8c0223ea(0, drawRowMotionModel_8c02a0d6, (int)state);
+            RenderPushCall1_8c0223ea(0, drawRowMotionModel_8c02a0d6, (int)state);
             return;
         }
         if (task->field_0x0c == 0) {
@@ -5954,9 +5954,9 @@ STATIC void drawRowSimpleModel_8c02a1b2(int state, int fogEnable)
 /* TaskAction for a type-4 row, installed by ObjectsPushTasks_8c02a6ac. */
 STATIC void rowSimpleModelTask_8c02a1f0(Task *task, RowTaskState *state)
 {
-    FadePushCall2_8c022420(0, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
+    RenderPushCall2_8c022420(0, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
 }
-/* FadeCallback1 draw callback for a type-5 row task; state is the spawned
+/* DrawCallback1 draw callback for a type-5 row task; state is the spawned
  * task's state array. Unlike drawRowModel_8c02a048, fades the whole draw via
  * a constant material color (alpha at 0x68, set by rowMaterialModelTask_8c02a27c) instead of
  * toggling fog/lighting per row flags. */
@@ -5977,7 +5977,7 @@ STATIC void drawRowMaterialModel_8c02a206(int state)
  * own position, per ObjectAssetType5Extra), ramping from opaque at 10 down
  * to hidden at 20 within that band, gated by var_cameraMode_8c227d9c (some quality/LOD
  * level) being at least 2; then pushes two draw calls (opaque and
- * translucent fade layers) of the row's model via
+ * translucent draw layers) of the row's model via
  * drawRowMaterialModel_8c02a206. task is unused. */
 STATIC void rowMaterialModelTask_8c02a27c(void *task, RowTaskState *state)
 {
@@ -6002,8 +6002,8 @@ STATIC void rowMaterialModelTask_8c02a27c(void *task, RowTaskState *state)
             state->material_0x68.a = dist * 0.05f - 0.5f;
         }
     }
-    FadePushCall1_8c0223ea(0, drawRowMaterialModel_8c02a206, (int)state);
-    FadePushCall1_8c0223ea(1, drawRowMaterialModel_8c02a206, (int)state);
+    RenderPushCall1_8c0223ea(0, drawRowMaterialModel_8c02a206, (int)state);
+    RenderPushCall1_8c0223ea(1, drawRowMaterialModel_8c02a206, (int)state);
 }
 /* Resolves 16 grandchildren of nodes[0] into nodes[1..16]: nodes[0]'s two
  * children (child, child->sibling) each contribute 8 nodes -- their own
@@ -6092,7 +6092,7 @@ STATIC void setGrandchildEvalFlags_8c02a370(NJS_OBJECT **nodes, char selector)
     }
     nodes[16]->evalflags = 0x3f;
 }
-/* FadeCallback1 draw callback for a type-6 (FUMI railway crossing) row task,
+/* DrawCallback1 draw callback for a type-6 (FUMI railway crossing) row task,
  * called by fumiCrossingTask_8c02a4f8. Draws the gate, the lamp housing, and --
  * while a passing train is still due (state->trainActive_0x64 > 0) -- the train
  * model stashed at state->model_0x44/state->dat_0x48 (same slots as
@@ -6150,7 +6150,7 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
                 state->frame_0x58 = state->frameLimit_0x5c;
             }
         }
-        FadePushCall1_8c0223ea(0, drawFumiCrossing_8c02a47c, (int)state);
+        RenderPushCall1_8c0223ea(0, drawFumiCrossing_8c02a47c, (int)state);
         return;
     }
 
@@ -6159,7 +6159,7 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
         var_trafficSignalFrames_8c227e24[0] = 0;
     }
 }
-/* Installed as a FadeCallback1 on both fade layers (arg0 = layer). Sets up
+/* Installed as a DrawCallback1 on both draw layers (arg0 = layer). Sets up
  * njCnk's simple light for the row draw calls that follow: direction from
  * var_simpleLightDir_8c2264d8 (layer 0) or var_mirrorSimpleLightDir_8c2264e4
  * (layer 1, the mirror side), and a constant intensity/ambient/color already
@@ -6175,13 +6175,13 @@ STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
 /* TaskAction spawned once after the table is fully processed, installed by
  * ObjectsPushTasks_8c02a6ac. Once the run is under way, pushes
  * setSimpleLightCallback_8c02a5d0 as a draw callback on both
- * fade layers, then runs the row tasks just spawned into var_tasks_8c1bb448 to
+ * draw layers, then runs the row tasks just spawned into var_tasks_8c1bb448 to
  * completion. */
 STATIC void execRowTaskGroupTask_8c02a60e(void)
 {
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
-        FadePushCall1_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
-        FadePushCall1_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
+        RenderPushCall1_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
+        RenderPushCall1_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
         TaskExecGroup_8c014b42(var_tasks_8c1bb448);
     }
 }
@@ -6426,7 +6426,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
             EventApplyFlags_8c02b292();
             RouteLoadStartRouteModelLoadPass_8c013d78();
             var_fadeRequest_8c226564 = FADE_REQUEST_OUT;
-            var_fadeArrivalGate_8c226560 = 1;
+            var_arrivalOverlayGate_8c226560 = 1;
             var_messageBoxActive_8c22847c = 0;
             return;
         }

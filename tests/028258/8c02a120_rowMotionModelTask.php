@@ -50,7 +50,7 @@ return new class extends TestCase {
 
         // 2.0f + 1.0f = 3.0f
         $this->shouldWriteLong($state + self::ST_CURRENT_FRAME, 0x40400000);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawRowMotionModel_8c02a0d6'), $state);
     }
 

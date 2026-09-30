@@ -6,8 +6,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_fadeDrawCommandCount_8c226570', 12);
-        $this->setSize('_var_fadeDrawCommands_8c22657c', 6144);
+        $this->setSize('_var_drawCommandCount_8c226570', 12);
+        $this->setSize('_var_drawCommands_8c22657c', 6144);
         $this->setSize('_njSetCamera', 4);
         $this->setSize('_njCnkModDrawObject', 4);
         $this->setSize('_njMultiMatrix', 4);
@@ -21,13 +21,13 @@ return new class extends TestCase {
     public function test_draws_a_single_type0_entry(): void {
         $this->resolveSymbols();
 
-        $countBase = $this->addressOf('_var_fadeDrawCommandCount_8c226570');
+        $countBase = $this->addressOf('_var_drawCommandCount_8c226570');
         $this->initUint32($countBase, 1);
 
         $camera = $this->addressOf('_var_drawCamera_8c226558');
         $this->initUint32($camera, 0x11111111);
 
-        $queueBase = $this->addressOf('_var_fadeDrawCommands_8c22657c');
+        $queueBase = $this->addressOf('_var_drawCommands_8c22657c');
         $matrix = $this->alloc(4);
         $texlist = $this->alloc(4);
         $object = $this->alloc(4);
@@ -36,7 +36,7 @@ return new class extends TestCase {
         $this->initUint32($queueBase + 0x8, $texlist);
         $this->initUint32($queueBase + 0xc, $object);
 
-        $this->call('_fadeDraw_8c022464')->with(0);
+        $this->call('_drawLayer_8c022464')->with(0);
 
         $this->shouldCall('_njSetCamera')->with(0x11111111);
         $this->shouldCall('_njMultiMatrix')->with(0, $matrix);

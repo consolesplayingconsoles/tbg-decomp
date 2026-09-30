@@ -6,7 +6,7 @@
 #include "01614c_replay_menu.h"
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
-#include "022464_fade.h" /* FadePhase, FadeRequest, FadeDrawCommand */
+#include "022464_render.h" /* FadePhase, FadeRequest, DrawCommand */
 #include "028258_objects.h" /* TrafficSignal */
 #include "023938_bus_drive.h" /* LineBusSegment, LineBusNode */
 #include "026710_traffic.h" /* PathRecord */
@@ -20,14 +20,14 @@
  * =================
  */
 
-extern int var_fadeArrivalVariant_8c22655c; // 022464: bus-stop-arrival overlay layout (0-2) drawn by FadeUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in FadeUpdate_8c022560 handles 0-2)
-extern int var_fadeArrivalGate_8c226560; // 022464: gates FadeUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
-extern FadeRequest var_fadeRequest_8c226564; // 022464: requested fade transition, consumed by FadeUpdate_8c022560
+extern int var_arrivalOverlayVariant_8c22655c; // 022464: bus-stop-arrival overlay layout (0-2) drawn by RenderUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in RenderUpdate_8c022560 handles 0-2)
+extern int var_arrivalOverlayGate_8c226560; // 022464: gates RenderUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
+extern FadeRequest var_fadeRequest_8c226564; // 022464: requested fade transition, consumed by RenderUpdate_8c022560
 extern void (*var_fadeCompleteCallback_8c22656c)(void); // 022464: fade-complete callback; sentinel -1 (0xffffffff) means unset
-extern int var_fadeDrawCommandCount_8c226570[3]; // 022464: per-layer draw-command count for var_fadeDrawCommands_8c22657c
-extern FadeDrawCommand var_fadeDrawCommands_8c22657c[3][128]; // 022464: per-layer draw-command queue
+extern int var_drawCommandCount_8c226570[3]; // 022464: per-layer draw-command count for var_drawCommands_8c22657c
+extern DrawCommand var_drawCommands_8c22657c[3][128]; // 022464: per-layer draw-command queue
 extern FadePhase var_fadePhase_8c227d7c; // 022464: fade state machine phase
-extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by FadeUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
+extern Uint32 var_fadeProgress_8c227d80; // 022464: fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by RenderUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
 /* The active course's route line: its segments (each a LinePoint list) and
  * the node table that links them. Copied from
  * var_currentCourse_8c1bb868.lineBus_0x08/lineNodes_0x0c by BusInitStart_8c023610,

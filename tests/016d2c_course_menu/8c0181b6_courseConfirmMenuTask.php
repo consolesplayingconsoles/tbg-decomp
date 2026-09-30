@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 15);
     }
 
@@ -119,7 +119,7 @@ return new class extends TestCase {
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x38
         )->andReturn(1);
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 3);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
         // Epilogue draws
         $this->shouldCall('__divls');
@@ -164,7 +164,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 7);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
         // Epilogue draws
         $this->shouldCall('__divls');
@@ -246,7 +246,7 @@ return new class extends TestCase {
 
         // When fade finished -> state=4 and push fade-in(0x14)
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 4);
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(20);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(20);
 
         // Epilogue draws
         $this->shouldCall('__divls');
@@ -380,7 +380,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(20);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(20);
         // State 5 calls drawRouteInfo
         $this->shouldCall('_drawRouteInfo_8c018118');
     }
@@ -666,7 +666,7 @@ return new class extends TestCase {
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
-        $this->setSize('_FadePushOut_8c022b60', 4);
+        $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $this->setSize('__divls', 4);
         $this->onCall('__divls', function () {
             $this->setRegister(0, $this->getRegister(1)->div($this->getRegister(0)));

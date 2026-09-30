@@ -66,7 +66,7 @@ STATIC void drawMsgGlyphRow_8c02b2f0(Uint32 *ids, int count, float x, float y)
     }
 }
 
-/* FadeCallback1 for the drive-message HUD banner -- see 02b2f0_drive_msg.h. */
+/* DrawCallback1 for the drive-message HUD banner -- see 02b2f0_drive_msg.h. */
 void DriveMsgDraw_8c02b388(int unused)
 {
     int i;

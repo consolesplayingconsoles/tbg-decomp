@@ -12,7 +12,7 @@
 #include "016d2c_course_menu.h"
 #include "01a148_option.h"
 #include "01bb48_vm_game.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
@@ -80,7 +80,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
 
             AsqFreeQueues_8c011f7e();
             CHANGE_STATE(MAIN_MENU_STATE_FADE_IN);
-            FadePushIn_8c022a9c(10);
+            RenderPushFadeIn_8c022a9c(10);
             return;
         }
 
@@ -114,7 +114,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
             } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 CHANGE_STATE(MAIN_MENU_STATE_SELECTED);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             }
             break;
         }

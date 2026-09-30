@@ -21,12 +21,12 @@ return new class extends TestCase {
         $tasks = $this->addressOf('_var_trafficSignalTasks_8c227e20');
         $this->initUint32($tasks, 0xdeadbeef);
 
-        $this->setSize('_FadePushCall1_8c0223ea', 4);
+        $this->setSize('_RenderPushCall1_8c0223ea', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
 
         $this->call('_execTrafficSignalGroupTask_8c0283e8')->with(0, 0);
 
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_setTrafficSignalLightCallback_8c0283d4'), 0);
         $this->shouldCall('_TaskExecGroup_8c014b42')->with(0xdeadbeef);
     }

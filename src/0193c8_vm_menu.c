@@ -457,7 +457,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
             }
 
-            FadePushIn_8c022a9c(10);
+            RenderPushFadeIn_8c022a9c(10);
             return;
         }
 
@@ -596,7 +596,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             if (promptResult == 1) {
                 var_selectedVm_8c1ba34c = var_menuState_8c1bc7a8.selectedVmuSlot_0x6c;
                 CHANGE_STATE(VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             } else if (promptResult == 2) {
                 ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
                 CHANGE_STATE(VM_MENU_STATE_IDLE);
@@ -623,7 +623,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 CHANGE_STATE(VM_MENU_STATE_FADE_OUT);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             } else if (promptResult == 2) {
                 ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
                 slot = 8;
@@ -663,20 +663,20 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                             var_selectedVm_8c1ba34c = -1;
                             FileMenuResetNewGame_8c01895e();
                             task->field_0x08 = 2;
-                            FadePushOut_8c022b60(10);
+                            RenderPushFadeOut_8c022b60(10);
                         } else if (promptResult == 2) {
                             for (slot = 0; !var_vmuStatus_8c226048[slot]; slot++);
                             initCursorLerp_8c019788(slot);
                             var_menuState_8c1bc7a8.pos.vmSelect.cursor_0x20 = var_menuState_8c1bc7a8.pos.vmSelect.cursorTarget_0x28;
                             ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
                             task->field_0x08 = 3;
-                            FadePushOut_8c022b60(10);
+                            RenderPushFadeOut_8c022b60(10);
                         }
                     }
                     // VM inserted
                     else {
                         task->field_0x08 = 1;
-                        FadePushOut_8c022b60(10);
+                        RenderPushFadeOut_8c022b60(10);
                     }
 
                     break;

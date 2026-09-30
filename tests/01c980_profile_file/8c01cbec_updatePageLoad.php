@@ -23,7 +23,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), self::MIDI);
 
         $this->setSize('_sdMidiPlay', 4);
-        $this->setSize('_FadePushIn_8c022a9c', 4);
+        $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
         $this->setSize('_CourseMenuFreeResourceGroup_8c0185c4', 4);
         $this->setSize('_njGarbageTexture', 4);
         $this->setSize('_AsqInitQueues_8c011f36', 4);
@@ -63,7 +63,7 @@ return new class extends TestCase {
             self::MIDI, 1, 8, 0
         );
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
 
         $this->singleCall('_updatePageLoad_8c01cbec')->run();
     }
@@ -82,7 +82,7 @@ return new class extends TestCase {
             self::MIDI, 1, 7, 0
         );
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
 
         $this->singleCall('_updatePageLoad_8c01cbec')->run();
     }

@@ -12,7 +12,7 @@
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 #include "01614c_replay_menu.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 #include "sectionD.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
@@ -122,7 +122,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
             AsqFreeQueues_8c011f7e();
             CHANGE_STATE(ALBUM_STATE_FADE_IN);
             SndPlayAdx_8c010cd6(0, 0x10);
-            FadePushIn_8c022a9c(10);
+            RenderPushFadeIn_8c022a9c(10);
             return;
         }
 
@@ -145,7 +145,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             }
             break;
         }
@@ -237,7 +237,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             }
 
             TxtDrawSprite_8c014f54(

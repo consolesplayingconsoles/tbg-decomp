@@ -10,7 +10,7 @@
 #include "014b8c_backup.h"
 #include "011120_asset_queues.h"
 #include "028258_objects.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
 #include "018644_file_menu.h"
@@ -199,7 +199,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_EXIT_TO_COURSE;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             VmMenuUnmountVms_8c0194de();
-            FadePushOut_8c022b60(10);
+            RenderPushFadeOut_8c022b60(10);
             break;
         }
         /* A = confirm */
@@ -272,7 +272,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_EXIT_TO_COURSE;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             VmMenuUnmountVms_8c0194de();
-            FadePushOut_8c022b60(10);
+            RenderPushFadeOut_8c022b60(10);
             break;
         case SAVE_MENU_QUIT:
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_QUIT_CONFIRM;
@@ -411,7 +411,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         if (result == 1) {
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_EXIT_TO_TITLE;
             VmMenuUnmountVms_8c0194de();
-            FadePushOut_8c022b60(10);
+            RenderPushFadeOut_8c022b60(10);
         } else if (result == 2) {
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
             ObjectsSwapMessageBoxFor_8c02aefc("");
@@ -473,7 +473,7 @@ void SystemMenuSwitchFromTask_8c01ba64(Task *task)
     VmMenuUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c,
                                    init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
     ObjectsSwapMessageBoxFor_8c02aefc("");
-    FadePushIn_8c022a9c(10);
+    RenderPushFadeIn_8c022a9c(10);
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     AsqRequestDat_8c011182("\\SYSTEM", "bus_mem.VMI", &var_vmuIconFileBuf_8c1ba344);

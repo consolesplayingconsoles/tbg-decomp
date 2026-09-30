@@ -33,7 +33,7 @@
 #include "02c884_bus_stop.h"
 #include "016d2c_course_menu.h"
 #include "01e27c_practice_menu.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 
 /* ====================
  * Compiler Definitions
@@ -199,7 +199,7 @@ STATIC int pauseUpdate_8c0129cc(void)
         return 0;
     }
 
-    FadeUpdate_8c022560();
+    RenderUpdate_8c022560();
     p = var_peripheral_8c1ba358;
 
     if ((p->press & PDD_DGT_ST) != 0) {
@@ -249,7 +249,7 @@ STATIC int pauseUpdate_8c0129cc(void)
                 /* A commits -- start the fade, no mark this frame. */
                 if ((p->press & PDD_DGT_TA) != 0) {
                     CHANGE_RETIRE_PHASE(RETIRE_PHASE_FADING);
-                    FadePushOut_8c022b60(10);
+                    RenderPushFadeOut_8c022b60(10);
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                     LOG_DEBUG(("[PAUSE] pauseUpdate_8c0129cc: retire committed, fading out\n"));
                     break;
@@ -323,9 +323,9 @@ STATIC void pauseTask_8c012cbc()
     }
 
     if (pauseUpdate_8c0129cc() != 0) {
-        FadeResetQueues_8c02239c();
+        RenderResetQueues_8c02239c();
         TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
-        FadeUpdate_8c022560();
+        RenderUpdate_8c022560();
     }
 }
 
@@ -351,11 +351,11 @@ STATIC void pauseToggleTask_8c012d06()
     }
 
     if (var_pauseActive_8c1bb8cc == 0) {
-        FadeResetQueues_8c02239c();
+        RenderResetQueues_8c02239c();
         TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
     }
 
-    FadeUpdatePlain_8c022910();
+    RenderUpdatePlain_8c022910();
 }
 
 /*
@@ -395,7 +395,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
         }
         SndStartAdxFadeOut_8c010bae(0);
         SndStartAdxFadeOut_8c010bae(1);
-        FadePushOut_8c022b60(0x1e);
+        RenderPushFadeOut_8c022b60(0x1e);
         break;
 
     case DEMO_END_SKIPPED:
@@ -413,9 +413,9 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
         return;
     }
 
-    FadeResetQueues_8c02239c();
+    RenderResetQueues_8c02239c();
     TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
-    FadeUpdatePlain_8c022910();
+    RenderUpdatePlain_8c022910();
     TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO, 0.0f, 0.0f, MARK_Z_BASE);
     if ((task->counter_0x0c & 0x18) != 0) {
         TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO_BLINK, 0.0f, 0.0f, MARK_Z_BASE);
@@ -444,7 +444,7 @@ void GameTask_8c012f44()
 }
 
 /* Tears down the view a run starts in: busInitPlaceBus_8c023310 opens on
- * FADE_MIRROR_DOOR with FadeStartRunTransition_8c0228a2's arrival overlay up,
+ * MIRROR_DOOR with RenderStartRunFade_8c0228a2's arrival overlay up,
  * and this drops both once the doors shut or the bus pulls away. */
 STATIC void runStartViewTask_8c012f9c(Task *task, void* state) {
     Bool omeStart;
@@ -459,17 +459,17 @@ STATIC void runStartViewTask_8c012f9c(Task *task, void* state) {
         switch (task->field_0x08) {
             case 0:
                 if (var_busState_8c1bb9d0.doorState_0x3c0 == 0) {
-                    var_fadeArrivalVariant_8c22655c = 0;
+                    var_arrivalOverlayVariant_8c22655c = 0;
                     if (omeStart == FALSE) {
-                        var_busState_8c1bb9d0.mirror_0x268 = FADE_MIRROR_RIGHT;
+                        var_busState_8c1bb9d0.mirror_0x268 = MIRROR_RIGHT;
                     } else {
-                        var_busState_8c1bb9d0.mirror_0x268 = FADE_MIRROR_NONE;
+                        var_busState_8c1bb9d0.mirror_0x268 = MIRROR_NONE;
                     }
 
                     task->field_0x08 = 1;
                 } else {
-                    if (var_busState_8c1bb9d0.mirror_0x268 != FADE_MIRROR_DOOR) {
-                        var_fadeArrivalVariant_8c22655c = 0;
+                    if (var_busState_8c1bb9d0.mirror_0x268 != MIRROR_DOOR) {
+                        var_arrivalOverlayVariant_8c22655c = 0;
                         TaskFree_8c014b66(task);
                     }
                 }
@@ -480,12 +480,12 @@ STATIC void runStartViewTask_8c012f9c(Task *task, void* state) {
                 break;
         }
     } else {
-        var_fadeArrivalVariant_8c22655c = 0;
+        var_arrivalOverlayVariant_8c22655c = 0;
         if (omeStart == FALSE) {
             var_busState_8c1bb9d0.signalSide_0x25c = 0;
         }
 
-        var_busState_8c1bb9d0.mirror_0x268 = FADE_MIRROR_NONE;
+        var_busState_8c1bb9d0.mirror_0x268 = MIRROR_NONE;
 
         TaskFree_8c014b66(task);
     }
@@ -558,7 +558,7 @@ void GameEnterDrive_8c01306e(void)
     DriveCueInit_8c020528();
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &runStartViewTask_8c012f9c, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
-    FadeStartRunTransition_8c0228a2();
+    RenderStartRunFade_8c0228a2();
 }
 
 void GameStartSelectedCourse_8c01328c() {

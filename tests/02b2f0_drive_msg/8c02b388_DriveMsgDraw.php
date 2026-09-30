@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-// DriveMsgDraw_8c02b388(unused): FadeCallback1 for the drive-message HUD
+// DriveMsgDraw_8c02b388(unused): DrawCallback1 for the drive-message HUD
 // banner -- see src/02b2f0_drive_msg.h for the full contract.
 
 return new class extends TestCase {

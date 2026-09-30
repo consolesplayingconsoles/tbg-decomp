@@ -16,7 +16,7 @@
           .IMPORT     __quick_odd_mvn
           .IMPORT     _ObjectsSwapMessageBoxFor_8c02aefc
           .IMPORT     _ObjectsMenuTextboxText_8c02af1c
-          .IMPORT     _FadePushCall1_8c0223ea
+          .IMPORT     _RenderPushCall1_8c0223ea
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
@@ -411,7 +411,7 @@ LP_GEN_72418:
           .DATA.W H'0180 ; H'8C025B62
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C025B64
           .DATA.L _BusRenderDrawBusModel_8c024bb8 ; H'8C025B68
-          .DATA.L _FadePushCall1_8c0223ea ; H'8C025B6C
+          .DATA.L _RenderPushCall1_8c0223ea ; H'8C025B6C
           .DATA.L _var_demoShots_8c227e0c ; H'8C025B70
           .DATA.L _var_route_8c18ad1c ; H'8C025B74
           .DATA.L _init_demoShotsShinjuku_8c045674 ; H'8C025B78

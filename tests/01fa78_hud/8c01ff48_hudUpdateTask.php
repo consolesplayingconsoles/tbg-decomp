@@ -36,7 +36,7 @@ return new class extends TestCase {
 
         $this->shouldWriteSymbolOffset('_var_hudMark_8c2264a8', 0x04, 0); // out-of-window: no comment digit
         $this->shouldWriteSymbolOffset('_var_hudState_8c22643c', 0x18, 1); // var_hudState_8c22643c.blinkTimer_0x18 += 1
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_drawHud_8c01fbac'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_drawHud_8c01fbac'), 0);
     }
 
     public function test_blinker_bit_stages_message_and_arms_flag(): void
@@ -51,6 +51,6 @@ return new class extends TestCase {
         $this->shouldWriteSymbolOffset('_var_hudState_8c22643c', 0x18, 0); // var_hudState_8c22643c.blinkTimer_0x18 reset
         $this->shouldWriteSymbolOffset('_var_hudMark_8c2264a8', 0x04, 0); // out-of-window: no comment digit
         $this->shouldWriteSymbolOffset('_var_hudState_8c22643c', 0x18, 1); // var_hudState_8c22643c.blinkTimer_0x18 += 1 (later, ends at 1)
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_drawHud_8c01fbac'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_drawHud_8c01fbac'), 0);
     }
 };

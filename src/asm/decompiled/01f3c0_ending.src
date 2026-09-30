@@ -15,10 +15,10 @@
           .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
-          .IMPORT     _FadePushIn_8c022a9c
+          .IMPORT     _RenderPushFadeIn_8c022a9c
           .IMPORT     _CourseMenuPushDialogTask_8c0170c6
           .IMPORT     _var_instructorDialogActive_8c225fb4
-          .IMPORT     _FadePushOut_8c022b60
+          .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _ObjectsFreeTextboxes_8c02af32
           .IMPORT     _TxtInit_8c01524c
           .IMPORT     _TxtCreateTextBox_8c0152fc
@@ -514,7 +514,7 @@ LP_GEN_79838:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01F738
           .DATA.L H'42340000 ; H'8C01F73C
           .DATA.L H'42C80000 ; H'8C01F740
-          .DATA.L _FadePushIn_8c022a9c ; H'8C01F744
+          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01F744
           .DATA.L _var_endingVoiceList_8c226430 ; H'8C01F748
           .DATA.L _var_dialogQueue_8c225fbc ; H'8C01F74C
           .DATA.L _CourseMenuPushDialogTask_8c0170c6 ; H'8C01F750
@@ -678,7 +678,7 @@ LP_GEN_41910:
           .DATA.W H'0CA8 ; H'8C01F87C
           .DATA.W H'0A8C ; H'8C01F87E
           .DATA.L _var_instructorDialogActive_8c225fb4 ; H'8C01F880
-          .DATA.L _FadePushOut_8c022b60 ; H'8C01F884
+          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01F884
           .DATA.L _ObjectsFreeTextboxes_8c02af32 ; H'8C01F888
           .DATA.L _TxtInit_8c01524c ; H'8C01F88C
           .DATA.L H'C0A00000 ; H'8C01F890
@@ -688,7 +688,7 @@ LP_GEN_41910:
           .DATA.L _init_endingCreditsHead_8c04528c ; H'8C01F8A0
           .DATA.L _TxtPrepareTextBoxLayout_8c01543a ; H'8C01F8A4
           .DATA.L _init_endingCreditsTail_8c045290 ; H'8C01F8A8
-          .DATA.L _FadePushIn_8c022a9c ; H'8C01F8AC
+          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01F8AC
 LAB_8c01f8b0:
           MOV         #H'68,R0
           MOV.W       LP_GEN_28976,R3
@@ -767,7 +767,7 @@ LAB_8c01f92a:
 LP_GEN_28976:
           .DATA.W H'0096 ; H'8C01F93C
           .RES.W 1 ; H'8C01F93E
-          .DATA.L _FadePushOut_8c022b60 ; H'8C01F940
+          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01F940
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01F944
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01F948
           .DATA.L _ResultShowFailedRun_8c01e24e ; H'8C01F94C

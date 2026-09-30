@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_FadePushCall1_8c0223ea', 4);
+        $this->setSize('_RenderPushCall1_8c0223ea', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_AsqGetRandomInRangeB_8c0121be', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
@@ -40,7 +40,7 @@ return new class extends TestCase {
         $this->call('_PassengerExitTask_8c02d46c')->with(0, $state);
 
         $this->shouldWriteLong($state + 0x20, 2);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
@@ -57,7 +57,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($state + 0x20, 0xffffffff);
         $this->shouldWriteLong($state + 0x04, 6);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
@@ -74,7 +74,7 @@ return new class extends TestCase {
 
         $this->call('_PassengerExitTask_8c02d46c')->with(0, $state);
 
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
@@ -114,7 +114,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x14, 0x20);
         $this->shouldWriteLong($state + 0x04, 7);
         $this->shouldCall('_sdMidiPlay')->with(0x5555, 1, 77, 0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
@@ -143,7 +143,7 @@ return new class extends TestCase {
 
         $this->call('_PassengerExitTask_8c02d46c')->with($task, $state);
 
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 

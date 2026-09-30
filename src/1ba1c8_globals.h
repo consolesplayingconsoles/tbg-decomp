@@ -9,7 +9,7 @@
 #include "014f54_text.h" /* enum PLAY_MODE */
 #include "015ab8_title.h" /* ResourceGroup */
 #include "020914_ground_query.h" /* GroundQueryResult */
-#include "022464_fade.h" /* FadeMirrorSelect */
+#include "022464_render.h" /* MirrorSelect */
 
 /* =================
  * Type Declarations
@@ -122,10 +122,10 @@ typedef struct {
     /* No use site. TrafficEntry's same-offset field is unused too. */
     int field_0x264;
 
-    /* Which mirror view is up, a FadeMirrorSelect (022464_fade.h). Set by
+    /* Which mirror view is up, a MirrorSelect (022464_render.h). Set by
      * BusInputUpdate_8c0246b2 from the turn-signal buttons (024280); read by
-     * FadeUpdate_8c022560 and BusRenderUpdateMirrorCamera_8c025604. */
-    FadeMirrorSelect mirror_0x268;
+     * RenderUpdate_8c022560 and BusRenderUpdateMirrorCamera_8c025604. */
+    MirrorSelect mirror_0x268;
 
     /* Divided by pitchCos_0x270 by BusRenderUpdateCamera_8c025078 for the
      * mode-1 camera's Y bob -- a real float field (FMOV.S load), not int. */
@@ -424,7 +424,7 @@ extern int var_cutsceneActive_8c1bb900;
 extern NJS_CAMERA var_camera_8c1bb904; // 021b9c_tile_draw
 extern NJS_CAMERA var_mirrorCamera_8c1bb944; // 021b9c_tile_draw
 /* Aimed from the driver's eye down the aisle by DemoBoardingCamera_8c025870
- * (025870); FadeUpdate_8c022560's arrival variant 1 renders it into the inset
+ * (025870); RenderUpdate_8c022560's arrival variant 1 renders it into the inset
  * over the mirror view. */
 extern NJS_CAMERA var_cabinCamera_8c1bb984;
 extern char var_8c1bb9c4[12]; /* unreferenced; declared here to hold its place in B */

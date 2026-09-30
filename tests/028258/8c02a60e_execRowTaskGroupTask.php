@@ -18,9 +18,9 @@ return new class extends TestCase {
 
         $this->call('_execRowTaskGroupTask_8c02a60e');
 
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_setSimpleLightCallback_8c02a5d0'), 0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_setSimpleLightCallback_8c02a5d0'), 1);
         $this->shouldCall('_TaskExecGroup_8c014b42')
             ->with($this->addressOf('_var_tasks_8c1bb448'));

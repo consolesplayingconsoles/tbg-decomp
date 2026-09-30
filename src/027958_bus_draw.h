@@ -25,13 +25,13 @@ void BusDrawUpdateModels_8c027958(BusState *bus);
  * of the CPU-grid polygon under the vehicle, so the fade follows the road. */
 void BusDrawFadeLights_8c028022(BusState *bus);
 
-/* FadeCallback2 (022464_fade.h, hence the (int, int) signature) for a type-1
+/* DrawCallback2 (022464_render.h, hence the (int, int) signature) for a type-1
  * TrafficSignal: shows the frames_0x10 lamp named by frame_0x0c and hides the
  * other two, then draws model_0xb8 at matrixArg. objArg is the TrafficSignal*,
  * matrixArg an NJS_MATRIX*. */
 void BusDrawSignal_8c0281ac(int objArg, int matrixArg);
 
-/* FadeCallback2 for a type 2/3/4 TrafficSignal's attachment: same draw as
+/* DrawCallback2 for a type 2/3/4 TrafficSignal's attachment: same draw as
  * BusDrawSignal_8c0281ac, but frames_0x10[0] is the only lamp and drawA_0xc8
  * decides whether it shows. */
 void BusDrawSignalAttachment_8c028206(int objArg, int matrixArg);
@@ -42,7 +42,7 @@ void BusDrawSignalAttachment_8c028206(int objArg, int matrixArg);
  * fixed one, passing 0. Two jobs:
  *
  * 1. Queues the entity's draw for this frame through
- *    FadePushCall2_8c022420. Two independent cone tests against
+ *    RenderPushCall2_8c022420. Two independent cone tests against
  *    var_busState_8c1bb9d0, either or both of which can fire: the forward one
  *    (200m, ~80 degrees around the bus's last move delta) takes the
  *    detailed path, the mirror one (50m, ~15 degrees around the rear-view

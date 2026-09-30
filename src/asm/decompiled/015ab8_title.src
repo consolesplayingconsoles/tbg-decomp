@@ -6,11 +6,11 @@
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _VmMenuMountVms_8c01940e
-          .IMPORT     _FadePushIn_8c022a9c
+          .IMPORT     _RenderPushFadeIn_8c022a9c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _TxtDrawSprite_8c014f54
-          .IMPORT     _FadePushOut_8c022b60
+          .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _var_titleActive_8c1bb8c4
@@ -110,10 +110,10 @@ _titleTask_8c015ab8:            ; function: titleTask_8c015ab8
           MOV.L       R2,@(24,R14)
           MOV.L       R10,@R12
 L0:                               
-          MOV.L       L3+42,R11; _FadePushOut_8c022b60
+          MOV.L       L3+42,R11; _RenderPushFadeOut_8c022b60
           MOV         #30,R4
           MOV.L       @(24,R14),R0
-          MOV.L       L3+38,R8; _FadePushIn_8c022a9c
+          MOV.L       L3+38,R8; _RenderPushFadeIn_8c022a9c
           MOV         #18,R1
           CMP/HS      R1,R0
           BF          L1
@@ -138,8 +138,8 @@ L3:
           .DATA.L     _var_isFading_8c226568 ; H'8c015b50
           .DATA.L     _var_midiHandles_8c0fcd28
           .DATA.L     _sdMidiPlay
-          .DATA.L     _FadePushIn_8c022a9c
-          .DATA.L     _FadePushOut_8c022b60 ; H'8c015b60
+          .DATA.L     _RenderPushFadeIn_8c022a9c
+          .DATA.L     _RenderPushFadeOut_8c022b60 ; H'8c015b60
 L4:                               
           .DATA.W     L5-L2
           .DATA.W     L8-L2

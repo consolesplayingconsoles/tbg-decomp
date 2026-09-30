@@ -10,7 +10,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention;
  * section B -- see hudUpdateTask_8c01ff48's test for the same adjacency.
  * init_pointsMeterFill_8c045334/374/3b4/414 were local (unexported) labels in the .src
  * object; gated .EXPORTs under .AIFDEF UNIT_TESTING were added so tests can
- * see them, matching init_fadeQuad_8c0455a8's convention in 022464_fade.
+ * see them, matching init_fadeQuad_8c0455a8's convention in 022464_render.
  * The drawSpeedAndTimers_8c01fe84 tail is exercised in its own test file and mocked here.
  */
 return new class extends TestCase {

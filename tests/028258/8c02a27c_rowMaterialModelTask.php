@@ -35,9 +35,9 @@ return new class extends TestCase {
         $this->call('_rowMaterialModelTask_8c02a27c')->with($task, $state);
 
         $this->shouldWriteFloat($state + self::ST_1A, 0.0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
     }
 
@@ -63,9 +63,9 @@ return new class extends TestCase {
         // dx = avg(0, 0) - (-25) = 25, dz = 0; distSq = 625, sqrt = 25 > 20
         $this->shouldCall('_njSqrt')->with(625.0)->andReturn(25.0);
         $this->shouldWriteFloat($state + self::ST_1A, 0.0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
     }
 
@@ -91,9 +91,9 @@ return new class extends TestCase {
         // dx = 15, dz = 0; distSq = 225, sqrt = 15; (15 - 10) * 0.05 - 0.5 = -0.25
         $this->shouldCall('_njSqrt')->with(225.0)->andReturn(15.0);
         $this->shouldWriteFloat($state + self::ST_1A, -0.25);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
     }
 
@@ -122,9 +122,9 @@ return new class extends TestCase {
         // dx = avg(10,20) - 0 = 15, dz = avg(15,25) - 0 = 20; distSq = 225+400 = 625
         $this->shouldCall('_njSqrt')->with(625.0)->andReturn(25.0);
         $this->shouldWriteFloat($state + self::ST_1A, 0.0); // dist 25 > 20: zeroed
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
     }
 
@@ -153,9 +153,9 @@ return new class extends TestCase {
         $this->shouldCall('_njSqrt')->with(225.0)->andReturn(15.0);
         // (15 - 10) * 0.05 - 0.5 = -0.25
         $this->shouldWriteFloat($state + self::ST_1A, -0.25);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
     }
 
@@ -181,9 +181,9 @@ return new class extends TestCase {
         // dx = 3, dz = 0; distSq = 9, sqrt = 3; (3 - 10) clamps to 0: 0 * 0.05 - 0.5 = -0.5
         $this->shouldCall('_njSqrt')->with(9.0)->andReturn(3.0);
         $this->shouldWriteFloat($state + self::ST_1A, -0.5);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawRowMaterialModel_8c02a206'), $state);
     }
 };

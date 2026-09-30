@@ -14,7 +14,7 @@ return new class extends TestCase {
         $this->call('_routeBlinkerTask_8c029904')->with($task, $state);
 
         $this->shouldWriteLong($task + 0x0c, 5);
-        $this->shouldCall('_FadePushCall2_8c022420')
+        $this->shouldCall('_RenderPushCall2_8c022420')
             ->with(0, $this->addressOf('_drawBlinkers_8c029878'), $task, $state);
     }
 
@@ -29,7 +29,7 @@ return new class extends TestCase {
         $this->call('_routeBlinkerTask_8c029904')->with($task, $state);
 
         $this->shouldWriteLong($task + 0x0c, 0);
-        $this->shouldCall('_FadePushCall2_8c022420')
+        $this->shouldCall('_RenderPushCall2_8c022420')
             ->with(0, $this->addressOf('_drawBlinkers_8c029878'), $task, $state);
     }
 };

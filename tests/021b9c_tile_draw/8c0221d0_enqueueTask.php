@@ -11,7 +11,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * transforming it with njCalcVector under whichever camera is current (as
  * coded -- reads dir1_0x48[0]/dir2_0x68[0] three times each rather than
  * [0]/[1]/[2], not obviously intentional but preserved), then queues
- * drawTileGrid_8c021b9c/drawTileGridMirror_8c021ec4 as this frame's tile-grid draws for fade layers
+ * drawTileGrid_8c021b9c/drawTileGridMirror_8c021ec4 as this frame's tile-grid draws for draw layers
  * 0/1, and TileStreamDrawTile_8c021b34 (the current tile, `state`) for both
  * layers.
  */
@@ -23,8 +23,8 @@ return new class extends TestCase {
         $this->setSize('_var_mirrorCamera_8c1bb944', 0x40);
         $this->setSize('_njCalcVector', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
-        $this->setSize('_FadePushCall2_8c022420', 4);
-        $this->setSize('_FadePushCall1_8c0223ea', 4);
+        $this->setSize('_RenderPushCall2_8c022420', 4);
+        $this->setSize('_RenderPushCall1_8c0223ea', 4);
         $this->setSize('_TileStreamDrawTile_8c021b34', 4);
     }
 
@@ -79,9 +79,9 @@ return new class extends TestCase {
         $this->shouldWriteFloat($dir1 + 8, 42.0);
         $this->shouldCall('_njCalcVector')->with(0, $dir1, $dir1);
 
-        $this->shouldCall('_FadePushCall2_8c022420')->with(0, $this->addressOf('_drawTileGrid_8c021b9c'), 7, 5);
-        $this->shouldCall('_FadePushCall2_8c022420')->with(1, $this->addressOf('_drawTileGridMirror_8c021ec4'), 7, 5);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
+        $this->shouldCall('_RenderPushCall2_8c022420')->with(0, $this->addressOf('_drawTileGrid_8c021b9c'), 7, 5);
+        $this->shouldCall('_RenderPushCall2_8c022420')->with(1, $this->addressOf('_drawTileGridMirror_8c021ec4'), 7, 5);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
     }
 };

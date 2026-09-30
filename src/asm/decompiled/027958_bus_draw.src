@@ -12,7 +12,7 @@
           .IMPORT     _njCnkEasyDrawObject
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _njSqrt
-          .IMPORT     _FadePushCall2_8c022420
+          .IMPORT     _RenderPushCall2_8c022420
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeGroundGrid_8c2264d4
@@ -508,7 +508,7 @@ LP_GEN_94732:
           .DATA.L _njCnkEasyDrawObject ; H'8C027CF0
           .DATA.L _var_busState_8c1bb9d0 ; H'8C027CF4
           .DATA.L _njSqrt ; H'8C027CF8
-          .DATA.L _FadePushCall2_8c022420 ; H'8C027CFC
+          .DATA.L _RenderPushCall2_8c022420 ; H'8C027CFC
           .DATA.L H'43480000 ; H'8C027D00
           .DATA.L H'3E322D0E ; H'8C027D04
           .DATA.L H'425C0000 ; H'8C027D08

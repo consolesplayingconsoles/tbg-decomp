@@ -35,10 +35,10 @@ return new class extends TestCase {
         $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_SndPlayAdx_8c010cd6', 4);
-        $this->setSize('_FadePushIn_8c022a9c', 4);
+        $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
         $this->setSize('_CourseMenuPushDialogTask_8c0170c6', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
-        $this->setSize('_FadePushOut_8c022b60', 4);
+        $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $this->setSize('_ObjectsFreeTextboxes_8c02af32', 4);
         $this->setSize('_TxtInit_8c01524c', 4);
         $this->setSize('_TxtCreateTextBox_8c0152fc', 4);
@@ -105,7 +105,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + self::VELOCITY_X_0X30, 1.0);
         $this->shouldWriteFloat($base + self::VELOCITY_Y_0X34, 0.0);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 1);
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
     }
 
     // --- state 1: FADE_IN ---
@@ -161,7 +161,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + self::STATE_0X18, 3);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(30);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(30);
         $this->shouldCall('_updateEndingOverlay_8c01f42c');
     }
 
@@ -248,7 +248,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + self::FIELD_0X58, 0);
         $this->shouldWriteLong($base + self::LOGOTIMER_0X68, 3240);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 12);
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(30);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(30);
     }
 
     // --- state 4: CREDITS_INTRO ---
@@ -351,7 +351,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + self::STATE_0X18, 7);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(60);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(60);
         $this->shouldCall('_scrollCreditsText_8c01f50e')->andReturn(0);
     }
 

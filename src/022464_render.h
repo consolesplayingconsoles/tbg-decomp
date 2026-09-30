@@ -1,6 +1,6 @@
 /* 8c022464 */
-#ifndef _022464_FADE_H
-#define _022464_FADE_H
+#ifndef _022464_RENDER_H
+#define _022464_RENDER_H
 
 #include <njdef.h>
 #include "014a9c_tasks.h"
@@ -18,8 +18,8 @@ typedef enum {
     FADE_PHASE_HELD = 3
 } FadePhase;
 
-/* var_fadeRequest_8c226564: a transition requested of FadeUpdate_8c022560 /
- * FadeUpdatePlain_8c022910, consumed once phase is FADE_PHASE_IDLE. */
+/* var_fadeRequest_8c226564: a transition requested of RenderUpdate_8c022560 /
+ * RenderUpdatePlain_8c022910, consumed once phase is FADE_PHASE_IDLE. */
 typedef enum {
     FADE_REQUEST_NONE = 0,
     FADE_REQUEST_OUT  = 1,
@@ -28,18 +28,18 @@ typedef enum {
 
 /* BusState.mirror_0x268: which mirror view is up. */
 typedef enum {
-    FADE_MIRROR_NONE  = 0,
-    FADE_MIRROR_LEFT  = 1,
-    FADE_MIRROR_RIGHT = 2,
+    MIRROR_NONE  = 0,
+    MIRROR_LEFT  = 1,
+    MIRROR_RIGHT = 2,
     /* Not a wing mirror: the door-side view a run starts in
      * (busInitPlaceBus_8c023310) -- BusRenderUpdateMirrorCamera_8c025604 puts
      * the camera close alongside the front door instead of back down the
-     * flank. FadeUpdate_8c022560 draws it like the wing mirrors but with no
+     * flank. RenderUpdate_8c022560 draws it like the wing mirrors but with no
      * label sprite. */
-    FADE_MIRROR_DOOR  = 3
-} FadeMirrorSelect;
+    MIRROR_DOOR  = 3
+} MirrorSelect;
 
-/* Task private state for FadeInTask_8c022a54/FadePushIn_8c022a9c. Its fields
+/* Task private state for fadeInTask_8c022a54/RenderPushFadeIn_8c022a9c. Its fields
  * match Task (see 014a9c_tasks.h) up through the one this task uses -- the
  * real slot is a full Task (var_tasks_8c1ba3c8 is an array of those), and
  * the rest is unused by this callback. */
@@ -57,7 +57,7 @@ typedef enum {
     FADE_OUT_PHASE_HOLD = 1
 } FadeOutPhase;
 
-/* Task private state for FadeOutTask_8c022ad0/FadePushOut_8c022b60. Same
+/* Task private state for fadeOutTask_8c022ad0/RenderPushFadeOut_8c022b60. Same
  * layout as FadeInTask above, but field_0x0c is reused as phase_0x0c
  * instead of a pointer. */
 typedef struct {
@@ -67,29 +67,29 @@ typedef struct {
     FadeOutPhase phase_0x0c;
 } FadeOutTask;
 
-/* Opaque per-entry callbacks for FadeDrawCommand types 5/6 (see below),
- * queued by FadePushCall1_8c0223ea/FadePushCall2_8c022420. They pass whatever
+/* Opaque per-entry callbacks for DrawCommand types 5/6 (see below),
+ * queued by RenderPushCall1_8c0223ea/RenderPushCall2_8c022420. They pass whatever
  * function pointer their caller supplies, so there is no fixed SDK
  * signature to name these after. */
-typedef void (*FadeCallback1)(int);
-typedef void (*FadeCallback2)(int, int);
+typedef void (*DrawCallback1)(int);
+typedef void (*DrawCallback2)(int, int);
 
-/* FadeDrawCommand.type: which arm of its union holds the remaining 12 bytes.
+/* DrawCommand.type: which arm of its union holds the remaining 12 bytes.
  * Anything outside these 7 values is a no-op entry. */
 typedef enum {
-    FADE_CMD_0_DRAW_OBJECT            = 0,
-    FADE_CMD_1_CNK_DRAW_OBJECT        = 1,
-    FADE_CMD_2_CNK_EASY_DRAW_OBJECT   = 2,
-    FADE_CMD_3_CNK_SIMPLE_DRAW_OBJECT = 3,
-    FADE_CMD_4_CNK_MOD_DRAW_OBJECT    = 4,
-    FADE_CMD_5_CALL1                  = 5,
-    FADE_CMD_6_CALL2                  = 6
-} FadeDrawCommandType;
+    DRAW_CMD_0_DRAW_OBJECT            = 0,
+    DRAW_CMD_1_CNK_DRAW_OBJECT        = 1,
+    DRAW_CMD_2_CNK_EASY_DRAW_OBJECT   = 2,
+    DRAW_CMD_3_CNK_SIMPLE_DRAW_OBJECT = 3,
+    DRAW_CMD_4_CNK_MOD_DRAW_OBJECT    = 4,
+    DRAW_CMD_5_CALL1                  = 5,
+    DRAW_CMD_6_CALL2                  = 6
+} DrawCommandType;
 
-/* One 16-byte entry in var_fadeDrawCommands_8c22657c's per-layer draw-command
+/* One 16-byte entry in var_drawCommands_8c22657c's per-layer draw-command
  * queue. */
 typedef struct {
-    FadeDrawCommandType type;
+    DrawCommandType type;
     union {
         /* 0-4: an nj*DrawObject variant, type 4 skipping njSetTexture */
         struct {
@@ -102,37 +102,37 @@ typedef struct {
         } draw;
         /* 5 */
         struct {
-            FadeCallback1 fn;
+            DrawCallback1 fn;
             int arg0;
         } call1;
         /* 6 */
         struct {
-            FadeCallback2 fn;
+            DrawCallback2 fn;
             int arg0;
             int arg1;
         } call2;
     } u;
-} FadeDrawCommand;
+} DrawCommand;
 
 /* =======================
  * Non-initialized Globals
  * =======================
  */
 
-extern NJS_CAMERA* var_drawCamera_8c226558; // camera for the layer being drawn; FadeUpdate_8c022560 picks main/mirror/cabin
+extern NJS_CAMERA* var_drawCamera_8c226558; // camera for the layer being drawn; RenderUpdate_8c022560 picks main/mirror/cabin
 
 /* =========
  * Functions
  * =========
  */
 
-void FadeResetQueues_8c02239c(void);
-void FadePushCall1_8c0223ea(int layer, FadeCallback1 fn, int arg0);
-void FadePushCall2_8c022420(int layer, FadeCallback2 fn, int arg0, int arg1);
-void FadeUpdate_8c022560(void);
-void FadeStartRunTransition_8c0228a2(void);
-void FadeUpdatePlain_8c022910(void);
-void FadePushIn_8c022a9c(int frames);
-void FadePushOut_8c022b60(int frames);
+void RenderResetQueues_8c02239c(void);
+void RenderPushCall1_8c0223ea(int layer, DrawCallback1 fn, int arg0);
+void RenderPushCall2_8c022420(int layer, DrawCallback2 fn, int arg0, int arg1);
+void RenderUpdate_8c022560(void);
+void RenderStartRunFade_8c0228a2(void);
+void RenderUpdatePlain_8c022910(void);
+void RenderPushFadeIn_8c022a9c(int frames);
+void RenderPushFadeOut_8c022b60(int frames);
 
-#endif // _022464_FADE_H
+#endif // _022464_RENDER_H

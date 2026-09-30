@@ -20,10 +20,10 @@
           .IMPORT     _var_award_8c1bb8f8
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _FadePushOut_8c022b60
+          .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _PromptHandleBinary_8c016caa
-          .IMPORT     _FadePushIn_8c022a9c
+          .IMPORT     _RenderPushFadeIn_8c022a9c
           .IMPORT     _FileMenuResetProgress_8c01890a
           .IMPORT     _SystemMenuWriteToVmu_8c01b26c
           .IMPORT     _VmGameSetLcdSlot_8c01c8fc
@@ -560,7 +560,7 @@ LP_GEN_73625:
           .DATA.L _var_scoreCourseClearBonus_8c2263ec ; H'8C01DB98
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01DB9C
           .DATA.L _var_progress_8c1ba1cc ; H'8C01DBA0
-          .DATA.L _FadePushOut_8c022b60 ; H'8C01DBA4
+          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01DBA4
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01DBA8
 LAB_8c01dbac:
           MOV.L       LP_GEN_38701+4,R3
@@ -987,8 +987,8 @@ LAB_8c01dea6:
 LP_GEN_50614:
           .DATA.L _VmMenuUpdateVmuStatus_8c01967c ; H'8C01DEC4
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C01DEC8
-          .DATA.L _FadePushOut_8c022b60 ; H'8C01DECC
-          .DATA.L _FadePushIn_8c022a9c ; H'8C01DED0
+          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01DECC
+          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01DED0
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01DED4
           .DATA.L _var_runFailed_8c226408 ; H'8C01DED8
           .DATA.L _FileMenuResetProgress_8c01890a ; H'8C01DEDC

@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_FadePushCall1_8c0223ea', 4);
+        $this->setSize('_RenderPushCall1_8c0223ea', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_ObjectsStartMessageBox_8c02ad8c', 4);
@@ -23,14 +23,14 @@ return new class extends TestCase {
         $this->setSize('_var_cutsceneActive_8c1bb900', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_fadeRequest_8c226564', 4);
-        $this->setSize('_var_fadeArrivalGate_8c226560', 4);
+        $this->setSize('_var_arrivalOverlayGate_8c226560', 4);
         $this->setSize('_var_messageBoxActive_8c22847c', 4);
         $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->setSize('_var_interiorTexlist_8c1bc438', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_currentSegment_8c228708', 4);
-        $this->setSize('_var_fadeArrivalVariant_8c22655c', 4);
+        $this->setSize('_var_arrivalOverlayVariant_8c22655c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 8 * 4);
         $this->setSize('_var_cameraMode_8c227d9c', 4);
@@ -50,12 +50,12 @@ return new class extends TestCase {
         return $state;
     }
 
-    /** The three FadeCallback1 registrations every call makes unconditionally. */
+    /** The three DrawCallback1 registrations every call makes unconditionally. */
     private function expectFrameCallbacks(): void
     {
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_drawInterior_8c02d1f4'), 0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawInterior_8c02d1f4'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
     }
 
     private function expectTaskExecGroup(int $group): void
@@ -65,8 +65,8 @@ return new class extends TestCase {
 
     private function expectRegisterFadeOverlay(): void
     {
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
     }
 
     public function test_case0_still_fading_advances_counter_only(): void
@@ -187,7 +187,7 @@ return new class extends TestCase {
         $this->expectFrameCallbacks();
         $this->shouldWriteLong($state + 0, 3);
         $this->shouldWriteLongTo('_var_fadeRequest_8c226564', 1); // FADE_REQUEST_OUT
-        $this->shouldWriteLongTo('_var_fadeArrivalGate_8c226560', 0);
+        $this->shouldWriteLongTo('_var_arrivalOverlayGate_8c226560', 0);
         $this->shouldCall('_ObjectsStartMessageBox_8c02ad8c');
         $this->expectTaskExecGroup($group);
         $this->expectRegisterFadeOverlay();
@@ -302,7 +302,7 @@ return new class extends TestCase {
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->shouldWriteLong($busState + 0x2b4, 1);
         $this->shouldWriteLong($busState + 0x25c, 2); // playMode==PRACTICE -> always 2
-        $this->shouldWriteLongTo('_var_fadeArrivalVariant_8c22655c', 2);
+        $this->shouldWriteLongTo('_var_arrivalOverlayVariant_8c22655c', 2);
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
     }
 
@@ -334,7 +334,7 @@ return new class extends TestCase {
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->shouldWriteLong($busState + 0x2b4, 1);
         $this->shouldWriteLong($busState + 0x25c, 1); // !PRACTICE && OME && segment==0
-        $this->shouldWriteLongTo('_var_fadeArrivalVariant_8c22655c', 2);
+        $this->shouldWriteLongTo('_var_arrivalOverlayVariant_8c22655c', 2);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 1 + 5); // OME offset = 5
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
     }

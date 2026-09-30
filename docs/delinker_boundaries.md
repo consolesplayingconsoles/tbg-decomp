@@ -86,10 +86,10 @@ The pusher sits right after the task and neither has data, so layout can't
 separate them.
 
 `0222dc_fadecmd` was re-split at `02239c`: its first function went to
-`021b9c_tile_draw`, the rest to `022464_fade`. `TileDrawPushTask_8c0222dc` is
+`021b9c_tile_draw`, the rest to `022464_render`. `TileDrawPushTask_8c0222dc` is
 the only pusher of tile_draw's task and the only writer of its light vars. SHC
 calls same-file functions with BSR when in range, yet the task reaches
-`FadePushCall1`/`FadePushCall2` via JSR from ~540 bytes away, so the queue
+`RenderPushCall1`/`RenderPushCall2` via JSR from ~540 bytes away, so the queue
 functions were not in its file; they only touch the draw-command queues in
 fade's B run.
 

@@ -30,7 +30,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($menuState + 0x18, 1);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 0xd);
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
     }
 
     public function test_fade_in_advances_to_view_and_draws()
@@ -104,7 +104,7 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 0, 0);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
         $this->expectDrawTail($menuState, field: 0, course: 5, pageCount: 10, gameMode: 0);
     }
@@ -119,7 +119,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($menuState + 0x18, 5); // SHOW_LESSON_STATE_FADE_OUT_TO_MENU
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 1, 0);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
         $this->expectDrawTail($menuState, field: 0, course: 5, pageCount: 10, gameMode: 0);
     }
@@ -203,7 +203,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($menuState + 0x18, 5); // SHOW_LESSON_STATE_FADE_OUT_TO_MENU
         $this->shouldCall('_sdMidiPlay')->with(0x1234, 1, 1, 0);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
         // state is now FADE_OUT_START (5), not VIEW_END, so no 0x1b sprite
         $this->expectDrawTail($menuState, field: 7, course: 5, pageCount: 10, gameMode: 0, viewEnd: false);
@@ -391,7 +391,7 @@ return new class extends TestCase {
         $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_SndPlayAdx_8c010cd6', 4);
-        $this->setSize('_FadePushIn_8c022a9c', 4);
+        $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0x1234); // sentinel handle
@@ -399,7 +399,7 @@ return new class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
-        $this->setSize('_FadePushOut_8c022b60', 4);
+        $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $this->setSize('_njUserClipping', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);

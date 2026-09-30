@@ -10,7 +10,7 @@
           .IMPORT     _var_interiorNj_8c1bc43c
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _sdMidiPlay
-          .IMPORT     _FadePushCall1_8c0223ea
+          .IMPORT     _RenderPushCall1_8c0223ea
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _AsqGetRandomInRangeB_8c0121be
@@ -26,7 +26,7 @@
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _var_cutsceneActive_8c1bb900
           .IMPORT     _var_fadeRequest_8c226564
-          .IMPORT     _var_fadeArrivalGate_8c226560
+          .IMPORT     _var_arrivalOverlayGate_8c226560
           .IMPORT     _ObjectsStartMessageBox_8c02ad8c
           .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _RouteLoadGetLatch_8c01432a
@@ -38,7 +38,7 @@
           .IMPORT     _BusRenderRestoreCameraState_8c024b86
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_currentSegment_8c228708
-          .IMPORT     _var_fadeArrivalVariant_8c22655c
+          .IMPORT     _var_arrivalOverlayVariant_8c22655c
           .IMPORT     _var_timeOfDay_8c18ad20
           .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _StopDrawLightEnd_8c02d146
@@ -382,7 +382,7 @@ LP_GEN_53841:
           .DATA.L _njCnkSimpleDrawObject ; H'8C02D3F0
           .DATA.L _var_passengersFadedOut_8c22895c ; H'8C02D3F4
           .DATA.L _sdMidiPlay ; H'8C02D3F8
-          .DATA.L _FadePushCall1_8c0223ea ; H'8C02D3FC
+          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02D3FC
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02D400
           .DATA.L _var_route_8c18ad1c ; H'8C02D404
           .DATA.L _var_boardSpot1_8c228928 ; H'8C02D408
@@ -667,7 +667,7 @@ LP_GEN_80933:
           .DATA.L _AsqGetRandomInRangeB_8c0121be ; H'8C02D62C
           .DATA.L _var_exitSpot3_8c22894c ; H'8C02D630
           .DATA.L _TaskFree_8c014b66 ; H'8C02D634
-          .DATA.L _FadePushCall1_8c0223ea ; H'8C02D638
+          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02D638
           .DATA.L _var_runState_8c2285c4 ; H'8C02D63C
           .DATA.L __divls ; H'8C02D640
 _PassengerStopSceneTask_8c02d644:
@@ -899,7 +899,7 @@ LAB_8c02d7c0:
           BRA         LAB_8c02d856
           NOP
 LP_GEN_70221:
-          .DATA.L _FadePushCall1_8c0223ea ; H'8C02D7E4
+          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02D7E4
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02D7E8
           .DATA.L _var_runState_8c2285c4 ; H'8C02D7EC
           .DATA.L _drawInterior_8c02d1f4 ; H'8C02D7F0
@@ -913,7 +913,7 @@ LP_GEN_70221:
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C02D810
           .DATA.L _var_cutsceneActive_8c1bb900 ; H'8C02D814
           .DATA.L _var_fadeRequest_8c226564 ; H'8C02D818
-          .DATA.L _var_fadeArrivalGate_8c226560 ; H'8C02D81C
+          .DATA.L _var_arrivalOverlayGate_8c226560 ; H'8C02D81C
           .DATA.L _ObjectsStartMessageBox_8c02ad8c ; H'8C02D820
           .DATA.L _var_messageBoxActive_8c22847c ; H'8C02D824
           .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C02D828
@@ -1056,7 +1056,7 @@ LP_GEN_72278:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02D934
           .DATA.L _var_route_8c18ad1c ; H'8C02D938
           .DATA.L _var_currentSegment_8c228708 ; H'8C02D93C
-          .DATA.L _var_fadeArrivalVariant_8c22655c ; H'8C02D940
+          .DATA.L _var_arrivalOverlayVariant_8c22655c ; H'8C02D940
           .DATA.L _var_timeOfDay_8c18ad20 ; H'8C02D944
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C02D948
           .DATA.L _TaskFree_8c014b66 ; H'8C02D94C

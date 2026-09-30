@@ -185,7 +185,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2); // PLAY_MODE_DEMO
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
 
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
@@ -217,9 +217,9 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
 
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawPedestriansMirror_8c028a38'), 1);
     }
 
@@ -239,11 +239,11 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
 
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_StopDrawWaitingPassengers_8c02d06c'), 0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(1, $this->addressOf('_StopDrawWaitingPassengers_8c02d06c'), 1);
     }
 
@@ -289,7 +289,7 @@ return new class extends TestCase {
         $this->expectGroundScratch();
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
     }
 
@@ -314,7 +314,7 @@ return new class extends TestCase {
         $this->expectGroundScratch();
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
     }
 
@@ -338,7 +338,7 @@ return new class extends TestCase {
         $this->expectGroundScratch();
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
     }
 
@@ -367,7 +367,7 @@ return new class extends TestCase {
         $this->expectGroundScratch();
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
     }
 
@@ -449,7 +449,7 @@ return new class extends TestCase {
             ->andReturn(0);
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
     }
 
@@ -540,7 +540,7 @@ return new class extends TestCase {
         $this->expectGroundScratch();
 
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba808'));
-        $this->shouldCall('_FadePushCall1_8c0223ea')
+        $this->shouldCall('_RenderPushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawPedestrians_8c028b74'), 0);
     }
 };

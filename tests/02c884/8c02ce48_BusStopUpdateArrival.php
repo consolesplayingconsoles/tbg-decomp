@@ -192,7 +192,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with(400.0)->andReturn(20.0);
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 3.0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x28, 20.0);
     }
 
@@ -215,7 +215,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSqrt')->with(400.0)->andReturn(20.0);
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 10.0);
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 0.0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x28, 20.0);
     }
 
@@ -237,7 +237,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with(4.0)->andReturn(2.0); // < 3.0
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 1.0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x28, 2.0);
         $this->shouldWriteLong($busBase + 0x2b4, 3); // driveState_0x2b4
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 3);
@@ -263,7 +263,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with(100.0)->andReturn(10.0); // not < 3.0
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 1.0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         // 10.0 is not < running minimum 2.0, so no minimum update.
         $this->shouldWriteLong($busBase + 0x2b4, 3);
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 3);
@@ -289,7 +289,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with(400.0)->andReturn(20.0);
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 1.0);
-        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_drawStopMarker_8c02cd92'), 0);
         $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x28, 20.0);
         $this->shouldWriteLong($busBase + 0x2b4, 4); // driveState_0x2b4
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 3);

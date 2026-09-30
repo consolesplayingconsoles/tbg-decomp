@@ -52,7 +52,7 @@ void BusRenderUpdateCamera_8c025078(void);
  * (worldMatrix_0x084), positions the separate mirror camera (var_mirrorCamera_8c1bb944)
  * there, points its interest at the same-rotated per-mode interest
  * vector, rolls it by recent Y waypoint history, activates it, and queues
- * BusRenderDrawBusModel_8c024bb8 on fade layer 1 with the alt light direction
+ * BusRenderDrawBusModel_8c024bb8 on draw layer 1 with the alt light direction
  * (var_mirrorLightDir_8c227dc4, recomputed here from the course's primary light). */
 void BusRenderUpdateMirrorCamera_8c025604(void);
 

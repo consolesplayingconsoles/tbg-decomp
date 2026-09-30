@@ -34,7 +34,7 @@ return new class extends TestCase {
     public function test_phase_1_counts_up_to_fade_out(): void
     {
         $this->resolveSymbols();
-        $this->setSize('_FadePushOut_8c022b60', 4);
+        $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $task = $this->alloc(0x1c);
         $this->initUint32($task + 8, 1); // phase 1
         $this->initUint32($task + 0xc, 0x1e); // counter, one away from tripping
@@ -43,7 +43,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($task + 0xc, 0x1f);
         $this->shouldWriteLong($task + 8, 2);
-        $this->shouldCall('_FadePushOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
         $this->shouldCall('_TxtDrawSprite_8c014f54')
             ->with($this->addressOf('_var_markTexlist_8c1bc418'), 0x79, 0.0, 0.0, -3.0);

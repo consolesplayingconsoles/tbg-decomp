@@ -16,7 +16,7 @@
 #include "028258_objects.h"
 #include "02c884_bus_stop.h"
 #include "014a9c_tasks.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 #include "01614c_replay_menu.h"
 #include "01e27c_practice_menu.h"
 #include "013ae8_route_load.h"
@@ -868,7 +868,7 @@ STATIC void driveEndFadeTask_8c02c69a(Task *task, void *state) {
         *counter = *counter + 1;
         if (*counter > 0x1e) {
             *phase = 2;
-            FadePushOut_8c022b60(10);
+            RenderPushFadeOut_8c022b60(10);
         }
     } else if (*phase == 2 && var_isFading_8c226568 == 0) {
         ReplayMenuFreeSessionAssets_8c016182();
@@ -898,7 +898,7 @@ STATIC void beginDriveEnd_8c02c738(void) {
     ReplayMenuFreeDriveTasks_8c01614c();
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *)driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
-    FadePushIn_8c022a9c(10);
+    RenderPushFadeIn_8c022a9c(10);
 }
 
 /* Installed as var_fadeCompleteCallback_8c22656c for a free-run drive that
@@ -1161,7 +1161,7 @@ STATIC void taskCallback_8c02c072() {
         }
     }
 
-    FadePushCall1_8c0223ea(0, DriveMsgDraw_8c02b388, 0);
+    RenderPushCall1_8c0223ea(0, DriveMsgDraw_8c02b388, 0);
 }
 
 /* Starts a drive: installs taskCallback_8c02c072 (phase 0, idle -- it goes

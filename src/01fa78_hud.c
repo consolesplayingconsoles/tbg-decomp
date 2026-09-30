@@ -4,7 +4,7 @@
 #include "01fa78_hud.h"
 #include "014a9c_tasks.h"
 #include "014f54_text.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 #include "028258_objects.h"
 #include "02b464_drive_points.h"
 #include "sectionB.h"
@@ -147,7 +147,7 @@ STATIC void drawTimeDigits_8c01fa80(int frames, float y, int spriteBase) {
  * instruction/next-stop slot, the driver-points meter, the two blinker
  * indicators, the tachometer needle, and the speed readout plus the two
  * clocks drawn by the drawSpeedAndTimers_8c01fe84 tail. Installed both as a
- * FadeCallback1 and as a TaskPush_8c014ae8 action, so it must keep this
+ * DrawCallback1 and as a TaskPush_8c014ae8 action, so it must keep this
  * exact signature. */
 STATIC void drawHud_8c01fbac(int arg0) {
     float barWidth, barWidthInner;
@@ -433,7 +433,7 @@ STATIC void hudUpdateTask_8c01ff48() {
         }
     }
 
-    FadePushCall1_8c0223ea(0, drawHud_8c01fbac, messageArg);
+    RenderPushCall1_8c0223ea(0, drawHud_8c01fbac, messageArg);
 }
 
 /* Installs hudUpdateTask_8c01ff48 as a per-frame task and clears the popup,

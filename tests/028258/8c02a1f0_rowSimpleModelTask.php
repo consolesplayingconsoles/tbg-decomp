@@ -13,7 +13,7 @@ return new class extends TestCase {
 
         $this->call('_rowSimpleModelTask_8c02a1f0')->with($task, $state);
 
-        $this->shouldCall('_FadePushCall2_8c022420')
+        $this->shouldCall('_RenderPushCall2_8c022420')
             ->with(0, $this->addressOf('_drawRowSimpleModel_8c02a1b2'), $state, 0x33000000);
     }
 };

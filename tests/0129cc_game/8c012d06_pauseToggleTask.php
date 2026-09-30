@@ -21,7 +21,7 @@ return new class extends TestCase {
 
         $this->call('_pauseToggleTask_8c012d06');
 
-        $this->shouldCall('_FadeUpdatePlain_8c022910');
+        $this->shouldCall('_RenderUpdatePlain_8c022910');
     }
 
     public function test_reset_requested_but_queues_not_idle_runs_normally()
@@ -30,7 +30,7 @@ return new class extends TestCase {
 
         $this->call('_pauseToggleTask_8c012d06');
 
-        $this->shouldCall('_FadeUpdatePlain_8c022910');
+        $this->shouldCall('_RenderUpdatePlain_8c022910');
     }
 
     public function test_start_pressed_while_unpaused_toggles_paused_and_skips_tasks()
@@ -40,7 +40,7 @@ return new class extends TestCase {
         $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 1);
-        $this->shouldCall('_FadeUpdatePlain_8c022910');
+        $this->shouldCall('_RenderUpdatePlain_8c022910');
     }
 
     public function test_start_pressed_while_paused_toggles_unpaused_and_runs_tasks()
@@ -50,9 +50,9 @@ return new class extends TestCase {
         $this->call('_pauseToggleTask_8c012d06');
 
         $this->shouldWriteTo('_var_pauseActive_8c1bb8cc', 0);
-        $this->shouldCall('_FadeResetQueues_8c02239c');
+        $this->shouldCall('_RenderResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
-        $this->shouldCall('_FadeUpdatePlain_8c022910');
+        $this->shouldCall('_RenderUpdatePlain_8c022910');
     }
 
     public function test_start_not_pressed_while_unpaused_runs_tasks()
@@ -61,9 +61,9 @@ return new class extends TestCase {
 
         $this->call('_pauseToggleTask_8c012d06');
 
-        $this->shouldCall('_FadeResetQueues_8c02239c');
+        $this->shouldCall('_RenderResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
-        $this->shouldCall('_FadeUpdatePlain_8c022910');
+        $this->shouldCall('_RenderUpdatePlain_8c022910');
     }
 
     public function test_start_not_pressed_while_paused_skips_tasks()
@@ -72,7 +72,7 @@ return new class extends TestCase {
 
         $this->call('_pauseToggleTask_8c012d06');
 
-        $this->shouldCall('_FadeUpdatePlain_8c022910');
+        $this->shouldCall('_RenderUpdatePlain_8c022910');
     }
 
     private function setup(
@@ -84,9 +84,9 @@ return new class extends TestCase {
     ): void {
         $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_TitlePushTitle_8c015fd6', 4);
-        $this->setSize('_FadeResetQueues_8c02239c', 4);
+        $this->setSize('_RenderResetQueues_8c02239c', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
-        $this->setSize('_FadeUpdatePlain_8c022910', 4);
+        $this->setSize('_RenderUpdatePlain_8c022910', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
 
         $periph = $this->alloc(0x34);

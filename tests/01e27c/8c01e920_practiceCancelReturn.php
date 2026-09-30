@@ -65,7 +65,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($menuStateBase + 0x18, 1);
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
     }
 
     private function resolveSymbols(): void
@@ -81,6 +81,6 @@ return new class extends TestCase {
         $this->setSize('_AsqNop_8c011120', 4);
         $this->setSize('_RouteLoadClearLatch_8c014322', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
-        $this->setSize('_FadePushIn_8c022a9c', 4);
+        $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
     }
 };

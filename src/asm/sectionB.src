@@ -1,8 +1,8 @@
 ; 8c22655c
-          .EXPORT     _var_fadeArrivalVariant_8c22655c ; 0129cc_game
+          .EXPORT     _var_arrivalOverlayVariant_8c22655c ; 0129cc_game
                                     ; 022464
                                     ; 02d19c
-          .EXPORT     _var_fadeArrivalGate_8c226560 ; 022464
+          .EXPORT     _var_arrivalOverlayGate_8c226560 ; 022464
                                     ; 028258
                                     ; 02d19c
           .EXPORT     _var_fadeRequest_8c226564 ; 022464
@@ -30,8 +30,8 @@
           .EXPORT     _var_fadeCompleteCallback_8c22656c ; 022464
                                     ; 02b464
                                     ; 02c884
-          .EXPORT     _var_fadeDrawCommandCount_8c226570 ; 022464
-          .EXPORT     _var_fadeDrawCommands_8c22657c ; 022464
+          .EXPORT     _var_drawCommandCount_8c226570 ; 022464
+          .EXPORT     _var_drawCommands_8c22657c ; 022464
           .EXPORT     _var_fadePhase_8c227d7c ; 022464
           .EXPORT     _var_fadeProgress_8c227d80 ; 022464
           .EXPORT     _var_lineSegments_8c227d84 ; 023310
@@ -145,9 +145,9 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_fadeArrivalVariant_8c22655c:
+_var_arrivalOverlayVariant_8c22655c:
           .RES.B      4
-_var_fadeArrivalGate_8c226560:
+_var_arrivalOverlayGate_8c226560:
           .RES.B      4
 _var_fadeRequest_8c226564:
           .RES.B      4
@@ -155,9 +155,9 @@ _var_isFading_8c226568:
           .RES.B      4
 _var_fadeCompleteCallback_8c22656c:
           .RES.B      4
-_var_fadeDrawCommandCount_8c226570:
+_var_drawCommandCount_8c226570:
           .RES.B      12
-_var_fadeDrawCommands_8c22657c:
+_var_drawCommands_8c22657c:
           .RES.B      6144
 _var_fadePhase_8c227d7c:
           .RES.B      4

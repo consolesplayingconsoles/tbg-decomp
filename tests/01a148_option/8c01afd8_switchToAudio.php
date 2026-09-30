@@ -24,7 +24,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_TaskSetAction_8c014b3e', 4);
-        $this->setSize('_FadePushIn_8c022a9c', 4);
+        $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
 
         $music = $this->addressOf('_var_musicTestDigits_8c226078');
         $sfx = $this->addressOf('_var_sfxTestDigits_8c226080');
@@ -46,6 +46,6 @@ return new class extends TestCase {
         $this->shouldWriteLong($voice + 8, 0);   // VOICE[2]
         $this->shouldWriteLong($voice + 4, 0);   // VOICE[1]
         $this->shouldWriteLong($voice + 0, 0);   // VOICE[0] (again)
-        $this->shouldCall('_FadePushIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
     }
 };

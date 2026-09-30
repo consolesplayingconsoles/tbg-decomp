@@ -674,7 +674,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
             CHANGE_STATE(COURSE_MENU_STATE_FADE_IN);
             SndStopBgm_8c010d8a();
             SndPlayAdx_8c010cd6(0, 15);
-            FadePushIn_8c022a9c(10);
+            RenderPushFadeIn_8c022a9c(10);
             return;
         }
 
@@ -735,7 +735,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
         case COURSE_MENU_STATE_COURSE_SELECTED: {
             if (++var_menuState_8c1bc7a8.timer_0x68 > 10) {
                 CHANGE_STATE(COURSE_MENU_STATE_FADE_OUT);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             }
             var_menuState_8c1bc7a8.cursorVisible_0x48 = var_menuState_8c1bc7a8.timer_0x68 & 1;
             break;
@@ -828,7 +828,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
             CHANGE_STATE(COURSE_MENU_STATE_FADE_IN);
             SndStopBgm_8c010d8a();
             SndPlayAdx_8c010cd6(0, 15);
-            FadePushIn_8c022a9c(10);
+            RenderPushFadeIn_8c022a9c(10);
             return;
         }
 
@@ -889,7 +889,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
         case COURSE_MENU_STATE_COURSE_SELECTED: {
             if (++var_menuState_8c1bc7a8.timer_0x68 > 10) {
                 CHANGE_STATE(COURSE_MENU_STATE_FADE_OUT);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             }
             var_menuState_8c1bc7a8.cursorVisible_0x48 = var_menuState_8c1bc7a8.timer_0x68 & 1;
             break;
@@ -1034,7 +1034,7 @@ void CourseMenuSwitchFromTask_8c017e18(Task *task)
     )) {
         AsqFreeQueues_8c011f7e();
         CHANGE_STATE(COURSE_MENU_STATE_FADE_IN);
-        FadePushIn_8c022a9c(10);
+        RenderPushFadeIn_8c022a9c(10);
         SndPlayAdx_8c010cd6(0, 15);
         return;
     }
@@ -1171,7 +1171,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
 
             AsqFreeQueues_8c011f7e();
             CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_FADE_IN);
-            FadePushIn_8c022a9c(10);
+            RenderPushFadeIn_8c022a9c(10);
             SndPlayAdx_8c010cd6(0, 15);
             return;
         }
@@ -1187,12 +1187,12 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
             int r = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.selected_0x38);
             if (r == 1) {
                 CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_FADE_OUT);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             } else if (r == 2) {
                 CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_FADE_OUT_TO_COURSE_MENU);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
-                FadePushOut_8c022b60(10);
+                RenderPushFadeOut_8c022b60(10);
             }
             break;
         }
@@ -1200,7 +1200,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
         case COURSE_CONFIRM_STATE_FADE_OUT: {
             if (var_isFading_8c226568 == 0) {
                 CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_ROUTE_INFO_FADE_IN);
-                FadePushIn_8c022a9c(0x14);
+                RenderPushFadeIn_8c022a9c(0x14);
             }
             break;
         }
@@ -1220,7 +1220,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_START_LOADING);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
-                FadePushOut_8c022b60(20);
+                RenderPushFadeOut_8c022b60(20);
             }
             drawRouteInfo_8c018118();
             return;

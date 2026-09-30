@@ -17,8 +17,8 @@
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _njCalcVector
           .IMPORT     _var_mirrorCamera_8c1bb944
-          .IMPORT     _FadePushCall2_8c022420
-          .IMPORT     _FadePushCall1_8c0223ea
+          .IMPORT     _RenderPushCall2_8c022420
+          .IMPORT     _RenderPushCall1_8c0223ea
           .IMPORT     _TileStreamDrawTile_8c021b34
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskPush_8c014ae8
@@ -946,10 +946,10 @@ LP_GEN_78610:
           .DATA.L _var_mirrorSimpleLightDir_8c2264e4 ; H'8C0222C0
           .DATA.L _var_tileLayerIndexes_8c22650c ; H'8C0222C4
           .DATA.L _drawTileGrid_8c021b9c ; H'8C0222C8
-          .DATA.L _FadePushCall2_8c022420 ; H'8C0222CC
+          .DATA.L _RenderPushCall2_8c022420 ; H'8C0222CC
           .DATA.L _drawTileGridMirror_8c021ec4 ; H'8C0222D0
           .DATA.L _TileStreamDrawTile_8c021b34 ; H'8C0222D4
-          .DATA.L _FadePushCall1_8c0223ea ; H'8C0222D8
+          .DATA.L _RenderPushCall1_8c0223ea ; H'8C0222D8
 ; TU boundary moved: the delinker split 0222dc_fadecmd off here; the real
 ; boundary is 02239c. This is the only pusher of enqueueTask_8c0221d0.
 _TileDrawPushTask_8c0222dc:

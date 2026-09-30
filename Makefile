@@ -83,7 +83,7 @@ SRCS = \
 	src/020b6c_ground_probe.c \
 	src/02171c_tile_stream.c \
 	src/021b9c_tile_draw.c \
-	src/022464_fade.c \
+	src/022464_render.c \
 	src/022bdc_bus.c \
 	src/023310_bus_init.c \
 	src/023938_bus_drive.c \

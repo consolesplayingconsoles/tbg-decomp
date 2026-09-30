@@ -8,7 +8,7 @@
 #include "1ba1c8_globals.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
-#include "022464_fade.h"
+#include "022464_render.h"
 #include "024b4c_bus_render.h"
 #include "028258_objects.h"
 #include "025870_demo.h"
@@ -338,7 +338,7 @@ STATIC void demoShotTask_8c0259e8(Task *task, DemoShotState *state)
         ObjectsMenuTextboxText_8c02af1c(state->revealCount_0x04 >> CAPTION_FRAMES_PER_GLYPH_SHIFT);
     }
 
-    FadePushCall1_8c0223ea(0, (FadeCallback1)BusRenderDrawBusModel_8c024bb8, 0);
+    RenderPushCall1_8c0223ea(0, (DrawCallback1)BusRenderDrawBusModel_8c024bb8, 0);
 }
 
 /* See 025870_demo.h. */

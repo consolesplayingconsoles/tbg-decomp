@@ -6,8 +6,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_fadeDrawCommandCount_8c226570', 12);
-        $this->setSize('_var_fadeDrawCommands_8c22657c', 6144);
+        $this->setSize('_var_drawCommandCount_8c226570', 12);
+        $this->setSize('_var_drawCommands_8c22657c', 6144);
         $this->setSize('_njSetCamera', 4);
         $this->setSize('_njCnkModDrawObject', 4);
         $this->setSize('_njMultiMatrix', 4);
@@ -29,7 +29,7 @@ return new class extends TestCase {
     public function test_draws_layer_2_entries_in_order(): void {
         $this->resolveSymbols();
 
-        $countBase = $this->addressOf('_var_fadeDrawCommandCount_8c226570');
+        $countBase = $this->addressOf('_var_drawCommandCount_8c226570');
         $this->initUint32($countBase + 0, 0);
         $this->initUint32($countBase + 4, 0);
         $this->initUint32($countBase + 8, 2);
@@ -37,13 +37,13 @@ return new class extends TestCase {
         $camera = $this->addressOf('_var_drawCamera_8c226558');
         $this->initUint32($camera, 0x11111111);
 
-        $queueBase = $this->addressOf('_var_fadeDrawCommands_8c22657c') + 2 * 0x800;
+        $queueBase = $this->addressOf('_var_drawCommands_8c22657c') + 2 * 0x800;
         $object0 = $this->alloc(4);
         $object1 = $this->alloc(4);
         $this->seedEntry($queueBase, 0, 0, 0, 0, $object0);
         $this->seedEntry($queueBase, 1, 4, 0, 0, $object1);
 
-        $this->call('_fadeDraw_8c022464')->with(2);
+        $this->call('_drawLayer_8c022464')->with(2);
 
         $this->shouldCall('_njSetCamera')->with(0x11111111);
         $this->shouldCall('_njMultiMatrix')->with(0, 0);
@@ -57,14 +57,14 @@ return new class extends TestCase {
     public function test_draws_nothing_for_an_empty_layer(): void {
         $this->resolveSymbols();
 
-        $countBase = $this->addressOf('_var_fadeDrawCommandCount_8c226570');
+        $countBase = $this->addressOf('_var_drawCommandCount_8c226570');
         $this->initUint32($countBase + 0, 0);
         $this->initUint32($countBase + 4, 0);
         $this->initUint32($countBase + 8, 0);
 
         $this->addressOf('_var_drawCamera_8c226558');
-        $this->addressOf('_var_fadeDrawCommands_8c22657c');
+        $this->addressOf('_var_drawCommands_8c22657c');
 
-        $this->call('_fadeDraw_8c022464')->with(2);
+        $this->call('_drawLayer_8c022464')->with(2);
     }
 };
