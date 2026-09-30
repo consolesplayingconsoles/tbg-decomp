@@ -1,20 +1,11 @@
 ; 8c021b9c
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     __divls
-          .IMPORT     _var_tileDrawRadius_8c226508
-          .IMPORT     _var_tileDrawSpan_8c226504
           .IMPORT     _njControl3D
-          .IMPORT     _var_tileLayerSlots_8c226520
-          .IMPORT     _var_easyLightIntensity_8c226544
-          .IMPORT     _var_easyLightColor_8c22654c
-          .IMPORT     _var_simpleLightIntensity_8c2264f0
-          .IMPORT     _var_simpleLightColor_8c2264f8
           .IMPORT     _njCnkSetEasyLight
-          .IMPORT     _var_simpleLightDir_8c2264d8
           .IMPORT     _var_drawCamera_8c226558
           .IMPORT     _njSetTexture
           .IMPORT     _njSetCamera
-          .IMPORT     _var_easyLightDir_8c226538
           .IMPORT     _njCnkSetEasyLightIntensity
           .IMPORT     _njCnkSetEasyLightColor
           .IMPORT     _njCnkEasyDrawObject
@@ -22,12 +13,10 @@
           .IMPORT     _njCnkSetSimpleLightIntensity
           .IMPORT     _njCnkSetSimpleLightColor
           .IMPORT     _njCnkSimpleDrawObject
-          .IMPORT     _var_mirrorSimpleLightDir_8c2264e4
           .IMPORT     _var_camera_8c1bb904
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _njCalcVector
           .IMPORT     _var_mirrorCamera_8c1bb944
-          .IMPORT     _var_tileLayerIndexes_8c22650c
           .IMPORT     _FadePushCall2_8c022420
           .IMPORT     _FadePushCall1_8c0223ea
           .IMPORT     _TileStreamDrawTile_8c021b34
@@ -35,11 +24,27 @@
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _var_segmentModels_8c1bc3f0
           .EXPORT     _TileDrawPushTask_8c0222dc
+          .EXPORT     _var_simpleLightDir_8c2264d8 ; 028258_objects
+                                                   ; 02d06c_stop_draw
+          .EXPORT     _var_mirrorSimpleLightDir_8c2264e4 ; 028258_objects
+          .EXPORT     _var_simpleLightIntensity_8c2264f0 ; 028258_objects
+                                                         ; 02d06c_stop_draw
+          .EXPORT     _var_simpleLightColor_8c2264f8 ; 028258_objects
+                                                     ; 02d06c_stop_draw
+          .EXPORT     _var_tileDrawSpan_8c226504 ; 013ae8_route_load
+          .EXPORT     _var_tileDrawRadius_8c226508 ; 013ae8_route_load
+          .EXPORT     _var_tileLayerIndexes_8c22650c ; 02171c_tile_stream
+          .EXPORT     _var_tileLayerSlots_8c226520 ; 02171c_tile_stream
+          .EXPORT     _var_currentTileRegionList_8c226534 ; 013ae8_route_load
+                                                          ; 02171c_tile_stream
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawTileGrid_8c021b9c
           .EXPORT     _drawTileGridMirror_8c021ec4
           .EXPORT     _enqueueTask_8c0221d0
+          .EXPORT     _var_easyLightDir_8c226538
+          .EXPORT     _var_easyLightIntensity_8c226544
+          .EXPORT     _var_easyLightColor_8c22654c
           .AENDI
           .SECTION     P, CODE, ALIGN=4
 _drawTileGrid_8c021b9c:
@@ -1036,4 +1041,29 @@ LP_GEN_22999:
           .DATA.L _var_easyLightColor_8c22654c ; H'8C022390
           .DATA.L _var_simpleLightIntensity_8c2264f0 ; H'8C022394
           .DATA.L _var_simpleLightColor_8c2264f8 ; H'8C022398
+          .SECTION    B,DATA,ALIGN=4
+_var_simpleLightDir_8c2264d8:
+          .RES.B      12
+_var_mirrorSimpleLightDir_8c2264e4:
+          .RES.B      12
+_var_simpleLightIntensity_8c2264f0:
+          .RES.B      8
+_var_simpleLightColor_8c2264f8:
+          .RES.B      12
+_var_tileDrawSpan_8c226504:
+          .RES.B      4
+_var_tileDrawRadius_8c226508:
+          .RES.B      4
+_var_tileLayerIndexes_8c22650c:
+          .RES.B      20
+_var_tileLayerSlots_8c226520:
+          .RES.B      20
+_var_currentTileRegionList_8c226534:
+          .RES.B      4
+_var_easyLightDir_8c226538:
+          .RES.B      12
+_var_easyLightIntensity_8c226544:
+          .RES.B      8
+_var_easyLightColor_8c22654c:
+          .RES.B      12
           .END

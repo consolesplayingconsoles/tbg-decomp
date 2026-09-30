@@ -1,12 +1,11 @@
-/* 8c2264d8: undecompiled data section */
-#ifndef _2264D8_SECTIONB_H
-#define _2264D8_SECTIONB_H
+/* 8c226558: undecompiled data section */
+#ifndef _226558_SECTIONB_H
+#define _226558_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
-#include "02171c_tile_stream.h" /* TileIndex, TileRect */
 #include "022464_fade.h" /* FadePhase, FadeRequest, FadeDrawCommand */
 #include "028258_objects.h" /* TrafficSignal */
 #include "023938_bus_drive.h" /* LineBusSegment, LineBusNode */
@@ -21,18 +20,6 @@
  * =================
  */
 
-extern float var_simpleLightDir_8c2264d8[3]; // 021b9c_tile_draw: njCnkSetSimpleLight direction, main camera
-extern float var_mirrorSimpleLightDir_8c2264e4[3]; // 021b9c_tile_draw: njCnkSetSimpleLight direction, mirror camera
-/* 021b9c_tile_draw: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Every access is
- * a bare single-word pool load, so the archive says nothing about whether the
- * five floats are one array or two; split here because the intensity pair and
- * the colour triple go to different SDK calls. */
-extern float var_simpleLightIntensity_8c2264f0[2]; // [0..1]
-extern float var_simpleLightColor_8c2264f8[3]; // [2..4]
-extern float var_easyLightDir_8c226538[3]; // 021b9c_tile_draw: njCnkSetEasyLight direction, main camera
-/* 021b9c_tile_draw: same deal, for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
-extern float var_easyLightIntensity_8c226544[2]; // [0..1]
-extern float var_easyLightColor_8c22654c[3]; // [2..4]
 extern NJS_CAMERA* var_drawCamera_8c226558; // 022464: camera for the layer being drawn; FadeUpdate_8c022560 picks main/mirror/cabin
 extern int var_fadeArrivalVariant_8c22655c; // 022464: bus-stop-arrival overlay layout (0-2) drawn by FadeUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in FadeUpdate_8c022560 handles 0-2)
 extern int var_fadeArrivalGate_8c226560; // 022464: gates FadeUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
@@ -214,16 +201,6 @@ extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
  * chosen by EventPickForSegment_8c02b170, consumed by
  * EventApplyFlags_8c02b292 */
 extern int var_selectedEventEntry_8c228478;
-/* Copied from var_currentCourse_8c1bb868.tileLayers_0x3c by
- * TileStreamInit_8c02175a; only the dims are read, the offset tables come
- * from var_datFiles_8c18adb4. */
-extern TileIndex *var_tileLayerIndexes_8c22650c[5];
-
-/* Per-layer tile grids, width * height slots each; layers 0-3 hold
- * texture+model pairs, layer 4 model only. [0] is -1 while unallocated. */
-extern LoadedModel *var_tileLayerSlots_8c226520[5];
-
-extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
 extern int var_activeTrafficPreset_8c227e14;
 /* Traffic preset table: indexed by var_busState_8c1bb9d0.scenePresetIds_0x3bc's byte at
  * bits 8-15, yielding that preset's record run in the course's *_MAC_CPU1.DAT;
@@ -233,9 +210,7 @@ extern Sint32 *var_trafficPresetTable_8c227e18;
  * indexes it by a script argument to resolve a traffic entry's path. */
 extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
-extern int var_tileDrawSpan_8c226504;
-extern int var_tileDrawRadius_8c226508;
 extern float var_farClipDepth_8c227dd0;
 extern Bool var_isFading_8c226568;
 
-#endif // _2264D8_SECTIONB_H
+#endif // _226558_SECTIONB_H

@@ -11,10 +11,6 @@ return new class extends TestCase {
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_var_segmentModels_8c1bc3f0', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
-        $this->setSize('_var_easyLightIntensity_8c226544', 8);
-        $this->setSize('_var_easyLightColor_8c22654c', 12);
-        $this->setSize('_var_simpleLightIntensity_8c2264f0', 8);
-        $this->setSize('_var_simpleLightColor_8c2264f8', 12);
     }
 
     private function toRaw(float $v): int {

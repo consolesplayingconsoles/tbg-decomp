@@ -7,6 +7,7 @@
 #include "014a9c_tasks.h"
 #include "014f54_text.h"
 #include "02171c_tile_stream.h"
+#include "021b9c_tile_draw.h"
 #include "026710_traffic.h"
 #include "028258_objects.h"
 #include "02af78_event.h"

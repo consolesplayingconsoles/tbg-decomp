@@ -21,12 +21,8 @@ return new class extends TestCase {
         $this->setSize('_njSetCamera', 4);
         $this->setSize('_var_camera_8c1bb904', 0x40);
         $this->setSize('_var_mirrorCamera_8c1bb944', 0x40);
-        $this->setSize('_var_easyLightDir_8c226538', 4 * 3);
-        $this->setSize('_var_simpleLightDir_8c2264d8', 4 * 3);
-        $this->setSize('_var_mirrorSimpleLightDir_8c2264e4', 4 * 3);
         $this->setSize('_njCalcVector', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
-        $this->setSize('_var_tileLayerIndexes_8c22650c', 4 * 5);
         $this->setSize('_FadePushCall2_8c022420', 4);
         $this->setSize('_FadePushCall1_8c0223ea', 4);
         $this->setSize('_TileStreamDrawTile_8c021b34', 4);

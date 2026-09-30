@@ -1,28 +1,4 @@
-; 8c2264d8
-          .EXPORT     _var_simpleLightDir_8c2264d8 ; 021b9c_tile_draw
-                                    ; 028258
-                                    ; 02d06c
-          .EXPORT     _var_mirrorSimpleLightDir_8c2264e4 ; 021b9c_tile_draw
-                                    ; 028258
-          .EXPORT     _var_simpleLightIntensity_8c2264f0 ; 021b9c_tile_draw
-                                    ; 028258
-                                    ; 02d06c
-          .EXPORT     _var_simpleLightColor_8c2264f8 ; 021b9c_tile_draw
-                                    ; 028258
-                                    ; 02d06c
-          .EXPORT     _var_tileDrawSpan_8c226504 ; 013ae8_route_load
-                                             ; 021b9c_tile_draw
-          .EXPORT     _var_tileDrawRadius_8c226508 ; 013ae8_route_load
-                                             ; 021b9c_tile_draw
-          .EXPORT     _var_tileLayerIndexes_8c22650c ; 02171c
-                                    ; 021b9c_tile_draw
-          .EXPORT     _var_tileLayerSlots_8c226520 ; 02171c
-                                    ; 021b9c_tile_draw
-          .EXPORT     _var_currentTileRegionList_8c226534 ; 013ae8_route_load
-                                                          ; 02171c
-          .EXPORT     _var_easyLightDir_8c226538 ; 021b9c_tile_draw
-          .EXPORT     _var_easyLightIntensity_8c226544 ; 021b9c_tile_draw
-          .EXPORT     _var_easyLightColor_8c22654c ; 021b9c_tile_draw
+; 8c226558
           .EXPORT     _var_drawCamera_8c226558 ; 021b9c_tile_draw
                                     ; 022464
                                     ; 028258
@@ -172,30 +148,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_simpleLightDir_8c2264d8:
-          .RES.B      12
-_var_mirrorSimpleLightDir_8c2264e4:
-          .RES.B      12
-_var_simpleLightIntensity_8c2264f0:
-          .RES.B      8
-_var_simpleLightColor_8c2264f8:
-          .RES.B      12
-_var_tileDrawSpan_8c226504:
-          .RES.B      4
-_var_tileDrawRadius_8c226508:
-          .RES.B      4
-_var_tileLayerIndexes_8c22650c:
-          .RES.B      20
-_var_tileLayerSlots_8c226520:
-          .RES.B      20
-_var_currentTileRegionList_8c226534:
-          .RES.B      4
-_var_easyLightDir_8c226538:
-          .RES.B      12
-_var_easyLightIntensity_8c226544:
-          .RES.B      8
-_var_easyLightColor_8c22654c:
-          .RES.B      12
 _var_drawCamera_8c226558:
           .RES.B      4
 _var_fadeArrivalVariant_8c22655c:

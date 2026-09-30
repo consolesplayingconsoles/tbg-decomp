@@ -17,20 +17,11 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_tileDrawRadius_8c226508', 4);
-        $this->setSize('_var_tileDrawSpan_8c226504', 4);
         $this->setSize('_njControl3D', 4);
-        $this->setSize('_var_tileLayerSlots_8c226520', 4 * 5);
-        $this->setSize('_var_easyLightIntensity_8c226544', 4 * 2);
-        $this->setSize('_var_easyLightColor_8c22654c', 4 * 3);
         $this->setSize('_njCnkSetEasyLight', 4);
-        $this->setSize('_var_mirrorSimpleLightDir_8c2264e4', 4 * 3);
-        $this->setSize('_var_simpleLightIntensity_8c2264f0', 4 * 2);
-        $this->setSize('_var_simpleLightColor_8c2264f8', 4 * 3);
         $this->setSize('_var_drawCamera_8c226558', 4);
         $this->setSize('_njSetTexture', 4);
         $this->setSize('_njSetCamera', 4);
-        $this->setSize('_var_easyLightDir_8c226538', 4 * 3);
         $this->setSize('_njCnkSetEasyLightIntensity', 4);
         $this->setSize('_njCnkSetEasyLightColor', 4);
         $this->setSize('_njCnkEasyDrawObject', 4);

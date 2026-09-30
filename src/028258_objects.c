@@ -10,6 +10,7 @@
 #include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
+#include "021b9c_tile_draw.h"
 #include "022464_fade.h" /* FadeRequest, var_fadeRequest_8c226564, var_fadeArrivalGate_8c226560 */
 #include "027958_bus_draw.h" /* BusDrawSignal_8c0281ac */
 #include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */

@@ -13,6 +13,26 @@
 #include "022464_fade.h"         /* FadePushCall1/2 */
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+float var_simpleLightDir_8c2264d8[3];
+float var_mirrorSimpleLightDir_8c2264e4[3];
+float var_simpleLightIntensity_8c2264f0[2];
+float var_simpleLightColor_8c2264f8[3];
+int var_tileDrawSpan_8c226504;
+int var_tileDrawRadius_8c226508;
+TileIndex *var_tileLayerIndexes_8c22650c[5];
+LoadedModel *var_tileLayerSlots_8c226520[5];
+TileRect *var_currentTileRegionList_8c226534;
+STATIC float var_easyLightDir_8c226538[3]; // njCnkSetEasyLight direction, main camera
+/* Same split as var_simpleLightIntensity_8c2264f0/var_simpleLightColor_8c2264f8,
+ * for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
+STATIC float var_easyLightIntensity_8c226544[2]; // [0..1]
+STATIC float var_easyLightColor_8c22654c[3]; // [2..4]
+
+/* ====================
  * Forward Declarations
  * ====================
  */
