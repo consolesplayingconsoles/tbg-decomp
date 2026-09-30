@@ -38,8 +38,8 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
     int row, col, flatIndex, rowBase;
     LoadedModel *slot;
 
-    colStart = (int)var_busState_8c1bb9d0.posX_0x2fc / 150 - var_fogParam_8c226508;
-    colEnd = colStart + var_fogParam_8c226504;
+    colStart = (int)var_busState_8c1bb9d0.posX_0x2fc / 150 - var_tileDrawRadius_8c226508;
+    colEnd = colStart + var_tileDrawSpan_8c226504;
     if (colStart < 0) {
         colStart = 0;
     }
@@ -47,8 +47,8 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
         colEnd = width - 1;
     }
 
-    rowStart = (int)var_busState_8c1bb9d0.posZ_0x304 / 150 - var_fogParam_8c226508;
-    rowEnd = rowStart + var_fogParam_8c226504;
+    rowStart = (int)var_busState_8c1bb9d0.posZ_0x304 / 150 - var_tileDrawRadius_8c226508;
+    rowEnd = rowStart + var_tileDrawSpan_8c226504;
     if (rowStart < 0) {
         rowStart = 0;
     }
@@ -65,40 +65,40 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
 
             slot = &var_tileLayerSlots_8c226520[0][flatIndex];
             if (slot->texlist != NULL) {
-                njSetCamera(var_fadeCamera_8c226558);
-                njCnkSetEasyLight(var_fadeEasyLightDir_8c226538[0], var_fadeEasyLightDir_8c226538[1], var_fadeEasyLightDir_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
-                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
+                njSetCamera(var_drawCamera_8c226558);
+                njCnkSetEasyLight(var_easyLightDir_8c226538[0], var_easyLightDir_8c226538[1], var_easyLightDir_8c226538[2]);
+                njCnkSetEasyLightIntensity(var_easyLightIntensity_8c226544[0], var_easyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_easyLightColor_8c22654c[0], var_easyLightColor_8c22654c[1], var_easyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
 
             slot = &var_tileLayerSlots_8c226520[1][flatIndex];
             if (slot->texlist != NULL) {
-                njSetCamera(var_fadeCamera_8c226558);
-                njCnkSetSimpleLight(var_fadeLightDir0_8c2264d8[0], var_fadeLightDir0_8c2264d8[1], var_fadeLightDir0_8c2264d8[2]);
-                njCnkSetSimpleLightIntensity(var_fadeLightIntensity_8c2264f0[0], var_fadeLightIntensity_8c2264f0[1]);
-                njCnkSetSimpleLightColor(var_fadeLightColor_8c2264f8[0], var_fadeLightColor_8c2264f8[1], var_fadeLightColor_8c2264f8[2]);
+                njSetCamera(var_drawCamera_8c226558);
+                njCnkSetSimpleLight(var_simpleLightDir_8c2264d8[0], var_simpleLightDir_8c2264d8[1], var_simpleLightDir_8c2264d8[2]);
+                njCnkSetSimpleLightIntensity(var_simpleLightIntensity_8c2264f0[0], var_simpleLightIntensity_8c2264f0[1]);
+                njCnkSetSimpleLightColor(var_simpleLightColor_8c2264f8[0], var_simpleLightColor_8c2264f8[1], var_simpleLightColor_8c2264f8[2]);
                 njSetTexture(slot->texlist);
                 njCnkSimpleDrawObject(slot->njDest);
             }
 
             slot = &var_tileLayerSlots_8c226520[2][flatIndex];
             if (slot->texlist != NULL) {
-                njSetCamera(var_fadeCamera_8c226558);
-                njCnkSetEasyLight(var_fadeEasyLightDir_8c226538[0], var_fadeEasyLightDir_8c226538[1], var_fadeEasyLightDir_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
-                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
+                njSetCamera(var_drawCamera_8c226558);
+                njCnkSetEasyLight(var_easyLightDir_8c226538[0], var_easyLightDir_8c226538[1], var_easyLightDir_8c226538[2]);
+                njCnkSetEasyLightIntensity(var_easyLightIntensity_8c226544[0], var_easyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_easyLightColor_8c22654c[0], var_easyLightColor_8c22654c[1], var_easyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
 
             slot = &var_tileLayerSlots_8c226520[3][flatIndex];
             if (slot->texlist != NULL) {
-                njSetCamera(var_fadeCamera_8c226558);
-                njCnkSetEasyLight(var_fadeEasyLightDir_8c226538[0], var_fadeEasyLightDir_8c226538[1], var_fadeEasyLightDir_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
-                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
+                njSetCamera(var_drawCamera_8c226558);
+                njCnkSetEasyLight(var_easyLightDir_8c226538[0], var_easyLightDir_8c226538[1], var_easyLightDir_8c226538[2]);
+                njCnkSetEasyLightIntensity(var_easyLightIntensity_8c226544[0], var_easyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_easyLightColor_8c22654c[0], var_easyLightColor_8c22654c[1], var_easyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
@@ -110,7 +110,7 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
 }
 
 /* Same as drawTileGrid_8c021b9c, but for fade-command layer 1 (the mirror render):
- * light direction/setup differs (var_fadeLightDir1_8c2264e4 and camera
+ * light direction/setup differs (var_mirrorSimpleLightDir_8c2264e4 and camera
  * var_mirrorCamera_8c1bb944, set up by TileDrawEnqueueTask_8c0221d0), everything else -- including the
  * per-layer Easy/Simple split -- is identical. Reachable only via the
  * function-pointer literal TileDrawEnqueueTask_8c0221d0 pushes to FadeCmdPushCall2_8c022420,
@@ -121,8 +121,8 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
     int row, col, flatIndex, rowBase;
     LoadedModel *slot;
 
-    colStart = (int)var_busState_8c1bb9d0.posX_0x2fc / 150 - var_fogParam_8c226508;
-    colEnd = colStart + var_fogParam_8c226504;
+    colStart = (int)var_busState_8c1bb9d0.posX_0x2fc / 150 - var_tileDrawRadius_8c226508;
+    colEnd = colStart + var_tileDrawSpan_8c226504;
     if (colStart < 0) {
         colStart = 0;
     }
@@ -130,8 +130,8 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
         colEnd = width - 1;
     }
 
-    rowStart = (int)var_busState_8c1bb9d0.posZ_0x304 / 150 - var_fogParam_8c226508;
-    rowEnd = rowStart + var_fogParam_8c226504;
+    rowStart = (int)var_busState_8c1bb9d0.posZ_0x304 / 150 - var_tileDrawRadius_8c226508;
+    rowEnd = rowStart + var_tileDrawSpan_8c226504;
     if (rowStart < 0) {
         rowStart = 0;
     }
@@ -148,40 +148,40 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
 
             slot = &var_tileLayerSlots_8c226520[0][flatIndex];
             if (slot->texlist != NULL) {
-                njSetCamera(var_fadeCamera_8c226558);
-                njCnkSetEasyLight(var_fadeEasyLightDir_8c226538[0], var_fadeEasyLightDir_8c226538[1], var_fadeEasyLightDir_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
-                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
+                njSetCamera(var_drawCamera_8c226558);
+                njCnkSetEasyLight(var_easyLightDir_8c226538[0], var_easyLightDir_8c226538[1], var_easyLightDir_8c226538[2]);
+                njCnkSetEasyLightIntensity(var_easyLightIntensity_8c226544[0], var_easyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_easyLightColor_8c22654c[0], var_easyLightColor_8c22654c[1], var_easyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
 
             slot = &var_tileLayerSlots_8c226520[1][flatIndex];
             if (slot->texlist != NULL) {
-                njSetCamera(var_fadeCamera_8c226558);
-                njCnkSetSimpleLight(var_fadeLightDir1_8c2264e4[0], var_fadeLightDir1_8c2264e4[1], var_fadeLightDir1_8c2264e4[2]);
-                njCnkSetSimpleLightIntensity(var_fadeLightIntensity_8c2264f0[0], var_fadeLightIntensity_8c2264f0[1]);
-                njCnkSetSimpleLightColor(var_fadeLightColor_8c2264f8[0], var_fadeLightColor_8c2264f8[1], var_fadeLightColor_8c2264f8[2]);
+                njSetCamera(var_drawCamera_8c226558);
+                njCnkSetSimpleLight(var_mirrorSimpleLightDir_8c2264e4[0], var_mirrorSimpleLightDir_8c2264e4[1], var_mirrorSimpleLightDir_8c2264e4[2]);
+                njCnkSetSimpleLightIntensity(var_simpleLightIntensity_8c2264f0[0], var_simpleLightIntensity_8c2264f0[1]);
+                njCnkSetSimpleLightColor(var_simpleLightColor_8c2264f8[0], var_simpleLightColor_8c2264f8[1], var_simpleLightColor_8c2264f8[2]);
                 njSetTexture(slot->texlist);
                 njCnkSimpleDrawObject(slot->njDest);
             }
 
             slot = &var_tileLayerSlots_8c226520[2][flatIndex];
             if (slot->texlist != NULL) {
-                njSetCamera(var_fadeCamera_8c226558);
-                njCnkSetEasyLight(var_fadeEasyLightDir_8c226538[0], var_fadeEasyLightDir_8c226538[1], var_fadeEasyLightDir_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
-                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
+                njSetCamera(var_drawCamera_8c226558);
+                njCnkSetEasyLight(var_easyLightDir_8c226538[0], var_easyLightDir_8c226538[1], var_easyLightDir_8c226538[2]);
+                njCnkSetEasyLightIntensity(var_easyLightIntensity_8c226544[0], var_easyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_easyLightColor_8c22654c[0], var_easyLightColor_8c22654c[1], var_easyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
 
             slot = &var_tileLayerSlots_8c226520[3][flatIndex];
             if (slot->texlist != NULL) {
-                njSetCamera(var_fadeCamera_8c226558);
-                njCnkSetEasyLight(var_fadeEasyLightDir_8c226538[0], var_fadeEasyLightDir_8c226538[1], var_fadeEasyLightDir_8c226538[2]);
-                njCnkSetEasyLightIntensity(var_fadeEasyLightIntensity_8c226544[0], var_fadeEasyLightIntensity_8c226544[1]);
-                njCnkSetEasyLightColor(var_fadeEasyLightColor_8c22654c[0], var_fadeEasyLightColor_8c22654c[1], var_fadeEasyLightColor_8c22654c[2]);
+                njSetCamera(var_drawCamera_8c226558);
+                njCnkSetEasyLight(var_easyLightDir_8c226538[0], var_easyLightDir_8c226538[1], var_easyLightDir_8c226538[2]);
+                njCnkSetEasyLightIntensity(var_easyLightIntensity_8c226544[0], var_easyLightIntensity_8c226544[1]);
+                njCnkSetEasyLightColor(var_easyLightColor_8c22654c[0], var_easyLightColor_8c22654c[1], var_easyLightColor_8c22654c[2]);
                 njSetTexture(slot->texlist);
                 njCnkEasyDrawObject(slot->njDest);
             }
@@ -193,7 +193,7 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
 }
 
 /* The TaskAction FadeCmdPushTileDrawTask_8c0222dc installs: computes the
- * three fade light directions (broadcasting one scalar CourseSceneParams
+ * three light directions (broadcasting one scalar CourseSceneParams
  * component into a vector, then transforming it by whichever camera is
  * current -- as coded, not obviously intentional but preserved), then
  * queues drawTileGrid_8c021b9c/drawTileGridMirror_8c021ec4 as this frame's tile-grid draw calls for
@@ -203,22 +203,22 @@ void TileDrawEnqueueTask_8c0221d0(Task *task, void *state)
 {
     njSetCamera(&var_camera_8c1bb904);
 
-    var_fadeEasyLightDir_8c226538[0] = var_sceneParams_8c18ad24->dir1_0x48[0];
-    var_fadeEasyLightDir_8c226538[1] = var_sceneParams_8c18ad24->dir1_0x48[0];
-    var_fadeEasyLightDir_8c226538[2] = var_sceneParams_8c18ad24->dir1_0x48[0];
-    njCalcVector(NULL, (NJS_VECTOR *)var_fadeEasyLightDir_8c226538, (NJS_VECTOR *)var_fadeEasyLightDir_8c226538);
+    var_easyLightDir_8c226538[0] = var_sceneParams_8c18ad24->dir1_0x48[0];
+    var_easyLightDir_8c226538[1] = var_sceneParams_8c18ad24->dir1_0x48[0];
+    var_easyLightDir_8c226538[2] = var_sceneParams_8c18ad24->dir1_0x48[0];
+    njCalcVector(NULL, (NJS_VECTOR *)var_easyLightDir_8c226538, (NJS_VECTOR *)var_easyLightDir_8c226538);
 
-    var_fadeLightDir0_8c2264d8[0] = var_sceneParams_8c18ad24->dir2_0x68[0];
-    var_fadeLightDir0_8c2264d8[1] = var_sceneParams_8c18ad24->dir2_0x68[0];
-    var_fadeLightDir0_8c2264d8[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
-    njCalcVector(NULL, (NJS_VECTOR *)var_fadeLightDir0_8c2264d8, (NJS_VECTOR *)var_fadeLightDir0_8c2264d8);
+    var_simpleLightDir_8c2264d8[0] = var_sceneParams_8c18ad24->dir2_0x68[0];
+    var_simpleLightDir_8c2264d8[1] = var_sceneParams_8c18ad24->dir2_0x68[0];
+    var_simpleLightDir_8c2264d8[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
+    njCalcVector(NULL, (NJS_VECTOR *)var_simpleLightDir_8c2264d8, (NJS_VECTOR *)var_simpleLightDir_8c2264d8);
 
     njSetCamera(&var_mirrorCamera_8c1bb944);
 
-    var_fadeLightDir1_8c2264e4[0] = var_sceneParams_8c18ad24->dir2_0x68[0];
-    var_fadeLightDir1_8c2264e4[1] = var_sceneParams_8c18ad24->dir2_0x68[0];
-    var_fadeLightDir1_8c2264e4[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
-    njCalcVector(NULL, (NJS_VECTOR *)var_fadeLightDir1_8c2264e4, (NJS_VECTOR *)var_fadeLightDir1_8c2264e4);
+    var_mirrorSimpleLightDir_8c2264e4[0] = var_sceneParams_8c18ad24->dir2_0x68[0];
+    var_mirrorSimpleLightDir_8c2264e4[1] = var_sceneParams_8c18ad24->dir2_0x68[0];
+    var_mirrorSimpleLightDir_8c2264e4[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
+    njCalcVector(NULL, (NJS_VECTOR *)var_mirrorSimpleLightDir_8c2264e4, (NJS_VECTOR *)var_mirrorSimpleLightDir_8c2264e4);
 
     FadeCmdPushCall2_8c022420(0, drawTileGrid_8c021b9c, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
     FadeCmdPushCall2_8c022420(1, drawTileGridMirror_8c021ec4, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);

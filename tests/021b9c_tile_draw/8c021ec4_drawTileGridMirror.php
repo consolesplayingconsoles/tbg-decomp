@@ -11,26 +11,26 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
  * TileDrawEnqueueTask_8c0221d0 pushes to FadeCmdPushCall2_8c022420(1, ...), never called
  * directly, so it stays private (exported under UNIT_TESTING only). Same
  * visible-window/Easy-Simple-Easy-Easy structure; its Simple-light block
- * reads var_fadeLightDir1_8c2264e4 instead of var_fadeLightDir0_8c2264d8.
+ * reads var_mirrorSimpleLightDir_8c2264e4 instead of var_simpleLightDir_8c2264d8.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_fogParam_8c226508', 4);
-        $this->setSize('_var_fogParam_8c226504', 4);
+        $this->setSize('_var_tileDrawRadius_8c226508', 4);
+        $this->setSize('_var_tileDrawSpan_8c226504', 4);
         $this->setSize('_njControl3D', 4);
         $this->setSize('_var_tileLayerSlots_8c226520', 4 * 5);
-        $this->setSize('_var_fadeEasyLightIntensity_8c226544', 4 * 2);
-        $this->setSize('_var_fadeEasyLightColor_8c22654c', 4 * 3);
+        $this->setSize('_var_easyLightIntensity_8c226544', 4 * 2);
+        $this->setSize('_var_easyLightColor_8c22654c', 4 * 3);
         $this->setSize('_njCnkSetEasyLight', 4);
-        $this->setSize('_var_fadeLightDir1_8c2264e4', 4 * 3);
-        $this->setSize('_var_fadeLightIntensity_8c2264f0', 4 * 2);
-        $this->setSize('_var_fadeLightColor_8c2264f8', 4 * 3);
-        $this->setSize('_var_fadeCamera_8c226558', 4);
+        $this->setSize('_var_mirrorSimpleLightDir_8c2264e4', 4 * 3);
+        $this->setSize('_var_simpleLightIntensity_8c2264f0', 4 * 2);
+        $this->setSize('_var_simpleLightColor_8c2264f8', 4 * 3);
+        $this->setSize('_var_drawCamera_8c226558', 4);
         $this->setSize('_njSetTexture', 4);
         $this->setSize('_njSetCamera', 4);
-        $this->setSize('_var_fadeEasyLightDir_8c226538', 4 * 3);
+        $this->setSize('_var_easyLightDir_8c226538', 4 * 3);
         $this->setSize('_njCnkSetEasyLightIntensity', 4);
         $this->setSize('_njCnkSetEasyLightColor', 4);
         $this->setSize('_njCnkEasyDrawObject', 4);
@@ -63,15 +63,15 @@ return new class extends TestCase {
 
     private function seedLightGlobals(): void
     {
-        $this->seedVector('_var_fadeEasyLightDir_8c226538', 1.0, 2.0, 3.0);
-        $this->initUint32($this->addressOf('_var_fadeEasyLightIntensity_8c226544') + 0, $this->f(4.0));
-        $this->initUint32($this->addressOf('_var_fadeEasyLightIntensity_8c226544') + 4, $this->f(5.0));
-        $this->seedVector('_var_fadeEasyLightColor_8c22654c', 6.0, 7.0, 8.0);
-        $this->seedVector('_var_fadeLightDir1_8c2264e4', 9.0, 10.0, 11.0);
-        $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 0, $this->f(12.0));
-        $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 4, $this->f(13.0));
-        $this->seedVector('_var_fadeLightColor_8c2264f8', 14.0, 15.0, 16.0);
-        $this->initUint32($this->addressOf('_var_fadeCamera_8c226558'), 0x87654321);
+        $this->seedVector('_var_easyLightDir_8c226538', 1.0, 2.0, 3.0);
+        $this->initUint32($this->addressOf('_var_easyLightIntensity_8c226544') + 0, $this->f(4.0));
+        $this->initUint32($this->addressOf('_var_easyLightIntensity_8c226544') + 4, $this->f(5.0));
+        $this->seedVector('_var_easyLightColor_8c22654c', 6.0, 7.0, 8.0);
+        $this->seedVector('_var_mirrorSimpleLightDir_8c2264e4', 9.0, 10.0, 11.0);
+        $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 0, $this->f(12.0));
+        $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 4, $this->f(13.0));
+        $this->seedVector('_var_simpleLightColor_8c2264f8', 14.0, 15.0, 16.0);
+        $this->initUint32($this->addressOf('_var_drawCamera_8c226558'), 0x87654321);
     }
 
     private function assertEasyDraw(int $texlist, int $njDest): void
@@ -112,8 +112,8 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2fc, $this->f(0.0));
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x304, $this->f(0.0));
-        $this->initUint32($this->addressOf('_var_fogParam_8c226508'), 0);
-        $this->initUint32($this->addressOf('_var_fogParam_8c226504'), 0);
+        $this->initUint32($this->addressOf('_var_tileDrawRadius_8c226508'), 0);
+        $this->initUint32($this->addressOf('_var_tileDrawSpan_8c226504'), 0);
 
         $slots = $this->addressOf('_var_tileLayerSlots_8c226520');
         $slot0 = $this->allocSlot(0x1000, 0x2000);
@@ -146,8 +146,8 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x2fc, $this->f(0.0));
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x304, $this->f(0.0));
-        $this->initUint32($this->addressOf('_var_fogParam_8c226508'), 0);
-        $this->initUint32($this->addressOf('_var_fogParam_8c226504'), 0);
+        $this->initUint32($this->addressOf('_var_tileDrawRadius_8c226508'), 0);
+        $this->initUint32($this->addressOf('_var_tileDrawSpan_8c226504'), 0);
 
         $slots = $this->addressOf('_var_tileLayerSlots_8c226520');
         $slot0 = $this->allocSlot(0, 0);

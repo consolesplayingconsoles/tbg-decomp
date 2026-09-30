@@ -1,20 +1,20 @@
 ; 8c021b9c
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     __divls
-          .IMPORT     _var_fogParam_8c226508
-          .IMPORT     _var_fogParam_8c226504
+          .IMPORT     _var_tileDrawRadius_8c226508
+          .IMPORT     _var_tileDrawSpan_8c226504
           .IMPORT     _njControl3D
           .IMPORT     _var_tileLayerSlots_8c226520
-          .IMPORT     _var_fadeEasyLightIntensity_8c226544
-          .IMPORT     _var_fadeEasyLightColor_8c22654c
-          .IMPORT     _var_fadeLightIntensity_8c2264f0
-          .IMPORT     _var_fadeLightColor_8c2264f8
+          .IMPORT     _var_easyLightIntensity_8c226544
+          .IMPORT     _var_easyLightColor_8c22654c
+          .IMPORT     _var_simpleLightIntensity_8c2264f0
+          .IMPORT     _var_simpleLightColor_8c2264f8
           .IMPORT     _njCnkSetEasyLight
-          .IMPORT     _var_fadeLightDir0_8c2264d8
-          .IMPORT     _var_fadeCamera_8c226558
+          .IMPORT     _var_simpleLightDir_8c2264d8
+          .IMPORT     _var_drawCamera_8c226558
           .IMPORT     _njSetTexture
           .IMPORT     _njSetCamera
-          .IMPORT     _var_fadeEasyLightDir_8c226538
+          .IMPORT     _var_easyLightDir_8c226538
           .IMPORT     _njCnkSetEasyLightIntensity
           .IMPORT     _njCnkSetEasyLightColor
           .IMPORT     _njCnkEasyDrawObject
@@ -22,7 +22,7 @@
           .IMPORT     _njCnkSetSimpleLightIntensity
           .IMPORT     _njCnkSetSimpleLightColor
           .IMPORT     _njCnkSimpleDrawObject
-          .IMPORT     _var_fadeLightDir1_8c2264e4
+          .IMPORT     _var_mirrorSimpleLightDir_8c2264e4
           .IMPORT     _var_camera_8c1bb904
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _njCalcVector
@@ -178,20 +178,20 @@ LP_GEN_32922:
           .DATA.W H'2500 ; H'8C021CA2
           .DATA.L _var_busState_8c1bb9d0 ; H'8C021CA4
           .DATA.L __divls ; H'8C021CA8
-          .DATA.L _var_fogParam_8c226508 ; H'8C021CAC
-          .DATA.L _var_fogParam_8c226504 ; H'8C021CB0
+          .DATA.L _var_tileDrawRadius_8c226508 ; H'8C021CAC
+          .DATA.L _var_tileDrawSpan_8c226504 ; H'8C021CB0
           .DATA.L _njControl3D ; H'8C021CB4
           .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021CB8
-          .DATA.L _var_fadeEasyLightIntensity_8c226544 ; H'8C021CBC
-          .DATA.L _var_fadeEasyLightColor_8c22654c ; H'8C021CC0
-          .DATA.L _var_fadeLightIntensity_8c2264f0 ; H'8C021CC4
-          .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C021CC8
+          .DATA.L _var_easyLightIntensity_8c226544 ; H'8C021CBC
+          .DATA.L _var_easyLightColor_8c22654c ; H'8C021CC0
+          .DATA.L _var_simpleLightIntensity_8c2264f0 ; H'8C021CC4
+          .DATA.L _var_simpleLightColor_8c2264f8 ; H'8C021CC8
           .DATA.L _njCnkSetEasyLight ; H'8C021CCC
-          .DATA.L _var_fadeLightDir0_8c2264d8 ; H'8C021CD0
-          .DATA.L _var_fadeCamera_8c226558 ; H'8C021CD4
+          .DATA.L _var_simpleLightDir_8c2264d8 ; H'8C021CD0
+          .DATA.L _var_drawCamera_8c226558 ; H'8C021CD4
           .DATA.L _njSetTexture ; H'8C021CD8
           .DATA.L _njSetCamera ; H'8C021CDC
-          .DATA.L _var_fadeEasyLightDir_8c226538 ; H'8C021CE0
+          .DATA.L _var_easyLightDir_8c226538 ; H'8C021CE0
 LAB_8c021ce4:
           MOV         #H'40,R0
           MOV.L       @(H'3c,R15),R3
@@ -570,15 +570,15 @@ LP_GEN_10089:
           .DATA.L _var_busState_8c1bb9d0 ; H'8C021FC0
           .DATA.L __divls ; H'8C021FC4
           .DATA.L _var_tileLayerSlots_8c226520 ; H'8C021FC8
-          .DATA.L _var_fadeEasyLightIntensity_8c226544 ; H'8C021FCC
-          .DATA.L _var_fadeEasyLightColor_8c22654c ; H'8C021FD0
-          .DATA.L _var_fadeLightIntensity_8c2264f0 ; H'8C021FD4
-          .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C021FD8
+          .DATA.L _var_easyLightIntensity_8c226544 ; H'8C021FCC
+          .DATA.L _var_easyLightColor_8c22654c ; H'8C021FD0
+          .DATA.L _var_simpleLightIntensity_8c2264f0 ; H'8C021FD4
+          .DATA.L _var_simpleLightColor_8c2264f8 ; H'8C021FD8
           .DATA.L _njCnkSetEasyLightIntensity ; H'8C021FDC
           .DATA.L _njSetCamera ; H'8C021FE0
           .DATA.L _njSetTexture ; H'8C021FE4
-          .DATA.L _var_fadeCamera_8c226558 ; H'8C021FE8
-          .DATA.L _var_fadeEasyLightDir_8c226538 ; H'8C021FEC
+          .DATA.L _var_drawCamera_8c226558 ; H'8C021FE8
+          .DATA.L _var_easyLightDir_8c226538 ; H'8C021FEC
 LAB_8c021ff0:
           MOV.L       @(H'3c,R15),R3
           MOV.L       @(H'38,R15),R9
@@ -800,9 +800,9 @@ LP_GEN_73379:
           .DATA.L _njCnkSetEasyLight ; H'8C022190
           .DATA.L _njCnkSetEasyLightColor ; H'8C022194
           .DATA.L _njCnkEasyDrawObject ; H'8C022198
-          .DATA.L _var_fadeLightDir1_8c2264e4+H'08 ; H'8C02219C (dir1[2])
-          .DATA.L _var_fadeLightDir1_8c2264e4+H'04 ; H'8C0221A0 (dir1[1])
-          .DATA.L _var_fadeLightDir1_8c2264e4 ; H'8C0221A4
+          .DATA.L _var_mirrorSimpleLightDir_8c2264e4+H'08 ; H'8C02219C (dir1[2])
+          .DATA.L _var_mirrorSimpleLightDir_8c2264e4+H'04 ; H'8C0221A0 (dir1[1])
+          .DATA.L _var_mirrorSimpleLightDir_8c2264e4 ; H'8C0221A4
           .DATA.L _njCnkSetSimpleLight ; H'8C0221A8
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C0221AC
           .DATA.L _njCnkSetSimpleLightColor ; H'8C0221B0
@@ -929,12 +929,12 @@ LP_GEN_78610:
           .DATA.L _njControl3D ; H'8C0222A0
           .DATA.L _var_camera_8c1bb904 ; H'8C0222A4
           .DATA.L _njSetCamera ; H'8C0222A8
-          .DATA.L _var_fadeEasyLightDir_8c226538 ; H'8C0222AC
+          .DATA.L _var_easyLightDir_8c226538 ; H'8C0222AC
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C0222B0
           .DATA.L _njCalcVector ; H'8C0222B4
-          .DATA.L _var_fadeLightDir0_8c2264d8 ; H'8C0222B8
+          .DATA.L _var_simpleLightDir_8c2264d8 ; H'8C0222B8
           .DATA.L _var_mirrorCamera_8c1bb944 ; H'8C0222BC
-          .DATA.L _var_fadeLightDir1_8c2264e4 ; H'8C0222C0
+          .DATA.L _var_mirrorSimpleLightDir_8c2264e4 ; H'8C0222C0
           .DATA.L _var_tileLayerIndexes_8c22650c ; H'8C0222C4
           .DATA.L _drawTileGrid_8c021b9c ; H'8C0222C8
           .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C0222CC

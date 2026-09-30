@@ -1,7 +1,7 @@
 ; 8c022464
           .IMPORT     _var_fadeDrawCommandCount_8c226570
           .IMPORT     _var_fadeDrawCommands_8c22657c
-          .IMPORT     _var_fadeCamera_8c226558
+          .IMPORT     _var_drawCamera_8c226558
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkModDrawObject
           .IMPORT     _njMultiMatrix
@@ -190,7 +190,7 @@ LP_GEN_25565:
           .RES.W 1 ; H'8C022532
           .DATA.L _var_fadeDrawCommandCount_8c226570 ; H'8C022534
           .DATA.L _var_fadeDrawCommands_8c22657c ; H'8C022538
-          .DATA.L _var_fadeCamera_8c226558 ; H'8C02253C
+          .DATA.L _var_drawCamera_8c226558 ; H'8C02253C
           .DATA.L _njSetCamera ; H'8C022540
           .DATA.L _njCnkModDrawObject ; H'8C022544
           .DATA.L _njMultiMatrix ; H'8C022548
@@ -340,7 +340,7 @@ LP_GEN_55916:
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C022664
           .DATA.L H'BF95C28F ; H'8C022668
           .DATA.L _njDrawTexture ; H'8C02266C
-          .DATA.L _var_fadeCamera_8c226558 ; H'8C022670
+          .DATA.L _var_drawCamera_8c226558 ; H'8C022670
           .DATA.L _njSetScreen ; H'8C022674
           .DATA.L _var_fadeArrivalVariant_8c22655c ; H'8C022678
           .DATA.L _njControl3D ; H'8C02267C
@@ -740,7 +740,7 @@ LP_GEN_60768:
           .DATA.L _init_screenFull_8c0455e8 ; H'8C0229C0
           .DATA.L _njSetScreen ; H'8C0229C4
           .DATA.L _var_camera_8c1bb904 ; H'8C0229C8
-          .DATA.L _var_fadeCamera_8c226558 ; H'8C0229CC
+          .DATA.L _var_drawCamera_8c226558 ; H'8C0229CC
           .DATA.L H'FF000000 ; H'8C0229D0
           .DATA.L _var_isFading_8c226568 ; H'8C0229D4
           .DATA.L _var_fadePhase_8c227d7c ; H'8C0229D8

@@ -21,19 +21,19 @@
  * =================
  */
 
-extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
-extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c_tile_draw: simple-light direction, fade layer 1 (mirror side)
+extern float var_simpleLightDir_8c2264d8[3]; // 021b9c_tile_draw: njCnkSetSimpleLight direction, main camera
+extern float var_mirrorSimpleLightDir_8c2264e4[3]; // 021b9c_tile_draw: njCnkSetSimpleLight direction, mirror camera
 /* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Every access is
  * a bare single-word pool load, so the archive says nothing about whether the
  * five floats are one array or two; split here because the intensity pair and
  * the colour triple go to different SDK calls. */
-extern float var_fadeLightIntensity_8c2264f0[2]; // [0..1]
-extern float var_fadeLightColor_8c2264f8[3]; // [2..4]
-extern float var_fadeEasyLightDir_8c226538[3]; // 021b9c_tile_draw: easy-light direction, shared by both fade layers
+extern float var_simpleLightIntensity_8c2264f0[2]; // [0..1]
+extern float var_simpleLightColor_8c2264f8[3]; // [2..4]
+extern float var_easyLightDir_8c226538[3]; // 021b9c_tile_draw: njCnkSetEasyLight direction, main camera
 /* 0222dc: same deal, for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
-extern float var_fadeEasyLightIntensity_8c226544[2]; // [0..1]
-extern float var_fadeEasyLightColor_8c22654c[3]; // [2..4]
-extern NJS_CAMERA* var_fadeCamera_8c226558; // 022464: camera passed to njSetCamera by fadeDraw_8c022464
+extern float var_easyLightIntensity_8c226544[2]; // [0..1]
+extern float var_easyLightColor_8c22654c[3]; // [2..4]
+extern NJS_CAMERA* var_drawCamera_8c226558; // 022464: camera for the layer being drawn; FadeUpdate_8c022560 picks main/mirror/cabin
 extern int var_fadeArrivalVariant_8c22655c; // 022464: bus-stop-arrival overlay layout (0-2) drawn by FadeUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in FadeUpdate_8c022560 handles 0-2)
 extern int var_fadeArrivalGate_8c226560; // 022464: gates FadeUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
 extern FadeRequest var_fadeRequest_8c226564; // 022464: requested fade transition, consumed by FadeUpdate_8c022560
@@ -233,8 +233,8 @@ extern Sint32 *var_trafficPresetTable_8c227e18;
  * indexes it by a script argument to resolve a traffic entry's path. */
 extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
-extern int var_fogParam_8c226504;
-extern int var_fogParam_8c226508;
+extern int var_tileDrawSpan_8c226504;
+extern int var_tileDrawRadius_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 

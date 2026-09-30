@@ -43,12 +43,12 @@ void StopDrawWaitingPassengers_8c02d06c(int layer)
  * fade out and back in between waypoints. */
 void StopDrawLightBegin_8c02d0fc(int arg0)
 {
-    njCnkSetSimpleLight(var_fadeLightDir0_8c2264d8[0], var_fadeLightDir0_8c2264d8[1],
-                        var_fadeLightDir0_8c2264d8[2]);
-    njCnkSetSimpleLightIntensity(var_fadeLightIntensity_8c2264f0[0],
-                                 var_fadeLightIntensity_8c2264f0[1]);
-    njCnkSetSimpleLightColor(var_fadeLightColor_8c2264f8[0], var_fadeLightColor_8c2264f8[1],
-                             var_fadeLightColor_8c2264f8[2]);
+    njCnkSetSimpleLight(var_simpleLightDir_8c2264d8[0], var_simpleLightDir_8c2264d8[1],
+                        var_simpleLightDir_8c2264d8[2]);
+    njCnkSetSimpleLightIntensity(var_simpleLightIntensity_8c2264f0[0],
+                                 var_simpleLightIntensity_8c2264f0[1]);
+    njCnkSetSimpleLightColor(var_simpleLightColor_8c2264f8[0], var_simpleLightColor_8c2264f8[1],
+                             var_simpleLightColor_8c2264f8[2]);
     njControl3D(0x120);
     njSetConstantAttr(0xffffffff, 0x100000);
     njSetConstantMaterial((NJS_ARGB *)var_passengerFadeColor_8c228960);

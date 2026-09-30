@@ -26,17 +26,17 @@ void FadeCmdPushTileDrawTask_8c0222dc(void)
     state->texlist = var_segmentModels_8c1bc3f0->texlist;
     state->njDest = var_segmentModels_8c1bc3f0->njDest;
 
-    var_fadeEasyLightIntensity_8c226544[0] = var_sceneParams_8c18ad24->rec1_0x54[0];
-    var_fadeEasyLightIntensity_8c226544[1] = var_sceneParams_8c18ad24->rec1_0x54[1];
-    var_fadeEasyLightColor_8c22654c[0] = var_sceneParams_8c18ad24->rec1_0x54[2];
-    var_fadeEasyLightColor_8c22654c[1] = var_sceneParams_8c18ad24->rec1_0x54[3];
-    var_fadeEasyLightColor_8c22654c[2] = var_sceneParams_8c18ad24->rec1_0x54[4];
+    var_easyLightIntensity_8c226544[0] = var_sceneParams_8c18ad24->rec1_0x54[0];
+    var_easyLightIntensity_8c226544[1] = var_sceneParams_8c18ad24->rec1_0x54[1];
+    var_easyLightColor_8c22654c[0] = var_sceneParams_8c18ad24->rec1_0x54[2];
+    var_easyLightColor_8c22654c[1] = var_sceneParams_8c18ad24->rec1_0x54[3];
+    var_easyLightColor_8c22654c[2] = var_sceneParams_8c18ad24->rec1_0x54[4];
 
-    var_fadeLightIntensity_8c2264f0[0] = var_sceneParams_8c18ad24->rec2_0x74[0];
-    var_fadeLightIntensity_8c2264f0[1] = var_sceneParams_8c18ad24->rec2_0x74[1];
-    var_fadeLightColor_8c2264f8[0] = var_sceneParams_8c18ad24->rec2_0x74[2];
-    var_fadeLightColor_8c2264f8[1] = var_sceneParams_8c18ad24->rec2_0x74[3];
-    var_fadeLightColor_8c2264f8[2] = var_sceneParams_8c18ad24->rec2_0x74[4];
+    var_simpleLightIntensity_8c2264f0[0] = var_sceneParams_8c18ad24->rec2_0x74[0];
+    var_simpleLightIntensity_8c2264f0[1] = var_sceneParams_8c18ad24->rec2_0x74[1];
+    var_simpleLightColor_8c2264f8[0] = var_sceneParams_8c18ad24->rec2_0x74[2];
+    var_simpleLightColor_8c2264f8[1] = var_sceneParams_8c18ad24->rec2_0x74[3];
+    var_simpleLightColor_8c2264f8[2] = var_sceneParams_8c18ad24->rec2_0x74[4];
 }
 
 /* Runs at the top of each frame's draw pass, before the var_tasks_8c1ba5e8

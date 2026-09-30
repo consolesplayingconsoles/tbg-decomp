@@ -12,10 +12,10 @@ return new class extends TestCase {
         $this->setSize('_var_segmentModels_8c1bc3f0', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
         $this->setSize('_TileDrawEnqueueTask_8c0221d0', 4);
-        $this->setSize('_var_fadeEasyLightIntensity_8c226544', 8);
-        $this->setSize('_var_fadeEasyLightColor_8c22654c', 12);
-        $this->setSize('_var_fadeLightIntensity_8c2264f0', 8);
-        $this->setSize('_var_fadeLightColor_8c2264f8', 12);
+        $this->setSize('_var_easyLightIntensity_8c226544', 8);
+        $this->setSize('_var_easyLightColor_8c22654c', 12);
+        $this->setSize('_var_simpleLightIntensity_8c2264f0', 8);
+        $this->setSize('_var_simpleLightColor_8c2264f8', 12);
     }
 
     private function toRaw(float $v): int {
@@ -59,16 +59,16 @@ return new class extends TestCase {
         $this->shouldWriteLong($state, 0x11223344);
         $this->shouldWriteLong($state + 4, 0x55667788);
 
-        $this->shouldWriteFloat($this->addressOf('_var_fadeEasyLightIntensity_8c226544'), 1.0);
-        $this->shouldWriteFloat($this->addressOf('_var_fadeEasyLightIntensity_8c226544') + 4, 2.0);
-        $this->shouldWriteFloat($this->addressOf('_var_fadeEasyLightColor_8c22654c'), 3.0);
-        $this->shouldWriteFloat($this->addressOf('_var_fadeEasyLightColor_8c22654c') + 4, 4.0);
-        $this->shouldWriteFloat($this->addressOf('_var_fadeEasyLightColor_8c22654c') + 8, 5.0);
+        $this->shouldWriteFloat($this->addressOf('_var_easyLightIntensity_8c226544'), 1.0);
+        $this->shouldWriteFloat($this->addressOf('_var_easyLightIntensity_8c226544') + 4, 2.0);
+        $this->shouldWriteFloat($this->addressOf('_var_easyLightColor_8c22654c'), 3.0);
+        $this->shouldWriteFloat($this->addressOf('_var_easyLightColor_8c22654c') + 4, 4.0);
+        $this->shouldWriteFloat($this->addressOf('_var_easyLightColor_8c22654c') + 8, 5.0);
 
-        $this->shouldWriteFloat($this->addressOf('_var_fadeLightIntensity_8c2264f0'), 6.0);
-        $this->shouldWriteFloat($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 4, 7.0);
-        $this->shouldWriteFloat($this->addressOf('_var_fadeLightColor_8c2264f8'), 8.0);
-        $this->shouldWriteFloat($this->addressOf('_var_fadeLightColor_8c2264f8') + 4, 9.0);
-        $this->shouldWriteFloat($this->addressOf('_var_fadeLightColor_8c2264f8') + 8, 10.0);
+        $this->shouldWriteFloat($this->addressOf('_var_simpleLightIntensity_8c2264f0'), 6.0);
+        $this->shouldWriteFloat($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 4, 7.0);
+        $this->shouldWriteFloat($this->addressOf('_var_simpleLightColor_8c2264f8'), 8.0);
+        $this->shouldWriteFloat($this->addressOf('_var_simpleLightColor_8c2264f8') + 4, 9.0);
+        $this->shouldWriteFloat($this->addressOf('_var_simpleLightColor_8c2264f8') + 8, 10.0);
     }
 };

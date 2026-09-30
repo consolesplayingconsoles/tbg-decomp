@@ -17,29 +17,29 @@ return new class extends TestCase {
         $this->setSize('_njCnkSetSimpleLightIntensity', 4);
         $this->setSize('_njCnkSetSimpleLightColor', 4);
 
-        $this->setSize('_var_fadeLightDir0_8c2264d8', 0xc);
-        $this->initUint32($this->addressOf('_var_fadeLightDir0_8c2264d8') + 0, fdec(-1.4));
-        $this->initUint32($this->addressOf('_var_fadeLightDir0_8c2264d8') + 4, fdec(1.0));
-        $this->initUint32($this->addressOf('_var_fadeLightDir0_8c2264d8') + 8, fdec(-0.2));
+        $this->setSize('_var_simpleLightDir_8c2264d8', 0xc);
+        $this->initUint32($this->addressOf('_var_simpleLightDir_8c2264d8') + 0, fdec(-1.4));
+        $this->initUint32($this->addressOf('_var_simpleLightDir_8c2264d8') + 4, fdec(1.0));
+        $this->initUint32($this->addressOf('_var_simpleLightDir_8c2264d8') + 8, fdec(-0.2));
 
-        $this->setSize('_var_fadeLightDir1_8c2264e4', 0xc);
-        $this->initUint32($this->addressOf('_var_fadeLightDir1_8c2264e4') + 0, fdec(0.1));
-        $this->initUint32($this->addressOf('_var_fadeLightDir1_8c2264e4') + 4, fdec(1.3));
-        $this->initUint32($this->addressOf('_var_fadeLightDir1_8c2264e4') + 8, fdec(-1.2));
+        $this->setSize('_var_mirrorSimpleLightDir_8c2264e4', 0xc);
+        $this->initUint32($this->addressOf('_var_mirrorSimpleLightDir_8c2264e4') + 0, fdec(0.1));
+        $this->initUint32($this->addressOf('_var_mirrorSimpleLightDir_8c2264e4') + 4, fdec(1.3));
+        $this->initUint32($this->addressOf('_var_mirrorSimpleLightDir_8c2264e4') + 8, fdec(-1.2));
 
-        $this->setSize('_var_fadeLightIntensity_8c2264f0', 8);
-        $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 0, fdec(1.0));
-        $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 4, fdec(0.65));
+        $this->setSize('_var_simpleLightIntensity_8c2264f0', 8);
+        $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 0, fdec(1.0));
+        $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 4, fdec(0.65));
 
         // The original asm imports this adjacent float under its own name
-        // (_var_8c2264f4, per sectionB.src), not as var_fadeLightIntensity_8c2264f0[1].
+        // (_var_8c2264f4, per sectionB.src), not as var_simpleLightIntensity_8c2264f0[1].
         $this->setSize('_var_8c2264f4', 4);
         $this->initUint32($this->addressOf('_var_8c2264f4'), fdec(0.65));
 
-        $this->setSize('_var_fadeLightColor_8c2264f8', 0xc);
-        $this->initUint32($this->addressOf('_var_fadeLightColor_8c2264f8') + 0, fdec(1.0));
-        $this->initUint32($this->addressOf('_var_fadeLightColor_8c2264f8') + 4, fdec(1.0));
-        $this->initUint32($this->addressOf('_var_fadeLightColor_8c2264f8') + 8, fdec(1.0));
+        $this->setSize('_var_simpleLightColor_8c2264f8', 0xc);
+        $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 0, fdec(1.0));
+        $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 4, fdec(1.0));
+        $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 8, fdec(1.0));
 
         $this->call('_setSimpleLightCallback_8c02a5d0')->with(0);
 
@@ -54,29 +54,29 @@ return new class extends TestCase {
         $this->setSize('_njCnkSetSimpleLightIntensity', 4);
         $this->setSize('_njCnkSetSimpleLightColor', 4);
 
-        $this->setSize('_var_fadeLightDir0_8c2264d8', 0xc);
-        $this->initUint32($this->addressOf('_var_fadeLightDir0_8c2264d8') + 0, fdec(-1.4));
-        $this->initUint32($this->addressOf('_var_fadeLightDir0_8c2264d8') + 4, fdec(1.0));
-        $this->initUint32($this->addressOf('_var_fadeLightDir0_8c2264d8') + 8, fdec(-0.2));
+        $this->setSize('_var_simpleLightDir_8c2264d8', 0xc);
+        $this->initUint32($this->addressOf('_var_simpleLightDir_8c2264d8') + 0, fdec(-1.4));
+        $this->initUint32($this->addressOf('_var_simpleLightDir_8c2264d8') + 4, fdec(1.0));
+        $this->initUint32($this->addressOf('_var_simpleLightDir_8c2264d8') + 8, fdec(-0.2));
 
-        $this->setSize('_var_fadeLightDir1_8c2264e4', 0xc);
-        $this->initUint32($this->addressOf('_var_fadeLightDir1_8c2264e4') + 0, fdec(0.1));
-        $this->initUint32($this->addressOf('_var_fadeLightDir1_8c2264e4') + 4, fdec(1.3));
-        $this->initUint32($this->addressOf('_var_fadeLightDir1_8c2264e4') + 8, fdec(-1.2));
+        $this->setSize('_var_mirrorSimpleLightDir_8c2264e4', 0xc);
+        $this->initUint32($this->addressOf('_var_mirrorSimpleLightDir_8c2264e4') + 0, fdec(0.1));
+        $this->initUint32($this->addressOf('_var_mirrorSimpleLightDir_8c2264e4') + 4, fdec(1.3));
+        $this->initUint32($this->addressOf('_var_mirrorSimpleLightDir_8c2264e4') + 8, fdec(-1.2));
 
-        $this->setSize('_var_fadeLightIntensity_8c2264f0', 8);
-        $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 0, fdec(1.0));
-        $this->initUint32($this->addressOf('_var_fadeLightIntensity_8c2264f0') + 4, fdec(0.65));
+        $this->setSize('_var_simpleLightIntensity_8c2264f0', 8);
+        $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 0, fdec(1.0));
+        $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 4, fdec(0.65));
 
         // The original asm imports this adjacent float under its own name
-        // (_var_8c2264f4, per sectionB.src), not as var_fadeLightIntensity_8c2264f0[1].
+        // (_var_8c2264f4, per sectionB.src), not as var_simpleLightIntensity_8c2264f0[1].
         $this->setSize('_var_8c2264f4', 4);
         $this->initUint32($this->addressOf('_var_8c2264f4'), fdec(0.65));
 
-        $this->setSize('_var_fadeLightColor_8c2264f8', 0xc);
-        $this->initUint32($this->addressOf('_var_fadeLightColor_8c2264f8') + 0, fdec(1.0));
-        $this->initUint32($this->addressOf('_var_fadeLightColor_8c2264f8') + 4, fdec(1.0));
-        $this->initUint32($this->addressOf('_var_fadeLightColor_8c2264f8') + 8, fdec(1.0));
+        $this->setSize('_var_simpleLightColor_8c2264f8', 0xc);
+        $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 0, fdec(1.0));
+        $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 4, fdec(1.0));
+        $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 8, fdec(1.0));
 
         $this->call('_setSimpleLightCallback_8c02a5d0')->with(1);
 

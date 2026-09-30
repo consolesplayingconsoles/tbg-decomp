@@ -21,9 +21,9 @@ return new class extends TestCase {
         $this->setSize('_njSetCamera', 4);
         $this->setSize('_var_camera_8c1bb904', 0x40);
         $this->setSize('_var_mirrorCamera_8c1bb944', 0x40);
-        $this->setSize('_var_fadeEasyLightDir_8c226538', 4 * 3);
-        $this->setSize('_var_fadeLightDir0_8c2264d8', 4 * 3);
-        $this->setSize('_var_fadeLightDir1_8c2264e4', 4 * 3);
+        $this->setSize('_var_easyLightDir_8c226538', 4 * 3);
+        $this->setSize('_var_simpleLightDir_8c2264d8', 4 * 3);
+        $this->setSize('_var_mirrorSimpleLightDir_8c2264e4', 4 * 3);
         $this->setSize('_njCalcVector', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
         $this->setSize('_var_tileLayerIndexes_8c22650c', 4 * 5);
@@ -60,9 +60,9 @@ return new class extends TestCase {
 
         $camera0 = $this->addressOf('_var_camera_8c1bb904');
         $camera1 = $this->addressOf('_var_mirrorCamera_8c1bb944');
-        $easyDir = $this->addressOf('_var_fadeEasyLightDir_8c226538');
-        $dir0 = $this->addressOf('_var_fadeLightDir0_8c2264d8');
-        $dir1 = $this->addressOf('_var_fadeLightDir1_8c2264e4');
+        $easyDir = $this->addressOf('_var_easyLightDir_8c226538');
+        $dir0 = $this->addressOf('_var_simpleLightDir_8c2264d8');
+        $dir1 = $this->addressOf('_var_mirrorSimpleLightDir_8c2264e4');
 
         $this->shouldCall('_njSetCamera')->with($camera0);
 

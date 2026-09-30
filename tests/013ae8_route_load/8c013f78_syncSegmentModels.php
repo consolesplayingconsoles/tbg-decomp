@@ -23,7 +23,7 @@ return new class extends TestCase {
     {
         [$entry] = $this->setup(1, 0);
 
-        // tileWindowSpan_0x00 = 0 -> var_fogParam_8c226504 = -1, var_fogParam_8c226508 = -1/2 = 0 (toward zero).
+        // tileWindowSpan_0x00 = 0 -> var_tileDrawSpan_8c226504 = -1, var_tileDrawRadius_8c226508 = -1/2 = 0 (toward zero).
         $fog = $this->alloc(0x14);
         $this->initUint32($fog + 0x00, 0);
         $this->initUint32($fog + 0x04, 0x12345678);
@@ -32,8 +32,8 @@ return new class extends TestCase {
         $this->call('_syncSegmentModels_8c013f78');
 
         $this->shouldWriteLong($this->addressOf('_var_fogParams_8c18ad28'), $fog);
-        $this->shouldWriteLong($this->addressOf('_var_fogParam_8c226504'), 0xffffffff);
-        $this->shouldWriteLong($this->addressOf('_var_fogParam_8c226508'), 0);
+        $this->shouldWriteLong($this->addressOf('_var_tileDrawSpan_8c226504'), 0xffffffff);
+        $this->shouldWriteLong($this->addressOf('_var_tileDrawRadius_8c226508'), 0);
         $this->shouldWriteLong($this->addressOf('_var_fogParam_8c227dd0'), 0x12345678);
 
         $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
@@ -144,8 +144,8 @@ return new class extends TestCase {
         $this->setSize('_var_currentSegment_8c228708', 4);
         $this->setSize('_var_cutsceneActive_8c1bb900', 4);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
-        $this->setSize('_var_fogParam_8c226504', 4);
-        $this->setSize('_var_fogParam_8c226508', 4);
+        $this->setSize('_var_tileDrawSpan_8c226504', 4);
+        $this->setSize('_var_tileDrawRadius_8c226508', 4);
         $this->setSize('_var_fogParam_8c227dd0', 4);
         $this->setSize('_var_currentTileRegionList_8c226534', 4);
         $this->setSize('_var_segmentModels_8c1bc3f0', 4);

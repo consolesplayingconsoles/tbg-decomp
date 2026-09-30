@@ -5532,7 +5532,7 @@ STATIC void drawBlinkers_8c029878(int taskArg, int matricesArg)
     }
 
     for (i = 0; i < count; i++) {
-        njSetCamera(var_fadeCamera_8c226558);
+        njSetCamera(var_drawCamera_8c226558);
         njMultiMatrix(0, matrix);
         njCnkSimpleDrawObject((NJS_CNK_OBJECT *)var_routeBlinkerNodes_8c228278[0]);
         matrix++;
@@ -6161,16 +6161,16 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
 }
 /* Installed as a FadeCallback1 on both fade layers (arg0 = layer). Sets up
  * njCnk's simple light for the row draw calls that follow: direction from
- * var_fadeLightDir0_8c2264d8 (layer 0) or var_fadeLightDir1_8c2264e4 (layer 1, the mirror side), and a
- * constant intensity/ambient/color already copied from the scene params by
- * 0222dc_fadecmd. */
+ * var_simpleLightDir_8c2264d8 (layer 0) or var_mirrorSimpleLightDir_8c2264e4
+ * (layer 1, the mirror side), and a constant intensity/ambient/color already
+ * copied from the scene params by 0222dc_fadecmd. */
 STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
 {
-    float *dir = (arg0 == 0) ? var_fadeLightDir0_8c2264d8 : var_fadeLightDir1_8c2264e4;
+    float *dir = (arg0 == 0) ? var_simpleLightDir_8c2264d8 : var_mirrorSimpleLightDir_8c2264e4;
 
     njCnkSetSimpleLight(dir[0], dir[1], dir[2]);
-    njCnkSetSimpleLightIntensity(var_fadeLightIntensity_8c2264f0[0], var_fadeLightIntensity_8c2264f0[1]);
-    njCnkSetSimpleLightColor(var_fadeLightColor_8c2264f8[0], var_fadeLightColor_8c2264f8[1], var_fadeLightColor_8c2264f8[2]);
+    njCnkSetSimpleLightIntensity(var_simpleLightIntensity_8c2264f0[0], var_simpleLightIntensity_8c2264f0[1]);
+    njCnkSetSimpleLightColor(var_simpleLightColor_8c2264f8[0], var_simpleLightColor_8c2264f8[1], var_simpleLightColor_8c2264f8[2]);
 }
 /* TaskAction spawned once after the table is fully processed, installed by
  * ObjectsPushTasks_8c02a6ac. Once the run is under way, pushes

@@ -57,7 +57,7 @@
           .IMPORT     _var_routeBlinkerNodes_8c228278
           .IMPORT     __modls
           .IMPORT     _njMultiMatrix
-          .IMPORT     _var_fadeCamera_8c226558
+          .IMPORT     _var_drawCamera_8c226558
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _var_route_8c18ad1c
@@ -90,11 +90,11 @@
           .IMPORT     _njSetConstantAttr
           .IMPORT     _njSetConstantMaterial
           .IMPORT     _var_cameraMode_8c227d9c
-          .IMPORT     _var_fadeLightDir0_8c2264d8
-          .IMPORT     _var_fadeLightDir1_8c2264e4
-          .IMPORT     _var_fadeLightIntensity_8c2264f0
+          .IMPORT     _var_simpleLightDir_8c2264d8
+          .IMPORT     _var_mirrorSimpleLightDir_8c2264e4
+          .IMPORT     _var_simpleLightIntensity_8c2264f0
           .IMPORT     _njCnkSetSimpleLightIntensity
-          .IMPORT     _var_fadeLightColor_8c2264f8
+          .IMPORT     _var_simpleLightColor_8c2264f8
           .IMPORT     _njCnkSetSimpleLightColor
           .IMPORT     _var_fumiLampNodes_8c228434
           .IMPORT     _var_messageAssetCount_8c228514
@@ -3474,7 +3474,7 @@ LP_GEN_39842:
           .DATA.L _var_routeBlinkerNodes_8c228278 ; H'8C029A60
           .DATA.L __modls ; H'8C029A64
           .DATA.L _njMultiMatrix ; H'8C029A68
-          .DATA.L _var_fadeCamera_8c226558 ; H'8C029A6C
+          .DATA.L _var_drawCamera_8c226558 ; H'8C029A6C
           .DATA.L _njSetCamera ; H'8C029A70
           .DATA.L _njCnkSimpleDrawObject ; H'8C029A74
           .DATA.L _drawBlinkers_8c029878 ; H'8C029A78
@@ -5000,13 +5000,13 @@ LP_GEN_23851:
           .DATA.L H'4F800000 ; H'8C02A670
           .DATA.L _drawFumiCrossing_8c02a47c ; H'8C02A674
           .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C02A678
-          .DATA.L _var_fadeLightDir0_8c2264d8 ; H'8C02A67C
-          .DATA.L _var_fadeLightDir1_8c2264e4 ; H'8C02A680
+          .DATA.L _var_simpleLightDir_8c2264d8 ; H'8C02A67C
+          .DATA.L _var_mirrorSimpleLightDir_8c2264e4 ; H'8C02A680
           .DATA.L _njCnkSetSimpleLight ; H'8C02A684
-          .DATA.L _var_fadeLightIntensity_8c2264f0 + H'4 ; H'8C02A688
-          .DATA.L _var_fadeLightIntensity_8c2264f0 ; H'8C02A68C
+          .DATA.L _var_simpleLightIntensity_8c2264f0 + H'4 ; H'8C02A688
+          .DATA.L _var_simpleLightIntensity_8c2264f0 ; H'8C02A68C
           .DATA.L _njCnkSetSimpleLightIntensity ; H'8C02A690
-          .DATA.L _var_fadeLightColor_8c2264f8 ; H'8C02A694
+          .DATA.L _var_simpleLightColor_8c2264f8 ; H'8C02A694
           .DATA.L _njCnkSetSimpleLightColor ; H'8C02A698
           .DATA.L _var_runState_8c2285c4 ; H'8C02A69C
           .DATA.L _setSimpleLightCallback_8c02a5d0 ; H'8C02A6A0

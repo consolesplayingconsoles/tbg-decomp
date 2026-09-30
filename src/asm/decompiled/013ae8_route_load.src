@@ -27,8 +27,8 @@
           .IMPORT     _var_segmentModels_8c1bc3f0
           .IMPORT     _AsqFreeModels_8c0120fe
           .IMPORT     _TileStreamReleaseAll_8c021a24
-          .IMPORT     _var_fogParam_8c226504
-          .IMPORT     _var_fogParam_8c226508
+          .IMPORT     _var_tileDrawSpan_8c226504
+          .IMPORT     _var_tileDrawRadius_8c226508
           .IMPORT     _var_fogParam_8c227dd0
           .IMPORT     _var_cutsceneActive_8c1bb900
           .IMPORT     _var_playMode_8c1bb8d0
@@ -951,8 +951,8 @@ LP_GEN_25668:
           .DATA.L _var_currentCourseConfig_8c18ad18 ; LP_GEN_25668+0
           .DATA.L _var_currentSegment_8c228708
           .DATA.L _var_fogParams_8c18ad28
-          .DATA.L _var_fogParam_8c226504
-          .DATA.L _var_fogParam_8c226508
+          .DATA.L _var_tileDrawSpan_8c226504
+          .DATA.L _var_tileDrawRadius_8c226508
           .DATA.L _var_fogParam_8c227dd0
           .DATA.L _var_commonDir_8c18ad6c
           .DATA.L _AsqRequestModels_8c012030

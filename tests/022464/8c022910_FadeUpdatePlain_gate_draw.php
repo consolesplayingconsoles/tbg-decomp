@@ -12,7 +12,7 @@ return new class extends TestCase {
         $this->setSize('_var_fadeProgress_8c227d80', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
-        $this->setSize('_var_fadeCamera_8c226558', 4);
+        $this->setSize('_var_drawCamera_8c226558', 4);
         $this->setSize('_var_camera_8c1bb904', 64);
         $this->setSize('_njUserClipping', 4);
         $this->setSize('_njControl3D', 4);
@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->shouldCall('_njControl3D')->with(0x100);
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipMirrorView_8c045578'));
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenFull_8c0455e8'));
-        $this->shouldWriteLong($this->addressOf('_var_fadeCamera_8c226558'), $var8c1bb904);
+        $this->shouldWriteLong($this->addressOf('_var_drawCamera_8c226558'), $var8c1bb904);
         $this->shouldCall('_fadeDraw_8c022464')->with(0);
     }
 };

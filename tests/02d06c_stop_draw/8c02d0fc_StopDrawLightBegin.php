@@ -13,9 +13,9 @@ return new class extends TestCase {
         $this->setSize('_njControl3D', 4);
         $this->setSize('_njSetConstantAttr', 4);
         $this->setSize('_njSetConstantMaterial', 4);
-        $this->setSize('_var_fadeLightDir0_8c2264d8', 0xc);
-        $this->setSize('_var_fadeLightIntensity_8c2264f0', 8);
-        $this->setSize('_var_fadeLightColor_8c2264f8', 0xc);
+        $this->setSize('_var_simpleLightDir_8c2264d8', 0xc);
+        $this->setSize('_var_simpleLightIntensity_8c2264f0', 8);
+        $this->setSize('_var_simpleLightColor_8c2264f8', 0xc);
         $this->setSize('_var_passengerFadeColor_8c228960', 0x14);
     }
 
@@ -23,17 +23,17 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $dir = $this->addressOf('_var_fadeLightDir0_8c2264d8');
+        $dir = $this->addressOf('_var_simpleLightDir_8c2264d8');
         $this->initUint32($dir + 0x0, $this->f(1.0));
         $this->initUint32($dir + 0x4, $this->f(2.0));
         $this->initUint32($dir + 0x8, $this->f(3.0));
 
-        $inten = $this->addressOf('_var_fadeLightIntensity_8c2264f0');
-        $this->rellocate('_var_8c2264f4', $inten + 4); // coincides with fadeLightIntensity[1]
+        $inten = $this->addressOf('_var_simpleLightIntensity_8c2264f0');
+        $this->rellocate('_var_8c2264f4', $inten + 4); // coincides with simpleLightIntensity[1]
         $this->initUint32($inten + 0x0, $this->f(0.5));
         $this->initUint32($inten + 0x4, $this->f(0.25));
 
-        $col = $this->addressOf('_var_fadeLightColor_8c2264f8');
+        $col = $this->addressOf('_var_simpleLightColor_8c2264f8');
         $this->initUint32($col + 0x0, $this->f(0.1));
         $this->initUint32($col + 0x4, $this->f(0.2));
         $this->initUint32($col + 0x8, $this->f(0.3));
@@ -59,17 +59,17 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $dir = $this->addressOf('_var_fadeLightDir0_8c2264d8');
+        $dir = $this->addressOf('_var_simpleLightDir_8c2264d8');
         $this->initUint32($dir + 0x0, $this->f(1.0));
         $this->initUint32($dir + 0x4, $this->f(1.0));
         $this->initUint32($dir + 0x8, $this->f(1.0));
 
-        $inten = $this->addressOf('_var_fadeLightIntensity_8c2264f0');
-        $this->rellocate('_var_8c2264f4', $inten + 4); // coincides with fadeLightIntensity[1]
+        $inten = $this->addressOf('_var_simpleLightIntensity_8c2264f0');
+        $this->rellocate('_var_8c2264f4', $inten + 4); // coincides with simpleLightIntensity[1]
         $this->initUint32($inten + 0x0, $this->f(1.0));
         $this->initUint32($inten + 0x4, $this->f(1.0));
 
-        $col = $this->addressOf('_var_fadeLightColor_8c2264f8');
+        $col = $this->addressOf('_var_simpleLightColor_8c2264f8');
         $this->initUint32($col + 0x0, $this->f(1.0));
         $this->initUint32($col + 0x4, $this->f(1.0));
         $this->initUint32($col + 0x8, $this->f(1.0));

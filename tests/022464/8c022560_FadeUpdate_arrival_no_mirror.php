@@ -14,7 +14,7 @@ return new class extends TestCase {
         $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
         $this->setSize('_var_fadeArrivalVariant_8c22655c', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_fadeCamera_8c226558', 4);
+        $this->setSize('_var_drawCamera_8c226558', 4);
         $this->setSize('_var_mirrorCamera_8c1bb944', 64);
         $this->setSize('_var_camera_8c1bb904', 64);
         $this->setSize('_var_cabinCamera_8c1bb984', 76);
@@ -46,7 +46,7 @@ return new class extends TestCase {
         $this->shouldCall('_njControl3D')->with(0x100);
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipMirrorView_8c045578'));
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenFull_8c0455e8'));
-        $this->shouldWriteLong($this->addressOf('_var_fadeCamera_8c226558'), $init8c1bb904);
+        $this->shouldWriteLong($this->addressOf('_var_drawCamera_8c226558'), $init8c1bb904);
         $this->shouldCall('_fadeDraw_8c022464')->with(0);
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
     }
