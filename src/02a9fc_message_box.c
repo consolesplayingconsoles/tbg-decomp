@@ -11,7 +11,6 @@
 #include "0100bc_sound.h" /* SndStopAdx_8c010ca6, SndPlayAdx_8c010cd6, SndPollVoiceEnd_8c0106ac */
 #include "022464_render.h" /* FadeRequest, var_fadeRequest_8c226564, var_arrivalOverlayGate_8c226560 */
 #include "02af78_event.h" /* EventApplyFlags_8c02b292 */
-#include "sectionB.h" /* EventSlide, MessageAssetEntry, var_messageAssets_8c228484 */
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 
@@ -19,6 +18,30 @@
  * Type Declarations
  * ====================
  */
+
+/* One entry of var_eventSlides_8c228480[event]/state->slide_0x10, terminated
+ * by an entry whose layers_0x00 is (unsigned short *)-1. layers_0x00 is a base
+ * image id plus 0-2 overlay ids, all drawn in the same frame in `pr` order.
+ * lineListIndex_0x04 selects the line list out of var_messageTextDat_8c228518
+ * (an array of EventLine*). */
+typedef struct {
+    unsigned short *layers_0x00;
+    int lineListIndex_0x04;
+} EventSlide;
+
+/* One var_messageAssets_8c228484 entry. */
+typedef struct {
+    int id_0x00;
+    void *pvm_0x04;
+    void *dat_0x08;
+} MessageAssetEntry;
+
+/* One line of dialogue within a slide, walked by state->line_0x18; terminated
+ * by an entry whose text_0x00 points at an empty string. */
+typedef struct {
+    char *text_0x00;
+    int voiceId_0x04;
+} EventLine;
 
 /* Where messageBoxTask_8c02ab7a picks up on the current frame. The stages run in
  * this order and fall through to the next one; the phase in state->phase_0x00 only decides
@@ -47,6 +70,24 @@ typedef struct {
     char *map_0x00;
     char *pvm_0x04;
 } MessageAssetFiles;
+
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+int var_selectedEventEntry_8c228478;
+int var_messageBoxActive_8c22847c;
+/* Per-event slide table for the route selected by
+ * MessageBoxRequestAssets_8c02aa36: init_shinjukuEvents_8c049a6c / init_wanganEvents_8c04843c /
+ * init_omeEvents_8c04a9c8, indexed by var_selectedEventEntry_8c228478. */
+STATIC EventSlide **var_eventSlides_8c228480;
+/* Dedup table of message pvm/dat assets requested by
+ * MessageBoxRequestAssets_8c02aa36, one entry per distinct id seen
+ * across the selected event's slides; count in var_messageAssetCount_8c228514. */
+STATIC MessageAssetEntry var_messageAssets_8c228484[12];
+STATIC int var_messageAssetCount_8c228514;
+STATIC EventLine **var_messageTextDat_8c228518;
 
 /* ====================
  * Initialized Globals

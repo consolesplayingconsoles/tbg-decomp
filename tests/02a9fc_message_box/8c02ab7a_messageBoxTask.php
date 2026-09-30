@@ -386,7 +386,6 @@ return new class extends TestCase {
         $this->initUint32($state + self::ST_IDS, $ids);
 
         // Dedup table: a single matching entry.
-        $this->setSize('_var_messageAssets_8c228484', 0x0c * 12);
         $entries = $this->addressOf('_var_messageAssets_8c228484');
         $this->initUint32($entries, 7);
         $pvm = $this->alloc(4);
@@ -419,7 +418,6 @@ return new class extends TestCase {
         $this->initUint32($state + self::ST_IDS, $ids);
 
         // Dedup table: no entries at all.
-        $this->setSize('_var_messageAssets_8c228484', 0x0c * 12);
         $this->initUint32($this->addressOf('_var_messageAssetCount_8c228514'), 0);
 
         // Sentinel pvm/dat: proves the "no match" path leaves them untouched.

@@ -6,12 +6,7 @@
           .IMPORT     _AsqRequestPvm_8c011ac0
           .IMPORT     _AsqRequestDat_8c011182
           .IMPORT     _AsqReleaseAndFreeTexlist_8c011e3c
-          .IMPORT     _var_messageAssetCount_8c228514
-          .IMPORT     _var_messageTextDat_8c228518
-          .IMPORT     _var_eventSlides_8c228480
           .IMPORT     _var_commonDir_8c18ad6c
-          .IMPORT     _var_messageAssets_8c228484
-          .IMPORT     _var_selectedEventEntry_8c228478
           .IMPORT     _var_peripheral_8c1ba358
           .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _SndStopAdx_8c010ca6
@@ -20,7 +15,6 @@
           .IMPORT     _EventApplyFlags_8c02b292
           .IMPORT     _RouteLoadStartRouteModelLoadPass_8c013d78
           .IMPORT     _var_arrivalOverlayGate_8c226560
-          .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _njDrawScroll
           .IMPORT     _SndPollVoiceEnd_8c0106ac
           .IMPORT     _var_tasks_8c1ba3c8
@@ -58,7 +52,15 @@
           .EXPORT     _init_shinjukuEvents_8c049a6c
           .EXPORT     _init_wanganEvents_8c04843c
           .EXPORT     _init_omeEvents_8c04a9c8
+          .EXPORT     _var_eventSlides_8c228480
+          .EXPORT     _var_messageAssets_8c228484
+          .EXPORT     _var_messageAssetCount_8c228514
+          .EXPORT     _var_messageTextDat_8c228518
           .AENDI
+          .EXPORT     _var_selectedEventEntry_8c228478 ; 02af78_event
+          .EXPORT     _var_messageBoxActive_8c22847c ; 0129cc_game
+                                                     ; 02b464_drive_points
+                                                     ; 02d19c_passenger
           .SECTION     P, CODE, ALIGN=4
 _relocateMessageText_8c02a9fc:
           MOV         R4,R6
@@ -7483,4 +7485,17 @@ _init_msgScroll_8c04ab3c:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'00, H'0A, H'00, H'10, H'02, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'FF, H'FF, H'FF, H'FF
+          .SECTION    B,DATA,ALIGN=4
+_var_selectedEventEntry_8c228478:
+          .RES.B      4
+_var_messageBoxActive_8c22847c:
+          .RES.B      4
+_var_eventSlides_8c228480:
+          .RES.B      4
+_var_messageAssets_8c228484:
+          .RES.B      144
+_var_messageAssetCount_8c228514:
+          .RES.B      4
+_var_messageTextDat_8c228518:
+          .RES.B      4
           .END

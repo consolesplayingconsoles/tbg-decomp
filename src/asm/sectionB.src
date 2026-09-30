@@ -1,14 +1,4 @@
-; 8c228478
-          .EXPORT     _var_selectedEventEntry_8c228478 ; 028258
-                                                       ; 02af78_event
-          .EXPORT     _var_messageBoxActive_8c22847c ; 0129cc_game
-                                    ; 028258
-                                    ; 02b464
-                                    ; 02d19c
-          .EXPORT     _var_eventSlides_8c228480 ; 028258
-          .EXPORT     _var_messageAssets_8c228484 ; 028258
-          .EXPORT     _var_messageAssetCount_8c228514 ; 028258
-          .EXPORT     _var_messageTextDat_8c228518 ; 028258
+; 8c22851c
           .EXPORT     _var_routeEvents_8c22851c ; 02af78_event
                                                 ; 02c884
           .EXPORT     _var_eventCandidates_8c228520 ; 02af78_event
@@ -18,18 +8,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_selectedEventEntry_8c228478:
-          .RES.B      4
-_var_messageBoxActive_8c22847c:
-          .RES.B      4
-_var_eventSlides_8c228480:
-          .RES.B      4
-_var_messageAssets_8c228484:
-          .RES.B      144
-_var_messageAssetCount_8c228514:
-          .RES.B      4
-_var_messageTextDat_8c228518:
-          .RES.B      4
 _var_routeEvents_8c22851c:
           .RES.B      4
 _var_eventCandidates_8c228520:

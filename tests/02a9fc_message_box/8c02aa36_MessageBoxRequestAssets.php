@@ -13,7 +13,6 @@ return new class extends TestCase {
         $this->setSize('_AsqRequestPvm_8c011ac0', 4);
         $this->setSize('_AsqRequestDat_8c011182', 4);
         $this->setSize('_var_commonDir_8c18ad6c', 0x20);
-        $this->setSize('_var_messageAssets_8c228484', 0x0c * 12);
     }
 
     public function test_route_shinjuku_requests_dat_and_walks_event_groups(): void

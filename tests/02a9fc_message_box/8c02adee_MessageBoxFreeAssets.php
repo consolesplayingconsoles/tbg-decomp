@@ -12,7 +12,6 @@ return new class extends TestCase {
     {
         $this->setSize('_syFree', 4);
         $this->setSize('_AsqReleaseAndFreeTexlist_8c011e3c', 4);
-        $this->setSize('_var_messageAssets_8c228484', self::ENTRY_SIZE * 12);
     }
 
     public function test_no_entries_and_no_shared_dat_only_frees_textbox(): void

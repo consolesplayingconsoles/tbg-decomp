@@ -3,6 +3,7 @@
 
 #include "02af78_event.h"
 #include "02b464_drive_points.h"
+#include "02a9fc_message_box.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */

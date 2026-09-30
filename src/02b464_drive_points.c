@@ -16,6 +16,7 @@
 #include "023938_bus_drive.h"
 #include "028258_traffic_signal.h"
 #include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "02c884_bus_stop.h"
 #include "014a9c_tasks.h"
 #include "022464_render.h"
