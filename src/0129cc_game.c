@@ -7,7 +7,7 @@
 #include "015034_text.h"
 #include "01fa78_hud.h" /* HudReset_8c02018c, var_8c226434, var_8c226438 */
 #include "01614c_replay_menu.h"
-#include "028258_traffic_signal.h"
+#include "028258_signal.h"
 #include "0289ac_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "02a9fc_message_box.h"
 #include "024b4c_bus_camera.h"

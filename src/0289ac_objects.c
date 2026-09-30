@@ -13,7 +13,7 @@
 #include "020b6c_ground_probe.h"
 #include "021b9c_tile_draw.h"
 #include "022464_render.h" /* RenderPushCall1_8c0223ea, RenderPushCall2_8c022420 */
-#include "028258_traffic_signal.h" /* SignalGetFrame_8c028900, SignalClearPedCrossingFlags_8c02890c */
+#include "028258_signal.h" /* SignalGetFrame_8c028900, SignalClearPedCrossingFlags_8c02890c */
 #include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
 #include "02b464_drive_points.h"

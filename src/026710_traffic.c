@@ -10,7 +10,7 @@
 #include "020b6c_ground_probe.h"
 #include "025b98_traffic_drive.h"
 #include "026710_traffic.h"
-#include "028258_traffic_signal.h"
+#include "028258_signal.h"
 #include "02786c_vehicle_parts.h"
 #include "02c884_stop.h"
 #include "02df3c_traffic_lookahead.h"

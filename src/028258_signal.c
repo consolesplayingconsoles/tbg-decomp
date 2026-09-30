@@ -2,7 +2,7 @@
 /* 8c028258 */
 #include <shinobi.h>
 
-#include "028258_traffic_signal.h"
+#include "028258_signal.h"
 #include "014a9c_tasks.h" /* Task */
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"

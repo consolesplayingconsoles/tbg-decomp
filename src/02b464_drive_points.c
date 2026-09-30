@@ -14,7 +14,7 @@
 #include "02e400_collision.h"
 #include "02e2dc_bus_collision.h"
 #include "023938_bus_drive.h"
-#include "028258_traffic_signal.h"
+#include "028258_signal.h"
 #include "0289ac_objects.h"
 #include "02a9fc_message_box.h"
 #include "02c884_stop.h"

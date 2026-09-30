@@ -60,7 +60,7 @@
           .EXPORT     _var_busDoorLastFrame_8c227db4 ; 022bdc_bus
                                                      ; 023310_bus_init
           .EXPORT     _var_busSimpleLightDir_8c227db8 ; 026710_traffic
-                                                      ; 028258_traffic_signal
+                                                      ; 028258_signal
                                                       ; 02d19c_passenger
           .EXPORT     _var_mirrorLightDir_8c227dc4 ; 026710_traffic
           .EXPORT     _var_farClipDepth_8c227dd0 ; 013ae8_route_load

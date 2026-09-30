@@ -1,6 +1,6 @@
 /* 8c028258 */
-#ifndef _028258_TRAFFIC_SIGNAL_H
-#define _028258_TRAFFIC_SIGNAL_H
+#ifndef _028258_SIGNAL_H
+#define _028258_SIGNAL_H
 
 #include <shinobi.h>
 #include "014a9c_tasks.h" /* Task */
@@ -65,4 +65,4 @@ void SignalMarkCrossingOccupied_8c028984(int index);
 int SignalIsCrossingOccupied_8c02898e(int index);
 int SignalIsPedCrossing_8c028998(int index);
 
-#endif /* _028258_TRAFFIC_SIGNAL_H */
+#endif /* _028258_SIGNAL_H */

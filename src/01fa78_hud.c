@@ -6,7 +6,7 @@
 #include "014f54_sprite.h"
 #include "015034_text.h"
 #include "022464_render.h"
-#include "028258_traffic_signal.h"
+#include "028258_signal.h"
 #include "02b464_drive_points.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
