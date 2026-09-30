@@ -142,6 +142,5 @@ return new class extends TestCase {
         $this->setSize('_var_penaltyCount_8c1bb8f4', 0x4);
         $this->setSize('_var_award_8c1bb8f8', 0x4);
         $this->setSize('_var_progress_8c1ba1cc', 0x4);
-        $this->setSize('_var_lessonDialogQueue_8c226414', 0x18);
     }
 };

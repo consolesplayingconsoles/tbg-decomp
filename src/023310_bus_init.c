@@ -5,6 +5,7 @@
 
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
+#include "01e27c_practice_menu.h" /* var_practiceRules_8c226410 */
 #include "013ae8_route_load.h" /* CourseSceneParams, CourseSegment */
 #include "02c884_bus_stop.h"   /* StopAreaRecord, BusStopGetStopArea_8c02cd7a */
 #include "020914_ground_query.h"

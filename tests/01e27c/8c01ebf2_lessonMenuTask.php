@@ -649,7 +649,6 @@ return new class extends TestCase {
         $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_CourseMenuPushDialogTask_8c0170c6', 4);
-        $this->setSize('_var_lessonDialogQueue_8c226414', 0x18); // int[6] dialog queue
         $this->setSize('_var_instructorDialogActive_8c225fb4', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x68); // 2 x PDS_PERIPHERAL
         $this->setSize('_sdMidiPlay', 4);
@@ -659,11 +658,9 @@ return new class extends TestCase {
         $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
-        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_runWasPractice_8c1bb8bc', 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
-        $this->setSize('_var_lessonAttempts_8c22642c', 4);
         $this->setSize('_var_runReportPending_8c1bb8b8', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);

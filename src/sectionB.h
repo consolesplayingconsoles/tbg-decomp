@@ -1,6 +1,6 @@
-/* 8c22640c: undecompiled data section */
-#ifndef _22640C_SECTIONB_H
-#define _22640C_SECTIONB_H
+/* 8c226430: undecompiled data section */
+#ifndef _226430_SECTIONB_H
+#define _226430_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -317,23 +317,6 @@ extern TileIndex *var_tileLayerIndexes_8c22650c[5];
 extern LoadedModel *var_tileLayerSlots_8c226520[5];
 
 extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
-/* Selected PRACTICE lesson, 0-10 (01e27c_practice_menu): indexes
- * init_practiceRules_8c0451c0, the description-page table, and
- * var_progress_8c1ba1cc.practiceLessonBestScores_0x98. */
-extern int var_practiceLesson_8c22640c;
-/* Which parts of a normal run still apply to the selected practice drill,
- * from init_practiceRules_8c0451c0 (01e27c). A set bit keeps the normal
- * behaviour; a clear one takes the drill shortcut, and every reader pairs it
- * with var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE. 1 = stop announcements and
- * stop-arrival grading (020214, 02b464), 2 = the schedule (02c884, 02b464's
- * INSTR_TIME_MANAGEMENT), 4 = the stop sequence and run completion (02b464),
- * 8 = passengers and bus stops at all (02d968, 02d19c, 022464, and 023310's
- * blinker/mirror start). */
-extern int var_practiceRules_8c226410;
-extern int var_lessonDialogQueue_8c226414[6]; /* built by buildDialogQueue_8c01e992, -1 terminated */
-/* Practice drives finished since the lesson list was opened; still 0 means the
- * player never drove, and the day does not advance. */
-extern int var_lessonAttempts_8c22642c;
 extern int *var_endingVoiceList_8c226430; /* selected ending voice-id list, set by selectEndingDialog_8c01f3c0 */
 extern int var_activeTrafficPreset_8c227e14;
 /* Traffic preset table: indexed by var_busState_8c1bb9d0.scenePresetIds_0x3bc's byte at
@@ -349,4 +332,4 @@ extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 
-#endif // _22640C_SECTIONB_H
+#endif // _226430_SECTIONB_H

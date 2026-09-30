@@ -528,7 +528,6 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
-        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
@@ -547,6 +546,5 @@ return new class extends TestCase {
         $this->setSize('_var_worstPenaltyDelta_8c1bb8f0', 4);
         $this->setSize('_var_worstPenaltyMsgSet_8c1bb8ec', 4);
         $this->setSize('_var_penaltyCount_8c1bb8f4', 4);
-        $this->setSize('_var_practiceRules_8c226410', 4);
     }
 };

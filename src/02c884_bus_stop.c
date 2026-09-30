@@ -5,6 +5,7 @@
 
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
+#include "01e27c_practice_menu.h" /* var_practiceRules_8c226410 */
 #include "028258_objects.h"
 #include "013ae8_route_load.h" /* enum ROUTE */
 #include "011120_asset_queues.h" /* AsqGetRandomInRangeA_8c012178 */

@@ -61,6 +61,18 @@ enum LESSON_STATE {
 };
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+int var_practiceLesson_8c22640c;
+int var_practiceRules_8c226410;
+STATIC int var_lessonDialogQueue_8c226414[6]; /* built by buildDialogQueue_8c01e992, -1 terminated */
+/* Practice drives finished since the lesson list was opened; still 0 means the
+ * player never drove, and the day does not advance. */
+STATIC int var_lessonAttempts_8c22642c;
+
+/* ====================
  * Initialized Globals
  * ====================
  */
@@ -76,7 +88,7 @@ STATIC const char const_confirmQuitMsg_8c038988[TEXT_SJIS_SIZE(44)] = MSG_CONFIR
 STATIC char init_lessonPageStarts_8c0451b4[] = {
     0, 2, 3, 4, 6, 9, 12, 15, 17, 19, 24, 25
 };
-/* Per-drill rule mask (-> var_practiceRules_8c226410, see sectionB.h),
+/* Per-drill rule mask (-> var_practiceRules_8c226410, see 01e27c_practice_menu.h),
  * indexed by var_practiceLesson_8c22640c. Drills 0-6 turn everything but the
  * driving off, 7 keeps the schedule and the stop sequence, 8-10 are full
  * runs. */

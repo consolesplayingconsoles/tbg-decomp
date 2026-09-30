@@ -400,7 +400,6 @@ return new class extends TestCase {
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
-        $this->setSize('_var_practiceLesson_8c22640c', 4);
         $this->setSize('_njUserClipping', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);

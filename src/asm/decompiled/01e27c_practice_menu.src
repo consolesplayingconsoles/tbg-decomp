@@ -4,7 +4,6 @@
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _init_adxPlaying_8c03bd80
-          .IMPORT     _var_practiceLesson_8c22640c
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
@@ -22,7 +21,6 @@
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_penaltyCount_8c1bb8f4
-          .IMPORT     _var_practiceRules_8c226410
           .IMPORT     _GamePushLoadingTask_8c013310
           .IMPORT     _TaskSetAction_8c014b3e
           .IMPORT     _AsqInitQueues_8c011f36
@@ -42,14 +40,12 @@
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _var_award_8c1bb8f8
-          .IMPORT     _var_lessonDialogQueue_8c226414
           .IMPORT     __modls
           .IMPORT     __divls
           .IMPORT     _SndStopBgm_8c010d8a
           .IMPORT     _CourseMenuPushDialogTask_8c0170c6
           .IMPORT     _var_instructorDialogActive_8c225fb4
           .IMPORT     _var_menuTextboxCharLimit_8c225fb8
-          .IMPORT     _var_lessonAttempts_8c22642c
           .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _CourseMenuBuildCourseUnlockList_8c0172dc
           .IMPORT     _CourseMenuApplyUnlocks_8c0173e6
@@ -92,7 +88,18 @@
           .EXPORT     _init_lessonGuideRows_8c0451ec
           .EXPORT     _init_guideClipRect_8c0451f8
           .EXPORT     _lessonMenuTask_8c01ebf2
+          .EXPORT     _var_lessonDialogQueue_8c226414
+          .EXPORT     _var_lessonAttempts_8c22642c
           .AENDI
+          .EXPORT     _var_practiceLesson_8c22640c ; 0129cc_game
+                                    ; 020214
+                                    ; 02b464
+          .EXPORT     _var_practiceRules_8c226410 ; 020214
+                                    ; 022464
+                                    ; 023310
+                                    ; 02b464
+                                    ; 02c884
+                                    ; 02d968
           .SECTION     P, CODE, ALIGN=4
 _lessonDescriptionTask_8c01e27c:
           MOV.L       R14,@-R15
@@ -2278,4 +2285,13 @@ _init_penaltyMsgSetInstr_8c045208:        ; from defines
           .DATA.B      H'20, H'21, H'23, H'24, H'25, H'26, H'28, H'29, H'29, H'2B, H'2C, H'2D, H'2D, H'2E, H'2E, H'2F
           .DATA.B      H'32, H'33, H'34, H'35, H'31, H'31, H'36, H'37, H'38, H'39, H'3A, H'3B, H'3B, H'3D, H'31, H'27
           .DATA.B      H'3E, H'3F, H'00, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_practiceLesson_8c22640c:
+          .RES.B      4
+_var_practiceRules_8c226410:
+          .RES.B      4
+_var_lessonDialogQueue_8c226414:
+          .RES.B      24
+_var_lessonAttempts_8c22642c:
+          .RES.B      4
           .END
