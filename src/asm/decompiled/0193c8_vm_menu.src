@@ -25,10 +25,10 @@
           .IMPORT     _PromptHandleBinary_8c016caa
           .IMPORT     _var_selectedVm_8c1ba34c
           .IMPORT     _RenderPushFadeOut_8c022b60
-          .IMPORT     _FileMenuResetNewGame_8c01895e
+          .IMPORT     _FileSelectResetNewGame_8c01895e
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _MessageBoxMenuTextboxText_8c02af1c
-          .IMPORT     _FileMenuSwitchFromTask_8c019334
+          .IMPORT     _FileSelectSwitchFromTask_8c019334
           .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
           .IMPORT     _TaskSetAction_8c014b3e
@@ -58,11 +58,11 @@
           .EXPORT     _VmMenuUpdateVmuStatus_8c01967c
           .EXPORT     _VmMenuSwitchFromTask_8c019e44
           .EXPORT     _var_vmuStatus_8c226048 ; 01614c_replay_menu
-                                              ; 018644_file_menu
+                                              ; 018644_file_select
                                               ; 01b19c_system_menu
                                               ; 01bb48_vm_game
                                               ; 01d7fc_results
-          .EXPORT     _var_vmMountBusy_8c22606c ; 018644_file_menu
+          .EXPORT     _var_vmMountBusy_8c22606c ; 018644_file_select
                                                 ; 01b19c_system_menu
                                                 ; 01bb48_vm_game
 
@@ -1315,7 +1315,7 @@ LP_GEN_17403:
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C019CE4
           .DATA.L _init_vmuStatusMessages_8c044dc4 ; H'8C019CE8
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C019CEC
-          .DATA.L _FileMenuResetNewGame_8c01895e ; H'8C019CF0
+          .DATA.L _FileSelectResetNewGame_8c01895e ; H'8C019CF0
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C019CF4
           .DATA.L _SpriteDraw_8c014f54 ; H'8C019CF8
           .DATA.L _MessageBoxMenuTextboxText_8c02af1c ; H'8C019CFC
@@ -1518,12 +1518,12 @@ LP_GEN_77899:
           .RES.W 1 ; H'8C019E5E
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C019E60
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C019E64
-          .DATA.L _FileMenuResetNewGame_8c01895e ; H'8C019E68
+          .DATA.L _FileSelectResetNewGame_8c01895e ; H'8C019E68
           .DATA.L __quick_evn_mvn ; H'8C019E6C
           .DATA.L _init_vmuStatusMessages_8c044dc4 ; H'8C019E70
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C019E74
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C019E78
-          .DATA.L _FileMenuSwitchFromTask_8c019334 ; H'8C019E7C
+          .DATA.L _FileSelectSwitchFromTask_8c019334 ; H'8C019E7C
           .DATA.L _SpriteDraw_8c014f54 ; H'8C019E80
           .DATA.L _init_adxPlaying_8c03bd80 ; H'8C019E84
           .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C019E88

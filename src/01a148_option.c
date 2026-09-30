@@ -7,7 +7,7 @@
 #include "012324_input.h"
 #include "014f54_sprite.h"
 #include "015ab8_title.h"
-#include "018644_file_menu.h"
+#include "018644_file_select.h"
 #include "019e98_main_menu.h"
 #include "01a148_option.h"
 #include "022464_render.h"
@@ -134,7 +134,7 @@ STATIC void settingTask_8c01a148(Task *task)
                 if (m->selected_0x38 < 5) {
                     CHANGE_STATE(OPTION_STATE_EDIT);           /* toggle row -> edit */
                 } else if (m->selected_0x38 == 5) {
-                    FileMenuResetSettingDefaults_8c018862();   /* DEFAULT: no phase change */
+                    FileSelectResetSettingDefaults_8c018862();   /* DEFAULT: no phase change */
                 } else {
                     CHANGE_STATE(OPTION_STATE_FADE_OUT);       /* RETURN -> fade out */
                     RenderPushFadeOut_8c022b60(10);
@@ -315,7 +315,7 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
                 if (m->selected_0x38 < 3) {
                     CHANGE_STATE(m->selected_0x38 + 2);
                 } else if (m->selected_0x38 == 3) {
-                    FileMenuResetKeyConfigDefaults_8c0188bc();
+                    FileSelectResetKeyConfigDefaults_8c0188bc();
                 } else {
                     CHANGE_STATE(KEY_CONFIG_FADE_OUT);
                     RenderPushFadeOut_8c022b60(10);
@@ -586,7 +586,7 @@ STATIC void audioTask_8c01ab08(Task *task)
                     CHANGE_STATE(m->selected_0x38 + 2);
                     m->cursorCol_0x3c = 0;
                 } else if (m->selected_0x38 == 7) {
-                    FileMenuResetSoundDefaults_8c0188dc();
+                    FileSelectResetSoundDefaults_8c0188dc();
                 } else {
                     CHANGE_STATE(AUDIO_FADE_OUT);
                     SndSetSoundMode_8c0108c0(var_soundMode_8c226070);

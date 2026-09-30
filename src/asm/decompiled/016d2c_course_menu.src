@@ -82,7 +82,7 @@
           .EXPORT     _var_currentSysResGroupInfo_8c225fb0 ; 0129cc_game
                                                            ; 015ab8_title
                                                            ; 016108_resgrp_free
-                                                           ; 018644_file_menu
+                                                           ; 018644_file_select
                                                            ; 01c980_profile_file
                                                            ; 01e27c_practice_menu
           .EXPORT     _var_instructorDialogActive_8c225fb4 ; 01e27c_practice_menu

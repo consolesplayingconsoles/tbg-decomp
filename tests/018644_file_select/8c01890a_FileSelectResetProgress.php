@@ -13,7 +13,7 @@ return new class extends TestCase {
         $g1 = $this->addressOf('_var_runReportPending_8c1bb8b8');
         $g2 = $this->addressOf('_var_runWasPractice_8c1bb8bc');
 
-        $this->call('_FileMenuResetProgress_8c01890a');
+        $this->call('_FileSelectResetProgress_8c01890a');
 
         // days_0x00
         $this->shouldWriteLong($base + 0x00, 1);

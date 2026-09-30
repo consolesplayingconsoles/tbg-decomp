@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_saveBuf_8c1ba2e0'), 0x1000);
         $this->initUint32($this->addressOf('_var_vmuIconFileBuf_8c1ba344'), 0x2000);
 
-        $this->call('_FileMenuFreeBuffers_8c0187d0');
+        $this->call('_FileSelectFreeBuffers_8c0187d0');
 
         $this->shouldCall('_syFree')->with(0x1000);
         $this->shouldWriteLongTo('_var_saveBuf_8c1ba2e0', 0xffffffff);
@@ -33,6 +33,6 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_saveBuf_8c1ba2e0'), 0xffffffff);
         $this->initUint32($this->addressOf('_var_vmuIconFileBuf_8c1ba344'), 0xffffffff);
 
-        $this->call('_FileMenuFreeBuffers_8c0187d0');
+        $this->call('_FileSelectFreeBuffers_8c0187d0');
     }
 };

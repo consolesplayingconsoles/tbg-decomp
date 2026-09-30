@@ -24,7 +24,7 @@
           .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _PromptHandleBinary_8c016caa
           .IMPORT     _RenderPushFadeIn_8c022a9c
-          .IMPORT     _FileMenuResetProgress_8c01890a
+          .IMPORT     _FileSelectResetProgress_8c01890a
           .IMPORT     _SystemMenuWriteToVmu_8c01b26c
           .IMPORT     _VmGameSetLcdSlot_8c01c8fc
           .IMPORT     _BupGetInfo_8c014bba
@@ -991,7 +991,7 @@ LP_GEN_50614:
           .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01DED0
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01DED4
           .DATA.L _var_runFailed_8c226408 ; H'8C01DED8
-          .DATA.L _FileMenuResetProgress_8c01890a ; H'8C01DEDC
+          .DATA.L _FileSelectResetProgress_8c01890a ; H'8C01DEDC
           .DATA.L _SystemMenuWriteToVmu_8c01b26c ; H'8C01DEE0
           .DATA.L _const_8c038908 ; H'8C01DEE4
           .DATA.L _VmGameSetLcdSlot_8c01c8fc ; H'8C01DEE8

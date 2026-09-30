@@ -3,7 +3,7 @@
 #include <sg_sd.h>
 #include "0100bc_sound.h"
 #include "0193c8_vm_menu.h"
-#include "018644_file_menu.h"
+#include "018644_file_select.h"
 #include "019e98_main_menu.h"
 #include "sg_xpt.h"
 #include "014a9c_tasks.h"
@@ -621,7 +621,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
             if (promptResult == 1) {
                 var_selectedVm_8c1ba34c = -1;
-                FileMenuResetNewGame_8c01895e();
+                FileSelectResetNewGame_8c01895e();
                 CHANGE_STATE(VM_MENU_STATE_FADE_OUT);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
@@ -663,7 +663,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                         int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
                         if (promptResult == 1) {
                             var_selectedVm_8c1ba34c = -1;
-                            FileMenuResetNewGame_8c01895e();
+                            FileSelectResetNewGame_8c01895e();
                             task->field_0x08 = 2;
                             RenderPushFadeOut_8c022b60(10);
                         } else if (promptResult == 2) {
@@ -720,7 +720,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         // Confirm Fade Out to Main Menu
         case VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU: {
             if (!var_isFading_8c226568) {
-                FileMenuSwitchFromTask_8c019334(task);
+                FileSelectSwitchFromTask_8c019334(task);
                 return;
             }
 

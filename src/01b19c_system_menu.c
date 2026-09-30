@@ -13,7 +13,7 @@
 #include "022464_render.h"
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
-#include "018644_file_menu.h"
+#include "018644_file_select.h"
 #include "01bb48_vm_game.h"
 #include "015ab8_title.h"
 #include "01614c_replay_menu.h"
@@ -319,9 +319,9 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             if (buGetLastError(var_selectedVm_8c1ba34c) == 0) {
                 buAnalyzeBackupFileImage(&var_backupFileHeader_8c1ba2e4, var_saveBuf_8c1ba2e0);
                 njMemCopy(&var_progress_8c1ba1cc, var_backupFileHeader_8c1ba2e4.save_data, 0xe8);
-                if (FileMenuIsSaveValid_8c018804((int *)&var_progress_8c1ba1cc) != 0) {
+                if (FileSelectIsSaveValid_8c018804((int *)&var_progress_8c1ba1cc) != 0) {
                     SystemMenuApplyLoadedProgress_8c01b19c();
-                    FileMenuApplySoundSettings_8c0189fc();
+                    FileSelectApplySoundSettings_8c0189fc();
                     MessageBoxSwapFor_8c02aefc(MSG_LOAD_DONE);
                 } else {
                     /* corrupt/incompatible save -- "Load failed; aborting the game" */
@@ -425,7 +425,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         }
         var_menuState_8c1bc7a8.cursorCol_0x3c = 1;
         var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
-        FileMenuFreeBuffers_8c0187d0();
+        FileSelectFreeBuffers_8c0187d0();
         CourseMenuSwitchFromTask_8c017e18(task);
         return;
 

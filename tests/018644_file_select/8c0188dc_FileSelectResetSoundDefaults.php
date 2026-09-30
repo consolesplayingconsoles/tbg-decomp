@@ -11,7 +11,7 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
         $base = $this->addressOf('_var_progress_8c1ba1cc');
 
-        $this->call('_FileMenuResetSoundDefaults_8c0188dc');
+        $this->call('_FileSelectResetSoundDefaults_8c0188dc');
 
         $this->shouldCall('_SndGetSoundMode_8c010924')->andReturn(3);
         $this->shouldWriteByte($this->addressOf('_var_soundMode_8c226070'), 3);
@@ -27,7 +27,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_progress_8c1ba1cc');
         $soundMode = $this->addressOf('_var_soundMode_8c226070');
 
-        $this->call('_FileMenuResetSoundDefaults_8c0188dc');
+        $this->call('_FileSelectResetSoundDefaults_8c0188dc');
 
         $this->shouldCall('_SndGetSoundMode_8c010924')->andReturn(-1);
         $this->shouldWriteByte($soundMode, -1);

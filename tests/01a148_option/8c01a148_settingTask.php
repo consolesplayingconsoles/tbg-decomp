@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
-        $this->setSize('_FileMenuResetSettingDefaults_8c018862', 4);
+        $this->setSize('_FileSelectResetSettingDefaults_8c018862', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + self::PRESS, $press);
@@ -134,7 +134,7 @@ return new class extends TestCase {
     {
         $this->arrange(self::TA, 1, 5, [0, 0, 0, 0, 0]);
         $this->call('_settingTask_8c01a148');
-        $this->shouldCall('_FileMenuResetSettingDefaults_8c018862');
+        $this->shouldCall('_FileSelectResetSettingDefaults_8c018862');
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->expectDraw(1, 5, [0, 0, 0, 0, 0], 1);
     }

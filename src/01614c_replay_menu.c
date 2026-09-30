@@ -12,7 +12,7 @@
 #include "015034_text.h"
 #include "016108_resgrp_free.h"
 #include "016d2c_course_menu.h"
-#include "018644_file_menu.h"
+#include "018644_file_select.h"
 #include "02171c_tile_stream.h"
 #include "028258_signal.h"
 #include "0289ac_objects.h"
@@ -190,7 +190,7 @@ void ReplayMenuFreeSessionAssets_8c016182(void)
         var_vmGameBuf_8c1bc454 = (void *)-1;
     }
     ResgrpFreeAll_8c016108();
-    FileMenuFreeBuffers_8c0187d0();
+    FileSelectFreeBuffers_8c0187d0();
     VmMenuFreeAndClear_8c019504();
 }
 

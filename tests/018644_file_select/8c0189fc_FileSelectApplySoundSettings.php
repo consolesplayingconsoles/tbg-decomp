@@ -14,7 +14,7 @@ return new class extends TestCase {
         $this->initUint8($base + 0xd5, 3);
         $this->initUint8($base + 0xd6, 5);
 
-        $this->call('_FileMenuApplySoundSettings_8c0189fc');
+        $this->call('_FileSelectApplySoundSettings_8c0189fc');
 
         $this->shouldCall('_SndSetAdxVol_8c010972')->with(7, 0);
         $this->shouldCall('_SndSetMidiVol_8c0109f4')->with(3);

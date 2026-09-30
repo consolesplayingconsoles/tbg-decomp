@@ -5,7 +5,7 @@
                                              ; 0129cc_game
                                              ; 013ae8_route
                                              ; 016d2c_course_menu
-                                             ; 018644_file_menu
+                                             ; 018644_file_select
                                              ; 01a148
                                              ; 01b19c
                                              ; 01bb48
@@ -26,12 +26,12 @@
           .EXPORT     _var_profileFlagsSnapshot_8c1ba2cc ; 0129cc_game
                                     ; 016d2c_course_menu
           .EXPORT     _var_saveBuf_8c1ba2e0 ; 0129cc_game
-                                    ; 018644_file_menu
+                                    ; 018644_file_select
                                     ; 01b19c
           .EXPORT     _var_backupFileHeader_8c1ba2e4 ; 018644
                                     ; 01b19c
           .EXPORT     _var_vmuIconFileBuf_8c1ba344 ; 0129cc_game
-                                    ; 018644_file_menu
+                                    ; 018644_file_select
                                     ; 01b19c
                                     ; 01d7fc
           .EXPORT     _var_backupFileImageBuf_8c1ba348 ; 0129cc_game
@@ -41,12 +41,12 @@
           .EXPORT     _var_selectedVm_8c1ba34c ; 0129cc_game
                                                ; 01614c_replay_menu
                                                ; 018644
-                                               ; 018644_file_menu
+                                               ; 018644_file_select
                                                ; 0193c8_vm_menu
                                                ; 01b19c
                                                ; 01d7fc
                                                ; 01f3c0
-          .EXPORT     _var_saveSlot_8c1ba350 ; 018644_file_menu
+          .EXPORT     _var_saveSlot_8c1ba350 ; 018644_file_select
                                     ; 01b19c
                                     ; 01d7fc
           .EXPORT     _var_vibport_8c1ba354 ; 012324_input
@@ -64,7 +64,7 @@
                                                 ; 01614c_replay_menu
                                                 ; 016c58_prompt
                                                 ; 016d2c_course_menu
-                                                ; 018644_file_menu
+                                                ; 018644_file_select
                                                 ; 0193c8_vm_menu
                                                 ; 019e98_main_menu
                                                 ; 01a148
@@ -89,7 +89,7 @@
                                           ; 015ab8_title
                                           ; 01614c_replay_menu
                                           ; 016d2c_course_menu
-                                          ; 018644_file_menu
+                                          ; 018644_file_select
                                           ; 0193c8_vm_menu
                                           ; 01d7fc
                                           ; 01e27c
@@ -138,13 +138,13 @@
                                                   ; 02c884
           .EXPORT     _var_runReportPending_8c1bb8b8 ; 0129cc_game
                                     ; 016d2c_course_menu
-                                    ; 018644_file_menu
+                                    ; 018644_file_select
                                     ; 01b19c
                                     ; 01e27c
                                     ; 02b464
           .EXPORT     _var_runWasPractice_8c1bb8bc ; 0129cc_game
                                     ; 016d2c_course_menu
-                                    ; 018644_file_menu
+                                    ; 018644_file_select
                                     ; 01b19c
                                     ; 01e27c
                                     ; 02b464

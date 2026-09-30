@@ -22,7 +22,7 @@ return new class extends TestCase {
             '_RouteGetLatch_8c01432a', '_AsqFreeQueues_8c011f7e',
             '_SndMidiResetFxAndPlay_8c010846', '_sdMidiPlay',
             '_RenderPushFadeOut_8c022b60', '_PromptHandleBinary_8c016caa',
-            '_RenderPushFadeIn_8c022a9c', '_FileMenuResetProgress_8c01890a',
+            '_RenderPushFadeIn_8c022a9c', '_FileSelectResetProgress_8c01890a',
             '_SystemMenuWriteToVmu_8c01b26c', '_VmGameSetLcdSlot_8c01c8fc',
             '_BupGetInfo_8c014bba', '_buStat', '_buGetLastError', '_syFree',
             '_ReplayMenuFreeSessionAssets_8c016182', '_CourseMenuReturn_8c017ef2',
@@ -206,7 +206,7 @@ return new class extends TestCase {
             ->with($this->ms + 0x38)
             ->andReturn(1);
 
-        $this->shouldCall('_FileMenuResetProgress_8c01890a');
+        $this->shouldCall('_FileSelectResetProgress_8c01890a');
 
         $this->shouldCall('_SystemMenuWriteToVmu_8c01b26c');
 

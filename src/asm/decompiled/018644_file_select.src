@@ -63,16 +63,16 @@
           .EXPORT     _var_fileCardCount_8c226014
           .EXPORT     _var_fileCards_8c226018
           .AENDI
-          .EXPORT     _FileMenuFreeBuffers_8c0187d0
-          .EXPORT     _FileMenuIsSaveValid_8c018804
-          .EXPORT     _FileMenuResetSettingDefaults_8c018862
-          .EXPORT     _FileMenuResetKeyConfigDefaults_8c0188bc
-          .EXPORT     _FileMenuResetSoundDefaults_8c0188dc
-          .EXPORT     _FileMenuResetProgress_8c01890a
-          .EXPORT     _FileMenuResetNewGame_8c01895e
-          .EXPORT     _FileMenuResetOptionDefaults_8c0189d2
-          .EXPORT     _FileMenuApplySoundSettings_8c0189fc
-          .EXPORT     _FileMenuSwitchFromTask_8c019334
+          .EXPORT     _FileSelectFreeBuffers_8c0187d0
+          .EXPORT     _FileSelectIsSaveValid_8c018804
+          .EXPORT     _FileSelectResetSettingDefaults_8c018862
+          .EXPORT     _FileSelectResetKeyConfigDefaults_8c0188bc
+          .EXPORT     _FileSelectResetSoundDefaults_8c0188dc
+          .EXPORT     _FileSelectResetProgress_8c01890a
+          .EXPORT     _FileSelectResetNewGame_8c01895e
+          .EXPORT     _FileSelectResetOptionDefaults_8c0189d2
+          .EXPORT     _FileSelectApplySoundSettings_8c0189fc
+          .EXPORT     _FileSelectSwitchFromTask_8c019334
           .SECTION     P, CODE, ALIGN=4
 _loadFileTask_8c018644:
           MOV.L       R14,@-R15
@@ -265,7 +265,7 @@ _startVmLoad_8c018784:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_FileMenuFreeBuffers_8c0187d0:
+_FileSelectFreeBuffers_8c0187d0:
           MOV.L       LP_GEN_28586+32,R2
           STS.L       PR,@-R15
           MOV.L       @R2,R0
@@ -294,7 +294,7 @@ LAB_8c0187fe:
           LDS.L       @R15+,PR
           RTS
           NOP
-_FileMenuIsSaveValid_8c018804:
+_FileSelectIsSaveValid_8c018804:
           MOV.L       @R4,R5
           MOV         #H'1,R6
           CMP/GE      R6,R5
@@ -346,7 +346,7 @@ LAB_8c01885c:
           MOV         #H'1,R0
           RTS
           NOP
-_FileMenuResetSettingDefaults_8c018862:
+_FileSelectResetSettingDefaults_8c018862:
           MOV.W       LP_GEN_28586+4,R0
           MOV         #H'1,R3
           MOV.L       LP_GEN_28586+56,R4
@@ -380,7 +380,7 @@ LP_GEN_28586:
           .DATA.L _var_vmuIconFileBuf_8c1ba344 ; H'8C0188B0
           .DATA.L H'0001869F ; H'8C0188B4
           .DATA.L _var_progress_8c1ba1cc ; H'8C0188B8
-_FileMenuResetKeyConfigDefaults_8c0188bc:
+_FileSelectResetKeyConfigDefaults_8c0188bc:
           MOV.W       LP_GEN_30274,R0
           MOV         #H'0,R5
           MOV.L       LP_GEN_30274+8,R4
@@ -397,7 +397,7 @@ _FileMenuResetKeyConfigDefaults_8c0188bc:
           ADD         #H'1,R0
           RTS
           MOV.B       R5,@(R0,R4)
-_FileMenuResetSoundDefaults_8c0188dc:
+_FileSelectResetSoundDefaults_8c0188dc:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_30274+12,R3
           JSR         @R3
@@ -422,7 +422,7 @@ LAB_8c0188f6:
           LDS.L       @R15+,PR
           RTS
           MOV.B       R5,@(R0,R4)
-_FileMenuResetProgress_8c01890a:
+_FileSelectResetProgress_8c01890a:
           MOV.L       LP_GEN_30274+8,R5
           MOV         #H'0,R4
           MOV         #H'1,R7
@@ -467,9 +467,9 @@ LAB_8c018928:
           MOV.L       R7,@R3
           RTS
           MOV.L       R4,@R2
-_FileMenuResetNewGame_8c01895e:
+_FileSelectResetNewGame_8c01895e:
           STS.L       PR,@-R15
-          BSR         _FileMenuResetProgress_8c01890a
+          BSR         _FileSelectResetProgress_8c01890a
           NOP
           MOV         #H'0,R4
           MOV.L       LP_GEN_30274+8,R5
@@ -530,13 +530,13 @@ LAB_8c0189be:
           LDS.L       @R15+,PR
           RTS
           NOP
-_FileMenuResetOptionDefaults_8c0189d2:
+_FileSelectResetOptionDefaults_8c0189d2:
           STS.L       PR,@-R15
-          BSR         _FileMenuResetSettingDefaults_8c018862
+          BSR         _FileSelectResetSettingDefaults_8c018862
           NOP
-          BSR         _FileMenuResetKeyConfigDefaults_8c0188bc
+          BSR         _FileSelectResetKeyConfigDefaults_8c0188bc
           NOP
-          BRA         _FileMenuResetSoundDefaults_8c0188dc
+          BRA         _FileSelectResetSoundDefaults_8c0188dc
           LDS.L       @R15+,PR
 LP_GEN_30274:
           .DATA.W H'00CC ; H'8C0189E0
@@ -548,7 +548,7 @@ LP_GEN_30274:
           .DATA.L _var_soundMode_8c226070 ; H'8C0189F0
           .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C0189F4
           .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C0189F8
-_FileMenuApplySoundSettings_8c0189fc:
+_FileSelectApplySoundSettings_8c0189fc:
           MOV.L       R14,@-R15
           MOV         #H'0,R5
           STS.L       PR,@-R15
@@ -1255,11 +1255,11 @@ LAB_8c018f68:
           BRA         LAB_8c018f9e
           NOP
 LAB_8c018f80:
-          BSR         _FileMenuIsSaveValid_8c018804
+          BSR         _FileSelectIsSaveValid_8c018804
           MOV.L       @R13,R4
           TST         R0,R0
           BF          LAB_8c018f94
-          BSR         _FileMenuFreeBuffers_8c0187d0
+          BSR         _FileSelectFreeBuffers_8c0187d0
           NOP
           JSR         @R12
           MOV         R10,R4
@@ -1285,7 +1285,7 @@ LAB_8c018fa4:
           BRA         LAB_8c018fc4
           MOV.L       R1,@(H'18,R14)
 LAB_8c018fb4:
-          BSR         _FileMenuFreeBuffers_8c0187d0
+          BSR         _FileSelectFreeBuffers_8c0187d0
           MOV.L       R9,@R4
           JSR         @R12
           MOV         R10,R4
@@ -1516,7 +1516,7 @@ LAB_8c019152:
           CMP/EQ      #H'a,R0
           BF/S        LAB_8c0191a6
           MOV         R0,R11
-          BSR         _FileMenuResetNewGame_8c01895e
+          BSR         _FileSelectResetNewGame_8c01895e
           NOP
           MOV.L       LP_GEN_53993+16,R6
           MOV         R8,R4
@@ -1574,7 +1574,7 @@ LAB_8c0191ae:
           JSR         @R2
           NOP
           MOV.L       LP_GEN_73468+6,R3
-          BSR         _FileMenuApplySoundSettings_8c0189fc
+          BSR         _FileSelectApplySoundSettings_8c0189fc
           MOV.L       R11,@R3
 LAB_8c0191de:
           MOV.L       LP_GEN_73468+30,R4
@@ -1629,7 +1629,7 @@ LAB_8c01923a:
           MOV.L       @R6,R2
           TST         R2,R2
           BF          LAB_8c0192da
-          BSR         _FileMenuFreeBuffers_8c0187d0
+          BSR         _FileSelectFreeBuffers_8c0187d0
           NOP
           MOV.L       LP_GEN_73468+50,R3
           JSR         @R3
@@ -1689,7 +1689,7 @@ LAB_8c0192cc:
           MOV.L       @R6,R2
           TST         R2,R2
           BF          LAB_8c0192da
-          BSR         _FileMenuFreeBuffers_8c0187d0
+          BSR         _FileSelectFreeBuffers_8c0187d0
           NOP
           BRA         LAB_8c0192fc
           NOP
@@ -1742,7 +1742,7 @@ LAB_8c01931a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_FileMenuSwitchFromTask_8c019334:
+_FileSelectSwitchFromTask_8c019334:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15

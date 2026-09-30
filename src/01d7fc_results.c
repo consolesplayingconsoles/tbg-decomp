@@ -13,7 +13,7 @@
 #include "015ab8_title.h"
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
-#include "018644_file_menu.h"
+#include "018644_file_select.h"
 #include "0193c8_vm_menu.h"
 #include "01b19c_system_menu.h"
 #include "01bb48_vm_game.h"
@@ -279,7 +279,7 @@ STATIC void resultsTask_8c01d8e0(void)
             promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.selected_0x38);
             if (promptResult == 1) {
                 if (var_runFailed_8c226408 == 1) {
-                    FileMenuResetProgress_8c01890a();
+                    FileSelectResetProgress_8c01890a();
                 }
                 SystemMenuWriteToVmu_8c01b26c();
                 var_menuState_8c1bc7a8.subState_0x1c = 1;

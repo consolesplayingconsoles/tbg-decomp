@@ -63,7 +63,7 @@ SRCS = \
 	src/01614c_replay_menu.c \
 	src/016c58_prompt.c \
 	src/016d2c_course_menu.c \
-	src/018644_file_menu.c \
+	src/018644_file_select.c \
 	src/0193c8_vm_menu.c \
 	src/019e98_main_menu.c \
 	src/01a148_option.c \

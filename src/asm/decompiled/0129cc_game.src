@@ -63,7 +63,7 @@
           .IMPORT     _AsqGetRandomA_8c012166
           .IMPORT     _var_demoShotId_8c227dd4
           .IMPORT     _init_demoFirstShot_8c0460b0
-          .IMPORT     _FileMenuResetNewGame_8c01895e
+          .IMPORT     _FileSelectResetNewGame_8c01895e
           .IMPORT     _AsqApplyButtonConfig_8c0121e8
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_savedCameraMode_8c227da0
@@ -135,7 +135,7 @@
           .IMPORT     _var_demoIndex_8c1bb8d8
           .IMPORT     _var_loadScreenActive_8c157a6c
           .IMPORT     _VmGameResetLcdAnims_8c01c8dc
-          .IMPORT     _FileMenuResetOptionDefaults_8c0189d2
+          .IMPORT     _FileSelectResetOptionDefaults_8c0189d2
           .IMPORT     _njSetBorderColor
           .IMPORT     _VmGameSetLcdSlot_8c01c8fc
           .IMPORT     _VmGameUpdateLcd_8c01c910
@@ -1506,7 +1506,7 @@ LP_GEN_38000:
           .DATA.L _var_demoShotId_8c227dd4
           .DATA.L _var_isAttractDemo_8c1bb8d4
           .DATA.L _init_demoFirstShot_8c0460b0
-          .DATA.L _FileMenuResetNewGame_8c01895e
+          .DATA.L _FileSelectResetNewGame_8c01895e
           .DATA.L _srand
           .DATA.L _AsqSetSeedA_8c012160
           .DATA.L _AsqSetSeedB_8c0121a2
@@ -1937,7 +1937,7 @@ LP_GEN_90231:
           .DATA.L _var_demoIndex_8c1bb8d8
           .DATA.L _var_loadScreenActive_8c157a6c
           .DATA.L _VmGameResetLcdAnims_8c01c8dc
-          .DATA.L _FileMenuResetOptionDefaults_8c0189d2
+          .DATA.L _FileSelectResetOptionDefaults_8c0189d2
           .DATA.L _njSetBorderColor
 
 LAB_8c013824:

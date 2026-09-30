@@ -11,9 +11,9 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
         $base = $this->addressOf('_var_progress_8c1ba1cc');
 
-        $this->call('_FileMenuResetNewGame_8c01895e');
+        $this->call('_FileSelectResetNewGame_8c01895e');
 
-        $this->shouldCall('_FileMenuResetProgress_8c01890a');
+        $this->shouldCall('_FileSelectResetProgress_8c01890a');
 
         // profileProgressFlags_0x18[5]
         for ($off = 0x18; $off < 0x2c; $off += 4) {

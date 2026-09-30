@@ -339,7 +339,7 @@ typedef struct {
     char field_0xd3;
 
     /* AUDIO MUSIC/SFX/VOICE volume (0-9, 10 steps); reset with the sound mode
-     * (see FileMenuResetSoundDefaults_8c0188dc) */
+     * (see FileSelectResetSoundDefaults_8c0188dc) */
     char musicVolume_0xd4;
     char sfxVolume_0xd5;
     char voiceVolume_0xd6;
@@ -365,7 +365,7 @@ extern int var_runEventFlags_8c1ba2b4;
  * whatever the abandoned drive raised. */
 extern int var_eventFlagsSnapshot_8c1ba2b8[5];
 extern int var_profileFlagsSnapshot_8c1ba2cc[5];
-/* Staging buffer for VMU save-file images: 018644_file_menu allocates 16
+/* Staging buffer for VMU save-file images: 018644_file_select allocates 16
  * 0x600-byte slots in it (one per VM file) and 01b19c one, for the file it is
  * about to write. -1 when unallocated. */
 extern void* var_saveBuf_8c1ba2e0;

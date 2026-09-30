@@ -53,7 +53,7 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0xd2);
         $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
-        $this->setSize('_FileMenuResetKeyConfigDefaults_8c0188bc', 4);
+        $this->setSize('_FileSelectResetKeyConfigDefaults_8c0188bc', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + self::PRESS, $press);
@@ -175,7 +175,7 @@ return new class extends TestCase {
     public function test_confirm_default_row_resets_view()
     {
         $this->arrange(press: self::TA, state: 1, selected: 3);
-        $this->shouldCall('_FileMenuResetKeyConfigDefaults_8c0188bc');
+        $this->shouldCall('_FileSelectResetKeyConfigDefaults_8c0188bc');
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->shouldDrawRowLabels(selected: 3);
         $this->shouldDrawSensitivityBars(state: 1, accel: 0, brake: 0);

@@ -46,7 +46,7 @@
           .EXPORT     _init_practice02ResourceGroup_8c044284 ; 01e27c.src
           .EXPORT     _var_menuState_8c1bc7a8 ; 0129cc_game
                                               ; 016d2c_course_menu
-                                              ; 018644_file_menu
+                                              ; 018644_file_select
                                               ; 0193c8_vm_menu
                                               ; 019e98_main_menu
                                               ; 01a148

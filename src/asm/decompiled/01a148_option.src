@@ -4,7 +4,7 @@
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _FileMenuResetSettingDefaults_8c018862
+          .IMPORT     _FileSelectResetSettingDefaults_8c018862
           .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _TaskSetAction_8c014b3e
@@ -12,12 +12,12 @@
           .IMPORT     _njDrawPolygon
           .IMPORT     _var_activeCtrlType_8c157a70
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _FileMenuResetKeyConfigDefaults_8c0188bc
+          .IMPORT     _FileSelectResetKeyConfigDefaults_8c0188bc
           .IMPORT     __modls
           .IMPORT     __divls
           .IMPORT     _sdMidiStop
           .IMPORT     _SndStopAdx_8c010ca6
-          .IMPORT     _FileMenuResetSoundDefaults_8c0188dc
+          .IMPORT     _FileSelectResetSoundDefaults_8c0188dc
           .IMPORT     _SndSetSoundMode_8c0108c0
           .IMPORT     _SndSetAdxVol_8c010972
           .IMPORT     _SndSetMidiVol_8c0109f4
@@ -48,7 +48,7 @@
           .AENDI
           .EXPORT     _OptionSwitchToTopMenu_8c01b122
           .EXPORT     _var_soundMode_8c226070 ; 0129cc_game
-                                              ; 018644_file_menu
+                                              ; 018644_file_select
           .SECTION     P, CODE, ALIGN=4
 _settingTask_8c01a148:
           MOV.L       R14,@-R15
@@ -201,7 +201,7 @@ LP_GEN_11111:
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01A258
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01A25C
           .DATA.L _var_isFading_8c226568 ; H'8C01A260
-          .DATA.L _FileMenuResetSettingDefaults_8c018862 ; H'8C01A264
+          .DATA.L _FileSelectResetSettingDefaults_8c018862 ; H'8C01A264
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01A268
           .DATA.L _init_settingOptionCounts_8c044de0 ; H'8C01A26C
 LAB_8c01a270:
@@ -698,7 +698,7 @@ LP_GEN_91649:
           .DATA.L _var_progress_8c1ba1cc ; H'8C01A624
           .DATA.L _var_isFading_8c226568 ; H'8C01A628
           .DATA.L _var_peripherals_8c1ba35c ; H'8C01A62C
-          .DATA.L _FileMenuResetKeyConfigDefaults_8c0188bc ; H'8C01A630
+          .DATA.L _FileSelectResetKeyConfigDefaults_8c0188bc ; H'8C01A630
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01A634
 LAB_8c01a638:
           BSR         _keyConfigEditExit_8c01a4b4
@@ -1555,7 +1555,7 @@ LP_GEN_82753:
           .DATA.L H'43DA0000 ; H'8C01AC74
           .DATA.L H'C0400000 ; H'8C01AC78
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01AC7C
-          .DATA.L _FileMenuResetSoundDefaults_8c0188dc ; H'8C01AC80
+          .DATA.L _FileSelectResetSoundDefaults_8c0188dc ; H'8C01AC80
           .DATA.L _var_soundMode_8c226070 ; H'8C01AC84
           .DATA.L _SndSetSoundMode_8c0108c0 ; H'8C01AC88
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01AC8C

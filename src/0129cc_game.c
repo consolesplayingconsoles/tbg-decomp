@@ -22,7 +22,7 @@
 #include "02b464_drive_points.h" /* DrivePointsReset_8c02c46a */
 #include "020214_drive_cue.h" /* DriveCueInit_8c020528 */
 #include "014b8c_backup.h"
-#include "018644_file_menu.h"
+#include "018644_file_select.h"
 #include "01a148_option.h"
 #include "01bb48_vm_game.h"
 #include "01c980_profile_file.h"
@@ -574,7 +574,7 @@ void GameStartSelectedCourse_8c01328c() {
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
     } else if ((var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) && (var_isAttractDemo_8c1bb8d4 != 0)) {
         var_demoShotId_8c227dd4 = init_demoFirstShot_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
-        FileMenuResetNewGame_8c01895e();
+        FileSelectResetNewGame_8c01895e();
     } else {
         var_demoShotId_8c227dd4 = 0;
     }
@@ -755,7 +755,7 @@ void GameInit_8c0134ec() {
     var_loadScreenActive_8c157a6c = 0;
 
     VmGameResetLcdAnims_8c01c8dc();
-    FileMenuResetOptionDefaults_8c0189d2();
+    FileSelectResetOptionDefaults_8c0189d2();
     njSetBorderColor(0);
     VmGameSetLcdSlot_8c01c8fc(3);
     VmGameUpdateLcd_8c01c910();

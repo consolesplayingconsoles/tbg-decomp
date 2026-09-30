@@ -11,7 +11,7 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0xd2);
         $base = $this->addressOf('_var_progress_8c1ba1cc');
 
-        $this->call('_FileMenuResetKeyConfigDefaults_8c0188bc');
+        $this->call('_FileSelectResetKeyConfigDefaults_8c0188bc');
 
         $this->shouldWriteByte($base + 0xcc, 0);
         $this->shouldWriteByte($base + 0xcd, 0);

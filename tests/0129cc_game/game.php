@@ -450,7 +450,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_loadScreenActive_8c157a6c', 0);
 
         $this->shouldCall('_VmGameResetLcdAnims_8c01c8dc');
-        $this->shouldCall('_FileMenuResetOptionDefaults_8c0189d2');
+        $this->shouldCall('_FileSelectResetOptionDefaults_8c0189d2');
         $this->shouldCall('_njSetBorderColor')->with(0);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(3);
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
@@ -604,7 +604,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_loadScreenActive_8c157a6c', 0);
 
         $this->shouldCall('_VmGameResetLcdAnims_8c01c8dc');
-        $this->shouldCall('_FileMenuResetOptionDefaults_8c0189d2');
+        $this->shouldCall('_FileSelectResetOptionDefaults_8c0189d2');
         $this->shouldCall('_njSetBorderColor')->with(0);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(3);
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
@@ -758,7 +758,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_loadScreenActive_8c157a6c', 0);
 
         $this->shouldCall('_VmGameResetLcdAnims_8c01c8dc');
-        $this->shouldCall('_FileMenuResetOptionDefaults_8c0189d2');
+        $this->shouldCall('_FileSelectResetOptionDefaults_8c0189d2');
         $this->shouldCall('_njSetBorderColor')->with(0);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(3);
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');
@@ -911,7 +911,7 @@ return new class extends TestCase {
         $this->shouldWriteTo('_var_loadScreenActive_8c157a6c', 0);
 
         $this->shouldCall('_VmGameResetLcdAnims_8c01c8dc');
-        $this->shouldCall('_FileMenuResetOptionDefaults_8c0189d2');
+        $this->shouldCall('_FileSelectResetOptionDefaults_8c0189d2');
         $this->shouldCall('_njSetBorderColor')->with(0);
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(3);
         $this->shouldCall('_VmGameUpdateLcd_8c01c910');

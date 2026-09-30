@@ -56,7 +56,7 @@
           .EXPORT     _var_isFading_8c226568 ; 0129cc_game
                                              ; 015ab8_title
                                              ; 016d2c_course_menu
-                                             ; 018644_file_menu
+                                             ; 018644_file_select
                                              ; 0193c8_vm_menu
                                              ; 019e98_main_menu
                                              ; 01a148_option

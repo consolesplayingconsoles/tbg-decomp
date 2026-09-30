@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->initUint32($save + 0x00, 1);
         $this->initUint32($save + self::EXP, 99999);
 
-        $this->call('_FileMenuIsSaveValid_8c018804')->with($save);
+        $this->call('_FileSelectIsSaveValid_8c018804')->with($save);
 
         $this->shouldReturn(1);
     }
@@ -38,7 +38,7 @@ return new class extends TestCase {
         }
         $this->initUint32($save + self::EXP, 99999);
 
-        $this->call('_FileMenuIsSaveValid_8c018804')->with($save);
+        $this->call('_FileSelectIsSaveValid_8c018804')->with($save);
 
         $this->shouldReturn(1);
     }
@@ -50,7 +50,7 @@ return new class extends TestCase {
         $save = $this->alloc(self::SIZE);
         $this->initUint32($save + 0x00, 0);
 
-        $this->call('_FileMenuIsSaveValid_8c018804')->with($save);
+        $this->call('_FileSelectIsSaveValid_8c018804')->with($save);
 
         $this->shouldReturn(0);
     }
@@ -62,7 +62,7 @@ return new class extends TestCase {
         $save = $this->alloc(self::SIZE);
         $this->initUint32($save + 0x00, 31);
 
-        $this->call('_FileMenuIsSaveValid_8c018804')->with($save);
+        $this->call('_FileSelectIsSaveValid_8c018804')->with($save);
 
         $this->shouldReturn(0);
     }
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->initUint32($save + self::EXP, 0);
         $this->initUint8($save + self::RECORDS + 0, 2);
 
-        $this->call('_FileMenuIsSaveValid_8c018804')->with($save);
+        $this->call('_FileSelectIsSaveValid_8c018804')->with($save);
 
         $this->shouldReturn(0);
     }
@@ -90,7 +90,7 @@ return new class extends TestCase {
         $this->initUint32($save + self::EXP, 0);
         $this->initUint8($save + self::RECORDS + 8 * 8 + 3, 4);
 
-        $this->call('_FileMenuIsSaveValid_8c018804')->with($save);
+        $this->call('_FileSelectIsSaveValid_8c018804')->with($save);
 
         $this->shouldReturn(0);
     }
@@ -103,7 +103,7 @@ return new class extends TestCase {
         $this->initUint32($save + 0x00, 1);
         $this->initUint32($save + self::EXP, 100000);
 
-        $this->call('_FileMenuIsSaveValid_8c018804')->with($save);
+        $this->call('_FileSelectIsSaveValid_8c018804')->with($save);
 
         $this->shouldReturn(0);
     }

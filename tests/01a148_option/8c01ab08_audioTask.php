@@ -51,7 +51,7 @@ return new class extends TestCase {
         $this->setSize('_SndSetSoundMode_8c0108c0', 4);
         $this->setSize('_SndSetAdxVol_8c010972', 4);
         $this->setSize('_SndSetMidiVol_8c0109f4', 4);
-        $this->setSize('_FileMenuResetSoundDefaults_8c0188dc', 4);
+        $this->setSize('_FileSelectResetSoundDefaults_8c0188dc', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $this->setSize('_SndPlayBgm_8c0107ac', 4);
         $this->setSize('_SndPlaySfx_8c0106d2', 4);
@@ -197,7 +197,7 @@ return new class extends TestCase {
     public function test_confirm_default_row_resets_sound()
     {
         $this->arrange(press: self::TA, state: 1, selected: 7);
-        $this->shouldCall('_FileMenuResetSoundDefaults_8c0188dc');
+        $this->shouldCall('_FileSelectResetSoundDefaults_8c0188dc');
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
         $this->shouldDrawLabels(7);
         $this->shouldDrawMarkersPlain(0, 0, 0, 0);
