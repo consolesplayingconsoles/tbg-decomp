@@ -238,10 +238,10 @@ STATIC void enqueueTask_8c0221d0(Task *task, void *state)
     var_mirrorSimpleLightDir_8c2264e4[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
     njCalcVector(NULL, (NJS_VECTOR *)var_mirrorSimpleLightDir_8c2264e4, (NJS_VECTOR *)var_mirrorSimpleLightDir_8c2264e4);
 
-    RenderQueueDraw2_8c022420(0, drawTileGrid_8c021b9c, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
-    RenderQueueDraw2_8c022420(1, drawTileGridMirror_8c021ec4, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
-    RenderQueueDraw_8c0223ea(0, (DrawFn)TileStreamDrawTile_8c021b34, (int)state);
-    RenderQueueDraw_8c0223ea(1, (DrawFn)TileStreamDrawTile_8c021b34, (int)state);
+    RenderQueueDraw2_8c022420(RENDER_LAYER_MAIN, drawTileGrid_8c021b9c, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
+    RenderQueueDraw2_8c022420(RENDER_LAYER_MIRROR, drawTileGridMirror_8c021ec4, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, (DrawFn)TileStreamDrawTile_8c021b34, (int)state);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, (DrawFn)TileStreamDrawTile_8c021b34, (int)state);
 }
 
 /* Run-start setup for the tile draw pass. The two latched lighting records

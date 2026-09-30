@@ -356,7 +356,7 @@ STATIC void demoShotTask_8c0259e8(Task *task, DemoShotState *state)
         MessageBoxMenuTextboxText_8c02af1c(state->revealCount_0x04 >> CAPTION_FRAMES_PER_GLYPH_SHIFT);
     }
 
-    RenderQueueDraw_8c0223ea(0, (DrawFn)BusCameraDrawBusModel_8c024bb8, 0);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, (DrawFn)BusCameraDrawBusModel_8c024bb8, 0);
 }
 
 /* See 025870_demo.h. */

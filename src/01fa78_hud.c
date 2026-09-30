@@ -433,7 +433,7 @@ STATIC void hudUpdateTask_8c01ff48() {
         }
     }
 
-    RenderQueueDraw_8c0223ea(0, drawHud_8c01fbac, messageArg);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawHud_8c01fbac, messageArg);
 }
 
 /* Installs hudUpdateTask_8c01ff48 as a per-frame task and clears the popup,

@@ -940,8 +940,8 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
         }
     }
 
-    RenderQueueDraw_8c0223ea(0, applyTrafficLighting_8c02756a, 0);
-    RenderQueueDraw_8c0223ea(1, applyTrafficLighting_8c02756a, 1);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, applyTrafficLighting_8c02756a, 0);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, applyTrafficLighting_8c02756a, 1);
     TaskRunGroup_8c014b42(var_tasks_8c1bac28);
 }
 

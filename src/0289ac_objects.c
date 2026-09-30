@@ -1379,15 +1379,15 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     if (isDemo) {
         fn = drawPedestrians_8c028b74;
     } else {
-        RenderQueueDraw_8c0223ea(0, drawPedestrians_8c028b74, 0);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawPedestrians_8c028b74, 0);
         fn = drawPedestriansMirror_8c028a38;
     }
     layer = !isDemo;
     RenderQueueDraw_8c0223ea(layer, fn, layer);
 
     if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
-        RenderQueueDraw_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
-        RenderQueueDraw_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, StopDrawWaitingPassengers_8c02d06c, 0);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, StopDrawWaitingPassengers_8c02d06c, 1);
     }
 }
 
@@ -1528,7 +1528,7 @@ STATIC void drawBlinkers_8c029878(int taskArg, int matricesArg)
 STATIC void routeBlinkerTask_8c029904(RouteBlinkerTask *task, NJS_MATRIX *state)
 {
     task->blinkCounter_0x0c++;
-    RenderQueueDraw2_8c022420(0, drawBlinkers_8c029878, (int)task, (int)state);
+    RenderQueueDraw2_8c022420(RENDER_LAYER_MAIN, drawBlinkers_8c029878, (int)task, (int)state);
 }
 
 /* One-shot setup for the current run's route blinkers, called from
@@ -1756,7 +1756,7 @@ STATIC void flyByModelTask_8c029e68(Task *task, RowTaskState *state)
         TaskKill_8c014b66(task);
         return;
     }
-    RenderQueueDraw_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawFlyByModel_8c029e46, (int)state);
 }
 /* TaskAction for a type-0 row, installed by ObjectsSpawnTasks_8c02a6ac. Counts
  * down task->field_0x08; once it lapses, spawns a fly-by task (flyByModelTask_8c029e68)
@@ -1843,8 +1843,8 @@ STATIC int advanceDatBlob_8c029f54(DatBlob *dat)
 STATIC void rowDatTask_8c029fcc(Task *task, RowTaskState *state)
 {
     advanceDatBlob_8c029f54((DatBlob *)state->dat_0x48);
-    RenderQueueDraw_8c0223ea(0, drawDatModel_8c029f2a, (int)state);
-    RenderQueueDraw_8c0223ea(1, drawDatModel_8c029f2a, (int)state);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawDatModel_8c029f2a, (int)state);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, drawDatModel_8c029f2a, (int)state);
 }
 /* DrawFn draw callback for a type-2 row task; state is the spawned
  * task's state array. Draws the {texlist, model} pair at offset 0x40/0x44,
@@ -1875,8 +1875,8 @@ STATIC void rowModelTask_8c02a08a(Task *task, RowTaskState *state)
             state->phase_0x54 = state->phase_0x54 + 1;
         }
     } else if (state->phase_0x54 == 1) {
-        RenderQueueDraw_8c0223ea(0, drawRowModel_8c02a048, (int)state);
-        RenderQueueDraw_8c0223ea(1, drawRowModel_8c02a048, (int)state);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawRowModel_8c02a048, (int)state);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, drawRowModel_8c02a048, (int)state);
     }
 }
 /* DrawFn draw callback for a type-3 row task; state is the spawned
@@ -1910,7 +1910,7 @@ STATIC void rowMotionModelTask_8c02a120(Task *task, RowTaskState *state)
     } else if (state->phase_0x54 == 1) {
         state->frame_0x58 = state->frame_0x58 + 1.0f;
         if (state->frame_0x58 < state->frameLimit_0x5c) {
-            RenderQueueDraw_8c0223ea(0, drawRowMotionModel_8c02a0d6, (int)state);
+            RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawRowMotionModel_8c02a0d6, (int)state);
             return;
         }
         if (task->field_0x0c == 0) {
@@ -1938,7 +1938,7 @@ STATIC void drawRowSimpleModel_8c02a1b2(int state, int fogEnable)
 /* TaskAction for a type-4 row, installed by ObjectsSpawnTasks_8c02a6ac. */
 STATIC void rowSimpleModelTask_8c02a1f0(Task *task, RowTaskState *state)
 {
-    RenderQueueDraw2_8c022420(0, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
+    RenderQueueDraw2_8c022420(RENDER_LAYER_MAIN, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
 }
 /* DrawFn draw callback for a type-5 row task; state is the spawned
  * task's state array. Unlike drawRowModel_8c02a048, fades the whole draw via
@@ -1986,8 +1986,8 @@ STATIC void rowMaterialModelTask_8c02a27c(void *task, RowTaskState *state)
             state->material_0x68.a = dist * 0.05f - 0.5f;
         }
     }
-    RenderQueueDraw_8c0223ea(0, drawRowMaterialModel_8c02a206, (int)state);
-    RenderQueueDraw_8c0223ea(1, drawRowMaterialModel_8c02a206, (int)state);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawRowMaterialModel_8c02a206, (int)state);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, drawRowMaterialModel_8c02a206, (int)state);
 }
 /* Resolves 16 grandchildren of nodes[0] into nodes[1..16]: nodes[0]'s two
  * children (child, child->sibling) each contribute 8 nodes -- their own
@@ -2134,7 +2134,7 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
                 state->frame_0x58 = state->frameLimit_0x5c;
             }
         }
-        RenderQueueDraw_8c0223ea(0, drawFumiCrossing_8c02a47c, (int)state);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawFumiCrossing_8c02a47c, (int)state);
         return;
     }
 
@@ -2164,8 +2164,8 @@ STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
 STATIC void execRowTaskGroupTask_8c02a60e(void)
 {
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
-        RenderQueueDraw_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
-        RenderQueueDraw_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, setSimpleLightCallback_8c02a5d0, 0);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, setSimpleLightCallback_8c02a5d0, 1);
         TaskRunGroup_8c014b42(var_tasks_8c1bb448);
     }
 }

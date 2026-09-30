@@ -404,7 +404,7 @@ void StopUpdateArrival_8c02ce48(void)
         if (var_fuuLastFrame_8c1bc450 <= var_fuuFrame_8c1bc44c) {
             var_fuuFrame_8c1bc44c = 0.0f;
         }
-        RenderQueueDraw_8c0223ea(0, drawStopMarker_8c02cd92, 0);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, drawStopMarker_8c02cd92, 0);
         if (distance < var_runState_8c2285c4.stopMinDistance_0x28) {
             var_runState_8c2285c4.stopMinDistance_0x28 = distance;
         }

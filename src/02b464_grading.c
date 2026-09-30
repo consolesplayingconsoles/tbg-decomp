@@ -1164,7 +1164,7 @@ STATIC void taskCallback_8c02c072() {
         }
     }
 
-    RenderQueueDraw_8c0223ea(0, DriveMsgDraw_8c02b388, 0);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MAIN, DriveMsgDraw_8c02b388, 0);
 }
 
 /* Starts a drive: installs taskCallback_8c02c072 (phase 0, idle -- it goes

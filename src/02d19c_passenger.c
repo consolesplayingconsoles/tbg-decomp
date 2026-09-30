@@ -132,7 +132,7 @@ STATIC void drawInterior_8c02d1f4(int arg0)
  * countdown). Registers the draw callback every frame; ignores task. */
 void PassengerSeatedTask_8c02d5ca(Task *task, void *state)
 {
-    RenderQueueDraw_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_CABIN, drawPassengerSprite_8c02d19c, (int)state);
 }
 
 /* Sizes the step PassengerStopSceneTask_8c02d644's case 5 adds to the run
@@ -240,7 +240,7 @@ void PassengerBoardTask_8c02d21c(Task *task, StopScheduleState *state)
         break;
 
     case 0:
-        RenderQueueDraw_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
+        RenderQueueDraw_8c0223ea(RENDER_LAYER_CABIN, drawPassengerSprite_8c02d19c, (int)state);
         return;
 
     default:
@@ -351,9 +351,9 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
     int phase = state->phase_0x00;
     Bool execGroup = FALSE;
 
-    RenderQueueDraw_8c0223ea(2, drawInterior_8c02d1f4, 0);
-    RenderQueueDraw_8c0223ea(1, StopDrawLightBegin_8c02d0fc, 0);
-    RenderQueueDraw_8c0223ea(2, StopDrawLightBegin_8c02d0fc, 0);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_CABIN, drawInterior_8c02d1f4, 0);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, StopDrawLightBegin_8c02d0fc, 0);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_CABIN, StopDrawLightBegin_8c02d0fc, 0);
 
     switch (phase) {
     case 0:
@@ -512,8 +512,8 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
     if (execGroup) {
         TaskRunGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
     }
-    RenderQueueDraw_8c0223ea(1, StopDrawLightEnd_8c02d146, 0);
-    RenderQueueDraw_8c0223ea(2, StopDrawLightEnd_8c02d146, 0);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_MIRROR, StopDrawLightEnd_8c02d146, 0);
+    RenderQueueDraw_8c0223ea(RENDER_LAYER_CABIN, StopDrawLightEnd_8c02d146, 0);
 }
 
 /* Task action spawned instead of the normal per-passenger tasks when

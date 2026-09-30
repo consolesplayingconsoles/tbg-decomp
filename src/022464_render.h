@@ -67,6 +67,13 @@ typedef struct {
     FadeOutPhase phase_0x0c;
 } FadeOutTask;
 
+/* Draw-command queues; RenderDrawFrame_8c022560 draws each with its own camera. */
+typedef enum {
+    RENDER_LAYER_MAIN   = 0,
+    RENDER_LAYER_MIRROR = 1,
+    RENDER_LAYER_CABIN  = 2
+} RenderLayer;
+
 /* Opaque per-entry callbacks for DrawCommand types 5/6 (see below),
  * queued by RenderQueueDraw_8c0223ea/RenderQueueDraw2_8c022420. They pass whatever
  * function pointer their caller supplies, so there is no fixed SDK
@@ -133,8 +140,8 @@ extern void (*var_fadeCompleteCallback_8c22656c)(void); // fade-complete callbac
  */
 
 void RenderResetQueues_8c02239c(void);
-void RenderQueueDraw_8c0223ea(int layer, DrawFn fn, int arg0);
-void RenderQueueDraw2_8c022420(int layer, DrawFn2 fn, int arg0, int arg1);
+void RenderQueueDraw_8c0223ea(RenderLayer layer, DrawFn fn, int arg0);
+void RenderQueueDraw2_8c022420(RenderLayer layer, DrawFn2 fn, int arg0, int arg1);
 void RenderDrawFrame_8c022560(void);
 void RenderStartRunFade_8c0228a2(void);
 void RenderDrawFrameMainOnly_8c022910(void);

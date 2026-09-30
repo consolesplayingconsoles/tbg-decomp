@@ -171,9 +171,9 @@ void RenderResetQueues_8c02239c(void)
     }
 }
 
-/* Queues a DRAW_CMD_CALL entry for layer (0-2), dropped once that layer's
+/* Queues a DRAW_CMD_CALL entry for layer, dropped once that layer's
  * queue (var_drawCommandCount_8c226570/var_drawCommands_8c22657c) is full. */
-void RenderQueueDraw_8c0223ea(int layer, DrawFn fn, int arg0)
+void RenderQueueDraw_8c0223ea(RenderLayer layer, DrawFn fn, int arg0)
 {
     DrawCommand *cmd;
 
@@ -188,7 +188,7 @@ void RenderQueueDraw_8c0223ea(int layer, DrawFn fn, int arg0)
 }
 
 /* Same as RenderQueueDraw_8c0223ea, but for a DRAW_CMD_CALL2 entry. */
-void RenderQueueDraw2_8c022420(int layer, DrawFn2 fn, int arg0, int arg1)
+void RenderQueueDraw2_8c022420(RenderLayer layer, DrawFn2 fn, int arg0, int arg1)
 {
     DrawCommand *cmd;
 
@@ -203,7 +203,7 @@ void RenderQueueDraw2_8c022420(int layer, DrawFn2 fn, int arg0, int arg1)
     }
 }
 
-STATIC void drawLayer_8c022464(int layer)
+STATIC void drawLayer_8c022464(RenderLayer layer)
 {
   int count;
   int i;
@@ -283,7 +283,7 @@ void RenderDrawFrame_8c022560(void)
           njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorView_8c045578);
           njSetScreen(&init_screenMirror_8c0455fc);
           var_drawCamera_8c226558 = &var_mirrorCamera_8c1bb944;
-          drawLayer_8c022464(1);
+          drawLayer_8c022464(RENDER_LAYER_MIRROR);
           njSetTexture(&init_renderTexlist_8c03bf44);
           njRenderTextureNumG(999);
           if (var_busState_8c1bb9d0.mirror_0x268 == MIRROR_LEFT) {
@@ -304,25 +304,25 @@ void RenderDrawFrame_8c022560(void)
       }
       njSetScreen(&init_screenFull_8c0455e8);
       var_drawCamera_8c226558 = &var_camera_8c1bb904;
-      drawLayer_8c022464(0);
+      drawLayer_8c022464(RENDER_LAYER_MAIN);
       break;
     case 1:
       njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
       njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorViewTall_8c045588);
       njSetScreen(&init_screenMirrorTall_8c045610);
       var_drawCamera_8c226558 = &var_mirrorCamera_8c1bb944;
-      drawLayer_8c022464(1);
+      drawLayer_8c022464(RENDER_LAYER_MIRROR);
       njSetTexture(&init_renderTexlist_8c03bf44);
       njRenderTextureNumG(999);
       njUserClipping(NJD_CLIP_INSIDE, init_clipLayer2_8c045598);
       njSetScreen(&init_screenLayer2_8c045624);
       var_drawCamera_8c226558 = &var_cabinCamera_8c1bb984;
-      drawLayer_8c022464(2);
+      drawLayer_8c022464(RENDER_LAYER_CABIN);
       njUserClipping(NJD_CLIP_OUTSIDE, init_clipLayer2_8c045598);
       njSetScreen(&init_screenFull_8c0455e8);
       njDrawTexture(init_mirrorQuadTall_8c0454f8, 4, 999, 0);
       var_drawCamera_8c226558 = &var_camera_8c1bb904;
-      drawLayer_8c022464(0);
+      drawLayer_8c022464(RENDER_LAYER_MAIN);
       njUserClipping(NJD_CLIP_DISABLE, init_clipLayer2_8c045598);
       SpriteDraw_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x28, 0.0f, 0.0f, -1.17f);
       break;
@@ -331,7 +331,7 @@ void RenderDrawFrame_8c022560(void)
       njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorViewTall_8c045588);
       njSetScreen(&init_screenMirrorTall_8c045610);
       var_drawCamera_8c226558 = &var_mirrorCamera_8c1bb944;
-      drawLayer_8c022464(1);
+      drawLayer_8c022464(RENDER_LAYER_MIRROR);
       njSetTexture(&init_renderTexlist_8c03bf44);
       njRenderTextureNumG(999);
       njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorViewTall_8c045588);
@@ -339,7 +339,7 @@ void RenderDrawFrame_8c022560(void)
       njDrawTexture(init_mirrorQuadTall_8c0454f8, 4, 999, 0);
       SpriteDraw_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x2a, 0.0f, 0.0f, -1.17f);
       var_drawCamera_8c226558 = &var_camera_8c1bb904;
-      drawLayer_8c022464(0);
+      drawLayer_8c022464(RENDER_LAYER_MAIN);
       break;
     }
   }
@@ -435,7 +435,7 @@ void RenderDrawFrameMainOnly_8c022910(void)
     njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorView_8c045578);
     njSetScreen(&init_screenFull_8c0455e8);
     var_drawCamera_8c226558 = &var_camera_8c1bb904;
-    drawLayer_8c022464(0);
+    drawLayer_8c022464(RENDER_LAYER_MAIN);
   }
   if (var_fadePhase_8c227d7c == FADE_PHASE_IDLE) {
     if (var_fadeRequest_8c226564 == FADE_REQUEST_OUT) {
