@@ -1,12 +1,11 @@
-/* 8c227e20: undecompiled data section */
-#ifndef _227E20_SECTIONB_H
-#define _227E20_SECTIONB_H
+/* 8c22822c: undecompiled data section */
+#ifndef _22822C_SECTIONB_H
+#define _22822C_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
-#include "028258_traffic_signal.h" /* TrafficSignal */
 #include "011120_asset_queues.h"
 #include "014a9c_tasks.h"
 #include "014b8c_backup.h"
@@ -17,11 +16,6 @@
  * =================
  */
 
-extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by SignalInit_8c02845a */
-extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by SignalGetFrame_8c028900 */
-extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */
-extern int var_pedCrossingFlags_8c227e2c[128]; /* 64 8-byte entries, zeroed by SignalClearPedCrossingFlags_8c02890c */
-extern int var_crossingOccupiedFlags_8c22802c[128]; /* 64 8-byte entries, zeroed by SignalClearCrossingOccupied_8c028958 */
 /* 12-byte entries {active, unused, list*}; list is NULL-terminated, holes
  * marked -1. Read by drawPedestrians_8c028b74; var_pedGroupCount_8c228234 is the count. */
 extern void* var_pedGroups_8c228230;
@@ -130,4 +124,4 @@ extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 extern int var_selectedEventEntry_8c228478;
 extern int var_activePedPreset_8c22822c;
 
-#endif // _227E20_SECTIONB_H
+#endif // _22822C_SECTIONB_H

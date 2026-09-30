@@ -21,7 +21,7 @@
 #include "02fb50_sh4nlfzn.h" /* rand */
 #include "02b464_drive_points.h"
 #include "024b4c_bus_render.h"
-#include "sectionB.h" /* var_trafficSignalFrames_8c227e24, var_busState_8c1bb9d0, ground query globals,
+#include "sectionB.h" /* var_busState_8c1bb9d0, ground query globals,
                         * var_pedGroups_8c228230, var_pedPaths_8c228238,
                         * var_pedestrianAssets_8c1bbfdc, AsqGetRandomA_8c012166,
                         * var_eventSlides_8c228480, MessageAssetEntry, var_messageAssets_8c228484,

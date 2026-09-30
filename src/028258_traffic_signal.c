@@ -16,6 +16,17 @@
 #include "includes.h" /* STATIC */
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+Task *var_trafficSignalTasks_8c227e20;
+int *var_trafficSignalFrames_8c227e24;
+STATIC TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */
+STATIC int var_pedCrossingFlags_8c227e2c[128]; /* 64 8-byte entries, zeroed by SignalClearPedCrossingFlags_8c02890c */
+STATIC int var_crossingOccupiedFlags_8c22802c[128]; /* 64 8-byte entries, zeroed by SignalClearCrossingOccupied_8c028958 */
+
+/* ====================
  * Functions
  * ====================
  */

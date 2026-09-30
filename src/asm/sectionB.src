@@ -1,12 +1,4 @@
-; 8c227e20
-          .EXPORT     _var_trafficSignalTasks_8c227e20 ; 0129cc_game
-                                    ; 028258
-          .EXPORT     _var_trafficSignalFrames_8c227e24 ; 0129cc_game
-                                    ; 026710
-                                    ; 028258
-          .EXPORT     _var_trafficSignalStates_8c227e28 ; 028258
-          .EXPORT     _var_pedCrossingFlags_8c227e2c ; 028258
-          .EXPORT     _var_crossingOccupiedFlags_8c22802c ; 028258
+; 8c22822c
           .EXPORT     _var_activePedPreset_8c22822c ; 014f54_text
                                                    ; 028258
                                                    ; 02c884
@@ -53,16 +45,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_trafficSignalTasks_8c227e20:
-          .RES.B      4
-_var_trafficSignalFrames_8c227e24:
-          .RES.B      4
-_var_trafficSignalStates_8c227e28:
-          .RES.B      4
-_var_pedCrossingFlags_8c227e2c:
-          .RES.B      512
-_var_crossingOccupiedFlags_8c22802c:
-          .RES.B      512
 _var_activePedPreset_8c22822c:
           .RES.B      4
 _var_pedGroups_8c228230:

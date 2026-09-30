@@ -1,5 +1,4 @@
 ; 8c028258
-          .IMPORT     _var_trafficSignalFrames_8c227e24
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _njSqrt
           .IMPORT     _RenderPushCall2_8c022420
@@ -7,14 +6,12 @@
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _RenderPushCall1_8c0223ea
-          .IMPORT     _var_trafficSignalTasks_8c227e20
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_groundQueryPoint_8c1bc460
           .IMPORT     _GroundQueryFindPolygon_8c020914
           .IMPORT     _GroundProbeInterpolateHeight_8c020f7e
           .IMPORT     _syMalloc
-          .IMPORT     _var_trafficSignalStates_8c227e28
           .IMPORT     _TrafficMarkSignalIdsInUse_8c026dcc
           .IMPORT     _TaskClear_8c014a9c
           .IMPORT     _var_routeModels_8c1bc3ec
@@ -26,8 +23,6 @@
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _syFree
           .IMPORT     _TaskFreeGroup_8c014ab4
-          .IMPORT     _var_pedCrossingFlags_8c227e2c
-          .IMPORT     _var_crossingOccupiedFlags_8c22802c
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _BusDrawSignal_8c0281ac
           .IMPORT     _BusDrawSignalAttachment_8c028206
@@ -56,6 +51,15 @@
           .EXPORT     _SignalMarkCrossingOccupied_8c028984
           .EXPORT     _SignalIsCrossingOccupied_8c02898e
           .EXPORT     _SignalIsPedCrossing_8c028998
+          .EXPORT     _var_trafficSignalTasks_8c227e20 ; 0129cc_game
+          .EXPORT     _var_trafficSignalFrames_8c227e24 ; 0129cc_game
+                                                        ; 026710_traffic
+                                                        ; 0289ac_objects
+          .AIFDEF UNIT_TESTING
+          .EXPORT     _var_trafficSignalStates_8c227e28
+          .EXPORT     _var_pedCrossingFlags_8c227e2c
+          .EXPORT     _var_crossingOccupiedFlags_8c22802c
+          .AENDI
           .SECTION     P, CODE, ALIGN=4
 _trafficSignalTask_8c028258:
           MOV.L       R14,@-R15
@@ -1018,3 +1022,15 @@ LP_GEN_59214:
           .DATA.W H'0200 ; H'8C0289A2
           .DATA.L _var_pedCrossingFlags_8c227e2c ; H'8C0289A4
           .DATA.L _var_crossingOccupiedFlags_8c22802c ; H'8C0289A8
+
+          .SECTION    B,DATA,ALIGN=4
+_var_trafficSignalTasks_8c227e20:
+          .RES.B      4
+_var_trafficSignalFrames_8c227e24:
+          .RES.B      4
+_var_trafficSignalStates_8c227e28:
+          .RES.B      4
+_var_pedCrossingFlags_8c227e2c:
+          .RES.B      512
+_var_crossingOccupiedFlags_8c22802c:
+          .RES.B      512

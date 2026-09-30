@@ -3,6 +3,7 @@
 #define _028258_TRAFFIC_SIGNAL_H
 
 #include <shinobi.h>
+#include "014a9c_tasks.h" /* Task */
 
 /* Task state for both object kinds; exactly the 0xd4 TaskPush_8c014ae8 asks for.
  *
@@ -49,6 +50,9 @@ typedef struct {
     NJS_POINT3 posB_0x20;
     int durations_0x2c[3];       /* per-frame hold times, walked by trafficSignalTask_8c028258 */
 } TrafficSignalDef;
+
+extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by SignalInit_8c02845a */
+extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by SignalGetFrame_8c028900 */
 
 void SignalInit_8c02845a(void);
 TrafficSignal *SignalGet_8c0288b2(int index);
