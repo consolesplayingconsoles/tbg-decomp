@@ -16,7 +16,6 @@ return new class extends TestCase {
         $this->setSize('_njSetQuadTextureG', 4);
         $this->setSize('_njQuadTextureEnd', 4);
         $this->setSize('_SpriteDraw_8c014f54', 4);
-        $this->setSize('_var_driveMsgQueue_8c228564', 0x18 * 4);
     }
 
     private function initFloat(int $addr, float $value): void {

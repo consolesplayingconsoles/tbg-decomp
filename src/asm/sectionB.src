@@ -1,7 +1,3 @@
-; 8c228564
-          .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
-                                                  ; 02b464
+; 8c2285c4
           .SECTION    B,DATA,ALIGN=4
-_var_driveMsgQueue_8c228564:
-          .RES.B      96
           .END

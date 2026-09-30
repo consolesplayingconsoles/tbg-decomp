@@ -6,7 +6,7 @@
 #include "02b2f0_drive_msg.h"
 #include "014f54_sprite.h"
 #include "02b464_drive_points.h"
-#include "sectionB.h"           /* var_driveMsgQueue_8c228564, DriveMsgSlot, ... */
+#include "sectionB.h"
 #include "1ba1c8_globals.h"
 
 /* ====================
@@ -30,6 +30,13 @@
 
 /* Newest slot's top edge; each older one sits a row above. */
 #define FIRST_ROW_Y 192.0f
+
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
 /* ====================
  * Functions
