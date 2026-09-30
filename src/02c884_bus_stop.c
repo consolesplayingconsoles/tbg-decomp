@@ -1,6 +1,7 @@
 /* @unit BusStop */
 
 #include <shinobi.h>
+#include <stdlib.h> /* rand */
 #include "includes.h" /* STATIC */
 
 #include "026710_traffic.h"
@@ -15,7 +16,6 @@
 #include "014a9c_tasks.h" /* TaskFreeGroup_8c014ab4 */
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
-#include "02fb50_sh4nlfzn.h" /* rand */
 #include "02af78_event.h" /* EventScanCandidates_8c02b03c */
 #include "01614c_replay_menu.h" /* ReplayMenuResetDemoCursor_8c016770 */
 #include "02c884_bus_stop.h" /* BusStopGetSegment_8c02cd6a */

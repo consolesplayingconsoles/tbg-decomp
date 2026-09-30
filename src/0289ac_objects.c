@@ -1,6 +1,7 @@
 /* @unit Objects */
 /* 8c0289ac */
 #include <shinobi.h>
+#include <stdlib.h> /* rand */
 
 #include "0289ac_objects.h"
 #include "011120_asset_queues.h" /* AsqRequestNj_8c011492, AsqRequestPvm_8c011ac0, AsqRequestDat_8c011182 */
@@ -15,7 +16,6 @@
 #include "028258_traffic_signal.h" /* SignalGetFrame_8c028900, SignalClearPedCrossingFlags_8c02890c */
 #include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
-#include "02fb50_sh4nlfzn.h" /* rand */
 #include "02b464_drive_points.h"
 #include "024b4c_bus_render.h"
 #include "1ba1c8_globals.h"

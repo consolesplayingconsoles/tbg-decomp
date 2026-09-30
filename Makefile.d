@@ -429,9 +429,9 @@ $(OUTPUT_DIR)/src/0289ac_objects.obj: src/020914_ground_query.h src/020b6c_groun
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/021b9c_tile_draw.h src/022464_render.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/028258_traffic_signal.h src/02d06c_stop_draw.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/02e400_collision.h src/026710_traffic.h
-$(OUTPUT_DIR)/src/0289ac_objects.obj: src/02fb50_sh4nlfzn.h src/02b464_drive_points.h
-$(OUTPUT_DIR)/src/0289ac_objects.obj: src/024b4c_bus_render.h src/1ba1c8_globals.h
-$(OUTPUT_DIR)/src/0289ac_objects.obj: src/015ab8_title.h src/014b8c_backup.h src/includes.h
+$(OUTPUT_DIR)/src/0289ac_objects.obj: src/02b464_drive_points.h src/024b4c_bus_render.h
+$(OUTPUT_DIR)/src/0289ac_objects.obj: src/1ba1c8_globals.h src/015ab8_title.h
+$(OUTPUT_DIR)/src/0289ac_objects.obj: src/014b8c_backup.h src/includes.h
 $(OUTPUT_DIR)/src/02a9fc_message_box.obj: src/02a9fc_message_box.h
 $(OUTPUT_DIR)/src/02a9fc_message_box.obj: src/011120_asset_queues.h src/serial_debug.h
 $(OUTPUT_DIR)/src/02a9fc_message_box.obj: src/014a9c_tasks.h src/013ae8_route_load.h
@@ -483,9 +483,9 @@ $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/015ab8_title.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/022464_render.h src/01fa78_hud.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/020214_drive_cue.h src/01e27c_practice_menu.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/0289ac_objects.h src/020b6c_ground_probe.h
-$(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/02fb50_sh4nlfzn.h src/02af78_event.h
-$(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/01614c_replay_menu.h src/02c884_bus_stop.h
-$(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/0100bc_sound.h src/02b464_drive_points.h
+$(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/02af78_event.h src/01614c_replay_menu.h
+$(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/02c884_bus_stop.h src/0100bc_sound.h
+$(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/02b464_drive_points.h
 $(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/1ba1c8_globals.h src/011120_asset_queues.h
 $(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/serial_debug.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/02d06c_stop_draw.obj: src/013ae8_route_load.h src/02171c_tile_stream.h
