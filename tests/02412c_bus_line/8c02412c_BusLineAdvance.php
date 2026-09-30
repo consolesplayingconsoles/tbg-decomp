@@ -36,10 +36,6 @@ return new class extends TestCase {
         $this->setSize('_var_lineNodes_8c227d88', 4);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_acosf', 4);
-
-        // The alt[2] test reads signalSide_0x25c through its own section B
-        // symbol; same bytes as $base + 0x25c (see sectionB.h's BusState
-        // note), so the two views have to share one allocation.
     }
 
     // A LinePoint: {float len; float x; float z; float dx; float dz;}

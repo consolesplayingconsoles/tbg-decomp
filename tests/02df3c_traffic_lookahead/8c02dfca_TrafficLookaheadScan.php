@@ -21,10 +21,6 @@ return new class extends TestCase {
         $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
 
-        // The asm reads these separately-exported globals instead of
-        // var_busState_8c1bb9d0's fields directly, but they're the same
-        // bytes -- see 026710_traffic.h's lookaheadPoints_0x49c comment and
-        // sectionB.h's var_8c1bbacc/var_8c1bbad8 precedent.
         $base = $this->addressOf('_var_busState_8c1bb9d0');
     }
 
