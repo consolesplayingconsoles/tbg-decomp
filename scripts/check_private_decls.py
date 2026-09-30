@@ -77,6 +77,9 @@ KEEP_PUBLIC = {
     # same: only a header declaration puts it ahead of 024b4c_bus_render's
     # public vars
     "var_fixedCameraTarget_8c227d90",
+    # same: only a header declaration puts it between 0289ac_objects' public
+    # var_activePedPreset_8c22822c and var_pedGroupCount_8c228234
+    "var_pedGroups_8c228230",
 }
 
 # SDK-mirrored / infra names (scif_*, BupExit, main, serialprintf, ...) whose

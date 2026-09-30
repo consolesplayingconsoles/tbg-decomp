@@ -1,6 +1,6 @@
-/* 8c22822c: undecompiled data section */
-#ifndef _22822C_SECTIONB_H
-#define _22822C_SECTIONB_H
+/* 8c228478: undecompiled data section */
+#ifndef _228478_SECTIONB_H
+#define _228478_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -16,51 +16,6 @@
  * =================
  */
 
-/* 12-byte entries {active, unused, list*}; list is NULL-terminated, holes
- * marked -1. Read by drawPedestrians_8c028b74; var_pedGroupCount_8c228234 is the count. */
-extern void* var_pedGroups_8c228230;
-extern int var_pedGroupCount_8c228234; /* -1 sentinel means not yet loaded */
-/* 12-byte entries {float *first, float *last, float length}, indexed in
- * lockstep with var_pedGroups_8c228230 by pedGroupTask_8c029078. */
-extern void* var_pedPaths_8c228238;
-/* Crosswalk table walked by pedestrianTask_8c028e00: entries are pairs of
- * path-node pointers, terminated by the end pointer var_crosswalkTableEnd_8c228244. */
-extern int* var_crosswalkTableEnd_8c228244;
-extern int var_crosswalkTable_8c228248[8];
-extern float var_stopLinePointA_8c228268[2]; /* segment-intersection scratch, param1 for IntersectSegments_8c0206f0 */
-extern float var_stopLinePointB_8c228270[2]; /* segment-intersection scratch, param2 for IntersectSegments_8c0206f0 */
-/* nodes[0] = the route's blinker model (var_routeModels_8c1bc3ec[9]); [1..3]
- * are its child/sibling tree, filled by resolveObjectChildren_8c029868. */
-extern NJS_OBJECT *var_routeBlinkerNodes_8c228278[4];
-/* Per-group spawn definition, 12-byte entries {int id, float radius, spec
- * list*}, looked up by id in pedestriansTask_8c0293f6. */
-extern void* var_pedGroupDefs_8c22823c;
-/* int*[] indexed by var_activePedPreset_8c22822c; each list is a -1 terminated array of
- * group ids, consumed by pedestriansTask_8c0293f6. */
-extern void* var_pedGroupLists_8c228240;
-/* Per-slot destination pointers for a pending object-asset request, one 0x18-byte
- * entry per table row processed by ObjectsStartAssetRequests_8c029ad4 (up to 16
- * rows), also read/freed by ObjectsFreeAssetRequests_8c029cfe and ObjectsPushTasks_8c02a6ac. Raw bytes:
- * which fields are used depends on the row's type. */
-extern Uint8 var_assetRequestSlots_8c228288[16 * 0x18];
-/* Table currently in flight for ObjectsStartAssetRequests_8c029ad4: an array of
- * {type, dataPtr} pairs terminated by type == -1. -1 when nothing is queued. */
-extern int *var_assetRequestTable_8c228408;
-/* Fixed asset handles for the type-6 ("FUMI" railway crossing) row, shared by
- * every table that includes one -- there is only ever one railway crossing. */
-extern void *var_fumiGateModel_8c22840c;
-extern void *var_fumiTexlist_8c228410;
-extern void *var_fumiCloseMotion_8c228414;
-extern void *var_fumiOpenMotion_8c228418;
-extern void *var_fumiLampModel_8c22841c;
-extern void *var_fumiLampTexlist_8c228420;
-extern void *var_fumiTrainModel_8c228424;
-extern void *var_fumiTrainTexlist_8c228428;
-extern void *var_fumiTrainMotionA_8c22842c;
-extern void *var_fumiTrainMotionB_8c228430;
-/* nodes[0] = the FUMI lamp model (var_fumiLampModel_8c22841c); [1..16] are its
- * grandchild tree, filled by resolveObjectGrandchildren_8c02a322. */
-extern NJS_OBJECT *var_fumiLampNodes_8c228434[17];
 extern int var_messageBoxActive_8c22847c;
 
 /* One entry of var_eventSlides_8c228480[event]/state->slide_0x10, terminated
@@ -122,6 +77,5 @@ extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
  * chosen by EventPickForSegment_8c02b170, consumed by
  * EventApplyFlags_8c02b292 */
 extern int var_selectedEventEntry_8c228478;
-extern int var_activePedPreset_8c22822c;
 
-#endif // _22822C_SECTIONB_H
+#endif // _228478_SECTIONB_H

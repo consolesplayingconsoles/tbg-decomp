@@ -18,9 +18,6 @@
 #include "02fb50_sh4nlfzn.h" /* rand */
 #include "02b464_drive_points.h"
 #include "024b4c_bus_render.h"
-#include "sectionB.h" /* var_busState_8c1bb9d0, ground query globals,
-                        * var_pedGroups_8c228230, var_pedPaths_8c228238,
-                        * var_pedestrianAssets_8c1bbfdc, AsqGetRandomA_8c012166 */
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
@@ -214,6 +211,56 @@ typedef struct RowTaskState {
     Uint8 control3DEnable_0x79;        /* types 2/3 */
     Uint8 field_0x7a[2];
 } RowTaskState;
+
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+int var_activePedPreset_8c22822c;
+void* var_pedGroups_8c228230;
+int var_pedGroupCount_8c228234;
+/* 12-byte entries {float *first, float *last, float length}, indexed in
+ * lockstep with var_pedGroups_8c228230 by pedGroupTask_8c029078. */
+STATIC void* var_pedPaths_8c228238;
+/* Per-group spawn definition, 12-byte entries {int id, float radius, spec
+ * list*}, looked up by id in pedestriansTask_8c0293f6. */
+STATIC void* var_pedGroupDefs_8c22823c;
+/* int*[] indexed by var_activePedPreset_8c22822c; each list is a -1 terminated array of
+ * group ids, consumed by pedestriansTask_8c0293f6. */
+STATIC void* var_pedGroupLists_8c228240;
+/* Crosswalk table walked by pedestrianTask_8c028e00: entries are pairs of
+ * path-node pointers, terminated by the end pointer var_crosswalkTableEnd_8c228244. */
+STATIC int* var_crosswalkTableEnd_8c228244;
+STATIC int var_crosswalkTable_8c228248[8];
+STATIC float var_stopLinePointA_8c228268[2]; /* segment-intersection scratch, param1 for IntersectSegments_8c0206f0 */
+STATIC float var_stopLinePointB_8c228270[2]; /* segment-intersection scratch, param2 for IntersectSegments_8c0206f0 */
+/* nodes[0] = the route's blinker model (var_routeModels_8c1bc3ec[9]); [1..3]
+ * are its child/sibling tree, filled by resolveObjectChildren_8c029868. */
+STATIC NJS_OBJECT *var_routeBlinkerNodes_8c228278[4];
+/* Per-slot destination pointers for a pending object-asset request, one 0x18-byte
+ * entry per table row processed by ObjectsStartAssetRequests_8c029ad4 (up to 16
+ * rows), also read/freed by ObjectsFreeAssetRequests_8c029cfe and ObjectsPushTasks_8c02a6ac. Raw bytes:
+ * which fields are used depends on the row's type. */
+STATIC Uint8 var_assetRequestSlots_8c228288[16 * 0x18];
+/* Table currently in flight for ObjectsStartAssetRequests_8c029ad4: an array of
+ * {type, dataPtr} pairs terminated by type == -1. -1 when nothing is queued. */
+STATIC int *var_assetRequestTable_8c228408;
+/* Fixed asset handles for the type-6 ("FUMI" railway crossing) row, shared by
+ * every table that includes one -- there is only ever one railway crossing. */
+STATIC void *var_fumiGateModel_8c22840c;
+STATIC void *var_fumiTexlist_8c228410;
+STATIC void *var_fumiCloseMotion_8c228414;
+STATIC void *var_fumiOpenMotion_8c228418;
+STATIC void *var_fumiLampModel_8c22841c;
+STATIC void *var_fumiLampTexlist_8c228420;
+STATIC void *var_fumiTrainModel_8c228424;
+STATIC void *var_fumiTrainTexlist_8c228428;
+STATIC void *var_fumiTrainMotionA_8c22842c;
+STATIC void *var_fumiTrainMotionB_8c228430;
+/* nodes[0] = the FUMI lamp model (var_fumiLampModel_8c22841c); [1..16] are its
+ * grandchild tree, filled by resolveObjectGrandchildren_8c02a322. */
+STATIC NJS_OBJECT *var_fumiLampNodes_8c228434[17];
 
 /* ====================
  * Initialized Globals

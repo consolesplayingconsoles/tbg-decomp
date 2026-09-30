@@ -16,8 +16,6 @@ return new class extends TestCase {
         $this->setSize('_syMalloc', 4);
         $this->setSize('_syFree', 4);
         $this->setSize('_atan2f', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(7.0));
@@ -40,8 +38,6 @@ return new class extends TestCase {
         $this->setSize('_syFree', 4);
         $this->setSize('_atan2f', 4);
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(7.0));
@@ -80,8 +76,6 @@ return new class extends TestCase {
         $this->setSize('_syMalloc', 4);
         $this->setSize('_syFree', 4);
         $this->setSize('_atan2f', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(7.0));
@@ -109,8 +103,6 @@ return new class extends TestCase {
         $this->setSize('_syFree', 4);
         $this->setSize('_atan2f', 4);
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(0.0));
@@ -182,8 +174,6 @@ return new class extends TestCase {
         $this->setSize('_syFree', 4);
         $this->setSize('_atan2f', 4);
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(0.0));
@@ -262,8 +252,6 @@ return new class extends TestCase {
         $this->setSize('_syFree', 4);
         $this->setSize('_atan2f', 4);
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
 
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x308), fdec(0.0));

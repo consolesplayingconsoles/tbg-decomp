@@ -235,10 +235,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->setSize('_IntersectSegments_8c0206f0', 4);
-        $this->setSize('_var_stopLinePointA_8c228268', 8);
-        $this->setSize('_var_stopLinePointB_8c228270', 8);
         $this->setSize('_var_crossingIntersectPoint_8c1bc458', 4);
-        $this->setSize('_var_crosswalkTable_8c228248', 8);
 
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 4);
@@ -276,10 +273,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $this->setSize('_IntersectSegments_8c0206f0', 4);
-        $this->setSize('_var_stopLinePointA_8c228268', 8);
-        $this->setSize('_var_stopLinePointB_8c228270', 8);
         $this->setSize('_var_crossingIntersectPoint_8c1bc458', 4);
-        $this->setSize('_var_crosswalkTable_8c228248', 8);
 
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 4);

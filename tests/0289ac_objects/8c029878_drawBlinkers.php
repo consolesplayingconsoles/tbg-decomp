@@ -7,7 +7,6 @@ use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_routeBlinkerNodes_8c228278', 16);
         $this->setSize('_var_drawCamera_8c226558', 4);
         $this->setSize('__modls', 4);
         $this->setSize('_njSetCamera', 4);

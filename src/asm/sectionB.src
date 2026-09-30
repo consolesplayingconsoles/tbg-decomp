@@ -1,31 +1,4 @@
-; 8c22822c
-          .EXPORT     _var_activePedPreset_8c22822c ; 014f54_text
-                                                   ; 028258
-                                                   ; 02c884
-          .EXPORT     _var_pedGroups_8c228230 ; 028258
-          .EXPORT     _var_pedGroupCount_8c228234 ; 0129cc_game
-                                    ; 028258
-          .EXPORT     _var_pedPaths_8c228238 ; 028258
-          .EXPORT     _var_pedGroupDefs_8c22823c ; 028258
-          .EXPORT     _var_pedGroupLists_8c228240 ; 028258
-          .EXPORT     _var_crosswalkTableEnd_8c228244 ; 028258
-          .EXPORT     _var_crosswalkTable_8c228248 ; 028258
-          .EXPORT     _var_stopLinePointA_8c228268 ; 028258
-          .EXPORT     _var_stopLinePointB_8c228270 ; 028258
-          .EXPORT     _var_routeBlinkerNodes_8c228278 ; 028258
-          .EXPORT     _var_assetRequestSlots_8c228288 ; 028258
-          .EXPORT     _var_assetRequestTable_8c228408 ; 028258
-          .EXPORT     _var_fumiGateModel_8c22840c ; 028258
-          .EXPORT     _var_fumiTexlist_8c228410 ; 028258
-          .EXPORT     _var_fumiCloseMotion_8c228414 ; 028258
-          .EXPORT     _var_fumiOpenMotion_8c228418 ; 028258
-          .EXPORT     _var_fumiLampModel_8c22841c ; 028258
-          .EXPORT     _var_fumiLampTexlist_8c228420 ; 028258
-          .EXPORT     _var_fumiTrainModel_8c228424 ; 028258
-          .EXPORT     _var_fumiTrainTexlist_8c228428 ; 028258
-          .EXPORT     _var_fumiTrainMotionA_8c22842c ; 028258
-          .EXPORT     _var_fumiTrainMotionB_8c228430 ; 028258
-          .EXPORT     _var_fumiLampNodes_8c228434 ; 028258
+; 8c228478
           .EXPORT     _var_selectedEventEntry_8c228478 ; 028258
                                                        ; 02af78_event
           .EXPORT     _var_messageBoxActive_8c22847c ; 0129cc_game
@@ -45,54 +18,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_activePedPreset_8c22822c:
-          .RES.B      4
-_var_pedGroups_8c228230:
-          .RES.B      4
-_var_pedGroupCount_8c228234:
-          .RES.B      4
-_var_pedPaths_8c228238:
-          .RES.B      4
-_var_pedGroupDefs_8c22823c:
-          .RES.B      4
-_var_pedGroupLists_8c228240:
-          .RES.B      4
-_var_crosswalkTableEnd_8c228244:
-          .RES.B      4
-_var_crosswalkTable_8c228248:
-          .RES.B      32
-_var_stopLinePointA_8c228268:
-          .RES.B      8
-_var_stopLinePointB_8c228270:
-          .RES.B      8
-_var_routeBlinkerNodes_8c228278:
-          .RES.B      16
-_var_assetRequestSlots_8c228288:
-          .RES.B      384
-_var_assetRequestTable_8c228408:
-          .RES.B      4
-_var_fumiGateModel_8c22840c:
-          .RES.B      4
-_var_fumiTexlist_8c228410:
-          .RES.B      4
-_var_fumiCloseMotion_8c228414:
-          .RES.B      4
-_var_fumiOpenMotion_8c228418:
-          .RES.B      4
-_var_fumiLampModel_8c22841c:
-          .RES.B      4
-_var_fumiLampTexlist_8c228420:
-          .RES.B      4
-_var_fumiTrainModel_8c228424:
-          .RES.B      4
-_var_fumiTrainTexlist_8c228428:
-          .RES.B      4
-_var_fumiTrainMotionA_8c22842c:
-          .RES.B      4
-_var_fumiTrainMotionB_8c228430:
-          .RES.B      4
-_var_fumiLampNodes_8c228434:
-          .RES.B      68
 _var_selectedEventEntry_8c228478:
           .RES.B      4
 _var_messageBoxActive_8c22847c:

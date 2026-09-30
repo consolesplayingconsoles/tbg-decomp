@@ -9,8 +9,6 @@ return new class extends TestCase {
     private function drawSingleObject(int $obj): void
     {
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
 
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
@@ -142,8 +140,6 @@ return new class extends TestCase {
     public function test_no_groups_draws_nothing()
     {
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
 
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 0);
         $this->initUint32($this->addressOf('_var_pedGroups_8c228230'), 0xbebacafe);
@@ -154,8 +150,6 @@ return new class extends TestCase {
     public function test_inactive_group_is_skipped()
     {
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
 
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
@@ -171,8 +165,6 @@ return new class extends TestCase {
     public function test_type2_object_draws_sprite_from_own_facing_state()
     {
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
 
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
@@ -201,8 +193,6 @@ return new class extends TestCase {
     public function test_non_type2_object_uses_cached_bucket_and_own_facing_one()
     {
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
 
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 
@@ -232,8 +222,6 @@ return new class extends TestCase {
     public function test_non_type2_object_uses_cached_bucket_and_own_facing_zero()
     {
         $this->setSize('_njDrawSprite3D', 4);
-        $this->setSize('_var_pedGroups_8c228230', 4);
-        $this->setSize('_var_pedGroupCount_8c228234', 4);
 
         $this->initUint32($this->addressOf('_var_pedGroupCount_8c228234'), 1);
 

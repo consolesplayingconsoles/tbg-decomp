@@ -21,56 +21,33 @@
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _syFree
           .IMPORT     _TaskFreeGroup_8c014ab4
-          .IMPORT     _var_pedGroups_8c228230
           .IMPORT     _njDrawSprite3D
-          .IMPORT     _var_pedGroupCount_8c228234
           .IMPORT     _atan2f
-          .IMPORT     _var_crosswalkTable_8c228248
           .IMPORT     _IntersectSegments_8c0206f0
           .IMPORT     _var_crossingIntersectPoint_8c1bc458
-          .IMPORT     _var_stopLinePointB_8c228270
-          .IMPORT     _var_stopLinePointA_8c228268
-          .IMPORT     _var_crosswalkTableEnd_8c228244
           .IMPORT     _CollisionQueueAdd_8c02e48e
           .IMPORT     _GroundProbeTrackPolygon_8c020b6c
-          .IMPORT     _var_pedPaths_8c228238
           .IMPORT     _rand
           .IMPORT     _AsqGetRandomA_8c012166
           .IMPORT     _var_pedestrianAssets_8c1bbfdc
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _var_activePedPreset_8c22822c
-          .IMPORT     _var_pedGroupDefs_8c22823c
-          .IMPORT     _var_pedGroupLists_8c228240
           .IMPORT     _var_tasks_8c1ba808
           .IMPORT     _CollisionQueueReset_8c02e486
           .IMPORT     _njCalcPoint
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _StopDrawWaitingPassengers_8c02d06c
           .IMPORT     _var_currentCourse_8c1bb868
-          .IMPORT     _var_routeBlinkerNodes_8c228278
           .IMPORT     __modls
           .IMPORT     _njMultiMatrix
           .IMPORT     _var_drawCamera_8c226558
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _var_route_8c18ad1c
-          .IMPORT     _var_assetRequestTable_8c228408
           .IMPORT     _AsqRequestPvm_8c011ac0
           .IMPORT     _AsqRequestNj_8c011492
           .IMPORT     _var_commonDirCopy_8c18ad8c
-          .IMPORT     _var_assetRequestSlots_8c228288
           .IMPORT     _AsqRequestDat_8c011182
           .IMPORT     __quick_evn_mvn
-          .IMPORT     _var_fumiGateModel_8c22840c
-          .IMPORT     _var_fumiTexlist_8c228410
-          .IMPORT     _var_fumiCloseMotion_8c228414
-          .IMPORT     _var_fumiOpenMotion_8c228418
-          .IMPORT     _var_fumiLampModel_8c22841c
-          .IMPORT     _var_fumiLampTexlist_8c228420
-          .IMPORT     _var_fumiTrainModel_8c228424
-          .IMPORT     _var_fumiTrainTexlist_8c228428
-          .IMPORT     _var_fumiTrainMotionA_8c22842c
-          .IMPORT     _var_fumiTrainMotionB_8c228430
           .IMPORT     _AsqReleaseAndFreeTexlist_8c011e3c
           .IMPORT     _njSetTexture
           .IMPORT     _njCnkSimpleDrawMotion
@@ -89,7 +66,6 @@
           .IMPORT     _njCnkSetSimpleLightIntensity
           .IMPORT     _var_simpleLightColor_8c2264f8
           .IMPORT     _njCnkSetSimpleLightColor
-          .IMPORT     _var_fumiLampNodes_8c228434
           .IMPORT     _SignalGetFrame_8c028900
           .IMPORT     _SignalClearPedCrossingFlags_8c02890c
           .IMPORT     _SignalMarkPedCrossing_8c02897a
@@ -195,7 +171,32 @@
           .EXPORT     _init_wanganBlinkerPoints_8c0465d8
           .EXPORT     _init_shinjukuBlinkerPoints_8c046524
           .EXPORT     _init_omeBlinkerPoints_8c0466a4
+          .EXPORT     _var_pedPaths_8c228238
+          .EXPORT     _var_pedGroupDefs_8c22823c
+          .EXPORT     _var_pedGroupLists_8c228240
+          .EXPORT     _var_crosswalkTableEnd_8c228244
+          .EXPORT     _var_crosswalkTable_8c228248
+          .EXPORT     _var_stopLinePointA_8c228268
+          .EXPORT     _var_stopLinePointB_8c228270
+          .EXPORT     _var_routeBlinkerNodes_8c228278
+          .EXPORT     _var_assetRequestSlots_8c228288
+          .EXPORT     _var_assetRequestTable_8c228408
+          .EXPORT     _var_fumiGateModel_8c22840c
+          .EXPORT     _var_fumiTexlist_8c228410
+          .EXPORT     _var_fumiCloseMotion_8c228414
+          .EXPORT     _var_fumiOpenMotion_8c228418
+          .EXPORT     _var_fumiLampModel_8c22841c
+          .EXPORT     _var_fumiLampTexlist_8c228420
+          .EXPORT     _var_fumiTrainModel_8c228424
+          .EXPORT     _var_fumiTrainTexlist_8c228428
+          .EXPORT     _var_fumiTrainMotionA_8c22842c
+          .EXPORT     _var_fumiTrainMotionB_8c228430
+          .EXPORT     _var_fumiLampNodes_8c228434
           .AENDI
+          .EXPORT     _var_activePedPreset_8c22822c ; 015034_text
+                                                    ; 02c884_bus_stop
+          .EXPORT     _var_pedGroups_8c228230
+          .EXPORT     _var_pedGroupCount_8c228234 ; 0129cc_game
           .SECTION     P, CODE, ALIGN=4
 _advancePedPathPos_8c0289ac:
           MOV         #H'4c,R0
@@ -4530,4 +4531,53 @@ _init_omeBlinkerPoints_8c0466a4:        ; from defines
           .DATA.B      H'00, H'80, H'3A, H'44, H'00, H'C0, H'74, H'44, H'A0, H'00, H'00, H'00, H'00, H'70, H'B8, H'45
           .DATA.B      H'00, H'90, H'7D, H'45, H'32, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.B      H'00, H'00, H'00, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_activePedPreset_8c22822c:
+          .RES.B      4
+_var_pedGroups_8c228230:
+          .RES.B      4
+_var_pedGroupCount_8c228234:
+          .RES.B      4
+_var_pedPaths_8c228238:
+          .RES.B      4
+_var_pedGroupDefs_8c22823c:
+          .RES.B      4
+_var_pedGroupLists_8c228240:
+          .RES.B      4
+_var_crosswalkTableEnd_8c228244:
+          .RES.B      4
+_var_crosswalkTable_8c228248:
+          .RES.B      32
+_var_stopLinePointA_8c228268:
+          .RES.B      8
+_var_stopLinePointB_8c228270:
+          .RES.B      8
+_var_routeBlinkerNodes_8c228278:
+          .RES.B      16
+_var_assetRequestSlots_8c228288:
+          .RES.B      384
+_var_assetRequestTable_8c228408:
+          .RES.B      4
+_var_fumiGateModel_8c22840c:
+          .RES.B      4
+_var_fumiTexlist_8c228410:
+          .RES.B      4
+_var_fumiCloseMotion_8c228414:
+          .RES.B      4
+_var_fumiOpenMotion_8c228418:
+          .RES.B      4
+_var_fumiLampModel_8c22841c:
+          .RES.B      4
+_var_fumiLampTexlist_8c228420:
+          .RES.B      4
+_var_fumiTrainModel_8c228424:
+          .RES.B      4
+_var_fumiTrainTexlist_8c228428:
+          .RES.B      4
+_var_fumiTrainMotionA_8c22842c:
+          .RES.B      4
+_var_fumiTrainMotionB_8c228430:
+          .RES.B      4
+_var_fumiLampNodes_8c228434:
+          .RES.B      68
           .END

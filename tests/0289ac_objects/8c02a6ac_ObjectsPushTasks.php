@@ -58,19 +58,12 @@ return new class extends TestCase {
 
     private function makeTable(array $types): int
     {
-        // Reserve var_assetRequestSlots_8c228288's full extent up front: it isn't defined in
-        // this unit's own object (its storage lives in sectionB's data
-        // section), so an unsized addressOf() would let later alloc()s land
-        // inside it and corrupt row data.
-        $this->setSize('_var_assetRequestSlots_8c228288', 16 * self::ROW_SIZE);
-
         // The compiled object's relocations for every symbol the function
         // touches (across all branches) get resolved up front regardless of
         // which branch a given test actually takes, so these need an address
         // in every test, not just the ones that exercise their branch.
         $this->addressOf('_var_tasks_8c1bb448');
         $this->addressOf('_var_tasks_8c1ba5e8');
-        $this->setSize('_var_fumiLampNodes_8c228434', 17 * 4);
 
         $n = count($types);
         $table = $this->alloc(($n + 1) * 8);

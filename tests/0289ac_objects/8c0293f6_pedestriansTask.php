@@ -124,11 +124,6 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_pedGroupLists_8c228240'), 0);
 
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
-        // var_crosswalkTableEnd_8c228244 is a 4-byte pointer variable, sized explicitly so it
-        // can't land inside var_crosswalkTable_8c228248's 8-int table in the test's address
-        // space (they're merely adjacent in real memory, not overlapping).
-        $this->setSize('_var_crosswalkTable_8c228248', 0x20);
-        $this->setSize('_var_crosswalkTableEnd_8c228244', 4);
     }
 
     /** Mocks the two njCalcPoint calls and asserts their scratch-point writes. */
