@@ -1,5 +1,4 @@
 ; 8c01a148
-          .IMPORT     _var_settingValues_8c226074
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_midiHandles_8c0fcd28
@@ -18,16 +17,12 @@
           .IMPORT     __divls
           .IMPORT     _sdMidiStop
           .IMPORT     _SndStopAdx_8c010ca6
-          .IMPORT     _var_musicTestDigits_8c226078
           .IMPORT     _FileMenuResetSoundDefaults_8c0188dc
-          .IMPORT     _var_soundMode_8c226070
           .IMPORT     _SndSetSoundMode_8c0108c0
           .IMPORT     _SndSetAdxVol_8c010972
           .IMPORT     _SndSetMidiVol_8c0109f4
           .IMPORT     _SndPlayBgm_8c0107ac
-          .IMPORT     _var_sfxTestDigits_8c226080
           .IMPORT     _SndPlaySfx_8c0106d2
-          .IMPORT     _var_voiceTestDigits_8c226088
           .IMPORT     _SndPlayVoice_8c010720
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
           .AIFDEF UNIT_TESTING
@@ -46,8 +41,14 @@
           .EXPORT     _audioTask_8c01ab08
           .EXPORT     _switchToAudio_8c01afd8
           .EXPORT     _topMenuTask_8c01b00a
+          .EXPORT     _var_settingValues_8c226074
+          .EXPORT     _var_musicTestDigits_8c226078
+          .EXPORT     _var_sfxTestDigits_8c226080
+          .EXPORT     _var_voiceTestDigits_8c226088
           .AENDI
           .EXPORT     _OptionSwitchToTopMenu_8c01b122
+          .EXPORT     _var_soundMode_8c226070 ; 0129cc_game
+                                              ; 018644_file_menu
           .SECTION     P, CODE, ALIGN=4
 _settingTask_8c01a148:
           MOV.L       R14,@-R15
@@ -2225,4 +2226,15 @@ _init_topMenuActions_8c044e28:        ; from defines
           .DATA.L      _switchToKeyConfig_8c01a89c ; ukn
           .DATA.L      _switchToAudio_8c01afd8 ; ukn
           .DATA.L      _MainMenuSwitchFromTask_8c01a09a ; ukn
+          .SECTION    B,DATA,ALIGN=4
+_var_soundMode_8c226070:
+          .RES.B      4
+_var_settingValues_8c226074:
+          .RES.B      4
+_var_musicTestDigits_8c226078:
+          .RES.B      8
+_var_sfxTestDigits_8c226080:
+          .RES.B      8
+_var_voiceTestDigits_8c226088:
+          .RES.B      16
           .END

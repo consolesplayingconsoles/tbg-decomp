@@ -46,9 +46,6 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xd7);
-        $this->setSize('_var_musicTestDigits_8c226078', 8);
-        $this->setSize('_var_sfxTestDigits_8c226080', 8);
-        $this->setSize('_var_voiceTestDigits_8c226088', 16);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndSetSoundMode_8c0108c0', 4);

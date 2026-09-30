@@ -31,7 +31,6 @@ return new class extends TestCase {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_settingValues_8c226074', 4);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_FileMenuResetSettingDefaults_8c018862', 4);

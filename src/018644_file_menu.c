@@ -7,6 +7,7 @@
 #include "016d2c_course_menu.h"
 #include "0193c8_vm_menu.h"
 #include "019e98_main_menu.h"
+#include "01a148_option.h"
 #include "0100bc_sound.h"
 #include "014f54_text.h"
 #include "028258_objects.h"

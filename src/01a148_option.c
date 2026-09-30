@@ -46,6 +46,21 @@ enum OPTION_STATE {
 };
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+Sint8 var_soundMode_8c226070;
+/* The SETTING rows at var_progress_8c1ba1cc.difficulty_0xc4; pointed there
+ * only by OptionSwitchToTopMenu_8c01b122. */
+STATIC char *var_settingValues_8c226074;
+/* AUDIO sound-test entry fields: one int per decimal digit, ones at index 0.
+ * Laid out contiguously, and switchToAudio_8c01afd8 clears them relying on it. */
+STATIC int var_musicTestDigits_8c226078[2];
+STATIC int var_sfxTestDigits_8c226080[2];
+STATIC int var_voiceTestDigits_8c226088[4];
+
+/* ====================
  * Initialized Globals
  * ====================
  */

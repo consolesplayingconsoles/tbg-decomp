@@ -21,7 +21,6 @@ return new class extends TestCase {
     private function arrange(int $row): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
-        $this->setSize('_var_settingValues_8c226074', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_TaskSetAction_8c014b3e', 4);
         $this->setSize('_FadePushIn_8c022a9c', 4);

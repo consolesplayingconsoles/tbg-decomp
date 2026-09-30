@@ -1,6 +1,6 @@
-/* 8c226070: undecompiled data section */
-#ifndef _226070_SECTIONB_H
-#define _226070_SECTIONB_H
+/* 8c226098: undecompiled data section */
+#ifndef _226098_SECTIONB_H
+#define _226098_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -363,15 +363,6 @@ extern Bool var_isFading_8c226568;
 extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1cc.profileUnlockedCount_0x8c by 01b19c_system_menu
 extern char var_profileUnlocked_8c2263b4[56]; // one byte per PROFILE FILE grid slot (55 used, 1 pad byte); set by ProfileFile
 extern ResourceGroup* var_resourceGroup_8c2263a8;
-extern Sint8 var_soundMode_8c226070;
-/* The SETTING rows at var_progress_8c1ba1cc.difficulty_0xc4; pointed there
- * only by OptionSwitchToTopMenu_8c01b122. */
-extern char *var_settingValues_8c226074;
-/* AUDIO sound-test entry fields: one int per decimal digit, ones at index 0.
- * Laid out contiguously, and switchToAudio_8c01afd8 clears them relying on it. */
-extern int var_musicTestDigits_8c226078[2];
-extern int var_sfxTestDigits_8c226080[2];
-extern int var_voiceTestDigits_8c226088[4];
 /* RESULTS screen score category totals, drawn digit-by-digit by
  * drawScoreDigits_8c01d7fc (01d7fc). */
 extern int var_scoreCourseClearBonus_8c2263ec;
@@ -384,4 +375,4 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-#endif // _226070_SECTIONB_H
+#endif // _226098_SECTIONB_H
