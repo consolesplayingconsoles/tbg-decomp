@@ -25,7 +25,6 @@ return new class extends TestCase {
     {
         $this->setSize('_var_progress_8c1ba1cc', self::PLAYER_PROGRESS_SIZE);
         $this->setSize('_var_dialogQueue_8c225fbc', 0x10);
-        $this->setSize('_var_endingVoiceList_8c226430', 4);
     }
 
     private function setCourseState(int $index, int $state): void

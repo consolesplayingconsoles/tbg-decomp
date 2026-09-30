@@ -42,6 +42,13 @@ enum ENDING_TASK_STATE {
 };
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+STATIC int *var_endingVoiceList_8c226430; /* selected ending voice-id list, set by selectEndingDialog_8c01f3c0 */
+
+/* ====================
  * Initialized Globals
  * ====================
  */

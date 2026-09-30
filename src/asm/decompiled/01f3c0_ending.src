@@ -1,6 +1,5 @@
 ; 8c01f3c0
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _var_endingVoiceList_8c226430
           .IMPORT     _var_dialogQueue_8c225fbc
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _TxtDrawSprite_8c014f54
@@ -53,6 +52,7 @@
           .EXPORT     _init_endingCreditsHead_8c04528c
           .EXPORT     _init_endingCreditsTail_8c045290
           .EXPORT     _init_endingResourceGroup_8c045324
+          .EXPORT     _var_endingVoiceList_8c226430
           .AENDI
           .EXPORT     _EndingStart_8c01f954
           .EXPORT     _init_endingVoicesPerfect_8c04522c
@@ -1486,4 +1486,7 @@ _init_endingResourceGroup_8c045324:        ; from defines
           .DATA.L      _const_endingDatName_8c039f60 ; ukn
           .DATA.L      _const_endingPvmName_8c039f6c ; ukn
           .DATA.B      H'04, H'00, H'00, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_endingVoiceList_8c226430:
+          .RES.B      4
           .END

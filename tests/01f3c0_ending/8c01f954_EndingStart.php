@@ -20,7 +20,6 @@ return new class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_dialogQueue_8c225fbc', 0x10);
-        $this->setSize('_var_endingVoiceList_8c226430', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_init_instructorDialogs_8c044c08', 66 * 4);
         $this->setSize('_var_tasks_8c1ba3c8', 4);

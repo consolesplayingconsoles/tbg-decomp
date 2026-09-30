@@ -26,7 +26,6 @@ return new class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', self::MENU_STATE_SIZE);
         $this->setSize('_var_dialogQueue_8c225fbc', 0x10);
-        $this->setSize('_var_endingVoiceList_8c226430', 4);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_instructorDialogActive_8c225fb4', 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);

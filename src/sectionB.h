@@ -1,6 +1,6 @@
-/* 8c226430: undecompiled data section */
-#ifndef _226430_SECTIONB_H
-#define _226430_SECTIONB_H
+/* 8c226434: undecompiled data section */
+#ifndef _226434_SECTIONB_H
+#define _226434_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -317,7 +317,6 @@ extern TileIndex *var_tileLayerIndexes_8c22650c[5];
 extern LoadedModel *var_tileLayerSlots_8c226520[5];
 
 extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
-extern int *var_endingVoiceList_8c226430; /* selected ending voice-id list, set by selectEndingDialog_8c01f3c0 */
 extern int var_activeTrafficPreset_8c227e14;
 /* Traffic preset table: indexed by var_busState_8c1bb9d0.scenePresetIds_0x3bc's byte at
  * bits 8-15, yielding that preset's record run in the course's *_MAC_CPU1.DAT;
@@ -332,4 +331,4 @@ extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 
-#endif // _226430_SECTIONB_H
+#endif // _226434_SECTIONB_H
