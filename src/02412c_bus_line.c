@@ -41,9 +41,9 @@ int BusLineAdvance_8c02412c(void)
              * altNext[2]. var_busState_8c1bb9d0.signalSide_0x25c is signalSide_0x25c again
              * under its own section B symbol, which is how the asm reads it
              * the second time. */
-            if (node->altNext_0x04[1] != 0xffff && var_busState_8c1bb9d0.signalSide_0x25c == 1) {
+            if (node->altNext_0x04[1] != LINE_NODE_NONE && var_busState_8c1bb9d0.signalSide_0x25c == 1) {
                 nextIdx = node->altNext_0x04[1];
-            } else if (node->altNext_0x04[2] != 0xffff && var_busState_8c1bb9d0.signalSide_0x25c == 2) {
+            } else if (node->altNext_0x04[2] != LINE_NODE_NONE && var_busState_8c1bb9d0.signalSide_0x25c == 2) {
                 nextIdx = node->altNext_0x04[2];
             } else {
                 nextIdx = node->altNext_0x04[0];

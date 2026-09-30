@@ -28,6 +28,9 @@ typedef struct {
     Uint16 fallbackNext_0x0a;
 } LineBusNode;
 
+/* LineBusNode link with no target */
+#define LINE_NODE_NONE 0xffff
+
 /* Resets the bus's drivetrain to idle after a collision or a braking-sound
  * update; puts driveState_0x2b4 into the knockback state (2). */
 void BusDriveStop_8c023bce(void);

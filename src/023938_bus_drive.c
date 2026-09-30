@@ -274,7 +274,7 @@ void BusDriveFindLaneTarget_8c023e7e(void)
         idx = nodes[var_busState_8c1bb9d0.currentLineNodeIdx_0x33c].backNext_0x02;
     }
 
-    if (idx != 0xffff) {
+    if (idx != LINE_NODE_NONE) {
         seg = segs[idx].points_0x00;
         remaining = var_busState_8c1bb9d0.speed_0x27c * 128.0f
                   + segs[idx].length_0x04 * var_busState_8c1bb9d0.lineSegmentProgress_0x2c0
@@ -287,7 +287,7 @@ void BusDriveFindLaneTarget_8c023e7e(void)
             segEnd += 1;
             if (segEnd->len_0x00 == 0.0f) {
                 idx = nodes[idx].fallbackNext_0x0a;
-                if (idx == 0xffff) {
+                if (idx == LINE_NODE_NONE) {
                     var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
                     return;
                 }
