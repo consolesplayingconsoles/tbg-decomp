@@ -114,7 +114,7 @@ SRCS = \
 	src/02f320_replay_codec.c \
 	src/scif.c \
 	src/serial_debug.c \
-	src/asm/04ce10_line_nodes.src \
+	src/04ce10_line_nodes.c \
 	src/235ca0_nj_buffers.c \
 
 C_SRCS = $(filter %.c,$(SRCS))

@@ -51,8 +51,9 @@ $(OUTPUT_DIR)/src/013ae8_route.obj: src/021b9c_tile_draw.h src/026710_traffic.h
 $(OUTPUT_DIR)/src/013ae8_route.obj: src/020914_ground_query.h src/0289ac_objects.h
 $(OUTPUT_DIR)/src/013ae8_route.obj: src/02a9fc_message_box.h src/02af78_event.h
 $(OUTPUT_DIR)/src/013ae8_route.obj: src/02c884_stop.h src/02b464_grading.h
-$(OUTPUT_DIR)/src/013ae8_route.obj: src/04ce10_line_nodes.h src/024b4c_bus_camera.h
-$(OUTPUT_DIR)/src/013ae8_route.obj: src/1ba1c8_globals.h src/022464_render.h src/includes.h
+$(OUTPUT_DIR)/src/013ae8_route.obj: src/04ce10_line_nodes.h src/023938_bus_drive.h
+$(OUTPUT_DIR)/src/013ae8_route.obj: src/024b4c_bus_camera.h src/1ba1c8_globals.h
+$(OUTPUT_DIR)/src/013ae8_route.obj: src/022464_render.h src/includes.h
 $(OUTPUT_DIR)/src/013ae8_route.obj: src/013ae8_route.data.inc
 $(OUTPUT_DIR)/src/014934_unused_load.obj: src/0129cc_game.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/014934_unused_load.obj: src/013ae8_route.h src/011120_asset_queues.h
@@ -546,4 +547,5 @@ $(OUTPUT_DIR)/src/02f0c8_traffic_path_scan.obj: src/022464_render.h
 $(OUTPUT_DIR)/src/02f320_replay_codec.obj: src/includes.h src/02f320_replay_codec.h
 $(OUTPUT_DIR)/src/scif.obj: src/scif.h
 $(OUTPUT_DIR)/src/serial_debug.obj: src/scif.h
+$(OUTPUT_DIR)/src/04ce10_line_nodes.obj: src/04ce10_line_nodes.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/235ca0_nj_buffers.obj: src/235ca0_nj_buffers.h
