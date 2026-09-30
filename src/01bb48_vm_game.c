@@ -14,7 +14,7 @@
 #include "022464_render.h"
 #include "0100bc_sound.h"
 #include "02a9fc_message_box.h"
-#include "02fb50_sh4nlfzn_post_data.h"
+#include "235ca0_nj_buffers.h"
 #include "014f54_sprite.h"
 #include "1ba1c8_globals.h"
 #include "strings.h"

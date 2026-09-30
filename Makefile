@@ -115,7 +115,7 @@ SRCS = \
 	src/scif.c \
 	src/serial_debug.c \
 	src/asm/04ce10_line_nodes.src \
-	src/02fb50_sh4nlfzn_post_data.c \
+	src/235ca0_nj_buffers.c \
 
 C_SRCS = $(filter %.c,$(SRCS))
 

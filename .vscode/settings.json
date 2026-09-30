@@ -10,7 +10,7 @@
         "*.c": "c",
         ".h": "c",
         "011120_asset_queues.h": "c",
-        "02fb50_sh4nlfzn_post_data.h": "c",
+        "235ca0_nj_buffers.h": "c",
         "014a9c_tasks.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",

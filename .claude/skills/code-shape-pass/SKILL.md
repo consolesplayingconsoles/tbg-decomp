@@ -22,7 +22,7 @@ Comments are out of scope -- `comment-pass` owns those.
    `.c` file, stop and ask: that unit is compiled from C into the byte-matching build, and
    reshaping its code can move codegen off the match. As of this writing that is only
    `010080_main`, `010e90`, `014934`, `0149b0_sbinit`, `014a9c_tasks`, `014b8c_backup`,
-   `016108`, `02fb50_sh4nlfzn_post_data` -- every other unit builds from the
+   `016108`, `235ca0_nj_buffers` -- every other unit builds from the
    archived asm and only owes functional equivalence.
 2. **Get a green baseline.** `./scripts/run_tests.sh -c /app/tests/<unit>/<file>.php` for
    the unit, plus `./scripts/check_data_match.sh` if the unit has a data section. A pass

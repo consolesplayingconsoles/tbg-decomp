@@ -1,5 +1,5 @@
-#ifndef SH4NLFZN_POST_DATA_H_
-#define SH4NLFZN_POST_DATA_H_
+#ifndef _235CA0_NJ_BUFFERS_H
+#define _235CA0_NJ_BUFFERS_H
 
 #define TEX_BUFSIZE     0x80800
 // #define TEX_NUM         3072
@@ -15,4 +15,4 @@ extern Sint8          var_texbuf_8c277ca0[TEX_BUFSIZE];
 extern Float          var_shapebuf_8c2f84a0[SHAPE_BUFSIZE];
 extern NJS_MATRIX     var_matrix_8c2f8ca0[16];
 
-#endif // SH4NLFZN_POST_DATA_H_
+#endif // _235CA0_NJ_BUFFERS_H

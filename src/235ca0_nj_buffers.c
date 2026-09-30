@@ -1,6 +1,6 @@
 #include <shinobi.h>
 #include <sg_xpt.h>
-#include "02fb50_sh4nlfzn_post_data.h"
+#include "235ca0_nj_buffers.h"
 
 #pragma section 32
 Sint8          var_cachebuf_8c235ca0[CACHE_BUFSIZE];

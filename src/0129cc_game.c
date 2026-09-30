@@ -26,7 +26,7 @@
 #include "01a148_option.h"
 #include "01bb48_vm_game.h"
 #include "01c980_profile_file.h"
-#include "02fb50_sh4nlfzn_post_data.h"
+#include "235ca0_nj_buffers.h"
 #include "02171c_tile_stream.h"
 #include "023310_bus_init.h"
 #include "025870_demo.h"
