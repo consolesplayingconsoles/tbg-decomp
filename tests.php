@@ -697,7 +697,7 @@ return [
         ],
         [
             "tests" => [
-                "tests/02786c_vehicle_parts/8c02786c_VehPartsBind.php",
+                "tests/02786c_vehicle_parts/8c02786c_VehiclePartsBind.php",
             ],
             "objects" => [
                 "build/output_test/src/asm/decompiled/02786c_vehicle_parts.obj",

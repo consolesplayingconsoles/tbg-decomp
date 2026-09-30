@@ -7,6 +7,6 @@
  * allocated entry and its masked type code, right before the entry's
  * script is first run. Also called by 023310_bus_init.c with the player's
  * BusState*, which shares TrafficEntry's 0x00-0x60 prefix. */
-void VehPartsBind_8c02786c(TrafficEntry *entry, Uint32 typeCode);
+void VehiclePartsBind_8c02786c(TrafficEntry *entry, Uint32 typeCode);
 
 #endif // _02786C_VEHICLE_PARTS_H

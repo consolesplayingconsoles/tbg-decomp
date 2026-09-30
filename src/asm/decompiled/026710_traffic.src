@@ -30,7 +30,7 @@
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _TrafficPathScanBuild_8c02f0c8
           .IMPORT     _var_trafficModels_8c1bc3f4
-          .IMPORT     _VehPartsBind_8c02786c
+          .IMPORT     _VehiclePartsBind_8c02786c
           .IMPORT     _var_busSimpleLightDir_8c227db8
           .IMPORT     _var_mirrorLightDir_8c227dc4
           .IMPORT     _njCnkSetSimpleLight
@@ -2010,7 +2010,7 @@ LP_GEN_41074:
           .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C0275B4
           .DATA.L _init_variantBodyType_8c04622c ; H'8C0275B8
           .DATA.L _var_trafficModels_8c1bc3f4 ; H'8C0275BC
-          .DATA.L _VehPartsBind_8c02786c ; H'8C0275C0
+          .DATA.L _VehiclePartsBind_8c02786c ; H'8C0275C0
           .DATA.L _var_busSimpleLightDir_8c227db8 ; H'8C0275C4
           .DATA.L _var_mirrorLightDir_8c227dc4 ; H'8C0275C8
           .DATA.L _njCnkSetSimpleLight ; H'8C0275CC

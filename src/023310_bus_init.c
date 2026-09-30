@@ -15,7 +15,7 @@
 #include "023938_bus_drive.h"
 #include "023310_bus_init.h"
 #include "024280_bus_input.h"
-#include "02786c_vehicle_parts.h" /* VehPartsBind_8c02786c */
+#include "02786c_vehicle_parts.h" /* VehiclePartsBind_8c02786c */
 #include "02e51c_attr_query.h"               /* AttrQueryFindConvexPolygon_8c02e51c, AttrQueryFindConvexPolygonAtHeight_8c02eab4, AttrQueryFindPolygon_8c02e69c, AttrQueryFindPolygonAtHeight_8c02ec50 */
 #include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */
 #include "022bdc_bus.h"               /* BusTask_8c022bdc */
@@ -166,7 +166,7 @@ void BusInitStart_8c023610(void)
     var_busState_8c1bb9d0.texlistLarge_0x004 = (int)var_routeModelSlots_8c1bbddc[26].texlist_0x08;
     var_busState_8c1bb9d0.modelLarge_0x00c = (int)var_routeModelSlots_8c1bbddc[26].nj_0x0c;
     var_busState_8c1bb9d0.shadowModel_0x014 = *(int *)((char *)var_trafficModels_8c1bc3f4 + 0x44);
-    VehPartsBind_8c02786c(&var_busState_8c1bb9d0, 0x1a);
+    VehiclePartsBind_8c02786c(&var_busState_8c1bb9d0, 0x1a);
 
     /* bodyModels_0x04c[0..5] default to 0x3f, then the one for this run's
      * time-of-day/route is overridden to 0x37. */

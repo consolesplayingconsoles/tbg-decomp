@@ -1,4 +1,4 @@
-/* @unit VehParts */
+/* @unit VehicleParts */
 
 #include <shinobi.h>
 
@@ -18,7 +18,7 @@
  * `entry` is TrafficEntry* for a CPU vehicle, but 023310_bus_init.c also
  * calls this with the player's BusState*, which shares the same 0x00-0x60
  * prefix. */
-void VehPartsBind_8c02786c(TrafficEntry *entry, Uint32 typeCode)
+void VehiclePartsBind_8c02786c(TrafficEntry *entry, Uint32 typeCode)
 {
     NJS_OBJECT *nj;
     NJS_OBJECT *node;

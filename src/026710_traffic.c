@@ -732,7 +732,7 @@ Sint32 TrafficRunEntryScript_8c027012(TrafficEntry *entry)
  * entry's start progress and a small random per-entry path-origin jitter
  * (entry+0x2ec/0x2f0) are recorded.
  *
- * Finally the entry's script cursor is armed (entry+0x2f8/0x2fc), VehPartsBind_8c02786c
+ * Finally the entry's script cursor is armed (entry+0x2f8/0x2fc), VehiclePartsBind_8c02786c
  * runs any remaining per-type setup, and the entry's script is run once
  * (TrafficRunEntryScript_8c027012) before its path/heading are derived for
  * the first frame. Returns 1 on every completed spawn (day-mask skip and
@@ -827,7 +827,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
         bodyTypeIdx = init_variantBodyType_8c04622c[variantIdx];
         e->shadowModel_0x14 = var_trafficModels_8c1bc3f4[bodyTypeIdx].njDest;
 
-        VehPartsBind_8c02786c(e, typeCode);
+        VehiclePartsBind_8c02786c(e, typeCode);
         TrafficRunEntryScript_8c027012(e);
 
         if (*script != 10) {

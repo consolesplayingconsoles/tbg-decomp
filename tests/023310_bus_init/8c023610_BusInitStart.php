@@ -15,7 +15,7 @@ if (!function_exists('f32')) {
  * _BusInitStart_8c023610(void): the per-run bootstrap for the player's bus.
  * Resets the ground-grid globals from var_currentCourse_8c1bb868, arms
  * BusTask_8c022bdc via TaskPush_8c014ae8, binds the bus body model
- * (VehPartsBind_8c02786c), picks a (route, timeOfDay) content-swap pointer
+ * (VehiclePartsBind_8c02786c), picks a (route, timeOfDay) content-swap pointer
  * and a ground-query dispatch table (normal vs. the Wangan-route/segment-10
  * *AtHeight variants), calls busInitPlaceBus_8c023310 to place the bus, then
  * runs three AttrQueryFindPolygon_8c02e69c region lookups (seeded from the just-computed
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_var_routeModelSlots_8c1bbddc', 0x200);
         $this->setSize('_var_trafficModels_8c1bc3f4', 4);
-        $this->setSize('_VehPartsBind_8c02786c', 4);
+        $this->setSize('_VehiclePartsBind_8c02786c', 4);
         $this->setSize('_var_timeOfDay_8c18ad20', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_currentSegment_8c228708', 4);
@@ -143,7 +143,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x004, $vpField4);
         $this->shouldWriteLong($base + 0x00c, $vpField8);
         $this->shouldWriteLong($base + 0x014, 0xcafe0700);
-        $this->shouldCall('_VehPartsBind_8c02786c')->with($base, 0x1a);
+        $this->shouldCall('_VehiclePartsBind_8c02786c')->with($base, 0x1a);
 
         foreach ($slots as $slot) {
             $this->shouldWriteLong($slot, 0x3f);

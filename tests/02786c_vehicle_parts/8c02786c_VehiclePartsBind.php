@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
-/* VehPartsBind_8c02786c(void *entry, Uint32 typeCode)
+/* VehiclePartsBind_8c02786c(void *entry, Uint32 typeCode)
  *
  * Caches vehicle body-part nodes into the traffic entry blob so later code
  * (script/animation) can address them by fixed offset, and un-marks
@@ -85,7 +85,7 @@ return new class extends TestCase {
 
         $this->initUint32($entry + 0x0c, $nj);
 
-        $this->call('_VehPartsBind_8c02786c')->with($entry, $typeCode);
+        $this->call('_VehiclePartsBind_8c02786c')->with($entry, $typeCode);
 
         $this->shouldWriteLong($entry + 0x00, $typeCode);
 
@@ -147,7 +147,7 @@ return new class extends TestCase {
 
         $this->initUint32($entry + 0x0c, $nj);
 
-        $this->call('_VehPartsBind_8c02786c')->with($entry, $typeCode);
+        $this->call('_VehiclePartsBind_8c02786c')->with($entry, $typeCode);
 
         $this->shouldWriteLong($entry + 0x00, $typeCode);
 
@@ -210,7 +210,7 @@ return new class extends TestCase {
 
         $this->initUint32($entry + 0x0c, $nj);
 
-        $this->call('_VehPartsBind_8c02786c')->with($entry, $typeCode);
+        $this->call('_VehiclePartsBind_8c02786c')->with($entry, $typeCode);
 
         $this->shouldWriteLong($entry + 0x00, $typeCode);
 
@@ -273,7 +273,7 @@ return new class extends TestCase {
 
         $this->initUint32($entry + 0x0c, $nj);
 
-        $this->call('_VehPartsBind_8c02786c')->with($entry, $typeCode);
+        $this->call('_VehiclePartsBind_8c02786c')->with($entry, $typeCode);
 
         $this->shouldWriteLong($entry + 0x00, $typeCode);
 
@@ -354,7 +354,7 @@ return new class extends TestCase {
 
         $this->initUint32($entry + 0x0c, $nj);
 
-        $this->call('_VehPartsBind_8c02786c')->with($entry, $typeCode);
+        $this->call('_VehiclePartsBind_8c02786c')->with($entry, $typeCode);
 
         $this->shouldWriteLong($entry + 0x00, $typeCode);
 

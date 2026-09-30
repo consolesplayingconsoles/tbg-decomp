@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_AsqGetRandomA_8c012166', 4);
-        $this->setSize('_VehPartsBind_8c02786c', 4);
+        $this->setSize('_VehiclePartsBind_8c02786c', 4);
         $this->setSize('_TrafficPathScanBuild_8c02f0c8', 4);
         $this->setSize('_GroundProbeTrackPolygon_8c020b6c', 4);
         $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
@@ -132,7 +132,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($entry + 0x14, 0x55550000);
 
-        $this->shouldCall('_VehPartsBind_8c02786c')->with($entry, 0x1c);
+        $this->shouldCall('_VehiclePartsBind_8c02786c')->with($entry, 0x1c);
         $this->shouldCall('_TrafficRunEntryScript_8c027012')->with($entry)->andReturn(1);
         $this->shouldCall('_TrafficUpdateHeading_8c026bc4')->with(1.5, $entry);
 
@@ -190,7 +190,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($entry + 0x14, 0xaaaa0000);
 
-        $this->shouldCall('_VehPartsBind_8c02786c')->with($entry, 0x14);
+        $this->shouldCall('_VehiclePartsBind_8c02786c')->with($entry, 0x14);
         $this->shouldCall('_TrafficRunEntryScript_8c027012')->with($entry)->andReturn(1);
         $this->shouldCall('_TrafficAdvanceOnPath_8c026ca2')->with(2.5, $entry)->andReturn(1);
         $this->shouldCall('_TrafficUpdateHeading_8c026bc4')->with(2.5, $entry);

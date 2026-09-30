@@ -26,7 +26,7 @@ typedef struct {
     int modelLarge_0x00c;
     int field_0x010;
     int shadowModel_0x014;
-    /* Sub-model nodes walked out of modelLarge_0x00c by VehPartsBind_8c02786c
+    /* Sub-model nodes walked out of modelLarge_0x00c by VehiclePartsBind_8c02786c
      * and animated by BusDrawUpdateModels_8c027958 (027958_bus_draw). Which of
      * rearWheelB_0x028 and the three turn lamps get bound at all depends on
      * typeCode_0x000; the bus is type 0x1a. */

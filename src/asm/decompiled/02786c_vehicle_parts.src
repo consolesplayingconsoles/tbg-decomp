@@ -1,7 +1,7 @@
 ; 8c02786c
-          .EXPORT     _VehPartsBind_8c02786c
+          .EXPORT     _VehiclePartsBind_8c02786c
           .SECTION     P, CODE, ALIGN=4
-_VehPartsBind_8c02786c:
+_VehiclePartsBind_8c02786c:
           MOV         #-H'3,R6
           MOV         R5,R0
           CMP/EQ      #H'14,R0

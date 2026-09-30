@@ -8,7 +8,7 @@
 /* Pushes one frame of animation state onto a vehicle's model nodes: wheel spin
  * and steering angle, suspension pitch/roll on the body, and each
  * blinkerLights_0x02c entry shown or hidden from its bit of blinker_0x080.
- * The switch on typeCode_0x000 has the same arms as VehPartsBind_8c02786c
+ * The switch on typeCode_0x000 has the same arms as VehiclePartsBind_8c02786c
  * (02786c_vehicle_parts) -- it only drives the extra wheel and turn-lamp nodes
  * that binder cached for this vehicle type.
  *
