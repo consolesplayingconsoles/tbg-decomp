@@ -3,7 +3,6 @@
 #include <shinobi.h>
 #include "includes.h" /* TWO_PI */
 #include "020914_ground_query.h"
-#include "sectionB.h"
 
 /* ====================
  * Compiler Definitions
@@ -11,6 +10,13 @@
  */
 
 #define CELL_SIZE 150.0f
+
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+GroundGrid* var_activeGroundGrid_8c2264d4;
 
 /* ====================
  * Functions

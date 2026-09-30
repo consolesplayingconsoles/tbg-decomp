@@ -1,6 +1,6 @@
-/* 8c2264d4: undecompiled data section */
-#ifndef _2264D4_SECTIONB_H
-#define _2264D4_SECTIONB_H
+/* 8c2264d8: undecompiled data section */
+#ifndef _2264D8_SECTIONB_H
+#define _2264D8_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -9,7 +9,6 @@
 #include "02171c_tile_stream.h" /* TileIndex, TileRect */
 #include "022464_fade.h" /* FadePhase, FadeRequest, FadeDrawCommand */
 #include "028258_objects.h" /* TrafficSignal */
-#include "020914_ground_query.h" /* GroundGrid */
 #include "023938_bus_drive.h" /* LineBusSegment, LineBusNode */
 #include "026710_traffic.h" /* PathRecord */
 #include "011120_asset_queues.h"
@@ -22,7 +21,6 @@
  * =================
  */
 
-extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
 extern float var_fadeLightDir1_8c2264e4[3]; // 021b9c_tile_draw: simple-light direction, fade layer 1 (mirror side)
 /* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Every access is
@@ -240,4 +238,4 @@ extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 
-#endif // _2264D4_SECTIONB_H
+#endif // _2264D8_SECTIONB_H

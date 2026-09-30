@@ -19,6 +19,7 @@
 #include "02e51c_attr_query.h"
 #include "02b464_drive_points.h"
 #include "020214_drive_cue.h" /* var_driveCueState_8c2264b8 */
+#include "020914_ground_query.h" /* var_activeGroundGrid_8c2264d4 */
 
 /* =====================
  * Type Declarations

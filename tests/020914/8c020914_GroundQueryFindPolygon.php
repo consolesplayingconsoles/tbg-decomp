@@ -23,7 +23,6 @@ if (!function_exists('fdec')) {
 // vertexIds.
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_njSqrt', 4);
         $this->setSize('_acosf', 4);
     }

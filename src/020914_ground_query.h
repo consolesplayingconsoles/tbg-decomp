@@ -30,6 +30,8 @@ typedef struct {
     GroundVertex *verts_0x18;
 } GroundGrid;
 
+extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
+
 /* Ground-polygon match written by GroundQueryFindPolygon_8c020914 and consumed
  * by GroundProbeInterpolateHeight_8c020f7e (020b6c_ground_probe.h), which
  * interpolates the point's height from it. A miss zeroes count_0x0c and
