@@ -350,7 +350,7 @@ extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1cc.profileUnlockedCount_0x8c by 01b19c_system_menu
 extern char var_profileUnlocked_8c2263b4[56]; // one byte per PROFILE FILE grid slot (55 used, 1 pad byte); set by ProfileFile
-extern ResourceGroup* var_resourceGroup_8c2263a8;
+extern ResourceGroup var_resourceGroup_8c2263a8;
 /* RESULTS screen score category totals, drawn digit-by-digit by
  * drawScoreDigits_8c01d7fc (01d7fc). */
 extern int var_scoreCourseClearBonus_8c2263ec;

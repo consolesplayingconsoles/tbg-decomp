@@ -734,7 +734,7 @@ void GameInit_8c0134ec() {
     var_interiorTexlist_8c1bc438 = (NJS_TEXLIST *) -1;
     var_menuState_8c1bc7a8.resourceGroupA_0x00.tlist_0x00 = (void*) -1;
     var_menuState_8c1bc7a8.resourceGroupB_0x0c.tlist_0x00 = (void*) -1;
-    var_resourceGroup_8c2263a8 = (ResourceGroup *) -1;
+    var_resourceGroup_8c2263a8.tlist_0x00 = (void *) -1;
     var_saveBuf_8c1ba2e0 = (void *) -1;
     var_backupFileImageBuf_8c1ba348 = (void *) -1;
     var_vmuIconFileBuf_8c1ba344 = (void *) -1;
