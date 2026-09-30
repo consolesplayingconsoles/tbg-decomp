@@ -7802,5 +7802,5 @@ _init_8c04f6a8:        ; from defines
 _var_8c235c80:
           .RES.B      4
 _var_8c235c84:
-          .RES.B      28
+          .RES.B      4
           .END

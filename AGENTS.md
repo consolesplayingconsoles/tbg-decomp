@@ -34,7 +34,7 @@ src/
   <addr>_name.c              # Decompiled C unit
   <addr>_name.h              # Public interface for that unit
   asm/<addr>.src             # Original assembly. All game code is decompiled;
-                             # what is left is SDK, section data, boot header.
+                             # what is left is sh4nlfzn and section data.
   asm/decompiled/<addr>.src  # Original assembly, decompiled (used for archival and unit tests)
   includes.h                 # Shared macros (STATIC, NM_STATIC, TWO_PI)
   serial_debug.h             # LOG_* serial debug logging macros

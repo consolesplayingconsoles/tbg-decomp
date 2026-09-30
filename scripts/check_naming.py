@@ -107,7 +107,7 @@ NO_ADDR_ALLOWLIST = {
 }
 
 # symbols a local `extern` may legitimately name with no header available: defined
-# by the linker command file (build/lnk_matching*.sub), not any project unit.
+# by the SDK startup (strt1.obj), not any project unit.
 NO_HEADER_ALLOWLIST = {
     "_BSG_END",
 }

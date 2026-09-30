@@ -8,7 +8,6 @@ SHA1_CHECKSUM=a6df9e0de39b2d11e9339aef915d20e35763ec81
 SHELL := /bin/bash
 
 SRCS = \
-	src/asm/010000_start.src \
 	src/010080_main.c \
 	src/asm/decompiled/0100bc_sound.src \
 	src/010e90_vibration.c \
@@ -80,8 +79,6 @@ SRCS = \
 	src/asm/decompiled/02f320_replay_codec.src \
 	src/asm/04ce10_line_nodes.src \
 	src/asm/02fb50_sh4nlfzn.src \
-	src/asm/03327c_strt1_sectionC.src \
-	src/asm/04f6c0_SDK.src \
 	src/02fb50_sh4nlfzn_post_data.c
 
 OBJS = $(patsubst src/%.c,$(OUTPUT_DIR)/src/%.obj,$(SRCS))
@@ -113,8 +110,9 @@ $(OUTPUT_DIR)/src/%.obj: src/%.c
 $(OUTPUT_DIR)/tbg.elf: $(OBJS) $(BUILD_DIR)/lnk_matching.sub
 	wibo "$(SHC_BIN)/lnk.exe" -sub=build\\lnk_matching.sub
 
-$(BUILD_DIR)/lnk_matching.sub: $(BUILD_DIR)/lnk_matching_template.sub
-	sed 's|@INPUTS@|$(foreach obj,$(LINKER_OBJS),input $(obj)\n)|g' $(BUILD_DIR)/lnk_matching_template.sub > $(BUILD_DIR)/lnk_matching.sub
+$(BUILD_DIR)/lnk_matching.sub: $(BUILD_DIR)/lnk_matching_template.sub Makefile.matching
+	sed "s|@DC_SDK@|$$(printf %q "$(KATANA_SDK_DIR)")|g" $(BUILD_DIR)/lnk_matching_template.sub > $(BUILD_DIR)/lnk_matching.sub
+	sed -i 's|@INPUTS@|$(foreach obj,$(LINKER_OBJS),input $(obj)\n)|g' $(BUILD_DIR)/lnk_matching.sub
 
 $(OUTPUT_DIR)/tbg.bin: $(OUTPUT_DIR)/tbg.elf
 	wibo "$(KATANA_SDK_DIR)/bin/elf2bin.exe" -s 8c010000 "$(subst /,\\,$<)"

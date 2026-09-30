@@ -511,8 +511,8 @@ void GameEnterDrive_8c01306e(void)
 
     njGenerateFogTable3(var_fogTable_8c18aaf8, var_viewParams_8c18ad28->fogN_0x0c, var_viewParams_8c18ad28->fogF_0x10);
     njFogEnable();
-    kmSetCheapShadowMode(0x80);
-    kmSetFogTable(var_fogTable_8c18aaf8);
+    njSetCheapShadowMode(0x80);
+    njSetFogTable(var_fogTable_8c18aaf8);
 
     TaskClear_8c014a9c(var_tasks_8c1ba5e8, 0x10);
     TaskClear_8c014a9c(var_tasks_8c1ba808, 0x20);

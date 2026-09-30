@@ -738,15 +738,6 @@ explicit `Uint8*` alias (byte loads only, already well-exercised elsewhere)
 avoided it. Prefer a byte-typed view for tight array-copy loops over a
 16-bit scratch buffer when only the low byte is ever meaningful.
 
-## Renaming a unit's asm needs `build/lnk_matching.sub` deleted by hand
-
-`Makefile.matching`'s linker-script rule doesn't depend on `Makefile.matching`
-itself, so the cached `build/lnk_matching.sub` survives both a plain rebuild and
-`rm -rf build/output_matching`. After renaming a unit's `.src` the matching build
-keeps feeding the linker the old path and fails on a missing input. Delete
-`build/lnk_matching.sub` (and any stale `.obj`) explicitly. Hit twice:
-`02b464_drive_points` and `024b4c_bus_render`.
-
 ## Ghidra reorders writes; statement order in its output is not evidence
 
 In `busDriveDecelerate_8c023bea` (023938_bus_drive) Ghidra emitted the

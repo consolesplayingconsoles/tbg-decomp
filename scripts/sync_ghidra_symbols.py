@@ -14,8 +14,8 @@ Two symbol sources, unified:
      -- exports (public) + debug symbols (Func/Var from C objs, Label from asm
      objs, the latter only present because the matching build now assembles with
      `-debug`, which embeds debug info in the .obj instead of a side .DWF).
-  2. build/lnk_matching_template.sub `define _NAME(8CADDR)` -- SDK funcs (external
-     refs, absent from the object exports).
+  2. build/output_matching/tbg.map symbols inside the PSG section -- SDK funcs
+     (linked from the SDK libraries, absent from the project objects).
 
 Address resolution is map-free / self-anchoring: nearly every symbol name encodes
 its absolute address (`_foo_8c013ae8`), and inspect gives each symbol's
@@ -38,7 +38,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent   # scripts/ -> repo root
 OBJ_DIR = REPO_ROOT / "build" / "output_matching"
-SUB_FILE = REPO_ROOT / "build" / "lnk_matching_template.sub"
+MAP_FILE = OBJ_DIR / "tbg.map"
 DUMP_DIR = REPO_ROOT / "build" / "inspect_matching_tmp"
 
 GHIDRA_URL = "http://127.0.0.1:8089"
@@ -141,14 +141,24 @@ def collect_object_symbols(data):
     return resolved, warnings
 
 
-def collect_sdk_defines():
-    """SDK functions from the linker define template -> {addr: (name, 'func')}."""
-    out = {}
-    pat = re.compile(r"^define\s+_(\w+)\((8[cC][0-9A-Fa-f]{6})\)")
-    for line in SUB_FILE.read_text().splitlines():
-        m = pat.match(line.strip())
+def collect_sdk_funcs():
+    """SDK functions from the link map's PSG section -> {addr: (name, 'func')}."""
+    lines = MAP_FILE.read_text(encoding="latin-1").splitlines()
+    psg, sec = None, None
+    for line in lines:
+        m = re.match(r"^(\w+)\s+H'", line)
         if m:
-            out[int(m.group(2), 16)] = (m.group(1), "func")
+            sec = m.group(1)
+        m = re.match(r"^\* TOTAL ADDRESS \*\s+H'([0-9A-F]{8})  -  H'([0-9A-F]{8})", line)
+        if m and sec == "PSG":
+            psg = (int(m.group(1), 16), int(m.group(2), 16))
+    out = {}
+    # long names wrap: the address goes on the following line
+    text = "\n".join(lines)
+    for m in re.finditer(r"^_(\w+)\s+H'(8C[0-9A-F]{6})\s+(?:ENT|DAT)\s*$", text, re.M):
+        addr = int(m.group(2), 16)
+        if psg[0] <= addr <= psg[1]:
+            out[addr] = (m.group(1), "func")
     return out
 
 
@@ -227,8 +237,8 @@ def main():
         all_warn += [f"{rel}: {w}" for w in warnings]
     shutil.rmtree(DUMP_DIR, ignore_errors=True)
 
-    # SDK defines are functions; they must not collide with data.
-    for addr, (name, _) in collect_sdk_defines().items():
+    # SDK symbols are functions; they must not collide with data.
+    for addr, (name, _) in collect_sdk_funcs().items():
         funcs.setdefault(addr, name)
 
     # an address can't be both; functions win.

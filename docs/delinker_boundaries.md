@@ -11,10 +11,10 @@ fact: section layout, and cross-unit reference structure.
 
 ## What the layout can testify to
 
-`build/lnk_matching_template.sub` ends with `start P,C,D,SDK(8C010000)` -- B is
-given no start, so every section is laid out by concatenating each input
-object's contribution **in link order**, which is the `SRCS` order, which is
-address order. Two consequences:
+`build/lnk_matching_template.sub` ends with `start IP(8C008000),DSGLH(8C010000)`
+-- every other section is given no start, so every section is laid out by
+concatenating each input object's contribution **in link order**, which is the
+`SRCS` order, which is address order. Two consequences:
 
 - **One object contributes one contiguous run per section.** So a unit's
   exclusively-referenced symbols *bracket* its ownership: everything between its

@@ -24,8 +24,8 @@
           .IMPORT     _njSetFogColor
           .IMPORT     _njGenerateFogTable3
           .IMPORT     _njFogEnable
-          .IMPORT     _kmSetCheapShadowMode
-          .IMPORT     _kmSetFogTable
+          .IMPORT     _njSetCheapShadowMode
+          .IMPORT     _njSetFogTable
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskClear_8c014a9c
           .IMPORT     _var_tasks_8c1ba808
@@ -1217,8 +1217,8 @@ LP_GEN_31464:
           .DATA.L _var_fogTable_8c18aaf8
           .DATA.L _njGenerateFogTable3
           .DATA.L _njFogEnable
-          .DATA.L _kmSetCheapShadowMode
-          .DATA.L _kmSetFogTable
+          .DATA.L _njSetCheapShadowMode
+          .DATA.L _njSetFogTable
           .DATA.L _var_tasks_8c1ba5e8
           .DATA.L _TaskClear_8c014a9c
           .DATA.L _var_tasks_8c1ba808

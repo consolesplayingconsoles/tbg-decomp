@@ -34,8 +34,8 @@ return new class extends TestCase {
         $this->shouldCall('_njSetFogColor')->with(0x40302010);
         $this->shouldCall('_njGenerateFogTable3')->with($this->addressOf('_var_fogTable_8c18aaf8'), 42.0, 43.0);
         $this->shouldCall('_njFogEnable');
-        $this->shouldCall('_kmSetCheapShadowMode')->with(0x80);
-        $this->shouldCall('_kmSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
+        $this->shouldCall('_njSetCheapShadowMode')->with(0x80);
+        $this->shouldCall('_njSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
 
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
@@ -120,8 +120,8 @@ return new class extends TestCase {
         $this->shouldCall('_njSetFogColor')->with(0x40302010);
         $this->shouldCall('_njGenerateFogTable3')->with($this->addressOf('_var_fogTable_8c18aaf8'), 42.0, 43.0);
         $this->shouldCall('_njFogEnable');
-        $this->shouldCall('_kmSetCheapShadowMode')->with(0x80);
-        $this->shouldCall('_kmSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
+        $this->shouldCall('_njSetCheapShadowMode')->with(0x80);
+        $this->shouldCall('_njSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
 
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
@@ -192,8 +192,8 @@ return new class extends TestCase {
         $this->shouldCall('_njSetFogColor')->with(0x40302010);
         $this->shouldCall('_njGenerateFogTable3')->with($this->addressOf('_var_fogTable_8c18aaf8'), 42.0, 43.0);
         $this->shouldCall('_njFogEnable');
-        $this->shouldCall('_kmSetCheapShadowMode')->with(0x80);
-        $this->shouldCall('_kmSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
+        $this->shouldCall('_njSetCheapShadowMode')->with(0x80);
+        $this->shouldCall('_njSetFogTable')->with($this->addressOf('_var_fogTable_8c18aaf8'));
 
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba5e8'), 0x10);
         $this->shouldCall('_TaskClear_8c014a9c')->with($this->addressOf('_var_tasks_8c1ba808'), 0x20);
