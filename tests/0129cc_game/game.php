@@ -423,7 +423,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TileStreamClearSlots_8c02171c');
         $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
-        $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
+        $this->shouldCall('_MessageBoxClearAssets_8c02aa28');
 
         $this->shouldWriteTo('_var_messageTextBoxA_8c1bc404', -1);
         $this->shouldWriteTo('_var_8c226434', -1);
@@ -577,7 +577,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TileStreamClearSlots_8c02171c');
         $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
-        $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
+        $this->shouldCall('_MessageBoxClearAssets_8c02aa28');
 
         $this->shouldWriteTo('_var_messageTextBoxA_8c1bc404', -1);
         $this->shouldWriteTo('_var_8c226434', -1);
@@ -731,7 +731,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TileStreamClearSlots_8c02171c');
         $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
-        $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
+        $this->shouldCall('_MessageBoxClearAssets_8c02aa28');
 
         $this->shouldWriteTo('_var_messageTextBoxA_8c1bc404', -1);
         $this->shouldWriteTo('_var_8c226434', -1);
@@ -885,7 +885,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_TileStreamClearSlots_8c02171c');
         $this->shouldCall('_ObjectsClearAssetRequestTable_8c029acc');
-        $this->shouldCall('_ObjectsClearMessageAssets_8c02aa28');
+        $this->shouldCall('_MessageBoxClearAssets_8c02aa28');
 
         $this->shouldWriteTo('_var_messageTextBoxA_8c1bc404', -1);
         $this->shouldWriteTo('_var_8c226434', -1);

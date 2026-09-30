@@ -37,7 +37,7 @@
           .IMPORT     _var_driveMode_8c1bb8c8
           .IMPORT     _var_seed_8c157a64
           .IMPORT     _BupLoad_8c014bc6
-          .IMPORT     _ObjectsRequestMessageAssets_8c02aa36
+          .IMPORT     _MessageBoxRequestAssets_8c02aa36
           .IMPORT     _var_isAttractDemo_8c1bb8d4
           .IMPORT     _ReplayCodecPack_8c02f934
           .IMPORT     _ReplayCodecUnpack_8c02fa14
@@ -56,7 +56,7 @@
           .IMPORT     _ObjectsFreePedestrianGroups_8c0297da
           .IMPORT     _SignalFree_8c0288be
           .IMPORT     _BusStopFreeTaskGroup_8c02ca96
-          .IMPORT     _ObjectsFreeMessageAssets_8c02adee
+          .IMPORT     _MessageBoxFreeAssets_8c02adee
           .IMPORT     _ObjectsFreeAssetRequests_8c029cfe
           .IMPORT     _TileStreamTeardown_8c021724
           .IMPORT     _FileMenuFreeBuffers_8c0187d0
@@ -434,7 +434,7 @@ LP_GEN_42967:
           .DATA.L _pdVibMxStop ; H'8C0163A8
           .DATA.L _VibClear_8c010fbe ; H'8C0163AC
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C0163B0
-          .DATA.L _ObjectsFreeMessageAssets_8c02adee ; H'8C0163B4
+          .DATA.L _MessageBoxFreeAssets_8c02adee ; H'8C0163B4
           .DATA.L _ObjectsFreeAssetRequests_8c029cfe ; H'8C0163B8
           .DATA.L _RouteLoadFreePedestrianAssets_8c013ee4 ; H'8C0163BC
           .DATA.L _RouteLoadFreeAllRouteModels_8c013dae ; H'8C0163C0
@@ -1502,13 +1502,13 @@ _init_replaySaveNames_8c044294:        ; from defines
           .DATA.L      _const_8c03616c ; ukn
 _init_replayMenuEntries_8c04429c:        ; from defines
           .DATA.L      _const_8c036170 ; ukn
-          .DATA.L      _ObjectsRequestMessageAssets_8c02aa36 ; ukn
+          .DATA.L      _MessageBoxRequestAssets_8c02aa36 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c036180 ; ukn
-          .DATA.L      _ObjectsRequestMessageAssets_8c02aa36 ; ukn
+          .DATA.L      _MessageBoxRequestAssets_8c02aa36 ; ukn
           .DATA.B      H'01, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c036190 ; ukn
-          .DATA.L      _ObjectsRequestMessageAssets_8c02aa36 ; ukn
+          .DATA.L      _MessageBoxRequestAssets_8c02aa36 ; ukn
           .DATA.B      H'02, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
           .DATA.L      _const_8c03619c ; ukn
           .DATA.L      _startCourse_8c0167c0 ; ukn

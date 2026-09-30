@@ -40,7 +40,7 @@ return new class extends TestCase {
         $this->setSize('_AsqGetRandomA_8c012166', 4);
         // the only foreign entry in init_replayMenuEntries_8c04429c; the rest are
         // real functions in this unit and need no faking
-        $this->setSize('_ObjectsRequestMessageAssets_8c02aa36', 4);
+        $this->setSize('_MessageBoxRequestAssets_8c02aa36', 4);
     }
 
     private function expectNameListPrinted()
@@ -55,7 +55,7 @@ return new class extends TestCase {
         $this->setupExterns();
 
         $task = $this->alloc(0x20);
-        $this->initUint32($task + 0x08, 1);   // cursor -> entry 1 (WANGAN_EVENT, func ObjectsRequestMessageAssets_8c02aa36)
+        $this->initUint32($task + 0x08, 1);   // cursor -> entry 1 (WANGAN_EVENT, func MessageBoxRequestAssets_8c02aa36)
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0x4); // PDD_DGT_TA
 
@@ -66,7 +66,7 @@ return new class extends TestCase {
             $this->addressOf('_var_replayMenuCourseSel_8c1bc824'),
             $this->addressOf('_init_replayMenuEntries_8c04429c') + 1 * 0x14 + 0x08
         );
-        $this->shouldCall('_ObjectsRequestMessageAssets_8c02aa36');
+        $this->shouldCall('_MessageBoxRequestAssets_8c02aa36');
     }
 
     public function test_kd_moves_cursor_down_and_prints_marker()

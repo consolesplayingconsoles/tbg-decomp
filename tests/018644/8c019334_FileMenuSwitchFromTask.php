@@ -22,7 +22,7 @@ return new class extends TestCase {
             ->with($task, $this->addressOf('_fileSelectTask_8c018e7e'));
         $this->shouldWriteLong($this->addressOf('_var_loadedSaveCount_8c22600c'), 0);
         $this->shouldWriteLong($this->ms + 0x18, 0);
-        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('ロード実行中です<E>電源を切らないで下さい');
+        $this->shouldCall('_MessageBoxSwapFor_8c02aefc')->with('ロード実行中です<E>電源を切らないで下さい');
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(1);
         $this->shouldCall('_startVmLoad_8c018784');
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 1);
@@ -41,7 +41,7 @@ return new class extends TestCase {
             ->with($task, $this->addressOf('_fileSelectTask_8c018e7e'));
         $this->shouldWriteLong($this->addressOf('_var_loadedSaveCount_8c22600c'), 0);
         $this->shouldWriteLong($this->ms + 0x18, 0);
-        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with('ロード実行中です<E>電源を切らないで下さい');
+        $this->shouldCall('_MessageBoxSwapFor_8c02aefc')->with('ロード実行中です<E>電源を切らないで下さい');
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(1);
         $this->shouldCall('_startVmLoad_8c018784');
         $this->shouldWriteLong($this->addressOf('_var_vmBusy_8c157a7c'), 1);
@@ -75,7 +75,7 @@ return new class extends TestCase {
     private function setup(int $vmuStatus): void
     {
         foreach ([
-            '_TaskSetAction_8c014b3e', '_ObjectsSwapMessageBoxFor_8c02aefc',
+            '_TaskSetAction_8c014b3e', '_MessageBoxSwapFor_8c02aefc',
             '_VmGameSetLcdSlot_8c01c8fc', '_RenderPushFadeIn_8c022a9c',
         ] as $fn) {
             $this->setSize($fn, 4);

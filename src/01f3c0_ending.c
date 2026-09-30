@@ -15,7 +15,7 @@
 #include "016d2c_course_menu.h"
 #include "01d7fc_results.h"
 #include "022464_render.h"
-#include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
@@ -185,7 +185,7 @@ STATIC void updateEndingOverlay_8c01f42c(void)
     SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4,
         var_menuState_8c1bc7a8.pos.title.busX_0x20, var_menuState_8c1bc7a8.pos.title.flagY_0x24, -8.5f);
 
-    if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) != 0) {
+    if (MessageBoxMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) != 0) {
         SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0f, 0.0f, -7.0f);
     }
 
@@ -289,7 +289,7 @@ STATIC void creditsTask_8c01f658(void)
 
         var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_CREDITS_INTRO;
         var_menuState_8c1bc7a8.timer_0x68 = 0;
-        ObjectsFreeTextboxes_8c02af32();
+        MessageBoxFreeTextboxes_8c02af32();
         TxtInit_8c01524c();
         var_messageTextBoxA_8c1bc404 = TxtCreateTextBox_8c0152fc(0, 480, -5.0f, 640, 480, 0, 0, -1);
         var_messageTextBoxB_8c1bc408 = TxtCreateTextBox_8c0152fc(0, 960, -5.0f, 640, 480, 0, 0, -1);
@@ -381,8 +381,8 @@ void EndingStart_8c01f954(void)
     var_menuState_8c1bc7a8.state_0x18 = 0;
     njGarbageTexture(var_tex_8c157af8, 3072);
 
-    ObjectsOpenTextbox_8c02ae3e(32, 384, -2.0f, 576, 64, 0, 0, -1);
-    ObjectsSwapMessageBoxFor_8c02aefc("");
+    MessageBoxOpenTextbox_8c02ae3e(32, 384, -2.0f, 576, 64, 0, 0, -1);
+    MessageBoxSwapFor_8c02aefc("");
 
     var_menuTextboxCharLimit_8c225fb8 = 0;
     AsqInitQueues_8c011f36(8, 0, 0, 8);

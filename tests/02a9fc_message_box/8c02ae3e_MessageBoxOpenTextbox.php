@@ -55,7 +55,7 @@ return new class extends TestCase {
         $box0 = $this->alloc(4);
         $box1 = $this->alloc(4);
 
-        $this->call('_ObjectsOpenTextbox_8c02ae3e')
+        $this->call('_MessageBoxOpenTextbox_8c02ae3e')
             ->with(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, 0xffffffff);
 
         $this->shouldCall('_TxtInit_8c01524c');
@@ -85,10 +85,10 @@ return new class extends TestCase {
         $box0 = $this->alloc(4);
         $box1 = $this->alloc(4);
 
-        $this->call('_ObjectsOpenTextbox_8c02ae3e')
+        $this->call('_MessageBoxOpenTextbox_8c02ae3e')
             ->with(0x20, 0x178, -2.0, 0x240, 0x40, 0, 0, 0xffffffff);
 
-        $this->shouldCall('_ObjectsFreeTextboxes_8c02af32');
+        $this->shouldCall('_MessageBoxFreeTextboxes_8c02af32');
 
         $this->shouldCall('_TxtInit_8c01524c');
 
@@ -117,7 +117,7 @@ return new class extends TestCase {
         $box0 = $this->alloc(4);
         $box1 = $this->alloc(4);
 
-        $this->call('_ObjectsOpenTextbox_8c02ae3e')
+        $this->call('_MessageBoxOpenTextbox_8c02ae3e')
             ->with(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, 0);
 
         $this->shouldCall('_TxtInit_8c01524c');

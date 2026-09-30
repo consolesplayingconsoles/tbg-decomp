@@ -10,7 +10,7 @@
 #include "014a9c_tasks.h"
 #include "022464_render.h"
 #include "024b4c_bus_render.h"
-#include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "025870_demo.h"
 
 /* ====================
@@ -333,7 +333,7 @@ STATIC void demoShotTask_8c0259e8(Task *task, DemoShotState *state)
                 var_demoShotPos_8c227e00 = shot->pos_0x04;
 
                 if (shot->name_0x10[0] != 0) {
-                    state->textboxHandle_0x08 = ObjectsSwapMessageBoxFor_8c02aefc(shot->name_0x10);
+                    state->textboxHandle_0x08 = MessageBoxSwapFor_8c02aefc(shot->name_0x10);
                     state->revealCount_0x04 = 0;
                 } else {
                     state->textboxHandle_0x08 = 0;
@@ -354,7 +354,7 @@ STATIC void demoShotTask_8c0259e8(Task *task, DemoShotState *state)
 
     if (state->textboxHandle_0x08 != 0) {
         state->revealCount_0x04++;
-        ObjectsMenuTextboxText_8c02af1c(state->revealCount_0x04 >> CAPTION_FRAMES_PER_GLYPH_SHIFT);
+        MessageBoxMenuTextboxText_8c02af1c(state->revealCount_0x04 >> CAPTION_FRAMES_PER_GLYPH_SHIFT);
     }
 
     RenderPushCall1_8c0223ea(0, (DrawCallback1)BusRenderDrawBusModel_8c024bb8, 0);
@@ -381,7 +381,7 @@ void DemoStartTour_8c025af4(void)
     TaskPush_8c014ae8(var_tasks_8c1ba5e8, &demoShotTask_8c0259e8, &task, (void **)&state, 0xc);
     state->phase_0x00 = 0;
 
-    ObjectsOpenTextbox_8c02ae3e(0x20, 0x180, -1.0f, 0x023E, 0x40, 0, 0, -1);
+    MessageBoxOpenTextbox_8c02ae3e(0x20, 0x180, -1.0f, 0x023E, 0x40, 0, 0, -1);
     var_demoShotRearm_8c227e10 = 1;
 }
 

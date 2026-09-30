@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_messageTextBoxB_8c1bc408'), 0xffffffff);
         $this->initUint32($this->addressOf('_var_messageTextBoxIndex_8c1bc40c'), 0);
 
-        $this->call('_ObjectsFreeTextboxes_8c02af32');
+        $this->call('_MessageBoxFreeTextboxes_8c02af32');
     }
 
     public function test_existing_pair_is_destroyed(): void
@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_messageTextBoxB_8c1bc408'), $box1);
         $this->initUint32($this->addressOf('_var_messageTextBoxIndex_8c1bc40c'), 1);
 
-        $this->call('_ObjectsFreeTextboxes_8c02af32');
+        $this->call('_MessageBoxFreeTextboxes_8c02af32');
 
         $boxBAddr = $this->addressOf('_var_messageTextBoxB_8c1bc408');
         $indexAddr = $this->addressOf('_var_messageTextBoxIndex_8c1bc40c');

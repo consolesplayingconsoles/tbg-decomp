@@ -27,7 +27,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x1c);
 
-        $this->call('_ObjectsStartMessageBox_8c02ad8c');
+        $this->call('_MessageBoxStart_8c02ad8c');
 
         $this->shouldCall('_relocateMessageText_8c02a9fc')->with($handle);
 
@@ -52,7 +52,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($state + 0x10, $groupEntry);
 
-        $this->shouldCall('_ObjectsOpenTextbox_8c02ae3e')->with(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
+        $this->shouldCall('_MessageBoxOpenTextbox_8c02ae3e')->with(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
 
         $this->shouldWriteLong($state + self::ST_00, 0);
         $this->shouldWriteLongTo('_var_messageBoxActive_8c22847c', 1);

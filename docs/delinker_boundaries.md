@@ -109,6 +109,13 @@ the signal functions were in another file. `0289ac` is the only boundary that
 fits. The signal half has no C/D data, and its B vars all sit before the
 objects half's.
 
+`0289ac_objects` was split again at `02a9fc` into `0289ac_objects` and
+`02a9fc_message_box`. No call or data reference crosses `02a9fc` in either
+direction, and each half's C, D and B data are contiguous runs, the message
+box's after objects' (C from `8c03a17c`, D from `8c046758`, the last six B
+vars from `8c228478`). `02a9fc` is 4-aligned and no PC-relative reference
+crosses it.
+
 ## `02d968_stop_spawn`: the case in detail
 
 - One function, 253 lines, **zero** private bss, one D blob.

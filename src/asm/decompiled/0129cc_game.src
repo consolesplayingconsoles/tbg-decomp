@@ -114,7 +114,7 @@
           .IMPORT     _var_trafficModels_8c1bc3f4
           .IMPORT     _TileStreamClearSlots_8c02171c
           .IMPORT     _ObjectsClearAssetRequestTable_8c029acc
-          .IMPORT     _ObjectsClearMessageAssets_8c02aa28
+          .IMPORT     _MessageBoxClearAssets_8c02aa28
           .IMPORT     _var_messageTextBoxA_8c1bc404
           .IMPORT     _var_8c226434
           .IMPORT     _var_8c226438
@@ -1915,7 +1915,7 @@ LP_GEN_90231:
           .DATA.L _var_trafficModels_8c1bc3f4
           .DATA.L _TileStreamClearSlots_8c02171c
           .DATA.L _ObjectsClearAssetRequestTable_8c029acc
-          .DATA.L _ObjectsClearMessageAssets_8c02aa28
+          .DATA.L _MessageBoxClearAssets_8c02aa28
           .DATA.L _var_messageTextBoxA_8c1bc404
           .DATA.L _var_8c226434
           .DATA.L _var_8c226438

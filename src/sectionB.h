@@ -74,12 +74,12 @@ typedef struct {
 } EventSlide;
 
 /* Per-event slide table for the route selected by
- * ObjectsRequestMessageAssets_8c02aa36: init_shinjukuEvents_8c049a6c / init_wanganEvents_8c04843c /
+ * MessageBoxRequestAssets_8c02aa36: init_shinjukuEvents_8c049a6c / init_wanganEvents_8c04843c /
  * init_omeEvents_8c04a9c8, indexed by var_selectedEventEntry_8c228478. */
 extern EventSlide **var_eventSlides_8c228480;
 
 /* Dedup table of message pvm/dat assets requested by
- * ObjectsRequestMessageAssets_8c02aa36, one entry per distinct id seen
+ * MessageBoxRequestAssets_8c02aa36, one entry per distinct id seen
  * across the selected event's slides; count in var_messageAssetCount_8c228514. */
 typedef struct {
     int id_0x00;

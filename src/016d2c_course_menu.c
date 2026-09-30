@@ -17,7 +17,7 @@
 #include "01b19c_system_menu.h"
 #include "01c980_profile_file.h"
 #include "01e27c_practice_menu.h"
-#include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "014f54_sprite.h"
 #include "022464_render.h"
 #include "sectionB.h"
@@ -144,7 +144,7 @@ STATIC Sint8 var_coursesToUnlock_8c225fd4[12];
  */
 
 /* These two are defined after the functions, so that the shared "" literal is
-   first seen in code (ObjectsSwapMessageBoxFor_8c02aefc("")) and lands at the
+   first seen in code (MessageBoxSwapFor_8c02aefc("")) and lands at the
    head of the constant pool. */
 STATIC CourseMenuButton init_courseMenuButtons_8c04442c[COURSE_BUTTON_COUNT];
 STATIC ResourceGroupInfo init_courseResourceGroup_8c044d40;
@@ -226,7 +226,7 @@ STATIC int cursorOffTarget_8c016dc6()
     var_menuState_8c1bc7a8.cursorVelocity_0x30.x = (x - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x) / 6.0;
     var_menuState_8c1bc7a8.cursorVelocity_0x30.y = (y - var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y) / 6.0;
     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
-    ObjectsSwapMessageBoxFor_8c02aefc("");
+    MessageBoxSwapFor_8c02aefc("");
     return 1;
 }
 
@@ -301,7 +301,7 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
                 task->voiceCuePtr_0x18++;
             }
 
-            state->charCount_0x08 = ObjectsSwapMessageBoxFor_8c02aefc(state->dialog_0x04->text_0x00);
+            state->charCount_0x08 = MessageBoxSwapFor_8c02aefc(state->dialog_0x04->text_0x00);
             var_menuState_8c1bc7a8.instructorSprite_0x60 = state->dialog_0x04->spriteNo_0x04;
             state->revealedCharCount_0x0c = 1;
             state->charRevealTimer_0x10 = 0;
@@ -386,7 +386,7 @@ void CourseMenuPushDialogTask_8c0170c6(int dialog_index, int *p2)
 
 STATIC void swapDialogMessageBox_8c017108(int sequence)
 {
-    var_menuTextboxCharLimit_8c225fb8 = ObjectsSwapMessageBoxFor_8c02aefc(
+    var_menuTextboxCharLimit_8c225fb8 = MessageBoxSwapFor_8c02aefc(
         init_instructorDialogs_8c044c08[sequence]->text_0x00
     );
 }
@@ -710,7 +710,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
 
             if (var_dialogQueue_8c225fbc[task->field_0x08] == -1) {
                 CHANGE_STATE(COURSE_MENU_STATE_IDLE);
-                ObjectsSwapMessageBoxFor_8c02aefc("");
+                MessageBoxSwapFor_8c02aefc("");
             }
             else {
                 CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
@@ -793,7 +793,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
     SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00, 0x2b, 0.0, 0.0, -4.0
     );
-    if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
+    if (MessageBoxMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
         SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -5.0
         );
@@ -864,7 +864,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
 
             if (var_dialogQueue_8c225fbc[task->field_0x08] == -1) {
                 CHANGE_STATE(COURSE_MENU_STATE_IDLE);
-                ObjectsSwapMessageBoxFor_8c02aefc("");
+                MessageBoxSwapFor_8c02aefc("");
             }
             else {
                 CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
@@ -938,7 +938,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
     SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c, 9, 0.0, 0.0, -5.0
     );
-    if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
+    if (MessageBoxMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
         SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -5.0
         );
@@ -1097,8 +1097,8 @@ void CourseMenuReturn_8c017ef2(void)
     var_menuTextboxCharLimit_8c225fb8 = 0;
 
     njGarbageTexture(var_tex_8c157af8, 0xc00);
-    ObjectsOpenTextbox_8c02ae3e(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
-    ObjectsSwapMessageBoxFor_8c02aefc("");
+    MessageBoxOpenTextbox_8c02ae3e(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
+    MessageBoxSwapFor_8c02aefc("");
     var_playMode_8c1bb8d0 = 0;
 
     refreshCourseGrid_8c017d54();

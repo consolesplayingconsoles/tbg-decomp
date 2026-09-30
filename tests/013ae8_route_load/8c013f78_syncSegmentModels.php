@@ -91,7 +91,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
-        $this->shouldCall('_ObjectsRequestMessageAssets_8c02aa36');
+        $this->shouldCall('_MessageBoxRequestAssets_8c02aa36');
     }
 
     public function test_reconciles_pedestrian_assets()
@@ -152,7 +152,7 @@ return new class extends TestCase {
         $this->setSize('_AsqRequestModels_8c012030', 4);
         $this->setSize('_AsqRequestDat_8c011182', 4);
         $this->setSize('_ObjectsStartAssetRequests_8c029ad4', 4);
-        $this->setSize('_ObjectsRequestMessageAssets_8c02aa36', 4);
+        $this->setSize('_MessageBoxRequestAssets_8c02aa36', 4);
 
         $config = $this->alloc(0x10);
         $array = $this->alloc(8 * self::STRIDE);

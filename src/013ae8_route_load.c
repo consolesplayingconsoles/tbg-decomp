@@ -11,6 +11,7 @@
 #include "021b9c_tile_draw.h"
 #include "026710_traffic.h"
 #include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "02af78_event.h"
 #include "02c884_bus_stop.h"
 #include "02b464_drive_points.h"
@@ -376,7 +377,7 @@ STATIC void syncSegmentModels_8c013f78(void)
 
     /* Cutscene armed for this segment: run its setup. */
     if (var_cutsceneActive_8c1bb900 != 0 && var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) {
-        ObjectsRequestMessageAssets_8c02aa36();
+        MessageBoxRequestAssets_8c02aa36();
     }
 }
 

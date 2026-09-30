@@ -64,6 +64,7 @@ SRCS = \
 	src/asm/decompiled/027958_bus_draw.src \
 	src/asm/decompiled/028258_traffic_signal.src \
 	src/asm/decompiled/0289ac_objects.src \
+	src/asm/decompiled/02a9fc_message_box.src \
 	src/asm/decompiled/02af78_event.src \
 	src/asm/decompiled/02b2f0_drive_msg.src \
 	src/asm/sectionB.src \

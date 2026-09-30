@@ -10,7 +10,7 @@
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
 #include "01f3c0_ending.h"
-#include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "0100bc_sound.h"
 #include "02b464_drive_points.h"
 #include "014f54_sprite.h"
@@ -163,7 +163,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 } else {
                     var_menuState_8c1bc7a8.state_0x18 = STATE_PROMPT;
                     var_menuState_8c1bc7a8.selected_0x38 = 0;
-                    ObjectsSwapMessageBoxFor_8c02aefc(const_confirmStartMsg_8c03896c);
+                    MessageBoxSwapFor_8c02aefc(const_confirmStartMsg_8c03896c);
                 }
 
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -197,7 +197,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 224.0f, 300.0f, -4.0f
             );
 
-            if (ObjectsMenuTextboxText_8c02af1c(0xff))
+            if (MessageBoxMenuTextboxText_8c02af1c(0xff))
                 SpriteDraw_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
@@ -227,7 +227,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 224.0f, 300.0f, -4.0f
             );
 
-            if (ObjectsMenuTextboxText_8c02af1c(0xff))
+            if (MessageBoxMenuTextboxText_8c02af1c(0xff))
                 SpriteDraw_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
@@ -299,7 +299,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 224.0f, 300.0f, -4.0f
             );
 
-            if (ObjectsMenuTextboxText_8c02af1c(0xff))
+            if (MessageBoxMenuTextboxText_8c02af1c(0xff))
                 SpriteDraw_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
@@ -435,7 +435,7 @@ STATIC void showLesson_8c01e63c(Task *task)
             0.0f, 0.0f, -4.5f
         );
 
-    if (ObjectsMenuTextboxText_8c02af1c(0xff))
+    if (MessageBoxMenuTextboxText_8c02af1c(0xff))
         SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00,
             1,
@@ -469,7 +469,7 @@ STATIC void practiceCancelReturn_8c01e920(Task *task)
 {
     TaskSetAction_8c014b3e(task, showLesson_8c01e63c);
     var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
-    ObjectsSwapMessageBoxFor_8c02aefc(const_emptyMsg_8c038984);
+    MessageBoxSwapFor_8c02aefc(const_emptyMsg_8c038984);
 
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
@@ -594,7 +594,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
                 task->field_0x08++;
                 if (var_lessonDialogQueue_8c226414[task->field_0x08] == -1) {
                     var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_MENU;
-                    ObjectsSwapMessageBoxFor_8c02aefc(const_emptyMsg_8c038984);
+                    MessageBoxSwapFor_8c02aefc(const_emptyMsg_8c038984);
                 } else {
                     CourseMenuPushDialogTask_8c0170c6(var_lessonDialogQueue_8c226414[task->field_0x08], 0);
                 }
@@ -612,18 +612,18 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_QUIT_PROMPT;
                 var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
-                var_menuTextboxCharLimit_8c225fb8 = ObjectsSwapMessageBoxFor_8c02aefc(const_confirmQuitMsg_8c038988);
+                var_menuTextboxCharLimit_8c225fb8 = MessageBoxSwapFor_8c02aefc(const_confirmQuitMsg_8c038988);
             }
             else if ((var_peripherals_8c1ba35c[0].press & 0x10) != 0) {
                 if (var_menuState_8c1bc7a8.selected_0x38 != 0) {
                     var_menuState_8c1bc7a8.selected_0x38--;
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
-                    ObjectsSwapMessageBoxFor_8c02aefc(const_emptyMsg_8c038984);
+                    MessageBoxSwapFor_8c02aefc(const_emptyMsg_8c038984);
                 }
             }
             else if ((var_peripherals_8c1ba35c[0].press & 0x20) != 0) {
                 var_menuState_8c1bc7a8.selected_0x38++;
-                ObjectsSwapMessageBoxFor_8c02aefc(const_emptyMsg_8c038984);
+                MessageBoxSwapFor_8c02aefc(const_emptyMsg_8c038984);
                 if (var_menuState_8c1bc7a8.selected_0x38 > 10) {
                     var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_MENU_LOCKED;
                 }
@@ -638,7 +638,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_QUIT_PROMPT;
                 var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-                var_menuTextboxCharLimit_8c225fb8 = ObjectsSwapMessageBoxFor_8c02aefc(const_confirmQuitMsg_8c038988);
+                var_menuTextboxCharLimit_8c225fb8 = MessageBoxSwapFor_8c02aefc(const_confirmQuitMsg_8c038988);
             }
             else if ((var_peripherals_8c1ba35c[0].press & 0x10) != 0) {
                 var_menuState_8c1bc7a8.selected_0x38--;
@@ -658,7 +658,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
             }
             else if (result == 2) {
                 var_menuState_8c1bc7a8.state_0x18 = var_menuState_8c1bc7a8.subState_0x1c;
-                ObjectsSwapMessageBoxFor_8c02aefc(const_emptyMsg_8c038984);
+                MessageBoxSwapFor_8c02aefc(const_emptyMsg_8c038984);
                 var_menuTextboxCharLimit_8c225fb8 = 0;
             }
 
@@ -759,7 +759,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
         SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x19, 0.0f, 0.0f, -2.0f);
     }
 
-    if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8)) {
+    if (MessageBoxMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8)) {
         SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -5.0f);
     }
 
@@ -846,8 +846,8 @@ void PracticeMenuLessonRetry_8c01f21c(void)
     created_task->field_0x08 = 0;
 
     njGarbageTexture(var_tex_8c157af8, 0xc00);
-    ObjectsOpenTextbox_8c02ae3e(0x20, 0x180, -2.0f, 0x240, 0x40, 0, 0, -1);
-    ObjectsSwapMessageBoxFor_8c02aefc(const_emptyMsg_8c038984);
+    MessageBoxOpenTextbox_8c02ae3e(0x20, 0x180, -2.0f, 0x240, 0x40, 0, 0, -1);
+    MessageBoxSwapFor_8c02aefc(const_emptyMsg_8c038984);
 
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();

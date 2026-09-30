@@ -11,6 +11,7 @@
 #include "014b8c_backup.h"
 #include "014f54_sprite.h"
 #include "022464_render.h"
+#include "02a9fc_message_box.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
@@ -450,7 +451,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 initCursorLerp_8c019788(slot);
 
                 var_menuState_8c1bc7a8.pos.vmSelect.cursor_0x20 = var_menuState_8c1bc7a8.pos.vmSelect.cursorTarget_0x28;
-                ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
+                MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
                 SndStopBgm_8c010d8a();
                 SndPlayAdx_8c010cd6(0,0xe);
             } else {
@@ -546,14 +547,14 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                         || status == VMU_STATUS_SAVE_EXISTS)
                     {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-                        ObjectsSwapMessageBoxFor_8c02aefc(MSG_CONFIRM);
+                        MessageBoxSwapFor_8c02aefc(MSG_CONFIRM);
                         var_menuState_8c1bc7a8.selectedVmuSlot_0x6c = slot;
                         var_menuState_8c1bc7a8.bupInfo_0x78 = BupGetInfo_8c014bba(slot);
                         CHANGE_STATE(VM_MENU_STATE_CONFIRM);
                     }
                     else if (status == VMU_STATUS_PROCEED_WITHOUT_SAVING) {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-                        ObjectsSwapMessageBoxFor_8c02aefc(
+                        MessageBoxSwapFor_8c02aefc(
                             MSG_SAVE_NO_FILE
                             MSG_CONFIRM_START_NO_FILE
                         );
@@ -572,11 +573,11 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                 initCursorLerp_8c019788(slot);
                 CHANGE_STATE(VM_MENU_STATE_CURSOR_ANIMATING);
-                ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
+                MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
             }
 
             drawVmMenu_8c0197c0();
-            ObjectsMenuTextboxText_8c02af1c(0x20);
+            MessageBoxMenuTextboxText_8c02af1c(0x20);
             break;
         }
 
@@ -584,11 +585,11 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         case VM_MENU_STATE_CURSOR_ANIMATING: {
             if (CourseMenuInterpolateCursor_8c016d2c()) {
                 CHANGE_STATE(VM_MENU_STATE_IDLE);
-                ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
+                MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
             }
 
             drawVmMenu_8c0197c0();
-            ObjectsMenuTextboxText_8c02af1c(0x20);
+            MessageBoxMenuTextboxText_8c02af1c(0x20);
             break;
         }
 
@@ -600,7 +601,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 CHANGE_STATE(VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU);
                 RenderPushFadeOut_8c022b60(10);
             } else if (promptResult == 2) {
-                ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
+                MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
                 CHANGE_STATE(VM_MENU_STATE_IDLE);
             }
 
@@ -612,7 +613,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 -5.0
             );
             drawVmMenu_8c0197c0();
-            ObjectsMenuTextboxText_8c02af1c(0xff);
+            MessageBoxMenuTextboxText_8c02af1c(0xff);
             break;
         }
 
@@ -627,7 +628,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 SndStartAdxFadeOut_8c010bae(1);
                 RenderPushFadeOut_8c022b60(10);
             } else if (promptResult == 2) {
-                ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
+                MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
                 slot = 8;
                 CHANGE_STATE(VM_MENU_STATE_IDLE);
             }
@@ -640,7 +641,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 -5.0
             );
             drawVmMenu_8c0197c0();
-            ObjectsMenuTextboxText_8c02af1c(0xff);
+            MessageBoxMenuTextboxText_8c02af1c(0xff);
             break;
         }
 
@@ -670,7 +671,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                             for (slot = 0; !var_vmuStatus_8c226048[slot]; slot++);
                             initCursorLerp_8c019788(slot);
                             var_menuState_8c1bc7a8.pos.vmSelect.cursor_0x20 = var_menuState_8c1bc7a8.pos.vmSelect.cursorTarget_0x28;
-                            ObjectsSwapMessageBoxFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
+                            MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
                             task->field_0x08 = 3;
                             RenderPushFadeOut_8c022b60(10);
                         }

@@ -22,10 +22,10 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_messageAssetCount_8c228514'), 0);
         $this->initUint32($this->addressOf('_var_messageTextDat_8c228518'), -1);
 
-        $this->call('_ObjectsFreeMessageAssets_8c02adee');
+        $this->call('_MessageBoxFreeAssets_8c02adee');
 
         $this->shouldWriteLongTo('_var_messageAssetCount_8c228514', 0);
-        $this->shouldCall('_ObjectsFreeTextboxes_8c02af32');
+        $this->shouldCall('_MessageBoxFreeTextboxes_8c02af32');
     }
 
     public function test_shared_dat_present_is_freed_and_reset(): void
@@ -35,12 +35,12 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_messageAssetCount_8c228514'), 0);
         $this->initUint32($this->addressOf('_var_messageTextDat_8c228518'), 0x8c210000);
 
-        $this->call('_ObjectsFreeMessageAssets_8c02adee');
+        $this->call('_MessageBoxFreeAssets_8c02adee');
 
         $this->shouldWriteLongTo('_var_messageAssetCount_8c228514', 0);
         $this->shouldCall('_syFree')->with(0x8c210000);
         $this->shouldWriteLongTo('_var_messageTextDat_8c228518', -1);
-        $this->shouldCall('_ObjectsFreeTextboxes_8c02af32');
+        $this->shouldCall('_MessageBoxFreeTextboxes_8c02af32');
     }
 
     public function test_entries_are_released_in_order_then_shared_dat(): void
@@ -58,7 +58,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_messageAssetCount_8c228514'), 2);
         $this->initUint32($this->addressOf('_var_messageTextDat_8c228518'), 0x8c210000);
 
-        $this->call('_ObjectsFreeMessageAssets_8c02adee');
+        $this->call('_MessageBoxFreeAssets_8c02adee');
 
         $this->shouldCall('_syFree')->with(0x8c220004);
         $this->shouldCall('_AsqReleaseAndFreeTexlist_8c011e3c')->with(0x8c220000);
@@ -67,6 +67,6 @@ return new class extends TestCase {
         $this->shouldWriteLongTo('_var_messageAssetCount_8c228514', 0);
         $this->shouldCall('_syFree')->with(0x8c210000);
         $this->shouldWriteLongTo('_var_messageTextDat_8c228518', -1);
-        $this->shouldCall('_ObjectsFreeTextboxes_8c02af32');
+        $this->shouldCall('_MessageBoxFreeTextboxes_8c02af32');
     }
 };

@@ -16,6 +16,7 @@
 #include "02171c_tile_stream.h"
 #include "028258_traffic_signal.h"
 #include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "02c884_bus_stop.h"
 #include "02f320_replay_codec.h"
 #include "0193c8_vm_menu.h"
@@ -98,9 +99,9 @@ STATIC void startReplayLoad_8c016b4c(void);
 
 /* listMenuTask_8c01666a's rows; scanned until a "" name */
 ReplayMenuEntry init_replayMenuEntries_8c04429c[] = {
-    { "SHINJYUKU_EVENT",      ObjectsRequestMessageAssets_8c02aa36, { 0,  0, 0} },
-    { "WANGAN_EVENT",         ObjectsRequestMessageAssets_8c02aa36, { 1,  0, 0} },
-    { "OUME_EVENT",           ObjectsRequestMessageAssets_8c02aa36, { 2,  0, 0} },
+    { "SHINJYUKU_EVENT",      MessageBoxRequestAssets_8c02aa36, { 0,  0, 0} },
+    { "WANGAN_EVENT",         MessageBoxRequestAssets_8c02aa36, { 1,  0, 0} },
+    { "OUME_EVENT",           MessageBoxRequestAssets_8c02aa36, { 2,  0, 0} },
     { "WANGAN_DAY",           startCourse_8c0167c0,                 { 0, 10, 0} },
     { "WANGAN_DAY_AUTO",      startCourse_8c0167c0,                 { 0, 10, 1} },
     { "SHINJYUKU_DAY",        startCourse_8c0167c0,                 { 9, 20, 0} },
@@ -149,7 +150,7 @@ void ReplayMenuFreeSessionAssets_8c016182(void)
     VibClear_8c010fbe();
     ReplayMenuFreeDriveTasks_8c01614c();
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
-    ObjectsFreeMessageAssets_8c02adee();
+    MessageBoxFreeAssets_8c02adee();
     ObjectsFreeAssetRequests_8c029cfe();
     RouteLoadFreePedestrianAssets_8c013ee4();
     RouteLoadFreeAllRouteModels_8c013dae();

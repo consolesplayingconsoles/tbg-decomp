@@ -618,20 +618,28 @@ return [
                 "tests/0289ac_objects/8c02a5d0_setSimpleLightCallback.php",
                 "tests/0289ac_objects/8c02a60e_execRowTaskGroupTask.php",
                 "tests/0289ac_objects/8c02a6ac_ObjectsPushTasks.php",
-                "tests/0289ac_objects/8c02a9fc_relocateMessageText.php",
-                "tests/0289ac_objects/8c02aa28_ObjectsClearMessageAssets.php",
-                "tests/0289ac_objects/8c02aa36_ObjectsRequestMessageAssets.php",
-                "tests/0289ac_objects/8c02ab7a_messageBoxTask.php",
-                "tests/0289ac_objects/8c02ad8c_ObjectsStartMessageBox.php",
-                "tests/0289ac_objects/8c02adee_ObjectsFreeMessageAssets.php",
-                "tests/0289ac_objects/8c02ae3e_ObjectsOpenTextbox.php",
-                "tests/0289ac_objects/8c02aefc_ObjectsSwapMessageBoxFor.php",
-                "tests/0289ac_objects/8c02af1c_ObjectsMenuTextboxText.php",
-                "tests/0289ac_objects/8c02af32_ObjectsFreeTextboxes.php",
             ],
             "objects" => [
                 "build/output_test/src/asm/decompiled/0289ac_objects.obj",
                 "build/output_test/src/0289ac_objects.obj",
+            ]
+        ],
+        [
+            "tests" => [
+                "tests/02a9fc_message_box/8c02a9fc_relocateMessageText.php",
+                "tests/02a9fc_message_box/8c02aa28_MessageBoxClearAssets.php",
+                "tests/02a9fc_message_box/8c02aa36_MessageBoxRequestAssets.php",
+                "tests/02a9fc_message_box/8c02ab7a_messageBoxTask.php",
+                "tests/02a9fc_message_box/8c02ad8c_MessageBoxStart.php",
+                "tests/02a9fc_message_box/8c02adee_MessageBoxFreeAssets.php",
+                "tests/02a9fc_message_box/8c02ae3e_MessageBoxOpenTextbox.php",
+                "tests/02a9fc_message_box/8c02aefc_MessageBoxSwapFor.php",
+                "tests/02a9fc_message_box/8c02af1c_MessageBoxMenuTextboxText.php",
+                "tests/02a9fc_message_box/8c02af32_MessageBoxFreeTextboxes.php",
+            ],
+            "objects" => [
+                "build/output_test/src/asm/decompiled/02a9fc_message_box.obj",
+                "build/output_test/src/02a9fc_message_box.obj",
             ]
         ],
         [

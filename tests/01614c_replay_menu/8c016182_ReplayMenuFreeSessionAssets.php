@@ -28,7 +28,7 @@ return new class extends TestCase {
         $this->shouldCall('_VibClear_8c010fbe');
         $this->shouldCall('_ReplayMenuFreeDriveTasks_8c01614c');
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
-        $this->shouldCall('_ObjectsFreeMessageAssets_8c02adee');
+        $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_ObjectsFreeAssetRequests_8c029cfe');
         $this->shouldCall('_RouteLoadFreePedestrianAssets_8c013ee4');
         $this->shouldCall('_RouteLoadFreeAllRouteModels_8c013dae');
@@ -73,7 +73,7 @@ return new class extends TestCase {
         $this->shouldCall('_VibClear_8c010fbe');
         $this->shouldCall('_ReplayMenuFreeDriveTasks_8c01614c');
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
-        $this->shouldCall('_ObjectsFreeMessageAssets_8c02adee');
+        $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_ObjectsFreeAssetRequests_8c029cfe');
         $this->shouldCall('_RouteLoadFreePedestrianAssets_8c013ee4');
         $this->shouldCall('_RouteLoadFreeAllRouteModels_8c013dae');

@@ -29,9 +29,9 @@ return new class extends TestCase {
         $this->setSize('_njTranslateCameraPosition', 4);
         $this->setSize('_njPointCameraInterest', 4);
         $this->setSize('__quick_odd_mvn', 4);
-        $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
-        $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
-        $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
+        $this->setSize('_MessageBoxSwapFor_8c02aefc', 4);
+        $this->setSize('_MessageBoxMenuTextboxText_8c02af1c', 4);
+        $this->setSize('_MessageBoxOpenTextbox_8c02ae3e', 4);
         $this->setSize('_BusRenderDrawBusModel_8c024bb8', 4);
         $this->setSize('_RenderPushCall1_8c0223ea', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
@@ -71,7 +71,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($state + 0x00, 0); // state->phase_0x00 = 0
 
-        $this->shouldCall('_ObjectsOpenTextbox_8c02ae3e')->with(0x20, 0x180, -1.0, 0x023e, 0x40, 0, 0, -1);
+        $this->shouldCall('_MessageBoxOpenTextbox_8c02ae3e')->with(0x20, 0x180, -1.0, 0x023e, 0x40, 0, 0, -1);
 
         $this->shouldWriteLongTo('_var_demoShotRearm_8c227e10', 1);
     }

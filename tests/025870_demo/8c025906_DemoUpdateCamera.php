@@ -45,9 +45,9 @@ return new class extends TestCase {
         $this->setSize('_var_route_8c18ad1c', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('__quick_odd_mvn', 4);
-        $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
-        $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
-        $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
+        $this->setSize('_MessageBoxSwapFor_8c02aefc', 4);
+        $this->setSize('_MessageBoxMenuTextboxText_8c02af1c', 4);
+        $this->setSize('_MessageBoxOpenTextbox_8c02ae3e', 4);
         $this->setSize('_BusRenderDrawBusModel_8c024bb8', 4);
         $this->setSize('_RenderPushCall1_8c0223ea', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);

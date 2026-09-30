@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->setSize('_CourseMenuPushDialogTask_8c0170c6', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
-        $this->setSize('_ObjectsFreeTextboxes_8c02af32', 4);
+        $this->setSize('_MessageBoxFreeTextboxes_8c02af32', 4);
         $this->setSize('_TxtInit_8c01524c', 4);
         $this->setSize('_TxtCreateTextBox_8c0152fc', 4);
         $this->setSize('_TxtPrepareTextBoxLayout_8c01543a', 4);
@@ -57,7 +57,7 @@ return new class extends TestCase {
 
     // Empirically, creditsTask_8c01f658's own TxtCreateTextBox_8c0152fc call
     // sites push x2 last (closest to sp), then y2, then enable_offset
-    // first -- the opposite order from 8c02ae3e_ObjectsOpenTextbox.php's
+    // first -- the opposite order from 8c02ae3e_MessageBoxOpenTextbox.php's
     // helper, which checks a different caller's stack layout.
     private function stackArgsCheck(int $x2, int $y2, int $enableOffset): callable
     {
@@ -201,7 +201,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($base + self::STATE_0X18, 4);
         $this->shouldWriteLong($base + self::LOGOTIMER_0X68, 0);
-        $this->shouldCall('_ObjectsFreeTextboxes_8c02af32');
+        $this->shouldCall('_MessageBoxFreeTextboxes_8c02af32');
         $this->shouldCall('_TxtInit_8c01524c');
 
         $this->shouldCall('_TxtCreateTextBox_8c0152fc')

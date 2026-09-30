@@ -56,7 +56,7 @@ return new class extends TestCase {
     private function expectDrawEmpty(int $state, int $pageIndex): void
     {
         $this->shouldWriteFloat($this->addressOf('_init_msgScroll_8c04ab3c') + 0x24, -3.0);
-        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with($pageIndex);
+        $this->shouldCall('_MessageBoxMenuTextboxText_8c02af1c')->with($pageIndex);
         $this->shouldCall('_SndPollVoiceEnd_8c0106ac');
     }
 
@@ -91,7 +91,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + self::ST_IDS, $idsArray);
         $this->shouldWriteLong($state + self::ST_MSG, $msgData);
 
-        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with($string)->andReturn(5);
+        $this->shouldCall('_MessageBoxSwapFor_8c02aefc')->with($string)->andReturn(5);
         $this->shouldWriteLong($state + self::ST_PAGE_COUNT, 5);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(2, 0x1234);
 
@@ -105,7 +105,7 @@ return new class extends TestCase {
         // Draw: pr is reset unconditionally, then ids array is immediately
         // 0xffff-terminated.
         $this->shouldWriteFloat($this->addressOf('_init_msgScroll_8c04ab3c') + 0x24, -3.0);
-        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(1);
+        $this->shouldCall('_MessageBoxMenuTextboxText_8c02af1c')->with(1);
         $this->shouldCall('_SndPollVoiceEnd_8c0106ac');
     }
 
@@ -125,7 +125,7 @@ return new class extends TestCase {
 
         $this->call('_messageBoxTask_8c02ab7a')->with($task, $state);
 
-        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with($string)->andReturn(3);
+        $this->shouldCall('_MessageBoxSwapFor_8c02aefc')->with($string)->andReturn(3);
         $this->shouldWriteLong($state + self::ST_PAGE_COUNT, 3);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(2, 0x5678);
 
@@ -352,7 +352,7 @@ return new class extends TestCase {
 
         $this->call('_messageBoxTask_8c02ab7a')->with($task, $state);
 
-        $this->shouldCall('_ObjectsFreeMessageAssets_8c02adee');
+        $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
         $this->shouldCall('_EventApplyFlags_8c02b292');
         $this->shouldCall('_RouteLoadStartRouteModelLoadPass_8c013d78');
@@ -402,7 +402,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_init_msgScroll_8c04ab3c') + 0x10, $dat);
         $this->shouldCall('_njDrawScroll')->with($this->addressOf('_init_msgScroll_8c04ab3c'));
         $this->shouldWriteFloat($this->addressOf('_init_msgScroll_8c04ab3c') + 0x24, -2.9);
-        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(1);
+        $this->shouldCall('_MessageBoxMenuTextboxText_8c02af1c')->with(1);
         $this->shouldCall('_SndPollVoiceEnd_8c0106ac');
     }
 
@@ -444,7 +444,7 @@ return new class extends TestCase {
                 }
             });
         $this->shouldWriteFloat($this->addressOf('_init_msgScroll_8c04ab3c') + 0x24, -2.9);
-        $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(1);
+        $this->shouldCall('_MessageBoxMenuTextboxText_8c02af1c')->with(1);
         $this->shouldCall('_SndPollVoiceEnd_8c0106ac');
     }
 };

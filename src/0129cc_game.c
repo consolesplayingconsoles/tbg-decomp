@@ -9,6 +9,7 @@
 #include "01614c_replay_menu.h"
 #include "028258_traffic_signal.h"
 #include "0289ac_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
+#include "02a9fc_message_box.h"
 #include "sectionD.h"
 #include "024b4c_bus_render.h"
 #include "sectionB.h"
@@ -727,7 +728,7 @@ void GameInit_8c0134ec() {
 
     TileStreamClearSlots_8c02171c();
     ObjectsClearAssetRequestTable_8c029acc();
-    ObjectsClearMessageAssets_8c02aa28();
+    MessageBoxClearAssets_8c02aa28();
 
     var_messageTextBoxA_8c1bc404 = (void *) -1;
     var_8c226434 = (void *) -1;

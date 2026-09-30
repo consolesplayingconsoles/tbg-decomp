@@ -18,7 +18,7 @@
 #include "01b19c_system_menu.h"
 #include "01bb48_vm_game.h"
 #include "01f3c0_ending.h"
-#include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "02b464_drive_points.h"
 #include "022464_render.h"
 #include "sectionB.h"
@@ -77,7 +77,7 @@ STATIC void drawTextboxSprite_8c01d864(void)
 {
     SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, var_menuState_8c1bc7a8.selected_0x38 + 2, 224.0f, 300.0f, -5.0f);
 
-    if (ObjectsMenuTextboxText_8c02af1c(0xff) == 0) {
+    if (MessageBoxMenuTextboxText_8c02af1c(0xff) == 0) {
         return;
     }
 
@@ -120,20 +120,20 @@ STATIC void resultsTask_8c01d8e0(void)
         var_menuState_8c1bc7a8.selectedVmuSlot_0x6c = vmuStatus;
         if (vmuStatus == VMU_STATUS_SAVING_POSSIBLE || vmuStatus == VMU_STATUS_SAVE_EXISTS_NO_SPACE ||
             vmuStatus == VMU_STATUS_SAVE_EXISTS) {
-            ObjectsSwapMessageBoxFor_8c02aefc(
+            MessageBoxSwapFor_8c02aefc(
                 vmuStatus == VMU_STATUS_SAVING_POSSIBLE ? MSG_CONFIRM_CREATE_FILE : MSG_CONFIRM_OVERWRITE);
             var_menuState_8c1bc7a8.state_0x18 = 8;
             soundId = 0;
         } else {
             if (vmuStatus == VMU_STATUS_NOT_ENOUGH_SPACE) {
-                ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVE_NEED_3_BLOCKS);
+                MessageBoxSwapFor_8c02aefc(MSG_SAVE_NEED_3_BLOCKS);
             } else if (vmuStatus == VMU_STATUS_NOT_AVAILABLE) {
-                ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_CANT_SAVE);
+                MessageBoxSwapFor_8c02aefc(MSG_VM_CANT_SAVE);
             } else if (vmuStatus != VMU_STATUS_NOT_CONNECTED) {
                 RenderPushFadeIn_8c022a9c(10);
                 return;
             } else {
-                ObjectsSwapMessageBoxFor_8c02aefc(MSG_VM_NOT_CONN_SAVE);
+                MessageBoxSwapFor_8c02aefc(MSG_VM_NOT_CONN_SAVE);
             }
             soundId = 2;
             var_menuState_8c1bc7a8.state_0x18 = 5;
@@ -228,7 +228,7 @@ STATIC void resultsTask_8c01d8e0(void)
         if (!var_isFading_8c226568) {
             if (var_vmuStatus_8c226048[var_selectedVm_8c1ba34c] == var_menuState_8c1bc7a8.selectedVmuSlot_0x6c) {
                 if (pressedA) {
-                    ObjectsSwapMessageBoxFor_8c02aefc(MSG_RESULT_CANCEL_SAVE);
+                    MessageBoxSwapFor_8c02aefc(MSG_RESULT_CANCEL_SAVE);
                     var_menuState_8c1bc7a8.state_0x18 = 6;
                     var_menuState_8c1bc7a8.selected_0x38 = 1;
                 }
@@ -236,7 +236,7 @@ STATIC void resultsTask_8c01d8e0(void)
                 var_menuState_8c1bc7a8.state_0x18 = 4;
             }
         }
-        textboxActive = ObjectsMenuTextboxText_8c02af1c(0xff);
+        textboxActive = MessageBoxMenuTextboxText_8c02af1c(0xff);
         if (textboxActive != 0) {
             SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
         }
@@ -283,7 +283,7 @@ STATIC void resultsTask_8c01d8e0(void)
                 }
                 SystemMenuWriteToVmu_8c01b26c();
                 var_menuState_8c1bc7a8.subState_0x1c = 1;
-                ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVING_NO_POWER_OFF);
+                MessageBoxSwapFor_8c02aefc(MSG_SAVING_NO_POWER_OFF);
                 VmGameSetLcdSlot_8c01c8fc(1);
             } else if (promptResult == 2) {
                 var_menuState_8c1bc7a8.state_0x18 = 0xd;
@@ -298,10 +298,10 @@ STATIC void resultsTask_8c01d8e0(void)
             BupGetInfo_8c014bba(var_selectedVm_8c1ba34c);
             if (buStat(var_selectedVm_8c1ba34c) == 0) {
                 if (buGetLastError(var_selectedVm_8c1ba34c) == 0) {
-                    ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVE_DONE);
+                    MessageBoxSwapFor_8c02aefc(MSG_SAVE_DONE);
                     var_menuState_8c1bc7a8.state_0x18 = 0xd;
                 } else {
-                    ObjectsSwapMessageBoxFor_8c02aefc(MSG_SAVE_FAILED);
+                    MessageBoxSwapFor_8c02aefc(MSG_SAVE_FAILED);
                     var_menuState_8c1bc7a8.state_0x18 = 10;
                 }
                 var_vmBusy_8c157a7c = 0;
@@ -314,7 +314,7 @@ STATIC void resultsTask_8c01d8e0(void)
     }
     case 10:
         if (pressedA) {
-            ObjectsSwapMessageBoxFor_8c02aefc(MSG_RESULT_CANCEL_SAVE);
+            MessageBoxSwapFor_8c02aefc(MSG_RESULT_CANCEL_SAVE);
             var_menuState_8c1bc7a8.state_0x18 = 6;
             var_menuState_8c1bc7a8.selected_0x38 = 1;
         }
@@ -349,7 +349,7 @@ STATIC void resultsTask_8c01d8e0(void)
             CourseMenuReturn_8c017ef2();
             return;
         }
-        textboxActive = ObjectsMenuTextboxText_8c02af1c(0xff);
+        textboxActive = MessageBoxMenuTextboxText_8c02af1c(0xff);
         if (textboxActive != 0) {
             SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
         }
@@ -374,7 +374,7 @@ STATIC void startResultsTask_8c01df8e(void)
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, resultsTask_8c01d8e0, &created_task, &created_state, 0);
     var_menuState_8c1bc7a8.state_0x18 = 0;
     njGarbageTexture(var_tex_8c157af8, 0xc00);
-    ObjectsOpenTextbox_8c02ae3e(0x20, 0x180, -2.0f, 0x240, 0x40, 0, 0, -1);
+    MessageBoxOpenTextbox_8c02ae3e(0x20, 0x180, -2.0f, 0x240, 0x40, 0, 0, -1);
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_titleResourceGroup_8c044254);

@@ -18,7 +18,7 @@
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tex_8c157af8
-          .IMPORT     _ObjectsOpenTextbox_8c02ae3e
+          .IMPORT     _MessageBoxOpenTextbox_8c02ae3e
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _RouteLoadClearLatch_8c014322
@@ -790,7 +790,7 @@ _TitlePushTitle_8c015fd6:                   ; function: TitlePushTitle_8c015fd6
           MOVA        L53+64,R0; -2.0
           MOV.L       R2,@-R15
           MOV         #0,R3
-          MOV.L       L53+68,R1; _ObjectsOpenTextbox_8c02ae3e
+          MOV.L       L53+68,R1; _MessageBoxOpenTextbox_8c02ae3e
           MOV.L       R3,@-R15
           MOV         #64,R7
           MOV.W       L53+4,R5; H'0178
@@ -854,7 +854,7 @@ L53:
           .DATA.L     _var_tex_8c157af8 ; H'8c0160d0
           .DATA.L     _njGarbageTexture
           .DATA.L     H'C0000000 ; -2.0
-          .DATA.L     _ObjectsOpenTextbox_8c02ae3e
+          .DATA.L     _MessageBoxOpenTextbox_8c02ae3e
           .DATA.L     _AsqInitQueues_8c011f36 ; H'8c0160e0
           .DATA.L     _AsqResetQueues_8c011f6c
           .DATA.L     _var_currentSysResGroupInfo_8c225fb0

@@ -27,7 +27,7 @@
           .IMPORT     _var_cutsceneActive_8c1bb900
           .IMPORT     _var_fadeRequest_8c226564
           .IMPORT     _var_arrivalOverlayGate_8c226560
-          .IMPORT     _ObjectsStartMessageBox_8c02ad8c
+          .IMPORT     _MessageBoxStart_8c02ad8c
           .IMPORT     _var_messageBoxActive_8c22847c
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _BusStopFreeTaskGroup_8c02ca96
@@ -914,7 +914,7 @@ LP_GEN_70221:
           .DATA.L _var_cutsceneActive_8c1bb900 ; H'8C02D814
           .DATA.L _var_fadeRequest_8c226564 ; H'8C02D818
           .DATA.L _var_arrivalOverlayGate_8c226560 ; H'8C02D81C
-          .DATA.L _ObjectsStartMessageBox_8c02ad8c ; H'8C02D820
+          .DATA.L _MessageBoxStart_8c02ad8c ; H'8C02D820
           .DATA.L _var_messageBoxActive_8c22847c ; H'8C02D824
           .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C02D828
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02D82C

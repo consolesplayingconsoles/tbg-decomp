@@ -12,7 +12,7 @@
 #include "022464_render.h"
 #include "0100bc_sound.h"
 #include "024b4c_bus_render.h"
-#include "0289ac_objects.h"
+#include "02a9fc_message_box.h"
 #include "02c884_bus_stop.h"
 #include "02d06c_stop_draw.h"
 #include "02d19c_passenger.h"
@@ -427,7 +427,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
             state->phase_0x00 = 3;
             var_fadeRequest_8c226564 = FADE_REQUEST_OUT;
             var_arrivalOverlayGate_8c226560 = 0;
-            ObjectsStartMessageBox_8c02ad8c();
+            MessageBoxStart_8c02ad8c();
         }
         execGroup = TRUE;
         break;

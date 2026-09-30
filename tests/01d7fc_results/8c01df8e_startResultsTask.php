@@ -36,7 +36,7 @@ return new class extends TestCase {
             0xc00,
         );
 
-        $this->shouldCall('_ObjectsOpenTextbox_8c02ae3e')->with(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
+        $this->shouldCall('_MessageBoxOpenTextbox_8c02ae3e')->with(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
 
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);
         $this->shouldCall('_AsqResetQueues_8c011f6c');

@@ -29,8 +29,8 @@ return new class extends TestCase {
         $this->setSize('_GameTask_8c012f44', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_njGarbageTexture', 4);
-        $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
-        $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
+        $this->setSize('_MessageBoxOpenTextbox_8c02ae3e', 4);
+        $this->setSize('_MessageBoxSwapFor_8c02aefc', 4);
         $this->setSize('_AsqInitQueues_8c011f36', 4);
         $this->setSize('_AsqResetQueues_8c011f6c', 4);
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->setSize('_RouteLoadClearLatch_8c014322', 4);
     }
 
-    // Empirically, EndingStart_8c01f954's ObjectsOpenTextbox_8c02ae3e call
+    // Empirically, EndingStart_8c01f954's MessageBoxOpenTextbox_8c02ae3e call
     // pushes x2 last (closest to sp), then y2, then enable_offset first.
     private function stackArgsCheck(int $x2, int $y2, int $enableOffset): callable
     {
@@ -111,10 +111,10 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuState + self::STATE_0X18, 0);
         $this->shouldCall('_njGarbageTexture')->with($this->addressOf('_var_tex_8c157af8'), 3072);
 
-        $this->shouldCall('_ObjectsOpenTextbox_8c02ae3e')
+        $this->shouldCall('_MessageBoxOpenTextbox_8c02ae3e')
             ->with(32, 384, -2.0, 576, 64)
             ->do($this->stackArgsCheck(0, 0, -1));
-        $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
+        $this->shouldCall('_MessageBoxSwapFor_8c02aefc')->with("");
 
         $this->shouldWriteLongTo('_var_menuTextboxCharLimit_8c225fb8', 0);
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(8, 0, 0, 8);

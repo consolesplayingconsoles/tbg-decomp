@@ -10,7 +10,7 @@ return new class extends TestCase {
         $this->setSize('_RenderPushCall1_8c0223ea', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
-        $this->setSize('_ObjectsStartMessageBox_8c02ad8c', 4);
+        $this->setSize('_MessageBoxStart_8c02ad8c', 4);
         $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
         $this->setSize('_BusStopFreeTaskGroup_8c02ca96', 4);
         $this->setSize('_njReleaseTexture', 4);
@@ -188,7 +188,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0, 3);
         $this->shouldWriteLongTo('_var_fadeRequest_8c226564', 1); // FADE_REQUEST_OUT
         $this->shouldWriteLongTo('_var_arrivalOverlayGate_8c226560', 0);
-        $this->shouldCall('_ObjectsStartMessageBox_8c02ad8c');
+        $this->shouldCall('_MessageBoxStart_8c02ad8c');
         $this->expectTaskExecGroup($group);
         $this->expectRegisterFadeOverlay();
     }

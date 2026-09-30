@@ -23,7 +23,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 0); // ROUTE_SHINJUKU
         $this->initUint32($this->addressOf('_var_selectedEventEntry_8c228478'), 0);
 
-        $this->call('_ObjectsRequestMessageAssets_8c02aa36');
+        $this->call('_MessageBoxRequestAssets_8c02aa36');
 
         $commonDir = $this->addressOf('_var_commonDir_8c18ad6c');
         $entries = $this->addressOf('_var_messageAssets_8c228484');
@@ -75,7 +75,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 1); // ROUTE_WANGAN
         $this->initUint32($this->addressOf('_var_selectedEventEntry_8c228478'), 0);
 
-        $this->call('_ObjectsRequestMessageAssets_8c02aa36');
+        $this->call('_MessageBoxRequestAssets_8c02aa36');
 
         $commonDir = $this->addressOf('_var_commonDir_8c18ad6c');
         $entries = $this->addressOf('_var_messageAssets_8c228484');
@@ -124,7 +124,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 2); // ROUTE_OME
         $this->initUint32($this->addressOf('_var_selectedEventEntry_8c228478'), 0);
 
-        $this->call('_ObjectsRequestMessageAssets_8c02aa36');
+        $this->call('_MessageBoxRequestAssets_8c02aa36');
 
         $commonDir = $this->addressOf('_var_commonDir_8c18ad6c');
         $entries = $this->addressOf('_var_messageAssets_8c228484');
@@ -192,7 +192,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_route_8c18ad1c'), 3); // not a real ROUTE value
         $this->initUint32($this->addressOf('_var_selectedEventEntry_8c228478'), 0);
 
-        $this->call('_ObjectsRequestMessageAssets_8c02aa36');
+        $this->call('_MessageBoxRequestAssets_8c02aa36');
 
         // No s_text/w_text/o_text.dat request, var_eventSlides_8c228480 left untouched,
         // and the (empty) group walk still runs and resets the count.
