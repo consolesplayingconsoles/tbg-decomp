@@ -22,6 +22,7 @@
 #include "018644_file_menu.h"
 #include "01a148_option.h"
 #include "01bb48_vm_game.h"
+#include "01c980_profile_file.h"
 #include "02fb50_sh4nlfzn_post_data.h"
 #include "02171c_tile_stream.h"
 #include "023310_bus_init.h"

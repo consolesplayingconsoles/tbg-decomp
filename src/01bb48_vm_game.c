@@ -10,6 +10,7 @@
 #include "016d2c_course_menu.h"
 #include "0193c8_vm_menu.h"
 #include "019e98_main_menu.h"
+#include "01c980_profile_file.h"
 #include "022464_fade.h"
 #include "0100bc_sound.h"
 #include "028258_objects.h"

@@ -66,6 +66,15 @@ enum PAGE_OPTION {
 };
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+int var_profileUnlockedCount_8c2263a4;
+ResourceGroup var_resourceGroup_8c2263a8;
+STATIC char var_profileUnlocked_8c2263b4[56]; // one byte per grid slot (55 used, 1 pad byte)
+
+/* ====================
  * Initialized Globals
  * ====================
  */

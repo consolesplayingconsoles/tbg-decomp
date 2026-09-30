@@ -1,10 +1,4 @@
-; 8c2263a4
-          .EXPORT     _var_profileUnlockedCount_8c2263a4 ; 01b19c
-                                    ; 01c980
-          .EXPORT     _var_resourceGroup_8c2263a8 ; 0129cc_game
-                                                  ; 01bb48
-                                                  ; 01c980
-          .EXPORT     _var_profileUnlocked_8c2263b4 ; 01c980
+; 8c2263ec
           .EXPORT     _var_scoreCourseClearBonus_8c2263ec ; 01d7fc
           .EXPORT     _var_scoreFirstClearBonus_8c2263f0 ; 01d7fc
           .EXPORT     _var_scoreDriverPointsBonus_8c2263f4 ; 01d7fc
@@ -227,12 +221,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_profileUnlockedCount_8c2263a4:
-          .RES.B      4
-_var_resourceGroup_8c2263a8:
-          .RES.B      12
-_var_profileUnlocked_8c2263b4:
-          .RES.B      56
 _var_scoreCourseClearBonus_8c2263ec:
           .RES.B      4
 _var_scoreFirstClearBonus_8c2263f0:

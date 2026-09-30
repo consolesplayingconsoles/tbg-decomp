@@ -28,7 +28,6 @@ return new class extends TestCase {
         $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_PromptHandleMultiple_8c016c58', 4);
         $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);
-        $this->setSize('_var_resourceGroup_8c2263a8', 0x0c);
         $this->setSize('_var_tex_8c157af8', 4);
         $this->setSize('_CourseMenuFreeResourceGroup_8c0185c4', 4);
         $this->setSize('_njGarbageTexture', 4);
@@ -37,8 +36,6 @@ return new class extends TestCase {
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
         $this->setSize('_RouteLoadSetLatch_8c014330', 4);
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
-        $this->setSize('_var_profileUnlockedCount_8c2263a4', 4);
-        $this->setSize('_var_profileUnlocked_8c2263b4', 56);
         $this->setSize('_EventHasProfileProgressFlag_8c02aff0', 4);
         $this->setSize('__divls', 4);
         $this->setSize('__modls', 4);

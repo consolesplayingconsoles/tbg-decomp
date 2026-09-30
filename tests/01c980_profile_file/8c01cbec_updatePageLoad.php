@@ -18,7 +18,6 @@ return new class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);
-        $this->setSize('_var_resourceGroup_8c2263a8', 0x0c);
         $this->setSize('_var_tex_8c157af8', 4);
 
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), self::MIDI);

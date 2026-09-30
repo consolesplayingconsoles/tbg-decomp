@@ -13,7 +13,6 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
-        $this->setSize('_var_resourceGroup_8c2263a8', 0x0c);
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
         $this->setSize('_EventHasProfileProgressFlag_8c02aff0', 4);
     }

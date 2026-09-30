@@ -73,8 +73,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_profileUnlockedCount_8c2263a4', 4);
-        $this->setSize('_var_profileUnlocked_8c2263b4', 56);
         $this->setSize('_EventHasProfileProgressFlag_8c02aff0', 4);
     }
 

@@ -1,12 +1,9 @@
 ; 8c01c980
-          .IMPORT     _var_profileUnlockedCount_8c2263a4
-          .IMPORT     _var_profileUnlocked_8c2263b4
           .IMPORT     _EventHasProfileProgressFlag_8c02aff0
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     __divls
           .IMPORT     __modls
-          .IMPORT     _var_resourceGroup_8c2263a8
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _CourseMenuFreeResourceGroup_8c0185c4
           .IMPORT     _var_tex_8c157af8
@@ -39,6 +36,7 @@
           .EXPORT     _drawEpisodeChecklist_8c01cac8
           .EXPORT     _updatePageLoad_8c01cbec
           .EXPORT     _menuTask_8c01ccec
+          .EXPORT     _var_profileUnlocked_8c2263b4
           .AENDI
           .EXPORT     _const_8c0386a0 ; 01c980.src
           .EXPORT     _const_8c0386b4 ; 01c980.src
@@ -64,6 +62,8 @@
           .EXPORT     _init_profileUnlockFlags_8c044ffc ; 01c980.src
           .EXPORT     _init_profileResgrps_8c0450d8 ; 01c980.src
           .EXPORT     _init_rowResgrps_8c045148 ; 01c980.src
+          .EXPORT     _var_profileUnlockedCount_8c2263a4 ; 01b19c_system_menu
+          .EXPORT     _var_resourceGroup_8c2263a8 ; 0129cc_game, 016108_resgrp_free.c, 01bb48_vm_game
           .SECTION     P, CODE, ALIGN=4
 _ProfileFileUpdateUnlocks_8c01c980:
           MOV.L       R14,@-R15
@@ -1563,4 +1563,11 @@ _init_rowResgrps_8c045148:        ; from defines
           .DATA.L      _init_8c045118
           .DATA.L      _init_8c045128
           .DATA.L      _init_8c045138
+          .SECTION    B,DATA,ALIGN=4
+_var_profileUnlockedCount_8c2263a4:
+          .RES.B      4
+_var_resourceGroup_8c2263a8:
+          .RES.B      12
+_var_profileUnlocked_8c2263b4:
+          .RES.B      56
           .END

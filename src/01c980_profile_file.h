@@ -2,6 +2,20 @@
 #define _PROFILE_FILE_H
 
 #include "014a9c_tasks.h"
+#include "015ab8_title.h" /* ResourceGroup */
+
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1cc.profileUnlockedCount_0x8c by 01b19c_system_menu
+extern ResourceGroup var_resourceGroup_8c2263a8;
+
+/* =========
+ * Functions
+ * =========
+ */
 
 void ProfileFileUpdateUnlocks_8c01c980(void);
 void ProfileFilePushTask_8c01d1c4(Task *task);
