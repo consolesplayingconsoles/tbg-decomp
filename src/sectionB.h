@@ -1,6 +1,6 @@
-/* 8c2263ec: undecompiled data section */
-#ifndef _2263EC_SECTIONB_H
-#define _2263EC_SECTIONB_H
+/* 8c22640c: undecompiled data section */
+#ifndef _22640C_SECTIONB_H
+#define _22640C_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -348,16 +348,5 @@ extern int var_fogParam_8c226504;
 extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
-/* RESULTS screen score category totals, drawn digit-by-digit by
- * drawScoreDigits_8c01d7fc (01d7fc). */
-extern int var_scoreCourseClearBonus_8c2263ec;
-extern int var_scoreFirstClearBonus_8c2263f0;
-extern int var_scoreDriverPointsBonus_8c2263f4;
-extern int var_scoreBadgeBonus_8c2263f8;
-extern int var_scorePassengerBonus_8c2263fc;
-extern int var_scoreEventBonus_8c226400;
-extern int var_scoreTotal_8c226404;
-/* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
-extern int var_runFailed_8c226408;
 
-#endif // _2263EC_SECTIONB_H
+#endif // _22640C_SECTIONB_H

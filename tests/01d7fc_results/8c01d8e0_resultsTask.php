@@ -42,14 +42,19 @@ return new class extends TestCase {
         foreach ([
             '_var_selectedVm_8c1ba34c', '_var_isFading_8c226568', '_var_saveSlot_8c1ba350',
             '_var_runSucceeded_8c1bb8dc', '_var_award_8c1bb8f8',
-            '_var_scoreTotal_8c226404', '_var_scoreEventBonus_8c226400', '_var_scorePassengerBonus_8c2263fc', '_var_scoreBadgeBonus_8c2263f8',
-            '_var_scoreDriverPointsBonus_8c2263f4', '_var_scoreFirstClearBonus_8c2263f0', '_var_scoreCourseClearBonus_8c2263ec',
             '_var_gameMode_8c1bb8fc', '_var_vmBusy_8c157a7c', '_var_backupFileImageBuf_8c1ba348',
             '_var_tasks_8c1ba3c8', '_var_tex_8c157af8', '_var_vmuIconFileBuf_8c1ba344',
             '_var_timeOfDay_8c18ad20', '_var_route_8c18ad1c', '_var_firstClearOfCourse_8c1bb8e0',
             '_var_passengerCount_8c1bb8e4', '_var_eventCount_8c1bb8e8',
         ] as $sym) {
             $this->setSize($sym, 4);
+            $this->initUint32($this->addressOf($sym), 0);
+        }
+
+        foreach ([
+            '_var_scoreTotal_8c226404', '_var_scoreEventBonus_8c226400', '_var_scorePassengerBonus_8c2263fc', '_var_scoreBadgeBonus_8c2263f8',
+            '_var_scoreDriverPointsBonus_8c2263f4', '_var_scoreFirstClearBonus_8c2263f0', '_var_scoreCourseClearBonus_8c2263ec',
+        ] as $sym) {
             $this->initUint32($this->addressOf($sym), 0);
         }
 

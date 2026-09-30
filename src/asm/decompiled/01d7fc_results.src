@@ -13,19 +13,11 @@
           .IMPORT     _VmMenuUpdateVmuStatus_8c01967c
           .IMPORT     _RouteLoadGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
-          .IMPORT     _var_runFailed_8c226408
           .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _SndMidiResetFxAndPlay_8c010846
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_award_8c1bb8f8
-          .IMPORT     _var_scoreTotal_8c226404
-          .IMPORT     _var_scoreEventBonus_8c226400
-          .IMPORT     _var_scorePassengerBonus_8c2263fc
-          .IMPORT     _var_scoreBadgeBonus_8c2263f8
-          .IMPORT     _var_scoreDriverPointsBonus_8c2263f4
-          .IMPORT     _var_scoreFirstClearBonus_8c2263f0
-          .IMPORT     _var_scoreCourseClearBonus_8c2263ec
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _FadePushOut_8c022b60
@@ -97,6 +89,14 @@
           .EXPORT     _const_8c038908
           .EXPORT     _const_8c038934
           .EXPORT     _const_8c038940
+          .EXPORT     _var_scoreCourseClearBonus_8c2263ec
+          .EXPORT     _var_scoreFirstClearBonus_8c2263f0
+          .EXPORT     _var_scoreDriverPointsBonus_8c2263f4
+          .EXPORT     _var_scoreBadgeBonus_8c2263f8
+          .EXPORT     _var_scorePassengerBonus_8c2263fc
+          .EXPORT     _var_scoreEventBonus_8c226400
+          .EXPORT     _var_scoreTotal_8c226404
+          .EXPORT     _var_runFailed_8c226408
           .AENDI
           .SECTION     P, CODE, ALIGN=4
 _drawScoreDigits_8c01d7fc:
@@ -1490,4 +1490,21 @@ _init_courseClearScoreTable_8c0451a0:        ; from defines
           .DATA.B      H'18, H'01, H'2C, H'01
           .DATA.B      H'C8, H'00, H'DC, H'00
           .DATA.B      H'04, H'01, H'00, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_scoreCourseClearBonus_8c2263ec:
+          .RES.B      4
+_var_scoreFirstClearBonus_8c2263f0:
+          .RES.B      4
+_var_scoreDriverPointsBonus_8c2263f4:
+          .RES.B      4
+_var_scoreBadgeBonus_8c2263f8:
+          .RES.B      4
+_var_scorePassengerBonus_8c2263fc:
+          .RES.B      4
+_var_scoreEventBonus_8c226400:
+          .RES.B      4
+_var_scoreTotal_8c226404:
+          .RES.B      4
+_var_runFailed_8c226408:
+          .RES.B      4
           .END

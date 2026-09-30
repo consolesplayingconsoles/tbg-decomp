@@ -27,6 +27,23 @@
 #include "strings.h"
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+/* RESULTS screen score category totals, drawn digit-by-digit by
+ * drawScoreDigits_8c01d7fc. */
+STATIC int var_scoreCourseClearBonus_8c2263ec;
+STATIC int var_scoreFirstClearBonus_8c2263f0;
+STATIC int var_scoreDriverPointsBonus_8c2263f4;
+STATIC int var_scoreBadgeBonus_8c2263f8;
+STATIC int var_scorePassengerBonus_8c2263fc;
+STATIC int var_scoreEventBonus_8c226400;
+STATIC int var_scoreTotal_8c226404;
+/* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
+STATIC int var_runFailed_8c226408;
+
+/* ====================
  * Initialized Globals
  * ====================
  */
