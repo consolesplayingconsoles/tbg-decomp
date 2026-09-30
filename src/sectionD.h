@@ -9,11 +9,6 @@
  * courseId_0x00 - 0x26 and seeded into var_demoShotId_8c227dd4 by
  * 0129cc_game.c. Defined in 025870_demo.c. */
 extern char init_demoFirstShot_8c0460b0[];
-/* Per-route tables selected by TrafficInit_8c02769e (026710) into
- * var_signalGroups_8c228b40; consumed by TrafficPathScanJunctionOccupied_8c02f28a (02f0c8_traffic_path_scan). */
-extern Sint32 init_signalGroupsWangan_8c04c980[];
-extern Sint32 init_signalGroupsShinjuku_8c04caec[];
-extern Sint32 init_signalGroupsOme_8c04cd38[];
 /* Per-route route-line node tables (LineBusNode, 023938_bus_drive.h): the
  * CourseConfig.lineNodes_0x24 value of every course on that route. Reach
  * var_lineNodes_8c227d88 via BusInitStart_8c023610 (023310_bus_init) and are

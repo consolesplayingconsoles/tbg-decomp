@@ -15,6 +15,16 @@ extern Sint32 *var_signalGroups_8c228b40;
 /** The group whose intersection a vehicle occupies */
 extern Sint32 *var_occupiedGroup_8c228b44;
 
+/* ===================
+ * Initialized Globals
+ * ===================
+ */
+
+/** Per-route signal groups, selected into var_signalGroups_8c228b40 by TrafficInit_8c02769e */
+extern Sint32 init_signalGroupsWangan_8c04c980[91];
+extern Sint32 init_signalGroupsShinjuku_8c04caec[147];
+extern Sint32 init_signalGroupsOme_8c04cd38[54];
+
 /* =========
  * Functions
  * =========
