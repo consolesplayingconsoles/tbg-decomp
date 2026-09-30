@@ -47,7 +47,7 @@ extern float var_mirrorLightDir_8c227dc4[3];
 extern float var_farClipDepth_8c227dd0;
 /* Which attract-mode shot is showing, so demoShotTask_8c0259e8 only cuts on a
  * change. 0129cc_game.c pre-seeds it with the course's opening shot from
- * init_demoFirstShot_8c0460b0 (sectionD.h). */
+ * init_demoFirstShot_8c0460b0 (025870_demo.h). */
 extern int var_demoShotId_8c227dd4;
 
 /* =========

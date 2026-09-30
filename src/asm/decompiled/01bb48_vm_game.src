@@ -87,8 +87,8 @@
           .EXPORT     _const_8c038638 ; 01bb48.src
           .EXPORT     _const_8c038658 ; 01bb48.src
           .EXPORT     _const_8c038660 ; 01bb48.src
-          .EXPORT     _const_8c03866c ; 01bb48.src, sectionD.src
-          .EXPORT     _const_8c03867c ; 01bb48.src, sectionD.src
+          .EXPORT     _const_8c03866c ; 01bb48.src
+          .EXPORT     _const_8c03867c ; 01bb48.src
           .EXPORT     _const_8c038680 ; 01bb48.src
           .EXPORT     _const_8c038690 ; 01bb48.src
           .EXPORT     _const_8c038698 ; 01bb48.src

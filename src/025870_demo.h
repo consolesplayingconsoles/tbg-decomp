@@ -2,6 +2,10 @@
 #ifndef _025870_DEMO_H
 #define _025870_DEMO_H
 
+/* Per-course opening shot for the attract-mode tour, indexed by
+ * courseId_0x00 - 0x26. */
+extern char init_demoFirstShot_8c0460b0[];
+
 /* Aims var_cabinCamera_8c1bb984 from inside the bus at eye height, looking
  * forward down the aisle. Despite the unit prefix this is not
  * demo playback: its only caller is StopSpawnInit_8c02d968, which

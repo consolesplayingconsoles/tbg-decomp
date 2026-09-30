@@ -13,7 +13,6 @@
 #include "serial_debug.h"
 #include "01614c_replay_menu.h"
 #include "022464_render.h"
-#include "sectionD.h"
 #include "1ba1c8_globals.h"
 #include "01d290_album.h"
 

@@ -129,7 +129,7 @@ the byte sequence in the final section C is identical to before â€? just split a
 
 ## Fixing Tests After Moving Initialized Data
 
-After moving a symbol from `*_pre_data.src` / `sectionD.src` to a TU (section D of its `.c` or `.src`), the corresponding tests need updating:
+After moving a symbol from `*_pre_data.src` to a TU (section D of its `.c` or `.src`), the corresponding tests need updating:
 
 ### setSize removal
 - `setSize('_sym', n)` allocates an extern symbol. Once the TU defines it, this call fails with "Cannot allocate symbol X, it is already defined in the object file".

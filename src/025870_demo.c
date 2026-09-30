@@ -77,7 +77,7 @@ STATIC int var_demoShotRearm_8c227e10;
  * (DemoStartTour_8c025af4): init_demoShotsShinjuku_8c045674 = ROUTE_SHINJUKU,
  * init_demoShotsWangan_8c045b60 = ROUTE_WANGAN, init_demoShotsOme_8c045ee4 =
  * ROUTE_OME. A row's position is the cue id the mark grid paints and
- * init_demoFirstShot_8c0460b0 (sectionD.h) points at, which is what its
+ * init_demoFirstShot_8c0460b0 points at, which is what its
  * caption macro is numbered by. */
 STATIC DemoShot init_demoShotsShinjuku_8c045674[] = {
     {1, {4.0f, 0.5f, -4.0f}, MSG_DEMO_SHOT_SHINJUKU_0},

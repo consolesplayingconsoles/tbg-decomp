@@ -30,14 +30,14 @@ $(OUTPUT_DIR)/src/0129cc_game.obj: src/014f54_sprite.h src/015ab8_title.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/014b8c_backup.h src/015034_text.h src/01fa78_hud.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/01614c_replay_menu.h src/028258_traffic_signal.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/0289ac_objects.h src/02a9fc_message_box.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/sectionD.h src/024b4c_bus_render.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/1ba1c8_globals.h src/011120_asset_queues.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/serial_debug.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/02171c_tile_stream.h src/020914_ground_query.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/022464_render.h src/includes.h src/scif.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/02b464_drive_points.h src/020214_drive_cue.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/018644_file_menu.h src/01a148_option.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/01bb48_vm_game.h src/01c980_profile_file.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/024b4c_bus_render.h src/1ba1c8_globals.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/011120_asset_queues.h src/serial_debug.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/013ae8_route_load.h src/02171c_tile_stream.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/020914_ground_query.h src/022464_render.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/includes.h src/scif.h src/02b464_drive_points.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/020214_drive_cue.h src/018644_file_menu.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/01a148_option.h src/01bb48_vm_game.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/01c980_profile_file.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/02fb50_sh4nlfzn_post_data.h src/023310_bus_init.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/023938_bus_drive.h src/025870_demo.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/02d968_stop_spawn.h src/021b9c_tile_draw.h
@@ -52,7 +52,7 @@ $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/015034_text.h src/021b9c_tile_draw.
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/026710_traffic.h src/020914_ground_query.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/0289ac_objects.h src/02a9fc_message_box.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/02af78_event.h src/02c884_bus_stop.h
-$(OUTPUT_DIR)/src/013ae8_route_load.obj: src/02b464_drive_points.h src/sectionD.h
+$(OUTPUT_DIR)/src/013ae8_route_load.obj: src/02b464_drive_points.h src/04ce10_line_nodes.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/024b4c_bus_render.h src/1ba1c8_globals.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/022464_render.h src/includes.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/013ae8_route_load.data.inc
@@ -215,7 +215,7 @@ $(OUTPUT_DIR)/src/01d290_album.obj: src/015ab8_title.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/01d290_album.obj: src/014f54_sprite.h src/016d2c_course_menu.h
 $(OUTPUT_DIR)/src/01d290_album.obj: src/0100bc_sound.h src/includes.h
 $(OUTPUT_DIR)/src/01d290_album.obj: src/01614c_replay_menu.h src/022464_render.h
-$(OUTPUT_DIR)/src/01d290_album.obj: src/sectionD.h src/1ba1c8_globals.h src/015034_text.h
+$(OUTPUT_DIR)/src/01d290_album.obj: src/1ba1c8_globals.h src/015034_text.h
 $(OUTPUT_DIR)/src/01d290_album.obj: src/020914_ground_query.h src/01d290_album.h
 $(OUTPUT_DIR)/src/01d7fc_results.obj: src/01d7fc_results.h src/0100bc_sound.h
 $(OUTPUT_DIR)/src/01d7fc_results.obj: src/011120_asset_queues.h src/serial_debug.h
@@ -399,8 +399,7 @@ $(OUTPUT_DIR)/src/026710_traffic.obj: src/02e51c_attr_query.h
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/02f0c8_traffic_path_scan.h
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/02b464_drive_points.h src/024b4c_bus_render.h
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/1ba1c8_globals.h src/015034_text.h
-$(OUTPUT_DIR)/src/026710_traffic.obj: src/015ab8_title.h src/014b8c_backup.h src/sectionD.h
-$(OUTPUT_DIR)/src/026710_traffic.obj: src/includes.h
+$(OUTPUT_DIR)/src/026710_traffic.obj: src/015ab8_title.h src/014b8c_backup.h src/includes.h
 $(OUTPUT_DIR)/src/02786c_vehicle_parts.obj: src/02786c_vehicle_parts.h src/026710_traffic.h
 $(OUTPUT_DIR)/src/02786c_vehicle_parts.obj: src/020914_ground_query.h
 $(OUTPUT_DIR)/src/027958_bus_draw.obj: src/includes.h src/013ae8_route_load.h

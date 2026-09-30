@@ -19,7 +19,6 @@
 #include "02b464_drive_points.h"
 #include "024b4c_bus_render.h"
 #include "1ba1c8_globals.h"
-#include "sectionD.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 

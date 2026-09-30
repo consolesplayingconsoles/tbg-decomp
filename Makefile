@@ -114,7 +114,6 @@ SRCS = \
 	src/02f320_replay_codec.c \
 	src/scif.c \
 	src/serial_debug.c \
-	src/asm/sectionD.src \
 	src/asm/04ce10_line_nodes.src \
 	src/02fb50_sh4nlfzn_post_data.c \
 

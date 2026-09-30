@@ -10,7 +10,6 @@
 #include "028258_traffic_signal.h"
 #include "0289ac_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "02a9fc_message_box.h"
-#include "sectionD.h"
 #include "024b4c_bus_render.h"
 #include "1ba1c8_globals.h"
 #include "includes.h"
