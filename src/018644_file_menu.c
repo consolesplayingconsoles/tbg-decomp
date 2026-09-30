@@ -10,7 +10,7 @@
 #include "01a148_option.h"
 #include "0100bc_sound.h"
 #include "014f54_sprite.h"
-#include "028258_objects.h"
+#include "0289ac_objects.h"
 #include "01bb48_vm_game.h"
 #include "01b19c_system_menu.h"
 #include "022464_render.h"

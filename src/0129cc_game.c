@@ -7,7 +7,8 @@
 #include "015034_text.h"
 #include "01fa78_hud.h" /* HudReset_8c02018c, var_8c226434, var_8c226438 */
 #include "01614c_replay_menu.h"
-#include "028258_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
+#include "028258_traffic_signal.h"
+#include "0289ac_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "sectionD.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
@@ -543,7 +544,7 @@ void GameEnterDrive_8c01306e(void)
     var_messageBoxActive_8c22847c = 0;
 
     BusInitStart_8c023610();
-    ObjectsInitTrafficSignals_8c02845a();
+    SignalInit_8c02845a();
 
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         ObjectsInitBlinkers_8c029920();

@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $base = $this->addressOf('_var_runState_8c2285c4');
 
-        $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);
+        $this->setSize('_SignalGetFrame_8c028900', 4);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
 
@@ -75,7 +75,7 @@ return new class extends TestCase {
 
         $this->call('_gradeSignals_8c02b8b8');
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(5)->andReturn(0);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(5)->andReturn(0);
         $this->shouldCall('_adjust_8c02b464')->with(0x10, 0xffffffba); // -70
         $this->shouldCall('_armCooldowns_8c02b578')->with(3);
         $this->shouldWriteLong($graded, 0);
@@ -99,7 +99,7 @@ return new class extends TestCase {
 
         $this->call('_gradeSignals_8c02b8b8');
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(5)->andReturn(1);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(5)->andReturn(1);
         $this->shouldCall('_armCooldowns_8c02b578')->with(3);
         $this->shouldWriteLong($graded, 0);
         $this->shouldWriteLong($signal0, 0);

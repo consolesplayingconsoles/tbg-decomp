@@ -661,7 +661,7 @@ doesn't yet make the symbol visible to this file:
 
 - For an owner whose archived `.src` still holds the data (`01f3c0.src`,
   `01fa78.src`, `024280_bus_input.src`, `025870_demo.src`,
-  `028258_objects.src`), the label exists but is never `.EXPORT`ed -- nothing
+  `0289ac_objects.src`), the label exists but is never `.EXPORT`ed -- nothing
   outside that file has needed it yet.
 - For the C-based `Makefile`, an owner that *is* decompiled (e.g.
   `01bb48_vm_game`) only ports data its decompiled C functions actually

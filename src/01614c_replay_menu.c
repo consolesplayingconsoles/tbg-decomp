@@ -14,7 +14,8 @@
 #include "016d2c_course_menu.h"
 #include "018644_file_menu.h"
 #include "02171c_tile_stream.h"
-#include "028258_objects.h"
+#include "028258_traffic_signal.h"
+#include "0289ac_objects.h"
 #include "02c884_bus_stop.h"
 #include "02f320_replay_codec.h"
 #include "0193c8_vm_menu.h"
@@ -128,7 +129,7 @@ ReplayMenuEntry init_replayMenuEntries_8c04429c[] = {
 void ReplayMenuFreeDriveTasks_8c01614c(void)
 {
     ObjectsFreePedestrianGroups_8c0297da();
-    ObjectsFreeTrafficSignals_8c0288be();
+    SignalFree_8c0288be();
     BusStopFreeTaskGroup_8c02ca96();
     TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
     TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);

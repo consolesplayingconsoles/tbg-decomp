@@ -100,6 +100,15 @@ the sprite functions were in another file. `015034` is the only boundary that
 fits: 4-aligned, and no PC-relative reference crosses it. The sprite half has
 no data of its own.
 
+`028258_objects` was split at `0289ac` into `028258_traffic_signal` and
+`0289ac_objects`. `pedestrianTask_8c028e00` BSRs to `advancePedPathPos_8c0289ac`
+but reaches `SignalGetFrame_8c028900`, `SignalMarkPedCrossing_8c02897a` and
+`SignalIsCrossingOccupied_8c02898e`, 1.3-1.7 KB away, via JSR, and
+`pedestriansTask_8c0293f6` JSRs to `SignalClearPedCrossingFlags_8c02890c`, so
+the signal functions were in another file. `0289ac` is the only boundary that
+fits. The signal half has no C/D data, and its B vars all sit before the
+objects half's.
+
 ## `02d968_stop_spawn`: the case in detail
 
 - One function, 253 lines, **zero** private bss, one D blob.

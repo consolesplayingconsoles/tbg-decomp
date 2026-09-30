@@ -178,7 +178,7 @@ off-course case shows the same message as the medium one).
 
 **Railway crossings.** Fully modelled visually
 (`var_fumiGateModel_8c22840c`/`var_fumiLampNodes_8c228434`, from *fumikiri*,
-`028258_objects.c`), but traced as purely decorative: `fumiCrossingTask_8c02a4f8`
+`0289ac_objects.c`), but traced as purely decorative: `fumiCrossingTask_8c02a4f8`
 is a scripted "row" scenery task like the other roadside props (fly-bys, dat
 blobs, static models) -- its gate-closed/train-passing/gate-open phases are
 gated only on the top byte of `var_busState_8c1bb9d0.scenePresetIds_0x3bc` (a scene-script

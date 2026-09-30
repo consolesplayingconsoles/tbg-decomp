@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(0);
 
         $this->shouldCall('_ObjectsFreePedestrianGroups_8c0297da');
-        $this->shouldCall('_ObjectsFreeTrafficSignals_8c0288be');
+        $this->shouldCall('_SignalFree_8c0288be');
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bb448'));
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bac28'));
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba5e8'));

@@ -7,7 +7,7 @@
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
 #include "022464_render.h" /* FadePhase, FadeRequest, DrawCommand */
-#include "028258_objects.h" /* TrafficSignal */
+#include "028258_traffic_signal.h" /* TrafficSignal */
 #include "023938_bus_drive.h" /* LineBusSegment, LineBusNode */
 #include "026710_traffic.h" /* PathRecord */
 #include "011120_asset_queues.h"
@@ -89,11 +89,11 @@ extern int *var_demoShots_8c227e0c;
 /* Makes demoShotTask_8c0259e8 cut to var_demoShotId_8c227dd4's shot on its
  * first frame instead of waiting for the marker to change. */
 extern int var_demoShotRearm_8c227e10;
-extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by ObjectsInitTrafficSignals_8c02845a */
-extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by ObjectsGetTrafficSignalFrame_8c028900 */
+extern Task *var_trafficSignalTasks_8c227e20; /* Task array for trafficSignalTask_8c028258/linkedTrafficSignalTask_8c02833c, sized (count+1) by SignalInit_8c02845a */
+extern int *var_trafficSignalFrames_8c227e24; /* per-id current frame index, read by SignalGetFrame_8c028900 */
 extern TrafficSignal **var_trafficSignalStates_8c227e28; /* per-id TrafficSignal* */
-extern int var_pedCrossingFlags_8c227e2c[128]; /* 64 8-byte entries, zeroed by clearPedCrossingFlags_8c02890c */
-extern int var_crossingOccupiedFlags_8c22802c[128]; /* 64 8-byte entries, zeroed by ObjectsClearCrossingOccupied_8c028958 */
+extern int var_pedCrossingFlags_8c227e2c[128]; /* 64 8-byte entries, zeroed by SignalClearPedCrossingFlags_8c02890c */
+extern int var_crossingOccupiedFlags_8c22802c[128]; /* 64 8-byte entries, zeroed by SignalClearCrossingOccupied_8c028958 */
 /* 12-byte entries {active, unused, list*}; list is NULL-terminated, holes
  * marked -1. Read by drawPedestrians_8c028b74; var_pedGroupCount_8c228234 is the count. */
 extern void* var_pedGroups_8c228230;

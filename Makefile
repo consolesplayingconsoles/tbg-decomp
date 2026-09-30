@@ -96,7 +96,8 @@ SRCS = \
 	src/026710_traffic.c \
 	src/02786c_vehicle_parts.c \
 	src/027958_bus_draw.c \
-	src/028258_objects.c \
+	src/028258_traffic_signal.c \
+	src/0289ac_objects.c \
 	src/02af78_event.c \
 	src/02b2f0_drive_msg.c \
 	src/asm/sectionB.src \

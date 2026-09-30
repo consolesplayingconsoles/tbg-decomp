@@ -17,7 +17,7 @@ return new class extends TestCase {
             $this->initUint32($base + $i * 8 + 4, 0x22222222);
         }
 
-        $this->call('_ObjectsClearCrossingOccupied_8c028958');
+        $this->call('_SignalClearCrossingOccupied_8c028958');
 
         for ($i = 0; $i < 64; $i++) {
             $this->shouldWriteLong($base + $i * 8, 0);

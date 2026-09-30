@@ -18,7 +18,7 @@
 #include "01b19c_system_menu.h"
 #include "01bb48_vm_game.h"
 #include "01f3c0_ending.h"
-#include "028258_objects.h"
+#include "0289ac_objects.h"
 #include "02b464_drive_points.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"

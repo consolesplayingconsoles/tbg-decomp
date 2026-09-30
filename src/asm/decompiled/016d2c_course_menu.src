@@ -89,7 +89,7 @@
                                                            ; 01f3c0_ending
           .EXPORT     _var_menuTextboxCharLimit_8c225fb8 ; 01e27c_practice_menu
                                                          ; 01f3c0_ending
-                                                         ; 028258_objects
+                                                         ; 0289ac_objects
           .EXPORT     _var_dialogQueue_8c225fbc ; 01f3c0_ending
 
           .AIFDEF UNIT_TESTING

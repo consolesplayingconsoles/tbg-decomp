@@ -1,5 +1,6 @@
-#ifndef _028258_OBJECTS_H
-#define _028258_OBJECTS_H
+/* 8c028258 */
+#ifndef _028258_TRAFFIC_SIGNAL_H
+#define _028258_TRAFFIC_SIGNAL_H
 
 #include <shinobi.h>
 
@@ -49,31 +50,15 @@ typedef struct {
     int durations_0x2c[3];       /* per-frame hold times, walked by trafficSignalTask_8c028258 */
 } TrafficSignalDef;
 
-void ObjectsInitTrafficSignals_8c02845a(void);
-TrafficSignal *ObjectsGetTrafficSignal_8c0288b2(int index);
-void ObjectsFreeTrafficSignals_8c0288be(void);
-int ObjectsGetTrafficSignalFrame_8c028900(int index);
-void ObjectsClearCrossingOccupied_8c028958(void);
-void ObjectsMarkCrossingOccupied_8c028984(int index);
-int ObjectsIsPedCrossing_8c028998(int index);
-void ObjectsInitPedestrianGroups_8c0296d6(void);
-void ObjectsFreePedestrianGroups_8c0297da(void);
-void ObjectsInitBlinkers_8c029920(void);
-void ObjectsClearAssetRequestTable_8c029acc(void);
-void ObjectsFreeAssetRequests_8c029cfe(void);
-void ObjectsFreeMessageAssets_8c02adee(void);
-void ObjectsRelocatePedGroupLists_8c028dd0(void *handle);
-void ObjectsRelocatePedGroupDefs_8c028de8(void *handle);
-void ObjectsStartAssetRequests_8c029ad4(int *table);
-void ObjectsPushTasks_8c02a6ac(void);
-void ObjectsClearMessageAssets_8c02aa28(void);
-void ObjectsRequestMessageAssets_8c02aa36(void);
-void ObjectsStartMessageBox_8c02ad8c(void);
-void ObjectsOpenTextbox_8c02ae3e(int x, int y, float priority, int width, int height, int x2, int y2, int enable_offset);
-int ObjectsSwapMessageBoxFor_8c02aefc(char *text);
-int ObjectsMenuTextboxText_8c02af1c(int limit);
-void ObjectsFreeTextboxes_8c02af32(void);
+void SignalInit_8c02845a(void);
+TrafficSignal *SignalGet_8c0288b2(int index);
+void SignalFree_8c0288be(void);
+int SignalGetFrame_8c028900(int index);
+void SignalClearPedCrossingFlags_8c02890c(void);
+void SignalClearCrossingOccupied_8c028958(void);
+void SignalMarkPedCrossing_8c02897a(int index);
+void SignalMarkCrossingOccupied_8c028984(int index);
+int SignalIsCrossingOccupied_8c02898e(int index);
+int SignalIsPedCrossing_8c028998(int index);
 
-extern NJS_TEXANIM init_pedestrianTexAnims_8c04623c[];
-
-#endif // _028258_OBJECTS_H
+#endif /* _028258_TRAFFIC_SIGNAL_H */

@@ -44,6 +44,12 @@ return new class extends TestCase {
         return $ped;
     }
 
+    private function resolveSymbols(): void
+    {
+        // The asm loads its address into a register on entry, called or not.
+        $this->setSize('_SignalGetFrame_8c028900', 4);
+    }
+
     /**
      * Checks _IntersectSegments_8c0206f0's R4/R5/R7/stack-arg operands (a0, a1, b1, out);
      * arg3 (pos, a stack local) is intentionally not checked, see caller.
@@ -71,6 +77,8 @@ return new class extends TestCase {
 
     public function test_walking_forward_no_ground_snap()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_PATH_POS, fdec(10.0));
         $this->initUint32($ped + self::OFF_SPEED, fdec(1.5));
@@ -85,6 +93,8 @@ return new class extends TestCase {
 
     public function test_walking_backward_no_ground_snap()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_REVERSE, 1);
         $this->initUint32($ped + self::OFF_PATH_POS, fdec(10.0));
@@ -100,6 +110,8 @@ return new class extends TestCase {
 
     public function test_segment_change_triggers_ground_snap()
     {
+        $this->resolveSymbols();
+
         $this->setSize('_GroundProbeTrackPolygon_8c020b6c', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
 
@@ -125,6 +137,8 @@ return new class extends TestCase {
 
     public function test_pedestrian_kind_without_crossing_still_snaps_to_ground()
     {
+        $this->resolveSymbols();
+
         $this->setSize('_GroundProbeTrackPolygon_8c020b6c', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
 
@@ -150,6 +164,8 @@ return new class extends TestCase {
 
     public function test_entering_signalled_node_computes_signal_ids_and_stays_waiting()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         // nNodeFlags: high 12 bits = signal id A, low 12 bits = signal id B.
         $this->initUint32($ped + self::OFF_NODE_FLAGS, (3 << 16) | 5);
@@ -165,18 +181,22 @@ return new class extends TestCase {
 
     public function test_state1_rechecks_signal()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 1);
         $this->initUint32($ped + self::OFF_SIGNAL_A, 7);
 
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(1);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(1);
         // No further state write: it stays 1.
     }
 
     public function test_state2_waits_while_signal_pending()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 2);
         $this->initUint32($ped + self::OFF_SIGNAL_A, 7);
@@ -184,11 +204,13 @@ return new class extends TestCase {
 
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(0);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(0);
     }
 
     public function test_state2_starts_crossing_when_signal_allows()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 2);
         $this->initUint32($ped + self::OFF_SIGNAL_A, 7);
@@ -199,8 +221,8 @@ return new class extends TestCase {
 
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(1);
-        $this->shouldCall('_isCrossingOccupied_8c02898e')->with(9)->andReturn(0);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(1);
+        $this->shouldCall('_SignalIsCrossingOccupied_8c02898e')->with(9)->andReturn(0);
         $this->shouldWriteLong($ped + self::OFF_STATE, 4);
         $this->shouldWriteLong($ped + self::OFF_STATE, 0); // no active crossing node left
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 1.0);
@@ -210,6 +232,8 @@ return new class extends TestCase {
 
     public function test_state4_crosswalk_match_forward_blocks_movement()
     {
+        $this->resolveSymbols();
+
         $this->setSize('_IntersectSegments_8c0206f0', 4);
         $this->setSize('_var_stopLinePointA_8c228268', 8);
         $this->setSize('_var_stopLinePointB_8c228270', 8);
@@ -242,13 +266,15 @@ return new class extends TestCase {
         $this->shouldCall('_IntersectSegments_8c0206f0')
             ->do($this->assertCrossingArgs($other + 4))
             ->andReturn(1);
-        $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
+        $this->shouldCall('_SignalMarkPedCrossing_8c02897a')->with(9);
         $this->shouldCall('_CollisionQueueAdd_8c02e48e')->with($ped);
         // shouldMove was cleared: no flPathPos/nAnimPhase write, no advancePedPathPos call.
     }
 
     public function test_state4_crosswalk_match_reverse_keeps_moving()
     {
+        $this->resolveSymbols();
+
         $this->setSize('_IntersectSegments_8c0206f0', 4);
         $this->setSize('_var_stopLinePointA_8c228268', 8);
         $this->setSize('_var_stopLinePointB_8c228270', 8);
@@ -280,9 +306,9 @@ return new class extends TestCase {
         $this->shouldCall('_IntersectSegments_8c0206f0')
             ->do($this->assertCrossingArgs($node + 4))
             ->andReturn(0);
-        $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
+        $this->shouldCall('_SignalMarkPedCrossing_8c02897a')->with(9);
         $this->shouldCall('_CollisionQueueAdd_8c02e48e')->with($ped);
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(1);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(1);
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 6.0); // -speed*2
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 1);
         $this->shouldCall('_advancePedPathPos_8c0289ac')->with($ped)->andReturn(0);
@@ -290,19 +316,23 @@ return new class extends TestCase {
 
     public function test_state1_transitions_to_state2_when_signal_not_1()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 1);
         $this->initUint32($ped + self::OFF_SIGNAL_A, 7);
 
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(0);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(0);
         $this->shouldWriteLong($ped + self::OFF_STATE, 2);
         // shouldMove stays false: no flPathPos write.
     }
 
     public function test_state2_frame1_and_occupied_keeps_waiting()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 2);
         $this->initUint32($ped + self::OFF_SIGNAL_A, 7);
@@ -310,13 +340,15 @@ return new class extends TestCase {
 
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(1);
-        $this->shouldCall('_isCrossingOccupied_8c02898e')->with(9)->andReturn(1);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(1);
+        $this->shouldCall('_SignalIsCrossingOccupied_8c02898e')->with(9)->andReturn(1);
         // No nState write and no flPathPos write: falls to the plain "state==2" shouldMove=FALSE case.
     }
 
     public function test_state4_crossing_continues_fast_when_signal_green()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 4);
         $this->initUint32($ped + self::OFF_SIGNAL_A, 7);
@@ -332,9 +364,9 @@ return new class extends TestCase {
 
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
-        $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
+        $this->shouldCall('_SignalMarkPedCrossing_8c02897a')->with(9);
         $this->shouldCall('_CollisionQueueAdd_8c02e48e')->with($ped);
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(1);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(1);
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 14.0); // +speed*2
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 1);
         $this->shouldCall('_advancePedPathPos_8c0289ac')->with($ped)->andReturn(0);
@@ -342,6 +374,8 @@ return new class extends TestCase {
 
     public function test_state4_crossing_continues_slow_when_signal_not_green()
     {
+        $this->resolveSymbols();
+
         $ped = $this->makePed();
         $this->initUint32($ped + self::OFF_STATE, 4);
         $this->initUint32($ped + self::OFF_SIGNAL_A, 7);
@@ -356,9 +390,9 @@ return new class extends TestCase {
 
         $this->call('_pedestrianTask_8c028e00')->with(0, $ped);
 
-        $this->shouldCall('_markPedCrossing_8c02897a')->with(9);
+        $this->shouldCall('_SignalMarkPedCrossing_8c02897a')->with(9);
         $this->shouldCall('_CollisionQueueAdd_8c02e48e')->with($ped);
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(0);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(0);
         $this->shouldWriteFloat($ped + self::OFF_PATH_POS, 16.0); // +speed*3
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 1); // extra bump for the slow case
         $this->shouldWriteLong($ped + self::OFF_ANIM_PHASE, 2);

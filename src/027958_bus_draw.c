@@ -10,7 +10,7 @@
 #include "020b6c_ground_probe.h" /* GroundProbeTrackPolygonAtHeight_8c021290, GroundProbeInterpolateHeight_8c020f7e */
 #include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */
 #include "022464_render.h"         /* RenderPushCall2_8c022420 */
-#include "028258_objects.h"      /* TrafficSignal */
+#include "028258_traffic_signal.h" /* TrafficSignal */
 #include "027958_bus_draw.h"
 
 /* ====================

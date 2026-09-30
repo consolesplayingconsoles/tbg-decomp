@@ -40,7 +40,7 @@
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_activeAttrGrid_8c228b3c
-          .IMPORT     _ObjectsClearCrossingOccupied_8c028958
+          .IMPORT     _SignalClearCrossingOccupied_8c028958
           .IMPORT     _var_occupiedGroup_8c228b44
           .IMPORT     _var_trafficPresetTable_8c227e18
           .IMPORT     _RenderPushCall1_8c0223ea
@@ -2300,7 +2300,7 @@ LP_GEN_74201:
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C0277F0
           .DATA.L _var_activeGroundGrid_8c2264d4 ; H'8C0277F4
           .DATA.L _var_activeAttrGrid_8c228b3c ; H'8C0277F8
-          .DATA.L _ObjectsClearCrossingOccupied_8c028958 ; H'8C0277FC
+          .DATA.L _SignalClearCrossingOccupied_8c028958 ; H'8C0277FC
           .DATA.L _var_occupiedGroup_8c228b44 ; H'8C027800
           .DATA.L H'0000FF00 ; H'8C027804
           .DATA.L _var_busState_8c1bb9d0+H'3BC ; H'8C027808 (scenePresetIds_0x3bc)

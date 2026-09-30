@@ -24,12 +24,12 @@
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _var_segmentModels_8c1bc3f0
           .EXPORT     _TileDrawPushTask_8c0222dc
-          .EXPORT     _var_simpleLightDir_8c2264d8 ; 028258_objects
+          .EXPORT     _var_simpleLightDir_8c2264d8 ; 0289ac_objects
                                                    ; 02d06c_stop_draw
-          .EXPORT     _var_mirrorSimpleLightDir_8c2264e4 ; 028258_objects
-          .EXPORT     _var_simpleLightIntensity_8c2264f0 ; 028258_objects
+          .EXPORT     _var_mirrorSimpleLightDir_8c2264e4 ; 0289ac_objects
+          .EXPORT     _var_simpleLightIntensity_8c2264f0 ; 0289ac_objects
                                                          ; 02d06c_stop_draw
-          .EXPORT     _var_simpleLightColor_8c2264f8 ; 028258_objects
+          .EXPORT     _var_simpleLightColor_8c2264f8 ; 0289ac_objects
                                                      ; 02d06c_stop_draw
           .EXPORT     _var_tileDrawSpan_8c226504 ; 013ae8_route_load
           .EXPORT     _var_tileDrawRadius_8c226508 ; 013ae8_route_load

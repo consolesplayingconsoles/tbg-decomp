@@ -13,7 +13,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_trafficSignalTasks_8c227e20'), 0xffffffff);
         $this->initUint32($this->addressOf('_var_trafficSignalFrames_8c227e24'), 0xffffffff);
 
-        $this->call('_ObjectsFreeTrafficSignals_8c0288be');
+        $this->call('_SignalFree_8c0288be');
     }
 
     public function test_frees_task_group_when_allocated()
@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_trafficSignalTasks_8c227e20'), $tasks);
         $this->initUint32($this->addressOf('_var_trafficSignalFrames_8c227e24'), 0xffffffff);
 
-        $this->call('_ObjectsFreeTrafficSignals_8c0288be');
+        $this->call('_SignalFree_8c0288be');
 
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($tasks);
         $this->shouldCall('_syFree')->with($tasks);
@@ -43,7 +43,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_trafficSignalFrames_8c227e24'), $slots);
         $this->initUint32($this->addressOf('_var_trafficSignalStates_8c227e28'), $table);
 
-        $this->call('_ObjectsFreeTrafficSignals_8c0288be');
+        $this->call('_SignalFree_8c0288be');
 
         $this->shouldCall('_syFree')->with($slots);
         $this->shouldCall('_syFree')->with($table);

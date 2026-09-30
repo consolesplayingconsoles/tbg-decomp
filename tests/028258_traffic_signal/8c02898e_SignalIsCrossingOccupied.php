@@ -10,7 +10,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_crossingOccupiedFlags_8c22802c');
         $this->initUint32($base + 3 * 4, 0x88888888);
 
-        $this->call('_isCrossingOccupied_8c02898e')->with(3);
+        $this->call('_SignalIsCrossingOccupied_8c02898e')->with(3);
 
         $this->shouldReturn(0x88888888);
     }

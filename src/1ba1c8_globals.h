@@ -219,7 +219,7 @@ typedef struct {
      * search forward/backward from currentLineNodeIdx_0x33c, 2 = idle/done);
      * armed by the same two buttons that toggle signalSide_0x25c, in
      * mapped-route steering mode (024280.c). Despite the name, unrelated to
-     * the O_FUMI_* railway level crossing (028258_objects.c) -- "crossing"
+     * the O_FUMI_* railway level crossing (0289ac_objects.c) -- "crossing"
      * here means a route-line intersection, not the railway. */
     int laneTargetSearchDone_0x334;
     int laneTargetSearchSide_0x338;

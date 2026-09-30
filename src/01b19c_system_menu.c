@@ -9,7 +9,7 @@
 #include "014f54_sprite.h"
 #include "014b8c_backup.h"
 #include "011120_asset_queues.h"
-#include "028258_objects.h"
+#include "0289ac_objects.h"
 #include "022464_render.h"
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"

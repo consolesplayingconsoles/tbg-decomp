@@ -38,7 +38,7 @@ void StopDrawWaitingPassengers_8c02d06c(int layer)
     }
 }
 
-/* Sibling of setSimpleLightCallback_8c02a5d0 (028258_objects), but always
+/* Sibling of setSimpleLightCallback_8c02a5d0 (0289ac_objects), but always
  * takes the layer-0 light direction and adds the constant-attr/material
  * setup. var_passengerFadeColor_8c228960's alpha is what makes passengers
  * fade out and back in between waypoints. */

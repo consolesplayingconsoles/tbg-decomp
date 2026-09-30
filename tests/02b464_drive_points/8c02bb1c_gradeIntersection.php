@@ -10,7 +10,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_runState_8c2285c4');
 
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
-        $this->setSize('_ObjectsGetTrafficSignalFrame_8c028900', 4);
+        $this->setSize('_SignalGetFrame_8c028900', 4);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_playerBus_8c1bbd9c', 4); // BusState*, allocated via alloc()
 
@@ -46,7 +46,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(0);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(0);
         $this->shouldCall('_adjust_8c02b464')->with(0x13, 0xffffffb0); // -80
         $this->shouldCall('_armCooldowns_8c02b578')->with(5);
 
@@ -66,7 +66,7 @@ return new class extends TestCase {
 
         $this->call('_gradeIntersection_8c02bb1c');
 
-        $this->shouldCall('_ObjectsGetTrafficSignalFrame_8c028900')->with(7)->andReturn(0);
+        $this->shouldCall('_SignalGetFrame_8c028900')->with(7)->andReturn(0);
 
         $this->shouldWriteLong($base + 0x30, 4);
     }

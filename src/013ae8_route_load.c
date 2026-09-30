@@ -10,7 +10,7 @@
 #include "02171c_tile_stream.h"
 #include "021b9c_tile_draw.h"
 #include "026710_traffic.h"
-#include "028258_objects.h"
+#include "0289ac_objects.h"
 #include "02af78_event.h"
 #include "02c884_bus_stop.h"
 #include "02b464_drive_points.h"

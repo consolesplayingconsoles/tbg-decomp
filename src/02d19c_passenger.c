@@ -12,7 +12,7 @@
 #include "022464_render.h"
 #include "0100bc_sound.h"
 #include "024b4c_bus_render.h"
-#include "028258_objects.h"
+#include "0289ac_objects.h"
 #include "02c884_bus_stop.h"
 #include "02d06c_stop_draw.h"
 #include "02d19c_passenger.h"

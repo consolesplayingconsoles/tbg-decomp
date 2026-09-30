@@ -10,7 +10,7 @@
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
 #include "01f3c0_ending.h"
-#include "028258_objects.h"
+#include "0289ac_objects.h"
 #include "0100bc_sound.h"
 #include "02b464_drive_points.h"
 #include "014f54_sprite.h"

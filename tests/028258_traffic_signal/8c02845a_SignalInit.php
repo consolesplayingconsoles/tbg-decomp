@@ -17,7 +17,7 @@ return new class extends TestCase {
     }
 
     /**
-     * ObjectsInitTrafficSignals_8c02845a's stack slots for TaskPush's created_task / create_state
+     * SignalInit_8c02845a's stack slots for TaskPush's created_task / create_state
      * out-params. The two objects lay the frame out differently.
      */
     private function outParams(): array
@@ -65,7 +65,7 @@ return new class extends TestCase {
         $flagsVar = $this->addressOf('_var_trafficSignalFrames_8c227e24');
         $slotsVar = $this->addressOf('_var_trafficSignalStates_8c227e28');
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         // maxId == 0, so both buffers are (0 + 1) * 4 bytes.
         $this->shouldCall('_syMalloc')->with(4)->andReturn($flags);
@@ -92,7 +92,7 @@ return new class extends TestCase {
         $this->initUint32($flags + 0x08, 0);
         $slots = $this->alloc(3 * 4);
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         // maxId == 2, so both buffers are (2 + 1) * 4 bytes.
         $this->shouldCall('_syMalloc')->with(0xc)->andReturn($flags);
@@ -123,7 +123,7 @@ return new class extends TestCase {
         $this->addressOf('_var_routeModels_8c1bc3ec');
         $this->addressOf('_var_tasks_8c1ba5e8');
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         $this->shouldCall('_syMalloc')->with(8)->andReturn($flags);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
@@ -193,7 +193,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0xd4);
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         $this->shouldCall('_syMalloc')->with(0x10)->andReturn($flags);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
@@ -301,7 +301,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0xd4);
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         $this->shouldCall('_syMalloc')->with(0x10)->andReturn($flags);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
@@ -413,7 +413,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0xd4);
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         $this->shouldCall('_syMalloc')->with(0x10)->andReturn($flags);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);
@@ -519,7 +519,7 @@ return new class extends TestCase {
 
         $state = $this->alloc(0xd4);
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         $this->expectLinkedPrologue($flags, $slots, $group);
         [$taskLocal, $stateLocal] = $this->outParams();
@@ -556,7 +556,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0xd4);
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         $this->expectLinkedPrologue($flags, $slots, $group);
         [$taskLocal, $stateLocal] = $this->outParams();
@@ -591,7 +591,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0xd4);
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         $this->expectLinkedPrologue($flags, $slots, $group);
         [$taskLocal, $stateLocal] = $this->outParams();
@@ -752,7 +752,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0xd4);
 
-        $this->call('_ObjectsInitTrafficSignals_8c02845a');
+        $this->call('_SignalInit_8c02845a');
 
         $this->shouldCall('_syMalloc')->with(0xc)->andReturn($flags);
         $this->shouldWriteLong($this->addressOf('_var_trafficSignalFrames_8c227e24'), $flags);

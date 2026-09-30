@@ -5,7 +5,7 @@
 #include "016d2c_course_menu.h"
 #include "016108_resgrp_free.h"
 #include "01c980_profile_file.h" /* var_resourceGroup_8c2263a8 */
-#include "028258_objects.h" /* ObjectsFreeTextboxes_8c02af32 */
+#include "0289ac_objects.h" /* ObjectsFreeTextboxes_8c02af32 */
 #include "sectionB.h"
 
 /* ====================

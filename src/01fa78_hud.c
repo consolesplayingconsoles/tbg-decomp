@@ -6,7 +6,7 @@
 #include "014f54_sprite.h"
 #include "015034_text.h"
 #include "022464_render.h"
-#include "028258_objects.h"
+#include "028258_traffic_signal.h"
 #include "02b464_drive_points.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
@@ -385,8 +385,8 @@ STATIC void hudUpdateTask_8c01ff48() {
 
     if ((var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff000000U) != 0) {
         int index = (Sint8)((unsigned int)var_busState_8c1bb9d0.markCueByte_0x3b4 >> 0x18);
-        TrafficSignal *sig = ObjectsGetTrafficSignal_8c0288b2(index);
-        int frame = ObjectsGetTrafficSignalFrame_8c028900(index);
+        TrafficSignal *sig = SignalGet_8c0288b2(index);
+        int frame = SignalGetFrame_8c028900(index);
         messageArg = frame + 1;
 
         if (sig->attached_0xbc[0] == 0) {

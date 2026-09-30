@@ -54,7 +54,7 @@
           .AENDI
           .EXPORT     _RenderPushFadeOut_8c022b60
           .EXPORT     _var_drawCamera_8c226558 ; 021b9c_tile_draw
-                                               ; 028258_objects
+                                               ; 0289ac_objects
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _init_mirrorQuadLeft_8c045438

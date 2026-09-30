@@ -14,7 +14,8 @@
 #include "02e400_collision.h"
 #include "02e2dc_bus_collision.h"
 #include "023938_bus_drive.h"
-#include "028258_objects.h"
+#include "028258_traffic_signal.h"
+#include "0289ac_objects.h"
 #include "02c884_bus_stop.h"
 #include "014a9c_tasks.h"
 #include "022464_render.h"
@@ -462,7 +463,7 @@ STATIC void gradeOffCourse_8c02b886(void) {
  * traffic-signal state (var_busState_8c1bb9d0's 0x34c low
  * bits, an id in var_runState_8c2285c4.field_0x38[0]/[1]) across frames: a first-seen signal
  * with the player still moving grades a further penalty via
- * ObjectsGetTrafficSignalFrame_8c028900; a signal that goes away with the
+ * SignalGetFrame_8c028900; a signal that goes away with the
  * player stopped and the bus not driving through it grades another. */
 STATIC void gradeSignals_8c02b8b8(void) {
     int signalId;
@@ -474,7 +475,7 @@ STATIC void gradeSignals_8c02b8b8(void) {
 
     if ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0xfff) == 0) {
         if (var_runState_8c2285c4.field_0x38[0] != 0 && (var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000) == 0) {
-            if (ObjectsGetTrafficSignalFrame_8c028900(var_runState_8c2285c4.field_0x38[0] & 0xffff) == 0) {
+            if (SignalGetFrame_8c028900(var_runState_8c2285c4.field_0x38[0] & 0xffff) == 0) {
                 adjust_8c02b464(0x10, -70); /* -> INSTR_SIGNAL_VIOLATION */
             }
             armCooldowns_8c02b578(3);
@@ -486,7 +487,7 @@ STATIC void gradeSignals_8c02b8b8(void) {
         var_runState_8c2285c4.field_0x38[0] = signalId;
         var_runState_8c2285c4.field_0x38[1] = signalId;
         if (var_runState_8c2285c4.stopLineGraded_0x34 == 0 && var_frameSpeed_8c22866c == 0.0f
-            && ObjectsGetTrafficSignalFrame_8c028900(var_runState_8c2285c4.field_0x38[0]) == 0) {
+            && SignalGetFrame_8c028900(var_runState_8c2285c4.field_0x38[0]) == 0) {
             adjust_8c02b464(0x11, -5); /* -> INSTR_BAD_STOP_LINE */
             var_runState_8c2285c4.stopLineGraded_0x34 = 1;
         }
@@ -568,7 +569,7 @@ STATIC void gradeLaneUse_8c02b986(void) {
 
 /* Grades three unrelated driver-points penalties: a stale traffic signal
  * (busState junctionARoadFlags2_0x358/0x3b4, var_runState_8c2285c4.field_0x38[1] and
- * ObjectsGetTrafficSignalFrame_8c028900); speeding above a per-signal limit
+ * SignalGetFrame_8c028900); speeding above a per-signal limit
  * derived from busState junctionARoadFlags_0x34c, paced by
  * var_runState_8c2285c4.speedingCountdown_0x30; and a lane-change without the turn signal
  * armed (var_runState_8c2285c4.field_0x58[5] vs var_prevLane_8c228684,
@@ -582,7 +583,7 @@ STATIC void gradeIntersection_8c02bb1c(void) {
 
     if ((var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000) == 0
         && (var_busState_8c1bb9d0.markCueByte_0x3b4 & 0xff000000) != 0
-        && ObjectsGetTrafficSignalFrame_8c028900(var_runState_8c2285c4.field_0x38[1] & 0xffff) == 0
+        && SignalGetFrame_8c028900(var_runState_8c2285c4.field_0x38[1] & 0xffff) == 0
         && var_frameSpeed_8c22866c == 0.0f) {
         adjust_8c02b464(0x13, -80); /* -> INSTR_BLOCK_INTERSECTION */
         armCooldowns_8c02b578(5);
@@ -923,7 +924,7 @@ STATIC void onFadeRunFailed_8c02c76a(void) {
 STATIC void onFadeStopEnded_8c02c624(void) {
     if (DrivePointsRunComplete_8c02c586() == 0) {
         ObjectsFreePedestrianGroups_8c0297da();
-        ObjectsFreeTrafficSignals_8c0288be();
+        SignalFree_8c0288be();
         TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
         TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
@@ -950,7 +951,7 @@ STATIC void onFadeStopEnded_8c02c624(void) {
 void DrivePointsOnFadeDriveEnd_8c02c784(void) {
     if (DrivePointsRunComplete_8c02c586() == 0 && var_runState_8c2285c4.driverPoints_0x0c > 0) {
         ObjectsFreePedestrianGroups_8c0297da();
-        ObjectsFreeTrafficSignals_8c0288be();
+        SignalFree_8c0288be();
         TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
         TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);

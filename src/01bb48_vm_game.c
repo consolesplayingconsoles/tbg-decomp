@@ -13,7 +13,7 @@
 #include "01c980_profile_file.h"
 #include "022464_render.h"
 #include "0100bc_sound.h"
-#include "028258_objects.h"
+#include "0289ac_objects.h"
 #include "02fb50_sh4nlfzn_post_data.h"
 #include "014f54_sprite.h"
 #include "sectionB.h"
