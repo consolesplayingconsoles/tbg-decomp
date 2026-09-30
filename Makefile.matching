@@ -78,7 +78,6 @@ SRCS = \
 	src/asm/decompiled/02f0c8_traffic_path_scan.src \
 	src/asm/decompiled/02f320_replay_codec.src \
 	src/asm/04ce10_line_nodes.src \
-	src/asm/02fb50_sh4nlfzn.src \
 	src/02fb50_sh4nlfzn_post_data.c
 
 OBJS = $(patsubst src/%.c,$(OUTPUT_DIR)/src/%.obj,$(SRCS))
