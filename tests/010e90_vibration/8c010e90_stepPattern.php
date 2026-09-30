@@ -145,7 +145,7 @@ return new class extends TestCase {
     /**
      * The loop only ends on PDD_VIBERR_OK, so a pack that has gone away
      * (PDD_VIBERR_NO_VIBRATOR) would spin forever -- original-game
-     * behaviour, kept off the table by DriveCueTask_8c020214, which ticks
+     * behaviour, kept off the table by driveCueTask_8c020214, which ticks
      * only while var_vibport_8c1ba354 names a live pack.
      */
     public function test_a_non_busy_error_is_retried_just_the_same(): void

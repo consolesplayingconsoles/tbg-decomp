@@ -80,6 +80,11 @@ found by pairing: demo_input's one function is the playback half of replay_menu'
 test 2 had flagged. Layout can't separate them: split, demo_input would own
 `demoCursor`/`demoPrevOn` at the same addresses.
 
+`020528_drive_cue_init` + `020214_drive_cue_task` (merged as `020214_drive_cue`)
+are a task and its sole installer: init pushes the task and seeds its state.
+The pusher sits right after the task and neither has data, so layout can't
+separate them.
+
 ## `02d968_stop_spawn`: the case in detail
 
 - One function, 253 lines, **zero** private bss, one D blob.

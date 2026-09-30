@@ -102,7 +102,7 @@ void BusTask_8c022bdc(Task *task, void *state)
 
         BusInputUpdate_8c0246b2();
 
-        /* Requests the stop announcement DriveCueTask_8c020214 plays; only
+        /* Requests the stop announcement driveCueTask_8c020214 plays; only
          * the first A press of a drive counts. */
         if (var_driveCueState_8c2264b8.nearStopLatch_0x0c == 0 &&
             (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _DriveCueTask_8c020214(Task*, void*): ambient driving-cue task, see
- * 020214_drive_cue_task.h.
+ * _driveCueTask_8c020214(Task*, void*): ambient driving-cue task, see
+ * 020214_drive_cue.h.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -88,7 +88,7 @@ return new class extends TestCase {
 
         $task = $this->alloc(4);
 
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
     }
@@ -109,7 +109,7 @@ return new class extends TestCase {
         $this->initStruct(0, 0, 4 /* dead switch2 case */, 0, 0, 0, 1 /* firstChimeArmed_0x18 != 0 */);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldCall('_AsqGetRandomInRangeB_8c0121be')->with(6)->andReturn(2);
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 11, 0); // midiHandles[3] == 0 (zeroed alloc)
@@ -131,7 +131,7 @@ return new class extends TestCase {
         // var_8c1bbc4c already 0.0, below the ~0.0926 threshold.
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
@@ -146,7 +146,7 @@ return new class extends TestCase {
         $this->initUint32($this->struct() + 0x04, 5); // idleChimeTimer_0x04: still > 0 after decrement
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x04, 4); // idleChimeTimer_0x04 decrement, 5 -> 4
 
@@ -163,7 +163,7 @@ return new class extends TestCase {
         $this->initUint32($this->struct() + 0x04, 0); // decrements to -1, expires
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x04, -1); // idleChimeTimer_0x04 decrement, 0 -> -1
 
@@ -186,7 +186,7 @@ return new class extends TestCase {
         $this->initUint32($this->struct() + 0x04, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x04, -1); // idleChimeTimer_0x04 decrement, 0 -> -1
 
@@ -211,7 +211,7 @@ return new class extends TestCase {
         $this->initStruct(1, 5, 4, 0, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x04, 4);
 
@@ -226,7 +226,7 @@ return new class extends TestCase {
         $this->initStruct(1, 0, 4, 0, 0, 1, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x04, -1);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
@@ -251,7 +251,7 @@ return new class extends TestCase {
         $this->initStruct(4 /* dead switch1 case */, 0, 0, 0, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         // nearFlag took on nearStopLatch_0x0c's value (0) here, and var_cameraMode_8c227d9c<2
@@ -267,7 +267,7 @@ return new class extends TestCase {
         // ROUTE_SHINJUKU (0) already set by initInactiveWorld.
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 0x22, 0);
@@ -288,7 +288,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 0, 1, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 0x23, 0);
@@ -306,7 +306,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 0, 1, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         // No sdMidiPlay/stopAnnounceState_0x08 write -- inner block skipped. nearFlag
@@ -330,7 +330,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
@@ -346,7 +346,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 1, 0, 10, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 11);
@@ -364,7 +364,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
@@ -385,7 +385,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
@@ -406,7 +406,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
@@ -427,7 +427,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
@@ -448,7 +448,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 1, 0, 61, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 62);
@@ -468,7 +468,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 2, 0, 5, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, 4);
@@ -482,7 +482,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 2, 0, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x10, -1);
@@ -503,7 +503,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 3, 1 /* nearStopLatch_0x0c set */, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         // stopAnnounceState_0x08 stays 3 (no write). Marker chime gate forced to 0
@@ -518,7 +518,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 3, 0 /* nearStopLatch_0x0c unset */, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x08, 0);
@@ -539,7 +539,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 4, 1, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldCall('_AsqGetRandomB_8c0121a8')->andReturn(4); // even
@@ -556,7 +556,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 4, 1, 0, 1 /* already latched */, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         // No sdMidiPlay -- nearStopChimeLatch_0x14 already 1 and nearFlag matched, so
@@ -573,7 +573,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 4, 1, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldCall('_AsqGetRandomB_8c0121a8')->andReturn(5); // odd
@@ -590,7 +590,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 4, 1, 0, 1 /* previously latched */, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         // Not near any listed segment: latch resets to 0, no chime.
@@ -610,7 +610,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 4, 0, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
@@ -625,7 +625,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 4, 0, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x14, 0);
@@ -640,7 +640,7 @@ return new class extends TestCase {
         $this->initStruct(4, 0, 4, 0, 0, 0, 0);
 
         $task = $this->alloc(4);
-        $this->call('_DriveCueTask_8c020214')->with($task, 0);
+        $this->call('_driveCueTask_8c020214')->with($task, 0);
 
         $this->shouldWriteLong($this->struct() + 0x18, 0);
         $this->shouldWriteLong($this->struct() + 0x14, 0);

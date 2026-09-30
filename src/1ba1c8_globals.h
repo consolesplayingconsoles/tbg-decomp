@@ -314,7 +314,7 @@ typedef struct {
     char difficulty_0xc4;
     char driveMode_0xc5;
     char defaultView_0xc6;
-    char vibration_0xc7;  /* 0 is on -- DriveCueTask_8c020214 ticks rumble only while it reads 0 */
+    char vibration_0xc7;  /* 0 is on -- driveCueTask_8c020214 ticks rumble only while it reads 0 */
     /* 0 is on; nonzero holds the cockpit and first-person views level,
      * ignoring the bus's roll and pitch (BusRenderUpdateCamera_8c025078). */
     char screenRoll_0xc8;

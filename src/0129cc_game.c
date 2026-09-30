@@ -18,6 +18,7 @@
 #include "011120_asset_queues.h"
 #include "013ae8_route_load.h"
 #include "02b464_drive_points.h" /* DrivePointsReset_8c02c46a */
+#include "020214_drive_cue.h" /* DriveCueInit_8c020528 */
 #include "014b8c_backup.h"
 #include "018644_file_menu.h"
 #include "01a148_option.h"

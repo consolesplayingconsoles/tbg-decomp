@@ -22,7 +22,7 @@
  * =================
  */
 
-/* Ambient drive-cue state, owned by 020214_drive_cue_task (see its .h).
+/* Ambient drive-cue state, owned by 020214_drive_cue (see driveCueTask_8c020214).
  * Three fields are written from outside that unit: BusTask_8c022bdc (022bdc)
  * sets nearStopLatch_0x0c on the first A press of a drive and
  * BusStopUpdateArrival_8c02ce48 (02c884) clears it on a stop-heading

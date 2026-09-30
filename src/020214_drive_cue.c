@@ -1,6 +1,7 @@
 /* @unit DriveCue */
 #include <shinobi.h>
 
+#include "includes.h" /* STATIC */
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "01e27c_practice_menu.h" /* var_practiceLesson_8c22640c, var_practiceRules_8c226410 */
@@ -9,7 +10,7 @@
 #include "011120_asset_queues.h" /* AsqGetRandomB_8c0121a8, AsqGetRandomInRangeB_8c0121be */
 #include "010e90_vibration.h" /* VibStart_8c010f7a, VibUpdate_8c010fae */
 #include "0100bc_sound.h" /* SndPlayAdx_8c010cd6, var_midiHandles_8c0fcd28 */
-#include "020214_drive_cue_task.h"
+#include "020214_drive_cue.h"
 #include "02c884_bus_stop.h"
 #include "02b464_drive_points.h"
 
@@ -18,8 +19,24 @@
  * ====================
  */
 
-/* See 020214_drive_cue_task.h. */
-void DriveCueTask_8c020214(Task *task, void *state)
+/* Per-frame audio cue task for a drive, installed by DriveCueInit_8c020528
+ * on var_driveCueState_8c2264b8 (reached directly, not through the state
+ * param) and freed once the drive reaches its ending phase. Runs three
+ * independent cues:
+ *
+ * - an ambient chime plus pad rumble, replayed on a randomized timer while
+ *   the bus is above a low speed threshold
+ *   (idleChimeState_0x00/idleChimeTimer_0x04), plus a one-shot variant armed
+ *   by TrafficDriveVehicle_8c025b98;
+ * - the driver's own stop announcement (stopAnnounceState_0x08): a
+ *   route-specific chime, then the spoken stop name 60 frames later via
+ *   SndPlayAdx_8c010cd6, requested by nearStopLatch_0x0c;
+ * - a chime at a fixed list of per-route segments, third-person camera only
+ *   (nearStopChimeLatch_0x14).
+ *
+ * It is also what advances rumble playback, while the VIBRATION setting is
+ * on. */
+STATIC void driveCueTask_8c020214(Task *task, void *state)
 {
     int atCueSegment;
 
@@ -199,5 +216,22 @@ void DriveCueTask_8c020214(Task *task, void *state)
 
     if (var_vibport_8c1ba354 != (Uint32)-1 && var_progress_8c1ba1cc.vibration_0xc7 == 0) {
         VibUpdate_8c010fae(var_vibport_8c1ba354);
+    }
+}
+
+/* See 020214_drive_cue.h. */
+void DriveCueInit_8c020528()
+{
+    Task* created_task;
+    void* created_state;
+
+    if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
+        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &driveCueTask_8c020214, &created_task, &created_state, 0);
+        var_driveCueState_8c2264b8.idleChimeState_0x00 = 0;
+        var_driveCueState_8c2264b8.idleChimeTimer_0x04 = AsqGetRandomInRangeB_8c0121be(300) + 150;
+        var_driveCueState_8c2264b8.stopAnnounceState_0x08 = 3;
+        var_driveCueState_8c2264b8.nearStopLatch_0x0c = 1;
+        var_driveCueState_8c2264b8.nearStopChimeLatch_0x14 = 0;
+        var_driveCueState_8c2264b8.firstChimeArmed_0x18 = 0;
     }
 }

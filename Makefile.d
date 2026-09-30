@@ -38,8 +38,9 @@ $(OUTPUT_DIR)/src/0129cc_game.obj: src/02af78_event.h src/022464_fade.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/020914_ground_query.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/026710_traffic.h src/1ba1c8_globals.h src/includes.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/scif.h src/02b464_drive_points.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/018644_file_menu.h src/01a148_option.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/01bb48_vm_game.h src/01c980_profile_file.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/020214_drive_cue.h src/018644_file_menu.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/01a148_option.h src/01bb48_vm_game.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/01c980_profile_file.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/02fb50_sh4nlfzn_post_data.h src/023310_bus_init.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/025870_demo.h src/02d968_stop_spawn.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/0222dc_fadecmd.h src/02c884_bus_stop.h
@@ -296,32 +297,18 @@ $(OUTPUT_DIR)/src/01fa78_hud.obj: src/serial_debug.h src/02171c_tile_stream.h
 $(OUTPUT_DIR)/src/01fa78_hud.obj: src/02af78_event.h src/020914_ground_query.h
 $(OUTPUT_DIR)/src/01fa78_hud.obj: src/023938_bus_drive.h src/026710_traffic.h
 $(OUTPUT_DIR)/src/01fa78_hud.obj: src/1ba1c8_globals.h src/includes.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/sectionB.h src/01614c_replay_menu.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/014a9c_tasks.h src/014b8c_backup.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/011120_asset_queues.h src/serial_debug.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/02171c_tile_stream.h src/02af78_event.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/022464_fade.h src/028258_objects.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/020914_ground_query.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/023938_bus_drive.h src/026710_traffic.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/014f54_text.h src/015ab8_title.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/1ba1c8_globals.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/01e27c_practice_menu.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/010e90_vibration.h src/0100bc_sound.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/020214_drive_cue_task.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/02c884_bus_stop.h
-$(OUTPUT_DIR)/src/020214_drive_cue_task.obj: src/02b464_drive_points.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/014a9c_tasks.h src/020214_drive_cue_task.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/sectionB.h src/01614c_replay_menu.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/014b8c_backup.h src/013ae8_route_load.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/011120_asset_queues.h src/serial_debug.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/02171c_tile_stream.h src/02af78_event.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/022464_fade.h src/028258_objects.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/020914_ground_query.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/023938_bus_drive.h src/026710_traffic.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/014f54_text.h src/015ab8_title.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/1ba1c8_globals.h
-$(OUTPUT_DIR)/src/020528_drive_cue_init.obj: src/020528_drive_cue_init.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/includes.h src/sectionB.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/01614c_replay_menu.h src/014a9c_tasks.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/014b8c_backup.h src/013ae8_route_load.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/011120_asset_queues.h src/serial_debug.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/02171c_tile_stream.h src/02af78_event.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/022464_fade.h src/028258_objects.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/020914_ground_query.h src/023938_bus_drive.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/026710_traffic.h src/014f54_text.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/015ab8_title.h src/1ba1c8_globals.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/01e27c_practice_menu.h src/010e90_vibration.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/0100bc_sound.h src/020214_drive_cue.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/02c884_bus_stop.h src/02b464_drive_points.h
 $(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/includes.h src/serial_debug.h
 $(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/1ba1c8_globals.h src/011120_asset_queues.h
 $(OUTPUT_DIR)/src/020594_vehicle_model.obj: src/014a9c_tasks.h src/013ae8_route_load.h

@@ -9,7 +9,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  *
  * Just the gate in front of stepPattern_8c010e90 -- pattern 7 is
  * init_vibIdle_8c03be4c, where VibClear_8c010fbe parks the state, and it is
- * never stepped. DriveCueTask_8c020214 is the only caller and gates this
+ * never stepped. driveCueTask_8c020214 is the only caller and gates this
  * again on the player's vibration setting.
  */
 return new class extends TestCase {

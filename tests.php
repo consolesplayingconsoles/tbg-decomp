@@ -937,11 +937,12 @@ return [
         ],
         [
             "tests" => [
-                "tests/020214_drive_cue_task/8c020214_DriveCueTask.php",
+                "tests/020214_drive_cue/8c020214_driveCueTask.php",
+                "tests/020214_drive_cue/8c020528_DriveCueInit.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/020214_drive_cue_task.obj",
-                "build/output_test/src/020214_drive_cue_task.obj",
+                "build/output_test/src/asm/decompiled/020214_drive_cue.obj",
+                "build/output_test/src/020214_drive_cue.obj",
             ]
         ],
         [
