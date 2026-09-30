@@ -134,7 +134,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);
 
         // Allocate string constant for "\\SYSTEM"
         $this->rellocate('_const_8c036290', $this->allocString("\\SYSTEM"));

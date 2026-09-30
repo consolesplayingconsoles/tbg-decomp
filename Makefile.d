@@ -152,16 +152,17 @@ $(OUTPUT_DIR)/src/016d2c_course_menu.obj: src/includes.h src/strings.h
 $(OUTPUT_DIR)/src/016d2c_course_menu.obj: src/strings_ja_jp.sjis.h
 $(OUTPUT_DIR)/src/018644_file_menu.obj: src/018644_file_menu.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/018644_file_menu.obj: src/011120_asset_queues.h src/serial_debug.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/014b8c_backup.h src/0193c8_vm_menu.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/014b8c_backup.h src/016d2c_course_menu.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/015ab8_title.h src/0193c8_vm_menu.h
 $(OUTPUT_DIR)/src/018644_file_menu.obj: src/019e98_main_menu.h src/0100bc_sound.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/014f54_text.h src/015ab8_title.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/028258_objects.h src/01bb48_vm_game.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/01b19c_system_menu.h src/022464_fade.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/sectionB.h src/01614c_replay_menu.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/013ae8_route_load.h src/02171c_tile_stream.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/02af78_event.h src/020914_ground_query.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/023938_bus_drive.h src/026710_traffic.h
-$(OUTPUT_DIR)/src/018644_file_menu.obj: src/1ba1c8_globals.h src/includes.h src/strings.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/014f54_text.h src/028258_objects.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/01bb48_vm_game.h src/01b19c_system_menu.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/022464_fade.h src/sectionB.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/01614c_replay_menu.h src/013ae8_route_load.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/02171c_tile_stream.h src/02af78_event.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/020914_ground_query.h src/023938_bus_drive.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/026710_traffic.h src/1ba1c8_globals.h
+$(OUTPUT_DIR)/src/018644_file_menu.obj: src/includes.h src/strings.h
 $(OUTPUT_DIR)/src/018644_file_menu.obj: src/strings_ja_jp.sjis.h
 $(OUTPUT_DIR)/src/0193c8_vm_menu.obj: src/0100bc_sound.h src/0193c8_vm_menu.h
 $(OUTPUT_DIR)/src/0193c8_vm_menu.obj: src/014a9c_tasks.h src/018644_file_menu.h
@@ -531,16 +532,17 @@ $(OUTPUT_DIR)/src/028258_objects.obj: src/011120_asset_queues.h src/serial_debug
 $(OUTPUT_DIR)/src/028258_objects.obj: src/014a9c_tasks.h src/013ae8_route_load.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/02171c_tile_stream.h src/014f54_text.h
 $(OUTPUT_DIR)/src/028258_objects.obj: src/015ab8_title.h src/014b8c_backup.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/0100bc_sound.h src/0206f0_intersect.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/020914_ground_query.h src/020b6c_ground_probe.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/0222dc_fadecmd.h src/022464_fade.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/027958_bus_draw.h src/1ba1c8_globals.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/026710_traffic.h src/02d06c_stop_draw.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/02af78_event.h src/02e400_collision.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/02fb50_sh4nlfzn.h src/02b464_drive_points.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/sectionB.h src/01614c_replay_menu.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/01bb48_vm_game.h src/028258_objects.h
-$(OUTPUT_DIR)/src/028258_objects.obj: src/023938_bus_drive.h src/includes.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/016d2c_course_menu.h src/0100bc_sound.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/0206f0_intersect.h src/020914_ground_query.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/020b6c_ground_probe.h src/0222dc_fadecmd.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/022464_fade.h src/027958_bus_draw.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/1ba1c8_globals.h src/026710_traffic.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/02d06c_stop_draw.h src/02af78_event.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/02e400_collision.h src/02fb50_sh4nlfzn.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/02b464_drive_points.h src/sectionB.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/01614c_replay_menu.h src/01bb48_vm_game.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/028258_objects.h src/023938_bus_drive.h
+$(OUTPUT_DIR)/src/028258_objects.obj: src/includes.h
 $(OUTPUT_DIR)/src/02af78_event.obj: src/02af78_event.h src/02b464_drive_points.h
 $(OUTPUT_DIR)/src/02af78_event.obj: src/sectionB.h src/01614c_replay_menu.h
 $(OUTPUT_DIR)/src/02af78_event.obj: src/014a9c_tasks.h src/014b8c_backup.h

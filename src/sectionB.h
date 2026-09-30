@@ -1,6 +1,6 @@
-/* 8c225fb0: undecompiled data section */
-#ifndef _225FB0_SECTIONB_H
-#define _225FB0_SECTIONB_H
+/* 8c225fe0: undecompiled data section */
+#ifndef _225FE0_SECTIONB_H
+#define _225FE0_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -323,13 +323,10 @@ typedef struct {
 } DriveMsgSlot;
 extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
-extern Sint8 var_coursesToUnlock_8c225fd4[];
-
 /* table index (into the EventEntry array pointed to by var_routeEvents_8c22851c)
  * chosen by EventPickForSegment_8c02b170, consumed by
  * EventApplyFlags_8c02b292 */
 extern int var_selectedEventEntry_8c228478;
-extern void* var_currentSysResGroupInfo_8c225fb0;
 /* Copied from var_currentCourse_8c1bb868.tileLayers_0x3c by
  * TileStreamInit_8c02175a; only the dims are read, the offset tables come
  * from var_datFiles_8c18adb4. */
@@ -367,13 +364,10 @@ extern Sint32 *var_trafficPresetTable_8c227e18;
  * indexes it by a script argument to resolve a traffic entry's path. */
 extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
-extern int var_dialogQueue_8c225fbc[4]; // TODO: Confirm length
-extern int var_instructorDialogActive_8c225fb4;
 extern int var_fogParam_8c226504;
 extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
-extern int var_menuTextboxCharLimit_8c225fb8;
 extern int var_profileUnlockedCount_8c2263a4; // saved into var_progress_8c1ba1cc.profileUnlockedCount_0x8c by 01b19c_system_menu
 extern char var_profileUnlocked_8c2263b4[56]; // one byte per PROFILE FILE grid slot (55 used, 1 pad byte); set by ProfileFile
 extern ResourceGroup* var_resourceGroup_8c2263a8;
@@ -399,4 +393,4 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-#endif // _225FB0_SECTIONB_H
+#endif // _225FE0_SECTIONB_H

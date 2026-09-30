@@ -4,6 +4,7 @@
 #include "011120_asset_queues.h"
 #include "014a9c_tasks.h"
 #include "014b8c_backup.h"
+#include "016d2c_course_menu.h"
 #include "0193c8_vm_menu.h"
 #include "019e98_main_menu.h"
 #include "0100bc_sound.h"

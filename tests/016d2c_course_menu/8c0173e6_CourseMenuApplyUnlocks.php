@@ -7,7 +7,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     public function test_basic_test()
     {
-        $this->setSize('_var_coursesToUnlock_8c225fd4', 4 * 9);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
 
         $this->initUint8($this->addressOf('_var_coursesToUnlock_8c225fd4') + 0, 6);

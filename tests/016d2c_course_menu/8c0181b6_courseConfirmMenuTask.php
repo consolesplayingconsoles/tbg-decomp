@@ -682,7 +682,5 @@ return new class extends TestCase {
         $this->setSize('_var_eventFlagsSnapshot_8c1ba2b8', 0x14); // 5 uint32 values
         $this->setSize('_var_profileFlagsSnapshot_8c1ba2cc', 0x14); // 5 uint32 values
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
-        $this->setSize('_var_currentSysResGroupInfo_8c225fb0', 4);
-        $this->setSize('_var_dialogQueue_8c225fbc', 0x10); // Array of dialog queue
     }
 };

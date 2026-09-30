@@ -126,6 +126,17 @@ enum {
 };
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+void* var_currentSysResGroupInfo_8c225fb0;
+int var_instructorDialogActive_8c225fb4;
+int var_menuTextboxCharLimit_8c225fb8;
+int var_dialogQueue_8c225fbc[6];
+STATIC Sint8 var_coursesToUnlock_8c225fd4[12];
+
+/* ====================
  * Forward Declarations
  * ====================
  */

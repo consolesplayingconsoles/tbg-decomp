@@ -1,20 +1,4 @@
-; 8c1bc4ac
-          .EXPORT     _var_currentSysResGroupInfo_8c225fb0 ; 0129cc_game
-                                                           ; 015ab8_title
-                                                           ; 016d2c_course_menu
-                                                           ; 018644_file_menu
-                                                           ; 01c980
-                                                           ; 01e27c
-          .EXPORT     _var_instructorDialogActive_8c225fb4 ; 016d2c_course_menu
-                                                           ; 01e27c
-                                                           ; 01f3c0
-          .EXPORT     _var_menuTextboxCharLimit_8c225fb8 ; 016d2c_course_menu
-                                                         ; 01e27c
-                                                         ; 01f3c0
-                                                         ; 028258
-          .EXPORT     _var_dialogQueue_8c225fbc ; 016d2c_course_menu
-                                                ; 01f3c0
-          .EXPORT     _var_coursesToUnlock_8c225fd4 ; 016d2c_course_menu
+; 8c225fe0
           .EXPORT     _var_saveBufCursor_8c225fe0 ; 018644
                                     ; 018644_file_menu
           .EXPORT     _var_loadedSaveSlots_8c225fe4 ; 018644
@@ -285,16 +269,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_currentSysResGroupInfo_8c225fb0:
-          .RES.B      4
-_var_instructorDialogActive_8c225fb4:
-          .RES.B      4
-_var_menuTextboxCharLimit_8c225fb8:
-          .RES.B      4
-_var_dialogQueue_8c225fbc:
-          .RES.B      24
-_var_coursesToUnlock_8c225fd4:
-          .RES.B      12
 _var_saveBufCursor_8c225fe0:
           .RES.B      4
 _var_loadedSaveSlots_8c225fe4:

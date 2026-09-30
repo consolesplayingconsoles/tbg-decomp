@@ -104,6 +104,10 @@ enum {
 };
 
 extern InstructorLine *init_instructorDialogs_8c044c08[66];
+extern void* var_currentSysResGroupInfo_8c225fb0;
+extern int var_instructorDialogActive_8c225fb4;
+extern int var_menuTextboxCharLimit_8c225fb8;
+extern int var_dialogQueue_8c225fbc[6];
 
 int CourseMenuInterpolateCursor_8c016d2c(void);
 void CourseMenuRequestCommonResources_8c01852c(void);

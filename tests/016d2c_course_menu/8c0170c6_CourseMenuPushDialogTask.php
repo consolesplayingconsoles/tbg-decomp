@@ -46,7 +46,6 @@ return new class extends TestCase {
     private function resolveSymbols()
     {
         $this->setSize('_var_tasks_8c1ba3c8', 4);
-        $this->setSize('_var_instructorDialogActive_8c225fb4', 4);
     }
 
     protected function isAsmObject(): bool

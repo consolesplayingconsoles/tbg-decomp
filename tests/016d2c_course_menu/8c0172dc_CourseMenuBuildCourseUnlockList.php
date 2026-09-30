@@ -191,7 +191,6 @@ return new class extends TestCase {
 
     public function resolveSymbols()
     {
-        $this->setSize('_var_coursesToUnlock_8c225fd4', 4 * 9);
         $this->setSize('_var_progress_8c1ba1cc', 0xd2);
     }
 

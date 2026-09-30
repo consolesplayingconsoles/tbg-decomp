@@ -327,7 +327,6 @@ return new class extends TestCase {
     public function resolveSymbols()
     {
         $this->setSize('_var_peripherals_8c1ba35c', 52 * 2);
-        $this->setSize('_var_instructorDialogActive_8c225fb4', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
         // Functions
         $this->setSize('_SndPlayAdx_8c010cd6', 0x4);

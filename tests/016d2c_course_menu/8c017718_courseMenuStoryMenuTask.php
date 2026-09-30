@@ -620,10 +620,8 @@ return new Class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
-        $this->setSize('_var_dialogQueue_8c225fbc', 4 * 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_instructorDialogActive_8c225fb4', 4); // dialog-running flag
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
         // menu-entry onSelect callback into the Save unit (address taken in a table)
         $this->setSize('_SystemMenuSwitchFromTask_8c01ba64', 4);
