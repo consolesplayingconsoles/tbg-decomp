@@ -384,7 +384,7 @@ STATIC int sortAndLoadDatQueue_8c011310() {
 
     syFree(temp);
 
-    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)taskLoadQueuedDats_8c0111b4, &created_task, &created_state, 0)) {
+    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedDats_8c0111b4, &created_task, &created_state, 0)) {
         return 0;
     }
 
@@ -631,7 +631,7 @@ STATIC int sortAndLoadNjQueue_8c0116b6() {
 
     syFree(temp);
 
-    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)taskLoadQueuedNjs_8c0114cc, &created_task, &created_state, 0)) {
+    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedNjs_8c0114cc, &created_task, &created_state, 0)) {
         return 0;
     }
 
@@ -1025,7 +1025,7 @@ STATIC int sortAndLoadPvmQueue_8c011d24() {
 
     syFree(temp);
 
-    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)taskLoadQueuedPvms_8c011b00, &created_task, &created_state, 0)) {
+    if (!TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskLoadQueuedPvms_8c011b00, &created_task, &created_state, 0)) {
         return 0;
     }
 
@@ -1158,7 +1158,7 @@ void AsqProcessQueues_8c011fe0(void *func, void *afterDatCallback, void *afterNj
     Task* created_task;
     TaskProcessQueuesState* created_state;
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)taskProcessQueues_8c011e80, &created_task, (void**) &created_state, 0x18);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskProcessQueues_8c011e80, &created_task, (void**) &created_state, 0x18);
     created_state->queue_0x00 = QUEUE_DAT;
     created_state->afterDatCallback_0x08 = afterDatCallback;
     created_state->afterNjCallback_0x0c = afterNjCallback;

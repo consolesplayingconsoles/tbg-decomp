@@ -762,13 +762,13 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
     }
 
     if (*script == 10) {
-        if (!TaskSpawn_8c014ae8(var_tasks_8c1bac28, (TaskAction)TrafficDriveDecoration_8c02656a, &task, &entryVoid, 0x514)) {
+        if (!TaskSpawn_8c014ae8(var_tasks_8c1bac28, TrafficDriveDecoration_8c02656a, &task, &entryVoid, 0x514)) {
             return 0;
         }
         e = (TrafficEntry *)entryVoid;
         e->isDecoration_0x2e4 = 1;
     } else {
-        if (!TaskSpawn_8c014ae8(var_tasks_8c1bac28, (TaskAction)TrafficDriveVehicle_8c025b98, &task, &entryVoid, 0x514)) {
+        if (!TaskSpawn_8c014ae8(var_tasks_8c1bac28, TrafficDriveVehicle_8c025b98, &task, &entryVoid, 0x514)) {
             return 0;
         }
         e = (TrafficEntry *)entryVoid;
@@ -992,7 +992,7 @@ void TrafficInit_8c02769e(void)
         var_nightLightColorStep_8c1bbdb8[2] = (var_nightLightColorOn_8c1bbdd0[2] - var_nightLightColorOff_8c1bbdc4[2]) / 20.0f;
     }
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (TaskAction)trafficUpdateTask_8c0275d4, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, trafficUpdateTask_8c0275d4, (Task **)&task, &state, 0);
     task->queuedItem_0x18 = (TrafficPlacement *)var_trafficPresetTable_8c227e18[var_activeTrafficPreset_8c227e14];
     task->counter_0x08 = 0;
     task->presetState_0x0c = 1;

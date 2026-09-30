@@ -526,17 +526,17 @@ void GameEnterDrive_8c01306e(void)
     InputSpawnTask_8c0128cc(1);
 
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
-        TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)pauseTask_8c012cbc, &created_task, &created_state, 0);
+        TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &pauseTask_8c012cbc, &created_task, &created_state, 0);
         TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &ReplayMenuDemoRecordTask_8c01677e, &created_task, &created_state, 0);
     } else {
         if (var_isAttractDemo_8c1bb8d4 == 0) {
-            TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)pauseToggleTask_8c012d06, &created_task, &created_state, 0);
+            TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &pauseToggleTask_8c012d06, &created_task, &created_state, 0);
         } else {
-            TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)pauseDemoEndTask_8c012d5a, &created_task, &created_state, 0);
+            TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &pauseDemoEndTask_8c012d5a, &created_task, &created_state, 0);
             created_task->field_0x08 = 0;
             created_task->field_0x0c = (void*) 0;
         }
-        TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (TaskAction)ReplayMenuDemoPlayTask_8c016bf4, &created_task, &created_state, 0);
+        TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &ReplayMenuDemoPlayTask_8c016bf4, &created_task, &created_state, 0);
         DemoStartTour_8c025af4();
     }
 

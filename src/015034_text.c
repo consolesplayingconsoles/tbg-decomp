@@ -822,7 +822,7 @@ void TxtStartAttractDemo_8c0159ac()
     Task *created_task;
     void *created_state;
     TaskSpawn_8c014ae8(
-        var_tasks_8c1ba3c8, (TaskAction)demoLoadTask_8c01594c, &created_task, &created_state, 0
+        var_tasks_8c1ba3c8, demoLoadTask_8c01594c, &created_task, &created_state, 0
     );
     created_task->field_0x08 = 0;
     var_playMode_8c1bb8d0 = 2;

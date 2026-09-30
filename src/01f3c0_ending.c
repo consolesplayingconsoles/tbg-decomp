@@ -374,8 +374,8 @@ void EndingStart_8c01f954(void)
 
     InputSpawnTask_8c0128cc(0);
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)GameTask_8c012f44, &gameTask, &gameTaskState, 0);
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)creditsTask_8c01f658, &creditsTaskHandle, &creditsTaskState, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, GameTask_8c012f44, &gameTask, &gameTaskState, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *) creditsTask_8c01f658, &creditsTaskHandle, &creditsTaskState, 0);
 
     var_menuState_8c1bc7a8.state_0x18 = 0;
     njGarbageTexture(var_tex_8c157af8, 3072);

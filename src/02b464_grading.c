@@ -899,7 +899,7 @@ STATIC void beginDriveEnd_8c02c738(void) {
     void *created_state;
 
     ReplayMenuKillDriveTasks_8c01614c();
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *)driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
     RenderStartFadeIn_8c022a9c(10);
 }
@@ -1175,7 +1175,7 @@ void GradeReset_8c02c46a(void) {
     void *created_state;
     int i;
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (TaskAction)taskCallback_8c02c072, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (void *)taskCallback_8c02c072, &created_task, &created_state, 0);
 
     var_runState_8c2285c4.runPhase_0x00 = 0;
     var_runState_8c2285c4.runPassed_0x04 = 0;

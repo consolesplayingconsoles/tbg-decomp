@@ -173,7 +173,7 @@ STATIC void startVmLoad_8c018784(void)
 
     LOG_DEBUG(("[FILE_SELECT] startVmLoad_8c018784: starting VMU load\n"));
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)loadFileTask_8c018644, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *)loadFileTask_8c018644, (Task **)&task, &state, 0);
     var_vmBusy_8c157a7c = 1;
     task->phase_0x08 = 0;
     task->counter_0x0c = 0;

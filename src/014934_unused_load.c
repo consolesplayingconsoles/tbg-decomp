@@ -24,7 +24,7 @@ void UnusedLoadSpawnTask_8c014934()
 
     TaskSpawn_8c014ae8(
         var_tasks_8c1ba3c8,
-        (TaskAction)RouteUnusedTask_8c014784,
+        (void *) &RouteUnusedTask_8c014784,
         (Task **) &task,
         &state,
         0

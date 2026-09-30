@@ -182,7 +182,7 @@ void SignalInit_8c02845a(void)
             continue;
         }
 
-        TaskSpawn_8c014ae8(var_trafficSignalTasks_8c227e20, (TaskAction)trafficSignalTask_8c028258,
+        TaskSpawn_8c014ae8(var_trafficSignalTasks_8c227e20, &trafficSignalTask_8c028258,
                           &task, (void **)&state, 0xd4);
         state->id_0x00 = def->id_0x04;
         state->counter_0x04 = def->linkedId_0x08;
@@ -232,7 +232,7 @@ void SignalInit_8c02845a(void)
             continue;
         }
 
-        TaskSpawn_8c014ae8(var_trafficSignalTasks_8c227e20, (TaskAction)linkedTrafficSignalTask_8c02833c,
+        TaskSpawn_8c014ae8(var_trafficSignalTasks_8c227e20, &linkedTrafficSignalTask_8c02833c,
                           &task, (void **)&state, 0xd4);
         for (slot = var_trafficSignalTasks_8c227e20; slot->action != NULL; slot++) {
             if (slot->action == (TaskAction)-1 || slot == task) {

@@ -166,7 +166,7 @@ void VmSelectMountAll_8c01940e()
             BupMount_8c014c00(drive);
     }
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)taskWaitForVmsReady_8c0193c8, &createdTask, &createdState, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &taskWaitForVmsReady_8c0193c8, &createdTask, &createdState, 0);
     var_vmMountBusy_8c22606c = 1;
 }
 

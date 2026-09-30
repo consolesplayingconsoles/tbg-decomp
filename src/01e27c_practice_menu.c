@@ -838,7 +838,7 @@ void PracticeMenuLessonRetry_8c01f21c(void)
 
     var_playMode_8c1bb8d0 = PLAY_MODE_PRACTICE;
     InputSpawnTask_8c0128cc(0);
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)GameTask_8c012f44, &created_task, &created_state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, GameTask_8c012f44, &created_task, &created_state, 0);
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, lessonMenuTask_8c01ebf2, &created_task, &created_state, 0);
 
     var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_INIT;
