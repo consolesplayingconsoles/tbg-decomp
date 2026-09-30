@@ -17,12 +17,12 @@ typedef struct {
 } DriveMsgSlot;
 extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
-/* DrawCallback1 (022464_render.h) for the banner stack: draws every
+/* DrawFn (022464_render.h) for the banner stack: draws every
  * var_driveMsgQueue_8c228564 slot still holding as a row of
  * 32x32 glyphs, the newest at y=192 and each older one 32 above it. Once
  * var_runState_8c2285c4.runPassed_0x04 is set it draws the run-passed mark instead, and
  * nothing else. Pushed per frame by taskCallback_8c02c072 (02b464) via
- * RenderPushCall1_8c0223ea. */
+ * RenderQueueDraw_8c0223ea. */
 void DriveMsgDraw_8c02b388(int unused);
 
 #endif // _02B2F0_DRIVE_MSG_H

@@ -41,7 +41,7 @@ return new class extends TestCase {
         $init8c0455a8 = $this->addressOf('_init_fadeQuad_8c0455a8');
         [$init8c0455b4, $init8c0455c4, $init8c0455d4, $init8c0455e4] = $this->colAddresses($init8c0455a8);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldWriteLong($this->addressOf('_var_fadePhase_8c227d7c'), 2);
@@ -68,7 +68,7 @@ return new class extends TestCase {
         $init8c0455a8 = $this->addressOf('_init_fadeQuad_8c0455a8');
         [$init8c0455b4, $init8c0455c4, $init8c0455d4, $init8c0455e4] = $this->colAddresses($init8c0455a8);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldWriteLong($this->addressOf('_var_fadeProgress_8c227d80'), 0x1004000);

@@ -9,7 +9,7 @@
 #include "014a9c_tasks.h"        /* Task */
 #include "021b9c_tile_draw.h"
 #include "02171c_tile_stream.h"  /* TileIndex, TileStreamDrawTile_8c021b34 */
-#include "022464_render.h"         /* RenderPushCall1/2 */
+#include "022464_render.h"         /* RenderQueueDraw, RenderQueueDraw2 */
 
 /* ====================
  * Non-initialized Globals
@@ -49,7 +49,7 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height);
  * Chunk "Easy" light model, layer 1 with "Simple" -- as coded, not a
  * mistake to normalize away. Never called by name from another unit --
  * reachable only via the function-pointer literal enqueueTask_8c0221d0
- * pushes to RenderPushCall2_8c022420 -- so it stays private here. */
+ * pushes to RenderQueueDraw2_8c022420 -- so it stays private here. */
 STATIC void drawTileGrid_8c021b9c(int width, int height)
 {
     int colStart, colEnd, rowStart, rowEnd;
@@ -131,7 +131,7 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
  * light direction/setup differs (var_mirrorSimpleLightDir_8c2264e4 and camera
  * var_mirrorCamera_8c1bb944, set up by enqueueTask_8c0221d0), everything else -- including the
  * per-layer Easy/Simple split -- is identical. Reachable only via the
- * function-pointer literal enqueueTask_8c0221d0 pushes to RenderPushCall2_8c022420,
+ * function-pointer literal enqueueTask_8c0221d0 pushes to RenderQueueDraw2_8c022420,
  * never called directly, so it stays private. */
 STATIC void drawTileGridMirror_8c021ec4(int width, int height)
 {
@@ -238,10 +238,10 @@ STATIC void enqueueTask_8c0221d0(Task *task, void *state)
     var_mirrorSimpleLightDir_8c2264e4[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
     njCalcVector(NULL, (NJS_VECTOR *)var_mirrorSimpleLightDir_8c2264e4, (NJS_VECTOR *)var_mirrorSimpleLightDir_8c2264e4);
 
-    RenderPushCall2_8c022420(0, drawTileGrid_8c021b9c, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
-    RenderPushCall2_8c022420(1, drawTileGridMirror_8c021ec4, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
-    RenderPushCall1_8c0223ea(0, (DrawCallback1)TileStreamDrawTile_8c021b34, (int)state);
-    RenderPushCall1_8c0223ea(1, (DrawCallback1)TileStreamDrawTile_8c021b34, (int)state);
+    RenderQueueDraw2_8c022420(0, drawTileGrid_8c021b9c, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
+    RenderQueueDraw2_8c022420(1, drawTileGridMirror_8c021ec4, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
+    RenderQueueDraw_8c0223ea(0, (DrawFn)TileStreamDrawTile_8c021b34, (int)state);
+    RenderQueueDraw_8c0223ea(1, (DrawFn)TileStreamDrawTile_8c021b34, (int)state);
 }
 
 /* Run-start setup for the tile draw pass. The two latched lighting records

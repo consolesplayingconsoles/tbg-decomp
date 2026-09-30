@@ -18,7 +18,7 @@ return new class extends TestCase {
         $this->setSize('_var_activeAttrGrid_8c228b3c', 4);
         $this->setSize('_SignalClearCrossingOccupied_8c028958', 4);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_RenderPushCall1_8c0223ea', 4);
+        $this->setSize('_RenderQueueDraw_8c0223ea', 4);
         $this->setSize('_TaskRunGroup_8c014b42', 4);
         $this->setSize('_var_tasks_8c1bac28', 4);
     }
@@ -88,8 +88,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($task + 0x0c, 2);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
@@ -129,8 +129,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x18, $newRec);
         $this->shouldWriteLong($task + 0x0c, 0);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
@@ -158,8 +158,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($task + 0x08, 4);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
@@ -193,8 +193,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x18, $rec + 0xc);
         $this->shouldWriteLong($task + 0x08, 0);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
@@ -228,8 +228,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x18, $rec + 0xc);
         $this->shouldWriteLong($task + 0x08, 0);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 };

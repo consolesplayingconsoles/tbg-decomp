@@ -11,17 +11,17 @@ return new class extends TestCase {
         $this->setSize('_TaskSpawn_8c014ae8', 4);
     }
 
-    public function test_starts_fade_in_task(): void {
+    public function test_starts_fade_out_task(): void {
         $this->resolveSymbols();
 
         $task = $this->alloc(0x20);
 
-        $this->call('_RenderPushFadeIn_8c022a9c')->with(30);
+        $this->call('_RenderStartFadeOut_8c022b60')->with(30);
 
         $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),
-                $this->addressOf('_fadeInTask_8c022a54'),
+                $this->addressOf('_fadeOutTask_8c022ad0'),
                 0xffffec, // &task on the stack
                 0xfffff0, // &state on the stack
                 0,
@@ -30,7 +30,8 @@ return new class extends TestCase {
                 $this->memory->writeUInt32($params[2], U32::of($task));
             });
         $this->shouldWriteLong($task + 0x08, 30);
-        $this->shouldWriteLong($this->addressOf('_var_fadeProgress_8c227d80'), 0xff000000);
+        $this->shouldWriteLong($task + 0x0c, 0);
+        $this->shouldWriteLong($this->addressOf('_var_fadeProgress_8c227d80'), 0);
         $this->shouldWriteLong($this->addressOf('_var_isFading_8c226568'), 1);
     }
 };

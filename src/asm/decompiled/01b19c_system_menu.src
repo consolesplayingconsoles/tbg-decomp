@@ -37,7 +37,7 @@
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _VmSelectUnmountAll_8c0194de
-          .IMPORT     _RenderPushFadeOut_8c022b60
+          .IMPORT     _RenderStartFadeOut_8c022b60
           .IMPORT     _PromptHandleBinary_8c016caa
           .IMPORT     _var_saveBuf_8c1ba2e0
           .IMPORT     _BupLoad_8c014bc6
@@ -56,7 +56,7 @@
           .IMPORT     _FileSelectFreeBuffers_8c0187d0
           .IMPORT     _CourseMenuEnter_8c017e18
           .IMPORT     _TaskSwitch_8c014b3e
-          .IMPORT     _RenderPushFadeIn_8c022a9c
+          .IMPORT     _RenderStartFadeIn_8c022a9c
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _AsqRequestDat_8c011182
@@ -774,7 +774,7 @@ LP_GEN_26888:
           .DATA.L _const_8c03830c ; H'8C01B6E4
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01B6E8
           .DATA.L _VmSelectUnmountAll_8c0194de ; H'8C01B6EC
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01B6F0
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01B6F0
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C01B6F4
           .DATA.L _var_saveBuf_8c1ba2e0 ; H'8C01B6F8
           .DATA.L _var_saveSlot_8c1ba350 ; H'8C01B6FC
@@ -1134,7 +1134,7 @@ LP_GEN_14610:
           .DATA.L _var_backupFileImageBuf_8c1ba348 ; H'8C01B9E0
           .DATA.L _syFree ; H'8C01B9E4
           .DATA.L _VmSelectUnmountAll_8c0194de ; H'8C01B9E8
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01B9EC
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01B9EC
           .DATA.L _var_vmMountBusy_8c22606c ; H'8C01B9F0
           .DATA.L _FileSelectFreeBuffers_8c0187d0 ; H'8C01B9F4
           .DATA.L _CourseMenuEnter_8c017e18 ; H'8C01B9F8
@@ -1272,7 +1272,7 @@ LP_GEN_62205:
           .DATA.L _VmSelectUpdateStatus_8c01967c ; H'8C01BB10
           .DATA.L _const_8c0380c8 ; H'8C01BB14
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C01BB18
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01BB1C
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01BB1C
           .DATA.L _AsqInitQueues_8c011f36 ; H'8C01BB20
           .DATA.L _AsqResetQueues_8c011f6c ; H'8C01BB24
           .DATA.L _var_vmuIconFileBuf_8c1ba344 ; H'8C01BB28

@@ -531,7 +531,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         if (press & PDD_DGT_TA) {
             CHANGE_STATE(FILE_SELECT_STATE_ERROR_FADE_OUT);
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-            RenderPushFadeOut_8c022b60(10);
+            RenderStartFadeOut_8c022b60(10);
             return;
         }
         MessageBoxMenuTextboxText_8c02af1c(0xff);
@@ -572,7 +572,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
         } else if (press & PDD_DGT_TB) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             CHANGE_STATE(FILE_SELECT_STATE_CANCEL_FADE_OUT);
-            RenderPushFadeOut_8c022b60(10);
+            RenderStartFadeOut_8c022b60(10);
         } else if (press & PDD_DGT_TA) {
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             if (var_fileCards_8c226018[var_menuState_8c1bc7a8.cursorCol_0x3c +
@@ -622,7 +622,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);
-            RenderPushFadeOut_8c022b60(10);
+            RenderStartFadeOut_8c022b60(10);
         } else if (press & PDD_DGT_TB) {
             CHANGE_STATE(FILE_SELECT_STATE_READY);
             MessageBoxSwapFor_8c02aefc("");
@@ -685,5 +685,5 @@ void FileSelectEnter_8c019334(Task *task)
     }
     var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
-    RenderPushFadeIn_8c022a9c(10);
+    RenderStartFadeIn_8c022a9c(10);
 }

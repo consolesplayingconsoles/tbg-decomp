@@ -17,14 +17,14 @@
           .IMPORT     _MessageBoxSwapFor_8c02aefc
           .IMPORT     _SndStopBgm_8c010d8a
           .IMPORT     _SndPlayAdx_8c010cd6
-          .IMPORT     _RenderPushFadeIn_8c022a9c
+          .IMPORT     _RenderStartFadeIn_8c022a9c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _sdMidiPlay
           .IMPORT     _CourseMenuInterpolateCursor_8c016d2c
           .IMPORT     _PromptHandleBinary_8c016caa
           .IMPORT     _var_selectedVm_8c1ba34c
-          .IMPORT     _RenderPushFadeOut_8c022b60
+          .IMPORT     _RenderStartFadeOut_8c022b60
           .IMPORT     _FileSelectResetNewGame_8c01895e
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _MessageBoxMenuTextboxText_8c02af1c
@@ -933,7 +933,7 @@ LP_GEN_31723:
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C019A20
           .DATA.L _SndStopBgm_8c010d8a ; H'8C019A24
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C019A28
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C019A2C
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C019A2C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C019A30
 LAB_8c019a34:
           ADD         #H'1,R14
@@ -1312,7 +1312,7 @@ LP_GEN_17403:
           .RES.W 1 ; H'8C019CDA
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C019CDC
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C019CE0
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C019CE4
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C019CE4
           .DATA.L _init_vmuStatusMessages_8c044dc4 ; H'8C019CE8
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C019CEC
           .DATA.L _FileSelectResetNewGame_8c01895e ; H'8C019CF0
@@ -1522,7 +1522,7 @@ LP_GEN_77899:
           .DATA.L __quick_evn_mvn ; H'8C019E6C
           .DATA.L _init_vmuStatusMessages_8c044dc4 ; H'8C019E70
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C019E74
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C019E78
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C019E78
           .DATA.L _FileSelectEnter_8c019334 ; H'8C019E7C
           .DATA.L _SpriteDraw_8c014f54 ; H'8C019E80
           .DATA.L _init_adxPlaying_8c03bd80 ; H'8C019E84

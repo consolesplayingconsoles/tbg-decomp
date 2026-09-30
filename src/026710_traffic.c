@@ -840,7 +840,7 @@ STATIC Sint32 spawnEntry_8c0272b8(Uint32 typeCode, float progress, Uint16 *scrip
 }
 
 /* Sets Chunk simple/easy light direction from one of two fixed light-dir
- * vectors, selected by flag. Installed as a DrawCallback1 (arg passed
+ * vectors, selected by flag. Installed as a DrawFn (arg passed
  * through as flag) by spawnEntry_8c0272b8's caller. */
 STATIC void applyTrafficLighting_8c02756a(int flag)
 {
@@ -891,7 +891,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * the cursor to the next record (+0xc) and resets the counter.
  *
  * Finally re-applies the two fixed light directions (applyTrafficLighting_8c02756a,
- * one RenderPushCall1 per draw layer) and runs every vehicle task spawned
+ * one RenderQueueDraw per draw layer) and runs every vehicle task spawned
  * above to completion (TaskRunGroup_8c014b42 on var_tasks_8c1bac28).
  */
 STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
@@ -940,8 +940,8 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
         }
     }
 
-    RenderPushCall1_8c0223ea(0, applyTrafficLighting_8c02756a, 0);
-    RenderPushCall1_8c0223ea(1, applyTrafficLighting_8c02756a, 1);
+    RenderQueueDraw_8c0223ea(0, applyTrafficLighting_8c02756a, 0);
+    RenderQueueDraw_8c0223ea(1, applyTrafficLighting_8c02756a, 1);
     TaskRunGroup_8c014b42(var_tasks_8c1bac28);
 }
 

@@ -231,7 +231,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuState + 0x18, 7);
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 0, 0);
         $this->shouldCall('_VmSelectUnmountAll_8c0194de');
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
         $this->expectDrawTail($menuState, 2, 0);
     }
 
@@ -281,7 +281,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuState + 0x18, 7);
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 1, 0);
         $this->shouldCall('_VmSelectUnmountAll_8c0194de');
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
         $this->expectDrawTail($menuState, 0, 0);
     }
 
@@ -324,7 +324,7 @@ return new class extends TestCase {
         // state=8 is written in the JSR delay slot, before VmSelectUnmountVms runs.
         $this->shouldWriteLong($menuState + 0x18, 8);
         $this->shouldCall('_VmSelectUnmountAll_8c0194de');
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
         $this->expectPromptTail($menuState, 0, 3, 0);
     }
 

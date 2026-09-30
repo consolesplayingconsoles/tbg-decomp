@@ -79,7 +79,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
 
             AsqFreeQueues_8c011f7e();
             CHANGE_STATE(MAIN_MENU_STATE_FADE_IN);
-            RenderPushFadeIn_8c022a9c(10);
+            RenderStartFadeIn_8c022a9c(10);
             return;
         }
 
@@ -113,7 +113,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
             } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 CHANGE_STATE(MAIN_MENU_STATE_SELECTED);
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
             }
             break;
         }

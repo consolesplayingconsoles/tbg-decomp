@@ -32,9 +32,9 @@
           .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _SndStopBgm_8c010d8a
-          .IMPORT     _RenderPushFadeIn_8c022a9c
+          .IMPORT     _RenderStartFadeIn_8c022a9c
           .IMPORT     _SndMidiResetFxAndPlay_8c010846
-          .IMPORT     _RenderPushFadeOut_8c022b60
+          .IMPORT     _RenderStartFadeOut_8c022b60
           .IMPORT     _MainMenuEnter_8c01a09a
           .IMPORT     _MessageBoxMenuTextboxText_8c02af1c
           .IMPORT     _AsqGetRandomA_8c012166
@@ -1592,7 +1592,7 @@ LP_GEN_90654:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C0177E8
           .DATA.L _SndStopBgm_8c010d8a ; H'8C0177EC
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C0177F0
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C0177F4
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C0177F4
 LAB_8c0177f8:
           MOV.L       LP_GEN_86103+2,R3
           MOV.L       @R3,R2
@@ -1922,7 +1922,7 @@ LP_GEN_86103:
           .DATA.L _SndMidiResetFxAndPlay_8c010846 ; H'8C017A5C
           .DATA.L _const_8c03628c ; H'8C017A60
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C017A64
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C017A68
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C017A68
           .DATA.L _var_currentSysResGroupInfo_8c225fb0 ; H'8C017A6C
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C017A70
           .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C017A74
@@ -2116,11 +2116,11 @@ LP_GEN_86246:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C017BEC
           .DATA.L _SndStopBgm_8c010d8a ; H'8C017BF0
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C017BF4
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C017BF8
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C017BF8
           .DATA.L _var_instructorDialogActive_8c225fb4 ; H'8C017BFC
           .DATA.L _const_8c03628c ; H'8C017C00
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C017C04
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C017C08
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C017C08
 LAB_8c017c0c:
           MOV.L       @R4,R1
           TST         R1,R1
@@ -2555,7 +2555,7 @@ LP_GEN_67544:
           .DATA.L _AsqNop_8c011120 ; H'8C017F74
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C017F78
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C017F7C
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C017F80
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C017F80
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C017F84
           .DATA.L _InputSpawnTask_8c0128cc ; H'8C017F88
           .DATA.L _TaskSpawn_8c014ae8 ; H'8C017F8C
@@ -3052,10 +3052,10 @@ LP_GEN_82242:
           .DATA.L _var_isFading_8c226568 ; H'8C018384
           .DATA.L _RouteGetLatch_8c01432a ; H'8C018388
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01838C
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C018390
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C018390
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C018394
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C018398
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01839C
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01839C
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C0183A0
           .DATA.L _var_firstClearOfCourse_8c1bb8e0 ; H'8C0183A4
           .DATA.L __divls ; H'8C0183A8

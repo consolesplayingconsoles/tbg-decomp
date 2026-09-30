@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_RenderPushCall1_8c0223ea', 4);
+        $this->setSize('_RenderQueueDraw_8c0223ea', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
         $this->setSize('_var_route_8c18ad1c', 4);
@@ -107,7 +107,7 @@ return new class extends TestCase {
 
         $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(1, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
@@ -141,7 +141,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x14, 0x20);
         $this->shouldWriteFloat($state + 0x0c, 9.0 - 0.18000000715255737);
         $this->shouldWriteLong($state + 0x04, 5);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
@@ -156,7 +156,7 @@ return new class extends TestCase {
 
         $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
@@ -173,7 +173,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($state + 0x04, 0);
         $this->shouldWriteLong($state + 0x28, 1);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
         $this->shouldWriteLongTo('_var_passengerActed_8c228958', 1);
     }
 
@@ -185,7 +185,7 @@ return new class extends TestCase {
 
         $this->call('_PassengerBoardTask_8c02d21c')->with(0, $state);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(2, $this->addressOf('_drawPassengerSprite_8c02d19c'), $state);
     }
 
     public function test_default_does_nothing_but_set_flag(): void

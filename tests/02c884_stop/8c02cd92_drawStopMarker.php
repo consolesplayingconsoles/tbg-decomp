@@ -8,7 +8,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
  * _drawStopMarker_8c02cd92(int arg0): draws the "fuu" stop-marker model at
  * the upcoming stop's position (var_nextStopPoint_8c228900),
  * facing its heading (var_nextStopHeading_8c228714) and animated by the frame counter
- * var_fuuFrame_8c1bc44c. Installed as a DrawCallback1; arg0 is unused.
+ * var_fuuFrame_8c1bc44c. Installed as a DrawFn; arg0 is unused.
  *
  * Ghidra's decompile folded all three var_nextStopPoint_8c228900 fields into
  * one repeated "DAT_8c228904" reference (and invented a used float

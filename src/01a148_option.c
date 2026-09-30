@@ -137,12 +137,12 @@ STATIC void settingTask_8c01a148(Task *task)
                     FileSelectResetSettingDefaults_8c018862();   /* DEFAULT: no phase change */
                 } else {
                     CHANGE_STATE(OPTION_STATE_FADE_OUT);       /* RETURN -> fade out */
-                    RenderPushFadeOut_8c022b60(10);
+                    RenderStartFadeOut_8c022b60(10);
                 }
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
                 CHANGE_STATE(OPTION_STATE_FADE_OUT);
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             } else if (press & PDD_DGT_KU) {
                 m->selected_0x38 -= 1;
@@ -218,7 +218,7 @@ STATIC void switchToSetting_8c01a3c0(Task *task)
     TaskSwitch_8c014b3e(task, settingTask_8c01a148);
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
-    RenderPushFadeIn_8c022a9c(10);
+    RenderStartFadeIn_8c022a9c(10);
 }
 
 /* Cycle a signed-byte option value with the L/R buttons, wrapping in [0, count). */
@@ -318,12 +318,12 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
                     FileSelectResetKeyConfigDefaults_8c0188bc();
                 } else {
                     CHANGE_STATE(KEY_CONFIG_FADE_OUT);
-                    RenderPushFadeOut_8c022b60(10);
+                    RenderStartFadeOut_8c022b60(10);
                 }
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
                 CHANGE_STATE(KEY_CONFIG_FADE_OUT);
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             } else if (press & PDD_DGT_KU) {
                 m->selected_0x38 -= 1;
@@ -441,7 +441,7 @@ STATIC void switchToKeyConfig_8c01a89c(Task *task)
     TaskSwitch_8c014b3e(task, keyConfigTask_8c01a50c);
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
-    RenderPushFadeIn_8c022a9c(10);
+    RenderStartFadeIn_8c022a9c(10);
 }
 /*
  * AUDIO value-edit poll: cycles a byte option with L/R (via cycleValue), and on
@@ -590,13 +590,13 @@ STATIC void audioTask_8c01ab08(Task *task)
                 } else {
                     CHANGE_STATE(AUDIO_FADE_OUT);
                     SndSetSoundMode_8c0108c0(var_soundMode_8c226070);
-                    RenderPushFadeOut_8c022b60(10);
+                    RenderStartFadeOut_8c022b60(10);
                 }
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
                 CHANGE_STATE(AUDIO_FADE_OUT);
                 SndSetSoundMode_8c0108c0(var_soundMode_8c226070);
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             } else if (press & PDD_DGT_KU) {
                 m->selected_0x38 -= 1;
@@ -741,7 +741,7 @@ STATIC void switchToAudio_8c01afd8(Task *task)
     var_voiceTestDigits_8c226088[2] = 0;
     var_voiceTestDigits_8c226088[1] = 0;
     var_voiceTestDigits_8c226088[0] = 0;
-    RenderPushFadeIn_8c022a9c(10);
+    RenderStartFadeIn_8c022a9c(10);
 }
 
 /*
@@ -769,13 +769,13 @@ STATIC void topMenuTask_8c01b00a(Task *task)
                 CHANGE_STATE(TOP_MENU_FADE_OUT);
                 m->returnAction_0x70 = (int)init_topMenuActions_8c044e28[m->selected_0x38];
                 m->returnActionArg_0x74 = 2;
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
                 CHANGE_STATE(TOP_MENU_FADE_OUT);
                 m->returnAction_0x70 = (int)MainMenuEnter_8c01a09a;
                 m->returnActionArg_0x74 = 2;
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             } else if (press & PDD_DGT_KU) {
                 m->selected_0x38 -= 1;
@@ -819,5 +819,5 @@ void OptionEnter_8c01b122(Task *task, int row)
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;
     var_menuState_8c1bc7a8.selected_0x38 = row;
     var_settingValues_8c226074 = &var_progress_8c1ba1cc.difficulty_0xc4;
-    RenderPushFadeIn_8c022a9c(10);
+    RenderStartFadeIn_8c022a9c(10);
 }

@@ -19,7 +19,7 @@ return new class extends TestCase {
 
         $cmdBase = $this->addressOf('_var_drawCommands_8c22657c') + 1 * 0x800 + 3 * 0x10;
 
-        $this->call('_RenderPushCall1_8c0223ea')
+        $this->call('_RenderQueueDraw_8c0223ea')
             ->with(1, $this->addressOf('_someCallback1_8c012345'), 42);
 
         $this->shouldWriteLong($cmdBase, 5);
@@ -36,7 +36,7 @@ return new class extends TestCase {
         $this->initUint32($countBase + 4, 0x80);
         $this->initUint32($countBase + 8, 0);
 
-        $this->call('_RenderPushCall1_8c0223ea')
+        $this->call('_RenderQueueDraw_8c0223ea')
             ->with(1, $this->addressOf('_someCallback1_8c012345'), 42);
 
         $this->forceStop();

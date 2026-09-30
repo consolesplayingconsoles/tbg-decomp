@@ -22,7 +22,7 @@ return new class extends TestCase {
 
         $var8c1bb904 = $this->addressOf('_var_camera_8c1bb904');
 
-        $this->call('_RenderUpdatePlain_8c022910');
+        $this->call('_RenderDrawFrameMainOnly_8c022910');
 
         $this->shouldCall('_njControl3D')->with(0x100);
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipMirrorView_8c045578'));

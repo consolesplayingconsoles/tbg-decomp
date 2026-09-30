@@ -368,9 +368,9 @@ void BusCameraUpdate_8c025078(void)
                  (NJS_VECTOR *)var_busSimpleLightDir_8c227db8);
 
     if (var_cameraMode_8c227d9c == BUS_CAMERA_COCKPIT) {
-        RenderPushCall1_8c0223ea(0, (DrawCallback1)drawFrontBusModel_8c024cc8, 0);
+        RenderQueueDraw_8c0223ea(0, (DrawFn)drawFrontBusModel_8c024cc8, 0);
     } else if (var_cameraMode_8c227d9c == BUS_CAMERA_THIRD_PERSON_NEAR || var_cameraMode_8c227d9c == BUS_CAMERA_THIRD_PERSON_FAR) {
-        RenderPushCall1_8c0223ea(0, (DrawCallback1)BusCameraDrawBusModel_8c024bb8, 0);
+        RenderQueueDraw_8c0223ea(0, (DrawFn)BusCameraDrawBusModel_8c024bb8, 0);
     }
 }
 
@@ -545,5 +545,5 @@ void BusCameraUpdateMirror_8c025604(void)
     var_mirrorLightDir_8c227dc4[2] = var_sceneParams_8c18ad24->dir0_0x00[2];
     njCalcVector(NULL, (NJS_VECTOR *)var_mirrorLightDir_8c227dc4, (NJS_VECTOR *)var_mirrorLightDir_8c227dc4);
 
-    RenderPushCall1_8c0223ea(1, (DrawCallback1)BusCameraDrawBusModel_8c024bb8, 1);
+    RenderQueueDraw_8c0223ea(1, (DrawFn)BusCameraDrawBusModel_8c024bb8, 1);
 }

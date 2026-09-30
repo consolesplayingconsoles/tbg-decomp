@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->m(0x18), 1);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 0x10);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
 
         $this->singleCall('_albumMenuTask_8c01d300')->with(0xbebacafe, 0)->run();
     }
@@ -119,7 +119,7 @@ return new class extends TestCase {
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 1, 0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 0);
 
@@ -249,7 +249,7 @@ return new class extends TestCase {
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 1, 0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 0);
@@ -461,8 +461,8 @@ return new class extends TestCase {
         $this->setSize('_RouteGetLatch_8c01432a', 0x4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 0x4);
         $this->setSize('_SndPlayAdx_8c010cd6', 0x4);
-        $this->setSize('_RenderPushFadeIn_8c022a9c', 0x4);
-        $this->setSize('_RenderPushFadeOut_8c022b60', 0x4);
+        $this->setSize('_RenderStartFadeIn_8c022a9c', 0x4);
+        $this->setSize('_RenderStartFadeOut_8c022b60', 0x4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 0x4);
         $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 0x4);
         $this->setSize('_CourseMenuInterpolateCursor_8c016d2c', 0x4);

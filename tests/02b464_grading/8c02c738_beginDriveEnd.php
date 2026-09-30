@@ -37,6 +37,6 @@ return new class extends TestCase {
             ->andReturn(1);
 
         $this->shouldWriteLong($task + 8, 0);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
     }
 };

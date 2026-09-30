@@ -44,7 +44,7 @@ doesn't prove it -- leave it and say why). Comment verdicts: `kept`, `trimmed`,
 For each symbol, read what it does or stores, not how its callers use it. Then ask
 whether the name says that.
 
-- **Name the behaviour, not the first caller.** `RenderPushFadeIn` is right;
+- **Name the behaviour, not the first caller.** `RenderStartFadeIn` is right;
   `RenderCalledByTitle` never is. A global is named by what it holds, not by who
   writes it.
 - **Don't repeat the unit prefix.** `BusCameraUpdate`, not `BusCameraUpdateCamera`.

@@ -32,7 +32,7 @@ void (*var_fadeCompleteCallback_8c22656c)(void);
 STATIC int var_drawCommandCount_8c226570[3]; // per-layer draw-command count for var_drawCommands_8c22657c
 STATIC DrawCommand var_drawCommands_8c22657c[3][128]; // per-layer draw-command queue
 STATIC FadePhase var_fadePhase_8c227d7c; // fade state machine phase
-STATIC Uint32 var_fadeProgress_8c227d80; // fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by RenderUpdate_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
+STATIC Uint32 var_fadeProgress_8c227d80; // fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by RenderDrawFrame_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
 
 /* ====================
  * Initialized Globals
@@ -171,31 +171,31 @@ void RenderResetQueues_8c02239c(void)
     }
 }
 
-/* Queues a DRAW_CMD_5_CALL1 entry for layer (0-2), dropped once that layer's
+/* Queues a DRAW_CMD_CALL entry for layer (0-2), dropped once that layer's
  * queue (var_drawCommandCount_8c226570/var_drawCommands_8c22657c) is full. */
-void RenderPushCall1_8c0223ea(int layer, DrawCallback1 fn, int arg0)
+void RenderQueueDraw_8c0223ea(int layer, DrawFn fn, int arg0)
 {
     DrawCommand *cmd;
 
     if (var_drawCommandCount_8c226570[layer] < 0x80) {
         cmd = var_drawCommands_8c22657c[layer]
             + var_drawCommandCount_8c226570[layer];
-        cmd->type = DRAW_CMD_5_CALL1;
-        cmd->u.call1.fn = fn;
-        cmd->u.call1.arg0 = arg0;
+        cmd->type = DRAW_CMD_CALL;
+        cmd->u.call.fn = fn;
+        cmd->u.call.arg0 = arg0;
         var_drawCommandCount_8c226570[layer]++;
     }
 }
 
-/* Same as RenderPushCall1_8c0223ea, but for a DRAW_CMD_6_CALL2 entry. */
-void RenderPushCall2_8c022420(int layer, DrawCallback2 fn, int arg0, int arg1)
+/* Same as RenderQueueDraw_8c0223ea, but for a DRAW_CMD_CALL2 entry. */
+void RenderQueueDraw2_8c022420(int layer, DrawFn2 fn, int arg0, int arg1)
 {
     DrawCommand *cmd;
 
     if (var_drawCommandCount_8c226570[layer] < 0x80) {
         cmd = var_drawCommands_8c22657c[layer]
             + var_drawCommandCount_8c226570[layer];
-        cmd->type = DRAW_CMD_6_CALL2;
+        cmd->type = DRAW_CMD_CALL2;
         cmd->u.call2.fn = fn;
         cmd->u.call2.arg0 = arg0;
         cmd->u.call2.arg1 = arg1;
@@ -216,39 +216,39 @@ STATIC void drawLayer_8c022464(int layer)
     njSetCamera(var_drawCamera_8c226558);
     type = cmd->type;
     switch (type) {
-      case DRAW_CMD_0_DRAW_OBJECT:
-      case DRAW_CMD_1_CNK_DRAW_OBJECT:
-      case DRAW_CMD_2_CNK_EASY_DRAW_OBJECT:
-      case DRAW_CMD_3_CNK_SIMPLE_DRAW_OBJECT:
-      case DRAW_CMD_4_CNK_MOD_DRAW_OBJECT:
+      case DRAW_CMD_DRAW_OBJECT:
+      case DRAW_CMD_CNK_DRAW_OBJECT:
+      case DRAW_CMD_CNK_EASY_DRAW_OBJECT:
+      case DRAW_CMD_CNK_SIMPLE_DRAW_OBJECT:
+      case DRAW_CMD_CNK_MOD_DRAW_OBJECT:
         njMultiMatrix(0, cmd->u.draw.matrix);
-        if (type != DRAW_CMD_4_CNK_MOD_DRAW_OBJECT) {
+        if (type != DRAW_CMD_CNK_MOD_DRAW_OBJECT) {
           njSetTexture(cmd->u.draw.texlist);
         }
         switch (type) {
-          case DRAW_CMD_0_DRAW_OBJECT:
+          case DRAW_CMD_DRAW_OBJECT:
             njDrawObject(cmd->u.draw.obj.object);
             break;
-          case DRAW_CMD_1_CNK_DRAW_OBJECT:
+          case DRAW_CMD_CNK_DRAW_OBJECT:
             njCnkDrawObject(cmd->u.draw.obj.cnkObject);
             break;
-          case DRAW_CMD_2_CNK_EASY_DRAW_OBJECT:
+          case DRAW_CMD_CNK_EASY_DRAW_OBJECT:
             njCnkEasyDrawObject(cmd->u.draw.obj.cnkObject);
             break;
-          case DRAW_CMD_3_CNK_SIMPLE_DRAW_OBJECT:
+          case DRAW_CMD_CNK_SIMPLE_DRAW_OBJECT:
             njCnkSimpleDrawObject(cmd->u.draw.obj.cnkObject);
             break;
-          case DRAW_CMD_4_CNK_MOD_DRAW_OBJECT:
+          case DRAW_CMD_CNK_MOD_DRAW_OBJECT:
             njCnkModDrawObject(cmd->u.draw.obj.cnkObject);
             break;
           default:
             break;
         }
         break;
-      case DRAW_CMD_5_CALL1:
-        cmd->u.call1.fn(cmd->u.call1.arg0);
+      case DRAW_CMD_CALL:
+        cmd->u.call.fn(cmd->u.call.arg0);
         break;
-      case DRAW_CMD_6_CALL2:
+      case DRAW_CMD_CALL2:
         cmd->u.call2.fn(cmd->u.call2.arg0, cmd->u.call2.arg1);
         break;
       default:
@@ -267,7 +267,7 @@ STATIC void drawLayer_8c022464(int layer)
  *
  * Every SpriteDraw priority arg below is a fixed -1.17 literal, not a
  * parameter -- raw disassembly shows FR4 is never read. */
-void RenderUpdate_8c022560(void)
+void RenderDrawFrame_8c022560(void)
 {
   if (var_arrivalOverlayGate_8c226560 != 0) {
     switch (var_arrivalOverlayVariant_8c22655c) {
@@ -423,12 +423,12 @@ void RenderStartRunFade_8c0228a2(void)
   var_isFading_8c226568 = 1;
 }
 
-/* Same idle/fading-out/fading-in/held state machine as RenderUpdate_8c022560, minus
+/* Same idle/fading-out/fading-in/held state machine as RenderDrawFrame_8c022560, minus
  * the bus-stop-arrival overlay: var_arrivalOverlayGate_8c226560 just triggers the plain
  * fade-out draw. Both fade-out completion checks are also guarded by
  * var_isFading_8c226568, so an external reset of that flag can short-cut
  * the transition. */
-void RenderUpdatePlain_8c022910(void)
+void RenderDrawFrameMainOnly_8c022910(void)
 {
   if (var_arrivalOverlayGate_8c226560 != 0) {
     njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
@@ -501,7 +501,7 @@ void RenderUpdatePlain_8c022910(void)
   }
 }
 
-/* Task spawned by RenderPushFadeIn_8c022a9c(frames): task->frames_0x08 holds that
+/* Task spawned by RenderStartFadeIn_8c022a9c(frames): task->frames_0x08 holds that
  * frame count. Sibling of fadeOutTask_8c022ad0, which counts the opposite way. */
 STATIC void fadeInTask_8c022a54(FadeInTask *task, void *state)
 {
@@ -523,7 +523,7 @@ STATIC void fadeInTask_8c022a54(FadeInTask *task, void *state)
   TaskKill_8c014b66((Task *)task);
 }
 
-void RenderPushFadeIn_8c022a9c(int frames)
+void RenderStartFadeIn_8c022a9c(int frames)
 {
   FadeInTask *task;
   void *state;
@@ -571,7 +571,7 @@ STATIC void fadeOutTask_8c022ad0(FadeOutTask *task, void *state)
   njDrawPolygon(init_fadeQuad_8c0455a8, 4, 1);
 }
 
-void RenderPushFadeOut_8c022b60(int frames)
+void RenderStartFadeOut_8c022b60(int frames)
 {
   FadeOutTask *task;
   void *state;

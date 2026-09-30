@@ -49,7 +49,7 @@ return new class extends TestCase {
         $this->setSize('_MessageBoxMenuTextboxText_8c02af1c', 4);
         $this->setSize('_MessageBoxOpenTextbox_8c02ae3e', 4);
         $this->setSize('_BusCameraDrawBusModel_8c024bb8', 4);
-        $this->setSize('_RenderPushCall1_8c0223ea', 4);
+        $this->setSize('_RenderQueueDraw_8c0223ea', 4);
         $this->setSize('_TaskSpawn_8c014ae8', 4);
     }
 

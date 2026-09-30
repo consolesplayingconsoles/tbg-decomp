@@ -23,8 +23,8 @@ return new class extends TestCase {
         $this->setSize('_var_mirrorCamera_8c1bb944', 0x40);
         $this->setSize('_njCalcVector', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
-        $this->setSize('_RenderPushCall2_8c022420', 4);
-        $this->setSize('_RenderPushCall1_8c0223ea', 4);
+        $this->setSize('_RenderQueueDraw2_8c022420', 4);
+        $this->setSize('_RenderQueueDraw_8c0223ea', 4);
         $this->setSize('_TileStreamDrawTile_8c021b34', 4);
     }
 
@@ -79,9 +79,9 @@ return new class extends TestCase {
         $this->shouldWriteFloat($dir1 + 8, 42.0);
         $this->shouldCall('_njCalcVector')->with(0, $dir1, $dir1);
 
-        $this->shouldCall('_RenderPushCall2_8c022420')->with(0, $this->addressOf('_drawTileGrid_8c021b9c'), 7, 5);
-        $this->shouldCall('_RenderPushCall2_8c022420')->with(1, $this->addressOf('_drawTileGridMirror_8c021ec4'), 7, 5);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
+        $this->shouldCall('_RenderQueueDraw2_8c022420')->with(0, $this->addressOf('_drawTileGrid_8c021b9c'), 7, 5);
+        $this->shouldCall('_RenderQueueDraw2_8c022420')->with(1, $this->addressOf('_drawTileGridMirror_8c021ec4'), 7, 5);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(0, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(1, $this->addressOf('_TileStreamDrawTile_8c021b34'), $state);
     }
 };

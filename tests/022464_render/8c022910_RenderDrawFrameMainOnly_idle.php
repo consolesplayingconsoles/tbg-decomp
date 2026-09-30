@@ -20,6 +20,6 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 0);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 0);
 
-        $this->call('_RenderUpdatePlain_8c022910');
+        $this->call('_RenderDrawFrameMainOnly_8c022910');
     }
 };

@@ -51,7 +51,7 @@ return new class extends TestCase {
         $this->shouldCall('_pauseUpdate_8c0129cc')->andReturn(1);
         $this->shouldCall('_RenderResetQueues_8c02239c');
         $this->shouldCall('_TaskRunGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
-        $this->shouldCall('_RenderUpdate_8c022560');
+        $this->shouldCall('_RenderDrawFrame_8c022560');
     }
 
     private function setup(
@@ -63,7 +63,7 @@ return new class extends TestCase {
         $this->setSize('_TitleSpawnTitle_8c015fd6', 4);
         $this->setSize('_RenderResetQueues_8c02239c', 4);
         $this->setSize('_TaskRunGroup_8c014b42', 4);
-        $this->setSize('_RenderUpdate_8c022560', 4);
+        $this->setSize('_RenderDrawFrame_8c022560', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
 
         $this->initUint32($this->addressOf('_var_resetRequested_8c157a78'), $resetRequested);

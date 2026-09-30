@@ -37,7 +37,7 @@
           .IMPORT     _njSetCamera
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _njCalcVector
-          .IMPORT     _RenderPushCall1_8c0223ea
+          .IMPORT     _RenderQueueDraw_8c0223ea
           .IMPORT     _var_mirrorCamera_8c1bb944
           .EXPORT     _BusCameraSaveState_8c024b4c
           .EXPORT     _BusCameraRestoreState_8c024b86
@@ -1483,7 +1483,7 @@ LP_GEN_36343:
           .DATA.L _njCalcVector ; H'8C025670
           .DATA.L _drawFrontBusModel_8c024cc8 ; H'8C025674
           .DATA.L _BusCameraDrawBusModel_8c024bb8 ; H'8C025678
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02567C
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C02567C
           .DATA.L _var_busState_8c1bb9d0 ; H'8C025680
           .DATA.L _var_mirrorCamera_8c1bb944 ; H'8C025684
           .DATA.L _njInitCamera ; H'8C025688
@@ -1705,7 +1705,7 @@ LP_GEN_86833:
           .DATA.L _var_mirrorLightDir_8c227dc4 ; H'8C025860
           .DATA.L _njCalcVector ; H'8C025864
           .DATA.L _BusCameraDrawBusModel_8c024bb8 ; H'8C025868
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02586C
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C02586C
           .SECTION    B,DATA,ALIGN=4
 _var_fixedCameraTarget_8c227d90:
           .RES.B      12

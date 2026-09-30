@@ -10,7 +10,7 @@ void StopDrawWaitingPassengers_8c02d06c(
     int layer
 );
 
-/* DrawCallback1 pair bracketing the passenger draws: sets up njCnk's simple
+/* DrawFn pair bracketing the passenger draws: sets up njCnk's simple
  * light and the constant material that fades passengers in and out, then
  * restores njControl3D. Both ignore their arg, and both are reached only by
  * literal-pool pointer from 02d19c_passenger. */

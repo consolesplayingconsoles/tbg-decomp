@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 0);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 3);
 
-        $this->call('_RenderUpdatePlain_8c022910');
+        $this->call('_RenderDrawFrameMainOnly_8c022910');
     }
 
     public function test_unknown_phase_does_nothing(): void {
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 4);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 1);
 
-        $this->call('_RenderUpdatePlain_8c022910');
+        $this->call('_RenderDrawFrameMainOnly_8c022910');
     }
 
     public function test_fade_in_reaches_threshold_and_holds(): void {
@@ -52,7 +52,7 @@ return new class extends TestCase {
         $init8c0455a8 = $this->addressOf('_init_fadeQuad_8c0455a8');
         [$init8c0455b4, $init8c0455c4, $init8c0455d4, $init8c0455e4] = $this->colAddresses($init8c0455a8);
 
-        $this->call('_RenderUpdatePlain_8c022910');
+        $this->call('_RenderDrawFrameMainOnly_8c022910');
 
         $this->shouldWriteLong($this->addressOf('_var_fadeProgress_8c227d80'), 0x1004000);
         $this->shouldWriteLong($this->addressOf('_var_fadePhase_8c227d7c'), 3);
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_fadeCompleteCallback_8c22656c'), 0xffffffff);
 
-        $this->call('_RenderUpdatePlain_8c022910');
+        $this->call('_RenderDrawFrameMainOnly_8c022910');
 
         $this->shouldWriteLong($this->addressOf('_var_fadePhase_8c227d7c'), 0);
         $this->shouldWriteLong($this->addressOf('_var_fadeRequest_8c226564'), 0);

@@ -69,14 +69,14 @@ return new class extends TestCase {
     {
         $this->shouldWriteLong($this->ms + 0x3c, 0);
         $this->shouldWriteLong($this->ms + 0x38, 0);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
     }
 
     private function setup(int $vmuStatus): void
     {
         foreach ([
             '_TaskSwitch_8c014b3e', '_MessageBoxSwapFor_8c02aefc',
-            '_VmGameSetLcdSlot_8c01c8fc', '_RenderPushFadeIn_8c022a9c',
+            '_VmGameSetLcdSlot_8c01c8fc', '_RenderStartFadeIn_8c022a9c',
         ] as $fn) {
             $this->setSize($fn, 4);
         }

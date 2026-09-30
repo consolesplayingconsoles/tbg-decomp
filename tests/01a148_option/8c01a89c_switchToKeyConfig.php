@@ -20,7 +20,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_TaskSwitch_8c014b3e', 4);
-        $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
+        $this->setSize('_RenderStartFadeIn_8c022a9c', 4);
 
         $task = $this->alloc(0x20);
         $this->call('_switchToKeyConfig_8c01a89c')->with($task);
@@ -29,6 +29,6 @@ return new class extends TestCase {
             ->with($task, $this->addressOf('_keyConfigTask_8c01a50c'));
         $this->shouldWriteLong($this->menu(self::STATE), 0);
         $this->shouldWriteLong($this->menu(self::SELECTED), 0);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
     }
 };

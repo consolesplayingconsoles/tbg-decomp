@@ -421,7 +421,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
 
         m->state_0x18 = STATE_MENU_FADE_IN;
         AsqFreeQueues_8c011f7e();
-        RenderPushFadeIn_8c022a9c(10);
+        RenderStartFadeIn_8c022a9c(10);
         return;
 
     case STATE_MENU_FADE_IN:
@@ -441,17 +441,17 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                 case MENU_DOWNLOAD:
                     m->state_0x18 = STATE_MENU_FADE_OUT;
                     m->subState_0x1c = MENU_DOWNLOAD;
-                    RenderPushFadeOut_8c022b60(10);
+                    RenderStartFadeOut_8c022b60(10);
                     break;
                 case MENU_EXP_LOAD:
                     m->state_0x18 = STATE_MENU_FADE_OUT;
                     m->subState_0x1c = MENU_EXP_LOAD;
-                    RenderPushFadeOut_8c022b60(10);
+                    RenderStartFadeOut_8c022b60(10);
                     break;
                 case MENU_EXIT:
                     m->state_0x18 = STATE_EXIT;
                     VmSelectUnmountAll_8c0194de();
-                    RenderPushFadeOut_8c022b60(10);
+                    RenderStartFadeOut_8c022b60(10);
                     break;
             }
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -459,7 +459,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
             m->state_0x18 = STATE_EXIT;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             VmSelectUnmountAll_8c0194de();
-            RenderPushFadeOut_8c022b60(10);
+            RenderStartFadeOut_8c022b60(10);
         }
         SpriteDraw_8c014f54(
             &m->resourceGroupB_0x0c, slot + 109, 0.0f, 0.0f, -5.0f
@@ -470,7 +470,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
     case STATE_MENU_FADE_OUT:
         if (!var_isFading_8c226568) {
             m->state_0x18 = STATE_SELECT_ENTER;
-            RenderPushFadeIn_8c022a9c(10);
+            RenderStartFadeIn_8c022a9c(10);
             return;
         }
         SpriteDraw_8c014f54(
@@ -616,7 +616,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                 } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
                     m->state_0x18 = STATE_RETURN_FADE_OUT;
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
-                    RenderPushFadeOut_8c022b60(10);
+                    RenderStartFadeOut_8c022b60(10);
                 }
                 drawSelectScreen_8c01be90();
                 break;
@@ -880,7 +880,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
             if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
                 m->state_0x18 = STATE_RETURN_FADE_OUT;
                 MessageBoxSwapFor_8c02aefc("");
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
             }
         } else {
             selectSlot_8c01bf2a(slot);
@@ -897,7 +897,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
         if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
             m->state_0x18 = STATE_RETURN_FADE_OUT;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-            RenderPushFadeOut_8c022b60(10);
+            RenderStartFadeOut_8c022b60(10);
         }
 
         VmGameSetLcdSlot_8c01c8fc(0);
@@ -912,7 +912,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
         m->state_0x18 = STATE_MENU_FADE_IN;
         m->selected_0x38 = m->subState_0x1c;
         MessageBoxSwapFor_8c02aefc("");
-        RenderPushFadeIn_8c022a9c(10);
+        RenderStartFadeIn_8c022a9c(10);
         return;
     }
 

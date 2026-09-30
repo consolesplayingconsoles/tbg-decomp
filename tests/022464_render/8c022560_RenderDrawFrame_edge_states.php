@@ -36,7 +36,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 0);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 3);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
     }
@@ -48,12 +48,12 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fadePhase_8c227d7c'), 4);
         $this->initUint32($this->addressOf('_var_fadeRequest_8c226564'), 1);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
     }
 
-    // Unlike RenderUpdatePlain_8c022910, this one has no var_isFading_8c226568
+    // Unlike RenderDrawFrameMainOnly_8c022910, this one has no var_isFading_8c226568
     // guard: a cleared flag must not short-cut either ramp.
     public function test_fade_out_ignores_cleared_isFading(): void {
         $this->resolveSymbols();
@@ -68,7 +68,7 @@ return new class extends TestCase {
         $init8c0455a8 = $this->addressOf('_init_fadeQuad_8c0455a8');
         [$init8c0455b4, $init8c0455c4, $init8c0455d4, $init8c0455e4] = $this->colAddresses($init8c0455a8);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldWriteLong($this->addressOf('_var_fadeProgress_8c227d80'), 0xfac00000);
@@ -92,7 +92,7 @@ return new class extends TestCase {
         $init8c0455a8 = $this->addressOf('_init_fadeQuad_8c0455a8');
         [$init8c0455b4, $init8c0455c4, $init8c0455d4, $init8c0455e4] = $this->colAddresses($init8c0455a8);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldWriteLong($this->addressOf('_var_fadeProgress_8c227d80'), 0x44000);
@@ -115,7 +115,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_fadeCompleteCallback_8c22656c'), 0xffffffff);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldWriteLong($this->addressOf('_var_fadePhase_8c227d7c'), 0);

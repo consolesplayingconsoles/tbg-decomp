@@ -8,14 +8,14 @@
           .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _SndPlayAdx_8c010cd6
-          .IMPORT     _RenderPushFadeIn_8c022a9c
+          .IMPORT     _RenderStartFadeIn_8c022a9c
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _MessageBoxSwapFor_8c02aefc
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _PromptHandleBinary_8c016caa
-          .IMPORT     _RenderPushFadeOut_8c022b60
+          .IMPORT     _RenderStartFadeOut_8c022b60
           .IMPORT     _njSetBackColor
           .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
@@ -250,7 +250,7 @@ LP_GEN_72974:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01E39C
           .DATA.L _init_lessonPageStarts_8c0451b4 ; H'8C01E3A0
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01E3A4
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01E3A8
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01E3A8
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01E3AC
 LAB_8c01e3b0:
           MOV.L       LP_GEN_38636,R4
@@ -543,11 +543,11 @@ LP_GEN_38636:
           .DATA.L _sdMidiPlay ; H'8C01E5CC
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C01E5D0
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C01E5D4
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01E5D8
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01E5D8
           .DATA.L H'43960000 ; H'8C01E5DC
           .DATA.L H'C0A00000 ; H'8C01E5E0
           .DATA.L _njSetBackColor ; H'8C01E5E4
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01E5E8
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01E5E8
           .DATA.L H'C1000000 ; H'8C01E5EC
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01E5F0
           .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C01E5F4
@@ -769,10 +769,10 @@ LP_GEN_92116:
           .DATA.L _RouteGetLatch_8c01432a ; H'8C01E7AC
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01E7B0
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01E7B4
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01E7B8
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01E7B8
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C01E7BC
           .DATA.L _init_lessonGuideRows_8c0451ec ; H'8C01E7C0
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01E7C4
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01E7C4
           .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01E7C8
 LAB_8c01e7cc:
           MOV.L       LP_GEN_46961+2,R3
@@ -1254,7 +1254,7 @@ LP_GEN_88702:
           .DATA.L _AsqNop_8c011120 ; H'8C01EB74
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01EB78
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01EB7C
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01EB80
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01EB80
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01EB84
           .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C01EB88
           .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C01EB8C
@@ -1576,12 +1576,12 @@ LP_GEN_52292:
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01EE04
           .DATA.L _SndStopBgm_8c010d8a ; H'8C01EE08
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01EE0C
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01EE10
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01EE10
           .DATA.L _var_lessonDialogQueue_8c226414 ; H'8C01EE14
           .DATA.L _CourseMenuSpawnDialogTask_8c0170c6 ; H'8C01EE18
           .DATA.L _var_instructorDialogActive_8c225fb4 ; H'8C01EE1C
           .DATA.L _const_emptyMsg_8c038984 ; H'8C01EE20
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01EE24
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01EE24
           .DATA.L _const_confirmQuitMsg_8c038988 ; H'8C01EE28
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C01EE2C
 LAB_8c01ee30:
@@ -1725,7 +1725,7 @@ LP_GEN_95699:
           .DATA.W H'0090 ; H'8C01EF2A
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C01EF2C
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C01EF30
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01EF34
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01EF34
           .DATA.L _const_emptyMsg_8c038984 ; H'8C01EF38
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C01EF3C
           .DATA.L _var_practiceLesson_8c22640c ; H'8C01EF40
@@ -2066,7 +2066,7 @@ LP_GEN_22524:
           .DATA.L _AsqNop_8c011120 ; H'8C01F20C
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01F210
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01F214
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01F218
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01F218
 _PracticeMenuLessonRetry_8c01f21c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15

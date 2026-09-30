@@ -39,7 +39,7 @@
           .IMPORT     _var_driveCueState_8c2264b8
           .IMPORT     _njSqrt
           .IMPORT     _var_fuuLastFrame_8c1bc450
-          .IMPORT     _RenderPushCall1_8c0223ea
+          .IMPORT     _RenderQueueDraw_8c0223ea
           .IMPORT     _var_fadeCompleteCallback_8c22656c
           .IMPORT     _GradeRunComplete_8c02c586
           .IMPORT     _SndStartAdxFadeOut_8c010bae
@@ -1051,7 +1051,7 @@ LP_GEN_27124:
           .DATA.L _njSqrt ; H'8C02D03C
           .DATA.L _var_fuuLastFrame_8c1bc450 ; H'8C02D040
           .DATA.L _drawStopMarker_8c02cd92 ; H'8C02D044
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02D048
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C02D048
           .DATA.L H'40400000 ; H'8C02D04C
           .DATA.L _var_busState_8c1bb9d0+H'27C ; H'8C02D050 (speed_0x27c)
           .DATA.L _var_nextStopSegment_8c228710 ; H'8C02D054

@@ -93,7 +93,7 @@ SeatPos init_seatPositions_8c04c3e4[31] = {
  * ====================
  */
 
-/* Installed as a DrawCallback1 (via literal-pool pointer, both by
+/* Installed as a DrawFn (via literal-pool pointer, both by
  * PassengerSeatedTask_8c02d5ca and by the per-passenger task actions below);
  * draws one passenger's sprite, waiting or scripted. arg0 is a
  * StopScheduleState* threaded through the int parameter (the same idiom as
@@ -116,7 +116,7 @@ STATIC void drawPassengerSprite_8c02d19c(int arg0)
     njDrawSprite3D(&var_passengerSprite_8c2288d8, state->spriteNo_0x14, state->isSeated_0x28 == 0 ? 0x32 : 0x30);
 }
 
-/* Installed as a DrawCallback1 (via literal-pool pointer in PassengerStopSceneTask_8c02d644);
+/* Installed as a DrawFn (via literal-pool pointer in PassengerStopSceneTask_8c02d644);
  * ignores its arg. Draws the bus interior model under the layer-0 (bus)
  * simple light, sibling of StopDrawLightBegin_8c02d0fc (02d06c) which does the same for
  * the bus-stop anchor points. */
@@ -132,7 +132,7 @@ STATIC void drawInterior_8c02d1f4(int arg0)
  * countdown). Registers the draw callback every frame; ignores task. */
 void PassengerSeatedTask_8c02d5ca(Task *task, void *state)
 {
-    RenderPushCall1_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
+    RenderQueueDraw_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
 }
 
 /* Sizes the step PassengerStopSceneTask_8c02d644's case 5 adds to the run
@@ -240,7 +240,7 @@ void PassengerBoardTask_8c02d21c(Task *task, StopScheduleState *state)
         break;
 
     case 0:
-        RenderPushCall1_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
+        RenderQueueDraw_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
         return;
 
     default:
@@ -248,7 +248,7 @@ void PassengerBoardTask_8c02d21c(Task *task, StopScheduleState *state)
     }
 
     if (layer != 0) {
-        RenderPushCall1_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
+        RenderQueueDraw_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
     }
     var_passengerActed_8c228958 = 1;
 }
@@ -331,7 +331,7 @@ void PassengerExitTask_8c02d46c(Task *task, StopScheduleState *state)
     }
 
     if (layer != 0) {
-        RenderPushCall1_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
+        RenderQueueDraw_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
     }
     var_passengerActed_8c228958 = 1;
 }
@@ -344,16 +344,16 @@ void PassengerExitTask_8c02d46c(Task *task, StopScheduleState *state)
  * with a private 2-int state (field_0x00 the phase, field_0x04 a sub-phase
  * used only by phase 1); NOT the 0x38-byte StopScheduleState the other
  * task actions in this unit use. Every call re-registers this frame's
- * interior-draw (drawInterior_8c02d1f4) and light (StopDrawLightBegin_8c02d0fc) DrawCallback1s
+ * interior-draw (drawInterior_8c02d1f4) and light (StopDrawLightBegin_8c02d0fc) DrawFns
  * regardless of phase. */
 void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
 {
     int phase = state->phase_0x00;
     Bool execGroup = FALSE;
 
-    RenderPushCall1_8c0223ea(2, drawInterior_8c02d1f4, 0);
-    RenderPushCall1_8c0223ea(1, StopDrawLightBegin_8c02d0fc, 0);
-    RenderPushCall1_8c0223ea(2, StopDrawLightBegin_8c02d0fc, 0);
+    RenderQueueDraw_8c0223ea(2, drawInterior_8c02d1f4, 0);
+    RenderQueueDraw_8c0223ea(1, StopDrawLightBegin_8c02d0fc, 0);
+    RenderQueueDraw_8c0223ea(2, StopDrawLightBegin_8c02d0fc, 0);
 
     switch (phase) {
     case 0:
@@ -368,7 +368,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
         /* The original re-enters this sub-state-machine in place (a plain
          * branch back, not a fresh call) when var_playMode_8c1bb8d0 ==
          * PLAY_MODE_DEMO and the task group did something this frame --
-         * it does not re-run the three RenderPushCall1 registrations
+         * it does not re-run the three RenderQueueDraw registrations
          * above or re-read phase. */
         for (;;) {
             switch (state->subPhase_0x04) {
@@ -512,8 +512,8 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
     if (execGroup) {
         TaskRunGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
     }
-    RenderPushCall1_8c0223ea(1, StopDrawLightEnd_8c02d146, 0);
-    RenderPushCall1_8c0223ea(2, StopDrawLightEnd_8c02d146, 0);
+    RenderQueueDraw_8c0223ea(1, StopDrawLightEnd_8c02d146, 0);
+    RenderQueueDraw_8c0223ea(2, StopDrawLightEnd_8c02d146, 0);
 }
 
 /* Task action spawned instead of the normal per-passenger tasks when

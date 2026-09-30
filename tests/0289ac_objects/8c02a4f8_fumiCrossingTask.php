@@ -64,7 +64,7 @@ return new class extends TestCase {
         $this->call('_fumiCrossingTask_8c02a4f8')->with($task, $state);
 
         $this->shouldWriteFloat($state + self::ST_16, 3.0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')
             ->with(0, $this->addressOf('_drawFumiCrossing_8c02a47c'), $state);
     }
 
@@ -86,7 +86,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + self::ST_15, 2);
         $this->shouldWriteFloat($state + self::ST_16, 0.0);
         $this->shouldWriteFloat($state + self::ST_17, 8.0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')
             ->with(0, $this->addressOf('_drawFumiCrossing_8c02a47c'), $state);
     }
 
@@ -101,7 +101,7 @@ return new class extends TestCase {
         $this->call('_fumiCrossingTask_8c02a4f8')->with($task, $state);
 
         $this->shouldWriteFloat($state + self::ST_18, 2.0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')
             ->with(0, $this->addressOf('_drawFumiCrossing_8c02a47c'), $state);
     }
 
@@ -118,7 +118,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($state + self::ST_18, 3.0);
         $this->shouldWriteLong($state + self::ST_15, 3);
         $this->shouldWriteFloat($state + self::ST_19, 0.0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')
             ->with(0, $this->addressOf('_drawFumiCrossing_8c02a47c'), $state);
     }
 
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->call('_fumiCrossingTask_8c02a4f8')->with($task, $state);
 
         $this->shouldWriteFloat($state + self::ST_16, 3.0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')
             ->with(0, $this->addressOf('_drawFumiCrossing_8c02a47c'), $state);
     }
 
@@ -150,7 +150,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($state + self::ST_16, 8.0);
         $this->shouldWriteLong($state + self::ST_15, 4);
         $this->shouldWriteFloat($state + self::ST_16, 8.0);
-        $this->shouldCall('_RenderPushCall1_8c0223ea')
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')
             ->with(0, $this->addressOf('_drawFumiCrossing_8c02a47c'), $state);
     }
 
@@ -162,7 +162,7 @@ return new class extends TestCase {
 
         $this->call('_fumiCrossingTask_8c02a4f8')->with($task, $state);
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')
             ->with(0, $this->addressOf('_drawFumiCrossing_8c02a47c'), $state);
     }
 };

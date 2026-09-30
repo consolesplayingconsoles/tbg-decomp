@@ -5,10 +5,10 @@
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _FileSelectResetSettingDefaults_8c018862
-          .IMPORT     _RenderPushFadeOut_8c022b60
+          .IMPORT     _RenderStartFadeOut_8c022b60
           .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _TaskSwitch_8c014b3e
-          .IMPORT     _RenderPushFadeIn_8c022a9c
+          .IMPORT     _RenderStartFadeIn_8c022a9c
           .IMPORT     _njDrawPolygon
           .IMPORT     _var_activeCtrlType_8c157a70
           .IMPORT     _var_progress_8c1ba1cc
@@ -202,7 +202,7 @@ LP_GEN_11111:
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01A25C
           .DATA.L _var_isFading_8c226568 ; H'8C01A260
           .DATA.L _FileSelectResetSettingDefaults_8c018862 ; H'8C01A264
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01A268
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01A268
           .DATA.L _init_settingOptionCounts_8c044de0 ; H'8C01A26C
 LAB_8c01a270:
           MOV.W       LP_GEN_35922,R0
@@ -486,7 +486,7 @@ LP_GEN_85851:
           .DATA.L _settingTask_8c01a148 ; H'8C01A484
           .DATA.L _TaskSwitch_8c014b3e ; H'8C01A488
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01A48C
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01A490
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01A490
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01A494
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01A498
           .DATA.L _sdMidiPlay ; H'8C01A49C
@@ -699,7 +699,7 @@ LP_GEN_91649:
           .DATA.L _var_isFading_8c226568 ; H'8C01A628
           .DATA.L _var_peripherals_8c1ba35c ; H'8C01A62C
           .DATA.L _FileSelectResetKeyConfigDefaults_8c0188bc ; H'8C01A630
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01A634
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01A634
 LAB_8c01a638:
           BSR         _keyConfigEditExit_8c01a4b4
           NOP
@@ -1266,7 +1266,7 @@ LP_GEN_75770:
           .DATA.L _keyConfigTask_8c01a50c ; H'8C01AA44
           .DATA.L _TaskSwitch_8c014b3e ; H'8C01AA48
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01AA4C
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01AA50
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01AA50
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01AA54
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01AA58
           .DATA.L _sdMidiPlay ; H'8C01AA5C
@@ -1558,7 +1558,7 @@ LP_GEN_82753:
           .DATA.L _FileSelectResetSoundDefaults_8c0188dc ; H'8C01AC80
           .DATA.L _var_soundMode_8c226070 ; H'8C01AC84
           .DATA.L _SndSetSoundMode_8c0108c0 ; H'8C01AC88
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01AC8C
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01AC8C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01AC90
 LAB_8c01ac94:
           MOV.W       LP_GEN_27951,R4
@@ -2192,13 +2192,13 @@ LP_GEN_51773:
           .DATA.L _var_musicTestDigits_8c226078 ; H'8C01B158
           .DATA.L _var_sfxTestDigits_8c226080 ; H'8C01B15C
           .DATA.L _var_voiceTestDigits_8c226088 ; H'8C01B160
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01B164
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01B164
           .DATA.L _var_isFading_8c226568 ; H'8C01B168
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01B16C
           .DATA.L _sdMidiPlay ; H'8C01B170
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01B174
           .DATA.L _init_topMenuActions_8c044e28 ; H'8C01B178
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01B17C
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01B17C
           .DATA.L _MainMenuEnter_8c01a09a ; H'8C01B180
           .DATA.L _SpriteDraw_8c014f54 ; H'8C01B184
           .DATA.L H'C0800000 ; H'8C01B188

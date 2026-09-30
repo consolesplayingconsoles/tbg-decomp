@@ -15,7 +15,7 @@
           .IMPORT     _njCalcPoint
           .IMPORT     _SignalGet_8c0288b2
           .IMPORT     _SignalGetFrame_8c028900
-          .IMPORT     _RenderPushCall1_8c0223ea
+          .IMPORT     _RenderQueueDraw_8c0223ea
           .IMPORT     _var_tasks_8c1ba5e8
           .IMPORT     _TaskSpawn_8c014ae8
           .EXPORT     _HudReset_8c02018c
@@ -994,7 +994,7 @@ LP_GEN_28448:
           .DATA.L _var_runState_8c2285c4 + H'C ; H'8C0201EC
           .DATA.L H'41A00000 ; H'8C0201F0
           .DATA.L _drawHud_8c01fbac ; H'8C0201F4
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C0201F8
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C0201F8
           .DATA.L _hudUpdateTask_8c01ff48 ; H'8C0201FC
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C020200
           .DATA.L _TaskSpawn_8c014ae8 ; H'8C020204

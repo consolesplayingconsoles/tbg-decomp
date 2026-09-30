@@ -201,7 +201,7 @@ STATIC int pauseUpdate_8c0129cc(void)
         return 0;
     }
 
-    RenderUpdate_8c022560();
+    RenderDrawFrame_8c022560();
     p = var_peripheral_8c1ba358;
 
     if ((p->press & PDD_DGT_ST) != 0) {
@@ -251,7 +251,7 @@ STATIC int pauseUpdate_8c0129cc(void)
                 /* A commits -- start the fade, no mark this frame. */
                 if ((p->press & PDD_DGT_TA) != 0) {
                     CHANGE_RETIRE_PHASE(RETIRE_PHASE_FADING);
-                    RenderPushFadeOut_8c022b60(10);
+                    RenderStartFadeOut_8c022b60(10);
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                     LOG_DEBUG(("[PAUSE] pauseUpdate_8c0129cc: retire committed, fading out\n"));
                     break;
@@ -327,7 +327,7 @@ STATIC void pauseTask_8c012cbc()
     if (pauseUpdate_8c0129cc() != 0) {
         RenderResetQueues_8c02239c();
         TaskRunGroup_8c014b42(var_tasks_8c1ba5e8);
-        RenderUpdate_8c022560();
+        RenderDrawFrame_8c022560();
     }
 }
 
@@ -357,7 +357,7 @@ STATIC void pauseToggleTask_8c012d06()
         TaskRunGroup_8c014b42(var_tasks_8c1ba5e8);
     }
 
-    RenderUpdatePlain_8c022910();
+    RenderDrawFrameMainOnly_8c022910();
 }
 
 /*
@@ -397,7 +397,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
         }
         SndStartAdxFadeOut_8c010bae(0);
         SndStartAdxFadeOut_8c010bae(1);
-        RenderPushFadeOut_8c022b60(0x1e);
+        RenderStartFadeOut_8c022b60(0x1e);
         break;
 
     case DEMO_END_SKIPPED:
@@ -417,7 +417,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
 
     RenderResetQueues_8c02239c();
     TaskRunGroup_8c014b42(var_tasks_8c1ba5e8);
-    RenderUpdatePlain_8c022910();
+    RenderDrawFrameMainOnly_8c022910();
     SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO, 0.0f, 0.0f, MARK_Z_BASE);
     if ((task->counter_0x0c & 0x18) != 0) {
         SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO_BLINK, 0.0f, 0.0f, MARK_Z_BASE);

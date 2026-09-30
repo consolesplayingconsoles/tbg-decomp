@@ -18,8 +18,8 @@ typedef enum {
     FADE_PHASE_HELD = 3
 } FadePhase;
 
-/* var_fadeRequest_8c226564: a transition requested of RenderUpdate_8c022560 /
- * RenderUpdatePlain_8c022910, consumed once phase is FADE_PHASE_IDLE. */
+/* var_fadeRequest_8c226564: a transition requested of RenderDrawFrame_8c022560 /
+ * RenderDrawFrameMainOnly_8c022910, consumed once phase is FADE_PHASE_IDLE. */
 typedef enum {
     FADE_REQUEST_NONE = 0,
     FADE_REQUEST_OUT  = 1,
@@ -34,12 +34,12 @@ typedef enum {
     /* Not a wing mirror: the door-side view a run starts in
      * (busInitPlaceBus_8c023310) -- BusCameraUpdateMirror_8c025604 puts
      * the camera close alongside the front door instead of back down the
-     * flank. RenderUpdate_8c022560 draws it like the wing mirrors but with no
+     * flank. RenderDrawFrame_8c022560 draws it like the wing mirrors but with no
      * label sprite. */
     MIRROR_DOOR  = 3
 } MirrorSelect;
 
-/* Task private state for fadeInTask_8c022a54/RenderPushFadeIn_8c022a9c. Its fields
+/* Task private state for fadeInTask_8c022a54/RenderStartFadeIn_8c022a9c. Its fields
  * match Task (see 014a9c_tasks.h) up through the one this task uses -- the
  * real slot is a full Task (var_tasks_8c1ba3c8 is an array of those), and
  * the rest is unused by this callback. */
@@ -57,7 +57,7 @@ typedef enum {
     FADE_OUT_PHASE_HOLD = 1
 } FadeOutPhase;
 
-/* Task private state for fadeOutTask_8c022ad0/RenderPushFadeOut_8c022b60. Same
+/* Task private state for fadeOutTask_8c022ad0/RenderStartFadeOut_8c022b60. Same
  * layout as FadeInTask above, but field_0x0c is reused as phase_0x0c
  * instead of a pointer. */
 typedef struct {
@@ -68,22 +68,23 @@ typedef struct {
 } FadeOutTask;
 
 /* Opaque per-entry callbacks for DrawCommand types 5/6 (see below),
- * queued by RenderPushCall1_8c0223ea/RenderPushCall2_8c022420. They pass whatever
+ * queued by RenderQueueDraw_8c0223ea/RenderQueueDraw2_8c022420. They pass whatever
  * function pointer their caller supplies, so there is no fixed SDK
  * signature to name these after. */
-typedef void (*DrawCallback1)(int);
-typedef void (*DrawCallback2)(int, int);
+typedef void (*DrawFn)(int);
+typedef void (*DrawFn2)(int, int);
 
 /* DrawCommand.type: which arm of its union holds the remaining 12 bytes.
  * Anything outside these 7 values is a no-op entry. */
 typedef enum {
-    DRAW_CMD_0_DRAW_OBJECT            = 0,
-    DRAW_CMD_1_CNK_DRAW_OBJECT        = 1,
-    DRAW_CMD_2_CNK_EASY_DRAW_OBJECT   = 2,
-    DRAW_CMD_3_CNK_SIMPLE_DRAW_OBJECT = 3,
-    DRAW_CMD_4_CNK_MOD_DRAW_OBJECT    = 4,
-    DRAW_CMD_5_CALL1                  = 5,
-    DRAW_CMD_6_CALL2                  = 6
+    /* Nothing in the game queues 0-4, only the callback entries 5-6. */
+    DRAW_CMD_DRAW_OBJECT            = 0,
+    DRAW_CMD_CNK_DRAW_OBJECT        = 1,
+    DRAW_CMD_CNK_EASY_DRAW_OBJECT   = 2,
+    DRAW_CMD_CNK_SIMPLE_DRAW_OBJECT = 3,
+    DRAW_CMD_CNK_MOD_DRAW_OBJECT    = 4,
+    DRAW_CMD_CALL                   = 5,
+    DRAW_CMD_CALL2                  = 6
 } DrawCommandType;
 
 /* One 16-byte entry in var_drawCommands_8c22657c's per-layer draw-command
@@ -102,12 +103,12 @@ typedef struct {
         } draw;
         /* 5 */
         struct {
-            DrawCallback1 fn;
+            DrawFn fn;
             int arg0;
-        } call1;
+        } call;
         /* 6 */
         struct {
-            DrawCallback2 fn;
+            DrawFn2 fn;
             int arg0;
             int arg1;
         } call2;
@@ -119,10 +120,10 @@ typedef struct {
  * =======================
  */
 
-extern NJS_CAMERA* var_drawCamera_8c226558; // camera for the layer being drawn; RenderUpdate_8c022560 picks main/mirror/cabin
-extern int var_arrivalOverlayVariant_8c22655c; // bus-stop-arrival overlay layout (0-2) drawn by RenderUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in RenderUpdate_8c022560 handles 0-2)
-extern int var_arrivalOverlayGate_8c226560; // gates RenderUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
-extern FadeRequest var_fadeRequest_8c226564; // requested fade transition, consumed by RenderUpdate_8c022560
+extern NJS_CAMERA* var_drawCamera_8c226558; // camera for the layer being drawn; RenderDrawFrame_8c022560 picks main/mirror/cabin
+extern int var_arrivalOverlayVariant_8c22655c; // bus-stop-arrival overlay layout (0-2) drawn by RenderDrawFrame_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in RenderDrawFrame_8c022560 handles 0-2)
+extern int var_arrivalOverlayGate_8c226560; // gates RenderDrawFrame_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
+extern FadeRequest var_fadeRequest_8c226564; // requested fade transition, consumed by RenderDrawFrame_8c022560
 extern Bool var_isFading_8c226568;
 extern void (*var_fadeCompleteCallback_8c22656c)(void); // fade-complete callback; sentinel -1 (0xffffffff) means unset
 
@@ -132,12 +133,12 @@ extern void (*var_fadeCompleteCallback_8c22656c)(void); // fade-complete callbac
  */
 
 void RenderResetQueues_8c02239c(void);
-void RenderPushCall1_8c0223ea(int layer, DrawCallback1 fn, int arg0);
-void RenderPushCall2_8c022420(int layer, DrawCallback2 fn, int arg0, int arg1);
-void RenderUpdate_8c022560(void);
+void RenderQueueDraw_8c0223ea(int layer, DrawFn fn, int arg0);
+void RenderQueueDraw2_8c022420(int layer, DrawFn2 fn, int arg0, int arg1);
+void RenderDrawFrame_8c022560(void);
 void RenderStartRunFade_8c0228a2(void);
-void RenderUpdatePlain_8c022910(void);
-void RenderPushFadeIn_8c022a9c(int frames);
-void RenderPushFadeOut_8c022b60(int frames);
+void RenderDrawFrameMainOnly_8c022910(void);
+void RenderStartFadeIn_8c022a9c(int frames);
+void RenderStartFadeOut_8c022b60(int frames);
 
 #endif // _022464_RENDER_H

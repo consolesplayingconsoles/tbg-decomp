@@ -6,7 +6,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 // applyTrafficLighting_8c02756a is a hidden (never directly called) fade-
 // command callback -- its address is only taken via a .DATA.L pool entry
-// and passed to RenderPushCall1_8c0223ea. It selects one of two fixed
+// and passed to RenderQueueDraw_8c0223ea. It selects one of two fixed
 // float[3] light-direction vectors by flag and applies it as both the
 // Chunk "simple" and "easy" light direction.
 

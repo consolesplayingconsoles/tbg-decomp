@@ -23,7 +23,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_TaskSwitch_8c014b3e', 4);
-        $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
+        $this->setSize('_RenderStartFadeIn_8c022a9c', 4);
 
         $task = $this->alloc(0x20);
         $this->call('_OptionEnter_8c01b122')->with($task, $row);
@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(self::SELECTED), $row);
         $this->shouldWriteLong($this->addressOf('_var_settingValues_8c226074'),
             $this->addressOf('_var_progress_8c1ba1cc') + 0xc4); // difficulty_0xc4, the first SETTING row
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
     }
 
     public function test_setting_row()

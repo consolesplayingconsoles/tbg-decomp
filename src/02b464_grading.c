@@ -871,7 +871,7 @@ STATIC void driveEndFadeTask_8c02c69a(Task *task, void *state) {
         *counter = *counter + 1;
         if (*counter > 0x1e) {
             *phase = 2;
-            RenderPushFadeOut_8c022b60(10);
+            RenderStartFadeOut_8c022b60(10);
         }
     } else if (*phase == 2 && var_isFading_8c226568 == 0) {
         ReplayMenuFreeSessionAssets_8c016182();
@@ -901,7 +901,7 @@ STATIC void beginDriveEnd_8c02c738(void) {
     ReplayMenuKillDriveTasks_8c01614c();
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *)driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
-    RenderPushFadeIn_8c022a9c(10);
+    RenderStartFadeIn_8c022a9c(10);
 }
 
 /* Installed as var_fadeCompleteCallback_8c22656c for a free-run drive that
@@ -1164,7 +1164,7 @@ STATIC void taskCallback_8c02c072() {
         }
     }
 
-    RenderPushCall1_8c0223ea(0, DriveMsgDraw_8c02b388, 0);
+    RenderQueueDraw_8c0223ea(0, DriveMsgDraw_8c02b388, 0);
 }
 
 /* Starts a drive: installs taskCallback_8c02c072 (phase 0, idle -- it goes

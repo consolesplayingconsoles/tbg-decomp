@@ -505,7 +505,7 @@ STATIC void updatePageLoad_8c01cbec(void)
         }
 
         var_menuState_8c1bc7a8.state_0x18 = STATE_PAGE_FADE_IN;
-        RenderPushFadeIn_8c022a9c(10);
+        RenderStartFadeIn_8c022a9c(10);
         return;
     }
 
@@ -532,7 +532,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                 return;
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = STATE_GRID_FADE_IN;
-            RenderPushFadeIn_8c022a9c(10);
+            RenderStartFadeIn_8c022a9c(10);
             return;
 
         case STATE_GRID_FADE_IN:
@@ -595,12 +595,12 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                 var_menuState_8c1bc7a8.state_0x18 =
                     STATE_CONFIRM_FADE_OUT;
                 var_menuState_8c1bc7a8.selected_0x38 = PAGE_OPTION_NEXT;
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 7, 0);
             } else if (press & PDD_DGT_TB) {
                 var_menuState_8c1bc7a8.state_0x18 =
                     STATE_EXIT_TO_COURSE_MENU;
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             }
             drawUnlockGrid_8c01c9f2();
@@ -637,7 +637,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                     break;
             }
             var_menuState_8c1bc7a8.state_0x18 = STATE_PAGE_FADE_IN;
-            RenderPushFadeIn_8c022a9c(10);
+            RenderStartFadeIn_8c022a9c(10);
             return;
 
         case STATE_PAGE_FADE_IN:
@@ -657,11 +657,11 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                     var_menuState_8c1bc7a8.state_0x18 =
                         STATE_GRID_FADE_OUT;
                 }
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
             } else if (press & PDD_DGT_TB) {
                 var_menuState_8c1bc7a8.state_0x18 =
                     STATE_GRID_FADE_OUT;
-                RenderPushFadeOut_8c022b60(10);
+                RenderStartFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
             }
             drawEpisodeChecklist_8c01cac8();
@@ -750,7 +750,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
                 var_menuState_8c1bc7a8.cursorCol_0x3c * 45.0f + 96.0f;
             var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.y =
                 var_menuState_8c1bc7a8.cursorRow_0x40 * 48.0f + 128.0f;
-            RenderPushFadeIn_8c022a9c(10);
+            RenderStartFadeIn_8c022a9c(10);
             return;
 
         case STATE_EXIT_TO_COURSE_MENU:

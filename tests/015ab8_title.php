@@ -47,7 +47,7 @@ return new class extends TestCase {
 
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 1);
 
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(20);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(20);
 
         $this->shouldCall('_njSetBackColor')->with(0xff000000, 0xff000000, 0xff000000);
 
@@ -86,7 +86,7 @@ return new class extends TestCase {
 
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0d);
 
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
 
         $this->shouldCall('_njSetBackColor')->with(0xffffffff, 0xffffffff, 0xffffffff);
 
@@ -156,7 +156,7 @@ return new class extends TestCase {
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 3);
 
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(20);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(20);
 
         $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0, 0.0, 0.0, -5.0);
@@ -189,7 +189,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 4);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(20);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(20);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -257,7 +257,7 @@ return new class extends TestCase {
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 6);
 
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(20);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(20);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -5.0);
@@ -291,7 +291,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0a);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -312,7 +312,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0a);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -334,7 +334,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x07);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -399,7 +399,7 @@ return new class extends TestCase {
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 9);
 
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
@@ -420,7 +420,7 @@ return new class extends TestCase {
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 9);
 
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
@@ -459,7 +459,7 @@ return new class extends TestCase {
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 9);
 
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
@@ -491,7 +491,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0a);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -766,7 +766,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(60);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(60);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
@@ -845,7 +845,7 @@ return new class extends TestCase {
 
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x10);
-        $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
+        $this->shouldCall('_RenderStartFadeOut_8c022b60')->with(10);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
@@ -1058,8 +1058,8 @@ return new class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
 
         /* Functions */
-        $this->setSize('_RenderPushFadeOut_8c022b60', 4);
-        $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
+        $this->setSize('_RenderStartFadeOut_8c022b60', 4);
+        $this->setSize('_RenderStartFadeIn_8c022a9c', 4);
         $this->setSize('_RouteGetLatch_8c01432a', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
     }

@@ -25,7 +25,7 @@
           .IMPORT     _PromptHandleMultiple_8c016c58
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _VmSelectUnmountAll_8c0194de
-          .IMPORT     _RenderPushFadeOut_8c022b60
+          .IMPORT     _RenderStartFadeOut_8c022b60
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     __quick_evn_mvn
@@ -35,7 +35,7 @@
           .IMPORT     _var_vmBusy_8c157a7c
           .IMPORT     _var_texbuf_8c277ca0
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _RenderPushFadeIn_8c022a9c
+          .IMPORT     _RenderStartFadeIn_8c022a9c
           .IMPORT     _var_vmMountBusy_8c22606c
           .IMPORT     _CourseMenuFreeResourceGroup_8c0185c4
           .IMPORT     _syFree
@@ -1089,7 +1089,7 @@ LP_GEN_76857:
           .DATA.L _PromptHandleMultiple_8c016c58 ; H'8C01C290
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01C294
           .DATA.L _VmSelectUnmountAll_8c0194de ; H'8C01C298
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01C29C
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01C29C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01C2A0
           .DATA.L _sdMidiPlay ; H'8C01C2A4
           .DATA.L __quick_evn_mvn ; H'8C01C2A8
@@ -1344,7 +1344,7 @@ LP_GEN_25641:
           .DATA.L _sdMidiPlay ; H'8C01C45C
           .DATA.L _const_8c0384b0 ; H'8C01C460
           .DATA.L _const_8c0384e8 ; H'8C01C464
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01C468
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01C468
           .DATA.L _const_8c038498 ; H'8C01C46C
           .DATA.L _CourseMenuInterpolateCursor_8c016d2c ; H'8C01C470
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C01C474
@@ -1856,10 +1856,10 @@ LP_GEN_33412:
           .DATA.W H'00FF ; H'8C01C842
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01C844
           .DATA.L _const_8c03867c ; H'8C01C848
-          .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01C84C
+          .DATA.L _RenderStartFadeOut_8c022b60 ; H'8C01C84C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01C850
           .DATA.L _sdMidiPlay ; H'8C01C854
-          .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01C858
+          .DATA.L _RenderStartFadeIn_8c022a9c ; H'8C01C858
           .DATA.L _var_vmMountBusy_8c22606c ; H'8C01C85C
           .DATA.L _var_resourceGroup_8c2263a8 ; H'8C01C860
           .DATA.L _CourseMenuFreeResourceGroup_8c0185c4 ; H'8C01C864

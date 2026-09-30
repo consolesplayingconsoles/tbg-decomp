@@ -28,22 +28,22 @@
           .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     _njSetBackColor
           .EXPORT     _RenderResetQueues_8c02239c
-          .EXPORT     _RenderPushCall1_8c0223ea
-          .EXPORT     _RenderPushCall2_8c022420
+          .EXPORT     _RenderQueueDraw_8c0223ea
+          .EXPORT     _RenderQueueDraw2_8c022420
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawLayer_8c022464
           .AENDI
-          .EXPORT     _RenderUpdate_8c022560
+          .EXPORT     _RenderDrawFrame_8c022560
           .EXPORT     _RenderStartRunFade_8c0228a2
-          .EXPORT     _RenderUpdatePlain_8c022910
+          .EXPORT     _RenderDrawFrameMainOnly_8c022910
           .AIFDEF UNIT_TESTING
           .EXPORT     _fadeInTask_8c022a54
           .AENDI
-          .EXPORT     _RenderPushFadeIn_8c022a9c
+          .EXPORT     _RenderStartFadeIn_8c022a9c
           .AIFDEF UNIT_TESTING
           .EXPORT     _fadeOutTask_8c022ad0
           .AENDI
-          .EXPORT     _RenderPushFadeOut_8c022b60
+          .EXPORT     _RenderStartFadeOut_8c022b60
           .EXPORT     _var_drawCamera_8c226558 ; 021b9c_tile_draw
                                                ; 0289ac_objects
           .EXPORT     _var_arrivalOverlayVariant_8c22655c ; 0129cc_game
@@ -138,7 +138,7 @@ LAB_8c0223a6:
 LAB_8c0223e6:
           RTS
           MOV.L       @R15+,R14
-_RenderPushCall1_8c0223ea:
+_RenderQueueDraw_8c0223ea:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       LP_GEN_14297+4,R3
@@ -167,7 +167,7 @@ _RenderPushCall1_8c0223ea:
 LAB_8c02241c:
           RTS
           MOV.L       @R15+,R14
-_RenderPushCall2_8c022420:
+_RenderQueueDraw2_8c022420:
           MOV.L       R14,@-R15
           MOV         R4,R14
           MOV.L       LP_GEN_14297+4,R3
@@ -332,7 +332,7 @@ LP_GEN_25565:
           .DATA.L _njCnkDrawObject ; H'8C022554
           .DATA.L _njCnkEasyDrawObject ; H'8C022558
           .DATA.L _njCnkSimpleDrawObject ; H'8C02255C
-_RenderUpdate_8c022560:
+_RenderDrawFrame_8c022560:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -780,7 +780,7 @@ LP_GEN_82363:
           .DATA.L _var_practiceRules_8c226410 ; H'8C022904
           .DATA.L _var_fadePhase_8c227d7c ; H'8C022908
           .DATA.L _var_isFading_8c226568 ; H'8C02290C
-_RenderUpdatePlain_8c022910:
+_RenderDrawFrameMainOnly_8c022910:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_60768+8,R2
           MOV.L       R13,@-R15
@@ -977,7 +977,7 @@ LAB_8c022a8e:
           MOV.L       LP_GEN_18675+44,R2
           JMP         @R2
           MOV.L       @R15+,R14
-_RenderPushFadeIn_8c022a9c:
+_RenderStartFadeIn_8c022a9c:
           STS.L       PR,@-R15
           ADD         #-H'c,R15
           MOV         #H'0,R3
@@ -1081,7 +1081,7 @@ LAB_8c022b3c:
           MOV.L       @R15+,R13
           JMP         @R2
           MOV.L       @R15+,R14
-_RenderPushFadeOut_8c022b60:
+_RenderStartFadeOut_8c022b60:
           STS.L       PR,@-R15
           ADD         #-H'c,R15
           MOV         #H'0,R3

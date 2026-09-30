@@ -94,7 +94,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 15);
     }
 
@@ -181,7 +181,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
-        $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
+        $this->shouldCall('_RenderStartFadeIn_8c022a9c')->with(10);
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0, 15);
     }
 

@@ -12,7 +12,7 @@
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
 #include "021b9c_tile_draw.h"
-#include "022464_render.h" /* RenderPushCall1_8c0223ea, RenderPushCall2_8c022420 */
+#include "022464_render.h" /* RenderQueueDraw_8c0223ea, RenderQueueDraw2_8c022420 */
 #include "028258_signal.h" /* SignalGetFrame_8c028900, SignalClearPedCrossingFlags_8c02890c */
 #include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
@@ -888,7 +888,7 @@ STATIC void drawPedestriansMirror_8c028a38(int arg0)
  * camera and the direction its path segment runs (flStepX_0x0c/flStepZ_0x10
  * of pPathNode_0x4c); every pedestrian on a segment shares that angle, so
  * the bucket is cached per frame keyed by the node pointer.
- * Installed as a DrawCallback1; the callback arg is unused. */
+ * Installed as a DrawFn; the callback arg is unused. */
 STATIC void drawPedestrians_8c028b74(int arg0)
 {
     PedGroupEntry *groups = (PedGroupEntry *)var_pedGroups_8c228230;
@@ -1277,7 +1277,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     int i;
     Bool isDemo;
     int layer;
-    DrawCallback1 fn;
+    DrawFn fn;
 
     if (var_runState_8c2285c4.runPhase_0x00 == 0) {
         return;
@@ -1379,15 +1379,15 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     if (isDemo) {
         fn = drawPedestrians_8c028b74;
     } else {
-        RenderPushCall1_8c0223ea(0, drawPedestrians_8c028b74, 0);
+        RenderQueueDraw_8c0223ea(0, drawPedestrians_8c028b74, 0);
         fn = drawPedestriansMirror_8c028a38;
     }
     layer = !isDemo;
-    RenderPushCall1_8c0223ea(layer, fn, layer);
+    RenderQueueDraw_8c0223ea(layer, fn, layer);
 
     if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
-        RenderPushCall1_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
-        RenderPushCall1_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
+        RenderQueueDraw_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
+        RenderQueueDraw_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
     }
 }
 
@@ -1528,7 +1528,7 @@ STATIC void drawBlinkers_8c029878(int taskArg, int matricesArg)
 STATIC void routeBlinkerTask_8c029904(RouteBlinkerTask *task, NJS_MATRIX *state)
 {
     task->blinkCounter_0x0c++;
-    RenderPushCall2_8c022420(0, drawBlinkers_8c029878, (int)task, (int)state);
+    RenderQueueDraw2_8c022420(0, drawBlinkers_8c029878, (int)task, (int)state);
 }
 
 /* One-shot setup for the current run's route blinkers, called from
@@ -1737,7 +1737,7 @@ void ObjectsFreeAssetRequests_8c029cfe(void)
 
     var_assetRequestTable_8c228408 = (int *)-1;
 }
-/* DrawCallback1 draw callback for the fly-by model spawned by flyByModelTask_8c029e68;
+/* DrawFn draw callback for the fly-by model spawned by flyByModelTask_8c029e68;
  * state is the spawned task's state array (texlist at 0x40, model at 0x44,
  * motion at 0x48, current frame at 0x58, per rowFlyByTask_8c029e94/flyByModelTask_8c029e68). */
 STATIC void drawFlyByModel_8c029e46(int state)
@@ -1756,7 +1756,7 @@ STATIC void flyByModelTask_8c029e68(Task *task, RowTaskState *state)
         TaskKill_8c014b66(task);
         return;
     }
-    RenderPushCall1_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
+    RenderQueueDraw_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
 }
 /* TaskAction for a type-0 row, installed by ObjectsSpawnTasks_8c02a6ac. Counts
  * down task->field_0x08; once it lapses, spawns a fly-by task (flyByModelTask_8c029e68)
@@ -1782,7 +1782,7 @@ STATIC void rowFlyByTask_8c029e94(Task *task, RowTaskState *state)
         task->field_0x08 = AsqGetRandomInRangeA_8c012178(0x30) + 0x10;
     }
 }
-/* DrawCallback1 draw callback for a type-1 row task; state is the spawned
+/* DrawFn draw callback for a type-1 row task; state is the spawned
  * task's state (see RowTaskState), with the DatBlob at RowTaskState::dat_0x48. */
 STATIC void drawDatModel_8c029f2a(int state)
 {
@@ -1843,10 +1843,10 @@ STATIC int advanceDatBlob_8c029f54(DatBlob *dat)
 STATIC void rowDatTask_8c029fcc(Task *task, RowTaskState *state)
 {
     advanceDatBlob_8c029f54((DatBlob *)state->dat_0x48);
-    RenderPushCall1_8c0223ea(0, drawDatModel_8c029f2a, (int)state);
-    RenderPushCall1_8c0223ea(1, drawDatModel_8c029f2a, (int)state);
+    RenderQueueDraw_8c0223ea(0, drawDatModel_8c029f2a, (int)state);
+    RenderQueueDraw_8c0223ea(1, drawDatModel_8c029f2a, (int)state);
 }
-/* DrawCallback1 draw callback for a type-2 row task; state is the spawned
+/* DrawFn draw callback for a type-2 row task; state is the spawned
  * task's state array. Draws the {texlist, model} pair at offset 0x40/0x44,
  * with fog and njControl3D left toggled off for the draw when the row's
  * flags at 0x78/0x79 are clear. */
@@ -1875,11 +1875,11 @@ STATIC void rowModelTask_8c02a08a(Task *task, RowTaskState *state)
             state->phase_0x54 = state->phase_0x54 + 1;
         }
     } else if (state->phase_0x54 == 1) {
-        RenderPushCall1_8c0223ea(0, drawRowModel_8c02a048, (int)state);
-        RenderPushCall1_8c0223ea(1, drawRowModel_8c02a048, (int)state);
+        RenderQueueDraw_8c0223ea(0, drawRowModel_8c02a048, (int)state);
+        RenderQueueDraw_8c0223ea(1, drawRowModel_8c02a048, (int)state);
     }
 }
-/* DrawCallback1 draw callback for a type-3 row task; state is the spawned
+/* DrawFn draw callback for a type-3 row task; state is the spawned
  * task's state array, laid out like drawFlyByModel_8c029e46's (texlist 0x40,
  * model 0x44, motion 0x48, current frame 0x58) with drawRowModel_8c02a048's
  * fog/njControl3D toggles (flags at 0x78/0x79). */
@@ -1910,7 +1910,7 @@ STATIC void rowMotionModelTask_8c02a120(Task *task, RowTaskState *state)
     } else if (state->phase_0x54 == 1) {
         state->frame_0x58 = state->frame_0x58 + 1.0f;
         if (state->frame_0x58 < state->frameLimit_0x5c) {
-            RenderPushCall1_8c0223ea(0, drawRowMotionModel_8c02a0d6, (int)state);
+            RenderQueueDraw_8c0223ea(0, drawRowMotionModel_8c02a0d6, (int)state);
             return;
         }
         if (task->field_0x0c == 0) {
@@ -1938,9 +1938,9 @@ STATIC void drawRowSimpleModel_8c02a1b2(int state, int fogEnable)
 /* TaskAction for a type-4 row, installed by ObjectsSpawnTasks_8c02a6ac. */
 STATIC void rowSimpleModelTask_8c02a1f0(Task *task, RowTaskState *state)
 {
-    RenderPushCall2_8c022420(0, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
+    RenderQueueDraw2_8c022420(0, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
 }
-/* DrawCallback1 draw callback for a type-5 row task; state is the spawned
+/* DrawFn draw callback for a type-5 row task; state is the spawned
  * task's state array. Unlike drawRowModel_8c02a048, fades the whole draw via
  * a constant material color (alpha at 0x68, set by rowMaterialModelTask_8c02a27c) instead of
  * toggling fog/lighting per row flags. */
@@ -1986,8 +1986,8 @@ STATIC void rowMaterialModelTask_8c02a27c(void *task, RowTaskState *state)
             state->material_0x68.a = dist * 0.05f - 0.5f;
         }
     }
-    RenderPushCall1_8c0223ea(0, drawRowMaterialModel_8c02a206, (int)state);
-    RenderPushCall1_8c0223ea(1, drawRowMaterialModel_8c02a206, (int)state);
+    RenderQueueDraw_8c0223ea(0, drawRowMaterialModel_8c02a206, (int)state);
+    RenderQueueDraw_8c0223ea(1, drawRowMaterialModel_8c02a206, (int)state);
 }
 /* Resolves 16 grandchildren of nodes[0] into nodes[1..16]: nodes[0]'s two
  * children (child, child->sibling) each contribute 8 nodes -- their own
@@ -2076,7 +2076,7 @@ STATIC void setGrandchildEvalFlags_8c02a370(NJS_OBJECT **nodes, char selector)
     }
     nodes[16]->evalflags = 0x3f;
 }
-/* DrawCallback1 draw callback for a type-6 (FUMI railway crossing) row task,
+/* DrawFn draw callback for a type-6 (FUMI railway crossing) row task,
  * called by fumiCrossingTask_8c02a4f8. Draws the gate, the lamp housing, and --
  * while a passing train is still due (state->trainActive_0x64 > 0) -- the train
  * model stashed at state->model_0x44/state->dat_0x48 (same slots as
@@ -2134,7 +2134,7 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
                 state->frame_0x58 = state->frameLimit_0x5c;
             }
         }
-        RenderPushCall1_8c0223ea(0, drawFumiCrossing_8c02a47c, (int)state);
+        RenderQueueDraw_8c0223ea(0, drawFumiCrossing_8c02a47c, (int)state);
         return;
     }
 
@@ -2143,7 +2143,7 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
         var_trafficSignalFrames_8c227e24[0] = 0;
     }
 }
-/* Installed as a DrawCallback1 on both draw layers (arg0 = layer). Sets up
+/* Installed as a DrawFn on both draw layers (arg0 = layer). Sets up
  * njCnk's simple light for the row draw calls that follow: direction from
  * var_simpleLightDir_8c2264d8 (layer 0) or var_mirrorSimpleLightDir_8c2264e4
  * (layer 1, the mirror side), and a constant intensity/ambient/color already
@@ -2164,8 +2164,8 @@ STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
 STATIC void execRowTaskGroupTask_8c02a60e(void)
 {
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
-        RenderPushCall1_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
-        RenderPushCall1_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
+        RenderQueueDraw_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
+        RenderQueueDraw_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
         TaskRunGroup_8c014b42(var_tasks_8c1bb448);
     }
 }

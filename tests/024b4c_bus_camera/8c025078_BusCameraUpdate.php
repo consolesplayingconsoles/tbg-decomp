@@ -51,7 +51,7 @@ return new class extends TestCase {
         $this->setSize('_njRollCameraInterest', 4);
         $this->setSize('_njSetCamera', 4);
         $this->setSize('_njCalcVector', 4);
-        $this->setSize('_RenderPushCall1_8c0223ea', 4);
+        $this->setSize('_RenderQueueDraw_8c0223ea', 4);
         $this->setSize('__divls', 4);
         $this->onCall('__divls', function () {
             $this->setRegister(0, $this->getRegister(1)->div($this->getRegister(0)));
@@ -123,7 +123,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_busSimpleLightDir_8c227db8') + 8, 0.3);
         $this->shouldCall('_njCalcVector')->with(0, $this->addressOf('_var_busSimpleLightDir_8c227db8'), $this->addressOf('_var_busSimpleLightDir_8c227db8'));
         if ($drawFn !== null) {
-            $this->shouldCall('_RenderPushCall1_8c0223ea')->with(0, $this->addressOf($drawFn), 0);
+            $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(0, $this->addressOf($drawFn), 0);
         }
     }
 

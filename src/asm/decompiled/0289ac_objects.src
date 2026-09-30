@@ -2,10 +2,10 @@
           .IMPORT     _var_trafficSignalFrames_8c227e24
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _njSqrt
-          .IMPORT     _RenderPushCall2_8c022420
+          .IMPORT     _RenderQueueDraw2_8c022420
           .IMPORT     _njCnkSetSimpleLight
           .IMPORT     _var_runState_8c2285c4
-          .IMPORT     _RenderPushCall1_8c0223ea
+          .IMPORT     _RenderQueueDraw_8c0223ea
           .IMPORT     _TaskRunGroup_8c014b42
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_groundQueryPoint_8c1bc460
@@ -1990,7 +1990,7 @@ LP_GEN_59898:
           .DATA.L _var_pedGroupCount_8c228234 ; H'8C029718
           .DATA.L _var_tasks_8c1ba808 ; H'8C02971C
           .DATA.L _TaskRunGroup_8c014b42 ; H'8C029720
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C029724
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C029724
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C029728
           .DATA.L _drawPedestrians_8c028b74 ; H'8C02972C
           .DATA.L _drawPedestriansMirror_8c028a38 ; H'8C029730
@@ -2429,7 +2429,7 @@ LP_GEN_39842:
           .DATA.L _njSetCamera ; H'8C029A70
           .DATA.L _njCnkSimpleDrawObject ; H'8C029A74
           .DATA.L _drawBlinkers_8c029878 ; H'8C029A78
-          .DATA.L _RenderPushCall2_8c022420 ; H'8C029A7C
+          .DATA.L _RenderQueueDraw2_8c022420 ; H'8C029A7C
           .DATA.L _var_routeModels_8c1bc3ec ; H'8C029A80
           .DATA.L _var_route_8c18ad1c ; H'8C029A84
           .DATA.L _init_wanganBlinkerPoints_8c0465d8 ; H'8C029A88
@@ -3143,7 +3143,7 @@ LP_GEN_15421:
           .DATA.L _njSetTexture ; H'8C02A018
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02A01C
           .DATA.L _drawFlyByModel_8c029e46 ; H'8C02A020
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02A024
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C02A024
           .DATA.L _TaskKill_8c014b66 ; H'8C02A028
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02A02C
           .DATA.L _flyByModelTask_8c029e68 ; H'8C02A030
@@ -3292,7 +3292,7 @@ LP_GEN_26634:
           .DATA.L H'FF000000 ; H'8C02A14C
           .DATA.L _var_busState_8c1bb9d0+H'3BC ; H'8C02A150 (scenePresetIds_0x3bc)
           .DATA.L _drawRowModel_8c02a048 ; H'8C02A154
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02A158
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C02A158
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02A15C
 LAB_8c02a160:
           MOV.L       LP_GEN_26723+10,R1
@@ -3421,7 +3421,7 @@ LP_GEN_26723:
           .DATA.L H'FF000000 ; H'8C02A244
           .DATA.L _var_busState_8c1bb9d0+H'3BC ; H'8C02A248 (scenePresetIds_0x3bc)
           .DATA.L _drawRowMotionModel_8c02a0d6 ; H'8C02A24C
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02A250
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C02A250
           .DATA.L _TaskKill_8c014b66 ; H'8C02A254
           .DATA.L _njControl3D ; H'8C02A258
           .DATA.L _njFogDisable ; H'8C02A25C
@@ -3429,7 +3429,7 @@ LP_GEN_26723:
           .DATA.L _njCnkSimpleDrawObject ; H'8C02A264
           .DATA.L _njFogEnable ; H'8C02A268
           .DATA.L _drawRowSimpleModel_8c02a1b2 ; H'8C02A26C
-          .DATA.L _RenderPushCall2_8c022420 ; H'8C02A270
+          .DATA.L _RenderQueueDraw2_8c022420 ; H'8C02A270
           .DATA.L _njSetConstantAttr ; H'8C02A274
           .DATA.L _njSetConstantMaterial ; H'8C02A278
 _rowMaterialModelTask_8c02a27c:
@@ -3616,7 +3616,7 @@ LP_GEN_33964:
           .DATA.L H'BF000000 ; H'8C02A3E0
           .DATA.L H'3D4CCCCD ; H'8C02A3E4
           .DATA.L _drawRowMaterialModel_8c02a206 ; H'8C02A3E8
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02A3EC
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C02A3EC
 LAB_8c02a3f0:
           MOV.L       @(H'4,R4),R2
           MOV         #H'40,R0
@@ -3950,7 +3950,7 @@ LP_GEN_23851:
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C02A66C
           .DATA.L H'4F800000 ; H'8C02A670
           .DATA.L _drawFumiCrossing_8c02a47c ; H'8C02A674
-          .DATA.L _RenderPushCall1_8c0223ea ; H'8C02A678
+          .DATA.L _RenderQueueDraw_8c0223ea ; H'8C02A678
           .DATA.L _var_simpleLightDir_8c2264d8 ; H'8C02A67C
           .DATA.L _var_mirrorSimpleLightDir_8c2264e4 ; H'8C02A680
           .DATA.L _njCnkSetSimpleLight ; H'8C02A684

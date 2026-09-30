@@ -124,7 +124,7 @@ typedef struct {
 
     /* Which mirror view is up, a MirrorSelect (022464_render.h). Set by
      * BusInputUpdate_8c0246b2 from the turn-signal buttons (024280); read by
-     * RenderUpdate_8c022560 and BusCameraUpdateMirror_8c025604. */
+     * RenderDrawFrame_8c022560 and BusCameraUpdateMirror_8c025604. */
     MirrorSelect mirror_0x268;
 
     /* Divided by pitchCos_0x270 by BusCameraUpdate_8c025078 for the
@@ -424,7 +424,7 @@ extern int var_cutsceneActive_8c1bb900;
 extern NJS_CAMERA var_camera_8c1bb904; // 021b9c_tile_draw
 extern NJS_CAMERA var_mirrorCamera_8c1bb944; // 021b9c_tile_draw
 /* Aimed from the driver's eye down the aisle by DemoBoardingCamera_8c025870
- * (025870); RenderUpdate_8c022560's arrival variant 1 renders it into the inset
+ * (025870); RenderDrawFrame_8c022560's arrival variant 1 renders it into the inset
  * over the mirror view. */
 extern NJS_CAMERA var_cabinCamera_8c1bb984;
 extern char var_8c1bb9c4[12]; /* unreferenced; declared here to hold its place in B */

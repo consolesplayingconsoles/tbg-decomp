@@ -41,7 +41,7 @@ return new class extends TestCase {
         $this->setSize('_njSqrt', 4);
         $this->setSize('_njSetCamera', 4);
         $this->setSize('_njCalcVector', 4);
-        $this->setSize('_RenderPushCall1_8c0223ea', 4);
+        $this->setSize('_RenderQueueDraw_8c0223ea', 4);
     }
 
     private function f32(float $value): float
@@ -150,7 +150,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_mirrorLightDir_8c227dc4') + 8, 0.6);
         $this->shouldCall('_njCalcVector')->with(0, $this->addressOf('_var_mirrorLightDir_8c227dc4'), $this->addressOf('_var_mirrorLightDir_8c227dc4'));
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_BusCameraDrawBusModel_8c024bb8'), 1);
+        $this->shouldCall('_RenderQueueDraw_8c0223ea')->with(1, $this->addressOf('_BusCameraDrawBusModel_8c024bb8'), 1);
     }
 
     public function test_mirror_mode_1(): void

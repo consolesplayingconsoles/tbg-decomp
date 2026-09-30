@@ -34,7 +34,7 @@ return new class extends TestCase {
         $camera1 = $this->addressOf('_var_mirrorCamera_8c1bb944');
         $cameraDefault = $this->addressOf('_var_camera_8c1bb904');
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njControl3D')->with(0x100);
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorView_8c045578'));
@@ -68,7 +68,7 @@ return new class extends TestCase {
         $camera1 = $this->addressOf('_var_mirrorCamera_8c1bb944');
         $cameraDefault = $this->addressOf('_var_camera_8c1bb904');
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njControl3D')->with(0x100);
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorView_8c045578'));
@@ -102,7 +102,7 @@ return new class extends TestCase {
         $camera1 = $this->addressOf('_var_mirrorCamera_8c1bb944');
         $cameraDefault = $this->addressOf('_var_camera_8c1bb904');
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njControl3D')->with(0x100);
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorView_8c045578'));
@@ -129,7 +129,7 @@ return new class extends TestCase {
         $camera2 = $this->addressOf('_var_cabinCamera_8c1bb984');
         $cameraDefault = $this->addressOf('_var_camera_8c1bb904');
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njControl3D')->with(0x100);
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorViewTall_8c045588'));
@@ -165,7 +165,7 @@ return new class extends TestCase {
         $camera1 = $this->addressOf('_var_mirrorCamera_8c1bb944');
         $cameraDefault = $this->addressOf('_var_camera_8c1bb904');
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njControl3D')->with(0x100);
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorViewTall_8c045588'));

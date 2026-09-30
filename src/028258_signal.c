@@ -6,7 +6,7 @@
 #include "014a9c_tasks.h" /* Task */
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
-#include "022464_render.h" /* RenderPushCall1_8c0223ea, RenderPushCall2_8c022420 */
+#include "022464_render.h" /* RenderQueueDraw_8c0223ea, RenderQueueDraw2_8c022420 */
 #include "026710_traffic.h" /* TrafficMarkSignalIdsInUse_8c026dcc */
 #include "027958_bus_draw.h" /* BusDrawSignal_8c0281ac */
 #include "02b464_grading.h" /* var_runState_8c2285c4 */
@@ -51,7 +51,7 @@ STATIC void trafficSignalTask_8c028258(Task *task, TrafficSignal *obj)
         dz = var_busState_8c1bb9d0.posZ_0x304 - obj->posA_0x1c.z;
         dist = njSqrt(dx * dx + dz * dz);
         if (dist < 200.0f) {
-            RenderPushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxA_0x34);
+            RenderQueueDraw2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxA_0x34);
             obj->drawA_0xc8 = 1;
         }
     }
@@ -61,7 +61,7 @@ STATIC void trafficSignalTask_8c028258(Task *task, TrafficSignal *obj)
         dz = var_busState_8c1bb9d0.posZ_0x304 - obj->posB_0x28.z;
         dist = njSqrt(dx * dx + dz * dz);
         if (dist < 200.0f) {
-            RenderPushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxB_0x74);
+            RenderQueueDraw2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxB_0x74);
             obj->drawB_0xcc = 1;
         }
     }
@@ -88,14 +88,14 @@ STATIC void linkedTrafficSignalTask_8c02833c(Task *task, TrafficSignal *obj)
     var_trafficSignalFrames_8c227e24[obj->id_0x00] = obj->frame_0x0c;
 
     if (linked->drawA_0xc8 != 0) {
-        RenderPushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxA_0x34);
+        RenderQueueDraw2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxA_0x34);
     }
     if (linked->drawB_0xcc != 0) {
-        RenderPushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxB_0x74);
+        RenderQueueDraw2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxB_0x74);
     }
 }
 
-/* Installed as a DrawCallback1; the callback arg is unused. */
+/* Installed as a DrawFn; the callback arg is unused. */
 STATIC void setTrafficSignalLightCallback_8c0283d4(int arg0)
 {
     njCnkSetSimpleLight(var_busSimpleLightDir_8c227db8[0], var_busSimpleLightDir_8c227db8[1], var_busSimpleLightDir_8c227db8[2]);
@@ -105,7 +105,7 @@ STATIC void setTrafficSignalLightCallback_8c0283d4(int arg0)
 STATIC void execTrafficSignalGroupTask_8c0283e8(Task *task, void *state)
 {
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
-        RenderPushCall1_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
+        RenderQueueDraw_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
         TaskRunGroup_8c014b42(var_trafficSignalTasks_8c227e20);
     }
 }

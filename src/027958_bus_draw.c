@@ -9,7 +9,7 @@
 #include "020914_ground_query.h" /* GroundQueryResult */
 #include "020b6c_ground_probe.h" /* GroundProbeTrackPolygonAtHeight_8c021290, GroundProbeInterpolateHeight_8c020f7e */
 #include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */
-#include "022464_render.h"         /* RenderPushCall2_8c022420 */
+#include "022464_render.h"         /* RenderQueueDraw2_8c022420 */
 #include "028258_signal.h" /* TrafficSignal */
 #include "027958_bus_draw.h"
 
@@ -191,7 +191,7 @@ void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float accel)
         0.174f <= (var_busState_8c1bb9d0.moveDeltaX_0x308 * dx +
                    dz * var_busState_8c1bb9d0.moveDeltaZ_0x310) /
                   (var_busState_8c1bb9d0.moveDeltaMagnitude_0x314 * dist)) {
-        RenderPushCall2_8c022420(0, drawAhead_8c027a88, (int)entity, 55.0f <= dist);
+        RenderQueueDraw2_8c022420(0, drawAhead_8c027a88, (int)entity, 55.0f <= dist);
         registered = 1;
     }
 
@@ -212,7 +212,7 @@ void BusDrawPlaceEntity_8c027c3c(TrafficEntry *entity, float accel)
                 entity->mirrorVisible_0x268 = 1;
             }
         }
-        RenderPushCall2_8c022420(1, drawMirror_8c027bac, (int)entity, farLod);
+        RenderQueueDraw2_8c022420(1, drawMirror_8c027bac, (int)entity, farLod);
         registered = 1;
     }
 

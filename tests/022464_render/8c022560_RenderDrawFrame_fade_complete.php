@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_fadeCompleteCallback_8c22656c'), 0xffffffff);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldWriteLong($this->addressOf('_var_fadeProgress_8c227d80'), 0x1000000);
@@ -52,7 +52,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_fadeCompleteCallback_8c22656c'), $this->addressOf('_callback'));
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldWriteLong($this->addressOf('_var_fadeProgress_8c227d80'), 0x1000000);
@@ -73,7 +73,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_fadeCompleteCallback_8c22656c'), 0xffffffff);
 
-        $this->call('_RenderUpdate_8c022560');
+        $this->call('_RenderDrawFrame_8c022560');
 
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
         $this->shouldWriteLong($this->addressOf('_var_fadePhase_8c227d7c'), 0);

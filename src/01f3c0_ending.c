@@ -256,7 +256,7 @@ STATIC void creditsTask_8c01f658(void)
         var_menuState_8c1bc7a8.cursorVelocity_0x30.x = 1.0f;
         var_menuState_8c1bc7a8.cursorVelocity_0x30.y = 0.0f;
         SndPlayAdx_8c010cd6(0, 1);
-        RenderPushFadeIn_8c022a9c(10);
+        RenderStartFadeIn_8c022a9c(10);
         return;
 
     case ENDING_TASK_STATE_FADE_IN:
@@ -272,7 +272,7 @@ STATIC void creditsTask_8c01f658(void)
             var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_FADE_OUT_TO_CREDITS;
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);
-            RenderPushFadeOut_8c022b60(30);
+            RenderStartFadeOut_8c022b60(30);
         }
         updateEndingOverlay_8c01f42c();
         return;
@@ -301,7 +301,7 @@ STATIC void creditsTask_8c01f658(void)
         var_menuState_8c1bc7a8.field_0x58 = 0;
         var_menuState_8c1bc7a8.timer_0x68 = 3240;
         SndPlayAdx_8c010cd6(0, 12);
-        RenderPushFadeIn_8c022a9c(30);
+        RenderStartFadeIn_8c022a9c(30);
         return;
 
     case ENDING_TASK_STATE_CREDITS_INTRO:
@@ -331,7 +331,7 @@ STATIC void creditsTask_8c01f658(void)
             var_menuState_8c1bc7a8.state_0x18 = ENDING_TASK_STATE_EXIT;
             SndStartAdxFadeOut_8c010bae(0);
             SndStartAdxFadeOut_8c010bae(1);
-            RenderPushFadeOut_8c022b60(60);
+            RenderStartFadeOut_8c022b60(60);
         }
         scrollCreditsText_8c01f50e();
         return;

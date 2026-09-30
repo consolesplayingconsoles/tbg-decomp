@@ -171,10 +171,10 @@
           .IMPORT     _var_peripheral_8c1ba358
           .IMPORT     _var_activeCtrlType_8c157a70
           .IMPORT     _SndSetPaused_8c0107d2
-          .IMPORT     _RenderUpdate_8c022560
+          .IMPORT     _RenderDrawFrame_8c022560
           .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_markTexlist_8c1bc418
-          .IMPORT     _RenderPushFadeOut_8c022b60
+          .IMPORT     _RenderStartFadeOut_8c022b60
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _var_runSucceeded_8c1bb8dc
           .IMPORT     _var_runReportPending_8c1bb8b8
@@ -186,7 +186,7 @@
           .IMPORT     _var_practiceLesson_8c22640c
           .IMPORT     _PracticeMenuLessonRetry_8c01f21c
           .IMPORT     _RenderResetQueues_8c02239c
-          .IMPORT     _RenderUpdatePlain_8c022910
+          .IMPORT     _RenderDrawFrameMainOnly_8c022910
           .IMPORT     _SndUpdateAdxVolFade_8c010a40
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _var_peripherals_8c1ba35c
@@ -504,13 +504,13 @@ LP_GEN_41107:
           .DATA.L _SndSetPaused_8c0107d2
           .DATA.L _var_vibport_8c1ba354
           .DATA.L _pdVibMxStop
-          .DATA.L _RenderUpdate_8c022560
+          .DATA.L _RenderDrawFrame_8c022560
           .DATA.L _SpriteDraw_8c014f54
           .DATA.L _var_confirmChoice_8c18ad0c
           .DATA.L H'BF8B851F
           .DATA.L _var_retirePhase_8c18ad08
           .DATA.L _var_markTexlist_8c1bc418
-          .DATA.L _RenderPushFadeOut_8c022b60
+          .DATA.L _RenderStartFadeOut_8c022b60
 
 LAB_8c012bfc:
           MOV.L       LP_GEN_43727+2,R1
@@ -793,10 +793,10 @@ LP_GEN_43727:
           .DATA.L _RenderResetQueues_8c02239c
           .DATA.L _var_tasks_8c1ba5e8
           .DATA.L _TaskRunGroup_8c014b42
-          .DATA.L _RenderUpdate_8c022560
+          .DATA.L _RenderDrawFrame_8c022560
           .DATA.L _var_pauseActive_8c1bb8cc
           .DATA.L _var_peripheral_8c1ba358
-          .DATA.L _RenderUpdatePlain_8c022910
+          .DATA.L _RenderDrawFrameMainOnly_8c022910
           .DATA.L _init_adxPlaying_8c03bd80
           .DATA.L _init_soundOk_8c03bd84
           .DATA.L _SndUpdateAdxVolFade_8c010a40
@@ -911,12 +911,12 @@ LAB_8c012f10:
           MOV.L       @R15+,R14
 LP_GEN_94405:
           .DATA.W     H'0708 ; LP_GEN_94405+0
-          .DATA.L     _RenderPushFadeOut_8c022b60
+          .DATA.L     _RenderStartFadeOut_8c022b60
           .DATA.L     _TitleSpawnTitle_8c015fd6
           .DATA.L     _RenderResetQueues_8c02239c
           .DATA.L     _var_tasks_8c1ba5e8
           .DATA.L     _TaskRunGroup_8c014b42
-          .DATA.L     _RenderUpdatePlain_8c022910
+          .DATA.L     _RenderDrawFrameMainOnly_8c022910
           .DATA.L     H'BF8CCCCD
           .DATA.L     _var_markTexlist_8c1bc418
           .DATA.L     _SpriteDraw_8c014f54
