@@ -124,10 +124,10 @@ typedef struct {
 
     /* Which mirror view is up, a MirrorSelect (022464_render.h). Set by
      * BusInputUpdate_8c0246b2 from the turn-signal buttons (024280); read by
-     * RenderUpdate_8c022560 and BusRenderUpdateMirrorCamera_8c025604. */
+     * RenderUpdate_8c022560 and BusCameraUpdateMirrorCamera_8c025604. */
     MirrorSelect mirror_0x268;
 
-    /* Divided by pitchCos_0x270 by BusRenderUpdateCamera_8c025078 for the
+    /* Divided by pitchCos_0x270 by BusCameraUpdateCamera_8c025078 for the
      * mode-1 camera's Y bob -- a real float field (FMOV.S load), not int. */
     float pitchSin_0x26c;
     float pitchCos_0x270;
@@ -207,7 +207,7 @@ typedef struct {
     float moveDeltaMagnitude_0x314;
     /* Rear-view-mirror camera's local offset (x,y,z), picked by
      * mirror_0x268 and rotated by worldMatrix_0x084 into mirrorWorldOffsetX_0x318/0x32c world
-     * offsets, all by BusRenderUpdateMirrorCamera_8c025604. */
+     * offsets, all by BusCameraUpdateMirrorCamera_8c025604. */
     float mirrorWorldOffsetX_0x318;
     float mirrorWorldOffsetY_0x31c;
     float mirrorWorldOffsetZ_0x320;
@@ -316,7 +316,7 @@ typedef struct {
     char defaultView_0xc6;
     char vibration_0xc7;  /* 0 is on -- driveCueTask_8c020214 ticks rumble only while it reads 0 */
     /* 0 is on; nonzero holds the cockpit and first-person views level,
-     * ignoring the bus's roll and pitch (BusRenderUpdateCamera_8c025078). */
+     * ignoring the bus's roll and pitch (BusCameraUpdateCamera_8c025078). */
     char screenRoll_0xc8;
 
     char reserved_0xc9[3];

@@ -90,7 +90,7 @@ SRCS = \
 	src/023938_bus_drive.c \
 	src/02412c_bus_line.c \
 	src/024280_bus_input.c \
-	src/024b4c_bus_render.c \
+	src/024b4c_bus_camera.c \
 	src/025870_demo.c \
 	src/025b98_traffic_drive.c \
 	src/026710_traffic.c \

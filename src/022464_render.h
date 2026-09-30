@@ -32,7 +32,7 @@ typedef enum {
     MIRROR_LEFT  = 1,
     MIRROR_RIGHT = 2,
     /* Not a wing mirror: the door-side view a run starts in
-     * (busInitPlaceBus_8c023310) -- BusRenderUpdateMirrorCamera_8c025604 puts
+     * (busInitPlaceBus_8c023310) -- BusCameraUpdateMirrorCamera_8c025604 puts
      * the camera close alongside the front door instead of back down the
      * flank. RenderUpdate_8c022560 draws it like the wing mirrors but with no
      * label sprite. */

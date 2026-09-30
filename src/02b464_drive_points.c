@@ -24,7 +24,7 @@
 #include "01e27c_practice_menu.h"
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
-#include "024b4c_bus_render.h"
+#include "024b4c_bus_camera.h"
 #include "02b2f0_drive_msg.h"
 
 /* ====================
@@ -1144,7 +1144,7 @@ STATIC void taskCallback_8c02c072() {
                     }
                     var_runState_8c2285c4.runPhase_0x00 = 5;
                     var_fadeRequest_8c226564 = FADE_REQUEST_IN;
-                    BusRenderSaveCameraState_8c024b4c();
+                    BusCameraSaveCameraState_8c024b4c();
                 } else {
                     SndUpdateAdxVolFade_8c010a40();
                 }

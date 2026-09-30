@@ -16,7 +16,7 @@ void DemoBoardingCamera_8c025870(void);
 
 /* Called each frame by BusTask_8c022bdc (022bdc) while
  * var_playMode_8c1bb8d0 is PLAY_MODE_DEMO. Places the main camera for the
- * three demo modes of var_cameraMode_8c227d9c (024b4c_bus_render.h): the shot
+ * three demo modes of var_cameraMode_8c227d9c (024b4c_bus_camera.h): the shot
  * position for 5 and 6 was already resolved by applyShotPosition_8c0258ba,
  * mode 7 re-resolves it every frame so the camera rides along. Also refreshes
  * the bus's move delta from camera to bus, which is what 027958_bus_draw's

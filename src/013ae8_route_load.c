@@ -16,7 +16,7 @@
 #include "02c884_bus_stop.h"
 #include "02b464_drive_points.h"
 #include "04ce10_line_nodes.h"
-#include "024b4c_bus_render.h"
+#include "024b4c_bus_camera.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"

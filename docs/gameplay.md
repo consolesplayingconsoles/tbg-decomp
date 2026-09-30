@@ -41,9 +41,9 @@ bus along a predefined route with predefined passenger stop requests.
 
 ## Camera
 
-- Cycled in-drive with the **Y button** (`BusRenderUpdateCamera_8c025078`,
-  `024b4c_bus_render.c`). The active mode lives in `var_cameraMode_8c227d9c`
-  (`BUS_CAMERA_*` in `024b4c_bus_render.h`).
+- Cycled in-drive with the **Y button** (`BusCameraUpdateCamera_8c025078`,
+  `024b4c_bus_camera.c`). The active mode lives in `var_cameraMode_8c227d9c`
+  (`BUS_CAMERA_*` in `024b4c_bus_camera.h`).
 - The Y button only ever cycles `BUS_CAMERA_COCKPIT` (0) through
   `BUS_CAMERA_THIRD_PERSON_FAR` (3) -- confirmed player-facing:
   - **`BUS_CAMERA_COCKPIT` (0)**: camera sits exactly at the bus's own
@@ -55,7 +55,7 @@ bus along a predefined route with predefined passenger stop requests.
     dashboard); a gentler pitch-based bob than mode 0.
   - **`BUS_CAMERA_THIRD_PERSON_NEAR` (2)** / **`BUS_CAMERA_THIRD_PERSON_FAR`
     (3)**: chase camera via `positionCamera_8c024d6c`, follow distance 18 and
-    30 respectively; draws the third-person bus model (`BusRenderDrawBusModel_8c024bb8`).
+    30 respectively; draws the third-person bus model (`BusCameraDrawBusModel_8c024bb8`).
   - **`BUS_CAMERA_FIXED_TARGET` (4)**: fixed on `var_fixedCameraTarget_8c227d90`, aimed via
     `njPointCameraInterest`. Traced as unreachable: the Y-button cycle wraps
     at 3 back to 0 and no other decompiled code path ever assigns 4 to
@@ -71,7 +71,7 @@ bus along a predefined route with predefined passenger stop requests.
 - Modes 0 and 1 additionally roll the camera by the road's pitch, taken from
   recent Y waypoint history -- this is the extra bob felt when turning on
   top of mode 0's yaw sway.
-- The mirrors run a separate camera (`BusRenderUpdateMirrorCamera_8c025604`,
+- The mirrors run a separate camera (`BusCameraUpdateMirrorCamera_8c025604`,
   `var_mirrorCamera_8c1bb944`), selected by `busState.mirror_0x268`.
 
 ## Turn signals

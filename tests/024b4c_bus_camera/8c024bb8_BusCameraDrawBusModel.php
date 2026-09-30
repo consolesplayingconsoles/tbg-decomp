@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _BusRenderDrawBusModel_8c024bb8(void *altLight): lights, textures and draws the
+ * _BusCameraDrawBusModel_8c024bb8(void *altLight): lights, textures and draws the
  * third-person bus model with its door/etc shape motion. altLight only
  * selects the light direction (non-NULL -> var_mirrorLightDir_8c227dc4, NULL ->
  * var_busSimpleLightDir_8c227db8). The drawn object is always
@@ -66,7 +66,7 @@ return new class extends TestCase {
         $this->initFloat($lightDir + 0x4, 0.2);
         $this->initFloat($lightDir + 0x8, 0.3);
 
-        $this->call('_BusRenderDrawBusModel_8c024bb8')->with(0);
+        $this->call('_BusCameraDrawBusModel_8c024bb8')->with(0);
 
         $this->shouldCall('_njCnkSetSimpleLight')->with($this->f32(0.1), $this->f32(0.2), $this->f32(0.3));
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.5, 2.5);
@@ -94,7 +94,7 @@ return new class extends TestCase {
         $this->initFloat($altDir + 0x4, 0.5);
         $this->initFloat($altDir + 0x8, 0.6);
 
-        $this->call('_BusRenderDrawBusModel_8c024bb8')->with(0x99887766);
+        $this->call('_BusCameraDrawBusModel_8c024bb8')->with(0x99887766);
 
         $this->shouldCall('_njCnkSetSimpleLight')->with($this->f32(0.4), $this->f32(0.5), $this->f32(0.6));
         $this->shouldCall('_njCnkSetSimpleLightIntensity')->with(1.5, 2.5);

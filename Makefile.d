@@ -30,7 +30,7 @@ $(OUTPUT_DIR)/src/0129cc_game.obj: src/014f54_sprite.h src/015ab8_title.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/014b8c_backup.h src/015034_text.h src/01fa78_hud.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/01614c_replay_menu.h src/028258_traffic_signal.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/0289ac_objects.h src/02a9fc_message_box.h
-$(OUTPUT_DIR)/src/0129cc_game.obj: src/024b4c_bus_render.h src/1ba1c8_globals.h
+$(OUTPUT_DIR)/src/0129cc_game.obj: src/024b4c_bus_camera.h src/1ba1c8_globals.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/011120_asset_queues.h src/serial_debug.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/013ae8_route_load.h src/02171c_tile_stream.h
 $(OUTPUT_DIR)/src/0129cc_game.obj: src/020914_ground_query.h src/022464_render.h
@@ -52,7 +52,7 @@ $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/026710_traffic.h src/020914_ground_
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/0289ac_objects.h src/02a9fc_message_box.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/02af78_event.h src/02c884_bus_stop.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/02b464_drive_points.h src/04ce10_line_nodes.h
-$(OUTPUT_DIR)/src/013ae8_route_load.obj: src/024b4c_bus_render.h src/1ba1c8_globals.h
+$(OUTPUT_DIR)/src/013ae8_route_load.obj: src/024b4c_bus_camera.h src/1ba1c8_globals.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/022464_render.h src/includes.h
 $(OUTPUT_DIR)/src/013ae8_route_load.obj: src/013ae8_route_load.data.inc
 $(OUTPUT_DIR)/src/014934_unused_load.obj: src/0129cc_game.h src/014a9c_tasks.h
@@ -259,7 +259,7 @@ $(OUTPUT_DIR)/src/01fa78_hud.obj: src/02b464_drive_points.h src/1ba1c8_globals.h
 $(OUTPUT_DIR)/src/01fa78_hud.obj: src/011120_asset_queues.h src/serial_debug.h
 $(OUTPUT_DIR)/src/01fa78_hud.obj: src/013ae8_route_load.h src/02171c_tile_stream.h
 $(OUTPUT_DIR)/src/01fa78_hud.obj: src/020914_ground_query.h src/includes.h
-$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/includes.h src/024b4c_bus_render.h
+$(OUTPUT_DIR)/src/020214_drive_cue.obj: src/includes.h src/024b4c_bus_camera.h
 $(OUTPUT_DIR)/src/020214_drive_cue.obj: src/015034_text.h src/1ba1c8_globals.h
 $(OUTPUT_DIR)/src/020214_drive_cue.obj: src/011120_asset_queues.h src/serial_debug.h
 $(OUTPUT_DIR)/src/020214_drive_cue.obj: src/014a9c_tasks.h src/013ae8_route_load.h
@@ -311,13 +311,13 @@ $(OUTPUT_DIR)/src/022bdc_bus.obj: src/014b8c_backup.h src/020914_ground_query.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/022464_render.h src/0100bc_sound.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/020594_vehicle_model.h src/023938_bus_drive.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/024280_bus_input.h src/02412c_bus_line.h
-$(OUTPUT_DIR)/src/022bdc_bus.obj: src/02081c_geom.h src/024b4c_bus_render.h
+$(OUTPUT_DIR)/src/022bdc_bus.obj: src/02081c_geom.h src/024b4c_bus_camera.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/025870_demo.h src/027958_bus_draw.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/026710_traffic.h src/022bdc_bus.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/02e51c_attr_query.h src/02b464_drive_points.h
 $(OUTPUT_DIR)/src/022bdc_bus.obj: src/020214_drive_cue.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/includes.h src/serial_debug.h
-$(OUTPUT_DIR)/src/023310_bus_init.obj: src/024b4c_bus_render.h src/014a9c_tasks.h
+$(OUTPUT_DIR)/src/023310_bus_init.obj: src/024b4c_bus_camera.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/015034_text.h src/1ba1c8_globals.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/011120_asset_queues.h src/013ae8_route_load.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/02171c_tile_stream.h src/015ab8_title.h
@@ -347,7 +347,7 @@ $(OUTPUT_DIR)/src/02412c_bus_line.obj: src/020914_ground_query.h src/022464_rend
 $(OUTPUT_DIR)/src/02412c_bus_line.obj: src/023938_bus_drive.h src/02412c_bus_line.h
 $(OUTPUT_DIR)/src/02412c_bus_line.obj: src/023310_bus_init.h
 $(OUTPUT_DIR)/src/024280_bus_input.obj: src/includes.h src/serial_debug.h
-$(OUTPUT_DIR)/src/024280_bus_input.obj: src/024b4c_bus_render.h src/1ba1c8_globals.h
+$(OUTPUT_DIR)/src/024280_bus_input.obj: src/024b4c_bus_camera.h src/1ba1c8_globals.h
 $(OUTPUT_DIR)/src/024280_bus_input.obj: src/011120_asset_queues.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/024280_bus_input.obj: src/013ae8_route_load.h src/02171c_tile_stream.h
 $(OUTPUT_DIR)/src/024280_bus_input.obj: src/015034_text.h src/015ab8_title.h
@@ -355,21 +355,21 @@ $(OUTPUT_DIR)/src/024280_bus_input.obj: src/014b8c_backup.h src/020914_ground_qu
 $(OUTPUT_DIR)/src/024280_bus_input.obj: src/022464_render.h src/026710_traffic.h
 $(OUTPUT_DIR)/src/024280_bus_input.obj: src/0100bc_sound.h src/024280_bus_input.h
 $(OUTPUT_DIR)/src/024280_bus_input.obj: src/02b464_drive_points.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/includes.h src/serial_debug.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/013ae8_route_load.h src/011120_asset_queues.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/014a9c_tasks.h src/02171c_tile_stream.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/1ba1c8_globals.h src/015034_text.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/015ab8_title.h src/014b8c_backup.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/020914_ground_query.h src/022464_render.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/027958_bus_draw.h src/026710_traffic.h
-$(OUTPUT_DIR)/src/024b4c_bus_render.obj: src/024b4c_bus_render.h
+$(OUTPUT_DIR)/src/024b4c_bus_camera.obj: src/includes.h src/serial_debug.h
+$(OUTPUT_DIR)/src/024b4c_bus_camera.obj: src/013ae8_route_load.h src/011120_asset_queues.h
+$(OUTPUT_DIR)/src/024b4c_bus_camera.obj: src/014a9c_tasks.h src/02171c_tile_stream.h
+$(OUTPUT_DIR)/src/024b4c_bus_camera.obj: src/1ba1c8_globals.h src/015034_text.h
+$(OUTPUT_DIR)/src/024b4c_bus_camera.obj: src/015ab8_title.h src/014b8c_backup.h
+$(OUTPUT_DIR)/src/024b4c_bus_camera.obj: src/020914_ground_query.h src/022464_render.h
+$(OUTPUT_DIR)/src/024b4c_bus_camera.obj: src/027958_bus_draw.h src/026710_traffic.h
+$(OUTPUT_DIR)/src/024b4c_bus_camera.obj: src/024b4c_bus_camera.h
 $(OUTPUT_DIR)/src/025870_demo.obj: src/includes.h src/strings.h src/strings_ja_jp.sjis.h
 $(OUTPUT_DIR)/src/025870_demo.obj: src/1ba1c8_globals.h src/011120_asset_queues.h
 $(OUTPUT_DIR)/src/025870_demo.obj: src/serial_debug.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/025870_demo.obj: src/013ae8_route_load.h src/02171c_tile_stream.h
 $(OUTPUT_DIR)/src/025870_demo.obj: src/015034_text.h src/015ab8_title.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/025870_demo.obj: src/020914_ground_query.h src/022464_render.h
-$(OUTPUT_DIR)/src/025870_demo.obj: src/024b4c_bus_render.h src/02a9fc_message_box.h
+$(OUTPUT_DIR)/src/025870_demo.obj: src/024b4c_bus_camera.h src/02a9fc_message_box.h
 $(OUTPUT_DIR)/src/025870_demo.obj: src/025870_demo.h
 $(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/025b98_traffic_drive.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/025b98_traffic_drive.obj: src/026710_traffic.h src/020914_ground_query.h
@@ -395,7 +395,7 @@ $(OUTPUT_DIR)/src/026710_traffic.obj: src/02786c_vehicle_parts.h src/02c884_bus_
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/02df3c_traffic_lookahead.h
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/02e51c_attr_query.h
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/02f0c8_traffic_path_scan.h
-$(OUTPUT_DIR)/src/026710_traffic.obj: src/02b464_drive_points.h src/024b4c_bus_render.h
+$(OUTPUT_DIR)/src/026710_traffic.obj: src/02b464_drive_points.h src/024b4c_bus_camera.h
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/1ba1c8_globals.h src/015034_text.h
 $(OUTPUT_DIR)/src/026710_traffic.obj: src/015ab8_title.h src/014b8c_backup.h src/includes.h
 $(OUTPUT_DIR)/src/02786c_vehicle_parts.obj: src/02786c_vehicle_parts.h src/026710_traffic.h
@@ -418,7 +418,7 @@ $(OUTPUT_DIR)/src/028258_traffic_signal.obj: src/serial_debug.h src/013ae8_route
 $(OUTPUT_DIR)/src/028258_traffic_signal.obj: src/02171c_tile_stream.h src/015034_text.h
 $(OUTPUT_DIR)/src/028258_traffic_signal.obj: src/015ab8_title.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/028258_traffic_signal.obj: src/02b464_drive_points.h
-$(OUTPUT_DIR)/src/028258_traffic_signal.obj: src/024b4c_bus_render.h src/includes.h
+$(OUTPUT_DIR)/src/028258_traffic_signal.obj: src/024b4c_bus_camera.h src/includes.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/0289ac_objects.h src/011120_asset_queues.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/serial_debug.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/013ae8_route_load.h src/02171c_tile_stream.h
@@ -427,7 +427,7 @@ $(OUTPUT_DIR)/src/0289ac_objects.obj: src/020914_ground_query.h src/020b6c_groun
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/021b9c_tile_draw.h src/022464_render.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/028258_traffic_signal.h src/02d06c_stop_draw.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/02e400_collision.h src/026710_traffic.h
-$(OUTPUT_DIR)/src/0289ac_objects.obj: src/02b464_drive_points.h src/024b4c_bus_render.h
+$(OUTPUT_DIR)/src/0289ac_objects.obj: src/02b464_drive_points.h src/024b4c_bus_camera.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/1ba1c8_globals.h src/015ab8_title.h
 $(OUTPUT_DIR)/src/0289ac_objects.obj: src/014b8c_backup.h src/includes.h
 $(OUTPUT_DIR)/src/02a9fc_message_box.obj: src/02a9fc_message_box.h
@@ -471,7 +471,7 @@ $(OUTPUT_DIR)/src/02b464_drive_points.obj: src/028258_traffic_signal.h src/0289a
 $(OUTPUT_DIR)/src/02b464_drive_points.obj: src/02a9fc_message_box.h src/02c884_bus_stop.h
 $(OUTPUT_DIR)/src/02b464_drive_points.obj: src/01614c_replay_menu.h
 $(OUTPUT_DIR)/src/02b464_drive_points.obj: src/01e27c_practice_menu.h
-$(OUTPUT_DIR)/src/02b464_drive_points.obj: src/024b4c_bus_render.h src/02b2f0_drive_msg.h
+$(OUTPUT_DIR)/src/02b464_drive_points.obj: src/024b4c_bus_camera.h src/02b2f0_drive_msg.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/includes.h src/026710_traffic.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/020914_ground_query.h src/015034_text.h
 $(OUTPUT_DIR)/src/02c884_bus_stop.obj: src/1ba1c8_globals.h src/011120_asset_queues.h
@@ -497,7 +497,7 @@ $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/1ba1c8_globals.h src/013ae8_route_lo
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/02171c_tile_stream.h src/015034_text.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/015ab8_title.h src/014b8c_backup.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/020914_ground_query.h src/022464_render.h
-$(OUTPUT_DIR)/src/02d19c_passenger.obj: src/0100bc_sound.h src/024b4c_bus_render.h
+$(OUTPUT_DIR)/src/02d19c_passenger.obj: src/0100bc_sound.h src/024b4c_bus_camera.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/02a9fc_message_box.h src/02c884_bus_stop.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/02d06c_stop_draw.h src/02d19c_passenger.h
 $(OUTPUT_DIR)/src/02d19c_passenger.obj: src/02b464_drive_points.h

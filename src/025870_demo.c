@@ -8,7 +8,7 @@
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
 #include "022464_render.h"
-#include "024b4c_bus_render.h"
+#include "024b4c_bus_camera.h"
 #include "02a9fc_message_box.h"
 #include "025870_demo.h"
 
@@ -31,7 +31,7 @@
  */
 
 /* One shot of a route's attract-mode camera tour. cameraKind_0x00 picks the
- * var_cameraMode_8c227d9c the shot runs in (024b4c_bus_render.h) and with it
+ * var_cameraMode_8c227d9c the shot runs in (024b4c_bus_camera.h) and with it
  * how pos_0x04 reads: kind 0 is a world point, kinds 1 and 2 are offsets in
  * bus space. Captions are sparse -- 27 of the 131 shots name a place, the
  * rest share the empty one. */
@@ -356,7 +356,7 @@ STATIC void demoShotTask_8c0259e8(Task *task, DemoShotState *state)
         MessageBoxMenuTextboxText_8c02af1c(state->revealCount_0x04 >> CAPTION_FRAMES_PER_GLYPH_SHIFT);
     }
 
-    RenderPushCall1_8c0223ea(0, (DrawCallback1)BusRenderDrawBusModel_8c024bb8, 0);
+    RenderPushCall1_8c0223ea(0, (DrawCallback1)BusCameraDrawBusModel_8c024bb8, 0);
 }
 
 /* See 025870_demo.h. */

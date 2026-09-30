@@ -17,7 +17,7 @@
 #include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */
 #include "02e400_collision.h" /* CollisionQueueReset_8c02e486, CollisionQueueAdd_8c02e48e */
 #include "02b464_drive_points.h"
-#include "024b4c_bus_render.h"
+#include "024b4c_bus_camera.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"

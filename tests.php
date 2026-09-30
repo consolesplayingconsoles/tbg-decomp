@@ -828,17 +828,17 @@ return [
         ],
         [
             "tests" => [
-                "tests/024b4c_bus_render/8c024b4c_BusRenderSaveCameraState.php",
-                "tests/024b4c_bus_render/8c024b86_BusRenderRestoreCameraState.php",
-                "tests/024b4c_bus_render/8c024f32_BusRenderApplyCameraMode.php",
-                "tests/024b4c_bus_render/8c024bb8_BusRenderDrawBusModel.php",
-                "tests/024b4c_bus_render/8c024d6c_positionCamera.php",
-                "tests/024b4c_bus_render/8c025078_BusRenderUpdateCamera.php",
-                "tests/024b4c_bus_render/8c025604_BusRenderUpdateMirrorCamera.php",
+                "tests/024b4c_bus_camera/8c024b4c_BusCameraSaveCameraState.php",
+                "tests/024b4c_bus_camera/8c024b86_BusCameraRestoreCameraState.php",
+                "tests/024b4c_bus_camera/8c024f32_BusCameraApplyCameraMode.php",
+                "tests/024b4c_bus_camera/8c024bb8_BusCameraDrawBusModel.php",
+                "tests/024b4c_bus_camera/8c024d6c_positionCamera.php",
+                "tests/024b4c_bus_camera/8c025078_BusCameraUpdateCamera.php",
+                "tests/024b4c_bus_camera/8c025604_BusCameraUpdateMirrorCamera.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/024b4c_bus_render.obj",
-                "build/output_test/src/024b4c_bus_render.obj",
+                "build/output_test/src/asm/decompiled/024b4c_bus_camera.obj",
+                "build/output_test/src/024b4c_bus_camera.obj",
             ]
         ],
         [

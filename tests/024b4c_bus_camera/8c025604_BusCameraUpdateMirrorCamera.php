@@ -13,7 +13,7 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * _BusRenderUpdateMirrorCamera_8c025604(void): rear-view-mirror camera,
+ * _BusCameraUpdateMirrorCamera_8c025604(void): rear-view-mirror camera,
  * called last each frame by BusTask_8c022bdc. No-op unless
  * busState.mirror_0x268 is nonzero. Otherwise picks a local mirror-camera
  * offset/interest by mirror_0x268 (1/2/3), rotates BOTH the offset and the
@@ -21,7 +21,7 @@ if (!function_exists('fdec')) {
  * two separate njCalcPoint calls), positions the mirror camera (var_mirrorCamera_8c1bb944)
  * at the rotated offset, points its interest at the rotated interest point,
  * rolls it by recent Y waypoint history, activates it, and queues
- * BusRenderDrawBusModel_8c024bb8 on draw layer 1 with the alt light direction.
+ * BusCameraDrawBusModel_8c024bb8 on draw layer 1 with the alt light direction.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -69,7 +69,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($base + 0x268, 0);
 
-        $this->call('_BusRenderUpdateMirrorCamera_8c025604')->with();
+        $this->call('_BusCameraUpdateMirrorCamera_8c025604')->with();
     }
 
     private function runMode(
@@ -89,7 +89,7 @@ return new class extends TestCase {
         $scene = $this->allocSceneParams(0.4, 0.5, 0.6);
         $this->initUint32($this->addressOf('_var_sceneParams_8c18ad24'), $scene);
 
-        $this->call('_BusRenderUpdateMirrorCamera_8c025604')->with();
+        $this->call('_BusCameraUpdateMirrorCamera_8c025604')->with();
 
         $this->shouldCall('_njInitCamera')->with($camera);
         $this->shouldCall('_njSetCameraAngle')->with($camera, 9102);
@@ -150,7 +150,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_mirrorLightDir_8c227dc4') + 8, 0.6);
         $this->shouldCall('_njCalcVector')->with(0, $this->addressOf('_var_mirrorLightDir_8c227dc4'), $this->addressOf('_var_mirrorLightDir_8c227dc4'));
 
-        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 1);
+        $this->shouldCall('_RenderPushCall1_8c0223ea')->with(1, $this->addressOf('_BusCameraDrawBusModel_8c024bb8'), 1);
     }
 
     public function test_mirror_mode_1(): void

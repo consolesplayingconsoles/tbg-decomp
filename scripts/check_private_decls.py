@@ -74,7 +74,7 @@ KEEP_PUBLIC = {
     # lays B out by first declaration, so only a header declaration puts it
     # between var_cabinCamera_8c1bb984 and var_busState_8c1bb9d0
     "var_8c1bb9c4",
-    # same: only a header declaration puts it ahead of 024b4c_bus_render's
+    # same: only a header declaration puts it ahead of 024b4c_bus_camera's
     # public vars
     "var_fixedCameraTarget_8c227d90",
     # same: only a header declaration puts it between 0289ac_objects' public

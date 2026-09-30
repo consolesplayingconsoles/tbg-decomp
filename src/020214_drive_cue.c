@@ -2,7 +2,7 @@
 #include <shinobi.h>
 
 #include "includes.h" /* STATIC */
-#include "024b4c_bus_render.h"
+#include "024b4c_bus_camera.h"
 #include "015034_text.h"
 #include "1ba1c8_globals.h"
 #include "01e27c_practice_menu.h" /* var_practiceLesson_8c22640c, var_practiceRules_8c226410 */
