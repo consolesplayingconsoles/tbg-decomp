@@ -29,8 +29,8 @@ int var_arrivalOverlayGate_8c226560;
 FadeRequest var_fadeRequest_8c226564;
 Bool var_isFading_8c226568;
 void (*var_fadeCompleteCallback_8c22656c)(void);
-STATIC int var_drawCommandCount_8c226570[3]; // per-layer draw-command count for var_drawCommands_8c22657c
-STATIC DrawCommand var_drawCommands_8c22657c[3][128]; // per-layer draw-command queue
+STATIC int var_drawCommandCount_8c226570[RENDER_LAYER_COUNT]; // per-layer draw-command count for var_drawCommands_8c22657c
+STATIC DrawCommand var_drawCommands_8c22657c[RENDER_LAYER_COUNT][128]; // per-layer draw-command queue
 STATIC FadePhase var_fadePhase_8c227d7c; // fade state machine phase
 STATIC Uint32 var_fadeProgress_8c227d80; // fade alpha accumulator for init_fadeQuad_8c0455a8's black overlay, driven by RenderDrawFrame_8c022560. Two incompatible fixed-point scales are used: FADE_PHASE_OUT/fadeInTask_8c022a54 keep the alpha byte already at bits 24-31 (0xff000000 = opaque, read via a plain & mask); FADE_PHASE_IN/fadeOutTask_8c022ad0 keep it at bits 16-23 (0xff0000 = opaque, read via a <<8 shift)
 
@@ -166,7 +166,7 @@ void RenderResetQueues_8c02239c(void)
 {
     int i;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < RENDER_LAYER_COUNT; i++) {
         var_drawCommandCount_8c226570[i] = 0;
     }
 }

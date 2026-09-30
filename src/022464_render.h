@@ -71,7 +71,8 @@ typedef struct {
 typedef enum {
     RENDER_LAYER_MAIN   = 0,
     RENDER_LAYER_MIRROR = 1,
-    RENDER_LAYER_CABIN  = 2
+    RENDER_LAYER_CABIN  = 2,
+    RENDER_LAYER_COUNT
 } RenderLayer;
 
 /* Opaque per-entry callbacks for DrawCommand types 5/6 (see below),
