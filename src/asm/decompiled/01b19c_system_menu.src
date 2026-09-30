@@ -6,7 +6,6 @@
           .IMPORT     _var_award_8c1bb8f8
           .IMPORT     __modls
           .IMPORT     __divls
-          .IMPORT     _var_vmsComment_8c226098
           .IMPORT     _strcpy
           .IMPORT     _ProfileFileUpdateUnlocks_8c01c980
           .IMPORT     _var_profileUnlockedCount_8c2263a4
@@ -70,6 +69,7 @@
           .EXPORT     _writeDecimalDigits_8c01b1c0
           .EXPORT     _updateVmsComment_8c01b206
           .EXPORT     _saveTask_8c01b3ac
+          .EXPORT     _var_vmsComment_8c226098
           .AENDI
           .EXPORT     _SystemMenuWriteToVmu_8c01b26c
           .EXPORT     _SystemMenuSwitchFromTask_8c01ba64
@@ -1454,4 +1454,7 @@ _const_8c038454:        ; from defines
           ;.SDATA      "bus_mem.VMI"
           ;.DATA.B     H'00
           .DATA.B      H'62, H'75, H'73, H'5F, H'6D, H'65, H'6D, H'2E, H'56, H'4D, H'49, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_vmsComment_8c226098:
+          .RES.B      16
           .END

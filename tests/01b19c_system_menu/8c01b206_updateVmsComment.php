@@ -24,7 +24,6 @@ return new class extends TestCase {
 
     public function test_builds_vms_comment(): void
     {
-        $this->setSize('_var_vmsComment_8c226098', 0x10);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $text = $this->addressOf('_var_vmsComment_8c226098');
         $progress = $this->addressOf('_var_progress_8c1ba1cc');

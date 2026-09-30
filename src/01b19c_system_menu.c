@@ -55,6 +55,14 @@ typedef enum SavePhase {
 } SavePhase;
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+/* VMS file comment, "9/<day> EXP <points>" */
+STATIC char var_vmsComment_8c226098[16];
+
+/* ====================
  * Forward Declarations
  * ====================
  */

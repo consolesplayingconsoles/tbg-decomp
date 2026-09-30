@@ -1,5 +1,4 @@
-; 8c226098
-          .EXPORT     _var_vmsComment_8c226098 ; 01b19c
+; 8c2260a8
           .EXPORT     _var_lcdAnimActive_8c2260a8 ; 0129cc_game
                                     ; 01bb48
           .EXPORT     _var_lcdAnimBus_8c2260ac ; 0129cc_game
@@ -242,8 +241,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_vmsComment_8c226098:
-          .RES.B      16
 _var_lcdAnimActive_8c2260a8:
           .RES.B      4
 _var_lcdAnimBus_8c2260ac:

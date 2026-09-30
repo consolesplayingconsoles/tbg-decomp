@@ -1,6 +1,6 @@
-/* 8c226098: undecompiled data section */
-#ifndef _226098_SECTIONB_H
-#define _226098_SECTIONB_H
+/* 8c2260a8: undecompiled data section */
+#ifndef _2260a8_SECTIONB_H
+#define _2260a8_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -59,7 +59,6 @@ typedef struct {
     int firstChimeArmed_0x18;
 } DriveCueState;
 
-extern char var_vmsComment_8c226098[16]; // 01b19c: VMS file comment, "9/<day> EXP <points>"
 extern int var_lcdAnimActive_8c2260a8;
 extern LcdAnim var_lcdAnimBus_8c2260ac; // 01bb48: vm_bus.lcd anim
 extern LcdAnim var_lcdAnimDanger_8c2260b8; // 01bb48: vm_danger.lcd anim
@@ -375,4 +374,4 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-#endif // _226098_SECTIONB_H
+#endif // _2260a8_SECTIONB_H
