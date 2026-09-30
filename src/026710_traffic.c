@@ -5,7 +5,7 @@
 #include "011120_asset_queues.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
-#include "0222dc_fadecmd.h"
+#include "022464_fade.h"
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
 #include "025b98_traffic_drive.h"
@@ -878,7 +878,7 @@ STATIC void applyTrafficLighting_8c02756a(int flag)
  * the cursor to the next record (+0xc) and resets the counter.
  *
  * Finally re-applies the two fixed light directions (applyTrafficLighting_8c02756a,
- * one FadeCmdPushCall1 per fade layer) and runs every vehicle task pushed
+ * one FadePushCall1 per fade layer) and runs every vehicle task pushed
  * above to completion (TaskExecGroup_8c014b42 on var_tasks_8c1bac28).
  */
 STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
@@ -927,8 +927,8 @@ STATIC void trafficUpdateTask_8c0275d4(TrafficUpdateTask *task, void *state)
         }
     }
 
-    FadeCmdPushCall1_8c0223ea(0, applyTrafficLighting_8c02756a, 0);
-    FadeCmdPushCall1_8c0223ea(1, applyTrafficLighting_8c02756a, 1);
+    FadePushCall1_8c0223ea(0, applyTrafficLighting_8c02756a, 0);
+    FadePushCall1_8c0223ea(1, applyTrafficLighting_8c02756a, 1);
     TaskExecGroup_8c014b42(var_tasks_8c1bac28);
 }
 

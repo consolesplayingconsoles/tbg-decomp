@@ -142,6 +142,49 @@ STATIC NJS_SCREEN init_screenLayer2_8c045624 = {
  * ====================
  */
 
+/* Runs at the top of each frame's draw pass, before the var_tasks_8c1ba5e8
+ * tasks refill the queues. */
+void FadeResetQueues_8c02239c(void)
+{
+    int i;
+
+    for (i = 0; i < 3; i++) {
+        var_fadeDrawCommandCount_8c226570[i] = 0;
+    }
+}
+
+/* Queues a FADE_CMD_5_CALL1 entry for layer (0-2), dropped once that layer's
+ * queue (var_fadeDrawCommandCount_8c226570/var_fadeDrawCommands_8c22657c) is full. */
+void FadePushCall1_8c0223ea(int layer, FadeCallback1 fn, int arg0)
+{
+    FadeDrawCommand *cmd;
+
+    if (var_fadeDrawCommandCount_8c226570[layer] < 0x80) {
+        cmd = var_fadeDrawCommands_8c22657c[layer]
+            + var_fadeDrawCommandCount_8c226570[layer];
+        cmd->type = FADE_CMD_5_CALL1;
+        cmd->u.call1.fn = fn;
+        cmd->u.call1.arg0 = arg0;
+        var_fadeDrawCommandCount_8c226570[layer]++;
+    }
+}
+
+/* Same as FadePushCall1_8c0223ea, but for a FADE_CMD_6_CALL2 entry. */
+void FadePushCall2_8c022420(int layer, FadeCallback2 fn, int arg0, int arg1)
+{
+    FadeDrawCommand *cmd;
+
+    if (var_fadeDrawCommandCount_8c226570[layer] < 0x80) {
+        cmd = var_fadeDrawCommands_8c22657c[layer]
+            + var_fadeDrawCommandCount_8c226570[layer];
+        cmd->type = FADE_CMD_6_CALL2;
+        cmd->u.call2.fn = fn;
+        cmd->u.call2.arg0 = arg0;
+        cmd->u.call2.arg1 = arg1;
+        var_fadeDrawCommandCount_8c226570[layer]++;
+    }
+}
+
 STATIC void fadeDraw_8c022464(int layer)
 {
   int count;

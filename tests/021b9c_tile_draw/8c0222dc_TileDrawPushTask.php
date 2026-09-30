@@ -11,7 +11,6 @@ return new class extends TestCase {
         $this->setSize('_TaskPush_8c014ae8', 4);
         $this->setSize('_var_segmentModels_8c1bc3f0', 4);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
-        $this->setSize('_TileDrawEnqueueTask_8c0221d0', 4);
         $this->setSize('_var_easyLightIntensity_8c226544', 8);
         $this->setSize('_var_easyLightColor_8c22654c', 12);
         $this->setSize('_var_simpleLightIntensity_8c2264f0', 8);
@@ -43,12 +42,12 @@ return new class extends TestCase {
         }
         $this->initUint32($this->addressOf('_var_sceneParams_8c18ad24'), $sceneParams);
 
-        $this->call('_FadeCmdPushTileDrawTask_8c0222dc');
+        $this->call('_TileDrawPushTask_8c0222dc');
 
         $this->shouldCall('_TaskPush_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba5e8'),
-                $this->addressOf('_TileDrawEnqueueTask_8c0221d0'),
+                $this->addressOf('_enqueueTask_8c0221d0'),
                 0xfffff4, // &task on the stack
                 0xfffff0, // &state on the stack
                 8,

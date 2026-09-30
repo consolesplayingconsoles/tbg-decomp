@@ -23,14 +23,14 @@
 
 extern float var_simpleLightDir_8c2264d8[3]; // 021b9c_tile_draw: njCnkSetSimpleLight direction, main camera
 extern float var_mirrorSimpleLightDir_8c2264e4[3]; // 021b9c_tile_draw: njCnkSetSimpleLight direction, mirror camera
-/* 0222dc: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Every access is
+/* 021b9c_tile_draw: copies of var_sceneParams_8c18ad24->rec2_0x74[0..4]. Every access is
  * a bare single-word pool load, so the archive says nothing about whether the
  * five floats are one array or two; split here because the intensity pair and
  * the colour triple go to different SDK calls. */
 extern float var_simpleLightIntensity_8c2264f0[2]; // [0..1]
 extern float var_simpleLightColor_8c2264f8[3]; // [2..4]
 extern float var_easyLightDir_8c226538[3]; // 021b9c_tile_draw: njCnkSetEasyLight direction, main camera
-/* 0222dc: same deal, for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
+/* 021b9c_tile_draw: same deal, for var_sceneParams_8c18ad24->rec1_0x54[0..4]. */
 extern float var_easyLightIntensity_8c226544[2]; // [0..1]
 extern float var_easyLightColor_8c22654c[3]; // [2..4]
 extern NJS_CAMERA* var_drawCamera_8c226558; // 022464: camera for the layer being drawn; FadeUpdate_8c022560 picks main/mirror/cabin

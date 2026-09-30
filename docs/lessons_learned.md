@@ -453,7 +453,7 @@ the unit is finished.
 
 `02c884_bus_stop`'s `.src` exported 9 symbols, but the unit has 10 functions.
 `drawStopMarker_8c02cd92` is never exported and never directly called -- its
-address is only taken, by `FadeCmdPushCall1_8c0223ea` -- so Ghidra merged it
+address is only taken, by `FadePushCall1_8c0223ea` -- so Ghidra merged it
 into the neighbouring function and it appears as a bare `LAB_` in the asm.
 
 Count the unit's function labels, not its `.EXPORT` lines, and treat an

@@ -29,7 +29,7 @@
 #include "023310_bus_init.h"
 #include "025870_demo.h"
 #include "02d968_stop_spawn.h"
-#include "0222dc_fadecmd.h" /* FadeCmdPushTileDrawTask_8c0222dc */
+#include "021b9c_tile_draw.h" /* TileDrawPushTask_8c0222dc */
 #include "02c884_bus_stop.h"
 #include "016d2c_course_menu.h"
 #include "01e27c_practice_menu.h"
@@ -323,7 +323,7 @@ STATIC void pauseTask_8c012cbc()
     }
 
     if (pauseUpdate_8c0129cc() != 0) {
-        FadeCmdResetQueues_8c02239c();
+        FadeResetQueues_8c02239c();
         TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
         FadeUpdate_8c022560();
     }
@@ -351,7 +351,7 @@ STATIC void pauseToggleTask_8c012d06()
     }
 
     if (var_pauseActive_8c1bb8cc == 0) {
-        FadeCmdResetQueues_8c02239c();
+        FadeResetQueues_8c02239c();
         TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
     }
 
@@ -413,7 +413,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
         return;
     }
 
-    FadeCmdResetQueues_8c02239c();
+    FadeResetQueues_8c02239c();
     TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
     FadeUpdatePlain_8c022910();
     TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO, 0.0f, 0.0f, MARK_Z_BASE);
@@ -550,7 +550,7 @@ void GameEnterDrive_8c01306e(void)
 
     ObjectsInitPedestrianGroups_8c0296d6();
     TrafficInit_8c02769e();
-    FadeCmdPushTileDrawTask_8c0222dc();
+    TileDrawPushTask_8c0222dc();
     ObjectsPushTasks_8c02a6ac();
     DrivePointsReset_8c02c46a();
     HudReset_8c02018c();

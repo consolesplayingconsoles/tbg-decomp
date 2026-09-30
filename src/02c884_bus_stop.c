@@ -18,7 +18,7 @@
 #include "02af78_event.h" /* EventScanCandidates_8c02b03c */
 #include "01614c_replay_menu.h" /* ReplayMenuResetDemoCursor_8c016770 */
 #include "02c884_bus_stop.h" /* BusStopGetSegment_8c02cd6a */
-#include "0222dc_fadecmd.h" /* FadeCmdPushCall1_8c0223ea */
+#include "022464_fade.h" /* FadePushCall1_8c0223ea */
 #include "0100bc_sound.h" /* SndStartAdxFadeOut_8c010bae */
 #include "02b464_drive_points.h" /* DrivePointsRunComplete_8c02c586, DrivePointsOnFadeDriveEnd_8c02c784 */
 
@@ -403,7 +403,7 @@ void BusStopUpdateArrival_8c02ce48(void)
         if (var_fuuLastFrame_8c1bc450 <= var_fuuFrame_8c1bc44c) {
             var_fuuFrame_8c1bc44c = 0.0f;
         }
-        FadeCmdPushCall1_8c0223ea(0, drawStopMarker_8c02cd92, 0);
+        FadePushCall1_8c0223ea(0, drawStopMarker_8c02cd92, 0);
         if (distance < var_runState_8c2285c4.stopMinDistance_0x28) {
             var_runState_8c2285c4.stopMinDistance_0x28 = distance;
         }

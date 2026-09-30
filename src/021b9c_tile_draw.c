@@ -9,9 +9,8 @@
 #include "013ae8_route_load.h"   /* CourseSceneParams */
 #include "014a9c_tasks.h"        /* Task */
 #include "021b9c_tile_draw.h"
-#include "0222dc_fadecmd.h"      /* FadeCmdPushCall1/2 */
 #include "02171c_tile_stream.h"  /* TileIndex, TileStreamDrawTile_8c021b34 */
-#include "022464_fade.h"         /* FadeCallback1 */
+#include "022464_fade.h"         /* FadePushCall1/2 */
 
 /* ====================
  * Forward Declarations
@@ -30,8 +29,8 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height);
  * (the primary render). Layers 0, 2 and 3 of the tile grid draw with the
  * Chunk "Easy" light model, layer 1 with "Simple" -- as coded, not a
  * mistake to normalize away. Never called by name from another unit --
- * reachable only via the function-pointer literal TileDrawEnqueueTask_8c0221d0
- * pushes to FadeCmdPushCall2_8c022420 -- so it stays private here. */
+ * reachable only via the function-pointer literal enqueueTask_8c0221d0
+ * pushes to FadePushCall2_8c022420 -- so it stays private here. */
 STATIC void drawTileGrid_8c021b9c(int width, int height)
 {
     int colStart, colEnd, rowStart, rowEnd;
@@ -111,9 +110,9 @@ STATIC void drawTileGrid_8c021b9c(int width, int height)
 
 /* Same as drawTileGrid_8c021b9c, but for fade-command layer 1 (the mirror render):
  * light direction/setup differs (var_mirrorSimpleLightDir_8c2264e4 and camera
- * var_mirrorCamera_8c1bb944, set up by TileDrawEnqueueTask_8c0221d0), everything else -- including the
+ * var_mirrorCamera_8c1bb944, set up by enqueueTask_8c0221d0), everything else -- including the
  * per-layer Easy/Simple split -- is identical. Reachable only via the
- * function-pointer literal TileDrawEnqueueTask_8c0221d0 pushes to FadeCmdPushCall2_8c022420,
+ * function-pointer literal enqueueTask_8c0221d0 pushes to FadePushCall2_8c022420,
  * never called directly, so it stays private. */
 STATIC void drawTileGridMirror_8c021ec4(int width, int height)
 {
@@ -192,14 +191,14 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
     njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
 }
 
-/* The TaskAction FadeCmdPushTileDrawTask_8c0222dc installs: computes the
+/* The TaskAction TileDrawPushTask_8c0222dc installs: computes the
  * three light directions (broadcasting one scalar CourseSceneParams
  * component into a vector, then transforming it by whichever camera is
  * current -- as coded, not obviously intentional but preserved), then
  * queues drawTileGrid_8c021b9c/drawTileGridMirror_8c021ec4 as this frame's tile-grid draw calls for
  * fade layers 0/1, and TileStreamDrawTile_8c021b34 (the current tile,
  * `state`) for both layers. */
-void TileDrawEnqueueTask_8c0221d0(Task *task, void *state)
+STATIC void enqueueTask_8c0221d0(Task *task, void *state)
 {
     njSetCamera(&var_camera_8c1bb904);
 
@@ -220,8 +219,33 @@ void TileDrawEnqueueTask_8c0221d0(Task *task, void *state)
     var_mirrorSimpleLightDir_8c2264e4[2] = var_sceneParams_8c18ad24->dir2_0x68[0];
     njCalcVector(NULL, (NJS_VECTOR *)var_mirrorSimpleLightDir_8c2264e4, (NJS_VECTOR *)var_mirrorSimpleLightDir_8c2264e4);
 
-    FadeCmdPushCall2_8c022420(0, drawTileGrid_8c021b9c, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
-    FadeCmdPushCall2_8c022420(1, drawTileGridMirror_8c021ec4, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
-    FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)TileStreamDrawTile_8c021b34, (int)state);
-    FadeCmdPushCall1_8c0223ea(1, (FadeCallback1)TileStreamDrawTile_8c021b34, (int)state);
+    FadePushCall2_8c022420(0, drawTileGrid_8c021b9c, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
+    FadePushCall2_8c022420(1, drawTileGridMirror_8c021ec4, var_tileLayerIndexes_8c22650c[0]->width, var_tileLayerIndexes_8c22650c[0]->height);
+    FadePushCall1_8c0223ea(0, (FadeCallback1)TileStreamDrawTile_8c021b34, (int)state);
+    FadePushCall1_8c0223ea(1, (FadeCallback1)TileStreamDrawTile_8c021b34, (int)state);
+}
+
+/* Run-start setup for the tile draw pass. The two latched lighting records
+ * split by lighting mode: rec1_0x54 into njCnkSetEasyLight*,
+ * rec2_0x74 into njCnkSetSimpleLight*. */
+void TileDrawPushTask_8c0222dc(void)
+{
+    Task *task;
+    LoadedModel *state;
+
+    TaskPush_8c014ae8(var_tasks_8c1ba5e8, enqueueTask_8c0221d0, &task, (void **)&state, 8);
+    state->texlist = var_segmentModels_8c1bc3f0->texlist;
+    state->njDest = var_segmentModels_8c1bc3f0->njDest;
+
+    var_easyLightIntensity_8c226544[0] = var_sceneParams_8c18ad24->rec1_0x54[0];
+    var_easyLightIntensity_8c226544[1] = var_sceneParams_8c18ad24->rec1_0x54[1];
+    var_easyLightColor_8c22654c[0] = var_sceneParams_8c18ad24->rec1_0x54[2];
+    var_easyLightColor_8c22654c[1] = var_sceneParams_8c18ad24->rec1_0x54[3];
+    var_easyLightColor_8c22654c[2] = var_sceneParams_8c18ad24->rec1_0x54[4];
+
+    var_simpleLightIntensity_8c2264f0[0] = var_sceneParams_8c18ad24->rec2_0x74[0];
+    var_simpleLightIntensity_8c2264f0[1] = var_sceneParams_8c18ad24->rec2_0x74[1];
+    var_simpleLightColor_8c2264f8[0] = var_sceneParams_8c18ad24->rec2_0x74[2];
+    var_simpleLightColor_8c2264f8[1] = var_sceneParams_8c18ad24->rec2_0x74[3];
+    var_simpleLightColor_8c2264f8[2] = var_sceneParams_8c18ad24->rec2_0x74[4];
 }

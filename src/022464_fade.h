@@ -68,7 +68,7 @@ typedef struct {
 } FadeOutTask;
 
 /* Opaque per-entry callbacks for FadeDrawCommand types 5/6 (see below),
- * queued by the push helpers in 0222dc_fadecmd.c. They pass whatever
+ * queued by FadePushCall1_8c0223ea/FadePushCall2_8c022420. They pass whatever
  * function pointer their caller supplies, so there is no fixed SDK
  * signature to name these after. */
 typedef void (*FadeCallback1)(int);
@@ -119,6 +119,9 @@ typedef struct {
  * =========
  */
 
+void FadeResetQueues_8c02239c(void);
+void FadePushCall1_8c0223ea(int layer, FadeCallback1 fn, int arg0);
+void FadePushCall2_8c022420(int layer, FadeCallback2 fn, int arg0, int arg1);
 void FadeUpdate_8c022560(void);
 void FadeStartRunTransition_8c0228a2(void);
 void FadeUpdatePlain_8c022910(void);

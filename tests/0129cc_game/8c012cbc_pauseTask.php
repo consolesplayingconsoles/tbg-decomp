@@ -49,7 +49,7 @@ return new class extends TestCase {
         $this->call('_pauseTask_8c012cbc');
 
         $this->shouldCall('_pauseUpdate_8c0129cc')->andReturn(1);
-        $this->shouldCall('_FadeCmdResetQueues_8c02239c');
+        $this->shouldCall('_FadeResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_FadeUpdate_8c022560');
     }
@@ -61,7 +61,7 @@ return new class extends TestCase {
     ): void {
         $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_TitlePushTitle_8c015fd6', 4);
-        $this->setSize('_FadeCmdResetQueues_8c02239c', 4);
+        $this->setSize('_FadeResetQueues_8c02239c', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
         $this->setSize('_FadeUpdate_8c022560', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);

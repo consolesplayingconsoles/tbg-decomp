@@ -43,7 +43,7 @@
           .IMPORT     _ObjectsClearCrossingOccupied_8c028958
           .IMPORT     _var_occupiedGroup_8c228b44
           .IMPORT     _var_trafficPresetTable_8c227e18
-          .IMPORT     _FadeCmdPushCall1_8c0223ea
+          .IMPORT     _FadePushCall1_8c0223ea
           .IMPORT     _TaskExecGroup_8c014b42
           .IMPORT     _var_signalGroups_8c228b40
           .IMPORT     _init_signalGroupsWangan_8c04c980
@@ -2307,7 +2307,7 @@ LP_GEN_74201:
           .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C02780C
           .DATA.L _var_trafficPresetTable_8c227e18 ; H'8C027810
           .DATA.L _applyTrafficLighting_8c02756a ; H'8C027814
-          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C027818
+          .DATA.L _FadePushCall1_8c0223ea ; H'8C027818
           .DATA.L _var_tasks_8c1bac28 ; H'8C02781C
           .DATA.L _TaskExecGroup_8c014b42 ; H'8C027820
           .DATA.L _var_cpuPathBlocks_8c227e1c ; H'8C027824

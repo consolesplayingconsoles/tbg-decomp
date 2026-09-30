@@ -10,7 +10,6 @@
 #include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
 #include "020b6c_ground_probe.h"
-#include "0222dc_fadecmd.h" /* FadeCmdPushCall2_8c022420 */
 #include "022464_fade.h" /* FadeRequest, var_fadeRequest_8c226564, var_fadeArrivalGate_8c226560 */
 #include "027958_bus_draw.h" /* BusDrawSignal_8c0281ac */
 #include "02d06c_stop_draw.h" /* StopDrawWaitingPassengers_8c02d06c */
@@ -4510,7 +4509,7 @@ STATIC void trafficSignalTask_8c028258(Task *task, TrafficSignal *obj)
         dz = var_busState_8c1bb9d0.posZ_0x304 - obj->posA_0x1c.z;
         dist = njSqrt(dx * dx + dz * dz);
         if (dist < 200.0f) {
-            FadeCmdPushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxA_0x34);
+            FadePushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxA_0x34);
             obj->drawA_0xc8 = 1;
         }
     }
@@ -4520,7 +4519,7 @@ STATIC void trafficSignalTask_8c028258(Task *task, TrafficSignal *obj)
         dz = var_busState_8c1bb9d0.posZ_0x304 - obj->posB_0x28.z;
         dist = njSqrt(dx * dx + dz * dz);
         if (dist < 200.0f) {
-            FadeCmdPushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxB_0x74);
+            FadePushCall2_8c022420(0, BusDrawSignal_8c0281ac, (int)obj, (int)&obj->mtxB_0x74);
             obj->drawB_0xcc = 1;
         }
     }
@@ -4547,10 +4546,10 @@ STATIC void linkedTrafficSignalTask_8c02833c(Task *task, TrafficSignal *obj)
     var_trafficSignalFrames_8c227e24[obj->id_0x00] = obj->frame_0x0c;
 
     if (linked->drawA_0xc8 != 0) {
-        FadeCmdPushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxA_0x34);
+        FadePushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxA_0x34);
     }
     if (linked->drawB_0xcc != 0) {
-        FadeCmdPushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxB_0x74);
+        FadePushCall2_8c022420(0, BusDrawSignalAttachment_8c028206, (int)obj, (int)&linked->mtxB_0x74);
     }
 }
 
@@ -4564,7 +4563,7 @@ STATIC void setTrafficSignalLightCallback_8c0283d4(int arg0)
 STATIC void execTrafficSignalGroupTask_8c0283e8(Task *task, void *state)
 {
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
-        FadeCmdPushCall1_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
+        FadePushCall1_8c0223ea(0, setTrafficSignalLightCallback_8c0283d4, 0);
         TaskExecGroup_8c014b42(var_trafficSignalTasks_8c227e20);
     }
 }
@@ -5395,15 +5394,15 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
     if (isDemo) {
         fn = drawPedestrians_8c028b74;
     } else {
-        FadeCmdPushCall1_8c0223ea(0, drawPedestrians_8c028b74, 0);
+        FadePushCall1_8c0223ea(0, drawPedestrians_8c028b74, 0);
         fn = drawPedestriansMirror_8c028a38;
     }
     layer = !isDemo;
-    FadeCmdPushCall1_8c0223ea(layer, fn, layer);
+    FadePushCall1_8c0223ea(layer, fn, layer);
 
     if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
-        FadeCmdPushCall1_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
-        FadeCmdPushCall1_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
+        FadePushCall1_8c0223ea(0, StopDrawWaitingPassengers_8c02d06c, 0);
+        FadePushCall1_8c0223ea(1, StopDrawWaitingPassengers_8c02d06c, 1);
     }
 }
 
@@ -5544,7 +5543,7 @@ STATIC void drawBlinkers_8c029878(int taskArg, int matricesArg)
 STATIC void routeBlinkerTask_8c029904(RouteBlinkerTask *task, NJS_MATRIX *state)
 {
     task->blinkCounter_0x0c++;
-    FadeCmdPushCall2_8c022420(0, drawBlinkers_8c029878, (int)task, (int)state);
+    FadePushCall2_8c022420(0, drawBlinkers_8c029878, (int)task, (int)state);
 }
 
 /* One-shot setup for the current run's route blinkers, called from
@@ -5772,7 +5771,7 @@ STATIC void flyByModelTask_8c029e68(Task *task, RowTaskState *state)
         TaskFree_8c014b66(task);
         return;
     }
-    FadeCmdPushCall1_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
+    FadePushCall1_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
 }
 /* TaskAction for a type-0 row, installed by ObjectsPushTasks_8c02a6ac. Counts
  * down task->field_0x08; once it lapses, spawns a fly-by task (flyByModelTask_8c029e68)
@@ -5859,8 +5858,8 @@ STATIC int advanceDatBlob_8c029f54(DatBlob *dat)
 STATIC void rowDatTask_8c029fcc(Task *task, RowTaskState *state)
 {
     advanceDatBlob_8c029f54((DatBlob *)state->dat_0x48);
-    FadeCmdPushCall1_8c0223ea(0, drawDatModel_8c029f2a, (int)state);
-    FadeCmdPushCall1_8c0223ea(1, drawDatModel_8c029f2a, (int)state);
+    FadePushCall1_8c0223ea(0, drawDatModel_8c029f2a, (int)state);
+    FadePushCall1_8c0223ea(1, drawDatModel_8c029f2a, (int)state);
 }
 /* FadeCallback1 draw callback for a type-2 row task; state is the spawned
  * task's state array. Draws the {texlist, model} pair at offset 0x40/0x44,
@@ -5891,8 +5890,8 @@ STATIC void rowModelTask_8c02a08a(Task *task, RowTaskState *state)
             state->phase_0x54 = state->phase_0x54 + 1;
         }
     } else if (state->phase_0x54 == 1) {
-        FadeCmdPushCall1_8c0223ea(0, drawRowModel_8c02a048, (int)state);
-        FadeCmdPushCall1_8c0223ea(1, drawRowModel_8c02a048, (int)state);
+        FadePushCall1_8c0223ea(0, drawRowModel_8c02a048, (int)state);
+        FadePushCall1_8c0223ea(1, drawRowModel_8c02a048, (int)state);
     }
 }
 /* FadeCallback1 draw callback for a type-3 row task; state is the spawned
@@ -5926,7 +5925,7 @@ STATIC void rowMotionModelTask_8c02a120(Task *task, RowTaskState *state)
     } else if (state->phase_0x54 == 1) {
         state->frame_0x58 = state->frame_0x58 + 1.0f;
         if (state->frame_0x58 < state->frameLimit_0x5c) {
-            FadeCmdPushCall1_8c0223ea(0, drawRowMotionModel_8c02a0d6, (int)state);
+            FadePushCall1_8c0223ea(0, drawRowMotionModel_8c02a0d6, (int)state);
             return;
         }
         if (task->field_0x0c == 0) {
@@ -5954,7 +5953,7 @@ STATIC void drawRowSimpleModel_8c02a1b2(int state, int fogEnable)
 /* TaskAction for a type-4 row, installed by ObjectsPushTasks_8c02a6ac. */
 STATIC void rowSimpleModelTask_8c02a1f0(Task *task, RowTaskState *state)
 {
-    FadeCmdPushCall2_8c022420(0, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
+    FadePushCall2_8c022420(0, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
 }
 /* FadeCallback1 draw callback for a type-5 row task; state is the spawned
  * task's state array. Unlike drawRowModel_8c02a048, fades the whole draw via
@@ -6002,8 +6001,8 @@ STATIC void rowMaterialModelTask_8c02a27c(void *task, RowTaskState *state)
             state->material_0x68.a = dist * 0.05f - 0.5f;
         }
     }
-    FadeCmdPushCall1_8c0223ea(0, drawRowMaterialModel_8c02a206, (int)state);
-    FadeCmdPushCall1_8c0223ea(1, drawRowMaterialModel_8c02a206, (int)state);
+    FadePushCall1_8c0223ea(0, drawRowMaterialModel_8c02a206, (int)state);
+    FadePushCall1_8c0223ea(1, drawRowMaterialModel_8c02a206, (int)state);
 }
 /* Resolves 16 grandchildren of nodes[0] into nodes[1..16]: nodes[0]'s two
  * children (child, child->sibling) each contribute 8 nodes -- their own
@@ -6150,7 +6149,7 @@ STATIC void fumiCrossingTask_8c02a4f8(void *task, RowTaskState *state)
                 state->frame_0x58 = state->frameLimit_0x5c;
             }
         }
-        FadeCmdPushCall1_8c0223ea(0, drawFumiCrossing_8c02a47c, (int)state);
+        FadePushCall1_8c0223ea(0, drawFumiCrossing_8c02a47c, (int)state);
         return;
     }
 
@@ -6180,8 +6179,8 @@ STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
 STATIC void execRowTaskGroupTask_8c02a60e(void)
 {
     if (var_runState_8c2285c4.runPhase_0x00 != 0) {
-        FadeCmdPushCall1_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
-        FadeCmdPushCall1_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
+        FadePushCall1_8c0223ea(0, setSimpleLightCallback_8c02a5d0, 0);
+        FadePushCall1_8c0223ea(1, setSimpleLightCallback_8c02a5d0, 1);
         TaskExecGroup_8c014b42(var_tasks_8c1bb448);
     }
 }

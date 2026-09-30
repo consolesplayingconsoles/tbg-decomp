@@ -44,9 +44,9 @@ return new class extends TestCase {
 
         $this->call('_rowModelTask_8c02a08a')->with($task, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
+        $this->shouldCall('_FadePushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawRowModel_8c02a048'), $state);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
+        $this->shouldCall('_FadePushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawRowModel_8c02a048'), $state);
     }
 };

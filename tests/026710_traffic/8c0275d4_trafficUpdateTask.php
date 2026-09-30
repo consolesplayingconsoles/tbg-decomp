@@ -20,7 +20,7 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
         $this->setSize('_var_activeTrafficPreset_8c227e14', 4);
         $this->setSize('_var_trafficPresetTable_8c227e18', 4);
-        $this->setSize('_FadeCmdPushCall1_8c0223ea', 4);
+        $this->setSize('_FadePushCall1_8c0223ea', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
         $this->setSize('_var_tasks_8c1bac28', 4);
     }
@@ -90,8 +90,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($task + 0x0c, 2);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
@@ -131,8 +131,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x18, $newRec);
         $this->shouldWriteLong($task + 0x0c, 0);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
@@ -160,8 +160,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($task + 0x08, 4);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
@@ -195,8 +195,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x18, $rec + 0xc);
         $this->shouldWriteLong($task + 0x08, 0);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 
@@ -230,8 +230,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0x18, $rec + 0xc);
         $this->shouldWriteLong($task + 0x08, 0);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_applyTrafficLighting_8c02756a'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_applyTrafficLighting_8c02756a'), 1);
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1bac28'));
     }
 };

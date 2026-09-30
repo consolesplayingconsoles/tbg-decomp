@@ -10,7 +10,6 @@
 #include "013ae8_route_load.h"
 #include "014f54_text.h"
 #include "022464_fade.h"
-#include "0222dc_fadecmd.h"
 #include "0100bc_sound.h"
 #include "024b4c_bus_render.h"
 #include "028258_objects.h"
@@ -133,7 +132,7 @@ STATIC void drawInterior_8c02d1f4(int arg0)
  * countdown). Registers the draw callback every frame; ignores task. */
 void PassengerSeatedTask_8c02d5ca(Task *task, void *state)
 {
-    FadeCmdPushCall1_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
+    FadePushCall1_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
 }
 
 /* Sizes the step PassengerStopSceneTask_8c02d644's case 5 adds to the run
@@ -241,7 +240,7 @@ void PassengerBoardTask_8c02d21c(Task *task, StopScheduleState *state)
         break;
 
     case 0:
-        FadeCmdPushCall1_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
+        FadePushCall1_8c0223ea(2, drawPassengerSprite_8c02d19c, (int)state);
         return;
 
     default:
@@ -249,7 +248,7 @@ void PassengerBoardTask_8c02d21c(Task *task, StopScheduleState *state)
     }
 
     if (layer != 0) {
-        FadeCmdPushCall1_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
+        FadePushCall1_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
     }
     var_passengerActed_8c228958 = 1;
 }
@@ -332,7 +331,7 @@ void PassengerExitTask_8c02d46c(Task *task, StopScheduleState *state)
     }
 
     if (layer != 0) {
-        FadeCmdPushCall1_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
+        FadePushCall1_8c0223ea(layer, drawPassengerSprite_8c02d19c, (int)state);
     }
     var_passengerActed_8c228958 = 1;
 }
@@ -352,9 +351,9 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
     int phase = state->phase_0x00;
     Bool execGroup = FALSE;
 
-    FadeCmdPushCall1_8c0223ea(2, drawInterior_8c02d1f4, 0);
-    FadeCmdPushCall1_8c0223ea(1, StopDrawLightBegin_8c02d0fc, 0);
-    FadeCmdPushCall1_8c0223ea(2, StopDrawLightBegin_8c02d0fc, 0);
+    FadePushCall1_8c0223ea(2, drawInterior_8c02d1f4, 0);
+    FadePushCall1_8c0223ea(1, StopDrawLightBegin_8c02d0fc, 0);
+    FadePushCall1_8c0223ea(2, StopDrawLightBegin_8c02d0fc, 0);
 
     switch (phase) {
     case 0:
@@ -369,7 +368,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
         /* The original re-enters this sub-state-machine in place (a plain
          * branch back, not a fresh call) when var_playMode_8c1bb8d0 ==
          * PLAY_MODE_DEMO and the task group did something this frame --
-         * it does not re-run the three FadeCmdPushCall1 registrations
+         * it does not re-run the three FadePushCall1 registrations
          * above or re-read phase. */
         for (;;) {
             switch (state->subPhase_0x04) {
@@ -513,8 +512,8 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
     if (execGroup) {
         TaskExecGroup_8c014b42((Task *)var_stopTaskGroup_8c2288f8);
     }
-    FadeCmdPushCall1_8c0223ea(1, StopDrawLightEnd_8c02d146, 0);
-    FadeCmdPushCall1_8c0223ea(2, StopDrawLightEnd_8c02d146, 0);
+    FadePushCall1_8c0223ea(1, StopDrawLightEnd_8c02d146, 0);
+    FadePushCall1_8c0223ea(2, StopDrawLightEnd_8c02d146, 0);
 }
 
 /* Task action spawned instead of the normal per-passenger tasks when

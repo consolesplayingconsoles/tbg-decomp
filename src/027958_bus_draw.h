@@ -42,7 +42,7 @@ void BusDrawSignalAttachment_8c028206(int objArg, int matrixArg);
  * fixed one, passing 0. Two jobs:
  *
  * 1. Queues the entity's draw for this frame through
- *    FadeCmdPushCall2_8c022420. Two independent cone tests against
+ *    FadePushCall2_8c022420. Two independent cone tests against
  *    var_busState_8c1bb9d0, either or both of which can fire: the forward one
  *    (200m, ~80 degrees around the bus's last move delta) takes the
  *    detailed path, the mirror one (50m, ~15 degrees around the rear-view

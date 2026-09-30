@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->initUint32($base + 4, 2);
         $this->initUint32($base + 8, 3);
 
-        $this->call('_FadeCmdResetQueues_8c02239c');
+        $this->call('_FadeResetQueues_8c02239c');
 
         $this->shouldWriteLong($base, 0);
         $this->shouldWriteLong($base + 4, 0);

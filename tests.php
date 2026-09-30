@@ -515,18 +515,9 @@ return [
         ],
         [
             "tests" => [
-                "tests/0222dc_fadecmd/8c0222dc_FadeCmdPushTileDrawTask.php",
-                "tests/0222dc_fadecmd/8c02239c_FadeCmdResetQueues.php",
-                "tests/0222dc_fadecmd/8c0223ea_FadeCmdPushCall1.php",
-                "tests/0222dc_fadecmd/8c022420_FadeCmdPushCall2.php",
-            ],
-            "objects" => [
-                "build/output_test/src/asm/decompiled/0222dc_fadecmd.obj",
-                "build/output_test/src/0222dc_fadecmd.obj",
-            ]
-        ],
-        [
-            "tests" => [
+                "tests/022464/8c02239c_FadeResetQueues.php",
+                "tests/022464/8c0223ea_FadePushCall1.php",
+                "tests/022464/8c022420_FadePushCall2.php",
                 "tests/022464/8c022464_fadeDraw_type0.php",
                 "tests/022464/8c022464_fadeDraw_types1to4.php",
                 "tests/022464/8c022464_fadeDraw_types5to6.php",
@@ -949,7 +940,8 @@ return [
             "tests" => [
                 "tests/021b9c_tile_draw/8c021b9c_drawTileGrid.php",
                 "tests/021b9c_tile_draw/8c021ec4_drawTileGridMirror.php",
-                "tests/021b9c_tile_draw/8c0221d0_TileDrawEnqueueTask.php",
+                "tests/021b9c_tile_draw/8c0221d0_enqueueTask.php",
+                "tests/021b9c_tile_draw/8c0222dc_TileDrawPushTask.php",
             ],
             "objects" => [
                 "build/output_test/src/asm/decompiled/021b9c_tile_draw.obj",

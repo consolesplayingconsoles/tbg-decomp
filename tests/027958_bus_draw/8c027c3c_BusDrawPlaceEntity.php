@@ -30,7 +30,7 @@ return new class extends TestCase {
         $this->setSize('_njSqrt', 4);
         $this->setSize('_var_activeGroundGrid_8c2264d4', 4);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
-        $this->setSize('_FadeCmdPushCall2_8c022420', 4);
+        $this->setSize('_FadePushCall2_8c022420', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_VehicleModelPlace_8c020594', 4);
         $this->setSize('_njMultiMatrix', 4);
@@ -85,7 +85,7 @@ return new class extends TestCase {
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
+        $this->shouldCall('_FadePushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
         $this->forceStop();
     }
 
@@ -127,7 +127,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(900.0))->andReturn(30.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 1);
+        $this->shouldCall('_FadePushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 1);
         $this->forceStop();
     }
 
@@ -142,7 +142,7 @@ return new class extends TestCase {
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(400.0))->andReturn(20.0);
         $this->shouldWriteLong($entity + 0x268, 1);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 0);
+        $this->shouldCall('_FadePushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 0);
         $this->forceStop();
     }
 
@@ -156,7 +156,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_njSqrt')->with($this->f32(1000000.0))->andReturn(1000.0);
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 0);
+        $this->shouldCall('_FadePushCall2_8c022420')->with(1, $this->addressOf('_drawMirror_8c027bac'), $entity, 0);
         $this->forceStop();
     }
 
@@ -205,7 +205,7 @@ return new class extends TestCase {
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.0);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
+        $this->shouldCall('_FadePushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
 
         // Suspension-lean easing still runs (all deltas are 0 here).
@@ -247,7 +247,7 @@ return new class extends TestCase {
         $this->call('_BusDrawPlaceEntity_8c027c3c')->with($entity, 0.01);
 
         $this->shouldCall('_njSqrt')->with($this->f32(100.0))->andReturn(10.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
+        $this->shouldCall('_FadePushCall2_8c022420')->with(0, $this->addressOf('_drawAhead_8c027a88'), $entity, 0);
 
         // Second (far) njSqrt: same entity position, dist 10 from the
         // default (0,0) mirror reference -- fails the tight cone test.

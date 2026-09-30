@@ -84,9 +84,9 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x0c, 1);
         $this->shouldWriteLong($state + 0xc8, 0);
         $this->shouldWriteLong($slots + 0, 1);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')
+        $this->shouldCall('_FadePushCall2_8c022420')
             ->with(0, $this->addressOf('_BusDrawSignalAttachment_8c028206'), $state, $linked + 0x34);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')
+        $this->shouldCall('_FadePushCall2_8c022420')
             ->with(0, $this->addressOf('_BusDrawSignalAttachment_8c028206'), $state, $linked + 0x74);
     }
 
@@ -101,7 +101,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + 0x0c, 1);
         $this->shouldWriteLong($state + 0xc8, 0);
         $this->shouldWriteLong($slots + 0, 1);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')
+        $this->shouldCall('_FadePushCall2_8c022420')
             ->with(0, $this->addressOf('_BusDrawSignalAttachment_8c028206'), $state, $linked + 0x74);
     }
 };

@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_FadeCmdPushCall1_8c0223ea', 4);
+        $this->setSize('_FadePushCall1_8c0223ea', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_ObjectsStartMessageBox_8c02ad8c', 4);
@@ -53,9 +53,9 @@ return new class extends TestCase {
     /** The three FadeCallback1 registrations every call makes unconditionally. */
     private function expectFrameCallbacks(): void
     {
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_drawInterior_8c02d1f4'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_drawInterior_8c02d1f4'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightBegin_8c02d0fc'), 0);
     }
 
     private function expectTaskExecGroup(int $group): void
@@ -65,8 +65,8 @@ return new class extends TestCase {
 
     private function expectRegisterFadeOverlay(): void
     {
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(1, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(2, $this->addressOf('_StopDrawLightEnd_8c02d146'), 0);
     }
 
     public function test_case0_still_fading_advances_counter_only(): void

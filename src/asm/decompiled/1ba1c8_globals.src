@@ -100,7 +100,7 @@
           .EXPORT     _var_tasks_8c1ba5e8 ; 0129cc_game
                                           ; 01614c_replay_menu
                                           ; 01fa78
-                                          ; 0222dc
+                                          ; 021b9c_tile_draw
                                           ; 023310
                                           ; 025870_demo
                                           ; 026710
@@ -294,7 +294,7 @@
           .EXPORT     _var_segmentModels_8c1bc3f0 ; 0129cc_game
                                                   ; 013ae8_route_load
                                                   ; 01614c_replay_menu
-                                                  ; 0222dc
+                                                  ; 021b9c_tile_draw
           .EXPORT     _var_trafficModels_8c1bc3f4 ; 0129cc_game
                                                   ; 013ae8_route_load
                                                   ; 01614c_replay_menu

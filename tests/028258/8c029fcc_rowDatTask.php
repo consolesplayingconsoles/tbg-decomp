@@ -18,9 +18,9 @@ return new class extends TestCase {
         $this->call('_rowDatTask_8c029fcc')->with($task, $state);
 
         $this->shouldCall('_advanceDatBlob_8c029f54')->with($dat)->andReturn(1);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
+        $this->shouldCall('_FadePushCall1_8c0223ea')
             ->with(0, $this->addressOf('_drawDatModel_8c029f2a'), $state);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')
+        $this->shouldCall('_FadePushCall1_8c0223ea')
             ->with(1, $this->addressOf('_drawDatModel_8c029f2a'), $state);
     }
 };

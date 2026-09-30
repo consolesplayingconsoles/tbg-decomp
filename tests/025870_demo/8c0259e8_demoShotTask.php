@@ -72,7 +72,7 @@ return new class extends TestCase {
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
         $this->setSize('_ObjectsOpenTextbox_8c02ae3e', 4);
         $this->setSize('_BusRenderDrawBusModel_8c024bb8', 4);
-        $this->setSize('_FadeCmdPushCall1_8c0223ea', 4);
+        $this->setSize('_FadePushCall1_8c0223ea', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
     }
 
@@ -119,7 +119,7 @@ return new class extends TestCase {
 
         $this->call('_demoShotTask_8c0259e8')->with($task, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
     }
 
     public function test_phase0_new_stop_opens_box_and_positions_state5(): void
@@ -158,7 +158,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + self::ST_PHASE, 1);
         $this->shouldWriteLong($state + self::ST_REVEAL, 1);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
     }
 
     public function test_phase0_new_stop_with_empty_name_skips_box(): void
@@ -185,7 +185,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + self::ST_HANDLE, 0);
         $this->shouldCall('_applyShotPosition_8c0258ba');
         $this->shouldWriteLong($state + self::ST_PHASE, 1);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
     }
 
     public function test_phase0_same_stop_id_is_noop(): void
@@ -201,7 +201,7 @@ return new class extends TestCase {
 
         $this->call('_demoShotTask_8c0259e8')->with($task, $state);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
     }
 
     public function test_phase0_rearm_forces_last_stop_and_positions_state6(): void
@@ -245,7 +245,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($state + self::ST_PHASE, 1);
         $this->shouldWriteLong($state + self::ST_REVEAL, 1);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
     }
 
     public function test_phase1_marker_cleared_resets_to_phase0(): void
@@ -260,7 +260,7 @@ return new class extends TestCase {
         $this->call('_demoShotTask_8c0259e8')->with($task, $state);
 
         $this->shouldWriteLong($state + self::ST_PHASE, 0);
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
     }
 
     public function test_phase1_marker_still_set_stays_and_advances_reveal(): void
@@ -278,6 +278,6 @@ return new class extends TestCase {
         // one were emitted here.
         $this->shouldWriteLong($state + self::ST_REVEAL, 4);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(2); // 4 >> 1
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_BusRenderDrawBusModel_8c024bb8'), 0);
     }
 };

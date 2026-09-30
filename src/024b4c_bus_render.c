@@ -7,7 +7,7 @@
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "027958_bus_draw.h"
-#include "0222dc_fadecmd.h"
+#include "022464_fade.h"
 #include "024b4c_bus_render.h"
 
 /* ====================
@@ -332,9 +332,9 @@ void BusRenderUpdateCamera_8c025078(void)
                  (NJS_VECTOR *)var_busSimpleLightDir_8c227db8);
 
     if (var_cameraMode_8c227d9c == BUS_CAMERA_COCKPIT) {
-        FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)drawFrontBusModel_8c024cc8, 0);
+        FadePushCall1_8c0223ea(0, (FadeCallback1)drawFrontBusModel_8c024cc8, 0);
     } else if (var_cameraMode_8c227d9c == BUS_CAMERA_THIRD_PERSON_NEAR || var_cameraMode_8c227d9c == BUS_CAMERA_THIRD_PERSON_FAR) {
-        FadeCmdPushCall1_8c0223ea(0, (FadeCallback1)BusRenderDrawBusModel_8c024bb8, 0);
+        FadePushCall1_8c0223ea(0, (FadeCallback1)BusRenderDrawBusModel_8c024bb8, 0);
     }
 }
 
@@ -509,5 +509,5 @@ void BusRenderUpdateMirrorCamera_8c025604(void)
     var_mirrorLightDir_8c227dc4[2] = var_sceneParams_8c18ad24->dir0_0x00[2];
     njCalcVector(NULL, (NJS_VECTOR *)var_mirrorLightDir_8c227dc4, (NJS_VECTOR *)var_mirrorLightDir_8c227dc4);
 
-    FadeCmdPushCall1_8c0223ea(1, (FadeCallback1)BusRenderDrawBusModel_8c024bb8, 1);
+    FadePushCall1_8c0223ea(1, (FadeCallback1)BusRenderDrawBusModel_8c024bb8, 1);
 }

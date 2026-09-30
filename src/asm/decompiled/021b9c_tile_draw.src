@@ -28,14 +28,18 @@
           .IMPORT     _njCalcVector
           .IMPORT     _var_mirrorCamera_8c1bb944
           .IMPORT     _var_tileLayerIndexes_8c22650c
-          .IMPORT     _FadeCmdPushCall2_8c022420
-          .IMPORT     _FadeCmdPushCall1_8c0223ea
+          .IMPORT     _FadePushCall2_8c022420
+          .IMPORT     _FadePushCall1_8c0223ea
           .IMPORT     _TileStreamDrawTile_8c021b34
-          .EXPORT     _TileDrawEnqueueTask_8c0221d0
+          .IMPORT     _var_tasks_8c1ba5e8
+          .IMPORT     _TaskPush_8c014ae8
+          .IMPORT     _var_segmentModels_8c1bc3f0
+          .EXPORT     _TileDrawPushTask_8c0222dc
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawTileGrid_8c021b9c
           .EXPORT     _drawTileGridMirror_8c021ec4
+          .EXPORT     _enqueueTask_8c0221d0
           .AENDI
           .SECTION     P, CODE, ALIGN=4
 _drawTileGrid_8c021b9c:
@@ -820,7 +824,7 @@ LAB_8c0221b8:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_TileDrawEnqueueTask_8c0221d0:
+_enqueueTask_8c0221d0:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -937,8 +941,99 @@ LP_GEN_78610:
           .DATA.L _var_mirrorSimpleLightDir_8c2264e4 ; H'8C0222C0
           .DATA.L _var_tileLayerIndexes_8c22650c ; H'8C0222C4
           .DATA.L _drawTileGrid_8c021b9c ; H'8C0222C8
-          .DATA.L _FadeCmdPushCall2_8c022420 ; H'8C0222CC
+          .DATA.L _FadePushCall2_8c022420 ; H'8C0222CC
           .DATA.L _drawTileGridMirror_8c021ec4 ; H'8C0222D0
           .DATA.L _TileStreamDrawTile_8c021b34 ; H'8C0222D4
-          .DATA.L _FadeCmdPushCall1_8c0223ea ; H'8C0222D8
+          .DATA.L _FadePushCall1_8c0223ea ; H'8C0222D8
+; TU boundary moved: the delinker split 0222dc_fadecmd off here; the real
+; boundary is 02239c. This is the only pusher of enqueueTask_8c0221d0.
+_TileDrawPushTask_8c0222dc:
+          STS.L       PR,@-R15
+          ADD         #-H'8,R15
+          MOV         #H'8,R3
+          MOV.L       LP_GEN_22999+8,R4
+          MOV.L       R3,@-R15
+          MOV.L       LP_GEN_22999+4,R5
+          MOV         R15,R7
+          MOV.L       LP_GEN_22999+12,R2
+          ADD         #H'4,R7
+          MOV         R15,R6
+          JSR         @R2
+          ADD         #H'8,R6
+          MOV.L       LP_GEN_22999+16,R4
+          MOV         #H'54,R0
+          MOV.L       @(H'4,R15),R3
+          MOV.L       @R4,R2
+          MOV.L       LP_GEN_22999+20,R5
+          MOV.L       @R2,R1
+          MOV.L       R1,@R3
+          MOV.L       @R4,R2
+          MOV.L       @(H'4,R15),R3
+          MOV.L       @(H'4,R2),R1
+          MOV.L       LP_GEN_22999+24,R4
+          MOV.L       R1,@(H'4,R3)
+          MOV.L       @R4,R3
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'58,R0
+          FMOV.S      FR3,@R5
+          MOV.L       @R4,R3
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'4,R0
+          FMOV        FR3,@(R0,R5)
+          MOV         #H'5c,R0
+          MOV.L       @R4,R3
+          MOV.L       LP_GEN_22999+28,R5
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'60,R0
+          FMOV.S      FR3,@R5
+          MOV.L       @R4,R3
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'4,R0
+          FMOV        FR3,@(R0,R5)
+          MOV         #H'64,R0
+          MOV.L       @R4,R3
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'8,R0
+          FMOV        FR3,@(R0,R5)
+          MOV         #H'74,R0
+          MOV.L       @R4,R3
+          MOV.L       LP_GEN_22999+32,R5
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'78,R0
+          FMOV.S      FR3,@R5
+          MOV.L       @R4,R3
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'4,R0
+          FMOV        FR3,@(R0,R5)
+          MOV         #H'7c,R0
+          MOV.L       @R4,R3
+          MOV.L       LP_GEN_22999+36,R5
+          FMOV.S      @(R0,R3),FR3
+          ADD         #H'4,R0
+          FMOV.S      FR3,@R5
+          MOV.L       @R4,R3
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'4,R0
+          FMOV        FR3,@(R0,R5)
+          MOV.W       LP_GEN_22999,R0
+          MOV.L       @R4,R3
+          FMOV.S      @(R0,R3),FR3
+          MOV         #H'8,R0
+          FMOV        FR3,@(R0,R5)
+          ADD         #H'c,R15
+          LDS.L       @R15+,PR
+          RTS
+          NOP
+LP_GEN_22999:
+          .DATA.W H'0084 ; H'8C022374
+          .RES.W 1 ; H'8C022376
+          .DATA.L _enqueueTask_8c0221d0 ; H'8C022378
+          .DATA.L _var_tasks_8c1ba5e8 ; H'8C02237C
+          .DATA.L _TaskPush_8c014ae8 ; H'8C022380
+          .DATA.L _var_segmentModels_8c1bc3f0 ; H'8C022384
+          .DATA.L _var_easyLightIntensity_8c226544 ; H'8C022388
+          .DATA.L _var_sceneParams_8c18ad24 ; H'8C02238C
+          .DATA.L _var_easyLightColor_8c22654c ; H'8C022390
+          .DATA.L _var_simpleLightIntensity_8c2264f0 ; H'8C022394
+          .DATA.L _var_simpleLightColor_8c2264f8 ; H'8C022398
           .END

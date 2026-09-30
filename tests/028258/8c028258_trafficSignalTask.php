@@ -80,7 +80,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x2fc + 8);
         $this->setSize('_njSqrt', 4);
-        $this->setSize('_FadeCmdPushCall2_8c022420', 4);
+        $this->setSize('_FadePushCall2_8c022420', 4);
 
         $obj = $this->makeObject();
         $this->initUint32($obj + 0x1c, fdec(1.0)); // placement A posX
@@ -95,7 +95,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($obj + 0xcc, 0);
         $this->shouldWriteLong($obj + 0xc8, 0);
         $this->shouldCall('_njSqrt')->with(0.0)->andReturn(0.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')
+        $this->shouldCall('_FadePushCall2_8c022420')
             ->with(0, $this->addressOf('_BusDrawSignal_8c0281ac'), $obj, $obj + 0x34);
         $this->shouldWriteLong($obj + 0xc8, 1);
     }
@@ -124,7 +124,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x2fc + 8);
         $this->setSize('_njSqrt', 4);
-        $this->setSize('_FadeCmdPushCall2_8c022420', 4);
+        $this->setSize('_FadePushCall2_8c022420', 4);
 
         $obj = $this->makeObject();
         $this->initUint32($obj + 0x1c, fdec(1.0)); // placement A posX
@@ -140,7 +140,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($obj + 0xc8, 0);
         // Just under the 200.0 boundary: still pinned as "in range".
         $this->shouldCall('_njSqrt')->with(0.0)->andReturn(199.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')
+        $this->shouldCall('_FadePushCall2_8c022420')
             ->with(0, $this->addressOf('_BusDrawSignal_8c0281ac'), $obj, $obj + 0x34);
         $this->shouldWriteLong($obj + 0xc8, 1);
     }
@@ -149,7 +149,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x2fc + 8);
         $this->setSize('_njSqrt', 4);
-        $this->setSize('_FadeCmdPushCall2_8c022420', 4);
+        $this->setSize('_FadePushCall2_8c022420', 4);
 
         $obj = $this->makeObject();
         $this->initUint32($obj + 0x1c, fdec(0.0)); // placement A posX
@@ -164,7 +164,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($obj + 0xcc, 0);
         $this->shouldWriteLong($obj + 0xc8, 0);
         $this->shouldCall('_njSqrt')->with(0.0)->andReturn(0.0);
-        $this->shouldCall('_FadeCmdPushCall2_8c022420')
+        $this->shouldCall('_FadePushCall2_8c022420')
             ->with(0, $this->addressOf('_BusDrawSignal_8c0281ac'), $obj, $obj + 0x74);
         $this->shouldWriteLong($obj + 0xcc, 1);
     }

@@ -8,7 +8,7 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 /*
  * drawTileGridMirror_8c021ec4(int width, int height): the mirror-render twin of
  * drawTileGrid_8c021b9c -- reachable only via the function-pointer literal
- * TileDrawEnqueueTask_8c0221d0 pushes to FadeCmdPushCall2_8c022420(1, ...), never called
+ * enqueueTask_8c0221d0 pushes to FadePushCall2_8c022420(1, ...), never called
  * directly, so it stays private (exported under UNIT_TESTING only). Same
  * visible-window/Easy-Simple-Easy-Easy structure; its Simple-light block
  * reads var_mirrorSimpleLightDir_8c2264e4 instead of var_simpleLightDir_8c2264d8.

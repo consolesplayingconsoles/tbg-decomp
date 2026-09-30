@@ -44,7 +44,7 @@ return new class extends TestCase {
 
         $this->call('_taskCallback_8c02c072');
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_DriveMsgDraw_8c02b388'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_DriveMsgDraw_8c02b388'), 0);
     }
 
     public function test_phase_2_active_driving_ticks_offense_graders(): void
@@ -98,7 +98,7 @@ return new class extends TestCase {
         // var_runState_8c2285c4.driverPoints_0x0c stays > 0 here, so the phase-4 handoff
         // (and its SndStartAdxFadeOut pair) does NOT fire -- goes straight
         // to the tail's message-queue tick and fade-command push.
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_DriveMsgDraw_8c02b388'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_DriveMsgDraw_8c02b388'), 0);
     }
 
     public function test_phase_3_end_of_stop_grades_arrival_and_starts_fadeout(): void
@@ -141,6 +141,6 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
 
-        $this->shouldCall('_FadeCmdPushCall1_8c0223ea')->with(0, $this->addressOf('_DriveMsgDraw_8c02b388'), 0);
+        $this->shouldCall('_FadePushCall1_8c0223ea')->with(0, $this->addressOf('_DriveMsgDraw_8c02b388'), 0);
     }
 };

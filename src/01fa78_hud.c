@@ -4,7 +4,7 @@
 #include "01fa78_hud.h"
 #include "014a9c_tasks.h"
 #include "014f54_text.h"
-#include "0222dc_fadecmd.h"
+#include "022464_fade.h"
 #include "028258_objects.h"
 #include "02b464_drive_points.h"
 #include "sectionB.h"
@@ -433,7 +433,7 @@ STATIC void hudUpdateTask_8c01ff48() {
         }
     }
 
-    FadeCmdPushCall1_8c0223ea(0, drawHud_8c01fbac, messageArg);
+    FadePushCall1_8c0223ea(0, drawHud_8c01fbac, messageArg);
 }
 
 /* Installs hudUpdateTask_8c01ff48 as a per-frame task and clears the popup,
