@@ -18,6 +18,8 @@ enum VMU_STATUS {
 };
 
 extern char* init_saveNames_8c044d50[11];
+extern int var_vmuStatus_8c226048[9];
+extern int var_vmMountBusy_8c22606c;
 
 void VmMenuMountVms_8c01940e();
 void VmMenuUnmountVms_8c0194de();

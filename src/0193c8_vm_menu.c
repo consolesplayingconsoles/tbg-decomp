@@ -77,6 +77,14 @@ enum VM_MENU_STATE {
     VM_MENU_STATE_FADE_IN_FROM_VM_WARNING = 10
 };
 
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+int var_vmuStatus_8c226048[9]; /* enum VMU_STATUS */
+int var_vmMountBusy_8c22606c;
+
 
 /* ===================
  * Initialized Globals

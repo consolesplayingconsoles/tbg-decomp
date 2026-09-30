@@ -273,7 +273,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_vmuStatus_8c226048', 4 * 9);
 
         // Functions
         $this->setSize('_BupGetInfo_8c014bba', 4);

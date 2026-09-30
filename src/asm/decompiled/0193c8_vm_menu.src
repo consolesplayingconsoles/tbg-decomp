@@ -1,7 +1,6 @@
 ; 8c0193c8
           .IMPORT     _BupGetInfo_8c014bba
           .IMPORT     _TaskFree_8c014b66
-          .IMPORT     _var_vmMountBusy_8c22606c
           .IMPORT     _BupMount_8c014c00
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _TaskPush_8c014ae8
@@ -11,7 +10,6 @@
           .IMPORT     _BupClearInfo_8c014c8a
           .IMPORT     _var_gBupInfo_8c1bc4ac
           .IMPORT     _buIsExistFile
-          .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _TxtDrawSprite_8c014f54
           .IMPORT     _var_isFading_8c226568
@@ -59,6 +57,14 @@
           .EXPORT     _VmMenuUpdateVmusStatus_8c019550
           .EXPORT     _VmMenuUpdateVmuStatus_8c01967c
           .EXPORT     _VmMenuSwitchFromTask_8c019e44
+          .EXPORT     _var_vmuStatus_8c226048 ; 01614c_replay_menu
+                                              ; 018644_file_menu
+                                              ; 01b19c_system_menu
+                                              ; 01bb48_vm_game
+                                              ; 01d7fc_results
+          .EXPORT     _var_vmMountBusy_8c22606c ; 018644_file_menu
+                                                ; 01b19c_system_menu
+                                                ; 01bb48_vm_game
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _taskWaitForVmsReady_8c0193c8
@@ -1643,4 +1649,9 @@ _const_8c03808c:        ; aggressive search
           ;.RES.B      1
           .DATA.B      H'83, H'5A, H'81, H'5B, H'83, H'75, H'83, H'66, H'81, H'5B, H'83, H'5E, H'82, H'AA, H'82, H'A0
           .DATA.B      H'82, H'E8, H'82, H'DC, H'82, H'B7, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_vmuStatus_8c226048:
+          .RES.B      36
+_var_vmMountBusy_8c22606c:
+          .RES.B      4
           .END

@@ -1,14 +1,4 @@
-; 8c226048
-          .EXPORT     _var_vmuStatus_8c226048 ; 01614c_replay_menu
-                                              ; 018644_file_menu
-                                              ; 0193c8_vm_menu
-                                              ; 01b19c
-                                              ; 01bb48
-                                              ; 01d7fc
-          .EXPORT     _var_vmMountBusy_8c22606c ; 018644_file_menu
-                                    ; 0193c8_vm_menu
-                                    ; 01b19c
-                                    ; 01bb48
+; 8c226070
           .EXPORT     _var_soundMode_8c226070 ; 0129cc_game
                                               ; 018644_file_menu
                                               ; 01a148
@@ -259,10 +249,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_vmuStatus_8c226048:
-          .RES.B      36
-_var_vmMountBusy_8c22606c:
-          .RES.B      4
 _var_soundMode_8c226070:
           .RES.B      4
 _var_settingValues_8c226074:

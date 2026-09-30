@@ -1165,7 +1165,6 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_vmuStatus_8c226048', 0x24);
         $this->setSize('_var_midiHandles_8c0fcd28', 7 * 4);
 
         // Basic inits
