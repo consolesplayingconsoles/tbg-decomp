@@ -20,8 +20,6 @@ return new class extends TestCase {
         $this->setSize('_var_busState_8c1bb9d0', 0x400);
         $this->setSize('_var_playerBus_8c1bbd9c', 4);
         $this->setSize('_var_tasks_8c1bac28', 4 * 0x20);
-
-        $base = $this->addressOf('_var_busState_8c1bb9d0');
     }
 
     private function initFloat(int $addr, float $value): void {
