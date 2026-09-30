@@ -1,10 +1,4 @@
-; 8c227d84
-          .EXPORT     _var_lineSegments_8c227d84 ; 023310
-                                    ; 023938
-                                    ; 02412c
-          .EXPORT     _var_lineNodes_8c227d88 ; 023310
-                                    ; 023938
-                                    ; 02412c
+; 8c227d8c
           .EXPORT     _var_brakePressPeak_8c227d8c ; 023310
                                     ; 024280
           .EXPORT     _var_fixedCameraTarget_8c227d90 ; 024b4c
@@ -110,10 +104,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_lineSegments_8c227d84:
-          .RES.B      4
-_var_lineNodes_8c227d88:
-          .RES.B      4
 _var_brakePressPeak_8c227d8c:
           .RES.B      4
 _var_fixedCameraTarget_8c227d90:

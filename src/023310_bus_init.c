@@ -17,6 +17,14 @@
 #include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */
 #include "022bdc_bus.h"               /* BusTask_8c022bdc */
 
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+LineBusSegment *var_lineSegments_8c227d84;
+LineBusNode *var_lineNodes_8c227d88;
+
 /* =====================
  * Functions
  * =====================

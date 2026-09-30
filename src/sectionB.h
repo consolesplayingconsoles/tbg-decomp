@@ -1,13 +1,12 @@
-/* 8c227d84: undecompiled data section */
-#ifndef _227D84_SECTIONB_H
-#define _227D84_SECTIONB_H
+/* 8c227d8c: undecompiled data section */
+#ifndef _227D8C_SECTIONB_H
+#define _227D8C_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
 #include "028258_traffic_signal.h" /* TrafficSignal */
-#include "023938_bus_drive.h" /* LineBusSegment, LineBusNode */
 #include "026710_traffic.h" /* PathRecord */
 #include "011120_asset_queues.h"
 #include "014a9c_tasks.h"
@@ -19,12 +18,6 @@
  * =================
  */
 
-/* The active course's route line: its segments (each a LinePoint list) and
- * the node table that links them. Copied from
- * var_currentCourse_8c1bb868.lineBus_0x08/lineNodes_0x0c by BusInitStart_8c023610,
- * alongside var_activeGroundGrid_8c2264d4/var_activeAttrGrid_8c228b3c. */
-extern LineBusSegment *var_lineSegments_8c227d84;
-extern LineBusNode *var_lineNodes_8c227d88;
 /* Peak brake-pedal travel of the current press, scaled to 0..255 and never
  * walked back down; applyBrakingSfx_8c024606 (024280) picks the release note
  * from it. */
@@ -202,4 +195,4 @@ extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
 extern float var_farClipDepth_8c227dd0;
 
-#endif // _227D84_SECTIONB_H
+#endif // _227D8C_SECTIONB_H

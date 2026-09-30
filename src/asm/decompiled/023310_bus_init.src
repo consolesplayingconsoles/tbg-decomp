@@ -14,8 +14,6 @@
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_activeGroundGrid_8c2264d4
           .IMPORT     _var_activeAttrGrid_8c228b3c
-          .IMPORT     _var_lineSegments_8c227d84
-          .IMPORT     _var_lineNodes_8c227d88
           .IMPORT     _var_busDoorMotion_8c1bc410
           .IMPORT     _var_busDoorLastFrame_8c227db4
           .IMPORT     _BusTask_8c022bdc
@@ -37,6 +35,10 @@
           .IMPORT     _var_brakePressPeak_8c227d8c
           .IMPORT     _GroundProbeFindPolygonAtHeight_8c020fe4
           .EXPORT     _BusInitStart_8c023610
+          .EXPORT     _var_lineSegments_8c227d84 ; 023938_bus_drive
+                                                 ; 02412c_bus_line
+          .EXPORT     _var_lineNodes_8c227d88 ; 023938_bus_drive
+                                              ; 02412c_bus_line
           .AIFDEF UNIT_TESTING
           .EXPORT     _busInitPlaceBus_8c023310
           .AENDI
@@ -808,4 +810,9 @@ LP_GEN_98696:
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02392C
           .DATA.L _var_practiceRules_8c226410 ; H'8C023930
           .DATA.L _var_brakePressPeak_8c227d8c ; H'8C023934
+          .SECTION    B,DATA,ALIGN=4
+_var_lineSegments_8c227d84:
+          .RES.B      4
+_var_lineNodes_8c227d88:
+          .RES.B      4
           .END

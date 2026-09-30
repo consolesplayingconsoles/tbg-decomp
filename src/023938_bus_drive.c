@@ -12,6 +12,7 @@
 #include "0207d4_vec_xz.h" /* VecXZCross_8c0207fa, PointXZ */
 #include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
 #include "023938_bus_drive.h"
+#include "023310_bus_init.h"
 #include "02b464_drive_points.h"
 
 /* ====================
