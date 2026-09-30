@@ -17,6 +17,13 @@
 #define FADE_NO_CALLBACK ((void (*)(void))-1)
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+NJS_CAMERA* var_drawCamera_8c226558;
+
+/* ====================
  * Initialized Globals
  * ====================
  */

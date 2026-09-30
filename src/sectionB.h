@@ -1,6 +1,6 @@
-/* 8c226558: undecompiled data section */
-#ifndef _226558_SECTIONB_H
-#define _226558_SECTIONB_H
+/* 8c22655c: undecompiled data section */
+#ifndef _22655C_SECTIONB_H
+#define _22655C_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -20,7 +20,6 @@
  * =================
  */
 
-extern NJS_CAMERA* var_drawCamera_8c226558; // 022464: camera for the layer being drawn; FadeUpdate_8c022560 picks main/mirror/cabin
 extern int var_fadeArrivalVariant_8c22655c; // 022464: bus-stop-arrival overlay layout (0-2) drawn by FadeUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in FadeUpdate_8c022560 handles 0-2)
 extern int var_fadeArrivalGate_8c226560; // 022464: gates FadeUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
 extern FadeRequest var_fadeRequest_8c226564; // 022464: requested fade transition, consumed by FadeUpdate_8c022560
@@ -213,4 +212,4 @@ extern int var_activePedPreset_8c22822c;
 extern float var_farClipDepth_8c227dd0;
 extern Bool var_isFading_8c226568;
 
-#endif // _226558_SECTIONB_H
+#endif // _22655C_SECTIONB_H

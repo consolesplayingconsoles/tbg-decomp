@@ -1,7 +1,6 @@
 ; 8c022464
           .IMPORT     _var_fadeDrawCommandCount_8c226570
           .IMPORT     _var_fadeDrawCommands_8c22657c
-          .IMPORT     _var_drawCamera_8c226558
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkModDrawObject
           .IMPORT     _njMultiMatrix
@@ -54,6 +53,8 @@
           .EXPORT     _fadeOutTask_8c022ad0
           .AENDI
           .EXPORT     _FadePushOut_8c022b60
+          .EXPORT     _var_drawCamera_8c226558 ; 021b9c_tile_draw
+                                               ; 028258_objects
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _init_mirrorQuadLeft_8c045438
@@ -1156,4 +1157,7 @@ _init_screenMirrorTall_8c045610:        ; from defines
 _init_screenLayer2_8c045624:        ; from defines
           .DATA.B      H'00, H'00, H'FA, H'43, H'00, H'00, H'20, H'44, H'00, H'00, H'F0, H'43, H'00, H'00, H'C8, H'43
           .DATA.B      H'00, H'00, H'40, H'43
+          .SECTION    B,DATA,ALIGN=4
+_var_drawCamera_8c226558:
+          .RES.B      4
           .END

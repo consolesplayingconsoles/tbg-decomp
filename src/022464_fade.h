@@ -114,6 +114,13 @@ typedef struct {
     } u;
 } FadeDrawCommand;
 
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+extern NJS_CAMERA* var_drawCamera_8c226558; // camera for the layer being drawn; FadeUpdate_8c022560 picks main/mirror/cabin
+
 /* =========
  * Functions
  * =========

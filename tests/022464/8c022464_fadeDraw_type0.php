@@ -8,7 +8,6 @@ return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_fadeDrawCommandCount_8c226570', 12);
         $this->setSize('_var_fadeDrawCommands_8c22657c', 6144);
-        $this->setSize('_var_drawCamera_8c226558', 4);
         $this->setSize('_njSetCamera', 4);
         $this->setSize('_njCnkModDrawObject', 4);
         $this->setSize('_njMultiMatrix', 4);
