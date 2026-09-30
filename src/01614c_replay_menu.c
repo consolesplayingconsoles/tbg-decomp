@@ -152,7 +152,7 @@ void ReplayMenuFreeSessionAssets_8c016182(void)
     MessageBoxFreeAssets_8c02adee();
     ObjectsFreeAssetRequests_8c029cfe();
     RouteFreePedestrianAssets_8c013ee4();
-    RouteFreeAllRouteModels_8c013dae();
+    RouteFreeAllModels_8c013dae();
     AsqFreeModels_8c0120fe((LoadedModel **)&var_routeModels_8c1bc3ec);
     AsqFreeModels_8c0120fe(&var_segmentModels_8c1bc3f0);
     AsqFreeModels_8c0120fe(&var_trafficModels_8c1bc3f4);

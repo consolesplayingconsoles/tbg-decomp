@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _StopGetStopArea_8c02cd7a(int segmentIndex): looks up the segment
+ * _StopGetArea_8c02cd7a(int segmentIndex): looks up the segment
  * record (StopGetSegment_8c02cd6a), then returns the StopAreaRecord*
  * stored at the course's lineBus_0x08 table[stopAreaId_0x02] (8-byte stride).
  */
@@ -39,7 +39,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_currentCourse_8c1bb868') + 0x08, $table); // lineBus_0x08
 
-        $this->call('_StopGetStopArea_8c02cd7a')->with(5);
+        $this->call('_StopGetArea_8c02cd7a')->with(5);
 
         $this->shouldCall('_StopGetSegment_8c02cd6a')->with(5)->andReturn($seg);
         $this->shouldReturn($record);

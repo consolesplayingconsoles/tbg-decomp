@@ -41,7 +41,7 @@ bus along a predefined route with predefined passenger stop requests.
 
 ## Camera
 
-- Cycled in-drive with the **Y button** (`BusCameraUpdateCamera_8c025078`,
+- Cycled in-drive with the **Y button** (`BusCameraUpdate_8c025078`,
   `024b4c_bus_camera.c`). The active mode lives in `var_cameraMode_8c227d9c`
   (`BUS_CAMERA_*` in `024b4c_bus_camera.h`).
 - The Y button only ever cycles `BUS_CAMERA_COCKPIT` (0) through
@@ -71,7 +71,7 @@ bus along a predefined route with predefined passenger stop requests.
 - Modes 0 and 1 additionally roll the camera by the road's pitch, taken from
   recent Y waypoint history -- this is the extra bob felt when turning on
   top of mode 0's yaw sway.
-- The mirrors run a separate camera (`BusCameraUpdateMirrorCamera_8c025604`,
+- The mirrors run a separate camera (`BusCameraUpdateMirror_8c025604`,
   `var_mirrorCamera_8c1bb944`), selected by `busState.mirror_0x268`.
 
 ## Turn signals

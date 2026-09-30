@@ -11,7 +11,7 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * _BusCameraSaveCameraState_8c024b4c(void): shifts 7 prev/current value pairs one frame forward
+ * _BusCameraSaveState_8c024b4c(void): shifts 7 prev/current value pairs one frame forward
  * -- var_cameraMode_8c227d9c->da0 and var_cameraCueState_8c227da4->da8 (int copies), and 5 float pairs
  * dd8->ddc, de0->de4, de8->dec, df0->df4, df8->dfc.
  */
@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_cameraHeightPhase_8c227df8'), fdec(-5.5));
         $this->initUint32($this->addressOf('_var_savedCameraHeightPhase_8c227dfc'), fdec(0.0));
 
-        $this->call('_BusCameraSaveCameraState_8c024b4c')->with();
+        $this->call('_BusCameraSaveState_8c024b4c')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_savedCameraMode_8c227da0'), 5);
         $this->shouldWriteLong($this->addressOf('_var_savedCameraCueState_8c227da8'), 7);

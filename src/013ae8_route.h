@@ -85,7 +85,7 @@ typedef struct {
     int courseId_0x00;
     void *atariBus_0x04;
     /* also the base of an 8-byte-stride stop-area table, indexed by a segment
-     * record's stopAreaId_0x02 (StopGetStopArea_8c02cd7a, 02c884); each slot
+     * record's stopAreaId_0x02 (StopGetArea_8c02cd7a, 02c884); each slot
      * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
     void *lineBus_0x08;
     /* not a filename: the route's LineBusNode table, borrowed from the config
@@ -210,8 +210,8 @@ void RouteSetLatch_8c014330(void);
 void RouteClearLatch_8c014322(void);
 void RouteFreeVehicleAssets_8c013b5a(void);
 void RouteClearModelSlots_8c013bbc(ModelSlot *slots, int count);
-void RouteStartRouteModelLoadPass_8c013d78(void);
-void RouteFreeAllRouteModels_8c013dae(void);
+void RouteStartModelLoadPass_8c013d78(void);
+void RouteFreeAllModels_8c013dae(void);
 void RouteFreePedestrianAssets_8c013ee4(void);
 int RouteGetLatch_8c01432a(void);
 void RouteUnusedTask_8c014784(RouteLoadTask *task, void *state);

@@ -454,10 +454,10 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_cameraMode_8c227d9c = 2;
                 var_cameraCueState_8c227da4 = 0;
-                BusCameraApplyCameraMode_8c024f32();
+                BusCameraApplyMode_8c024f32();
             } else {
                 if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
-                    BusCameraRestoreCameraState_8c024b86();
+                    BusCameraRestoreState_8c024b86();
                 }
             }
 
@@ -527,7 +527,7 @@ void PassengerSkipStopTask_8c02d8f0(Task *task, void *state)
         var_arrivalOverlayVariant_8c22655c = 0;
         var_cameraMode_8c227d9c = 2;
         var_cameraCueState_8c227da4 = 0;
-        BusCameraApplyCameraMode_8c024f32();
+        BusCameraApplyMode_8c024f32();
         TaskFree_8c014b66(task);
     }
 }

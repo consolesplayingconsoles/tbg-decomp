@@ -12,7 +12,7 @@
 #include "024280_bus_input.h"               /* BusInputUpdate_8c0246b2/024280 */
 #include "02412c_bus_line.h"               /* BusLineAdvance_8c02412c */
 #include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
-#include "024b4c_bus_camera.h"               /* BusCameraUpdateCamera_8c025078, BusCameraUpdateMirrorCamera_8c025604 */
+#include "024b4c_bus_camera.h"               /* BusCameraUpdate_8c025078, BusCameraUpdateMirror_8c025604 */
 #include "025870_demo.h"               /* DemoUpdateCamera_8c025906 */
 #include "027958_bus_draw.h"      /* BusDrawFadeLights_8c028022 */
 #include "022bdc_bus.h"           /* BusTask_8c022bdc */
@@ -353,8 +353,8 @@ void BusTask_8c022bdc(Task *task, void *state)
     if (var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) {
         DemoUpdateCamera_8c025906();
     } else {
-        BusCameraUpdateCamera_8c025078();
+        BusCameraUpdate_8c025078();
     }
 
-    BusCameraUpdateMirrorCamera_8c025604();
+    BusCameraUpdateMirror_8c025604();
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _BusCameraApplyCameraMode_8c024f32(void): turn-blink state machine driven by var_cameraMode_8c227d9c.
+ * _BusCameraApplyMode_8c024f32(void): turn-blink state machine driven by var_cameraMode_8c227d9c.
  * 0 -> zeroes busState.cameraYawEase_0x3c8 and returns; 1/4 -> no-op; 2/3 -> scale
  * busState's spawn-stop direction (headingDirX_0x274/0x278, always read/scaled by
  * 18.0/30.0) and accumulate into busState.posX_0x2fc/posZ_0x304; var_cameraHeight_8c227df0
@@ -55,7 +55,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 0);
         $base = $this->addressOf('_var_busState_8c1bb9d0');
 
-        $this->call('_BusCameraApplyCameraMode_8c024f32')->with();
+        $this->call('_BusCameraApplyMode_8c024f32')->with();
 
         $this->shouldWriteLong($base + 0x3c8, 0);
     }
@@ -66,7 +66,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 1);
 
-        $this->call('_BusCameraApplyCameraMode_8c024f32')->with();
+        $this->call('_BusCameraApplyMode_8c024f32')->with();
     }
 
     public function test_state_four_is_noop(): void
@@ -75,7 +75,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_cameraMode_8c227d9c'), 4);
 
-        $this->call('_BusCameraApplyCameraMode_8c024f32')->with();
+        $this->call('_BusCameraApplyMode_8c024f32')->with();
     }
 
     public function test_state_two_flag_zero_uses_constant_rate(): void
@@ -90,7 +90,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0xf4, 10.0);
         $this->initFloat($base + 0xfc, -20.0);
 
-        $this->call('_BusCameraApplyCameraMode_8c024f32')->with();
+        $this->call('_BusCameraApplyMode_8c024f32')->with();
 
         $dx = $this->f32($this->f32(0.5) * 18.0);
         $dz = $this->f32($this->f32(-0.25) * 18.0);
@@ -111,7 +111,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0xf4, 10.0);
         $this->initFloat($base + 0xfc, -20.0);
 
-        $this->call('_BusCameraApplyCameraMode_8c024f32')->with();
+        $this->call('_BusCameraApplyMode_8c024f32')->with();
 
         $dx = $this->f32($this->f32(0.5) * 18.0);
         $dz = $this->f32($this->f32(-0.25) * 18.0);
@@ -131,7 +131,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0xf4, 1.0);
         $this->initFloat($base + 0xfc, 2.0);
 
-        $this->call('_BusCameraApplyCameraMode_8c024f32')->with();
+        $this->call('_BusCameraApplyMode_8c024f32')->with();
 
         $dx = $this->f32($this->f32(0.5) * 30.0);
         $dz = $this->f32($this->f32(-0.25) * 30.0);
@@ -152,7 +152,7 @@ return new class extends TestCase {
         $this->initFloat($base + 0xf4, 1.0);
         $this->initFloat($base + 0xfc, 2.0);
 
-        $this->call('_BusCameraApplyCameraMode_8c024f32')->with();
+        $this->call('_BusCameraApplyMode_8c024f32')->with();
 
         $dx = $this->f32($this->f32(0.5) * 30.0);
         $dz = $this->f32($this->f32(-0.25) * 30.0);

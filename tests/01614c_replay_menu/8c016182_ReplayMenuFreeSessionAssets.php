@@ -31,7 +31,7 @@ return new class extends TestCase {
         $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_ObjectsFreeAssetRequests_8c029cfe');
         $this->shouldCall('_RouteFreePedestrianAssets_8c013ee4');
-        $this->shouldCall('_RouteFreeAllRouteModels_8c013dae');
+        $this->shouldCall('_RouteFreeAllModels_8c013dae');
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_routeModels_8c1bc3ec'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_segmentModels_8c1bc3f0'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_trafficModels_8c1bc3f4'));
@@ -76,7 +76,7 @@ return new class extends TestCase {
         $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_ObjectsFreeAssetRequests_8c029cfe');
         $this->shouldCall('_RouteFreePedestrianAssets_8c013ee4');
-        $this->shouldCall('_RouteFreeAllRouteModels_8c013dae');
+        $this->shouldCall('_RouteFreeAllModels_8c013dae');
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_routeModels_8c1bc3ec'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_segmentModels_8c1bc3f0'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_trafficModels_8c1bc3f4'));

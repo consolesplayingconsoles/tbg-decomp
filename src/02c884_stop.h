@@ -24,13 +24,13 @@ void StopSetup_8c02caba(void);
 
 /* Locks in the current stop's heading, then finds the next segment with a
  * stop and primes its position and heading. */
-void StopUpdateStopHeadings_8c02ccc6(void);
+void StopUpdateHeadings_8c02ccc6(void);
 
 CourseSegment *StopGetSegment_8c02cd6a(int segmentIndex);
 
 /* Returns the stop-area record for segmentIndex's segment
  * (the course's lineBus_0x08 table, selected by the segment's stopAreaId_0x02). */
-StopAreaRecord *StopGetStopArea_8c02cd7a(int segmentIndex);
+StopAreaRecord *StopGetArea_8c02cd7a(int segmentIndex);
 
 /* Per-frame arrival state machine, driven by 02b464_grading. Phases run
  * 0 cruising -> 2 approach -> 3 stopped -> 4 finishing -> 1 post-departure ->
@@ -49,7 +49,7 @@ extern int var_nextStopSegment_8c228710; // segment index of the upcoming stop
 
 /* upcoming stop's heading angle (njArcTan2 of its stop-area record's
  * direction vector, see NinjaApi.h), sign-extended from the low 16 bits by
- * StopUpdateStopHeadings_8c02ccc6 */
+ * StopUpdateHeadings_8c02ccc6 */
 extern int var_nextStopHeading_8c228714;
 
 /* fixed 31-slot table of scripted/special waiting-passenger schedule entries,

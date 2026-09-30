@@ -930,7 +930,7 @@ STATIC void onFadeStopEnded_8c02c624(void) {
         TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
-        StopUpdateStopHeadings_8c02ccc6();
+        StopUpdateHeadings_8c02ccc6();
         RoutePushSegmentReloadTask_8c01468e();
         return;
     }
@@ -957,7 +957,7 @@ void GradeOnFadeDriveEnd_8c02c784(void) {
         TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
-        StopUpdateStopHeadings_8c02ccc6();
+        StopUpdateHeadings_8c02ccc6();
         RoutePushSegmentReloadTask_8c01468e();
         return;
     }
@@ -1144,7 +1144,7 @@ STATIC void taskCallback_8c02c072() {
                     }
                     var_runState_8c2285c4.runPhase_0x00 = 5;
                     var_fadeRequest_8c226564 = FADE_REQUEST_IN;
-                    BusCameraSaveCameraState_8c024b4c();
+                    BusCameraSaveState_8c024b4c();
                 } else {
                     SndUpdateAdxVolFade_8c010a40();
                 }

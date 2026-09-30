@@ -9,7 +9,7 @@
 #include "1ba1c8_globals.h"
 #include "01e27c_practice_menu.h" /* var_practiceRules_8c226410 */
 #include "013ae8_route.h" /* CourseSceneParams, CourseSegment */
-#include "02c884_stop.h"   /* StopAreaRecord, StopGetStopArea_8c02cd7a */
+#include "02c884_stop.h"   /* StopAreaRecord, StopGetArea_8c02cd7a */
 #include "020914_ground_query.h"
 #include "020b6c_ground_probe.h"
 #include "023938_bus_drive.h"
@@ -37,7 +37,7 @@ LineBusNode *var_lineNodes_8c227d88;
  * driving-physics state. Called once by BusInitStart_8c023610 at the start of a run. */
 STATIC void busInitPlaceBus_8c023310(void)
 {
-    StopAreaRecord *stopArea = StopGetStopArea_8c02cd7a(var_currentSegment_8c228708);
+    StopAreaRecord *stopArea = StopGetArea_8c02cd7a(var_currentSegment_8c228708);
     GroundQueryResult groundResult;
     float angle;
     int ang;

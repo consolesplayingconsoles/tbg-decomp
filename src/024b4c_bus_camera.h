@@ -4,7 +4,7 @@
 #include <shinobi.h>
 
 /* Values of var_cameraMode_8c227d9c. 0-4 are the gameplay camera
- * (BusCameraUpdateCamera_8c025078); the Y button cycles only 0-3
+ * (BusCameraUpdate_8c025078); the Y button cycles only 0-3
  * (BUS_CAMERA_FIXED_TARGET is never assigned anywhere in the decompiled
  * code -- traced as dead in the shipped game, not merely hard to reach).
  * 5-7 are demo-playback-only (DemoUpdateCamera_8c025906, 025870_demo.c),
@@ -27,7 +27,7 @@ enum {
  * =======================
  */
 
-/* Fixed camera-interest point for BusCameraUpdateCamera_8c025078's
+/* Fixed camera-interest point for BusCameraUpdate_8c025078's
  * var_cameraMode_8c227d9c==4 mode. */
 extern float var_fixedCameraTarget_8c227d90[3];
 extern int var_cameraMode_8c227d9c;
@@ -42,7 +42,7 @@ extern float var_busDoorFrame_8c227db0;
 /* var_busDoorMotion_8c1bc410->nbFrame - 1.0, set by BusInitStart_8c023610, read by BusTask_8c022bdc
  * (022bdc). */
 extern float var_busDoorLastFrame_8c227db4;
-extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by BusCameraUpdateCamera_8c025078
+extern float var_busSimpleLightDir_8c227db8[3]; // 028258: light direction (x, y, z), written by BusCameraUpdate_8c025078
 extern float var_mirrorLightDir_8c227dc4[3];
 extern float var_farClipDepth_8c227dd0;
 /* Which attract-mode shot is showing, so demoShotTask_8c0259e8 only cuts on a
@@ -58,17 +58,17 @@ extern int var_demoShotId_8c227dd4;
 /* Copies the camera mode and the cue-ramp state into their var_saved*
  * counterparts, around the stop scene. Saved by 02b464 on arrival,
  * restored by 02d19c on departure. */
-void BusCameraSaveCameraState_8c024b4c(void);
+void BusCameraSaveState_8c024b4c(void);
 
-/* Restores what BusCameraSaveCameraState_8c024b4c saved, except the ramp
+/* Restores what BusCameraSaveState_8c024b4c saved, except the ramp
  * phase (var_savedCameraHeightPhase_8c227dfc), then tail-calls
- * BusCameraApplyCameraMode_8c024f32. */
-void BusCameraRestoreCameraState_8c024b86(void);
+ * BusCameraApplyMode_8c024f32. */
+void BusCameraRestoreState_8c024b86(void);
 
 /* Re-seats busState's camera draw position (posX_0x2fc/posZ_0x304) behind
  * the bus at the current mode's chase distance, and resets that mode's
  * default camera height. Call after assigning var_cameraMode_8c227d9c. */
-void BusCameraApplyCameraMode_8c024f32(void);
+void BusCameraApplyMode_8c024f32(void);
 
 /* Lights, textures and draws the third-person bus model (with door/etc
  * shape motion, always busState.modelLarge_0x00c); altLight only selects the
@@ -77,7 +77,7 @@ void BusCameraDrawBusModel_8c024bb8(void *altLight);
 
 /* Updates the gameplay camera to follow the player's bus, outside demo
  * playback (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO). */
-void BusCameraUpdateCamera_8c025078(void);
+void BusCameraUpdate_8c025078(void);
 
 /* No-op unless busState.mirror_0x268 is nonzero. Otherwise picks a
  * local mirror-camera offset/interest by mirror_0x268 (1/2/3, else stale),
@@ -87,6 +87,6 @@ void BusCameraUpdateCamera_8c025078(void);
  * vector, rolls it by recent Y waypoint history, activates it, and queues
  * BusCameraDrawBusModel_8c024bb8 on draw layer 1 with the alt light direction
  * (var_mirrorLightDir_8c227dc4, recomputed here from the course's primary light). */
-void BusCameraUpdateMirrorCamera_8c025604(void);
+void BusCameraUpdateMirror_8c025604(void);
 
 #endif // _024B4C_BUS_CAMERA_H

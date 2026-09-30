@@ -1,6 +1,6 @@
 ; 8c023310
           .IMPORT     _var_currentSegment_8c228708
-          .IMPORT     _StopGetStopArea_8c02cd7a
+          .IMPORT     _StopGetArea_8c02cd7a
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _GroundQueryFindPolygon_8c020914
@@ -169,7 +169,7 @@ LP_GEN_83541:
           .DATA.W H'025C ; H'8C023400
           .RES.W 1 ; H'8C023402
           .DATA.L _var_currentSegment_8c228708 ; H'8C023404
-          .DATA.L _StopGetStopArea_8c02cd7a ; H'8C023408
+          .DATA.L _StopGetArea_8c02cd7a ; H'8C023408
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02340C
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C023410
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C023414

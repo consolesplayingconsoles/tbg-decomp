@@ -29,7 +29,7 @@ float var_farClipDepth_8c227dd0;
 int var_demoShotId_8c227dd4;
 
 /* Five prev/current float pairs, each shifted (dd8->ddc, de0->de4, de8->dec,
- * df0->df4, df8->dfc) every frame by BusCameraSaveCameraState_8c024b4c. */
+ * df0->df4, df8->dfc) every frame by BusCameraSaveState_8c024b4c. */
 STATIC float var_cameraHeightFrom_8c227dd8;
 STATIC float var_savedCameraHeightFrom_8c227ddc;
 STATIC float var_cameraHeightTo_8c227de0;
@@ -41,7 +41,7 @@ STATIC float var_savedCameraHeightDelta_8c227dec;
  * default; scripted cues ramp it to another value and back. */
 STATIC float var_cameraHeight_8c227df0;
 STATIC float var_savedCameraHeight_8c227df4;
-/* BusCameraUpdateCamera_8c025078's quarter-sine ease-angle accumulator
+/* BusCameraUpdate_8c025078's quarter-sine ease-angle accumulator
  * (BAMS units, 0 to 0x4000) -- a real int (MOV.L/ADD/CMP/GE), not float. */
 STATIC Sint32 var_cameraHeightPhase_8c227df8;
 STATIC Sint32 var_savedCameraHeightPhase_8c227dfc;
@@ -58,7 +58,7 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
  * ====================
  */
 
-void BusCameraSaveCameraState_8c024b4c(void)
+void BusCameraSaveState_8c024b4c(void)
 {
     var_savedCameraMode_8c227da0 = var_cameraMode_8c227d9c;
     var_savedCameraCueState_8c227da8 = var_cameraCueState_8c227da4;
@@ -70,7 +70,7 @@ void BusCameraSaveCameraState_8c024b4c(void)
 }
 
 /* See the header. */
-void BusCameraRestoreCameraState_8c024b86(void)
+void BusCameraRestoreState_8c024b86(void)
 {
     var_cameraMode_8c227d9c = var_savedCameraMode_8c227da0;
     var_cameraCueState_8c227da4 = var_savedCameraCueState_8c227da8;
@@ -79,11 +79,11 @@ void BusCameraRestoreCameraState_8c024b86(void)
     var_cameraHeightDelta_8c227de8 = var_savedCameraHeightDelta_8c227dec;
     var_cameraHeight_8c227df0 = var_savedCameraHeight_8c227df4;
 
-    BusCameraApplyCameraMode_8c024f32();
+    BusCameraApplyMode_8c024f32();
 }
 
 /* See the header. */
-void BusCameraApplyCameraMode_8c024f32(void)
+void BusCameraApplyMode_8c024f32(void)
 {
     float dx = 0.0f;
     float dz = 0.0f;
@@ -142,7 +142,7 @@ void BusCameraDrawBusModel_8c024bb8(void *altLight)
 /* Lights, textures and draws the front (dashboard-view) bus model --
  * unconditionally with the default light direction and frame-less
  * (njCnkSimpleDrawObject, no shape motion). Reachable only via a function
- * pointer in BusCameraUpdateCamera_8c025078's literal pool, not by any BSR/JSR in this unit. */
+ * pointer in BusCameraUpdate_8c025078's literal pool, not by any BSR/JSR in this unit. */
 STATIC void drawFrontBusModel_8c024cc8(void)
 {
     njCnkSetSimpleLight(var_busSimpleLightDir_8c227db8[0],
@@ -173,7 +173,7 @@ STATIC void drawFrontBusModel_8c024cc8(void)
  * recomputes the simple light direction from the course's primary light,
  * and queues the appropriate bus draw (front dashboard model for mode 0,
  * third-person model for modes 2/3, none otherwise). */
-void BusCameraUpdateCamera_8c025078(void)
+void BusCameraUpdate_8c025078(void)
 {
     Sint32 cue = var_busState_8c1bb9d0.markAudioCue_0x3b8 & 0x0F000000;
     float pitchOffset;
@@ -236,7 +236,7 @@ void BusCameraUpdateCamera_8c025078(void)
         if (var_cameraMode_8c227d9c > BUS_CAMERA_THIRD_PERSON_FAR) {
             var_cameraMode_8c227d9c = BUS_CAMERA_COCKPIT;
         }
-        BusCameraApplyCameraMode_8c024f32();
+        BusCameraApplyMode_8c024f32();
     }
 
     njInitCamera(&var_camera_8c1bb904);
@@ -463,7 +463,7 @@ STATIC void positionCamera_8c024d6c(float dist, float dyOffset, float interestDy
  * vector, rolls it by recent Y waypoint history, activates it, and queues
  * BusCameraDrawBusModel_8c024bb8 on draw layer 1 with the alt light direction
  * (var_mirrorLightDir_8c227dc4, recomputed here from the course's primary light). */
-void BusCameraUpdateMirrorCamera_8c025604(void)
+void BusCameraUpdateMirror_8c025604(void)
 {
     float offsetX, offsetY, offsetZ;
     NJS_POINT3 interest;

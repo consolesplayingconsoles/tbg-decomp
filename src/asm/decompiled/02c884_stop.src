@@ -46,9 +46,9 @@
           .IMPORT     _GradeOnFadeDriveEnd_8c02c784
           .EXPORT     _StopFreeTaskGroup_8c02ca96
           .EXPORT     _StopSetup_8c02caba
-          .EXPORT     _StopUpdateStopHeadings_8c02ccc6
+          .EXPORT     _StopUpdateHeadings_8c02ccc6
           .EXPORT     _StopGetSegment_8c02cd6a
-          .EXPORT     _StopGetStopArea_8c02cd7a
+          .EXPORT     _StopGetArea_8c02cd7a
           .EXPORT     _StopUpdateArrival_8c02ce48
           .EXPORT     _var_startStopIndex_8c228704 ; 0129cc_game
           .EXPORT     _var_currentSegment_8c228708 ; 0129cc_game, 013ae8, 023310, 026710, 02af78, 02d19c, 02d968
@@ -535,7 +535,7 @@ LAB_8c02cc0c:
           MOV.L       R1,@R3
           BSR         _pickWaitingPassengers_8c02c8ae
           NOP
-          BSR         _StopUpdateStopHeadings_8c02ccc6
+          BSR         _StopUpdateHeadings_8c02ccc6
           NOP
           BSR         _advanceStopSegment_8c02ccae
           NOP
@@ -613,7 +613,7 @@ _advanceStopSegment_8c02ccae:
           MOV.L       LP_GEN_16762+10,R2
           RTS
           MOV.L       R1,@R2
-_StopUpdateStopHeadings_8c02ccc6:
+_StopUpdateHeadings_8c02ccc6:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -624,7 +624,7 @@ _StopUpdateStopHeadings_8c02ccc6:
           MOV.L       @R14,R3
           MOV.L       LP_GEN_16762+14,R13
           MOV.L       R3,@R13
-          BSR         _StopGetStopArea_8c02cd7a
+          BSR         _StopGetArea_8c02cd7a
           MOV         R3,R4
           MOV         R0,R12
           MOVA        LP_GEN_16762+22,R0
@@ -661,7 +661,7 @@ LAB_8c02cd16:
           MOV.L       @(R0,R4),R3
           TST         R3,R3
           BT          LAB_8c02cd10
-          BSR         _StopGetStopArea_8c02cd7a
+          BSR         _StopGetArea_8c02cd7a
           MOV.L       @R14,R4
           MOV         R0,R14
           MOV         #H'4,R0
@@ -708,7 +708,7 @@ _StopGetSegment_8c02cd6a:
           STS         MACL,R4
           RTS
           ADD         R4,R0
-_StopGetStopArea_8c02cd7a:
+_StopGetArea_8c02cd7a:
           STS.L       PR,@-R15
           BSR         _StopGetSegment_8c02cd6a
           NOP

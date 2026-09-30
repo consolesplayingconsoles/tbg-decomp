@@ -13,7 +13,7 @@ if (!function_exists('fdec')) {
 }
 
 /*
- * _BusCameraUpdateMirrorCamera_8c025604(void): rear-view-mirror camera,
+ * _BusCameraUpdateMirror_8c025604(void): rear-view-mirror camera,
  * called last each frame by BusTask_8c022bdc. No-op unless
  * busState.mirror_0x268 is nonzero. Otherwise picks a local mirror-camera
  * offset/interest by mirror_0x268 (1/2/3), rotates BOTH the offset and the
@@ -69,7 +69,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($base + 0x268, 0);
 
-        $this->call('_BusCameraUpdateMirrorCamera_8c025604')->with();
+        $this->call('_BusCameraUpdateMirror_8c025604')->with();
     }
 
     private function runMode(
@@ -89,7 +89,7 @@ return new class extends TestCase {
         $scene = $this->allocSceneParams(0.4, 0.5, 0.6);
         $this->initUint32($this->addressOf('_var_sceneParams_8c18ad24'), $scene);
 
-        $this->call('_BusCameraUpdateMirrorCamera_8c025604')->with();
+        $this->call('_BusCameraUpdateMirror_8c025604')->with();
 
         $this->shouldCall('_njInitCamera')->with($camera);
         $this->shouldCall('_njSetCameraAngle')->with($camera, 9102);

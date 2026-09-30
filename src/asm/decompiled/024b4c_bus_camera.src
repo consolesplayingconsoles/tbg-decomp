@@ -39,11 +39,11 @@
           .IMPORT     _njCalcVector
           .IMPORT     _RenderPushCall1_8c0223ea
           .IMPORT     _var_mirrorCamera_8c1bb944
-          .EXPORT     _BusCameraSaveCameraState_8c024b4c
-          .EXPORT     _BusCameraRestoreCameraState_8c024b86
-          .EXPORT     _BusCameraApplyCameraMode_8c024f32
-          .EXPORT     _BusCameraUpdateCamera_8c025078
-          .EXPORT     _BusCameraUpdateMirrorCamera_8c025604
+          .EXPORT     _BusCameraSaveState_8c024b4c
+          .EXPORT     _BusCameraRestoreState_8c024b86
+          .EXPORT     _BusCameraApplyMode_8c024f32
+          .EXPORT     _BusCameraUpdate_8c025078
+          .EXPORT     _BusCameraUpdateMirror_8c025604
           .EXPORT     _BusCameraDrawBusModel_8c024bb8
           .EXPORT     _var_fixedCameraTarget_8c227d90
           .EXPORT     _var_cameraMode_8c227d9c ; 020214_drive_cue
@@ -83,7 +83,7 @@
           .AENDI
 
           .SECTION     P, CODE, ALIGN=4
-_BusCameraSaveCameraState_8c024b4c:
+_BusCameraSaveState_8c024b4c:
           MOV.L       LP_GEN_17430+10,R2
           MOV.L       LP_GEN_17430+14,R1
           MOV.L       @R2,R3
@@ -113,7 +113,7 @@ _BusCameraSaveCameraState_8c024b4c:
           MOV.L       @R1,R3
           RTS
           MOV.L       R3,@R2
-_BusCameraRestoreCameraState_8c024b86:
+_BusCameraRestoreState_8c024b86:
           MOV.L       LP_GEN_17430+14,R3
           MOV.L       LP_GEN_17430+10,R2
           MOV.L       @R3,R0
@@ -137,7 +137,7 @@ _BusCameraRestoreCameraState_8c024b86:
           FMOV.S      FR3,@R2
           MOV.L       LP_GEN_17430+50,R0
           FMOV.S      @R1,FR3
-          BRA         _BusCameraApplyCameraMode_8c024f32
+          BRA         _BusCameraApplyMode_8c024f32
           FMOV.S      FR3,@R0
 _BusCameraDrawBusModel_8c024bb8:
           MOV.L       R14,@-R15
@@ -554,7 +554,7 @@ LAB_8c024efc:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_BusCameraApplyCameraMode_8c024f32:
+_BusCameraApplyMode_8c024f32:
           MOVA        LP_GEN_17475+48,R0
           MOV.L       LP_GEN_17475+72,R3
           FMOV.S      @R0,FR8
@@ -715,7 +715,7 @@ LP_GEN_98635:
           .DATA.W H'0304 ; H'8C02506E
           .DATA.L _var_cameraHeightTo_8c227de0 ; H'8C025070
           .DATA.L _var_cameraMode_8c227d9c ; H'8C025074
-_BusCameraUpdateCamera_8c025078:
+_BusCameraUpdate_8c025078:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -966,7 +966,7 @@ LAB_8c02524e:
           BF          LAB_8c02525e
           MOV.L       R11,@R10
 LAB_8c02525e:
-          BSR         _BusCameraApplyCameraMode_8c024f32
+          BSR         _BusCameraApplyMode_8c024f32
           NOP
 LAB_8c025262:
           MOV.L       LP_GEN_48962+24,R3
@@ -1430,7 +1430,7 @@ LAB_8c0255e8:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_BusCameraUpdateMirrorCamera_8c025604:
+_BusCameraUpdateMirror_8c025604:
           MOV.L       R14,@-R15
           FMOV.S      FR15,@-R15
           FMOV.S      FR14,@-R15

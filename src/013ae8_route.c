@@ -235,7 +235,7 @@ STATIC void finishAssetLoad_8c013d42(void)
 
 /* Initialize the asset queues and kick off one
  * load pass for the currently-wanted route models. */
-void RouteStartRouteModelLoadPass_8c013d78(void)
+void RouteStartModelLoadPass_8c013d78(void)
 {
     LOG_DEBUG(("[ROUTE] starting route-model load pass\n"));
 
@@ -246,7 +246,7 @@ void RouteStartRouteModelLoadPass_8c013d78(void)
     AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, finishAssetLoad_8c013d42);
 }
 
-void RouteFreeAllRouteModels_8c013dae(void)
+void RouteFreeAllModels_8c013dae(void)
 {
     ModelSlot *slot;
 

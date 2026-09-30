@@ -14,8 +14,8 @@ return new class extends TestCase {
         $this->setSize('_RouteGetLatch_8c01432a', 4);
         $this->setSize('_StopFreeTaskGroup_8c02ca96', 4);
         $this->setSize('_njReleaseTexture', 4);
-        $this->setSize('_BusCameraRestoreCameraState_8c024b86', 4);
-        $this->setSize('_BusCameraApplyCameraMode_8c024f32', 4);
+        $this->setSize('_BusCameraRestoreState_8c024b86', 4);
+        $this->setSize('_BusCameraApplyMode_8c024f32', 4);
         $this->setSize('_SndPlayAdx_8c010cd6', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_isFading_8c226568', 4);
@@ -298,7 +298,7 @@ return new class extends TestCase {
         $this->shouldCall('_njReleaseTexture')->with($tlist);
         $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', 2);
         $this->shouldWriteLongTo('_var_cameraCueState_8c227da4', 0);
-        $this->shouldCall('_BusCameraApplyCameraMode_8c024f32');
+        $this->shouldCall('_BusCameraApplyMode_8c024f32');
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->shouldWriteLong($busState + 0x2b4, 1);
         $this->shouldWriteLong($busState + 0x25c, 2); // playMode==PRACTICE -> always 2
@@ -330,7 +330,7 @@ return new class extends TestCase {
         $this->expectFrameCallbacks();
         $this->shouldCall('_StopFreeTaskGroup_8c02ca96');
         $this->shouldCall('_njReleaseTexture')->with($tlist);
-        $this->shouldCall('_BusCameraRestoreCameraState_8c024b86'); // not DEMO, not PRACTICE
+        $this->shouldCall('_BusCameraRestoreState_8c024b86'); // not DEMO, not PRACTICE
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->shouldWriteLong($busState + 0x2b4, 1);
         $this->shouldWriteLong($busState + 0x25c, 1); // !PRACTICE && OME && segment==0

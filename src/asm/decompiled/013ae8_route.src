@@ -65,8 +65,8 @@
           .IMPORT     _InputDispatchTask_8c012970
           .EXPORT     _RouteFreeVehicleAssets_8c013b5a
           .EXPORT     _RouteClearModelSlots_8c013bbc
-          .EXPORT     _RouteStartRouteModelLoadPass_8c013d78
-          .EXPORT     _RouteFreeAllRouteModels_8c013dae
+          .EXPORT     _RouteStartModelLoadPass_8c013d78
+          .EXPORT     _RouteFreeAllModels_8c013dae
           .EXPORT     _RouteFreePedestrianAssets_8c013ee4
           .EXPORT     _RouteClearLatch_8c014322
           .EXPORT     _RouteGetLatch_8c01432a
@@ -435,7 +435,7 @@ LP_GEN_93614:
           .DATA.L _syFree
           .DATA.L _AsqFreeQueues_8c011f7e
 
-_RouteStartRouteModelLoadPass_8c013d78:
+_RouteStartModelLoadPass_8c013d78:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_38230+6,R3
           MOV         #H'40,R7
@@ -463,7 +463,7 @@ _RouteStartRouteModelLoadPass_8c013d78:
           LDS.L       @R15+,PR
           RTS
           NOP
-_RouteFreeAllRouteModels_8c013dae:
+_RouteFreeAllModels_8c013dae:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

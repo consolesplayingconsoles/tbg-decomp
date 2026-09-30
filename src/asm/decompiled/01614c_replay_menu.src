@@ -9,7 +9,7 @@
           .IMPORT     _VibClear_8c010fbe
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _RouteFreePedestrianAssets_8c013ee4
-          .IMPORT     _RouteFreeAllRouteModels_8c013dae
+          .IMPORT     _RouteFreeAllModels_8c013dae
           .IMPORT     _AsqFreeModels_8c0120fe
           .IMPORT     _var_routeModels_8c1bc3ec
           .IMPORT     _var_segmentModels_8c1bc3f0
@@ -437,7 +437,7 @@ LP_GEN_42967:
           .DATA.L _MessageBoxFreeAssets_8c02adee ; H'8C0163B4
           .DATA.L _ObjectsFreeAssetRequests_8c029cfe ; H'8C0163B8
           .DATA.L _RouteFreePedestrianAssets_8c013ee4 ; H'8C0163BC
-          .DATA.L _RouteFreeAllRouteModels_8c013dae ; H'8C0163C0
+          .DATA.L _RouteFreeAllModels_8c013dae ; H'8C0163C0
           .DATA.L _AsqFreeModels_8c0120fe ; H'8C0163C4
           .DATA.L _var_routeModels_8c1bc3ec ; H'8C0163C8
           .DATA.L _var_segmentModels_8c1bc3f0 ; H'8C0163CC

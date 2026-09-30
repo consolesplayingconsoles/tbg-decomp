@@ -3981,7 +3981,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
             MessageBoxFreeAssets_8c02adee();
             TaskFree_8c014b66(task);
             EventApplyFlags_8c02b292();
-            RouteStartRouteModelLoadPass_8c013d78();
+            RouteStartModelLoadPass_8c013d78();
             var_fadeRequest_8c226564 = FADE_REQUEST_OUT;
             var_arrivalOverlayGate_8c226560 = 1;
             var_messageBoxActive_8c22847c = 0;

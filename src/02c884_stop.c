@@ -65,7 +65,7 @@ STATIC int var_currentStopHeading_8c2288fc;
 
 /* scratch ground-query point for the upcoming stop, snapped to ground by
  * pickWaitingPassengers_8c02c8ae; x/z (only) also set by
- * StopUpdateStopHeadings_8c02ccc6 ahead of that ground snap */
+ * StopUpdateHeadings_8c02ccc6 ahead of that ground snap */
 STATIC NJS_POINT3 var_nextStopPoint_8c228900;
 
 /* Spawn-area record for the upcoming stop's segment (the course's lineHum_0x2c
@@ -107,7 +107,7 @@ STATIC void advanceStopSegment_8c02ccae(void)
     var_runState_8c2285c4.scheduleTime_0x14 = ((int *)var_currentCourseConfig_8c18ad18->ukn_0x0c)[var_prevStopSegment_8c22870c];
 }
 
-StopAreaRecord *StopGetStopArea_8c02cd7a(int segmentIndex)
+StopAreaRecord *StopGetArea_8c02cd7a(int segmentIndex)
 {
     CourseSegment *seg = StopGetSegment_8c02cd6a(segmentIndex);
     return *(StopAreaRecord **)((char *)var_currentCourse_8c1bb868.lineBus_0x08 + seg->stopAreaId_0x02 * 8);
@@ -116,14 +116,14 @@ StopAreaRecord *StopGetStopArea_8c02cd7a(int segmentIndex)
 /* The same njArcTan2 angle is stored twice in different forms: var_currentStopHeading_8c2288fc
  * masked to unsigned 16 bits for the stop being left, var_nextStopHeading_8c228714
  * sign-extended to a full Angle for the one coming up. */
-void StopUpdateStopHeadings_8c02ccc6(void)
+void StopUpdateHeadings_8c02ccc6(void)
 {
     StopAreaRecord *rec;
     int seg;
     int angle;
 
     var_currentSegment_8c228708 = var_nextStopSegment_8c228710;
-    rec = StopGetStopArea_8c02cd7a(var_nextStopSegment_8c228710);
+    rec = StopGetArea_8c02cd7a(var_nextStopSegment_8c228710);
     var_currentStopHeading_8c2288fc = (int)(njArcTan2(rec->dx_0x0c, rec->dz_0x10) + 0x8000) & 0xffff;
 
     seg = var_currentSegment_8c228708;
@@ -132,7 +132,7 @@ void StopUpdateStopHeadings_8c02ccc6(void)
         var_nextStopSegment_8c228710 = seg;
     } while (var_segmentHasStop_8c2286a4[seg] == 0);
 
-    rec = StopGetStopArea_8c02cd7a(var_nextStopSegment_8c228710);
+    rec = StopGetArea_8c02cd7a(var_nextStopSegment_8c228710);
     var_nextStopPoint_8c228900.x = rec->x_0x04;
     var_nextStopPoint_8c228900.z = rec->z_0x08;
     angle = njArcTan2(rec->dx_0x0c, rec->dz_0x10) + 0x8000;
@@ -316,7 +316,7 @@ void StopSetup_8c02caba(void)
 
     resetStopState_8c02c884();
     pickWaitingPassengers_8c02c8ae();
-    StopUpdateStopHeadings_8c02ccc6();
+    StopUpdateHeadings_8c02ccc6();
     advanceStopSegment_8c02ccae();
 
     if (var_progress_8c1ba1cc.difficulty_0xc4 < 1 && var_playMode_8c1bb8d0 != PLAY_MODE_PRACTICE) {
