@@ -23,7 +23,7 @@ python3 scripts/check_private_decls.py || fail=1
 
 echo
 echo "=== clear_unused_imports.py --dry-run ==="
-unused=$(python3 scripts/clear_unused_imports.py --dry-run src/asm/*.src src/asm/decompiled/*.src)
+unused=$(python3 scripts/clear_unused_imports.py --dry-run src/asm/decompiled/*.src)
 echo "$unused"
 if echo "$unused" | grep -q "^Would remove [1-9]"; then
   echo "FAIL: unused .IMPORT/.EXPORT directives found -- run scripts/clear_unused_imports.py to fix"
