@@ -10,6 +10,7 @@
 #include "015ab8_title.h"
 #include "014b8c_backup.h"
 #include "014f54_sprite.h"
+#include "022464_render.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */

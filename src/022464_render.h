@@ -120,6 +120,11 @@ typedef struct {
  */
 
 extern NJS_CAMERA* var_drawCamera_8c226558; // camera for the layer being drawn; RenderUpdate_8c022560 picks main/mirror/cabin
+extern int var_arrivalOverlayVariant_8c22655c; // bus-stop-arrival overlay layout (0-2) drawn by RenderUpdate_8c022560; despite the SDK Bool this held before, values above 1 are reachable (switch in RenderUpdate_8c022560 handles 0-2)
+extern int var_arrivalOverlayGate_8c226560; // gates RenderUpdate_8c022560's bus-stop-arrival draw; cleared once its fade-out finishes
+extern FadeRequest var_fadeRequest_8c226564; // requested fade transition, consumed by RenderUpdate_8c022560
+extern Bool var_isFading_8c226568;
+extern void (*var_fadeCompleteCallback_8c22656c)(void); // fade-complete callback; sentinel -1 (0xffffffff) means unset
 
 /* =========
  * Functions

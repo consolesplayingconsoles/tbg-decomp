@@ -8,12 +8,6 @@ return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_practiceRules_8c226410', 4);
-        $this->setSize('_var_arrivalOverlayVariant_8c22655c', 4);
-        $this->setSize('_var_fadePhase_8c227d7c', 4);
-        $this->setSize('_var_arrivalOverlayGate_8c226560', 4);
-        $this->setSize('_var_fadeRequest_8c226564', 4);
-        $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
-        $this->setSize('_var_isFading_8c226568', 4);
     }
 
     public function test_normal_play_mode_sets_mirror_flag(): void {

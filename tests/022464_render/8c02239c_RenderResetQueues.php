@@ -6,7 +6,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_drawCommandCount_8c226570', 12);
     }
 
     public function test_clears_draw_command_counts(): void {

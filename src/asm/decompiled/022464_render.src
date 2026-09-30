@@ -1,6 +1,4 @@
 ; 8c022464
-          .IMPORT     _var_drawCommandCount_8c226570
-          .IMPORT     _var_drawCommands_8c22657c
           .IMPORT     _njSetCamera
           .IMPORT     _njCnkModDrawObject
           .IMPORT     _njMultiMatrix
@@ -10,11 +8,9 @@
           .IMPORT     _njCnkEasyDrawObject
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _njUserClipping
-          .IMPORT     _var_arrivalOverlayGate_8c226560
           .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _njDrawTexture
           .IMPORT     _njSetScreen
-          .IMPORT     _var_arrivalOverlayVariant_8c22655c
           .IMPORT     _njControl3D
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_mirrorCamera_8c1bb944
@@ -23,12 +19,7 @@
           .IMPORT     _var_busStopTexlist_8c1bc424
           .IMPORT     _var_cabinCamera_8c1bb984
           .IMPORT     _var_camera_8c1bb904
-          .IMPORT     _var_isFading_8c226568
-          .IMPORT     _var_fadePhase_8c227d7c
-          .IMPORT     _var_fadeProgress_8c227d80
-          .IMPORT     _var_fadeRequest_8c226564
           .IMPORT     _njDrawPolygon
-          .IMPORT     _var_fadeCompleteCallback_8c22656c
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_practiceRules_8c226410
           .IMPORT     __divlu
@@ -55,6 +46,32 @@
           .EXPORT     _RenderPushFadeOut_8c022b60
           .EXPORT     _var_drawCamera_8c226558 ; 021b9c_tile_draw
                                                ; 0289ac_objects
+          .EXPORT     _var_arrivalOverlayVariant_8c22655c ; 0129cc_game
+                                                          ; 02d19c_passenger
+          .EXPORT     _var_arrivalOverlayGate_8c226560 ; 0289ac_objects
+                                                       ; 02d19c_passenger
+          .EXPORT     _var_fadeRequest_8c226564 ; 0289ac_objects
+                                                ; 02b464_drive_points
+                                                ; 02d19c_passenger
+          .EXPORT     _var_isFading_8c226568 ; 0129cc_game
+                                             ; 015ab8_title
+                                             ; 016d2c_course_menu
+                                             ; 018644_file_menu
+                                             ; 0193c8_vm_menu
+                                             ; 019e98_main_menu
+                                             ; 01a148_option
+                                             ; 01b19c_system_menu
+                                             ; 01bb48_vm_game
+                                             ; 01c980_profile_file
+                                             ; 01d290_album
+                                             ; 01d7fc_results
+                                             ; 01e27c_practice_menu
+                                             ; 01f3c0_ending
+                                             ; 0289ac_objects
+                                             ; 02b464_drive_points
+                                             ; 02d19c_passenger
+          .EXPORT     _var_fadeCompleteCallback_8c22656c ; 02b464_drive_points
+                                                         ; 02c884_bus_stop
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _init_mirrorQuadLeft_8c045438
@@ -70,6 +87,10 @@
           .EXPORT     _init_screenMirror_8c0455fc
           .EXPORT     _init_screenMirrorTall_8c045610
           .EXPORT     _init_screenLayer2_8c045624
+          .EXPORT     _var_drawCommandCount_8c226570
+          .EXPORT     _var_drawCommands_8c22657c
+          .EXPORT     _var_fadePhase_8c227d7c
+          .EXPORT     _var_fadeProgress_8c227d80
           .AENDI
 
           .SECTION     P, CODE, ALIGN=4
@@ -1159,5 +1180,23 @@ _init_screenLayer2_8c045624:        ; from defines
           .DATA.B      H'00, H'00, H'40, H'43
           .SECTION    B,DATA,ALIGN=4
 _var_drawCamera_8c226558:
+          .RES.B      4
+_var_arrivalOverlayVariant_8c22655c:
+          .RES.B      4
+_var_arrivalOverlayGate_8c226560:
+          .RES.B      4
+_var_fadeRequest_8c226564:
+          .RES.B      4
+_var_isFading_8c226568:
+          .RES.B      4
+_var_fadeCompleteCallback_8c22656c:
+          .RES.B      4
+_var_drawCommandCount_8c226570:
+          .RES.B      12
+_var_drawCommands_8c22657c:
+          .RES.B      6144
+_var_fadePhase_8c227d7c:
+          .RES.B      4
+_var_fadeProgress_8c227d80:
           .RES.B      4
           .END

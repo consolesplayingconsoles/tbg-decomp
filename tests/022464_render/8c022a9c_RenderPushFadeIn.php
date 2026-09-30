@@ -8,8 +8,6 @@ use Lhsazevedo\Sh4ObjTest\Simulator\Types\U32;
 return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_tasks_8c1ba3c8', 4);
-        $this->setSize('_var_fadeProgress_8c227d80', 4);
-        $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_TaskPush_8c014ae8', 4);
     }
 

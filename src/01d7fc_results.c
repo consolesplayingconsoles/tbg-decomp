@@ -20,6 +20,7 @@
 #include "01f3c0_ending.h"
 #include "0289ac_objects.h"
 #include "02b464_drive_points.h"
+#include "022464_render.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */

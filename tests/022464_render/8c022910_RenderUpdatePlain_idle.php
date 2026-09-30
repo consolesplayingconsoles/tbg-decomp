@@ -6,12 +6,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_arrivalOverlayGate_8c226560', 4);
-        $this->setSize('_var_fadePhase_8c227d7c', 4);
-        $this->setSize('_var_fadeRequest_8c226564', 4);
-        $this->setSize('_var_fadeProgress_8c227d80', 4);
-        $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_var_fadeCompleteCallback_8c22656c', 4);
         $this->setSize('_var_camera_8c1bb904', 64);
         $this->setSize('_njUserClipping', 4);
         $this->setSize('_njControl3D', 4);

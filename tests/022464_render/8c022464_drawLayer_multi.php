@@ -6,8 +6,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_drawCommandCount_8c226570', 12);
-        $this->setSize('_var_drawCommands_8c22657c', 6144);
         $this->setSize('_njSetCamera', 4);
         $this->setSize('_njCnkModDrawObject', 4);
         $this->setSize('_njMultiMatrix', 4);

@@ -7,8 +7,6 @@ use Lhsazevedo\Sh4ObjTest\Simulator\CallingConventions\RiroCallingConvention;
 
 return new class extends TestCase {
     private function resolveSymbols(): void {
-        $this->setSize('_var_fadeProgress_8c227d80', 4);
-        $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('__divlu', 4);
         $this->setSize('_njSetBackColor', 4);
         $this->setSize('_njDrawPolygon', 4);
