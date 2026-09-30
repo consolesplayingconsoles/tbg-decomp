@@ -51,6 +51,13 @@ typedef struct {
 } Gear;
 
 /* =====================
+ * Non-initialized Globals
+ * =====================
+ */
+
+int var_brakePressPeak_8c227d8c;
+
+/* =====================
  * Initialized Globals
  * =====================
  */

@@ -18,7 +18,6 @@ return new class extends TestCase {
     private function resolveSymbols(): void {
         $this->setSize('_var_peripherals_8c1ba35c', 0x1c);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
-        $this->setSize('_var_brakePressPeak_8c227d8c', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4 * 8);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('__divls', 4);

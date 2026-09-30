@@ -12,6 +12,7 @@
 #include "020b6c_ground_probe.h"
 #include "023938_bus_drive.h"
 #include "023310_bus_init.h"
+#include "024280_bus_input.h"
 #include "02786c_vehicle_parts.h" /* VehPartsBind_8c02786c */
 #include "02e51c_attr_query.h"               /* AttrQueryFindConvexPolygon_8c02e51c, AttrQueryFindConvexPolygonAtHeight_8c02eab4, AttrQueryFindPolygon_8c02e69c, AttrQueryFindPolygonAtHeight_8c02ec50 */
 #include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */

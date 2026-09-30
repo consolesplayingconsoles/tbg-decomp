@@ -1,6 +1,6 @@
-/* 8c227d8c: undecompiled data section */
-#ifndef _227D8C_SECTIONB_H
-#define _227D8C_SECTIONB_H
+/* 8c227d90: undecompiled data section */
+#ifndef _227D90_SECTIONB_H
+#define _227D90_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -18,10 +18,6 @@
  * =================
  */
 
-/* Peak brake-pedal travel of the current press, scaled to 0..255 and never
- * walked back down; applyBrakingSfx_8c024606 (024280) picks the release note
- * from it. */
-extern int var_brakePressPeak_8c227d8c;
 /* Fixed camera-interest point for BusRenderUpdateCamera_8c025078's
  * var_cameraMode_8c227d9c==4 mode. */
 extern float var_fixedCameraTarget_8c227d90[3];
@@ -195,4 +191,4 @@ extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
 extern float var_farClipDepth_8c227dd0;
 
-#endif // _227D8C_SECTIONB_H
+#endif // _227D90_SECTIONB_H

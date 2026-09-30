@@ -9,7 +9,6 @@
           .IMPORT     _var_cameraMode_8c227d9c
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _asinf
-          .IMPORT     _var_brakePressPeak_8c227d8c
           .IMPORT     __divls
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_progress_8c1ba1cc
@@ -18,6 +17,7 @@
           .IMPORT     _pdVibMxStop
           .EXPORT     _BusInputCapMirrorTraffic_8c024280
           .EXPORT     _BusInputUpdate_8c0246b2
+          .EXPORT     _var_brakePressPeak_8c227d8c ; 023310_bus_init
           .AIFDEF UNIT_TESTING
           .EXPORT     _applyThrottle_8c024320
           .EXPORT     _updateGearSelector_8c0242ce
@@ -1198,4 +1198,7 @@ _init_gears_8c045638:        ; from defines
           .DATA.B      H'44, H'00, H'00, H'00, H'30, H'ED, H'87, H'38, H'09, H'ED, H'A5, H'3E, H'2D, H'00, H'00, H'00
           .DATA.B      H'40, H'3C, H'B5, H'38, H'7B, H'09, H'ED, H'3E, H'22, H'00, H'00, H'00, H'50, H'8B, H'E2, H'38
           .DATA.B      H'09, H'ED, H'25, H'3F
+          .SECTION    B,DATA,ALIGN=4
+_var_brakePressPeak_8c227d8c:
+          .RES.B      4
           .END

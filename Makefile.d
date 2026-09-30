@@ -390,9 +390,9 @@ $(OUTPUT_DIR)/src/023310_bus_init.obj: src/015034_text.h src/1ba1c8_globals.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/015ab8_title.h src/022464_render.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/01e27c_practice_menu.h src/02c884_bus_stop.h
 $(OUTPUT_DIR)/src/023310_bus_init.obj: src/020b6c_ground_probe.h src/023938_bus_drive.h
-$(OUTPUT_DIR)/src/023310_bus_init.obj: src/023310_bus_init.h src/02786c_vehicle_parts.h
-$(OUTPUT_DIR)/src/023310_bus_init.obj: src/02e51c_attr_query.h src/020594_vehicle_model.h
-$(OUTPUT_DIR)/src/023310_bus_init.obj: src/022bdc_bus.h
+$(OUTPUT_DIR)/src/023310_bus_init.obj: src/023310_bus_init.h src/024280_bus_input.h
+$(OUTPUT_DIR)/src/023310_bus_init.obj: src/02786c_vehicle_parts.h src/02e51c_attr_query.h
+$(OUTPUT_DIR)/src/023310_bus_init.obj: src/020594_vehicle_model.h src/022bdc_bus.h
 $(OUTPUT_DIR)/src/023938_bus_drive.obj: src/includes.h src/serial_debug.h src/sectionB.h
 $(OUTPUT_DIR)/src/023938_bus_drive.obj: src/01614c_replay_menu.h src/014a9c_tasks.h
 $(OUTPUT_DIR)/src/023938_bus_drive.obj: src/014b8c_backup.h src/013ae8_route_load.h

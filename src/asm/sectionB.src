@@ -1,6 +1,4 @@
-; 8c227d8c
-          .EXPORT     _var_brakePressPeak_8c227d8c ; 023310
-                                    ; 024280
+; 8c227d90
           .EXPORT     _var_fixedCameraTarget_8c227d90 ; 024b4c
           .EXPORT     _var_cameraMode_8c227d9c ; 020214
                                     ; 023310
@@ -104,8 +102,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_brakePressPeak_8c227d8c:
-          .RES.B      4
 _var_fixedCameraTarget_8c227d90:
           .RES.B      12
 _var_cameraMode_8c227d9c:
