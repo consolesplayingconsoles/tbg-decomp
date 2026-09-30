@@ -5,7 +5,8 @@
 #include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
+#include "015034_text.h"
 #include "02171c_tile_stream.h"
 #include "021b9c_tile_draw.h"
 #include "026710_traffic.h"
@@ -557,11 +558,11 @@ STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
         }
     }
 
-    TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
+    SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
     // Loading animation
     frame = task->frame_0x0c;
     task->frame_0x0c = frame + 1;
-    TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
+    SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
 
 void RouteLoadPushTask_8c0144fc(void)
@@ -627,11 +628,11 @@ STATIC void segmentReloadTask_8c014550(SegmentReloadTask *task, void *state)
         }
     }
 
-    TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
+    SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
     // Loading animation
     frame = task->frame_0x0c;
     task->frame_0x0c = frame + 1;
-    TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
+    SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
 
 void RouteLoadPushSegmentReloadTask_8c01468e(void)
@@ -726,9 +727,9 @@ void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state)
         }
     }
 
-    TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
+    SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, 0, 0.0f, 0.0f, -5.0f);
     // Loading animation
     frame = task->frame_0x0c;
     task->frame_0x0c = frame + 1;
-    TxtDrawSprite_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
+    SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }

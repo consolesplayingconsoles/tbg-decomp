@@ -1,9 +1,8 @@
-/* 8c014f54 */
-#ifndef _014F54_TEXT_H
-#define _014F54_TEXT_H
+/* 8c015034 */
+#ifndef _015034_TEXT_H
+#define _015034_TEXT_H
 
 #include <shinobi.h>
-#include "015ab8_title.h"
 
 enum PLAY_MODE {
     PLAY_MODE_NORMAL   = 0,  /* story and free run */
@@ -32,13 +31,6 @@ typedef struct {
     char *text_0x38;
 } TextBox;
 
-void TxtDrawSprite_8c014f54(
-    ResourceGroup *resource_group,
-    int texture_id,
-    float x,
-    float y,
-    float priority
-);
 void TxtInit_8c01524c();
 void TxtDestroy_8c01529c();
 TextBox* TxtCreateTextBox_8c0152fc(
@@ -56,4 +48,4 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text);
 int TxtDrawTextbox_8c0155e0(TextBox *box, int limit);
 void TxtStartAttractDemo_8c0159ac();
 
-#endif /* _014F54_TEXT_H */
+#endif /* _015034_TEXT_H */

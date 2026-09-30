@@ -137,7 +137,7 @@ return new class extends TestCase {
         $this->noLetters();
         $this->seedCursor(0.0, 0.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 0);
 
@@ -161,7 +161,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->m(0x30), 10.0); // (60 - 0) / 6
         $this->shouldWriteFloat($this->m(0x34), 11.0); // (66 - 0) / 6
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 3, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 1);
 
@@ -186,7 +186,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->m(0x30), 50.0); // 300 / 6
         $this->shouldWriteFloat($this->m(0x34), 30.0); // 180 / 6
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 3, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 3);
 
@@ -211,7 +211,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->m(0x30), 1.0); // 6 / 6
         $this->shouldWriteFloat($this->m(0x34), 2.0); // 12 / 6
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 3, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 0);
 
@@ -229,7 +229,7 @@ return new class extends TestCase {
         // state -> VIEWING (5): albumDrawGrid_8c01d290 is still called but draws nothing.
         $this->shouldWriteLong($this->m(0x18), 5);
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 0, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 2);
 
@@ -250,7 +250,7 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 0);
 
@@ -268,7 +268,7 @@ return new class extends TestCase {
         $this->seedCursor(0.0, 0.0);
 
         $this->shouldCall('_CourseMenuInterpolateCursor_8c016d2c')->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 1);
 
@@ -285,7 +285,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_CourseMenuInterpolateCursor_8c016d2c')->andReturn(1);
         $this->shouldWriteLong($this->m(0x18), 3);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 0xd, 0.0, 0.0, -2.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 1);
 
@@ -302,7 +302,7 @@ return new class extends TestCase {
         $this->seedPress(0);
 
         // albumDrawGrid_8c01d290 is still called but skips the grid in state 5.
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 2 + 7, 0.0, 0.0, -3.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 2 + 7, 0.0, 0.0, -3.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 2);
 
@@ -320,7 +320,7 @@ return new class extends TestCase {
         // state -> IDLE (3) before the trailing grid draw, so the grid IS drawn.
         $this->shouldWriteLong($this->m(0x18), 3);
         $this->shouldCall('_sdMidiPlay')->with(0xbeef0000, 1, 0, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->m(0x0c), 2 + 7, 0.0, 0.0, -3.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->m(0x0c), 2 + 7, 0.0, 0.0, -3.0);
         $this->shouldCall('_albumDrawGrid_8c01d290');
         $this->shouldWriteLong($this->m(0x38), 2);
 
@@ -440,10 +440,10 @@ return new class extends TestCase {
         $rg = $this->m(0x0c);
         foreach ($letters as $i => $value) {
             if ($value) {
-                $this->shouldCall('_TxtDrawSprite_8c014f54')->with($rg, $i + 1, 0.0, 0.0, -4.0);
+                $this->shouldCall('_SpriteDraw_8c014f54')->with($rg, $i + 1, 0.0, 0.0, -4.0);
             }
         }
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($rg, 0, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($rg, 0, 0.0, 0.0, -5.0);
     }
 
     private function resolveSymbols(): void
@@ -456,7 +456,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0xbeef0000);
 
         // Functions
-        $this->setSize('_TxtDrawSprite_8c014f54', 0x4);
+        $this->setSize('_SpriteDraw_8c014f54', 0x4);
         $this->setSize('_sdMidiPlay', 0x4);
         $this->setSize('_RouteLoadGetLatch_8c01432a', 0x4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 0x4);

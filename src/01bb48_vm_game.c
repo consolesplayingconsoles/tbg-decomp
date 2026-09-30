@@ -15,6 +15,7 @@
 #include "0100bc_sound.h"
 #include "028258_objects.h"
 #include "02fb50_sh4nlfzn_post_data.h"
+#include "014f54_sprite.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "strings.h"
@@ -353,7 +354,7 @@ STATIC void drawSelectScreen_8c01be90(void)
     if (m->state_0x18 >= STATE_SELECT
         && m->state_0x18 != STATE_SELECT_INCOMPATIBLE
     ) {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_resourceGroup_8c2263a8, 9,
             m->pos.vmSelect.cursor_0x20.x,
             m->pos.vmSelect.cursor_0x20.y, -4.0f
@@ -364,12 +365,12 @@ STATIC void drawSelectScreen_8c01be90(void)
         if (var_vmuStatus_8c226048[i] == VMU_STATUS_NOT_CONNECTED)
             continue;
 
-        TxtDrawSprite_8c014f54(&var_resourceGroup_8c2263a8, i + 1, 0.0f, 0.0f, -5.0f);
+        SpriteDraw_8c014f54(&var_resourceGroup_8c2263a8, i + 1, 0.0f, 0.0f, -5.0f);
     }
 
-    TxtDrawSprite_8c014f54(&var_resourceGroup_8c2263a8, 0, 0.0f, 0.0f, -6.0f);
-    TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 1, 0.0f, 0.0f, -4.3f);
-    TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
+    SpriteDraw_8c014f54(&var_resourceGroup_8c2263a8, 0, 0.0f, 0.0f, -6.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 1, 0.0f, 0.0f, -4.3f);
+    SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
 }
 
 /**
@@ -428,10 +429,10 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
         if (!var_isFading_8c226568) {
             m->state_0x18 = STATE_MENU;
         }
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &m->resourceGroupB_0x0c, 0x6c, 0.0f, 0.0f, -5.0f
         );
-        TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
         break;
 
     case STATE_MENU:
@@ -461,10 +462,10 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
             VmMenuUnmountVms_8c0194de();
             RenderPushFadeOut_8c022b60(10);
         }
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &m->resourceGroupB_0x0c, slot + 109, 0.0f, 0.0f, -5.0f
         );
-        TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
         break;
 
     case STATE_MENU_FADE_OUT:
@@ -473,10 +474,10 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
             RenderPushFadeIn_8c022a9c(10);
             return;
         }
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &m->resourceGroupB_0x0c, slot + 109, 0.0f, 0.0f, -5.0f
         );
-        TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
         break;
 
     case STATE_SELECT_ENTER:
@@ -716,7 +717,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                         break;
                     }
                 }
-                TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, m->cursorCol_0x3c + 2, 228.0f, 300.0f, -5.0f);
+                SpriteDraw_8c014f54(&m->resourceGroupA_0x00, m->cursorCol_0x3c + 2, 228.0f, 300.0f, -5.0f);
                 break;
             }
 
@@ -793,7 +794,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                         break;
                     }
                 }
-                TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, m->cursorCol_0x3c + 2, 228.0f, 300.0f, -5.0f);
+                SpriteDraw_8c014f54(&m->resourceGroupA_0x00, m->cursorCol_0x3c + 2, 228.0f, 300.0f, -5.0f);
                 break;
             }
 
@@ -932,7 +933,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
     }
 
     ObjectsMenuTextboxText_8c02af1c(0xff);
-    TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 1, 0.0f, 0.0f, -4.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 1, 0.0f, 0.0f, -4.0f);
     m->selected_0x38 = slot;
 }
 

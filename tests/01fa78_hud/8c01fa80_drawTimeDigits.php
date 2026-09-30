@@ -18,7 +18,7 @@ return new class extends TestCase {
         $this->shouldCall('__divls')->with(1680, 30)->using(new RiroCallingConvention())->andReturn(56);
 
         $this->shouldCall('__modls')->with(12, 10)->using(new RiroCallingConvention())->andReturn(2);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'),
             0x64 + 2,
             448.0,
@@ -26,7 +26,7 @@ return new class extends TestCase {
             -1.21,
         );
         $this->shouldCall('__divls')->with(12, 10)->using(new RiroCallingConvention())->andReturn(1);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'),
             0x64 + 1,
             436.0,
@@ -35,7 +35,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('__modls')->with(34, 10)->using(new RiroCallingConvention())->andReturn(4);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'),
             0x64 + 4,
             477.0,
@@ -43,7 +43,7 @@ return new class extends TestCase {
             -1.21,
         );
         $this->shouldCall('__divls')->with(34, 10)->using(new RiroCallingConvention())->andReturn(3);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'),
             0x64 + 3,
             465.0,
@@ -52,7 +52,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('__modls')->with(56, 10)->using(new RiroCallingConvention())->andReturn(6);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'),
             0x64 + 6,
             506.0,
@@ -60,7 +60,7 @@ return new class extends TestCase {
             -1.21,
         );
         $this->shouldCall('__divls')->with(56, 10)->using(new RiroCallingConvention())->andReturn(5);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'),
             0x64 + 5,
             494.0,

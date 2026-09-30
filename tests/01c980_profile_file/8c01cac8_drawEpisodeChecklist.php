@@ -13,7 +13,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_EventHasProfileProgressFlag_8c02aff0', 4);
     }
 
@@ -62,7 +62,7 @@ return new class extends TestCase {
             $isHit = $hits[$i] ?? false;
             $this->shouldCall('_EventHasProfileProgressFlag_8c02aff0')->with($flag)->andReturn($isHit ? 1 : 0);
             if ($isHit) {
-                $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+                $this->shouldCall('_SpriteDraw_8c014f54')->with(
                     $resGroup, 9,
                     96.0 + $i * 38.0, 267.0,
                     -2.0
@@ -71,7 +71,7 @@ return new class extends TestCase {
         }
 
         // Any hit at all draws the slot's bio art (sprite = grid column).
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_resourceGroup_8c2263a8'), 0,
             0.0, 0.0, -3.0
         );
@@ -101,7 +101,7 @@ return new class extends TestCase {
         $y = 267.0;
         foreach ($flags as $i => $flag) {
             $this->shouldCall('_EventHasProfileProgressFlag_8c02aff0')->with($flag)->andReturn(1);
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($resGroup, 9, $x, $y, -2.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($resGroup, 9, $x, $y, -2.0);
             $x += 38.0;
             if ($x > 515.0) {
                 $x = 96.0;
@@ -109,7 +109,7 @@ return new class extends TestCase {
             }
         }
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_resourceGroup_8c2263a8'), 2,
             0.0, 0.0, -3.0
         );
@@ -140,19 +140,19 @@ return new class extends TestCase {
         $resGroup = $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c;
 
         if ($selectedOption < 4) { // PAGE_OPTION_EXIT
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+            $this->shouldCall('_SpriteDraw_8c014f54')->with(
                 $resGroup, $selectedOption + 5, 0.0, 0.0, -3.0
             );
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+            $this->shouldCall('_SpriteDraw_8c014f54')->with(
                 $resGroup, 10, 0.0, 0.0, -3.0
             );
         } else {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+            $this->shouldCall('_SpriteDraw_8c014f54')->with(
                 $resGroup, 11, 0.0, 0.0, -3.0
             );
         }
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $resGroup, 4, 0.0, 0.0, -4.0
         );
     }

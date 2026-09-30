@@ -51,7 +51,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xd2);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_FileMenuResetKeyConfigDefaults_8c0188bc', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
@@ -82,14 +82,14 @@ return new class extends TestCase {
         $gB = $this->menu(0x0c);
         for ($i = 0; $i < 3; $i++) {
             $idx = ($i === $selected) ? $i + 0x2e : $i + 0x2a;
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, $idx, 0.0, 0.0, -5.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, $idx, 0.0, 0.0, -5.0);
         }
     }
 
     /* State-2 middle: a single button-choice icon at the given sprite index. */
     private function shouldDrawButtonIcon(int $idx): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->menu(0x0c), $idx, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->menu(0x0c), $idx, 0.0, 0.0, -5.0);
     }
 
     /*
@@ -102,13 +102,13 @@ return new class extends TestCase {
     {
         $gB = $this->menu(0x0c);
         $this->shouldCall('_drawSensitivityBar_8c01a42a')->with(144.0, $accel)->andReturn($accelX);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($gB, $state === 3 ? 0x44 : 0x43, $accelX - 10.0, 124.0, -5.0);
         $this->shouldCall('_drawSensitivityBar_8c01a42a')->with(224.0, $brake)->andReturn($brakeX);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($gB, $state === 4 ? 0x44 : 0x43, $brakeX - 10.0, 203.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x40, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x41, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x40, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x41, 0.0, 0.0, -5.0);
     }
 
     /* Row highlight (0x61 for a row < 3, 0x62 DEFAULT, 0x63 RETURN) + title frame. */
@@ -116,12 +116,12 @@ return new class extends TestCase {
     {
         $gB = $this->menu(0x0c);
         if ($selected < 3) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x61, 0.0, 0.0, -5.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x61, 0.0, 0.0, -5.0);
         } else {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')
+            $this->shouldCall('_SpriteDraw_8c014f54')
                 ->with($gB, $selected === 3 ? 0x62 : 0x63, 0.0, 0.0, -5.0);
         }
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->menu(0x00), 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->menu(0x00), 0, 0.0, 0.0, -7.0);
     }
 
     public function test_phase0_waits_while_fading()

@@ -93,6 +93,13 @@ calls same-file functions with BSR when in range, yet the task reaches
 functions were not in its file; they only touch the draw-command queues in
 fade's B run.
 
+`014f54_text` was split at `015034` into `014f54_sprite` and `015034_text`.
+`TxtDrawTextbox_8c0155e0` BSRs to `unpackGlyph_8c015110` but reaches
+`SpriteDraw_8c014f54`, 2464 bytes away and well within BSR range, via JSR, so
+the sprite functions were in another file. `015034` is the only boundary that
+fits: 4-aligned, and no PC-relative reference crosses it. The sprite half has
+no data of its own.
+
 ## `02d968_stop_spawn`: the case in detail
 
 - One function, 253 lines, **zero** private bss, one D blob.

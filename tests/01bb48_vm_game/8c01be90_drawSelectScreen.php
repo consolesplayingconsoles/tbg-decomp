@@ -29,9 +29,9 @@ return new class extends TestCase {
     {
         $res = $this->addressOf('_var_resourceGroup_8c2263a8');
         $ms = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($res, 0, 0.0, 0.0, -6.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($ms, 1, 0.0, 0.0, -4.3);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($ms, 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($res, 0, 0.0, 0.0, -6.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($ms, 1, 0.0, 0.0, -4.3);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($ms, 0, 0.0, 0.0, -7.0);
     }
 
     public function test_early_phase_no_cursor_no_slots()
@@ -54,10 +54,10 @@ return new class extends TestCase {
 
         $res = $this->addressOf('_var_resourceGroup_8c2263a8');
         $this->call('_drawSelectScreen_8c01be90')->with();
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($res, 9, 120.0, 60.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($res, 1, 0.0, 0.0, -5.0); // slot 0
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($res, 3, 0.0, 0.0, -5.0); // slot 2
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($res, 8, 0.0, 0.0, -5.0); // slot 7
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($res, 9, 120.0, 60.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($res, 1, 0.0, 0.0, -5.0); // slot 0
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($res, 3, 0.0, 0.0, -5.0); // slot 2
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($res, 8, 0.0, 0.0, -5.0); // slot 7
         $this->expectFixedDraws();
     }
 
@@ -69,7 +69,7 @@ return new class extends TestCase {
 
         $res = $this->addressOf('_var_resourceGroup_8c2263a8');
         $this->call('_drawSelectScreen_8c01be90')->with();
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($res, 2, 0.0, 0.0, -5.0); // slot 1
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($res, 2, 0.0, 0.0, -5.0); // slot 1
         $this->expectFixedDraws();
     }
 
@@ -78,6 +78,6 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_vmuStatus_8c226048', 0x24);
         $this->setSize('_var_resourceGroup_8c2263a8', 0x0c);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
     }
 };

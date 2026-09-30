@@ -25,7 +25,7 @@ return new class extends TestCase {
         );
 
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0,
             15,
             42.0,
@@ -35,7 +35,7 @@ return new class extends TestCase {
 
         $this->shouldCall('__divls');
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0,
             15,
             32.0,
@@ -45,7 +45,7 @@ return new class extends TestCase {
 
         $this->shouldCall('__divls');
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0,
             16,
             22.0,

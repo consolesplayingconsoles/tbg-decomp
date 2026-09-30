@@ -16,7 +16,7 @@ return new class extends TestCase {
 
         $this->call('_drawFileCard_8c018b4c')->with(0xa, 40.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms + 0xc, 0x13, 40.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms + 0xc, 0x13, 40.0, 0.0, -4.0);
     }
 
     /* Save card, single-digit day: date, unlocked-course icons, counts, two rank-3 markers. */
@@ -113,13 +113,13 @@ return new class extends TestCase {
         $off = $days >= 10 ? 63.0 : 52.0;
         $this->shouldCall('_drawNumber_8c018aa2')->with($days, $x + $off, 122.0);
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 6 + ($days + 1) % 7, $x + 84.0, 122.0, -4.0);
     }
 
     private function expectIcon(float $x, int $i): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms + 0xc, 0x26 + $i, $x, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms + 0xc, 0x26 + $i, $x, 0.0, -4.0);
     }
 
     private function expectCounts(float $x, int $f8c, int $exp): void
@@ -130,7 +130,7 @@ return new class extends TestCase {
 
     private function expectMarker(int $glyph, float $x, float $y): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms + 0xc, $glyph, $x, $y, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms + 0xc, $glyph, $x, $y, -4.5);
     }
 
     /* Full two-row grid (5 columns at xoff 13..109): first marker $firstGlyph, rest 0x23. */
@@ -147,7 +147,7 @@ return new class extends TestCase {
 
     private function expectFinal(float $x): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms + 0xc, 0x12, $x, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms + 0xc, 0x12, $x, 0.0, -4.5);
         $this->shouldWriteLongTo('_var_saveBufCursor_8c225fe0', $this->buf + 0x600);
     }
 };

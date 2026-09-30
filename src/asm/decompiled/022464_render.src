@@ -11,7 +11,7 @@
           .IMPORT     _njCnkSimpleDrawObject
           .IMPORT     _njUserClipping
           .IMPORT     _var_arrivalOverlayGate_8c226560
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _njDrawTexture
           .IMPORT     _njSetScreen
           .IMPORT     _var_arrivalOverlayVariant_8c22655c
@@ -449,7 +449,7 @@ LP_GEN_55916:
           .DATA.L _init_clipLayer2_8c045598 ; H'8C022658
           .DATA.L _njUserClipping ; H'8C02265C
           .DATA.L _var_arrivalOverlayGate_8c226560 ; H'8C022660
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C022664
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C022664
           .DATA.L H'BF95C28F ; H'8C022668
           .DATA.L _njDrawTexture ; H'8C02266C
           .DATA.L _var_drawCamera_8c226558 ; H'8C022670

@@ -6,7 +6,8 @@
 #include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
+#include "015034_text.h"
 #include "015ab8_title.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
@@ -118,7 +119,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 var_menuState_8c1bc7a8.timer_0x68 = 0;
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0, 0.0, 0.0, -5.0);
 
             break;
         }
@@ -130,7 +131,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 RenderPushFadeOut_8c022b60(20);
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0, 0.0, 0.0, -5.0);
 
             break;
         }
@@ -143,7 +144,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 return;
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0, 0.0, 0.0, -5.0);
 
             break;
         }
@@ -155,7 +156,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 var_menuState_8c1bc7a8.timer_0x68 = 0;
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 3, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 3, 0.0, 0.0, -5.0);
 
             break;
         }
@@ -167,7 +168,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 RenderPushFadeOut_8c022b60(20);
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 3, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 3, 0.0, 0.0, -5.0);
 
             break;
         }
@@ -191,7 +192,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 return;
             } 
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 3, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 3, 0.0, 0.0, -5.0);
 
             break;
         }
@@ -202,7 +203,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 LOG_DEBUG(("[TITLE] State changed: 0X08_VMU_WARNING\n"));
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 17, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 17, 0.0, 0.0, -5.0);
 
             njSetBackColor(0xffffffff, 0xffffffff, 0xffffffff);
             break;
@@ -219,7 +220,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 RenderPushFadeOut_8c022b60(10);
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 17, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 17, 0.0, 0.0, -5.0);
 
             break;
         }
@@ -232,7 +233,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 return;
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 17, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 17, 0.0, 0.0, -5.0);
             break;
         }
 
@@ -246,8 +247,8 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             }
 
             /* Draw title */
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0.0, 0.0, -5.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0.0, 0.0, -7.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0.0, 0.0, -7.0);
 
             break;
         }
@@ -266,11 +267,11 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             }
 
             /* Draw bus */
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, var_menuState_8c1bc7a8.pos.title.busX_0x20, 0.0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, var_menuState_8c1bc7a8.pos.title.busX_0x20, 0.0, -4.0);
 
             /* Draw title */
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0.0, 0.0, -5.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0.0, 0.0, -7.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0.0, 0.0, -7.0);
 
             break;
         }
@@ -285,14 +286,14 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
             }
 
             /* Draw flag */
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, var_menuState_8c1bc7a8.pos.title.flagY_0x24, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, var_menuState_8c1bc7a8.pos.title.flagY_0x24, -4.5);
 
             /* Draw bus */
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0.0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0.0, -4.0);
 
             /* Draw title */
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0.0, 0.0, -5.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0.0, 0.0, -7.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0.0, 0.0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0.0, 0.0, -7.0);
 
             break;
         }
@@ -303,12 +304,12 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 LOG_DEBUG(("[TITLE] State changed: 0X0E_PRESS_START\n"));
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
 
             break;
         }
@@ -335,12 +336,12 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 }
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
 
             break;
         }
@@ -352,14 +353,14 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 RenderPushFadeOut_8c022b60(10);
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
             if ((var_menuState_8c1bc7a8.timer_0x68 & 1) != 0) {
-                TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
+                SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
             }
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
             break;
         }
 
@@ -376,15 +377,15 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 return;
             }
             
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
 
             if ((++var_menuState_8c1bc7a8.timer_0x68 & 1) != 0) {
-                TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
+                SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
             }
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
 
             break;
         }
@@ -399,12 +400,12 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 return;
             }
 
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 5, 0, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 6, 0, 0, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4, 302, 97, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 1, 180, 0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 2, 0, 0, -5.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 46, 0, 0, -7.0);
             break;
         }
 

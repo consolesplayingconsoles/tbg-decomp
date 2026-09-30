@@ -21,7 +21,7 @@ return new class extends TestCase {
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
         $this->setSize('_CourseMenuInterpolateCursor_8c016d2c', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_njSetBackColor', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 4);
@@ -55,7 +55,7 @@ return new class extends TestCase {
     private function expectDrawTail(): void
     {
         $resGroup = $this->menu(0x0c);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $resGroup, 0, 0.0, 0.0, -5.0
         );
         $this->shouldCall('_njSetBackColor')->with(0xff000000, 0xff000000, 0xff000000);

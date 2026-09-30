@@ -46,7 +46,7 @@ return new class extends TestCase {
             '_CourseMenuInterpolateCursor_8c016d2c', '_CourseMenuFreeResourceGroup_8c0185c4',
             '_MainMenuSwitchFromTask_8c01a09a', '_VmMenuUnmountVms_8c0194de',
             '_ObjectsSwapMessageBoxFor_8c02aefc', '_ObjectsMenuTextboxText_8c02af1c',
-            '_sdMidiPlay', '_TxtDrawSprite_8c014f54', '_syFree',
+            '_sdMidiPlay', '_SpriteDraw_8c014f54', '_syFree',
             '__quick_evn_mvn',
         ] as $fn) {
             $this->setSize($fn, 4);
@@ -120,7 +120,7 @@ return new class extends TestCase {
     {
         $this->shouldCall('_drawSelectScreen_8c01be90');
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.0);
         $this->shouldWriteLong($this->ms + 0x38, $slot); // selected_0x38 = slot
     }
 
@@ -149,7 +149,7 @@ return new class extends TestCase {
     private function expectDrawEpilogue(int $slot = 0): void
     {
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.0);
         $this->shouldWriteLong($this->ms + 0x38, $slot);
     }
 
@@ -161,8 +161,8 @@ return new class extends TestCase {
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
         $rgB = $this->ms + 0x0c;
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($rgB, 0x6c, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($rgB, 0x6c, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 0, 0.0, 0.0, -7.0);
         $this->expectDrawEpilogue(0);
     }
 
@@ -175,8 +175,8 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldWriteLong($this->ms + 0x18, 2); // state -> MENU
         $rgB = $this->ms + 0x0c;
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($rgB, 0x6c, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($rgB, 0x6c, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 0, 0.0, 0.0, -7.0);
         $this->expectDrawEpilogue(0);
     }
 
@@ -200,8 +200,8 @@ return new class extends TestCase {
 
     private function expectMenuDraw(int $index): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms + 0x0c, $index, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms + 0x0c, $index, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 0, 0.0, 0.0, -7.0);
         $this->expectDrawEpilogue($index - 0x6d);
     }
 
@@ -456,13 +456,13 @@ return new class extends TestCase {
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($this->ms + 0x3c)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 2, 228.0, 300.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 2, 228.0, 300.0, -5.0);
         $this->expectEpilogue(0);
     }
 
     private function expectDownloadDraw(): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 2, 228.0, 300.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 2, 228.0, 300.0, -5.0);
     }
 
     public function test_download_confirm_save_ok()

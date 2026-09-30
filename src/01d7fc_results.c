@@ -8,7 +8,7 @@
 #include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "014b8c_backup.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
 #include "01614c_replay_menu.h"
 #include "015ab8_title.h"
 #include "016c58_prompt.h"
@@ -66,7 +66,7 @@ STATIC void drawScoreDigits_8c01d7fc(int value, float y)
 
     do {
         digit = value % 10;
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, digit + 0x1f, x, y, -3.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, digit + 0x1f, x, y, -3.0f);
         value = value / 10;
         x -= 18.0f;
     } while (value != 0);
@@ -74,13 +74,13 @@ STATIC void drawScoreDigits_8c01d7fc(int value, float y)
 
 STATIC void drawTextboxSprite_8c01d864(void)
 {
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, var_menuState_8c1bc7a8.selected_0x38 + 2, 224.0f, 300.0f, -5.0f);
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, var_menuState_8c1bc7a8.selected_0x38 + 2, 224.0f, 300.0f, -5.0f);
 
     if (ObjectsMenuTextboxText_8c02af1c(0xff) == 0) {
         return;
     }
 
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
 }
 
 STATIC void resultsTask_8c01d8e0(void)
@@ -148,7 +148,7 @@ STATIC void resultsTask_8c01d8e0(void)
             var_menuState_8c1bc7a8.counter_0x64 = 0;
             var_menuState_8c1bc7a8.timer_0x68 = 0;
         }
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
         goto tail;
 
     case 2:
@@ -193,7 +193,7 @@ STATIC void resultsTask_8c01d8e0(void)
             drawScoreDigits_8c01d7fc(var_scoreCourseClearBonus_8c2263ec, 96.0f);
             break;
         }
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
         goto tail;
 
     case 3:
@@ -215,9 +215,9 @@ STATIC void resultsTask_8c01d8e0(void)
         drawScoreDigits_8c01d7fc(var_scoreFirstClearBonus_8c2263f0, 130.0f);
         drawScoreDigits_8c01d7fc(var_scoreCourseClearBonus_8c2263ec, 96.0f);
         if (var_award_8c1bb8f8 != 0) {
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1f - var_award_8c1bb8f8, 0.0f, 0.0f, -4.0f);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 0x1f - var_award_8c1bb8f8, 0.0f, 0.0f, -4.0f);
         }
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 0x1b, 0.0f, 0.0f, -4.0f);
         goto tail;
 
     case 5: {
@@ -237,7 +237,7 @@ STATIC void resultsTask_8c01d8e0(void)
         }
         textboxActive = ObjectsMenuTextboxText_8c02af1c(0xff);
         if (textboxActive != 0) {
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
         }
         goto tail;
     }
@@ -350,7 +350,7 @@ STATIC void resultsTask_8c01d8e0(void)
         }
         textboxActive = ObjectsMenuTextboxText_8c02af1c(0xff);
         if (textboxActive != 0) {
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -4.3f);
         }
         goto tail;
     }

@@ -28,7 +28,7 @@ return new class extends TestCase {
         $this->setSize('_var_busStopTexlist_8c1bc424', 4);
         $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
 
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_njUnitMatrix', 4);
         $this->setSize('_njTranslate', 4);
         $this->setSize('_njRotateZ', 4);
@@ -80,12 +80,12 @@ return new class extends TestCase {
             $units = $abs % 10;
             $tens = intdiv($abs, 10);
             $this->shouldCall('__modls')->with($abs, 10)->using(new RiroCallingConvention())->andReturn($units);
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, $units, 320.0, 420.0, -1.21);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($busStop, $units, 320.0, 420.0, -1.21);
             $this->shouldCall('__divls')->with($abs, 10)->using(new RiroCallingConvention())->andReturn($tens);
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, $tens, 308.0, 420.0, -1.21);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($busStop, $tens, 308.0, 420.0, -1.21);
             $this->shouldCall('_drawTimeDigits_8c01fa80')->with(0, 402.0, 10);
             $this->shouldCall('_drawTimeDigits_8c01fa80')->with(0, 423.0, 20);
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x24, 0.0, 0.0, -1.23);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($busStop, 0x24, 0.0, 0.0, -1.23);
         } else {
             $this->shouldCall('_drawSpeedAndTimers_8c01fe84')->with($speed);
         }
@@ -185,10 +185,10 @@ return new class extends TestCase {
 
         $this->call('_drawHud_8c01fbac')->with(7);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x40, 0.0, 0.0, -1.21);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x30, 0.0, 0.0, -1.2);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 7, 0.0, 0.0, -1.21);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 5, 0.0, 0.0, -1.2);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 0x40, 0.0, 0.0, -1.21);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 0x30, 0.0, 0.0, -1.2);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 7, 0.0, 0.0, -1.21);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($busStop, 5, 0.0, 0.0, -1.2);
 
         $init045334 = $this->addressOf('_init_pointsMeterFill_8c045334');
         $this->shouldWriteFloat($init045334 + 0x20, 139.0);
@@ -198,8 +198,8 @@ return new class extends TestCase {
         $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_pointsMeterTrack_8c045374'), 4, 0);
         $this->shouldCall('_njDrawPolygon')->with($this->addressOf('_init_hudPanel_8c0453b4'), 6, 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x25, 0.0, 0.0, -1.21);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x26, 0.0, 0.0, -1.21);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($busStop, 0x25, 0.0, 0.0, -1.21);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($busStop, 0x26, 0.0, 0.0, -1.21);
 
         $this->shouldWriteFloat($base + 0x2c, 100.0); // engineRpm -= 200
 
@@ -231,7 +231,7 @@ return new class extends TestCase {
         $this->call('_drawHud_8c01fbac')->with(0);
 
         $busStop = $this->addressOf('_var_busStopTexlist_8c1bc424');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x1e, 0.0, 0.0, -1.2);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($busStop, 0x1e, 0.0, 0.0, -1.2);
 
         $this->assertAlwaysOnTail(0, 0, 0);
     }
@@ -247,7 +247,7 @@ return new class extends TestCase {
         $this->call('_drawHud_8c01fbac')->with(0);
 
         $busStop = $this->addressOf('_var_busStopTexlist_8c1bc424');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($busStop, 0x1f, 0.0, 0.0, -1.2);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($busStop, 0x1f, 0.0, 0.0, -1.2);
 
         $this->assertAlwaysOnTail(0, 0, 0);
     }

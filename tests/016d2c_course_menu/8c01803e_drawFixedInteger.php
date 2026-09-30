@@ -126,7 +126,7 @@ return new class extends TestCase {
 
     private function shouldDrawDigit(float $x, float $y, int $digit): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             12 + $digit,
             $x,

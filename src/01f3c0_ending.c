@@ -8,7 +8,8 @@
 #include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
+#include "015034_text.h"
 #include "015ab8_title.h"
 #include "01614c_replay_menu.h"
 #include "016d2c_course_menu.h"
@@ -181,14 +182,14 @@ STATIC void updateEndingOverlay_8c01f42c(void)
         var_menuState_8c1bc7a8.cursorVelocity_0x30.x = -var_menuState_8c1bc7a8.cursorVelocity_0x30.x;
     }
 
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4,
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 4,
         var_menuState_8c1bc7a8.pos.title.busX_0x20, var_menuState_8c1bc7a8.pos.title.flagY_0x24, -8.5f);
 
     if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) != 0) {
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0f, 0.0f, -7.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0f, 0.0f, -7.0f);
     }
 
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c,
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.instructorSprite_0x60, 0.0f, 0.0f, -8.0f);
 
     njSetBackColor(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);

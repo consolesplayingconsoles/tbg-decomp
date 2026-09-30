@@ -3,7 +3,8 @@
 
 #include "01fa78_hud.h"
 #include "014a9c_tasks.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
+#include "015034_text.h"
 #include "022464_render.h"
 #include "028258_objects.h"
 #include "02b464_drive_points.h"
@@ -133,12 +134,12 @@ STATIC void drawTimeDigits_8c01fa80(int frames, float y, int spriteBase) {
     int minutes = (frames % 108000) / 1800;
     int seconds = (frames % 1800) / 30;
 
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + hours % 10, 448.0f, y, -1.21f);
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + hours / 10, 436.0f, y, -1.21f);
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + minutes % 10, 477.0f, y, -1.21f);
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + minutes / 10, 465.0f, y, -1.21f);
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + seconds % 10, 506.0f, y, -1.21f);
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + seconds / 10, 494.0f, y, -1.21f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + hours % 10, 448.0f, y, -1.21f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + hours / 10, 436.0f, y, -1.21f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + minutes % 10, 477.0f, y, -1.21f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + minutes / 10, 465.0f, y, -1.21f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + seconds % 10, 506.0f, y, -1.21f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, spriteBase + seconds / 10, 494.0f, y, -1.21f);
 }
 
 /* Per-frame in-drive HUD renderer: the driver-comment popup
@@ -159,13 +160,13 @@ STATIC void drawHud_8c01fbac(int arg0) {
     }
 
     if (var_hudMark_8c2264a8.displayTimer_0x08 != 0) {
-        TxtDrawSprite_8c014f54(&var_markTexlist_8c1bc418, var_hudMark_8c2264a8.markSpriteId_0x00, 0.0f, 0.0f, -1.21f);
+        SpriteDraw_8c014f54(&var_markTexlist_8c1bc418, var_hudMark_8c2264a8.markSpriteId_0x00, 0.0f, 0.0f, -1.21f);
     }
     if (var_hudMark_8c2264a8.blinkIconId_0x04 != 0) {
-        TxtDrawSprite_8c014f54(&var_markTexlist_8c1bc418, var_hudMark_8c2264a8.blinkIconId_0x04, 0.0f, 0.0f, -1.2f);
+        SpriteDraw_8c014f54(&var_markTexlist_8c1bc418, var_hudMark_8c2264a8.blinkIconId_0x04, 0.0f, 0.0f, -1.2f);
     }
     if (arg0 != 0) {
-        TxtDrawSprite_8c014f54(&var_markTexlist_8c1bc418, arg0, 0.0f, 0.0f, -1.21f);
+        SpriteDraw_8c014f54(&var_markTexlist_8c1bc418, arg0, 0.0f, 0.0f, -1.21f);
     }
 
     /* One screen slot, three meanings, picked by var_runState_8c2285c4.stopPhase_0x20:
@@ -177,19 +178,19 @@ STATIC void drawHud_8c01fbac(int arg0) {
         if (var_hudState_8c22643c.driveMarkIcon_0x14 != -1
             && (60 < (Sint32)var_hudState_8c22643c.blinkTimer_0x18
                 || (var_hudState_8c22643c.blinkTimer_0x18 & 6) != 0)) {
-            TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424,
+            SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424,
                 var_hudState_8c22643c.driveMarkIcon_0x14, 0.0f, 0.0f, -1.2f);
         }
     } else if (var_runState_8c2285c4.stopPhase_0x20 == 1) {
         if (var_hudState_8c22643c.driveMarkIcon_0x14 != -1
             && (60 < (Sint32)var_hudState_8c22643c.blinkTimer_0x18
                 || (var_hudState_8c22643c.blinkTimer_0x18 & 6) != 0)) {
-            TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x1e, 0.0f, 0.0f, -1.2f);
+            SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, 0x1e, 0.0f, 0.0f, -1.2f);
         }
     } else if (var_runState_8c2285c4.stopPhase_0x20 == 2) {
         if (60 < (Sint32)var_hudState_8c22643c.blinkTimer_0x18
             || (var_hudState_8c22643c.blinkTimer_0x18 & 6) != 0) {
-            TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x1f, 0.0f, 0.0f, -1.2f);
+            SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, 0x1f, 0.0f, 0.0f, -1.2f);
         }
     }
 
@@ -210,10 +211,10 @@ STATIC void drawHud_8c01fbac(int arg0) {
     njDrawPolygon((NJS_POLYGON_VTX *)init_hudPanel_8c0453b4, 6, 1);
 
     if (var_busState_8c1bb9d0.blinker_0x080 & 2) {
-        TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x25, 0.0f, 0.0f, -1.21f);
+        SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, 0x25, 0.0f, 0.0f, -1.21f);
     }
     if (var_busState_8c1bb9d0.blinker_0x080 & 4) {
-        TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x26, 0.0f, 0.0f, -1.21f);
+        SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, 0x26, 0.0f, 0.0f, -1.21f);
     }
 
     /* engineState_0x2e0 picks what the needle eases toward: off = 0,
@@ -296,15 +297,15 @@ STATIC void drawSpeedAndTimers_8c01fe84(Sint32 speed) {
     }
 
     units = speed % 10;
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, units, 320.0f, 420.0f, -1.21f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, units, 320.0f, 420.0f, -1.21f);
     tens = speed / 10;
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, tens, 308.0f, 420.0f, -1.21f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, tens, 308.0f, 420.0f, -1.21f);
 
     /* Timetable slot above, run clock below, each in its own digit set. */
     drawTimeDigits_8c01fa80(var_runState_8c2285c4.scheduleTime_0x14, 402.0f, 10);
     drawTimeDigits_8c01fa80(var_runState_8c2285c4.runClock_0x18, 423.0f, 20);
 
-    TxtDrawSprite_8c014f54(&var_busStopTexlist_8c1bc424, 0x24, 0.0f, 0.0f, -1.23f);
+    SpriteDraw_8c014f54(&var_busStopTexlist_8c1bc424, 0x24, 0.0f, 0.0f, -1.23f);
 }
 
 /* Per-frame driver-comment popup logic: turns the instruction markers the

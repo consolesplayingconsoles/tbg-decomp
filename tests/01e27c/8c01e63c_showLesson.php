@@ -53,23 +53,23 @@ return new class extends TestCase {
 
         $this->shouldCall('_CourseMenuDrawDateAndExp_8c016ee6');
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, 5 + 0x1c, 0.0, 0.0, -4.0
         );
 
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_guideClipRect_8c0451f8'));
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, 5 + 0x27, 65.0, 195.0 - 2.0 * 24.0, -4.0
         );
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_guideClipRect_8c0451f8'));
 
         // cursorRow_0x40 (2) > 0 -> up arrow
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, 0x18, 0.0, 0.0, -4.5
         );
 
         // cursorRow_0x40 + 3 (5) != init_lessonGuideRows_8c0451ec[5] (10) -> down arrow
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, 0x19, 0.0, 0.0, -4.5
         );
 
@@ -78,16 +78,16 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
         // menuTextboxText returned 0 -> no id=1 sprite
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, 0x32, 0.0, 0.0, -6.0
         );
 
         // gameMode == 0 -> id 0x17
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, 0x17, 0.0, 0.0, -7.0
         );
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x00, 0, 0.0, 0.0, -8.0
         );
     }
@@ -336,30 +336,30 @@ return new class extends TestCase {
     ): void {
         $this->shouldCall('_CourseMenuDrawDateAndExp_8c016ee6');
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, $course + 0x1c, 0.0, 0.0, -4.0
         );
 
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_guideClipRect_8c0451f8'));
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, $course + 0x27, 65.0, 195.0 - (float)$field * 24.0, -4.0
         );
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_guideClipRect_8c0451f8'));
 
         if ($field > 0) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+            $this->shouldCall('_SpriteDraw_8c014f54')->with(
                 $menuState + 0x0c, 0x18, 0.0, 0.0, -4.5
             );
         }
 
         if ($field + 3 != $pageCount) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+            $this->shouldCall('_SpriteDraw_8c014f54')->with(
                 $menuState + 0x0c, 0x19, 0.0, 0.0, -4.5
             );
         }
 
         if ($viewEnd) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+            $this->shouldCall('_SpriteDraw_8c014f54')->with(
                 $menuState + 0x0c, 0x1b, 0.0, 0.0, -4.5
             );
         }
@@ -367,20 +367,20 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn($textboxHasText ? 1 : 0);
 
         if ($textboxHasText) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+            $this->shouldCall('_SpriteDraw_8c014f54')->with(
                 $menuState + 0x00, 1, 0.0, 0.0, -5.0
             );
         }
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, 0x32, 0.0, 0.0, -6.0
         );
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x0c, $gameMode == 0 ? 0x17 : 0x41, 0.0, 0.0, -7.0
         );
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuState + 0x00, 0, 0.0, 0.0, -8.0
         );
     }
@@ -401,7 +401,7 @@ return new class extends TestCase {
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $this->setSize('_njUserClipping', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
         $this->setSize('_CourseMenuDrawDateAndExp_8c016ee6', 4);
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);

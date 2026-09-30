@@ -1,6 +1,6 @@
 ; 8c01c980
           .IMPORT     _EventHasProfileProgressFlag_8c02aff0
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     __divls
           .IMPORT     __modls
@@ -223,7 +223,7 @@ LP_GEN_27148:
           .DATA.L _init_profileUnlockFlags_8c044ffc ; H'8C01CAA4
           .DATA.L _EventHasProfileProgressFlag_8c02aff0 ; H'8C01CAA8
           .DATA.L H'C0400000 ; H'8C01CAAC
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01CAB0
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01CAB0
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01CAB4
           .DATA.L __divls ; H'8C01CAB8
           .DATA.L __modls ; H'8C01CABC
@@ -363,7 +363,7 @@ LP_GEN_23877:
           .DATA.L H'43858000 ; H'8C01CBC4
           .DATA.L _EventHasProfileProgressFlag_8c02aff0 ; H'8C01CBC8
           .DATA.L H'4400C000 ; H'8C01CBCC
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01CBD0
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01CBD0
           .DATA.L H'C0000000 ; H'8C01CBD4
           .DATA.L H'42180000 ; H'8C01CBD8
           .DATA.L H'42080000 ; H'8C01CBDC
@@ -1140,7 +1140,7 @@ LP_GEN_87458:
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01D1AC
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01D1B0
           .DATA.L H'C0A00000 ; H'8C01D1B4
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01D1B8
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01D1B8
           .DATA.L H'FF000000 ; H'8C01D1BC
           .DATA.L _njSetBackColor ; H'8C01D1C0
 _ProfileFilePushTask_8c01d1c4:

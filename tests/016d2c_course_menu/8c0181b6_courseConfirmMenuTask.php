@@ -44,21 +44,21 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 2);
         $this->shouldCall('__divls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             4,
             0.0,
             0.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             376.0,
             378.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             0,
             0.0,
@@ -80,21 +80,21 @@ return new class extends TestCase {
 
         // Still fading -> remain in state 1 and render epilogue
         $this->shouldCall('__divls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             4,
             0.0,
             0.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             376.0,
             378.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             0,
             0.0,
@@ -123,21 +123,21 @@ return new class extends TestCase {
 
         // Epilogue draws
         $this->shouldCall('__divls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             4,
             0.0,
             0.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             376.0,
             378.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             0,
             0.0,
@@ -168,21 +168,21 @@ return new class extends TestCase {
 
         // Epilogue draws
         $this->shouldCall('__divls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             4,
             0.0,
             0.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             376.0,
             378.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             0,
             0.0,
@@ -209,21 +209,21 @@ return new class extends TestCase {
 
         // Epilogue draws
         $this->shouldCall('__divls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             4,
             0.0,
             0.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             376.0,
             378.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             0,
             0.0,
@@ -250,21 +250,21 @@ return new class extends TestCase {
 
         // Epilogue draws
         $this->shouldCall('__divls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             4,
             0.0,
             0.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             376.0,
             378.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             0,
             0.0,
@@ -287,21 +287,21 @@ return new class extends TestCase {
 
         // Still fading -> remain in state 3; epilogue draws occur
         $this->shouldCall('__divls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             4,
             0.0,
             0.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             376.0,
             378.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             0,
             0.0,
@@ -579,21 +579,21 @@ return new class extends TestCase {
 
         // Still fading -> render epilogue (no state transition)
         $this->shouldCall('__divls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             4,
             0.0,
             0.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             376.0,
             378.0,
             -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             0,
             0.0,
@@ -664,7 +664,7 @@ return new class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_PromptHandleBinary_8c016caa', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $this->setSize('__divls', 4);

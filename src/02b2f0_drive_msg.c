@@ -4,7 +4,7 @@
 #include "includes.h" /* STATIC */
 
 #include "02b2f0_drive_msg.h"
-#include "014f54_text.h"        /* TxtDrawSprite_8c014f54 */
+#include "014f54_sprite.h"
 #include "02b464_drive_points.h"
 #include "sectionB.h"           /* var_driveMsgQueue_8c228564, DriveMsgSlot, ... */
 #include "1ba1c8_globals.h"
@@ -75,7 +75,7 @@ void DriveMsgDraw_8c02b388(int unused)
     if (var_runState_8c2285c4.runPassed_0x04 != 0) {
         /* &var_markTexlist_8c1bc418 is the mark ResourceGroup's own address,
          * not a cast of its value -- see 1ba1c8_globals.h. */
-        TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418,
+        SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418,
                                MARK_RUN_PASSED, 0.0f, 0.0f, MARK_Z_RUN_PASSED);
         return;
     }

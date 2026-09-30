@@ -68,10 +68,10 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + self::VELOCITY_Y_0X34, $velY);
         $this->shouldWriteFloat($base + self::FLAG_Y_0X24, $flagY);
         $this->shouldWriteFloat($base + self::BUS_X_0X20, $busX);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 4, $busX, $flagY, -8.5);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 7, 0.0, 0.0, -8.0);
         $this->shouldCall('_njSetBackColor')->with(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);
     }
@@ -91,10 +91,10 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + self::FLAG_Y_0X24, $flagY);
         $this->shouldWriteLong($base + self::FIELD_0X1C, 1);
         $this->shouldWriteFloat($base + self::BUS_X_0X20, $busX);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 4, $busX, $flagY, -8.5);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 0, 0.0, 0.0, -8.0);
         $this->shouldCall('_njSetBackColor')->with(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);
     }
@@ -113,10 +113,10 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + self::FLAG_Y_0X24, $flagY);
         $this->shouldWriteFloat($base + self::VELOCITY_Y_0X34, $velY);
         $this->shouldWriteFloat($base + self::BUS_X_0X20, $busX);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 4, $busX, $flagY, -8.5);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 0, 0.0, 0.0, -8.0);
         $this->shouldCall('_njSetBackColor')->with(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);
     }
@@ -137,10 +137,10 @@ return new class extends TestCase {
         $this->shouldWriteFloat($base + self::VELOCITY_Y_0X34, $velY);
         $this->shouldWriteLong($base + self::FIELD_0X1C, 0);
         $this->shouldWriteFloat($base + self::BUS_X_0X20, $busX);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 4, $busX, $flagY, -8.5);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 0, 0.0, 0.0, -8.0);
         $this->shouldCall('_njSetBackColor')->with(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);
     }
@@ -155,10 +155,10 @@ return new class extends TestCase {
 
         $this->shouldWriteFloat($base + self::BUS_X_0X20, 90.5);
         $this->shouldWriteFloat($base + self::VELOCITY_X_0X30, -1.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 4, 90.5, 150.0, -8.5);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 0, 0.0, 0.0, -8.0);
         $this->shouldCall('_njSetBackColor')->with(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);
     }
@@ -172,10 +172,10 @@ return new class extends TestCase {
 
         $this->shouldWriteFloat($base + self::BUS_X_0X20, -0.5);
         $this->shouldWriteFloat($base + self::VELOCITY_X_0X30, 1.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 4, -0.5, 150.0, -8.5);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 0, 0.0, 0.0, -8.0);
         $this->shouldCall('_njSetBackColor')->with(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);
     }
@@ -188,12 +188,12 @@ return new class extends TestCase {
         $this->call('_updateEndingOverlay_8c01f42c');
 
         $this->shouldWriteFloat($base + self::BUS_X_0X20, 45.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 4, 45.0, 150.0, -8.5);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0x20)->andReturn(1);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base, 1, 0.0, 0.0, -7.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($base + self::RESOURCE_GROUP_B_0X0C, 0, 0.0, 0.0, -8.0);
         $this->shouldCall('_njSetBackColor')->with(0x5CA3D9, 0x5CA3D9, 0x5CA3D9);
     }

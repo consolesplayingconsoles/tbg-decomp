@@ -2,7 +2,7 @@
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_dialogQueue_8c225fbc
           .IMPORT     _var_menuState_8c1bc7a8
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_menuTextboxCharLimit_8c225fb8
           .IMPORT     _ObjectsMenuTextboxText_8c02af1c
           .IMPORT     _njSetBackColor
@@ -349,7 +349,7 @@ LP_GEN_39506:
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01F5DC
           .DATA.L H'43960000 ; H'8C01F5E0
           .DATA.L H'42B40000 ; H'8C01F5E4
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01F5E8
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01F5E8
           .DATA.L H'C1080000 ; H'8C01F5EC
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C01F5F0
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C01F5F4

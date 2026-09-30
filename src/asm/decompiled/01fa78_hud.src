@@ -1,7 +1,7 @@
 ; 8c01fa78
           .IMPORT     __divls
           .IMPORT     __modls
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_busStopTexlist_8c1bc424
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _njDrawPolygon
@@ -174,7 +174,7 @@ LP_GEN_77638:
           .DATA.L __divls ; H'8C01FB80
           .DATA.L __modls ; H'8C01FB84
           .DATA.L H'BF9AE148 ; H'8C01FB88
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01FB8C
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01FB8C
           .DATA.L _var_busStopTexlist_8c1bc424 ; H'8C01FB90
           .DATA.L H'43E00000 ; H'8C01FB94
           .DATA.L H'43DA0000 ; H'8C01FB98
@@ -300,7 +300,7 @@ LP_GEN_37481:
           .DATA.L _njDrawPolygon ; H'8C01FC80
           .DATA.L H'BF9AE148 ; H'8C01FC84
           .DATA.L _var_busState_8c1bb9d0 ; H'8C01FC88
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01FC8C
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01FC8C
           .DATA.L _var_hudState_8c22643c ; H'8C01FC90
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C01FC94
           .DATA.L _var_hudMark_8c2264a8 ; H'8C01FC98

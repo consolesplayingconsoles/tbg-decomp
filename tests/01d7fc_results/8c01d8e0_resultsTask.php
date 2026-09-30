@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->setSize('_init_titleResourceGroup_8c044254', 0x10);
 
         foreach ([
-            '_TxtDrawSprite_8c014f54', '_ObjectsMenuTextboxText_8c02af1c',
+            '_SpriteDraw_8c014f54', '_ObjectsMenuTextboxText_8c02af1c',
             '_ObjectsSwapMessageBoxFor_8c02aefc', '_VmMenuUpdateVmuStatus_8c01967c',
             '_RouteLoadGetLatch_8c01432a', '_AsqFreeQueues_8c011f7e',
             '_SndMidiResetFxAndPlay_8c010846', '_sdMidiPlay',
@@ -686,7 +686,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->ms + 0x64, 0); // counter_0x64 = 0
         $this->shouldWriteLong($this->ms + 0x68, 0); // timer_0x68 = 0
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -699,7 +699,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -715,7 +715,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->ms + 0x68, 1); // timer_0x68 = 1
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -738,7 +738,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -770,7 +770,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -804,7 +804,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -838,7 +838,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -872,7 +872,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -893,7 +893,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -914,10 +914,10 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1f - 2, 0.0, 0.0, -4.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -944,7 +944,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -973,7 +973,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -1002,7 +1002,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -1031,7 +1031,7 @@ return new class extends TestCase {
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 130.0);
         $this->shouldCall('_drawScoreDigits_8c01d7fc')->with(0, 96.0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 0x1b, 0.0, 0.0, -4.0);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -1130,7 +1130,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 1, 0.0, 0.0, -4.3);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);
@@ -1211,7 +1211,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->ms, 1, 0.0, 0.0, -4.3);
 
         $this->shouldCall('_njSetBackColor')->with(0xff418dff, 0xff418dff, 0xff418dff);

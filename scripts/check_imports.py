@@ -52,7 +52,7 @@ NOT_CHECKED = {
                      "sdMidiStopAll"},
     # unpackGlyph_8c015110 clears with a runtime loop; the archive memcpys a
     # zeroed section C template (see docs/lessons_learned.md).
-    "014f54_text": {"slow_mvn"},
+    "015034_text": {"slow_mvn"},
     # The archive calls the SDK distance helper; the C computes it inline.
     "020594_vehicle_model": {"njDistanceP2P"},
 }

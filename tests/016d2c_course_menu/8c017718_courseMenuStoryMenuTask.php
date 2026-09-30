@@ -675,7 +675,7 @@ return new Class extends TestCase {
         float $y,
         float $priority,
     ) {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + $resourceGroup,
             $spriteNo,
             $x,

@@ -24,18 +24,18 @@ return new class extends TestCase {
     public function test_draws_digits_right_to_left()
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $d = $this->digits([5, 3]);   // index 0 = ones, drawn at the right (largest x)
         $this->call('_soundTestFieldDraw_8c01aaaa')->with(100.0, 50.0, $d, 2);
         // sprite index = digit + 0x54 ('0'); x steps left by 26.0 each digit
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->group(), 0x59, 100.0, 50.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->group(), 0x57, 74.0, 50.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->group(), 0x59, 100.0, 50.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->group(), 0x57, 74.0, 50.0, -4.0);
     }
 
     public function test_zero_count_draws_nothing()
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $d = $this->digits([7]);
         $this->call('_soundTestFieldDraw_8c01aaaa')->with(100.0, 50.0, $d, 0);
     }

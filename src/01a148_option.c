@@ -5,7 +5,7 @@
 #include "0100bc_sound.h"
 #include "011120_asset_queues.h"
 #include "012324_input.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
 #include "015ab8_title.h"
 #include "018644_file_menu.h"
 #include "019e98_main_menu.h"
@@ -191,25 +191,25 @@ STATIC void settingTask_8c01a148(Task *task)
 
     for (i = 0; i < 5; i++) {
         int idx = (i == m->selected_0x38) ? i + 0x23 : i + 0x1e;
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
         /* Value marker; blinks (every other frame) while its row is being edited. */
         if (m->state_0x18 != OPTION_STATE_EDIT || i != m->selected_0x38 ||
             (m->timer_0x68++ & 1)) {
-            TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x29,
+            SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x29,
                                    337.0f + 64.0f * var_settingValues_8c226074[i],
                                    77.0f + 56.0f * i, -4.0f);
         }
     }
 
     if (m->selected_0x38 < 5) {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x61, 0.0f, 0.0f, -4.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x61, 0.0f, 0.0f, -4.0f);
     } else {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c,
                                (m->selected_0x38 == 5) ? 0x62 : 0x63,
                                0.0f, 0.0f, -4.0f);
     }
-    TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x28, 0.0f, 0.0f, -5.0f);
-    TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x28, 0.0f, 0.0f, -5.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
 }
 
 /* Switch to the SETTING screen: install its task, reset to the fade-in phase. */
@@ -391,7 +391,7 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 
     for (i = 0; i < 3; i++) {
         int idx = (i == m->selected_0x38) ? i + 0x2e : i + 0x2a;
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
     }
 
     if (m->state_0x18 == 2) {
@@ -412,28 +412,28 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
         }
 
         if (idx != -1) {
-            TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
+            SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
         }
     } else {
         float x;
 
         x = drawSensitivityBar_8c01a42a(144.0f, var_progress_8c1ba1cc.accelSensitivity_0xd0);
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, (m->state_0x18 == 3) ? 0x44 : 0x43,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, (m->state_0x18 == 3) ? 0x44 : 0x43,
                                x - 10.0f, 124.0f, -5.0f);
         x = drawSensitivityBar_8c01a42a(224.0f, var_progress_8c1ba1cc.brakeSensitivity_0xd1);
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, (m->state_0x18 == 4) ? 0x44 : 0x43,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, (m->state_0x18 == 4) ? 0x44 : 0x43,
                                x - 10.0f, 203.0f, -5.0f);
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x40, 0.0f, 0.0f, -5.0f);
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x41, 0.0f, 0.0f, -5.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x40, 0.0f, 0.0f, -5.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x41, 0.0f, 0.0f, -5.0f);
     }
 
     if (m->selected_0x38 < 3) {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x61, 0.0f, 0.0f, -5.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x61, 0.0f, 0.0f, -5.0f);
     } else {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, (m->selected_0x38 == 3) ? 0x62 : 0x63,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, (m->selected_0x38 == 3) ? 0x62 : 0x63,
                                0.0f, 0.0f, -5.0f);
     }
-    TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
 }
 /* Switch to the KEY CONFIGURE screen: install its task, reset to the fade-in phase. */
 STATIC void switchToKeyConfig_8c01a89c(Task *task)
@@ -550,7 +550,7 @@ STATIC void soundTestFieldDraw_8c01aaaa(float x, float y, int *digits, int count
     int i;
 
     for (i = 0; i < count; i++) {
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c,
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                                digits[i] + 0x54, x, y, -4.0f);
         x -= 26.0f;
     }
@@ -649,7 +649,7 @@ STATIC void audioTask_8c01ab08(Task *task)
             } else {
                 soundTestFieldAdjust_8c01a926(var_musicTestDigits_8c226078, 2, 0x10);
             }
-            TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
+            SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x70,
                                    436.0f - (float)m->cursorCol_0x3c * 26.0f, 220.0f, -3.0f);
             break;
         }
@@ -660,7 +660,7 @@ STATIC void audioTask_8c01ab08(Task *task)
             } else {
                 soundTestFieldAdjust_8c01a926(var_sfxTestDigits_8c226080, 2, 0x44);
             }
-            TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
+            SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x70,
                                    436.0f - (float)m->cursorCol_0x3c * 26.0f, 256.0f, -3.0f);
             break;
         }
@@ -671,7 +671,7 @@ STATIC void audioTask_8c01ab08(Task *task)
             } else {
                 soundTestFieldAdjust_8c01a926(var_voiceTestDigits_8c226088, 4, 0x56c);
             }
-            TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x70,
+            SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x70,
                                    436.0f - (float)m->cursorCol_0x3c * 26.0f, 292.0f, -3.0f);
             break;
         }
@@ -687,24 +687,24 @@ STATIC void audioTask_8c01ab08(Task *task)
 
     for (i = 0; i < 7; i++) {
         int idx = (i == m->selected_0x38) ? i + 0x4c : i + 0x45;
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, idx, 0.0f, 0.0f, -5.0f);
     }
 
     /* SOUND mode marker (blinks while editing row 0), then the 3 volume markers. */
     if (m->state_0x18 != 2 || m->selected_0x38 != 0 || (m->timer_0x68++ & 1)) {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x29,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x29,
                                (float)var_soundMode_8c226070 * 64.0f + 401.0f, 69.0f, -4.0f);
     }
     if (m->state_0x18 != 3 || (m->timer_0x68++ & 1)) {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
                                (float)var_progress_8c1ba1cc.musicVolume_0xd4 * 20.0f + 400.0f, 110.0f, -4.0f);
     }
     if (m->state_0x18 != 4 || (m->timer_0x68++ & 1)) {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
                                (float)var_progress_8c1ba1cc.sfxVolume_0xd5 * 20.0f + 400.0f, 146.0f, -4.0f);
     }
     if (m->state_0x18 != 5 || (m->timer_0x68++ & 1)) {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x5e,
                                (float)var_progress_8c1ba1cc.voiceVolume_0xd6 * 20.0f + 400.0f, 182.0f, -4.0f);
     }
 
@@ -713,13 +713,13 @@ STATIC void audioTask_8c01ab08(Task *task)
     soundTestFieldDraw_8c01aaaa(441.0f, 298.0f, var_voiceTestDigits_8c226088, 4);
 
     if (m->selected_0x38 < 7) {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x61, 0.0f, 0.0f, -4.0f);
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x61, 0.0f, 0.0f, -4.0f);
     } else {
-        TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, (m->selected_0x38 == 7) ? 0x62 : 0x63,
+        SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, (m->selected_0x38 == 7) ? 0x62 : 0x63,
                                0.0f, 0.0f, -4.0f);
     }
-    TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x53, 0.0f, 0.0f, -5.0f);
-    TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x53, 0.0f, 0.0f, -5.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
 }
 /*
  * Switch to the AUDIO screen: install its task, reset to the fade-in phase, and
@@ -802,9 +802,9 @@ STATIC void topMenuTask_8c01b00a(Task *task)
         }
     }
 
-    TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, m->selected_0x38 + 0x1a, 0.0f, 0.0f, -4.0f);
-    TxtDrawSprite_8c014f54(&m->resourceGroupB_0x0c, 0x19, 0.0f, 0.0f, -5.0f);
-    TxtDrawSprite_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, m->selected_0x38 + 0x1a, 0.0f, 0.0f, -4.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupB_0x0c, 0x19, 0.0f, 0.0f, -5.0f);
+    SpriteDraw_8c014f54(&m->resourceGroupA_0x00, 0, 0.0f, 0.0f, -7.0f);
 }
 
 /*

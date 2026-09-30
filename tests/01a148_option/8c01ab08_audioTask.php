@@ -46,7 +46,7 @@ return new class extends TestCase {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xd7);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndSetSoundMode_8c0108c0', 4);
         $this->setSize('_SndSetAdxVol_8c010972', 4);
@@ -79,21 +79,21 @@ return new class extends TestCase {
         $gB = $this->menu(0x0c);
         for ($i = 0; $i < 7; $i++) {
             $idx = ($i === $selected) ? $i + 0x4c : $i + 0x45;
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, $idx, 0.0, 0.0, -5.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, $idx, 0.0, 0.0, -5.0);
         }
     }
 
     /* SOUND-mode selector marker (0x29), x = 401 + 64*mode. */
     private function shouldDrawSoundModeMarker(int $soundMode): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->menu(0x0c), 0x29, 64.0 * $soundMode + 401.0, 69.0, -4.0);
     }
 
     /* A volume slider marker (0x5e) at row height $y, x = 400 + 20*value. */
     private function shouldDrawVolMarker(float $y, int $value): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->menu(0x0c), 0x5e, 20.0 * $value + 400.0, $y, -4.0);
     }
 
@@ -117,7 +117,7 @@ return new class extends TestCase {
     /* Sound-test digit cursor (0x70) at row height $y, x = 436 - 26*off. */
     private function shouldDrawTestCursor(float $y, int $off): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->menu(0x0c), 0x70, 436.0 - 26.0 * $off, $y, -3.0);
     }
 
@@ -126,13 +126,13 @@ return new class extends TestCase {
     {
         $gB = $this->menu(0x0c);
         if ($selected < 7) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x61, 0.0, 0.0, -4.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x61, 0.0, 0.0, -4.0);
         } else {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')
+            $this->shouldCall('_SpriteDraw_8c014f54')
                 ->with($gB, $selected === 7 ? 0x62 : 0x63, 0.0, 0.0, -4.0);
         }
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x53, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->menu(0x00), 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x53, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->menu(0x00), 0, 0.0, 0.0, -7.0);
     }
 
     public function test_phase0_waits_while_fading()

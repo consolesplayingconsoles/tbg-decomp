@@ -18,6 +18,7 @@
 #include "01c980_profile_file.h"
 #include "01e27c_practice_menu.h"
 #include "028258_objects.h"
+#include "014f54_sprite.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
@@ -231,7 +232,7 @@ STATIC int cursorOffTarget_8c016dc6()
 STATIC void drawInteger_8c016e6c(int value, float x, float y)
 {
     do {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00,
             15 + value % 10,
             x,
@@ -271,7 +272,7 @@ void CourseMenuDrawDateAndExp_8c016ee6()
         sprite_id = 6 + getWeekDayIndex_8c016ed2();
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         sprite_id,
         112.0,
@@ -348,7 +349,7 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
             }
 
             state->bobAngle_0x14 += 0x1111;
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 44,
                 32.0,
@@ -621,7 +622,7 @@ STATIC void drawCourseButtons_8c017590()
     int i;
 
     if (var_menuState_8c1bc7a8.cursorVisible_0x48) {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x18,
             var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x,
@@ -636,7 +637,7 @@ STATIC void drawCourseButtons_8c017590()
         if (btn->unlocked_0x04 == 0 || btn->spriteNo_0x10 == 0)
             continue;
 
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             btn->spriteNo_0x10,
             0.0,
@@ -653,7 +654,7 @@ STATIC void drawCourseButtons_8c017590()
         if (!spriteNo)
             continue;
 
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x18 - spriteNo,
             240.0 + (i % 3) * 93.0,
@@ -785,19 +786,19 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
 
     CourseMenuDrawDateAndExp_8c016ee6();
     drawCourseButtons_8c017590();
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c, 10, 0.0, 0.0, -5.0
     );
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00, 0x2b, 0.0, 0.0, -4.0
     );
     if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -5.0
         );
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.instructorSprite_0x60,
         0.0,
@@ -805,7 +806,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
         -6.0
     );
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -7.0
     );
     AsqGetRandomA_8c012166();
@@ -933,16 +934,16 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
     }
 
     drawCourseButtons_8c017590();
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c, 9, 0.0, 0.0, -5.0
     );
     if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8) ) {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -5.0
         );
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.instructorSprite_0x60,
         0.0,
@@ -950,7 +951,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
         -6.0
     );
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -7.0
     );
     AsqGetRandomA_8c012166();
@@ -1119,7 +1120,7 @@ STATIC void drawFixedInteger_8c01803e(float x, float y, int value, int digits)
     float tracking = 19.0;
     do {
         do {
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 12 + value % 10,
                 x,
@@ -1140,7 +1141,7 @@ STATIC void drawRouteInfo_8c018118(void)
     drawFixedInteger_8c01803e(219.0, 108.0, var_progress_8c1ba1cc.days_0x00, 0);
 
     // Draw weekday sprite
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         getWeekDayIndex_8c016ed2() + 0x16,
         281.0,
@@ -1153,7 +1154,7 @@ STATIC void drawRouteInfo_8c018118(void)
     drawFixedInteger_8c01803e(471.0, 108.0, init_routeInfoTime_8c044d2e[index + 1], 2);
 
     // Draw route info
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.cursorRow_0x40 + 9,
         0.0,
@@ -1283,7 +1284,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
     }
 
     /* Reached only by the states that break; the ROUTE INFO ones return above. */
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.courseId_0x50 / 3,
         0.0,
@@ -1292,7 +1293,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
     );
 
     // Confirm/cancel prompt (sprite id = selected_0x38 + 2)
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         var_menuState_8c1bc7a8.selected_0x38 + 2,
         376.0,
@@ -1301,7 +1302,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
     );
 
     // Foreground overlay
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         0,
         0.0,

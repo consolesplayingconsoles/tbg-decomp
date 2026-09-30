@@ -4,7 +4,7 @@
 #include "011120_asset_queues.h" /* AsqRequestNj_8c011492, AsqRequestPvm_8c011ac0, AsqRequestDat_8c011182 */
 #include "013ae8_route_load.h" /* var_commonDirCopy_8c18ad8c, var_commonDir_8c18ad6c, enum ROUTE */
 #include "014a9c_tasks.h" /* Task */
-#include "014f54_text.h" /* enum PLAY_MODE */
+#include "015034_text.h" /* enum PLAY_MODE */
 #include "016d2c_course_menu.h" /* var_menuTextboxCharLimit_8c225fb8 */
 #include "0100bc_sound.h" /* SndStopAdx_8c010ca6, SndPlayAdx_8c010cd6, SndPollVoiceEnd_8c0106ac */
 #include "0206f0_intersect.h" /* IntersectSegments_8c0206f0 */

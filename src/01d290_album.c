@@ -5,7 +5,7 @@
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
 #include "014a9c_tasks.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
 #include "016d2c_course_menu.h"
 #include "011120_asset_queues.h"
 #include "0100bc_sound.h"
@@ -94,7 +94,7 @@ STATIC void albumDrawGrid_8c01d290(void)
 
     for (i = 0; i < 6; i++, spriteNo++) {
         if (var_progress_8c1ba1cc.letters_0x2c[i]) {
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 spriteNo,
                 0.0, 0.0, -4.0
@@ -102,7 +102,7 @@ STATIC void albumDrawGrid_8c01d290(void)
         }
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         0,
         0.0, 0.0, -5.0
@@ -240,7 +240,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                 RenderPushFadeOut_8c022b60(10);
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 0xd,
                 var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x,
@@ -255,7 +255,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                 CHANGE_STATE(ALBUM_STATE_IDLE);
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 0xd,
                 var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x,
@@ -271,7 +271,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 slot + 7,
                 0.0, 0.0, -3.0

@@ -101,7 +101,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18 , 1);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -120,7 +120,7 @@ return new class extends TestCase {
         // Init timer_0x68
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -136,7 +136,7 @@ return new class extends TestCase {
 
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 30);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -158,7 +158,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(20);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -172,7 +172,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 3);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -202,7 +202,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 4);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -221,7 +221,7 @@ return new class extends TestCase {
         // Init timer_0x68
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -237,7 +237,7 @@ return new class extends TestCase {
         // Check timer
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 30);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -259,7 +259,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(20);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -273,7 +273,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 6);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -347,7 +347,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 7);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
         $this->shouldCall('_njSetBackColor')->with(0xffffffff, 0xffffffff, 0xffffffff);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -364,7 +364,7 @@ return new class extends TestCase {
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 8);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
         $this->shouldCall('_njSetBackColor')->with(0xffffffff, 0xffffffff, 0xffffffff);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -380,7 +380,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3)->andReturn(0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -401,7 +401,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -422,7 +422,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -438,7 +438,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3)->andReturn(0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -461,7 +461,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -475,7 +475,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 9);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -505,8 +505,8 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x0a);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -527,8 +527,8 @@ return new class extends TestCase {
 
         $this->shouldCall('_SndPlayAdx_8c010cd6')->with(0,0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -547,11 +547,11 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x20, 0x441eb8e4);
 
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 634.888889, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 634.888889, 0.0, -4.0);
         
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -580,14 +580,14 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x24, 0x4324aaab);
 
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 164.666671753, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 164.666671753, -4.5);
 
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
 
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -607,14 +607,14 @@ return new class extends TestCase {
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x24, 0x4324aaab);
 
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 164.666671753, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 164.666671753, -4.5);
 
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -637,14 +637,14 @@ return new class extends TestCase {
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0e);
 
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 95.6666641235, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 95.6666641235, -4.5);
 
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -657,15 +657,15 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x0d);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -681,15 +681,15 @@ return new class extends TestCase {
         // Advance title state
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x0e);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -705,15 +705,15 @@ return new class extends TestCase {
 
         $this->shouldWrite($this->addressOf('_var_menuState_8c1bc7a8') + 0x64, 1050);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -737,15 +737,15 @@ return new class extends TestCase {
         // Reset timer_0x68
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -768,15 +768,15 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(60);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -791,17 +791,17 @@ return new class extends TestCase {
 
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 2);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
 
         // Blink check
-        //$this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        //$this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -816,19 +816,19 @@ return new class extends TestCase {
 
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
 
         // Blink check
         $this->shouldRead($this->addressOf('_var_menuState_8c1bc7a8') + 0x68, 1);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
 
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -847,16 +847,16 @@ return new class extends TestCase {
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x18, 0x10);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
 
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -872,19 +872,19 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
 
         // Blink check
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 1);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
 
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -900,18 +900,18 @@ return new class extends TestCase {
 
         $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
 
         // Blink check
         $this->shouldWriteSymbolOffset('_var_menuState_8c1bc7a8', 0x68, 2);
 
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -958,15 +958,15 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0x11);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.5);
         // Draw flag
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 302.0, 97.0, -4.5);
         // Draw bus
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 180.0, 0.0, -4.0);
         // Draw title
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00, 46, 0.0, 0.0, -7.0);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0, 0)
@@ -1051,7 +1051,7 @@ return new class extends TestCase {
     }
 
     private function resolveImports() {
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         // sizeof PERIPHERAL = 52
         $this->setSize('_var_peripherals_8c1ba35c', 52 * 2);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x8);

@@ -346,7 +346,7 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
 
         $this->expectDrawingTail(7);
     }
@@ -369,7 +369,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         $this->shouldWriteLong($this->addressOf('_var_menuTextboxCharLimit_8c225fb8'), 0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
 
         $this->expectDrawingTail(3, 0, 0, 0);
     }
@@ -388,7 +388,7 @@ return new class extends TestCase {
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($menuStateBase + 0x3c)->andReturn(0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
 
         $this->expectDrawingTail(5);
     }
@@ -453,7 +453,7 @@ return new class extends TestCase {
         $this->call('_lessonMenuTask_8c01ebf2')->with($task, 0);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($menuStateBase, 2, 228.0, 320.0, -5.0);
 
         $this->expectDrawingTail(7);
     }
@@ -617,30 +617,30 @@ return new class extends TestCase {
         for ($i = 0; $i < 5; $i++) {
             $row = $scroll + $i;
             $spriteId = ($row === $selected && $state !== 4) ? $row + 0x34 : $row + 1;
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($groupB, $spriteId, 48.0, $y, -4.5);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($groupB, $spriteId, 48.0, $y, -4.5);
             $this->shouldCall('_drawDigits_8c01ead8')->with($row, $y);
             $y += 33.0;
         }
 
         if ($selected > 10) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($groupB, 0x1b, 0.0, 0.0, -2.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($groupB, 0x1b, 0.0, 0.0, -2.0);
         }
         if ($scroll > 0) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($groupB, 0x1a, 0.0, 0.0, -2.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($groupB, 0x1a, 0.0, 0.0, -2.0);
         }
         if ($scroll < 6) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($groupB, 0x19, 0.0, 0.0, -2.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($groupB, 0x19, 0.0, 0.0, -2.0);
         }
 
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with($charLimit)->andReturn($textboxHasText ? 1 : 0);
         if ($textboxHasText) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuStateBase, 1, 0.0, 0.0, -5.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($menuStateBase, 1, 0.0, 0.0, -5.0);
         }
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($groupB, 5 + 0x32, 0.0, 0.0, -6.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($groupB, 5 + 0x32, 0.0, 0.0, -6.0);
         $modeIcon = $gameMode == 0 ? 0 : 0x40;
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($groupB, $modeIcon, 0.0, 0.0, -3.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuStateBase, 0, 0.0, 0.0, -8.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($groupB, $modeIcon, 0.0, 0.0, -3.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($menuStateBase, 0, 0.0, 0.0, -8.0);
     }
 
     private function resolveSymbols(): void
@@ -670,6 +670,6 @@ return new class extends TestCase {
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
         $this->setSize('_CourseMenuDrawDateAndExp_8c016ee6', 4);
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
     }
 };

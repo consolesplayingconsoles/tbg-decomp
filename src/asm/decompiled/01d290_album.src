@@ -1,7 +1,7 @@
 ; 8c01d290
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_progress_8c1ba1cc
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _RouteLoadGetLatch_8c01432a
@@ -230,7 +230,7 @@ LP_GEN_16673:
           .RES.W 1 ; H'8C01D3EE
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01D3F0
           .DATA.L _var_progress_8c1ba1cc ; H'8C01D3F4
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01D3F8
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01D3F8
           .DATA.L H'C0800000 ; H'8C01D3FC
           .DATA.L H'C0A00000 ; H'8C01D400
           .DATA.L _var_peripherals_8c1ba35c ; H'8C01D404
@@ -681,7 +681,7 @@ LP_GEN_43132:
           .DATA.L _CourseMenuInterpolateCursor_8c016d2c ; H'8C01D74C
           .DATA.L H'C0000000 ; H'8C01D750
           .DATA.L H'C0400000 ; H'8C01D754
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01D758
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01D758
           .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01D75C
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01D760
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01D764

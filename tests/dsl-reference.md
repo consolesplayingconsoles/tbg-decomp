@@ -128,7 +128,7 @@ $raw = unpack('L', pack('f', 42.5))[1];
 ### Helper methods (extract when repeated 3+ times)
 ```php
 private function shouldDrawSprite(int $no, float $x, float $y, float $z): void {
-    $this->shouldCall('_drawSprite_8c014f54')->with(
+    $this->shouldCall('_SpriteDraw_8c014f54')->with(
         $this->addressOf('_menuState_8c1bc7a8') + 0x0c, $no, $x, $y, $z
     );
 }

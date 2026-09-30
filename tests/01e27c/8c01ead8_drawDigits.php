@@ -15,7 +15,7 @@ return new class extends TestCase {
         $resGrp = $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c;
 
         $this->shouldCall('__modls')->with(7, 10)->using(new RiroCallingConvention())->andReturn(7);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $resGrp, 7 + 0xc, 362.0, 106.0, -4.3
         );
         $this->shouldCall('__divls')->with(7, 10)->using(new RiroCallingConvention())->andReturn(0);
@@ -34,7 +34,7 @@ return new class extends TestCase {
             $digit = $value % 10;
             $rest = intdiv($value, 10);
             $this->shouldCall('__modls')->with($value, 10)->using(new RiroCallingConvention())->andReturn($digit);
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($resGrp, $digit + 0xc, $x, 6.0, -4.3);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($resGrp, $digit + 0xc, $x, 6.0, -4.3);
             $this->shouldCall('__divls')->with($value, 10)->using(new RiroCallingConvention())->andReturn($rest);
             $x -= 18.0;
         }
@@ -43,7 +43,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('__modls', 4);
         $this->setSize('__divls', 4);
     }

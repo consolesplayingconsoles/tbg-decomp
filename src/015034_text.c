@@ -1,12 +1,13 @@
 /* @unit Txt */
-/* 8c014f54 */
+/* 8c015034 */
 #include <shinobi.h>
 #include "013ae8_route_load.h"
+#include "014f54_sprite.h"
 #include "015ab8_title.h"
 #include "01614c_replay_menu.h"
 #include "014a9c_tasks.h"
 #include "011120_asset_queues.h"
-#include "014f54_text.h"
+#include "015034_text.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
@@ -71,12 +72,6 @@
  */
 
 typedef struct {
-    int sprite_no_0x00;
-    float x_0x04;
-    float y_0x08;
-} ResourceGroupSpriteEntry;
-
-typedef struct {
     const char *filename;
     int trafficPresetId_0x04;
     int pedPresetId_0x08;
@@ -110,7 +105,7 @@ STATIC void *var_glyphBuffer_8c1bc7a4;
 
 #ifdef GAME_LANG_EN
 /* Indexed by ASCII - TEXT_ASCII_FIRST. Measured off
- * tests/014f54_text/data/BUS_FONT.FFF using the same glyph lookup and 2bpp
+ * tests/015034_text/data/BUS_FONT.FFF using the same glyph lookup and 2bpp
  * unpack the engine uses, so the numbers match what the font actually draws.
  * The ink width is left summed with TEXT_GLYPH_GAP so each row stays
  * hand-tunable. */
@@ -260,75 +255,6 @@ STATIC DemoEntry init_demos_8c044154[20] = {
  * Functions
  * ====================
  */
-
-void TxtDrawSprite_8c014f54(
-    ResourceGroup *resource_group,
-    int texture_id,
-    float x,
-    float y,
-    float priority
-) {
-    ResourceGroupSpriteEntry *sprite_entry;
-    int *dat_section_base;
-    int i;
-    NJS_SPRITE sprite;
-
-    /* 2000 means the font group, whose contents_0x08 is the sprite entry
-     * itself rather than a table of offsets to one. */
-    if (texture_id == 2000) {
-        sprite_entry =
-            (ResourceGroupSpriteEntry *) resource_group->contents_0x08;
-    } else {
-        int *offset_table = resource_group->contents_0x08;
-        int texture_offset = offset_table[texture_id];
-        sprite_entry =
-            (ResourceGroupSpriteEntry *)
-            &((int *) resource_group->contents_0x08)[texture_offset];
-    }
-
-    sprite.tlist = resource_group->tlist_0x00;
-    sprite.tanim = resource_group->tanim_0x04;
-    sprite.ang = 0;
-    sprite.sx = 1.0f;
-    sprite.sy = 1.0f;
-
-    for (i = 0; sprite_entry[i].sprite_no_0x00 != -1; i++) {
-        sprite.p.x = x + sprite_entry[i].x_0x04;
-        sprite.p.y = y + sprite_entry[i].y_0x08;
-
-        njDrawSprite2D(
-            &sprite, sprite_entry[i].sprite_no_0x00, priority, NJD_SPRITE_ALPHA
-        );
-
-        priority += .0001f;
-    }
-}
-
-/* Unreferenced anywhere in the image. The interpolation cancels --
- * start + steps * ((end - start) / steps) is end -- so it would only ever
- * draw at (end_x, end_y). */
-STATIC void drawSpriteLerp_8c014ff6(
-    float start_x,
-    float start_y,
-    float priority,
-    float end_x,
-    float end_y,
-    int steps_x,
-    int steps_y,
-    ResourceGroup *res_group,
-    int texture_id
-){
-    float steps_x_float = steps_x;
-    float steps_y_float = steps_y;
-
-    float x_step = (end_x - start_x) / steps_x_float;
-    float y_step = (end_y - start_y) / steps_y_float;
-
-    float lerp_x = start_x + steps_x_float * x_step;
-    float lerp_y = start_y + steps_y_float * y_step;
-
-    TxtDrawSprite_8c014f54(res_group, texture_id, lerp_x, lerp_y, priority);
-}
 
 STATIC Uint16 getGlyphIndex_8c015034(Uint16 character_code)
 {
@@ -651,7 +577,7 @@ int TxtPrepareTextBoxLayout_8c01543a(TextBox *box, char *text)
             current_line++;
         };
 
-        // BUG (kept, see tests/014f54_text/8c01543a_TxtPrepareTextBoxLayout.php
+        // BUG (kept, see tests/015034_text/8c01543a_TxtPrepareTextBoxLayout.php
         // test_processExceedingLineBreaks): current_line can still equal
         // line_count here, writing one float past line_offsets_0x34. Applies
         // in GAME_LANG_EN too.
@@ -823,7 +749,7 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
                     x += box->line_offsets_0x34[row] * GLYPH_WIDTH;
 #endif
 
-                    TxtDrawSprite_8c014f54(
+                    SpriteDraw_8c014f54(
                         &var_fontResourceGroup_8c1bc794,
                         2000,
                         x,
@@ -833,7 +759,7 @@ int TxtDrawTextbox_8c0155e0(TextBox *box, int limit)
                 } else {
                     int x = col + box->x_0x00 + box->x2_0x14;
                     int y = row + box->y_0x04 + box->y2_0x18;
-                    TxtDrawSprite_8c014f54(
+                    SpriteDraw_8c014f54(
                         &var_fontResourceGroup_8c1bc794,
                         2000,
                         x,

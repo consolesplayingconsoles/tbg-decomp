@@ -10,7 +10,7 @@ return new class extends TestCase {
 
         $this->call('_drawTextboxSprite_8c01d864');
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8'),
             5,
             224.0,
@@ -28,7 +28,7 @@ return new class extends TestCase {
 
         $this->call('_drawTextboxSprite_8c01d864');
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8'),
             5,
             224.0,
@@ -38,7 +38,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8'),
             1,
             0.0,

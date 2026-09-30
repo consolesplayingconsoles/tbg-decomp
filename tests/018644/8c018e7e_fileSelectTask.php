@@ -506,7 +506,7 @@ return new class extends TestCase {
         /* external functions -- resolved unconditionally (the C literal pool may
          * load an address on a path that doesn't call it) */
         foreach ([
-            '_TxtDrawSprite_8c014f54', '_ObjectsMenuTextboxText_8c02af1c', '_VmGameSetLcdSlot_8c01c8fc',
+            '_SpriteDraw_8c014f54', '_ObjectsMenuTextboxText_8c02af1c', '_VmGameSetLcdSlot_8c01c8fc',
             '_ObjectsSwapMessageBoxFor_8c02aefc', '_sdMidiPlay', '_RenderPushFadeOut_8c022b60',
             '_njMemCopy', '_SndStartAdxFadeOut_8c010bae', '_SystemMenuApplyLoadedProgress_8c01b19c',
             '_VmMenuUnmountVms_8c0194de', '_VmMenuSwitchFromTask_8c019e44',
@@ -537,7 +537,7 @@ return new class extends TestCase {
     /* The two frame sprites drawn on the way out of states 0/1/2. */
     private function expectFrame(): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.3);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 0, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.3);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 0, 0.0, 0.0, -5.0);
     }
 };

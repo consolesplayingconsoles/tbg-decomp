@@ -8,7 +8,7 @@
 #include "1ba1c8_globals.h"
 #include "014a9c_tasks.h"
 #include "013ae8_route_load.h"
-#include "014f54_text.h"
+#include "015034_text.h"
 #include "022464_render.h"
 #include "0100bc_sound.h"
 #include "024b4c_bus_render.h"

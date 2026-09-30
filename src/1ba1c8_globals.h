@@ -6,7 +6,7 @@
 #include "011120_asset_queues.h" /* LoadedModel */
 #include "013ae8_route_load.h" /* CurrentCourse, ModelSlot */
 #include "014a9c_tasks.h" /* Task */
-#include "014f54_text.h" /* enum PLAY_MODE */
+#include "015034_text.h" /* enum PLAY_MODE */
 #include "015ab8_title.h" /* ResourceGroup */
 #include "020914_ground_query.h" /* GroundQueryResult */
 #include "022464_render.h" /* MirrorSelect */
@@ -465,7 +465,7 @@ extern void* var_busDoorShape_8c1bc414;
 /* These three are one ResourceGroup (015ab8_title.h) at 8c1bc418: mark.pvm,
  * mark_parts.dat and mark.dat, the same triple 0129cc_game.c loads into the
  * declared var_loadingResourceGroup_8c1bc3f8's tlist/tanim/contents. Every
- * TxtDrawSprite_8c014f54 caller reaches them by casting
+ * SpriteDraw_8c014f54 caller reaches them by casting
  * &var_markTexlist_8c1bc418; 8c1bc424 is the same shape for the bus stop.
  * Naming them per-field predates the struct -- folding them into one is a
  * move-data job. */

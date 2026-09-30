@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_njDrawTexture', 4);
         $this->setSize('_njDrawPolygon', 4);
         $this->setSize('_njSetCamera', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
     }
 
     public function test_arrival_variant_1(): void {
@@ -53,7 +53,7 @@ return new class extends TestCase {
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorLeft_8c045558'));
         $this->shouldCall('_njDrawTexture')->with($this->addressOf('_init_mirrorQuadLeft_8c045438'), 4, 999, 0);
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipMirrorLeft_8c045558'));
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'), 0x27, 0.0, 0.0, -1.17
         );
         $this->shouldCall('_njUserClipping')->with(3, $this->addressOf('_init_clipMirrorLeft_8c045558'));
@@ -87,7 +87,7 @@ return new class extends TestCase {
         $this->shouldCall('_njUserClipping')->with(2, $this->addressOf('_init_clipMirrorRight_8c045568'));
         $this->shouldCall('_njDrawTexture')->with($this->addressOf('_init_mirrorQuadRight_8c045498'), 4, 999, 0);
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipMirrorRight_8c045568'));
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'), 0x29, 0.0, 0.0, -1.17
         );
         $this->shouldCall('_njUserClipping')->with(3, $this->addressOf('_init_clipMirrorRight_8c045568'));
@@ -155,7 +155,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_drawCamera_8c226558'), $cameraDefault);
         $this->shouldCall('_drawLayer_8c022464')->with(0);
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'), 0x28, 0.0, 0.0, -1.17
         );
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipLayer2_8c045598'));
@@ -184,7 +184,7 @@ return new class extends TestCase {
         $this->shouldCall('_njUserClipping')->with(0, $this->addressOf('_init_clipMirrorViewTall_8c045588'));
         $this->shouldCall('_njSetScreen')->with($this->addressOf('_init_screenFull_8c0455e8'));
         $this->shouldCall('_njDrawTexture')->with($this->addressOf('_init_mirrorQuadTall_8c0454f8'), 4, 999, 0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_busStopTexlist_8c1bc424'), 0x2a, 0.0, 0.0, -1.17
         );
         $this->shouldWriteLong($this->addressOf('_var_drawCamera_8c226558'), $cameraDefault);

@@ -33,20 +33,28 @@ return [
         ],
         [
             'tests' => [
-                "tests/014f54_text/8c014f54_TxtDrawSprite.php",
-                "tests/014f54_text/8c015034_getGlyphIndex.php",
-                "tests/014f54_text/8c015110_unpackGlyph.php",
-                "tests/014f54_text/8c01524c_TxtInit.php",
-                "tests/014f54_text/8c01529c_TxtDestroy.php",
-                "tests/014f54_text/8c0152fc_TxtCreateTextBox.php",
-                "tests/014f54_text/8c01543a_TxtPrepareTextBoxLayout.php",
-                "tests/014f54_text/8c0155e0_TxtDrawTextbox.php",
-                "tests/014f54_text/8c01594c_demoLoadTask.php",
-                "tests/014f54_text/8c0159ac_TxtStartAttractDemo.php",
+                "tests/014f54_sprite/8c014f54_SpriteDraw.php",
             ],
             'objects' => [
-                "build/output_test/src/asm/decompiled/014f54_text.obj",
-                "build/output_test/src/014f54_text.obj",
+                "build/output_test/src/asm/decompiled/014f54_sprite.obj",
+                "build/output_test/src/014f54_sprite.obj",
+            ],
+        ],
+        [
+            'tests' => [
+                "tests/015034_text/8c015034_getGlyphIndex.php",
+                "tests/015034_text/8c015110_unpackGlyph.php",
+                "tests/015034_text/8c01524c_TxtInit.php",
+                "tests/015034_text/8c01529c_TxtDestroy.php",
+                "tests/015034_text/8c0152fc_TxtCreateTextBox.php",
+                "tests/015034_text/8c01543a_TxtPrepareTextBoxLayout.php",
+                "tests/015034_text/8c0155e0_TxtDrawTextbox.php",
+                "tests/015034_text/8c01594c_demoLoadTask.php",
+                "tests/015034_text/8c0159ac_TxtStartAttractDemo.php",
+            ],
+            'objects' => [
+                "build/output_test/src/asm/decompiled/015034_text.obj",
+                "build/output_test/src/015034_text.obj",
             ],
         ],
         [

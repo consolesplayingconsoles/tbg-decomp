@@ -8,7 +8,7 @@
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _ObjectsSwapMessageBoxFor_8c02aefc
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     __modls
           .IMPORT     __divls
           .IMPORT     _var_progress_8c1ba1cc
@@ -476,7 +476,7 @@ LAB_8c016f3e:
 LP_GEN_56413:
           .DATA.W H'0090 ; H'8C016F62
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C016F64
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C016F68
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C016F68
           .DATA.L H'C0800000 ; H'8C016F6C
           .DATA.L H'41200000 ; H'8C016F70
           .DATA.L __modls ; H'8C016F74
@@ -752,7 +752,7 @@ LP_GEN_21301:
           .DATA.L H'42000000 ; H'8C017194
           .DATA.L H'C0400000 ; H'8C017198
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01719C
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C0171A0
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C0171A0
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C0171A4
           .DATA.L _instructorDialogTask_8c016f98 ; H'8C0171A8
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C0171AC
@@ -1417,7 +1417,7 @@ LP_GEN_35911:
           .DATA.W H'01A4 ; H'8C017682
           .DATA.W H'008C ; H'8C017684
           .RES.W 1 ; H'8C017686
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C017688
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C017688
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01768C
           .DATA.L H'C0400000 ; H'8C017690
           .DATA.L _init_courseMenuButtons_8c04442c ; H'8C017694
@@ -1929,7 +1929,7 @@ LP_GEN_86103:
           .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C017A78
           .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C017A7C
           .DATA.L H'C0A00000 ; H'8C017A80
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C017A84
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C017A84
           .DATA.L H'C0800000 ; H'8C017A88
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C017A8C
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C017A90
@@ -2280,7 +2280,7 @@ LP_GEN_85439:
           .DATA.L _init_courseMenuButtons_8c04442c ; H'8C017D30
           .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C017D34
           .DATA.L H'C0A00000 ; H'8C017D38
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C017D3C
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C017D3C
           .DATA.L _var_menuTextboxCharLimit_8c225fb8 ; H'8C017D40
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C017D44
           .DATA.L H'C0C00000 ; H'8C017D48
@@ -2727,7 +2727,7 @@ LP_GEN_56170:
           .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C0180F8
           .DATA.L _AsqNop_8c011120 ; H'8C0180FC
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C018100
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C018104
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C018104
           .DATA.L H'C0800000 ; H'8C018108
           .DATA.L H'41980000 ; H'8C01810C
           .DATA.L __modls ; H'8C018110
@@ -3041,7 +3041,7 @@ LP_GEN_82242:
           .DATA.L H'C0800000 ; H'8C018358
           .DATA.L H'42DC0000 ; H'8C01835C
           .DATA.L H'438C8000 ; H'8C018360
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C018364
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C018364
           .DATA.L _init_routeInfoTime_8c044d2e ; H'8C018368
           .DATA.L H'43D28000 ; H'8C01836C
           .DATA.L H'1 + _init_routeInfoTime_8c044d2e ; H'8C018370
@@ -3189,7 +3189,7 @@ LP_GEN_86610:
           .DATA.L _GamePushLoadingTask_8c013310 ; H'8C0184AC
           .DATA.L _var_currentSysResGroupInfo_8c225fb0 ; H'8C0184B0
           .DATA.L H'C0800000 ; H'8C0184B4
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C0184B8
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C0184B8
           .DATA.L __divls ; H'8C0184BC
           .DATA.L H'43BD0000 ; H'8C0184C0
           .DATA.L H'43BC0000 ; H'8C0184C4

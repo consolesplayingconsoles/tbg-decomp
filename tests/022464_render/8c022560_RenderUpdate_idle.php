@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_njDrawTexture', 4);
         $this->setSize('_njDrawPolygon', 4);
         $this->setSize('_njSetCamera', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
     }
 
     public function test_does_nothing_when_gate_closed_and_fade_idle(): void {

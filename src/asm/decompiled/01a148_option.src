@@ -6,7 +6,7 @@
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _FileMenuResetSettingDefaults_8c018862
           .IMPORT     _RenderPushFadeOut_8c022b60
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _TaskSetAction_8c014b3e
           .IMPORT     _RenderPushFadeIn_8c022a9c
           .IMPORT     _njDrawPolygon
@@ -340,7 +340,7 @@ LP_GEN_35922:
           .DATA.L H'42600000 ; H'8C01A364
           .DATA.L H'C0800000 ; H'8C01A368
           .DATA.L H'C0A00000 ; H'8C01A36C
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01A370
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01A370
           .DATA.L H'429A0000 ; H'8C01A374
           .DATA.L H'43A88000 ; H'8C01A378
           .DATA.L H'42800000 ; H'8C01A37C
@@ -826,7 +826,7 @@ LP_GEN_30580:
           .RES.W 1 ; H'8C01A712
           .DATA.L H'000F06FE ; H'8C01A714
           .DATA.L H'000700FE ; H'8C01A718
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01A71C
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01A71C
           .DATA.L H'C0A00000 ; H'8C01A720
 LAB_8c01a724:
           MOV         R9,R5
@@ -1545,7 +1545,7 @@ LP_GEN_82753:
           .RES.W 1 ; H'8C01AC4E
           .DATA.L _SndStopAdx_8c010ca6 ; H'8C01AC50
           .DATA.L _sdMidiPlay ; H'8C01AC54
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01AC58
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01AC58
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01AC5C
           .DATA.L H'C0800000 ; H'8C01AC60
           .DATA.L H'41D00000 ; H'8C01AC64
@@ -2200,7 +2200,7 @@ LP_GEN_51773:
           .DATA.L _init_topMenuActions_8c044e28 ; H'8C01B178
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01B17C
           .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C01B180
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01B184
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01B184
           .DATA.L H'C0800000 ; H'8C01B188
           .DATA.L H'C0A00000 ; H'8C01B18C
           .DATA.L _topMenuTask_8c01b00a ; H'8C01B190

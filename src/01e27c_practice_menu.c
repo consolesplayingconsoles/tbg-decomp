@@ -13,6 +13,7 @@
 #include "028258_objects.h"
 #include "0100bc_sound.h"
 #include "02b464_drive_points.h"
+#include "014f54_sprite.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
@@ -147,7 +148,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
             if (var_isFading_8c226568 == 0)
                 var_menuState_8c1bc7a8.state_0x18 = STATE_DESCRIPTION_VIEW;
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 var_menuState_8c1bc7a8.field_0x5c,
                 0.0f, 0.0f, -4.5f
@@ -167,7 +168,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 var_menuState_8c1bc7a8.field_0x5c,
                 0.0f, 0.0f, -4.5f
@@ -189,20 +190,20 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 RenderPushFadeOut_8c022b60(10);
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 var_menuState_8c1bc7a8.selected_0x38 + 2,
                 224.0f, 300.0f, -4.0f
             );
 
             if (ObjectsMenuTextboxText_8c02af1c(0xff))
-                TxtDrawSprite_8c014f54(
+                SpriteDraw_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
                     0.0f, 0.0f, -5.0f
                 );
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 0,
                 0.0f, 0.0f, -8.0f
@@ -219,20 +220,20 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 break;
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 var_menuState_8c1bc7a8.selected_0x38 + 2,
                 224.0f, 300.0f, -4.0f
             );
 
             if (ObjectsMenuTextboxText_8c02af1c(0xff))
-                TxtDrawSprite_8c014f54(
+                SpriteDraw_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
                     0.0f, 0.0f, -5.0f
                 );
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 0,
                 0.0f, 0.0f, -8.0f
@@ -243,7 +244,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
             if (var_isFading_8c226568 == 0)
                 var_menuState_8c1bc7a8.state_0x18 = STATE_LOADING_HOLD;
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 var_practiceLesson_8c22640c + 0x19,
                 0.0f, 0.0f, -4.5f
@@ -256,7 +257,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 RenderPushFadeOut_8c022b60(0x14);
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 var_practiceLesson_8c22640c + 0x19,
                 0.0f, 0.0f, -4.5f
@@ -276,7 +277,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 break;
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 var_practiceLesson_8c22640c + 0x19,
                 0.0f, 0.0f, -4.5f
@@ -291,14 +292,14 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 break;
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 var_menuState_8c1bc7a8.selected_0x38 + 2,
                 224.0f, 300.0f, -4.0f
             );
 
             if (ObjectsMenuTextboxText_8c02af1c(0xff))
-                TxtDrawSprite_8c014f54(
+                SpriteDraw_8c014f54(
                     &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                     1,
                     0.0f, 0.0f, -4.5f
@@ -398,14 +399,14 @@ STATIC void showLesson_8c01e63c(Task *task)
     if (var_gameMode_8c1bb8fc == 0)
         CourseMenuDrawDateAndExp_8c016ee6();
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_practiceLesson_8c22640c + 0x1c,
         0.0f, 0.0f, -4.0f
     );
 
     njUserClipping(2, init_guideClipRect_8c0451f8);
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_practiceLesson_8c22640c + 0x27,
         65.0f, 195.0f - (float)var_menuState_8c1bc7a8.cursorRow_0x40 * 24.0f, -4.0f
@@ -413,46 +414,46 @@ STATIC void showLesson_8c01e63c(Task *task)
     njUserClipping(0, init_guideClipRect_8c0451f8);
 
     if (var_menuState_8c1bc7a8.cursorRow_0x40 > 0)
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x18,
             0.0f, 0.0f, -4.5f
         );
 
     if (var_menuState_8c1bc7a8.cursorRow_0x40 + 3 != (signed char)init_lessonGuideRows_8c0451ec[var_practiceLesson_8c22640c])
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x19,
             0.0f, 0.0f, -4.5f
         );
 
     if (var_menuState_8c1bc7a8.state_0x18 == SHOW_LESSON_STATE_VIEW_END)
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             0x1b,
             0.0f, 0.0f, -4.5f
         );
 
     if (ObjectsMenuTextboxText_8c02af1c(0xff))
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00,
             1,
             0.0f, 0.0f, -5.0f
         );
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         0x32,
         0.0f, 0.0f, -6.0f
     );
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_gameMode_8c1bb8fc == 0 ? 0x17 : 0x41,
         0.0f, 0.0f, -7.0f
     );
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         0,
         0.0f, 0.0f, -8.0f
@@ -537,7 +538,7 @@ STATIC void drawDigits_8c01ead8(int value, float y)
     float x = 362.0f;
 
     do {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             value % 10 + 0xc,
             x, y + 6.0f, -4.3f
@@ -662,7 +663,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 
             /* Yes/No prompt indicator sprite, shared with state 7's
              * still-fading path below. */
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8,
                 var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0f, 320.0f, -5.0f
@@ -718,7 +719,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 
             /* Still fading out: shares LESSON_STATE_QUIT_PROMPT's Yes/No
              * prompt indicator draw. */
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8,
                 var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0f, 320.0f, -5.0f
@@ -741,27 +742,27 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
         } else {
             spriteId = row + 1;
         }
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, spriteId, 48.0f, y, -4.5f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, spriteId, 48.0f, y, -4.5f);
         drawDigits_8c01ead8(var_progress_8c1ba1cc.practiceLessonBestScores_0x98[row], y);
         row++;
         y += 33.0f;
     }
 
     if (var_menuState_8c1bc7a8.selected_0x38 > 10) {
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x1b, 0.0f, 0.0f, -2.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x1b, 0.0f, 0.0f, -2.0f);
     }
     if (var_menuState_8c1bc7a8.scrollTopRow_0x44 > 0) {
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x1a, 0.0f, 0.0f, -2.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x1a, 0.0f, 0.0f, -2.0f);
     }
     if (var_menuState_8c1bc7a8.scrollTopRow_0x44 < 6) {
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x19, 0.0f, 0.0f, -2.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x19, 0.0f, 0.0f, -2.0f);
     }
 
     if (ObjectsMenuTextboxText_8c02af1c(var_menuTextboxCharLimit_8c225fb8)) {
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -5.0f);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 1, 0.0f, 0.0f, -5.0f);
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.instructorSprite_0x60 + 0x32, 0.0f, 0.0f, -6.0f);
 
@@ -770,9 +771,9 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
     } else {
         modeIcon = 0x40;
     }
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, modeIcon, 0.0f, 0.0f, -3.0f);
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, modeIcon, 0.0f, 0.0f, -3.0f);
 
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8, 0, 0.0f, 0.0f, -8.0f);
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8, 0, 0.0f, 0.0f, -8.0f);
 }
 
 /* Course-button onSelect (init_courseMenuButtons_8c04442c), and the way back

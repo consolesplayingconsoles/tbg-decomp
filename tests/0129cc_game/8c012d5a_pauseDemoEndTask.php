@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->shouldCall('_RenderResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_RenderUpdatePlain_8c022910');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
     }
 
     public function test_phase0_no_start_before_timeout_just_counts_and_draws()
@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->shouldCall('_RenderResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_RenderUpdatePlain_8c022910');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
     }
 
     public function test_phase0_timeout_starts_fade_and_advances_to_phase2()
@@ -66,8 +66,8 @@ return new class extends TestCase {
         $this->shouldCall('_RenderResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_RenderUpdatePlain_8c022910');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7c, 0.0, 0.0, -1.1);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 0x7c, 0.0, 0.0, -1.1);
     }
 
     public function test_phase1_still_fading_counts_and_draws()
@@ -82,7 +82,7 @@ return new class extends TestCase {
         $this->shouldCall('_RenderResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_RenderUpdatePlain_8c022910');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
     }
 
     public function test_phase1_fade_done_returns_to_title_via_skip()
@@ -117,7 +117,7 @@ return new class extends TestCase {
         $this->shouldCall('_RenderResetQueues_8c02239c');
         $this->shouldCall('_TaskExecGroup_8c014b42')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_RenderUpdatePlain_8c022910');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($mark, 0x7b, 0.0, 0.0, -1.1);
     }
 
     public function test_phase2_fade_done_returns_to_title_via_timeout()
@@ -148,7 +148,7 @@ return new class extends TestCase {
         $this->setSize('_RenderResetQueues_8c02239c', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);
         $this->setSize('_RenderUpdatePlain_8c022910', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_var_tasks_8c1ba5e8', 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_init_soundOk_8c03bd84', 4);

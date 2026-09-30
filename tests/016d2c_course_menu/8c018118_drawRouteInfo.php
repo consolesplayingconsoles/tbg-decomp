@@ -24,7 +24,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_drawFixedInteger_8c01803e')->with(219.0, 108.0, $dayCount, 0);
         $this->shouldCall('_getWeekDayIndex_8c016ed2')->andReturn(5);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuBase + 0x0c,
             5 + 0x16,
             281.0,
@@ -33,7 +33,7 @@ return new class extends TestCase {
         );
         $this->shouldCall('_drawFixedInteger_8c01803e')->with(421.0, 108.0, 20, 2);
         $this->shouldCall('_drawFixedInteger_8c01803e')->with(471.0, 108.0, 48, 2);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuBase + 0x0c,
             $row + 9,
             0.0,

@@ -17,7 +17,7 @@
           .IMPORT     _TaskSetAction_8c014b3e
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _BupLoad_8c014bc6
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _VmMenuUnmountVms_8c0194de
           .IMPORT     _VmMenuSwitchFromTask_8c019e44
           .IMPORT     _MainMenuSwitchFromTask_8c01a09a
@@ -707,7 +707,7 @@ LP_GEN_23929:
           .DATA.L _var_loadedSaveCount_8c22600c ; H'8C018B2C
           .DATA.L _var_loadedSaveSlots_8c225fe4 ; H'8C018B30
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C018B34
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C018B38
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C018B38
           .DATA.L H'C0800000 ; H'8C018B3C
           .DATA.L H'41200000 ; H'8C018B40
           .DATA.L __modls ; H'8C018B44
@@ -864,7 +864,7 @@ LP_GEN_96259:
           .DATA.W H'0090 ; H'8C018C60
           .RES.W 1 ; H'8C018C62
           .DATA.L H'C0800000 ; H'8C018C64
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C018C68
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C018C68
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C018C6C
           .DATA.L H'42F40000 ; H'8C018C70
           .DATA.L _var_saveBufCursor_8c225fe0 ; H'8C018C74
@@ -1220,7 +1220,7 @@ LAB_8c018f04:
 LP_GEN_84467:
           .DATA.L _var_fileCards_8c226018 ; H'8C018F1C
           .DATA.L H'C0400000 ; H'8C018F20
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C018F24
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C018F24
           .DATA.L H'42340000 ; H'8C018F28
           .DATA.L H'C0800000 ; H'8C018F2C
           .DATA.L H'C089999A ; H'8C018F30
@@ -1376,7 +1376,7 @@ LP_GEN_98979:
           .DATA.L _var_saveBufCursor_8c225fe0 ; H'8C01905C
           .DATA.L _var_saveBuf_8c1ba2e0 ; H'8C019060
           .DATA.L _var_loadedSaveCount_8c22600c ; H'8C019064
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C019068
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C019068
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01906C
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C019070
 LAB_8c019074:

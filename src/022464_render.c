@@ -2,6 +2,7 @@
 #include <shinobi.h>
 #include "includes.h" /* STATIC */
 #include <njdef.h>
+#include "014f54_sprite.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "01e27c_practice_menu.h"
@@ -254,7 +255,7 @@ STATIC void drawLayer_8c022464(int layer)
  * var_busStopTexlist_8c1bc424: 0x27 left mirror, 0x29 right mirror, 0x28 for
  * variant 1's cabin inset, 0x2a for variant 2.
  *
- * Every TxtDrawSprite priority arg below is a fixed -1.17 literal, not a
+ * Every SpriteDraw priority arg below is a fixed -1.17 literal, not a
  * parameter -- raw disassembly shows FR4 is never read. */
 void RenderUpdate_8c022560(void)
 {
@@ -279,14 +280,14 @@ void RenderUpdate_8c022560(void)
             njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorLeft_8c045558);
             njDrawTexture(init_mirrorQuadLeft_8c045438, 4, 999, 0);
             njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorLeft_8c045558);
-            TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x27, 0.0f, 0.0f, -1.17f);
+            SpriteDraw_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x27, 0.0f, 0.0f, -1.17f);
             njUserClipping(NJD_CLIP_OUTSIDE, init_clipMirrorLeft_8c045558);
           }
           else if (var_busState_8c1bb9d0.mirror_0x268 == MIRROR_RIGHT) {
             njUserClipping(NJD_CLIP_INSIDE, init_clipMirrorRight_8c045568);
             njDrawTexture(init_mirrorQuadRight_8c045498, 4, 999, 0);
             njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorRight_8c045568);
-            TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x29, 0.0f, 0.0f, -1.17f);
+            SpriteDraw_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x29, 0.0f, 0.0f, -1.17f);
             njUserClipping(NJD_CLIP_OUTSIDE, init_clipMirrorRight_8c045568);
           }
           break;
@@ -313,7 +314,7 @@ void RenderUpdate_8c022560(void)
       var_drawCamera_8c226558 = &var_camera_8c1bb904;
       drawLayer_8c022464(0);
       njUserClipping(NJD_CLIP_DISABLE, init_clipLayer2_8c045598);
-      TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x28, 0.0f, 0.0f, -1.17f);
+      SpriteDraw_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x28, 0.0f, 0.0f, -1.17f);
       break;
     case 2:
       njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
@@ -326,7 +327,7 @@ void RenderUpdate_8c022560(void)
       njUserClipping(NJD_CLIP_DISABLE, init_clipMirrorViewTall_8c045588);
       njSetScreen(&init_screenFull_8c0455e8);
       njDrawTexture(init_mirrorQuadTall_8c0454f8, 4, 999, 0);
-      TxtDrawSprite_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x2a, 0.0f, 0.0f, -1.17f);
+      SpriteDraw_8c014f54((ResourceGroup *)&var_busStopTexlist_8c1bc424, 0x2a, 0.0f, 0.0f, -1.17f);
       var_drawCamera_8c226558 = &var_camera_8c1bb904;
       drawLayer_8c022464(0);
       break;

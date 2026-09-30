@@ -29,7 +29,7 @@ return new class extends TestCase {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         // _MainMenuSwitchFromTask_8c01a09a and the three switch-in wrappers are
@@ -52,9 +52,9 @@ return new class extends TestCase {
     private function shouldDraw(int $selected): void
     {
         $gB = $this->menu(0x0c);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, $selected + 0x1a, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x19, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->menu(0x00), 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, $selected + 0x1a, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x19, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->menu(0x00), 0, 0.0, 0.0, -7.0);
     }
 
     public function test_phase0_waits_while_fading()

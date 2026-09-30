@@ -313,7 +313,7 @@ return new class extends TestCase {
             ->with(0x1112)
             ->andReturn(0.5);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8'),
             44,
             32.0,

@@ -31,7 +31,7 @@ return new class extends TestCase {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_FileMenuResetSettingDefaults_8c018862', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
@@ -63,7 +63,7 @@ return new class extends TestCase {
         $gA = $this->menu(0x00);
         for ($i = 0; $i < 5; $i++) {
             $label = ($i === $selected) ? $i + 0x23 : $i + 0x1e;
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, $label, 0.0, 0.0, -5.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, $label, 0.0, 0.0, -5.0);
 
             $editing = $state === 2 && $i === $selected;
             $draw = true;
@@ -74,17 +74,17 @@ return new class extends TestCase {
             if ($draw) {
                 $x = 337.0 + 64.0 * $values[$i];
                 $y = 77.0 + 56.0 * $i;
-                $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x29, $x, $y, -4.0);
+                $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x29, $x, $y, -4.0);
             }
         }
         if ($selected < 5) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x61, 0.0, 0.0, -4.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x61, 0.0, 0.0, -4.0);
         } else {
             $idx = ($selected === 5) ? 0x62 : 0x63;
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, $idx, 0.0, 0.0, -4.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, $idx, 0.0, 0.0, -4.0);
         }
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gB, 0x28, 0.0, 0.0, -5.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($gA, 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($gB, 0x28, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($gA, 0, 0.0, 0.0, -7.0);
     }
 
     public function test_phase0_waits_while_fading()

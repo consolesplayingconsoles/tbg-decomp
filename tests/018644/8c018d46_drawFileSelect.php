@@ -97,11 +97,11 @@ return new class extends TestCase {
     private function expectChrome(int $selected, int $scroll, int $nextCard): void
     {
         $b = $this->ms + 0xc;
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, 0x2f, 182.0 * $selected + 45.0, 0.0, -3.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, $scroll != 0 ? 0x16 : 0x15, 0.0, 0.0, -3.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, $nextCard == 0xb ? 0x17 : 0x18, 0.0, 0.0, -3.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($b, 0x14, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.3);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($this->ms, 0, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($b, 0x2f, 182.0 * $selected + 45.0, 0.0, -3.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($b, $scroll != 0 ? 0x16 : 0x15, 0.0, 0.0, -3.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($b, $nextCard == 0xb ? 0x17 : 0x18, 0.0, 0.0, -3.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($b, 0x14, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 1, 0.0, 0.0, -4.3);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($this->ms, 0, 0.0, 0.0, -5.0);
     }
 };

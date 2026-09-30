@@ -9,7 +9,7 @@
           .IMPORT     _RenderPushFadeIn_8c022a9c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _init_adxPlaying_8c03bd80
@@ -86,7 +86,7 @@ _titleTask_8c015ab8:            ; function: titleTask_8c015ab8
           FMOV.S      @R0,FR14
           MOV.L       R4,@R15
           MOV.L       @(24,R14),R4
-          MOV.L       L3+14,R13; _TxtDrawSprite_8c014f54
+          MOV.L       L3+14,R13; _SpriteDraw_8c014f54
           CMP/GE      R3,R4
           FLDI0       FR15
           BF/S        L0
@@ -132,7 +132,7 @@ L3:
           .DATA.L     H'C0900000 ; -4.5f H'8c015b38
           .DATA.L     H'C0800000 ; -4.0
           .DATA.L     H'C0A00000 ; -5.0 H'8c015b40
-          .DATA.L     _TxtDrawSprite_8c014f54
+          .DATA.L     _SpriteDraw_8c014f54
           .DATA.L     _var_menuState_8c1bc7a8
           .DATA.L     _var_peripherals_8c1ba35c
           .DATA.L     _var_isFading_8c226568 ; H'8c015b50

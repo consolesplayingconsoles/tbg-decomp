@@ -56,7 +56,8 @@ SRCS = \
 	src/1ba1c8_globals.c \
 	src/014a9c_tasks.c \
 	src/014b8c_backup.c \
-	src/014f54_text.c \
+	src/014f54_sprite.c \
+	src/015034_text.c \
 	src/015ab8_title.c \
 	src/016108_resgrp_free.c \
 	src/01614c_replay_menu.c \

@@ -13,7 +13,7 @@ return new class extends TestCase {
     private function resolveSymbols(): void
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x7c);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('__divls', 4);
         $this->setSize('__modls', 4);
 
@@ -53,7 +53,7 @@ return new class extends TestCase {
 
         $this->shouldCall('__divls');
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $resGroup, 2,
             (float) ($col * 0x2d + 0x60),
             (float) ($row * 0x30 + 0x80),
@@ -65,11 +65,11 @@ return new class extends TestCase {
     {
         $resGroup = $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c;
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $resGroup, 3, $cursorX, $cursorY, -2.0
         );
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $resGroup, 1, 0.0, 0.0, -4.0
         );
     }

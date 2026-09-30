@@ -27,7 +27,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 0xc, 0);
         $this->shouldWriteLong($task + 8, 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_markTexlist_8c1bc418'), 0x79, 0.0, 0.0, -3.0);
     }
 
@@ -45,7 +45,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($task + 8, 2);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_markTexlist_8c1bc418'), 0x79, 0.0, 0.0, -3.0);
     }
 

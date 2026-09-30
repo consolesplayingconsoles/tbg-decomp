@@ -3,7 +3,8 @@
 #include <njdef.h>
 #include "0129cc_game.h"
 #include "0100bc_sound.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
+#include "015034_text.h"
 #include "01fa78_hud.h" /* HudReset_8c02018c, var_8c226434, var_8c226438 */
 #include "01614c_replay_menu.h"
 #include "028258_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
@@ -221,7 +222,7 @@ STATIC int pauseUpdate_8c0129cc(void)
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
             LOG_DEBUG(("[PAUSE] pauseUpdate_8c0129cc: cursor -> RETIRE\n"));
         }
-        TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONTINUE, 0.0f, 0.0f, MARK_Z_ARROW);
+        SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONTINUE, 0.0f, 0.0f, MARK_Z_ARROW);
     } else {
         switch (var_retirePhase_8c18ad08) {
         case RETIRE_PHASE_IDLE:
@@ -234,14 +235,14 @@ STATIC int pauseUpdate_8c0129cc(void)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                 LOG_DEBUG(("[PAUSE] pauseUpdate_8c0129cc: cursor -> CONTINUE\n"));
             }
-            TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_RETIRE, 0.0f, 0.0f, MARK_Z_ARROW);
+            SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_RETIRE, 0.0f, 0.0f, MARK_Z_ARROW);
             break;
 
         case RETIRE_PHASE_CONFIRM:
             /* Confirm: B cancels; Left=YES / Right=NO; A acts on the choice. */
             if ((p->press & PDD_DGT_TB) != 0) {
                 CHANGE_RETIRE_PHASE(RETIRE_PHASE_IDLE);
-                TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_RETIRE, 0.0f, 0.0f, MARK_Z_ARROW);
+                SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_RETIRE, 0.0f, 0.0f, MARK_Z_ARROW);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
                 break;
             }
@@ -259,7 +260,7 @@ STATIC int pauseUpdate_8c0129cc(void)
                     sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                     LOG_DEBUG(("[PAUSE] pauseUpdate_8c0129cc: confirm choice -> NO\n"));
                 }
-                TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONFIRM_YES, 0.0f, 0.0f, MARK_Z_ARROW);
+                SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONFIRM_YES, 0.0f, 0.0f, MARK_Z_ARROW);
                 break;
             }
             /* A cancels back to RETIRE. */
@@ -271,13 +272,13 @@ STATIC int pauseUpdate_8c0129cc(void)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                 LOG_DEBUG(("[PAUSE] pauseUpdate_8c0129cc: confirm choice -> YES\n"));
             }
-            TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONFIRM_NO, 0.0f, 0.0f, MARK_Z_ARROW);
+            SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONFIRM_NO, 0.0f, 0.0f, MARK_Z_ARROW);
             break;
 
         case RETIRE_PHASE_FADING:
             /* Retire committed: hold the YES mark through the fade, then leave the drive. */
             if (var_isFading_8c226568 != 0) {
-                TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONFIRM_YES, 0.0f, 0.0f, MARK_Z_ARROW);
+                SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_CONFIRM_YES, 0.0f, 0.0f, MARK_Z_ARROW);
                 njDrawPolygon(init_pauseDimQuad_8c03bf4c, 4, 1);
                 return 0;
             }
@@ -301,7 +302,7 @@ STATIC int pauseUpdate_8c0129cc(void)
         }
     }
 
-    TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_BASE, 0.0f, 0.0f, MARK_Z_BASE);
+    SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_BASE, 0.0f, 0.0f, MARK_Z_BASE);
     njDrawPolygon(init_pauseDimQuad_8c03bf4c, 4, 1);
     return 0;
 }
@@ -416,9 +417,9 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
     RenderResetQueues_8c02239c();
     TaskExecGroup_8c014b42(var_tasks_8c1ba5e8);
     RenderUpdatePlain_8c022910();
-    TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO, 0.0f, 0.0f, MARK_Z_BASE);
+    SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO, 0.0f, 0.0f, MARK_Z_BASE);
     if ((task->counter_0x0c & 0x18) != 0) {
-        TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO_BLINK, 0.0f, 0.0f, MARK_Z_BASE);
+        SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, MARK_DEMO_BLINK, 0.0f, 0.0f, MARK_Z_BASE);
     }
 }
 

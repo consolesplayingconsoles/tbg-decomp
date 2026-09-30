@@ -15,13 +15,13 @@ return new class extends TestCase {
         $this->call('_drawNumber_8c018aa2')->with(100, 42.0, 69.0);
 
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($ms + 0, 15, 42.0, 69.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($ms + 0, 15, 42.0, 69.0, -4.0);
         $this->shouldCall('__divls');
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($ms + 0, 15, 32.0, 69.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($ms + 0, 15, 32.0, 69.0, -4.0);
         $this->shouldCall('__divls');
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($ms + 0, 16, 22.0, 69.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($ms + 0, 16, 22.0, 69.0, -4.0);
         $this->shouldCall('__divls');
     }
 
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->call('_drawNumber_8c018aa2')->with(7, 10.0, 20.0);
 
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($ms + 0, 22, 10.0, 20.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($ms + 0, 22, 10.0, 20.0, -4.0);
         $this->shouldCall('__divls');
     }
 

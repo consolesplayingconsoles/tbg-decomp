@@ -53,7 +53,7 @@ return new class extends TestCase {
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             4,
             0.0, 0.0, -4.5
@@ -73,7 +73,7 @@ return new class extends TestCase {
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 2);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             4,
             0.0, 0.0, -4.5
@@ -92,7 +92,7 @@ return new class extends TestCase {
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             4,
             0.0, 0.0, -4.5
@@ -117,7 +117,7 @@ return new class extends TestCase {
             0x1234,
             1, 0, 0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             5,
             0.0, 0.0, -4.5
@@ -145,7 +145,7 @@ return new class extends TestCase {
             0x1234,
             1, 0, 0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             5,
             0.0, 0.0, -4.5
@@ -166,13 +166,13 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleBinary_8c016caa')->andReturn(0);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             2,
             224.0, 300.0, -4.0
         );
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             0,
             0.0, 0.0, -8.0
@@ -198,13 +198,13 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             2,
             224.0, 300.0, -4.0
         );
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             0,
             0.0, 0.0, -8.0
@@ -230,13 +230,13 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             3,
             224.0, 300.0, -4.0
         );
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             0,
             0.0, 0.0, -8.0
@@ -257,18 +257,18 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleBinary_8c016caa')->andReturn(0);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             2,
             224.0, 300.0, -4.0
         );
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             1,
             0.0, 0.0, -5.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             0,
             0.0, 0.0, -8.0
@@ -304,13 +304,13 @@ return new class extends TestCase {
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             2,
             224.0, 300.0, -4.0
         );
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             0,
             0.0, 0.0, -8.0
@@ -329,7 +329,7 @@ return new class extends TestCase {
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             3 + 0x19,
             0.0, 0.0, -4.5
@@ -349,7 +349,7 @@ return new class extends TestCase {
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x18, 6);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             3 + 0x19,
             0.0, 0.0, -4.5
@@ -369,7 +369,7 @@ return new class extends TestCase {
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
         $this->shouldWriteLong($menuStateBase + 0x68, 4);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             3 + 0x19,
             0.0, 0.0, -4.5
@@ -391,7 +391,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuStateBase + 0x68, 11);
         $this->shouldWriteLong($menuStateBase + 0x18, 7);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(0x14);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             3 + 0x19,
             0.0, 0.0, -4.5
@@ -410,7 +410,7 @@ return new class extends TestCase {
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase + 0x0c,
             3 + 0x19,
             0.0, 0.0, -4.5
@@ -487,7 +487,7 @@ return new class extends TestCase {
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             2,
             224.0, 300.0, -4.0
@@ -507,13 +507,13 @@ return new class extends TestCase {
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             2,
             224.0, 300.0, -4.0
         );
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $menuStateBase,
             1,
             0.0, 0.0, -4.5
@@ -529,7 +529,7 @@ return new class extends TestCase {
     {
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $this->setSize('_var_isFading_8c226568', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x68); // 2 x PDS_PERIPHERAL

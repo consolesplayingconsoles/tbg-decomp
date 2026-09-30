@@ -889,7 +889,7 @@ section and took the strings they point at with them.
 
 SHC implements the initializer by memcpy-ing a zero-filled constant onto the
 stack, so `Uint8 buf[768] = {0}` puts 768 zero bytes in section C.
-`014f54_text`'s `unpackGlyph_8c015110` had two, 2816 bytes the original object
+`015034_text`'s `unpackGlyph_8c015110` had two, 2816 bytes the original object
 does not have -- it zeroes with a runtime loop instead. Clear what actually
 needs clearing inside the loop that already walks the array.
 

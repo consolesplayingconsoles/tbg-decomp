@@ -2,6 +2,7 @@
 #include <shinobi.h>
 #include "01c980_profile_file.h"
 #include "015ab8_title.h"
+#include "014f54_sprite.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "02af78_event.h"
@@ -387,7 +388,7 @@ STATIC void drawUnlockGrid_8c01c9f2(void)
             int row = i / ROW_LENGTH;
             int col = i % ROW_LENGTH;
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 2,
                 col * COL_WIDTH + GRID_X,
@@ -397,7 +398,7 @@ STATIC void drawUnlockGrid_8c01c9f2(void)
         }
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         3,
         var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x,
@@ -405,7 +406,7 @@ STATIC void drawUnlockGrid_8c01c9f2(void)
         -2.0f
     );
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         1,
         0.0f,
@@ -432,7 +433,7 @@ STATIC void drawEpisodeChecklist_8c01cac8(void)
 
     while (*flags != 0xff) {
         if (EventHasProfileProgressFlag_8c02aff0(*flags)) {
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 9, x, y, -2.0f
             );
@@ -448,7 +449,7 @@ STATIC void drawEpisodeChecklist_8c01cac8(void)
     }
 
     if (anyChecked) {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_resourceGroup_8c2263a8,
             var_menuState_8c1bc7a8.cursorCol_0x3c,
             0.0f, 0.0f, -3.0f
@@ -456,26 +457,26 @@ STATIC void drawEpisodeChecklist_8c01cac8(void)
     }
 
     if (var_menuState_8c1bc7a8.selected_0x38 < PAGE_OPTION_EXIT) {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             var_menuState_8c1bc7a8.selected_0x38 + 5,
             0.0f, 0.0f, -3.0f
         );
 
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             10,
             0.0f, 0.0f, -3.0f
         );
     } else {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
             11,
             0.0f, 0.0f, -3.0f
         );
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         4,
         0.0f, 0.0f, -4.0f
@@ -768,7 +769,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
             break;
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         0, 0.0f, 0.0f, -5.0f
     );

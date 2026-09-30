@@ -595,7 +595,7 @@ return new class extends TestCase {
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c)
             ->andReturn(0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             228.0,
@@ -634,7 +634,7 @@ return new class extends TestCase {
         $this->shouldWriteMenuState(8);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             3,
             228.0,
@@ -672,7 +672,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("セーブ可能です");
         $this->shouldWriteMenuState(2);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             4,
             228.0,
@@ -706,7 +706,7 @@ return new class extends TestCase {
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c)
             ->andReturn(0);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             228.0,
@@ -748,7 +748,7 @@ return new class extends TestCase {
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             3,
             228.0,
@@ -786,7 +786,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("ファイルを設定せずに<E>ゲームを開始します");
         $this->shouldWriteMenuState(2);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')
+        $this->shouldCall('_SpriteDraw_8c014f54')
             ->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             4,
             228.0,
@@ -1052,7 +1052,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x00,
             2,
             228.0,
@@ -1183,7 +1183,7 @@ return new class extends TestCase {
         $this->setSize('_ObjectsMenuTextboxText_8c02af1c', 4);
         $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
         $this->setSize('_BupGetInfo_8c014bba', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $this->setSize('_MainMenuSwitchFromTask_8c01a09a', 4);
     }

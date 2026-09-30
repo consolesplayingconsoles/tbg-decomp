@@ -1,0 +1,79 @@
+/* @unit Sprite */
+/* 8c014f54 */
+#include <shinobi.h>
+#include "014f54_sprite.h"
+#include "includes.h" /* STATIC */
+
+/* ====================
+ * Functions
+ * ====================
+ */
+
+void SpriteDraw_8c014f54(
+    ResourceGroup *resource_group,
+    int texture_id,
+    float x,
+    float y,
+    float priority
+) {
+    ResourceGroupSpriteEntry *sprite_entry;
+    int *dat_section_base;
+    int i;
+    NJS_SPRITE sprite;
+
+    /* 2000 means the font group, whose contents_0x08 is the sprite entry
+     * itself rather than a table of offsets to one. */
+    if (texture_id == 2000) {
+        sprite_entry =
+            (ResourceGroupSpriteEntry *) resource_group->contents_0x08;
+    } else {
+        int *offset_table = resource_group->contents_0x08;
+        int texture_offset = offset_table[texture_id];
+        sprite_entry =
+            (ResourceGroupSpriteEntry *)
+            &((int *) resource_group->contents_0x08)[texture_offset];
+    }
+
+    sprite.tlist = resource_group->tlist_0x00;
+    sprite.tanim = resource_group->tanim_0x04;
+    sprite.ang = 0;
+    sprite.sx = 1.0f;
+    sprite.sy = 1.0f;
+
+    for (i = 0; sprite_entry[i].sprite_no_0x00 != -1; i++) {
+        sprite.p.x = x + sprite_entry[i].x_0x04;
+        sprite.p.y = y + sprite_entry[i].y_0x08;
+
+        njDrawSprite2D(
+            &sprite, sprite_entry[i].sprite_no_0x00, priority, NJD_SPRITE_ALPHA
+        );
+
+        priority += .0001f;
+    }
+}
+
+/* Unreferenced anywhere in the image. The interpolation cancels --
+ * start + steps * ((end - start) / steps) is end -- so it would only ever
+ * draw at (end_x, end_y). */
+STATIC void drawSpriteLerp_8c014ff6(
+    float start_x,
+    float start_y,
+    float priority,
+    float end_x,
+    float end_y,
+    int steps_x,
+    int steps_y,
+    ResourceGroup *res_group,
+    int texture_id
+){
+    float steps_x_float = steps_x;
+    float steps_y_float = steps_y;
+
+    float x_step = (end_x - start_x) / steps_x_float;
+    float y_step = (end_y - start_y) / steps_y_float;
+
+    float lerp_x = start_x + steps_x_float * x_step;
+    float lerp_y = start_y + steps_y_float * y_step;
+
+    SpriteDraw_8c014f54(res_group, texture_id, lerp_x, lerp_y, priority);
+}

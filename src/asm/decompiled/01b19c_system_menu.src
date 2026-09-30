@@ -23,7 +23,7 @@
           .IMPORT     _var_selectedVm_8c1ba34c
           .IMPORT     _BupSave_8c014bcc
           .IMPORT     _var_vmBusy_8c157a7c
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _VmMenuUpdateVmuStatus_8c01967c
           .IMPORT     _var_vmuStatus_8c226048
@@ -591,7 +591,7 @@ LP_GEN_91278:
           .DATA.L H'43640000 ; H'8C01B55C
           .DATA.L H'C0800000 ; H'8C01B560
           .DATA.L H'C0A00000 ; H'8C01B564
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01B568
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01B568
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01B56C
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01B570
           .DATA.L _var_saveSlot_8c1ba350 ; H'8C01B574

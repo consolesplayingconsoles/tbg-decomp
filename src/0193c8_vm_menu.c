@@ -9,6 +9,7 @@
 #include "014a9c_tasks.h"
 #include "015ab8_title.h"
 #include "014b8c_backup.h"
+#include "014f54_sprite.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
@@ -372,7 +373,7 @@ STATIC void drawVmMenu_8c0197c0()
     int textureId = 8;
 
     // Draw cursor
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         0x10,
         var_menuState_8c1bc7a8.pos.vmSelect.cursor_0x20.x,
@@ -383,7 +384,7 @@ STATIC void drawVmMenu_8c0197c0()
     // Draw connected VMUs
     for (drive = 0; drive < 8; drive++) {
         if (var_vmuStatus_8c226048[drive]) {
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
                 textureId, 0.0, 0.0, -5.0
             );
@@ -392,19 +393,19 @@ STATIC void drawVmMenu_8c0197c0()
     }
 
     // Draw default VMU icons
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         7, 0.0, 0.0, -6.0
     );
 
     // Draw textbox background
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         1, 0.0, 0.0, -4.3
     );
 
     // Draw background
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         0, 0.0, 0.0, -7.0
     );
@@ -413,13 +414,13 @@ STATIC void drawVmMenu_8c0197c0()
 /* Tested */
 STATIC void drawVmWarning_8c019852()
 {
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x11, 0.0, 0.0, -5.0);
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x11, 0.0, 0.0, -5.0);
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
         228.0, 304.0, -5.0
     );
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00, 0,
         0.0, 0.0, -7.0
     );
@@ -602,7 +603,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 CHANGE_STATE(VM_MENU_STATE_IDLE);
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0,
@@ -630,7 +631,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 CHANGE_STATE(VM_MENU_STATE_IDLE);
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0,
@@ -722,7 +723,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 return;
             }
 
-            TxtDrawSprite_8c014f54(
+            SpriteDraw_8c014f54(
                 &var_menuState_8c1bc7a8.resourceGroupA_0x00,
                 var_menuState_8c1bc7a8.cursorCol_0x3c + 2,
                 228.0,

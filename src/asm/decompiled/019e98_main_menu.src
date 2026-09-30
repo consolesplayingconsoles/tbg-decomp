@@ -13,7 +13,7 @@
           .IMPORT     _CourseMenuSwitchFromTask_8c017e18
           .IMPORT     _OptionSwitchToTopMenu_8c01b122
           .IMPORT     _VmGameSwitchToTopMenu_8c01c880
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _TaskSetAction_8c014b3e
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqResetQueues_8c011f6c
@@ -353,7 +353,7 @@ LP_GEN_13822:
           .DATA.L _CourseMenuSwitchFromTask_8c017e18 ; H'8C01A100
           .DATA.L _OptionSwitchToTopMenu_8c01b122 ; H'8C01A104
           .DATA.L _VmGameSwitchToTopMenu_8c01c880 ; H'8C01A108
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01A10C
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01A10C
           .DATA.L H'C0800000 ; H'8C01A110
           .DATA.L H'C0A00000 ; H'8C01A114
           .DATA.L H'C0E00000 ; H'8C01A118

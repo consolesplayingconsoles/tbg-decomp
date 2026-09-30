@@ -1,6 +1,6 @@
 ; 8c01d7fc
           .IMPORT     _var_menuState_8c1bc7a8
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     __modls
           .IMPORT     __divls
           .IMPORT     _ObjectsMenuTextboxText_8c02af1c
@@ -196,7 +196,7 @@ LP_GEN_57051:
           .DATA.W H'00FF ; H'8C01D8AE
           .DATA.L H'43E80000 ; H'8C01D8B0
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01D8B4
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01D8B8
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01D8B8
           .DATA.L H'C0400000 ; H'8C01D8BC
           .DATA.L H'41900000 ; H'8C01D8C0
           .DATA.L __modls ; H'8C01D8C4
@@ -561,7 +561,7 @@ LP_GEN_73625:
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01DB9C
           .DATA.L _var_progress_8c1ba1cc ; H'8C01DBA0
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01DBA4
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01DBA8
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01DBA8
 LAB_8c01dbac:
           MOV.L       LP_GEN_38701+4,R3
           MOV         #H'3,R6
@@ -1155,7 +1155,7 @@ LP_GEN_43538:
           .RES.W 1 ; H'8C01E03E
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C01E040
           .DATA.L H'C089999A ; H'8C01E044
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01E048
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01E048
           .DATA.L H'FF418DFF ; H'8C01E04C
           .DATA.L _njSetBackColor ; H'8C01E050
           .DATA.L _InputPushTask_8c0128cc ; H'8C01E054

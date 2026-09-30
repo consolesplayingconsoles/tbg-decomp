@@ -158,10 +158,10 @@ return new class extends TestCase {
         });
 
         $res = $this->addressOf('_var_loadingResourceGroup_8c1bc3f8');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($res, 0, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($res, 0, 0.0, 0.0, -5.0);
         $this->shouldWriteLong($task + 0x0c, 1);
         $this->shouldCall('__modls');
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($res, 1, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($res, 1, 0.0, 0.0, -4.0);
     }
 
     private function makeTask(int $state, int $frame): int
@@ -191,7 +191,7 @@ return new class extends TestCase {
             '_njSetTexture' => 4,
             '_njLoadCacheTexture' => 4,
             '_njReleaseTexture' => 4,
-            '_TxtDrawSprite_8c014f54' => 4,
+            '_SpriteDraw_8c014f54' => 4,
             '_InputDispatchTask_8c012970' => 4,
             '_TaskFree_8c014b66' => 4,
             '_GameEnterDrive_8c01306e' => 4,

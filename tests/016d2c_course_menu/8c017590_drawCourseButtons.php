@@ -179,7 +179,7 @@ return new Class extends TestCase {
     }
 
     private function shouldDrawSprite(int $spriteNo, float $x, float $y, float $priority) {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             $spriteNo,
             $x,
@@ -189,7 +189,7 @@ return new Class extends TestCase {
     }
 
     private function resolveSymbols() {
-        $this->setSize('_TxtDrawSprite_8c014f54', 0x04);
+        $this->setSize('_SpriteDraw_8c014f54', 0x04);
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
         $this->setSize('__modls', 0x04);

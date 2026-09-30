@@ -25,21 +25,21 @@ return new class extends TestCase {
         $this->initLetters([1, 0, 1, 0, 1, 0]);
 
         // One sprite per received letter; spriteNo is slot + 1.
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1,
             0.0, 0.0, -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3,
             0.0, 0.0, -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5,
             0.0, 0.0, -4.0
         );
 
         // Grid frame.
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0,
             0.0, 0.0, -5.0
         );
@@ -55,26 +55,26 @@ return new class extends TestCase {
 
         $this->initLetters([1, 1, 1, 1, 1, 1]);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 1, 0.0, 0.0, -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 2, 0.0, 0.0, -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 3, 0.0, 0.0, -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 4, 0.0, 0.0, -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0
         );
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 6, 0.0, 0.0, -4.0
         );
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0, 0.0, 0.0, -5.0
         );
 
@@ -89,7 +89,7 @@ return new class extends TestCase {
 
         $this->initLetters([0, 0, 0, 0, 0, 0]);
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 0, 0.0, 0.0, -5.0
         );
 
@@ -111,6 +111,6 @@ return new class extends TestCase {
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
 
         // Functions
-        $this->setSize('_TxtDrawSprite_8c014f54', 0x4);
+        $this->setSize('_SpriteDraw_8c014f54', 0x4);
     }
 };

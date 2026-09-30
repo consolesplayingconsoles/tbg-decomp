@@ -5,7 +5,7 @@
 #include "019e98_main_menu.h"
 #include "013ae8_route_load.h"
 #include "014a9c_tasks.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
 #include "015ab8_title.h"
 #include "0100bc_sound.h"
 #include "011120_asset_queues.h"
@@ -179,7 +179,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
         }
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         0x65 + var_menuState_8c1bc7a8.field_0x5c,
         0,
@@ -187,7 +187,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
         -4.0
     );
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         0x64,
         0,
@@ -195,7 +195,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
         -5.0
     );
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         0x2d,
         0,

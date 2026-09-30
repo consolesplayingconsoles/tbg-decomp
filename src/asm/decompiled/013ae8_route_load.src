@@ -53,7 +53,7 @@
           .IMPORT     _var_loadScreenActive_8c157a6c
           .IMPORT     _njReleaseTexture
           .IMPORT     _GameEnterDrive_8c01306e
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     __modls
           .IMPORT     _njSetBackColor
           .IMPORT     _var_tasks_8c1ba3c8
@@ -1482,7 +1482,7 @@ LP_GEN_28406:
           .RES.W      1
           .DATA.L _var_loadingResourceGroup_8c1bc3f8
           .DATA.L H'C0A00000
-          .DATA.L _TxtDrawSprite_8c014f54
+          .DATA.L _SpriteDraw_8c014f54
           .DATA.L __modls
           .DATA.L H'C0800000
           .DATA.L H'FF418DFF
@@ -1657,7 +1657,7 @@ LP_GEN_17698:
           .DATA.L _GameEnterDrive_8c01306e
           .DATA.L _InputDispatchTask_8c012970
           .DATA.L H'C0A00000
-          .DATA.L _TxtDrawSprite_8c014f54
+          .DATA.L _SpriteDraw_8c014f54
           .DATA.L __modls
           .DATA.L H'C0800000
           .DATA.L _var_progress_8c1ba1cc + H'C4
@@ -1870,7 +1870,7 @@ LP_GEN_48435:
           .DATA.L _GameEnterDrive_8c01306e
           .DATA.L _InputDispatchTask_8c012970
           .DATA.L H'C0A00000
-          .DATA.L _TxtDrawSprite_8c014f54
+          .DATA.L _SpriteDraw_8c014f54
           .DATA.L __modls
           .DATA.L H'C0800000
 

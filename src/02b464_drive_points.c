@@ -5,6 +5,7 @@
 #include "serial_debug.h"
 #include "02b464_drive_points.h"
 #include "0100bc_sound.h"
+#include "014f54_sprite.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "01fa78_hud.h" /* var_hudState_8c22643c */
@@ -886,7 +887,7 @@ STATIC void driveEndFadeTask_8c02c69a(Task *task, void *state) {
         return;
     }
 
-    TxtDrawSprite_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, 0x79, 0.0f, 0.0f, priority);
+    SpriteDraw_8c014f54((ResourceGroup *)&var_markTexlist_8c1bc418, 0x79, 0.0f, 0.0f, priority);
 }
 
 /* Starts the drive-end fade-out flow: begins fading music/session, then

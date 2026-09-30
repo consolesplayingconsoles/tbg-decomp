@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->setSize('_njQuadTextureStart', 4);
         $this->setSize('_njSetQuadTextureG', 4);
         $this->setSize('_njQuadTextureEnd', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_var_driveMsgQueue_8c228564', 0x18 * 4);
     }
 
@@ -43,7 +43,7 @@ return new class extends TestCase {
 
         // &var_markTexlist_8c1bc418 is the mark ResourceGroup's own address
         // (its first field is the texlist), not a cast of its value.
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with(
+        $this->shouldCall('_SpriteDraw_8c014f54')->with(
             $this->addressOf('_var_markTexlist_8c1bc418'), 0x78, 0.0, 0.0, -1.16
         );
     }

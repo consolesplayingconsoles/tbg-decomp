@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_njDrawTexture', 4);
         $this->setSize('_njDrawPolygon', 4);
         $this->setSize('_njSetCamera', 4);
-        $this->setSize('_TxtDrawSprite_8c014f54', 4);
+        $this->setSize('_SpriteDraw_8c014f54', 4);
     }
 
     public function test_draws_the_no_mirror_arrival_overlay(): void {

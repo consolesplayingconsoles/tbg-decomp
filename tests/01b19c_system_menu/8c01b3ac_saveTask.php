@@ -11,7 +11,7 @@ return new class extends TestCase {
     private function resolveEagerPointers(bool $txtDraw = true, bool $swapBox = true, bool $midi = true): void
     {
         if ($txtDraw) {
-            $this->setSize('_TxtDrawSprite_8c014f54', 4);
+            $this->setSize('_SpriteDraw_8c014f54', 4);
         }
         if ($swapBox) {
             $this->setSize('_ObjectsSwapMessageBoxFor_8c02aefc', 4);
@@ -37,13 +37,13 @@ return new class extends TestCase {
         $rgA = $menuState;              // resourceGroupA_0x00
         $rgB = $menuState + 0xc;        // resourceGroupB_0x0c
 
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($rgB, $selected + 5, 0.0, 0.0, -4.0);
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($rgB, 4, 0.0, 0.0, -5.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($rgB, $selected + 5, 0.0, 0.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($rgB, 4, 0.0, 0.0, -5.0);
         $this->shouldCall('_ObjectsMenuTextboxText_8c02af1c')->with(0xff)->andReturn($textboxResult);
         if ($textboxResult) {
-            $this->shouldCall('_TxtDrawSprite_8c014f54')->with($rgA, 1, 0.0, 0.0, -5.0);
+            $this->shouldCall('_SpriteDraw_8c014f54')->with($rgA, 1, 0.0, 0.0, -5.0);
         }
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($rgA, 0, 0.0, 0.0, -7.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($rgA, 0, 0.0, 0.0, -7.0);
     }
 
     /* Top-of-function VMU status refresh (states < 7, VMU selected). Seeds a
@@ -74,7 +74,7 @@ return new class extends TestCase {
      * active yes/no option, then the common screen draw. */
     private function expectPromptTail(int $menuState, int $field3c, int $selected, int $textboxResult): void
     {
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuState, $field3c + 2, 228.0, 266.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($menuState, $field3c + 2, 228.0, 266.0, -4.0);
         $this->expectDrawTail($menuState, $selected, $textboxResult);
     }
 
@@ -571,7 +571,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuState + 0x18, 2);
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc')->with("");
         // LAB_8c01b88c draws the highlight, then LAB_8c01b92c draws it again.
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuState, 3, 228.0, 266.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($menuState, 3, 228.0, 266.0, -4.0);
         $this->expectPromptTail($menuState, 1, 1, 0);
     }
 
@@ -619,7 +619,7 @@ return new class extends TestCase {
         $this->shouldCall('_ObjectsSwapMessageBoxFor_8c02aefc');
         $this->shouldCall('_VmGameSetLcdSlot_8c01c8fc')->with(1);
         // LAB_8c01b88c draws the highlight, then LAB_8c01b92c draws it again.
-        $this->shouldCall('_TxtDrawSprite_8c014f54')->with($menuState, 2, 228.0, 266.0, -4.0);
+        $this->shouldCall('_SpriteDraw_8c014f54')->with($menuState, 2, 228.0, 266.0, -4.0);
         $this->expectPromptTail($menuState, 0, 1, 0);
     }
 

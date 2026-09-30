@@ -1,7 +1,7 @@
 ; 8c01e27c
 ; @unit PracticeMenu
           .IMPORT     _ObjectsMenuTextboxText_8c02af1c
-          .IMPORT     _TxtDrawSprite_8c014f54
+          .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _var_isFading_8c226568
@@ -240,7 +240,7 @@ LP_GEN_72974:
           .DATA.L H'C0800000 ; H'8C01E374
           .DATA.L _ObjectsMenuTextboxText_8c02af1c ; H'8C01E378
           .DATA.L H'43600000 ; H'8C01E37C
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01E380
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01E380
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01E384
           .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01E388
           .DATA.L H'C0900000 ; H'8C01E38C
@@ -925,7 +925,7 @@ LP_GEN_46961:
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01E8E0
           .DATA.L _CourseMenuDrawDateAndExp_8c016ee6 ; H'8C01E8E4
           .DATA.L H'C0800000 ; H'8C01E8E8
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01E8EC
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01E8EC
           .DATA.L _init_guideClipRect_8c0451f8 ; H'8C01E8F0
           .DATA.L _njUserClipping ; H'8C01E8F4
           .DATA.L H'41C00000 ; H'8C01E8F8
@@ -1267,7 +1267,7 @@ LP_GEN_88702:
           .DATA.L _var_lessonDialogQueue_8c226414 ; H'8C01EBA8
           .DATA.L H'40C00000 ; H'8C01EBAC
           .DATA.L H'43B50000 ; H'8C01EBB0
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01EBB4
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01EBB4
           .DATA.L H'C089999A ; H'8C01EBB8
           .DATA.L H'41900000 ; H'8C01EBBC
           .DATA.L __modls ; H'8C01EBC0
@@ -1565,7 +1565,7 @@ LP_GEN_52292:
           .RES.W 1 ; H'8C01EDDA
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01EDDC
           .DATA.L _var_progress_8c1ba1cc ; H'8C01EDE0
-          .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01EDE4
+          .DATA.L _SpriteDraw_8c014f54 ; H'8C01EDE4
           .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C01EDE8
           .DATA.L _var_isFading_8c226568 ; H'8C01EDEC
           .DATA.L _ObjectsSwapMessageBoxFor_8c02aefc ; H'8C01EDF0

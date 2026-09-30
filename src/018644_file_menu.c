@@ -9,7 +9,7 @@
 #include "019e98_main_menu.h"
 #include "01a148_option.h"
 #include "0100bc_sound.h"
-#include "014f54_text.h"
+#include "014f54_sprite.h"
 #include "028258_objects.h"
 #include "01bb48_vm_game.h"
 #include "01b19c_system_menu.h"
@@ -359,7 +359,7 @@ STATIC void buildFileList_8c018a22(void)
 STATIC void drawNumber_8c018aa2(int value, float x, float y)
 {
     do {
-        TxtDrawSprite_8c014f54(
+        SpriteDraw_8c014f54(
             &var_menuState_8c1bc7a8.resourceGroupA_0x00,
             15 + value % 10, // digit glyphs start at 15
             x,
@@ -388,14 +388,14 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
     float xoff;
 
     if (kind == FILE_CARD_NEW) {
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x13, x, 0.0, -4.0);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x13, x, 0.0, -4.0);
         return;
     }
 
     save = var_saveBufCursor_8c225fe0;
 
     drawNumber_8c018aa2(save->days_0x00, x + (save->days_0x00 >= 10 ? 63.0 : 52.0), 122.0);
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupA_0x00,
         6 + (save->days_0x00 + 1) % 7,
         x + 84.0, 122.0, -4.0);
@@ -405,7 +405,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
     cnt3 = 0;
     for (i = 0; i < 9; i++) {
         if (save->courses_0x44[i].unlocked_0x00 != 0) {
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x26 + i, x, 0.0, -4.0);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x26 + i, x, 0.0, -4.0);
         }
         switch (save->courses_0x44[i].storyAward_0x03) {
         case AWARD_TIER_GOLD:   cnt3++; break;
@@ -432,7 +432,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
                 y = 65536.0;
                 break;
             }
-            TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, glyph, x + xoff, y, -4.5);
+            SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, glyph, x + xoff, y, -4.5);
             xoff += 24.0;
             if (xoff > 109.0) {
                 break;
@@ -441,7 +441,7 @@ STATIC void drawFileCard_8c018b4c(int kind, float x)
         y += 24.0;
     }
 
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x12, x, 0.0, -4.5);
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x12, x, 0.0, -4.5);
     var_saveBufCursor_8c225fe0 = (char *)var_saveBufCursor_8c225fe0 + 0x600;
 }
 
@@ -470,23 +470,23 @@ STATIC void drawFileSelect_8c018d46(void)
         x += 182.0;
     }
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x2f,
         182.0 * (float)var_menuState_8c1bc7a8.selected_0x38 + 45.0, 0.0, -3.0);
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_menuState_8c1bc7a8.cursorCol_0x3c != 0 ? 0x16 : 0x15,
         0.0, 0.0, -3.0);
 
-    TxtDrawSprite_8c014f54(
+    SpriteDraw_8c014f54(
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         var_fileCards_8c226018[var_menuState_8c1bc7a8.cursorCol_0x3c + 3] == FILE_CARD_EMPTY ? 0x17 : 0x18,
         0.0, 0.0, -3.0);
 
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x14, 0.0, 0.0, -4.0);
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
-    TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, 0x14, 0.0, 0.0, -4.0);
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
+    SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
 }
 
 STATIC void fileSelectTask_8c018e7e(Task *task)
@@ -524,8 +524,8 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             CHANGE_STATE(FILE_MENU_STATE_LOAD_ERROR);
             VmGameSetLcdSlot_8c01c8fc(0);
         }
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
         break;
 
     case FILE_MENU_STATE_LOAD_ERROR:
@@ -536,8 +536,8 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             return;
         }
         ObjectsMenuTextboxText_8c02af1c(0xff);
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
         break;
 
     case FILE_MENU_STATE_ERROR_FADE_OUT:
@@ -546,8 +546,8 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             return;
         }
         ObjectsMenuTextboxText_8c02af1c(0xff);
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
-        TxtDrawSprite_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 1, 0.0, 0.0, -4.3);
+        SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupA_0x00, 0, 0.0, 0.0, -5.0);
         break;
 
     case FILE_MENU_STATE_READY:
