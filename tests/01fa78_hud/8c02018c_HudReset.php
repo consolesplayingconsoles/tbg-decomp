@@ -21,13 +21,9 @@ return new class extends TestCase {
     public function test_installs_task_and_resets_scratch_state(): void
     {
         $this->setSize('_var_tasks_8c1ba5e8', 4);
-        // The whole 0x22643c..0x2264a8 region is reset off two base pointers,
-        // var_hudState_8c22643c and the var_tachoNeedleVerts_8c226478 that
-        // follows it in section B; allocate the two adjacent so every write
-        // can be anchored off the first, as in the real layout.
-        $base = $this->alloc(0x6c);
-        $this->rellocate('_var_hudState_8c22643c', $base);
-        $this->rellocate('_var_tachoNeedleVerts_8c226478', $base + 0x3c);
+        // var_tachoNeedleVerts_8c226478 follows var_hudState_8c22643c in section B,
+        // so assertions reach both off one base.
+        $base = $this->addressOf('_var_hudState_8c22643c');
 
         $this->setSize('_var_runState_8c2285c4', 0x9c);
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 42);

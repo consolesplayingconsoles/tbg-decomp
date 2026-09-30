@@ -13,6 +13,41 @@
 #include "serial_debug.h"
 
 /* ====================
+ * Type Declarations
+ * ====================
+ */
+
+/* The driver-comment popup currently on screen. showMark_8c01fa78
+ * sets markSpriteId_0x00 and displayTimer_0x08 (frames left); blinkIconId_0x04
+ * is a second sprite hudUpdateTask_8c01ff48 blinks on top of it, from the map
+ * cell's scenePresetIds_0x3bc, and only while the mark id is in [0x1e, 0x50].
+ * Both are drawn from var_markTexlist_8c1bc418. */
+typedef struct {
+    int markSpriteId_0x00;
+    int blinkIconId_0x04;
+    int displayTimer_0x08;
+    int blinkCounter_0x0c;
+} HudMarkState;
+
+/* A screen-space vertex for njDrawPolygon: position plus an ARGB word. The
+ * HUD's static quads are raw byte arrays of these. */
+typedef struct {
+    float x, y, z;
+    Uint32 color;
+} HudVertex;
+
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+void* var_8c226434;
+void* var_8c226438;
+HudState var_hudState_8c22643c;
+STATIC HudVertex var_tachoNeedleVerts_8c226478[3];
+STATIC HudMarkState var_hudMark_8c2264a8;
+
+/* ====================
  * Initialized Globals
  * ====================
  */

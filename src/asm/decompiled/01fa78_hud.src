@@ -1,5 +1,4 @@
 ; 8c01fa78
-          .IMPORT     _var_hudMark_8c2264a8
           .IMPORT     __divls
           .IMPORT     __modls
           .IMPORT     _TxtDrawSprite_8c014f54
@@ -7,14 +6,12 @@
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _njDrawPolygon
           .IMPORT     _var_busState_8c1bb9d0
-          .IMPORT     _var_hudState_8c22643c
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_markTexlist_8c1bc418
           .IMPORT     _var_scratchMatrix_8c1bc46c
           .IMPORT     _njUnitMatrix
           .IMPORT     _njTranslate
           .IMPORT     _njRotateZ
-          .IMPORT     _var_tachoNeedleVerts_8c226478
           .IMPORT     _njCalcPoint
           .IMPORT     _ObjectsGetTrafficSignal_8c0288b2
           .IMPORT     _ObjectsGetTrafficSignalFrame_8c028900
@@ -32,7 +29,14 @@
           .EXPORT     _init_pointsMeterTrack_8c045374
           .EXPORT     _init_hudPanel_8c0453b4
           .EXPORT     _init_tachoNeedle_8c045414
+          .EXPORT     _var_tachoNeedleVerts_8c226478
+          .EXPORT     _var_hudMark_8c2264a8
           .AENDI
+          .EXPORT     _var_8c226434 ; 0129cc_game
+          .EXPORT     _var_8c226438 ; 0129cc_game
+          .EXPORT     _var_hudState_8c22643c ; 0100bc_sound
+                                    ; 02b464
+                                    ; 02c884
           .SECTION     P, CODE, ALIGN=4
 _showMark_8c01fa78:
           MOV.L       LP_GEN_77638+4,R6
@@ -1019,4 +1023,15 @@ _init_tachoNeedle_8c045414:        ; from defines
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'C0, H'08, H'D6, H'51, H'3F
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'40, H'08, H'D6, H'51, H'3F
           .DATA.B      H'00, H'00, H'20, H'C2, H'00, H'00, H'00, H'00, H'08, H'D6, H'51, H'3F
+          .SECTION    B,DATA,ALIGN=4
+_var_8c226434:
+          .RES.B      4
+_var_8c226438:
+          .RES.B      4
+_var_hudState_8c22643c:
+          .RES.B      60
+_var_tachoNeedleVerts_8c226478:
+          .RES.B      48
+_var_hudMark_8c2264a8:
+          .RES.B      16
           .END

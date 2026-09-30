@@ -1,12 +1,4 @@
-; 8c226434
-          .EXPORT     _var_8c226434 ; 0129cc_game
-          .EXPORT     _var_8c226438 ; 0129cc_game
-          .EXPORT     _var_hudState_8c22643c ; 0100bc_sound
-                                    ; 01fa78
-                                    ; 02b464
-                                    ; 02c884
-          .EXPORT     _var_tachoNeedleVerts_8c226478 ; 01fa78
-          .EXPORT     _var_hudMark_8c2264a8 ; 01fa78
+; 8c2264b8
           .EXPORT     _var_driveCueState_8c2264b8 ; 020214
                                     ; 022bdc
                                     ; 025b98
@@ -199,16 +191,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_8c226434:
-          .RES.B      4
-_var_8c226438:
-          .RES.B      4
-_var_hudState_8c22643c:
-          .RES.B      60
-_var_tachoNeedleVerts_8c226478:
-          .RES.B      48
-_var_hudMark_8c2264a8:
-          .RES.B      16
 _var_driveCueState_8c2264b8:
           .RES.B      28
 _var_activeGroundGrid_8c2264d4:

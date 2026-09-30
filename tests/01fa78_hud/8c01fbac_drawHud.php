@@ -17,16 +17,12 @@ return new class extends TestCase {
     private function setup(): array
     {
         $this->setSize('_var_busState_8c1bb9d0', 0x3c8);
-        // var_tachoNeedleVerts_8c226478 is its own object, but it follows
-        // var_hudState_8c22643c in section B and the assertions below reach it
-        // off that base, so the two are allocated adjacent here.
-        $base = $this->alloc(0x6c);
-        $this->rellocate('_var_hudState_8c22643c', $base);
-        $this->rellocate('_var_tachoNeedleVerts_8c226478', $base + 0x3c);
+        // var_tachoNeedleVerts_8c226478 follows var_hudState_8c22643c in section B,
+        // so assertions reach both off one base.
+        $base = $this->addressOf('_var_hudState_8c22643c');
 
         $runState = $this->setSize('_var_runState_8c2285c4', 0x9c);
 
-        $this->setSize('_var_hudMark_8c2264a8', 0x10);
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_markTexlist_8c1bc418', 4);
         $this->setSize('_var_busStopTexlist_8c1bc424', 4);

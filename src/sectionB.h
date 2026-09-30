@@ -1,6 +1,6 @@
-/* 8c226434: undecompiled data section */
-#ifndef _226434_SECTIONB_H
-#define _226434_SECTIONB_H
+/* 8c2264b8: undecompiled data section */
+#ifndef _2264B8_SECTIONB_H
+#define _2264B8_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -22,25 +22,6 @@
  * =================
  */
 
-/* The driver-comment popup currently on screen (01fa78_hud). showMark_8c01fa78
- * sets markSpriteId_0x00 and displayTimer_0x08 (frames left); blinkIconId_0x04
- * is a second sprite hudUpdateTask_8c01ff48 blinks on top of it, from the map
- * cell's scenePresetIds_0x3bc, and only while the mark id is in [0x1e, 0x50].
- * Both are drawn from var_markTexlist_8c1bc418. */
-typedef struct {
-    int markSpriteId_0x00;
-    int blinkIconId_0x04;
-    int displayTimer_0x08;
-    int blinkCounter_0x0c;
-} HudMarkState;
-
-/* A screen-space vertex for njDrawPolygon: position plus an ARGB word. The
- * HUD's static quads (01fa78_hud) are raw byte arrays of these. */
-typedef struct {
-    float x, y, z;
-    Uint32 color;
-} HudVertex;
-
 /* Ambient drive-cue state, owned by 020214_drive_cue_task (see its .h).
  * Three fields are written from outside that unit: BusTask_8c022bdc (022bdc)
  * sets nearStopLatch_0x0c on the first A press of a drive and
@@ -58,60 +39,6 @@ typedef struct {
     int firstChimeArmed_0x18;
 } DriveCueState;
 
-/* Both only ever written, to -1, by GameInit_8c0134ec; nothing in the image
- * reads either. */
-extern void* var_8c226434;
-extern void* var_8c226438;
-/* Driver-points meter fill, ramped toward
- * var_runState_8c2285c4.driverPoints_0x0c over 20 frames (01fa78_hud).
- * field_0x0c is seeded to 1.0f and never read. */
-typedef struct {
-    float displayedValue_0x00;
-    float lastSample_0x04;
-    float rampStep_0x08;
-    float field_0x0c;
-} DriverPointsMeterState;
-
-/* The HUD's per-frame state. The whole 60-byte block is one object: every
- * field is reached as a constant displacement off a single base register, and
- * the next address (var_tachoNeedleVerts_8c226478) is loaded as its own. */
-typedef struct {
-    /* HudReset_8c02018c zeroes field_0x00/0x04 and nothing reads them back;
-     * field_0x08/0x0c are never touched at all. */
-    int field_0x00;
-    int field_0x04;
-    int field_0x08;
-    int field_0x0c;
-    int driveMarkLatched_0x10;
-
-    /* HUD sprite id for the map's drive instruction under the bus
-     * (markDriveFlags_0x3b0's low 3 bits, + 0x1f), latched by
-     * hudUpdateTask_8c01ff48 (01fa78_hud) and only ever -1 before the run's
-     * first marked cell. 02b464 and 02c884 read it as "the bus has passed
-     * one". */
-    int driveMarkIcon_0x14;
-
-    /* Free-running frame counter gating the blink of that HUD slot; reset by
-     * hudUpdateTask_8c01ff48 on a new instruction and by
-     * BusStopUpdateArrival_8c02ce48 (02c884) on a stop-phase change. */
-    int blinkTimer_0x18;
-
-    DriverPointsMeterState pointsMeter_0x1c;
-
-    float engineRpm_0x2c;
-
-    /* Written (zeroed) by HudReset_8c02018c (01fa78_hud), never read. */
-    int field_0x30;
-
-    /* Gear-message / lane-change-message latch for hudUpdateTask_8c01ff48
-     * (01fa78): set once the corresponding driver-comment popup has been
-     * staged, cleared when the bus-state bit returns to 0. */
-    int gearLatch_0x34;
-    int laneLatch_0x38;
-} HudState;
-extern HudState var_hudState_8c22643c; // 01fa78
-extern HudVertex var_tachoNeedleVerts_8c226478[3]; // 01fa78
-extern HudMarkState var_hudMark_8c2264a8; // 01fa78
 extern DriveCueState var_driveCueState_8c2264b8;
 extern GroundGrid* var_activeGroundGrid_8c2264d4; // ground query grid currently selected for GroundQueryFindPolygon_8c020914/GroundProbeInterpolateHeight_8c020f7e
 extern float var_fadeLightDir0_8c2264d8[3]; // 021b9c_tile_draw: simple-light direction, fade layer 0
@@ -331,4 +258,4 @@ extern int var_fogParam_8c226508;
 extern float var_fogParam_8c227dd0;
 extern Bool var_isFading_8c226568;
 
-#endif // _226434_SECTIONB_H
+#endif // _2264B8_SECTIONB_H

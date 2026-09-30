@@ -4,7 +4,7 @@
 #include "0129cc_game.h"
 #include "0100bc_sound.h"
 #include "014f54_text.h"
-#include "01fa78_hud.h" /* HudReset_8c02018c */
+#include "01fa78_hud.h" /* HudReset_8c02018c, var_8c226434, var_8c226438 */
 #include "01614c_replay_menu.h"
 #include "028258_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "sectionD.h"

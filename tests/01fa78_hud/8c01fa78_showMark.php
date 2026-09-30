@@ -11,7 +11,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_hudMark_8c2264a8', 0x10);
     }
 
     public function test_writes_both_fields(): void
