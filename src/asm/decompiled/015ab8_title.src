@@ -5,7 +5,7 @@
           .IMPORT     _TaskPush_8c014ae8
           .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
-          .IMPORT     _VmSelectMountVms_8c01940e
+          .IMPORT     _VmSelectMountAll_8c01940e
           .IMPORT     _RenderPushFadeIn_8c022a9c
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _var_isFading_8c226568
@@ -23,7 +23,7 @@
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _RouteClearLatch_8c014322
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
-          .IMPORT     _VmSelectUpdateVmusStatus_8c019550
+          .IMPORT     _VmSelectUpdateAllStatus_8c019550
           .IMPORT     _VmSelectSwitchFromTask_8c019e44
           .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _TxtStartAttractDemo_8c0159ac
@@ -171,7 +171,7 @@ L6:
           MOV.L       L37+4,R3;AsqFreeQueues_8c011f7e
           JSR         @R3
           NOP
-          MOV.L       L37+8,R2;VmSelectMountVms_8c01940e
+          MOV.L       L37+8,R2;VmSelectMountAll_8c01940e
           JSR         @R2
           NOP
           MOV.L       @R15,R3
@@ -485,12 +485,12 @@ L36:
 L37:                              
           .DATA.L     _RouteGetLatch_8c01432a ; H'8c015dcc
           .DATA.L     _AsqFreeQueues_8c011f7e ; H'8c015dd0
-          .DATA.L     _VmSelectMountVms_8c01940e
+          .DATA.L     _VmSelectMountAll_8c01940e
           .DATA.L     H'FF000000
           .DATA.L     _njSetBackColor
           .DATA.L     _InputCheckColdBoot_8c012984 ; H'8c015de0
           .DATA.L     _init_saveNames_8c044d50
-          .DATA.L     _VmSelectUpdateVmusStatus_8c019550
+          .DATA.L     _VmSelectUpdateAllStatus_8c019550
           .DATA.L     _var_midiHandles_8c0fcd28
           .DATA.L     _sdMidiPlay ; H'8c015df0
           .DATA.L     H'44200000 ; 640.0
@@ -663,7 +663,7 @@ L48:
           .DATA.L     _var_midiHandles_8c0fcd28
           .DATA.L     _sdMidiPlay ; H'8c015f40
           .DATA.L     _init_saveNames_8c044d50
-          .DATA.L     _VmSelectUpdateVmusStatus_8c019550
+          .DATA.L     _VmSelectUpdateAllStatus_8c019550
           .DATA.L     _init_adxPlaying_8c03bd80
           .DATA.L     _var_titleActive_8c1bb8c4 ; H'8c015f50
           .DATA.L     _VmSelectSwitchFromTask_8c019e44

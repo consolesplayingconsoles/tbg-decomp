@@ -155,7 +155,7 @@ STATIC void taskWaitForVmsReady_8c0193c8(Task *task)
 }
 
 /* Tested */
-void VmSelectMountVms_8c01940e()
+void VmSelectMountAll_8c01940e()
 {
     int drive;
     Task *createdTask;
@@ -196,7 +196,7 @@ STATIC void taskUnmountVms_8c01946a(Task *task, void *state)
 }
 
 /* Tested */
-void VmSelectUnmountVms_8c0194de()
+void VmSelectUnmountAll_8c0194de()
 {
     Task *createdTask;
     void *createdState;
@@ -221,7 +221,7 @@ void VmSelectFreeAndClear_8c019504(void)
 /* Tested */
 /* Refresh every drive's VMU_STATUS against saveNames and a `blocks` budget,
  * returning how many drives could be saved to or loaded from. */
-int VmSelectUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
+int VmSelectUpdateAllStatus_8c019550(char **saveNames, Uint16 blocks)
 {
     int drive;
     int count = 0;
@@ -298,7 +298,7 @@ int VmSelectUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
 }
 
 /* Tested */
-void VmSelectUpdateVmuStatus_8c01967c(Sint32 drive, char* saveName, Uint16 blocks)
+void VmSelectUpdateStatus_8c01967c(Sint32 drive, char* saveName, Uint16 blocks)
 {
     const BACKUPINFO *bupInfo = BupGetInfo_8c014bba(drive);
 
@@ -442,7 +442,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
             LOG_INFO(("[VM_SELECT] Initializing VM Select menu\n"));
 
-            if (VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)) {
+            if (VmSelectUpdateAllStatus_8c019550(init_saveNames_8c044d50, 3)) {
                 CHANGE_STATE(VM_SELECT_STATE_FADE_IN);
 
                 // Start on the first connected drive
@@ -475,7 +475,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 
         // Idle
         case VM_SELECT_STATE_IDLE: {
-            VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3);
+            VmSelectUpdateAllStatus_8c019550(init_saveNames_8c044d50, 3);
 
             if (!var_vmuStatus_8c226048[slot]) {
                 for (slot = 0; !var_vmuStatus_8c226048[slot]; slot++);
@@ -659,7 +659,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             switch (task->field_0x08) {
                 // Idle
                 case 0: {
-                    if (!VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)) {
+                    if (!VmSelectUpdateAllStatus_8c019550(init_saveNames_8c044d50, 3)) {
                         int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
                         if (promptResult == 1) {
                             var_selectedVm_8c1ba34c = -1;

@@ -18,7 +18,7 @@ return new class extends TestCase {
 
         foreach ([
             '_SpriteDraw_8c014f54', '_MessageBoxMenuTextboxText_8c02af1c',
-            '_MessageBoxSwapFor_8c02aefc', '_VmSelectUpdateVmuStatus_8c01967c',
+            '_MessageBoxSwapFor_8c02aefc', '_VmSelectUpdateStatus_8c01967c',
             '_RouteGetLatch_8c01432a', '_AsqFreeQueues_8c011f7e',
             '_SndMidiResetFxAndPlay_8c010846', '_sdMidiPlay',
             '_RenderPushFadeOut_8c022b60', '_PromptHandleBinary_8c016caa',
@@ -199,7 +199,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')
             ->with(0, 0x11223344, 3);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')
@@ -231,7 +231,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')
             ->with($this->ms + 0x38)
@@ -259,7 +259,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')
             ->with($this->ms + 0x38)
@@ -287,7 +287,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')
             ->with($this->ms + 0x38)
@@ -395,7 +395,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0x11223344, 3);
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
     }
@@ -454,7 +454,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0x11223344, 3);
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
 
@@ -464,7 +464,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->ms + 0x38, 0); // selected_0x38 = 0
 
         // case 4, entered by fallthrough:
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0x11223344, 3);
 
         $this->shouldWriteLong($this->ms + 0x6c, 0); // selectedVmuSlot_0x6c caches the status
 
@@ -489,7 +489,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
 
@@ -498,7 +498,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_isFading_8c226568'), 0);
         $this->shouldWriteLong($this->ms + 0x38, 0); // selected_0x38 = 0
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldWriteLong($this->ms + 0x6c, 1); // selectedVmuSlot_0x6c caches the status
 
@@ -523,7 +523,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
 
@@ -532,7 +532,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_isFading_8c226568'), 0);
         $this->shouldWriteLong($this->ms + 0x38, 0); // selected_0x38 = 0
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldWriteLong($this->ms + 0x6c, 2); // selectedVmuSlot_0x6c caches the status
 
@@ -557,7 +557,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
 
@@ -566,7 +566,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_isFading_8c226568'), 0);
         $this->shouldWriteLong($this->ms + 0x38, 0); // selected_0x38 = 0
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldWriteLong($this->ms + 0x6c, 4); // selectedVmuSlot_0x6c caches the status
 
@@ -591,7 +591,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
 
@@ -600,7 +600,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_isFading_8c226568'), 0);
         $this->shouldWriteLong($this->ms + 0x38, 0); // selected_0x38 = 0
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldWriteLong($this->ms + 0x6c, 5); // selectedVmuSlot_0x6c caches the status
 
@@ -625,7 +625,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
 
@@ -634,7 +634,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_isFading_8c226568'), 0);
         $this->shouldWriteLong($this->ms + 0x38, 0); // selected_0x38 = 0
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldWriteLong($this->ms + 0x6c, 6); // selectedVmuSlot_0x6c caches the status
 
@@ -658,7 +658,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
 
@@ -667,7 +667,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_isFading_8c226568'), 0);
         $this->shouldWriteLong($this->ms + 0x38, 0); // selected_0x38 = 0
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldWriteLong($this->ms + 0x6c, 3); // selectedVmuSlot_0x6c caches the status
 
@@ -1047,7 +1047,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0x11223344, 3);
 
         $this->shouldCall('_MessageBoxMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
 
@@ -1065,7 +1065,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_MessageBoxMenuTextboxText_8c02af1c')->with(0xff)->andReturn(0);
 
@@ -1084,7 +1084,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_MessageBoxSwapFor_8c02aefc')->with("セーブを中止しますか？");
 
@@ -1107,7 +1107,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldWriteLong($this->ms + 0x18, 4); // state_0x18 = 4
 
@@ -1126,7 +1126,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_MessageBoxMenuTextboxText_8c02af1c')->with(0xff)->andReturn(1);
 
@@ -1145,7 +1145,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0x11223344, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0x11223344, 3);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')
             ->with($this->ms + 0x38)
@@ -1169,7 +1169,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')
             ->with($this->ms + 0x38)
@@ -1191,7 +1191,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0, 3);
+        $this->shouldCall('_VmSelectUpdateStatus_8c01967c')->with(0, 0, 3);
 
         $this->shouldCall('_PromptHandleBinary_8c016caa')
             ->with($this->ms + 0x38)

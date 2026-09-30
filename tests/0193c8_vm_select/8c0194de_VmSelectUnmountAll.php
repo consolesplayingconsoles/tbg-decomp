@@ -24,7 +24,7 @@ return new class extends TestCase {
         );
         $this->shouldWriteLongTo('_var_vmMountBusy_8c22606c', 1);
 
-        $this->singleCall('_VmSelectUnmountVms_8c0194de')->with($task)->run();
+        $this->singleCall('_VmSelectUnmountAll_8c0194de')->with($task)->run();
     }
 
     private function resolveSymbols(): void

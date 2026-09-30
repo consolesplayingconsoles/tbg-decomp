@@ -638,7 +638,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             break;
         }
         FileSelectFreeBuffers_8c0187d0();
-        VmSelectUnmountVms_8c0194de();
+        VmSelectUnmountAll_8c0194de();
         CHANGE_STATE(FILE_SELECT_STATE_UNMOUNT_TO_MAIN);
         break;
 

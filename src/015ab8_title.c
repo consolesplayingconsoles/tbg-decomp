@@ -89,7 +89,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
         case TITLE_STATE_0X00_INIT: {
             if (RouteGetLatch_8c01432a() == FALSE) {
                 AsqFreeQueues_8c011f7e();
-                VmSelectMountVms_8c01940e();
+                VmSelectMountAll_8c01940e();
 
                 if (task->field_0x08 == FALSE) {
                     var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X01_FORTYFIVE_FADE_IN;
@@ -177,7 +177,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 /* InputCheckColdBoot_8c012984 only returns 1 the first time it
                  * runs after a cold boot, so the no-save warning shows once
                  * per power-on. */
-                if (InputCheckColdBoot_8c012984() != FALSE && VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3) == FALSE) {
+                if (InputCheckColdBoot_8c012984() != FALSE && VmSelectUpdateAllStatus_8c019550(init_saveNames_8c044d50, 3) == FALSE) {
                     var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X07_VMU_WARNING_FADE_IN;
                     LOG_DEBUG(("[TITLE] State changed: 0X07_VMU_WARNING_FADE_IN\n"));
                     RenderPushFadeIn_8c022a9c(10);
@@ -211,7 +211,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
         case TITLE_STATE_0X08_VMU_WARNING: {
             if (
                 var_peripherals_8c1ba35c[0].press & (PDD_DGT_TA | PDD_DGT_ST)
-                || VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)
+                || VmSelectUpdateAllStatus_8c019550(init_saveNames_8c044d50, 3)
             ) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
                 var_menuState_8c1bc7a8.state_0x18 = TITLE_STATE_0X09_VMU_WARNING_FADE_OUT;
@@ -364,7 +364,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
         }
 
         case TITLE_STATE_0X10_START_PRESSED_FADE_OUT: {
-            VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3);
+            VmSelectUpdateAllStatus_8c019550(init_saveNames_8c044d50, 3);
 
             if (var_isFading_8c226568 == FALSE) {
                 if (!init_adxPlaying_8c03bd80) {

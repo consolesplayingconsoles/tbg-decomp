@@ -40,11 +40,11 @@ return new class extends TestCase {
         // External functions whose addresses the prologue loads unconditionally
         // (plus every callee used by any state) must be resolvable.
         foreach ([
-            '_VmSelectUpdateVmusStatus_8c019550', '_RouteGetLatch_8c01432a',
+            '_VmSelectUpdateAllStatus_8c019550', '_RouteGetLatch_8c01432a',
             '_AsqFreeQueues_8c011f7e', '_RenderPushFadeIn_8c022a9c', '_RenderPushFadeOut_8c022b60',
             '_PromptHandleMultiple_8c016c58', '_PromptHandleBinary_8c016caa',
             '_CourseMenuInterpolateCursor_8c016d2c', '_CourseMenuFreeResourceGroup_8c0185c4',
-            '_MainMenuSwitchFromTask_8c01a09a', '_VmSelectUnmountVms_8c0194de',
+            '_MainMenuSwitchFromTask_8c01a09a', '_VmSelectUnmountAll_8c0194de',
             '_MessageBoxSwapFor_8c02aefc', '_MessageBoxMenuTextboxText_8c02af1c',
             '_sdMidiPlay', '_SpriteDraw_8c014f54', '_syFree',
             '__quick_evn_mvn',
@@ -89,7 +89,7 @@ return new class extends TestCase {
     // Preamble runs on every entry; call it right after ->call().
     private function expectPreamble(): void
     {
-        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateAllStatus_8c019550')
             ->with($this->addressOf('_init_vmuProbeNames_8c044e48'), 0x2d)
             ->andReturn(0);
     }
@@ -249,7 +249,7 @@ return new class extends TestCase {
         $this->expectPreamble();
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->slotAddr(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 0xd);  // EXIT
-        $this->shouldCall('_VmSelectUnmountVms_8c0194de');
+        $this->shouldCall('_VmSelectUnmountAll_8c0194de');
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
         $this->midi(0);
         $this->expectMenuDraw(0x6f);
@@ -266,7 +266,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($this->slotAddr(), 3)->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 0xd);  // EXIT
         $this->midi(1);
-        $this->shouldCall('_VmSelectUnmountVms_8c0194de');
+        $this->shouldCall('_VmSelectUnmountAll_8c0194de');
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
         $this->expectMenuDraw(0x6d);
     }

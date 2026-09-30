@@ -25,7 +25,7 @@
           .IMPORT     _var_vmBusy_8c157a7c
           .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_menuState_8c1bc7a8
-          .IMPORT     _VmSelectUpdateVmuStatus_8c01967c
+          .IMPORT     _VmSelectUpdateStatus_8c01967c
           .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _MessageBoxSwapFor_8c02aefc
@@ -36,7 +36,7 @@
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_gameMode_8c1bb8fc
-          .IMPORT     _VmSelectUnmountVms_8c0194de
+          .IMPORT     _VmSelectUnmountAll_8c0194de
           .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _PromptHandleBinary_8c016caa
           .IMPORT     _var_saveBuf_8c1ba2e0
@@ -596,7 +596,7 @@ LP_GEN_91278:
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01B570
           .DATA.L _var_saveSlot_8c1ba350 ; H'8C01B574
           .DATA.L _init_saveNames_8c044d50 ; H'8C01B578
-          .DATA.L _VmSelectUpdateVmuStatus_8c01967c ; H'8C01B57C
+          .DATA.L _VmSelectUpdateStatus_8c01967c ; H'8C01B57C
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01B580
           .DATA.L _var_isFading_8c226568 ; H'8C01B584
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C01B588
@@ -773,7 +773,7 @@ LP_GEN_26888:
           .DATA.L _const_8c0382d8 ; H'8C01B6E0
           .DATA.L _const_8c03830c ; H'8C01B6E4
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01B6E8
-          .DATA.L _VmSelectUnmountVms_8c0194de ; H'8C01B6EC
+          .DATA.L _VmSelectUnmountAll_8c0194de ; H'8C01B6EC
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01B6F0
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C01B6F4
           .DATA.L _var_saveBuf_8c1ba2e0 ; H'8C01B6F8
@@ -1133,7 +1133,7 @@ LP_GEN_14610:
           .DATA.L _var_vmBusy_8c157a7c ; H'8C01B9DC
           .DATA.L _var_backupFileImageBuf_8c1ba348 ; H'8C01B9E0
           .DATA.L _syFree ; H'8C01B9E4
-          .DATA.L _VmSelectUnmountVms_8c0194de ; H'8C01B9E8
+          .DATA.L _VmSelectUnmountAll_8c0194de ; H'8C01B9E8
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01B9EC
           .DATA.L _var_vmMountBusy_8c22606c ; H'8C01B9F0
           .DATA.L _FileSelectFreeBuffers_8c0187d0 ; H'8C01B9F4
@@ -1269,7 +1269,7 @@ LP_GEN_62205:
           .DATA.L _var_saveSlot_8c1ba350 ; H'8C01BB04
           .DATA.L _init_saveNames_8c044d50 ; H'8C01BB08
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01BB0C
-          .DATA.L _VmSelectUpdateVmuStatus_8c01967c ; H'8C01BB10
+          .DATA.L _VmSelectUpdateStatus_8c01967c ; H'8C01BB10
           .DATA.L _const_8c0380c8 ; H'8C01BB14
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C01BB18
           .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01BB1C

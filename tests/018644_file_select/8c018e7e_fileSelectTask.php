@@ -381,7 +381,7 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e');
 
         $this->shouldCall('_FileSelectFreeBuffers_8c0187d0');
-        $this->shouldCall('_VmSelectUnmountVms_8c0194de');
+        $this->shouldCall('_VmSelectUnmountAll_8c0194de');
         $this->shouldWriteLong($this->ms + 0x18, 6);
     }
 
@@ -509,7 +509,7 @@ return new class extends TestCase {
             '_SpriteDraw_8c014f54', '_MessageBoxMenuTextboxText_8c02af1c', '_VmGameSetLcdSlot_8c01c8fc',
             '_MessageBoxSwapFor_8c02aefc', '_sdMidiPlay', '_RenderPushFadeOut_8c022b60',
             '_njMemCopy', '_SndStartAdxFadeOut_8c010bae', '_SystemMenuApplyLoadedProgress_8c01b19c',
-            '_VmSelectUnmountVms_8c0194de', '_VmSelectSwitchFromTask_8c019e44',
+            '_VmSelectUnmountAll_8c0194de', '_VmSelectSwitchFromTask_8c019e44',
             '_MainMenuSwitchFromTask_8c01a09a',
         ] as $fn) {
             $this->setSize($fn, 4);

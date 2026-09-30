@@ -10,7 +10,7 @@
           .IMPORT     _var_saveSlot_8c1ba350
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _var_peripherals_8c1ba35c
-          .IMPORT     _VmSelectUpdateVmuStatus_8c01967c
+          .IMPORT     _VmSelectUpdateStatus_8c01967c
           .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _var_runSucceeded_8c1bb8dc
@@ -537,7 +537,7 @@ LAB_8c01db36:
           BRA         LAB_8c01df50
           NOP
 LP_GEN_73625:
-          .DATA.L _VmSelectUpdateVmuStatus_8c01967c ; H'8C01DB48
+          .DATA.L _VmSelectUpdateStatus_8c01967c ; H'8C01DB48
           .DATA.L _RouteGetLatch_8c01432a ; H'8C01DB4C
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01DB50
           .DATA.L _var_runFailed_8c226408 ; H'8C01DB54
@@ -690,7 +690,7 @@ LP_GEN_38701:
           .RES.W 1 ; H'8C01DC86
           .DATA.L _var_saveSlot_8c1ba350 ; H'8C01DC88
           .DATA.L _init_saveNames_8c044d50 ; H'8C01DC8C
-          .DATA.L _VmSelectUpdateVmuStatus_8c01967c ; H'8C01DC90
+          .DATA.L _VmSelectUpdateStatus_8c01967c ; H'8C01DC90
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01DC94
           .DATA.L _const_8c0387fc ; H'8C01DC98
           .DATA.L _const_8c038828 ; H'8C01DC9C
@@ -985,7 +985,7 @@ LAB_8c01dea6:
           JMP         @R2
           MOV.L       @R15+,R14
 LP_GEN_50614:
-          .DATA.L _VmSelectUpdateVmuStatus_8c01967c ; H'8C01DEC4
+          .DATA.L _VmSelectUpdateStatus_8c01967c ; H'8C01DEC4
           .DATA.L _PromptHandleBinary_8c016caa ; H'8C01DEC8
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01DECC
           .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01DED0

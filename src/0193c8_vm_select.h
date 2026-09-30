@@ -21,11 +21,11 @@ extern char* init_saveNames_8c044d50[11];
 extern int var_vmuStatus_8c226048[9];
 extern int var_vmMountBusy_8c22606c;
 
-void VmSelectMountVms_8c01940e();
-void VmSelectUnmountVms_8c0194de();
+void VmSelectMountAll_8c01940e();
+void VmSelectUnmountAll_8c0194de();
 void VmSelectFreeAndClear_8c019504(void);
-int VmSelectUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks);
-void VmSelectUpdateVmuStatus_8c01967c(Sint32 drive, char *saveName, Uint16 blocks);
+int VmSelectUpdateAllStatus_8c019550(char **saveNames, Uint16 blocks);
+void VmSelectUpdateStatus_8c01967c(Sint32 drive, char *saveName, Uint16 blocks);
 void VmSelectSwitchFromTask_8c019e44(Task *task);
 
 #endif // _0193C8_VM_SELECT_H

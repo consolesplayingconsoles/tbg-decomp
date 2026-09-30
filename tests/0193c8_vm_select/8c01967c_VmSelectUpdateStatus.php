@@ -30,7 +30,7 @@ return new class extends TestCase {
         $this->shouldCall('_BupGetInfo_8c014bba')->with($drive)->andReturn($bupInfo);
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 0);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }
@@ -60,7 +60,7 @@ return new class extends TestCase {
         $this->shouldCall('_BupMount_8c014c00')->with($drive);
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 0);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }
@@ -89,7 +89,7 @@ return new class extends TestCase {
         $this->shouldCall('_BupGetInfo_8c014bba')->with($drive)->andReturn($bupInfo);
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 0);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }
@@ -119,7 +119,7 @@ return new class extends TestCase {
         $this->shouldCall('_buIsExistFile')->with($drive)->andReturn(0); // BUD_ERR_OK
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 5);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }
@@ -149,7 +149,7 @@ return new class extends TestCase {
         $this->shouldCall('_buIsExistFile')->with($drive)->andReturn(0); // BUD_ERR_OK
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 6);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }
@@ -179,7 +179,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 1);
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 1);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }
@@ -208,7 +208,7 @@ return new class extends TestCase {
         $this->shouldCall('_buIsExistFile')->with($drive)->andReturn(0xffffffff); // BUD_ERR_BUSY
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 1);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }
@@ -237,7 +237,7 @@ return new class extends TestCase {
         $this->shouldCall('_buIsExistFile')->with($drive)->andReturn(0xffffff05); // BUD_ERR_FILE_NOT_FOUND
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 4);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }
@@ -266,7 +266,7 @@ return new class extends TestCase {
         $this->shouldCall('_buIsExistFile')->with($drive)->andReturn(0xffffff05); // BUD_ERR_FILE_NOT_FOUND
         $this->shouldWriteLong($this->addressOf('_var_vmuStatus_8c226048') + $drive * 4, 2);
 
-        $this->singleCall('_VmSelectUpdateVmuStatus_8c01967c')
+        $this->singleCall('_VmSelectUpdateStatus_8c01967c')
             ->with($drive, $saveName, 3)
             ->run();
     }

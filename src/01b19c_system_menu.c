@@ -165,7 +165,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         if (var_selectedVm_8c1ba34c == -1) {
             vmStatus = VMU_STATUS_PROCEED_WITHOUT_SAVING;
         } else {
-            VmSelectUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c,
+            VmSelectUpdateStatus_8c01967c(var_selectedVm_8c1ba34c,
                                            init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
             vmStatus = var_vmuStatus_8c226048[var_selectedVm_8c1ba34c];
         }
@@ -198,7 +198,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             /* B = cancel */
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_EXIT_TO_COURSE;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
-            VmSelectUnmountVms_8c0194de();
+            VmSelectUnmountAll_8c0194de();
             RenderPushFadeOut_8c022b60(10);
             break;
         }
@@ -271,7 +271,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         case SAVE_MENU_BACK:
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_EXIT_TO_COURSE;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
-            VmSelectUnmountVms_8c0194de();
+            VmSelectUnmountAll_8c0194de();
             RenderPushFadeOut_8c022b60(10);
             break;
         case SAVE_MENU_QUIT:
@@ -410,7 +410,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         result = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
         if (result == 1) {
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_EXIT_TO_TITLE;
-            VmSelectUnmountVms_8c0194de();
+            VmSelectUnmountAll_8c0194de();
             RenderPushFadeOut_8c022b60(10);
         } else if (result == 2) {
             var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_TOP_MENU;
@@ -470,7 +470,7 @@ void SystemMenuSwitchFromTask_8c01ba64(Task *task)
     var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_WAIT_PVM;
     var_menuState_8c1bc7a8.selected_0x38 = SAVE_MENU_LOAD;
     var_saveBuf_8c1ba2e0 = syMalloc(0x600);
-    VmSelectUpdateVmuStatus_8c01967c(var_selectedVm_8c1ba34c,
+    VmSelectUpdateStatus_8c01967c(var_selectedVm_8c1ba34c,
                                    init_saveNames_8c044d50[var_saveSlot_8c1ba350], 3);
     MessageBoxSwapFor_8c02aefc("");
     RenderPushFadeIn_8c022a9c(10);
