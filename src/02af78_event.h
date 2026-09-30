@@ -33,6 +33,12 @@ typedef struct {
     Uint32 actions_0x0c;
 } EventEntry;
 
+/* unlock-candidate scratch list built by EventScanCandidates_8c02b03c;
+ * var_routeEvents_8c22851c points at the active route's EventEntry table */
+extern EventEntry* var_routeEvents_8c22851c;
+extern int var_eventCandidates_8c228520[16];
+extern int var_eventCandidateCount_8c228560;
+
 int EventHasProfileProgressFlag_8c02aff0(int index);
 void EventScanCandidates_8c02b03c(void);
 void EventPickForSegment_8c02b170(void);

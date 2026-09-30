@@ -18,7 +18,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_routeEvents_8c22851c', 4);
         $this->setSize('_var_selectedEventEntry_8c228478', 4);
     }
 

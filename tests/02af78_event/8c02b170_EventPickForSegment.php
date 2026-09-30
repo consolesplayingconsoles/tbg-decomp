@@ -25,10 +25,7 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_gameMode_8c1bb8fc', 4);
         $this->setSize('_var_runState_8c2285c4', 0x9c);
-        $this->setSize('_var_eventCandidates_8c228520', 0x40);
-        $this->setSize('_var_routeEvents_8c22851c', 4);
         $this->setSize('_var_currentSegment_8c228708', 4);
-        $this->setSize('_var_eventCandidateCount_8c228560', 4);
         $this->setSize('_var_cutsceneActive_8c1bb900', 4);
         $this->setSize('_var_selectedEventEntry_8c228478', 4);
         $this->setSize('_AsqGetRandomInRangeB_8c0121be', 4);

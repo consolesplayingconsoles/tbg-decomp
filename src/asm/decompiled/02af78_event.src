@@ -1,12 +1,9 @@
 ; 8c02af78
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_runEventFlags_8c1ba2b4
-          .IMPORT     _var_eventCandidateCount_8c228560
           .IMPORT     _var_playMode_8c1bb8d0
-          .IMPORT     _var_routeEvents_8c22851c
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _var_timeOfDay_8c18ad20
-          .IMPORT     _var_eventCandidates_8c228520
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_runState_8c2285c4
           .IMPORT     _var_currentSegment_8c228708
@@ -26,6 +23,9 @@
           .EXPORT     _setRunEventFlag_8c02b022
           .EXPORT     _hasRunEventFlag_8c02b030
           .AENDI
+          .EXPORT     _var_routeEvents_8c22851c ; 02c884_bus_stop
+          .EXPORT     _var_eventCandidates_8c228520 ; 02c884_bus_stop
+          .EXPORT     _var_eventCandidateCount_8c228560 ; 02c884_bus_stop
           .SECTION     P, CODE, ALIGN=4
 ; sets a bit in var_progress_8c1ba1cc+4 and +0x18 (paired unlock bitsets, see hasEventProgressFlag_8c02afbe/aff0)
 _setProgressFlag_8c02af78:
@@ -826,4 +826,11 @@ _init_omeEvents_8c04b920:        ; from defines
           .DATA.B      H'01, H'00, H'03, H'00, H'15, H'00, H'00, H'00, H'80, H'19, H'FC, H'3F, H'81, H'FD, H'FF, H'3F
           .DATA.B      H'02, H'00, H'04, H'00, H'1C, H'00, H'00, H'00, H'8F, H'FC, H'FF, H'3F, H'8F, H'FD, H'FF, H'3F
           .DATA.B      H'FF, H'FF, H'04, H'00, H'1C, H'00, H'00, H'00, H'8F, H'FC, H'FF, H'3F, H'8F, H'FD, H'FF, H'3F
+          .SECTION    B,DATA,ALIGN=4
+_var_routeEvents_8c22851c:
+          .RES.B      4
+_var_eventCandidates_8c228520:
+          .RES.B      64
+_var_eventCandidateCount_8c228560:
+          .RES.B      4
           .END

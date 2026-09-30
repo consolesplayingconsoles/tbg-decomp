@@ -1,19 +1,7 @@
-; 8c22851c
-          .EXPORT     _var_routeEvents_8c22851c ; 02af78_event
-                                                ; 02c884
-          .EXPORT     _var_eventCandidates_8c228520 ; 02af78_event
-                                                    ; 02c884
-          .EXPORT     _var_eventCandidateCount_8c228560 ; 02af78_event
-                                                        ; 02c884
+; 8c228564
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_routeEvents_8c22851c:
-          .RES.B      4
-_var_eventCandidates_8c228520:
-          .RES.B      64
-_var_eventCandidateCount_8c228560:
-          .RES.B      4
 _var_driveMsgQueue_8c228564:
           .RES.B      96
           .END

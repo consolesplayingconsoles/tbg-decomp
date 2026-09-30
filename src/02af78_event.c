@@ -59,6 +59,15 @@
 #define EVENT_DAYS6(a, b, c, d, e, f) (EVENT_DAYS5(a, b, c, d, e) | ((f) << (EVENT_DAY_BITS * 5)))
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+EventEntry* var_routeEvents_8c22851c;
+int var_eventCandidates_8c228520[16];
+int var_eventCandidateCount_8c228560;
+
+/* ====================
  * Initialized Globals
  * ====================
  */

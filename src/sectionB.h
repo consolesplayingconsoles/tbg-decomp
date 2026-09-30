@@ -1,6 +1,6 @@
-/* 8c22851c: undecompiled data section */
-#ifndef _22851C_SECTIONB_H
-#define _22851C_SECTIONB_H
+/* 8c228564: undecompiled data section */
+#ifndef _228564_SECTIONB_H
+#define _228564_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -16,12 +16,6 @@
  * =================
  */
 
-/* unlock-candidate scratch list built by EventScanCandidates_8c02b03c;
- * var_routeEvents_8c22851c points at the active route's EventEntry table */
-extern EventEntry* var_routeEvents_8c22851c;
-extern int var_eventCandidates_8c228520[];
-extern int var_eventCandidateCount_8c228560;
-
 /* One driver-comment banner. `count`/`ids` point into a {count, id...} row
  * of init_penaltyMsgGlyphs_8c04c35c (02b464); the ids are 16x16-atlas glyph
  * indices. [0] is the newest message, [1..3] older ones shifted back as each
@@ -36,4 +30,4 @@ typedef struct {
 } DriveMsgSlot;
 extern DriveMsgSlot var_driveMsgQueue_8c228564[4];
 
-#endif // _22851C_SECTIONB_H
+#endif // _228564_SECTIONB_H
