@@ -54,7 +54,7 @@ typedef struct {
     Uint8 fogAlpha_0x0b;
     float fogN_0x0c;
     float fogF_0x10;
-} FogParams;
+} ViewParams;
 
 /* One entry of var_routeModelSlots_8c1bbddc. */
 typedef struct {
@@ -122,7 +122,7 @@ typedef struct {
 
 extern enum ROUTE var_route_8c18ad1c;
 extern enum TIME_OF_DAY var_timeOfDay_8c18ad20;
-extern FogParams *var_fogParams_8c18ad28;
+extern ViewParams *var_viewParams_8c18ad28;
 
 // Read by driving/render units 023310, 026710, 021b9c_tile_draw, 0222dc, 024b4c
 extern CourseSceneParams *var_sceneParams_8c18ad24;
@@ -152,7 +152,7 @@ typedef struct {
     // scene object list (ObjectsStartAssetRequests_8c029ad4 streams nj/pvm/dat; e.g. O_FUMI railroad crossing)
     void *sceneObjectList_0x1c;
     char **datFilenames_0x20;
-    FogParams *fog_0x24;
+    ViewParams *viewParams_0x24;
     ModelFiles *modelFiles_0x28;
 } CourseSegment;
 

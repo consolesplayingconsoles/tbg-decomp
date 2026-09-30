@@ -101,7 +101,7 @@
                                     ; 02d19c
           .EXPORT     _var_mirrorLightDir_8c227dc4 ; 024b4c
                                     ; 026710
-          .EXPORT     _var_fogParam_8c227dd0 ; 013ae8_route_load
+          .EXPORT     _var_farClipDepth_8c227dd0 ; 013ae8_route_load
                                              ; 024b4c
           .EXPORT     _var_demoShotId_8c227dd4 ; 0129cc_game
                                     ; 025870_demo
@@ -248,7 +248,7 @@ _var_busSimpleLightDir_8c227db8:
           .RES.B      12
 _var_mirrorLightDir_8c227dc4:
           .RES.B      12
-_var_fogParam_8c227dd0:
+_var_farClipDepth_8c227dd0:
           .RES.B      4
 _var_demoShotId_8c227dd4:
           .RES.B      4

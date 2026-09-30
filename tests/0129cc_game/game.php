@@ -14,14 +14,14 @@ if (!function_exists('fdec')) {
 return new class extends TestCase {
     public function test_GameEnterDrive_8c01306e_outsideDemo()
     {
-        $var_fogParams_8c18ad28Ptr = $this->alloc(0x14);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x08, 0x10);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x09, 0x20);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x0a, 0x30);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x0b, 0x40);
-        $this->initUint32($var_fogParams_8c18ad28Ptr + 0x0c, fdec(42.0));
-        $this->initUint32($var_fogParams_8c18ad28Ptr + 0x10, fdec(43.0));
-        $this->initUint32($this->addressOf('_var_fogParams_8c18ad28'), $var_fogParams_8c18ad28Ptr);
+        $var_viewParams_8c18ad28Ptr = $this->alloc(0x14);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x08, 0x10);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x09, 0x20);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x0a, 0x30);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x0b, 0x40);
+        $this->initUint32($var_viewParams_8c18ad28Ptr + 0x0c, fdec(42.0));
+        $this->initUint32($var_viewParams_8c18ad28Ptr + 0x10, fdec(43.0));
+        $this->initUint32($this->addressOf('_var_viewParams_8c18ad28'), $var_viewParams_8c18ad28Ptr);
 
         $this->initUint32($this->addressOf('_var_seed_8c157a64'), 0xcafe0001);
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
@@ -97,14 +97,14 @@ return new class extends TestCase {
 
     public function test_GameEnterDrive_8c01306e_vmuReplay()
     {
-        $var_fogParams_8c18ad28Ptr = $this->alloc(0x14);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x08, 0x10);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x09, 0x20);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x0a, 0x30);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x0b, 0x40);
-        $this->initUint32($var_fogParams_8c18ad28Ptr + 0x0c, fdec(42.0));
-        $this->initUint32($var_fogParams_8c18ad28Ptr + 0x10, fdec(43.0));
-        $this->initUint32($this->addressOf('_var_fogParams_8c18ad28'), $var_fogParams_8c18ad28Ptr);
+        $var_viewParams_8c18ad28Ptr = $this->alloc(0x14);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x08, 0x10);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x09, 0x20);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x0a, 0x30);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x0b, 0x40);
+        $this->initUint32($var_viewParams_8c18ad28Ptr + 0x0c, fdec(42.0));
+        $this->initUint32($var_viewParams_8c18ad28Ptr + 0x10, fdec(43.0));
+        $this->initUint32($this->addressOf('_var_viewParams_8c18ad28'), $var_viewParams_8c18ad28Ptr);
 
         $this->initUint32($this->addressOf('_var_seed_8c157a64'), 0xcafe0001);
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2);
@@ -171,14 +171,14 @@ return new class extends TestCase {
 
     public function test_GameEnterDrive_8c01306e_attractDemo()
     {
-        $var_fogParams_8c18ad28Ptr = $this->alloc(0x14);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x08, 0x10);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x09, 0x20);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x0a, 0x30);
-        $this->initUint8($var_fogParams_8c18ad28Ptr + 0x0b, 0x40);
-        $this->initUint32($var_fogParams_8c18ad28Ptr + 0x0c, fdec(42.0));
-        $this->initUint32($var_fogParams_8c18ad28Ptr + 0x10, fdec(43.0));
-        $this->initUint32($this->addressOf('_var_fogParams_8c18ad28'), $var_fogParams_8c18ad28Ptr);
+        $var_viewParams_8c18ad28Ptr = $this->alloc(0x14);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x08, 0x10);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x09, 0x20);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x0a, 0x30);
+        $this->initUint8($var_viewParams_8c18ad28Ptr + 0x0b, 0x40);
+        $this->initUint32($var_viewParams_8c18ad28Ptr + 0x0c, fdec(42.0));
+        $this->initUint32($var_viewParams_8c18ad28Ptr + 0x10, fdec(43.0));
+        $this->initUint32($this->addressOf('_var_viewParams_8c18ad28'), $var_viewParams_8c18ad28Ptr);
 
         $this->initUint32($this->addressOf('_var_seed_8c157a64'), 0xcafe0001);
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 2);

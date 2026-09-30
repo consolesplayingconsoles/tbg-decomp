@@ -31,10 +31,10 @@ return new class extends TestCase {
 
         $this->call('_syncSegmentModels_8c013f78');
 
-        $this->shouldWriteLong($this->addressOf('_var_fogParams_8c18ad28'), $fog);
+        $this->shouldWriteLong($this->addressOf('_var_viewParams_8c18ad28'), $fog);
         $this->shouldWriteLong($this->addressOf('_var_tileDrawSpan_8c226504'), 0xffffffff);
         $this->shouldWriteLong($this->addressOf('_var_tileDrawRadius_8c226508'), 0);
-        $this->shouldWriteLong($this->addressOf('_var_fogParam_8c227dd0'), 0x12345678);
+        $this->shouldWriteLong($this->addressOf('_var_farClipDepth_8c227dd0'), 0x12345678);
 
         $this->shouldCall('_ObjectsStartAssetRequests_8c029ad4')->with(0);
         $this->shouldWriteLong($this->addressOf('_var_currentTileRegionList_8c226534'), 0xffffffff);
@@ -146,7 +146,7 @@ return new class extends TestCase {
         $this->setSize('_var_playMode_8c1bb8d0', 4);
         $this->setSize('_var_tileDrawSpan_8c226504', 4);
         $this->setSize('_var_tileDrawRadius_8c226508', 4);
-        $this->setSize('_var_fogParam_8c227dd0', 4);
+        $this->setSize('_var_farClipDepth_8c227dd0', 4);
         $this->setSize('_var_currentTileRegionList_8c226534', 4);
         $this->setSize('_var_segmentModels_8c1bc3f0', 4);
         $this->setSize('_AsqRequestModels_8c012030', 4);

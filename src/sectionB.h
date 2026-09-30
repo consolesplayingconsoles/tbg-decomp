@@ -235,7 +235,7 @@ extern PathRecord **var_cpuPathBlocks_8c227e1c;
 extern int var_activePedPreset_8c22822c;
 extern int var_tileDrawSpan_8c226504;
 extern int var_tileDrawRadius_8c226508;
-extern float var_fogParam_8c227dd0;
+extern float var_farClipDepth_8c227dd0;
 extern Bool var_isFading_8c226568;
 
 #endif // _2264D8_SECTIONB_H

@@ -205,7 +205,7 @@ void BusRenderUpdateCamera_8c025078(void)
 
     njInitCamera(&var_camera_8c1bb904);
     njSetCameraAngle(&var_camera_8c1bb904, 10194);
-    njSetCameraDepth(&var_camera_8c1bb904, -1.0f, var_fogParam_8c227dd0);
+    njSetCameraDepth(&var_camera_8c1bb904, -1.0f, var_farClipDepth_8c227dd0);
 
     pitchOffset = (float)var_busState_8c1bb9d0.pitchAngle_0x078 * 360.0f / 65536.0f / -8.0f;
     ang = var_busState_8c1bb9d0.rollAngle_0x07c;

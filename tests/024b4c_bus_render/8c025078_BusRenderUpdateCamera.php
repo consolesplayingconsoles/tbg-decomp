@@ -46,7 +46,7 @@ return new class extends TestCase {
         $this->setSize('_var_scratchMatrix_8c1bc46c', 0x40);
         $this->setSize('_var_groundQueryPoint_8c1bc460', 0xc);
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
-        $this->setSize('_var_fogParam_8c227dd0', 4);
+        $this->setSize('_var_farClipDepth_8c227dd0', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xd8);
         $this->setSize('_var_sceneParams_8c18ad24', 4);
         $this->setSize('_var_busSimpleLightDir_8c227db8', 0xc);
@@ -110,7 +110,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0); // press
         $this->initUint32($this->addressOf('_var_cameraCueBusy_8c227dac'), 0);
 
-        $this->initFloat($this->addressOf('_var_fogParam_8c227dd0'), 12.5);
+        $this->initFloat($this->addressOf('_var_farClipDepth_8c227dd0'), 12.5);
         $this->initUint32($base + 0x078, 0); // pitchAngle_0x078
         $this->initUint32($base + 0x07c, 777); // rollAngle_0x07c
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc7 + 1, 0); // progress flag clear

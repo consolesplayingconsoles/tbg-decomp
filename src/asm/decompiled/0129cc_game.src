@@ -20,7 +20,7 @@
           .IMPORT     _var_matrix_8c2f8ca0
           .IMPORT     _njInitMatrix
           .IMPORT     _njSetBackColor
-          .IMPORT     _var_fogParams_8c18ad28
+          .IMPORT     _var_viewParams_8c18ad28
           .IMPORT     _njSetFogColor
           .IMPORT     _njGenerateFogTable3
           .IMPORT     _njFogEnable
@@ -1212,7 +1212,7 @@ LP_GEN_31464:
           .DATA.L _var_matrix_8c2f8ca0
           .DATA.L _njInitMatrix
           .DATA.L _njSetBackColor
-          .DATA.L _var_fogParams_8c18ad28
+          .DATA.L _var_viewParams_8c18ad28
           .DATA.L _njSetFogColor
           .DATA.L _var_fogTable_8c18aaf8
           .DATA.L _njGenerateFogTable3

@@ -47,7 +47,7 @@
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _njInitCamera
           .IMPORT     _njSetCameraAngle
-          .IMPORT     _var_fogParam_8c227dd0
+          .IMPORT     _var_farClipDepth_8c227dd0
           .IMPORT     _njSetCameraDepth
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _njSetMatrix
@@ -1033,7 +1033,7 @@ LP_GEN_48962:
           .DATA.L _var_camera_8c1bb904 ; H'8C0252EC
           .DATA.L _njInitCamera ; H'8C0252F0
           .DATA.L _njSetCameraAngle ; H'8C0252F4
-          .DATA.L _var_fogParam_8c227dd0 ; H'8C0252F8
+          .DATA.L _var_farClipDepth_8c227dd0 ; H'8C0252F8
           .DATA.L _njSetCameraDepth ; H'8C0252FC
           .DATA.L _var_progress_8c1ba1cc ; H'8C025300
           .DATA.L H'43B40000 ; H'8C025304

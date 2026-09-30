@@ -98,7 +98,7 @@ CourseConfig *var_currentCourseConfig_8c18ad18;
 
 enum ROUTE var_route_8c18ad1c;
 
-FogParams *var_fogParams_8c18ad28;
+ViewParams *var_viewParams_8c18ad28;
 
 char var_datDir_8c18ad2c[0x20];
 
@@ -319,7 +319,7 @@ STATIC void freeSegmentModels_8c013f22(void)
     }
 }
 
-/* Bring the current segment's assets in line: publish its fog params,
+/* Bring the current segment's assets in line: publish its view params,
  * request its models, sync both model tables, and request its dat files. */
 STATIC void syncSegmentModels_8c013f78(void)
 {
@@ -330,11 +330,11 @@ STATIC void syncSegmentModels_8c013f78(void)
 
     entry = &var_currentCourseConfig_8c18ad18->segments_0x08[var_currentSegment_8c228708];
 
-    if (entry->fog_0x24 != 0) {
-        var_fogParams_8c18ad28 = entry->fog_0x24;
-        var_tileDrawSpan_8c226504 = var_fogParams_8c18ad28->tileWindowSpan_0x00 - 1;
+    if (entry->viewParams_0x24 != 0) {
+        var_viewParams_8c18ad28 = entry->viewParams_0x24;
+        var_tileDrawSpan_8c226504 = var_viewParams_8c18ad28->tileWindowSpan_0x00 - 1;
         var_tileDrawRadius_8c226508 = var_tileDrawSpan_8c226504 / 2;
-        var_fogParam_8c227dd0 = var_fogParams_8c18ad28->farClipDepth_0x04;
+        var_farClipDepth_8c227dd0 = var_viewParams_8c18ad28->farClipDepth_0x04;
     }
 
     if (entry->modelFiles_0x28 != 0) {

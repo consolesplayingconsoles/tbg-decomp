@@ -501,13 +501,13 @@ void GameEnterDrive_8c01306e(void)
     njInitMatrix(var_matrix_8c2f8ca0, 16, 0);
     njSetBackColor(0,0,0);
     njSetFogColor(ARGB(
-        var_fogParams_8c18ad28->fogAlpha_0x0b,
-        var_fogParams_8c18ad28->fogRed_0x0a,
-        var_fogParams_8c18ad28->fogGreen_0x09,
-        var_fogParams_8c18ad28->fogBlue_0x08
+        var_viewParams_8c18ad28->fogAlpha_0x0b,
+        var_viewParams_8c18ad28->fogRed_0x0a,
+        var_viewParams_8c18ad28->fogGreen_0x09,
+        var_viewParams_8c18ad28->fogBlue_0x08
     ));
 
-    njGenerateFogTable3(var_fogTable_8c18aaf8, var_fogParams_8c18ad28->fogN_0x0c, var_fogParams_8c18ad28->fogF_0x10);
+    njGenerateFogTable3(var_fogTable_8c18aaf8, var_viewParams_8c18ad28->fogN_0x0c, var_viewParams_8c18ad28->fogF_0x10);
     njFogEnable();
     kmSetCheapShadowMode(0x80);
     kmSetFogTable(var_fogTable_8c18aaf8);
