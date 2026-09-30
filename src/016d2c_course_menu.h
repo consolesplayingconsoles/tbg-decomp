@@ -53,9 +53,9 @@ enum {
     INSTR_LESSON_FAIL_MAJOR     = 31,
 
     // --- Driving Mistakes / Penalties ---
-    // Raised only in practice mode: 02b464_drive_points.c grades penalties
+    // Raised only in practice mode: 02b464_grading.c grades penalties
     // through adjust_8c02b464(msgSet, delta), where msgSet is a LOCAL id
-    // (see PENALTY_MSG_* in 02b464_drive_points.c), not one of these. The
+    // (see PENALTY_MSG_* in 02b464_grading.c), not one of these. The
     // practice lesson list (01e27c_practice_menu.c) converts the run's
     // single worst msgSet to one of these INSTR_* ids via
     // init_penaltyMsgSetInstr_8c045208[] and shows it as the lesson's

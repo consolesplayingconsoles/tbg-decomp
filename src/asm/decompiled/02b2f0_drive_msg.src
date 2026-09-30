@@ -11,7 +11,7 @@
           .EXPORT     _drawMsgGlyphRow_8c02b2f0
           .AENDI
           .EXPORT     _DriveMsgDraw_8c02b388
-          .EXPORT     _var_driveMsgQueue_8c228564 ; 02b464_drive_points
+          .EXPORT     _var_driveMsgQueue_8c228564 ; 02b464_grading
           .SECTION     P, CODE, ALIGN=4
 _drawMsgGlyphRow_8c02b2f0:
           MOV.L       R14,@-R15

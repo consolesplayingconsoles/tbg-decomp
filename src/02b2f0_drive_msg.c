@@ -5,7 +5,7 @@
 
 #include "02b2f0_drive_msg.h"
 #include "014f54_sprite.h"
-#include "02b464_drive_points.h"
+#include "02b464_grading.h"
 #include "1ba1c8_globals.h"
 
 /* ====================

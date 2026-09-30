@@ -21,7 +21,7 @@
 #include "02c884_stop.h" /* StopGetSegment_8c02cd6a */
 #include "022464_render.h" /* RenderPushCall1_8c0223ea */
 #include "0100bc_sound.h" /* SndStartAdxFadeOut_8c010bae */
-#include "02b464_drive_points.h" /* DrivePointsRunComplete_8c02c586, DrivePointsOnFadeDriveEnd_8c02c784 */
+#include "02b464_grading.h" /* GradeRunComplete_8c02c586, GradeOnFadeDriveEnd_8c02c784 */
 
 /* ====================
  * Compiler Definitions
@@ -352,7 +352,7 @@ STATIC void drawStopMarker_8c02cd92(int arg0)
 }
 
 /* Per-frame bus-stop arrival state machine, called once per frame by
- * 02b464_drive_points. States:
+ * 02b464_grading. States:
  * 0 = cruising -- watches var_busState_8c1bb9d0.markCueByte_0x3b4 for a
  *     just-crossed segment (its high byte) matching the next or previous
  *     stop segment, arming state 2 (approach) or 1 (post-departure wait);
@@ -427,8 +427,8 @@ void StopUpdateArrival_8c02ce48(void)
             var_runState_8c2285c4.stopArrivalGrade_0x24 = 0;
             var_runState_8c2285c4.runPhase_0x00 = 4;
             var_runState_8c2285c4.driveEndHold_0x08 = 0x1e;
-            var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
-            if (0 < var_runState_8c2285c4.driverPoints_0x0c && DrivePointsRunComplete_8c02c586() != 0) {
+            var_fadeCompleteCallback_8c22656c = GradeOnFadeDriveEnd_8c02c784;
+            if (0 < var_runState_8c2285c4.driverPoints_0x0c && GradeRunComplete_8c02c586() != 0) {
                 var_runState_8c2285c4.runPassed_0x04 = 1;
             }
             SndStartAdxFadeOut_8c010bae(0);

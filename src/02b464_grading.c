@@ -1,9 +1,9 @@
-/* @unit DrivePoints */
+/* @unit Grade */
 
 #include <shinobi.h>
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
-#include "02b464_drive_points.h"
+#include "02b464_grading.h"
 #include "0100bc_sound.h"
 #include "014f54_sprite.h"
 #include "015034_text.h"
@@ -822,7 +822,7 @@ STATIC void gradeFrame_8c02bcd8(void) {
     }
 }
 
-int DrivePointsRunComplete_8c02c586(void) {
+int GradeRunComplete_8c02c586(void) {
     /* Ghidra decompiles an incoming parameter as the threshold default, but
      * no real caller passes one -- every call site here and in 02c884
      * calls with zero args, and every reachable combination of
@@ -918,12 +918,12 @@ STATIC void onFadeRunFailed_8c02c76a(void) {
 
 /* Installed as var_fadeCompleteCallback_8c22656c for a drive that ended
  * with the run's points still not enough to pass a required next stop
- * (DrivePointsRunComplete_8c02c586 == 0): either re-plays the stop-arrival sequence, or (once
+ * (GradeRunComplete_8c02c586 == 0): either re-plays the stop-arrival sequence, or (once
  * that check passes) tears down the drive's tasks and reloads the route
  * segment; when it does pass, routes to the results/course-return flow
  * like driveEndFadeTask_8c02c69a's state 2. */
 STATIC void onFadeStopEnded_8c02c624(void) {
-    if (DrivePointsRunComplete_8c02c586() == 0) {
+    if (GradeRunComplete_8c02c586() == 0) {
         ObjectsFreePedestrianGroups_8c0297da();
         SignalFree_8c0288be();
         TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
@@ -949,8 +949,8 @@ STATIC void onFadeStopEnded_8c02c624(void) {
     CourseMenuReturn_8c017ef2();
 }
 
-void DrivePointsOnFadeDriveEnd_8c02c784(void) {
-    if (DrivePointsRunComplete_8c02c586() == 0 && var_runState_8c2285c4.driverPoints_0x0c > 0) {
+void GradeOnFadeDriveEnd_8c02c784(void) {
+    if (GradeRunComplete_8c02c586() == 0 && var_runState_8c2285c4.driverPoints_0x0c > 0) {
         ObjectsFreePedestrianGroups_8c0297da();
         SignalFree_8c0288be();
         TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
@@ -977,7 +977,7 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
     PracticeMenuLessonRetry_8c01f21c();
 }
 
-/* Master per-frame drive task, installed by DrivePointsReset_8c02c46a (via
+/* Master per-frame drive task, installed by GradeReset_8c02c46a (via
  * TaskPush). var_runState_8c2285c4.runPhase_0x00 is the phase: 0 idle, 2 actively driving,
  * 3 a "drive ending, still grading a couple of last checks" phase, 4 a fixed
  * hold while fading out, 5 done.
@@ -992,7 +992,7 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
  * Phase 3: grades how the stop ended (var_runState_8c2285c4.stopArrivalGrade_0x24, set by
  * StopUpdateArrival_8c02ce48), then moves to phase 4, picking one of three
  * fade-complete callbacks depending on mode and whether the run still needs
- * another stop (DrivePointsRunComplete_8c02c586).
+ * another stop (GradeRunComplete_8c02c586).
  *
  * Phase 4: counts var_runState_8c2285c4.driveEndHold_0x08 down; once elapsed and the music
  * has finished fading, stops all sound/vibration, moves to phase 5, and
@@ -1092,7 +1092,7 @@ STATIC void taskCallback_8c02c072() {
                 var_runState_8c2285c4.driveEndHold_0x08 = 0x1e;
                 var_messageBoxActive_8c22847c = 1;
                 if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
-                    var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
+                    var_fadeCompleteCallback_8c22656c = GradeOnFadeDriveEnd_8c02c784;
                 } else {
                     var_fadeCompleteCallback_8c22656c = onFadeRunFailed_8c02c76a;
                 }
@@ -1121,14 +1121,14 @@ STATIC void taskCallback_8c02c072() {
             var_runState_8c2285c4.driveEndHold_0x08 = 0x1e;
             var_messageBoxActive_8c22847c = 1;
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
-                var_fadeCompleteCallback_8c22656c = DrivePointsOnFadeDriveEnd_8c02c784;
+                var_fadeCompleteCallback_8c22656c = GradeOnFadeDriveEnd_8c02c784;
             } else if (var_runState_8c2285c4.driverPoints_0x0c == 0) {
                 var_fadeCompleteCallback_8c22656c = onFadeRunFailed_8c02c76a;
             } else {
                 var_fadeCompleteCallback_8c22656c = onFadeStopEnded_8c02c624;
             }
 
-            if (var_runState_8c2285c4.driverPoints_0x0c > 0 && DrivePointsRunComplete_8c02c586() != 0) {
+            if (var_runState_8c2285c4.driverPoints_0x0c > 0 && GradeRunComplete_8c02c586() != 0) {
                 var_runState_8c2285c4.runPassed_0x04 = 1;
             }
 
@@ -1170,7 +1170,7 @@ STATIC void taskCallback_8c02c072() {
 /* Starts a drive: installs taskCallback_8c02c072 (phase 0, idle -- it goes
  * active once something else sets var_runState_8c2285c4.runPhase_0x00 to 2) and resets this
  * unit's whole scratch scoring/state region for a fresh run. */
-void DrivePointsReset_8c02c46a(void) {
+void GradeReset_8c02c46a(void) {
     Task *created_task;
     void *created_state;
     int i;

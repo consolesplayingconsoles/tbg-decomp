@@ -12,7 +12,7 @@
 #include "01f3c0_ending.h"
 #include "02a9fc_message_box.h"
 #include "0100bc_sound.h"
-#include "02b464_drive_points.h"
+#include "02b464_grading.h"
 #include "014f54_sprite.h"
 #include "022464_render.h"
 #include "014a9c_tasks.h"
@@ -102,7 +102,7 @@ STATIC char init_lessonGuideRows_8c0451ec[] = { 0x10, 0x0a, 0x14, 0x11, 0x12, 0x
  * floats, in the PVR's 32-pixel tiles, so x 64-352 y 192-224. */
 STATIC char init_guideClipRect_8c0451f8[] = { 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0xc0, 0x40, 0x00, 0x00, 0x30, 0x41, 0x00, 0x00, 0xe0, 0x40 };
 /* Indexed by the drive-side penalty id in var_worstPenaltyMsgSet_8c1bb8ec (a PENALTY_MSG_* from
- * 02b464_drive_points.c -- the worst penalty of the run just finished);
+ * 02b464_grading.c -- the worst penalty of the run just finished);
  * gives the INSTR_* dialog id (016d2c_course_menu.h) shown for it below.
  * Several PENALTY_MSG_* ids collapse onto the same INSTR_* (e.g. both
  * PENALTY_MSG_OFF_COURSE_MEDIUM and _MAJOR show INSTR_OFF_COURSE_MEDIUM) --

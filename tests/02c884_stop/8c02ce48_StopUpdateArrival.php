@@ -37,8 +37,8 @@ return new class extends TestCase {
         //   _drawStopMarker_8c02cd92 (address only, not called directly)
 
         // Cross-unit, not yet decompiled (02b464) -- mock with shouldCall().
-        //   _DrivePointsRunComplete_8c02c586
-        //   _DrivePointsOnFadeDriveEnd_8c02c784 (address only, not called directly)
+        //   _GradeRunComplete_8c02c586
+        //   _GradeOnFadeDriveEnd_8c02c784 (address only, not called directly)
     }
 
     private function initBusState(int $field0x3b0, int $field0x3b4, float $speed): int
@@ -320,7 +320,7 @@ return new class extends TestCase {
     }
 
     // State 4, finish bit set, not enough driver points -- skips the extra
-    // DrivePointsRunComplete_8c02c586 side effect.
+    // GradeRunComplete_8c02c586 side effect.
     public function test_state4_finishes_no_bonus(): void
     {
         $this->resolveSymbols();
@@ -336,12 +336,12 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x24, 0);
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4'), 4);
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x08, 0x1e);
-        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_DrivePointsOnFadeDriveEnd_8c02c784'));
+        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_GradeOnFadeDriveEnd_8c02c784'));
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);
     }
 
-    // State 4, finish bit set, enough driver points and DrivePointsRunComplete_8c02c586 signals
+    // State 4, finish bit set, enough driver points and GradeRunComplete_8c02c586 signals
     // -- also sets var_runState_8c2285c4.runPassed_0x04.
     public function test_state4_finishes_with_bonus(): void
     {
@@ -358,8 +358,8 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x24, 0);
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4'), 4);
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x08, 0x1e);
-        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_DrivePointsOnFadeDriveEnd_8c02c784'));
-        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->with()->andReturn(1);
+        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_GradeOnFadeDriveEnd_8c02c784'));
+        $this->shouldCall('_GradeRunComplete_8c02c586')->with()->andReturn(1);
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x04, 1);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);

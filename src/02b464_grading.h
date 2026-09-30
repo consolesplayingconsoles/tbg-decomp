@@ -1,7 +1,7 @@
 /* Driver points: the running score a drive is graded against, and what
  * happens when it runs out or the route finishes. */
-#ifndef _02B464_DRIVE_POINTS_H
-#define _02B464_DRIVE_POINTS_H
+#ifndef _02B464_GRADING_H
+#define _02B464_GRADING_H
 
 /* Per-run drive state. */
 typedef struct {
@@ -13,7 +13,7 @@ typedef struct {
     /* Set when a drive ends with points left and every owed stop served -- by
      * StopUpdateArrival_8c02ce48 (02c884) on a finished stop, and by
      * taskCallback_8c02c072 (02b464) on the phase-3 wrap-up. Cleared for the
-     * next drive by DrivePointsReset_8c02c46a. DriveMsgDraw_8c02b388 (02b2f0)
+     * next drive by GradeReset_8c02c46a. DriveMsgDraw_8c02b388 (02b2f0)
      * is its only reader. */
     int runPassed_0x04;
 
@@ -71,7 +71,7 @@ typedef struct {
     float stopMinDistance_0x28;
 
     /* Three per-offense counters of gradeSignals_8c02b8b8 / gradeLaneUse_8c02b986 /
-     * gradeIntersection_8c02bb1c (02b464), all cleared by DrivePointsReset_8c02c46a.
+     * gradeIntersection_8c02bb1c (02b464), all cleared by GradeReset_8c02c46a.
      * wrongLaneCount counts frames off-course, and escalates INSTR_WRONG_LANE from
      * -10 to -50 after the first. speedingCountdown is reloaded to 120 on each
      * speeding dock and zeroed the moment the bus is back under the limit, so a
@@ -153,17 +153,17 @@ extern int var_wallHitBits_8c228660;
 /* Starts a drive: installs the master per-frame drive task
  * (taskCallback_8c02c072) and resets this unit's whole scratch scoring/
  * state region for a fresh run. */
-void DrivePointsReset_8c02c46a(void);
+void GradeReset_8c02c46a(void);
 
 /* Reports whether the run has reached the last stop it owes: a required
  * var_nextStopSegment_8c228710, picked by practice-lesson id when
  * practicing and by route otherwise. */
-int DrivePointsRunComplete_8c02c586(void);
+int GradeRunComplete_8c02c586(void);
 
 /* var_fadeCompleteCallback_8c22656c for a finished drive: retries the route
  * segment if the run still owes a stop, otherwise heads for the results or
  * lesson-retry screen. Installed by StopUpdateArrival_8c02ce48 (02c884)
  * and by this unit's own drive-end paths. */
-void DrivePointsOnFadeDriveEnd_8c02c784(void);
+void GradeOnFadeDriveEnd_8c02c784(void);
 
-#endif // _02B464_DRIVE_POINTS_H
+#endif // _02B464_GRADING_H

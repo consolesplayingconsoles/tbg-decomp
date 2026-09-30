@@ -19,7 +19,7 @@
 #include "01bb48_vm_game.h"
 #include "01f3c0_ending.h"
 #include "02a9fc_message_box.h"
-#include "02b464_drive_points.h"
+#include "02b464_grading.h"
 #include "022464_render.h"
 #include "014a9c_tasks.h"
 #include "1ba1c8_globals.h"

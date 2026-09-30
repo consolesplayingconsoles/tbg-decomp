@@ -31,7 +31,7 @@ return new class extends TestCase {
 
         $this->call('_onFadeStopEnded_8c02c624');
 
-        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(0);
+        $this->shouldCall('_GradeRunComplete_8c02c586')->andReturn(0);
 
         $this->shouldCall('_ObjectsFreePedestrianGroups_8c0297da');
         $this->shouldCall('_SignalFree_8c0288be');
@@ -54,7 +54,7 @@ return new class extends TestCase {
 
         $this->call('_onFadeStopEnded_8c02c624');
 
-        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(1);
+        $this->shouldCall('_GradeRunComplete_8c02c586')->andReturn(1);
 
         $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);

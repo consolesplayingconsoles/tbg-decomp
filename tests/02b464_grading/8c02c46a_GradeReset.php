@@ -21,9 +21,9 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0);
         $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x368, 0);
 
-        $this->call('_DrivePointsReset_8c02c46a');
+        $this->call('_GradeReset_8c02c46a');
 
-        // DrivePointsReset_8c02c46a has an empty stack frame of its own
+        // GradeReset_8c02c46a has an empty stack frame of its own
         // beyond the two TaskPush out-params (created_task, created_state),
         // pushed right after the STS.L PR/ADD #-8,R15 prologue -- so their
         // addresses are the initial test stack pointer (16MiB-4, see

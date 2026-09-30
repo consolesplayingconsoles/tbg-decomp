@@ -16,7 +16,7 @@
 #include "02c884_stop.h"
 #include "02d06c_stop_draw.h"
 #include "02d19c_passenger.h"
-#include "02b464_drive_points.h"
+#include "02b464_grading.h"
 
 /* ====================
  * Forward Declarations

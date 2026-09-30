@@ -12,7 +12,7 @@
 #include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
 #include "023938_bus_drive.h"
 #include "023310_bus_init.h"
-#include "02b464_drive_points.h"
+#include "02b464_grading.h"
 
 /* ====================
  * Type Declarations

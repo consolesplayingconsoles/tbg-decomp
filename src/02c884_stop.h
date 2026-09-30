@@ -32,7 +32,7 @@ CourseSegment *StopGetSegment_8c02cd6a(int segmentIndex);
  * (the course's lineBus_0x08 table, selected by the segment's stopAreaId_0x02). */
 StopAreaRecord *StopGetStopArea_8c02cd7a(int segmentIndex);
 
-/* Per-frame arrival state machine, driven by 02b464_drive_points. Phases run
+/* Per-frame arrival state machine, driven by 02b464_grading. Phases run
  * 0 cruising -> 2 approach -> 3 stopped -> 4 finishing -> 1 post-departure ->
  * 0; this function never enters 3 or 4 on its own, 02b464 does. See the
  * function for what each phase watches. */

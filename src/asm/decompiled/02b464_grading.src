@@ -65,9 +65,9 @@
           .IMPORT     _RenderPushFadeIn_8c022a9c
           .IMPORT     _ResultShowPassedRun_8c01e0b4
           .IMPORT     _var_menuState_8c1bc7a8
-          .EXPORT     _DrivePointsReset_8c02c46a
-          .EXPORT     _DrivePointsRunComplete_8c02c586
-          .EXPORT     _DrivePointsOnFadeDriveEnd_8c02c784
+          .EXPORT     _GradeReset_8c02c46a
+          .EXPORT     _GradeRunComplete_8c02c586
+          .EXPORT     _GradeOnFadeDriveEnd_8c02c784
           .EXPORT     _var_runState_8c2285c4 ; 013ae8_route
           .EXPORT     _var_wallHitBits_8c228660 ; 022bdc
           .AIFDEF UNIT_TESTING
@@ -1966,7 +1966,7 @@ LP_GEN_39176:
           .DATA.L _var_messageBoxActive_8c22847c ; H'8C02C2E0
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C2E4
           .DATA.L _onFadeRunFailed_8c02c76a ; H'8C02C2E8
-          .DATA.L _DrivePointsOnFadeDriveEnd_8c02c784 ; H'8C02C2EC
+          .DATA.L _GradeOnFadeDriveEnd_8c02c784 ; H'8C02C2EC
 LAB_8c02c2f0:
           MOV.L       LP_GEN_30870+10,R2
           MOV.L       @R2,R3
@@ -2048,7 +2048,7 @@ LAB_8c02c372:
           MOV.L       @(H'c,R14),R3
           CMP/PL      R3
           BF          LAB_8c02c382
-          BSR         _DrivePointsRunComplete_8c02c586
+          BSR         _GradeRunComplete_8c02c586
           NOP
           TST         R0,R0
           BT          LAB_8c02c382
@@ -2077,7 +2077,7 @@ LP_GEN_30870:
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02C3B4
           .DATA.L _onFadeRunFailed_8c02c76a ; H'8C02C3B8
           .DATA.L _onFadeStopEnded_8c02c624 ; H'8C02C3BC
-          .DATA.L _DrivePointsOnFadeDriveEnd_8c02c784 ; H'8C02C3C0
+          .DATA.L _GradeOnFadeDriveEnd_8c02c784 ; H'8C02C3C0
           .DATA.L _SndStartAdxFadeOut_8c010bae ; H'8C02C3C4
 LAB_8c02c3c8:
           MOV.L       @(H'8,R14),R2
@@ -2168,7 +2168,7 @@ LAB_8c02c44e:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_DrivePointsReset_8c02c46a:
+_GradeReset_8c02c46a:
           STS.L       PR,@-R15
           ADD         #-H'8,R15
           MOV         #H'0,R3
@@ -2300,7 +2300,7 @@ LAB_8c02c576:
           LDS.L       @R15+,PR
           RTS
           NOP
-_DrivePointsRunComplete_8c02c586:
+_GradeRunComplete_8c02c586:
           MOV.L       LP_GEN_23130+42,R3
           MOV.L       @R3,R0
           CMP/EQ      #H'1,R0
@@ -2379,7 +2379,7 @@ LAB_8c02c61e:
 _onFadeStopEnded_8c02c624:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
-          BSR         _DrivePointsRunComplete_8c02c586
+          BSR         _GradeRunComplete_8c02c586
           NOP
           TST         R0,R0
           BF          LAB_8c02c664
@@ -2564,10 +2564,10 @@ _onFadeRunFailed_8c02c76a:
           MOV.L       R2,@R1
           BRA         _beginDriveEnd_8c02c738
           MOV.L       R4,@R0
-_DrivePointsOnFadeDriveEnd_8c02c784:
+_GradeOnFadeDriveEnd_8c02c784:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
-          BSR         _DrivePointsRunComplete_8c02c586
+          BSR         _GradeRunComplete_8c02c586
           NOP
           TST         R0,R0
           BF          LAB_8c02c7cc

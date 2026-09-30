@@ -460,7 +460,7 @@ Count the unit's function labels, not its `.EXPORT` lines, and treat an
 address-taken-only callee as a function in its own right. `028258` hit the same
 thing from the other direction: decompiling turned up three functions
 (`FUN_8c02833c`, `FUN_8c0283d4`, `FUN_8c0283e8`) missing from the stub list.
-`02b464_drive_points` (2026-08-28/29) had six, all reachable only via
+`02b464_grading` (2026-08-28/29) had six, all reachable only via
 TaskPush pointers, including the master per-frame `taskCallback_8c02c072`.
 
 **The inverse also happens:** an `.EXPORT`ed symbol that *isn't* a function at

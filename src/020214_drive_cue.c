@@ -13,7 +13,7 @@
 #include "0100bc_sound.h" /* SndPlayAdx_8c010cd6, var_midiHandles_8c0fcd28 */
 #include "020214_drive_cue.h"
 #include "02c884_stop.h"
-#include "02b464_drive_points.h"
+#include "02b464_grading.h"
 
 /* ====================
  * Non-initialized Globals

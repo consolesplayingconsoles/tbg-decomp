@@ -59,7 +59,7 @@
           .AENDI
           .EXPORT     _var_selectedEventEntry_8c228478 ; 02af78_event
           .EXPORT     _var_messageBoxActive_8c22847c ; 0129cc_game
-                                                     ; 02b464_drive_points
+                                                     ; 02b464_grading
                                                      ; 02d19c_passenger
           .SECTION     P, CODE, ALIGN=4
 _relocateMessageText_8c02a9fc:

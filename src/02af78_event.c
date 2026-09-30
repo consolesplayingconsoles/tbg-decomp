@@ -2,7 +2,7 @@
 #include <shinobi.h>
 
 #include "02af78_event.h"
-#include "02b464_drive_points.h"
+#include "02b464_grading.h"
 #include "02a9fc_message_box.h"
 #include "013ae8_route.h"
 #include "011120_asset_queues.h"

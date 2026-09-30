@@ -81,11 +81,11 @@ bus along a predefined route with predefined passenger stop requests.
   "mirror button" -- see the Penalties section's naming note) is 0 = off,
   1 = left, 2 = right, set by the same two buttons that also switch the
   mirror view (`mirror_0x268`, `024280_bus_input.c:441-511`); it clears itself once a
-  lane change completes (`02b464_drive_points.c`) or on a gear change
+  lane change completes (`02b464_grading.c`) or on a gear change
   (`023938_bus_drive.c`).
 - One control genuinely does three jobs: it is the driver's turn signal, the
   mirror-view selector, and the input the lane-change penalty check reads
-  (`02b464_drive_points.c:577`). Naming it after any single one of those
+  (`02b464_grading.c:577`). Naming it after any single one of those
   (e.g. a "mirror button" or a "turn signal") would misdescribe the other
   two, so the field is named for the shared thing it actually holds -- the
   driver's latched left/right side intent.
@@ -128,7 +128,7 @@ The messages are rows of `init_instructorDialogs_8c044c08`
 variants.
 
 **Where penalties actually fire, and where they're shown.** In-drive,
-`02b464_drive_points.c` grades every penalty through
+`02b464_grading.c` grades every penalty through
 `adjust_8c02b464(msgSet, delta)`, where `msgSet` is a bare numeric literal in
 a *local* id space (0-33, documented at `init_penaltyMsgGlyphs_8c04c35c` in that file) --
 **not** an `INSTR_*` id. `msgSet` selects which HUD glyph banner is drawn
@@ -142,7 +142,7 @@ instructor comment. **Story and free-run results
 (`01d7fc_results.c`) never consult that table** -- those modes show only the
 pass/fail badge, no per-offense commentary. So every `INSTR_*` penalty
 message that fires at all is practice-mode-only; each `adjust_8c02b464` call
-site in `02b464_drive_points.c` now carries a `/* -> INSTR_* */` comment
+site in `02b464_grading.c` now carries a `/* -> INSTR_* */` comment
 naming which one it ends up showing there.
 
 Four of the 32 defined penalties never appear as a value in
@@ -201,7 +201,7 @@ collision. Renamed to `laneTargetSearchDone_0x334`/`laneTargetSearchSide_0x338`
 to remove the trap.
 
 The score bar itself is `var_runState_8c2285c4.driverPoints_0x0c`, driven by
-`02b464_drive_points.c`; it also feeds the end-of-run badge tier (see
+`02b464_grading.c`; it also feeds the end-of-run badge tier (see
 `AWARD_TIER_*`).
 
 ## Stops and segments

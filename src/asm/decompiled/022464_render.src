@@ -51,7 +51,7 @@
           .EXPORT     _var_arrivalOverlayGate_8c226560 ; 0289ac_objects
                                                        ; 02d19c_passenger
           .EXPORT     _var_fadeRequest_8c226564 ; 0289ac_objects
-                                                ; 02b464_drive_points
+                                                ; 02b464_grading
                                                 ; 02d19c_passenger
           .EXPORT     _var_isFading_8c226568 ; 0129cc_game
                                              ; 015ab8_title
@@ -68,9 +68,9 @@
                                              ; 01e27c_practice_menu
                                              ; 01f3c0_ending
                                              ; 0289ac_objects
-                                             ; 02b464_drive_points
+                                             ; 02b464_grading
                                              ; 02d19c_passenger
-          .EXPORT     _var_fadeCompleteCallback_8c22656c ; 02b464_drive_points
+          .EXPORT     _var_fadeCompleteCallback_8c22656c ; 02b464_grading
                                                          ; 02c884_stop
 
           .AIFDEF UNIT_TESTING

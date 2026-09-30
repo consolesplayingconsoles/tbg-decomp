@@ -125,7 +125,7 @@ return new class extends TestCase {
         $this->initUint32($base + 0x58, 0x3c); // var_runState_8c2285c4.field_0x58[0]
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
-        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0); // skip DrivePointsRunComplete_8c02c586 gate
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0); // skip GradeRunComplete_8c02c586 gate
 
         $this->call('_taskCallback_8c02c072');
 
@@ -136,7 +136,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x00, 4);
         $this->shouldWriteLong($base + 0x08, 0x1e);
         $this->shouldWriteLong($this->addressOf('_var_messageBoxActive_8c22847c'), 1);
-        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_DrivePointsOnFadeDriveEnd_8c02c784'));
+        $this->shouldWriteLongTo('_var_fadeCompleteCallback_8c22656c', $this->addressOf('_GradeOnFadeDriveEnd_8c02c784'));
 
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(0);
         $this->shouldCall('_SndStartAdxFadeOut_8c010bae')->with(1);

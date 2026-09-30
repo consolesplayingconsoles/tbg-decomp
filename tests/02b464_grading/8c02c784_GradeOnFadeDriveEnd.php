@@ -23,9 +23,9 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 1);
 
-        $this->call('_DrivePointsOnFadeDriveEnd_8c02c784');
+        $this->call('_GradeOnFadeDriveEnd_8c02c784');
 
-        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(0);
+        $this->shouldCall('_GradeRunComplete_8c02c586')->andReturn(0);
 
         $this->shouldCall('_ObjectsFreePedestrianGroups_8c0297da');
         $this->shouldCall('_SignalFree_8c0288be');
@@ -43,11 +43,11 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 7);
 
-        $this->call('_DrivePointsOnFadeDriveEnd_8c02c784');
+        $this->call('_GradeOnFadeDriveEnd_8c02c784');
 
-        // DrivePointsRunComplete_8c02c586 is the left operand of the && so it's still called
+        // GradeRunComplete_8c02c586 is the left operand of the && so it's still called
         // even though driverPoints <= 0 makes the overall condition false.
-        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(0);
+        $this->shouldCall('_GradeRunComplete_8c02c586')->andReturn(0);
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 7); // selected_0x38
         $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
@@ -63,9 +63,9 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 5);
         $this->initUint32($this->addressOf('_var_practiceLesson_8c22640c'), 3);
 
-        $this->call('_DrivePointsOnFadeDriveEnd_8c02c784');
+        $this->call('_GradeOnFadeDriveEnd_8c02c784');
 
-        $this->shouldCall('_DrivePointsRunComplete_8c02c586')->andReturn(1);
+        $this->shouldCall('_GradeRunComplete_8c02c586')->andReturn(1);
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 3);
         $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);

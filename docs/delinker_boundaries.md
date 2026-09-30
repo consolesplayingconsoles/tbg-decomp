@@ -54,7 +54,7 @@ Suspects surviving all three tests, strongest first:
 | candidate | fns | pair-private bss |
 |---|---|---|
 | `02d968_stop_spawn` + `02d19c_passenger` | 1 | 7 -- the six board/exit spots + `passengerActed` |
-| `02b2f0_drive_msg` + `02b464_drive_points` | 2 | 1 -- `var_driveMsgQueue_8c228564` |
+| `02b2f0_drive_msg` + `02b464_grading` | 2 | 1 -- `var_driveMsgQueue_8c228564` |
 | `022bdc_bus` + `023310_bus_init` | 1 | 1 -- `var_busDoorLastFrame_8c227db4` |
 | `025b98_traffic_drive` + `026710_traffic` | 2 | 0 |
 | `012324_peripheral_support` + `012504_input` (merged as `012324_input`) | 1 | 0 |
