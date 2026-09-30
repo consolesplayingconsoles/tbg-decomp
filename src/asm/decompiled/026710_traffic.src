@@ -13,7 +13,7 @@
           .IMPORT     _njSqrt
           .IMPORT     _acosf
           .IMPORT     _var_currentSegment_8c228708
-          .IMPORT     _BusStopGetSegment_8c02cd6a
+          .IMPORT     _StopGetSegment_8c02cd6a
           .IMPORT     _var_trafficSignalFrames_8c227e24
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_playerBus_8c1bbd9c
@@ -66,7 +66,7 @@
           .EXPORT     _TrafficInit_8c02769e
           .EXPORT     _var_activeTrafficPreset_8c227e14 ; 015034_text
                                                         ; 025b98_traffic_drive
-                                                        ; 02c884_bus_stop
+                                                        ; 02c884_stop
           .AIFDEF     UNIT_TESTING
           .EXPORT     _initEntryState_8c026748
           .EXPORT     _spawnEntry_8c0272b8
@@ -1010,7 +1010,7 @@ LP_GEN_70087:
           .DATA.L H'47800000 ; H'8C026E38
           .DATA.L H'40C90FD8 ; H'8C026E3C
           .DATA.L _var_currentSegment_8c228708 ; H'8C026E40
-          .DATA.L _BusStopGetSegment_8c02cd6a ; H'8C026E44
+          .DATA.L _StopGetSegment_8c02cd6a ; H'8C026E44
           .DATA.L _var_trafficSignalFrames_8c227e24 ; H'8C026E48
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C026E4C
           .DATA.L _init_scriptOpWords_8c0460bc ; H'8C026E50

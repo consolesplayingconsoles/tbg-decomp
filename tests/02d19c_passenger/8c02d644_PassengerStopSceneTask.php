@@ -12,7 +12,7 @@ return new class extends TestCase {
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_MessageBoxStart_8c02ad8c', 4);
         $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
-        $this->setSize('_BusStopFreeTaskGroup_8c02ca96', 4);
+        $this->setSize('_StopFreeTaskGroup_8c02ca96', 4);
         $this->setSize('_njReleaseTexture', 4);
         $this->setSize('_BusCameraRestoreCameraState_8c024b86', 4);
         $this->setSize('_BusCameraApplyCameraMode_8c024f32', 4);
@@ -294,7 +294,7 @@ return new class extends TestCase {
         $this->call('_PassengerStopSceneTask_8c02d644')->with($task, $state);
 
         $this->expectFrameCallbacks();
-        $this->shouldCall('_BusStopFreeTaskGroup_8c02ca96');
+        $this->shouldCall('_StopFreeTaskGroup_8c02ca96');
         $this->shouldCall('_njReleaseTexture')->with($tlist);
         $this->shouldWriteLongTo('_var_cameraMode_8c227d9c', 2);
         $this->shouldWriteLongTo('_var_cameraCueState_8c227da4', 0);
@@ -328,7 +328,7 @@ return new class extends TestCase {
         $this->call('_PassengerStopSceneTask_8c02d644')->with($task, $state);
 
         $this->expectFrameCallbacks();
-        $this->shouldCall('_BusStopFreeTaskGroup_8c02ca96');
+        $this->shouldCall('_StopFreeTaskGroup_8c02ca96');
         $this->shouldCall('_njReleaseTexture')->with($tlist);
         $this->shouldCall('_BusCameraRestoreCameraState_8c024b86'); // not DEMO, not PRACTICE
         $busState = $this->addressOf('_var_busState_8c1bb9d0');

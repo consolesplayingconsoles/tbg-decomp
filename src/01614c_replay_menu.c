@@ -17,7 +17,7 @@
 #include "028258_traffic_signal.h"
 #include "0289ac_objects.h"
 #include "02a9fc_message_box.h"
-#include "02c884_bus_stop.h"
+#include "02c884_stop.h"
 #include "02f320_replay_codec.h"
 #include "0193c8_vm_menu.h"
 #include "1ba1c8_globals.h"
@@ -130,7 +130,7 @@ void ReplayMenuFreeDriveTasks_8c01614c(void)
 {
     ObjectsFreePedestrianGroups_8c0297da();
     SignalFree_8c0288be();
-    BusStopFreeTaskGroup_8c02ca96();
+    StopFreeTaskGroup_8c02ca96();
     TaskFreeGroup_8c014ab4(var_tasks_8c1bb448);
     TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba808);

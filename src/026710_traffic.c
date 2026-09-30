@@ -12,7 +12,7 @@
 #include "026710_traffic.h"
 #include "028258_traffic_signal.h"
 #include "02786c_vehicle_parts.h"
-#include "02c884_bus_stop.h"
+#include "02c884_stop.h"
 #include "02df3c_traffic_lookahead.h"
 #include "02e51c_attr_query.h"
 #include "02f0c8_traffic_path_scan.h"
@@ -506,7 +506,7 @@ void TrafficMarkSignalIdsInUse_8c026dcc(int maxId)
     Uint16 *ip;
     int i;
 
-    seg = BusStopGetSegment_8c02cd6a(var_currentSegment_8c228708);
+    seg = StopGetSegment_8c02cd6a(var_currentSegment_8c228708);
     typeIds = seg->sceneObjectTypeIds_0x14;
 
     if (typeIds == NULL) {

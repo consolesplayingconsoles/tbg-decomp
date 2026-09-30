@@ -1,7 +1,7 @@
 /* Bus stops: which segments have one, the passengers waiting at them, and the
  * arrival/departure state machine. */
-#ifndef _02C884_BUS_STOP_H
-#define _02C884_BUS_STOP_H
+#ifndef _02C884_STOP_H
+#define _02C884_STOP_H
 
 #include "013ae8_route_load.h" /* CourseSegment */
 
@@ -16,27 +16,27 @@ typedef struct {
 } StopAreaRecord;
 
 /* Frees the bus-stop task group and marks it unallocated. */
-void BusStopFreeTaskGroup_8c02ca96(void);
+void StopFreeTaskGroup_8c02ca96(void);
 
 /* Per-run setup, called once the course has loaded: decides which segments
  * get a stop, then primes the first one and its waiting passengers. */
-void BusStopSetup_8c02caba(void);
+void StopSetup_8c02caba(void);
 
 /* Locks in the current stop's heading, then finds the next segment with a
  * stop and primes its position and heading. */
-void BusStopUpdateStopHeadings_8c02ccc6(void);
+void StopUpdateStopHeadings_8c02ccc6(void);
 
-CourseSegment *BusStopGetSegment_8c02cd6a(int segmentIndex);
+CourseSegment *StopGetSegment_8c02cd6a(int segmentIndex);
 
 /* Returns the stop-area record for segmentIndex's segment
  * (the course's lineBus_0x08 table, selected by the segment's stopAreaId_0x02). */
-StopAreaRecord *BusStopGetStopArea_8c02cd7a(int segmentIndex);
+StopAreaRecord *StopGetStopArea_8c02cd7a(int segmentIndex);
 
 /* Per-frame arrival state machine, driven by 02b464_drive_points. Phases run
  * 0 cruising -> 2 approach -> 3 stopped -> 4 finishing -> 1 post-departure ->
  * 0; this function never enters 3 or 4 on its own, 02b464 does. See the
  * function for what each phase watches. */
-void BusStopUpdateArrival_8c02ce48(void);
+void StopUpdateArrival_8c02ce48(void);
 
 /* index of the stop the run starts from: 0 for a normal course start, or the
  * debug menu's per-entry startStopIndex_0x04 to begin partway along the route */
@@ -49,7 +49,7 @@ extern int var_nextStopSegment_8c228710; // segment index of the upcoming stop
 
 /* upcoming stop's heading angle (njArcTan2 of its stop-area record's
  * direction vector, see NinjaApi.h), sign-extended from the low 16 bits by
- * BusStopUpdateStopHeadings_8c02ccc6 */
+ * StopUpdateStopHeadings_8c02ccc6 */
 extern int var_nextStopHeading_8c228714;
 
 /* fixed 31-slot table of scripted/special waiting-passenger schedule entries,
@@ -79,4 +79,4 @@ extern NJS_SPRITE var_passengerSprite_8c2288d8;
  * (see StopSpawnInit_8c02d968); -1 means not currently allocated. */
 extern void* var_stopTaskGroup_8c2288f8;
 
-#endif // _02C884_BUS_STOP_H
+#endif // _02C884_STOP_H

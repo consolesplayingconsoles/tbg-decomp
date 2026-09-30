@@ -1,6 +1,6 @@
 ; 8c023310
           .IMPORT     _var_currentSegment_8c228708
-          .IMPORT     _BusStopGetStopArea_8c02cd7a
+          .IMPORT     _StopGetStopArea_8c02cd7a
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_sceneParams_8c18ad24
           .IMPORT     _GroundQueryFindPolygon_8c020914
@@ -29,7 +29,7 @@
           .IMPORT     _AttrQueryFindConvexPolygonAtHeight_8c02eab4
           .IMPORT     _AttrQueryFindPolygonAtHeight_8c02ec50
           .IMPORT     _AttrQueryFindConvexPolygon_8c02e51c
-          .IMPORT     _BusStopGetSegment_8c02cd6a
+          .IMPORT     _StopGetSegment_8c02cd6a
           .IMPORT     _BusDriveApplyGround_8c023cba
           .IMPORT     _VehicleModelPlace_8c020594
           .IMPORT     _var_brakePressPeak_8c227d8c
@@ -169,7 +169,7 @@ LP_GEN_83541:
           .DATA.W H'025C ; H'8C023400
           .RES.W 1 ; H'8C023402
           .DATA.L _var_currentSegment_8c228708 ; H'8C023404
-          .DATA.L _BusStopGetStopArea_8c02cd7a ; H'8C023408
+          .DATA.L _StopGetStopArea_8c02cd7a ; H'8C023408
           .DATA.L _var_busState_8c1bb9d0 ; H'8C02340C
           .DATA.L _var_sceneParams_8c18ad24 ; H'8C023410
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C023414
@@ -702,7 +702,7 @@ LP_GEN_45139:
           .DATA.L _AttrQueryFindPolygonAtHeight_8c02ec50 ; H'8C023854
           .DATA.L _GroundQueryFindPolygon_8c020914 ; H'8C023858
           .DATA.L _AttrQueryFindConvexPolygon_8c02e51c ; H'8C02385C
-          .DATA.L _BusStopGetSegment_8c02cd6a ; H'8C023860
+          .DATA.L _StopGetSegment_8c02cd6a ; H'8C023860
           .DATA.L _BusDriveSampleGround_8c023938 ; H'8C023864
           .DATA.L _BusDriveApplyGround_8c023cba ; H'8C023868
           .DATA.L _var_playerBus_8c1bbd9c ; H'8C02386C

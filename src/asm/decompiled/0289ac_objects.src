@@ -194,7 +194,7 @@
           .EXPORT     _var_fumiLampNodes_8c228434
           .AENDI
           .EXPORT     _var_activePedPreset_8c22822c ; 015034_text
-                                                    ; 02c884_bus_stop
+                                                    ; 02c884_stop
           .EXPORT     _var_pedGroups_8c228230
           .EXPORT     _var_pedGroupCount_8c228234 ; 0129cc_game
           .SECTION     P, CODE, ALIGN=4

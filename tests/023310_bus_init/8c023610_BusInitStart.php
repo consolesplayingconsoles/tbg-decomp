@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
         $this->setSize('_AttrQueryFindConvexPolygon_8c02e51c', 4);
         $this->setSize('_AttrQueryFindPolygon_8c02e69c', 4);
-        $this->setSize('_BusStopGetSegment_8c02cd6a', 4);
+        $this->setSize('_StopGetSegment_8c02cd6a', 4);
         $this->setSize('_BusDriveSampleGround_8c023938', 4);
         $this->setSize('_BusDriveApplyGround_8c023cba', 4);
         $this->setSize('_VehicleModelPlace_8c020594', 4);
@@ -167,7 +167,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x2f4, 0);
         $this->shouldWriteLong($base + 0x334, 0);
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with($segmentId)->andReturn($segment);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with($segmentId)->andReturn($segment);
         $this->shouldWriteLong($base + 0x33c, $stopAreaId);
 
         foreach ([0x344, 0x348, 0x360, 0x364, 0x37c, 0x380, 0x398, 0x39c, 0x3a8, 0x3ac] as $off) {

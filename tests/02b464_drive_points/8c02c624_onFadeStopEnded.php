@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bac28'));
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
-        $this->shouldCall('_BusStopUpdateStopHeadings_8c02ccc6');
+        $this->shouldCall('_StopUpdateStopHeadings_8c02ccc6');
         $this->shouldCall('_RouteLoadPushSegmentReloadTask_8c01468e');
     }
 

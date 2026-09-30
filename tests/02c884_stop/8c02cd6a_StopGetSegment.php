@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _BusStopGetSegment_8c02cd6a(int segmentIndex): returns a pointer to the
+ * _StopGetSegment_8c02cd6a(int segmentIndex): returns a pointer to the
  * course's segments_0x08[segmentIndex] record (0x2c bytes each).
  */
 return new class extends TestCase {
@@ -24,7 +24,7 @@ return new class extends TestCase {
         $this->initUint32($config + 0x08, $segments);
         $this->initUint32($this->addressOf('_var_currentCourseConfig_8c18ad18'), $config);
 
-        $this->call('_BusStopGetSegment_8c02cd6a')->with(3);
+        $this->call('_StopGetSegment_8c02cd6a')->with(3);
 
         $this->shouldReturn($segments + 3 * 0x2c);
     }

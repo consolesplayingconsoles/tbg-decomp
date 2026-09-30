@@ -451,7 +451,7 @@ the unit is finished.
 
 ## A unit can have more functions than its `.src` exports
 
-`02c884_bus_stop`'s `.src` exported 9 symbols, but the unit has 10 functions.
+`02c884_stop`'s `.src` exported 9 symbols, but the unit has 10 functions.
 `drawStopMarker_8c02cd92` is never exported and never directly called -- its
 address is only taken, by `RenderPushCall1_8c0223ea` -- so Ghidra merged it
 into the neighbouring function and it appears as a bare `LAB_` in the asm.

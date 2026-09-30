@@ -44,12 +44,12 @@
           .IMPORT     _DrivePointsRunComplete_8c02c586
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _DrivePointsOnFadeDriveEnd_8c02c784
-          .EXPORT     _BusStopFreeTaskGroup_8c02ca96
-          .EXPORT     _BusStopSetup_8c02caba
-          .EXPORT     _BusStopUpdateStopHeadings_8c02ccc6
-          .EXPORT     _BusStopGetSegment_8c02cd6a
-          .EXPORT     _BusStopGetStopArea_8c02cd7a
-          .EXPORT     _BusStopUpdateArrival_8c02ce48
+          .EXPORT     _StopFreeTaskGroup_8c02ca96
+          .EXPORT     _StopSetup_8c02caba
+          .EXPORT     _StopUpdateStopHeadings_8c02ccc6
+          .EXPORT     _StopGetSegment_8c02cd6a
+          .EXPORT     _StopGetStopArea_8c02cd7a
+          .EXPORT     _StopUpdateArrival_8c02ce48
           .EXPORT     _var_startStopIndex_8c228704 ; 0129cc_game
           .EXPORT     _var_currentSegment_8c228708 ; 0129cc_game, 013ae8, 023310, 026710, 02af78, 02d19c, 02d968
           .EXPORT     _var_prevStopSegment_8c22870c ; 020214
@@ -133,7 +133,7 @@ _pickWaitingPassengers_8c02c8ae:
           JSR         @R2
           ADD         #H'10,R4
           MOV.L       LP_GEN_58192+42,R3
-          BSR         _BusStopGetSegment_8c02cd6a
+          BSR         _StopGetSegment_8c02cd6a
           MOV.L       @R3,R4
           MOV.L       LP_GEN_58192+46,R3
           MOV         R0,R11
@@ -350,7 +350,7 @@ LAB_8c02ca74:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_BusStopFreeTaskGroup_8c02ca96:
+_StopFreeTaskGroup_8c02ca96:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_58192+90,R14
           STS.L       PR,@-R15
@@ -370,7 +370,7 @@ LAB_8c02cab4:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_BusStopSetup_8c02caba:
+_StopSetup_8c02caba:
           MOV.L       R14,@-R15
           MOV         #H'1,R14
           MOV.L       R13,@-R15
@@ -535,7 +535,7 @@ LAB_8c02cc0c:
           MOV.L       R1,@R3
           BSR         _pickWaitingPassengers_8c02c8ae
           NOP
-          BSR         _BusStopUpdateStopHeadings_8c02ccc6
+          BSR         _StopUpdateStopHeadings_8c02ccc6
           NOP
           BSR         _advanceStopSegment_8c02ccae
           NOP
@@ -613,7 +613,7 @@ _advanceStopSegment_8c02ccae:
           MOV.L       LP_GEN_16762+10,R2
           RTS
           MOV.L       R1,@R2
-_BusStopUpdateStopHeadings_8c02ccc6:
+_StopUpdateStopHeadings_8c02ccc6:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -624,7 +624,7 @@ _BusStopUpdateStopHeadings_8c02ccc6:
           MOV.L       @R14,R3
           MOV.L       LP_GEN_16762+14,R13
           MOV.L       R3,@R13
-          BSR         _BusStopGetStopArea_8c02cd7a
+          BSR         _StopGetStopArea_8c02cd7a
           MOV         R3,R4
           MOV         R0,R12
           MOVA        LP_GEN_16762+22,R0
@@ -661,7 +661,7 @@ LAB_8c02cd16:
           MOV.L       @(R0,R4),R3
           TST         R3,R3
           BT          LAB_8c02cd10
-          BSR         _BusStopGetStopArea_8c02cd7a
+          BSR         _StopGetStopArea_8c02cd7a
           MOV.L       @R14,R4
           MOV         R0,R14
           MOV         #H'4,R0
@@ -699,7 +699,7 @@ LAB_8c02cd5c:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_BusStopGetSegment_8c02cd6a:
+_StopGetSegment_8c02cd6a:
           MOV         #H'2c,R3
           MOV.L       LP_GEN_16762+6,R2
           MUL.L       R3,R4
@@ -708,9 +708,9 @@ _BusStopGetSegment_8c02cd6a:
           STS         MACL,R4
           RTS
           ADD         R4,R0
-_BusStopGetStopArea_8c02cd7a:
+_StopGetStopArea_8c02cd7a:
           STS.L       PR,@-R15
-          BSR         _BusStopGetSegment_8c02cd6a
+          BSR         _StopGetSegment_8c02cd6a
           NOP
           MOV         R0,R4
           MOV.L       LP_GEN_16762+58,R2
@@ -788,7 +788,7 @@ LP_GEN_16762:
           .DATA.L _var_fuuNjm_8c1bc448 ; H'8C02CE3C
           .DATA.L _var_fuuNj_8c1bc444 ; H'8C02CE40
           .DATA.L _njCnkSimpleDrawMotion ; H'8C02CE44
-_BusStopUpdateArrival_8c02ce48:
+_StopUpdateArrival_8c02ce48:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
         $this->setSize('_syMalloc', 4);
         $this->setSize('_syFree', 4);
-        // _BusStopGetSegment_8c02cd6a is same-object (dummy stub in the C, real asm in the
+        // _StopGetSegment_8c02cd6a is same-object (dummy stub in the C, real asm in the
         // .src) -- mock with shouldCall() directly, no setSize().
     }
 
@@ -102,7 +102,7 @@ return new class extends TestCase {
                 }
             });
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($candidates);
 
         $this->shouldCall('_syFree')->with($candidates);
@@ -175,7 +175,7 @@ return new class extends TestCase {
                 }
             });
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($candidates);
 
         // Candidate scan skips the inactive entry and keeps the active one.
@@ -271,7 +271,7 @@ return new class extends TestCase {
                 }
             });
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($candidates);
 
         $this->shouldWriteLong($candidates + 0, $list);
@@ -379,7 +379,7 @@ return new class extends TestCase {
                 }
             });
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
         $this->shouldCall('_syMalloc')->with(0x40)->andReturn($candidates);
 
         // Both entries pass the active-stop filter.

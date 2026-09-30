@@ -23,9 +23,9 @@
           .EXPORT     _setRunEventFlag_8c02b022
           .EXPORT     _hasRunEventFlag_8c02b030
           .AENDI
-          .EXPORT     _var_routeEvents_8c22851c ; 02c884_bus_stop
-          .EXPORT     _var_eventCandidates_8c228520 ; 02c884_bus_stop
-          .EXPORT     _var_eventCandidateCount_8c228560 ; 02c884_bus_stop
+          .EXPORT     _var_routeEvents_8c22851c ; 02c884_stop
+          .EXPORT     _var_eventCandidates_8c228520 ; 02c884_stop
+          .EXPORT     _var_eventCandidateCount_8c228560 ; 02c884_stop
           .SECTION     P, CODE, ALIGN=4
 ; sets a bit in var_progress_8c1ba1cc+4 and +0x18 (paired unlock bitsets, see hasEventProgressFlag_8c02afbe/aff0)
 _setProgressFlag_8c02af78:

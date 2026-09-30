@@ -17,7 +17,7 @@
 #include "028258_traffic_signal.h"
 #include "0289ac_objects.h"
 #include "02a9fc_message_box.h"
-#include "02c884_bus_stop.h"
+#include "02c884_stop.h"
 #include "014a9c_tasks.h"
 #include "022464_render.h"
 #include "01614c_replay_menu.h"
@@ -655,7 +655,7 @@ STATIC void gradeIntersection_8c02bb1c(void) {
  * grades penalties for holding the accelerator maxed out too long, for a
  * stale "signal duration" float timer, and for a violent turn (speed *
  * steering angle out of range); tracks idle time at a stop; polls
- * BusStopUpdateArrival_8c02ce48; grades/awards points around the driver
+ * StopUpdateArrival_8c02ce48; grades/awards points around the driver
  * message box and mirror view; grades a wrong-substate-while-moving
  * penalty; and advances the run's pass/fail progress counter
  * (var_runState_8c2285c4.runClock_0x18), applying a further silent penalty periodically once it
@@ -785,7 +785,7 @@ STATIC void gradeFrame_8c02bcd8(void) {
         }
     }
 
-    BusStopUpdateArrival_8c02ce48();
+    StopUpdateArrival_8c02ce48();
 
     if ((var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE && (var_practiceRules_8c226410 & 1) != 1)
         || var_runState_8c2285c4.stopPhase_0x20 == 0
@@ -930,7 +930,7 @@ STATIC void onFadeStopEnded_8c02c624(void) {
         TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
-        BusStopUpdateStopHeadings_8c02ccc6();
+        StopUpdateStopHeadings_8c02ccc6();
         RouteLoadPushSegmentReloadTask_8c01468e();
         return;
     }
@@ -957,7 +957,7 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
         TaskFreeGroup_8c014ab4(var_tasks_8c1bac28);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
-        BusStopUpdateStopHeadings_8c02ccc6();
+        StopUpdateStopHeadings_8c02ccc6();
         RouteLoadPushSegmentReloadTask_8c01468e();
         return;
     }
@@ -990,7 +990,7 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
  * happens next (a course drive vs. a free-run/practice one).
  *
  * Phase 3: grades how the stop ended (var_runState_8c2285c4.stopArrivalGrade_0x24, set by
- * BusStopUpdateArrival_8c02ce48), then moves to phase 4, picking one of three
+ * StopUpdateArrival_8c02ce48), then moves to phase 4, picking one of three
  * fade-complete callbacks depending on mode and whether the run still needs
  * another stop (DrivePointsRunComplete_8c02c586).
  *

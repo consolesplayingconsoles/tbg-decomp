@@ -31,7 +31,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficMarkSignalIdsInUse_8c026dcc')->with(2);
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with(3)->andReturn($seg);
         $this->shouldWriteLong($frames + 0, 1);
         $this->shouldWriteLong($frames + 4, 1);
         $this->shouldWriteLong($frames + 8, 1);
@@ -51,7 +51,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficMarkSignalIdsInUse_8c026dcc')->with(0xffffffff); // maxId = -1
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(0)->andReturn($seg);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with(0)->andReturn($seg);
     }
 
     public function test_emptyTypeList_zeroFillsWithNoMarks(): void {
@@ -70,7 +70,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficMarkSignalIdsInUse_8c026dcc')->with(2);
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(5)->andReturn($seg);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with(5)->andReturn($seg);
         $this->shouldWriteLong($frames + 0, 0);
         $this->shouldWriteLong($frames + 4, 0);
     }
@@ -110,7 +110,7 @@ return new class extends TestCase {
 
         $this->call('_TrafficMarkSignalIdsInUse_8c026dcc')->with(7);
 
-        $this->shouldCall('_BusStopGetSegment_8c02cd6a')->with(0)->andReturn($seg);
+        $this->shouldCall('_StopGetSegment_8c02cd6a')->with(0)->andReturn($seg);
         for ($i = 0; $i < 7; $i++) {
             $this->shouldWriteLong($frames + $i * 4, 0);
         }

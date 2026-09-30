@@ -485,7 +485,7 @@ extern void* var_fuuTexlist_8c1bc440;
 extern void* var_fuuNj_8c1bc444;
 extern NJS_MOTION* var_fuuNjm_8c1bc448;
 /* Current "fuu" stop-marker animation frame, driven by
- * BusStopUpdateArrival_8c02ce48 (02c884): counts up by 1.0 per frame while
+ * StopUpdateArrival_8c02ce48 (02c884): counts up by 1.0 per frame while
  * the bus approaches a stop, wrapping to 0 at var_fuuLastFrame_8c1bc450. */
 extern float var_fuuFrame_8c1bc44c;
 extern float var_fuuLastFrame_8c1bc450;

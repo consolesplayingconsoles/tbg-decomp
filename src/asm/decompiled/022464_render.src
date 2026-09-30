@@ -71,7 +71,7 @@
                                              ; 02b464_drive_points
                                              ; 02d19c_passenger
           .EXPORT     _var_fadeCompleteCallback_8c22656c ; 02b464_drive_points
-                                                         ; 02c884_bus_stop
+                                                         ; 02c884_stop
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _init_mirrorQuadLeft_8c045438

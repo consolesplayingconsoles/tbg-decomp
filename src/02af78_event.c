@@ -10,7 +10,7 @@
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
-#include "02c884_bus_stop.h"
+#include "02c884_stop.h"
 
 /* ====================
  * Compiler Definitions

@@ -55,7 +55,7 @@
           .IMPORT     _ReplayCodecInit_8c02f320
           .IMPORT     _ObjectsFreePedestrianGroups_8c0297da
           .IMPORT     _SignalFree_8c0288be
-          .IMPORT     _BusStopFreeTaskGroup_8c02ca96
+          .IMPORT     _StopFreeTaskGroup_8c02ca96
           .IMPORT     _MessageBoxFreeAssets_8c02adee
           .IMPORT     _ObjectsFreeAssetRequests_8c029cfe
           .IMPORT     _TileStreamTeardown_8c021724
@@ -422,7 +422,7 @@ LP_GEN_42967:
           .RES.W 1 ; H'8C01637A
           .DATA.L _ObjectsFreePedestrianGroups_8c0297da ; H'8C01637C
           .DATA.L _SignalFree_8c0288be ; H'8C016380
-          .DATA.L _BusStopFreeTaskGroup_8c02ca96 ; H'8C016384
+          .DATA.L _StopFreeTaskGroup_8c02ca96 ; H'8C016384
           .DATA.L _TaskFreeGroup_8c014ab4 ; H'8C016388
           .DATA.L _var_tasks_8c1bb448 ; H'8C01638C
           .DATA.L _var_tasks_8c1bac28 ; H'8C016390

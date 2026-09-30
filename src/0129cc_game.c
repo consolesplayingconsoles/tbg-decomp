@@ -32,7 +32,7 @@
 #include "025870_demo.h"
 #include "02d968_stop_spawn.h"
 #include "021b9c_tile_draw.h" /* TileDrawPushTask_8c0222dc */
-#include "02c884_bus_stop.h"
+#include "02c884_stop.h"
 #include "016d2c_course_menu.h"
 #include "01e27c_practice_menu.h"
 #include "022464_render.h"

@@ -13,7 +13,7 @@
 #include "0100bc_sound.h"
 #include "024b4c_bus_camera.h"
 #include "02a9fc_message_box.h"
-#include "02c884_bus_stop.h"
+#include "02c884_stop.h"
 #include "02d06c_stop_draw.h"
 #include "02d19c_passenger.h"
 #include "02b464_drive_points.h"
@@ -449,7 +449,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
 
     case 5:
         if (var_runState_8c2285c4.runClock_0x18 >= var_runState_8c2285c4.scheduleTime_0x14) {
-            BusStopFreeTaskGroup_8c02ca96();
+            StopFreeTaskGroup_8c02ca96();
             njReleaseTexture(var_interiorTexlist_8c1bc438);
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_cameraMode_8c227d9c = 2;

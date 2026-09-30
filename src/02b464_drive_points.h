@@ -11,7 +11,7 @@ typedef struct {
     int runPhase_0x00;
 
     /* Set when a drive ends with points left and every owed stop served -- by
-     * BusStopUpdateArrival_8c02ce48 (02c884) on a finished stop, and by
+     * StopUpdateArrival_8c02ce48 (02c884) on a finished stop, and by
      * taskCallback_8c02c072 (02b464) on the phase-3 wrap-up. Cleared for the
      * next drive by DrivePointsReset_8c02c46a. DriveMsgDraw_8c02b388 (02b2f0)
      * is its only reader. */
@@ -19,7 +19,7 @@ typedef struct {
 
     /* Frames left in run phase 4, the hold between the last grade and the
      * fade-in: loaded with 0x1e (1s) by whichever of
-     * BusStopUpdateArrival_8c02ce48 (02c884) or taskCallback_8c02c072 (02b464)
+     * StopUpdateArrival_8c02ce48 (02c884) or taskCallback_8c02c072 (02b464)
      * steps the phase to 4, counted down by taskCallback_8c02c072, which moves
      * to phase 5 once it goes negative and the music has finished fading. */
     int driveEndHold_0x08;
@@ -30,13 +30,13 @@ typedef struct {
     int driverPoints_0x0c;
 
     /* The run's starting driver points (100, or 200 on the easiest difficulty
-     * outside practice), set with driverPoints_0x0c by BusStopSetup_8c02caba.
+     * outside practice), set with driverPoints_0x0c by StopSetup_8c02caba.
      * Full-scale value of the HUD points meter. */
     int driverPointsMax_0x10;
 
     /* The timetable slot for the current segment, reloaded from the course's
      * per-segment table by advanceStopSegment_8c02ccae, and the run clock,
-     * which BusStopSetup_8c02caba starts 450 frames (15s) before the first slot
+     * which StopSetup_8c02caba starts 450 frames (15s) before the first slot
      * and gradeFrame_8c02bcd8 advances every frame. Both are 30fps frame
      * counts, both drawn as HH:MM:SS by the HUD. Running past the slot costs
      * points once a second and closes the story-event window
@@ -52,14 +52,14 @@ typedef struct {
      * flat 10 (setCountUpStep_8c02d5d8, 02d19c). */
     int clockCatchUpStep_0x1c;
 
-    /* Bus-stop arrival state machine driven by BusStopUpdateArrival_8c02ce48
+    /* Bus-stop arrival state machine driven by StopUpdateArrival_8c02ce48
      * (02c884): 0 = cruising, 1 = departed-previous-stop wait, 2 = approaching
      * (mirror-view draw enabled -- gates pedestriansTask_8c0293f6's
      * StopDrawWaitingPassengers_8c02d06c registration), 3 = stopped/waiting,
      * 4 = finishing. */
     int stopPhase_0x20;
 
-    /* How the approach ended, written by BusStopUpdateArrival_8c02ce48 (02c884)
+    /* How the approach ended, written by StopUpdateArrival_8c02ce48 (02c884)
      * and graded once by taskCallback_8c02c072's phase 3 (02b464): 0 = pulled up
      * at the marker (graded on heading and turn signal), 2 = drove past the stop
      * segment (INSTR_MISSED_STOP, -20). Phase 3 also handles a 1
@@ -162,7 +162,7 @@ int DrivePointsRunComplete_8c02c586(void);
 
 /* var_fadeCompleteCallback_8c22656c for a finished drive: retries the route
  * segment if the run still owes a stop, otherwise heads for the results or
- * lesson-retry screen. Installed by BusStopUpdateArrival_8c02ce48 (02c884)
+ * lesson-retry screen. Installed by StopUpdateArrival_8c02ce48 (02c884)
  * and by this unit's own drive-end paths. */
 void DrivePointsOnFadeDriveEnd_8c02c784(void);
 

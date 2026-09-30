@@ -102,7 +102,7 @@ SRCS = \
 	src/02af78_event.c \
 	src/02b2f0_drive_msg.c \
 	src/02b464_drive_points.c \
-	src/02c884_bus_stop.c \
+	src/02c884_stop.c \
 	src/02d06c_stop_draw.c \
 	src/02d19c_passenger.c \
 	src/02d968_stop_spawn.c \

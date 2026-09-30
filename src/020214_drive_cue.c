@@ -12,7 +12,7 @@
 #include "010e90_vibration.h" /* VibStart_8c010f7a, VibUpdate_8c010fae */
 #include "0100bc_sound.h" /* SndPlayAdx_8c010cd6, var_midiHandles_8c0fcd28 */
 #include "020214_drive_cue.h"
-#include "02c884_bus_stop.h"
+#include "02c884_stop.h"
 #include "02b464_drive_points.h"
 
 /* ====================

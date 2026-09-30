@@ -14,7 +14,7 @@ if (!function_exists('fdec')) {
 /*
  * _busInitPlaceBus_8c023310(void): resets var_busState_8c1bb9d0's driving-physics
  * fields for a fresh run and snaps its position/height to the current segment's
- * bus-stop spawn strip (BusStopGetStopArea_8c02cd7a), via a GroundQueryFindPolygon_8c020914
+ * bus-stop spawn strip (StopGetStopArea_8c02cd7a), via a GroundQueryFindPolygon_8c020914
  * + GroundProbeInterpolateHeight_8c020f7e lookup at that (x, z). Also copies the
  * primary directional light's row from var_sceneParams_8c18ad24, seeds the
  * position-history breadcrumb, computes an initial heading from the stop's
@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->setSize('_var_cameraMode_8c227d9c', 4);
         $this->setSize('_var_cameraCueBusy_8c227dac', 4);
 
-        $this->setSize('_BusStopGetStopArea_8c02cd7a', 4);
+        $this->setSize('_StopGetStopArea_8c02cd7a', 4);
         $this->setSize('_GroundQueryFindPolygon_8c020914', 4);
         $this->setSize('_GroundProbeInterpolateHeight_8c020f7e', 4);
         $this->setSize('_BusDriveSampleGround_8c023938', 4);
@@ -92,7 +92,7 @@ return new class extends TestCase {
 
         $this->call('_busInitPlaceBus_8c023310')->with();
 
-        $this->shouldCall('_BusStopGetStopArea_8c02cd7a')->with($segmentId)->andReturn($rec);
+        $this->shouldCall('_StopGetStopArea_8c02cd7a')->with($segmentId)->andReturn($rec);
 
         // Physics fields zeroed up front.
         foreach ([0x064, 0x068, 0x06c, 0x070, 0x074, 0x078, 0x07c, 0x080] as $off) {

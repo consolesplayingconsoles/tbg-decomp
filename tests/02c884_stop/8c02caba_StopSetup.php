@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _BusStopSetup_8c02caba(void): per-run bus-stop setup, called right after
+ * _StopSetup_8c02caba(void): per-run bus-stop setup, called right after
  * the course loads. Clears var_segmentHasStop_8c2286a4 (active-stop flags), flags one
  * segment per candidate story event, then forces a stop at every type-2
  * course segment and randomly flags additional segments (never type-3)
@@ -43,7 +43,7 @@ return new class extends TestCase {
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
         $this->setSize('_ReplayMenuResetDemoCursor_8c016770', 4);
         // _resetStopState_8c02c884, _pickWaitingPassengers_8c02c8ae,
-        // _BusStopUpdateStopHeadings_8c02ccc6, _advanceStopSegment_8c02ccae are same-object --
+        // _StopUpdateStopHeadings_8c02ccc6, _advanceStopSegment_8c02ccae are same-object --
         // mock with shouldCall() directly, no setSize().
     }
 
@@ -79,7 +79,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x14, 500);
 
-        $this->call('_BusStopSetup_8c02caba')->with();
+        $this->call('_StopSetup_8c02caba')->with();
 
         $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 96; $i += 4) {
@@ -104,7 +104,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_resetStopState_8c02c884');
         $this->shouldCall('_pickWaitingPassengers_8c02c8ae');
-        $this->shouldCall('_BusStopUpdateStopHeadings_8c02ccc6');
+        $this->shouldCall('_StopUpdateStopHeadings_8c02ccc6');
         $this->shouldCall('_advanceStopSegment_8c02ccae');
 
         // difficulty_0xc4 < 1 && playMode != DEMO -> 200
@@ -126,7 +126,7 @@ return new class extends TestCase {
         // pointer* (left sitting at the terminator, index 2), not the table
         // start -- so a pick of P there actually reads index (2+P). A 4th
         // "ghost" record beyond the terminator makes pick=1 land on a
-        // controlled, deterministic value (see BusStopSetup_8c02caba).
+        // controlled, deterministic value (see StopSetup_8c02caba).
         $segments = $this->allocSegments([1, 3, 0, 3]);
         $config = $this->alloc(0x1c);
         $this->initUint32($config + 8, $segments);
@@ -142,7 +142,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0); // bit 2 clear
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x14, 42);
 
-        $this->call('_BusStopSetup_8c02caba')->with();
+        $this->call('_StopSetup_8c02caba')->with();
 
         $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 96; $i += 4) {
@@ -173,7 +173,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_resetStopState_8c02c884');
         $this->shouldCall('_pickWaitingPassengers_8c02c8ae');
-        $this->shouldCall('_BusStopUpdateStopHeadings_8c02ccc6');
+        $this->shouldCall('_StopUpdateStopHeadings_8c02ccc6');
         $this->shouldCall('_advanceStopSegment_8c02ccae');
 
         // difficulty_0xc4 < 1, but playMode == PRACTICE -> 100
@@ -214,7 +214,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 0);
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x14, 10);
 
-        $this->call('_BusStopSetup_8c02caba')->with();
+        $this->call('_StopSetup_8c02caba')->with();
 
         $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 96; $i += 4) {
@@ -238,7 +238,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_resetStopState_8c02c884');
         $this->shouldCall('_pickWaitingPassengers_8c02c8ae');
-        $this->shouldCall('_BusStopUpdateStopHeadings_8c02ccc6');
+        $this->shouldCall('_StopUpdateStopHeadings_8c02ccc6');
         $this->shouldCall('_advanceStopSegment_8c02ccae');
 
         // difficulty_0xc4 < 1 && playMode != PRACTICE (DEMO qualifies) -> 200
@@ -271,7 +271,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_practiceRules_8c226410'), 2); // bit 2 set
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x14, 900);
 
-        $this->call('_BusStopSetup_8c02caba')->with();
+        $this->call('_StopSetup_8c02caba')->with();
 
         $flags = $this->addressOf('_var_segmentHasStop_8c2286a4');
         for ($i = 0; $i < 96; $i += 4) {
@@ -293,7 +293,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_resetStopState_8c02c884');
         $this->shouldCall('_pickWaitingPassengers_8c02c8ae');
-        $this->shouldCall('_BusStopUpdateStopHeadings_8c02ccc6');
+        $this->shouldCall('_StopUpdateStopHeadings_8c02ccc6');
         $this->shouldCall('_advanceStopSegment_8c02ccae');
 
         // playMode == PRACTICE -> 100

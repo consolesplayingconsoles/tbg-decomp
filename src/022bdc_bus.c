@@ -68,7 +68,7 @@ void BusTask_8c022bdc(Task *task, void *state)
     if (var_busState_8c1bb9d0.driveState_0x2b4 == 0) {
         /* At a stop: shut waits for doorRequest_0x3c4, opening ramps
          * var_busDoorFrame_8c227db0 up to var_busDoorLastFrame_8c227db4 and
-         * leaves the doors open (BusStop drives the rest from there). */
+         * leaves the doors open (02c884_stop drives the rest from there). */
         if (var_busState_8c1bb9d0.doorState_0x3c0 == 0) {
             if (var_busState_8c1bb9d0.doorRequest_0x3c4 != 0) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0x1d, 0);

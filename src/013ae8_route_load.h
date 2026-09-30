@@ -85,7 +85,7 @@ typedef struct {
     int courseId_0x00;
     void *atariBus_0x04;
     /* also the base of an 8-byte-stride stop-area table, indexed by a segment
-     * record's stopAreaId_0x02 (BusStopGetStopArea_8c02cd7a, 02c884); each slot
+     * record's stopAreaId_0x02 (StopGetStopArea_8c02cd7a, 02c884); each slot
      * holds a StopAreaRecord* at +0, the trailing 4 bytes unknown. */
     void *lineBus_0x08;
     /* not a filename: the route's LineBusNode table, borrowed from the config
@@ -131,7 +131,7 @@ extern CourseSceneParams *var_sceneParams_8c18ad24;
  * one per route segment. */
 typedef struct {
     // 0 = terminator (marks the end of the segments array); 2 = stop forced
-    // here; 3 = excluded from the random-stop pick (see BusStopSetup_8c02caba)
+    // here; 3 = excluded from the random-stop pick (see StopSetup_8c02caba)
     Uint16 type_0x00;
     // id, 0..0x16c
     Uint16 stopAreaId_0x02;
@@ -165,7 +165,7 @@ typedef struct {
     void *ukn_0x0c;
     CourseSceneParams *sceneParams_0x10;
     // [randomStopCountMin_0x14, randomStopCountMax_0x18) is the range
-    // BusStopSetup_8c02caba draws the run's total stop count from
+    // StopSetup_8c02caba draws the run's total stop count from
     int randomStopCountMin_0x14;
     int randomStopCountMax_0x18;
     /* nj/dat asset names, loaded by loadRouteModels_8c014088 into the

@@ -216,7 +216,7 @@ The score bar itself is `var_runState_8c2285c4.driverPoints_0x0c`, driven by
 
 **Which stops need servicing.** Confirmed: NOT every stop needs a stop, and
 the decision is a per-segment *active-stop* flag (`var_segmentHasStop_8c2286a4[segment]`),
-decided once at course load by `BusStopSetup_8c02caba` (`02c884_bus_stop.c`)
+decided once at course load by `StopSetup_8c02caba` (`02c884_stop.c`)
 before driving starts, not by a live "passenger requests a stop" event:
 `CourseSegment.type_0x00 == 2` forces a stop there; a segment carrying a
 matched story event (`EventScanCandidates_8c02b03c`) is also forced; the
@@ -228,15 +228,15 @@ segment's waiting passengers are spawned only when it is flagged active
 player's side "someone is waiting" and "the stop is due" are the same
 thing, even though the true cause is this precomputed flag, not a live
 request. `StopAreaRecord.ukn_0x00` (a per-route physical stop-location
-record: the course's `lineBus_0x08` table, `02c884_bus_stop.h`) was checked as a
+record: the course's `lineBus_0x08` table, `02c884_stop.h`) was checked as a
 candidate for a live per-stop request flag; no reader or writer exists in
 decompiled code, and unlike `var_segmentHasStop_8c2286a4` (a per-run scratch array reset
 every course) it belongs to a table that reads as static per-route load
 data, so it does not fit the request role. Its purpose is still unconfirmed.
 - **World-space marker.** `drawStopMarker_8c02cd92`
-  (`02c884_bus_stop.c`) draws a `fuu.njd`/`fuu.pvm` model (its own animation
+  (`02c884_stop.c`) draws a `fuu.njd`/`fuu.pvm` model (its own animation
   loop) at the upcoming active stop's position/heading, but only while
-  `BusStopUpdateArrival_8c02ce48`'s state machine is in its approach phase
+  `StopUpdateArrival_8c02ce48`'s state machine is in its approach phase
   (`var_runState_8c2285c4.stopPhase_0x20 == 2`) -- i.e. only for a stop that was flagged
   active. This is very likely the world-space marker the player remembers;
   its actual on-screen color is not confirmed from code (no texture data

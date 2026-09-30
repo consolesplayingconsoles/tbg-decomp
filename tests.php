@@ -299,20 +299,20 @@ return [
         ],
         [
             "tests" => [
-                "tests/02c884/8c02c884_resetStopState.php",
-                "tests/02c884/8c02c8ae_pickWaitingPassengers.php",
-                "tests/02c884/8c02ca96_BusStopFreeTaskGroup.php",
-                "tests/02c884/8c02caba_BusStopSetup.php",
-                "tests/02c884/8c02ccae_advanceStopSegment.php",
-                "tests/02c884/8c02cd6a_BusStopGetSegment.php",
-                "tests/02c884/8c02cd7a_BusStopGetStopArea.php",
-                "tests/02c884/8c02ccc6_BusStopUpdateStopHeadings.php",
-                "tests/02c884/8c02cd92_drawStopMarker.php",
-                "tests/02c884/8c02ce48_BusStopUpdateArrival.php",
+                "tests/02c884_stop/8c02c884_resetStopState.php",
+                "tests/02c884_stop/8c02c8ae_pickWaitingPassengers.php",
+                "tests/02c884_stop/8c02ca96_StopFreeTaskGroup.php",
+                "tests/02c884_stop/8c02caba_StopSetup.php",
+                "tests/02c884_stop/8c02ccae_advanceStopSegment.php",
+                "tests/02c884_stop/8c02cd6a_StopGetSegment.php",
+                "tests/02c884_stop/8c02cd7a_StopGetStopArea.php",
+                "tests/02c884_stop/8c02ccc6_StopUpdateStopHeadings.php",
+                "tests/02c884_stop/8c02cd92_drawStopMarker.php",
+                "tests/02c884_stop/8c02ce48_StopUpdateArrival.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/02c884_bus_stop.obj",
-                "build/output_test/src/02c884_bus_stop.obj",
+                "build/output_test/src/asm/decompiled/02c884_stop.obj",
+                "build/output_test/src/02c884_stop.obj",
             ]
         ],
         [

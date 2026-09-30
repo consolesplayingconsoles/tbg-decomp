@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _BusStopUpdateArrival_8c02ce48(): per-frame bus-stop arrival state machine
+ * _StopUpdateArrival_8c02ce48(): per-frame bus-stop arrival state machine
  * (var_runState_8c2285c4.stopPhase_0x20, states 0-4); takes no meaningful argument.
- * See 02c884_bus_stop.c's doc comment for the full state breakdown.
+ * See 02c884_stop.c's doc comment for the full state breakdown.
  */
 return new class extends TestCase {
     private function resolveSymbols(): void
@@ -77,7 +77,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
         $this->initBusState(0, 0, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
     }
 
     // State 0, high byte of markCueByte_0x3b4 matches the upcoming stop segment --
@@ -91,7 +91,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 6);
         $this->initBusState(0, 7 << 8, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 2);
         $this->shouldWriteFloat($this->addressOf('_var_runState_8c2285c4') + 0x28, 9999.0);
@@ -111,7 +111,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 6);
         $this->initBusState(0, 6 << 8, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 1);
         $this->shouldWriteLong($this->addressOf('_var_hudState_8c22643c') + 0x18, 0);
@@ -127,7 +127,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_prevStopSegment_8c22870c'), 6);
         $this->initBusState(0, 9 << 8, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
     }
 
     // State 1, low byte still clear -- no-op.
@@ -138,7 +138,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 1);
         $this->initBusState(0, 0, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
     }
 
     // State 1, low byte set, var_hudState_8c22643c.driveMarkIcon_0x14 armed (!= -1) -- flags var_runState_8c2285c4.instructionBonusPending_0x7c.
@@ -150,7 +150,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x14, 3);
         $this->initBusState(0, 1, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x7c, 1);
@@ -167,7 +167,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_hudState_8c22643c') + 0x14, -1);
         $this->initBusState(0, 1, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 0);
         $this->shouldWriteLong($this->addressOf('_var_driveCueState_8c2264b8') + 0x0c, 0);
@@ -188,7 +188,7 @@ return new class extends TestCase {
         $this->initBusState(0, 0, 1.0); // moving -- distance conditions can't fire
 
         $this->seedStopOffset(20.0, 0.0);
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldCall('_njSqrt')->with(400.0)->andReturn(20.0);
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 3.0);
@@ -210,7 +210,7 @@ return new class extends TestCase {
         $this->initBusState(0, 0, 1.0);
 
         $this->seedStopOffset(20.0, 0.0);
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldCall('_njSqrt')->with(400.0)->andReturn(20.0);
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 10.0);
@@ -233,7 +233,7 @@ return new class extends TestCase {
         $busBase = $this->initBusState(0, 0, 0.0); // stopped
 
         $this->seedStopOffset(2.0, 0.0);
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldCall('_njSqrt')->with(4.0)->andReturn(2.0); // < 3.0
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 1.0);
@@ -259,7 +259,7 @@ return new class extends TestCase {
         $busBase = $this->initBusState(0, 0, 0.0); // stopped
 
         $this->seedStopOffset(10.0, 0.0);
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldCall('_njSqrt')->with(100.0)->andReturn(10.0); // not < 3.0
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 1.0);
@@ -285,7 +285,7 @@ return new class extends TestCase {
         $busBase = $this->initBusState(0, 7, 5.0); // moving, markCueByte_0x3b4 low byte == nextStopSegment
 
         $this->seedStopOffset(20.0, 0.0);
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldCall('_njSqrt')->with(400.0)->andReturn(20.0);
         $this->shouldWriteFloat($this->addressOf('_var_fuuFrame_8c1bc44c'), 1.0);
@@ -305,7 +305,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 3);
         $this->initBusState(0xff000000, 0xff, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
     }
 
     // State 4, finish bit not yet set -- no-op.
@@ -316,7 +316,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x20, 4);
         $this->initBusState(0, 0, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
     }
 
     // State 4, finish bit set, not enough driver points -- skips the extra
@@ -329,7 +329,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0);
         $busBase = $this->initBusState(0xff000000, 0, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($busBase + 0x2b4, 4); // driveState_0x2b4
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 3);
@@ -351,7 +351,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 1);
         $busBase = $this->initBusState(0xff000000, 0, 0.0);
 
-        $this->call('_BusStopUpdateArrival_8c02ce48')->with();
+        $this->call('_StopUpdateArrival_8c02ce48')->with();
 
         $this->shouldWriteLong($busBase + 0x2b4, 4);
         $this->shouldWriteLong($this->addressOf('_var_runState_8c2285c4') + 0x20, 3);

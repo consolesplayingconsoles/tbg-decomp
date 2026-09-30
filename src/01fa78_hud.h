@@ -32,7 +32,7 @@ typedef struct {
 
     /* Free-running frame counter gating the blink of that HUD slot; reset by
      * hudUpdateTask_8c01ff48 on a new instruction and by
-     * BusStopUpdateArrival_8c02ce48 (02c884) on a stop-phase change. */
+     * StopUpdateArrival_8c02ce48 (02c884) on a stop-phase change. */
     int blinkTimer_0x18;
 
     DriverPointsMeterState pointsMeter_0x1c;
