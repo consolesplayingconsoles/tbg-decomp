@@ -55,7 +55,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 0);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
         $this->initUint32($this->addressOf('_var_vmuStatus_8c226048'), $vmStatus);
-        $this->shouldCall('_VmMenuUpdateVmuStatus_8c01967c')->with(0, 0x8c440000, 3);
+        $this->shouldCall('_VmSelectUpdateVmuStatus_8c01967c')->with(0, 0x8c440000, 3);
     }
 
     /* State 2 confirm handler: PromptHandleMultiple + optional cursor sfx. */
@@ -230,7 +230,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuState + 0x1c, 0);
         $this->shouldWriteLong($menuState + 0x18, 7);
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 0, 0);
-        $this->shouldCall('_VmMenuUnmountVms_8c0194de');
+        $this->shouldCall('_VmSelectUnmountVms_8c0194de');
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
         $this->expectDrawTail($menuState, 2, 0);
     }
@@ -280,7 +280,7 @@ return new class extends TestCase {
         $this->shouldCall('_PromptHandleMultiple_8c016c58')->with($menuState + 0x38, 4);
         $this->shouldWriteLong($menuState + 0x18, 7);
         $this->shouldCall('_sdMidiPlay')->with(0, 1, 1, 0);
-        $this->shouldCall('_VmMenuUnmountVms_8c0194de');
+        $this->shouldCall('_VmSelectUnmountVms_8c0194de');
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
         $this->expectDrawTail($menuState, 0, 0);
     }
@@ -321,9 +321,9 @@ return new class extends TestCase {
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
         $this->expectVmStatusTop(0);
         $this->shouldCall('_PromptHandleBinary_8c016caa')->with($menuState + 0x3c)->andReturn(1);
-        // state=8 is written in the JSR delay slot, before VmMenuUnmountVms runs.
+        // state=8 is written in the JSR delay slot, before VmSelectUnmountVms runs.
         $this->shouldWriteLong($menuState + 0x18, 8);
-        $this->shouldCall('_VmMenuUnmountVms_8c0194de');
+        $this->shouldCall('_VmSelectUnmountVms_8c0194de');
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
         $this->expectPromptTail($menuState, 0, 3, 0);
     }

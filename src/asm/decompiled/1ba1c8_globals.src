@@ -42,7 +42,7 @@
                                                ; 01614c_replay_menu
                                                ; 018644
                                                ; 018644_file_select
-                                               ; 0193c8_vm_menu
+                                               ; 0193c8_vm_select
                                                ; 01b19c
                                                ; 01d7fc
                                                ; 01f3c0
@@ -65,7 +65,7 @@
                                                 ; 016c58_prompt
                                                 ; 016d2c_course_menu
                                                 ; 018644_file_select
-                                                ; 0193c8_vm_menu
+                                                ; 0193c8_vm_select
                                                 ; 019e98_main_menu
                                                 ; 01a148
                                                 ; 01b19c
@@ -90,7 +90,7 @@
                                           ; 01614c_replay_menu
                                           ; 016d2c_course_menu
                                           ; 018644_file_select
-                                          ; 0193c8_vm_menu
+                                          ; 0193c8_vm_select
                                           ; 01d7fc
                                           ; 01e27c
                                           ; 01f3c0

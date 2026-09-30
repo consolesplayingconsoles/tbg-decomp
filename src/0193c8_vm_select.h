@@ -1,5 +1,5 @@
-#ifndef _VM_MENU_H
-#define _VM_MENU_H
+#ifndef _0193C8_VM_SELECT_H
+#define _0193C8_VM_SELECT_H
 
 #include "sg_xpt.h"
 #include "014a9c_tasks.h"
@@ -21,11 +21,11 @@ extern char* init_saveNames_8c044d50[11];
 extern int var_vmuStatus_8c226048[9];
 extern int var_vmMountBusy_8c22606c;
 
-void VmMenuMountVms_8c01940e();
-void VmMenuUnmountVms_8c0194de();
-void VmMenuFreeAndClear_8c019504(void);
-int VmMenuUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks);
-void VmMenuUpdateVmuStatus_8c01967c(Sint32 drive, char *saveName, Uint16 blocks);
-void VmMenuSwitchFromTask_8c019e44(Task *task);
+void VmSelectMountVms_8c01940e();
+void VmSelectUnmountVms_8c0194de();
+void VmSelectFreeAndClear_8c019504(void);
+int VmSelectUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks);
+void VmSelectUpdateVmuStatus_8c01967c(Sint32 drive, char *saveName, Uint16 blocks);
+void VmSelectSwitchFromTask_8c019e44(Task *task);
 
-#endif // _VM_MENU_H
+#endif // _0193C8_VM_SELECT_H

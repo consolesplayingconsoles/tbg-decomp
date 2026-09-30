@@ -52,7 +52,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_ResgrpFreeAll_8c016108');
         $this->shouldCall('_FileSelectFreeBuffers_8c0187d0');
-        $this->shouldCall('_VmMenuFreeAndClear_8c019504');
+        $this->shouldCall('_VmSelectFreeAndClear_8c019504');
     }
 
     public function test_skips_frees_when_handles_already_released()
@@ -84,6 +84,6 @@ return new class extends TestCase {
         $this->shouldCall('_RouteFreeVehicleAssets_8c013b5a');
         $this->shouldCall('_ResgrpFreeAll_8c016108');
         $this->shouldCall('_FileSelectFreeBuffers_8c0187d0');
-        $this->shouldCall('_VmMenuFreeAndClear_8c019504');
+        $this->shouldCall('_VmSelectFreeAndClear_8c019504');
     }
 };

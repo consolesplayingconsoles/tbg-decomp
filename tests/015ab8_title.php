@@ -40,7 +40,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
-        $this->shouldCall('_VmMenuMountVms_8c01940e');
+        $this->shouldCall('_VmSelectMountVms_8c01940e');
 
         $task = $this->alloc(0x0c);
         $this->shouldRead($task + 0x08, 0);
@@ -78,7 +78,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
-        $this->shouldCall('_VmMenuMountVms_8c01940e');
+        $this->shouldCall('_VmSelectMountVms_8c01940e');
 
         // TODO: Fix Task size
         $taskPtr = $this->alloc(0x0c);
@@ -306,7 +306,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_InputCheckColdBoot_8c012984')->andReturn(1);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3)
             ->andReturn(1);
 
@@ -328,7 +328,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_InputCheckColdBoot_8c012984')->andReturn(1);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_saveNames_8c044d50'), 3)
             ->andReturn(0);
 
@@ -378,7 +378,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 8);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 16, 0);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3)->andReturn(0);
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3)->andReturn(0);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
@@ -436,7 +436,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 8);
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 16, 0xFFFFFFF3);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3)->andReturn(0);
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3)->andReturn(0);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 17, 0.0, 0.0, -5.0);
 
@@ -453,7 +453,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 16, 0);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), 0xbebacafe);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3)->andReturn(1);
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3)->andReturn(1);
         $this->shouldCall('_sdMidiPlay')->with(0xbebacafe, 1, 0, 0, 0);
 
         // Advance title state
@@ -870,7 +870,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x68, 0);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
 
@@ -898,7 +898,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 1);
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x68, 1);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldCall('_SpriteDraw_8c014f54')->with($this->addressOf('_var_menuState_8c1bc7a8') + 0x0c, 5, 0.0, 0.0, -4.0);
 
@@ -925,7 +925,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldReadSymbolOffset('_init_adxPlaying_8c03bd80', 0, 1);
 
@@ -941,11 +941,11 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')->with($this->addressOf('_init_saveNames_8c044d50'), 3);
 
         $this->shouldReadSymbolOffset('_init_adxPlaying_8c03bd80', 0, 0);
         $this->shouldWriteSymbolOffset('_var_titleActive_8c1bb8c4', 0, 0);
-        $this->shouldCall('_VmMenuSwitchFromTask_8c019e44')->with(0xbebacafe);
+        $this->shouldCall('_VmSelectSwitchFromTask_8c019e44')->with(0xbebacafe);
 
         $this->singleCall('_titleTask_8c015ab8')
             ->with(0xbebacafe, 0)

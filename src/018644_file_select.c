@@ -5,7 +5,7 @@
 #include "014a9c_tasks.h"
 #include "014b8c_backup.h"
 #include "016d2c_course_menu.h"
-#include "0193c8_vm_menu.h"
+#include "0193c8_vm_select.h"
 #include "019e98_main_menu.h"
 #include "01a148_option.h"
 #include "0100bc_sound.h"
@@ -541,7 +541,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
 
     case FILE_SELECT_STATE_ERROR_FADE_OUT:
         if (var_isFading_8c226568 == 0) {
-            VmMenuSwitchFromTask_8c019e44(task);
+            VmSelectSwitchFromTask_8c019e44(task);
             return;
         }
         MessageBoxMenuTextboxText_8c02af1c(0xff);
@@ -638,7 +638,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             break;
         }
         FileSelectFreeBuffers_8c0187d0();
-        VmMenuUnmountVms_8c0194de();
+        VmSelectUnmountVms_8c0194de();
         CHANGE_STATE(FILE_SELECT_STATE_UNMOUNT_TO_MAIN);
         break;
 
@@ -656,14 +656,14 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             break;
         }
         FileSelectFreeBuffers_8c0187d0();
-        VmMenuSwitchFromTask_8c019e44(task);
+        VmSelectSwitchFromTask_8c019e44(task);
         return;
 
     case FILE_SELECT_STATE_UNMOUNT_TO_VM:
         if (var_vmMountBusy_8c22606c != 0) {
             break;
         }
-        VmMenuSwitchFromTask_8c019e44(task);
+        VmSelectSwitchFromTask_8c019e44(task);
         return;
     }
 }

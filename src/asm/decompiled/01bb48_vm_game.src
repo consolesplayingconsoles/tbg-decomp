@@ -18,13 +18,13 @@
           .IMPORT     _var_resourceGroup_8c2263a8
           .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _MessageBoxSwapFor_8c02aefc
-          .IMPORT     _VmMenuUpdateVmusStatus_8c019550
+          .IMPORT     _VmSelectUpdateVmusStatus_8c019550
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _PromptHandleMultiple_8c016c58
           .IMPORT     _var_peripherals_8c1ba35c
-          .IMPORT     _VmMenuUnmountVms_8c0194de
+          .IMPORT     _VmSelectUnmountVms_8c0194de
           .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
@@ -781,7 +781,7 @@ LP_GEN_95139:
           .DATA.L H'C0A00000 ; H'8C01C058
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01C05C
           .DATA.L _init_vmuProbeNames_8c044e48 ; H'8C01C060
-          .DATA.L _VmMenuUpdateVmusStatus_8c019550 ; H'8C01C064
+          .DATA.L _VmSelectUpdateVmusStatus_8c019550 ; H'8C01C064
           .DATA.L _var_isFading_8c226568 ; H'8C01C068
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C01C06C
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01C070
@@ -1088,7 +1088,7 @@ LP_GEN_76857:
           .DATA.L _SpriteDraw_8c014f54 ; H'8C01C28C
           .DATA.L _PromptHandleMultiple_8c016c58 ; H'8C01C290
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01C294
-          .DATA.L _VmMenuUnmountVms_8c0194de ; H'8C01C298
+          .DATA.L _VmSelectUnmountVms_8c0194de ; H'8C01C298
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01C29C
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C01C2A0
           .DATA.L _sdMidiPlay ; H'8C01C2A4

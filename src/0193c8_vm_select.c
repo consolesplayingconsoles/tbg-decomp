@@ -1,8 +1,8 @@
-/* @unit VmMenu */
+/* @unit VmSelect */
 #include <shinobi.h>
 #include <sg_sd.h>
 #include "0100bc_sound.h"
-#include "0193c8_vm_menu.h"
+#include "0193c8_vm_select.h"
 #include "018644_file_select.h"
 #include "019e98_main_menu.h"
 #include "sg_xpt.h"
@@ -23,7 +23,7 @@
  */
 
 #ifdef SERIAL_DEBUG
-char *DEBUG_vmMenuStateNames[] = {
+char *DEBUG_vmSelectStateNames[] = {
     "INIT",
     "FADE_IN",
     "IDLE",
@@ -57,7 +57,7 @@ int intArrayChecksum(int *arr, int size) {
 }
 #endif
 
-#define CHANGE_STATE(x) var_menuState_8c1bc7a8.state_0x18 = x; LOG_DEBUG(("[VM_MENU] State changed: %s\n", DEBUG_vmMenuStateNames[x]))
+#define CHANGE_STATE(x) var_menuState_8c1bc7a8.state_0x18 = x; LOG_DEBUG(("[VM_SELECT] State changed: %s\n", DEBUG_vmSelectStateNames[x]))
 
 
 /* =================
@@ -65,18 +65,18 @@ int intArrayChecksum(int *arr, int size) {
  * =================
  */
 
-enum VM_MENU_STATE {
-    VM_MENU_STATE_INIT = 0,
-    VM_MENU_STATE_FADE_IN = 1,
-    VM_MENU_STATE_IDLE = 2,
-    VM_MENU_STATE_CURSOR_ANIMATING = 3,
-    VM_MENU_STATE_CONFIRM = 4,
-    VM_MENU_STATE_PROCEED_WITHOUT_SAVING = 5,
-    VM_MENU_STATE_VM_WARNING_FADE_IN = 6,
-    VM_MENU_STATE_VM_WARNING = 7,
-    VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU = 8,
-    VM_MENU_STATE_FADE_OUT = 9,
-    VM_MENU_STATE_FADE_IN_FROM_VM_WARNING = 10
+enum VM_SELECT_STATE {
+    VM_SELECT_STATE_INIT = 0,
+    VM_SELECT_STATE_FADE_IN = 1,
+    VM_SELECT_STATE_IDLE = 2,
+    VM_SELECT_STATE_CURSOR_ANIMATING = 3,
+    VM_SELECT_STATE_CONFIRM = 4,
+    VM_SELECT_STATE_PROCEED_WITHOUT_SAVING = 5,
+    VM_SELECT_STATE_VM_WARNING_FADE_IN = 6,
+    VM_SELECT_STATE_VM_WARNING = 7,
+    VM_SELECT_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU = 8,
+    VM_SELECT_STATE_FADE_OUT = 9,
+    VM_SELECT_STATE_FADE_IN_FROM_VM_WARNING = 10
 };
 
 /* ====================
@@ -155,7 +155,7 @@ STATIC void taskWaitForVmsReady_8c0193c8(Task *task)
 }
 
 /* Tested */
-void VmMenuMountVms_8c01940e()
+void VmSelectMountVms_8c01940e()
 {
     int drive;
     Task *createdTask;
@@ -196,7 +196,7 @@ STATIC void taskUnmountVms_8c01946a(Task *task, void *state)
 }
 
 /* Tested */
-void VmMenuUnmountVms_8c0194de()
+void VmSelectUnmountVms_8c0194de()
 {
     Task *createdTask;
     void *createdState;
@@ -206,7 +206,7 @@ void VmMenuUnmountVms_8c0194de()
 }
 
 /* Tested */
-void VmMenuFreeAndClear_8c019504(void)
+void VmSelectFreeAndClear_8c019504(void)
 {
     int drive;
 
@@ -221,7 +221,7 @@ void VmMenuFreeAndClear_8c019504(void)
 /* Tested */
 /* Refresh every drive's VMU_STATUS against saveNames and a `blocks` budget,
  * returning how many drives could be saved to or loaded from. */
-int VmMenuUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
+int VmSelectUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
 {
     int drive;
     int count = 0;
@@ -287,7 +287,7 @@ int VmMenuUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
 #ifdef SERIAL_DEBUG
     if (checksum != intArrayChecksum(var_vmuStatus_8c226048, 9)) {
         int i;
-        LOG_INFO(("[VM_MENU] VMU status changed:\n"));
+        LOG_INFO(("[VM_SELECT] VMU status changed:\n"));
         for (i = 0; i < 9; i++) {
             LOG_INFO(("          Slot %d: %s\n", i, DEBUG_vmuStatusNames[var_vmuStatus_8c226048[i]]));
         }
@@ -298,7 +298,7 @@ int VmMenuUpdateVmusStatus_8c019550(char **saveNames, Uint16 blocks)
 }
 
 /* Tested */
-void VmMenuUpdateVmuStatus_8c01967c(Sint32 drive, char* saveName, Uint16 blocks)
+void VmSelectUpdateVmuStatus_8c01967c(Sint32 drive, char* saveName, Uint16 blocks)
 {
     const BACKUPINFO *bupInfo = BupGetInfo_8c014bba(drive);
 
@@ -434,16 +434,16 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
     switch (var_menuState_8c1bc7a8.state_0x18)
     {
         /* Init */
-        case VM_MENU_STATE_INIT: {
+        case VM_SELECT_STATE_INIT: {
             var_menuState_8c1bc7a8.timer_0x68++;
             if (var_menuState_8c1bc7a8.timer_0x68 < 5) {
                 return;
             }
 
-            LOG_INFO(("[VM_MENU] Initializing VM Select menu\n"));
+            LOG_INFO(("[VM_SELECT] Initializing VM Select menu\n"));
 
-            if (VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)) {
-                CHANGE_STATE(VM_MENU_STATE_FADE_IN);
+            if (VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)) {
+                CHANGE_STATE(VM_SELECT_STATE_FADE_IN);
 
                 // Start on the first connected drive
                 for (slot = 0; var_vmuStatus_8c226048[slot] == VMU_STATUS_NOT_CONNECTED; slot++);
@@ -454,7 +454,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 SndStopBgm_8c010d8a();
                 SndPlayAdx_8c010cd6(0,0xe);
             } else {
-                CHANGE_STATE(VM_MENU_STATE_VM_WARNING_FADE_IN);
+                CHANGE_STATE(VM_SELECT_STATE_VM_WARNING_FADE_IN);
                 task->field_0x08 = 0;
                 var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
             }
@@ -464,9 +464,9 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         // Fade In
-        case VM_MENU_STATE_FADE_IN: {
+        case VM_SELECT_STATE_FADE_IN: {
             if (!var_isFading_8c226568) {
-                CHANGE_STATE(VM_MENU_STATE_IDLE);
+                CHANGE_STATE(VM_SELECT_STATE_IDLE);
             }
 
             drawVmMenu_8c0197c0();
@@ -474,8 +474,8 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         // Idle
-        case VM_MENU_STATE_IDLE: {
-            VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3);
+        case VM_SELECT_STATE_IDLE: {
+            VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3);
 
             if (!var_vmuStatus_8c226048[slot]) {
                 for (slot = 0; !var_vmuStatus_8c226048[slot]; slot++);
@@ -549,7 +549,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                         MessageBoxSwapFor_8c02aefc(MSG_CONFIRM);
                         var_menuState_8c1bc7a8.selectedVmuSlot_0x6c = slot;
                         var_menuState_8c1bc7a8.bupInfo_0x78 = BupGetInfo_8c014bba(slot);
-                        CHANGE_STATE(VM_MENU_STATE_CONFIRM);
+                        CHANGE_STATE(VM_SELECT_STATE_CONFIRM);
                     }
                     else if (status == VMU_STATUS_PROCEED_WITHOUT_SAVING) {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
@@ -557,7 +557,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                             MSG_SAVE_NO_FILE
                             MSG_CONFIRM_START_NO_FILE
                         );
-                        CHANGE_STATE(VM_MENU_STATE_PROCEED_WITHOUT_SAVING);
+                        CHANGE_STATE(VM_SELECT_STATE_PROCEED_WITHOUT_SAVING);
                     }
                     else {
                         sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 2, 0);
@@ -571,7 +571,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             if (slot != var_menuState_8c1bc7a8.selected_0x38) {
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 3, 0);
                 initCursorLerp_8c019788(slot);
-                CHANGE_STATE(VM_MENU_STATE_CURSOR_ANIMATING);
+                CHANGE_STATE(VM_SELECT_STATE_CURSOR_ANIMATING);
                 MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
             }
 
@@ -581,9 +581,9 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         /* Cursor animating */
-        case VM_MENU_STATE_CURSOR_ANIMATING: {
+        case VM_SELECT_STATE_CURSOR_ANIMATING: {
             if (CourseMenuInterpolateCursor_8c016d2c()) {
-                CHANGE_STATE(VM_MENU_STATE_IDLE);
+                CHANGE_STATE(VM_SELECT_STATE_IDLE);
                 MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
             }
 
@@ -593,15 +593,15 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         /* Confirm */
-        case VM_MENU_STATE_CONFIRM: {
+        case VM_SELECT_STATE_CONFIRM: {
             int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
             if (promptResult == 1) {
                 var_selectedVm_8c1ba34c = var_menuState_8c1bc7a8.selectedVmuSlot_0x6c;
-                CHANGE_STATE(VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU);
+                CHANGE_STATE(VM_SELECT_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU);
                 RenderPushFadeOut_8c022b60(10);
             } else if (promptResult == 2) {
                 MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
-                CHANGE_STATE(VM_MENU_STATE_IDLE);
+                CHANGE_STATE(VM_SELECT_STATE_IDLE);
             }
 
             SpriteDraw_8c014f54(
@@ -617,19 +617,19 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         // Proceed without saving?
-        case VM_MENU_STATE_PROCEED_WITHOUT_SAVING: {
+        case VM_SELECT_STATE_PROCEED_WITHOUT_SAVING: {
             int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
             if (promptResult == 1) {
                 var_selectedVm_8c1ba34c = -1;
                 FileSelectResetNewGame_8c01895e();
-                CHANGE_STATE(VM_MENU_STATE_FADE_OUT);
+                CHANGE_STATE(VM_SELECT_STATE_FADE_OUT);
                 SndStartAdxFadeOut_8c010bae(0);
                 SndStartAdxFadeOut_8c010bae(1);
                 RenderPushFadeOut_8c022b60(10);
             } else if (promptResult == 2) {
                 MessageBoxSwapFor_8c02aefc(init_vmuStatusMessages_8c044dc4[var_vmuStatus_8c226048[slot]]);
                 slot = 8;
-                CHANGE_STATE(VM_MENU_STATE_IDLE);
+                CHANGE_STATE(VM_SELECT_STATE_IDLE);
             }
 
             SpriteDraw_8c014f54(
@@ -645,21 +645,21 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         // VM Warning Fade In
-        case VM_MENU_STATE_VM_WARNING_FADE_IN: {
+        case VM_SELECT_STATE_VM_WARNING_FADE_IN: {
             if (!var_isFading_8c226568) {
-                CHANGE_STATE(VM_MENU_STATE_VM_WARNING);
+                CHANGE_STATE(VM_SELECT_STATE_VM_WARNING);
             }
             drawVmWarning_8c019852();
             break;
         }
 
         // VM Warning
-        case VM_MENU_STATE_VM_WARNING: {
+        case VM_SELECT_STATE_VM_WARNING: {
             // task->field_0x08 is this screen's own sub-phase.
             switch (task->field_0x08) {
                 // Idle
                 case 0: {
-                    if (!VmMenuUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)) {
+                    if (!VmSelectUpdateVmusStatus_8c019550(init_saveNames_8c044d50, 3)) {
                         int promptResult = PromptHandleBinary_8c016caa(&var_menuState_8c1bc7a8.cursorCol_0x3c);
                         if (promptResult == 1) {
                             var_selectedVm_8c1ba34c = -1;
@@ -688,7 +688,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 case 1: {
                     if (!var_isFading_8c226568) {
                         var_menuState_8c1bc7a8.timer_0x68 = 10;
-                        CHANGE_STATE(VM_MENU_STATE_INIT);
+                        CHANGE_STATE(VM_SELECT_STATE_INIT);
                         return;
                     }
                     break;
@@ -706,7 +706,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 // VM Warning Fade out to VM Select
                 case 3: {
                     if (!var_isFading_8c226568) {
-                        CHANGE_STATE(VM_MENU_STATE_FADE_IN_FROM_VM_WARNING);
+                        CHANGE_STATE(VM_SELECT_STATE_FADE_IN_FROM_VM_WARNING);
                         return;
                     }
                     break;
@@ -718,7 +718,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         // Confirm Fade Out to Main Menu
-        case VM_MENU_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU: {
+        case VM_SELECT_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU: {
             if (!var_isFading_8c226568) {
                 FileSelectSwitchFromTask_8c019334(task);
                 return;
@@ -737,7 +737,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         // Fade out
-        case VM_MENU_STATE_FADE_OUT: {
+        case VM_SELECT_STATE_FADE_OUT: {
             if (var_isFading_8c226568) {
                 break;
             }
@@ -749,9 +749,9 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         }
 
         // VM Warning Fade In to VM Select
-        case VM_MENU_STATE_FADE_IN_FROM_VM_WARNING: {
+        case VM_SELECT_STATE_FADE_IN_FROM_VM_WARNING: {
             if (!var_isFading_8c226568) {
-                CHANGE_STATE(VM_MENU_STATE_IDLE);
+                CHANGE_STATE(VM_SELECT_STATE_IDLE);
             }
             drawVmMenu_8c0197c0();
         }
@@ -761,10 +761,10 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 }
 
 /* Tested */
-void VmMenuSwitchFromTask_8c019e44(Task *task)
+void VmSelectSwitchFromTask_8c019e44(Task *task)
 {
     TaskSetAction_8c014b3e(task, vmMenuTask_8c0198a0);
-    var_menuState_8c1bc7a8.state_0x18 = VM_MENU_STATE_INIT;
+    var_menuState_8c1bc7a8.state_0x18 = VM_SELECT_STATE_INIT;
     var_menuState_8c1bc7a8.selected_0x38 = 0;
     var_menuState_8c1bc7a8.timer_0x68 = 0;
 }

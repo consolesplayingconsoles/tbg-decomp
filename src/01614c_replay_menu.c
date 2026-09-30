@@ -19,7 +19,7 @@
 #include "02a9fc_message_box.h"
 #include "02c884_stop.h"
 #include "02f320_replay_codec.h"
-#include "0193c8_vm_menu.h"
+#include "0193c8_vm_select.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
@@ -78,7 +78,7 @@ STATIC Uint32 var_demoPrevOn_8c225fac;
  * ====================
  */
 
-/* saveNames for VmMenuUpdateVmusStatus_8c019550; scanned until a pointer to "". */
+/* saveNames for VmSelectUpdateVmusStatus_8c019550; scanned until a pointer to "". */
 char *init_replaySaveNames_8c044294[2] = { "BUS_REPLAY", "" };
 
 /* ====================
@@ -191,7 +191,7 @@ void ReplayMenuFreeSessionAssets_8c016182(void)
     }
     ResgrpFreeAll_8c016108();
     FileSelectFreeBuffers_8c0187d0();
-    VmMenuFreeAndClear_8c019504();
+    VmSelectFreeAndClear_8c019504();
 }
 
 STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
@@ -206,7 +206,7 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
         counter = state->frameCounter_0x0c;
         state->frameCounter_0x0c = counter + 1;
         if ((unsigned int)(counter + 1) >= 0xb) {
-            if (VmMenuUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e) == 0) {
+            if (VmSelectUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e) == 0) {
                 state->state_0x00 = REPLAY_SAVE_MENU_NO_VMU;
             } else {
                 state->state_0x00 = REPLAY_SAVE_MENU_SELECT;
@@ -215,7 +215,7 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
         }
         break;
     case REPLAY_SAVE_MENU_SELECT:
-        VmMenuUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e);
+        VmSelectUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e);
         for (i = 0; i < 8; i++) {
             if (var_vmuStatus_8c226048[i] != VMU_STATUS_NOT_CONNECTED) {
                 njPrintD(NJM_LOCATION(15, i * 2 + 8), i, 1);
@@ -311,7 +311,7 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
         njPrintC(NJM_LOCATION(2, 10), "MEMORY_CARD IS NOT ENOUGH FREE AREA");
         break;
     case REPLAY_SAVE_MENU_NO_VMU:
-        if (VmMenuUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e) == 0) {
+        if (VmSelectUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e) == 0) {
             njPrintC(NJM_LOCATION(10, 10), "NO_MEMORY_CARD");
         } else {
             state->state_0x00 = REPLAY_SAVE_MENU_SELECT;

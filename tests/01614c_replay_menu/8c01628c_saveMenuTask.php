@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);   // r4 task unused
 
         $this->shouldWriteLong($p + 0x0c, 11);
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)
             ->andReturn(0);
         $this->shouldWriteLong($p + 0x00, 7);   // no card -> state 7
@@ -57,7 +57,7 @@ return new class extends TestCase {
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);   // r4 task unused
 
         $this->shouldWriteLong($p + 0x0c, 11);
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)
             ->andReturn(1);
         $this->shouldWriteLong($p + 0x00, 1);   // card present -> state 1
@@ -78,7 +78,7 @@ return new class extends TestCase {
 
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)->andReturn(1);
         $this->shouldCall('_njPrintD')->with(0xf0008, 0, 1);
         $this->shouldCall('_njPrintC')->with(0xf0018, "NO SAVING");
@@ -100,7 +100,7 @@ return new class extends TestCase {
 
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)->andReturn(1);
         $this->shouldCall('_njPrintD')->with(0xf0008, 0, 1);
         $this->shouldCall('_njPrintC')->with(0xf0018, "NO SAVING");
@@ -124,7 +124,7 @@ return new class extends TestCase {
 
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)->andReturn(1);
         $this->shouldCall('_njPrintC')->with(0xf0018, "NO SAVING");
         $this->shouldWriteLong($p + 0x00, 4);   // -> state 4
@@ -143,7 +143,7 @@ return new class extends TestCase {
 
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)->andReturn(1);
         $this->shouldCall('_njPrintD')->with(0xf0008, 0, 1);
         $this->shouldCall('_njPrintD')->with(0xf000e, 3, 1);
@@ -163,7 +163,7 @@ return new class extends TestCase {
 
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)->andReturn(1);
         $this->shouldCall('_njPrintD')->with(0xf0008, 0, 1);
         $this->shouldCall('_njPrintD')->with(0xf000e, 3, 1);
@@ -183,7 +183,7 @@ return new class extends TestCase {
 
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)->andReturn(1);
         $this->shouldCall('_njPrintD')->with(0xf0008, 0, 1);
         $this->shouldCall('_njPrintD')->with(0xf0012, 5, 1);
@@ -487,7 +487,7 @@ return new class extends TestCase {
 
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)->andReturn(0);
         $this->shouldCall('_njPrintC')->with(0xa000a, "NO_MEMORY_CARD");
         $this->shouldWriteLong($p + 0x04, 3);   // epilogue, unchanged
@@ -502,7 +502,7 @@ return new class extends TestCase {
 
         $this->call('_saveMenuTask_8c01628c')->with(0, $p);
 
-        $this->shouldCall('_VmMenuUpdateVmusStatus_8c019550')
+        $this->shouldCall('_VmSelectUpdateVmusStatus_8c019550')
             ->with($this->addressOf('_init_replaySaveNames_8c044294'), 0x1e)->andReturn(1);
         $this->shouldWriteLong($p + 0x00, 1);
         $this->shouldWriteLong($p + 0x04, 0);   // selectedVmu = 0 ...
@@ -538,7 +538,7 @@ return new class extends TestCase {
     {
         /* init_replaySaveNames_8c044294 is this unit's own data (defined in both objects); addressOf
          * resolves it directly -- do NOT setSize a defined symbol. */
-        $this->setSize('_VmMenuUpdateVmusStatus_8c019550', 4);
+        $this->setSize('_VmSelectUpdateVmusStatus_8c019550', 4);
         $this->setSize('_var_peripherals_8c1ba35c', 0x40);
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->setSize('_var_vmuStatus_8c226048', 0x24);   // 9 ints, indexed [0..8]

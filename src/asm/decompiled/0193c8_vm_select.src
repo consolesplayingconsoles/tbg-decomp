@@ -51,12 +51,12 @@
           .EXPORT     _init_saveNames_8c044d50
           .EXPORT     _init_vmIconsPositions_8c044d7c
           .EXPORT     _init_vmuStatusMessages_8c044dc4
-          .EXPORT     _VmMenuMountVms_8c01940e
-          .EXPORT     _VmMenuUnmountVms_8c0194de
-          .EXPORT     _VmMenuFreeAndClear_8c019504
-          .EXPORT     _VmMenuUpdateVmusStatus_8c019550
-          .EXPORT     _VmMenuUpdateVmuStatus_8c01967c
-          .EXPORT     _VmMenuSwitchFromTask_8c019e44
+          .EXPORT     _VmSelectMountVms_8c01940e
+          .EXPORT     _VmSelectUnmountVms_8c0194de
+          .EXPORT     _VmSelectFreeAndClear_8c019504
+          .EXPORT     _VmSelectUpdateVmusStatus_8c019550
+          .EXPORT     _VmSelectUpdateVmuStatus_8c01967c
+          .EXPORT     _VmSelectSwitchFromTask_8c019e44
           .EXPORT     _var_vmuStatus_8c226048 ; 01614c_replay_menu
                                               ; 018644_file_select
                                               ; 01b19c_system_menu
@@ -116,7 +116,7 @@ LAB_8c019402:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_VmMenuMountVms_8c01940e:
+_VmSelectMountVms_8c01940e:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -229,7 +229,7 @@ LAB_8c0194ca:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_VmMenuUnmountVms_8c0194de:
+_VmSelectUnmountVms_8c0194de:
           STS.L       PR,@-R15
           ADD         #-H'8,R15
           MOV         #H'0,R1
@@ -249,7 +249,7 @@ _VmMenuUnmountVms_8c0194de:
           LDS.L       @R15+,PR
           RTS
           NOP
-_VmMenuFreeAndClear_8c019504:
+_VmSelectFreeAndClear_8c019504:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -291,7 +291,7 @@ LAB_8c01953a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_VmMenuUpdateVmusStatus_8c019550:
+_VmSelectUpdateVmusStatus_8c019550:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -444,7 +444,7 @@ LP_GEN_86643:
           .RES.W 1 ; H'8C019672
           .DATA.L _buIsExistFile ; H'8C019674
           .DATA.L _var_vmuStatus_8c226048 ; H'8C019678
-_VmMenuUpdateVmuStatus_8c01967c:
+_VmSelectUpdateVmuStatus_8c01967c:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -827,7 +827,7 @@ LAB_8c019930:
           NOP
 LAB_8c019940:
           MOV.L       LP_GEN_31723+54,R4
-          BSR         _VmMenuUpdateVmusStatus_8c019550
+          BSR         _VmSelectUpdateVmusStatus_8c019550
           MOV         #H'3,R5
           TST         R0,R0
           BT          LAB_8c019992
@@ -902,7 +902,7 @@ LAB_8c0199c4:
           BRA         LAB_8c019e24
           MOV.L       R3,@(H'18,R12)
 LAB_8c0199ca:
-          BSR         _VmMenuUpdateVmusStatus_8c019550
+          BSR         _VmSelectUpdateVmusStatus_8c019550
           MOV         #H'3,R5
           MOV.L       LP_GEN_31723+82,R2
           MOV.L       R2,@R15
@@ -1320,7 +1320,7 @@ LP_GEN_17403:
           .DATA.L _SpriteDraw_8c014f54 ; H'8C019CF8
           .DATA.L _MessageBoxMenuTextboxText_8c02af1c ; H'8C019CFC
 LAB_8c019d00:
-          BSR         _VmMenuUpdateVmusStatus_8c019550
+          BSR         _VmSelectUpdateVmusStatus_8c019550
           MOV         #H'3,R5
           TST         R0,R0
           BT          LAB_8c019d12
@@ -1500,7 +1500,7 @@ LAB_8c019e2a:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_VmMenuSwitchFromTask_8c019e44:
+_VmSelectSwitchFromTask_8c019e44:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_77899+50,R3
           MOV.L       LP_GEN_77899+46,R5

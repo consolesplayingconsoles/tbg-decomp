@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->shouldCall('_syFree')->with(0xbabe0006);
         $this->shouldCall('_BupClearInfo_8c014c8a')->with(6);
 
-        $this->singleCall('_VmMenuFreeAndClear_8c019504')->run();
+        $this->singleCall('_VmSelectFreeAndClear_8c019504')->run();
     }
 
     private function resolveSymbols(): void

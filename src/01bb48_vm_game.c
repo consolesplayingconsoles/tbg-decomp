@@ -8,7 +8,7 @@
 #include "014b8c_backup.h"
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
-#include "0193c8_vm_menu.h"
+#include "0193c8_vm_select.h"
 #include "019e98_main_menu.h"
 #include "01c980_profile_file.h"
 #include "022464_render.h"
@@ -411,7 +411,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
     MenuState *m = &var_menuState_8c1bc7a8;
     int slot;
 
-    VmMenuUpdateVmusStatus_8c019550(init_vmuProbeNames_8c044e48, 45);
+    VmSelectUpdateVmusStatus_8c019550(init_vmuProbeNames_8c044e48, 45);
     slot = m->selected_0x38;
 
     switch (m->state_0x18) {
@@ -450,7 +450,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
                     break;
                 case MENU_EXIT:
                     m->state_0x18 = STATE_EXIT;
-                    VmMenuUnmountVms_8c0194de();
+                    VmSelectUnmountVms_8c0194de();
                     RenderPushFadeOut_8c022b60(10);
                     break;
             }
@@ -458,7 +458,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
             m->state_0x18 = STATE_EXIT;
             sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
-            VmMenuUnmountVms_8c0194de();
+            VmSelectUnmountVms_8c0194de();
             RenderPushFadeOut_8c022b60(10);
         }
         SpriteDraw_8c014f54(
