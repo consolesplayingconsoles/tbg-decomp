@@ -45,7 +45,7 @@ return new class extends TestCase {
      */
     private function outParams(): array
     {
-        return $this->isAsmObject() ? [0xffffd0, 0xffffcc] : [0xffffc8, 0xffffc4];
+        return $this->isAsmObject() ? [0xffffd0, 0xffffcc] : [0xffffc4, 0xffffc0];
     }
 
     /** Allocates a fake asset handle with a frame count at offset +4. */

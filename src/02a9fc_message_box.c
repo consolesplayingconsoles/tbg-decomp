@@ -4044,7 +4044,7 @@ void MessageBoxStart_8c02ad8c(void)
     MessageBoxState *state;
 
     relocateMessageText_8c02a9fc(var_messageTextDat_8c228518);
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &messageBoxTask_8c02ab7a, &task, (void **)&state, 0x1c);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)messageBoxTask_8c02ab7a, &task, (void **)&state, 0x1c);
     state->slide_0x10 = var_eventSlides_8c228480[var_selectedEventEntry_8c228478];
     MessageBoxOpenTextbox_8c02ae3e(0x20, 0x180, -2.0, 0x240, 0x40, 0, 0, -1);
     state->phase_0x00 = 0;

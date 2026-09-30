@@ -332,7 +332,7 @@ STATIC void openSaveMenu_8c016636(void)
     SaveMenuState *state;
 
     njSetBackColor(0, 0, 0xc060);
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, saveMenuTask_8c01628c, &task, (void **)&state, 0x14);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)saveMenuTask_8c01628c, &task, (void **)&state, 0x14);
     state->state_0x00 = REPLAY_SAVE_MENU_INIT;
     state->frameCounter_0x0c = 0;
 }
@@ -381,7 +381,7 @@ void ReplayMenuOpen_8c01673a(void)
 
     njSetBackColor(0, 0, 0);
     InputSpawnTask_8c0128cc(0);
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, listMenuTask_8c01666a, &task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)listMenuTask_8c01666a, &task, &state, 0);
     task->field_0x08 = 0;
 }
 
@@ -484,7 +484,7 @@ STATIC void startReplaySave_8c016924(void)
     int *buf;
     void *dest;
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, replaySaveTask_8c0167ca, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)replaySaveTask_8c0167ca, (Task **)&task, &state, 0);
 
     /* no drive picked, or the recording ran the buffer out */
     if (var_selectedVm_8c1ba34c == -1 ||
@@ -599,7 +599,7 @@ STATIC void startReplayLoad_8c016b4c(void)
     var_playMode_8c1bb8d0 = PLAY_MODE_DEMO;
     var_isAttractDemo_8c1bb8d4 = 0;
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, replayLoadTask_8c0169bc, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)replayLoadTask_8c0169bc, (Task **)&task, &state, 0);
     task->phase_0x08 = 0;
 }
 

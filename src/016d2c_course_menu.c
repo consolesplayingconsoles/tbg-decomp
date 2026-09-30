@@ -372,7 +372,7 @@ void CourseMenuSpawnDialogTask_8c0170c6(int dialog_index, int *p2)
 
     TaskSpawn_8c014ae8(
         var_tasks_8c1ba3c8,
-        &instructorDialogTask_8c016f98,
+        (TaskAction)instructorDialogTask_8c016f98,
         &task,
         &state,
         0x18
@@ -1061,7 +1061,7 @@ void CourseMenuReturn_8c017ef2(void)
 
     TaskSpawn_8c014ae8(
         var_tasks_8c1ba3c8,
-        &GameTask_8c012f44,
+        (TaskAction)GameTask_8c012f44,
         &createdTask,
         &createdState,
         0

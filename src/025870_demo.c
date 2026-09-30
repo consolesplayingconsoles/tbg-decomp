@@ -377,7 +377,7 @@ void DemoStartTour_8c025af4(void)
         break;
     }
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &demoShotTask_8c0259e8, &task, (void **)&state, 0xc);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (TaskAction)demoShotTask_8c0259e8, &task, (void **)&state, 0xc);
     state->phase_0x00 = 0;
 
     MessageBoxOpenTextbox_8c02ae3e(0x20, 0x180, -1.0f, 0x023E, 0x40, 0, 0, -1);

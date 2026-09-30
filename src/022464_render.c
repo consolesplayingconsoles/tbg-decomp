@@ -528,7 +528,7 @@ void RenderStartFadeIn_8c022a9c(int frames)
   FadeInTask *task;
   void *state;
 
-  TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, fadeInTask_8c022a54, (Task **)&task, &state, 0);
+  TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)fadeInTask_8c022a54, (Task **)&task, &state, 0);
   task->frames_0x08 = frames;
   var_fadeProgress_8c227d80 = 0xff000000;
   var_isFading_8c226568 = 1;
@@ -576,7 +576,7 @@ void RenderStartFadeOut_8c022b60(int frames)
   FadeOutTask *task;
   void *state;
 
-  TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, fadeOutTask_8c022ad0, (Task **)&task, &state, 0);
+  TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)fadeOutTask_8c022ad0, (Task **)&task, &state, 0);
   task->frames_0x08 = frames;
   task->phase_0x0c = FADE_OUT_PHASE_RAMP;
   var_fadeProgress_8c227d80 = 0;

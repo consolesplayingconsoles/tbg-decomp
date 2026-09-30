@@ -1151,7 +1151,7 @@ STATIC void pedGroupTask_8c029078(PedGroupTask *task)
              * failed TaskSpawn skips it. */
             pushFailed = 0;
             if (spec->nKind_0x02 == 0 || spec->nKind_0x02 == 1) {
-                if (TaskSpawn_8c014ae8(task->subTasks_0x18, pedestrianTask_8c028e00,
+                if (TaskSpawn_8c014ae8(task->subTasks_0x18, (TaskAction)pedestrianTask_8c028e00,
                         &subTask, (void **)&state, sizeof(PedestrianState))) {
                     radius = task->radius_0x10;
                     state->flBaseX_0x20 = ((float)rand() / 32768.0f) * radius * 2.0f - radius;
@@ -1216,7 +1216,7 @@ STATIC void pedGroupTask_8c029078(PedGroupTask *task)
                     pushFailed = 1;
                 }
             } else if (spec->nKind_0x02 == 2) {
-                if (TaskSpawn_8c014ae8(task->subTasks_0x18, pedStaticObjectTask_8c02903e,
+                if (TaskSpawn_8c014ae8(task->subTasks_0x18, (TaskAction)pedStaticObjectTask_8c02903e,
                         &subTask, (void **)&state, sizeof(PedestrianState))) {
                     state->flBaseX_0x20 = 0.0f;
                     state->flBaseZ_0x24 = 0.0f;
@@ -1319,7 +1319,7 @@ STATIC void pedestriansTask_8c0293f6(PedestriansTask *task)
                 group->list_0x08 = subtasks;
                 TaskInitGroup_8c014a9c(subtasks, PED_GROUP_SLOTS);
 
-                if (!TaskSpawn_8c014ae8(var_tasks_8c1ba808, pedGroupTask_8c029078,
+                if (!TaskSpawn_8c014ae8(var_tasks_8c1ba808, (TaskAction)pedGroupTask_8c029078,
                         (Task **)&subTask, &state, 0)) {
                     syFree(subtasks);
                     break;
@@ -1431,7 +1431,7 @@ void ObjectsInitPedestrianGroups_8c0296d6(void)
         groups[i].active_0x00 = 0;
     }
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, pedestriansTask_8c0293f6, (Task **)&task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (TaskAction)pedestriansTask_8c0293f6, (Task **)&task, &state, 0);
     task->lastPreset_0x08 = -1;
     task->debounce_0x0c = 1;
 }
@@ -1570,7 +1570,7 @@ void ObjectsInitBlinkers_8c029920(void)
         return;
     }
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &routeBlinkerTask_8c029904, (Task **)&task,
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (TaskAction)routeBlinkerTask_8c029904, (Task **)&task,
                        (void **)&matrices, count * sizeof(NJS_MATRIX));
     task->count_0x08 = count;
     task->blinkCounter_0x0c = 0;
@@ -1768,7 +1768,7 @@ STATIC void rowFlyByTask_8c029e94(Task *task, RowTaskState *state)
     int idx;
 
     if (--task->field_0x08 < 0) {
-        if (TaskSpawn_8c014ae8(var_tasks_8c1bb448, &flyByModelTask_8c029e68, &newTask,
+        if (TaskSpawn_8c014ae8(var_tasks_8c1bb448, (TaskAction)flyByModelTask_8c029e68, &newTask,
                 (void **)&newState, sizeof(RowTaskState))) {
             do {
                 idx = AsqGetRandomInRangeA_8c012178(0xd) * 2 + 1;
@@ -2196,16 +2196,16 @@ void ObjectsSpawnTasks_8c02a6ac(void)
         void *dat = row->dat_0x08;
 
         if (type == 0) {
-            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowFlyByTask_8c029e94, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, (TaskAction)rowFlyByTask_8c029e94, &task, (void **)&state, sizeof(RowTaskState));
             state->dat_0x48 = dat;
             state->frameLimit_0x5c = (float)*(Uint32 *)((Uint8 *)dat + 4) - 1.0f;
             task->field_0x08 = 0;
         } else if (type == 1) {
-            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowDatTask_8c029fcc, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, (TaskAction)rowDatTask_8c029fcc, &task, (void **)&state, sizeof(RowTaskState));
             initDatBlob_8c029f42((DatBlob *)dat, pvm, nj);
             state->dat_0x48 = dat;
         } else if (type == 2) {
-            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowModelTask_8c02a08a, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, (TaskAction)rowModelTask_8c02a08a, &task, (void **)&state, sizeof(RowTaskState));
             state->phase_0x54 = 0;
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
@@ -2214,7 +2214,7 @@ void ObjectsSpawnTasks_8c02a6ac(void)
             state->fogEnable_0x78 = row->fogEnable_0x16;
             state->control3DEnable_0x79 = row->control3DEnable_0x17;
         } else if (type == 3) {
-            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowMotionModelTask_8c02a120, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, (TaskAction)rowMotionModelTask_8c02a120, &task, (void **)&state, sizeof(RowTaskState));
             state->phase_0x54 = 0;
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
@@ -2226,12 +2226,12 @@ void ObjectsSpawnTasks_8c02a6ac(void)
             state->fogEnable_0x78 = row->fogEnable_0x16;
             state->control3DEnable_0x79 = row->control3DEnable_0x17;
         } else if (type == 4) {
-            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowSimpleModelTask_8c02a1f0, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, (TaskAction)rowSimpleModelTask_8c02a1f0, &task, (void **)&state, sizeof(RowTaskState));
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
             task->field_0x08 = (int)row->taskFlag_0x15;
         } else if (type == 5) {
-            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &rowMaterialModelTask_8c02a27c, &task, (void **)&state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, (TaskAction)rowMaterialModelTask_8c02a27c, &task, (void **)&state, sizeof(RowTaskState));
             state->texlist_0x40 = pvm;
             state->model_0x44 = nj;
             state->pos_0x4c = row->pos_0x0c;
@@ -2244,7 +2244,7 @@ void ObjectsSpawnTasks_8c02a6ac(void)
             /* Bug-for-bug: passes state itself (its stale value from the
              * previous row), not &state, as the create_state out-param --
              * matches the archived asm exactly. */
-            TaskSpawn_8c014ae8(var_tasks_8c1bb448, &fumiCrossingTask_8c02a4f8, &task, (void **)state, sizeof(RowTaskState));
+            TaskSpawn_8c014ae8(var_tasks_8c1bb448, (TaskAction)fumiCrossingTask_8c02a4f8, &task, (void **)state, sizeof(RowTaskState));
             state->phase_0x54 = 0;
             state->frame_0x58 = 0.0f;
             state->frameLimit_0x5c = (float)*(Uint32 *)((Uint8 *)var_fumiCloseMotion_8c228414 + 4) - 1.0f;
@@ -2259,5 +2259,5 @@ void ObjectsSpawnTasks_8c02a6ac(void)
         rowIndex++;
     }
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, &execRowTaskGroupTask_8c02a60e, &task, (void **)&state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (TaskAction)execRowTaskGroupTask_8c02a60e, &task, (void **)&state, 0);
 }

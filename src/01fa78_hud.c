@@ -442,7 +442,7 @@ void HudReset_8c02018c(void) {
     Task *createdTask;
     void *createdState;
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, hudUpdateTask_8c01ff48, &createdTask, &createdState, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba5e8, (TaskAction)hudUpdateTask_8c01ff48, &createdTask, &createdState, 0);
 
     var_hudState_8c22643c.field_0x00 = 0;
     var_hudState_8c22643c.field_0x04 = 0;

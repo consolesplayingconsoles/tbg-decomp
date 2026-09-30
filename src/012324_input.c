@@ -367,7 +367,7 @@ void InputSpawnTask_8c0128cc(int param)
 
     if (param == 0) {
         LOG_DEBUG(("[INPUT] InputSpawnTask_8c0128cc: queueing inputMenuTask_8c012324\n"));
-        TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, inputMenuTask_8c012324,
+        TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)inputMenuTask_8c012324,
                           &var_pushedTask_8c157a74, &created_state, 0);
         var_stickLatchX_8c157ae4 = 0;
         var_stickLatchY_8c157ae8 = 0;
@@ -380,7 +380,7 @@ void InputSpawnTask_8c0128cc(int param)
         }
         LOG_DEBUG(("[INPUT] InputSpawnTask_8c0128cc: queueing input handler (%s)\n",
                    var_driveMode_8c1bb8c8 == 0 ? "inputManualTask_8c012504" : "inputAutoTask_8c012718"));
-        TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, action,
+        TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)action,
                           &var_pushedTask_8c157a74, &created_state, 0);
     }
 }

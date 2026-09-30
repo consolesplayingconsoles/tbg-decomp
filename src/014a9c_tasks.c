@@ -28,7 +28,7 @@ void TaskKillGroup_8c014ab4(Task *tasks)
   }
 }
 
-int TaskSpawn_8c014ae8(Task *tasks, void *action, Task **created_task, void **create_state, size_t alloc_size)
+int TaskSpawn_8c014ae8(Task *tasks, TaskAction action, Task **created_task, void **create_state, size_t alloc_size)
 {
   void *state;
 

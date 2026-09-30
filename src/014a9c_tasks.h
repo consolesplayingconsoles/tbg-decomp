@@ -31,10 +31,7 @@ struct Task {
 }
 typedef Task;
 
-/**
- * @todo Should action be typed?
- */
-int TaskSpawn_8c014ae8(Task *tasks, void *action, Task **created_task, void **create_state, size_t alloc_size);
+int TaskSpawn_8c014ae8(Task *tasks, TaskAction action, Task **created_task, void **create_state, size_t alloc_size);
 void TaskKill_8c014b66(Task *task);
 void TaskInitGroup_8c014a9c(Task *tasks, Sint32 count);
 void TaskKillGroup_8c014ab4(Task *tasks);

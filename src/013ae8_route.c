@@ -576,7 +576,7 @@ void RouteSpawnTask_8c0144fc(void)
     njSetBackColor(0xff418dff, 0xff418dff, 0xff418dff);
     var_loadScreenActive_8c157a6c = 1;
 
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *) routeLoadTask_8c014338, (Task **) &task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)routeLoadTask_8c014338, (Task **) &task, &state, 0);
     CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_INIT);
     task->frame_0x0c = 0;
 
@@ -653,7 +653,7 @@ void RouteSpawnSegmentReloadTask_8c01468e(void)
     LOG_DEBUG(("[ROUTE] spawning segmentReloadTask_8c014550\n"));
 
     var_loadScreenActive_8c157a6c = 1;
-    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *) segmentReloadTask_8c014550, (Task **) &task, &state, 0);
+    TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (TaskAction)segmentReloadTask_8c014550, (Task **) &task, &state, 0);
     CHANGE_SEGMENT_RELOAD_STATE(task, SEGMENT_RELOAD_STATE_POST_LOAD);
     task->frame_0x0c = 0;
     freeSegmentModels_8c013f22();
