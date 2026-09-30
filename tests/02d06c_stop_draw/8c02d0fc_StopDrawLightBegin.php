@@ -29,7 +29,6 @@ return new class extends TestCase {
         $this->initUint32($dir + 0x8, $this->f(3.0));
 
         $inten = $this->addressOf('_var_simpleLightIntensity_8c2264f0');
-        $this->rellocate('_var_8c2264f4', $inten + 4); // coincides with simpleLightIntensity[1]
         $this->initUint32($inten + 0x0, $this->f(0.5));
         $this->initUint32($inten + 0x4, $this->f(0.25));
 
@@ -65,7 +64,6 @@ return new class extends TestCase {
         $this->initUint32($dir + 0x8, $this->f(1.0));
 
         $inten = $this->addressOf('_var_simpleLightIntensity_8c2264f0');
-        $this->rellocate('_var_8c2264f4', $inten + 4); // coincides with simpleLightIntensity[1]
         $this->initUint32($inten + 0x0, $this->f(1.0));
         $this->initUint32($inten + 0x4, $this->f(1.0));
 

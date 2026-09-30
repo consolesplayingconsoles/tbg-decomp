@@ -31,11 +31,6 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 0, fdec(1.0));
         $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 4, fdec(0.65));
 
-        // The original asm imports this adjacent float under its own name
-        // (_var_8c2264f4, per sectionB.src), not as var_simpleLightIntensity_8c2264f0[1].
-        $this->setSize('_var_8c2264f4', 4);
-        $this->initUint32($this->addressOf('_var_8c2264f4'), fdec(0.65));
-
         $this->setSize('_var_simpleLightColor_8c2264f8', 0xc);
         $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 0, fdec(1.0));
         $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 4, fdec(1.0));
@@ -67,11 +62,6 @@ return new class extends TestCase {
         $this->setSize('_var_simpleLightIntensity_8c2264f0', 8);
         $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 0, fdec(1.0));
         $this->initUint32($this->addressOf('_var_simpleLightIntensity_8c2264f0') + 4, fdec(0.65));
-
-        // The original asm imports this adjacent float under its own name
-        // (_var_8c2264f4, per sectionB.src), not as var_simpleLightIntensity_8c2264f0[1].
-        $this->setSize('_var_8c2264f4', 4);
-        $this->initUint32($this->addressOf('_var_8c2264f4'), fdec(0.65));
 
         $this->setSize('_var_simpleLightColor_8c2264f8', 0xc);
         $this->initUint32($this->addressOf('_var_simpleLightColor_8c2264f8') + 0, fdec(1.0));
