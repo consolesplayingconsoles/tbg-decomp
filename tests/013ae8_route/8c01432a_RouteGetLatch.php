@@ -9,7 +9,7 @@ return new class extends TestCase {
     {
         $this->initUint32($this->addressOf('_var_loadLatch_8c18adac'), 0x2a);
 
-        $this->call('_RouteLoadGetLatch_8c01432a');
+        $this->call('_RouteGetLatch_8c01432a');
 
         $this->shouldReturn(0x2a);
     }

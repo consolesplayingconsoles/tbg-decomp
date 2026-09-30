@@ -1,6 +1,6 @@
 /* 8c013ae8 */
-#ifndef _013AE8_ROUTE_LOAD_H
-#define _013AE8_ROUTE_LOAD_H
+#ifndef _013AE8_ROUTE_H
+#define _013AE8_ROUTE_H
 
 #include <shinobi.h>
 #include "011120_asset_queues.h" /* ModelFiles */
@@ -27,7 +27,7 @@ typedef enum {
 } RouteLoadState;
 
 /* Task private state for routeLoadTask_8c014338 and
- * RouteLoadUnusedTask_8c014784; frame_0x0c drives the loading animation. */
+ * RouteUnusedTask_8c014784; frame_0x0c drives the loading animation. */
 typedef struct {
     TaskAction action;
     void *state;
@@ -204,16 +204,16 @@ extern void *var_datFiles_8c18adb4[4]; /* one per texel layer, freed after TileS
  * =========
  */
 
-void RouteLoadPushTask_8c0144fc(void);
-void RouteLoadPushSegmentReloadTask_8c01468e(void);
-void RouteLoadSetLatch_8c014330(void);
-void RouteLoadClearLatch_8c014322(void);
-void RouteLoadFreeVehicleAssets_8c013b5a(void);
-void RouteLoadClearModelSlots_8c013bbc(ModelSlot *slots, int count);
-void RouteLoadStartRouteModelLoadPass_8c013d78(void);
-void RouteLoadFreeAllRouteModels_8c013dae(void);
-void RouteLoadFreePedestrianAssets_8c013ee4(void);
-int RouteLoadGetLatch_8c01432a(void);
-void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state);
+void RoutePushTask_8c0144fc(void);
+void RoutePushSegmentReloadTask_8c01468e(void);
+void RouteSetLatch_8c014330(void);
+void RouteClearLatch_8c014322(void);
+void RouteFreeVehicleAssets_8c013b5a(void);
+void RouteClearModelSlots_8c013bbc(ModelSlot *slots, int count);
+void RouteStartRouteModelLoadPass_8c013d78(void);
+void RouteFreeAllRouteModels_8c013dae(void);
+void RouteFreePedestrianAssets_8c013ee4(void);
+int RouteGetLatch_8c01432a(void);
+void RouteUnusedTask_8c014784(RouteLoadTask *task, void *state);
 
-#endif // _013AE8_ROUTE_LOAD_H
+#endif // _013AE8_ROUTE_H

@@ -5,7 +5,7 @@
 #include "serial_debug.h"
 #include "1ba1c8_globals.h"
 #include "011120_asset_queues.h" /* LoadedModel */
-#include "013ae8_route_load.h"   /* CourseSceneParams */
+#include "013ae8_route.h"   /* CourseSceneParams */
 #include "014a9c_tasks.h"        /* Task */
 #include "021b9c_tile_draw.h"
 #include "02171c_tile_stream.h"  /* TileIndex, TileStreamDrawTile_8c021b34 */

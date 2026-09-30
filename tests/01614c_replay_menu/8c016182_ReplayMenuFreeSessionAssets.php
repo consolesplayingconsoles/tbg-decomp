@@ -30,13 +30,13 @@ return new class extends TestCase {
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
         $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_ObjectsFreeAssetRequests_8c029cfe');
-        $this->shouldCall('_RouteLoadFreePedestrianAssets_8c013ee4');
-        $this->shouldCall('_RouteLoadFreeAllRouteModels_8c013dae');
+        $this->shouldCall('_RouteFreePedestrianAssets_8c013ee4');
+        $this->shouldCall('_RouteFreeAllRouteModels_8c013dae');
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_routeModels_8c1bc3ec'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_segmentModels_8c1bc3f0'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_trafficModels_8c1bc3f4'));
         $this->shouldCall('_TileStreamTeardown_8c021724');
-        $this->shouldCall('_RouteLoadFreeVehicleAssets_8c013b5a');
+        $this->shouldCall('_RouteFreeVehicleAssets_8c013b5a');
 
         // slot 2 is not freed here
         for ($i = 0; $i < 19; $i++) {
@@ -75,13 +75,13 @@ return new class extends TestCase {
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
         $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_ObjectsFreeAssetRequests_8c029cfe');
-        $this->shouldCall('_RouteLoadFreePedestrianAssets_8c013ee4');
-        $this->shouldCall('_RouteLoadFreeAllRouteModels_8c013dae');
+        $this->shouldCall('_RouteFreePedestrianAssets_8c013ee4');
+        $this->shouldCall('_RouteFreeAllRouteModels_8c013dae');
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_routeModels_8c1bc3ec'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_segmentModels_8c1bc3f0'));
         $this->shouldCall('_AsqFreeModels_8c0120fe')->with($this->addressOf('_var_trafficModels_8c1bc3f4'));
         $this->shouldCall('_TileStreamTeardown_8c021724');
-        $this->shouldCall('_RouteLoadFreeVehicleAssets_8c013b5a');
+        $this->shouldCall('_RouteFreeVehicleAssets_8c013b5a');
         $this->shouldCall('_ResgrpFreeAll_8c016108');
         $this->shouldCall('_FileMenuFreeBuffers_8c0187d0');
         $this->shouldCall('_VmMenuFreeAndClear_8c019504');

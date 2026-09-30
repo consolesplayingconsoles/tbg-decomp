@@ -111,7 +111,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_state0_advances_when_ready(): void
@@ -123,7 +123,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($menuState + 0x18, 1);
     }

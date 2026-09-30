@@ -20,7 +20,7 @@ return new class extends TestCase {
         $this->setSize('_AsqInitQueues_8c011f36', 4);
         $this->setSize('_AsqResetQueues_8c011f6c', 4);
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
-        $this->setSize('_RouteLoadSetLatch_8c014330', 4);
+        $this->setSize('_RouteSetLatch_8c014330', 4);
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
     }
 
@@ -62,11 +62,11 @@ return new class extends TestCase {
         $this->shouldCall('_CourseMenuRequestSysResgrp_8c018568')->with(
             $this->menu(0x0c), $this->addressOf('_init_profileResgrps_8c0450d8')
         );
-        $this->shouldCall('_RouteLoadSetLatch_8c014330');
+        $this->shouldCall('_RouteSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0, 0, 0,
-            $this->addressOf('_RouteLoadClearLatch_8c014322'),
+            $this->addressOf('_RouteClearLatch_8c014322'),
         );
     }
 };

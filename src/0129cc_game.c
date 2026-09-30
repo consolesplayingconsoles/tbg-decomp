@@ -18,7 +18,7 @@
 #include "015ab8_title.h"
 #include "scif.h"
 #include "011120_asset_queues.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "02b464_drive_points.h" /* DrivePointsReset_8c02c46a */
 #include "020214_drive_cue.h" /* DriveCueInit_8c020528 */
 #include "014b8c_backup.h"
@@ -586,7 +586,7 @@ void GameStartSelectedCourse_8c01328c() {
     var_savedCameraMode_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
     var_savedCameraCueState_8c227da8 = 0;
 
-    RouteLoadPushTask_8c0144fc();
+    RoutePushTask_8c0144fc();
 }
 
 void GamePushLoadingTask_8c013310(int p1) {
@@ -611,7 +611,7 @@ void GamePushLoadingTask_8c013310(int p1) {
     var_savedCameraMode_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
     var_savedCameraCueState_8c227da8 = 0;
 
-    RouteLoadPushTask_8c0144fc();
+    RoutePushTask_8c0144fc();
 }
 
 /* Boot: wait for GameInit_8c0134ec's asset load, pull in the sound driver,
@@ -619,7 +619,7 @@ void GamePushLoadingTask_8c013310(int p1) {
 STATIC void bootTask_8c013388(Task *task, void *state) {
     switch (task->field_0x08) {
         case 0: {
-            Bool b = RouteLoadGetLatch_8c01432a();
+            Bool b = RouteGetLatch_8c01432a();
             if (b) {
                 task->field_0x08++;
                 var_fuuLastFrame_8c1bc450 = (Float) var_fuuNjm_8c1bc448->nbFrame - 1;
@@ -627,13 +627,13 @@ STATIC void bootTask_8c013388(Task *task, void *state) {
                 AsqResetQueues_8c011f6c();
                 AsqRequestDat_8c011182("\\SOUND", "manatee.drv", &var_sndDrvData_8c0fcd48);
                 AsqRequestDat_8c011182("\\SOUND", "bus.mlt", &var_sndBankData_8c0fcd4c);
-                RouteLoadClearLatch_8c014322();
-                AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadSetLatch_8c014330);
+                RouteClearLatch_8c014322();
+                AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteSetLatch_8c014330);
             }
             break;
         }
         case 1: {
-            if (RouteLoadGetLatch_8c01432a() != 0) {
+            if (RouteGetLatch_8c01432a() != 0) {
                 AsqFreeQueues_8c011f7e();
                 TaskFree_8c014b66(task);
                 SndInit_8c010e18("\\SOUND");
@@ -717,8 +717,8 @@ void GameInit_8c0134ec() {
 
     var_currentCourse_8c1bb868.atariBus_0x04 = (void *) -1;
 
-    RouteLoadClearModelSlots_8c013bbc(var_routeModelSlots_8c1bbddc, 0x20);
-    RouteLoadClearModelSlots_8c013bbc(var_pedestrianAssets_8c1bbfdc, 0x41);
+    RouteClearModelSlots_8c013bbc(var_routeModelSlots_8c1bbddc, 0x20);
+    RouteClearModelSlots_8c013bbc(var_pedestrianAssets_8c1bbfdc, 0x41);
 
     var_routeModels_8c1bc3ec = (void *) -1;
     var_segmentModels_8c1bc3f0 = (LoadedModel *) -1;
@@ -787,8 +787,8 @@ void GameInit_8c0134ec() {
     AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njm", &var_busDoorMotion_8c1bc410, 0);
     AsqRequestNj_8c011492("\\SD_COMMON","3s_bus_m2.njs", &var_busDoorShape_8c1bc414, 0);
 
-    RouteLoadClearLatch_8c014322();
-    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadSetLatch_8c014330);
+    RouteClearLatch_8c014322();
+    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteSetLatch_8c014330);
     var_gdErr_8c18ad14 = 0;
     gdFsEntryErrFuncAll(&usrGdErrFunc_8c0134d6, (void *) 0);
 }

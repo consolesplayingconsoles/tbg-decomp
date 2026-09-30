@@ -22,7 +22,7 @@
 #include "022464_render.h"
 #include "01614c_replay_menu.h"
 #include "01e27c_practice_menu.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "015ab8_title.h"
 #include "024b4c_bus_camera.h"
 #include "02b2f0_drive_msg.h"
@@ -931,7 +931,7 @@ STATIC void onFadeStopEnded_8c02c624(void) {
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
         StopUpdateStopHeadings_8c02ccc6();
-        RouteLoadPushSegmentReloadTask_8c01468e();
+        RoutePushSegmentReloadTask_8c01468e();
         return;
     }
 
@@ -958,7 +958,7 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
         TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
         StopUpdateStopHeadings_8c02ccc6();
-        RouteLoadPushSegmentReloadTask_8c01468e();
+        RoutePushSegmentReloadTask_8c01468e();
         return;
     }
 

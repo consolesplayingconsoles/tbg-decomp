@@ -50,7 +50,7 @@ SRCS = \
 	src/011120_asset_queues.c \
 	src/012324_input.c \
 	src/0129cc_game.c \
-	src/013ae8_route_load.c \
+	src/013ae8_route.c \
 	src/014934_unused_load.c \
 	src/0149b0_sbinit.c \
 	src/1ba1c8_globals.c \

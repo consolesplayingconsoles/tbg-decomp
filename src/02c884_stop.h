@@ -3,7 +3,7 @@
 #ifndef _02C884_STOP_H
 #define _02C884_STOP_H
 
-#include "013ae8_route_load.h" /* CourseSegment */
+#include "013ae8_route.h" /* CourseSegment */
 
 /* A stop's spawn strip: origin (x_0x04, z_0x08) and direction (dx_0x0c,
  * dz_0x10) that waiting passengers are laid out along. */

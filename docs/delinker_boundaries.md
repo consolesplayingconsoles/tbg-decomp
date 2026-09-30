@@ -64,7 +64,7 @@ Eliminated by contiguity, i.e. small TUs whose sole consumer is far away:
 `012f44_game`).
 
 `04ce10_line_nodes` flags on test 1 but is a genuine **data-only object**: no P
-section at all, which is also why `013ae8_route_load` uses data that links
+section at all, which is also why `013ae8_route` uses data that links
 nowhere near `013ae8`'s own.
 
 `0129cc_pause` + `012f44_game` (merged as `0129cc_game`) were found by layout

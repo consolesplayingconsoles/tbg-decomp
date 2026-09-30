@@ -40,7 +40,7 @@ return new class extends TestCase {
         // External functions whose addresses the prologue loads unconditionally
         // (plus every callee used by any state) must be resolvable.
         foreach ([
-            '_VmMenuUpdateVmusStatus_8c019550', '_RouteLoadGetLatch_8c01432a',
+            '_VmMenuUpdateVmusStatus_8c019550', '_RouteGetLatch_8c01432a',
             '_AsqFreeQueues_8c011f7e', '_RenderPushFadeIn_8c022a9c', '_RenderPushFadeOut_8c022b60',
             '_PromptHandleMultiple_8c016c58', '_PromptHandleBinary_8c016caa',
             '_CourseMenuInterpolateCursor_8c016d2c', '_CourseMenuFreeResourceGroup_8c0185c4',
@@ -100,7 +100,7 @@ return new class extends TestCase {
 
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_init_pvm_ready_advances()
@@ -109,7 +109,7 @@ return new class extends TestCase {
 
         $this->call('_vmGameTask_8c01bfec')->with($this->task);
         $this->expectPreamble();
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldWriteLong($this->ms + 0x18, 1); // state -> MENU_FADE_IN
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);

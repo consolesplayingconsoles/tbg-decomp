@@ -23,13 +23,13 @@ return new class extends TestCase {
             $this->addressOf('_var_menuState_8c1bc7a8') + 0x0c,
             $this->addressOf('_init_mainMenuResourceGroup_8c044264'),
         );
-        $this->shouldCall('_RouteLoadSetLatch_8c014330');
+        $this->shouldCall('_RouteSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
             0,
             0,
-            $this->addressOf('_RouteLoadClearLatch_8c014322')
+            $this->addressOf('_RouteClearLatch_8c014322')
         );
 
         $this->singleCall('_MainMenuSwitchFromTask_8c01a09a')->with($task, $selected)->run();

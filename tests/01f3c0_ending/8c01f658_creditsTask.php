@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->setSize('_var_messageTextBoxA_8c1bc404', 4);
         $this->setSize('_var_messageTextBoxB_8c1bc408', 4);
-        $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
+        $this->setSize('_RouteGetLatch_8c01432a', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_SndPlayAdx_8c010cd6', 4);
         $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
@@ -86,7 +86,7 @@ return new class extends TestCase {
 
         $this->call('_creditsTask_8c01f658');
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_state0_pvm_ready_starts_fade_in(): void
@@ -96,7 +96,7 @@ return new class extends TestCase {
 
         $this->call('_creditsTask_8c01f658');
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($base + self::STATE_0X18, 1);
         $this->shouldWriteLong($base + self::FIELD_0X1C, 0);

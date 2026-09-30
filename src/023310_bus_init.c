@@ -8,7 +8,7 @@
 #include "015034_text.h"
 #include "1ba1c8_globals.h"
 #include "01e27c_practice_menu.h" /* var_practiceRules_8c226410 */
-#include "013ae8_route_load.h" /* CourseSceneParams, CourseSegment */
+#include "013ae8_route.h" /* CourseSceneParams, CourseSegment */
 #include "02c884_stop.h"   /* StopAreaRecord, StopGetStopArea_8c02cd7a */
 #include "020914_ground_query.h"
 #include "020b6c_ground_probe.h"

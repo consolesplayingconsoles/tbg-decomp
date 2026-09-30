@@ -4,7 +4,7 @@
           .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_isFading_8c226568
-          .IMPORT     _RouteLoadGetLatch_8c01432a
+          .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _RenderPushFadeIn_8c022a9c
@@ -23,8 +23,8 @@
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _CourseMenuRequestSysResgrp_8c018568
-          .IMPORT     _RouteLoadSetLatch_8c014330
-          .IMPORT     _RouteLoadClearLatch_8c014322
+          .IMPORT     _RouteSetLatch_8c014330
+          .IMPORT     _RouteClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .EXPORT     _AlbumSwitchFromTask_8c01d6e2
@@ -235,7 +235,7 @@ LP_GEN_16673:
           .DATA.L H'C0A00000 ; H'8C01D400
           .DATA.L _var_peripherals_8c1ba35c ; H'8C01D404
           .DATA.L _var_isFading_8c226568 ; H'8C01D408
-          .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01D40C
+          .DATA.L _RouteGetLatch_8c01432a ; H'8C01D40C
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01D410
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01D414
           .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01D418
@@ -742,8 +742,8 @@ LP_GEN_20271:
           .DATA.L _AsqResetQueues_8c011f6c ; H'8C01D7E0
           .DATA.L _init_albumResourceGroup_8c045160 ; H'8C01D7E4
           .DATA.L _CourseMenuRequestSysResgrp_8c018568 ; H'8C01D7E8
-          .DATA.L _RouteLoadSetLatch_8c014330 ; H'8C01D7EC
-          .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C01D7F0
+          .DATA.L _RouteSetLatch_8c014330 ; H'8C01D7EC
+          .DATA.L _RouteClearLatch_8c014322 ; H'8C01D7F0
           .DATA.L _AsqNop_8c011120 ; H'8C01D7F4
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01D7F8
           .SECTION    C, DATA, ALIGN=4

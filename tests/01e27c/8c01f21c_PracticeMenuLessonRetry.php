@@ -120,13 +120,13 @@ return new class extends TestCase {
             $this->addressOf('_init_practice01ResourceGroup_8c044274')
         );
         $this->shouldCall('_CourseMenuRequestCommonResources_8c01852c');
-        $this->shouldCall('_RouteLoadSetLatch_8c014330');
+        $this->shouldCall('_RouteSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
             0,
             0,
-            $this->addressOf('_RouteLoadClearLatch_8c014322')
+            $this->addressOf('_RouteClearLatch_8c014322')
         );
     }
 
@@ -144,10 +144,10 @@ return new class extends TestCase {
         $this->setSize('_AsqResetQueues_8c011f6c', 4);
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
         $this->setSize('_CourseMenuRequestCommonResources_8c01852c', 4);
-        $this->setSize('_RouteLoadSetLatch_8c014330', 4);
+        $this->setSize('_RouteSetLatch_8c014330', 4);
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
         $this->setSize('_AsqNop_8c011120', 4);
-        $this->setSize('_RouteLoadClearLatch_8c014322', 4);
+        $this->setSize('_RouteClearLatch_8c014322', 4);
 
         $this->initUint32($this->addressOf('_var_lessonAttempts_8c22642c'), 42);
 

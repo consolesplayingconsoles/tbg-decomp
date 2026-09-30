@@ -2,7 +2,7 @@
 /* 8c014934 */
 #include <shinobi.h>
 #include "0129cc_game.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "014a9c_tasks.h"
 #include "014934_unused_load.h"
 #include "011120_asset_queues.h"
@@ -24,7 +24,7 @@ void UnusedLoadPushTask_8c014934()
 
     TaskPush_8c014ae8(
         var_tasks_8c1ba3c8,
-        (void *) &RouteLoadUnusedTask_8c014784,
+        (void *) &RouteUnusedTask_8c014784,
         (Task **) &task,
         &state,
         0
@@ -34,6 +34,6 @@ void UnusedLoadPushTask_8c014934()
 
     njGarbageTexture(var_tex_8c157af8, 0xc00);
 
-    /* Half the dat/nj queue budget RouteLoadPushTask_8c0144fc asks for. */
+    /* Half the dat/nj queue budget RoutePushTask_8c0144fc asks for. */
     AsqInitQueues_8c011f36(0x20, 0x400, 0x400, 0x40);
 }

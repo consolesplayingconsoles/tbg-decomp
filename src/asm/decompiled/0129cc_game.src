@@ -68,15 +68,15 @@
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_savedCameraMode_8c227da0
           .IMPORT     _var_savedCameraCueState_8c227da8
-          .IMPORT     _RouteLoadGetLatch_8c01432a
+          .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _var_fuuNjm_8c1bc448
           .IMPORT     _var_fuuLastFrame_8c1bc450
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _var_sndDrvData_8c0fcd48
           .IMPORT     _AsqRequestDat_8c011182
           .IMPORT     _var_sndBankData_8c0fcd4c
-          .IMPORT     _RouteLoadClearLatch_8c014322
-          .IMPORT     _RouteLoadSetLatch_8c014330
+          .IMPORT     _RouteClearLatch_8c014322
+          .IMPORT     _RouteSetLatch_8c014330
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .IMPORT     _AsqFreeQueues_8c011f7e
@@ -107,7 +107,7 @@
           .IMPORT     _njSetRenderWidth
           .IMPORT     _njLoadTexture
           .IMPORT     _var_routeModelSlots_8c1bbddc
-          .IMPORT     _RouteLoadClearModelSlots_8c013bbc
+          .IMPORT     _RouteClearModelSlots_8c013bbc
           .IMPORT     _var_pedestrianAssets_8c1bbfdc
           .IMPORT     _var_routeModels_8c1bc3ec
           .IMPORT     _var_segmentModels_8c1bc3f0
@@ -165,7 +165,7 @@
           .IMPORT     _njExitTexture
           .IMPORT     _SbExitSystem_8c014a24
           .IMPORT     _syBtExit
-          .IMPORT     _RouteLoadPushTask_8c0144fc
+          .IMPORT     _RoutePushTask_8c0144fc
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_peripheral_8c1ba358
@@ -198,7 +198,7 @@
           .EXPORT     _GameMain_8c01392e
           .EXPORT     _GameExit_8c0139d4
           .EXPORT     _init_renderTexlist_8c03bf44
-          .EXPORT     _var_tex_8c157af8 ; 013ae8_route_load.src, 014934_unused_load.c, 015ab8_title.c, 015ab8_title.src, 016d2c_course_menu.c, 016d2c_course_menu.src, 019e98_main_menu.c, 01c980.src, 01d290_album.src, 01d7fc.src, 01e27c.src, 01f3c0.src
+          .EXPORT     _var_tex_8c157af8 ; 013ae8_route.src, 014934_unused_load.c, 015ab8_title.c, 015ab8_title.src, 016d2c_course_menu.c, 016d2c_course_menu.src, 019e98_main_menu.c, 01c980.src, 01d290_album.src, 01d7fc.src, 01e27c.src, 01f3c0.src
 
           .AIFDEF UNIT_TESTING
           .EXPORT     _pauseUpdate_8c0129cc
@@ -1514,7 +1514,7 @@ LP_GEN_38000:
           .DATA.L _var_progress_8c1ba1cc + H'C6
           .DATA.L _var_savedCameraMode_8c227da0
           .DATA.L _var_savedCameraCueState_8c227da8
-          .DATA.L _RouteLoadPushTask_8c0144fc
+          .DATA.L _RoutePushTask_8c0144fc
           .DATA.L _var_progress_8c1ba1cc + H'C5
           .DATA.L _const_8c033364
 
@@ -1636,7 +1636,7 @@ _GameInit_8c0134ec:
           NOP
 
 LP_GEN_65923:
-          .DATA.L _RouteLoadGetLatch_8c01432a ; LP_GEN_65923+0
+          .DATA.L _RouteGetLatch_8c01432a ; LP_GEN_65923+0
           .DATA.L _var_fuuNjm_8c1bc448
           .DATA.L H'4F800000
           .DATA.L _var_fuuLastFrame_8c1bc450
@@ -1646,8 +1646,8 @@ LP_GEN_65923:
           .DATA.L _AsqRequestDat_8c011182
           .DATA.L _var_sndBankData_8c0fcd4c
           .DATA.L _const_8c033378
-          .DATA.L _RouteLoadClearLatch_8c014322
-          .DATA.L _RouteLoadSetLatch_8c014330
+          .DATA.L _RouteClearLatch_8c014322
+          .DATA.L _RouteSetLatch_8c014330
           .DATA.L _AsqNop_8c011120
           .DATA.L _AsqProcessQueues_8c011fe0
           .DATA.L _AsqFreeQueues_8c011f7e
@@ -1908,7 +1908,7 @@ LP_GEN_90231:
           .DATA.L _var_tasks_8c1bb448
           .DATA.L _var_currentCourse_8c1bb868+H'4 ; (atariBus_0x04)
           .DATA.L _var_routeModelSlots_8c1bbddc
-          .DATA.L _RouteLoadClearModelSlots_8c013bbc
+          .DATA.L _RouteClearModelSlots_8c013bbc
           .DATA.L _var_pedestrianAssets_8c1bbfdc
           .DATA.L _var_routeModels_8c1bc3ec
           .DATA.L _var_segmentModels_8c1bc3f0
@@ -2223,8 +2223,8 @@ LP_GEN_19861:
           .DATA.L     s_SD_COMMON_8c033440
           .DATA.L     _var_busDoorShape_8c1bc414
           .DATA.L     s_3s_bus_m2_njs_8c03345c
-          .DATA.L     _RouteLoadClearLatch_8c014322
-          .DATA.L     _RouteLoadSetLatch_8c014330
+          .DATA.L     _RouteClearLatch_8c014322
+          .DATA.L     _RouteSetLatch_8c014330
           .DATA.L     _AsqNop_8c011120
           .DATA.L     _AsqProcessQueues_8c011fe0
           .DATA.L     _var_gdErr_8c18ad14

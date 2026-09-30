@@ -38,7 +38,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18 , 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldCall('_VmMenuMountVms_8c01940e');
 
@@ -61,7 +61,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18 , 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
 
         // TODO: Fix Task size
         $taskPtr = $this->alloc(0x0c);
@@ -76,7 +76,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18 , 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldCall('_VmMenuMountVms_8c01940e');
 
@@ -1060,7 +1060,7 @@ return new class extends TestCase {
         /* Functions */
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
         $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
-        $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
+        $this->setSize('_RouteGetLatch_8c01432a', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
     }
 };

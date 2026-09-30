@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_isFading_8c226568', 4);
 
-        $this->setSize('_RouteLoadGetLatch_8c01432a', 4);
+        $this->setSize('_RouteGetLatch_8c01432a', 4);
         $this->setSize('_AsqFreeQueues_8c011f7e', 4);
         $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
         $this->setSize('_CourseMenuInterpolateCursor_8c016d2c', 4);
@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->setSize('_AsqInitQueues_8c011f36', 4);
         $this->setSize('_AsqResetQueues_8c011f6c', 4);
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
-        $this->setSize('_RouteLoadSetLatch_8c014330', 4);
+        $this->setSize('_RouteSetLatch_8c014330', 4);
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
         $this->setSize('_EventHasProfileProgressFlag_8c02aff0', 4);
         $this->setSize('__divls', 4);
@@ -73,7 +73,7 @@ return new class extends TestCase {
         $this->initUint32($this->menu(self::STATE), 0);
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->menu(self::STATE), 1);
         $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);
@@ -85,7 +85,7 @@ return new class extends TestCase {
         $this->initUint32($this->menu(self::STATE), 0);
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_grid_fade_in_waits_for_fade(): void
@@ -413,7 +413,7 @@ return new class extends TestCase {
         $this->initUint32($this->menu(self::STATE), 5);
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_page_load_completes_jump_option_plays_track_8(): void
@@ -423,7 +423,7 @@ return new class extends TestCase {
         $this->initUint32($this->menu(0x38), 0);
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldCall('_sdMidiPlay')->with(
             self::MIDI, 1, 8, 0
@@ -439,7 +439,7 @@ return new class extends TestCase {
         $this->initUint32($this->menu(0x38), 1);
 
         $this->call('_menuTask_8c01ccec')->with(0, 0);
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldCall('_sdMidiPlay')->with(
             self::MIDI, 1, 7, 0

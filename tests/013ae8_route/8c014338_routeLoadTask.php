@@ -20,11 +20,11 @@ return new class extends TestCase {
         $this->shouldCall('_njSetTexture')->with(self::TLIST);
         $this->shouldCall('_njLoadCacheTexture')->with(self::TLIST);
         $this->shouldCall('_loadRouteModels_8c014088');
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
+        $this->shouldCall('_RouteClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0, 0, 0,
-            $this->addressOf('_RouteLoadSetLatch_8c014330'),
+            $this->addressOf('_RouteSetLatch_8c014330'),
         );
         $this->shouldWriteLong($task + 0x08, 1);
     }
@@ -37,7 +37,7 @@ return new class extends TestCase {
 
         $this->call('_routeLoadTask_8c014338')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->expectLoadingAnimation($task);
     }
 
@@ -55,7 +55,7 @@ return new class extends TestCase {
 
         $this->call('_routeLoadTask_8c014338')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
         $this->shouldCall('_TileStreamInit_8c02175a');
         $this->shouldCall('_TrafficRelocatePlacementTable_8c026da4')->with(0x8cd00008);
         $this->shouldCall('_ObjectsRelocatePedGroupDefs_8c028de8')->with(0x8cd0000b);
@@ -64,13 +64,13 @@ return new class extends TestCase {
         $this->shouldCall('_EventPickForSegment_8c02b170');
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_syncSegmentModels_8c013f78');
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
+        $this->shouldCall('_RouteClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             $this->addressOf('_TileStreamLoad_8c021810'),
             $this->addressOf('_TileStreamRequestUpload_8c02190a'),
             0,
-            $this->addressOf('_RouteLoadSetLatch_8c014330'),
+            $this->addressOf('_RouteSetLatch_8c014330'),
         );
         $this->shouldWriteLong($task + 0x08, 2);
 
@@ -85,7 +85,7 @@ return new class extends TestCase {
 
         $this->call('_routeLoadTask_8c014338')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
         $this->shouldWriteLong($task + 0x08, 3);
     }
 
@@ -97,7 +97,7 @@ return new class extends TestCase {
 
         $this->call('_routeLoadTask_8c014338')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->expectLoadingAnimation($task);
     }
 

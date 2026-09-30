@@ -35,10 +35,10 @@ return new class extends TestCase {
         $this->setSize('_AsqResetQueues_8c011f6c', 4);
         $this->setSize('_CourseMenuRequestSysResgrp_8c018568', 4);
         $this->setSize('_CourseMenuRequestCommonResources_8c01852c', 4);
-        $this->setSize('_RouteLoadSetLatch_8c014330', 4);
+        $this->setSize('_RouteSetLatch_8c014330', 4);
         $this->setSize('_AsqProcessQueues_8c011fe0', 4);
         $this->setSize('_AsqNop_8c011120', 4);
-        $this->setSize('_RouteLoadClearLatch_8c014322', 4);
+        $this->setSize('_RouteClearLatch_8c014322', 4);
     }
 
     // Empirically, EndingStart_8c01f954's MessageBoxOpenTextbox_8c02ae3e call
@@ -124,9 +124,9 @@ return new class extends TestCase {
             ->with($menuState + self::RESOURCE_GROUP_B_0X0C, $this->addressOf('_init_endingResourceGroup_8c045324'));
         $this->shouldCall('_CourseMenuRequestCommonResources_8c01852c');
 
-        $this->shouldCall('_RouteLoadSetLatch_8c014330');
+        $this->shouldCall('_RouteSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')
             ->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0,
-                   $this->addressOf('_RouteLoadClearLatch_8c014322'));
+                   $this->addressOf('_RouteClearLatch_8c014322'));
     }
 };

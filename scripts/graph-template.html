@@ -165,7 +165,7 @@
 
   // --- community detection --------------------------------------------------
   // This graph is hub-dominated: a handful of shared-service units (text, tasks,
-  // route_load, ...) link to nearly everything, so plain clustering collapses
+  // route, ...) link to nearly everything, so plain clustering collapses
   // into one blob. We treat the top-degree units -- among the currently visible edge
   // kinds -- as *bridges* (comm = null, they float between clusters) and run weighted
   // label propagation on the rest, then drop clusters too small to be meaningful.

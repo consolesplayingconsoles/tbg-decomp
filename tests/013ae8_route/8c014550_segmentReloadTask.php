@@ -19,13 +19,13 @@ return new class extends TestCase {
         $this->shouldCall('_EventPickForSegment_8c02b170');
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_syncSegmentModels_8c013f78');
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
+        $this->shouldCall('_RouteClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             $this->addressOf('_TileStreamLoad_8c021810'),
             $this->addressOf('_TileStreamRequestUpload_8c02190a'),
             0,
-            $this->addressOf('_RouteLoadSetLatch_8c014330'),
+            $this->addressOf('_RouteSetLatch_8c014330'),
         );
         $this->shouldWriteLong($task + 0x08, 1);
 
@@ -40,7 +40,7 @@ return new class extends TestCase {
 
         $this->call('_segmentReloadTask_8c014550')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->expectLoadingAnimation($task);
     }
 
@@ -52,7 +52,7 @@ return new class extends TestCase {
 
         $this->call('_segmentReloadTask_8c014550')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
         $this->shouldWriteLong($task + 0x08, 2);
     }
 

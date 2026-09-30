@@ -8,13 +8,13 @@
           .IMPORT     _var_vibport_8c1ba354
           .IMPORT     _VibClear_8c010fbe
           .IMPORT     _var_tasks_8c1ba3c8
-          .IMPORT     _RouteLoadFreePedestrianAssets_8c013ee4
-          .IMPORT     _RouteLoadFreeAllRouteModels_8c013dae
+          .IMPORT     _RouteFreePedestrianAssets_8c013ee4
+          .IMPORT     _RouteFreeAllRouteModels_8c013dae
           .IMPORT     _AsqFreeModels_8c0120fe
           .IMPORT     _var_routeModels_8c1bc3ec
           .IMPORT     _var_segmentModels_8c1bc3f0
           .IMPORT     _var_trafficModels_8c1bc3f4
-          .IMPORT     _RouteLoadFreeVehicleAssets_8c013b5a
+          .IMPORT     _RouteFreeVehicleAssets_8c013b5a
           .IMPORT     _var_currentCourse_8c1bb868
           .IMPORT     _var_demoBuf_8c1ba3c4
           .IMPORT     _var_vmGameBuf_8c1bc454
@@ -436,14 +436,14 @@ LP_GEN_42967:
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C0163B0
           .DATA.L _MessageBoxFreeAssets_8c02adee ; H'8C0163B4
           .DATA.L _ObjectsFreeAssetRequests_8c029cfe ; H'8C0163B8
-          .DATA.L _RouteLoadFreePedestrianAssets_8c013ee4 ; H'8C0163BC
-          .DATA.L _RouteLoadFreeAllRouteModels_8c013dae ; H'8C0163C0
+          .DATA.L _RouteFreePedestrianAssets_8c013ee4 ; H'8C0163BC
+          .DATA.L _RouteFreeAllRouteModels_8c013dae ; H'8C0163C0
           .DATA.L _AsqFreeModels_8c0120fe ; H'8C0163C4
           .DATA.L _var_routeModels_8c1bc3ec ; H'8C0163C8
           .DATA.L _var_segmentModels_8c1bc3f0 ; H'8C0163CC
           .DATA.L _var_trafficModels_8c1bc3f4 ; H'8C0163D0
           .DATA.L _TileStreamTeardown_8c021724 ; H'8C0163D4
-          .DATA.L _RouteLoadFreeVehicleAssets_8c013b5a ; H'8C0163D8
+          .DATA.L _RouteFreeVehicleAssets_8c013b5a ; H'8C0163D8
           .DATA.L _var_currentCourse_8c1bb868 ; H'8C0163DC
           .DATA.L _syFree ; H'8C0163E0
           .DATA.L _var_demoBuf_8c1ba3c4 ; H'8C0163E4

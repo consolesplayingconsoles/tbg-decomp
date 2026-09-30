@@ -1,7 +1,7 @@
 
-          .EXPORT     _init_lineNodesShinjuku_8c04ce10 ; 013ae8_route_load.src
-          .EXPORT     _init_lineNodesOme_8c04df38 ; 013ae8_route_load.src
-          .EXPORT     _init_lineNodesWangan_8c04e988 ; 013ae8_route_load.src
+          .EXPORT     _init_lineNodesShinjuku_8c04ce10 ; 013ae8_route.src
+          .EXPORT     _init_lineNodesOme_8c04df38 ; 013ae8_route.src
+          .EXPORT     _init_lineNodesWangan_8c04e988 ; 013ae8_route.src
           .SECTION    D,DATA,ALIGN=4
 _init_lineNodesShinjuku_8c04ce10:        ; from ghidra
           .DATA.B      H'F9, H'00, H'FF, H'FF, H'01, H'00, H'FF, H'FF, H'FF, H'FF, H'01, H'00, H'FF, H'FF, H'03, H'00

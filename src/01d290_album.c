@@ -2,7 +2,7 @@
 #include <shinobi.h>
 #include <sg_sd.h>
 #include "0129cc_game.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "015ab8_title.h"
 #include "014a9c_tasks.h"
 #include "014f54_sprite.h"
@@ -114,7 +114,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case ALBUM_STATE_INIT: {
-            if (RouteLoadGetLatch_8c01432a()) {
+            if (RouteGetLatch_8c01432a()) {
                 return;
             }
             AsqFreeQueues_8c011f7e();
@@ -332,6 +332,6 @@ void AlbumSwitchFromTask_8c01d6e2(Task *task)
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         &init_albumResourceGroup_8c045160
     );
-    RouteLoadSetLatch_8c014330();
-    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteLoadClearLatch_8c014322);
+    RouteSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(&AsqNop_8c011120, 0, 0, 0, &RouteClearLatch_8c014322);
 }

@@ -89,13 +89,13 @@ return new class extends TestCase {
             $this->m(0x0c),
             $this->addressOf('_init_albumResourceGroup_8c045160'),
         );
-        $this->shouldCall('_RouteLoadSetLatch_8c014330');
+        $this->shouldCall('_RouteSetLatch_8c014330');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
             0,
             0,
-            $this->addressOf('_RouteLoadClearLatch_8c014322'),
+            $this->addressOf('_RouteClearLatch_8c014322'),
         );
     }
 };

@@ -37,7 +37,7 @@ return new class extends TestCase {
         );
 
         // Step 6: Set unknown PVM boolean
-        $this->shouldCall('_RouteLoadSetLatch_8c014330');
+        $this->shouldCall('_RouteSetLatch_8c014330');
 
         // Step 7: Process asset queues
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
@@ -45,7 +45,7 @@ return new class extends TestCase {
             0,
             0,
             0,
-            $this->addressOf('_RouteLoadClearLatch_8c014322')
+            $this->addressOf('_RouteClearLatch_8c014322')
         );
     }
 
@@ -55,6 +55,6 @@ return new class extends TestCase {
 
         // Function pointers
         $this->setSize('_AsqNop_8c011120', 0x4);
-        $this->setSize('_RouteLoadClearLatch_8c014322', 0x4);
+        $this->setSize('_RouteClearLatch_8c014322', 0x4);
     }
 };

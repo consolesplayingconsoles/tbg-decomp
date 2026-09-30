@@ -2,7 +2,7 @@
 """Dump the CPU-traffic layout of one course's *_MAC_CPU*.DAT blob.
 
 The file is the course's `macCpu1_0x24` blob (loaded in
-013ae8_route_load.c:456). Everything below is derived from the decompiled
+013ae8_route.c:456). Everything below is derived from the decompiled
 026710_traffic.c -- the cited functions are the ground truth:
 
 Relocation (FUN_8c026da4)

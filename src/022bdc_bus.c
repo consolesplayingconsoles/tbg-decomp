@@ -4,7 +4,7 @@
 
 #include "015034_text.h"
 #include "1ba1c8_globals.h"
-#include "013ae8_route_load.h"    /* CurrentCourse */
+#include "013ae8_route.h"    /* CurrentCourse */
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, SndUpdateEngine_8c010c6e */
 #include "014a9c_tasks.h"         /* Task */
 #include "020594_vehicle_model.h" /* VehicleModelPlace_8c020594 */

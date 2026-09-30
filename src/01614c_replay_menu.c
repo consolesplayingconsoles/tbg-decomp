@@ -6,7 +6,7 @@
 #include "011120_asset_queues.h"
 #include "012324_input.h"
 #include "0129cc_game.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "014a9c_tasks.h"
 #include "014b8c_backup.h"
 #include "015034_text.h"
@@ -151,13 +151,13 @@ void ReplayMenuFreeSessionAssets_8c016182(void)
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
     MessageBoxFreeAssets_8c02adee();
     ObjectsFreeAssetRequests_8c029cfe();
-    RouteLoadFreePedestrianAssets_8c013ee4();
-    RouteLoadFreeAllRouteModels_8c013dae();
+    RouteFreePedestrianAssets_8c013ee4();
+    RouteFreeAllRouteModels_8c013dae();
     AsqFreeModels_8c0120fe((LoadedModel **)&var_routeModels_8c1bc3ec);
     AsqFreeModels_8c0120fe(&var_segmentModels_8c1bc3f0);
     AsqFreeModels_8c0120fe(&var_trafficModels_8c1bc3f4);
     TileStreamTeardown_8c021724();
-    RouteLoadFreeVehicleAssets_8c013b5a();
+    RouteFreeVehicleAssets_8c013b5a();
 
     if (var_currentCourse_8c1bb868.atariBus_0x04 != (void *)-1) {
         CurrentCourse *course = &var_currentCourse_8c1bb868;

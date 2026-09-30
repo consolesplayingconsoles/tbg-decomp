@@ -7,7 +7,7 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     public function test_clears_flag()
     {
-        $this->call('_RouteLoadClearLatch_8c014322');
+        $this->call('_RouteClearLatch_8c014322');
 
         $this->shouldWriteLong($this->addressOf('_var_loadLatch_8c18adac'), 0);
     }

@@ -7,7 +7,7 @@
 #include "011120_asset_queues.h"
 #include "1ba1c8_globals.h"
 #include "014a9c_tasks.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "015034_text.h"
 #include "022464_render.h"
 #include "0100bc_sound.h"
@@ -439,7 +439,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
         break;
 
     case 4:
-        if (RouteLoadGetLatch_8c01432a() != 0 && var_isFading_8c226568 == 0) {
+        if (RouteGetLatch_8c01432a() != 0 && var_isFading_8c226568 == 0) {
             var_runState_8c2285c4.runPhase_0x00 = 2;
             state->phase_0x00 = 5;
             setCountUpStep_8c02d5d8();

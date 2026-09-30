@@ -29,7 +29,7 @@
           .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _var_isFading_8c226568
           .IMPORT     _MessageBoxSwapFor_8c02aefc
-          .IMPORT     _RouteLoadGetLatch_8c01432a
+          .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _PromptHandleMultiple_8c016c58
           .IMPORT     _var_peripherals_8c1ba35c
@@ -60,8 +60,8 @@
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _AsqRequestDat_8c011182
-          .IMPORT     _RouteLoadSetLatch_8c014330
-          .IMPORT     _RouteLoadClearLatch_8c014322
+          .IMPORT     _RouteSetLatch_8c014330
+          .IMPORT     _RouteClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
           .EXPORT     _SystemMenuApplyLoadedProgress_8c01b19c
@@ -600,7 +600,7 @@ LP_GEN_91278:
           .DATA.L _var_vmuStatus_8c226048 ; H'8C01B580
           .DATA.L _var_isFading_8c226568 ; H'8C01B584
           .DATA.L _MessageBoxSwapFor_8c02aefc ; H'8C01B588
-          .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C01B58C
+          .DATA.L _RouteGetLatch_8c01432a ; H'8C01B58C
           .DATA.L _AsqFreeQueues_8c011f7e ; H'8C01B590
           .DATA.L _PromptHandleMultiple_8c016c58 ; H'8C01B594
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01B598
@@ -1279,8 +1279,8 @@ LP_GEN_62205:
           .DATA.L _const_8c038454 ; H'8C01BB2C
           .DATA.L _const_8c03844c ; H'8C01BB30
           .DATA.L _AsqRequestDat_8c011182 ; H'8C01BB34
-          .DATA.L _RouteLoadSetLatch_8c014330 ; H'8C01BB38
-          .DATA.L _RouteLoadClearLatch_8c014322 ; H'8C01BB3C
+          .DATA.L _RouteSetLatch_8c014330 ; H'8C01BB38
+          .DATA.L _RouteClearLatch_8c014322 ; H'8C01BB3C
           .DATA.L _AsqNop_8c011120 ; H'8C01BB40
           .DATA.L _AsqProcessQueues_8c011fe0 ; H'8C01BB44
           .SECTION    C, DATA, ALIGN=4

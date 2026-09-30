@@ -34,7 +34,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba5e8'));
         $this->shouldCall('_TaskFreeGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
         $this->shouldCall('_StopUpdateStopHeadings_8c02ccc6');
-        $this->shouldCall('_RouteLoadPushSegmentReloadTask_8c01468e');
+        $this->shouldCall('_RoutePushSegmentReloadTask_8c01468e');
     }
 
     public function test_no_points_at_all_skips_teardown_and_waits_for_fade(): void

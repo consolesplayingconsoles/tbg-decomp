@@ -3,7 +3,7 @@
 #include "includes.h" /* STATIC */
 #include "01bb48_vm_game.h"
 #include "011120_asset_queues.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "014a9c_tasks.h"
 #include "014b8c_backup.h"
 #include "016c58_prompt.h"
@@ -416,7 +416,7 @@ STATIC void vmGameTask_8c01bfec(VmGameTask *task)
 
     switch (m->state_0x18) {
     case STATE_INIT:
-        if (RouteLoadGetLatch_8c01432a())
+        if (RouteGetLatch_8c01432a())
             return;
 
         m->state_0x18 = STATE_MENU_FADE_IN;
@@ -949,9 +949,9 @@ void VmGameSwitchToTopMenu_8c01c880(Task *task)
         &var_resourceGroup_8c2263a8, &init_vmGameResgrp_8c044e90
     );
     AsqRequestDat_8c011182("\\SYSTEM", "PDAQUIZ.bin", &var_vmGameBuf_8c1bc454);
-    RouteLoadSetLatch_8c014330();
+    RouteSetLatch_8c014330();
     AsqProcessQueues_8c011fe0(
-        AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322
+        AsqNop_8c011120, 0, 0, 0, RouteClearLatch_8c014322
     );
 
     MessageBoxSwapFor_8c02aefc("");

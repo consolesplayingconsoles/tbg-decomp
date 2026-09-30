@@ -16,11 +16,11 @@ return new class extends TestCase {
         $models = 0x8cabc000;
         $this->initUint32($this->addressOf('_var_routeModelIndexes_8c18adb0'), $models);
 
-        $this->call('_RouteLoadStartRouteModelLoadPass_8c013d78');
+        $this->call('_RouteStartRouteModelLoadPass_8c013d78');
 
         $this->shouldCall('_AsqInitQueues_8c011f36')->with(0, 0x40, 0, 0x40);
         $this->shouldCall('_AsqResetQueues_8c011f6c');
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
+        $this->shouldCall('_RouteClearLatch_8c014322');
         $this->shouldCall('_syncRouteModelAssets_8c013c34')->with($models);
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),

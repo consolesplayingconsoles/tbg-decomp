@@ -12,7 +12,7 @@
 #include "0207d4_vec_xz.h" /* VecXZDot_8c0207d4, PointXZ */
 #include "02081c_geom.h" /* GeomDistanceXZ_8c02081c */
 #include "028258_signal.h" /* SignalGetFrame_8c028900, SignalMarkCrossingOccupied_8c028984, SignalIsPedCrossing_8c028998 */
-#include "013ae8_route_load.h"  /* var_timeOfDay_8c18ad20 */
+#include "013ae8_route.h"  /* var_timeOfDay_8c18ad20 */
 #include "020214_drive_cue.h" /* var_driveCueState_8c2264b8 */
 #include "1ba1c8_globals.h"
 

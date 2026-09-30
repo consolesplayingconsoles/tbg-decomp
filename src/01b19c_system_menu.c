@@ -3,7 +3,7 @@
 #include "01b19c_system_menu.h"
 #include "014a9c_tasks.h"
 #include "1ba1c8_globals.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "01c980_profile_file.h"
 #include "0193c8_vm_menu.h"
 #include "014f54_sprite.h"
@@ -173,7 +173,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
     case SAVE_STATE_WAIT_PVM:
-        if (RouteLoadGetLatch_8c01432a() != 0) {
+        if (RouteGetLatch_8c01432a() != 0) {
             return;
         }
         AsqFreeQueues_8c011f7e();
@@ -477,6 +477,6 @@ void SystemMenuSwitchFromTask_8c01ba64(Task *task)
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     AsqRequestDat_8c011182("\\SYSTEM", "bus_mem.VMI", &var_vmuIconFileBuf_8c1ba344);
-    RouteLoadSetLatch_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
+    RouteSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteClearLatch_8c014322);
 }

@@ -20,7 +20,7 @@ return new class extends TestCase {
         $this->initUint32($base + 3 * 0x10 + 0x8, 0x8c500000);
         $this->initUint32($base + 40 * 0x10 + 0x8, 0x8c700000);
 
-        $this->call('_RouteLoadFreePedestrianAssets_8c013ee4');
+        $this->call('_RouteFreePedestrianAssets_8c013ee4');
 
         $this->shouldCall('_AsqReleaseAndFreeTexlist_8c011e3c')->with(0x8c500000);
         $this->shouldWriteLong($base + 3 * 0x10 + 0x8, self::UNLOADED);
@@ -37,7 +37,7 @@ return new class extends TestCase {
         $base = $this->addressOf('_var_pedestrianAssets_8c1bbfdc');
         $this->seedAllUnloaded($base);
 
-        $this->call('_RouteLoadFreePedestrianAssets_8c013ee4');
+        $this->call('_RouteFreePedestrianAssets_8c013ee4');
     }
 
     /** Every slot starts unloaded (texlist == -1) so nothing is freed. */

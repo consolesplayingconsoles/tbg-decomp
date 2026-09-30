@@ -18,7 +18,7 @@ return new class extends TestCase {
         $this->initUint32($points + 0x0c, 10);
         $this->initUint32($points + 0x10, 100);
 
-        $this->call('_RouteLoadPushSegmentReloadTask_8c01468e');
+        $this->call('_RoutePushSegmentReloadTask_8c01468e');
 
         $this->shouldWriteLong($points + 0x0c, 40);
         $this->expectInstallAndBind();
@@ -33,7 +33,7 @@ return new class extends TestCase {
         $this->initUint32($points + 0x0c, 90);
         $this->initUint32($points + 0x10, 100);
 
-        $this->call('_RouteLoadPushSegmentReloadTask_8c01468e');
+        $this->call('_RoutePushSegmentReloadTask_8c01468e');
 
         $this->shouldWriteLong($points + 0x0c, 120);
         $this->shouldWriteLong($points + 0x0c, 100);
@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_progress_8c1ba1cc') + 0xc4, 5);
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 0);
 
-        $this->call('_RouteLoadPushSegmentReloadTask_8c01468e');
+        $this->call('_RoutePushSegmentReloadTask_8c01468e');
 
         $this->expectInstallAndBind();
     }

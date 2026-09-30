@@ -10,7 +10,7 @@
 #include "serial_debug.h"
 #include "016d2c_course_menu.h"
 #include "011120_asset_queues.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "022464_render.h"
 #include "0100bc_sound.h"
 #include "0129cc_game.h"
@@ -514,8 +514,8 @@ STATIC void updatePageLoad_8c01cbec(void)
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     CourseMenuRequestSysResgrp_8c018568(&var_resourceGroup_8c2263a8, pageResgrpInfo);
-    RouteLoadSetLatch_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
+    RouteSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteClearLatch_8c014322);
     var_menuState_8c1bc7a8.state_0x18 = STATE_PAGE_LOAD;
 }
 
@@ -528,7 +528,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
 
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case STATE_INIT:
-            if (RouteLoadGetLatch_8c01432a())
+            if (RouteGetLatch_8c01432a())
                 return;
             AsqFreeQueues_8c011f7e();
             var_menuState_8c1bc7a8.state_0x18 = STATE_GRID_FADE_IN;
@@ -622,7 +622,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
             return;
 
         case STATE_PAGE_LOAD:
-            if (RouteLoadGetLatch_8c01432a())
+            if (RouteGetLatch_8c01432a())
                 return;
             AsqFreeQueues_8c011f7e();
             switch (var_menuState_8c1bc7a8.selected_0x38) {
@@ -796,6 +796,6 @@ void ProfileFilePushTask_8c01d1c4(Task *task)
     AsqInitQueues_8c011f36(8, 0, 0, 8);
     AsqResetQueues_8c011f6c();
     CourseMenuRequestSysResgrp_8c018568(&var_menuState_8c1bc7a8.resourceGroupB_0x0c, &init_profileResgrps_8c0450d8[0]);
-    RouteLoadSetLatch_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
+    RouteSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteClearLatch_8c014322);
 }

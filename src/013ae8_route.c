@@ -1,9 +1,9 @@
-/* @unit RouteLoad */
+/* @unit Route */
 #include <shinobi.h>
 #include "011120_asset_queues.h"
 #include "012324_input.h"
 #include "0129cc_game.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "014a9c_tasks.h"
 #include "014f54_sprite.h"
 #include "015034_text.h"
@@ -46,13 +46,13 @@ char *DEBUG_segmentReloadStateNames[] = {
 #define CHANGE_LOAD_STATE(task, x) \
     do { \
         (task)->stage_0x08 = x; \
-        LOG_DEBUG(("[ROUTE_LOAD] State changed: %s\n", DEBUG_routeLoadStateNames[x])); \
+        LOG_DEBUG(("[ROUTE] State changed: %s\n", DEBUG_routeLoadStateNames[x])); \
     } while (0)
 
 #define CHANGE_SEGMENT_RELOAD_STATE(task, x) \
     do { \
         (task)->stage_0x08 = x; \
-        LOG_DEBUG(("[ROUTE_LOAD] State changed: %s\n", DEBUG_segmentReloadStateNames[x])); \
+        LOG_DEBUG(("[ROUTE] State changed: %s\n", DEBUG_segmentReloadStateNames[x])); \
     } while (0)
 
 /* ====================
@@ -68,7 +68,7 @@ typedef enum {
 } SegmentReloadState;
 
 /* Task private state for segmentReloadTask_8c014550, same shape as
- * RouteLoadTask (013ae8_route_load.h) but with its own state enum. */
+ * RouteLoadTask (013ae8_route.h) but with its own state enum. */
 typedef struct {
     TaskAction action;
     void *state;
@@ -120,15 +120,15 @@ void *var_datFiles_8c18adb4[4];
  * ======================
  */
 
-#include "013ae8_route_load.data.inc"
+#include "013ae8_route.data.inc"
 
 /* ======================
  * Forward Declarations
  * ======================
  */
 
-void RouteLoadSetLatch_8c014330(void);
-void RouteLoadClearLatch_8c014322(void);
+void RouteSetLatch_8c014330(void);
+void RouteClearLatch_8c014322(void);
 
 /* ==========
  * Functions
@@ -137,7 +137,7 @@ void RouteLoadClearLatch_8c014322(void);
 
 STATIC void requestVehicleAssets_8c013ae8(void)
 {
-    LOG_DEBUG(("[ROUTE_LOAD] requesting vehicle assets\n"));
+    LOG_DEBUG(("[ROUTE] requesting vehicle assets\n"));
 
     AsqRequestNj_8c011492(var_commonDir_8c18ad6c, "front.njd", &var_frontNj_8c1bc434, 0);
     AsqRequestPvm_8c011ac0(var_commonDir_8c18ad6c, "front.pvm", &var_frontTexlist_8c1bc430, 0xf, 0);
@@ -151,12 +151,12 @@ STATIC void requestVehicleAssets_8c013ae8(void)
     var_trafficModels_8c1bc3f4 = AsqRequestModels_8c012030(var_commonDir_8c18ad6c, init_trafficModelFiles_8c043d64, 0);
 }
 
-void RouteLoadFreeVehicleAssets_8c013b5a(void)
+void RouteFreeVehicleAssets_8c013b5a(void)
 {
     Uint32 i;
 
     if (var_interiorTexlist_8c1bc438 != (NJS_TEXLIST *) -1) {
-        LOG_DEBUG(("[ROUTE_LOAD] freeing vehicle assets\n"));
+        LOG_DEBUG(("[ROUTE] freeing vehicle assets\n"));
 
         njSetTexture(var_interiorTexlist_8c1bc438);
         for (i = 0; i < var_interiorTexlist_8c1bc438->nbTexture; i++) {
@@ -175,7 +175,7 @@ void RouteLoadFreeVehicleAssets_8c013b5a(void)
     }
 }
 
-void RouteLoadClearModelSlots_8c013bbc(ModelSlot *slots, int count)
+void RouteClearModelSlots_8c013bbc(ModelSlot *slots, int count)
 {
     ModelSlot *slot = &slots[--count];
 
@@ -192,7 +192,7 @@ STATIC void syncRouteModelAssets_8c013c34(Sint8 *models)
     char **names;
     int i;
 
-    LOG_DEBUG(("[ROUTE_LOAD] reconciling route-model assets (models=%p)\n", models));
+    LOG_DEBUG(("[ROUTE] reconciling route-model assets (models=%p)\n", models));
 
     for (slot = var_routeModelSlots_8c1bbddc; slot < &var_routeModelSlots_8c1bbddc[0x20]; slot++) {
         slot->requested_0x00 = 0;
@@ -227,30 +227,30 @@ STATIC void syncRouteModelAssets_8c013c34(Sint8 *models)
 
 STATIC void finishAssetLoad_8c013d42(void)
 {
-    LOG_DEBUG(("[ROUTE_LOAD] asset load finished\n"));
+    LOG_DEBUG(("[ROUTE] asset load finished\n"));
 
-    RouteLoadSetLatch_8c014330();
+    RouteSetLatch_8c014330();
     AsqFreeQueues_8c011f7e();
 }
 
 /* Initialize the asset queues and kick off one
  * load pass for the currently-wanted route models. */
-void RouteLoadStartRouteModelLoadPass_8c013d78(void)
+void RouteStartRouteModelLoadPass_8c013d78(void)
 {
-    LOG_DEBUG(("[ROUTE_LOAD] starting route-model load pass\n"));
+    LOG_DEBUG(("[ROUTE] starting route-model load pass\n"));
 
     AsqInitQueues_8c011f36(0, 0x40, 0, 0x40);
     AsqResetQueues_8c011f6c();
-    RouteLoadClearLatch_8c014322();
+    RouteClearLatch_8c014322();
     syncRouteModelAssets_8c013c34(var_routeModelIndexes_8c18adb0);
     AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, finishAssetLoad_8c013d42);
 }
 
-void RouteLoadFreeAllRouteModels_8c013dae(void)
+void RouteFreeAllRouteModels_8c013dae(void)
 {
     ModelSlot *slot;
 
-    LOG_DEBUG(("[ROUTE_LOAD] releasing all route-model assets\n"));
+    LOG_DEBUG(("[ROUTE] releasing all route-model assets\n"));
 
     for (slot = var_routeModelSlots_8c1bbddc; slot < &var_routeModelSlots_8c1bbddc[0x20]; slot++) {
         if (slot->texlist_0x08 != (NJS_TEXLIST *) -1) {
@@ -267,7 +267,7 @@ STATIC void syncPedestrianAssets_8c013df6(Sint8 *models)
     ModelSlot *slot;
     int i;
 
-    LOG_DEBUG(("[ROUTE_LOAD] reconciling pedestrian textures (models=%p)\n", models));
+    LOG_DEBUG(("[ROUTE] reconciling pedestrian textures (models=%p)\n", models));
 
     for (slot = var_pedestrianAssets_8c1bbfdc; slot < &var_pedestrianAssets_8c1bbfdc[0x41]; slot++) {
         slot->requested_0x00 = 0;
@@ -293,11 +293,11 @@ STATIC void syncPedestrianAssets_8c013df6(Sint8 *models)
 }
 
 /* texlist only */
-void RouteLoadFreePedestrianAssets_8c013ee4(void)
+void RouteFreePedestrianAssets_8c013ee4(void)
 {
     ModelSlot *slot;
 
-    LOG_DEBUG(("[ROUTE_LOAD] releasing pedestrian textures\n"));
+    LOG_DEBUG(("[ROUTE] releasing pedestrian textures\n"));
 
     for (slot = var_pedestrianAssets_8c1bbfdc; slot < &var_pedestrianAssets_8c1bbfdc[0x41]; slot++) {
         if (slot->texlist_0x08 != (NJS_TEXLIST *) -1) {
@@ -311,7 +311,7 @@ STATIC void freeSegmentModels_8c013f22(void)
 {
     CourseSegment *entry;
 
-    LOG_DEBUG(("[ROUTE_LOAD] freeing pairs for segment (index=%d)\n", var_currentSegment_8c228708));
+    LOG_DEBUG(("[ROUTE] freeing pairs for segment (index=%d)\n", var_currentSegment_8c228708));
 
     entry = &var_currentCourseConfig_8c18ad18->segments_0x08[var_currentSegment_8c228708];
     if (entry->modelFiles_0x28 != 0) {
@@ -329,7 +329,7 @@ STATIC void syncSegmentModels_8c013f78(void)
     CourseSegment *entry;
     int i;
 
-    LOG_DEBUG(("[ROUTE_LOAD] syncing assets for segment (index=%d)\n", var_currentSegment_8c228708));
+    LOG_DEBUG(("[ROUTE] syncing assets for segment (index=%d)\n", var_currentSegment_8c228708));
 
     entry = &var_currentCourseConfig_8c18ad18->segments_0x08[var_currentSegment_8c228708];
 
@@ -389,7 +389,7 @@ STATIC void loadRouteModels_8c014088(void)
     char *dir;
     int i;
 
-    LOG_DEBUG(("[ROUTE_LOAD] requesting course %d models\n", var_currentCourse_8c1bb868.courseId_0x00));
+    LOG_DEBUG(("[ROUTE] requesting course %d models\n", var_currentCourse_8c1bb868.courseId_0x00));
 
     var_currentCourseConfig_8c18ad18 = init_courseTable_8c043ca4[var_currentCourse_8c1bb868.courseId_0x00];
     var_route_8c18ad1c = var_currentCourseConfig_8c18ad18->route_0x00;
@@ -480,21 +480,21 @@ STATIC void loadRouteModels_8c014088(void)
  * AsqProcessQueues_8c011fe0 the accessor that writes the other value as its
  * completion callback, and polls Get until it flips. Both polarities are in
  * use -- the load tasks here wait for 1, most menu units wait for 0. */
-void RouteLoadClearLatch_8c014322(void)
+void RouteClearLatch_8c014322(void)
 {
-    LOG_DEBUG(("[ROUTE_LOAD] load latch cleared\n"));
+    LOG_DEBUG(("[ROUTE] load latch cleared\n"));
 
     var_loadLatch_8c18adac = 0;
 }
 
-int RouteLoadGetLatch_8c01432a(void)
+int RouteGetLatch_8c01432a(void)
 {
     return var_loadLatch_8c18adac;
 }
 
-void RouteLoadSetLatch_8c014330(void)
+void RouteSetLatch_8c014330(void)
 {
-    LOG_DEBUG(("[ROUTE_LOAD] load latch set\n"));
+    LOG_DEBUG(("[ROUTE] load latch set\n"));
 
     var_loadLatch_8c18adac = 1;
 }
@@ -511,14 +511,14 @@ STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
             njSetTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
             njLoadCacheTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
             loadRouteModels_8c014088();
-            RouteLoadClearLatch_8c014322();
-            AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadSetLatch_8c014330);
+            RouteClearLatch_8c014322();
+            AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteSetLatch_8c014330);
             CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_POST_LOAD);
             return;
         }
 
         case ROUTE_LOAD_STATE_POST_LOAD: {
-            if (RouteLoadGetLatch_8c01432a() != 0) {
+            if (RouteGetLatch_8c01432a() != 0) {
                 TileStreamInit_8c02175a();
                 TrafficRelocatePlacementTable_8c026da4(var_currentCourse_8c1bb868.macCpu1_0x24);
                 ObjectsRelocatePedGroupDefs_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
@@ -528,15 +528,15 @@ STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
                 EventPickForSegment_8c02b170();
                 AsqResetQueues_8c011f6c();
                 syncSegmentModels_8c013f78();
-                RouteLoadClearLatch_8c014322();
-                AsqProcessQueues_8c011fe0(AsqNop_8c011120, TileStreamLoad_8c021810, TileStreamRequestUpload_8c02190a, 0, RouteLoadSetLatch_8c014330);
+                RouteClearLatch_8c014322();
+                AsqProcessQueues_8c011fe0(AsqNop_8c011120, TileStreamLoad_8c021810, TileStreamRequestUpload_8c02190a, 0, RouteSetLatch_8c014330);
                 CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_WAIT);
             }
             break;
         }
 
         case ROUTE_LOAD_STATE_WAIT: {
-            if (RouteLoadGetLatch_8c01432a() != 0) {
+            if (RouteGetLatch_8c01432a() != 0) {
                 CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_IDLE);
                 return;
             }
@@ -566,12 +566,12 @@ STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
     SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
 
-void RouteLoadPushTask_8c0144fc(void)
+void RoutePushTask_8c0144fc(void)
 {
     RouteLoadTask *task;
     void *state;
 
-    LOG_DEBUG(("[ROUTE_LOAD] pushing routeLoadTask_8c014338\n"));
+    LOG_DEBUG(("[ROUTE] pushing routeLoadTask_8c014338\n"));
 
     njSetBackColor(0xff418dff, 0xff418dff, 0xff418dff);
     var_loadScreenActive_8c157a6c = 1;
@@ -597,14 +597,14 @@ STATIC void segmentReloadTask_8c014550(SegmentReloadTask *task, void *state)
             EventPickForSegment_8c02b170();
             AsqResetQueues_8c011f6c();
             syncSegmentModels_8c013f78();
-            RouteLoadClearLatch_8c014322();
-            AsqProcessQueues_8c011fe0(AsqNop_8c011120, TileStreamLoad_8c021810, TileStreamRequestUpload_8c02190a, 0, RouteLoadSetLatch_8c014330);
+            RouteClearLatch_8c014322();
+            AsqProcessQueues_8c011fe0(AsqNop_8c011120, TileStreamLoad_8c021810, TileStreamRequestUpload_8c02190a, 0, RouteSetLatch_8c014330);
             CHANGE_SEGMENT_RELOAD_STATE(task, SEGMENT_RELOAD_STATE_WAIT);
             break;
         }
 
         case SEGMENT_RELOAD_STATE_WAIT: {
-            if (RouteLoadGetLatch_8c01432a() != 0) {
+            if (RouteGetLatch_8c01432a() != 0) {
                 CHANGE_SEGMENT_RELOAD_STATE(task, SEGMENT_RELOAD_STATE_IDLE);
                 return;
             }
@@ -636,7 +636,7 @@ STATIC void segmentReloadTask_8c014550(SegmentReloadTask *task, void *state)
     SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
 
-void RouteLoadPushSegmentReloadTask_8c01468e(void)
+void RoutePushSegmentReloadTask_8c01468e(void)
 {
     SegmentReloadTask *task;
     void *state;
@@ -650,7 +650,7 @@ void RouteLoadPushSegmentReloadTask_8c01468e(void)
         }
     }
 
-    LOG_DEBUG(("[ROUTE_LOAD] pushing segmentReloadTask_8c014550\n"));
+    LOG_DEBUG(("[ROUTE] pushing segmentReloadTask_8c014550\n"));
 
     var_loadScreenActive_8c157a6c = 1;
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *) segmentReloadTask_8c014550, (Task **) &task, &state, 0);
@@ -668,7 +668,7 @@ void RouteLoadPushSegmentReloadTask_8c01468e(void)
 /* Like routeLoadTask_8c014338, but on completion binds the interior texture and
  * hands off to the input task (as segmentReloadTask_8c014550 does).
  * Pushed only by UnusedLoadPushTask_8c014934, which nothing calls. */
-void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state)
+void RouteUnusedTask_8c014784(RouteLoadTask *task, void *state)
 {
     int frame;
 
@@ -678,14 +678,14 @@ void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state)
             njSetTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
             njLoadCacheTexture(var_loadingResourceGroup_8c1bc3f8.tlist_0x00);
             loadRouteModels_8c014088();
-            RouteLoadClearLatch_8c014322();
-            AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadSetLatch_8c014330);
+            RouteClearLatch_8c014322();
+            AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteSetLatch_8c014330);
             CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_POST_LOAD);
             break;
         }
 
         case ROUTE_LOAD_STATE_POST_LOAD: {
-            if (RouteLoadGetLatch_8c01432a() != 0) {
+            if (RouteGetLatch_8c01432a() != 0) {
                 TileStreamInit_8c02175a();
                 TrafficRelocatePlacementTable_8c026da4(var_currentCourse_8c1bb868.macCpu1_0x24);
                 ObjectsRelocatePedGroupDefs_8c028de8(var_currentCourse_8c1bb868.macHumG0_0x30);
@@ -695,15 +695,15 @@ void RouteLoadUnusedTask_8c014784(RouteLoadTask *task, void *state)
                 EventPickForSegment_8c02b170();
                 AsqResetQueues_8c011f6c();
                 syncSegmentModels_8c013f78();
-                RouteLoadClearLatch_8c014322();
-                AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, TileStreamRequestUpload_8c02190a, 0, RouteLoadSetLatch_8c014330);
+                RouteClearLatch_8c014322();
+                AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, TileStreamRequestUpload_8c02190a, 0, RouteSetLatch_8c014330);
                 CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_WAIT);
             }
             break;
         }
 
         case ROUTE_LOAD_STATE_WAIT: {
-            if (RouteLoadGetLatch_8c01432a() != 0) {
+            if (RouteGetLatch_8c01432a() != 0) {
                 CHANGE_LOAD_STATE(task, ROUTE_LOAD_STATE_IDLE);
                 return;
             }

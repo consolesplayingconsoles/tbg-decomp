@@ -14,17 +14,17 @@ return new class extends TestCase {
         $this->resolveSizes();
         $task = $this->makeTask(0, 0);
 
-        $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
+        $this->call('_RouteUnusedTask_8c014784')->with($task, 0);
 
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_njSetTexture')->with(self::TLIST);
         $this->shouldCall('_njLoadCacheTexture')->with(self::TLIST);
         $this->shouldCall('_loadRouteModels_8c014088');
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
+        $this->shouldCall('_RouteClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0, 0, 0,
-            $this->addressOf('_RouteLoadSetLatch_8c014330'),
+            $this->addressOf('_RouteSetLatch_8c014330'),
         );
         $this->shouldWriteLong($task + 0x08, 1);
 
@@ -37,9 +37,9 @@ return new class extends TestCase {
         $this->resolveSizes();
         $task = $this->makeTask(1, 0);
 
-        $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
+        $this->call('_RouteUnusedTask_8c014784')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->expectLoadingAnimation($task);
     }
 
@@ -56,9 +56,9 @@ return new class extends TestCase {
 
         $task = $this->makeTask(1, 0);
 
-        $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
+        $this->call('_RouteUnusedTask_8c014784')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
         $this->shouldCall('_TileStreamInit_8c02175a');
         $this->shouldCall('_TrafficRelocatePlacementTable_8c026da4')->with(0x8cd00008);
         $this->shouldCall('_ObjectsRelocatePedGroupDefs_8c028de8')->with(0x8cd0000b);
@@ -67,13 +67,13 @@ return new class extends TestCase {
         $this->shouldCall('_EventPickForSegment_8c02b170');
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_syncSegmentModels_8c013f78');
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
+        $this->shouldCall('_RouteClearLatch_8c014322');
         $this->shouldCall('_AsqProcessQueues_8c011fe0')->with(
             $this->addressOf('_AsqNop_8c011120'),
             0,
             $this->addressOf('_TileStreamRequestUpload_8c02190a'),
             0,
-            $this->addressOf('_RouteLoadSetLatch_8c014330'),
+            $this->addressOf('_RouteSetLatch_8c014330'),
         );
         $this->shouldWriteLong($task + 0x08, 2);
 
@@ -86,9 +86,9 @@ return new class extends TestCase {
         $this->resolveSizes();
         $task = $this->makeTask(2, 0);
 
-        $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
+        $this->call('_RouteUnusedTask_8c014784')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
         $this->shouldWriteLong($task + 0x08, 3);
     }
 
@@ -98,9 +98,9 @@ return new class extends TestCase {
         $this->resolveSizes();
         $task = $this->makeTask(2, 0);
 
-        $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
+        $this->call('_RouteUnusedTask_8c014784')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->expectLoadingAnimation($task);
     }
 
@@ -110,7 +110,7 @@ return new class extends TestCase {
         $this->resolveSizes();
         $task = $this->makeTask(3, 0);
 
-        $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
+        $this->call('_RouteUnusedTask_8c014784')->with($task, 0);
 
         $this->shouldWriteLong($task + 0x08, 4);
     }
@@ -124,7 +124,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_interiorTexlist_8c1bc438'), $interior);
         $task = $this->makeTask(4, 0);
 
-        $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
+        $this->call('_RouteUnusedTask_8c014784')->with($task, 0);
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
@@ -142,7 +142,7 @@ return new class extends TestCase {
         $this->resolveSizes();
         $task = $this->makeTask(5, 0);
 
-        $this->call('_RouteLoadUnusedTask_8c014784')->with($task, 0);
+        $this->call('_RouteUnusedTask_8c014784')->with($task, 0);
 
         $this->expectLoadingAnimation($task);
     }

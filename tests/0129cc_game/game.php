@@ -277,7 +277,7 @@ return new class extends TestCase {
 
         $taskPtr = $this->alloc(0xc);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')
+        $this->shouldCall('_RouteGetLatch_8c01432a')
             ->andReturn(0);
 
         $this->singleCall('_bootTask_8c013388')
@@ -295,7 +295,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_fuuNjm_8c1bc448'), $var_fuuNjm_8c1bc448Ptr);
         $this->initUint32($var_fuuNjm_8c1bc448Ptr + 4, 42);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
 
         $this->shouldWrite($taskPtr + 8, 1);
         $this->shouldWriteTo('_var_fuuLastFrame_8c1bc450', fdec(41));
@@ -303,8 +303,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqResetQueues_8c011f6c');
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SOUND", "manatee.drv", $this->addressOf('_var_sndDrvData_8c0fcd48'));
         $this->shouldCall('_AsqRequestDat_8c011182')->with("\\SOUND", "bus.mlt", $this->addressOf('_var_sndBankData_8c0fcd4c'));
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
+        $this->shouldCall('_RouteClearLatch_8c014322');
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteSetLatch_8c014330'));
 
         $this->singleCall('_bootTask_8c013388')
             ->with($taskPtr, 0)
@@ -318,7 +318,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0xc);
         $this->initUint32($taskPtr + 8, 1);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
 
         $this->singleCall('_bootTask_8c013388')
             ->with($taskPtr, 0)
@@ -332,7 +332,7 @@ return new class extends TestCase {
         $taskPtr = $this->alloc(0xc);
         $this->initUint32($taskPtr + 8, 1);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
 
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldCall('_TaskFree_8c014b66')->with($taskPtr);
@@ -414,8 +414,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
-        $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
-        $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
+        $this->shouldCall('_RouteClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
+        $this->shouldCall('_RouteClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
 
         $this->shouldWriteTo('_var_routeModels_8c1bc3ec', -1);
         $this->shouldWriteTo('_var_segmentModels_8c1bc3f0', -1);
@@ -490,8 +490,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
+        $this->shouldCall('_RouteClearLatch_8c014322');
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteSetLatch_8c014330'));
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
@@ -568,8 +568,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
-        $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
-        $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
+        $this->shouldCall('_RouteClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
+        $this->shouldCall('_RouteClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
 
         $this->shouldWriteTo('_var_routeModels_8c1bc3ec', -1);
         $this->shouldWriteTo('_var_segmentModels_8c1bc3f0', -1);
@@ -644,8 +644,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
+        $this->shouldCall('_RouteClearLatch_8c014322');
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteSetLatch_8c014330'));
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
@@ -722,8 +722,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
-        $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
-        $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
+        $this->shouldCall('_RouteClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
+        $this->shouldCall('_RouteClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
 
         $this->shouldWriteTo('_var_routeModels_8c1bc3ec', -1);
         $this->shouldWriteTo('_var_segmentModels_8c1bc3f0', -1);
@@ -798,8 +798,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
+        $this->shouldCall('_RouteClearLatch_8c014322');
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteSetLatch_8c014330'));
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 
@@ -876,8 +876,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_currentCourse_8c1bb868') + 0x04, -1); // atariBus_0x04
 
-        $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
-        $this->shouldCall('_RouteLoadClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
+        $this->shouldCall('_RouteClearModelSlots_8c013bbc')->with($this->addressOf('_var_routeModelSlots_8c1bbddc'), 0x20);
+        $this->shouldCall('_RouteClearModelSlots_8c013bbc')->with($this->addressOf('_var_pedestrianAssets_8c1bbfdc'), 0x41);
 
         $this->shouldWriteTo('_var_routeModels_8c1bc3ec', -1);
         $this->shouldWriteTo('_var_segmentModels_8c1bc3f0', -1);
@@ -951,8 +951,8 @@ return new class extends TestCase {
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njm", $this->addressOf('_var_busDoorMotion_8c1bc410'), 0);
         $this->shouldCall('_AsqRequestNj_8c011492')->with("\\SD_COMMON", "3s_bus_m2.njs", $this->addressOf('_var_busDoorShape_8c1bc414'), 0);
 
-        $this->shouldCall('_RouteLoadClearLatch_8c014322');
-        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteLoadSetLatch_8c014330'));
+        $this->shouldCall('_RouteClearLatch_8c014322');
+        $this->shouldCall('_AsqProcessQueues_8c011fe0')->with($this->addressOf('_AsqNop_8c011120'), 0, 0, 0, $this->addressOf('_RouteSetLatch_8c014330'));
 
         $this->shouldWriteTo('_var_gdErr_8c18ad14', 0);
 

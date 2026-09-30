@@ -5,7 +5,7 @@
 #include <sg_xpt.h>
 #include "012324_input.h"
 #include "0129cc_game.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "015ab8_title.h"
 #include "014a9c_tasks.h"
 #include "011120_asset_queues.h"
@@ -669,7 +669,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
 {
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case COURSE_MENU_STATE_INIT: {
-            if (RouteLoadGetLatch_8c01432a())
+            if (RouteGetLatch_8c01432a())
                 return;
 
             AsqFreeQueues_8c011f7e();
@@ -823,7 +823,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
 {
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case COURSE_MENU_STATE_INIT: {
-            if (RouteLoadGetLatch_8c01432a())
+            if (RouteGetLatch_8c01432a())
                 return;
 
             AsqFreeQueues_8c011f7e();
@@ -1041,8 +1041,8 @@ void CourseMenuSwitchFromTask_8c017e18(Task *task)
         return;
     }
 
-    RouteLoadSetLatch_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
+    RouteSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteClearLatch_8c014322);
     CHANGE_STATE(COURSE_MENU_STATE_INIT);
 }
 
@@ -1110,8 +1110,8 @@ void CourseMenuReturn_8c017ef2(void)
         &init_mainMenuResourceGroup_8c044264
     );
     CourseMenuRequestCommonResources_8c01852c();
-    RouteLoadSetLatch_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
+    RouteSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteClearLatch_8c014322);
 
     CHANGE_STATE(COURSE_MENU_STATE_INIT);
 }
@@ -1168,7 +1168,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
 {
     switch (var_menuState_8c1bc7a8.state_0x18) {
         case COURSE_CONFIRM_STATE_INIT: {
-            if (RouteLoadGetLatch_8c01432a())
+            if (RouteGetLatch_8c01432a())
                 return;
 
             AsqFreeQueues_8c011f7e();
@@ -1326,8 +1326,8 @@ STATIC void courseMenuConfirmInit_8c0184cc(Task *task)
         &var_menuState_8c1bc7a8.resourceGroupB_0x0c,
         &init_courseResourceGroup_8c044d40
     );
-    RouteLoadSetLatch_8c014330();
-    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteLoadClearLatch_8c014322);
+    RouteSetLatch_8c014330();
+    AsqProcessQueues_8c011fe0(AsqNop_8c011120, 0, 0, 0, RouteClearLatch_8c014322);
     CHANGE_CONFIRM_STATE(COURSE_CONFIRM_STATE_INIT);
     return;
 }

@@ -355,7 +355,7 @@ return new class extends TestCase {
         $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
         $this->shouldCall('_EventApplyFlags_8c02b292');
-        $this->shouldCall('_RouteLoadStartRouteModelLoadPass_8c013d78');
+        $this->shouldCall('_RouteStartRouteModelLoadPass_8c013d78');
         $this->shouldWriteLongTo('_var_fadeRequest_8c226564', 1 /* FADE_REQUEST_OUT */);
         $this->shouldWriteLongTo('_var_arrivalOverlayGate_8c226560', 1);
         $this->shouldWriteLongTo('_var_messageBoxActive_8c22847c', 0);

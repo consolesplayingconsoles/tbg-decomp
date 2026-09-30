@@ -31,11 +31,11 @@
                                                          ; 02d06c_stop_draw
           .EXPORT     _var_simpleLightColor_8c2264f8 ; 0289ac_objects
                                                      ; 02d06c_stop_draw
-          .EXPORT     _var_tileDrawSpan_8c226504 ; 013ae8_route_load
-          .EXPORT     _var_tileDrawRadius_8c226508 ; 013ae8_route_load
+          .EXPORT     _var_tileDrawSpan_8c226504 ; 013ae8_route
+          .EXPORT     _var_tileDrawRadius_8c226508 ; 013ae8_route
           .EXPORT     _var_tileLayerIndexes_8c22650c ; 02171c_tile_stream
           .EXPORT     _var_tileLayerSlots_8c226520 ; 02171c_tile_stream
-          .EXPORT     _var_currentTileRegionList_8c226534 ; 013ae8_route_load
+          .EXPORT     _var_currentTileRegionList_8c226534 ; 013ae8_route
                                                           ; 02171c_tile_stream
 
           .AIFDEF UNIT_TESTING

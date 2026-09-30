@@ -605,7 +605,7 @@ was the wrong base: the dual-object test's `.src` object failed with
 once `var_8c1bb888` was wired up and resolvable, proving the real read
 targets a completely different, already-known struct 0x24 bytes in --
 `var_currentCourse_8c1bb868.macCpu1_0x24` (`CurrentCourse`,
-`013ae8_route_load.h`), whose asset-file field doubles as a
+`013ae8_route.h`), whose asset-file field doubles as a
 per-scene-object-type table pointer once loaded and
 `TrafficRelocatePlacementTable_8c026da4`-relocated.
 

@@ -9,7 +9,7 @@ bus along a predefined route with predefined passenger stop requests.
 ## Modes
 
 - **Main modes** (3 routes x 3 times of day = 9 courses; see
-  `reference_route_assets` / `013ae8_route_load.c` for the courseId scheme):
+  `reference_route_assets` / `013ae8_route.c` for the courseId scheme):
   - **Story mode**: at some stops, after the interior view, a cutscene event
     may trigger showing passenger dialog: pre-rendered slideshows with audio
     and textboxes. Seen events unlock passenger profiles in the event menu
@@ -207,7 +207,7 @@ The score bar itself is `var_runState_8c2285c4.driverPoints_0x0c`, driven by
 ## Stops and segments
 
 - **A passenger stop = a CourseSegment boundary.** The loading screen at a
-  stop is the SEGMENT_RELOAD state machine in `013ae8_route_load.c`; while it
+  stop is the SEGMENT_RELOAD state machine in `013ae8_route.c`; while it
   loads, the bus interior view is shown with passengers entering/leaving.
 - All pedestrians and interior passengers are rendered as low-resolution
   billboards.

@@ -47,7 +47,7 @@
           .IMPORT     _var_tasks_8c1bac28
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _StopUpdateStopHeadings_8c02ccc6
-          .IMPORT     _RouteLoadPushSegmentReloadTask_8c01468e
+          .IMPORT     _RoutePushSegmentReloadTask_8c01468e
           .IMPORT     _var_runReportPending_8c1bb8b8
           .IMPORT     _var_runWasPractice_8c1bb8bc
           .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
@@ -68,7 +68,7 @@
           .EXPORT     _DrivePointsReset_8c02c46a
           .EXPORT     _DrivePointsRunComplete_8c02c586
           .EXPORT     _DrivePointsOnFadeDriveEnd_8c02c784
-          .EXPORT     _var_runState_8c2285c4 ; 013ae8_route_load
+          .EXPORT     _var_runState_8c2285c4 ; 013ae8_route
           .EXPORT     _var_wallHitBits_8c228660 ; 022bdc
           .AIFDEF UNIT_TESTING
           .EXPORT     _adjust_8c02b464
@@ -2639,7 +2639,7 @@ LP_GEN_25024:
           .DATA.L _var_tasks_8c1ba5e8 ; H'8C02C818
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C02C81C
           .DATA.L _StopUpdateStopHeadings_8c02ccc6 ; H'8C02C820
-          .DATA.L _RouteLoadPushSegmentReloadTask_8c01468e ; H'8C02C824
+          .DATA.L _RoutePushSegmentReloadTask_8c01468e ; H'8C02C824
           .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C02C828
           .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C02C82C
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C02C830

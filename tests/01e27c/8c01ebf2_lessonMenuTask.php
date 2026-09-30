@@ -14,7 +14,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_lessonMenuTask_8c01ebf2')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
     }
 
     public function test_state_0_advances_when_pvm_ready(): void
@@ -26,7 +26,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_lessonMenuTask_8c01ebf2')->with($task, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
 
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');

@@ -3,7 +3,7 @@
 #include <shinobi.h>
 
 #include "011120_asset_queues.h"
-#include "013ae8_route_load.h"
+#include "013ae8_route.h"
 #include "014a9c_tasks.h"
 #include "022464_render.h"
 #include "020914_ground_query.h" /* GroundQueryFindPolygon_8c020914, GroundQueryResult */
@@ -408,7 +408,7 @@ Sint32 TrafficAdvanceOnPath_8c026ca2(float unused, TrafficEntry *entry)
 }
 
 /* Relocation fixup for a freshly-loaded blob (called generically from
- * routeLoadTask_8c014338/RouteLoadUnusedTask_8c014784 after loading course
+ * routeLoadTask_8c014338/RouteUnusedTask_8c014784 after loading course
  * data): an array of self-relative offsets from the blob's own base
  * (handle), terminated by 0, each pointing to a record run. Each record is
  * 0xc bytes; the offset array's own slot is overwritten with the record's

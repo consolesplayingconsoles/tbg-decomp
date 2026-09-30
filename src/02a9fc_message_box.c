@@ -4,7 +4,7 @@
 
 #include "02a9fc_message_box.h"
 #include "011120_asset_queues.h" /* AsqRequestPvm_8c011ac0, AsqRequestDat_8c011182 */
-#include "013ae8_route_load.h" /* var_commonDir_8c18ad6c, enum ROUTE */
+#include "013ae8_route.h" /* var_commonDir_8c18ad6c, enum ROUTE */
 #include "014a9c_tasks.h" /* Task */
 #include "015034_text.h" /* TextBox */
 #include "016d2c_course_menu.h" /* var_menuTextboxCharLimit_8c225fb8 */
@@ -3981,7 +3981,7 @@ STATIC void messageBoxTask_8c02ab7a(Task *task, MessageBoxState *state)
             MessageBoxFreeAssets_8c02adee();
             TaskFree_8c014b66(task);
             EventApplyFlags_8c02b292();
-            RouteLoadStartRouteModelLoadPass_8c013d78();
+            RouteStartRouteModelLoadPass_8c013d78();
             var_fadeRequest_8c226564 = FADE_REQUEST_OUT;
             var_arrivalOverlayGate_8c226560 = 1;
             var_messageBoxActive_8c22847c = 0;

@@ -29,7 +29,7 @@
           .IMPORT     _var_arrivalOverlayGate_8c226560
           .IMPORT     _MessageBoxStart_8c02ad8c
           .IMPORT     _var_messageBoxActive_8c22847c
-          .IMPORT     _RouteLoadGetLatch_8c01432a
+          .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _StopFreeTaskGroup_8c02ca96
           .IMPORT     _njReleaseTexture
           .IMPORT     _var_cameraMode_8c227d9c
@@ -916,7 +916,7 @@ LP_GEN_70221:
           .DATA.L _var_arrivalOverlayGate_8c226560 ; H'8C02D81C
           .DATA.L _MessageBoxStart_8c02ad8c ; H'8C02D820
           .DATA.L _var_messageBoxActive_8c22847c ; H'8C02D824
-          .DATA.L _RouteLoadGetLatch_8c01432a ; H'8C02D828
+          .DATA.L _RouteGetLatch_8c01432a ; H'8C02D828
           .DATA.L _var_midiHandles_8c0fcd28 ; H'8C02D82C
           .DATA.L _sdMidiPlay ; H'8C02D830
           .DATA.L _StopFreeTaskGroup_8c02ca96 ; H'8C02D834

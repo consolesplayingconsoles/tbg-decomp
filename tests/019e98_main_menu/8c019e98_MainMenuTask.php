@@ -13,7 +13,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0);
         $task = 0xbebacafe;
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(1);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(1);
 
         $this->singleCall('_mainMenuTask_8c019e98')->with($task)->run();
     }
@@ -24,7 +24,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 0);
 
-        $this->shouldCall('_RouteLoadGetLatch_8c01432a')->andReturn(0);
+        $this->shouldCall('_RouteGetLatch_8c01432a')->andReturn(0);
         $this->shouldCall('_AsqFreeQueues_8c011f7e');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 1);
         $this->shouldCall('_RenderPushFadeIn_8c022a9c')->with(10);

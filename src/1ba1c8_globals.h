@@ -4,7 +4,7 @@
 
 #include <shinobi.h>
 #include "011120_asset_queues.h" /* LoadedModel */
-#include "013ae8_route_load.h" /* CurrentCourse, ModelSlot */
+#include "013ae8_route.h" /* CurrentCourse, ModelSlot */
 #include "014a9c_tasks.h" /* Task */
 #include "015034_text.h" /* enum PLAY_MODE */
 #include "015ab8_title.h" /* ResourceGroup */

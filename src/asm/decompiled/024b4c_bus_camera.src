@@ -63,7 +63,7 @@
                                                       ; 028258_signal
                                                       ; 02d19c_passenger
           .EXPORT     _var_mirrorLightDir_8c227dc4 ; 026710_traffic
-          .EXPORT     _var_farClipDepth_8c227dd0 ; 013ae8_route_load
+          .EXPORT     _var_farClipDepth_8c227dd0 ; 013ae8_route
           .EXPORT     _var_demoShotId_8c227dd4 ; 0129cc_game
                                                ; 025870_demo
 
