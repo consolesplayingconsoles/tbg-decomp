@@ -6,7 +6,7 @@
 #include "02b464_drive_points.h"
 #include "0100bc_sound.h"
 #include "014f54_sprite.h"
-#include "sectionB.h"
+#include "015034_text.h"
 #include "1ba1c8_globals.h"
 #include "01fa78_hud.h" /* var_hudState_8c22643c */
 #include "020214_drive_cue.h" /* var_driveCueState_8c2264b8 */

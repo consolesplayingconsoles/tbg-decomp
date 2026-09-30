@@ -4,9 +4,6 @@
 #include <shinobi.h>
 #include "015ab8_title.h"
 
-// TODO: Most of these declarations could be
-// private once sectionB.h is merged into units
-
 /* =================
  * Type Declarations
  * =================

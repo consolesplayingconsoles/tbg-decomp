@@ -3,7 +3,6 @@
 #include <sg_sd.h>
 #include <cri_adxt.h>
 #include "0100bc_sound.h"
-#include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "01fa78_hud.h" /* var_hudState_8c22643c */
 #include <cri_adxf.h>

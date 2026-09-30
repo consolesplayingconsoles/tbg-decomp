@@ -6,7 +6,6 @@
 #include "016108_resgrp_free.h"
 #include "01c980_profile_file.h" /* var_resourceGroup_8c2263a8 */
 #include "02a9fc_message_box.h" /* MessageBoxFreeTextboxes_8c02af32 */
-#include "sectionB.h"
 
 /* ====================
  * Functions

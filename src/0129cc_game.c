@@ -12,7 +12,6 @@
 #include "02a9fc_message_box.h"
 #include "sectionD.h"
 #include "024b4c_bus_render.h"
-#include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h"
 #include "serial_debug.h"

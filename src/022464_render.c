@@ -3,7 +3,8 @@
 #include "includes.h" /* STATIC */
 #include <njdef.h>
 #include "014f54_sprite.h"
-#include "sectionB.h"
+#include "014a9c_tasks.h"
+#include "015034_text.h"
 #include "1ba1c8_globals.h"
 #include "01e27c_practice_menu.h"
 #include "0129cc_game.h"

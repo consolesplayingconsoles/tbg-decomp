@@ -138,11 +138,3 @@ ordered (a merge would be too), the boundary is a clean aligned function start
 all -- the delinker synthesises them from the boundary it chose, so they are a
 consequence of the hypothesis, not evidence for it. Compare the section B labels
 in `lessons_learned.md`: the same class of artifact.
-
-## Consequence for moving data out of `sectionB.src`
-
-Ownership moves interact with all of this. `sectionB.src` contributes one
-enormous B run, so **every unit that owns bss above that run must link after
-it**. Moving a unit's vars out of `sectionB.src` without moving `sectionB.src`
-earlier in `SRCS` puts the receiving unit's bss *below* it and shifts the whole
-section -- the matching build then fails with every B address displaced.

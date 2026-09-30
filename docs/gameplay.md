@@ -328,7 +328,7 @@ pointer's value (`ptr`) was meant.
 
 **Was listed here, now resolved -- `(ResourceGroup *)&var_markTexlist_8c1bc418`
 is correct.** `var_markTexlist_8c1bc418`, `var_markPartsDat_8c1bc41c` and
-`var_markDat_8c1bc420` (`sectionB.h`) are byte-contiguous and exactly
+`var_markDat_8c1bc420` (`1ba1c8_globals.h`) are byte-contiguous and exactly
 `sizeof(ResourceGroup)` -- and `requestVehicleAssets_8c013ae8` /
 `GameInit_8c0134ec` fill them from `mark.pvm`, `mark_parts.dat` and `mark.dat`,
 the same pvm/`_parts.dat`/`.dat` triple `GameInit_8c0134ec` loads into the

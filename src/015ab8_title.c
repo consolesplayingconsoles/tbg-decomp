@@ -18,7 +18,6 @@
 #include "01614c_replay_menu.h"
 #include "022464_render.h"
 #include "02a9fc_message_box.h"
-#include "sectionB.h"
 #include "1ba1c8_globals.h"
 
 /* ====================

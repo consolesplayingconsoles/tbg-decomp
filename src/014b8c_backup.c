@@ -6,7 +6,6 @@
 
 #include <shinobi.h>
 #include "014b8c_backup.h"
-#include "sectionB.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 

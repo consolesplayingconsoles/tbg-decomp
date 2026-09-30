@@ -2,7 +2,7 @@
 #include <shinobi.h>
 #include "includes.h" /* TWO_PI */
 
-#include "sectionB.h"
+#include "015034_text.h"
 #include "1ba1c8_globals.h"
 #include "013ae8_route_load.h"    /* CurrentCourse */
 #include "0100bc_sound.h"         /* var_midiHandles_8c0fcd28, SndUpdateEngine_8c010c6e */

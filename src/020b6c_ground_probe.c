@@ -4,7 +4,6 @@
 #include "includes.h" /* TWO_PI */
 #include "020b6c_ground_probe.h"
 #include "020914_ground_query.h"
-#include "sectionB.h"
 
 /* ====================
  * Compiler Definitions

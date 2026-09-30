@@ -4,7 +4,7 @@
 #include "includes.h" /* STATIC */
 
 #include "026710_traffic.h"
-#include "sectionB.h"
+#include "015034_text.h"
 #include "1ba1c8_globals.h"
 #include "01fa78_hud.h" /* var_hudState_8c22643c */
 #include "020214_drive_cue.h" /* var_driveCueState_8c2264b8 */

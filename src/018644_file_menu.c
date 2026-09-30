@@ -14,7 +14,6 @@
 #include "01bb48_vm_game.h"
 #include "01b19c_system_menu.h"
 #include "022464_render.h"
-#include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"

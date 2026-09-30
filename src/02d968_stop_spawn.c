@@ -3,7 +3,9 @@
 #include <shinobi.h>
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
-#include "sectionB.h"
+#include "013ae8_route_load.h"
+#include "011120_asset_queues.h"
+#include "015034_text.h"
 #include "1ba1c8_globals.h"
 #include "01e27c_practice_menu.h"
 #include "014a9c_tasks.h"
@@ -86,7 +88,7 @@ void StopSpawnInit_8c02d968(void)
     /* The passenger walk waypoints, in bus-local space; the two outside the bus
      * are transformed to world space in place. Ome gets the same six
      * coordinates in reverse, which is what swaps the boarding and exiting
-     * doors -- see sectionB.h. Each point is written x, then y, then z --
+     * doors -- see 02d19c_passenger.h. Each point is written x, then y, then z --
      * verified against the real instruction order, which does NOT match
      * Ghidra's statement order for this block. */
     if (var_route_8c18ad1c == ROUTE_SHINJUKU || var_route_8c18ad1c == ROUTE_WANGAN) {

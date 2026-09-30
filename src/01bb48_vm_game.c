@@ -16,7 +16,6 @@
 #include "02a9fc_message_box.h"
 #include "02fb50_sh4nlfzn_post_data.h"
 #include "014f54_sprite.h"
-#include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "strings.h"
 

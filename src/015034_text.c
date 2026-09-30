@@ -10,7 +10,6 @@
 #include "015034_text.h"
 #include "026710_traffic.h"
 #include "0289ac_objects.h" /* var_activePedPreset_8c22822c */
-#include "sectionB.h"
 #include "1ba1c8_globals.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"

@@ -24,7 +24,7 @@ Relocation (FUN_8c026da4)
   bits 8-15, pedestrians in 16-23 (var_pedGroupLists_8c228240), and a
   set-piece trigger in 24-31 (the FUMI railway crossing). It was originally
   named after "demo", but it is unrelated to the attract-mode demo/replay
-  system; see the comment on var_scenePresetIds_8c1bbd8c in src/sectionB.h.
+  system.
 
 Record (trafficUpdateTask_8c0275d4, spawnEntry_8c0272b8)
   0xc bytes: { Uint16 typeCode, Uint16 threshold, Sint32 script, float

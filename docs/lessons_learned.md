@@ -39,7 +39,7 @@ asm: drop the `.IMPORT`, and rewrite every use (typically a `.DATA.L` literal
 pool entry) as `_baseSymbol+H'<offset>` sum-expression addressing instead of
 the separate name. This keeps one C struct as the single source of truth and
 avoids the test-side alias entirely. Once no unit imports the label any more,
-drop it from `sectionB.src` too, rolling its `.RES.B` into the struct's own
+drop it from its defining `.src` too, rolling its `.RES.B` into the struct's own
 symbol; the eleven `PlayerProgress` labels went that way, as the 24 `BusState`
 ones did before them.
 
@@ -625,8 +625,8 @@ The build still linked and every per-function test still passed -- only
 
 Section B is one contiguous allocation whose order is fixed by the original
 layout, so a symbol may only change owner if it sits at the start or end of the
-range. Otherwise leave the reservation in `sectionB.src`, `.IMPORT` it from the
-unit's `.src`, take it from `sectionB.h` in the C, and `setSize` it in tests
+range. Otherwise leave the reservation with its owner, `.IMPORT` it from the
+unit's `.src`, take it from the owner's header in the C, and `setSize` it in tests
 like any other section-B extern.
 
 The move looks locally valid, which is what makes it dangerous. Run the
@@ -669,7 +669,7 @@ doesn't yet make the symbol visible to this file:
   function yet, so they don't exist in the `.c` at all even though the
   archived `.src` still has them.
 - One import, `_var_8c2260ac`, isn't even current: the live name is
-  `_var_lcdAnimBus_8c2260ac` (`sectionB.src`/`.h`). This file is a
+  `_var_lcdAnimBus_8c2260ac` (`01bb48_vm_game`). This file is a
   point-in-time snapshot from before that rename, not a maintained source.
 
 So this isn't a link-order problem (contrast the separate, already-resolved
