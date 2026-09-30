@@ -25,7 +25,7 @@ return new class extends TestCase {
             '_FadePushIn_8c022a9c', '_FileMenuResetProgress_8c01890a',
             '_SystemMenuWriteToVmu_8c01b26c', '_VmGameSetLcdSlot_8c01c8fc',
             '_BupGetInfo_8c014bba', '_buStat', '_buGetLastError', '_syFree',
-            '_DebugMenuFreeSessionAssets_8c016182', '_CourseMenuReturn_8c017ef2',
+            '_ReplayMenuFreeSessionAssets_8c016182', '_CourseMenuReturn_8c017ef2',
             '_CourseMenuBuildCourseUnlockList_8c0172dc',
             '_CourseMenuApplyUnlocks_8c0173e6', '_TitlePushTitle_8c015fd6',
             '_njSetBackColor', '_InputPushTask_8c0128cc', '_GameTask_8c012f44',
@@ -1231,7 +1231,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
 
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(0);
     }
@@ -1244,7 +1244,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
 
         $this->shouldCall('_CourseMenuBuildCourseUnlockList_8c0172dc');
         $this->shouldCall('_CourseMenuApplyUnlocks_8c0173e6');
@@ -1259,7 +1259,7 @@ return new class extends TestCase {
 
         $this->call('_resultsTask_8c01d8e0');
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
 
         $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }

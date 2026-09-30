@@ -25,6 +25,8 @@ typedef struct {
 	Uint32 Capacity;
 } BACKUPINFO;
 
+extern BACKUPINFO var_gBupInfo_8c1bc4ac[8];
+
 
 void BupInit_8c014b8c(void);
 void BupExit(void);

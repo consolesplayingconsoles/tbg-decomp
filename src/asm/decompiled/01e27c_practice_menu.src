@@ -18,7 +18,7 @@
           .IMPORT     _PromptHandleBinary_8c016caa
           .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _njSetBackColor
-          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
+          .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_penaltyCount_8c1bb8f4
@@ -542,7 +542,7 @@ LP_GEN_38636:
           .DATA.L _njSetBackColor ; H'8C01E5E4
           .DATA.L _FadePushIn_8c022a9c ; H'8C01E5E8
           .DATA.L H'C1000000 ; H'8C01E5EC
-          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01E5F0
+          .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01E5F0
           .DATA.L _var_worstPenaltyDelta_8c1bb8f0 ; H'8C01E5F4
           .DATA.L _var_worstPenaltyMsgSet_8c1bb8ec ; H'8C01E5F8
           .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C01E5FC
@@ -1727,7 +1727,7 @@ LP_GEN_95699:
           .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C01EF4C
           .DATA.L _var_lessonAttempts_8c22642c ; H'8C01EF50
           .DATA.L H'0001869F ; H'8C01EF54
-          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01EF58
+          .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01EF58
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01EF5C
 LAB_8c01ef60:
           MOV.L       LP_GEN_11122+2,R2

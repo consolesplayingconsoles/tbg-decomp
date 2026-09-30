@@ -4,9 +4,8 @@
 #include "0129cc_game.h"
 #include "0100bc_sound.h"
 #include "014f54_text.h"
-#include "016bf4_demo_input.h"
 #include "01fa78_hud.h" /* HudReset_8c02018c */
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "028258_objects.h" /* ObjectsInitPedestrianGroups_8c0296d6 */
 #include "sectionD.h"
 #include "sectionB.h"
@@ -282,7 +281,7 @@ STATIC int pauseUpdate_8c0129cc(void)
             var_runSucceeded_8c1bb8dc = 0;
             var_runReportPending_8c1bb8b8 = 0;
             var_runWasPractice_8c1bb8bc = 0;
-            DebugMenuFreeSessionAssets_8c016182();
+            ReplayMenuFreeSessionAssets_8c016182();
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_menuState_8c1bc7a8.selected_0x38 = var_practiceLesson_8c22640c;
                 PracticeMenuLessonRetry_8c01f21c();
@@ -314,7 +313,7 @@ STATIC void pauseTask_8c012cbc()
 
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
-        DebugMenuFreeSessionAssets_8c016182();
+        ReplayMenuFreeSessionAssets_8c016182();
         TitlePushTitle_8c015fd6(1);
         LOG_DEBUG(("[PAUSE] pauseTask_8c012cbc: reset requested, returning to title\n"));
         return;
@@ -338,7 +337,7 @@ STATIC void pauseToggleTask_8c012d06()
 
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
-        DebugMenuFreeSessionAssets_8c016182();
+        ReplayMenuFreeSessionAssets_8c016182();
         TitlePushTitle_8c015fd6(1);
         LOG_DEBUG(("[PAUSE] pauseToggleTask_8c012d06: reset requested, returning to title\n"));
         return;
@@ -368,7 +367,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
 
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
-        DebugMenuFreeSessionAssets_8c016182();
+        ReplayMenuFreeSessionAssets_8c016182();
         init_adxPlaying_8c03bd80 = 1;
         init_soundOk_8c03bd84 = 0;
         LOG_DEBUG(("[PAUSE] pauseDemoEndTask_8c012d5a: reset requested\n"));
@@ -405,7 +404,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
         if (init_adxPlaying_8c03bd80 != 0) {
             return;
         }
-        DebugMenuFreeSessionAssets_8c016182();
+        ReplayMenuFreeSessionAssets_8c016182();
         TitlePushTitle_8c015fd6(task->phase_0x08 == DEMO_END_SKIPPED ? 1 : 0);
         LOG_INFO(("[PAUSE] pauseDemoEndTask_8c012d5a: demo ended, returning to title\n"));
         return;
@@ -429,7 +428,7 @@ void GameTask_8c012f44()
         if (var_vibport_8c1ba354 != -1) {
             pdVibMxStop(var_vibport_8c1ba354);
         }
-        DebugMenuFreeSessionAssets_8c016182();
+        ReplayMenuFreeSessionAssets_8c016182();
         /* Already on the title: quit instead, by arming the pair
          * GameMain_8c01392e reads as "return -1". */
         if (var_titleActive_8c1bb8c4 != 0) {
@@ -523,7 +522,7 @@ void GameEnterDrive_8c01306e(void)
 
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         TaskPush_8c014ae8(var_tasks_8c1ba3c8, &pauseTask_8c012cbc, &created_task, &created_state, 0);
-        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &DebugMenuDemoRecordTask_8c01677e, &created_task, &created_state, 0);
+        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &ReplayMenuDemoRecordTask_8c01677e, &created_task, &created_state, 0);
     } else {
         if (var_isAttractDemo_8c1bb8d4 == 0) {
             TaskPush_8c014ae8(var_tasks_8c1ba3c8, &pauseToggleTask_8c012d06, &created_task, &created_state, 0);
@@ -532,7 +531,7 @@ void GameEnterDrive_8c01306e(void)
             created_task->field_0x08 = 0;
             created_task->field_0x0c = (void*) 0;
         }
-        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &DemoInputTask_8c016bf4, &created_task, &created_state, 0);
+        TaskPush_8c014ae8(var_tasks_8c1ba5e8, &ReplayMenuDemoPlayTask_8c016bf4, &created_task, &created_state, 0);
         DemoStartTour_8c025af4();
     }
 
@@ -564,9 +563,9 @@ void GameStartSelectedCourse_8c01328c() {
     void* created_state;
   
     if (var_playMode_8c1bb8d0 == PLAY_MODE_NORMAL) {
-        var_currentCourse_8c1bb868.courseId_0x00 = var_debugMenuCourseSel_8c1bc824->courseId_0x00;
-        var_startStopIndex_8c228704 = var_debugMenuCourseSel_8c1bc824->startStopIndex_0x04;
-        var_driveMode_8c1bb8c8 = var_debugMenuCourseSel_8c1bc824->driveMode_0x08;
+        var_currentCourse_8c1bb868.courseId_0x00 = var_replayMenuCourseSel_8c1bc824->courseId_0x00;
+        var_startStopIndex_8c228704 = var_replayMenuCourseSel_8c1bc824->startStopIndex_0x04;
+        var_driveMode_8c1bb8c8 = var_replayMenuCourseSel_8c1bc824->driveMode_0x08;
         var_seed_8c157a64 = AsqGetRandomA_8c012166();
     } else if ((var_playMode_8c1bb8d0 == PLAY_MODE_DEMO) && (var_isAttractDemo_8c1bb8d4 != 0)) {
         var_demoShotId_8c227dd4 = init_demoFirstShot_8c0460b0[var_currentCourse_8c1bb868.courseId_0x00 - 0x26];
@@ -635,11 +634,11 @@ STATIC void bootTask_8c013388(Task *task, void *state) {
                 SndInit_8c010e18("\\SOUND");
                 var_lcdAnimActive_8c2260a8 = 1;
 #ifdef DEBUG_MENU
-                /* Boot straight into the debug menu (DebugMenuOpen_8c01673a) --
+                /* Boot straight into the debug menu (ReplayMenuOpen_8c01673a) --
                  * the retail entry point that was compiled out. Course entries
                  * work; *_EVENT / REPLAY / VISUAL_MEMORY need state this path
                  * doesn't set up and will hang on the loading screen. */
-                DebugMenuOpen_8c01673a();
+                ReplayMenuOpen_8c01673a();
 #else
                 TitlePushTitle_8c015fd6(0);
 #endif

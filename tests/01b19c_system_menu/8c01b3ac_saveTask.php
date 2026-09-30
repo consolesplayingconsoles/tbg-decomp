@@ -409,7 +409,7 @@ return new class extends TestCase {
         $this->exitStateEnter($menuState, 8, 1, 0, 0);
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
     }
 

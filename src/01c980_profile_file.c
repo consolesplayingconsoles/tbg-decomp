@@ -14,7 +14,7 @@
 #include "0100bc_sound.h"
 #include "0129cc_game.h"
 #include "016c58_prompt.h"
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 
 /* ====================
  * Compiler Definitions
@@ -751,7 +751,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
             var_menuState_8c1bc7a8.cursorCol_0x3c = 0;
             var_menuState_8c1bc7a8.cursorRow_0x40 = 1;
             var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = 0.0f;
-            DebugMenuFreeSessionAssets_8c016182();
+            ReplayMenuFreeSessionAssets_8c016182();
             CourseMenuReturn_8c017ef2();
             return;
 

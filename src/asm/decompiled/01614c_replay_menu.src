@@ -26,12 +26,8 @@
           .IMPORT     _BupUnmount_8c014c46
           .IMPORT     _TaskFree_8c014b66
           .IMPORT     _TaskPush_8c014ae8
-          .IMPORT     _var_debugMenuCourseSel_8c1bc824
           .IMPORT     _AsqGetRandomA_8c012166
           .IMPORT     _InputPushTask_8c0128cc
-          .IMPORT     _var_demoBuffer_8c1bc828
-          .IMPORT     _var_demoCursor_8c225fa8
-          .IMPORT     _var_demoPrevOn_8c225fac
           .IMPORT     _var_busState_8c1bb9d0
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_playMode_8c1bb8d0
@@ -67,11 +63,12 @@
           .IMPORT     _VmMenuFreeAndClear_8c019504
           .IMPORT     _VmMenuUpdateVmusStatus_8c019550
           .IMPORT     _CourseMenuReturn_8c017ef2
-          .EXPORT     _DebugMenuDemoRecordTask_8c01677e
-          .EXPORT     _DebugMenuFreeSessionAssets_8c016182
-          .EXPORT     _DebugMenuFreeDriveTasks_8c01614c
-          .EXPORT     _DebugMenuResetDemoCursor_8c016770
-          .EXPORT     _DebugMenuOpen_8c01673a
+          .EXPORT     _ReplayMenuDemoRecordTask_8c01677e
+          .EXPORT     _ReplayMenuFreeSessionAssets_8c016182
+          .EXPORT     _ReplayMenuFreeDriveTasks_8c01614c
+          .EXPORT     _ReplayMenuResetDemoCursor_8c016770
+          .EXPORT     _ReplayMenuOpen_8c01673a
+          .EXPORT     _ReplayMenuDemoPlayTask_8c016bf4
           .AIFDEF UNIT_TESTING
           .EXPORT     _startCourse_8c0167c0
           .EXPORT     _startReplayLoad_8c016b4c
@@ -81,9 +78,11 @@
           .EXPORT     _replaySaveTask_8c0167ca
           .EXPORT     _startReplaySave_8c016924
           .EXPORT     _replayLoadTask_8c0169bc
+          .EXPORT     _var_demoCursor_8c225fa8
+          .EXPORT     _var_demoPrevOn_8c225fac
           .AENDI
           .EXPORT     _init_replaySaveNames_8c044294
-          .EXPORT     _init_debugMenuEntries_8c04429c
+          .EXPORT     _init_replayMenuEntries_8c04429c
           .EXPORT     _const_8c0360a4
           .EXPORT     _const_8c0360b0
           .EXPORT     _const_8c0360b4
@@ -114,8 +113,10 @@
           .EXPORT     _const_8c036264
           .EXPORT     _const_8c036274
           .EXPORT     _const_8c03627c
+          .EXPORT     _var_replayMenuCourseSel_8c1bc824 ; 0129cc_game
+          .EXPORT     _var_demoBuffer_8c1bc828 ; 014f54_text
           .SECTION    P, CODE, ALIGN=4
-_DebugMenuFreeDriveTasks_8c01614c:
+_ReplayMenuFreeDriveTasks_8c01614c:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           MOV.L       LP_GEN_42967+2,R3
@@ -143,7 +144,7 @@ _DebugMenuFreeDriveTasks_8c01614c:
           LDS.L       @R15+,PR
           RTS
           MOV.L       @R15+,R14
-_DebugMenuFreeSessionAssets_8c016182:
+_ReplayMenuFreeSessionAssets_8c016182:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -166,7 +167,7 @@ LAB_8c0161a6:
           MOV.L       LP_GEN_42967+50,R3
           JSR         @R3
           NOP
-          BSR         _DebugMenuFreeDriveTasks_8c01614c
+          BSR         _ReplayMenuFreeDriveTasks_8c01614c
           NOP
           MOV.L       LP_GEN_42967+14,R3
           MOV.L       LP_GEN_42967+54,R4
@@ -734,7 +735,7 @@ LAB_8c016604:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _DebugMenuOpen_8c01673a
+          BRA         _ReplayMenuOpen_8c01673a
           MOV.L       @R15+,R14
 LAB_8c016620:
           MOV.L       R14,@(H'4,R13)
@@ -885,7 +886,7 @@ LAB_8c016716:
           MOV.L       @R15+,R13
           JMP         @R2
           MOV.L       @R15+,R14
-_DebugMenuOpen_8c01673a:
+_ReplayMenuOpen_8c01673a:
           STS.L       PR,@-R15
           ADD         #-H'8,R15
           MOV.L       LP_GEN_94139+16,R3
@@ -913,7 +914,7 @@ _DebugMenuOpen_8c01673a:
           LDS.L       @R15+,PR
           RTS
           NOP
-_DebugMenuResetDemoCursor_8c016770:
+_ReplayMenuResetDemoCursor_8c016770:
           MOV.L       LP_GEN_94139+76,R1
           MOV         #H'0,R2
           MOV.L       LP_GEN_94139+72,R3
@@ -921,7 +922,7 @@ _DebugMenuResetDemoCursor_8c016770:
           MOV.L       R3,@R1
           RTS
           MOV.L       R2,@R0
-_DebugMenuDemoRecordTask_8c01677e:
+_ReplayMenuDemoRecordTask_8c01677e:
           MOV.L       LP_GEN_94139+84,R2
           MOV         #H'1,R3
           MOV.L       @R2,R1
@@ -1022,9 +1023,9 @@ LP_GEN_94139:
           .DATA.L _saveMenuTask_8c01628c ; H'8C016838
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01683C
           .DATA.L _TaskPush_8c014ae8 ; H'8C016840
-          .DATA.L _init_debugMenuEntries_8c04429c ; H'8C016844
+          .DATA.L _init_replayMenuEntries_8c04429c ; H'8C016844
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C016848
-          .DATA.L _var_debugMenuCourseSel_8c1bc824 ; H'8C01684C
+          .DATA.L _var_replayMenuCourseSel_8c1bc824 ; H'8C01684C
           .DATA.L _njPrintC ; H'8C016850
           .DATA.L H'000C0000 ; H'8C016854
           .DATA.L _const_8c0360b0 ; H'8C016858
@@ -1442,12 +1443,64 @@ LP_GEN_41084:
           .DATA.L _replayLoadTask_8c0169bc ; H'8C016BE8
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C016BEC
           .DATA.L _TaskPush_8c014ae8 ; H'8C016BF0
+; TU boundary removed: the delinker split 016bf4_demo_input off here,
+; but it is the playback half of ReplayMenuDemoRecordTask_8c01677e and
+; its data sits inside this unit's B.
+_ReplayMenuDemoPlayTask_8c016bf4:                   ; function: ReplayMenuDemoPlayTask_8c016bf4
+                                 ; frame size=4
+          ADD         #-H'4,R15
+          MOV.L       L1,R1   ; _var_busState_8c1bb9d0+H'2B4 (driveState_0x2b4)
+          MOV         #1,R3
+          MOV.L       @R1,R2
+          CMP/GE      R3,R2
+          BF          L0
+          MOV.L       L1+4,R5 ; _var_demoCursor_8c225fa8
+          MOV.L       L1+8,R2 ; _var_demoCursor_8c225fa8_2
+          MOV.L       @R5,R6
+          CMP/HS      R2,R6
+          BT          L0
+          MOV.L       @R6,R0
+          MOV.L       L1+12,R4
+          MOV         R0,R7
+          MOV.L       L1+16,R6
+          MOV.L       R0,@(8,R4)
+          MOV.L       @R6,R1
+          XOR         R7,R1
+          MOV         R1,R3
+          AND         R3,R7
+          MOV.L       R1,@R15
+          MOV.L       R7,@(16,R4)
+          MOV.L       @(8,R4),R3
+          MOV.L       R3,@R6
+          MOV.L       @R5,R0
+          MOV.B       @(4,R0),R0
+          MOV.W       R0,@(28,R4)
+          MOV.L       @R5,R0
+          MOV.B       @(5,R0),R0
+          EXTU.B      R0,R0
+          MOV.W       R0,@(24,R4)
+          MOV.L       @R5,R0
+          MOV.B       @(6,R0),R0
+          EXTU.B      R0,R0
+          MOV.W       R0,@(26,R4)
+          MOV.L       @R5,R3
+          ADD         #8,R3
+          MOV.L       R3,@R5
+L0:                               
+          RTS
+          ADD         #4,R15
+L1:                               
+          .DATA.L _var_busState_8c1bb9d0+H'2B4 ; H'8C016C44 (driveState_0x2b4)
+          .DATA.L _var_demoCursor_8c225fa8 ; H'8C016C48
+          .DATA.L _var_demoBuffer_8c1bc828+432000 ; H'8C016C4C (end of replay buffer)
+          .DATA.L _var_peripherals_8c1ba35c ; H'8C016C50
+          .DATA.L _var_demoPrevOn_8c225fac ; H'8C016C54
 
           .SECTION    D, DATA, ALIGN=4
 _init_replaySaveNames_8c044294:        ; from defines
           .DATA.L      _const_replayFileName_8c036160 ; ukn
           .DATA.L      _const_8c03616c ; ukn
-_init_debugMenuEntries_8c04429c:        ; from defines
+_init_replayMenuEntries_8c04429c:        ; from defines
           .DATA.L      _const_8c036170 ; ukn
           .DATA.L      _ObjectsRequestMessageAssets_8c02aa36 ; ukn
           .DATA.B      H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00, H'00
@@ -1620,4 +1673,13 @@ _const_8c03627c:        ; from ghidra
           .SDATA      "VISUAL_MEMORY"
           .DATA.B     H'00
           .RES.B      2
+          .SECTION    B,DATA,ALIGN=4
+_var_replayMenuCourseSel_8c1bc824:
+          .RES.B      4
+_var_demoBuffer_8c1bc828:
+          .RES.B      432000
+_var_demoCursor_8c225fa8:
+          .RES.B      4
+_var_demoPrevOn_8c225fac:
+          .RES.B      4
           .END

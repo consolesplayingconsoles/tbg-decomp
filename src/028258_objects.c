@@ -6498,7 +6498,7 @@ void ObjectsStartMessageBox_8c02ad8c(void)
  * shared message-text dat in var_messageTextDat_8c228518, and the message-box textbox
  * resources (ObjectsFreeTextboxes_8c02af32). Called at the end of the message-box
  * slideshow (messageBoxTask_8c02ab7a) and again during full session teardown
- * (DebugMenuFreeSessionAssets_8c016182). */
+ * (ReplayMenuFreeSessionAssets_8c016182). */
 void ObjectsFreeMessageAssets_8c02adee(void)
 {
     int i;

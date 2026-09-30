@@ -14,12 +14,18 @@
 #include "0193c8_vm_menu.h"
 #include "011120_asset_queues.h"
 #include "016d2c_course_menu.h"
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "022464_fade.h"
 #include "028258_objects.h"
 #include "sectionB.h"
 #include "1ba1c8_globals.h"
 
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+MenuState var_menuState_8c1bc7a8;
 
 /* ====================
  * Initialized Globals
@@ -386,7 +392,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
         case TITLE_STATE_0X11_TIME_OUT: {
             if (var_isFading_8c226568 == FALSE) {
                 if (init_adxPlaying_8c03bd80 == FALSE) {
-                    DebugMenuFreeSessionAssets_8c016182();
+                    ReplayMenuFreeSessionAssets_8c016182();
                     TxtStartAttractDemo_8c0159ac();
                 }
 

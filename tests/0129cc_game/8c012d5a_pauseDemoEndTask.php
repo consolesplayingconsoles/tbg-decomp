@@ -11,7 +11,7 @@ return new class extends TestCase {
 
         $this->call('_pauseDemoEndTask_8c012d5a')->with($task);
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_init_adxPlaying_8c03bd80'), 1);
         $this->shouldWriteLong($this->addressOf('_init_soundOk_8c03bd84'), 0);
     }
@@ -92,7 +92,7 @@ return new class extends TestCase {
         $this->call('_pauseDemoEndTask_8c012d5a')->with($task);
 
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
     }
 
@@ -127,7 +127,7 @@ return new class extends TestCase {
         $this->call('_pauseDemoEndTask_8c012d5a')->with($task);
 
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(0);
     }
 
@@ -139,7 +139,7 @@ return new class extends TestCase {
         int $isFading = 0,
         int $init80 = 0,
     ): int {
-        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
+        $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_SndUpdateAdxVolFade_8c010a40', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);

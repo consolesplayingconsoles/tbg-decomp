@@ -77,7 +77,7 @@ typedef struct {
 
 /* Asset handles for the loaded course, filled by loadRouteModels_8c014088 from
  * the CourseConfig filename field of the same name, and freed by
- * DebugMenuFreeSessionAssets_8c016182. The names are the course's own file
+ * ReplayMenuFreeSessionAssets_8c016182. The names are the course's own file
  * names (Shinjuku day: "s_atari_bus.dat", "sd_road_x.dat", ...): atari =
  * collision, line = route path, attr = attributes, mac = machine/actor,
  * hum = pedestrian. */

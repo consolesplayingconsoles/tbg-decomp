@@ -250,15 +250,6 @@ return [
         ],
         [
             "tests" => [
-                "tests/016bf4_demo_input/8c016bf4_DemoInputTask.php"
-            ],
-            "objects" => [
-                "build/output_test/src/asm/decompiled/016bf4_demo_input.obj",
-                "build/output_test/src/016bf4_demo_input.obj",
-            ]
-        ],
-        [
-            "tests" => [
                 "tests/01d290_album/8c01d290_albumDrawGrid.php",
                 "tests/01d290_album/8c01d300_albumMenuTask.php",
                 "tests/01d290_album/8c01d6e2_AlbumSwitchFromTask.php",
@@ -346,22 +337,23 @@ return [
         ],
         [
             "tests" => [
-                "tests/01614c_debug_menu/8c01614c_DebugMenuFreeDriveTasks.php",
-                "tests/01614c_debug_menu/8c016182_DebugMenuFreeSessionAssets.php",
-                "tests/01614c_debug_menu/8c01628c_saveMenuTask.php",
-                "tests/01614c_debug_menu/8c016636_openSaveMenu.php",
-                "tests/01614c_debug_menu/8c01666a_listMenuTask.php",
-                "tests/01614c_debug_menu/8c01673a_DebugMenuOpen.php",
-                "tests/01614c_debug_menu/8c016770_DebugMenuResetDemoCursor.php",
-                "tests/01614c_debug_menu/8c01677e_DebugMenuDemoRecordTask.php",
-                "tests/01614c_debug_menu/8c0167c0_startCourse.php",
-                "tests/01614c_debug_menu/8c0167ca_replaySaveTask.php",
-                "tests/01614c_debug_menu/8c016924_startReplaySave.php",
-                "tests/01614c_debug_menu/8c0169bc_replayLoadTask.php",
+                "tests/01614c_replay_menu/8c01614c_ReplayMenuFreeDriveTasks.php",
+                "tests/01614c_replay_menu/8c016182_ReplayMenuFreeSessionAssets.php",
+                "tests/01614c_replay_menu/8c01628c_saveMenuTask.php",
+                "tests/01614c_replay_menu/8c016636_openSaveMenu.php",
+                "tests/01614c_replay_menu/8c01666a_listMenuTask.php",
+                "tests/01614c_replay_menu/8c01673a_ReplayMenuOpen.php",
+                "tests/01614c_replay_menu/8c016770_ReplayMenuResetDemoCursor.php",
+                "tests/01614c_replay_menu/8c01677e_ReplayMenuDemoRecordTask.php",
+                "tests/01614c_replay_menu/8c0167c0_startCourse.php",
+                "tests/01614c_replay_menu/8c0167ca_replaySaveTask.php",
+                "tests/01614c_replay_menu/8c016924_startReplaySave.php",
+                "tests/01614c_replay_menu/8c0169bc_replayLoadTask.php",
+                "tests/01614c_replay_menu/8c016bf4_ReplayMenuDemoPlayTask.php",
             ],
             "objects" => [
-                "build/output_test/src/asm/decompiled/01614c_debug_menu.obj",
-                "build/output_test/src/01614c_debug_menu.obj",
+                "build/output_test/src/asm/decompiled/01614c_replay_menu.obj",
+                "build/output_test/src/01614c_replay_menu.obj",
             ]
         ],
         [

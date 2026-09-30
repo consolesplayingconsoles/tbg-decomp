@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * DebugMenuDemoRecordTask_8c01677e: record counterpart of DemoInputTask_8c016bf4 (tests/016bf4_demo_input).
+ * ReplayMenuDemoRecordTask_8c01677e: record counterpart of ReplayMenuDemoPlayTask_8c016bf4.
  * Appends peripheral slot 0's current state to the replay buffer at
  * _var_demoCursor_8c225fa8, advancing it by one 8-byte ReplayInput record.
  *
@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->initUint16($peripheral + 0x18, 0x34);   // r
         $this->initUint16($peripheral + 0x1a, 0x56);   // l
 
-        $this->call('_DebugMenuDemoRecordTask_8c01677e')->with(0, 0);
+        $this->call('_ReplayMenuDemoRecordTask_8c01677e')->with(0, 0);
 
         $this->shouldWriteLong($record + 0x00, 1);         // on -> boolean
         $this->shouldWriteByte($record + 0x04, 0x12);      // x1
@@ -51,7 +51,7 @@ return new class extends TestCase {
         );
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2b4), 0);
 
-        $this->call('_DebugMenuDemoRecordTask_8c01677e')->with(0, 0);
+        $this->call('_ReplayMenuDemoRecordTask_8c01677e')->with(0, 0);
     }
 
     public function test_noop_when_cursor_at_end(): void
@@ -63,22 +63,12 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_demoCursor_8c225fa8'), $end);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2b4), 1);
 
-        $this->call('_DebugMenuDemoRecordTask_8c01677e')->with(0, 0);
+        $this->call('_ReplayMenuDemoRecordTask_8c01677e')->with(0, 0);
     }
 
     private function resolveSymbols(): void
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        /*
-         * In the real ROM, var_demoCursor_8c225fa8 (address 0x8c225fa8) is placed
-         * immediately after var_demoBuffer_8c1bc828's 432000-byte extent (address
-         * 0x8c1bc828 + 432000 = 0x8c225fa8) -- the archived asm's end-of-buffer
-         * bound check literally reuses &var_demoCursor_8c225fa8 as that coincidence
-         * rather than an explicit addend (see 01614c_debug_menu.src's LP_GEN_94139 table).
-         * Allocate them adjacently here, in the same order, to reproduce it.
-         */
-        $this->setSize('_var_demoBuffer_8c1bc828', self::REPLAY_BUFFER_SIZE);
-        $this->setSize('_var_demoCursor_8c225fa8', 4);
     }
 };

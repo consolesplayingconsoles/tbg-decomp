@@ -1,6 +1,6 @@
-/* @unit DebugMenu */
+/* @unit ReplayMenu */
 #include <shinobi.h>
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "0100bc_sound.h"
 #include "010e90_vibration.h"
 #include "011120_asset_queues.h"
@@ -28,12 +28,12 @@
  * ====================
  */
 
-/* one row of init_debugMenuEntries_8c04429c */
+/* one row of init_replayMenuEntries_8c04429c */
 typedef struct {
     const char *name_0x00;
     void (*func_0x04)(void);
-    DebugMenuCourseSel courseSel_0x08;
-} DebugMenuEntry;
+    ReplayMenuCourseSel courseSel_0x08;
+} ReplayMenuEntry;
 
 /* Task, with replaySaveTask_8c0167ca's private fields named. Clearing
  * active_0x08 makes the next tick free the task and leave; phase_0x0c is the
@@ -63,6 +63,16 @@ typedef struct {
 } ReplayLoadTask;
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+ReplayMenuCourseSel *var_replayMenuCourseSel_8c1bc824;
+ReplayInput var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY];
+STATIC ReplayInput *var_demoCursor_8c225fa8;
+STATIC Uint32 var_demoPrevOn_8c225fac;
+
+/* ====================
  * Initialized Globals
  * ====================
  */
@@ -75,7 +85,7 @@ char *init_replaySaveNames_8c044294[2] = { "BUS_REPLAY", "" };
  * ====================
  */
 
-/* referenced by init_debugMenuEntries_8c04429c below; defined further down this file */
+/* referenced by init_replayMenuEntries_8c04429c below; defined further down this file */
 STATIC void startCourse_8c0167c0(void);
 STATIC void openSaveMenu_8c016636(void);
 STATIC void startReplayLoad_8c016b4c(void);
@@ -86,7 +96,7 @@ STATIC void startReplayLoad_8c016b4c(void);
  */
 
 /* listMenuTask_8c01666a's rows; scanned until a "" name */
-DebugMenuEntry init_debugMenuEntries_8c04429c[] = {
+ReplayMenuEntry init_replayMenuEntries_8c04429c[] = {
     { "SHINJYUKU_EVENT",      ObjectsRequestMessageAssets_8c02aa36, { 0,  0, 0} },
     { "WANGAN_EVENT",         ObjectsRequestMessageAssets_8c02aa36, { 1,  0, 0} },
     { "OUME_EVENT",           ObjectsRequestMessageAssets_8c02aa36, { 2,  0, 0} },
@@ -115,7 +125,7 @@ DebugMenuEntry init_debugMenuEntries_8c04429c[] = {
  * ====================
  */
 
-void DebugMenuFreeDriveTasks_8c01614c(void)
+void ReplayMenuFreeDriveTasks_8c01614c(void)
 {
     ObjectsFreePedestrianGroups_8c0297da();
     ObjectsFreeTrafficSignals_8c0288be();
@@ -126,7 +136,7 @@ void DebugMenuFreeDriveTasks_8c01614c(void)
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba5e8);
 }
 
-void DebugMenuFreeSessionAssets_8c016182(void)
+void ReplayMenuFreeSessionAssets_8c016182(void)
 {
     int i;
 
@@ -136,7 +146,7 @@ void DebugMenuFreeSessionAssets_8c016182(void)
         pdVibMxStop(var_vibport_8c1ba354);
     }
     VibClear_8c010fbe();
-    DebugMenuFreeDriveTasks_8c01614c();
+    ReplayMenuFreeDriveTasks_8c01614c();
     TaskFreeGroup_8c014ab4(var_tasks_8c1ba3c8);
     ObjectsFreeMessageAssets_8c02adee();
     ObjectsFreeAssetRequests_8c029cfe();
@@ -191,19 +201,19 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
 
     selectedVmu = state->selectedVmu_0x04;
     switch (state->state_0x00) {
-    case DEBUG_SAVE_MENU_INIT:
+    case REPLAY_SAVE_MENU_INIT:
         counter = state->frameCounter_0x0c;
         state->frameCounter_0x0c = counter + 1;
         if ((unsigned int)(counter + 1) >= 0xb) {
             if (VmMenuUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e) == 0) {
-                state->state_0x00 = DEBUG_SAVE_MENU_NO_VMU;
+                state->state_0x00 = REPLAY_SAVE_MENU_NO_VMU;
             } else {
-                state->state_0x00 = DEBUG_SAVE_MENU_SELECT;
+                state->state_0x00 = REPLAY_SAVE_MENU_SELECT;
                 state->selectedVmu_0x04 = 0;
             }
         }
         break;
-    case DEBUG_SAVE_MENU_SELECT:
+    case REPLAY_SAVE_MENU_SELECT:
         VmMenuUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e);
         for (i = 0; i < 8; i++) {
             if (var_vmuStatus_8c226048[i] != VMU_STATUS_NOT_CONNECTED) {
@@ -235,36 +245,36 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
             }
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
             if (selectedVmu == 8) {
-                state->state_0x00 = DEBUG_SAVE_MENU_NO_SAVING; /* the "NO SAVING" slot */
+                state->state_0x00 = REPLAY_SAVE_MENU_NO_SAVING; /* the "NO SAVING" slot */
             } else {
                 state->port_0x08 = selectedVmu;
                 state->bupInfo_0x10 = BupGetInfo_8c014bba(selectedVmu);
                 if (state->bupInfo_0x10->Work == NULL) {
                     BupMount_8c014c00(selectedVmu);
                 }
-                state->state_0x00 = DEBUG_SAVE_MENU_CHECK;
+                state->state_0x00 = REPLAY_SAVE_MENU_CHECK;
             }
         }
         njPrintC(NJM_LOCATION(10, selectedVmu * 2 + 8), "-");
         break;
-    case DEBUG_SAVE_MENU_CHECK:
+    case REPLAY_SAVE_MENU_CHECK:
         if (state->bupInfo_0x10->Ready == 0) {
             njPrint(NJM_LOCATION(10, 10), "CHECKING...");
         } else if (state->bupInfo_0x10->IsFormat == 0) {
-            state->state_0x00 = DEBUG_SAVE_MENU_UNFORMATTED;
+            state->state_0x00 = REPLAY_SAVE_MENU_UNFORMATTED;
         } else if (buIsExistFile(state->port_0x08, "BUS_REPLAY") != BUD_ERR_FILE_NOT_FOUND
                    || state->bupInfo_0x10->DiskInfo.free_user_blocks > 0x1d) {
-            state->state_0x00 = DEBUG_SAVE_MENU_CONFIRM; /* file exists (overwrite) or room for a new one */
+            state->state_0x00 = REPLAY_SAVE_MENU_CONFIRM; /* file exists (overwrite) or room for a new one */
         } else {
-            state->state_0x00 = DEBUG_SAVE_MENU_NO_SPACE;
+            state->state_0x00 = REPLAY_SAVE_MENU_NO_SPACE;
         }
         break;
-    case DEBUG_SAVE_MENU_CONFIRM:
+    case REPLAY_SAVE_MENU_CONFIRM:
         if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-            state->state_0x00 = DEBUG_SAVE_MENU_EXIT;  /* A: keep this drive */
+            state->state_0x00 = REPLAY_SAVE_MENU_EXIT;  /* A: keep this drive */
             var_selectedVm_8c1ba34c = state->port_0x08;
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
-            state->state_0x00 = DEBUG_SAVE_MENU_SELECT; /* B: back to VMU selection */
+            state->state_0x00 = REPLAY_SAVE_MENU_SELECT; /* B: back to VMU selection */
             state->selectedVmu_0x04 = 0;
             if (state->bupInfo_0x10->Work != NULL) {
                 BupUnmount_8c014c46(state->port_0x08);
@@ -275,41 +285,41 @@ STATIC void saveMenuTask_8c01628c(Task *task, SaveMenuState *state)
                     state->bupInfo_0x10->DiskInfo.total_user_blocks);
         }
         break;
-    case DEBUG_SAVE_MENU_NO_SAVING:
+    case REPLAY_SAVE_MENU_NO_SAVING:
         if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
-            state->state_0x00 = DEBUG_SAVE_MENU_EXIT;  /* A */
+            state->state_0x00 = REPLAY_SAVE_MENU_EXIT;  /* A */
             var_selectedVm_8c1ba34c = -1;        /* -1: no drive */
         } else if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TB) {
-            state->state_0x00 = DEBUG_SAVE_MENU_SELECT; /* B: back to VMU selection */
+            state->state_0x00 = REPLAY_SAVE_MENU_SELECT; /* B: back to VMU selection */
             state->selectedVmu_0x04 = 0;
         }
         njPrintC(NJM_LOCATION(10, 10), "NO SAVING OK?");
         break;
-    case DEBUG_SAVE_MENU_UNFORMATTED:
+    case REPLAY_SAVE_MENU_UNFORMATTED:
         if (var_peripherals_8c1ba35c[0].press & (PDD_DGT_TA | PDD_DGT_TB)) {
-            state->state_0x00 = DEBUG_SAVE_MENU_SELECT; /* A or B: back to VMU selection */
+            state->state_0x00 = REPLAY_SAVE_MENU_SELECT; /* A or B: back to VMU selection */
             state->selectedVmu_0x04 = 0;
         }
         njPrintC(NJM_LOCATION(10, 10), "MEMORY_CARD IS UNFORMAT");
         break;
-    case DEBUG_SAVE_MENU_NO_SPACE:
+    case REPLAY_SAVE_MENU_NO_SPACE:
         if (var_peripherals_8c1ba35c[0].press & (PDD_DGT_TA | PDD_DGT_TB)) {
-            state->state_0x00 = DEBUG_SAVE_MENU_SELECT; /* A or B: back to VMU selection */
+            state->state_0x00 = REPLAY_SAVE_MENU_SELECT; /* A or B: back to VMU selection */
             state->selectedVmu_0x04 = 0;
         }
         njPrintC(NJM_LOCATION(2, 10), "MEMORY_CARD IS NOT ENOUGH FREE AREA");
         break;
-    case DEBUG_SAVE_MENU_NO_VMU:
+    case REPLAY_SAVE_MENU_NO_VMU:
         if (VmMenuUpdateVmusStatus_8c019550(init_replaySaveNames_8c044294, 0x1e) == 0) {
             njPrintC(NJM_LOCATION(10, 10), "NO_MEMORY_CARD");
         } else {
-            state->state_0x00 = DEBUG_SAVE_MENU_SELECT;
+            state->state_0x00 = REPLAY_SAVE_MENU_SELECT;
             state->selectedVmu_0x04 = 0;
         }
         break;
-    case DEBUG_SAVE_MENU_EXIT:
+    case REPLAY_SAVE_MENU_EXIT:
         TaskFree_8c014b66(task);
-        DebugMenuOpen_8c01673a();
+        ReplayMenuOpen_8c01673a();
         return;               /* no epilogue write -- task is freed */
     }
     state->selectedVmu_0x04 = selectedVmu;
@@ -322,7 +332,7 @@ STATIC void openSaveMenu_8c016636(void)
 
     njSetBackColor(0, 0, 0xc060);
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, saveMenuTask_8c01628c, &task, (void **)&state, 0x14);
-    state->state_0x00 = DEBUG_SAVE_MENU_INIT;
+    state->state_0x00 = REPLAY_SAVE_MENU_INIT;
     state->frameCounter_0x0c = 0;
 }
 
@@ -335,13 +345,13 @@ STATIC void listMenuTask_8c01666a(Task *task)
 
     if (var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) {
         TaskFree_8c014b66(task);
-        var_debugMenuCourseSel_8c1bc824 = &init_debugMenuEntries_8c04429c[cursor].courseSel_0x08;
-        init_debugMenuEntries_8c04429c[cursor].func_0x04();
+        var_replayMenuCourseSel_8c1bc824 = &init_replayMenuEntries_8c04429c[cursor].courseSel_0x08;
+        init_replayMenuEntries_8c04429c[cursor].func_0x04();
         return;
     }
 
-    for (count = 0; init_debugMenuEntries_8c04429c[count].name_0x00[0] != '\0'; count++) {
-        njPrintC(NJM_LOCATION(0xc, 8 + count), init_debugMenuEntries_8c04429c[count].name_0x00);
+    for (count = 0; init_replayMenuEntries_8c04429c[count].name_0x00[0] != '\0'; count++) {
+        njPrintC(NJM_LOCATION(0xc, 8 + count), init_replayMenuEntries_8c04429c[count].name_0x00);
     }
 
     if (var_peripherals_8c1ba35c[0].press & PDD_DGT_KU) {
@@ -363,7 +373,7 @@ STATIC void listMenuTask_8c01666a(Task *task)
 
 /* Only saveMenuTask_8c01628c calls it today, but it is an entry point, not a
  * private helper -- do NOT make STATIC (KEEP_PUBLIC in check_private_decls.py). */
-void DebugMenuOpen_8c01673a(void)
+void ReplayMenuOpen_8c01673a(void)
 {
     Task *task;
     void *state;
@@ -374,14 +384,14 @@ void DebugMenuOpen_8c01673a(void)
     task->field_0x08 = 0;
 }
 
-void DebugMenuResetDemoCursor_8c016770(void)
+void ReplayMenuResetDemoCursor_8c016770(void)
 {
     var_demoCursor_8c225fa8 = var_demoBuffer_8c1bc828;
     var_demoPrevOn_8c225fac = 0;
 }
 
-/* record counterpart of DemoInputTask_8c016bf4's playback */
-void DebugMenuDemoRecordTask_8c01677e(Task *task, void *state)
+/* record counterpart of ReplayMenuDemoPlayTask_8c016bf4's playback */
+void ReplayMenuDemoRecordTask_8c01677e(Task *task, void *state)
 {
     if (var_busState_8c1bb9d0.driveState_0x2b4 > 0 && var_demoCursor_8c225fa8 < &var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY]) {
         var_demoCursor_8c225fa8->on = var_peripherals_8c1ba35c[0].on != 0;
@@ -590,4 +600,21 @@ STATIC void startReplayLoad_8c016b4c(void)
 
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, replayLoadTask_8c0169bc, (Task **)&task, &state, 0);
     task->phase_0x08 = 0;
+}
+
+/* playback counterpart of ReplayMenuDemoRecordTask_8c01677e */
+void ReplayMenuDemoPlayTask_8c016bf4()
+{
+    Uint32 on;
+
+    if ((var_busState_8c1bb9d0.driveState_0x2b4 > 0) && (var_demoCursor_8c225fa8 < &var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY])) {
+        on = var_demoCursor_8c225fa8->on;
+        var_peripherals_8c1ba35c[0].on = on;
+        var_peripherals_8c1ba35c[0].press = on & (var_demoPrevOn_8c225fac ^ on);
+        var_demoPrevOn_8c225fac = var_peripherals_8c1ba35c[0].on;
+        var_peripherals_8c1ba35c[0].x1 = var_demoCursor_8c225fa8->x1;
+        var_peripherals_8c1ba35c[0].r = var_demoCursor_8c225fa8->r;
+        var_peripherals_8c1ba35c[0].l = var_demoCursor_8c225fa8->l;
+        var_demoCursor_8c225fa8++;
+    }
 }

@@ -41,7 +41,7 @@ return new class extends TestCase {
 
         $this->setSize('_EventScanCandidates_8c02b03c', 4);
         $this->setSize('_AsqGetRandomInRangeA_8c012178', 4);
-        $this->setSize('_DebugMenuResetDemoCursor_8c016770', 4);
+        $this->setSize('_ReplayMenuResetDemoCursor_8c016770', 4);
         // _resetStopState_8c02c884, _pickWaitingPassengers_8c02c8ae,
         // _BusStopUpdateStopHeadings_8c02ccc6, _advanceStopSegment_8c02ccae are same-object --
         // mock with shouldCall() directly, no setSize().
@@ -94,7 +94,7 @@ return new class extends TestCase {
         // range(2-1=1) -> target = 0 + 1 = 1; extraStopCount = 1 - 1 = 0.
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
 
-        $this->shouldCall('_DebugMenuResetDemoCursor_8c016770');
+        $this->shouldCall('_ReplayMenuResetDemoCursor_8c016770');
 
         $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0);
         $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0);
@@ -163,7 +163,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(2)->andReturn(0);
         $this->shouldWriteLong($flags + 0, 1);
 
-        $this->shouldCall('_DebugMenuResetDemoCursor_8c016770');
+        $this->shouldCall('_ReplayMenuResetDemoCursor_8c016770');
 
         $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0);
         $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0);
@@ -229,7 +229,7 @@ return new class extends TestCase {
         // totalSegments = 2. range(2-1=1) -> target = 0 + 1 = 1; extraStopCount = 1 - 1 = 0.
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
 
-        $this->shouldCall('_DebugMenuResetDemoCursor_8c016770');
+        $this->shouldCall('_ReplayMenuResetDemoCursor_8c016770');
 
         // playMode == DEMO -> demo entry values are NOT cleared.
 
@@ -283,7 +283,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_AsqGetRandomInRangeA_8c012178')->with(1)->andReturn(0);
 
-        $this->shouldCall('_DebugMenuResetDemoCursor_8c016770');
+        $this->shouldCall('_ReplayMenuResetDemoCursor_8c016770');
 
         $this->shouldWriteLongTo('_var_activeTrafficPreset_8c227e14', 0);
         $this->shouldWriteLongTo('_var_activePedPreset_8c22822c', 0);

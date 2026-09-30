@@ -4,7 +4,7 @@
           .EXPORT     _ReplayCodecPack_8c02f934
           .EXPORT     _ReplayCodecUnpack_8c02fa14
           .EXPORT     _ReplayCodecInit_8c02f320
-          .EXPORT     _var_replayPackedSize_8c228ba4 ; 01614c_debug_menu
+          .EXPORT     _var_replayPackedSize_8c228ba4 ; 01614c_replay_menu
           .AIFDEF     UNIT_TESTING
           .EXPORT     _getBit_8c02f3a0
           .EXPORT     _getBits_8c02f3e0

@@ -441,7 +441,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->call('_lessonDescriptionTask_8c01e27c')->with($task);
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_worstPenaltyDelta_8c1bb8f0'), 0);
         $this->shouldWriteLong($this->addressOf('_var_worstPenaltyMsgSet_8c1bb8ec'), 0x1d);
         $this->shouldWriteLong($this->addressOf('_var_penaltyCount_8c1bb8f4'), 0);
@@ -542,7 +542,7 @@ return new class extends TestCase {
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
         $this->setSize('_njSetBackColor', 4);
-        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
+        $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_GamePushLoadingTask_8c013310', 4);
         $this->setSize('_var_worstPenaltyDelta_8c1bb8f0', 4);
         $this->setSize('_var_worstPenaltyMsgSet_8c1bb8ec', 4);

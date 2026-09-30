@@ -15,7 +15,7 @@
 #include "02c884_bus_stop.h"
 #include "014a9c_tasks.h"
 #include "022464_fade.h"
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "01e27c_practice_menu.h"
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
@@ -869,7 +869,7 @@ STATIC void driveEndFadeTask_8c02c69a(Task *task, void *state) {
             FadePushOut_8c022b60(10);
         }
     } else if (*phase == 2 && var_isFading_8c226568 == 0) {
-        DebugMenuFreeSessionAssets_8c016182();
+        ReplayMenuFreeSessionAssets_8c016182();
         if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
             PracticeMenuLessonRetry_8c01f21c();
             return;
@@ -893,7 +893,7 @@ STATIC void beginDriveEnd_8c02c738(void) {
     Task *created_task;
     void *created_state;
 
-    DebugMenuFreeDriveTasks_8c01614c();
+    ReplayMenuFreeDriveTasks_8c01614c();
     TaskPush_8c014ae8(var_tasks_8c1ba3c8, (void *)driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
     FadePushIn_8c022a9c(10);
@@ -932,7 +932,7 @@ STATIC void onFadeStopEnded_8c02c624(void) {
 
     var_runReportPending_8c1bb8b8 = 1;
     var_runWasPractice_8c1bb8bc = 0;
-    DebugMenuFreeSessionAssets_8c016182();
+    ReplayMenuFreeSessionAssets_8c016182();
 
     if (var_gameMode_8c1bb8fc == 0) {
         var_progress_8c1ba1cc.days_0x00 = var_progress_8c1ba1cc.days_0x00 + 1;
@@ -968,7 +968,7 @@ void DrivePointsOnFadeDriveEnd_8c02c784(void) {
     }
 
     var_runSucceeded_8c1bb8dc = 1;
-    DebugMenuFreeSessionAssets_8c016182();
+    ReplayMenuFreeSessionAssets_8c016182();
     PracticeMenuLessonRetry_8c01f21c();
 }
 

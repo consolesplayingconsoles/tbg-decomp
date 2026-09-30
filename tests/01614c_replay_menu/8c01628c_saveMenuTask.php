@@ -521,7 +521,7 @@ return new class extends TestCase {
         $this->call('_saveMenuTask_8c01628c')->with(0x1234, $p);   // r4 = task
 
         $this->shouldCall('_TaskFree_8c014b66')->with(0x1234);
-        $this->shouldCall('_DebugMenuOpen_8c01673a');
+        $this->shouldCall('_ReplayMenuOpen_8c01673a');
     }
 
     /* Zero all 9 VMU-status slots, then set the given present ones. External
@@ -550,7 +550,7 @@ return new class extends TestCase {
         $this->setSize('_BupGetInfo_8c014bba', 4);
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_buIsExistFile', 4);
-        /* DebugMenuOpen_8c01673a is defined in both objects now -- addressOf resolves it
+        /* ReplayMenuOpen_8c01673a is defined in both objects now -- addressOf resolves it
          * directly, do NOT setSize a defined symbol. */
     }
 };

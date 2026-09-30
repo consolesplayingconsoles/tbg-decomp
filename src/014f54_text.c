@@ -3,6 +3,7 @@
 #include <shinobi.h>
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
+#include "01614c_replay_menu.h"
 #include "014a9c_tasks.h"
 #include "011120_asset_queues.h"
 #include "014f54_text.h"
@@ -88,6 +89,19 @@ typedef struct {
     Uint8 bearing;  /* ink start column within the cell */
 } GlyphMetric;
 #endif
+
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+STATIC NJS_TEXNAME *var_glyphTexnames_8c1bc78c;
+STATIC NJS_TEXLIST *var_glyphTexlists_8c1bc790;
+STATIC ResourceGroup var_fontResourceGroup_8c1bc794;
+/* One entry per glyph texture slot: 0xffff free, otherwise the slot's own
+ * index. Parallel to var_glyphTexnames/var_glyphTexlists above. */
+STATIC Sint16 *var_glyphSlotUsed_8c1bc7a0;
+STATIC void *var_glyphBuffer_8c1bc7a4;
 
 /* ====================
  * Initialized Globals

@@ -10,7 +10,7 @@
 #include "014a9c_tasks.h"
 #include "014f54_text.h"
 #include "015ab8_title.h"
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "016d2c_course_menu.h"
 #include "01d7fc_results.h"
 #include "022464_fade.h"
@@ -337,7 +337,7 @@ STATIC void creditsTask_8c01f658(void)
         if (init_adxPlaying_8c03bd80 != 0) {
             return;
         }
-        DebugMenuFreeSessionAssets_8c016182();
+        ReplayMenuFreeSessionAssets_8c016182();
         if (var_selectedVm_8c1ba34c == -1) {
             TitlePushTitle_8c015fd6(0);
         } else {

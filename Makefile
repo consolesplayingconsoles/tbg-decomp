@@ -59,8 +59,7 @@ SRCS = \
 	src/014f54_text.c \
 	src/015ab8_title.c \
 	src/016108_resgrp_free.c \
-	src/01614c_debug_menu.c \
-	src/016bf4_demo_input.c \
+	src/01614c_replay_menu.c \
 	src/016c58_prompt.c \
 	src/016d2c_course_menu.c \
 	src/018644_file_menu.c \

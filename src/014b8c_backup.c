@@ -22,6 +22,8 @@
 #define USE_DRIVES BUD_USE_DRIVE_ALL
 
 
+BACKUPINFO var_gBupInfo_8c1bc4ac[MAX_DRIVES];
+
 
 /*
  * Prototypes of static functions.

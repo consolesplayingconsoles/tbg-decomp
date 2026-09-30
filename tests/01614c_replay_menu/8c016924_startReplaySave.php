@@ -131,13 +131,5 @@ return new class extends TestCase {
         $this->setSize('_syMalloc', 4);
         $this->setSize('_ReplayCodecInit_8c02f320', 4);
         $this->setSize('_ReplayCodecPack_8c02f934', 4);
-        /*
-         * startReplaySave_8c016924's real end-of-buffer bound check reuses &var_demoCursor_8c225fa8
-         * as a linker-layout coincidence (base + REPLAY_BUFFER_CAPACITY*8 lands exactly on
-         * the next symbol) -- same pattern as DebugMenuDemoRecordTask_8c01677e (see
-         * reference_linker_coincidence_bound memory). Allocate adjacently to reproduce it.
-         */
-        $this->setSize('_var_demoBuffer_8c1bc828', self::REPLAY_BUFFER_SIZE);
-        $this->setSize('_var_demoCursor_8c225fa8', 4);
     }
 };

@@ -9,7 +9,7 @@
 #include "013ae8_route_load.h"
 #include "014b8c_backup.h"
 #include "014f54_text.h"
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "015ab8_title.h"
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
@@ -317,7 +317,7 @@ STATIC void resultsTask_8c01d8e0(void)
         int textboxActive;
 
         if (!var_isFading_8c226568) {
-            DebugMenuFreeSessionAssets_8c016182();
+            ReplayMenuFreeSessionAssets_8c016182();
             if (var_runFailed_8c226408 != 0) {
                 TitlePushTitle_8c015fd6(0);
                 return;

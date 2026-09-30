@@ -1,9 +1,9 @@
-/* 8c1bc4ac: undecompiled data section */
-#ifndef _1BC4AC_SECTIONB_H
-#define _1BC4AC_SECTIONB_H
+/* 8c225fb0: undecompiled data section */
+#ifndef _225FB0_SECTIONB_H
+#define _225FB0_SECTIONB_H
 
 #include <shinobi.h>
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
 #include "01bb48_vm_game.h" /* LcdAnim */
@@ -59,30 +59,6 @@ typedef struct {
     int firstChimeArmed_0x18;
 } DriveCueState;
 
-typedef struct {
-    Uint32 on;   /* 0x00 */
-    Sint8  x1;   /* 0x04 */
-    Uint8  r;    /* 0x05 */
-    Uint8  l;    /* 0x06 */
-    Uint8  pad;  /* 0x07 */
-} ReplayInput;
-
-extern BACKUPINFO var_gBupInfo_8c1bc4ac[8];
-
-extern NJS_TEXNAME *var_glyphTexnames_8c1bc78c;
-extern NJS_TEXLIST *var_glyphTexlists_8c1bc790;
-extern ResourceGroup var_fontResourceGroup_8c1bc794;
-/* One entry per glyph texture slot: 0xffff free, otherwise the slot's own
- * index. Parallel to var_glyphTexnames/var_glyphTexlists above. */
-extern Sint16 *var_glyphSlotUsed_8c1bc7a0;
-extern void *var_glyphBuffer_8c1bc7a4;
-
-extern MenuState var_menuState_8c1bc7a8;
-extern DebugMenuCourseSel *var_debugMenuCourseSel_8c1bc824;
-#define REPLAY_BUFFER_CAPACITY 54000
-extern ReplayInput var_demoBuffer_8c1bc828[REPLAY_BUFFER_CAPACITY];
-extern ReplayInput *var_demoCursor_8c225fa8;
-extern Uint32 var_demoPrevOn_8c225fac;
 extern void* var_saveBufCursor_8c225fe0;      // 018644: BupLoad dest buffer, advances 0x600 per file
 extern int var_loadedSaveSlots_8c225fe4[10];    // 018644: VMU file index of each loaded save, in load order
 extern int var_loadedSaveCount_8c22600c;        // 018644
@@ -423,4 +399,4 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-#endif // _1BC4AC_SECTIONB_H
+#endif // _225FB0_SECTIONB_H

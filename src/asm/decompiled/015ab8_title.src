@@ -14,7 +14,6 @@
           .IMPORT     _init_saveNames_8c044d50
           .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _var_titleActive_8c1bb8c4
-          .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_peripherals_8c1ba35c
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _GameTask_8c012f44
@@ -26,7 +25,7 @@
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _VmMenuUpdateVmusStatus_8c019550
           .IMPORT     _VmMenuSwitchFromTask_8c019e44
-          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
+          .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _TxtStartAttractDemo_8c0159ac
           .IMPORT     _AsqResetQueues_8c011f6c
           .IMPORT     _CourseMenuRequestSysResgrp_8c018568
@@ -45,6 +44,20 @@
           .EXPORT     _init_mainMenuResourceGroup_8c044264 ; 016d2c_course_menu.c, 016d2c_course_menu.src, 019e98_main_menu.c, 019e98_main_menu.src
           .EXPORT     _init_practice01ResourceGroup_8c044274 ; 01e27c.src
           .EXPORT     _init_practice02ResourceGroup_8c044284 ; 01e27c.src
+          .EXPORT     _var_menuState_8c1bc7a8 ; 0129cc_game
+                                              ; 016d2c_course_menu
+                                              ; 018644_file_menu
+                                              ; 0193c8_vm_menu
+                                              ; 019e98_main_menu
+                                              ; 01a148
+                                              ; 01b19c
+                                              ; 01bb48
+                                              ; 01c980
+                                              ; 01d290_album
+                                              ; 01d7fc
+                                              ; 01e27c
+                                              ; 01f3c0
+                                              ; 02b464
           .SECTION    P,CODE,ALIGN=4
 _titleTask_8c015ab8:            ; function: titleTask_8c015ab8
                                  ; frame size=?
@@ -654,7 +667,7 @@ L48:
           .DATA.L     _init_adxPlaying_8c03bd80
           .DATA.L     _var_titleActive_8c1bb8c4 ; H'8c015f50
           .DATA.L     _VmMenuSwitchFromTask_8c019e44
-          .DATA.L     _DebugMenuFreeSessionAssets_8c016182
+          .DATA.L     _ReplayMenuFreeSessionAssets_8c016182
           .DATA.L     _TxtStartAttractDemo_8c0159ac
 
 L49:                              
@@ -939,4 +952,7 @@ _const_8c036094:        ; from ghidra
           .SDATA      "practice02.pvm"
           .DATA.B     H'00
           ;.RES.B      1
+          .SECTION    B,DATA,ALIGN=4
+_var_menuState_8c1bc7a8:
+          .RES.L      31
           .END

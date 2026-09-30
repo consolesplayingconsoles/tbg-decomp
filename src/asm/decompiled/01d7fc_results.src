@@ -41,7 +41,7 @@
           .IMPORT     _var_vmBusy_8c157a7c
           .IMPORT     _var_backupFileImageBuf_8c1ba348
           .IMPORT     _syFree
-          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
+          .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _CourseMenuBuildCourseUnlockList_8c0172dc
           .IMPORT     _CourseMenuApplyUnlocks_8c0173e6
@@ -1006,7 +1006,7 @@ LP_GEN_50614:
           .DATA.L _var_backupFileImageBuf_8c1ba348 ; H'8C01DF0C
           .DATA.L _syFree ; H'8C01DF10
           .DATA.L _const_8c0388f0 ; H'8C01DF14
-          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01DF18
+          .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01DF18
           .DATA.L _var_progress_8c1ba1cc ; H'8C01DF1C
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01DF20
           .DATA.L _CourseMenuBuildCourseUnlockList_8c0172dc ; H'8C01DF24

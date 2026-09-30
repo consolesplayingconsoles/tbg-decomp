@@ -50,7 +50,7 @@
           .IMPORT     _RouteLoadPushSegmentReloadTask_8c01468e
           .IMPORT     _var_runReportPending_8c1bb8b8
           .IMPORT     _var_runWasPractice_8c1bb8bc
-          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
+          .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _var_runSucceeded_8c1bb8dc
@@ -61,7 +61,7 @@
           .IMPORT     _PracticeMenuLessonRetry_8c01f21c
           .IMPORT     _var_markTexlist_8c1bc418
           .IMPORT     _TxtDrawSprite_8c014f54
-          .IMPORT     _DebugMenuFreeDriveTasks_8c01614c
+          .IMPORT     _ReplayMenuFreeDriveTasks_8c01614c
           .IMPORT     _FadePushIn_8c022a9c
           .IMPORT     _ResultShowPassedRun_8c01e0b4
           .IMPORT     _var_menuState_8c1bc7a8
@@ -2642,7 +2642,7 @@ LP_GEN_25024:
           .DATA.L _RouteLoadPushSegmentReloadTask_8c01468e ; H'8C02C824
           .DATA.L _var_runReportPending_8c1bb8b8 ; H'8C02C828
           .DATA.L _var_runWasPractice_8c1bb8bc ; H'8C02C82C
-          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C02C830
+          .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C02C830
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C02C834
           .DATA.L _var_progress_8c1ba1cc ; H'8C02C838
           .DATA.L _var_runSucceeded_8c1bb8dc ; H'8C02C83C
@@ -2656,7 +2656,7 @@ LP_GEN_25024:
           .DATA.L _var_markTexlist_8c1bc418 ; H'8C02C85C
           .DATA.L H'C0400000 ; H'8C02C860
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C02C864
-          .DATA.L _DebugMenuFreeDriveTasks_8c01614c ; H'8C02C868
+          .DATA.L _ReplayMenuFreeDriveTasks_8c01614c ; H'8C02C868
           .DATA.L _driveEndFadeTask_8c02c69a ; H'8C02C86C
           .DATA.L _TaskPush_8c014ae8 ; H'8C02C870
           .DATA.L _FadePushIn_8c022a9c ; H'8C02C874

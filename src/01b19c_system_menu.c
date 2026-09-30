@@ -16,7 +16,7 @@
 #include "018644_file_menu.h"
 #include "01bb48_vm_game.h"
 #include "015ab8_title.h"
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "0100bc_sound.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
@@ -337,7 +337,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
 
     case SAVE_STATE_LOAD_FAILED:
         if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
-            DebugMenuFreeSessionAssets_8c016182();
+            ReplayMenuFreeSessionAssets_8c016182();
             TitlePushTitle_8c015fd6(0);
             return;
         }
@@ -425,7 +425,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         if (var_isFading_8c226568 != 0 || var_vmMountBusy_8c22606c != 0) {
             break;
         }
-        DebugMenuFreeSessionAssets_8c016182();
+        ReplayMenuFreeSessionAssets_8c016182();
         TitlePushTitle_8c015fd6(1);
         return;
 

@@ -15,7 +15,7 @@ void GameTask_8c012f44();
 /* Set up the driving scene; run at course entry and at every segment
  * boundary, from 013ae8's load tasks. */
 void GameEnterDrive_8c01306e(void);
-/* Start a run on the course already staged in var_debugMenuCourseSel_8c1bc824
+/* Start a run on the course already staged in var_replayMenuCourseSel_8c1bc824
  * (debug menu, demos, replays). GamePushLoadingTask_8c013310 is the retail
  * path, taking the course id and the drive mode from saved progress instead. */
 void GameStartSelectedCourse_8c01328c();

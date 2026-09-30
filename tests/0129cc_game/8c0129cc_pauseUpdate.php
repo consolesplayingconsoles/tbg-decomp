@@ -374,7 +374,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x38, 0x2b);
         $this->shouldCall('_PracticeMenuLessonRetry_8c01f21c');
         $this->shouldReturn(0);
@@ -397,7 +397,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 0);
         $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         for ($i = 0; $i < 5; $i++) {
             $this->shouldWriteLong($prog + 0x04 + $i * 4, 0x100 + $i);
             $this->shouldWriteLong($prog + 0x18 + $i * 4, 0x200 + $i);
@@ -415,7 +415,7 @@ return new class extends TestCase {
         $this->setSize('_SndSetPaused_8c0107d2', 4);
         $this->setSize('_pdVibMxStop', 4);
         $this->setSize('_FadePushOut_8c022b60', 4);
-        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
+        $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
         $this->setSize('_PracticeMenuLessonRetry_8c01f21c', 4);
 

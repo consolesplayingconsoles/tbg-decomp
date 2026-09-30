@@ -6,7 +6,7 @@
 #include "0129cc_game.h"
 #include "013ae8_route_load.h"
 #include "015ab8_title.h"
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "016c58_prompt.h"
 #include "016d2c_course_menu.h"
 #include "01f3c0_ending.h"
@@ -255,7 +255,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
             if (var_isFading_8c226568 == 0) {
                 if (init_adxPlaying_8c03bd80 != 0) break;
 
-                DebugMenuFreeSessionAssets_8c016182();
+                ReplayMenuFreeSessionAssets_8c016182();
                 var_worstPenaltyDelta_8c1bb8f0 = 0;
                 var_worstPenaltyMsgSet_8c1bb8ec = 0x1d;
                 var_penaltyCount_8c1bb8f4 = 0;
@@ -691,7 +691,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
                  * like the earlier x/y mixups; this union slot is otherwise
                  * unused by this screen. */
                 var_menuState_8c1bc7a8.pos.title.flagY_0x24 = 0.0f;
-                DebugMenuFreeSessionAssets_8c016182();
+                ReplayMenuFreeSessionAssets_8c016182();
 
                 if (var_progress_8c1ba1cc.days_0x00 > 0x1e && var_gameMode_8c1bb8fc != 1) {
                     CourseMenuBuildCourseUnlockList_8c0172dc();

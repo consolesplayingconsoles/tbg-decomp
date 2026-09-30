@@ -58,7 +58,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 1);
         $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_progress_8c1ba1cc'), 6);
         $this->shouldWriteLong($this->addressOf('_var_runSucceeded_8c1bb8dc'), 1);
         $this->shouldCall('_ResultShowPassedRun_8c01e0b4');

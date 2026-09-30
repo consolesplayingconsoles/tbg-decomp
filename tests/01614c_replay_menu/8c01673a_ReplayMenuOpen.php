@@ -12,7 +12,7 @@ return new class extends TestCase {
 
         $createdTask = $this->alloc(0x10);
 
-        $this->call('_DebugMenuOpen_8c01673a');
+        $this->call('_ReplayMenuOpen_8c01673a');
 
         $this->shouldCall('_njSetBackColor')->with(0, 0, 0);
         $this->shouldCall('_InputPushTask_8c0128cc')->with(0);

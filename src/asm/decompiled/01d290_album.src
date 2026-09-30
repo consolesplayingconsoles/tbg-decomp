@@ -14,7 +14,7 @@
           .IMPORT     _FadePushOut_8c022b60
           .IMPORT     _CourseMenuInterpolateCursor_8c016d2c
           .IMPORT     _init_adxPlaying_8c03bd80
-          .IMPORT     _DebugMenuFreeSessionAssets_8c016182
+          .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _CourseMenuReturn_8c017ef2
           .IMPORT     _TaskSetAction_8c014b3e
           .IMPORT     _CourseMenuFreeResourceGroup_8c0185c4
@@ -683,7 +683,7 @@ LP_GEN_43132:
           .DATA.L H'C0400000 ; H'8C01D754
           .DATA.L _TxtDrawSprite_8c014f54 ; H'8C01D758
           .DATA.L _init_adxPlaying_8c03bd80 ; H'8C01D75C
-          .DATA.L _DebugMenuFreeSessionAssets_8c016182 ; H'8C01D760
+          .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01D760
           .DATA.L _CourseMenuReturn_8c017ef2 ; H'8C01D764
           .DATA.L _albumMenuTask_8c01d300 ; H'8C01D768
           .DATA.L _TaskSetAction_8c014b3e ; H'8C01D76C

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _DemoInputTask_8c016bf4: pops one replay record from the queue at _var_demoCursor_8c225fa8 and
+ * _ReplayMenuDemoPlayTask_8c016bf4: pops one replay record from the queue at _var_demoCursor_8c225fa8 and
  * folds it into peripheral slot 0 (_var_peripherals_8c1ba35c[0]).
  *
  * Guard (both must hold, else no-op):
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->initUint8($record + 5, 0x34);      // r src
         $this->initUint8($record + 6, 0x56);      // l src
 
-        $this->call('_DemoInputTask_8c016bf4');
+        $this->call('_ReplayMenuDemoPlayTask_8c016bf4');
 
         // press = on & (oldOn ^ on) = 5 & (0 ^ 5) = 5
         $this->shouldWriteLong($buf + 0x08, 0x5);          // on
@@ -57,7 +57,7 @@ return new class extends TestCase {
         );
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2b4), 0);  // driveState_0x2b4: not driving
 
-        $this->call('_DemoInputTask_8c016bf4');
+        $this->call('_ReplayMenuDemoPlayTask_8c016bf4');
 
         // First guard fails: function returns without touching peripherals,
         // oldOn, or the cursor.
@@ -72,7 +72,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_demoCursor_8c225fa8'), $end);  // cursor == end
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x2b4), 1);     // driveState_0x2b4: driving
 
-        $this->call('_DemoInputTask_8c016bf4');
+        $this->call('_ReplayMenuDemoPlayTask_8c016bf4');
 
         // Second guard fails (cursor >= buffer end): no writes.
     }
@@ -81,8 +81,5 @@ return new class extends TestCase {
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34 * 2);
         $this->setSize('_var_busState_8c1bb9d0', 0x3cc);
-        $this->setSize('_var_demoPrevOn_8c225fac', 4);
-        $this->setSize('_var_demoCursor_8c225fa8', 4);
-        $this->setSize('_var_demoBuffer_8c1bc828', self::REPLAY_BUFFER_SIZE);
     }
 };

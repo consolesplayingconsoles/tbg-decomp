@@ -11,7 +11,7 @@ return new class extends TestCase {
 
         $this->call('_pauseTask_8c012cbc');
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
     }
 
@@ -59,7 +59,7 @@ return new class extends TestCase {
         int $vmBusy = 0,
         int $queuesInitialized = 0,
     ): void {
-        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
+        $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_TitlePushTitle_8c015fd6', 4);
         $this->setSize('_FadeCmdResetQueues_8c02239c', 4);
         $this->setSize('_TaskExecGroup_8c014b42', 4);

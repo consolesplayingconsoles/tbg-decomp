@@ -997,7 +997,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->shouldReadSymbolOffset('_init_adxPlaying_8c03bd80', 0, 0);
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TxtStartAttractDemo_8c0159ac');
 
         $this->singleCall('_titleTask_8c015ab8')
@@ -1052,7 +1052,6 @@ return new class extends TestCase {
 
     private function resolveImports() {
         $this->setSize('_TxtDrawSprite_8c014f54', 4);
-        $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
         // sizeof PERIPHERAL = 52
         $this->setSize('_var_peripherals_8c1ba35c', 52 * 2);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x8);

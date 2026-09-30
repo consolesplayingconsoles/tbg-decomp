@@ -44,7 +44,7 @@ import sys
 NOT_CHECKED = {
     # startReplaySave_8c016924 calls the LZW packer; nothing in the image calls
     # startReplaySave, so the C is unreachable and under-decompiled.
-    "01614c_debug_menu": {"ReplayCodecPack_8c02f934"},
+    "01614c_replay_menu": {"ReplayCodecPack_8c02f934"},
     # The archive's out-of-memory hook and its division are not in the C yet.
     "010fe8_heap": {"divls", "heapAllocOutOfMemoryHook_8c01102a"},
     # The archive streams from GD-ROM and stops MIDI; the C does neither yet.

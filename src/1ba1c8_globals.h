@@ -401,7 +401,7 @@ extern int var_shouldShowFreeRunIntro_8c1bb8c0;
 extern int var_titleActive_8c1bb8c4;
 /* The run's DRIVE MODE: 0 manual, 1 auto. Set from
  * PlayerProgress.driveMode_0xc5 for a retail start, or from the debug row's
- * DebugMenuCourseSel.driveMode_0x08 (1 on every *_AUTO row). Auto skips most
+ * ReplayMenuCourseSel.driveMode_0x08 (1 on every *_AUTO row). Auto skips most
  * of 02b464's driver-points grading. */
 extern int var_driveMode_8c1bb8c8;
 extern int var_pauseActive_8c1bb8cc;

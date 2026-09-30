@@ -11,7 +11,7 @@
 #include "0100bc_sound.h"
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
-#include "01614c_debug_menu.h"
+#include "01614c_replay_menu.h"
 #include "022464_fade.h"
 #include "sectionD.h"
 #include "sectionB.h"
@@ -290,7 +290,7 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
                 var_menuState_8c1bc7a8.cursorCol_0x3c = 1;
                 var_menuState_8c1bc7a8.cursorRow_0x40 = 1;
                 var_menuState_8c1bc7a8.pos.cursor.cursor_0x20.x = 0.0;
-                DebugMenuFreeSessionAssets_8c016182();
+                ReplayMenuFreeSessionAssets_8c016182();
                 CourseMenuReturn_8c017ef2();
                 return;
             }

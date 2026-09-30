@@ -1224,7 +1224,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 if (init_adxPlaying_8c03bd80 != 0) {
                     return;
                 }
-                DebugMenuFreeSessionAssets_8c016182();
+                ReplayMenuFreeSessionAssets_8c016182();
 
                 if (var_progress_8c1ba1cc.courses_0x44[courseIndex].everPlayed_0x02 == 0) {
                     var_firstClearOfCourse_8c1bb8e0 = 1;

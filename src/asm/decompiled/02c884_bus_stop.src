@@ -15,7 +15,7 @@
           .IMPORT     _var_eventCandidates_8c228520
           .IMPORT     _var_eventCandidateCount_8c228560
           .IMPORT     _var_routeEvents_8c22851c
-          .IMPORT     _DebugMenuResetDemoCursor_8c016770
+          .IMPORT     _ReplayMenuResetDemoCursor_8c016770
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_activeTrafficPreset_8c227e14
           .IMPORT     _var_activePedPreset_8c22822c
@@ -577,7 +577,7 @@ LP_GEN_85265:
           .DATA.W H'FE3E ; H'8C02CC68
           .RES.W 1 ; H'8C02CC6A
           .DATA.L _AsqGetRandomInRangeA_8c012178 ; H'8C02CC6C
-          .DATA.L _DebugMenuResetDemoCursor_8c016770 ; H'8C02CC70
+          .DATA.L _ReplayMenuResetDemoCursor_8c016770 ; H'8C02CC70
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C02CC74
           .DATA.L _var_activeTrafficPreset_8c227e14 ; H'8C02CC78
           .DATA.L _var_activePedPreset_8c22822c ; H'8C02CC7C

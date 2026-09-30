@@ -43,7 +43,7 @@ return new class extends TestCase {
         $this->setSize('__divls', 4);
         $this->setSize('__modls', 4);
         $this->setSize('_CourseMenuReturn_8c017ef2', 4);
-        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
+        $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
 
         // Uninitialized, but read on every path.
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + 0x10, 0);
@@ -834,7 +834,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->menu(0x3c), 0);
         $this->shouldWriteLong($this->menu(0x40), 1);
         $this->shouldWriteLong($this->menu(0x20), $this->floatToUint32(0.0));
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_CourseMenuReturn_8c017ef2');
     }
 

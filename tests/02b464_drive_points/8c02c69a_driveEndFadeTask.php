@@ -60,7 +60,7 @@ return new class extends TestCase {
 
         $this->call('_driveEndFadeTask_8c02c69a')->with($task, 0);
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_ResultShowPassedRun_8c01e0b4');
     }
 
@@ -75,7 +75,7 @@ return new class extends TestCase {
 
         $this->call('_driveEndFadeTask_8c02c69a')->with($task, 0);
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldWriteLong($this->addressOf('_var_shouldShowFreeRunIntro_8c1bb8c0'), 0);
         $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 0);
         $this->shouldCall('_CourseMenuReturn_8c017ef2');

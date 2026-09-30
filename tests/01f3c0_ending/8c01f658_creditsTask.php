@@ -44,7 +44,7 @@ return new class extends TestCase {
         $this->setSize('_TxtInit_8c01524c', 4);
         $this->setSize('_TxtCreateTextBox_8c0152fc', 4);
         $this->setSize('_TxtPrepareTextBoxLayout_8c01543a', 4);
-        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
+        $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_TitlePushTitle_8c015fd6', 4);
         $this->setSize('_ResultShowFailedRun_8c01e24e', 4);
     }
@@ -389,7 +389,7 @@ return new class extends TestCase {
 
         $this->call('_creditsTask_8c01f658');
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_TitlePushTitle_8c015fd6')->with(0);
     }
 
@@ -403,7 +403,7 @@ return new class extends TestCase {
 
         $this->call('_creditsTask_8c01f658');
 
-        $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+        $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         $this->shouldCall('_ResultShowFailedRun_8c01e24e');
     }
 };

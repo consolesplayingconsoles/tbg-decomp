@@ -236,7 +236,6 @@ return new class extends TestCase {
         $this->setSize('_TaskFree_8c014b66', 4);
         $this->setSize('_GameStartSelectedCourse_8c01328c', 4);
         $this->setSize('_var_demoBuf_8c1ba3c4', 4);
-        $this->setSize('_var_demoBuffer_8c1bc828', 4);
         $this->setSize('_var_currentCourse_8c1bb868', 0x50);
         $this->setSize('_var_driveMode_8c1bb8c8', 4);
         $this->setSize('_var_seed_8c157a64', 4);

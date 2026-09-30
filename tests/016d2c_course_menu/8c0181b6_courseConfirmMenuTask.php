@@ -450,11 +450,11 @@ return new class extends TestCase {
 
         // Step 1: Initialize game systems
         if ($this->isAsmObject()) {
-            $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+            $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
             $this->shouldCall('__divls');
         } else {
             $this->shouldCall('__divls');
-            $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+            $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         }
 
         // Step 2: Check if course is unlocked (read course[4].everPlayed_0x02)
@@ -525,13 +525,13 @@ return new class extends TestCase {
 
         $this->call('_courseConfirmMenuTask_8c0181b6');
 
-        // Step 1: call DebugMenuFreeSessionAssets_8c016182
+        // Step 1: call ReplayMenuFreeSessionAssets_8c016182
         if ($this->isAsmObject()) {
-            $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+            $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
             $this->shouldCall('__divls');
         } else {
             $this->shouldCall('__divls');
-            $this->shouldCall('_DebugMenuFreeSessionAssets_8c016182');
+            $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
         }
 
         // Step 2: Course is already unlocked (everPlayed_0x02 == 1), so write 0 to var_firstClearOfCourse_8c1bb8e0
@@ -671,7 +671,7 @@ return new class extends TestCase {
         $this->onCall('__divls', function () {
             $this->setRegister(0, $this->getRegister(1)->div($this->getRegister(0)));
         });
-        $this->setSize('_DebugMenuFreeSessionAssets_8c016182', 4);
+        $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
         $this->setSize('_GamePushLoadingTask_8c013310', 4);
         $this->setSize('_var_firstClearOfCourse_8c1bb8e0', 4);
         $this->setSize('_var_passengerCount_8c1bb8e4', 4);

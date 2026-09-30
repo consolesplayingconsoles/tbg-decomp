@@ -60,8 +60,8 @@ Suspects surviving all three tests, strongest first:
 | `012324_peripheral_support` + `012504_input` (merged as `012324_input`) | 1 | 0 |
 
 Eliminated by contiguity, i.e. small TUs whose sole consumer is far away:
-`016bf4_demo_input` (4 units from `012f44_game`), `02412c_bus_line` (2 from
-`022bdc_bus`), `023310_bus_init` (31 from `012f44_game`).
+`02412c_bus_line` (2 from `022bdc_bus`), `023310_bus_init` (31 from
+`012f44_game`).
 
 `04ce10_line_nodes` flags on test 1 but is a genuine **data-only object**: no P
 section at all, which is also why `013ae8_route_load` uses data that links
@@ -72,6 +72,13 @@ instead: pause had no data object of its own, while its private D
 (`init_pauseDimQuad`) and bss (`pauseSettle`..`onRetire`) sat in the middle
 of game's D and B runs. Pause links first, so as separate TUs all of its data
 would precede game's.
+
+`016bf4_demo_input` + `01614c_debug_menu` (merged as `01614c_replay_menu`) were
+found by pairing: demo_input's one function is the playback half of replay_menu's
+`ReplayMenuDemoRecordTask`, game pushes both, and replay_menu's reset zeroes
+`demoPrevOn`, which only playback reads. Its sole consumer being game is what
+test 2 had flagged. Layout can't separate them: split, demo_input would own
+`demoCursor`/`demoPrevOn` at the same addresses.
 
 ## `02d968_stop_spawn`: the case in detail
 

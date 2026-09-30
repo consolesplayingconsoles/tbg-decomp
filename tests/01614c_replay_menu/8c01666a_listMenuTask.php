@@ -6,8 +6,8 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 
 return new class extends TestCase {
     /*
-     * init_debugMenuEntries_8c04429c's 19 real debug-menu entries (SHINJYUKU_EVENT..VISUAL_MEMORY),
-     * in order, terminated by a "" name. It's owned by C now (see 01614c_debug_menu.c), so
+     * init_replayMenuEntries_8c04429c's 19 real debug-menu entries (SHINJYUKU_EVENT..VISUAL_MEMORY),
+     * in order, terminated by a "" name. It's owned by C now (see 01614c_replay_menu.c), so
      * both objects have the real table -- no faking/seeding needed here.
      */
     private const ENTRY_NAMES = [
@@ -36,10 +36,9 @@ return new class extends TestCase {
     {
         $this->setSize('_var_peripherals_8c1ba35c', 0x34);
         $this->setSize('_TaskFree_8c014b66', 4);
-        $this->setSize('_var_debugMenuCourseSel_8c1bc824', 4);
         $this->setSize('_njPrintC', 4);
         $this->setSize('_AsqGetRandomA_8c012166', 4);
-        // the only foreign entry in init_debugMenuEntries_8c04429c; the rest are
+        // the only foreign entry in init_replayMenuEntries_8c04429c; the rest are
         // real functions in this unit and need no faking
         $this->setSize('_ObjectsRequestMessageAssets_8c02aa36', 4);
     }
@@ -64,8 +63,8 @@ return new class extends TestCase {
 
         $this->shouldCall('_TaskFree_8c014b66')->with($task);
         $this->shouldWriteLong(
-            $this->addressOf('_var_debugMenuCourseSel_8c1bc824'),
-            $this->addressOf('_init_debugMenuEntries_8c04429c') + 1 * 0x14 + 0x08
+            $this->addressOf('_var_replayMenuCourseSel_8c1bc824'),
+            $this->addressOf('_init_replayMenuEntries_8c04429c') + 1 * 0x14 + 0x08
         );
         $this->shouldCall('_ObjectsRequestMessageAssets_8c02aa36');
     }
