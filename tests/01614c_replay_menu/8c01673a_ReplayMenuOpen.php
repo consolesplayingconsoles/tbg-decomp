@@ -15,7 +15,7 @@ return new class extends TestCase {
         $this->call('_ReplayMenuOpen_8c01673a');
 
         $this->shouldCall('_njSetBackColor')->with(0, 0, 0);
-        $this->shouldCall('_InputPushTask_8c0128cc')->with(0);
+        $this->shouldCall('_InputSpawnTask_8c0128cc')->with(0);
         $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
                 $this->addressOf('_var_tasks_8c1ba3c8'),

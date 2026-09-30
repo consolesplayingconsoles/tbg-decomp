@@ -32,7 +32,7 @@ return new class extends TestCase {
         $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
-        // _MainMenuSwitchFromTask_8c01a09a and the three switch-in wrappers are
+        // _MainMenuEnter_8c01a09a and the three switch-in wrappers are
         // auto-allocated via the init_topMenuActions_8c044e28 dispatch table's relocations.
 
         $this->initUint32($this->addressOf('_var_peripherals_8c1ba35c') + self::PRESS, $press);
@@ -128,10 +128,10 @@ return new class extends TestCase {
 
     public function test_confirm_return_row()
     {
-        // RETURN is table[3] = MainMenuSwitchFromTask; still a confirm (sound 0).
+        // RETURN is table[3] = MainMenuEnter; still a confirm (sound 0).
         $this->arrange(press: self::TA, state: 1, selected: 3);
         $this->shouldWriteLong($this->menu(self::STATE), 2);
-        $this->shouldWriteLong($this->menu(self::FIELD70), $this->addressOf('_MainMenuSwitchFromTask_8c01a09a'));
+        $this->shouldWriteLong($this->menu(self::FIELD70), $this->addressOf('_MainMenuEnter_8c01a09a'));
         $this->shouldWriteLong($this->menu(self::FIELD74), 2);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 0, 0);
@@ -142,7 +142,7 @@ return new class extends TestCase {
     {
         $this->arrange(press: self::TB, state: 1, selected: 1);
         $this->shouldWriteLong($this->menu(self::STATE), 2);
-        $this->shouldWriteLong($this->menu(self::FIELD70), $this->addressOf('_MainMenuSwitchFromTask_8c01a09a'));
+        $this->shouldWriteLong($this->menu(self::FIELD70), $this->addressOf('_MainMenuEnter_8c01a09a'));
         $this->shouldWriteLong($this->menu(self::FIELD74), 2);
         $this->shouldCall('_RenderPushFadeOut_8c022b60')->with(10);
         $this->shouldCall('_sdMidiPlay')->with(self::MIDI, 1, 1, 0);
@@ -153,8 +153,8 @@ return new class extends TestCase {
     {
         // returnAction_0x70 holds the pending task (here MainMenu); called with (task, arg=2).
         $this->arrange(press: 0, state: 2, selected: 3, isFading: 0,
-                       field70: $this->addressOf('_MainMenuSwitchFromTask_8c01a09a'), field74: 2);
-        $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with($this->task, 2);
+                       field70: $this->addressOf('_MainMenuEnter_8c01a09a'), field74: 2);
+        $this->shouldCall('_MainMenuEnter_8c01a09a')->with($this->task, 2);
     }
 
     public function test_phase2_keeps_fading()

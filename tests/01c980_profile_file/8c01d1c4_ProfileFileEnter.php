@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * ProfileFilePushTask_8c01d1c4: installs menuTask_8c01ccec,
+ * ProfileFileEnter_8c01d1c4: installs menuTask_8c01ccec,
  * resets the grid cursor to slot (0,0), refreshes unlock flags, and kicks
  * off the async load of the overview page's resource group.
  */
@@ -39,7 +39,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $task = $this->alloc(0x20);
 
-        $this->call('_ProfileFilePushTask_8c01d1c4')->with($task);
+        $this->call('_ProfileFileEnter_8c01d1c4')->with($task);
         $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_menuTask_8c01ccec')
         );

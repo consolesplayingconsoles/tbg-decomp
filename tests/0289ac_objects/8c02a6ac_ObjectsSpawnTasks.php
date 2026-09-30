@@ -38,7 +38,7 @@ return new class extends TestCase {
     }
 
     /**
-     * ObjectsPushTasks_8c02a6ac's stack slots for TaskSpawn's created_task /
+     * ObjectsSpawnTasks_8c02a6ac's stack slots for TaskSpawn's created_task /
      * create_state out-params (a single pair of locals reused across every
      * row and the closing TaskSpawn call). The two objects lay the frame out
      * differently.
@@ -79,7 +79,7 @@ return new class extends TestCase {
     {
         $this->initUint32($this->addressOf('_var_assetRequestTable_8c228408'), -1);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
     }
 
     public function test_empty_table_still_pushes_the_closing_group_task(): void
@@ -90,7 +90,7 @@ return new class extends TestCase {
         $table = $this->makeTable([]);
         $this->initUint32($this->addressOf('_var_assetRequestTable_8c228408'), $table);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         $this->mockCloseTaskSpawn();
     }
@@ -114,7 +114,7 @@ return new class extends TestCase {
         $task1 = $this->alloc(0x20);
         $state1 = $this->alloc(0x7c);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
@@ -151,7 +151,7 @@ return new class extends TestCase {
         $closeTask = $this->alloc(0x20);
         $closeState = $this->alloc(4);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
@@ -203,7 +203,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x7c);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
@@ -243,7 +243,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x7c);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
@@ -290,7 +290,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x7c);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
@@ -335,7 +335,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x7c);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
@@ -377,7 +377,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $state = $this->alloc(0x7c);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
@@ -449,7 +449,7 @@ return new class extends TestCase {
         $state0 = $this->alloc(0x7c);
         $task1 = $this->alloc(0x20);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         [$taskLocal, $stateLocal] = $this->outParams();
 
@@ -516,7 +516,7 @@ return new class extends TestCase {
         $task1 = $this->alloc(0x20);
         $state1 = $this->alloc(0x7c);
 
-        $this->call('_ObjectsPushTasks_8c02a6ac');
+        $this->call('_ObjectsSpawnTasks_8c02a6ac');
 
         $this->shouldCall('_TaskSpawn_8c014ae8')
             ->do(function () use ($task0, $state0) {

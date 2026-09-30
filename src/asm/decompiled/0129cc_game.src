@@ -9,7 +9,7 @@
           .IMPORT     _var_titleActive_8c1bb8c4
           .IMPORT     _init_adxPlaying_8c03bd80
           .IMPORT     _init_soundOk_8c03bd84
-          .IMPORT     _TitlePushTitle_8c015fd6
+          .IMPORT     _TitleSpawnTitle_8c015fd6
           .IMPORT     _var_playMode_8c1bb8d0
           .IMPORT     _var_route_8c18ad1c
           .IMPORT     _var_currentSegment_8c228708
@@ -35,7 +35,7 @@
           .IMPORT     _srand
           .IMPORT     _AsqSetSeedA_8c012160
           .IMPORT     _AsqSetSeedB_8c0121a2
-          .IMPORT     _InputPushTask_8c0128cc
+          .IMPORT     _InputSpawnTask_8c0128cc
           .IMPORT     _TaskSpawn_8c014ae8
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _ReplayMenuDemoRecordTask_8c01677e
@@ -49,8 +49,8 @@
           .IMPORT     _ObjectsInitBlinkers_8c029920
           .IMPORT     _ObjectsInitPedestrianGroups_8c0296d6
           .IMPORT     _TrafficInit_8c02769e
-          .IMPORT     _TileDrawPushTask_8c0222dc
-          .IMPORT     _ObjectsPushTasks_8c02a6ac
+          .IMPORT     _TileDrawSpawnTask_8c0222dc
+          .IMPORT     _ObjectsSpawnTasks_8c02a6ac
           .IMPORT     _GradeReset_8c02c46a
           .IMPORT     _HudReset_8c02018c
           .IMPORT     _StopSpawnInit_8c02d968
@@ -165,7 +165,7 @@
           .IMPORT     _njExitTexture
           .IMPORT     _SbExitSystem_8c014a24
           .IMPORT     _syBtExit
-          .IMPORT     _RoutePushTask_8c0144fc
+          .IMPORT     _RouteSpawnTask_8c0144fc
           .IMPORT     _var_midiHandles_8c0fcd28
           .IMPORT     _sdMidiPlay
           .IMPORT     _var_peripheral_8c1ba358
@@ -193,7 +193,7 @@
           .EXPORT     _GameTask_8c012f44
           .EXPORT     _GameEnterDrive_8c01306e
           .EXPORT     _GameStartSelectedCourse_8c01328c
-          .EXPORT     _GamePushLoadingTask_8c013310
+          .EXPORT     _GameSpawnLoadingTask_8c013310
           .EXPORT     _GameInit_8c0134ec
           .EXPORT     _GameMain_8c01392e
           .EXPORT     _GameExit_8c0139d4
@@ -789,7 +789,7 @@ LP_GEN_43727:
           .DATA.L _var_resetRequested_8c157a78
           .DATA.L _var_vmBusy_8c157a7c
           .DATA.L _var_queuesAreInitialized_8c157a60
-          .DATA.L _TitlePushTitle_8c015fd6
+          .DATA.L _TitleSpawnTitle_8c015fd6
           .DATA.L _RenderResetQueues_8c02239c
           .DATA.L _var_tasks_8c1ba5e8
           .DATA.L _TaskRunGroup_8c014b42
@@ -912,7 +912,7 @@ LAB_8c012f10:
 LP_GEN_94405:
           .DATA.W     H'0708 ; LP_GEN_94405+0
           .DATA.L     _RenderPushFadeOut_8c022b60
-          .DATA.L     _TitlePushTitle_8c015fd6
+          .DATA.L     _TitleSpawnTitle_8c015fd6
           .DATA.L     _RenderResetQueues_8c02239c
           .DATA.L     _var_tasks_8c1ba5e8
           .DATA.L     _TaskRunGroup_8c014b42
@@ -1048,7 +1048,7 @@ LP_GEN_99840:
           .DATA.L _var_titleActive_8c1bb8c4
           .DATA.L _init_adxPlaying_8c03bd80
           .DATA.L _init_soundOk_8c03bd84
-          .DATA.L _TitlePushTitle_8c015fd6
+          .DATA.L _TitleSpawnTitle_8c015fd6
           .DATA.L _var_playMode_8c1bb8d0
           .DATA.L _var_route_8c18ad1c
           .DATA.L _var_currentSegment_8c228708
@@ -1228,7 +1228,7 @@ LP_GEN_31464:
           .DATA.L _srand
           .DATA.L _AsqSetSeedA_8c012160
           .DATA.L _AsqSetSeedB_8c0121a2
-          .DATA.L _InputPushTask_8c0128cc
+          .DATA.L _InputSpawnTask_8c0128cc
           .DATA.L _TaskSpawn_8c014ae8
           .DATA.L _var_tasks_8c1ba3c8
           .DATA.L _var_playMode_8c1bb8d0
@@ -1395,7 +1395,7 @@ LAB_8c0132e2:
           LDS.L       @R15+,PR
           JMP         @R2
           MOV.L       @R15+,R14
-_GamePushLoadingTask_8c013310:
+_GameSpawnLoadingTask_8c013310:
           MOV.L       LP_GEN_38000+28,R3
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
@@ -1489,8 +1489,8 @@ LP_GEN_38000:
           .DATA.L _ObjectsInitBlinkers_8c029920
           .DATA.L _ObjectsInitPedestrianGroups_8c0296d6
           .DATA.L _TrafficInit_8c02769e
-          .DATA.L _TileDrawPushTask_8c0222dc
-          .DATA.L _ObjectsPushTasks_8c02a6ac
+          .DATA.L _TileDrawSpawnTask_8c0222dc
+          .DATA.L _ObjectsSpawnTasks_8c02a6ac
           .DATA.L _GradeReset_8c02c46a
           .DATA.L _HudReset_8c02018c
           .DATA.L _StopSpawnInit_8c02d968
@@ -1514,7 +1514,7 @@ LP_GEN_38000:
           .DATA.L _var_progress_8c1ba1cc + H'C6
           .DATA.L _var_savedCameraMode_8c227da0
           .DATA.L _var_savedCameraCueState_8c227da8
-          .DATA.L _RoutePushTask_8c0144fc
+          .DATA.L _RouteSpawnTask_8c0144fc
           .DATA.L _var_progress_8c1ba1cc + H'C5
           .DATA.L _const_8c033364
 
@@ -1654,7 +1654,7 @@ LP_GEN_65923:
           .DATA.L _TaskKill_8c014b66
           .DATA.L _SndInit_8c010e18
           .DATA.L _var_lcdAnimActive_8c2260a8
-          .DATA.L _TitlePushTitle_8c015fd6
+          .DATA.L _TitleSpawnTitle_8c015fd6
           .DATA.L _var_gdErr_8c18ad14
           .DATA.L H'00100000
           .DATA.L _njSetTextureMemorySize

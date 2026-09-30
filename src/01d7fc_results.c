@@ -337,7 +337,7 @@ STATIC void resultsTask_8c01d8e0(void)
         if (!var_isFading_8c226568) {
             ReplayMenuFreeSessionAssets_8c016182();
             if (var_runFailed_8c226408 != 0) {
-                TitlePushTitle_8c015fd6(0);
+                TitleSpawnTitle_8c015fd6(0);
                 return;
             }
             if (var_progress_8c1ba1cc.days_0x00 > 0x1e) {
@@ -369,7 +369,7 @@ STATIC void startResultsTask_8c01df8e(void)
     Task *created_task;
     void *created_state;
 
-    InputPushTask_8c0128cc(0);
+    InputSpawnTask_8c0128cc(0);
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, GameTask_8c012f44, &created_task, &created_state, 0);
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, resultsTask_8c01d8e0, &created_task, &created_state, 0);
     var_menuState_8c1bc7a8.state_0x18 = 0;

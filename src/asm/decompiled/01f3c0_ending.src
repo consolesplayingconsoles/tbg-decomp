@@ -16,7 +16,7 @@
           .IMPORT     _RouteGetLatch_8c01432a
           .IMPORT     _AsqFreeQueues_8c011f7e
           .IMPORT     _RenderPushFadeIn_8c022a9c
-          .IMPORT     _CourseMenuPushDialogTask_8c0170c6
+          .IMPORT     _CourseMenuSpawnDialogTask_8c0170c6
           .IMPORT     _var_instructorDialogActive_8c225fb4
           .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _MessageBoxFreeTextboxes_8c02af32
@@ -25,9 +25,9 @@
           .IMPORT     _var_messageTextBoxB_8c1bc408
           .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _var_selectedVm_8c1ba34c
-          .IMPORT     _TitlePushTitle_8c015fd6
+          .IMPORT     _TitleSpawnTitle_8c015fd6
           .IMPORT     _init_instructorDialogs_8c044c08
-          .IMPORT     _InputPushTask_8c0128cc
+          .IMPORT     _InputSpawnTask_8c0128cc
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _TaskSpawn_8c014ae8
@@ -517,7 +517,7 @@ LP_GEN_79838:
           .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01F744
           .DATA.L _var_endingVoiceList_8c226430 ; H'8C01F748
           .DATA.L _var_dialogQueue_8c225fbc ; H'8C01F74C
-          .DATA.L _CourseMenuPushDialogTask_8c0170c6 ; H'8C01F750
+          .DATA.L _CourseMenuSpawnDialogTask_8c0170c6 ; H'8C01F750
 LAB_8c01f754:
           MOV.L       LP_GEN_41910+10,R2
           MOV.L       @R2,R1
@@ -771,7 +771,7 @@ LP_GEN_28976:
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01F944
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01F948
           .DATA.L _ResultsShowFailedRun_8c01e24e ; H'8C01F94C
-          .DATA.L _TitlePushTitle_8c015fd6 ; H'8C01F950
+          .DATA.L _TitleSpawnTitle_8c015fd6 ; H'8C01F950
 _EndingStart_8c01f954:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
@@ -875,7 +875,7 @@ LP_GEN_38893:
           .DATA.L _var_menuState_8c1bc7a8 ; H'8C01FA18
           .DATA.L _var_dialogQueue_8c225fbc ; H'8C01FA1C
           .DATA.L _init_instructorDialogs_8c044c08 ; H'8C01FA20
-          .DATA.L _InputPushTask_8c0128cc ; H'8C01FA24
+          .DATA.L _InputSpawnTask_8c0128cc ; H'8C01FA24
           .DATA.L _GameTask_8c012f44 ; H'8C01FA28
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01FA2C
           .DATA.L _TaskSpawn_8c014ae8 ; H'8C01FA30

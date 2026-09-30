@@ -9,7 +9,7 @@ return new class extends TestCase {
     // Task offsets.
     const TASK_FIELD_08 = 0x08;
 
-    // State offsets (word index * 4), matching ObjectsPushTasks_8c02a6ac's test.
+    // State offsets (word index * 4), matching ObjectsSpawnTasks_8c02a6ac's test.
     const ST_10 = 0x40;
     const ST_11 = 0x44;
     const ST_12 = 0x48;

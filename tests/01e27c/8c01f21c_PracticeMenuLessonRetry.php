@@ -79,7 +79,7 @@ return new class extends TestCase {
         $menuStateBase = $this->addressOf('_var_menuState_8c1bc7a8');
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 1);
-        $this->shouldCall('_InputPushTask_8c0128cc')->with(0);
+        $this->shouldCall('_InputSpawnTask_8c0128cc')->with(0);
 
         $createdTask = 0x2000;
         // Both calls seed their created_task out-param with a sentinel so the
@@ -132,7 +132,7 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_InputPushTask_8c0128cc', 4);
+        $this->setSize('_InputSpawnTask_8c0128cc', 4);
         $this->setSize('_TaskSpawn_8c014ae8', 4);
         $this->setSize('_var_menuState_8c1bc7a8', 0x84);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);

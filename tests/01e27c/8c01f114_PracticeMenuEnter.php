@@ -10,7 +10,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $task = $this->alloc(0x20);
-        $this->call('_PracticeMenuLessonStart_8c01f114')->with($task);
+        $this->call('_PracticeMenuEnter_8c01f114')->with($task);
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 1);
         $this->shouldCall('_TaskSwitch_8c014b3e')->with($task, $this->addressOf('_lessonMenuTask_8c01ebf2'));
@@ -52,7 +52,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
 
         $task = $this->alloc(0x20);
-        $this->call('_PracticeMenuLessonStart_8c01f114')->with($task);
+        $this->call('_PracticeMenuEnter_8c01f114')->with($task);
 
         $this->shouldWriteLongTo('_var_playMode_8c1bb8d0', 1);
         $this->shouldCall('_TaskSwitch_8c014b3e')->with($task, $this->addressOf('_lessonMenuTask_8c01ebf2'));

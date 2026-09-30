@@ -24,7 +24,7 @@
           .IMPORT     _RouteClearLatch_8c014322
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
           .IMPORT     _VmSelectUpdateAllStatus_8c019550
-          .IMPORT     _VmSelectSwitchFromTask_8c019e44
+          .IMPORT     _VmSelectEnter_8c019e44
           .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _TxtStartAttractDemo_8c0159ac
           .IMPORT     _AsqResetQueues_8c011f6c
@@ -35,11 +35,11 @@
           .IMPORT     _SndPlayAdx_8c010cd6
           .IMPORT     _InputCheckColdBoot_8c012984
           .IMPORT     _SndStartAdxFadeOut_8c010bae
-          .IMPORT     _InputPushTask_8c0128cc
+          .IMPORT     _InputSpawnTask_8c0128cc
           .AIFDEF UNIT_TESTING
           .EXPORT     _titleTask_8c015ab8
           .AENDI
-          .EXPORT     _TitlePushTitle_8c015fd6
+          .EXPORT     _TitleSpawnTitle_8c015fd6
           .EXPORT     _init_titleResourceGroup_8c044254 ; 015ab8_title.c, 015ab8_title.src, 01d7fc.src
           .EXPORT     _init_mainMenuResourceGroup_8c044264 ; 016d2c_course_menu.c, 016d2c_course_menu.src, 019e98_main_menu.c, 019e98_main_menu.src
           .EXPORT     _init_practice01ResourceGroup_8c044274 ; 01e27c.src
@@ -666,7 +666,7 @@ L48:
           .DATA.L     _VmSelectUpdateAllStatus_8c019550
           .DATA.L     _init_adxPlaying_8c03bd80
           .DATA.L     _var_titleActive_8c1bb8c4 ; H'8c015f50
-          .DATA.L     _VmSelectSwitchFromTask_8c019e44
+          .DATA.L     _VmSelectEnter_8c019e44
           .DATA.L     _ReplayMenuFreeSessionAssets_8c016182
           .DATA.L     _TxtStartAttractDemo_8c0159ac
 
@@ -734,12 +734,12 @@ L52:
           RTS
           MOV.L       @R15+,R14
 
-_TitlePushTitle_8c015fd6:                   ; function: TitlePushTitle_8c015fd6
+_TitleSpawnTitle_8c015fd6:                   ; function: TitleSpawnTitle_8c015fd6
                                  ; frame size=44
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           ADD         #-12,R15
-          MOV.L       L53+24,R3; InputPushTask_8c0128cc
+          MOV.L       L53+24,R3; InputSpawnTask_8c0128cc
           MOV.L       R4,@(8,R15)
           JSR         @R3
           MOV         #0,R4
@@ -843,7 +843,7 @@ L53:
           .DATA.L     H'43970000 ; 302.0
           .DATA.L     H'43340000 ; 180.0
           .DATA.L     H'C0E00000 ; -7.0
-          .DATA.L     _InputPushTask_8c0128cc ; H'8c0160b0
+          .DATA.L     _InputSpawnTask_8c0128cc ; H'8c0160b0
           .DATA.L     _GameTask_8c012f44
           .DATA.L     _var_tasks_8c1ba3c8
           .DATA.L     _TaskSpawn_8c014ae8

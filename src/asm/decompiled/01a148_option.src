@@ -24,7 +24,7 @@
           .IMPORT     _SndPlayBgm_8c0107ac
           .IMPORT     _SndPlaySfx_8c0106d2
           .IMPORT     _SndPlayVoice_8c010720
-          .IMPORT     _MainMenuSwitchFromTask_8c01a09a
+          .IMPORT     _MainMenuEnter_8c01a09a
           .AIFDEF UNIT_TESTING
           .EXPORT     _cycleValue_8c01a3da
           .EXPORT     _keyConfigEditExit_8c01a4b4
@@ -46,7 +46,7 @@
           .EXPORT     _var_sfxTestDigits_8c226080
           .EXPORT     _var_voiceTestDigits_8c226088
           .AENDI
-          .EXPORT     _OptionSwitchToTopMenu_8c01b122
+          .EXPORT     _OptionEnter_8c01b122
           .EXPORT     _var_soundMode_8c226070 ; 0129cc_game
                                               ; 018644_file_select
           .SECTION     P, CODE, ALIGN=4
@@ -245,7 +245,7 @@ LAB_8c01a29e:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _OptionSwitchToTopMenu_8c01b122
+          BRA         _OptionEnter_8c01b122
           MOV.L       @R15+,R14
 LAB_8c01a2c0:
           MOVA        LP_GEN_35922+8,R0
@@ -798,7 +798,7 @@ LAB_8c01a6c8:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _OptionSwitchToTopMenu_8c01b122
+          BRA         _OptionEnter_8c01b122
           MOV.L       @R15+,R14
 LAB_8c01a6ea:
           MOVA        LP_GEN_30580+28,R0
@@ -1738,7 +1738,7 @@ LAB_8c01adc8:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _OptionSwitchToTopMenu_8c01b122
+          BRA         _OptionEnter_8c01b122
           MOV.L       @R15+,R14
 LAB_8c01adec:
           MOVA        LP_GEN_36649+8,R0
@@ -2164,7 +2164,7 @@ LAB_8c01b0e2:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_OptionSwitchToTopMenu_8c01b122:
+_OptionEnter_8c01b122:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_51773+8,R3
           MOV.L       R5,@-R15
@@ -2199,7 +2199,7 @@ LP_GEN_51773:
           .DATA.L H'10+_var_peripherals_8c1ba35c ; H'8C01B174
           .DATA.L _init_topMenuActions_8c044e28 ; H'8C01B178
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01B17C
-          .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C01B180
+          .DATA.L _MainMenuEnter_8c01a09a ; H'8C01B180
           .DATA.L _SpriteDraw_8c014f54 ; H'8C01B184
           .DATA.L H'C0800000 ; H'8C01B188
           .DATA.L H'C0A00000 ; H'8C01B18C
@@ -2225,7 +2225,7 @@ _init_topMenuActions_8c044e28:        ; from defines
           .DATA.L      _switchToSetting_8c01a3c0 ; ukn
           .DATA.L      _switchToKeyConfig_8c01a89c ; ukn
           .DATA.L      _switchToAudio_8c01afd8 ; ukn
-          .DATA.L      _MainMenuSwitchFromTask_8c01a09a ; ukn
+          .DATA.L      _MainMenuEnter_8c01a09a ; ukn
           .SECTION    B,DATA,ALIGN=4
 _var_soundMode_8c226070:
           .RES.B      4

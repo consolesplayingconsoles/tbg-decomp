@@ -365,7 +365,7 @@ STATIC void instructorDialogTask_8c016f98(InstructorDialogTask *task, Instructor
     var_menuTextboxCharLimit_8c225fb8 = state->revealedCharCount_0x0c;
 }
 
-void CourseMenuPushDialogTask_8c0170c6(int dialog_index, int *p2)
+void CourseMenuSpawnDialogTask_8c0170c6(int dialog_index, int *p2)
 {
     InstructorDialogTask *task;
     InstructorDialogState *state;
@@ -682,7 +682,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
 
         case COURSE_MENU_STATE_FADE_IN: {
             if (var_isFading_8c226568 == 0) {
-                CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[0], 0);
+                CourseMenuSpawnDialogTask_8c0170c6(var_dialogQueue_8c225fbc[0], 0);
                 CHANGE_STATE(COURSE_MENU_STATE_DIALOG);
             }
             break;
@@ -713,7 +713,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 MessageBoxSwapFor_8c02aefc("");
             }
             else {
-                CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
+                CourseMenuSpawnDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
                 if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
                     SndMidiResetFxAndPlay_8c010846(0, 0);
                 }
@@ -780,7 +780,7 @@ STATIC void courseMenuStoryMenuTask_8c017718(Task * task, void *state)
                 return;
 
             var_runReportPending_8c1bb8b8 = 0;
-            MainMenuSwitchFromTask_8c01a09a(task, var_menuState_8c1bc7a8.subState_0x1c);
+            MainMenuEnter_8c01a09a(task, var_menuState_8c1bc7a8.subState_0x1c);
             return;
         }
     }
@@ -836,7 +836,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
 
         case COURSE_MENU_STATE_FADE_IN: {
             if (var_isFading_8c226568 == 0) {
-                CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[0], 0);
+                CourseMenuSpawnDialogTask_8c0170c6(var_dialogQueue_8c225fbc[0], 0);
                 CHANGE_STATE(COURSE_MENU_STATE_DIALOG);
             }
             break;
@@ -867,7 +867,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
                 MessageBoxSwapFor_8c02aefc("");
             }
             else {
-                CourseMenuPushDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
+                CourseMenuSpawnDialogTask_8c0170c6(var_dialogQueue_8c225fbc[task->field_0x08], 0);
                 if (var_dialogQueue_8c225fbc[task->field_0x08] == INSTR_COURSE_UNLOCKED) {
                     SndMidiResetFxAndPlay_8c010846(0, 0);
                 }
@@ -929,7 +929,7 @@ STATIC void courseMenuFreeRunMenuTask_8c017ada(Task * task, void *state)
             if (init_adxPlaying_8c03bd80)
                 return;
 
-            MainMenuSwitchFromTask_8c01a09a(task, 1);
+            MainMenuEnter_8c01a09a(task, 1);
             return;
         }
     }
@@ -1006,7 +1006,7 @@ STATIC void refreshCourseGrid_8c017d54(void)
     }
 }
 
-void CourseMenuSwitchFromTask_8c017e18(Task *task)
+void CourseMenuEnter_8c017e18(Task *task)
 {
     LOG_INFO(("[COURSE_MENU] Initializing course menu (mode=%d)\n", var_gameMode_8c1bb8fc));
 
@@ -1057,7 +1057,7 @@ void CourseMenuReturn_8c017ef2(void)
 
     LOG_INFO(("[COURSE_MENU] Setting up story course menu\n"));
 
-    InputPushTask_8c0128cc(0);
+    InputSpawnTask_8c0128cc(0);
 
     TaskSpawn_8c014ae8(
         var_tasks_8c1ba3c8,
@@ -1262,7 +1262,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
                 var_menuState_8c1bc7a8.courseId_0x50 += 
                     init_courseVariants_8c044d10[var_progress_8c1ba1cc.days_0x00 - 1];
 
-                GamePushLoadingTask_8c013310(var_menuState_8c1bc7a8.courseId_0x50);
+                GameSpawnLoadingTask_8c013310(var_menuState_8c1bc7a8.courseId_0x50);
                 return;
             }
             drawRouteInfo_8c018118();
@@ -1277,7 +1277,7 @@ STATIC void courseConfirmMenuTask_8c0181b6(Task * task, void *state)
 
                 CourseMenuFreeResourceGroup_8c0185c4(&var_menuState_8c1bc7a8.resourceGroupB_0x0c);
                 var_currentSysResGroupInfo_8c225fb0 = (void *) -1;
-                CourseMenuSwitchFromTask_8c017e18(task);
+                CourseMenuEnter_8c017e18(task);
                 return;
             }
             break;
@@ -1409,7 +1409,7 @@ STATIC CourseMenuButton init_courseMenuButtons_8c04442c[COURSE_BUTTON_COUNT] = {
         /* unlocked */ 1,
         /* x, y     */ 45.0f, 109.0f,
         /* spriteNo */ 0,
-        /* onSelect */ PracticeMenuLessonStart_8c01f114,
+        /* onSelect */ PracticeMenuEnter_8c01f114,
         /* courseId */ 0,
     },
     {   /* [1] */
@@ -1417,7 +1417,7 @@ STATIC CourseMenuButton init_courseMenuButtons_8c04442c[COURSE_BUTTON_COUNT] = {
         /* unlocked */ 1,
         /* x, y     */ 110.0f, 109.0f,
         /* spriteNo */ 0,
-        /* onSelect */ SystemMenuSwitchFromTask_8c01ba64,
+        /* onSelect */ SystemMenuEnter_8c01ba64,
         /* courseId */ 0,
     },
     {   /* [2] */
@@ -1449,7 +1449,7 @@ STATIC CourseMenuButton init_courseMenuButtons_8c04442c[COURSE_BUTTON_COUNT] = {
         /* unlocked */ 1,
         /* x, y     */ 45.0f, 182.0f,
         /* spriteNo */ 0,
-        /* onSelect */ ProfileFilePushTask_8c01d1c4,
+        /* onSelect */ ProfileFileEnter_8c01d1c4,
         /* courseId */ 0,
     },
     {   /* [6] */
@@ -1457,7 +1457,7 @@ STATIC CourseMenuButton init_courseMenuButtons_8c04442c[COURSE_BUTTON_COUNT] = {
         /* unlocked */ 1,
         /* x, y     */ 109.0f, 182.0f,
         /* spriteNo */ 0,
-        /* onSelect */ AlbumSwitchFromTask_8c01d6e2,
+        /* onSelect */ AlbumEnter_8c01d6e2,
         /* courseId */ 0,
     },
     {   /* [7] */

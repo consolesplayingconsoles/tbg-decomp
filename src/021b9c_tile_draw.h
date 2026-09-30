@@ -34,6 +34,6 @@ extern TileRect *var_currentTileRegionList_8c226534; /* -1 when unset */
  * =========
  */
 
-void TileDrawPushTask_8c0222dc(void);
+void TileDrawSpawnTask_8c0222dc(void);
 
 #endif // _021B9C_TILE_DRAW_H

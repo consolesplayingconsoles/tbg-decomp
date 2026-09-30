@@ -1007,7 +1007,7 @@ return new class extends TestCase {
         $this->initUint32($task + 0x08, 2); // substate
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with($task);
+        $this->shouldCall('_MainMenuEnter_8c01a09a')->with($task);
 
         $this->singleCall('_vmMenuTask_8c0198a0')->with($task, 0)->run();
     }
@@ -1038,7 +1038,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 10);
-        //$this->shouldCall('_MainMenuSwitchFromTask_8c01a09a');
+        //$this->shouldCall('_MainMenuEnter_8c01a09a');
 
         $this->singleCall('_vmMenuTask_8c0198a0')->with($task, 0)->run();
     }
@@ -1075,7 +1075,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_menuState_8c1bc7a8') + 0x3c, 0);
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
 
-        $this->shouldCall('_FileSelectSwitchFromTask_8c019334')->with(0xcafecafe);
+        $this->shouldCall('_FileSelectEnter_8c019334')->with(0xcafecafe);
 
         $this->singleCall('_vmMenuTask_8c0198a0')->with(0xcafecafe, 0)->run();
     }
@@ -1115,7 +1115,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_isFading_8c226568'), 0);
         $this->initUint32($this->addressOf('_init_adxPlaying_8c03bd80'), 0);
 
-        $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with(0xcafecafe);
+        $this->shouldCall('_MainMenuEnter_8c01a09a')->with(0xcafecafe);
 
         $this->singleCall('_vmMenuTask_8c0198a0')->with(0xcafecafe, 0)->run();
     }
@@ -1185,7 +1185,7 @@ return new class extends TestCase {
         $this->setSize('_BupGetInfo_8c014bba', 4);
         $this->setSize('_SpriteDraw_8c014f54', 4);
         $this->setSize('_RenderPushFadeOut_8c022b60', 4);
-        $this->setSize('_MainMenuSwitchFromTask_8c01a09a', 4);
+        $this->setSize('_MainMenuEnter_8c01a09a', 4);
     }
 
     private function initUint32Array(int $address, array $values): void

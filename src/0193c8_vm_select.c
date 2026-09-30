@@ -697,7 +697,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
                 // VM Warning Fade out to Main Menu
                 case 2: {
                     if (!var_isFading_8c226568) {
-                        MainMenuSwitchFromTask_8c01a09a(task, 0);
+                        MainMenuEnter_8c01a09a(task, 0);
                         return;
                     }
                     break;
@@ -720,7 +720,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
         // Confirm Fade Out to Main Menu
         case VM_SELECT_STATE_CONFIRM_FADE_OUT_TO_MAIN_MENU: {
             if (!var_isFading_8c226568) {
-                FileSelectSwitchFromTask_8c019334(task);
+                FileSelectEnter_8c019334(task);
                 return;
             }
 
@@ -744,7 +744,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
             // Bits 0 and 4 stay set while the two ADX streams are still
             // playing; hold the screen until both fade-outs have finished.
             if (init_adxPlaying_8c03bd80) return;
-            MainMenuSwitchFromTask_8c01a09a(task, 0);
+            MainMenuEnter_8c01a09a(task, 0);
             return;
         }
 
@@ -761,7 +761,7 @@ STATIC void vmMenuTask_8c0198a0(Task* task, void *actionState)
 }
 
 /* Tested */
-void VmSelectSwitchFromTask_8c019e44(Task *task)
+void VmSelectEnter_8c019e44(Task *task)
 {
     TaskSwitch_8c014b3e(task, vmMenuTask_8c0198a0);
     var_menuState_8c1bc7a8.state_0x18 = VM_SELECT_STATE_INIT;

@@ -898,7 +898,7 @@ STATIC void beginDriveEnd_8c02c738(void) {
     Task *created_task;
     void *created_state;
 
-    ReplayMenuFreeDriveTasks_8c01614c();
+    ReplayMenuKillDriveTasks_8c01614c();
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, (void *)driveEndFadeTask_8c02c69a, &created_task, &created_state, 0);
     created_task->field_0x08 = 0;
     RenderPushFadeIn_8c022a9c(10);
@@ -924,14 +924,14 @@ STATIC void onFadeRunFailed_8c02c76a(void) {
  * like driveEndFadeTask_8c02c69a's state 2. */
 STATIC void onFadeStopEnded_8c02c624(void) {
     if (GradeRunComplete_8c02c586() == 0) {
-        ObjectsFreePedestrianGroups_8c0297da();
+        ObjectsKillPedestrianGroups_8c0297da();
         SignalFree_8c0288be();
         TaskKillGroup_8c014ab4(var_tasks_8c1bb448);
         TaskKillGroup_8c014ab4(var_tasks_8c1bac28);
         TaskKillGroup_8c014ab4(var_tasks_8c1ba5e8);
         TaskKillGroup_8c014ab4(var_tasks_8c1ba3c8);
         StopUpdateHeadings_8c02ccc6();
-        RoutePushSegmentReloadTask_8c01468e();
+        RouteSpawnSegmentReloadTask_8c01468e();
         return;
     }
 
@@ -951,14 +951,14 @@ STATIC void onFadeStopEnded_8c02c624(void) {
 
 void GradeOnFadeDriveEnd_8c02c784(void) {
     if (GradeRunComplete_8c02c586() == 0 && var_runState_8c2285c4.driverPoints_0x0c > 0) {
-        ObjectsFreePedestrianGroups_8c0297da();
+        ObjectsKillPedestrianGroups_8c0297da();
         SignalFree_8c0288be();
         TaskKillGroup_8c014ab4(var_tasks_8c1bb448);
         TaskKillGroup_8c014ab4(var_tasks_8c1bac28);
         TaskKillGroup_8c014ab4(var_tasks_8c1ba5e8);
         TaskKillGroup_8c014ab4(var_tasks_8c1ba3c8);
         StopUpdateHeadings_8c02ccc6();
-        RoutePushSegmentReloadTask_8c01468e();
+        RouteSpawnSegmentReloadTask_8c01468e();
         return;
     }
 

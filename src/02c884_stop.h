@@ -16,7 +16,7 @@ typedef struct {
 } StopAreaRecord;
 
 /* Frees the bus-stop task group and marks it unallocated. */
-void StopFreeTaskGroup_8c02ca96(void);
+void StopKillTaskGroup_8c02ca96(void);
 
 /* Per-run setup, called once the course has loaded: decides which segments
  * get a stop, then primes the first one and its waiting passengers. */

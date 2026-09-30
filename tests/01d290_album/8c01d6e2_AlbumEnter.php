@@ -19,7 +19,7 @@ return new class extends TestCase {
         $this->seedCursorTarget(2, 100.0, 200.0);
 
         $task = $this->alloc(0x20);
-        $this->call('_AlbumSwitchFromTask_8c01d6e2')->with($task);
+        $this->call('_AlbumEnter_8c01d6e2')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task,
@@ -42,7 +42,7 @@ return new class extends TestCase {
         $this->seedLetters([0, 0, 0, 0, 0, 0]);
 
         $task = $this->alloc(0x20);
-        $this->call('_AlbumSwitchFromTask_8c01d6e2')->with($task);
+        $this->call('_AlbumEnter_8c01d6e2')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task,

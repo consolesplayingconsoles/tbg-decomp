@@ -117,7 +117,7 @@ int var_loadScreenActive_8c157a6c;
    BT_CONTROLLER or BT_RACING (012324_input.h), or -1 for no usable pad. */
 int var_activeCtrlType_8c157a70;
 /* TaskSpawn_8c014ae8 needs somewhere to report the task it made;
-   InputPushTask_8c0128cc gives it this, and nothing ever reads it back. */
+   InputSpawnTask_8c0128cc gives it this, and nothing ever reads it back. */
 Task *var_pushedTask_8c157a74;
 int var_resetRequested_8c157a78;
 int var_vmBusy_8c157a7c;

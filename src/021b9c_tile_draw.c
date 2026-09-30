@@ -210,7 +210,7 @@ STATIC void drawTileGridMirror_8c021ec4(int width, int height)
     njControl3D(NJD_CONTROL_3D_MODEL_CLIP);
 }
 
-/* The TaskAction TileDrawPushTask_8c0222dc installs: computes the
+/* The TaskAction TileDrawSpawnTask_8c0222dc installs: computes the
  * three light directions (broadcasting one scalar CourseSceneParams
  * component into a vector, then transforming it by whichever camera is
  * current -- as coded, not obviously intentional but preserved), then
@@ -247,7 +247,7 @@ STATIC void enqueueTask_8c0221d0(Task *task, void *state)
 /* Run-start setup for the tile draw pass. The two latched lighting records
  * split by lighting mode: rec1_0x54 into njCnkSetEasyLight*,
  * rec2_0x74 into njCnkSetSimpleLight*. */
-void TileDrawPushTask_8c0222dc(void)
+void TileDrawSpawnTask_8c0222dc(void)
 {
     Task *task;
     LoadedModel *state;

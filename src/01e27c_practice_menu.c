@@ -275,7 +275,7 @@ STATIC void lessonDescriptionTask_8c01e27c(Task *task)
                 var_worstPenaltyMsgSet_8c1bb8ec = 0x1d;
                 var_penaltyCount_8c1bb8f4 = 0;
                 var_practiceRules_8c226410 = init_practiceRules_8c0451c0[var_practiceLesson_8c22640c];
-                GamePushLoadingTask_8c013310(var_practiceLesson_8c22640c + 0x1b);
+                GameSpawnLoadingTask_8c013310(var_practiceLesson_8c22640c + 0x1b);
                 break;
             }
 
@@ -392,7 +392,7 @@ STATIC void showLesson_8c01e63c(Task *task)
         case SHOW_LESSON_STATE_FADE_OUT_TO_MENU:
             if (var_isFading_8c226568 == 0) {
                 var_menuState_8c1bc7a8.selected_0x38 = var_practiceLesson_8c22640c;
-                PracticeMenuLessonStart_8c01f114(task);
+                PracticeMenuEnter_8c01f114(task);
                 return;
             }
             break;
@@ -585,7 +585,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 
         case LESSON_STATE_DIALOG_FADE_IN:
             if (var_isFading_8c226568 == 0) {
-                CourseMenuPushDialogTask_8c0170c6(var_lessonDialogQueue_8c226414[0], 0);
+                CourseMenuSpawnDialogTask_8c0170c6(var_lessonDialogQueue_8c226414[0], 0);
                 var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_DIALOG_QUEUE;
             }
             break;
@@ -597,7 +597,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
                     var_menuState_8c1bc7a8.state_0x18 = LESSON_STATE_MENU;
                     MessageBoxSwapFor_8c02aefc(const_emptyMsg_8c038984);
                 } else {
-                    CourseMenuPushDialogTask_8c0170c6(var_lessonDialogQueue_8c226414[task->field_0x08], 0);
+                    CourseMenuSpawnDialogTask_8c0170c6(var_lessonDialogQueue_8c226414[task->field_0x08], 0);
                 }
             }
             break;
@@ -780,7 +780,7 @@ STATIC void lessonMenuTask_8c01ebf2(Task *task, void *state)
 
 /* Course-button onSelect (init_courseMenuButtons_8c04442c), and the way back
  * from a lesson's guide text: opens the lesson list on the task it is given. */
-void PracticeMenuLessonStart_8c01f114(Task *task)
+void PracticeMenuEnter_8c01f114(Task *task)
 {
     var_playMode_8c1bb8d0 = PLAY_MODE_PRACTICE;
     TaskSwitch_8c014b3e(task, lessonMenuTask_8c01ebf2);
@@ -837,7 +837,7 @@ void PracticeMenuLessonRetry_8c01f21c(void)
     }
 
     var_playMode_8c1bb8d0 = PLAY_MODE_PRACTICE;
-    InputPushTask_8c0128cc(0);
+    InputSpawnTask_8c0128cc(0);
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, GameTask_8c012f44, &created_task, &created_state, 0);
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, lessonMenuTask_8c01ebf2, &created_task, &created_state, 0);
 

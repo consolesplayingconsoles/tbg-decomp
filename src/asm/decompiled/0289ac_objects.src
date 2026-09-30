@@ -94,7 +94,7 @@
           .EXPORT     _pedestriansTask_8c0293f6
           .AENDI
           .EXPORT     _ObjectsInitPedestrianGroups_8c0296d6
-          .EXPORT     _ObjectsFreePedestrianGroups_8c0297da
+          .EXPORT     _ObjectsKillPedestrianGroups_8c0297da
           .AIFDEF UNIT_TESTING
           .EXPORT     _resolveObjectChildren_8c029868
           .AENDI
@@ -163,7 +163,7 @@
           .AIFDEF UNIT_TESTING
           .EXPORT     _execRowTaskGroupTask_8c02a60e
           .AENDI
-          .EXPORT     _ObjectsPushTasks_8c02a6ac
+          .EXPORT     _ObjectsSpawnTasks_8c02a6ac
           .EXPORT     _init_pedestrianTexAnims_8c04623c ; 028258.src, 02c884.src
           .AIFDEF UNIT_TESTING
           .EXPORT     _init_stopLineLocalA_8c04650c
@@ -2079,7 +2079,7 @@ LAB_8c0297ce:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_ObjectsFreePedestrianGroups_8c0297da:
+_ObjectsKillPedestrianGroups_8c0297da:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15
@@ -3963,7 +3963,7 @@ LP_GEN_23851:
           .DATA.L _setSimpleLightCallback_8c02a5d0 ; H'8C02A6A0
           .DATA.L _var_tasks_8c1bb448 ; H'8C02A6A4
           .DATA.L _TaskRunGroup_8c014b42 ; H'8C02A6A8
-_ObjectsPushTasks_8c02a6ac:
+_ObjectsSpawnTasks_8c02a6ac:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

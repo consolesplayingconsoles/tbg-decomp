@@ -281,7 +281,7 @@ return new class extends TestCase {
         $this->call('_showLesson_8c01e63c')->with($task);
 
         $this->shouldWriteLong($menuState + 0x38, 5); // selected_0x38 = var_practiceLesson_8c22640c
-        $this->shouldCall('_PracticeMenuLessonStart_8c01f114')->with($task);
+        $this->shouldCall('_PracticeMenuEnter_8c01f114')->with($task);
     }
 
     public function test_fade_out_start_still_fading_only_draws()

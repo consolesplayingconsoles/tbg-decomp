@@ -154,7 +154,7 @@ typedef struct {
 
 /* One row's slot in var_assetRequestSlots_8c228288: the handles
  * ObjectsStartAssetRequests_8c029ad4 asks the asset queues to fill in, read back
- * by ObjectsPushTasks_8c02a6ac once loaded. Which members a row uses depends on
+ * by ObjectsSpawnTasks_8c02a6ac once loaded. Which members a row uses depends on
  * its type. */
 typedef struct {
     NJS_TEXLIST *pvm_0x00;
@@ -185,14 +185,14 @@ typedef struct {
     Uint32 masks_0x20[1];              /* stepCount_0x08 entries */
 } DatBlob;
 
-/* Shared TaskSpawn_8c014ae8 state for every row-type task ObjectsPushTasks_8c02a6ac
+/* Shared TaskSpawn_8c014ae8 state for every row-type task ObjectsSpawnTasks_8c02a6ac
  * spawns -- it spawns all of them with sizeof(RowTaskState) (0x7c): -- rowFlyByTask_8c029e94/flyByModelTask_8c029e68,
  * rowDatTask_8c029fcc, rowModelTask_8c02a08a, rowMotionModelTask_8c02a120,
  * rowSimpleModelTask_8c02a1f0, rowMaterialModelTask_8c02a27c and
  * fumiCrossingTask_8c02a4f8. Each row type only touches the subset of fields
  * it needs; bytes below 0x40 are never read or written anywhere in this unit.
  *
- * `dat_0x48` mirrors ObjectsPushTasks_8c02a6ac's own row-local `dat` variable: an
+ * `dat_0x48` mirrors ObjectsSpawnTasks_8c02a6ac's own row-local `dat` variable: an
  * NJS_MOTION* for types 0/3, a DatBlob* for type 1, or a randomly-chosen train
  * NJS_MOTION* for type 6, hence declared as a bare void*. */
 typedef struct RowTaskState {
@@ -240,7 +240,7 @@ STATIC float var_stopLinePointB_8c228270[2]; /* segment-intersection scratch, pa
 STATIC NJS_OBJECT *var_routeBlinkerNodes_8c228278[4];
 /* Per-slot destination pointers for a pending object-asset request, one 0x18-byte
  * entry per table row processed by ObjectsStartAssetRequests_8c029ad4 (up to 16
- * rows), also read/freed by ObjectsFreeAssetRequests_8c029cfe and ObjectsPushTasks_8c02a6ac. Raw bytes:
+ * rows), also read/freed by ObjectsFreeAssetRequests_8c029cfe and ObjectsSpawnTasks_8c02a6ac. Raw bytes:
  * which fields are used depends on the row's type. */
 STATIC Uint8 var_assetRequestSlots_8c228288[16 * 0x18];
 /* Table currently in flight for ObjectsStartAssetRequests_8c029ad4: an array of
@@ -1441,7 +1441,7 @@ void ObjectsInitPedestrianGroups_8c0296d6(void)
  * stashes it in PedGroupEntry.list_0x08) and the group array itself, then
  * resets to the not-yet-loaded
  * sentinel state. No-op if groups were never loaded this run. */
-void ObjectsFreePedestrianGroups_8c0297da(void)
+void ObjectsKillPedestrianGroups_8c0297da(void)
 {
     PedGroupEntry *groups;
     int i;
@@ -1758,7 +1758,7 @@ STATIC void flyByModelTask_8c029e68(Task *task, RowTaskState *state)
     }
     RenderPushCall1_8c0223ea(0, drawFlyByModel_8c029e46, (int)state);
 }
-/* TaskAction for a type-0 row, installed by ObjectsPushTasks_8c02a6ac. Counts
+/* TaskAction for a type-0 row, installed by ObjectsSpawnTasks_8c02a6ac. Counts
  * down task->field_0x08; once it lapses, spawns a fly-by task (flyByModelTask_8c029e68)
  * seeded from a random route model slot and re-arms the countdown. */
 STATIC void rowFlyByTask_8c029e94(Task *task, RowTaskState *state)
@@ -1839,7 +1839,7 @@ STATIC int advanceDatBlob_8c029f54(DatBlob *dat)
     }
     return 1;
 }
-/* TaskAction for a type-1 row, installed by ObjectsPushTasks_8c02a6ac. */
+/* TaskAction for a type-1 row, installed by ObjectsSpawnTasks_8c02a6ac. */
 STATIC void rowDatTask_8c029fcc(Task *task, RowTaskState *state)
 {
     advanceDatBlob_8c029f54((DatBlob *)state->dat_0x48);
@@ -1865,7 +1865,7 @@ STATIC void drawRowModel_8c02a048(int state)
     njFogEnable();
     njControl3D(0x100);
 }
-/* TaskAction for a type-2 row, installed by ObjectsPushTasks_8c02a6ac;
+/* TaskAction for a type-2 row, installed by ObjectsSpawnTasks_8c02a6ac;
  * task->field_0x08 is the target var_busState_8c1bb9d0.scenePresetIds_0x3bc marker, set from
  * row[0x14] there. */
 STATIC void rowModelTask_8c02a08a(Task *task, RowTaskState *state)
@@ -1898,7 +1898,7 @@ STATIC void drawRowMotionModel_8c02a0d6(int state)
     njFogEnable();
     njControl3D(0x100);
 }
-/* TaskAction for a type-3 row, installed by ObjectsPushTasks_8c02a6ac.
+/* TaskAction for a type-3 row, installed by ObjectsSpawnTasks_8c02a6ac.
  * task->field_0x08 is the target marker, per type-2's rowModelTask_8c02a08a;
  * state->frameLimit_0x5c is set like type-0's flyByModelTask_8c029e68's. */
 STATIC void rowMotionModelTask_8c02a120(Task *task, RowTaskState *state)
@@ -1935,7 +1935,7 @@ STATIC void drawRowSimpleModel_8c02a1b2(int state, int fogEnable)
     njFogEnable();
     njControl3D(0x100);
 }
-/* TaskAction for a type-4 row, installed by ObjectsPushTasks_8c02a6ac. */
+/* TaskAction for a type-4 row, installed by ObjectsSpawnTasks_8c02a6ac. */
 STATIC void rowSimpleModelTask_8c02a1f0(Task *task, RowTaskState *state)
 {
     RenderPushCall2_8c022420(0, drawRowSimpleModel_8c02a1b2, (int)state, task->field_0x08);
@@ -1955,7 +1955,7 @@ STATIC void drawRowMaterialModel_8c02a206(int state)
     njCnkSimpleDrawObject(st->model_0x44);
     njControl3D(0x100);
 }
-/* TaskAction for a type-5 row, installed by ObjectsPushTasks_8c02a6ac. Fades
+/* TaskAction for a type-5 row, installed by ObjectsSpawnTasks_8c02a6ac. Fades
  * the row's material to invisible beyond a distance of 20 from the bus
  * (averaging var_busState_8c1bb9d0's two position pairs against the row's
  * own position, per ObjectAssetType5Extra), ramping from opaque at 10 down
@@ -2104,7 +2104,7 @@ STATIC void drawFumiCrossing_8c02a47c(int state)
     }
 }
 /* TaskAction for a type-6 (FUMI railway crossing) row, installed by
- * ObjectsPushTasks_8c02a6ac. Cycles the crossing through closing, waiting out
+ * ObjectsSpawnTasks_8c02a6ac. Cycles the crossing through closing, waiting out
  * a passing train, then opening; idles at phase 0 until
  * var_busState_8c1bb9d0.scenePresetIds_0x3bc's top byte (the set-piece trigger) goes nonzero.
  * From phase 1 onward, pushes a draw call of drawFumiCrossing_8c02a47c every
@@ -2157,7 +2157,7 @@ STATIC void setSimpleLightCallback_8c02a5d0(int arg0)
     njCnkSetSimpleLightColor(var_simpleLightColor_8c2264f8[0], var_simpleLightColor_8c2264f8[1], var_simpleLightColor_8c2264f8[2]);
 }
 /* TaskAction spawned once after the table is fully processed, installed by
- * ObjectsPushTasks_8c02a6ac. Once the run is under way, pushes
+ * ObjectsSpawnTasks_8c02a6ac. Once the run is under way, pushes
  * setSimpleLightCallback_8c02a5d0 as a draw callback on both
  * draw layers, then runs the row tasks just spawned into var_tasks_8c1bb448 to
  * completion. */
@@ -2173,7 +2173,7 @@ STATIC void execRowTaskGroupTask_8c02a60e(void)
  * ObjectsStartAssetRequests_8c029ad4), spawns a per-type task seeded from the
  * row's loaded asset handles in var_assetRequestSlots_8c228288, then spawns one closing task once
  * the whole table has been processed. */
-void ObjectsPushTasks_8c02a6ac(void)
+void ObjectsSpawnTasks_8c02a6ac(void)
 {
     AssetRequestSlot *slots;
     int *entry;

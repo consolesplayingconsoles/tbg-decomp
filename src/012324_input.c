@@ -68,7 +68,7 @@ STATIC const char *init_fortyFive_8c03bf40 = "FortyFive";
  * Menu-side input: publishes port 0 verbatim as var_peripherals_8c1ba35c[0],
  * then adds the two things menus need that the pad does not report -- dpad
  * presses synthesised from the analog stick, and key repeat on all four
- * directions. InputPushTask_8c0128cc(1) swaps this out for the drive's own
+ * directions. InputSpawnTask_8c0128cc(1) swaps this out for the drive's own
  * remapping task.
  */
 STATIC void inputMenuTask_8c012324()
@@ -360,13 +360,13 @@ STATIC void inputAutoTask_8c012718(void)
 /* Installs the task that fills var_peripherals_8c1ba35c each frame: 0 for the
  * menus (inputMenuTask_8c012324, with its stick and repeat state reset), 1 for a
  * drive. Any other value installs nothing. */
-void InputPushTask_8c0128cc(int param)
+void InputSpawnTask_8c0128cc(int param)
 {
     void (*action)(void);
     void *created_state;
 
     if (param == 0) {
-        LOG_DEBUG(("[INPUT] InputPushTask_8c0128cc: queueing inputMenuTask_8c012324\n"));
+        LOG_DEBUG(("[INPUT] InputSpawnTask_8c0128cc: queueing inputMenuTask_8c012324\n"));
         TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, inputMenuTask_8c012324,
                           &var_pushedTask_8c157a74, &created_state, 0);
         var_stickLatchX_8c157ae4 = 0;
@@ -378,7 +378,7 @@ void InputPushTask_8c0128cc(int param)
         } else {
             action = inputAutoTask_8c012718;
         }
-        LOG_DEBUG(("[INPUT] InputPushTask_8c0128cc: queueing input handler (%s)\n",
+        LOG_DEBUG(("[INPUT] InputSpawnTask_8c0128cc: queueing input handler (%s)\n",
                    var_driveMode_8c1bb8c8 == 0 ? "inputManualTask_8c012504" : "inputAutoTask_8c012718"));
         TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, action,
                           &var_pushedTask_8c157a74, &created_state, 0);

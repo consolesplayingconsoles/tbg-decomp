@@ -18,6 +18,6 @@ extern ResourceGroup var_resourceGroup_8c2263a8;
  */
 
 void ProfileFileUpdateUnlocks_8c01c980(void);
-void ProfileFilePushTask_8c01d1c4(Task *task);
+void ProfileFileEnter_8c01d1c4(Task *task);
 
 #endif // _PROFILE_FILE_H

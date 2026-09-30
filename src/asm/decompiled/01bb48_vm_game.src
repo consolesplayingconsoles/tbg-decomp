@@ -39,7 +39,7 @@
           .IMPORT     _var_vmMountBusy_8c22606c
           .IMPORT     _CourseMenuFreeResourceGroup_8c0185c4
           .IMPORT     _syFree
-          .IMPORT     _MainMenuSwitchFromTask_8c01a09a
+          .IMPORT     _MainMenuEnter_8c01a09a
           .IMPORT     _MessageBoxMenuTextboxText_8c02af1c
           .IMPORT     _TaskSwitch_8c014b3e
           .IMPORT     _AsqInitQueues_8c011f36
@@ -67,7 +67,7 @@
           .EXPORT     _var_defragBuf_8c2261a0
           .EXPORT     _var_lcdSlot_8c2263a0
           .AENDI
-          .EXPORT     _VmGameSwitchToTopMenu_8c01c880
+          .EXPORT     _VmGameEnter_8c01c880
           .EXPORT     _VmGameResetLcdAnims_8c01c8dc
           .EXPORT     _VmGameSetLcdSlot_8c01c8fc
           .EXPORT     _VmGameUpdateLcd_8c01c910
@@ -1865,11 +1865,11 @@ LP_GEN_33412:
           .DATA.L _CourseMenuFreeResourceGroup_8c0185c4 ; H'8C01C864
           .DATA.L _var_vmGameBuf_8c1bc454 ; H'8C01C868
           .DATA.L _syFree ; H'8C01C86C
-          .DATA.L _MainMenuSwitchFromTask_8c01a09a ; H'8C01C870
+          .DATA.L _MainMenuEnter_8c01a09a ; H'8C01C870
           .DATA.L _MessageBoxMenuTextboxText_8c02af1c ; H'8C01C874
           .DATA.L H'C0800000 ; H'8C01C878
           .DATA.L _SpriteDraw_8c014f54 ; H'8C01C87C
-_VmGameSwitchToTopMenu_8c01c880:
+_VmGameEnter_8c01c880:
           STS.L       PR,@-R15
           MOV.L       LP_GEN_73212+6,R3
           MOV.L       LP_GEN_73212+2,R5

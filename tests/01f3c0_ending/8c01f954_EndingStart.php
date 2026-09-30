@@ -25,7 +25,7 @@ return new class extends TestCase {
         $this->setSize('_var_tasks_8c1ba3c8', 4);
         $this->setSize('_var_tex_8c157af8', 4);
         $this->setSize('_var_menuTextboxCharLimit_8c225fb8', 4);
-        $this->setSize('_InputPushTask_8c0128cc', 4);
+        $this->setSize('_InputSpawnTask_8c0128cc', 4);
         $this->setSize('_GameTask_8c012f44', 4);
         $this->setSize('_TaskSpawn_8c014ae8', 4);
         $this->setSize('_njGarbageTexture', 4);
@@ -103,7 +103,7 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($menuState + self::INSTRUCTOR_SPRITE_0X60, 0x2a);
 
-        $this->shouldCall('_InputPushTask_8c0128cc')->with(0);
+        $this->shouldCall('_InputSpawnTask_8c0128cc')->with(0);
 
         $this->shouldCall('_TaskSpawn_8c014ae8')->do($this->taskSpawnCheck($tasksAddr, $gameTaskAddr));
         $this->shouldCall('_TaskSpawn_8c014ae8')->do($this->taskSpawnCheck($tasksAddr, $creditsTaskAddr));

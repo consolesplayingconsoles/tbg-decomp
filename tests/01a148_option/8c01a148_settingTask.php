@@ -212,7 +212,7 @@ return new class extends TestCase {
         $this->arrange(0, 3, 0, [0, 0, 0, 0, 0], 0);
         $task = $this->alloc(0x20);
         $this->call('_settingTask_8c01a148')->with($task);
-        $this->shouldCall('_OptionSwitchToTopMenu_8c01b122')->with($task, 0);
+        $this->shouldCall('_OptionEnter_8c01b122')->with($task, 0);
     }
 
     public function test_phase3_keeps_fading()

@@ -370,7 +370,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
                 if (!init_adxPlaying_8c03bd80) {
                     var_titleActive_8c1bb8c4 = FALSE;
 
-                    VmSelectSwitchFromTask_8c019e44(task);
+                    VmSelectEnter_8c019e44(task);
                 }
 
                 return;
@@ -412,10 +412,10 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
 }
 
 /* Matched */
-void TitlePushTitle_8c015fd6 (Bool direct) {
+void TitleSpawnTitle_8c015fd6 (Bool direct) {
     Task* created_task;
     void* created_state;
-    InputPushTask_8c0128cc(0);
+    InputSpawnTask_8c0128cc(0);
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &GameTask_8c012f44, &created_task, &created_state, 0);
 
     njSetBackColor(0,0,0);
@@ -425,7 +425,7 @@ void TitlePushTitle_8c015fd6 (Bool direct) {
     var_menuState_8c1bc7a8.counter_0x64 = 0;
     created_task->field_0x08 = direct;
     /* Marks the title as the screen on top: GameTask_8c012f44's soft reset
-     * re-pushes the title only when it is not already here. */
+     * re-spawns the title only when it is not already here. */
     var_titleActive_8c1bb8c4 = 1;
 
     njGarbageTexture(var_tex_8c157af8, 3072);

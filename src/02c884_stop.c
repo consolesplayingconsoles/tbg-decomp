@@ -142,7 +142,7 @@ void StopUpdateHeadings_8c02ccc6(void)
     }
 }
 
-void StopFreeTaskGroup_8c02ca96(void)
+void StopKillTaskGroup_8c02ca96(void)
 {
     if (var_stopTaskGroup_8c2288f8 != (void *)-1) {
         TaskKillGroup_8c014ab4((Task *)var_stopTaskGroup_8c2288f8);

@@ -126,7 +126,7 @@ return new class extends TestCase {
 
         $this->call('_fileSelectTask_8c018e7e')->with($task);
 
-        $this->shouldCall('_VmSelectSwitchFromTask_8c019e44')->with($task);
+        $this->shouldCall('_VmSelectEnter_8c019e44')->with($task);
     }
 
     private function setPress(int $bits): void
@@ -417,7 +417,7 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e')->with($task);
 
         $this->shouldWriteLong($this->addressOf('_var_currentSysResGroupInfo_8c225fb0'), -1);
-        $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with($task);
+        $this->shouldCall('_MainMenuEnter_8c01a09a')->with($task);
     }
 
     /* ---- state 7: cancel fade-out, then back to VM SELECT ---- */
@@ -443,7 +443,7 @@ return new class extends TestCase {
         $this->call('_fileSelectTask_8c018e7e')->with($task);
 
         $this->shouldCall('_FileSelectFreeBuffers_8c0187d0');
-        $this->shouldCall('_VmSelectSwitchFromTask_8c019e44')->with($task);
+        $this->shouldCall('_VmSelectEnter_8c019e44')->with($task);
     }
 
     /* ---- state 8: waiting on unmount before returning to VM SELECT ---- */
@@ -466,7 +466,7 @@ return new class extends TestCase {
 
         $this->call('_fileSelectTask_8c018e7e')->with($task);
 
-        $this->shouldCall('_VmSelectSwitchFromTask_8c019e44')->with($task);
+        $this->shouldCall('_VmSelectEnter_8c019e44')->with($task);
     }
 
     /* Shared tail of both A-confirm paths: fade out audio+screen, then redraw. */
@@ -509,8 +509,8 @@ return new class extends TestCase {
             '_SpriteDraw_8c014f54', '_MessageBoxMenuTextboxText_8c02af1c', '_VmGameSetLcdSlot_8c01c8fc',
             '_MessageBoxSwapFor_8c02aefc', '_sdMidiPlay', '_RenderPushFadeOut_8c022b60',
             '_njMemCopy', '_SndStartAdxFadeOut_8c010bae', '_SystemMenuApplyLoadedProgress_8c01b19c',
-            '_VmSelectUnmountAll_8c0194de', '_VmSelectSwitchFromTask_8c019e44',
-            '_MainMenuSwitchFromTask_8c01a09a',
+            '_VmSelectUnmountAll_8c0194de', '_VmSelectEnter_8c019e44',
+            '_MainMenuEnter_8c01a09a',
         ] as $fn) {
             $this->setSize($fn, 4);
         }

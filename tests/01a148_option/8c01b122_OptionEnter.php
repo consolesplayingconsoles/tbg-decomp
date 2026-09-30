@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->setSize('_RenderPushFadeIn_8c022a9c', 4);
 
         $task = $this->alloc(0x20);
-        $this->call('_OptionSwitchToTopMenu_8c01b122')->with($task, $row);
+        $this->call('_OptionEnter_8c01b122')->with($task, $row);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')->with($task, $this->addressOf('_topMenuTask_8c01b00a'));
         $this->shouldWriteLong($this->menu(self::STATE), 0);

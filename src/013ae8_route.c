@@ -566,7 +566,7 @@ STATIC void routeLoadTask_8c014338(RouteLoadTask *task, void *state)
     SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
 
-void RoutePushTask_8c0144fc(void)
+void RouteSpawnTask_8c0144fc(void)
 {
     RouteLoadTask *task;
     void *state;
@@ -636,7 +636,7 @@ STATIC void segmentReloadTask_8c014550(SegmentReloadTask *task, void *state)
     SpriteDraw_8c014f54(&var_loadingResourceGroup_8c1bc3f8, (frame >> 2) % 6 + 1, 0.0f, 0.0f, -4.0f);
 }
 
-void RoutePushSegmentReloadTask_8c01468e(void)
+void RouteSpawnSegmentReloadTask_8c01468e(void)
 {
     SegmentReloadTask *task;
     void *state;
@@ -667,7 +667,7 @@ void RoutePushSegmentReloadTask_8c01468e(void)
 
 /* Like routeLoadTask_8c014338, but on completion binds the interior texture and
  * hands off to the input task (as segmentReloadTask_8c014550 does).
- * Spawned only by UnusedLoadPushTask_8c014934, which nothing calls. */
+ * Spawned only by UnusedLoadSpawnTask_8c014934, which nothing calls. */
 void RouteUnusedTask_8c014784(RouteLoadTask *task, void *state)
 {
     int frame;

@@ -372,7 +372,7 @@ return new class extends TestCase {
     public function test_phase9_hands_back_to_top_menu_when_fade_done()
     {
         $this->arrange(press: 0, state: 9, selected: 8, isFading: 0);
-        $this->shouldCall('_OptionSwitchToTopMenu_8c01b122')->with($this->task, 2);
+        $this->shouldCall('_OptionEnter_8c01b122')->with($this->task, 2);
     }
 
     public function test_phase9_keeps_fading()

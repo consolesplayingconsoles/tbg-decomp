@@ -14,7 +14,7 @@ return new class extends TestCase {
 
         $this->call('_beginDriveEnd_8c02c738');
 
-        $this->shouldCall('_ReplayMenuFreeDriveTasks_8c01614c');
+        $this->shouldCall('_ReplayMenuKillDriveTasks_8c01614c');
         // beginDriveEnd_8c02c738 has an empty stack frame of its own beyond the two
         // TaskSpawn out-params (created_task, created_state), pushed right
         // after the STS.L PR/ADD #-8,R15 prologue -- so their addresses are

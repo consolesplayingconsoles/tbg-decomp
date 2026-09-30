@@ -387,7 +387,7 @@ return new class extends TestCase {
         $this->shouldWriteLong($menuState + 0x3c, 1);
         $this->shouldWriteLong($menuState + 0x40, 0);
         $this->shouldCall('_FileSelectFreeBuffers_8c0187d0');
-        $this->shouldCall('_CourseMenuSwitchFromTask_8c017e18')->with(0x8ce00000);
+        $this->shouldCall('_CourseMenuEnter_8c017e18')->with(0x8ce00000);
     }
 
     /* ---- State 8: title-exit, fade then hand to title ---- */
@@ -410,7 +410,7 @@ return new class extends TestCase {
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
-        $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
+        $this->shouldCall('_TitleSpawnTitle_8c015fd6')->with(1);
     }
 
     /* ---- State 3: LOAD confirm (subState_0x1c == 0) ---- */

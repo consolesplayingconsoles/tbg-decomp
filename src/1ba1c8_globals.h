@@ -397,7 +397,7 @@ extern int var_runReportPending_8c1bb8b8;
 extern int var_runWasPractice_8c1bb8bc;
 extern int var_shouldShowFreeRunIntro_8c1bb8c0;
 /* The title screen is the screen on top. GameTask_8c012f44's soft reset
- * re-pushes the title when it is clear, and quits to the BIOS when it is set. */
+ * re-spawns the title when it is clear, and quits to the BIOS when it is set. */
 extern int var_titleActive_8c1bb8c4;
 /* The run's DRIVE MODE: 0 manual, 1 auto. Set from
  * PlayerProgress.driveMode_0xc5 for a retail start, or from the debug row's

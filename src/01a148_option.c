@@ -52,7 +52,7 @@ enum OPTION_STATE {
 
 Sint8 var_soundMode_8c226070;
 /* The SETTING rows at var_progress_8c1ba1cc.difficulty_0xc4; pointed there
- * only by OptionSwitchToTopMenu_8c01b122. */
+ * only by OptionEnter_8c01b122. */
 STATIC char *var_settingValues_8c226074;
 /* AUDIO sound-test entry fields: one int per decimal digit, ones at index 0.
  * Laid out contiguously, and switchToAudio_8c01afd8 clears them relying on it. */
@@ -102,7 +102,7 @@ STATIC TaskAction init_topMenuActions_8c044e28[4] = {
     switchToSetting_8c01a3c0,
     switchToKeyConfig_8c01a89c,
     switchToAudio_8c01afd8,
-    MainMenuSwitchFromTask_8c01a09a,
+    MainMenuEnter_8c01a09a,
 };
 
 /* ====================
@@ -182,7 +182,7 @@ STATIC void settingTask_8c01a148(Task *task)
 
         case OPTION_STATE_FADE_OUT: {
             if (var_isFading_8c226568 == 0) {
-                OptionSwitchToTopMenu_8c01b122(task, 0);
+                OptionEnter_8c01b122(task, 0);
                 return;
             }
             break;
@@ -382,7 +382,7 @@ STATIC void keyConfigTask_8c01a50c(Task *task)
 
         case KEY_CONFIG_FADE_OUT: {
             if (var_isFading_8c226568 == 0) {
-                OptionSwitchToTopMenu_8c01b122(task, 1);
+                OptionEnter_8c01b122(task, 1);
                 return;
             }
             break;
@@ -678,7 +678,7 @@ STATIC void audioTask_8c01ab08(Task *task)
 
         case AUDIO_FADE_OUT: {
             if (var_isFading_8c226568 == 0) {
-                OptionSwitchToTopMenu_8c01b122(task, 2);
+                OptionEnter_8c01b122(task, 2);
                 return;
             }
             break;
@@ -773,7 +773,7 @@ STATIC void topMenuTask_8c01b00a(Task *task)
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 0, 0);
             } else if (press & PDD_DGT_TB) {
                 CHANGE_STATE(TOP_MENU_FADE_OUT);
-                m->returnAction_0x70 = (int)MainMenuSwitchFromTask_8c01a09a;
+                m->returnAction_0x70 = (int)MainMenuEnter_8c01a09a;
                 m->returnActionArg_0x74 = 2;
                 RenderPushFadeOut_8c022b60(10);
                 sdMidiPlay(var_midiHandles_8c0fcd28[0], 1, 1, 0);
@@ -813,7 +813,7 @@ STATIC void topMenuTask_8c01b00a(Task *task)
  * var_settingValues_8c226074 is ever pointed at its backing array;
  * settingTask_8c01a148 only reads through it.
  */
-void OptionSwitchToTopMenu_8c01b122(Task *task, int row)
+void OptionEnter_8c01b122(Task *task, int row)
 {
     TaskSwitch_8c014b3e(task, topMenuTask_8c01b00a);
     var_menuState_8c1bc7a8.state_0x18 = OPTION_STATE_FADE_IN;

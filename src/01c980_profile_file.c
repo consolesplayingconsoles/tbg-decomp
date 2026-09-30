@@ -779,7 +779,7 @@ STATIC void menuTask_8c01ccec(Task *task, void *state)
 /* Installs menuTask_8c01ccec on the task, resets the grid cursor
  * to slot (0,0), refreshes the unlock flags, and kicks off the async load
  * of the overview page's resource group. */
-void ProfileFilePushTask_8c01d1c4(Task *task)
+void ProfileFileEnter_8c01d1c4(Task *task)
 {
     TaskSwitch_8c014b3e(task, menuTask_8c01ccec);
 

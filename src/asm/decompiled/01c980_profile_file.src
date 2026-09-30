@@ -30,7 +30,7 @@
           .IMPORT     _njSetBackColor
           .IMPORT     _TaskSwitch_8c014b3e
           .EXPORT     _ProfileFileUpdateUnlocks_8c01c980
-          .EXPORT     _ProfileFilePushTask_8c01d1c4
+          .EXPORT     _ProfileFileEnter_8c01d1c4
           .AIFDEF UNIT_TESTING
           .EXPORT     _drawUnlockGrid_8c01c9f2
           .EXPORT     _drawEpisodeChecklist_8c01cac8
@@ -1143,7 +1143,7 @@ LP_GEN_87458:
           .DATA.L _SpriteDraw_8c014f54 ; H'8C01D1B8
           .DATA.L H'FF000000 ; H'8C01D1BC
           .DATA.L _njSetBackColor ; H'8C01D1C0
-_ProfileFilePushTask_8c01d1c4:
+_ProfileFileEnter_8c01d1c4:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15

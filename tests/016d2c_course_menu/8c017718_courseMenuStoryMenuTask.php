@@ -60,7 +60,7 @@ return new Class extends TestCase {
 
         $this->call('_courseMenuStoryMenuTask_8c017718');
 
-        $this->shouldCall('_CourseMenuPushDialogTask_8c0170c6')->with(32);
+        $this->shouldCall('_CourseMenuSpawnDialogTask_8c0170c6')->with(32);
         $this->shouldWriteLong($this->addressOf('_var_menuState_8c1bc7a8') + 0x18, 2);
 
         $this->shouldRenderFrame(
@@ -160,16 +160,16 @@ return new Class extends TestCase {
         // next also != INSTR_COURSE_UNLOCKED so no midiReset call.
         $seqBase = $this->addressOf('_var_dialogQueue_8c225fbc');
         $this->initUint32($seqBase + 0, 0x05); // current
-        $this->initUint32($seqBase + 4, 0x22); // next (pushed)
+        $this->initUint32($seqBase + 4, 0x22); // next (spawned)
 
         $task = $this->alloc(0x10);
         $this->initUint32($task + 0x08, 0);
 
         $this->call('_courseMenuStoryMenuTask_8c017718')->with($task, 0);
 
-        // Effects (no course-unlock branch, just advance + push next)
+        // Effects (no course-unlock branch, just advance + spawn next)
         $this->shouldWriteLong($task + 0x08, 1);                // ++field_0x08
-        $this->shouldCall('_CourseMenuPushDialogTask_8c0170c6')->with(0x22, 0); // start next sequence
+        $this->shouldCall('_CourseMenuSpawnDialogTask_8c0170c6')->with(0x22, 0); // start next sequence
 
         $this->shouldRenderFrame(
             spriteNo: 42,
@@ -203,9 +203,9 @@ return new Class extends TestCase {
 
         // Effects:
         // No course-unlock processing for the "current" (we deliberately avoided it)
-        // Increment index, then push next dialog, then reset+play midi because next == unlock
+        // Increment index, then spawn next dialog, then reset+play midi because next == unlock
         $this->shouldWriteLong($task + 0x08, 1);
-        $this->shouldCall('_CourseMenuPushDialogTask_8c0170c6')->with(0x0d, 0);
+        $this->shouldCall('_CourseMenuSpawnDialogTask_8c0170c6')->with(0x0d, 0);
         $this->shouldCall('_SndMidiResetFxAndPlay_8c010846')->with(0, 0);
 
         $this->shouldRenderFrame(
@@ -254,8 +254,8 @@ return new Class extends TestCase {
         // Advance dialog index
         $this->shouldWriteLong($task + 0x08, 1);
 
-        // Next is not -1: push next dialog (not unlock, so no midiReset)
-        $this->shouldCall('_CourseMenuPushDialogTask_8c0170c6')->with(0x22, 0);
+        // Next is not -1: spawn next dialog (not unlock, so no midiReset)
+        $this->shouldCall('_CourseMenuSpawnDialogTask_8c0170c6')->with(0x22, 0);
 
         $this->shouldRenderFrame(
             spriteNo: 42,
@@ -300,8 +300,8 @@ return new Class extends TestCase {
         // Advance dialog index
         $this->shouldWriteLong($task + 0x08, 1);
 
-        // Next == unlock: push dialog, then midiResetFxAndPlay
-        $this->shouldCall('_CourseMenuPushDialogTask_8c0170c6')->with(0x0d, 0);
+        // Next == unlock: spawn dialog, then midiResetFxAndPlay
+        $this->shouldCall('_CourseMenuSpawnDialogTask_8c0170c6')->with(0x0d, 0);
         $this->shouldCall('_SndMidiResetFxAndPlay_8c010846')->with(0, 0);
 
         $this->shouldRenderFrame(
@@ -508,7 +508,7 @@ return new Class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
         $this->shouldWriteLong($this->addressOf('_var_runWasPractice_8c1bb8bc'), 1);
 
-        $this->shouldCall('_SystemMenuSwitchFromTask_8c01ba64')->with($task);
+        $this->shouldCall('_SystemMenuEnter_8c01ba64')->with($task);
     }
 
     public function test_fade_out_state_happy_path_with_free()
@@ -610,7 +610,7 @@ return new Class extends TestCase {
 
         // Writes and call in order, then return (no epilogue rendering)
         $this->shouldWriteLong($this->addressOf('_var_runReportPending_8c1bb8b8'), 0);
-        $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with($task);
+        $this->shouldCall('_MainMenuEnter_8c01a09a')->with($task);
     }
 
     private function initMenuStateUint32($offset, $value) {
@@ -624,7 +624,7 @@ return new Class extends TestCase {
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0x94);
         // menu-entry onSelect callback into the Save unit (address taken in a table)
-        $this->setSize('_SystemMenuSwitchFromTask_8c01ba64', 4);
+        $this->setSize('_SystemMenuEnter_8c01ba64', 4);
     }
 
     /**

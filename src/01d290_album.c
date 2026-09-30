@@ -302,11 +302,11 @@ STATIC void albumMenuTask_8c01d300(Task *task, void *state)
 
 /* Reset to INIT, park the cursor on the first received letter, then request
  * the album's resource group. */
-void AlbumSwitchFromTask_8c01d6e2(Task *task)
+void AlbumEnter_8c01d6e2(Task *task)
 {
     int i;
 
-    LOG_DEBUG(("[ALBUM] AlbumSwitchFromTask_8c01d6e2: install album task\n"));
+    LOG_DEBUG(("[ALBUM] AlbumEnter_8c01d6e2: install album task\n"));
 
     TaskSwitch_8c014b3e(task, albumMenuTask_8c01d300);
     CHANGE_STATE(ALBUM_STATE_INIT);

@@ -31,7 +31,7 @@
 #include "023310_bus_init.h"
 #include "025870_demo.h"
 #include "02d968_stop_spawn.h"
-#include "021b9c_tile_draw.h" /* TileDrawPushTask_8c0222dc */
+#include "021b9c_tile_draw.h" /* TileDrawSpawnTask_8c0222dc */
 #include "02c884_stop.h"
 #include "016d2c_course_menu.h"
 #include "01e27c_practice_menu.h"
@@ -319,7 +319,7 @@ STATIC void pauseTask_8c012cbc()
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
         ReplayMenuFreeSessionAssets_8c016182();
-        TitlePushTitle_8c015fd6(1);
+        TitleSpawnTitle_8c015fd6(1);
         LOG_DEBUG(("[PAUSE] pauseTask_8c012cbc: reset requested, returning to title\n"));
         return;
     }
@@ -343,7 +343,7 @@ STATIC void pauseToggleTask_8c012d06()
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
         ReplayMenuFreeSessionAssets_8c016182();
-        TitlePushTitle_8c015fd6(1);
+        TitleSpawnTitle_8c015fd6(1);
         LOG_DEBUG(("[PAUSE] pauseToggleTask_8c012d06: reset requested, returning to title\n"));
         return;
     }
@@ -410,7 +410,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
             return;
         }
         ReplayMenuFreeSessionAssets_8c016182();
-        TitlePushTitle_8c015fd6(task->phase_0x08 == DEMO_END_SKIPPED ? 1 : 0);
+        TitleSpawnTitle_8c015fd6(task->phase_0x08 == DEMO_END_SKIPPED ? 1 : 0);
         LOG_INFO(("[PAUSE] pauseDemoEndTask_8c012d5a: demo ended, returning to title\n"));
         return;
     }
@@ -440,7 +440,7 @@ void GameTask_8c012f44()
             init_adxPlaying_8c03bd80 = 1;
             init_soundOk_8c03bd84 = 0;
         } else {
-            TitlePushTitle_8c015fd6(1);
+            TitleSpawnTitle_8c015fd6(1);
         }
     }
 }
@@ -523,7 +523,7 @@ void GameEnterDrive_8c01306e(void)
     AsqSetSeedA_8c012160(var_seed_8c157a64);
     AsqSetSeedB_8c0121a2(var_seed_8c157a64);
 
-    InputPushTask_8c0128cc(1);
+    InputSpawnTask_8c0128cc(1);
 
     if (var_playMode_8c1bb8d0 != PLAY_MODE_DEMO) {
         TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, &pauseTask_8c012cbc, &created_task, &created_state, 0);
@@ -552,8 +552,8 @@ void GameEnterDrive_8c01306e(void)
 
     ObjectsInitPedestrianGroups_8c0296d6();
     TrafficInit_8c02769e();
-    TileDrawPushTask_8c0222dc();
-    ObjectsPushTasks_8c02a6ac();
+    TileDrawSpawnTask_8c0222dc();
+    ObjectsSpawnTasks_8c02a6ac();
     GradeReset_8c02c46a();
     HudReset_8c02018c();
     StopSpawnInit_8c02d968();
@@ -586,10 +586,10 @@ void GameStartSelectedCourse_8c01328c() {
     var_savedCameraMode_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
     var_savedCameraCueState_8c227da8 = 0;
 
-    RoutePushTask_8c0144fc();
+    RouteSpawnTask_8c0144fc();
 }
 
-void GamePushLoadingTask_8c013310(int p1) {
+void GameSpawnLoadingTask_8c013310(int p1) {
     Task *created_task;
     void* created_state;
   
@@ -611,7 +611,7 @@ void GamePushLoadingTask_8c013310(int p1) {
     var_savedCameraMode_8c227da0 = var_progress_8c1ba1cc.defaultView_0xc6;
     var_savedCameraCueState_8c227da8 = 0;
 
-    RoutePushTask_8c0144fc();
+    RouteSpawnTask_8c0144fc();
 }
 
 /* Boot: wait for GameInit_8c0134ec's asset load, pull in the sound driver,
@@ -645,7 +645,7 @@ STATIC void bootTask_8c013388(Task *task, void *state) {
                  * doesn't set up and will hang on the loading screen. */
                 ReplayMenuOpen_8c01673a();
 #else
-                TitlePushTitle_8c015fd6(0);
+                TitleSpawnTitle_8c015fd6(0);
 #endif
             }
             break;

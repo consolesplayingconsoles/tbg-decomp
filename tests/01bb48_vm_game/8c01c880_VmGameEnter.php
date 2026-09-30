@@ -12,7 +12,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x40);
         $ms = $this->addressOf('_var_menuState_8c1bc7a8');
 
-        $this->call('_VmGameSwitchToTopMenu_8c01c880')->with($task);
+        $this->call('_VmGameEnter_8c01c880')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')
             ->with($task, $this->addressOf('_vmGameTask_8c01bfec'));

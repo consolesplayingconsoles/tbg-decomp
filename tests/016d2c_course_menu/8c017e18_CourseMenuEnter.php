@@ -21,7 +21,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 1);
 
-        $this->call('_CourseMenuSwitchFromTask_8c017e18')->with($task);
+        $this->call('_CourseMenuEnter_8c017e18')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_courseMenuFreeRunMenuTask_8c017ada')
@@ -66,7 +66,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_gameMode_8c1bb8fc'), 1);
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 1);
 
-        $this->call('_CourseMenuSwitchFromTask_8c017e18')->with($task);
+        $this->call('_CourseMenuEnter_8c017e18')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_courseMenuFreeRunMenuTask_8c017ada')
@@ -107,7 +107,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 1);
 
-        $this->call('_CourseMenuSwitchFromTask_8c017e18')->with($task);
+        $this->call('_CourseMenuEnter_8c017e18')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_courseMenuStoryMenuTask_8c017718')
@@ -153,7 +153,7 @@ return new class extends TestCase {
 
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 1);
 
-        $this->call('_CourseMenuSwitchFromTask_8c017e18')->with($task);
+        $this->call('_CourseMenuEnter_8c017e18')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')->with(
             $task, $this->addressOf('_courseMenuStoryMenuTask_8c017718')

@@ -16,10 +16,10 @@ void GameTask_8c012f44();
  * boundary, from 013ae8's load tasks. */
 void GameEnterDrive_8c01306e(void);
 /* Start a run on the course already staged in var_replayMenuCourseSel_8c1bc824
- * (debug menu, demos, replays). GamePushLoadingTask_8c013310 is the retail
+ * (debug menu, demos, replays). GameSpawnLoadingTask_8c013310 is the retail
  * path, taking the course id and the drive mode from saved progress instead. */
 void GameStartSelectedCourse_8c01328c();
-void GamePushLoadingTask_8c013310(int courseId);
+void GameSpawnLoadingTask_8c013310(int courseId);
 void GameInit_8c0134ec();
 int GameMain_8c01392e(void);
 void GameExit_8c0139d4(void);

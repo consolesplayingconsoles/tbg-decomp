@@ -10,9 +10,9 @@ return new class extends TestCase {
     {
         $this->resolveSymbols();
 
-        $this->call('_InputPushTask_8c0128cc')->with(0);
+        $this->call('_InputSpawnTask_8c0128cc')->with(0);
 
-        // InputPushTask_8c0128cc's frame holds a single local (created_state),
+        // InputSpawnTask_8c0128cc's frame holds a single local (created_state),
         // pushed just above TaskSpawn's 0 stack arg; its address is the initial
         // test stack pointer (16MiB-4, see sh4objtest's Run) minus 16. Same
         // layout in both objects, and int param goes in R4 so it adds no
@@ -22,7 +22,7 @@ return new class extends TestCase {
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_inputMenuTask_8c012324'),
             $this->addressOf('_var_pushedTask_8c157a74'),
-            $sp0 - 16, // &created_state (stack local; InputPushTask_8c0128cc's only local, sole word pushed just above TaskSpawn's stack arg)
+            $sp0 - 16, // &created_state (stack local; InputSpawnTask_8c0128cc's only local, sole word pushed just above TaskSpawn's stack arg)
             0
         );
         $this->shouldWriteLongTo('_var_stickLatchX_8c157ae4', 0);
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 0);
 
-        $this->call('_InputPushTask_8c0128cc')->with(1);
+        $this->call('_InputSpawnTask_8c0128cc')->with(1);
 
         // See test_installs_menu_input_task for the &created_state
         // derivation -- same frame layout regardless of branch taken.
@@ -54,7 +54,7 @@ return new class extends TestCase {
         $this->resolveSymbols();
         $this->initUint32($this->addressOf('_var_driveMode_8c1bb8c8'), 1);
 
-        $this->call('_InputPushTask_8c0128cc')->with(1);
+        $this->call('_InputSpawnTask_8c0128cc')->with(1);
 
         // See test_installs_menu_input_task for the &created_state
         // derivation -- same frame layout regardless of branch taken.
@@ -75,7 +75,7 @@ return new class extends TestCase {
         // Prologue loads this before the branch, so relocation must resolve.
         $this->setSize('_TaskSpawn_8c014ae8', 4);
 
-        $this->call('_InputPushTask_8c0128cc')->with(2);
+        $this->call('_InputSpawnTask_8c0128cc')->with(2);
     }
 
     private function resolveSymbols(): void

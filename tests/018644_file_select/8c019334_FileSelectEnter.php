@@ -16,7 +16,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->setup(5);
 
-        $this->call('_FileSelectSwitchFromTask_8c019334')->with($task);
+        $this->call('_FileSelectEnter_8c019334')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')
             ->with($task, $this->addressOf('_fileSelectTask_8c018e7e'));
@@ -35,7 +35,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->setup(6);
 
-        $this->call('_FileSelectSwitchFromTask_8c019334')->with($task);
+        $this->call('_FileSelectEnter_8c019334')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')
             ->with($task, $this->addressOf('_fileSelectTask_8c018e7e'));
@@ -54,7 +54,7 @@ return new class extends TestCase {
         $task = $this->alloc(0x20);
         $this->setup(0);
 
-        $this->call('_FileSelectSwitchFromTask_8c019334')->with($task);
+        $this->call('_FileSelectEnter_8c019334')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')
             ->with($task, $this->addressOf('_fileSelectTask_8c018e7e'));

@@ -157,19 +157,19 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
                     var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
                     var_gameMode_8c1bb8fc = var_menuState_8c1bc7a8.selected_0x38;
                     var_shouldShowFreeRunIntro_8c1bb8c0 = 1;
-                    CourseMenuSwitchFromTask_8c017e18(task);
+                    CourseMenuEnter_8c017e18(task);
                     break;
                 }
 
                 // Option
                 case 2: {
-                    OptionSwitchToTopMenu_8c01b122(task, 0);
+                    OptionEnter_8c01b122(task, 0);
                     break;
                 }
 
                 // VM Game
                 case 3: {
-                    VmGameSwitchToTopMenu_8c01c880(task);
+                    VmGameEnter_8c01c880(task);
                     break;
                 }
             }
@@ -203,7 +203,7 @@ STATIC void mainMenuTask_8c019e98(Task *task) {
     );
 }
 
-void MainMenuSwitchFromTask_8c01a09a(Task* task, int selected) {
+void MainMenuEnter_8c01a09a(Task* task, int selected) {
     TaskSwitch_8c014b3e(task, mainMenuTask_8c019e98);
     CHANGE_STATE(MAIN_MENU_STATE_INIT);
     var_menuState_8c1bc7a8.selected_0x38 = selected;

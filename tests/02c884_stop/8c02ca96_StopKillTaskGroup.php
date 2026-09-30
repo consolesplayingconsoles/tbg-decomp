@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Lhsazevedo\Sh4ObjTest\TestCase;
 
 /*
- * _StopFreeTaskGroup_8c02ca96(void): tears down the bus-stop task group
+ * _StopKillTaskGroup_8c02ca96(void): tears down the bus-stop task group
  * (var_stopTaskGroup_8c2288f8) if allocated -- frees its tasks via
  * TaskKillGroup, frees the backing allocation, then resets the handle to
  * -1 ("not allocated"). No-ops when already -1.
@@ -24,7 +24,7 @@ return new class extends TestCase {
         $group = $this->addressOf('_var_stopTaskGroup_8c2288f8');
         $this->initUint32($group, 0x12345678);
 
-        $this->call('_StopFreeTaskGroup_8c02ca96')->with();
+        $this->call('_StopKillTaskGroup_8c02ca96')->with();
 
         $this->shouldCall('_TaskKillGroup_8c014ab4')->with(0x12345678);
         $this->shouldCall('_syFree')->with(0x12345678);
@@ -38,6 +38,6 @@ return new class extends TestCase {
         $group = $this->addressOf('_var_stopTaskGroup_8c2288f8');
         $this->initUint32($group, -1);
 
-        $this->call('_StopFreeTaskGroup_8c02ca96')->with();
+        $this->call('_StopKillTaskGroup_8c02ca96')->with();
     }
 };

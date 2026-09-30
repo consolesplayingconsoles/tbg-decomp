@@ -346,7 +346,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
     case SAVE_STATE_LOAD_FAILED:
         if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
             ReplayMenuFreeSessionAssets_8c016182();
-            TitlePushTitle_8c015fd6(0);
+            TitleSpawnTitle_8c015fd6(0);
             return;
         }
         SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c,
@@ -426,7 +426,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
         var_menuState_8c1bc7a8.cursorCol_0x3c = 1;
         var_menuState_8c1bc7a8.cursorRow_0x40 = 0;
         FileSelectFreeBuffers_8c0187d0();
-        CourseMenuSwitchFromTask_8c017e18(task);
+        CourseMenuEnter_8c017e18(task);
         return;
 
     case SAVE_STATE_EXIT_TO_TITLE:
@@ -434,7 +434,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             break;
         }
         ReplayMenuFreeSessionAssets_8c016182();
-        TitlePushTitle_8c015fd6(1);
+        TitleSpawnTitle_8c015fd6(1);
         return;
 
     default:
@@ -464,7 +464,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
 /* onSelect for course-menu button 1: switch the running task into the
  * save/load flow. bus_mem.VMI is the VMU icon file -- palette at +0,
  * icon data at +0x20. */
-void SystemMenuSwitchFromTask_8c01ba64(Task *task)
+void SystemMenuEnter_8c01ba64(Task *task)
 {
     TaskSwitch_8c014b3e(task, saveTask_8c01b3ac);
     var_menuState_8c1bc7a8.state_0x18 = SAVE_STATE_WAIT_PVM;

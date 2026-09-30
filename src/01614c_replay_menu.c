@@ -126,11 +126,11 @@ ReplayMenuEntry init_replayMenuEntries_8c04429c[] = {
  * ====================
  */
 
-void ReplayMenuFreeDriveTasks_8c01614c(void)
+void ReplayMenuKillDriveTasks_8c01614c(void)
 {
-    ObjectsFreePedestrianGroups_8c0297da();
+    ObjectsKillPedestrianGroups_8c0297da();
     SignalFree_8c0288be();
-    StopFreeTaskGroup_8c02ca96();
+    StopKillTaskGroup_8c02ca96();
     TaskKillGroup_8c014ab4(var_tasks_8c1bb448);
     TaskKillGroup_8c014ab4(var_tasks_8c1bac28);
     TaskKillGroup_8c014ab4(var_tasks_8c1ba808);
@@ -147,7 +147,7 @@ void ReplayMenuFreeSessionAssets_8c016182(void)
         pdVibMxStop(var_vibport_8c1ba354);
     }
     VibClear_8c010fbe();
-    ReplayMenuFreeDriveTasks_8c01614c();
+    ReplayMenuKillDriveTasks_8c01614c();
     TaskKillGroup_8c014ab4(var_tasks_8c1ba3c8);
     MessageBoxFreeAssets_8c02adee();
     ObjectsFreeAssetRequests_8c029cfe();
@@ -380,7 +380,7 @@ void ReplayMenuOpen_8c01673a(void)
     void *state;
 
     njSetBackColor(0, 0, 0);
-    InputPushTask_8c0128cc(0);
+    InputSpawnTask_8c0128cc(0);
     TaskSpawn_8c014ae8(var_tasks_8c1ba3c8, listMenuTask_8c01666a, &task, &state, 0);
     task->field_0x08 = 0;
 }

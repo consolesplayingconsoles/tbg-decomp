@@ -27,7 +27,7 @@
           .IMPORT     _RouteClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
-          .EXPORT     _AlbumSwitchFromTask_8c01d6e2
+          .EXPORT     _AlbumEnter_8c01d6e2
           .AIFDEF UNIT_TESTING
           .EXPORT     _albumDrawGrid_8c01d290
           .EXPORT     _albumMenuTask_8c01d300
@@ -624,7 +624,7 @@ LAB_8c01d6cc:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_AlbumSwitchFromTask_8c01d6e2:
+_AlbumEnter_8c01d6e2:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           MOV.L       R12,@-R15

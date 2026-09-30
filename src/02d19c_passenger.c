@@ -449,7 +449,7 @@ void PassengerStopSceneTask_8c02d644(Task *task, PassengerStopSceneState *state)
 
     case 5:
         if (var_runState_8c2285c4.runClock_0x18 >= var_runState_8c2285c4.scheduleTime_0x14) {
-            StopFreeTaskGroup_8c02ca96();
+            StopKillTaskGroup_8c02ca96();
             njReleaseTexture(var_interiorTexlist_8c1bc438);
             if (var_playMode_8c1bb8d0 == PLAY_MODE_PRACTICE) {
                 var_cameraMode_8c227d9c = 2;

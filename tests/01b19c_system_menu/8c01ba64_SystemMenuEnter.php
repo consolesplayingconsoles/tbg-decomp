@@ -17,7 +17,7 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_saveSlot_8c1ba350'), 2);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 1);
 
-        $this->call('_SystemMenuSwitchFromTask_8c01ba64')->with($task);
+        $this->call('_SystemMenuEnter_8c01ba64')->with($task);
 
         $this->shouldCall('_TaskSwitch_8c014b3e')
             ->with($task, $this->addressOf('_saveTask_8c01b3ac'));

@@ -26,6 +26,6 @@ void VmSelectUnmountAll_8c0194de();
 void VmSelectFreeAndClear_8c019504(void);
 int VmSelectUpdateAllStatus_8c019550(char **saveNames, Uint16 blocks);
 void VmSelectUpdateStatus_8c01967c(Sint32 drive, char *saveName, Uint16 blocks);
-void VmSelectSwitchFromTask_8c019e44(Task *task);
+void VmSelectEnter_8c019e44(Task *task);
 
 #endif // _0193C8_VM_SELECT_H

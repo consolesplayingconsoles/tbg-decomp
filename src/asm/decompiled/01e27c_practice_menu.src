@@ -21,7 +21,7 @@
           .IMPORT     _var_worstPenaltyDelta_8c1bb8f0
           .IMPORT     _var_worstPenaltyMsgSet_8c1bb8ec
           .IMPORT     _var_penaltyCount_8c1bb8f4
-          .IMPORT     _GamePushLoadingTask_8c013310
+          .IMPORT     _GameSpawnLoadingTask_8c013310
           .IMPORT     _TaskSwitch_8c014b3e
           .IMPORT     _AsqInitQueues_8c011f36
           .IMPORT     _AsqResetQueues_8c011f6c
@@ -43,7 +43,7 @@
           .IMPORT     __modls
           .IMPORT     __divls
           .IMPORT     _SndStopBgm_8c010d8a
-          .IMPORT     _CourseMenuPushDialogTask_8c0170c6
+          .IMPORT     _CourseMenuSpawnDialogTask_8c0170c6
           .IMPORT     _var_instructorDialogActive_8c225fb4
           .IMPORT     _var_menuTextboxCharLimit_8c225fb8
           .IMPORT     _CourseMenuReturn_8c017ef2
@@ -54,7 +54,7 @@
           .IMPORT     _var_tex_8c157af8
           .IMPORT     _njGarbageTexture
           .IMPORT     _var_runState_8c2285c4
-          .IMPORT     _InputPushTask_8c0128cc
+          .IMPORT     _InputSpawnTask_8c0128cc
           .IMPORT     _GameTask_8c012f44
           .IMPORT     _var_tasks_8c1ba3c8
           .IMPORT     _TaskSpawn_8c014ae8
@@ -81,7 +81,7 @@
           .AIFDEF UNIT_TESTING
           .EXPORT     _scrollTowardSelection_8c01ebc8
           .AENDI
-          .EXPORT     _PracticeMenuLessonStart_8c01f114
+          .EXPORT     _PracticeMenuEnter_8c01f114
           .EXPORT     _PracticeMenuLessonRetry_8c01f21c
 
           .AIFDEF UNIT_TESTING
@@ -555,7 +555,7 @@ LP_GEN_38636:
           .DATA.L _var_penaltyCount_8c1bb8f4 ; H'8C01E5FC
           .DATA.L _init_practiceRules_8c0451c0 ; H'8C01E600
           .DATA.L _var_practiceRules_8c226410 ; H'8C01E604
-          .DATA.L _GamePushLoadingTask_8c013310 ; H'8C01E608
+          .DATA.L _GameSpawnLoadingTask_8c013310 ; H'8C01E608
           .DATA.L _lessonDescriptionTask_8c01e27c ; H'8C01E60C
           .DATA.L _TaskSwitch_8c014b3e ; H'8C01E610
           .DATA.L _var_menuState_8c1bc7a8 + H'18 ; H'8C01E614
@@ -756,7 +756,7 @@ LAB_8c01e776:
           MOV.L       @R15+,R11
           MOV.L       @R15+,R12
           MOV.L       @R15+,R13
-          BRA         _PracticeMenuLessonStart_8c01f114
+          BRA         _PracticeMenuEnter_8c01f114
           MOV.L       @R15+,R14
 LP_GEN_92116:
           .RES.W 1 ; H'8C01E792
@@ -1578,7 +1578,7 @@ LP_GEN_52292:
           .DATA.L _SndPlayAdx_8c010cd6 ; H'8C01EE0C
           .DATA.L _RenderPushFadeIn_8c022a9c ; H'8C01EE10
           .DATA.L _var_lessonDialogQueue_8c226414 ; H'8C01EE14
-          .DATA.L _CourseMenuPushDialogTask_8c0170c6 ; H'8C01EE18
+          .DATA.L _CourseMenuSpawnDialogTask_8c0170c6 ; H'8C01EE18
           .DATA.L _var_instructorDialogActive_8c225fb4 ; H'8C01EE1C
           .DATA.L _const_emptyMsg_8c038984 ; H'8C01EE20
           .DATA.L _RenderPushFadeOut_8c022b60 ; H'8C01EE24
@@ -1952,7 +1952,7 @@ LP_GEN_11294:
           .DATA.L H'C0400000 ; H'8C01F108
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01F10C
           .DATA.L H'C1000000 ; H'8C01F110
-_PracticeMenuLessonStart_8c01f114:
+_PracticeMenuEnter_8c01f114:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15
@@ -2229,7 +2229,7 @@ LP_GEN_37649:
           .DATA.W H'0180 ; H'8C01F360
           .RES.W 1 ; H'8C01F362
           .DATA.L _var_playMode_8c1bb8d0 ; H'8C01F364
-          .DATA.L _InputPushTask_8c0128cc ; H'8C01F368
+          .DATA.L _InputSpawnTask_8c0128cc ; H'8C01F368
           .DATA.L _GameTask_8c012f44 ; H'8C01F36C
           .DATA.L _var_tasks_8c1ba3c8 ; H'8C01F370
           .DATA.L _TaskSpawn_8c014ae8 ; H'8C01F374

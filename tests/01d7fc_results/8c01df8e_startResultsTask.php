@@ -9,7 +9,7 @@ return new class extends TestCase {
 
         $this->call('_startResultsTask_8c01df8e');
 
-        $this->shouldCall('_InputPushTask_8c0128cc')->with(0);
+        $this->shouldCall('_InputSpawnTask_8c0128cc')->with(0);
 
         // &created_task and &created_state are startResultsTask_8c01df8e's
         // own stack locals; both TaskSpawn calls share the same slots, and

@@ -13,6 +13,6 @@ void FileSelectResetProgress_8c01890a(void);
 void FileSelectResetNewGame_8c01895e(void);
 void FileSelectResetOptionDefaults_8c0189d2(void);
 void FileSelectApplySoundSettings_8c0189fc(void);
-void FileSelectSwitchFromTask_8c019334(Task *task);
+void FileSelectEnter_8c019334(Task *task);
 
 #endif // _018644_FILE_SELECT_H

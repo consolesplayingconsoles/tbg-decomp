@@ -44,7 +44,7 @@
           .IMPORT     _GradeRunComplete_8c02c586
           .IMPORT     _SndStartAdxFadeOut_8c010bae
           .IMPORT     _GradeOnFadeDriveEnd_8c02c784
-          .EXPORT     _StopFreeTaskGroup_8c02ca96
+          .EXPORT     _StopKillTaskGroup_8c02ca96
           .EXPORT     _StopSetup_8c02caba
           .EXPORT     _StopUpdateHeadings_8c02ccc6
           .EXPORT     _StopGetSegment_8c02cd6a
@@ -350,7 +350,7 @@ LAB_8c02ca74:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_StopFreeTaskGroup_8c02ca96:
+_StopKillTaskGroup_8c02ca96:
           MOV.L       R14,@-R15
           MOV.L       LP_GEN_58192+90,R14
           STS.L       PR,@-R15

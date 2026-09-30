@@ -26,7 +26,7 @@ return new class extends TestCase {
         $this->shouldCall('_sdMidiStopAll');
         $this->shouldCall('_pdVibMxStop')->with(5);
         $this->shouldCall('_VibClear_8c010fbe');
-        $this->shouldCall('_ReplayMenuFreeDriveTasks_8c01614c');
+        $this->shouldCall('_ReplayMenuKillDriveTasks_8c01614c');
         $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
         $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_ObjectsFreeAssetRequests_8c029cfe');
@@ -71,7 +71,7 @@ return new class extends TestCase {
         $this->shouldCall('_SndStopAllAdx_8c010c7c');
         $this->shouldCall('_sdMidiStopAll');
         $this->shouldCall('_VibClear_8c010fbe');
-        $this->shouldCall('_ReplayMenuFreeDriveTasks_8c01614c');
+        $this->shouldCall('_ReplayMenuKillDriveTasks_8c01614c');
         $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba3c8'));
         $this->shouldCall('_MessageBoxFreeAssets_8c02adee');
         $this->shouldCall('_ObjectsFreeAssetRequests_8c029cfe');

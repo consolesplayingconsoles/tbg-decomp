@@ -20,7 +20,7 @@
           .IMPORT     _var_driveMode_8c1bb8c8
           .IMPORT     _strcmp
           .IMPORT     _strcpy
-          .EXPORT     _InputPushTask_8c0128cc
+          .EXPORT     _InputSpawnTask_8c0128cc
           .EXPORT     _InputCheckColdBoot_8c012984
           .EXPORT     _InputDispatchTask_8c012970
 
@@ -803,7 +803,7 @@ LAB_8c0128b8:
           MOV.L       @R15+,R13
           JMP         @R3
           MOV.L       @R15+,R14
-_InputPushTask_8c0128cc:
+_InputSpawnTask_8c0128cc:
           MOV.L       R14,@-R15
           MOV.L       R13,@-R15
           STS.L       PR,@-R15

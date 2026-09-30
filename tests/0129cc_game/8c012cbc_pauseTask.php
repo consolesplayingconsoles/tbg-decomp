@@ -12,7 +12,7 @@ return new class extends TestCase {
         $this->call('_pauseTask_8c012cbc');
 
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
-        $this->shouldCall('_TitlePushTitle_8c015fd6')->with(1);
+        $this->shouldCall('_TitleSpawnTitle_8c015fd6')->with(1);
     }
 
     public function test_reset_requested_but_vm_busy_runs_the_menu_instead()
@@ -60,7 +60,7 @@ return new class extends TestCase {
         int $queuesInitialized = 0,
     ): void {
         $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
-        $this->setSize('_TitlePushTitle_8c015fd6', 4);
+        $this->setSize('_TitleSpawnTitle_8c015fd6', 4);
         $this->setSize('_RenderResetQueues_8c02239c', 4);
         $this->setSize('_TaskRunGroup_8c014b42', 4);
         $this->setSize('_RenderUpdate_8c022560', 4);

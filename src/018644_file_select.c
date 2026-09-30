@@ -541,7 +541,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
 
     case FILE_SELECT_STATE_ERROR_FADE_OUT:
         if (var_isFading_8c226568 == 0) {
-            VmSelectSwitchFromTask_8c019e44(task);
+            VmSelectEnter_8c019e44(task);
             return;
         }
         MessageBoxMenuTextboxText_8c02af1c(0xff);
@@ -647,7 +647,7 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             break;
         }
         var_currentSysResGroupInfo_8c225fb0 = (void *)-1;
-        MainMenuSwitchFromTask_8c01a09a(task, 0);
+        MainMenuEnter_8c01a09a(task, 0);
         return;
 
     case FILE_SELECT_STATE_CANCEL_FADE_OUT:
@@ -656,19 +656,19 @@ STATIC void fileSelectTask_8c018e7e(Task *task)
             break;
         }
         FileSelectFreeBuffers_8c0187d0();
-        VmSelectSwitchFromTask_8c019e44(task);
+        VmSelectEnter_8c019e44(task);
         return;
 
     case FILE_SELECT_STATE_UNMOUNT_TO_VM:
         if (var_vmMountBusy_8c22606c != 0) {
             break;
         }
-        VmSelectSwitchFromTask_8c019e44(task);
+        VmSelectEnter_8c019e44(task);
         return;
     }
 }
 
-void FileSelectSwitchFromTask_8c019334(Task *task)
+void FileSelectEnter_8c019334(Task *task)
 {
     TaskSwitch_8c014b3e(task, fileSelectTask_8c018e7e);
     var_loadedSaveCount_8c22600c = 0;

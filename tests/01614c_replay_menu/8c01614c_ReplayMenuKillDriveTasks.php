@@ -7,11 +7,11 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     public function test_frees_the_in_drive_task_groups()
     {
-        $this->call('_ReplayMenuFreeDriveTasks_8c01614c');
+        $this->call('_ReplayMenuKillDriveTasks_8c01614c');
 
-        $this->shouldCall('_ObjectsFreePedestrianGroups_8c0297da');
+        $this->shouldCall('_ObjectsKillPedestrianGroups_8c0297da');
         $this->shouldCall('_SignalFree_8c0288be');
-        $this->shouldCall('_StopFreeTaskGroup_8c02ca96');
+        $this->shouldCall('_StopKillTaskGroup_8c02ca96');
         $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bb448'));
         $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1bac28'));
         $this->shouldCall('_TaskKillGroup_8c014ab4')->with($this->addressOf('_var_tasks_8c1ba808'));

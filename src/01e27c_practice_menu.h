@@ -16,7 +16,7 @@ extern int var_practiceLesson_8c22640c;
  * blinker/mirror start). */
 extern int var_practiceRules_8c226410;
 
-void PracticeMenuLessonStart_8c01f114(Task *task);
+void PracticeMenuEnter_8c01f114(Task *task);
 void PracticeMenuLessonRetry_8c01f21c(void);
 
 #endif // _01E27C_H

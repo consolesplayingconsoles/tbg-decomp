@@ -32,7 +32,7 @@ return new class extends TestCase {
             $this->addressOf('_RouteClearLatch_8c014322')
         );
 
-        $this->singleCall('_MainMenuSwitchFromTask_8c01a09a')->with($task, $selected)->run();
+        $this->singleCall('_MainMenuEnter_8c01a09a')->with($task, $selected)->run();
     }
 
     private function resolveSymbols(): void

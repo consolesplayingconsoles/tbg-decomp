@@ -44,7 +44,7 @@ return new class extends TestCase {
             '_AsqFreeQueues_8c011f7e', '_RenderPushFadeIn_8c022a9c', '_RenderPushFadeOut_8c022b60',
             '_PromptHandleMultiple_8c016c58', '_PromptHandleBinary_8c016caa',
             '_CourseMenuInterpolateCursor_8c016d2c', '_CourseMenuFreeResourceGroup_8c0185c4',
-            '_MainMenuSwitchFromTask_8c01a09a', '_VmSelectUnmountAll_8c0194de',
+            '_MainMenuEnter_8c01a09a', '_VmSelectUnmountAll_8c0194de',
             '_MessageBoxSwapFor_8c02aefc', '_MessageBoxMenuTextboxText_8c02af1c',
             '_sdMidiPlay', '_SpriteDraw_8c014f54', '_syFree',
             '__quick_evn_mvn',
@@ -422,7 +422,7 @@ return new class extends TestCase {
         $this->shouldCall('_CourseMenuFreeResourceGroup_8c0185c4')->with($this->addressOf('_var_resourceGroup_8c2263a8'));
         $this->shouldCall('_syFree')->with(0x8c400000);
         $this->shouldWriteLong($this->addressOf('_var_vmGameBuf_8c1bc454'), 0xffffffff);
-        $this->shouldCall('_MainMenuSwitchFromTask_8c01a09a')->with($this->task);
+        $this->shouldCall('_MainMenuEnter_8c01a09a')->with($this->task);
     }
 
     public function test_exit_waiting()

@@ -10,9 +10,9 @@
           .IMPORT     _RenderPushFadeOut_8c022b60
           .IMPORT     _var_gameMode_8c1bb8fc
           .IMPORT     _var_shouldShowFreeRunIntro_8c1bb8c0
-          .IMPORT     _CourseMenuSwitchFromTask_8c017e18
-          .IMPORT     _OptionSwitchToTopMenu_8c01b122
-          .IMPORT     _VmGameSwitchToTopMenu_8c01c880
+          .IMPORT     _CourseMenuEnter_8c017e18
+          .IMPORT     _OptionEnter_8c01b122
+          .IMPORT     _VmGameEnter_8c01c880
           .IMPORT     _SpriteDraw_8c014f54
           .IMPORT     _TaskSwitch_8c014b3e
           .IMPORT     _AsqInitQueues_8c011f36
@@ -23,7 +23,7 @@
           .IMPORT     _RouteClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
-          .EXPORT     _MainMenuSwitchFromTask_8c01a09a
+          .EXPORT     _MainMenuEnter_8c01a09a
           .AIFDEF UNIT_TESTING
           .EXPORT     _mainMenuTask_8c019e98
           .AENDI
@@ -299,7 +299,7 @@ LAB_8c01a088:
           MOV.L       @R15+,R13
           RTS
           MOV.L       @R15+,R14
-_MainMenuSwitchFromTask_8c01a09a:
+_MainMenuEnter_8c01a09a:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15
           ADD         #-H'4,R15
@@ -350,9 +350,9 @@ LP_GEN_13822:
           .RES.W 1 ; H'8C01A0F6
           .DATA.L _var_gameMode_8c1bb8fc ; H'8C01A0F8
           .DATA.L _var_shouldShowFreeRunIntro_8c1bb8c0 ; H'8C01A0FC
-          .DATA.L _CourseMenuSwitchFromTask_8c017e18 ; H'8C01A100
-          .DATA.L _OptionSwitchToTopMenu_8c01b122 ; H'8C01A104
-          .DATA.L _VmGameSwitchToTopMenu_8c01c880 ; H'8C01A108
+          .DATA.L _CourseMenuEnter_8c017e18 ; H'8C01A100
+          .DATA.L _OptionEnter_8c01b122 ; H'8C01A104
+          .DATA.L _VmGameEnter_8c01c880 ; H'8C01A108
           .DATA.L _SpriteDraw_8c014f54 ; H'8C01A10C
           .DATA.L H'C0800000 ; H'8C01A110
           .DATA.L H'C0A00000 ; H'8C01A114

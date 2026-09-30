@@ -47,7 +47,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqSetSeedA_8c012160')->with(0xcafe0001);
         $this->shouldCall('_AsqSetSeedB_8c0121a2')->with(0xcafe0001);
         
-        $this->shouldCall('_InputPushTask_8c0128cc')->with(1);
+        $this->shouldCall('_InputSpawnTask_8c0128cc')->with(1);
 
         $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
@@ -72,8 +72,8 @@ return new class extends TestCase {
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_TrafficInit_8c02769e');
-        $this->shouldCall('_TileDrawPushTask_8c0222dc');
-        $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
+        $this->shouldCall('_TileDrawSpawnTask_8c0222dc');
+        $this->shouldCall('_ObjectsSpawnTasks_8c02a6ac');
         $this->shouldCall('_GradeReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');
         $this->shouldCall('_StopSpawnInit_8c02d968');
@@ -133,7 +133,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqSetSeedA_8c012160')->with(0xcafe0001);
         $this->shouldCall('_AsqSetSeedB_8c0121a2')->with(0xcafe0001);
         
-        $this->shouldCall('_InputPushTask_8c0128cc')->with(1);
+        $this->shouldCall('_InputSpawnTask_8c0128cc')->with(1);
 
         $this->shouldCall('_TaskSpawn_8c014ae8')->with($this->addressOf('_var_tasks_8c1ba3c8'), $this->addressOf('_pauseToggleTask_8c012d06'), 0xffffe4, 0xFFFFE8, 0);
         $this->shouldCall('_TaskSpawn_8c014ae8')->with($this->addressOf('_var_tasks_8c1ba5e8'), $this->addressOf('_ReplayMenuDemoPlayTask_8c016bf4'), 0xffffe4, 0xFFFFE8, 0);
@@ -147,8 +147,8 @@ return new class extends TestCase {
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_TrafficInit_8c02769e');
-        $this->shouldCall('_TileDrawPushTask_8c0222dc');
-        $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
+        $this->shouldCall('_TileDrawSpawnTask_8c0222dc');
+        $this->shouldCall('_ObjectsSpawnTasks_8c02a6ac');
         $this->shouldCall('_GradeReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');
         $this->shouldCall('_StopSpawnInit_8c02d968');
@@ -205,7 +205,7 @@ return new class extends TestCase {
         $this->shouldCall('_AsqSetSeedA_8c012160')->with(0xcafe0001);
         $this->shouldCall('_AsqSetSeedB_8c0121a2')->with(0xcafe0001);
         
-        $this->shouldCall('_InputPushTask_8c0128cc')->with(1);
+        $this->shouldCall('_InputSpawnTask_8c0128cc')->with(1);
 
         $this->shouldCall('_TaskSpawn_8c014ae8')
             ->with(
@@ -242,8 +242,8 @@ return new class extends TestCase {
         
         $this->shouldCall('_ObjectsInitPedestrianGroups_8c0296d6');
         $this->shouldCall('_TrafficInit_8c02769e');
-        $this->shouldCall('_TileDrawPushTask_8c0222dc');
-        $this->shouldCall('_ObjectsPushTasks_8c02a6ac');
+        $this->shouldCall('_TileDrawSpawnTask_8c0222dc');
+        $this->shouldCall('_ObjectsSpawnTasks_8c02a6ac');
         $this->shouldCall('_GradeReset_8c02c46a');
         $this->shouldCall('_HudReset_8c02018c');
         $this->shouldCall('_StopSpawnInit_8c02d968');
@@ -338,7 +338,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskKill_8c014b66')->with($taskPtr);
         $this->shouldCall('_SndInit_8c010e18');
         $this->shouldWriteTo('_var_lcdAnimActive_8c2260a8', 1);
-        $this->shouldCall('_TitlePushTitle_8c015fd6');
+        $this->shouldCall('_TitleSpawnTitle_8c015fd6');
 
         $this->singleCall('_bootTask_8c013388')
             ->with($taskPtr, 0)

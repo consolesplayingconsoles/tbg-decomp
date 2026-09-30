@@ -51,7 +51,7 @@ typedef struct {
     const BACKUPINFO *bupInfo_0x10; /* BupGetInfo result for the selected port */
 } SaveMenuState;
 
-void ReplayMenuFreeDriveTasks_8c01614c(void);
+void ReplayMenuKillDriveTasks_8c01614c(void);
 void ReplayMenuFreeSessionAssets_8c016182(void);
 void ReplayMenuResetDemoCursor_8c016770(void);
 void ReplayMenuDemoPlayTask_8c016bf4();

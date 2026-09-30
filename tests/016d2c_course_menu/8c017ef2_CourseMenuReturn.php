@@ -17,7 +17,7 @@ return new class extends TestCase {
 
         $createdTaskLocal = 0xffffe8;
         $createdStateLocal = 0xffffec;
-        $this->shouldCall('_InputPushTask_8c0128cc');
+        $this->shouldCall('_InputSpawnTask_8c0128cc');
         $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_GameTask_8c012f44'),
@@ -90,12 +90,12 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_dialogQueue_8c225fbc'), 1);
 
         // Enter with a non-zero arg register so the missing `MOV #0,R4`
-        // (InputPushTask_8c0128cc(0)) is observable.
+        // (InputSpawnTask_8c0128cc(0)) is observable.
         $this->call('_CourseMenuReturn_8c017ef2')->with(0xdeadbeef);
 
         $createdTaskLocal = 0xffffe8;
         $createdStateLocal = 0xffffec;
-        $this->shouldCall('_InputPushTask_8c0128cc')->with(0);
+        $this->shouldCall('_InputSpawnTask_8c0128cc')->with(0);
         $this->shouldCall('_TaskSpawn_8c014ae8')->with(
             $this->addressOf('_var_tasks_8c1ba3c8'),
             $this->addressOf('_GameTask_8c012f44'),

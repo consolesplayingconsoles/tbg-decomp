@@ -106,6 +106,6 @@ extern ResourceGroupInfo init_practice01ResourceGroup_8c044274;
 extern ResourceGroupInfo init_practice02ResourceGroup_8c044284;
 
 /* direct: skip the logo sequence and fade straight into the title. */
-void TitlePushTitle_8c015fd6(Bool direct);
+void TitleSpawnTitle_8c015fd6(Bool direct);
 
 #endif /* _TITLE_H_ */
