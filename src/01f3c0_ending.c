@@ -346,7 +346,7 @@ STATIC void creditsTask_8c01f658(void)
         }
         ReplayMenuFreeSessionAssets_8c016182();
         if (var_selectedVm_8c1ba34c == -1) {
-            TitleSpawnTitle_8c015fd6(0);
+            TitleStart_8c015fd6(0);
         } else {
             ResultsShowFailedRun_8c01e24e();
         }

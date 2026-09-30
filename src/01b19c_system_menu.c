@@ -346,7 +346,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
     case SAVE_STATE_LOAD_FAILED:
         if ((var_peripherals_8c1ba35c[0].press & PDD_DGT_TA) != 0) {
             ReplayMenuFreeSessionAssets_8c016182();
-            TitleSpawnTitle_8c015fd6(0);
+            TitleStart_8c015fd6(0);
             return;
         }
         SpriteDraw_8c014f54(&var_menuState_8c1bc7a8.resourceGroupB_0x0c,
@@ -434,7 +434,7 @@ STATIC void saveTask_8c01b3ac(Task *task, void *state)
             break;
         }
         ReplayMenuFreeSessionAssets_8c016182();
-        TitleSpawnTitle_8c015fd6(1);
+        TitleStart_8c015fd6(1);
         return;
 
     default:

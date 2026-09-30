@@ -93,7 +93,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
-        $this->shouldCall('_TitleSpawnTitle_8c015fd6')->with(1);
+        $this->shouldCall('_TitleStart_8c015fd6')->with(1);
     }
 
     public function test_phase1_fade_done_but_reset_pending_does_nothing()
@@ -128,7 +128,7 @@ return new class extends TestCase {
 
         $this->shouldCall('_SndUpdateAdxVolFade_8c010a40');
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
-        $this->shouldCall('_TitleSpawnTitle_8c015fd6')->with(0);
+        $this->shouldCall('_TitleStart_8c015fd6')->with(0);
     }
 
     private function setup(
@@ -144,7 +144,7 @@ return new class extends TestCase {
         $this->setSize('_sdMidiPlay', 4);
         $this->setSize('_SndStartAdxFadeOut_8c010bae', 4);
         $this->setSize('_RenderStartFadeOut_8c022b60', 4);
-        $this->setSize('_TitleSpawnTitle_8c015fd6', 4);
+        $this->setSize('_TitleStart_8c015fd6', 4);
         $this->setSize('_RenderResetQueues_8c02239c', 4);
         $this->setSize('_TaskRunGroup_8c014b42', 4);
         $this->setSize('_RenderDrawFrameMainOnly_8c022910', 4);

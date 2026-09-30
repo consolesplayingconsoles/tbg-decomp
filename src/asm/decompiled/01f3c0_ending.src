@@ -25,7 +25,7 @@
           .IMPORT     _var_messageTextBoxB_8c1bc408
           .IMPORT     _ReplayMenuFreeSessionAssets_8c016182
           .IMPORT     _var_selectedVm_8c1ba34c
-          .IMPORT     _TitleSpawnTitle_8c015fd6
+          .IMPORT     _TitleStart_8c015fd6
           .IMPORT     _init_instructorDialogs_8c044c08
           .IMPORT     _InputSpawnTask_8c0128cc
           .IMPORT     _GameTask_8c012f44
@@ -771,7 +771,7 @@ LP_GEN_28976:
           .DATA.L _ReplayMenuFreeSessionAssets_8c016182 ; H'8C01F944
           .DATA.L _var_selectedVm_8c1ba34c ; H'8C01F948
           .DATA.L _ResultsShowFailedRun_8c01e24e ; H'8C01F94C
-          .DATA.L _TitleSpawnTitle_8c015fd6 ; H'8C01F950
+          .DATA.L _TitleStart_8c015fd6 ; H'8C01F950
 _EndingStart_8c01f954:
           MOV.L       R14,@-R15
           STS.L       PR,@-R15

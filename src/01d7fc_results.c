@@ -337,7 +337,7 @@ STATIC void resultsTask_8c01d8e0(void)
         if (!var_isFading_8c226568) {
             ReplayMenuFreeSessionAssets_8c016182();
             if (var_runFailed_8c226408 != 0) {
-                TitleSpawnTitle_8c015fd6(0);
+                TitleStart_8c015fd6(0);
                 return;
             }
             if (var_progress_8c1ba1cc.days_0x00 > 0x1e) {

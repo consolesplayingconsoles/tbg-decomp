@@ -338,7 +338,7 @@ return new class extends TestCase {
         $this->shouldCall('_TaskKill_8c014b66')->with($taskPtr);
         $this->shouldCall('_SndInit_8c010e18');
         $this->shouldWriteTo('_var_lcdAnimActive_8c2260a8', 1);
-        $this->shouldCall('_TitleSpawnTitle_8c015fd6');
+        $this->shouldCall('_TitleStart_8c015fd6');
 
         $this->singleCall('_bootTask_8c013388')
             ->with($taskPtr, 0)

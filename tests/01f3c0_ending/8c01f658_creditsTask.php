@@ -44,7 +44,7 @@ return new class extends TestCase {
         $this->setSize('_TxtCreateTextBox_8c0152fc', 4);
         $this->setSize('_TxtPrepareTextBoxLayout_8c01543a', 4);
         $this->setSize('_ReplayMenuFreeSessionAssets_8c016182', 4);
-        $this->setSize('_TitleSpawnTitle_8c015fd6', 4);
+        $this->setSize('_TitleStart_8c015fd6', 4);
         $this->setSize('_ResultsShowFailedRun_8c01e24e', 4);
     }
 
@@ -389,7 +389,7 @@ return new class extends TestCase {
         $this->call('_creditsTask_8c01f658');
 
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
-        $this->shouldCall('_TitleSpawnTitle_8c015fd6')->with(0);
+        $this->shouldCall('_TitleStart_8c015fd6')->with(0);
     }
 
     public function test_state7_vm_selected_shows_failed_run(): void

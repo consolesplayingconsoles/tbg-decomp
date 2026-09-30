@@ -39,7 +39,7 @@
           .AIFDEF UNIT_TESTING
           .EXPORT     _titleTask_8c015ab8
           .AENDI
-          .EXPORT     _TitleSpawnTitle_8c015fd6
+          .EXPORT     _TitleStart_8c015fd6
           .EXPORT     _init_titleResourceGroup_8c044254 ; 015ab8_title.c, 015ab8_title.src, 01d7fc.src
           .EXPORT     _init_mainMenuResourceGroup_8c044264 ; 016d2c_course_menu.c, 016d2c_course_menu.src, 019e98_main_menu.c, 019e98_main_menu.src
           .EXPORT     _init_practice01ResourceGroup_8c044274 ; 01e27c.src
@@ -734,7 +734,7 @@ L52:
           RTS
           MOV.L       @R15+,R14
 
-_TitleSpawnTitle_8c015fd6:                   ; function: TitleSpawnTitle_8c015fd6
+_TitleStart_8c015fd6:                   ; function: TitleStart_8c015fd6
                                  ; frame size=44
           MOV.L       R14,@-R15
           STS.L       PR,@-R15

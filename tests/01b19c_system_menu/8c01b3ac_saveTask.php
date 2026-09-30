@@ -410,7 +410,7 @@ return new class extends TestCase {
 
         $this->call('_saveTask_8c01b3ac')->with(0x8ce00000, 0);
         $this->shouldCall('_ReplayMenuFreeSessionAssets_8c016182');
-        $this->shouldCall('_TitleSpawnTitle_8c015fd6')->with(1);
+        $this->shouldCall('_TitleStart_8c015fd6')->with(1);
     }
 
     /* ---- State 3: LOAD confirm (subState_0x1c == 0) ---- */

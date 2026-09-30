@@ -412,7 +412,7 @@ STATIC void titleTask_8c015ab8(Task* task, void *state) {
 }
 
 /* Matched */
-void TitleSpawnTitle_8c015fd6 (Bool direct) {
+void TitleStart_8c015fd6 (Bool direct) {
     Task* created_task;
     void* created_state;
     InputSpawnTask_8c0128cc(0);

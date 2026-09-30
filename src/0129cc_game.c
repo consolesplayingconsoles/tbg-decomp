@@ -319,7 +319,7 @@ STATIC void pauseTask_8c012cbc()
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
         ReplayMenuFreeSessionAssets_8c016182();
-        TitleSpawnTitle_8c015fd6(1);
+        TitleStart_8c015fd6(1);
         LOG_DEBUG(("[PAUSE] pauseTask_8c012cbc: reset requested, returning to title\n"));
         return;
     }
@@ -343,7 +343,7 @@ STATIC void pauseToggleTask_8c012d06()
     if (var_resetRequested_8c157a78 != 0 && var_vmBusy_8c157a7c == 0
         && var_queuesAreInitialized_8c157a60 == 0) {
         ReplayMenuFreeSessionAssets_8c016182();
-        TitleSpawnTitle_8c015fd6(1);
+        TitleStart_8c015fd6(1);
         LOG_DEBUG(("[PAUSE] pauseToggleTask_8c012d06: reset requested, returning to title\n"));
         return;
     }
@@ -410,7 +410,7 @@ STATIC void pauseDemoEndTask_8c012d5a(PauseDemoEndTaskData *task)
             return;
         }
         ReplayMenuFreeSessionAssets_8c016182();
-        TitleSpawnTitle_8c015fd6(task->phase_0x08 == DEMO_END_SKIPPED ? 1 : 0);
+        TitleStart_8c015fd6(task->phase_0x08 == DEMO_END_SKIPPED ? 1 : 0);
         LOG_INFO(("[PAUSE] pauseDemoEndTask_8c012d5a: demo ended, returning to title\n"));
         return;
     }
@@ -440,7 +440,7 @@ void GameTask_8c012f44()
             init_adxPlaying_8c03bd80 = 1;
             init_soundOk_8c03bd84 = 0;
         } else {
-            TitleSpawnTitle_8c015fd6(1);
+            TitleStart_8c015fd6(1);
         }
     }
 }
@@ -645,7 +645,7 @@ STATIC void bootTask_8c013388(Task *task, void *state) {
                  * doesn't set up and will hang on the loading screen. */
                 ReplayMenuOpen_8c01673a();
 #else
-                TitleSpawnTitle_8c015fd6(0);
+                TitleStart_8c015fd6(0);
 #endif
             }
             break;
