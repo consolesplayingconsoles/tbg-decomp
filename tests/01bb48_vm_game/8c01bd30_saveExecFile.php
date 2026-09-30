@@ -223,7 +223,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_bupPhase_8c2260d0', 4);
         $this->setSize('_buFindExecFile', 4);
         $this->setSize('_buGetDiskFree', 4);
         $this->setSize('_syRtcGetDate', 4);

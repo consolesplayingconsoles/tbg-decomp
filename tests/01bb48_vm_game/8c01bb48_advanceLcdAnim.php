@@ -113,10 +113,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_lcdAnimActive_8c2260a8', 4);
-        $this->setSize('_var_lcdFrameDelay_8c226198', 4);
-        $this->setSize('_var_lcdFramePtr_8c22619c', 4);
-        $this->setSize('_var_lcdClearBuf_8c2260d4', 0xc0);
         $this->setSize('_pdVmsLcdIsReady', 4);
         $this->setSize('_pdVmsLcdWrite1', 4);
         $this->setSize('_pdVmsLcdWrite', 4);

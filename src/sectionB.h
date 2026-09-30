@@ -1,12 +1,11 @@
-/* 8c2260a8: undecompiled data section */
-#ifndef _2260a8_SECTIONB_H
-#define _2260a8_SECTIONB_H
+/* 8c2263a4: undecompiled data section */
+#ifndef _2263A4_SECTIONB_H
+#define _2263A4_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
 #include "013ae8_route_load.h"
 #include "02af78_event.h"
-#include "01bb48_vm_game.h" /* LcdAnim */
 #include "02171c_tile_stream.h" /* TileIndex, TileRect */
 #include "022464_fade.h" /* FadePhase, FadeRequest, FadeDrawCommand */
 #include "028258_objects.h" /* TrafficSignal */
@@ -59,16 +58,6 @@ typedef struct {
     int firstChimeArmed_0x18;
 } DriveCueState;
 
-extern int var_lcdAnimActive_8c2260a8;
-extern LcdAnim var_lcdAnimBus_8c2260ac; // 01bb48: vm_bus.lcd anim
-extern LcdAnim var_lcdAnimDanger_8c2260b8; // 01bb48: vm_danger.lcd anim
-extern LcdAnim var_lcdAnimLoading_8c2260c4; // 01bb48: now_loading.lcd anim
-extern enum VmGameBupPhase var_bupPhase_8c2260d0; // 01bb48: last-seen bu* async op status/phase
-extern char var_lcdClearBuf_8c2260d4[0xc0]; // 01bb48: VMS LCD framebuffer (48x32 mono)
-extern Uint32 var_lcdFrameDelay_8c226198;    // 01bb48: LCD anim step counter
-extern LcdFrame* var_lcdFramePtr_8c22619c; // 01bb48: current LCD anim frame ptr
-extern char var_defragBuf_8c2261a0[512]; // 01bb48: buDefragDisk work buffer
-extern int var_lcdSlot_8c2263a0;   // 01bb48
 /* Both only ever written, to -1, by GameInit_8c0134ec; nothing in the image
  * reads either. */
 extern void* var_8c226434;
@@ -374,4 +363,4 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-#endif // _2260a8_SECTIONB_H
+#endif // _2263A4_SECTIONB_H

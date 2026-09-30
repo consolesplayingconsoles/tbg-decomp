@@ -47,7 +47,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_bupPhase_8c2260d0', 4);
         $this->setSize('_buRewriteExecFile', 4);
     }
 };

@@ -7,8 +7,6 @@ use Lhsazevedo\Sh4ObjTest\TestCase;
 return new class extends TestCase {
     public function test_resetsLcdIconCounters()
     {
-        $this->resolveSymbols();
-
         $this->call('_VmGameResetLcdAnims_8c01c8dc');
 
         $this->shouldWriteLong($this->addressOf('_var_lcdAnimBus_8c2260ac') + 4, 10);
@@ -19,14 +17,5 @@ return new class extends TestCase {
         $this->shouldWriteLong($this->addressOf('_var_lcdAnimLoading_8c2260c4') + 8, 0);
         $this->shouldWriteLong($this->addressOf('_var_lcdSlot_8c2263a0'), 0);
         $this->shouldWriteLong($this->addressOf('_var_lcdAnimActive_8c2260a8'), 0);
-    }
-
-    private function resolveSymbols(): void
-    {
-        $this->setSize('_var_lcdAnimBus_8c2260ac', 12);
-        $this->setSize('_var_lcdAnimDanger_8c2260b8', 12);
-        $this->setSize('_var_lcdAnimLoading_8c2260c4', 12);
-        $this->setSize('_var_lcdSlot_8c2263a0', 4);
-        $this->setSize('_var_lcdAnimActive_8c2260a8', 4);
     }
 };

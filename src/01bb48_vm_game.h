@@ -40,6 +40,16 @@ enum VmGameBupPhase {
     VMGAME_BUP_REWRITE_DONE = 25
 };
 
+/* =======================
+ * Non-initialized Globals
+ * =======================
+ */
+
+extern int var_lcdAnimActive_8c2260a8;
+extern LcdAnim var_lcdAnimBus_8c2260ac; // vm_bus.lcd anim
+extern LcdAnim var_lcdAnimDanger_8c2260b8; // vm_danger.lcd anim
+extern LcdAnim var_lcdAnimLoading_8c2260c4; // now_loading.lcd anim
+
 /* =========
  * Functions
  * =========

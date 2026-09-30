@@ -1,13 +1,8 @@
 ; 8c01bb48
           .IMPORT     _pdVmsLcdIsReady
-          .IMPORT     _var_lcdClearBuf_8c2260d4
           .IMPORT     _memset
           .IMPORT     _pdVmsLcdWrite1
-          .IMPORT     _var_lcdAnimActive_8c2260a8
-          .IMPORT     _var_lcdFramePtr_8c22619c
           .IMPORT     _pdVmsLcdWrite
-          .IMPORT     _var_lcdFrameDelay_8c226198
-          .IMPORT     _var_bupPhase_8c2260d0
           .IMPORT     _BupGetInfo_8c014bba
           .IMPORT     _buStat
           .IMPORT     _buGetLastError
@@ -15,7 +10,6 @@
           .IMPORT     _buGetDiskFree
           .IMPORT     _syRtcGetDate
           .IMPORT     _buSaveExecFile
-          .IMPORT     _var_defragBuf_8c2261a0
           .IMPORT     _buDefragDisk
           .IMPORT     _buLoadFileEx
           .IMPORT     _buRewriteExecFile
@@ -39,7 +33,6 @@
           .IMPORT     _PromptHandleBinary_8c016caa
           .IMPORT     _var_vmGameBuf_8c1bc454
           .IMPORT     _var_vmBusy_8c157a7c
-          .IMPORT     _var_lcdAnimDanger_8c2260b8
           .IMPORT     _var_texbuf_8c277ca0
           .IMPORT     _var_progress_8c1ba1cc
           .IMPORT     _FadePushIn_8c022a9c
@@ -57,9 +50,6 @@
           .IMPORT     _RouteLoadClearLatch_8c014322
           .IMPORT     _AsqNop_8c011120
           .IMPORT     _AsqProcessQueues_8c011fe0
-          .IMPORT     _var_lcdAnimBus_8c2260ac
-          .IMPORT     _var_lcdAnimLoading_8c2260c4
-          .IMPORT     _var_lcdSlot_8c2263a0
           .AIFDEF UNIT_TESTING
           .EXPORT     _advanceLcdAnim_8c01bb48
           .EXPORT     _pollBupOp_8c01bc44
@@ -70,6 +60,12 @@
           .EXPORT     _drawSelectScreen_8c01be90
           .EXPORT     _selectSlot_8c01bf2a
           .EXPORT     _vmGameTask_8c01bfec
+          .EXPORT     _var_bupPhase_8c2260d0
+          .EXPORT     _var_lcdClearBuf_8c2260d4
+          .EXPORT     _var_lcdFrameDelay_8c226198
+          .EXPORT     _var_lcdFramePtr_8c22619c
+          .EXPORT     _var_defragBuf_8c2261a0
+          .EXPORT     _var_lcdSlot_8c2263a0
           .AENDI
           .EXPORT     _VmGameSwitchToTopMenu_8c01c880
           .EXPORT     _VmGameResetLcdAnims_8c01c8dc
@@ -100,6 +96,10 @@
           .EXPORT     _init_vmuProbeNames_8c044e48 ; 01bb48.src
           .EXPORT     _init_slotCursorTargets_8c044e50 ; 01bb48.src
           .EXPORT     _init_vmGameResgrp_8c044e90 ; 019e98_main_menu.c, 01bb48.src
+          .EXPORT     _var_lcdAnimActive_8c2260a8 ; 0129cc_game
+          .EXPORT     _var_lcdAnimBus_8c2260ac ; 0129cc_game
+          .EXPORT     _var_lcdAnimDanger_8c2260b8 ; 0129cc_game
+          .EXPORT     _var_lcdAnimLoading_8c2260c4 ; 0129cc_game
           .SECTION     P, CODE, ALIGN=4
 _advanceLcdAnim_8c01bb48:
           MOV.L       R14,@-R15
@@ -2128,4 +2128,25 @@ _init_vmGameResgrp_8c044e90:        ; from defines
           .DATA.L      _const_8c038690 ; ukn
           .DATA.L      _const_8c038698 ; ukn
           .DATA.B      H'04, H'00, H'00, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_lcdAnimActive_8c2260a8:
+          .RES.B      4
+_var_lcdAnimBus_8c2260ac:
+          .RES.B      12
+_var_lcdAnimDanger_8c2260b8:
+          .RES.B      12
+_var_lcdAnimLoading_8c2260c4:
+          .RES.B      12
+_var_bupPhase_8c2260d0:
+          .RES.B      4
+_var_lcdClearBuf_8c2260d4:
+          .RES.B      196
+_var_lcdFrameDelay_8c226198:
+          .RES.B      4
+_var_lcdFramePtr_8c22619c:
+          .RES.B      4
+_var_defragBuf_8c2261a0:
+          .RES.B      512
+_var_lcdSlot_8c2263a0:
+          .RES.B      4
           .END

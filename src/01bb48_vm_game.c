@@ -83,6 +83,22 @@ typedef struct {
     int field_0x1c;
 } VmGameTask;
 
+/* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+int var_lcdAnimActive_8c2260a8;
+LcdAnim var_lcdAnimBus_8c2260ac;
+LcdAnim var_lcdAnimDanger_8c2260b8;
+LcdAnim var_lcdAnimLoading_8c2260c4;
+STATIC enum VmGameBupPhase var_bupPhase_8c2260d0; // last-seen bu* async op status/phase
+STATIC char var_lcdClearBuf_8c2260d4[0xc4]; // VMS LCD framebuffer (48x32 mono)
+STATIC Uint32 var_lcdFrameDelay_8c226198; // LCD anim step counter
+STATIC LcdFrame *var_lcdFramePtr_8c22619c; // current LCD anim frame ptr
+STATIC char var_defragBuf_8c2261a0[512]; // buDefragDisk work buffer
+STATIC int var_lcdSlot_8c2263a0;
+
 /* ===================
  * Initialized Globals
  * ===================

@@ -1,18 +1,4 @@
-; 8c2260a8
-          .EXPORT     _var_lcdAnimActive_8c2260a8 ; 0129cc_game
-                                    ; 01bb48
-          .EXPORT     _var_lcdAnimBus_8c2260ac ; 0129cc_game
-                                    ; 01bb48
-          .EXPORT     _var_lcdAnimDanger_8c2260b8 ; 0129cc_game
-                                    ; 01bb48
-          .EXPORT     _var_lcdAnimLoading_8c2260c4 ; 0129cc_game
-                                    ; 01bb48
-          .EXPORT     _var_bupPhase_8c2260d0 ; 01bb48
-          .EXPORT     _var_lcdClearBuf_8c2260d4 ; 01bb48
-          .EXPORT     _var_lcdFrameDelay_8c226198 ; 01bb48
-          .EXPORT     _var_lcdFramePtr_8c22619c ; 01bb48
-          .EXPORT     _var_defragBuf_8c2261a0 ; 01bb48
-          .EXPORT     _var_lcdSlot_8c2263a0 ; 01bb48
+; 8c2263a4
           .EXPORT     _var_profileUnlockedCount_8c2263a4 ; 01b19c
                                     ; 01c980
           .EXPORT     _var_resourceGroup_8c2263a8 ; 0129cc_game
@@ -241,26 +227,6 @@
           .EXPORT     _var_driveMsgQueue_8c228564 ; 02b2f0
                                                   ; 02b464
           .SECTION    B,DATA,ALIGN=4
-_var_lcdAnimActive_8c2260a8:
-          .RES.B      4
-_var_lcdAnimBus_8c2260ac:
-          .RES.B      12
-_var_lcdAnimDanger_8c2260b8:
-          .RES.B      12
-_var_lcdAnimLoading_8c2260c4:
-          .RES.B      12
-_var_bupPhase_8c2260d0:
-          .RES.B      4
-_var_lcdClearBuf_8c2260d4:
-          .RES.B      196
-_var_lcdFrameDelay_8c226198:
-          .RES.B      4
-_var_lcdFramePtr_8c22619c:
-          .RES.B      4
-_var_defragBuf_8c2261a0:
-          .RES.B      512
-_var_lcdSlot_8c2263a0:
-          .RES.B      4
 _var_profileUnlockedCount_8c2263a4:
           .RES.B      4
 _var_resourceGroup_8c2263a8:

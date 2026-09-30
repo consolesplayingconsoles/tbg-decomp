@@ -57,7 +57,6 @@ return new class extends TestCase {
         $this->setSize('_var_vmMountBusy_8c22606c', 4);
         $this->setSize('_var_vmBusy_8c157a7c', 4);
         $this->setSize('_var_vmGameBuf_8c1bc454', 4);
-        $this->setSize('_var_lcdAnimDanger_8c2260b8', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
         $this->initUint32($this->addressOf('_var_midiHandles_8c0fcd28'), self::MIDI_HANDLE_0);
         $this->setSize('_var_texbuf_8c277ca0', 0x1000);

@@ -39,8 +39,6 @@ return new class extends TestCase {
 
     private function resolveSymbols(): void
     {
-        $this->setSize('_var_bupPhase_8c2260d0', 4);
-        $this->setSize('_var_defragBuf_8c2261a0', 512);
         $this->setSize('_buDefragDisk', 4);
     }
 };
