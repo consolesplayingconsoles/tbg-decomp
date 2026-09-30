@@ -518,17 +518,11 @@ return new class extends TestCase {
         /* external data */
         $this->setSize('_var_peripherals_8c1ba35c', 0x68);
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
-        $this->setSize('_var_fileCards_8c226018', 0x30);
         $this->setSize('_var_isFading_8c226568', 4);
         $this->setSize('_var_midiHandles_8c0fcd28', 0x20);
-        $this->setSize('_var_saveLoadResult_8c226010', 4);
-        $this->setSize('_var_fileCardCount_8c226014', 4);
         $this->setSize('_var_vmBusy_8c157a7c', 4);
-        $this->setSize('_var_saveBufCursor_8c225fe0', 4);
-        $this->setSize('_var_loadedSaveSlots_8c225fe4', 0x28);
         $this->setSize('_var_saveBuf_8c1ba2e0', 4);
         $this->setSize('_var_saveSlot_8c1ba350', 4);
-        $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_vmMountBusy_8c22606c', 4);
         $this->setSize('_var_progress_8c1ba1cc', 0xe8);
         $this->setSize('_init_adxPlaying_8c03bd80', 4);

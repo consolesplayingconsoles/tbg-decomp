@@ -82,7 +82,6 @@ return new class extends TestCase {
         }
 
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
-        $this->setSize('_var_loadedSaveCount_8c22600c', 4);
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->setSize('_var_vmuStatus_8c226048', 0x24);
         $this->setSize('_var_vmBusy_8c157a7c', 4);

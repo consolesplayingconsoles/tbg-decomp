@@ -10,12 +10,8 @@ return new class extends TestCase {
 
     private function setup(int $selectedVm, int $status, int $count, array $saves): void
     {
-        $this->setSize('_var_fileCardCount_8c226014', 4);
-        $this->setSize('_var_fileCards_8c226018', 0x30);
         $this->setSize('_var_vmuStatus_8c226048', 0x24);
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
-        $this->setSize('_var_loadedSaveCount_8c22600c', 4);
-        $this->setSize('_var_loadedSaveSlots_8c225fe4', 0x28);
 
         $this->b14 = $this->addressOf('_var_fileCardCount_8c226014');
         $this->b18 = $this->addressOf('_var_fileCards_8c226018');

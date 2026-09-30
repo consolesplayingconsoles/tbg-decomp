@@ -44,12 +44,6 @@
           .IMPORT     _var_runWasPractice_8c1bb8bc
           .IMPORT     _var_menuState_8c1bc7a8
           .IMPORT     _var_currentSysResGroupInfo_8c225fb0
-          .IMPORT     _var_saveBufCursor_8c225fe0
-          .IMPORT     _var_loadedSaveSlots_8c225fe4
-          .IMPORT     _var_loadedSaveCount_8c22600c
-          .IMPORT     _var_saveLoadResult_8c226010
-          .IMPORT     _var_fileCardCount_8c226014
-          .IMPORT     _var_fileCards_8c226018
           .IMPORT     _var_vmuStatus_8c226048
           .IMPORT     _var_vmMountBusy_8c22606c
           .IMPORT     _var_soundMode_8c226070
@@ -62,6 +56,12 @@
           .EXPORT     _drawFileCard_8c018b4c
           .EXPORT     _drawFileSelect_8c018d46
           .EXPORT     _fileSelectTask_8c018e7e
+          .EXPORT     _var_saveBufCursor_8c225fe0
+          .EXPORT     _var_loadedSaveSlots_8c225fe4
+          .EXPORT     _var_loadedSaveCount_8c22600c
+          .EXPORT     _var_saveLoadResult_8c226010
+          .EXPORT     _var_fileCardCount_8c226014
+          .EXPORT     _var_fileCards_8c226018
           .AENDI
           .EXPORT     _FileMenuFreeBuffers_8c0187d0
           .EXPORT     _FileMenuIsSaveValid_8c018804
@@ -1837,4 +1837,17 @@ _const_8c037ecc:        ; from defines
           .DATA.B      H'83, H'8D, H'81, H'5B, H'83, H'68, H'8E, H'C0, H'8D, H'73, H'92, H'86, H'82, H'C5, H'82, H'B7
           .DATA.B      H'3C, H'45, H'3E, H'93, H'64, H'8C, H'B9, H'82, H'F0, H'90, H'D8, H'82, H'E7, H'82, H'C8, H'82
           .DATA.B      H'A2, H'82, H'C5, H'89, H'BA, H'82, H'B3, H'82, H'A2, H'00
+          .SECTION    B,DATA,ALIGN=4
+_var_saveBufCursor_8c225fe0:
+          .RES.B      4
+_var_loadedSaveSlots_8c225fe4:
+          .RES.B      40
+_var_loadedSaveCount_8c22600c:
+          .RES.B      4
+_var_saveLoadResult_8c226010:
+          .RES.B      4
+_var_fileCardCount_8c226014:
+          .RES.B      4
+_var_fileCards_8c226018:
+          .RES.B      48
           .END

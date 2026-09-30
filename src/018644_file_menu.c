@@ -80,6 +80,18 @@ typedef struct {
 } LoadFileTask;
 
 /* ====================
+ * Non-initialized Globals
+ * ====================
+ */
+
+STATIC void *var_saveBufCursor_8c225fe0; /* BupLoad dest buffer, advances 0x600 per file */
+STATIC int var_loadedSaveSlots_8c225fe4[10]; /* VMU file index of each loaded save, in load order */
+STATIC int var_loadedSaveCount_8c22600c;
+STATIC int var_saveLoadResult_8c226010; /* enum SAVE_LOAD_RESULT */
+STATIC int var_fileCardCount_8c226014; /* FILE SELECT cards in use */
+STATIC int var_fileCards_8c226018[12]; /* VMU file index, or FILE_CARD_NEW / FILE_CARD_EMPTY */
+
+/* ====================
  * Functions
  * ====================
  */

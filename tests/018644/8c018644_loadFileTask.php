@@ -185,10 +185,6 @@ return new class extends TestCase {
     {
         $this->setSize('_var_selectedVm_8c1ba34c', 4);
         $this->initUint32($this->addressOf('_var_selectedVm_8c1ba34c'), 0);
-        $this->setSize('_var_saveBufCursor_8c225fe0', 4);
-        $this->setSize('_var_loadedSaveSlots_8c225fe4', 0x28);
-        $this->setSize('_var_loadedSaveCount_8c22600c', 4);
-        $this->setSize('_var_saveLoadResult_8c226010', 4);
         $this->setSize('_var_backupFileImageBuf_8c1ba348', 4);
         $this->setSize('_var_backupFileHeader_8c1ba2e4', 0x60);
         $this->setSize('_buIsExistFile', 4);

@@ -71,7 +71,6 @@ return new class extends TestCase {
     private function setup(array $cards, int $scroll, int $selected): void
     {
         $this->doNotRandomizeMemory();
-        $this->setSize('_var_fileCards_8c226018', 0x30);
         $this->setSize('_var_menuState_8c1bc7a8', 0x6c);
 
         $c = $this->addressOf('_var_fileCards_8c226018');

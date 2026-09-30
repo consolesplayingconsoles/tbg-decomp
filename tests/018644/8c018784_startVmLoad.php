@@ -13,8 +13,6 @@ return new class extends TestCase {
         $this->setSize('_var_vmBusy_8c157a7c', 4);
         $this->setSize('_init_saveNames_8c044d50', 0x2c); // char*[11]
         $this->setSize('_var_saveBuf_8c1ba2e0', 4);
-        $this->setSize('_var_saveBufCursor_8c225fe0', 4);
-        $this->setSize('_var_saveLoadResult_8c226010', 4);
         $this->setSize('_syMalloc', 4);
 
         $createdTask = $this->alloc(0x20);

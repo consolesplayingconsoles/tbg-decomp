@@ -1,6 +1,6 @@
-/* 8c225fe0: undecompiled data section */
-#ifndef _225FE0_SECTIONB_H
-#define _225FE0_SECTIONB_H
+/* 8c226048: undecompiled data section */
+#ifndef _226048_SECTIONB_H
+#define _226048_SECTIONB_H
 
 #include <shinobi.h>
 #include "01614c_replay_menu.h"
@@ -58,13 +58,6 @@ typedef struct {
     int nearStopChimeLatch_0x14;
     int firstChimeArmed_0x18;
 } DriveCueState;
-
-extern void* var_saveBufCursor_8c225fe0;      // 018644: BupLoad dest buffer, advances 0x600 per file
-extern int var_loadedSaveSlots_8c225fe4[10];    // 018644: VMU file index of each loaded save, in load order
-extern int var_loadedSaveCount_8c22600c;        // 018644
-extern int var_saveLoadResult_8c226010;        // 018644: load result (1 = done, 2 = error)
-extern int var_fileCardCount_8c226014;        // 018644: FILE SELECT cards in use
-extern int var_fileCards_8c226018[12];    // 018644: FILE SELECT card list; VMU file index, or 0xa=NEW FILE / 0xb=empty
 
 extern int var_vmMountBusy_8c22606c;
 extern char var_vmsComment_8c226098[16]; // 01b19c: VMS file comment, "9/<day> EXP <points>"
@@ -393,4 +386,4 @@ extern int var_scoreTotal_8c226404;
 /* set by ResultShowFailedRun_8c01e24e, cleared by ResultShowPassedRun_8c01e0b4 */
 extern int var_runFailed_8c226408;
 
-#endif // _225FE0_SECTIONB_H
+#endif // _226048_SECTIONB_H
