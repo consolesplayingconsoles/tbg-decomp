@@ -176,16 +176,25 @@ off-course case shows the same message as the medium one).
 - Running late (`TIME_MANAGEMENT`). The schedule is part of the job, so
   falling behind costs points like any other error.
 
-**Railway crossings.** Fully modelled visually
-(`var_fumiGateModel_8c22840c`/`var_fumiLampNodes_8c228434`, from *fumikiri*,
-`0289ac_objects.c`), but traced as purely decorative: `fumiCrossingTask_8c02a4f8`
-is a scripted "row" scenery task like the other roadside props (fly-bys, dat
-blobs, static models) -- its gate-closed/train-passing/gate-open phases are
-gated only on the top byte of `var_busState_8c1bb9d0.scenePresetIds_0x3bc` (a scene-script
-trigger), never on the bus's position, speed, or state. No collision check
-against the closed gate and no penalty tied to it were found anywhere in the
-codebase. **The remembered "stop at the crossing" penalty was not found; it
-may not exist, or may live in code not yet decompiled.**
+**Railway crossings.** Graded, on the Ome route only. Its one crossing sits
+between stops 2 and 3, on every Ome course. The rules come from road attribute bits
+`0x30000000` (`ROAD_CROSSING_*`, `02b464_grading.c`), and only 4 polygons in
+the game's attribute maps carry them, all at the `O_FUMI` gate posts
+(~(7225, 6347)). `gradeFrame_8c02bcd8` enforces two rules:
+
+- **Full stop in the approach** (zone 1, ~6.6m deep, ending at the gate
+  line). Entering it arms the check, and leaving it before speed is exactly 0
+  costs -30. Banner: 踏切前不停止 (no stop before the crossing).
+- **No stopping on the tracks** (zone 2). A stationary frame with probe A
+  or C (4.9m behind) in it costs -50 at once, then again every 0x78 frames.
+  Banner: 踏切内停車 (stopped in the crossing).
+
+Both map to `INSTR_BLANK`, an empty dialog sequence, so practice mode has
+no instructor line for them. The scenery is separate:
+`fumiCrossingTask_8c02a4f8`'s gate/train animation runs on a scene-script
+trigger (top byte of `scenePresetIds_0x3bc`), not on the bus. Its type-6 row in
+`init_8c03c504` sits after the table's `-1` terminator, so the animated gate
+apparently never loads.
 
 This also resolves a naming trap flagged during this investigation:
 `BusState.crossingSearchDone_0x334`/`crossingSearchSide_0x338` looked like a

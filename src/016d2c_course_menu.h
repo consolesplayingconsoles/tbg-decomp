@@ -82,7 +82,7 @@ enum {
     INSTR_LANE_STRADDLE         = 46,
     INSTR_NO_SIGNAL             = 47,
     INSTR_NO_SIGNAL_TURN        = 48, // never raised (see above)
-    INSTR_UKN_49                = 49,
+    INSTR_BLANK                 = 49, // empty dialog sequence
     INSTR_SIGNAL_VIOLATION      = 50,
     INSTR_BAD_STOP_LINE         = 51,
     INSTR_ILLEGAL_LANE_CHANGE   = 52,

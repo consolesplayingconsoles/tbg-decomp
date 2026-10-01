@@ -433,7 +433,7 @@ void BusInputUpdate_8c0246b2(void)
     /* press bits 0x400/0x2 = left/right turn-signal buttons; signalSide_0x25c
      * is the driver's latched signal intent (0 off, 1 left, 2 right) and
      * doubles as the mirror-view selector -- toggling it sets mirror_0x268
-     * between its 0/1/2 modes, gated by a var_runState_8c2285c4.field_0x58[5] check against a
+     * between its 0/1/2 modes, gated by a var_runState_8c2285c4.lane_0x6c check against a
      * sentinel (0x10000000) or against var_runState_8c2285c4.field_0x70[0]. */
     if (var_driveMode_8c1bb8c8 != 0) {
         var_busState_8c1bb9d0.laneTargetSearchSide_0x338 = 2;
@@ -445,7 +445,7 @@ void BusInputUpdate_8c0246b2(void)
             switch (var_busState_8c1bb9d0.signalSide_0x25c) {
             case 0:
                 var_busState_8c1bb9d0.signalSide_0x25c = 1;
-                if (var_runState_8c2285c4.field_0x58[5] != 0x10000000) {
+                if (var_runState_8c2285c4.lane_0x6c != 0x10000000) {
                     var_busState_8c1bb9d0.mirror_0x268 = 1;
                 }
                 break;
@@ -463,7 +463,7 @@ void BusInputUpdate_8c0246b2(void)
             switch (var_busState_8c1bb9d0.signalSide_0x25c) {
             case 0:
                 var_busState_8c1bb9d0.signalSide_0x25c = 2;
-                if ((var_runState_8c2285c4.field_0x58[5] & ~1) != (var_runState_8c2285c4.field_0x70[0] << 4)) {
+                if ((var_runState_8c2285c4.lane_0x6c & ~1) != (var_runState_8c2285c4.field_0x70[0] << 4)) {
                     var_busState_8c1bb9d0.mirror_0x268 = 2;
                 }
                 break;
@@ -488,7 +488,7 @@ void BusInputUpdate_8c0246b2(void)
         switch (var_busState_8c1bb9d0.signalSide_0x25c) {
         case 0:
             var_busState_8c1bb9d0.signalSide_0x25c = 1;
-            if (var_runState_8c2285c4.field_0x58[5] != 0x10000000) {
+            if (var_runState_8c2285c4.lane_0x6c != 0x10000000) {
                 var_busState_8c1bb9d0.mirror_0x268 = 1;
             }
             break;
@@ -504,7 +504,7 @@ void BusInputUpdate_8c0246b2(void)
         switch (var_busState_8c1bb9d0.signalSide_0x25c) {
         case 0:
             var_busState_8c1bb9d0.signalSide_0x25c = 2;
-            if ((var_runState_8c2285c4.field_0x58[5] & ~1) != (var_runState_8c2285c4.field_0x70[0] << 4)) {
+            if ((var_runState_8c2285c4.lane_0x6c & ~1) != (var_runState_8c2285c4.field_0x70[0] << 4)) {
                 var_busState_8c1bb9d0.mirror_0x268 = 2;
             }
             break;

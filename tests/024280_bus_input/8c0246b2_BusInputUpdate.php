@@ -400,7 +400,7 @@ return new class extends TestCase {
         ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0);
         $this->initUint32($pad + 0x10, 0x400);
         $this->initUint32($bus + 0x25c, 0);
-        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x6c, 0); // var_runState_8c2285c4.field_0x58[5], != the 0x10000000 sentinel
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x6c, 0); // var_runState_8c2285c4.lane_0x6c, != the 0x10000000 sentinel
 
         $this->call('_BusInputUpdate_8c0246b2');
 
@@ -446,7 +446,7 @@ return new class extends TestCase {
         ['bus' => $bus, 'pad' => $pad] = $this->setup(3, brakeTrigger: 0, throttleTrigger: 0);
         $this->initUint32($pad + 0x10, 0x2);
         $this->initUint32($bus + 0x25c, 0);
-        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x6c, 4); // var_runState_8c2285c4.field_0x58[5], != var_runState_8c2285c4.field_0x70[0] << 4
+        $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x6c, 4); // var_runState_8c2285c4.lane_0x6c, != var_runState_8c2285c4.field_0x70[0] << 4
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x70, 0);
 
         $this->call('_BusInputUpdate_8c0246b2');

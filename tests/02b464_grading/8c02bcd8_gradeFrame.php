@@ -44,12 +44,12 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x3c0, 0); // bus_substate
         $this->initUint32($busState + 0x3c4, 0);
 
-        $this->initUint32($base + 0x58, 0); // var_runState_8c2285c4.field_0x58[0]
-        $this->initUint32($base + 0x5c, 1); // var_runState_8c2285c4.field_0x58[1] armed -- skip idle timer branch
-        $this->initUint32($base + 0x60, 0); // var_runState_8c2285c4.field_0x58[2]
-        $this->initUint32($base + 0x64, 0); // var_runState_8c2285c4.field_0x58[3] sig state
-        $this->initUint32($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4]
-        $this->initUint32($base + 0x6c, 0); // var_runState_8c2285c4.field_0x58[5]
+        $this->initUint32($base + 0x58, 0); // var_runState_8c2285c4.field_0x58
+        $this->initUint32($base + 0x5c, 1); // var_runState_8c2285c4.field_0x5c armed -- skip idle timer branch
+        $this->initUint32($base + 0x60, 0); // var_runState_8c2285c4.field_0x60
+        $this->initUint32($base + 0x64, 0); // var_runState_8c2285c4.crossingState_0x64
+        $this->initUint32($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68
+        $this->initUint32($base + 0x6c, 0); // var_runState_8c2285c4.lane_0x6c
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 0);
 
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
@@ -90,7 +90,7 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x6c, 4); // var_runState_8c2285c4.field_0x58[5]
+        $this->initUint32($base + 0x6c, 4); // var_runState_8c2285c4.lane_0x6c
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta = 4-10 < 0
         $this->initUint32($busPtr + 0x25c, 1); // left signal on
 
@@ -98,8 +98,8 @@ return new class extends TestCase {
 
         $this->shouldWriteLong($busPtr + 0x25c, 0);
         $this->shouldWriteLong($busPtr + 0x268, 0);
-        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4], hold-timer no-op reset
-        $this->shouldWriteLong($base + 0x58, 1); // var_runState_8c2285c4.field_0x58[0], signalSide_0x25c-unchanged counter
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68, reset
+        $this->shouldWriteLong($base + 0x58, 1); // var_runState_8c2285c4.field_0x58, signalSide_0x25c-unchanged counter
 
         $this->shouldCall('_StopUpdateArrival_8c02ce48');
 
@@ -119,8 +119,8 @@ return new class extends TestCase {
 
         $this->call('_gradeFrame_8c02bcd8');
 
-        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4], hold-timer no-op reset
-        $this->shouldWriteLong($base + 0x58, 1); // var_runState_8c2285c4.field_0x58[0], signalSide_0x25c-unchanged counter
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68, reset
+        $this->shouldWriteLong($base + 0x58, 1); // var_runState_8c2285c4.field_0x58, signalSide_0x25c-unchanged counter
 
         $this->shouldCall('_StopUpdateArrival_8c02ce48');
 
@@ -129,20 +129,20 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1); // var_runState_8c2285c4.runClock_0x18 incremented
     }
 
-    // sigState 1 -> (turning) -> 2 -> (still turning, stopped) -> 5
-    public function test_turn_signal_state_1_to_2_to_5_when_stopped(): void
+    // Crossing idle -> armed on entering the approach -> stopped, same frame
+    public function test_crossing_stop_in_approach(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x64, 1); // var_runState_8c2285c4.field_0x58[3] sig state = 1
-        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x10000000); // turning left
+        $this->initUint32($base + 0x64, 1); // var_runState_8c2285c4.crossingState_0x64 = 1
+        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x10000000); // crossing approach
 
         $this->call('_gradeFrame_8c02bcd8');
 
-        $this->shouldWriteLong($base + 0x64, 2); // sigState -> 2 (still turning)
-        $this->shouldWriteLong($base + 0x64, 5); // sigState -> 5 (turning, stopped)
-        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] hold-timer reset
+        $this->shouldWriteLong($base + 0x64, 2); // armed
+        $this->shouldWriteLong($base + 0x64, 5); // stopped
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68 reset
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_StopUpdateArrival_8c02ce48');
@@ -151,20 +151,19 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // sigState 2, turn signal cancelled (turnBits no longer 0x10000000):
-    // penalty for cancelling early, sigState -> 1.
-    public function test_turn_signal_state_2_cancelled_applies_penalty(): void
+    // Armed, then left the approach without stopping: -30, back to idle.
+    public function test_crossing_left_approach_without_stopping(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x64, 2); // var_runState_8c2285c4.field_0x58[3] sig state = 2
+        $this->initUint32($base + 0x64, 2); // var_runState_8c2285c4.crossingState_0x64 = 2
 
         $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldCall('_adjust_8c02b464')->with(0x14, 0xffffffe2); // -30
-        $this->shouldWriteLong($base + 0x64, 1); // sigState -> 1
-        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] hold-timer reset
+        $this->shouldWriteLong($base + 0x64, 1); // idle
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68 reset
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_StopUpdateArrival_8c02ce48');
@@ -173,20 +172,20 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // sigState 2, still turning and moving: no state change, hold timer
-    // skipped this frame (var_runState_8c2285c4.field_0x58[4] reset only).
-    public function test_turn_signal_state_2_still_turning_while_moving(): void
+    // Armed and still rolling through the approach: no state change, stop
+    // timer only reset.
+    public function test_crossing_armed_while_moving(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x64, 2); // var_runState_8c2285c4.field_0x58[3] sig state = 2
-        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x10000000); // still turning
+        $this->initUint32($base + 0x64, 2); // var_runState_8c2285c4.crossingState_0x64 = 2
+        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x10000000); // crossing approach
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving
 
         $this->call('_gradeFrame_8c02bcd8');
 
-        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] reset (skipHoldTimer path)
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68 reset (skipHoldTimer path)
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_StopUpdateArrival_8c02ce48');
@@ -195,19 +194,18 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // sigState 5 (turn signal held while stopped), now moving again with the
-    // signal off: reverts to state 1.
-    public function test_turn_signal_state_5_reverts_to_1(): void
+    // Stopped, then out of the approach: back to idle.
+    public function test_crossing_stopped_reverts_to_idle(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x64, 5); // var_runState_8c2285c4.field_0x58[3] sig state = 5
+        $this->initUint32($base + 0x64, 5); // var_runState_8c2285c4.crossingState_0x64 = 5
 
         $this->call('_gradeFrame_8c02bcd8');
 
-        $this->shouldWriteLong($base + 0x64, 1); // sigState -> 1
-        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] hold-timer reset
+        $this->shouldWriteLong($base + 0x64, 1); // idle
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68 reset
 
         $this->shouldWriteLong($base + 0x58, 1);
         $this->shouldCall('_StopUpdateArrival_8c02ce48');
@@ -216,16 +214,15 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Hold-timer counter (var_runState_8c2285c4.field_0x58[4]) expires while
-    // busState.junctionARoadFlags_0x34c shows a lane change in progress: flat
-    // penalty and the counter reloads to 0x78.
-    public function test_hold_timer_expiry_applies_penalty(): void
+    // Stationary on the tracks: crossingStopTimer_0x68 underflows, -50, and
+    // the timer reloads to 0x78.
+    public function test_crossing_stopped_on_tracks(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x20000000); // junctionARoadFlags_0x34c
-        $this->initUint32($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4] decrements to -1
+        $this->initUint32($this->addressOf('_var_busState_8c1bb9d0') + 0x34c, 0x20000000); // crossing tracks
+        $this->initUint32($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68 decrements to -1
 
         $this->call('_gradeFrame_8c02bcd8');
 
@@ -351,15 +348,15 @@ return new class extends TestCase {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x5c, 0); // var_runState_8c2285c4.field_0x58[1] not yet armed
-        $this->initUint32($base + 0x60, 0x709); // var_runState_8c2285c4.field_0x58[2] one away from tripping
+        $this->initUint32($base + 0x5c, 0); // var_runState_8c2285c4.field_0x5c not yet armed
+        $this->initUint32($base + 0x60, 0x709); // var_runState_8c2285c4.field_0x60 one away from tripping
 
         $this->call('_gradeFrame_8c02bcd8');
 
         $this->shouldWriteLong($base + 0x68, 0);
         $this->shouldWriteLong($base + 0x58, 1);
 
-        $this->shouldWriteLong($base + 0x60, 0x70a); // var_runState_8c2285c4.field_0x58[2] incremented past threshold
+        $this->shouldWriteLong($base + 0x60, 0x70a); // var_runState_8c2285c4.field_0x60 incremented past threshold
         $this->shouldCall('_adjust_8c02b464')->with(0x13, 0xffffffb0); // -80
         $this->shouldWriteLong($base + 0x60, 0);
 
@@ -369,13 +366,13 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x18, 1);
     }
 
-    // Idle timeout armed once the bus first moves (var_runState_8c2285c4.field_0x58[1] latches).
+    // Idle timeout armed once the bus first moves (var_runState_8c2285c4.field_0x5c latches).
     public function test_idle_timeout_arms_on_first_movement(): void
     {
         $base = $this->resolveSymbols();
         $busPtr = $this->baseline($base);
 
-        $this->initUint32($base + 0x5c, 0); // var_runState_8c2285c4.field_0x58[1] not yet armed
+        $this->initUint32($base + 0x5c, 0); // var_runState_8c2285c4.field_0x5c not yet armed
         $this->initFloat($this->addressOf('_var_frameSpeed_8c22866c'), 1.0); // moving
 
         $this->call('_gradeFrame_8c02bcd8');

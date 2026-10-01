@@ -28,6 +28,22 @@
 #include "02b2f0_drive_msg.h"
 
 /* ====================
+ * Compiler Definitions
+ * ====================
+ */
+
+/* Level-crossing zones in a road attribute word. Only the Ome route's
+ * attribute map carries them, at its one railway crossing. */
+#define ROAD_CROSSING_MASK     0x30000000
+#define ROAD_CROSSING_APPROACH 0x10000000 /* full stop required */
+#define ROAD_CROSSING_TRACKS   0x20000000 /* no stopping */
+
+/* RunState.crossingState_0x64 */
+#define CROSSING_IDLE    1
+#define CROSSING_ARMED   2 /* in the approach, not yet stopped */
+#define CROSSING_STOPPED 5
+
+/* ====================
  * Initialized Globals
  * ====================
  */
@@ -233,7 +249,7 @@ float var_bumpSpeed_8c228670;
  * laneA/B/C are junctionARoadFlags2_0x358 / junctionBRoadFlags2_0x374 /
  * junctionCRoadFlags2_0x390 masked with 0xf0000001 -- the bus's three
  * road-probe lanes. prevLane/prevLaneFlags are last frame's, kept in
- * var_runState_8c2285c4.field_0x58[5]/var_runState_8c2285c4.field_0x70[0] between frames. offCourseBits is the
+ * var_runState_8c2285c4.lane_0x6c/var_runState_8c2285c4.field_0x70[0] between frames. offCourseBits is the
  * larger of junction A's and B's 0x30000 bits: 0x30000 is the severe case
  * gradeOffCourseSevere_8c02b864 grades, 0x20000 and below go to
  * gradeOffCourse_8c02b886. headingVsRoad is 0 when there is no road data,
@@ -496,7 +512,7 @@ STATIC void gradeSignals_8c02b8b8(void) {
 }
 
 /* Grades a wrong-lane penalty, escalating on repeats via
- * var_runState_8c2285c4.wrongLaneCount_0x2c; grades a further one when var_runState_8c2285c4.field_0x58[5]/
+ * var_runState_8c2285c4.wrongLaneCount_0x2c; grades a further one when var_runState_8c2285c4.lane_0x6c/
  * var_runState_8c2285c4.field_0x70[1]/[2] and the junctionARoadFlags_0x34c/junctionBRoadFlags_0x368
  * turn-signal bits (0x40000) don't all agree; and grades a third,
  * timeout-based one (var_runState_8c2285c4.field_0x38[3]/[4]) when the player's signal duration
@@ -521,7 +537,7 @@ STATIC void gradeLaneUse_8c02b986(void) {
         armCooldowns_8c02b578(4);
     }
 
-    if (var_runState_8c2285c4.field_0x58[5] == var_prevLane_8c228684 || (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x40000) == 0
+    if (var_runState_8c2285c4.lane_0x6c == var_prevLane_8c228684 || (var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x40000) == 0
         || (var_busState_8c1bb9d0.junctionBRoadFlags_0x368 & 0x40000) == 0 || (var_runState_8c2285c4.field_0x70[1] & 0x40000) == 0
         || (var_runState_8c2285c4.field_0x70[2] & 0x40000) == 0) {
         if (var_driveMode_8c1bb8c8 == 0) {
@@ -573,7 +589,7 @@ STATIC void gradeLaneUse_8c02b986(void) {
  * SignalGetFrame_8c028900); speeding above a per-signal limit
  * derived from busState junctionARoadFlags_0x34c, paced by
  * var_runState_8c2285c4.speedingCountdown_0x30; and a lane-change without the turn signal
- * armed (var_runState_8c2285c4.field_0x58[5] vs var_prevLane_8c228684,
+ * armed (var_runState_8c2285c4.lane_0x6c vs var_prevLane_8c228684,
  * var_playerBus_8c1bbd9c->signalSide_0x25c, var_prevLaneFlags_8c228688/
  * var_runState_8c2285c4.field_0x70[0]). The tail latches that the bus is inside a junction
  * (var_runState_8c2285c4.field_0x38[6]) and, once it leaves with the wrong turn signal for the turn
@@ -607,7 +623,7 @@ STATIC void gradeIntersection_8c02bb1c(void) {
     }
 
     if (var_driveMode_8c1bb8c8 == 0) {
-        laneDelta = (var_runState_8c2285c4.field_0x58[5] & ~1) - (var_prevLane_8c228684 & ~1);
+        laneDelta = (var_runState_8c2285c4.lane_0x6c & ~1) - (var_prevLane_8c228684 & ~1);
         if ((laneDelta < 0 && var_playerBus_8c1bbd9c->signalSide_0x25c != 1)
             || (laneDelta >= 1 && var_playerBus_8c1bbd9c->signalSide_0x25c != 2)) {
             if ((var_prevLaneFlags_8c228688 & 0xf000000) != 0 && (var_runState_8c2285c4.field_0x70[0] & 0xf000000) != 0) {
@@ -651,7 +667,8 @@ STATIC void gradeIntersection_8c02bb1c(void) {
 
 /* Per-frame grading tick, called once per drive frame (from taskCallback_8c02c072):
  * clears the player's lane-change turn signal once the lane change is done;
- * tracks the turn-signal-held-too-long state machine (var_runState_8c2285c4.field_0x58[3]/[4]);
+ * grades the level crossing (full stop in the approach, no stopping on the
+ * tracks);
  * grades penalties for holding the accelerator maxed out too long, for a
  * stale "signal duration" float timer, and for a violent turn (speed *
  * steering angle out of range); tracks idle time at a stop; polls
@@ -662,11 +679,11 @@ STATIC void gradeIntersection_8c02bb1c(void) {
  * runs long past var_runState_8c2285c4.scheduleTime_0x14. */
 STATIC void gradeFrame_8c02bcd8(void) {
     int laneDelta;
-    unsigned int turnBits;
-    int sigState;
+    unsigned int crossingZone;
+    int crossingState;
     int skipHoldTimer = 0;
 
-    laneDelta = (var_runState_8c2285c4.field_0x58[5] & ~1) - (var_prevLane_8c228684 & ~1);
+    laneDelta = (var_runState_8c2285c4.lane_0x6c & ~1) - (var_prevLane_8c228684 & ~1);
     if ((laneDelta < 0 && var_playerBus_8c1bbd9c->signalSide_0x25c == 1)
         || (laneDelta > 0 && var_playerBus_8c1bbd9c->signalSide_0x25c == 2)) {
         var_playerBus_8c1bbd9c->signalSide_0x25c = 0;
@@ -683,38 +700,42 @@ STATIC void gradeFrame_8c02bcd8(void) {
         var_runState_8c2285c4.field_0x38[5] = 0;
     }
 
-    turnBits = var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x30000000;
-    sigState = var_runState_8c2285c4.field_0x58[3];
-    if (sigState == 1 && turnBits == 0x10000000) {
-        var_runState_8c2285c4.field_0x58[3] = 2;
-        sigState = 2;
+    /* junctionA is sampled beside the bus's position (its front), junctionC
+     * 4.9m behind it. */
+    crossingZone = var_busState_8c1bb9d0.junctionARoadFlags_0x34c & ROAD_CROSSING_MASK;
+    crossingState = var_runState_8c2285c4.crossingState_0x64;
+    if (crossingState == CROSSING_IDLE && crossingZone == ROAD_CROSSING_APPROACH) {
+        var_runState_8c2285c4.crossingState_0x64 = CROSSING_ARMED;
+        crossingState = CROSSING_ARMED;
     }
 
-    if (sigState == 2) {
-        if (turnBits != 0x10000000) {
-            adjust_8c02b464(0x14, -30); /* -> INSTR_UKN_49 */
-            var_runState_8c2285c4.field_0x58[3] = 1;
+    if (crossingState == CROSSING_ARMED) {
+        if (crossingZone != ROAD_CROSSING_APPROACH) {
+            adjust_8c02b464(0x14, -30); /* -> INSTR_BLANK; banner: no stop before crossing */
+            var_runState_8c2285c4.crossingState_0x64 = CROSSING_IDLE;
         } else if (var_frameSpeed_8c22866c == 0.0f) {
-            var_runState_8c2285c4.field_0x58[3] = 5;
+            var_runState_8c2285c4.crossingState_0x64 = CROSSING_STOPPED;
         } else {
-            var_runState_8c2285c4.field_0x58[4] = 0;
+            var_runState_8c2285c4.crossingStopTimer_0x68 = 0;
             skipHoldTimer = 1;
         }
-    } else if (sigState == 5 && turnBits != 0x10000000) {
-        var_runState_8c2285c4.field_0x58[3] = 1;
+    } else if (crossingState == CROSSING_STOPPED && crossingZone != ROAD_CROSSING_APPROACH) {
+        var_runState_8c2285c4.crossingState_0x64 = CROSSING_IDLE;
     }
 
+    /* Starts at 0, so the first stationary frame on the tracks is already
+     * penalised; 0x78 frames between repeats. */
     if (!skipHoldTimer) {
         if (var_frameSpeed_8c22866c == 0.0f
-            && ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & 0x30000000) == 0x20000000
-                || (var_busState_8c1bb9d0.junctionCRoadFlags_0x384 & 0x30000000) == 0x20000000)) {
-            var_runState_8c2285c4.field_0x58[4] = var_runState_8c2285c4.field_0x58[4] - 1;
-            if (var_runState_8c2285c4.field_0x58[4] < 0) {
-                var_runState_8c2285c4.field_0x58[4] = 0x78;
-                adjust_8c02b464(0x15, -50); /* -> INSTR_UKN_49 */
+            && ((var_busState_8c1bb9d0.junctionARoadFlags_0x34c & ROAD_CROSSING_MASK) == ROAD_CROSSING_TRACKS
+                || (var_busState_8c1bb9d0.junctionCRoadFlags_0x384 & ROAD_CROSSING_MASK) == ROAD_CROSSING_TRACKS)) {
+            var_runState_8c2285c4.crossingStopTimer_0x68 = var_runState_8c2285c4.crossingStopTimer_0x68 - 1;
+            if (var_runState_8c2285c4.crossingStopTimer_0x68 < 0) {
+                var_runState_8c2285c4.crossingStopTimer_0x68 = 0x78;
+                adjust_8c02b464(0x15, -50); /* -> INSTR_BLANK; banner: stopped in crossing */
             }
         } else {
-            var_runState_8c2285c4.field_0x58[4] = 0;
+            var_runState_8c2285c4.crossingStopTimer_0x68 = 0;
         }
     }
 
@@ -767,21 +788,21 @@ STATIC void gradeFrame_8c02bcd8(void) {
     }
 
     if (var_runState_8c2285c4.field_0x38[7] == var_busState_8c1bb9d0.signalSide_0x25c) {
-        var_runState_8c2285c4.field_0x58[0] = var_runState_8c2285c4.field_0x58[0] + 1;
+        var_runState_8c2285c4.field_0x58 = var_runState_8c2285c4.field_0x58 + 1;
     } else {
         var_runState_8c2285c4.field_0x38[7] = var_busState_8c1bb9d0.signalSide_0x25c;
-        var_runState_8c2285c4.field_0x58[0] = 0;
+        var_runState_8c2285c4.field_0x58 = 0;
     }
 
-    if (var_runState_8c2285c4.field_0x58[1] == 0) {
+    if (var_runState_8c2285c4.field_0x5c == 0) {
         if (var_frameSpeed_8c22866c == 0.0f) {
-            var_runState_8c2285c4.field_0x58[2] = var_runState_8c2285c4.field_0x58[2] + 1;
-            if (var_runState_8c2285c4.field_0x58[2] > 0x708) {
+            var_runState_8c2285c4.field_0x60 = var_runState_8c2285c4.field_0x60 + 1;
+            if (var_runState_8c2285c4.field_0x60 > 0x708) {
                 adjust_8c02b464(0x13, -80); /* -> INSTR_BLOCK_INTERSECTION */
-                var_runState_8c2285c4.field_0x58[2] = 0;
+                var_runState_8c2285c4.field_0x60 = 0;
             }
         } else {
-            var_runState_8c2285c4.field_0x58[1] = 1;
+            var_runState_8c2285c4.field_0x5c = 1;
         }
     }
 
@@ -791,7 +812,7 @@ STATIC void gradeFrame_8c02bcd8(void) {
         || var_runState_8c2285c4.stopPhase_0x20 == 0
         || var_driveCueState_8c2264b8.nearStopLatch_0x0c != 0) {
         if (var_runState_8c2285c4.instructionBonusPending_0x7c != 0) {
-            adjust_8c02b464(0x1e, 20); /* -> INSTR_UKN_49 */
+            adjust_8c02b464(0x1e, 20); /* -> INSTR_BLANK */
             var_runState_8c2285c4.instructionBonusPending_0x7c = 0;
         }
     } else {
@@ -1031,7 +1052,7 @@ STATIC void taskCallback_8c02c072() {
                 var_headingVsRoad_8c22868c = 0;
             }
 
-            var_prevLane_8c228684 = var_runState_8c2285c4.field_0x58[5];
+            var_prevLane_8c228684 = var_runState_8c2285c4.lane_0x6c;
             var_prevLaneFlags_8c228688 = var_runState_8c2285c4.field_0x70[0];
             laneAlias = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf0000001;
             var_laneA_8c228674 = laneAlias;
@@ -1039,7 +1060,7 @@ STATIC void taskCallback_8c02c072() {
             var_laneC_8c22867c = var_busState_8c1bb9d0.junctionCRoadFlags2_0x390 & 0xf0000001;
             if (laneAlias == var_laneB_8c228678) {
                 var_runState_8c2285c4.field_0x70[0] = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000;
-                var_runState_8c2285c4.field_0x58[5] = laneAlias;
+                var_runState_8c2285c4.lane_0x6c = laneAlias;
             }
 
             handleBump_8c02b6d4();
@@ -1108,7 +1129,7 @@ STATIC void taskCallback_8c02c072() {
                         adjust_8c02b464(0x1b, -3); /* -> INSTR_BAD_STOP_POSITION_1 */
                     }
                 }
-                if (var_busState_8c1bb9d0.signalSide_0x25c != 1 || var_runState_8c2285c4.field_0x58[0] < 0x3c) {
+                if (var_busState_8c1bb9d0.signalSide_0x25c != 1 || var_runState_8c2285c4.field_0x58 < 0x3c) {
                     adjust_8c02b464(0xf, -8); /* -> INSTR_NO_SIGNAL */
                 }
             } else if (var_runState_8c2285c4.stopArrivalGrade_0x24 == 1) {
@@ -1196,11 +1217,11 @@ void GradeReset_8c02c46a(void) {
     var_runState_8c2285c4.field_0x38[5] = 0;
     var_runState_8c2285c4.field_0x38[6] = 0;
     var_runState_8c2285c4.field_0x38[7] = -1;
-    var_runState_8c2285c4.field_0x58[1] = 0;
-    var_runState_8c2285c4.field_0x58[2] = 0;
-    var_runState_8c2285c4.field_0x58[3] = 1;
-    var_runState_8c2285c4.field_0x58[4] = 0;
-    var_runState_8c2285c4.field_0x58[5] = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf0000000;
+    var_runState_8c2285c4.field_0x5c = 0;
+    var_runState_8c2285c4.field_0x60 = 0;
+    var_runState_8c2285c4.crossingState_0x64 = CROSSING_IDLE;
+    var_runState_8c2285c4.crossingStopTimer_0x68 = 0;
+    var_runState_8c2285c4.lane_0x6c = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf0000000;
     var_runState_8c2285c4.field_0x70[0] = var_busState_8c1bb9d0.junctionARoadFlags2_0x358 & 0xf000000;
     var_runState_8c2285c4.field_0x70[1] = var_busState_8c1bb9d0.junctionARoadFlags_0x34c;
     var_runState_8c2285c4.field_0x70[2] = var_busState_8c1bb9d0.junctionBRoadFlags_0x368;

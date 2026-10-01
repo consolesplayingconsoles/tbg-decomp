@@ -56,11 +56,11 @@ return new class extends TestCase {
         $this->shouldWriteLong($base + 0x50, 0); // var_runState_8c2285c4.field_0x38[6]
         $this->shouldWriteLong($base + 0x54, -1); // var_runState_8c2285c4.field_0x38[7]
 
-        $this->shouldWriteLong($base + 0x5c, 0); // var_runState_8c2285c4.field_0x58[1]
-        $this->shouldWriteLong($base + 0x60, 0); // var_runState_8c2285c4.field_0x58[2]
-        $this->shouldWriteLong($base + 0x64, 1); // var_runState_8c2285c4.field_0x58[3]
-        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.field_0x58[4]
-        $this->shouldWriteLong($base + 0x6c, 0); // var_runState_8c2285c4.field_0x58[5]
+        $this->shouldWriteLong($base + 0x5c, 0); // var_runState_8c2285c4.field_0x5c
+        $this->shouldWriteLong($base + 0x60, 0); // var_runState_8c2285c4.field_0x60
+        $this->shouldWriteLong($base + 0x64, 1); // var_runState_8c2285c4.crossingState_0x64
+        $this->shouldWriteLong($base + 0x68, 0); // var_runState_8c2285c4.crossingStopTimer_0x68
+        $this->shouldWriteLong($base + 0x6c, 0); // var_runState_8c2285c4.lane_0x6c
         $this->shouldWriteLong($base + 0x70, 0); // var_runState_8c2285c4.field_0x70[0]
         $this->shouldWriteLong($base + 0x74, 0); // var_runState_8c2285c4.field_0x70[1]
         $this->shouldWriteLong($base + 0x78, 0); // var_runState_8c2285c4.field_0x70[2]

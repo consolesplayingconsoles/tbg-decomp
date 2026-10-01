@@ -132,7 +132,7 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x25c, 0); // turn signal not matching left (1)
         $this->initUint32($this->addressOf('_var_playerBus_8c1bbd9c'), $busState);
 
-        $this->initUint32($base + 0x6c, 4); // var_runState_8c2285c4.field_0x58[5]
+        $this->initUint32($base + 0x6c, 4); // var_runState_8c2285c4.lane_0x6c
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 10); // laneDelta = 4-10 < 0
         $this->initUint32($this->addressOf('_var_prevLaneFlags_8c228688'), 0xf000000);
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x70, 0xf000000);

@@ -62,7 +62,7 @@ return new class extends TestCase {
         $this->initUint32($busState + 0x374, 1); // != junctionARoadFlags2_0x358 alias -> skip the lane-alias re-latch
         $this->initUint32($busState + 0x390, 0);
 
-        $this->initUint32($base + 0x6c, 0); // var_runState_8c2285c4.field_0x58[5]
+        $this->initUint32($base + 0x6c, 0); // var_runState_8c2285c4.lane_0x6c
         $this->initUint32($base + 0x70, 0); // var_runState_8c2285c4.field_0x70[0]
 
         $this->initUint32($this->addressOf('_var_wallHitBits_8c228660'), 0); // no bump flags -> no vibration
@@ -79,7 +79,7 @@ return new class extends TestCase {
         $this->shouldWriteFloat($this->addressOf('_var_frameSpeed_8c22866c'), 0.0);
         $this->shouldWriteLong($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->shouldWriteLong($this->addressOf('_var_headingVsRoad_8c22868c'), 0); // junctionBAttr1_0x36c high bit set -> skip grading
-        $this->shouldWriteLong($this->addressOf('_var_prevLane_8c228684'), 0); // var_runState_8c2285c4.field_0x58[5]
+        $this->shouldWriteLong($this->addressOf('_var_prevLane_8c228684'), 0); // var_runState_8c2285c4.lane_0x6c
         $this->shouldWriteLong($this->addressOf('_var_prevLaneFlags_8c228688'), 0); // var_runState_8c2285c4.field_0x70[0]
         $this->shouldWriteLong($this->addressOf('_var_laneA_8c228674'), 0);
         $this->shouldWriteLong($this->addressOf('_var_laneB_8c228678'), 1);
@@ -122,7 +122,7 @@ return new class extends TestCase {
         $busState = $this->addressOf('_var_busState_8c1bb9d0');
         $this->initUint32($busState + 0x250, 0); // ang_0x250
         $this->initUint32($busState + 0x25c, 1); // skip the -8 stop-precision adjust
-        $this->initUint32($base + 0x58, 0x3c); // var_runState_8c2285c4.field_0x58[0]
+        $this->initUint32($base + 0x58, 0x3c); // var_runState_8c2285c4.field_0x58
 
         $this->initUint32($this->addressOf('_var_playMode_8c1bb8d0'), 1);
         $this->initUint32($this->addressOf('_var_runState_8c2285c4') + 0x0c, 0); // skip GradeRunComplete_8c02c586 gate

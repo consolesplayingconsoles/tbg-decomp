@@ -15,7 +15,7 @@ return new class extends TestCase {
         return $base;
     }
 
-    // Makes var_runState_8c2285c4.field_0x58[5] (base+0x6c) equal var_prevLane_8c228684, which alone
+    // Makes var_runState_8c2285c4.lane_0x6c (base+0x6c) equal var_prevLane_8c228684, which alone
     // makes the outer OR true (short-circuiting the rest) and sends the
     // block into the var_driveMode_8c1bb8c8-gated timing logic instead
     // of the flat penalty at the top of that block.
@@ -87,9 +87,9 @@ return new class extends TestCase {
         $this->initUint32($this->addressOf('_var_offCourseBits_8c228680'), 0);
         $this->initUint32($base + 0x2c, 0);
 
-        // All five OR terms false: var_runState_8c2285c4.field_0x58[5] != var_prevLane_8c228684, and
+        // All five OR terms false: var_runState_8c2285c4.lane_0x6c != var_prevLane_8c228684, and
         // each 0x40000 bit present.
-        $this->initUint32($base + 0x6c, 5); // var_runState_8c2285c4.field_0x58[5]
+        $this->initUint32($base + 0x6c, 5); // var_runState_8c2285c4.lane_0x6c
         $this->initUint32($this->addressOf('_var_prevLane_8c228684'), 6);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x34c), 0x40000);
         $this->initUint32(($this->addressOf('_var_busState_8c1bb9d0') + 0x368), 0x40000);

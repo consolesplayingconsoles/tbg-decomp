@@ -92,15 +92,23 @@ typedef struct {
      * Other slots unclear. */
     int field_0x38[8];
 
-    /* [5] (0x228630) is the bus's lane, junctionARoadFlags2_0x358 masked with
-     * 0xf0000001, refreshed by taskCallback_8c02c072 (02b464) only on frames where
-     * the A and B road probes agree. var_prevLane_8c228684 is the previous frame's
-     * copy, and the difference is what the lane-change graders read. Other slots
-     * unclear. */
-    int field_0x58[6];
+    int field_0x58;
+    int field_0x5c;
+    int field_0x60;
+
+    /* Level-crossing state machine and its stationary-on-the-tracks timer --
+     * see gradeFrame_8c02bcd8 (02b464). */
+    int crossingState_0x64;
+    int crossingStopTimer_0x68;
+
+    /* The bus's lane, junctionARoadFlags2_0x358 masked with 0xf0000001,
+     * refreshed by taskCallback_8c02c072 (02b464) only on frames where the A and
+     * B road probes agree. var_prevLane_8c228684 is the previous frame's copy,
+     * and the difference is what the lane-change graders read. */
+    int lane_0x6c;
 
     /* [0] is junctionARoadFlags2_0x358 masked with 0xf000000, refreshed by
-     * taskCallback_8c02c072 (02b464) in step with field_0x58[5];
+     * taskCallback_8c02c072 (02b464) in step with lane_0x6c;
      * var_prevLaneFlags_8c228688 is the previous frame's copy. [1]/[2] are the raw
      * junctionARoadFlags_0x34c / junctionBRoadFlags_0x368, stored after the graders
      * have run, so gradeLaneUse_8c02b986 sees last frame's 0x40000 turn-signal bit
