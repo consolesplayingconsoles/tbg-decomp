@@ -36,7 +36,7 @@ $(OUTPUT_DIR)/src/%.obj: src/%.c $(BUILD_DIR)/shc_testing.sub Makefile.test
 clean:
 	rm -rf $(OUTPUT_DIR)
 
-rebuild: clean .WAIT all
+rebuild: clean all
 
 .PHONY: all clean rebuild FORCE
 

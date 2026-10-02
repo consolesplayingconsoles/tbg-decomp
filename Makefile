@@ -168,7 +168,7 @@ graph: all
 clean:
 	rm -rf $(OUTPUT_DIR) $(BUILD_DIR)/lnk.sub
 
-rebuild: clean .WAIT all
+rebuild: clean all
 
 depend:
 	makedepend -Y -o .obj -f- $(C_SRCS) 2>/dev/null > Makefile.d

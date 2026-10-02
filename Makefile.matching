@@ -128,7 +128,7 @@ $(OUTPUT_DIR)/tbg.bin: $(OUTPUT_DIR)/tbg.elf
 clean:
 	rm -rf $(OUTPUT_DIR) $(BUILD_DIR)/lnk_matching.sub
 
-rebuild: clean .WAIT all
+rebuild: clean all
 
 .PHONY: all clean rebuild $(OUTPUT_DIR)/tbg.bin
 
