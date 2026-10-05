@@ -5,6 +5,7 @@
 #include "0100bc_sound.h"
 #include "1ba1c8_globals.h"
 #include "01fa78_hud.h" /* var_hudState_8c22643c */
+#include "01a148_option.h" /* var_soundMode_8c226070 */
 #include <cri_adxf.h>
 #include <string.h>
 #include "includes.h" /* STATIC */
@@ -328,6 +329,13 @@ STATIC void adxLoad_8c01057a()
     }
 }
 
+#ifdef SDK_R10
+/* R10+ sdSndSetPanMode talks to the sound driver and hangs if called before
+   sdLibInit/sdDrvInit (1.55J did not). GameInit sets the mode before the driver
+   is up, so defer the pan call until soundInit runs. */
+STATIC Bool sndLibReady = FALSE;
+#endif
+
 /* Downloads bus.mlt, the tone bank the MIDI ports play from. */
 STATIC void finishSoundInit_8c010614()
 {
@@ -357,6 +365,10 @@ STATIC void soundInit_8c01065e()
     sdMemBlkDestroy(memblk);
     syFree(var_sndDrvData_8c0fcd48);
     sdMemBlkSetTransferMode(SDE_MEMBLK_TRANSFER_MODE_DMA);
+#ifdef SDK_R10
+    sndLibReady = TRUE;
+    sdSndSetPanMode(var_soundMode_8c226070 == SYD_CFG_MONO ? SDE_PAN_MODE_DISABLE : SDE_PAN_MODE_ENABLE);
+#endif
 }
 
 /* Nothing signals the end of an ADX stream, so the message box polls for it. */
@@ -459,6 +471,11 @@ Bool SndSetSoundMode_8c0108c0(Sint32 mode)
     void *dat;
     int r;
 
+#ifdef SDK_R10
+    if (!sndLibReady) {
+        /* applied in soundInit */
+    } else
+#endif
     if (mode == SYD_CFG_STEREO) {
         sdSndSetPanMode(SDE_PAN_MODE_ENABLE);
     } else if (mode == SYD_CFG_MONO) {

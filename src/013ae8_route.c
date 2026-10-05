@@ -21,6 +21,17 @@
 #include "includes.h" /* STATIC */
 #include "serial_debug.h"
 
+/* The bus interior (syanai.pvm) is a CACHE texture in retail. Katana R10's Ninja allocates VRAM
+ * for a CACHE texture at PVM load (retail only sizes it), and when the next course finds the
+ * interior still resident it re-creates the surface without uploading: after the next
+ * njGarbageTexture the interior draws from never-written VRAM, the psychedelic bus interior.
+ * Loaded straight to VRAM it stays resident, as retail's refcount keeps it anyway. */
+#ifdef SDK_R10
+#define INTERIOR_TEXATTR 0
+#else
+#define INTERIOR_TEXATTR 0x80000000
+#endif
+
 /* ====================
  * Compiler Definitions
  * ====================
@@ -143,7 +154,7 @@ STATIC void requestVehicleAssets_8c013ae8(void)
     AsqRequestPvm_8c011ac0(var_commonDir_8c18ad6c, "front.pvm", &var_frontTexlist_8c1bc430, 0xf, 0);
 
     AsqRequestNj_8c011492(var_commonDir_8c18ad6c, "syanai.njd", &var_interiorNj_8c1bc43c, 0);
-    AsqRequestPvm_8c011ac0(var_commonDir_8c18ad6c, "syanai.pvm", &var_interiorTexlist_8c1bc438, 0x40, 0x80000000);
+    AsqRequestPvm_8c011ac0(var_commonDir_8c18ad6c, "syanai.pvm", &var_interiorTexlist_8c1bc438, 0x40, INTERIOR_TEXATTR);
 
     AsqRequestPvm_8c011ac0(var_commonDir_8c18ad6c, "mark.pvm", &var_markTexlist_8c1bc418, 3, 0);
     AsqRequestPvm_8c011ac0(var_commonDir_8c18ad6c, "busstop.pvm", &var_busStopTexlist_8c1bc424, 1, 0);
