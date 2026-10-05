@@ -29,11 +29,6 @@ ifeq ($(DEBUG_MENU),1)
 SHC_DEFINES += DEBUG_MENU
 endif
 
-# SDK_R10=1: build against Katana R10.x libraries (see 0100bc_sound.c: deferred pan mode).
-ifeq ($(SDK_R10),1)
-SHC_DEFINES += SDK_R10
-endif
-
 ifeq ($(GAME_LANG),en)
 SHC_DEFINES += GAME_LANG_EN
 endif
